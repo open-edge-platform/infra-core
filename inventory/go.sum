@@ -772,8 +772,8 @@ github.com/onosproject/onos-lib-go v0.10.28 h1:7XCWxaO6r6a26qL9UHSap7po/mEVM86L0
 github.com/onosproject/onos-lib-go v0.10.28/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
 github.com/open-edge-platform/orch-library/go v0.5.29 h1:LfOaRcRYXpQdcyHrVwN4wC2l11wbdUnBLkc2P7vrZNY=
 github.com/open-edge-platform/orch-library/go v0.5.29/go.mod h1:Wm6A5AJx4DCIOi4u+y1IMJxgFZ4n27f5FLSqW0QPW9k=
-github.com/open-edge-platform/orch-library/go/dazl v0.5.1 h1:nvM7RLSPucEjIfmIGVHLsQ4Jhx4v3UHMOdD7wYPblVM=
-github.com/open-edge-platform/orch-library/go/dazl v0.5.1/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
+github.com/open-edge-platform/orch-library/go/dazl v0.5.2 h1:YajSGrup0GtzILvXOGL5slbZQMrge513ATBKtadQq38=
+github.com/open-edge-platform/orch-library/go/dazl v0.5.2/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.3.0 h1:zVvQvQg+9+FuSRBt4LgKNzJwsWl/c85kD5jPozJTydY=
 github.com/open-policy-agent/opa v1.3.0/go.mod h1:t9iPNhaplD2qpiBqeudzJtEX3fKHK8zdA29oFvofAHo=
 github.com/opencontainers/go-digest v1.0.0 h1:apOUWs51W5PlhuyGyz9FCeeBIOUDA/6nW8Oi/yOhh5U=
