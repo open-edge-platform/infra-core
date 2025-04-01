@@ -41,6 +41,8 @@ DOCKER_TAG              := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_
 DOCKER_TAG_BRANCH	    := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(DOCKER_VERSION)
 # Decides if we shall push image tagged with the branch name or not.
 DOCKER_TAG_BRANCH_PUSH	?= true
+# Decides if we shall push image tagged with the VERSION or not.
+DOCKER_TAG_PUSH         ?= true
 LABEL_REPO_URL          ?= $(shell git remote get-url $(shell git remote | head -n 1))
 LABEL_VERSION           ?= $(VERSION)
 LABEL_REVISION          ?= $(GIT_COMMIT)
@@ -121,7 +123,9 @@ common-docker-push: ## Tag and push Docker image
 	aws ecr create-repository --region us-west-2 --repository-name $(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME) || true
 	docker tag $(DOCKER_IMG_NAME):$(DOCKER_VERSION) $(DOCKER_TAG_BRANCH)
 	docker tag $(DOCKER_IMG_NAME):$(DOCKER_VERSION) $(DOCKER_TAG)
+ifeq ($(DOCKER_TAG_PUSH), true)
 	docker push $(DOCKER_TAG)
+endif
 ifeq ($(DOCKER_TAG_BRANCH_PUSH), true)
 	docker push $(DOCKER_TAG_BRANCH)
 endif

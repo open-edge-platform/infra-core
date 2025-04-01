@@ -6,6 +6,7 @@
 .DEFAULT_GOAL := help
 .PHONY: test lint license help generate
 
+
 # Optionally include tool version checks, not used in Docker builds
 TOOL_VERSION_CHECK ?= 1
 

@@ -3,6 +3,7 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
+
 .DEFAULT_GOAL := help
 .PHONY: test lint license help generate
 
