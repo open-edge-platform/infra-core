@@ -7,7 +7,7 @@ go 1.24.1
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/open-edge-platform/infra-core/api v1.27.0
+	github.com/open-edge-platform/infra-core/api v1.32.0
 	github.com/stretchr/testify v1.10.0
 )
 
@@ -43,5 +43,3 @@ require (
 	golang.org/x/text v0.23.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/open-edge-platform/infra-core/api => ../api
