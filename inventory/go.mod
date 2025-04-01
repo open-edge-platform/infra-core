@@ -4,6 +4,7 @@
 module github.com/open-edge-platform/infra-core/inventory/v2
 
 go 1.24.1
+
 require (
 	ariga.io/atlas v0.32.0
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250307204501-0409229c3780.1
