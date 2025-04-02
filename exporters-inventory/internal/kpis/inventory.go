@@ -249,11 +249,8 @@ func (h *InventoryHostsOnboardingStatus) PrometheusFormat() ([]prometheus.Metric
 			v bool
 			n string
 		}{
-			{onboardingStatus == om_status.OnboardingStatusBooting.Status, om_status.OnboardingStatusBooting.Status},
-			{onboardingStatus == om_status.OnboardingStatusInProgress.Status, om_status.OnboardingStatusInProgress.Status},
 			{onboardingStatus == om_status.OnboardingStatusDone.Status, om_status.OnboardingStatusDone.Status},
 			{onboardingStatus == om_status.OnboardingStatusFailed.Status, om_status.OnboardingStatusFailed.Status},
-			{onboardingStatus == om_status.InitializationInProgress.Status, om_status.InitializationInProgress.Status},
 			{onboardingStatus == om_status.InitializationDone.Status, om_status.InitializationDone.Status},
 			{onboardingStatus == om_status.InitializationFailed.Status, om_status.InitializationFailed.Status},
 		}
