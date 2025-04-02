@@ -245,6 +245,13 @@ func (is *InvStore) UpdateInstance(
 						id, entity.CurrentState, in.DesiredState)
 			}
 			// fixme ITEP-23276: We should not allow to local account update when instance is not provisioned
+			if (entity.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED &&
+				entity.CurrentState != "") && in.GetLocalaccount() != nil {
+				return nil, booleans.Pointer(false),
+					errors.Errorfc(codes.InvalidArgument,
+						"UpdateInstance %s with LocalAccount is not allowed as current state is: %s",
+						id, entity.CurrentState)
+			}
 
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
 			// updating an already set O2O edge, we have to clear it before setting it in the mutation.

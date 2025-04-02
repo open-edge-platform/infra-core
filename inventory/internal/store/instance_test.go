@@ -599,6 +599,31 @@ func Test_UpdateInstance(t *testing.T) {
 			},
 			valid: true,
 		},
+		"UpdateInstanceLocalAccountSuccess": {
+			in: &computev1.InstanceResource{
+				Localaccount: localaccount,
+			},
+			resourceID: instanceResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.EdgeLocalaccount,
+				},
+			},
+			valid: true,
+		},
+		"UpdateInstanceLocalAccountFail": {
+			in: &computev1.InstanceResource{
+				Localaccount: localaccount,
+			},
+			resourceID: instanceResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.EdgeLocalaccount,
+				},
+			},
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
 	}
 
 	for tcname, tc := range testcases {
