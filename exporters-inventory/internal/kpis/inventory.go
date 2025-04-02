@@ -235,6 +235,8 @@ func (h *InventoryHostsSchedule) PrometheusFormat() ([]prometheus.Metric, error)
 // with the given labels.
 // The metric can be filtered by the labels to get a unique or a sum of hosts in
 // a specific status mode.
+//
+//nolint:dupl // The code is duplicated to avoid the complexity of the function.
 func (h *InventoryHostsOnboardingStatus) PrometheusFormat() ([]prometheus.Metric, error) {
 	metrics := []prometheus.Metric{}
 
@@ -290,6 +292,8 @@ func (h *InventoryHostsOnboardingStatus) PrometheusFormat() ([]prometheus.Metric
 // with the given labels.
 // The metric can be filtered by the labels to get a unique or a sum of hosts in
 // a specific status mode.
+//
+//nolint:dupl // The code is duplicated to avoid the complexity of the function.
 func (h *InventoryHostsProvisioningStatus) PrometheusFormat() ([]prometheus.Metric, error) {
 	metrics := []prometheus.Metric{}
 
