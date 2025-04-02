@@ -349,6 +349,18 @@ func Test_UpdateInstance(t *testing.T) {
 		valid        bool
 		expErrorCode codes.Code
 	}{
+		"UpdateInstanceLocalAccountSuccess": {
+			in: &computev1.InstanceResource{
+				Localaccount: localaccount,
+			},
+			resourceID: instanceResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.EdgeLocalaccount,
+				},
+			},
+			valid: true,
+		},
 		"UpdateInstance1": {
 			in: &computev1.InstanceResource{
 				VmCpuCores:   8,
@@ -583,30 +595,6 @@ func Test_UpdateInstance(t *testing.T) {
 			fieldMask: &fieldmaskpb.FieldMask{
 				Paths: []string{
 					instanceresource.FieldInstanceStatusDetail,
-				},
-			},
-			valid: true,
-		},
-		"UpdateInstanceLocalAccount": {
-			in: &computev1.InstanceResource{
-				Localaccount: localaccount,
-			},
-			resourceID: instanceResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{
-					instanceresource.EdgeLocalaccount,
-				},
-			},
-			valid: true,
-		},
-		"UpdateInstanceLocalAccountSuccess": {
-			in: &computev1.InstanceResource{
-				Localaccount: localaccount,
-			},
-			resourceID: instanceResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{
-					instanceresource.EdgeLocalaccount,
 				},
 			},
 			valid: true,
