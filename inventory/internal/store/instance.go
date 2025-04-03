@@ -244,14 +244,6 @@ func (is *InvStore) UpdateInstance(
 					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
 						id, entity.CurrentState, in.DesiredState)
 			}
-			// fixme ITEP-23276: We should not allow to local account update when instance is not provisioned
-			if (entity.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED &&
-				entity.CurrentState != "") && in.GetLocalaccount() != nil {
-				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument,
-						"UpdateInstance %s with LocalAccount is not allowed as current state is: %s",
-						id, entity.CurrentState)
-			}
 
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
 			// updating an already set O2O edge, we have to clear it before setting it in the mutation.
@@ -578,8 +570,11 @@ func isNotValidInstanceTransition(
 	instanceq *ent.InstanceResource,
 	in *computev1.InstanceResource,
 ) bool {
+
 	// transition from Untrusted to any other state than DELETED is not allowed
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
 		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
-		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
+		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED ||
+		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED &&
+			instanceq.CurrentState != "" && in.GetLocalaccount() != nil
 }
