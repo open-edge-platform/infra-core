@@ -11,7 +11,6 @@ on:
       - release-*
     paths:
       - 'inventory/**'
-  workflow_dispatch:
 
 jobs:
   post-merge-pipeline:
