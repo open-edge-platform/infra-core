@@ -256,7 +256,7 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", e.NewCustomError(e.ErrInvalidOSProfile)
+		return "", e.NewCustomError(e.ErrInvalidSite)
 	}
 
 	if siteRe.MatchString(site) {
@@ -282,7 +282,7 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 		return *(*sites.Sites)[0].ResourceId, nil
 	}
 
-	return "", e.NewCustomError(e.ErrInvalidOSProfile)
+	return "", e.NewCustomError(e.ErrInvalidSite)
 }
 
 func (oC *OrchCli) GetLocalAccountID(ctx context.Context, lAName string) (string, error) {
