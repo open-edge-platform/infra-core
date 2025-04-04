@@ -15,6 +15,7 @@ spec:
   osImageUrl: files-edge-orch/repository/microvisor/dev/non_rt/edge-non-prod-3.0.20250403.1800.raw.gz
   osImageVersion: 3.0.20250403.1800
   osImageSha256: 0cfb403b8f7a3b59a27eec14fa131f235d82d79270d742f839ee0362e1d8291f
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250403.1800_pkg_manifest.json
+  # FIXME - Using placeholder URL of existing manifest. Official image should have its own manifest
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250324.1008_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   platformBundle:
