@@ -17,4 +17,5 @@ spec:
   osImageSha256: 036b21fd43979309662a067340cf6400f6e0767465fa3d7c2ca52ad553ed15d0
   osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250324.1008_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
+  description: Edge Microvisor Toolkit for x86_64 architecture
   platformBundle:
