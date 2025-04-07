@@ -3,7 +3,10 @@
 ## Overview
 
 The repository includes the core micro-services of the Edge Infrastructure Manager of the Edge Manageability Framework.
-In particular, the repository comprises the following components and services:
+
+## Get Started
+
+The repository comprises the following components and services:
 
 - [**API**](api/): provides a northbound REST API that can be accessed by users and other Edge Manageability Framework
 services.
@@ -14,11 +17,33 @@ interface, some Inventory metrics that cannot be collected directly from the edg
 Edge Infrastructure Manager.
 - [**Tenant Controller**](tenant-controller/): implements a controller for tenant creation and deletion.
 
-Read more about Edge Orchestrator in the [User Guide][user-guide-url].
+Read more about Edge Orchestrator in the [User Guide][user-guide-url] to get started
+using Edge Infrastructure Manager.
 
-Navigate through the folders to get started, develop, and contribute to Edge Infrastructure
-Manager.
+## Develop
 
-Last Updated Date: January 10, 2025
+To develop one of the several core components please follow it's specific guide
+present in the README.md of its specific folder.
+
+## Contribute
+
+To learn how to contribute to the project, see the \[Contributor's
+Guide\](<https://website-name.com>).
+
+## Community and Support
+
+To learn more about the project, its community, and governance, visit
+the \[Edge Orchestrator Community\](<https://website-name.com>).
+
+For support, start with \[Troubleshooting\](<https://website-name.com>) or
+\[contact us\](<https://website-name.com>).
+
+## License
+
+Each component of the Edge Infrastructure core is licensed under
+[Apache 2.0][apache-license].
+
+Last Updated Date: April 7, 2025
 
 [user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
+[apache-license]: https://www.apache.org/licenses/LICENSE-2.0
