@@ -35,7 +35,7 @@ require (
 	github.com/mennanov/fmutils v0.3.0
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/onosproject/onos-lib-go v0.10.28
+	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
 	github.com/open-edge-platform/orch-library/go v0.5.29
 	github.com/open-policy-agent/opa v1.3.0
 	github.com/opencontainers/image-spec v1.1.1

@@ -97,6 +97,7 @@ require (
 	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037 // indirect
 	github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
+	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f // indirect
 	github.com/open-edge-platform/orch-library/go/dazl v0.5.2 // indirect
 	github.com/open-policy-agent/opa v1.3.0 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
