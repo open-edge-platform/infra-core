@@ -1055,8 +1055,8 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/oklog/ulid v1.3.1 h1:EGfNDEx6MqHz8B3uNV6QAib1UR2Lm97sHi3ocA6ESJ4=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
-github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f h1:/uKCsLU8qn5/41xH0/UW8zwNVNpdj5oRhSmVBiHUUKU=
-github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
+github.com/onosproject/onos-lib-go v0.10.28 h1:7XCWxaO6r6a26qL9UHSap7po/mEVM86L0/t7s6aZToQ=
+github.com/onosproject/onos-lib-go v0.10.28/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.23.0 h1:fq25w9Ky6gvE5pTtqf/N9DLrfvZRnIzAJB+VzsiFSnA=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.23.0/go.mod h1:mpGYnChj0Z5SNYMy8IpuQ76OVcAmKfO384J7ZI5zxFE=
 github.com/open-edge-platform/orch-library/go v0.5.29 h1:LfOaRcRYXpQdcyHrVwN4wC2l11wbdUnBLkc2P7vrZNY=
