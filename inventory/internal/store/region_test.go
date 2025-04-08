@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	onos_logging "github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -479,8 +478,6 @@ func BenchmarkInvStore_UpdateRegionManyChildren(b *testing.B) {
 	l := zerolog.GlobalLevel()
 	zerolog.SetGlobalLevel(zerolog.Disabled)
 	defer zerolog.SetGlobalLevel(l)
-	onos_logging.SetLevel(onos_logging.DPanicLevel)
-	defer onos_logging.SetLevel(onos_logging.DebugLevel)
 	b.Run("1", func(b *testing.B) {
 		benchmarkInvStoreUpdateRegionManyChildren(b, 1)
 	})
