@@ -16,6 +16,7 @@ import (
 
 	"github.com/open-edge-platform/infra-core/api/internal/server"
 	api "github.com/open-edge-platform/infra-core/api/pkg/api/v0"
+	"github.com/open-edge-platform/infra-core/api/test/utils"
 )
 
 // To create a request with an authorization header.
@@ -47,6 +48,23 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	emptyUUID := ""
 	hostParamsWrong := &api.GetComputeHostsParams{Uuid: &emptyUUID}
 	hostsGetRequestInvalid, err := api.NewGetComputeHostsRequest("/edge-infra.orchestrator.apis/v1/", hostParamsWrong)
+	assert.NoError(t, err)
+
+	hostsPostRequestValid, err := api.NewPostComputeHostsRequest("/edge-infra.orchestrator.apis/v1/", utils.Host1Request)
+	assert.NoError(t, err)
+
+	hostsPostRegisterRequestValid, err := api.NewPostComputeHostsRegisterRequest(
+		"/edge-infra.orchestrator.apis/v1/", utils.HostRegisterAutoOnboard)
+	assert.NoError(t, err)
+
+	hostName := "host"
+	hostInvalidBodyRequest := api.Host{
+		Name:             hostName,
+		Uuid:             &utils.Host1UUID1,
+		OnboardingStatus: &regionID,
+	}
+	hostsPostRequestInvalid, err := api.NewPostComputeHostsRequest(
+		"/edge-infra.orchestrator.apis/v1/", hostInvalidBodyRequest)
 	assert.NoError(t, err)
 
 	tests := []struct {
@@ -106,6 +124,26 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		{
 			name:           "Invalid params in host GET request - miss UUID",
 			request:        hostsGetRequestInvalid,
+			expectedStatus: http.StatusBadRequest,
+		},
+		{
+			name:           "Valid path prefix/request - host POST",
+			request:        hostsPostRequestValid,
+			expectedStatus: http.StatusOK,
+		},
+		{
+			name:           "Valid path prefix/request - host POST",
+			request:        hostsPostRequestValid,
+			expectedStatus: http.StatusOK,
+		},
+		{
+			name:           "Valid path prefix/request - host register POST",
+			request:        hostsPostRegisterRequestValid,
+			expectedStatus: http.StatusOK,
+		},
+		{
+			name:           "Invalid body request host POST - ready only property",
+			request:        hostsPostRequestInvalid,
 			expectedStatus: http.StatusBadRequest,
 		},
 	}
