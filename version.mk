@@ -16,7 +16,7 @@ MOCKGENVERSION_REQ          := 1.6.0
 OAPI_CODEGEN_VERSION_HAVE   := $(shell oapi-codegen -version | sed -n 2p | sed s/v//)
 OAPI_CODEGEN_VERSION_REQ    := 2.3.0
 ATLAS_REQ                   := $(shell command -v atlas)
-ATLASVERSION_REQ            := 0.30.0
+ATLASVERSION_REQ            := 0.32.0
 GCC_REQ                     := $(shell command -v gcc)
 PROTOCGENDOCVERSION_HAVE    := $(shell protoc-gen-doc --version | sed s/.*"version "// | sed 's/ .*//')
 PROTOCGENDOCVERSION_REQ     := 1.5.1
@@ -36,7 +36,7 @@ POSTGRES_VERSION            := 16.4
 
 # System dependencies binary SHA
 OPA_SHA						:= "c81aa9c1da779d0a8646c837a96d52e1a7040ff562318d9743b8ef51c93b49d6"
-ATLAS_SHA					:= "dbaaf350634304d4bf92753559261a67afb399fe4ff0ea6ae5bb5d1ce6e0011a"
+ATLAS_SHA					:= "8ca6d8488d1ba52372681e895a7995a295a5b33a5c2037a029393ae3a462ebf4"
 
 dependency-check: go-dependency-check
 ifeq ($(SWAGGERCLI), true)

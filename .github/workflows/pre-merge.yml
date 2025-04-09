@@ -9,11 +9,13 @@ on:
     branches:
       - main
       - release-*
-  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  MARKDOWNLINT_CLI_VER: 0.44.0
 
 jobs:
   pre-checks:
@@ -22,7 +24,7 @@ jobs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
       other_changed_projects: ${{ steps.filter-changes.outputs.other_changed_projects }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
       - name: "Verify Branch Name"
         uses: open-edge-platform/orch-ci/verify-branch-name@main
       - name: "Discover Changed Subfolders"
@@ -31,7 +33,7 @@ jobs:
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         run: |
-          folders_to_remove='[".github",".reuse","LICENSES",".git","os-profiles"]'
+          folders_to_remove='[".github",".reuse","LICENSES",".git","os-profiles",""]'
           
           changed_projects='${{ steps.discover-changes.outputs.changed_projects }}'
           filtered_projects=$(echo "$changed_projects" | jq -cr --argjson folders_to_remove "$folders_to_remove" 'map(select(. as $item | $folders_to_remove | index($item) | not))')
@@ -39,6 +41,32 @@ jobs:
 
           echo "filtered_projects=$filtered_projects" >> $GITHUB_OUTPUT
           echo "other_changed_projects=$other_changed_projects" >> $GITHUB_OUTPUT
+  pre-merge-root:
+    needs: pre-checks
+    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, '.github') || contains(needs.pre-checks.outputs.other_changed_projects, '.reuse') || contains(needs.pre-checks.outputs.other_changed_projects, 'LICENSES') || contains(needs.pre-checks.outputs.other_changed_projects, '""')}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '18'
+      - run: |
+          npm install -g \
+          "markdownlint-cli@${{ env.MARKDOWNLINT_CLI_VER }}"
+      - uses: actions/setup-python@v5.5.0
+        id: setup_python
+        with:
+          python-version: '3.13'
+      - name: Restore cached virtualenv
+        uses: actions/cache@v4.2.3
+        with:
+          key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
+          path: venv_infra
+
+      - name: Run mdlint
+        run: make mdlint
+      - name: Run license check
+        run: make license
   pre-merge-pipeline:
     needs: pre-checks
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
@@ -86,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
@@ -94,7 +122,7 @@ jobs:
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
           aws-access-key-id: ${{ secrets.NO_AUTH_S3_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_S3_PUSH_PASSWD }}
@@ -117,14 +145,14 @@ jobs:
           echo "PUBLISH=$PUBLISH" >> $GITHUB_ENV
       - name: Configure AWS credentials
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
           aws-access-key-id: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_ECR_PUSH_PASSWD }}
           aws-region: us-west-2
       - name: Login to Amazon ECR
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@v2.0.1
         with:
           registries: "080137407410"
       - if: ${{ env.PUBLISH == 'true'}}
@@ -152,7 +180,7 @@ jobs:
   final-check:
     runs-on: ubuntu-latest
     if: ${{ always() }}
-    needs: [pre-merge-pipeline, pre-merge-os-profiles]
+    needs: [pre-merge-root, pre-merge-pipeline, pre-merge-os-profiles, pre-merge-os-profiles-2]
     steps:
       - name: Final Status Check
         run: |
