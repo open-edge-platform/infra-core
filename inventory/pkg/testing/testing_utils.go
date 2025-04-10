@@ -1002,7 +1002,7 @@ func (c *InvResourceDAO) createSite(
 	return siteResp
 }
 
-// Create instance with a cleanup. Note this helper is not really meant to be used for the
+// CreateInstance creates instance with a cleanup. Note this helper is not really meant to be used for the
 // test of InstanceResource but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by
 // the eager loading.
@@ -1014,48 +1014,56 @@ func (c *InvResourceDAO) CreateInstance(
 ) (ins *computev1.InstanceResource) {
 	tb.Helper()
 
-	return c.CreateInstanceWithArgs(tb, tenantID, dummyInstanceName, osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
-		hostRes, osRes, nil, nil, true)
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		true,
+		nil)
 }
 
-func (c *InvResourceDAO) CreateInstanceWithArgs(
+func (c *InvResourceDAO) createInstanceWithOpts(
 	tb testing.TB,
-	tenantID, instanceName string,
-	securityFeature osv1.SecurityFeature,
+	tenantID string,
 	hostRes *computev1.HostResource,
 	osRes *osv1.OperatingSystemResource,
-	proRes *provider_v1.ProviderResource,
-	lcRes *localaccount_v1.LocalAccountResource,
 	doCleanup bool,
-) (ins *computev1.InstanceResource) {
+	opts ...Opt[computev1.InstanceResource],
+) *computev1.InstanceResource {
 	tb.Helper()
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	ins = &computev1.InstanceResource{
+
+	// a default Instance resource, can be overwritten by opts
+	instCreateReq := &computev1.InstanceResource{
 		Kind:            computev1.InstanceKind_INSTANCE_KIND_METAL,
-		Name:            instanceName,
+		Name:            dummyInstanceName,
 		DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		DesiredOs:       osRes,
 		CurrentOs:       osRes, // always create with desired OS == current OS for testing
 		Host:            hostRes,
-		Provider:        proRes,
-		Localaccount:    lcRes,
-		SecurityFeature: securityFeature,
+		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
 		TenantId:        tenantID,
 	}
+
+	for _, opt := range opts {
+		opt(instCreateReq)
+	}
+
 	resp, err := c.apiClient.Create(
 		ctx,
 		tenantID,
-		&inv_v1.Resource{
-			Resource: &inv_v1.Resource_Instance{Instance: ins},
-		})
+		&inv_v1.Resource{Resource: &inv_v1.Resource_Instance{Instance: instCreateReq}},
+	)
 	require.NoError(tb, err)
 
 	instResp := resp.GetInstance()
 	if doCleanup {
-		tb.Cleanup(func() { c.HardDeleteInstance(tb, tenantID, instResp.ResourceId) })
+		tb.Cleanup(func() { c.DeleteResource(tb, tenantID, instResp.ResourceId) })
 	}
+
 	// When this test object is used in protobuf comparisons as part of another
 	// resource, we do not expect further embedded messages. This matches the
 	// structure of objects returned by ent queries, i.e. no two layers of
@@ -1070,7 +1078,53 @@ func (c *InvResourceDAO) CreateInstanceWithArgs(
 	return instResp
 }
 
-// Create instance with NO cleanup. Note this helper is not really meant to be used for the
+func (c *InvResourceDAO) CreateInstanceWithOpts(
+	tb testing.TB,
+	tenantID string,
+	hostRes *computev1.HostResource,
+	osRes *osv1.OperatingSystemResource,
+	doCleanup bool,
+	opts ...Opt[computev1.InstanceResource],
+) *computev1.InstanceResource {
+	tb.Helper()
+
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		doCleanup,
+		opts...)
+}
+
+// Deprecated: Use CreateInstanceWithOpts instead.
+func (c *InvResourceDAO) CreateInstanceWithArgs(
+	tb testing.TB,
+	tenantID, instanceName string,
+	securityFeature osv1.SecurityFeature,
+	hostRes *computev1.HostResource,
+	osRes *osv1.OperatingSystemResource,
+	proRes *provider_v1.ProviderResource,
+	lcRes *localaccount_v1.LocalAccountResource,
+	doCleanup bool,
+) (ins *computev1.InstanceResource) {
+	tb.Helper()
+
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		doCleanup,
+		func(inst *computev1.InstanceResource) {
+			inst.Name = instanceName
+			inst.SecurityFeature = securityFeature
+			inst.Provider = proRes
+			inst.Localaccount = lcRes
+		})
+}
+
+// CreateInstanceNoCleanup creates instance with NO cleanup. Note this helper is not really meant to be used for the
 // test of InstanceResource but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by
 // the eager loading.
@@ -1082,8 +1136,13 @@ func (c *InvResourceDAO) CreateInstanceNoCleanup(
 ) (ins *computev1.InstanceResource) {
 	tb.Helper()
 
-	return c.CreateInstanceWithArgs(tb, tenantID, dummyInstanceName, osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
-		hostRes, osRes, nil, nil, false)
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		false,
+		nil)
 }
 
 func (c *InvResourceDAO) CreateInstanceWithProvider(
@@ -1095,8 +1154,15 @@ func (c *InvResourceDAO) CreateInstanceWithProvider(
 ) (ins *computev1.InstanceResource) {
 	tb.Helper()
 
-	return c.CreateInstanceWithArgs(tb, tenantID, dummyInstanceName, osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
-		hostRes, osRes, proRes, nil, true)
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		true,
+		func(inst *computev1.InstanceResource) {
+			inst.Provider = proRes
+		})
 }
 
 func (c *InvResourceDAO) CreateInstanceWithLocalAccount(
@@ -1108,8 +1174,15 @@ func (c *InvResourceDAO) CreateInstanceWithLocalAccount(
 ) (ins *computev1.InstanceResource) {
 	tb.Helper()
 
-	return c.CreateInstanceWithArgs(tb, tenantID, dummyInstanceName, osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
-		hostRes, osRes, nil, accRes, true)
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		true,
+		func(inst *computev1.InstanceResource) {
+			inst.Localaccount = accRes
+		})
 }
 
 func (c *InvResourceDAO) CreateInstanceWithProviderNoCleanup(
@@ -1121,8 +1194,15 @@ func (c *InvResourceDAO) CreateInstanceWithProviderNoCleanup(
 ) (ins *computev1.InstanceResource) {
 	tb.Helper()
 
-	return c.CreateInstanceWithArgs(tb, tenantID, dummyInstanceName, osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
-		hostRes, osRes, proRes, nil, false)
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		false,
+		func(inst *computev1.InstanceResource) {
+			inst.Provider = proRes
+		})
 }
 
 // Create host storage. Note this helper is not really meant to be used for the
