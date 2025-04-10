@@ -1020,7 +1020,7 @@ func (c *InvResourceDAO) CreateInstance(
 		hostRes,
 		osRes,
 		true,
-		nil)
+		func(_ *computev1.InstanceResource) {})
 }
 
 func (c *InvResourceDAO) createInstanceWithOpts(
@@ -1142,7 +1142,7 @@ func (c *InvResourceDAO) CreateInstanceNoCleanup(
 		hostRes,
 		osRes,
 		false,
-		nil)
+		func(_ *computev1.InstanceResource) {})
 }
 
 func (c *InvResourceDAO) CreateInstanceWithProvider(
