@@ -6,16 +6,16 @@ metadata:
   release: 0.0.0-dev
   version: 0.3.0
 spec:
-  name: Edge Microvisor Toolkit 3.0.20250406
+  name: Edge Microvisor Toolkit 3.0.20250409
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-nonrt  # Name has to be identical to this file's name
   # osImageUrl MUST be changed to non /dev images
-  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250406.2159.raw.gz
-  osImageVersion: 3.0.20250406.2159
-  osImageSha256: b94d5899c6b33ca18f08b56ff2f4a8e23ffc4bdd696fa80a29c9cef6fdf3f76f
+  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250409.2200.raw.gz
+  osImageVersion: 3.0.20250409.2200
+  osImageSha256: de9903d5e637082006f59782094b32fbccaacf406b4e1c9f3af11b367bd45663
   # FIXME - Using placeholder URL of existing manifest. Official image should have its own manifest
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250406.2159_pkg_manifest.json
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250409.2200_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   platformBundle:
