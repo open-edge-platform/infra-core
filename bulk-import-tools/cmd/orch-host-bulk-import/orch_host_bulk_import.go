@@ -193,7 +193,6 @@ func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
 	}
 	// Print host_id from response if successful
 	fmt.Printf("✔ Host Serial number : %s  UUID : %s registered. Name : %s\n", sNo, uuid, hostID)
-
 }
 
 func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, record types.HostRecord,

@@ -114,21 +114,51 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 }
 
 func (oC *OrchCli) CreateInstance(ctx context.Context, hostID string, r *types.HostRecord) (string, error) {
-	exists, err := oC.InstanceExists(ctx, r.Serial, r.UUID)
-	if exists {
+	if exists, err := oC.InstanceExists(ctx, r.Serial, r.UUID); exists {
 		return "", e.NewCustomError(e.ErrAlreadyRegistered)
 	} else if err != nil {
 		return "", err
 	}
-	osRe := regexp.MustCompile(validator.OSPIDPATTERN)
-	if !osRe.MatchString(r.OSProfile) {
-		return "", e.NewCustomError(e.ErrInvalidOSProfile)
+
+	if err := validateOSProfile(r.OSProfile); err != nil {
+		return "", err
+	}
+
+	payload, err := oC.prepareInstancePayload(hostID, r)
+	if err != nil {
+		return "", err
 	}
 
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/instances", oC.Project))
 
-	// Prepare the form data
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPost, bytes.NewBuffer(payload))
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusCreated {
+		return "", e.NewCustomError(e.ErrInstanceFailed)
+	}
+
+	var instanceInfo api.Instance
+	if err := json.NewDecoder(resp.Body).Decode(&instanceInfo); err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	return *instanceInfo.ResourceId, nil
+}
+
+func validateOSProfile(osProfile string) error {
+	osRe := regexp.MustCompile(validator.OSPIDPATTERN)
+	if !osRe.MatchString(osProfile) {
+		return e.NewCustomError(e.ErrInvalidOSProfile)
+	}
+	return nil
+}
+
+func (oC *OrchCli) prepareInstancePayload(hostID string, r *types.HostRecord) ([]byte, error) {
 	payload := &api.Instance{
 		HostID:          &hostID,
 		OsID:            &r.OSProfile,
@@ -140,9 +170,10 @@ func (oC *OrchCli) CreateInstance(ctx context.Context, hostID string, r *types.H
 		payload.LocalAccountID = &r.RemoteUser
 	}
 	*payload.Kind = api.INSTANCEKINDUNSPECIFIED
+
 	osResource, ok := oC.OSProfileCache[r.OSProfile]
 	if !ok {
-		return "", e.NewCustomError(e.ErrInternal)
+		return nil, e.NewCustomError(e.ErrInternal)
 	}
 
 	*payload.SecurityFeature = *osResource.SecurityFeature
@@ -150,29 +181,7 @@ func (oC *OrchCli) CreateInstance(ctx context.Context, hostID string, r *types.H
 		*payload.SecurityFeature = api.SECURITYFEATURENONE
 	}
 
-	jsonData, err := json.Marshal(payload)
-	if err != nil {
-		return "", e.NewCustomError(e.ErrInternal)
-	}
-
-	// Create the HTTP client and make request
-	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPost, bytes.NewBuffer(jsonData))
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusCreated {
-		return "", e.NewCustomError(e.ErrInstanceFailed)
-	}
-
-	var instanceInfo api.Instance
-
-	if err := json.NewDecoder(resp.Body).Decode(&instanceInfo); err != nil {
-		return "", e.NewCustomError(e.ErrInternal)
-	}
-
-	return *instanceInfo.ResourceId, nil
+	return json.Marshal(payload)
 }
 
 func obtainRequestPath(oC *OrchCli, input, pattern, pathByID, pathByName, filter string) (url.URL, *regexp.Regexp) {
@@ -197,13 +206,14 @@ func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, e
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf(pathByName, oC.Project))
 	query := uParsed.Query()
-	if sn != "" && uuid != "" {
-		query.Set("filter", fmt.Sprintf("%s=%q OR %s=%q", "host.serialNumber", sn, "host.uuid", uuid))
-	} else if sn != "" {
+	switch {
+	case sn != "" && uuid != "":
+		query.Set("filter", fmt.Sprintf("%s=%q AND %s=%q", "host.serialNumber", sn, "host.uuid", uuid))
+	case sn != "":
 		query.Set("filter", fmt.Sprintf("%s=%q", "host.serialNumber", sn))
-	} else if uuid != "" {
+	case uuid != "":
 		query.Set("filter", fmt.Sprintf("%s=%q", "host.uuid", uuid))
-	} else {
+	default:
 		return false, nil
 	}
 	uParsed.RawQuery = query.Encode()

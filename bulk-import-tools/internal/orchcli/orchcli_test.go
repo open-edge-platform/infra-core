@@ -821,7 +821,7 @@ func TestInstanceExists(t *testing.T) {
 	*instanceList.TotalElements = 1
 
 	t.Run("Instance Exists with Serial Number and UUID", func(t *testing.T) {
-		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
 		defer mockServer.Close()
 
 		oc := newOrchCli(t, mockServer.URL, project, jwt)
@@ -832,7 +832,7 @@ func TestInstanceExists(t *testing.T) {
 	})
 
 	t.Run("Instance Exists with Serial Number Only", func(t *testing.T) {
-		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
 		defer mockServer.Close()
 
 		oc := newOrchCli(t, mockServer.URL, project, jwt)
@@ -843,7 +843,7 @@ func TestInstanceExists(t *testing.T) {
 	})
 
 	t.Run("Instance Exists with UUID Only", func(t *testing.T) {
-		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
 		defer mockServer.Close()
 
 		oc := newOrchCli(t, mockServer.URL, project, jwt)
@@ -855,7 +855,7 @@ func TestInstanceExists(t *testing.T) {
 
 	t.Run("Instance Does Not Exist", func(t *testing.T) {
 		instanceList.TotalElements = new(int) // Set TotalElements to 0
-		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
 		defer mockServer.Close()
 
 		oc := newOrchCli(t, mockServer.URL, project, jwt)
@@ -874,7 +874,7 @@ func TestInstanceExists(t *testing.T) {
 	})
 
 	t.Run("Internal Server Error", func(t *testing.T) {
-		mockServer := setupMockServerForResourceExists(t, http.StatusInternalServerError, nil)
+		mockServer := setupMockServerForGetResources(t, http.StatusInternalServerError, nil)
 		defer mockServer.Close()
 
 		oc := newOrchCli(t, mockServer.URL, project, jwt)
@@ -885,7 +885,7 @@ func TestInstanceExists(t *testing.T) {
 	})
 
 	t.Run("Invalid Response Format", func(t *testing.T) {
-		mockServer := setupMockServerForResourceExists(t, http.StatusOK, "invalid-response")
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, "invalid-response")
 		defer mockServer.Close()
 
 		oc := newOrchCli(t, mockServer.URL, project, jwt)
@@ -894,37 +894,4 @@ func TestInstanceExists(t *testing.T) {
 		assert.Error(t, err)
 		assert.False(t, exists)
 	})
-}
-
-func setupMockServerForResourceExists(t *testing.T, status int, responseBody interface{}) *httptest.Server {
-	t.Helper()
-	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Check if the request method is GET
-		if r.Method != http.MethodGet {
-			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-			return
-		}
-
-		// Check if the request content type is application/json
-		if r.Header.Get("Accept") != contentType {
-			http.Error(w, "Invalid accept header", http.StatusUnsupportedMediaType)
-			return
-		}
-
-		// Check if bearer token is available
-		if r.Header.Get("Authorization") != tokStr {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-
-		w.Header().Set("Content-Type", contentType)
-		w.WriteHeader(status)
-
-		if responseBody != nil {
-			err := json.NewEncoder(w).Encode(responseBody)
-			assert.NoError(t, err)
-		}
-	})
-
-	return httptest.NewServer(handler)
 }

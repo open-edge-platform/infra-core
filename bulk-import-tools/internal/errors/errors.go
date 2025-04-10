@@ -3,7 +3,10 @@
 
 package errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type ErrorCode int
 
@@ -82,7 +85,8 @@ func NewCustomError(code ErrorCode) error {
 }
 
 func Is(code ErrorCode, err error) bool {
-	if customErr, ok := err.(*CustomError); ok {
+	customErr := new(CustomError)
+	if errors.As(err, &customErr) {
 		return customErr.Code == code
 	}
 	return false
