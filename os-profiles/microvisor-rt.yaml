@@ -14,6 +14,7 @@ spec:
   osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250406.2100.raw.gz
   osImageVersion: 3.0.20250406.2100
   osImageSha256: 2c5cfd191a8b57742926e748bb141af4d4d04dbd50d6eecc7892029a2247c811
-  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250406.2100_pkg_manifest.json
+  osPackageManifestURL: >-
+    files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250406.2100_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   platformBundle:
