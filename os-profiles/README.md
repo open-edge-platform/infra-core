@@ -28,7 +28,7 @@ To learn how to manage OS profiles and manually push them to change elements or 
 - Support for different images and security features
 - Profiles are Versioned for release mapping
 - Support for mutable and immutable Operating System
-- Support for for custom OS dependencies and installation procedures via `Platform Bundle`
+- Support for custom OS dependencies and installation procedures via `Platform Bundle`
 - Exposed Security feature capabilities and known installed packages.
 
 ## Contribute
