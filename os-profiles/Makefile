@@ -21,13 +21,13 @@ GIT_COMMIT_SHORT ?= $(shell git rev-parse --short HEAD)
 VERSION          := $(shell cat VERSION)
 TAGS             ?= "$(VERSION),$(BRANCH_NAME)"
 
-# Lint variables
-YAML_LINE_LENGHT := 150
-
 ALL_PROFILES    := $(shell find *.yaml)
 
 # Include shared makefile
 include ../common.mk
+
+# Lint variables
+YAML_LINE_LENGHT := 150
 
 OCI_REPOSITORY := edge-orch/en/files/os-profile
 
