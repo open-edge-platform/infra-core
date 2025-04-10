@@ -88,7 +88,6 @@ linters-settings:
         allow:
           - $gostd
           - github.com/open-edge-platform
-          - github.com/deepmap/oapi-codegen
           - github.com/oapi-codegen/echo-middleware
           - github.com/getkin/kin-openapi
           - github.com/golang-jwt/jwt/v5
