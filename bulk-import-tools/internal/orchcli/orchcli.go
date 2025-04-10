@@ -20,6 +20,7 @@ import (
 	"github.com/open-edge-platform/infra-core/api/pkg/api/v0"
 	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/authn"
 	e "github.com/open-edge-platform/infra-core/bulk-import-tools/internal/errors"
+	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/types"
 	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/validator"
 )
 
@@ -112,9 +113,15 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 	return *hostInfo.ResourceId, nil
 }
 
-func (oC *OrchCli) CreateInstance(ctx context.Context, hostID, oSResourceID, laID string, secure bool) (string, error) {
+func (oC *OrchCli) CreateInstance(ctx context.Context, hostID string, r *types.HostRecord) (string, error) {
+	exists, err := oC.InstanceExists(ctx, r.Serial, r.UUID)
+	if exists {
+		return "", e.NewCustomError(e.ErrAlreadyRegistered)
+	} else if err != nil {
+		return "", err
+	}
 	osRe := regexp.MustCompile(validator.OSPIDPATTERN)
-	if !osRe.MatchString(oSResourceID) {
+	if !osRe.MatchString(r.OSProfile) {
 		return "", e.NewCustomError(e.ErrInvalidOSProfile)
 	}
 
@@ -124,22 +131,22 @@ func (oC *OrchCli) CreateInstance(ctx context.Context, hostID, oSResourceID, laI
 	// Prepare the form data
 	payload := &api.Instance{
 		HostID:          &hostID,
-		OsID:            &oSResourceID,
+		OsID:            &r.OSProfile,
 		SecurityFeature: new(api.SecurityFeature),
 		Kind:            new(api.InstanceKind),
 	}
 
-	if laID != "" {
-		payload.LocalAccountID = &laID
+	if r.RemoteUser != "" {
+		payload.LocalAccountID = &r.RemoteUser
 	}
 	*payload.Kind = api.INSTANCEKINDUNSPECIFIED
-	osResource, ok := oC.OSProfileCache[oSResourceID]
+	osResource, ok := oC.OSProfileCache[r.OSProfile]
 	if !ok {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
 	*payload.SecurityFeature = *osResource.SecurityFeature
-	if !secure {
+	if !r.Secure {
 		*payload.SecurityFeature = api.SECURITYFEATURENONE
 	}
 
@@ -183,6 +190,47 @@ func obtainRequestPath(oC *OrchCli, input, pattern, pathByID, pathByName, filter
 		uParsed.RawQuery = query.Encode()
 	}
 	return uParsed, re
+}
+
+func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, error) {
+	pathByName := "/v1/projects/%s/compute/instances"
+	uParsed := *oC.SvcURL
+	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf(pathByName, oC.Project))
+	query := uParsed.Query()
+	if sn != "" && uuid != "" {
+		query.Set("filter", fmt.Sprintf("%s=%q OR %s=%q", "host.serialNumber", sn, "host.uuid", uuid))
+	} else if sn != "" {
+		query.Set("filter", fmt.Sprintf("%s=%q", "host.serialNumber", sn))
+	} else if uuid != "" {
+		query.Set("filter", fmt.Sprintf("%s=%q", "host.uuid", uuid))
+	} else {
+		return false, nil
+	}
+	uParsed.RawQuery = query.Encode()
+
+	// Create the HTTP client and make request
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
+	if err != nil {
+		return false, e.NewCustomError(e.ErrInternal)
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, e.NewCustomError(e.ErrInternal)
+	}
+
+	var instances api.InstanceList
+
+	if err := json.NewDecoder(resp.Body).Decode(&instances); err != nil {
+		return false, e.NewCustomError(e.ErrInternal)
+	}
+
+	if *instances.TotalElements > 0 {
+		return true, nil
+	}
+
+	return false, nil
 }
 
 func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error) {

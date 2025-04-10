@@ -19,6 +19,7 @@ import (
 	"github.com/open-edge-platform/infra-core/api/pkg/api/v0"
 	e "github.com/open-edge-platform/infra-core/bulk-import-tools/internal/errors"
 	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/orchcli"
+	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/types"
 )
 
 var (
@@ -312,7 +313,13 @@ func TestCreateInstance(t *testing.T) {
 		SecurityFeature: new(api.SecurityFeature),
 	}
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, "", true)
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: "",
+		Secure:     true,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.NoError(t, err)
 	assert.Equal(t, resourceID, resp)
 }
@@ -323,7 +330,13 @@ func TestCreateInstanceInvalidOSProfile(t *testing.T) {
 
 	oc := newOrchCli(t, mockServer.URL, project, jwt)
 
-	resp, err := oc.CreateInstance(context.Background(), uuid, "invalid-os-id", "", true)
+	hr := &types.HostRecord{
+		OSProfile:  "invalid-os-profile",
+		RemoteUser: "",
+		Secure:     true,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.Error(t, err)
 	assert.Empty(t, resp)
 }
@@ -334,14 +347,21 @@ func TestCreateInstanceInternalError(t *testing.T) {
 
 	oc := newOrchCli(t, mockServer.URL, project, jwt)
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, "", true)
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: "",
+		Secure:     true,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.Error(t, err)
 	assert.Empty(t, resp)
 
 	oc.OSProfileCache[oSResourceID] = api.OperatingSystemResource{
 		SecurityFeature: new(api.SecurityFeature),
 	}
-	resp, err = oc.CreateInstance(context.Background(), hostID, oSResourceID, "", true)
+
+	resp, err = oc.CreateInstance(context.Background(), hostID, hr)
 	assert.Error(t, err)
 	assert.Empty(t, resp)
 }
@@ -361,7 +381,13 @@ func TestCreateInstanceWithLocalAccount(t *testing.T) {
 		SecurityFeature: new(api.SecurityFeature),
 	}
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, localAccountID, true)
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: localAccountID,
+		Secure:     true,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.NoError(t, err)
 	assert.Equal(t, resourceID, resp)
 }
@@ -379,8 +405,13 @@ func TestCreateInstanceSecurityFeatureNone(t *testing.T) {
 	oc.OSProfileCache[oSResourceID] = api.OperatingSystemResource{
 		SecurityFeature: new(api.SecurityFeature),
 	}
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: "",
+		Secure:     false,
+	}
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, "", false)
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.NoError(t, err)
 	assert.Equal(t, resourceID, resp)
 }
@@ -781,4 +812,119 @@ func TestAllocateHostToSiteAndAddMetadata(t *testing.T) {
 		assert.Error(t, err)
 		assert.Equal(t, e.NewCustomError(e.ErrHostSiteMetadataFailed), err)
 	})
+}
+
+func TestInstanceExists(t *testing.T) {
+	instanceList := api.InstanceList{
+		TotalElements: new(int),
+	}
+	*instanceList.TotalElements = 1
+
+	t.Run("Instance Exists with Serial Number and UUID", func(t *testing.T) {
+		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.NoError(t, err)
+		assert.True(t, exists)
+	})
+
+	t.Run("Instance Exists with Serial Number Only", func(t *testing.T) {
+		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, "")
+		assert.NoError(t, err)
+		assert.True(t, exists)
+	})
+
+	t.Run("Instance Exists with UUID Only", func(t *testing.T) {
+		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), "", uuid)
+		assert.NoError(t, err)
+		assert.True(t, exists)
+	})
+
+	t.Run("Instance Does Not Exist", func(t *testing.T) {
+		instanceList.TotalElements = new(int) // Set TotalElements to 0
+		mockServer := setupMockServerForResourceExists(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.NoError(t, err)
+		assert.False(t, exists)
+	})
+
+	t.Run("Empty Serial Number and UUID", func(t *testing.T) {
+		oc := newOrchCli(t, "", project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), "", "")
+		assert.NoError(t, err)
+		assert.False(t, exists)
+	})
+
+	t.Run("Internal Server Error", func(t *testing.T) {
+		mockServer := setupMockServerForResourceExists(t, http.StatusInternalServerError, nil)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.False(t, exists)
+	})
+
+	t.Run("Invalid Response Format", func(t *testing.T) {
+		mockServer := setupMockServerForResourceExists(t, http.StatusOK, "invalid-response")
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.False(t, exists)
+	})
+}
+
+func setupMockServerForResourceExists(t *testing.T, status int, responseBody interface{}) *httptest.Server {
+	t.Helper()
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Check if the request method is GET
+		if r.Method != http.MethodGet {
+			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+			return
+		}
+
+		// Check if the request content type is application/json
+		if r.Header.Get("Accept") != contentType {
+			http.Error(w, "Invalid accept header", http.StatusUnsupportedMediaType)
+			return
+		}
+
+		// Check if bearer token is available
+		if r.Header.Get("Authorization") != tokStr {
+			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+			return
+		}
+
+		w.Header().Set("Content-Type", contentType)
+		w.WriteHeader(status)
+
+		if responseBody != nil {
+			err := json.NewEncoder(w).Encode(responseBody)
+			assert.NoError(t, err)
+		}
+	})
+
+	return httptest.NewServer(handler)
 }

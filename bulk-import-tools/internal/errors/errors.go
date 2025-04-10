@@ -56,7 +56,7 @@ var errorMessages = map[ErrorCode]string{
 	ErrHostSiteMetadataFailed: "Failed to allocate site or metadata",
 	ErrAuthNFailed:            "Failed to authenticate with server",
 	ErrURL:                    "Malformed server URL",
-	ErrAlreadyRegistered:      "Host UUID already registered",
+	ErrAlreadyRegistered:      "Host already registered",
 	ErrHTTPReq:                "HTTP request error",
 	ErrOSSecurityMismatch:     "OS Profile and Security feature mismatch",
 }
@@ -79,4 +79,11 @@ func NewCustomError(code ErrorCode) error {
 		Code:    code,
 		Message: msg,
 	}
+}
+
+func Is(code ErrorCode, err error) bool {
+	if customErr, ok := err.(*CustomError); ok {
+		return customErr.Code == code
+	}
+	return false
 }

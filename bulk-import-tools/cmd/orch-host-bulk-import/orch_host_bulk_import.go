@@ -158,31 +158,47 @@ func doImport(autoOnboard bool, filePath, serverURL, projectName, osProfile stri
 }
 
 func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
-	osProfileID string, record types.HostRecord, erringRecords *[]types.HostRecord,
+	osProfileID string, rIn types.HostRecord, erringRecords *[]types.HostRecord,
 ) {
 	// get the required fields from the record
-	sNo := record.Serial
-	uuid := record.UUID
+	sNo := rIn.Serial
+	uuid := rIn.UUID
 
-	// try to register
-	hostID, err := oClient.RegisterHost(ctx, "", sNo, uuid, autoOnboard)
+	rOut, err := sanitizeProvisioningFields(ctx, oClient, rIn, erringRecords, osProfileID)
 	if err != nil {
-		// add to reject list if failed
-		record.Error = err.Error()
-		*erringRecords = append(*erringRecords, record)
-	} else {
-		// print host_id from response if successful
-		fmt.Printf("Host Serial number : %s  UUID : %s registered. Name : %s\n", sNo, uuid, hostID)
-
-		if err := createInstanceAndUpdateHost(ctx, oClient, record, erringRecords, osProfileID, hostID); err != nil {
-			return
-		}
+		return
 	}
+
+	// Register host
+	hostID, err := oClient.RegisterHost(ctx, "", sNo, uuid, autoOnboard)
+	if err != nil && !e.Is(e.ErrAlreadyRegistered, err) {
+		// add to reject list if failed
+		rIn.Error = err.Error()
+		*erringRecords = append(*erringRecords, rIn)
+		return
+	}
+	// Create instance if osProfileID is available else append to error list
+	// Need not notify user of instance ID. Unnecessary detail for user.
+	_, err = oClient.CreateInstance(ctx, hostID, rOut)
+	if err != nil {
+		rIn.Error = err.Error()
+		*erringRecords = append(*erringRecords, rIn)
+		return
+	}
+
+	if err := oClient.AllocateHostToSiteAndAddMetadata(ctx, hostID, rOut.Site, rOut.Metadata); err != nil {
+		rIn.Error = err.Error()
+		*erringRecords = append(*erringRecords, rIn)
+		return
+	}
+	// Print host_id from response if successful
+	fmt.Printf("✔ Host Serial number : %s  UUID : %s registered. Name : %s\n", sNo, uuid, hostID)
+
 }
 
-func createInstanceAndUpdateHost(ctx context.Context, oClient *orchcli.OrchCli, record types.HostRecord,
-	erringRecords *[]types.HostRecord, osProfileID, hostID string,
-) error {
+func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, record types.HostRecord,
+	erringRecords *[]types.HostRecord, osProfileID string,
+) (*types.HostRecord, error) {
 	var siteID, laID string
 	isSecure := record.Secure
 
@@ -198,13 +214,16 @@ func createInstanceAndUpdateHost(ctx context.Context, oClient *orchcli.OrchCli, 
 	if osProfileID, err = oClient.GetOsProfileID(ctx, osProfileID); err != nil {
 		record.Error = err.Error()
 		*erringRecords = append(*erringRecords, record)
-		return err
+		return nil, err
 	}
+
+	// osProfile must be in cache as if the flow is here.
+	// Check for security feature mismatch.
 	osProfile, ok := oClient.OSProfileCache[osProfileID]
 	if !ok || (*osProfile.SecurityFeature != api.SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION && isSecure) {
 		record.Error = e.NewCustomError(e.ErrOSSecurityMismatch).Error()
 		*erringRecords = append(*erringRecords, record)
-		return err
+		return nil, err
 	}
 
 	// site is an optional field. If not provided, instance will be created
@@ -212,29 +231,23 @@ func createInstanceAndUpdateHost(ctx context.Context, oClient *orchcli.OrchCli, 
 	if siteID, err = oClient.GetSiteID(ctx, record.Site); err != nil {
 		record.Error = err.Error()
 		*erringRecords = append(*erringRecords, record)
-		return err
+		return nil, err
 	}
 
 	// local account is a optional field, instance will be created irrespective
 	if laID, err = oClient.GetLocalAccountID(ctx, record.RemoteUser); err != nil {
 		record.Error = err.Error()
 		*erringRecords = append(*erringRecords, record)
-		return err
+		return nil, err
 	}
 
-	// create instance if osProfileID is available else append to error list
-	// Need not notify user of instance ID. Unnecessary detail for user.
-	_, err = oClient.CreateInstance(ctx, hostID, osProfileID, laID, isSecure)
-	if err != nil {
-		record.Error = err.Error()
-		*erringRecords = append(*erringRecords, record)
-		return err
-	}
-
-	if err := oClient.AllocateHostToSiteAndAddMetadata(ctx, hostID, siteID, record.Metadata); err != nil {
-		record.Error = err.Error()
-		*erringRecords = append(*erringRecords, record)
-		return err
-	}
-	return nil
+	return &types.HostRecord{
+		OSProfile:  osProfileID,
+		RemoteUser: laID,
+		Site:       siteID,
+		Secure:     isSecure,
+		UUID:       record.UUID,
+		Serial:     record.Serial,
+		Metadata:   record.Metadata,
+	}, nil
 }
