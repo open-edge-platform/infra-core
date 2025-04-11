@@ -27,7 +27,7 @@ ALL_PROFILES    := $(shell find *.yaml)
 include ../common.mk
 
 # Lint variables
-YAML_LINE_LENGHT := 150
+YAML_LINE_LENGTH := 150
 
 OCI_REPOSITORY := edge-orch/en/files/os-profile
 

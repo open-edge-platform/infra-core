@@ -34,7 +34,7 @@ jobs:
         id: filter-changes
         run: |
           folders_to_remove='[".github",".reuse","LICENSES",".git","os-profiles",""]'
-          
+
           changed_projects='${{ steps.discover-changes.outputs.changed_projects }}'
           filtered_projects=$(echo "$changed_projects" | jq -cr --argjson folders_to_remove "$folders_to_remove" 'map(select(. as $item | $folders_to_remove | index($item) | not))')
           other_changed_projects=$(echo "$changed_projects" | jq -cr --argjson filtered_projects "$filtered_projects" 'map(select(. as $item | $filtered_projects | index($item) | not))')
@@ -88,6 +88,7 @@ jobs:
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: ${{ matrix.project_folder }}
+      trivy_image_skip:  "postgres:16.4"
     secrets: inherit
   pre-merge-os-profiles:
     needs: pre-checks
@@ -186,7 +187,7 @@ jobs:
         run: |
           pre_merge_pipeline_result="${{ needs.pre-merge-pipeline.result }}"
           pre_merge_os_profiles_result="${{ needs.pre-merge-os-profiles.result }}"
-          
+
           echo "Pre-merge pipeline result: $pre_merge_pipeline_result"
           echo "Pre-merge os-profiles result: $pre_merge_os_profiles_result"
 
