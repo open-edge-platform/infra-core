@@ -106,14 +106,18 @@ csv(`preflight_error_timestamp_filename`) to be generated with error messages co
 
   Usage: orch-host-bulk-import COMMAND
 
-  Commands:
-    import [--onboard] <file> <url> <project> Import data from given CSV file to orchestrator URL
-            --onboard  If set, hosts will be automatically onboarded when connected
-            file       Required source CSV file to read data from
-            url        Required Edge Orchestrator URL
-            project    Optional project name in Edge Orchestrator. Alternatively, set env variable EDGEORCH_PROJECT
-    version Display version information
-    help    Show this help message
+
+  COMMANDS:
+          import [OPTIONS] <file> <url> Import data from given CSV file to orchestrator URL
+                  file       Required source CSV file to read data from
+                  url        Required Edge Orchestrator URL
+          version            Display version information
+          help               Show this help message
+  OPTIONS:
+          --onboard          If set, hosts will be automatically onboarded when connected
+          --project <name>   Optional project name in Edge Orchestrator. Or set env variable EDGEORCH_PROJECT
+          --os-profile <id>  Optional operating system profile name/id to configure for hosts. Or set env variable EDGEORCH_OSPROFILE
+
 ```
 
 Before running the bulk import tool, project name can be optionally set in envioronment variable or can be passed

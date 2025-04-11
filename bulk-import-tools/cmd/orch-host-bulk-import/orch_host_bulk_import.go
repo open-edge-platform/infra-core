@@ -50,11 +50,14 @@ func main() {
 
 func handleImportCommand() {
 	importCmd := flag.NewFlagSet("import", flag.ExitOnError)
+	importCmd.Usage = displayHelp
 	onboardFlag := importCmd.Bool("onboard", false, "Enable onboarding")
+	projectNameIn := importCmd.String("project", "", "Project name (optional, can also be set via EDGEORCH_PROJECT environment variable)")
+	osProfileIn := importCmd.String("os-profile", "", "OS profile name/id (optional, can also be set via EDGEORCH_OSPROFILE environment variable)")
 	err := importCmd.Parse(os.Args[idxAfterFlags:])
 
 	// Check for the correct number of arguments after flags
-	if err != nil || importCmd.NArg() < numArgs {
+	if err != nil || importCmd.NArg() < numArgs-1 {
 		fmt.Println("error: Filename & url required as arguments")
 		displayHelp()
 		os.Exit(1)
@@ -62,12 +65,9 @@ func handleImportCommand() {
 
 	filePath := importCmd.Arg(0)
 	serverURL := importCmd.Arg(1)
-	//nolint:mnd // 2 is the index of the project name
-	projectName := importCmd.Arg(2)
-	//nolint:mnd // 3 is the index of the optional osprofile
-	osProfile := importCmd.Arg(3)
 
 	// Check if project name is not provided, use the environment variable EDGEORCH_PROJECT
+	projectName := *projectNameIn
 	if projectName == "" {
 		projectName = os.Getenv("EDGEORCH_PROJECT")
 	}
@@ -79,6 +79,7 @@ func handleImportCommand() {
 	}
 
 	// Check if osprofile is not provided, use the environment variable EDGEORCH_OSPROFILE
+	osProfile := *osProfileIn
 	if osProfile == "" {
 		osProfile = os.Getenv("EDGEORCH_OSPROFILE")
 	}
@@ -95,19 +96,20 @@ func handleImportCommand() {
 
 // displayHelp prints the help information for the utility.
 func displayHelp() {
-	fmt.Print("Import host data from input file into the Edge Orchestrator.\n\n")
+	fmt.Print("\n\nImport host data from input file into the Edge Orchestrator.\n\n")
 	fmt.Print("Usage: orch-host-bulk-import COMMAND\n\n")
-	fmt.Println("Commands:")
-	fmt.Println("\timport [--onboard] <file> <url> <project> <osprofile> Import data from given CSV file to orchestrator URL")
-	fmt.Println("\t        --onboard  If set, hosts will be automatically onboarded when connected")
+	fmt.Print("\nCOMMANDS:\n")
+	fmt.Println("\timport [OPTIONS] <file> <url> Import data from given CSV file to orchestrator URL")
 	fmt.Println("\t        file       Required source CSV file to read data from")
 	fmt.Println("\t        url        Required Edge Orchestrator URL")
-	fmt.Println("\t        project    Optional project name in Edge Orchestrator.",
+	fmt.Println("\tversion            Display version information")
+	fmt.Print("\thelp               Show this help message\n")
+	fmt.Println("OPTIONS:")
+	fmt.Println("\t--onboard          If set, hosts will be automatically onboarded when connected")
+	fmt.Println("\t--project <name>   Optional project name in Edge Orchestrator.",
 		"Alternatively, set env variable EDGEORCH_PROJECT")
-	fmt.Println("\t        osprofile  Optional operating system profile name/id to configure for hosts.",
-		"Alternatively, set env variable EDGEORCH_OSPROFILE")
-	fmt.Println("\tversion Display version information")
-	fmt.Print("\thelp    Show this help message\n\n")
+	fmt.Print("\t--os-profile <id>  Optional operating system profile name/id to configure for hosts.",
+		"Alternatively, set env variable EDGEORCH_OSPROFILE\n\n")
 }
 
 func doImport(autoOnboard bool, filePath, serverURL, projectName, osProfile string) error {
