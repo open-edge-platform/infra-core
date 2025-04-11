@@ -160,7 +160,7 @@ docker-build: policy-build ## Build Docker image
 	$(GOCMD) mod vendor
 	cp ../common.mk ../version.mk .
 	docker build . -f Dockerfile \
-		-t $(DOCKER_IMG_NAME):$(DOCKER_VERSION) \
+		-t $(DOCKER_IMG_NAME):$(VERSION) \
 		--build-arg http_proxy="$(http_proxy)" --build-arg https_proxy="$(https_proxy)" --build-arg no_proxy="$(no_proxy)" \
 		--build-arg HTTP_PROXY="$(HTTP_PROXY)" --build-arg HTTPS_PROXY="$(HTTPS_PROXY)" --build-arg NO_PROXY="$(NO_PROXY)" \
 		--build-arg REPO_URL="$(LABEL_REPO_URL)" --build-arg VERSION="$(LABEL_VERSION)"  \
