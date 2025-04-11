@@ -14,7 +14,7 @@ production and test deployments. This module can be found [here](missing aurora 
 For local testing and development, we use a docker container that mimics Aurora
 as close as possible. All make targets take care of setup and teardown on their
 own, so there is no action required. Should you need to spin up this container
-manually, use the provided `db-start`, `db-stop` and `db-shell` make targets.
+manually, use the provided `db-start`, `db-stop` and `db-shell` make targets. Using `gen_er_diagram` make target you can generate the ER-diagram of the database. 
 
 ## Providing Database Configuration to `inventory`
 

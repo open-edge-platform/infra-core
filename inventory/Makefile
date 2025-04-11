@@ -212,6 +212,7 @@ writeSqlSchema: ## Write sql schema
 	sleep 5
 	$(GOCMD) run cmd/sqlSchemaWriter/main.go
 	@$(MAKE) db-stop
+	$(MAKE) gen_er_diagram
 
 FUZZ_SECONDS	?= 60
 go-fuzz: policy-build certificates ## go fuzz test
@@ -242,3 +243,10 @@ go-fuzz: policy-build certificates ## go fuzz test
 	$(GOCMD) test -fuzz FuzzCreateEndpoint -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(GOCMD) test -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(MAKE) db-stop
+
+gen_er_diagram: ## Generate ER diagram
+	npm install -g @dbml/cli
+	sql2dbml ../sql/inventory.sql -o output.dbml
+	npm install -g @softwaretechnik/dbml-renderer
+	dbml-render --input output.dbml --output inventory-er-diagram.svg
+
