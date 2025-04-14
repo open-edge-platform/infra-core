@@ -19,12 +19,14 @@ PROTOCGENDOC  := true
 
 # Project variables
 PROJECT_NAME	:= bulk-import-tools
+PROJECT_NICKNAME := bit
 BULK_IMPORT_BINARY_NAME	:= orch-host-bulk-import
 PREFLIGHT_BINARY_NAME	:= orch-host-preflight
 
 # Versioning variables
-VERSION       := $(shell cat VERSION)
-GIT_COMMIT    ?= $(shell git rev-parse --short HEAD)
+VERSION          := $(shell cat VERSION)
+GIT_COMMIT       ?= $(shell git rev-parse --short HEAD)
+GIT_TAG_PREFIX   := $(PROJECT_NAME)/v
 
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use regex '<testname.*>' - example:
