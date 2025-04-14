@@ -49,6 +49,7 @@ docker-push: ## push all docker containers
 	for dir in $(DOCKER_PROJECTS); do $(MAKE) -C $$dir $@; done
 
 docker-list: ## list all docker containers
+	@echo "images:"
 	@for dir in $(DOCKER_PROJECTS); do $(MAKE) -C $$dir $@; done
 
 test: ## test in all subprojects
@@ -68,7 +69,7 @@ bit-%: ## Run bulk-import-tools subproject's tasks, e.g. bit-test
 	$(MAKE) -C bulk-import-tools $*
 
 einv-%: ## Run exporters-inventory subproject's tasks, e.g. einv-test
-	$(MAKE) -C exporter-inventory $*
+	$(MAKE) -C exporters-inventory $*
 
 inv-%: ## Run inventory subproject's tasks, e.g. inv-test
 	$(MAKE) -C inventory $*
