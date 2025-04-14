@@ -245,6 +245,19 @@ func (is *InvStore) UpdateInstance(
 						id, entity.CurrentState, in.DesiredState)
 			}
 
+			if isValidLocalAccountTransition(fieldmask, entity, in) {
+				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+					id, entity.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
+				return nil, booleans.Pointer(false),
+					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s LocalAccount is not allowed %s, out %t, cmp %t",
+						id, entity.CurrentState, in.DesiredState, in.GetLocalaccount(),
+						isValidLocalAccountTransition(fieldmask, entity, in),
+						(slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
+							(entity.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED ||
+								len(entity.CurrentState) == 0) && in.GetLocalaccount() != nil),
+					)
+			}
+
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
 			// updating an already set O2O edge, we have to clear it before setting it in the mutation.
 			if in.GetHost().GetResourceId() != "" {
@@ -574,7 +587,32 @@ func isNotValidInstanceTransition(
 	// transition from Untrusted to any other state than DELETED is not allowed
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
 		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
-		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED ||
-		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED &&
-			instanceq.CurrentState != "" && in.GetLocalaccount() != nil
+		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
+}
+
+func isValidLocalAccountTransition(
+	fieldmask *fieldmaskpb.FieldMask,
+	instanceq *ent.InstanceResource,
+	in *computev1.InstanceResource,
+) bool {
+
+	// return failure in case of dont allow - abc state ,
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&  {
+
+		if instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+			// We are in non UNSPECIFIED state, exception is only for "" state - so allow update of LC
+			if len(instanceq.CurrentState) == 0 && in.GetLocalaccount() != nil {
+				return false // Allow update
+			} else {
+				return true // Dont allow other state might be running etc
+			}
+		} else {
+			// We are in UNSPECIFIED state, allow update if valid LC provided
+			if in.GetLocalaccount() != nil {
+				return false
+			}
+			return true
+		}
+	}
+	return false
 }
