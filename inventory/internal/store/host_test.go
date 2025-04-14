@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	onos_logging "github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -2403,8 +2402,6 @@ func BenchmarkInvStore_BenchHostRetrieval(b *testing.B) {
 	l := zerolog.GlobalLevel()
 	zerolog.SetGlobalLevel(zerolog.Disabled)
 	b.Cleanup(func() { zerolog.SetGlobalLevel(l) })
-	onos_logging.SetLevel(onos_logging.DPanicLevel)
-	b.Cleanup(func() { onos_logging.SetLevel(onos_logging.DebugLevel) })
 
 	// Loop for different number of hosts.
 	for _, i := range []int{100, 500, 1000} {

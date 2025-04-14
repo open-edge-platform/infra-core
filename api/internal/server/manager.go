@@ -7,7 +7,6 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"strings"
 	"sync"
 	"time"
 
@@ -56,16 +55,6 @@ func (m *Manager) Start() error {
 	e := echo.New()
 
 	m.setOptions(e)
-
-	openAPIDefinition, err := api.GetSwagger()
-	if err != nil {
-		return err
-	}
-
-	for _, s := range openAPIDefinition.Servers {
-		log.Info().Str("url", s.URL).Msgf("Servers")
-		s.URL = strings.ReplaceAll(s.URL, "{apiRoot}", "")
-	}
 
 	if m.cfg.RestServer.EnableMetrics {
 		log.Info().Msgf("Metrics exporter is enabled")

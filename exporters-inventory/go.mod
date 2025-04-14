@@ -6,7 +6,7 @@ module github.com/open-edge-platform/infra-core/exporters-inventory
 go 1.24.1
 
 require (
-	github.com/onosproject/onos-lib-go v0.10.28
+	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
 	github.com/open-edge-platform/infra-core/api v1.32.0
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.23.0
 	github.com/open-edge-platform/infra-managers/host v1.21.0
