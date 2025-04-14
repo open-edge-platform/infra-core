@@ -1061,9 +1061,8 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 
 	instResp := resp.GetInstance()
 	if doCleanup {
-		tb.Cleanup(func() { c.DeleteResource(tb, tenantID, instResp.ResourceId) })
+		tb.Cleanup(func() { c.HardDeleteInstance(tb, tenantID, instResp.ResourceId) })
 	}
-
 	// When this test object is used in protobuf comparisons as part of another
 	// resource, we do not expect further embedded messages. This matches the
 	// structure of objects returned by ent queries, i.e. no two layers of
