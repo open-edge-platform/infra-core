@@ -597,20 +597,16 @@ func isValidLocalAccountTransition(
 ) bool {
 
 	// return failure in case of dont allow - abc state ,
-	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&  {
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) && in.GetLocalaccount() != nil {
 
 		if instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
 			// We are in non UNSPECIFIED state, exception is only for "" state - so allow update of LC
-			if len(instanceq.CurrentState) == 0 && in.GetLocalaccount() != nil {
+			if len(instanceq.CurrentState) == 0 {
 				return false // Allow update
 			} else {
 				return true // Dont allow other state might be running etc
 			}
 		} else {
-			// We are in UNSPECIFIED state, allow update if valid LC provided
-			if in.GetLocalaccount() != nil {
-				return false
-			}
 			return true
 		}
 	}
