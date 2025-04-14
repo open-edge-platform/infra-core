@@ -25,7 +25,7 @@ type RecordSecure string
 const (
 	SecureTrue        RecordSecure = "true"
 	SecureFalse       RecordSecure = "false"
-	SecureUnspecified RecordSecure = "unspecified"
+	SecureUnspecified RecordSecure = ""
 )
 
 // StringToRecordSecure converts a string to a RecordSecure enum value.
