@@ -283,11 +283,12 @@ func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	// Matches substrings as well. Hence will pick up 1st result only for complete match
-	if *osResources.TotalElements >= 1 && *(*osResources.OperatingSystemResources)[0].ProfileName == os {
-		oC.OSProfileCache[os] = (*osResources.OperatingSystemResources)[0]
-		oC.OSProfileCache[*(*osResources.OperatingSystemResources)[0].ResourceId] = (*osResources.OperatingSystemResources)[0]
-		return *(*osResources.OperatingSystemResources)[0].ResourceId, nil
+	for _, osResource := range *osResources.OperatingSystemResources {
+		if *osResource.ProfileName == os {
+			oC.OSProfileCache[os] = osResource
+			oC.OSProfileCache[*osResource.ResourceId] = osResource
+			return *osResource.ResourceId, nil
+		}
 	}
 
 	return "", e.NewCustomError(e.ErrInvalidOSProfile)
@@ -333,11 +334,12 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	// Matches substrings as well. Hence will pick up 1st result only for complete match
-	if *sites.TotalElements >= 1 && *(*sites.Sites)[0].Name == site {
-		oC.SiteCache[site] = (*sites.Sites)[0]
-		oC.SiteCache[*(*sites.Sites)[0].ResourceId] = (*sites.Sites)[0]
-		return *(*sites.Sites)[0].ResourceId, nil
+	for _, siteItem := range *sites.Sites {
+		if *siteItem.Name == site {
+			oC.SiteCache[site] = siteItem
+			oC.SiteCache[*siteItem.ResourceId] = siteItem
+			return *siteItem.ResourceId, nil
+		}
 	}
 
 	return "", e.NewCustomError(e.ErrInvalidSite)
@@ -383,12 +385,14 @@ func (oC *OrchCli) GetLocalAccountID(ctx context.Context, lAName string) (string
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	// Matches substrings as well. Hence will pick up 1st result only for complete match
-	if *lAs.TotalElements >= 1 && (*lAs.LocalAccounts)[0].Username == lAName {
-		oC.LACache[lAName] = (*lAs.LocalAccounts)[0]
-		oC.LACache[*(*lAs.LocalAccounts)[0].ResourceId] = (*lAs.LocalAccounts)[0]
-		return *(*lAs.LocalAccounts)[0].ResourceId, nil
+	for _, la := range *lAs.LocalAccounts {
+		if la.Username == lAName {
+			oC.LACache[lAName] = la
+			oC.LACache[*la.ResourceId] = la
+			return *la.ResourceId, nil
+		}
 	}
+
 	return "", e.NewCustomError(e.ErrInvalidLocalAccount)
 }
 

@@ -51,9 +51,13 @@ func main() {
 func handleImportCommand() {
 	importCmd := flag.NewFlagSet("import", flag.ExitOnError)
 	importCmd.Usage = displayHelp
-	onboardFlag := importCmd.Bool("onboard", false, "Enable onboarding")
-	projectNameIn := importCmd.String("project", "", "Project name (optional, can also be set via EDGEORCH_PROJECT environment variable)")
-	osProfileIn := importCmd.String("os-profile", "", "OS profile name/id (optional, can also be set via EDGEORCH_OSPROFILE environment variable)")
+	onboardFlag := importCmd.Bool("onboard", false, "")
+	projectNameIn := importCmd.String("project", "", "")
+	osProfileIn := importCmd.String("os-profile", "", "")
+	siteIn := importCmd.String("site", "", "")
+	secureFlag := importCmd.Bool("secure", false, "")
+	remoteUserIn := importCmd.String("remote-user", "", "")
+	metadataIn := importCmd.String("metadata", "", "")
 	err := importCmd.Parse(os.Args[idxAfterFlags:])
 
 	// Check for the correct number of arguments after flags
@@ -84,10 +88,45 @@ func handleImportCommand() {
 		osProfile = os.Getenv("EDGEORCH_OSPROFILE")
 	}
 
+	// Check if site is not provided, use the environment variable EDGEORCH_SITE
+	site := *siteIn
+	if site == "" {
+		site = os.Getenv("EDGEORCH_SITE")
+	}
+
+	// Check if secure flag is not provided, use the environment variable EDGEORCH_SECURE
+	secure := *secureFlag
+	if !secure {
+		secureEnv := os.Getenv("EDGEORCH_SECURE")
+		if secureEnv == "true" {
+			secure = true
+		}
+	}
+
+	// Check if remote user is not provided, use the environment variable EDGEORCH_REMOTEUSER
+	remoteUser := *remoteUserIn
+	if remoteUser == "" {
+		remoteUser = os.Getenv("EDGEORCH_REMOTEUSER")
+	}
+
+	// Check if metadata is not provided, use the environment variable EDGEORCH_METADATA
+	metadata := *metadataIn
+	if metadata == "" {
+		metadata = os.Getenv("EDGEORCH_METADATA")
+	}
+
+	globalAttr := &types.HostRecord{
+		OSProfile:  osProfile,
+		Site:       site,
+		Secure:     secure,
+		RemoteUser: remoteUser,
+		Metadata:   metadata,
+	}
+
 	fmt.Printf("Importing hosts from file: %s to server: %s\n", filePath, serverURL)
 
 	// Implement the import functionality here
-	if err := doImport(*onboardFlag, filePath, serverURL, projectName, osProfile); err != nil {
+	if err := doImport(*onboardFlag, filePath, serverURL, projectName, globalAttr); err != nil {
 		fmt.Printf("error: %v\n\n", err.Error())
 		os.Exit(1)
 	}
@@ -112,7 +151,7 @@ func displayHelp() {
 		"Alternatively, set env variable EDGEORCH_OSPROFILE\n\n")
 }
 
-func doImport(autoOnboard bool, filePath, serverURL, projectName, osProfile string) error {
+func doImport(autoOnboard bool, filePath, serverURL, projectName string, globalAttr *types.HostRecord) error {
 	ctx, cancel := context.WithCancelCause(context.Background())
 	defer cancel(nil)
 	erringRecords := []types.HostRecord{}
@@ -132,18 +171,10 @@ func doImport(autoOnboard bool, filePath, serverURL, projectName, osProfile stri
 		return err
 	}
 
-	var osProfileID string
-	// if osProfile is provided globally, verify if its valid or get
-	// the id from the server if profilename is provided
-	if osProfile != "" {
-		if osProfileID, err = oClient.GetOsProfileID(ctx, osProfile); err != nil {
-			return err
-		}
-	}
 	// registerHost
 	// iterate over all entries available
 	for _, record := range validated {
-		doRegister(ctx, oClient, autoOnboard, osProfileID, record, &erringRecords)
+		doRegister(ctx, oClient, autoOnboard, globalAttr, record, &erringRecords)
 	}
 	// write import error to import_error_<rfc3339_timestamp>_<filename>
 	// if there is any error record after header
@@ -160,13 +191,13 @@ func doImport(autoOnboard bool, filePath, serverURL, projectName, osProfile stri
 }
 
 func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
-	osProfileID string, rIn types.HostRecord, erringRecords *[]types.HostRecord,
+	globalAttr *types.HostRecord, rIn types.HostRecord, erringRecords *[]types.HostRecord,
 ) {
 	// get the required fields from the record
 	sNo := rIn.Serial
 	uuid := rIn.UUID
 
-	rOut, err := sanitizeProvisioningFields(ctx, oClient, rIn, erringRecords, osProfileID)
+	rOut, err := sanitizeProvisioningFields(ctx, oClient, rIn, erringRecords, globalAttr)
 	if err != nil {
 		return
 	}
@@ -198,16 +229,19 @@ func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
 }
 
 func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, record types.HostRecord,
-	erringRecords *[]types.HostRecord, osProfileID string,
+	erringRecords *[]types.HostRecord, globalAttr *types.HostRecord,
 ) (*types.HostRecord, error) {
-	var siteID, laID string
+	var siteID, laID, osProfileID string
+	// TODO - Can be a different case as absence of secure is similar to false
 	isSecure := record.Secure
+	if globalAttr.Secure != isSecure {
+		isSecure = globalAttr.Secure
+	}
 
-	// if osProfile is provided in command line, that takes precedence &
-	// osProfileID is already set. If not, check if osProfile is provided
-	// in the csv file.
-	if osProfileID == "" {
-		osProfileID = record.OSProfile
+	// If globalAttr.OSProfile is non-empty, use it; otherwise, use the record's OSProfile
+	osProfileID = record.OSProfile
+	if globalAttr.OSProfile != "" {
+		osProfileID = globalAttr.OSProfile
 	}
 
 	var err error
@@ -224,22 +258,35 @@ func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, r
 	if !ok || (*osProfile.SecurityFeature != api.SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION && isSecure) {
 		record.Error = e.NewCustomError(e.ErrOSSecurityMismatch).Error()
 		*erringRecords = append(*erringRecords, record)
-		return nil, err
+		return nil, e.NewCustomError(e.ErrOSSecurityMismatch)
 	}
 
-	// site is an optional field. If not provided, instance will be created
-	// but site will not be updated. Can be updated later from UI.
-	if siteID, err = oClient.GetSiteID(ctx, record.Site); err != nil {
+	// If globalAttr.Site is non-empty, use it; otherwise, use the record's Site
+	siteToQuery := record.Site
+	if globalAttr.Site != "" {
+		siteToQuery = globalAttr.Site
+	}
+	if siteID, err = oClient.GetSiteID(ctx, siteToQuery); err != nil {
 		record.Error = err.Error()
 		*erringRecords = append(*erringRecords, record)
 		return nil, err
 	}
 
-	// local account is a optional field, instance will be created irrespective
-	if laID, err = oClient.GetLocalAccountID(ctx, record.RemoteUser); err != nil {
+	// If globalAttr.RemoteUser is non-empty, use it; otherwise, use the record's RemoteUser
+	remoteUserToQuery := record.RemoteUser
+	if globalAttr.RemoteUser != "" {
+		remoteUserToQuery = globalAttr.RemoteUser
+	}
+	if laID, err = oClient.GetLocalAccountID(ctx, remoteUserToQuery); err != nil {
 		record.Error = err.Error()
 		*erringRecords = append(*erringRecords, record)
 		return nil, err
+	}
+
+	// If globalAttr.Metadata is non-empty, use it; otherwise, use the record's Metadata
+	metadataToUse := record.Metadata
+	if globalAttr.Metadata != "" {
+		metadataToUse = globalAttr.Metadata
 	}
 
 	return &types.HostRecord{
@@ -249,6 +296,6 @@ func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, r
 		Secure:     isSecure,
 		UUID:       record.UUID,
 		Serial:     record.Serial,
-		Metadata:   record.Metadata,
+		Metadata:   metadataToUse,
 	}, nil
 }
