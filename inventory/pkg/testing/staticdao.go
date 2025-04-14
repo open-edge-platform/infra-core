@@ -383,7 +383,6 @@ func CreateInstanceWithOpts(
 	tb testing.TB,
 	hostRes *computev1.HostResource,
 	osRes *osv1.OperatingSystemResource,
-	tenantID string,
 	doCleanup bool,
 	opts ...Opt[computev1.InstanceResource],
 ) (ins *computev1.InstanceResource) {
