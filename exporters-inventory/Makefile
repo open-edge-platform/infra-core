@@ -18,6 +18,7 @@ GOCOBERTURA      := true
 
 # Project variables
 PROJECT_NAME     := exporter
+PROJECT_NICKNAME := einv
 BINARY_NAME      := $(PROJECT_NAME)
 
 # Code versions, tags, and so on
@@ -26,6 +27,7 @@ VERSION_MAJOR    := $(shell cut -c 1 VERSION)
 DOCKER_IMG_NAME  := $(PROJECT_NAME)
 DOCKER_VERSION   ?= $(shell git branch --show-current | sed 's/\//_/g')
 GIT_COMMIT       ?= $(shell git rev-parse HEAD)
+GIT_TAG_PREFIX   := exporters-inventory/v
 
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use regex '<testname.*>' - example:
