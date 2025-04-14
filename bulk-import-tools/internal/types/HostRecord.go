@@ -8,7 +8,7 @@ type HostRecord struct {
 	UUID       string
 	OSProfile  string
 	Site       string
-	Secure     bool
+	Secure     RecordSecure
 	RemoteUser string
 	// Metadata is a set of key-value pairs (key=value) separated by '&' rather than a
 	// JSON string to simplify the input data for the user and to avoid handling commas
@@ -18,4 +18,29 @@ type HostRecord struct {
 	Metadata  string
 	Error     string
 	RawRecord string
+}
+
+type RecordSecure string
+
+const (
+	SecureTrue        RecordSecure = "true"
+	SecureFalse       RecordSecure = "false"
+	SecureUnspecified RecordSecure = "unspecified"
+)
+
+// StringToRecordSecure converts a string to a RecordSecure enum value.
+func StringToRecordSecure(value string) RecordSecure {
+	switch value {
+	case string(SecureTrue):
+		return SecureTrue
+	case string(SecureFalse):
+		return SecureFalse
+	default:
+		return SecureUnspecified
+	}
+}
+
+// RecordSecureToString converts a RecordSecure enum value to a string.
+func RecordSecureToString(value RecordSecure) string {
+	return string(value)
 }

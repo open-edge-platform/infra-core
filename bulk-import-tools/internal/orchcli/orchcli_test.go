@@ -316,7 +316,7 @@ func TestCreateInstance(t *testing.T) {
 	hr := &types.HostRecord{
 		OSProfile:  oSResourceID,
 		RemoteUser: "",
-		Secure:     true,
+		Secure:     types.SecureTrue,
 	}
 
 	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
@@ -333,7 +333,7 @@ func TestCreateInstanceInvalidOSProfile(t *testing.T) {
 	hr := &types.HostRecord{
 		OSProfile:  "invalid-os-profile",
 		RemoteUser: "",
-		Secure:     true,
+		Secure:     types.SecureTrue,
 	}
 
 	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
@@ -350,7 +350,7 @@ func TestCreateInstanceInternalError(t *testing.T) {
 	hr := &types.HostRecord{
 		OSProfile:  oSResourceID,
 		RemoteUser: "",
-		Secure:     true,
+		Secure:     types.SecureTrue,
 	}
 
 	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
@@ -384,7 +384,7 @@ func TestCreateInstanceWithLocalAccount(t *testing.T) {
 	hr := &types.HostRecord{
 		OSProfile:  oSResourceID,
 		RemoteUser: localAccountID,
-		Secure:     true,
+		Secure:     types.SecureTrue,
 	}
 
 	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
@@ -408,7 +408,7 @@ func TestCreateInstanceSecurityFeatureNone(t *testing.T) {
 	hr := &types.HostRecord{
 		OSProfile:  oSResourceID,
 		RemoteUser: "",
-		Secure:     false,
+		Secure:     types.SecureFalse,
 	}
 
 	resp, err := oc.CreateInstance(context.Background(), hostID, hr)

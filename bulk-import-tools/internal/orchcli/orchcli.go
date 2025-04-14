@@ -177,7 +177,7 @@ func (oC *OrchCli) prepareInstancePayload(hostID string, r *types.HostRecord) ([
 	}
 
 	*payload.SecurityFeature = *osResource.SecurityFeature
-	if !r.Secure {
+	if r.Secure != types.SecureTrue {
 		*payload.SecurityFeature = api.SECURITYFEATURENONE
 	}
 

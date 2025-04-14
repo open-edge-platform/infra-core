@@ -55,7 +55,7 @@ func handleImportCommand() {
 	projectNameIn := importCmd.String("project", "", "")
 	osProfileIn := importCmd.String("os-profile", "", "")
 	siteIn := importCmd.String("site", "", "")
-	secureFlag := importCmd.Bool("secure", false, "")
+	secureFlag := importCmd.String("secure", string(types.SecureUnspecified), "")
 	remoteUserIn := importCmd.String("remote-user", "", "")
 	metadataIn := importCmd.String("metadata", "", "")
 	err := importCmd.Parse(os.Args[idxAfterFlags:])
@@ -95,13 +95,7 @@ func handleImportCommand() {
 	}
 
 	// Check if secure flag is not provided, use the environment variable EDGEORCH_SECURE
-	secure := *secureFlag
-	if !secure {
-		secureEnv := os.Getenv("EDGEORCH_SECURE")
-		if secureEnv == "true" {
-			secure = true
-		}
-	}
+	secure := getGlobalSecureAttr(secureFlag)
 
 	// Check if remote user is not provided, use the environment variable EDGEORCH_REMOTEUSER
 	remoteUser := *remoteUserIn
@@ -118,7 +112,7 @@ func handleImportCommand() {
 	globalAttr := &types.HostRecord{
 		OSProfile:  osProfile,
 		Site:       site,
-		Secure:     secure,
+		Secure:     types.StringToRecordSecure(secure),
 		RemoteUser: remoteUser,
 		Metadata:   metadata,
 	}
@@ -133,22 +127,43 @@ func handleImportCommand() {
 	fmt.Print("CSV import successful\n\n")
 }
 
+func getGlobalSecureAttr(secureFlag *string) string {
+	secure := *secureFlag
+	if secure == "" {
+		secureEnv := os.Getenv("EDGEORCH_SECURE")
+		if secureEnv == "" {
+			secure = string(types.SecureUnspecified)
+		} else {
+			secure = secureEnv
+		}
+	}
+	return secure
+}
+
 // displayHelp prints the help information for the utility.
 func displayHelp() {
 	fmt.Print("\n\nImport host data from input file into the Edge Orchestrator.\n\n")
 	fmt.Print("Usage: orch-host-bulk-import COMMAND\n\n")
-	fmt.Print("\nCOMMANDS:\n")
-	fmt.Println("\timport [OPTIONS] <file> <url> Import data from given CSV file to orchestrator URL")
-	fmt.Println("\t        file       Required source CSV file to read data from")
-	fmt.Println("\t        url        Required Edge Orchestrator URL")
-	fmt.Println("\tversion            Display version information")
-	fmt.Print("\thelp               Show this help message\n")
-	fmt.Println("OPTIONS:")
-	fmt.Println("\t--onboard          If set, hosts will be automatically onboarded when connected")
-	fmt.Println("\t--project <name>   Optional project name in Edge Orchestrator.",
+	fmt.Print("COMMANDS:\n\n")
+	fmt.Println("import [OPTIONS] <file> <url>  Import data from given CSV file to orchestrator URL")
+	fmt.Println("        file                   Required source CSV file to read data from")
+	fmt.Println("        url                    Required Edge Orchestrator URL")
+	fmt.Println("version                        Display version information")
+	fmt.Print("help                           Show this help message\n\n")
+	fmt.Print("OPTIONS:\n\n")
+	fmt.Println("--onboard                      If set, hosts will be automatically onboarded when connected")
+	fmt.Println("--project <name>               Optional project name in Edge Orchestrator.",
 		"Alternatively, set env variable EDGEORCH_PROJECT")
-	fmt.Print("\t--os-profile <id>  Optional operating system profile name/id to configure for hosts.",
-		"Alternatively, set env variable EDGEORCH_OSPROFILE\n\n")
+	fmt.Println("--os-profile <name/id>         Optional operating system profile name/id to configure for hosts.",
+		"Alternatively, set env variable EDGEORCH_OSPROFILE")
+	fmt.Println("--site <name/id>               Optional site name/id to configure for hosts.",
+		"Alternatively, set env variable EDGEORCH_SITE")
+	fmt.Println("--secure <value>               Optional security feature to configure for hosts.",
+		"Alternatively, set env variable EDGEORCH_SECURE. Valid values: true, false")
+	fmt.Println("--remote-user <name/id>        Optional remote user name/id to configure for hosts.",
+		"Alternatively, set env variable EDGEORCH_REMOTEUSER")
+	fmt.Print("--metadata <data>              Optional metadata to configure for hosts.",
+		"Alternatively, set env variable EDGEORCH_METADATA. Metadata format: key=value&key=value\n\n")
 }
 
 func doImport(autoOnboard bool, filePath, serverURL, projectName string, globalAttr *types.HostRecord) error {
@@ -231,63 +246,27 @@ func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
 func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, record types.HostRecord,
 	erringRecords *[]types.HostRecord, globalAttr *types.HostRecord,
 ) (*types.HostRecord, error) {
-	var siteID, laID, osProfileID string
-	// TODO - Can be a different case as absence of secure is similar to false
-	isSecure := record.Secure
-	if globalAttr.Secure != isSecure {
-		isSecure = globalAttr.Secure
-	}
-
-	// If globalAttr.OSProfile is non-empty, use it; otherwise, use the record's OSProfile
-	osProfileID = record.OSProfile
-	if globalAttr.OSProfile != "" {
-		osProfileID = globalAttr.OSProfile
-	}
-
-	var err error
-
-	if osProfileID, err = oClient.GetOsProfileID(ctx, osProfileID); err != nil {
-		record.Error = err.Error()
-		*erringRecords = append(*erringRecords, record)
+	isSecure := resolveSecure(record.Secure, globalAttr.Secure)
+	osProfileID, err := resolveOSProfile(ctx, oClient, record.OSProfile, globalAttr.OSProfile, record, erringRecords)
+	if err != nil {
 		return nil, err
 	}
 
-	// osProfile must be in cache as if the flow is here.
-	// Check for security feature mismatch.
-	osProfile, ok := oClient.OSProfileCache[osProfileID]
-	if !ok || (*osProfile.SecurityFeature != api.SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION && isSecure) {
-		record.Error = e.NewCustomError(e.ErrOSSecurityMismatch).Error()
-		*erringRecords = append(*erringRecords, record)
-		return nil, e.NewCustomError(e.ErrOSSecurityMismatch)
+	if valErr := validateSecurityFeature(oClient, osProfileID, isSecure, record, erringRecords); valErr != nil {
+		return nil, valErr
 	}
 
-	// If globalAttr.Site is non-empty, use it; otherwise, use the record's Site
-	siteToQuery := record.Site
-	if globalAttr.Site != "" {
-		siteToQuery = globalAttr.Site
-	}
-	if siteID, err = oClient.GetSiteID(ctx, siteToQuery); err != nil {
-		record.Error = err.Error()
-		*erringRecords = append(*erringRecords, record)
+	siteID, err := resolveSite(ctx, oClient, record.Site, globalAttr.Site, record, erringRecords)
+	if err != nil {
 		return nil, err
 	}
 
-	// If globalAttr.RemoteUser is non-empty, use it; otherwise, use the record's RemoteUser
-	remoteUserToQuery := record.RemoteUser
-	if globalAttr.RemoteUser != "" {
-		remoteUserToQuery = globalAttr.RemoteUser
-	}
-	if laID, err = oClient.GetLocalAccountID(ctx, remoteUserToQuery); err != nil {
-		record.Error = err.Error()
-		*erringRecords = append(*erringRecords, record)
+	laID, err := resolveRemoteUser(ctx, oClient, record.RemoteUser, globalAttr.RemoteUser, record, erringRecords)
+	if err != nil {
 		return nil, err
 	}
 
-	// If globalAttr.Metadata is non-empty, use it; otherwise, use the record's Metadata
-	metadataToUse := record.Metadata
-	if globalAttr.Metadata != "" {
-		metadataToUse = globalAttr.Metadata
-	}
+	metadataToUse := resolveMetadata(record.Metadata, globalAttr.Metadata)
 
 	return &types.HostRecord{
 		OSProfile:  osProfileID,
@@ -298,4 +277,81 @@ func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, r
 		Serial:     record.Serial,
 		Metadata:   metadataToUse,
 	}, nil
+}
+
+func resolveSecure(recordSecure, globalSecure types.RecordSecure) types.RecordSecure {
+	if globalSecure != recordSecure && globalSecure != types.SecureUnspecified {
+		return globalSecure
+	}
+	return recordSecure
+}
+
+func resolveOSProfile(ctx context.Context, oClient *orchcli.OrchCli, recordOSProfile, globalOSProfile string,
+	record types.HostRecord, erringRecords *[]types.HostRecord,
+) (string, error) {
+	osProfileID := recordOSProfile
+	if globalOSProfile != "" {
+		osProfileID = globalOSProfile
+	}
+
+	osProfileID, err := oClient.GetOsProfileID(ctx, osProfileID)
+	if err != nil {
+		record.Error = err.Error()
+		*erringRecords = append(*erringRecords, record)
+		return "", err
+	}
+	return osProfileID, nil
+}
+
+func validateSecurityFeature(oClient *orchcli.OrchCli, osProfileID string, isSecure types.RecordSecure,
+	record types.HostRecord, erringRecords *[]types.HostRecord,
+) error {
+	osProfile, ok := oClient.OSProfileCache[osProfileID]
+	if !ok || (*osProfile.SecurityFeature != api.SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION && isSecure == types.SecureTrue) {
+		record.Error = e.NewCustomError(e.ErrOSSecurityMismatch).Error()
+		*erringRecords = append(*erringRecords, record)
+		return e.NewCustomError(e.ErrOSSecurityMismatch)
+	}
+	return nil
+}
+
+func resolveSite(ctx context.Context, oClient *orchcli.OrchCli, recordSite, globalSite string,
+	record types.HostRecord, erringRecords *[]types.HostRecord,
+) (string, error) {
+	siteToQuery := recordSite
+	if globalSite != "" {
+		siteToQuery = globalSite
+	}
+
+	siteID, err := oClient.GetSiteID(ctx, siteToQuery)
+	if err != nil {
+		record.Error = err.Error()
+		*erringRecords = append(*erringRecords, record)
+		return "", err
+	}
+	return siteID, nil
+}
+
+func resolveRemoteUser(ctx context.Context, oClient *orchcli.OrchCli, recordRemoteUser, globalRemoteUser string,
+	record types.HostRecord, erringRecords *[]types.HostRecord,
+) (string, error) {
+	remoteUserToQuery := recordRemoteUser
+	if globalRemoteUser != "" {
+		remoteUserToQuery = globalRemoteUser
+	}
+
+	laID, err := oClient.GetLocalAccountID(ctx, remoteUserToQuery)
+	if err != nil {
+		record.Error = err.Error()
+		*erringRecords = append(*erringRecords, record)
+		return "", err
+	}
+	return laID, nil
+}
+
+func resolveMetadata(recordMetadata, globalMetadata string) string {
+	if globalMetadata != "" {
+		return globalMetadata
+	}
+	return recordMetadata
 }
