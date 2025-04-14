@@ -379,6 +379,19 @@ func CreateInstanceWithArgs(
 		tb, client.FakeTenantID, instanceName, securityFeature, host, os, provider, localAccount, cleanup)
 }
 
+func CreateInstanceWithOpts(
+	tb testing.TB,
+	hostRes *computev1.HostResource,
+	osRes *osv1.OperatingSystemResource,
+	doCleanup bool,
+	opts ...Opt[computev1.InstanceResource],
+) (ins *computev1.InstanceResource) {
+	tb.Helper()
+	return getInvResourceDAO().CreateInstanceWithOpts(
+		tb, client.FakeTenantID, hostRes, osRes, doCleanup, opts...,
+	)
+}
+
 // CreateInstanceNoCleanup - creates instance with NO cleanup. Note this helper is not really meant to be used for the
 // test of InstanceResource, but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by the eager loading.
