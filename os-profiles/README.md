@@ -18,7 +18,7 @@ Currently, supported Operating Systems, with their profiles are:
 - Intel's Edge Microvisor Toolkit v 3.0 based on Azure Linux, with 2 variantes, a non Real Time (`nonrt`) and
   Real time (`rt`) kernel.
 
-For more information on OS Profiles please visit TODO LINK.
+For more information on OS Profiles please visit [the guide on the OS profiles][os-profiles].
 To learn how to manage OS profiles and manually push them to change elements or testing refer to the
 [Manage OS profiles guide](docs/Manage_OS_profiles.md)
 
@@ -27,13 +27,13 @@ To learn how to manage OS profiles and manually push them to change elements or 
 - Definition of Operating Systems available to be used during Edge Node deployment
 - Support for different images and security features
 - Profiles are Versioned for release mapping
-- Support mutable and immutable Operating System
-- Support custom OS dependencies and installation procedures via `Platform Bundle`
-- Expose Security feature capabilities and known installed packages.
+- Support for mutable and immutable Operating System
+- Support for custom OS dependencies and installation procedures via `Platform Bundle`
+- Exposed Security feature capabilities and known installed packages.
 
 ## Contribute
 
-To learn how to contribute to the project, see the contributor's guide//TODOcontributors-guide-url]. The project will
+To learn how to contribute to the project, see [the contributor's guide][contributors-guide-url]. The project will
 accept contributions through Pull-Requests (PRs). PRs must be built successfully by the CI pipeline, pass linters
 verifications and the unit tests.
 
@@ -47,4 +47,8 @@ See the [docs](docs) for advanced development topics:
 - [Manage OS profiles guide](docs/Manage_OS_profiles.md)
 
 To learn more about internals and software architecture, see
-//TODOEdge Infrastructure Manager developer documentation][inframanager-dev-guide-url.
+[Edge Infrastructure Manager developer documentation][inframanager-dev-guide-url].
+
+[inframanager-dev-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/infra_manager/index.html
+[contributors-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/contributor_guide/index.html
+[os-profiles]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/shared/shared_os_profile.html
