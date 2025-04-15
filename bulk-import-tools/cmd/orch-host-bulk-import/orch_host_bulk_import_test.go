@@ -33,8 +33,29 @@ func TestBinaryImportCommand(t *testing.T) {
 		},
 		{
 			name:         "import with invalid url",
-			args:         []string{"import", "--onboard", "input.csv", "https://xyz.com", "test"},
+			args:         []string{"import", "--onboard", "--project", "test", "input.csv", "https://xyz.com"},
 			expectOutput: "Importing hosts from file: input.csv to server: https://xyz.com\nOnboarding is enabled\n",
+			expectErr:    true,
+		},
+		{
+			name: "import with all flags",
+			args: []string{"import", "--onboard", "--project", "test", "--os-profile", "test", "--site",
+				"test", "--secure", "test", "--remote-user", "test", "--metadata", "test", "input.csv", "https://xyz.com"},
+			expectOutput: "Importing hosts from file: input.csv to server: https://xyz.com\nOnboarding is enabled\n",
+			expectErr:    true,
+		},
+		{
+			name: "import with all flags with equals sign",
+			args: []string{"import", "--onboard", "--project=test", "--os-profile=test", "--site=test", "--secure=true",
+				"--remote-user=test", "--metadata=test", "input.csv", "https://xyz.com"},
+			expectOutput: "Importing hosts from file: input.csv to server: https://xyz.com\nOnboarding is enabled\n",
+			expectErr:    true,
+		},
+		{
+			name: "import with invalid flag",
+			args: []string{"import", "--onboard", "--project", "test", "--osprofile", "test", "--site",
+				"test", "--secure", "test", "--remote-user", "test", "--metadata", "test", "input.csv", "https://xyz.com"},
+			expectOutput: "flag provided but not defined: -osprofile\n",
 			expectErr:    true,
 		},
 		{
