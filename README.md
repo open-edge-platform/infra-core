@@ -21,8 +21,8 @@ Manager.
 
 ## License
 
-Edge Manageability Framework is licensed under [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Infrastrcuture Core components are licensed under [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-Last Updated Date: January 10, 2025
+Last Updated Date: April 15, 2025
 
 [user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
