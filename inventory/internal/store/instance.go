@@ -583,7 +583,6 @@ func isNotValidInstanceTransition(
 	instanceq *ent.InstanceResource,
 	in *computev1.InstanceResource,
 ) bool {
-
 	// transition from Untrusted to any other state than DELETED is not allowed
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
 		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
@@ -595,20 +594,8 @@ func isValidLocalAccountTransition(
 	instanceq *ent.InstanceResource,
 	in *computev1.InstanceResource,
 ) bool {
-
-	// return failure in case of dont allow - abc state ,
-	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) && in.GetLocalaccount() != nil {
-
-		if instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
-			// We are in non UNSPECIFIED state, exception is only for "" state - so allow update of LC
-			if len(instanceq.CurrentState) == 0 {
-				return false // Allow update
-			} else {
-				return true // Dont allow other state might be running etc
-			}
-		} else {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
+		in.GetLocalaccount() != nil &&
+		(instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED &&
+			len(instanceq.CurrentState) != 0)
 }
