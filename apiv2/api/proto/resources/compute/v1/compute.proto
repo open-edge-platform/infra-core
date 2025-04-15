@@ -17,7 +17,6 @@ option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/
 // States of the host.
 enum HostState {
   HOST_STATE_UNSPECIFIED = 0;
-  HOST_STATE_DELETING = 1;
   HOST_STATE_DELETED = 2;
   HOST_STATE_ONBOARDED = 3;
   HOST_STATE_UNTRUSTED = 4;

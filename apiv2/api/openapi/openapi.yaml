@@ -2585,7 +2585,6 @@ components:
                 desiredState:
                     readOnly: true
                     enum:
-                        - HOST_STATE_DELETING
                         - HOST_STATE_DELETED
                         - HOST_STATE_ONBOARDED
                         - HOST_STATE_UNTRUSTED
@@ -2596,7 +2595,6 @@ components:
                 currentState:
                     readOnly: true
                     enum:
-                        - HOST_STATE_DELETING
                         - HOST_STATE_DELETED
                         - HOST_STATE_ONBOARDED
                         - HOST_STATE_UNTRUSTED

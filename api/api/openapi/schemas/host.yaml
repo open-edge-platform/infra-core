@@ -8,7 +8,6 @@ HostState:
   format: enum
   enum:
     - HOST_STATE_UNSPECIFIED
-    - HOST_STATE_DELETING
     - HOST_STATE_DELETED
     - HOST_STATE_ONBOARDED
     - HOST_STATE_UNTRUSTED

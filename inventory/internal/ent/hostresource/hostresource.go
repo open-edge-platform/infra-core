@@ -244,7 +244,6 @@ type DesiredState string
 // DesiredState values.
 const (
 	DesiredStateHOST_STATE_UNSPECIFIED DesiredState = "HOST_STATE_UNSPECIFIED"
-	DesiredStateHOST_STATE_DELETING    DesiredState = "HOST_STATE_DELETING"
 	DesiredStateHOST_STATE_DELETED     DesiredState = "HOST_STATE_DELETED"
 	DesiredStateHOST_STATE_ONBOARDED   DesiredState = "HOST_STATE_ONBOARDED"
 	DesiredStateHOST_STATE_UNTRUSTED   DesiredState = "HOST_STATE_UNTRUSTED"
@@ -258,7 +257,7 @@ func (ds DesiredState) String() string {
 // DesiredStateValidator is a validator for the "desired_state" field enum values. It is called by the builders before save.
 func DesiredStateValidator(ds DesiredState) error {
 	switch ds {
-	case DesiredStateHOST_STATE_UNSPECIFIED, DesiredStateHOST_STATE_DELETING, DesiredStateHOST_STATE_DELETED, DesiredStateHOST_STATE_ONBOARDED, DesiredStateHOST_STATE_UNTRUSTED, DesiredStateHOST_STATE_REGISTERED:
+	case DesiredStateHOST_STATE_UNSPECIFIED, DesiredStateHOST_STATE_DELETED, DesiredStateHOST_STATE_ONBOARDED, DesiredStateHOST_STATE_UNTRUSTED, DesiredStateHOST_STATE_REGISTERED:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for desired_state field: %q", ds)
@@ -271,7 +270,6 @@ type CurrentState string
 // CurrentState values.
 const (
 	CurrentStateHOST_STATE_UNSPECIFIED CurrentState = "HOST_STATE_UNSPECIFIED"
-	CurrentStateHOST_STATE_DELETING    CurrentState = "HOST_STATE_DELETING"
 	CurrentStateHOST_STATE_DELETED     CurrentState = "HOST_STATE_DELETED"
 	CurrentStateHOST_STATE_ONBOARDED   CurrentState = "HOST_STATE_ONBOARDED"
 	CurrentStateHOST_STATE_UNTRUSTED   CurrentState = "HOST_STATE_UNTRUSTED"
@@ -285,7 +283,7 @@ func (cs CurrentState) String() string {
 // CurrentStateValidator is a validator for the "current_state" field enum values. It is called by the builders before save.
 func CurrentStateValidator(cs CurrentState) error {
 	switch cs {
-	case CurrentStateHOST_STATE_UNSPECIFIED, CurrentStateHOST_STATE_DELETING, CurrentStateHOST_STATE_DELETED, CurrentStateHOST_STATE_ONBOARDED, CurrentStateHOST_STATE_UNTRUSTED, CurrentStateHOST_STATE_REGISTERED:
+	case CurrentStateHOST_STATE_UNSPECIFIED, CurrentStateHOST_STATE_DELETED, CurrentStateHOST_STATE_ONBOARDED, CurrentStateHOST_STATE_UNTRUSTED, CurrentStateHOST_STATE_REGISTERED:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for current_state field: %q", cs)

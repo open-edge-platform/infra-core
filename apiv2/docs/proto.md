@@ -769,7 +769,6 @@ States of the host.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |
