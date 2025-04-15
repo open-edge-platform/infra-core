@@ -22,8 +22,7 @@ using Edge Infrastructure Manager.
 
 ## Develop
 
-To develop one of the several core components please follow it's specific guide
-present in the README.md of its specific folder.
+To develop one of the several core components, please follow its guide in README.md located in its respective folder..
 
 ## Contribute
 
