@@ -44,5 +44,5 @@ Each component of the Edge Infrastructure core is licensed under
 
 Last Updated Date: April 7, 2025
 
-[user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
+[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
 [apache-license]: https://www.apache.org/licenses/LICENSE-2.0

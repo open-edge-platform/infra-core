@@ -6,8 +6,7 @@ module github.com/open-edge-platform/infra-core/api
 go 1.24.1
 
 require (
-	github.com/deepmap/oapi-codegen v1.16.2
-	github.com/getkin/kin-openapi v0.130.0
+	github.com/getkin/kin-openapi v0.131.0
 	github.com/go-openapi/strfmt v0.23.0
 	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/google/uuid v1.6.0
@@ -16,7 +15,7 @@ require (
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/modern-go/reflect2 v1.0.2
 	github.com/oapi-codegen/runtime v1.1.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.23.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.23.2
 	github.com/open-edge-platform/orch-library/go v0.5.29
 	github.com/prometheus/client_golang v1.21.1
 	github.com/stretchr/testify v1.10.0
@@ -142,7 +141,6 @@ require (
 	golang.org/x/tools v0.31.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250313205543-e70fdf4c4cb4 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250313205543-e70fdf4c4cb4 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
