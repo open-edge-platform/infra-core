@@ -13,8 +13,8 @@ path = [
   "exporters-inventory/**",
   "inventory/**",
   "tenant-controller/**",
-  "**/*.dbml",
-  "**/*.svg",
+  "**/*.dbml",
+  "**/*.svg",
 ]
 
 precedence = "aggregate"
