@@ -41,5 +41,4 @@ Each component of the Edge Infrastructure external is licensed under [Apache 2.0
 
 Last Updated Date: April 7, 2025
 
-[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/index.html
 [apache-license]: https://www.apache.org/licenses/LICENSE-2.0
