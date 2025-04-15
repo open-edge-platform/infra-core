@@ -5,8 +5,6 @@ module github.com/open-edge-platform/infra-core/api
 
 go 1.24.1
 
-replace github.com/open-edge-platform/infra-core/inventory/v2 v2.23.0 => ../inventory
-
 require (
 	github.com/deepmap/oapi-codegen v1.16.2
 	github.com/getkin/kin-openapi v0.130.0
