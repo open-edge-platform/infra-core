@@ -16,13 +16,13 @@ Edge Infrastructure Manager.
 1. orch-host-preflight
 2. orch-host-bulk-import
 
-The former is used to pre-check data and the latter is used, once the data, have been validated to import the data in
+The former is used to pre-check the data and the latter is used, once the data have been validated, to import the data into
 Edge Infrastructure Manager using the Northboud REST APIs.
 
 ## Features
 
-- Automate and reduce the number of individual steps required to add multiple new hosts
-- Reduce the likelihood of data entry problems and human error in the process
+- Automated and reduced the number of individual steps required to add multiple new hosts
+- Reduced the likelihood of data entry problems and human error in the process
 - Support for well-known CSV files that are used to inject data into the tools
 - Built with the support for Multitenancy
 
@@ -39,7 +39,7 @@ installed on your development machine:
 - [golangci-lint](https://github.com/golangci/golangci-lint) - check [$GOLINTVERSION_REQ](../version.mk)
 - [go-junit-report](https://github.com/jstemmer/go-junit-report) - check [$GOJUNITREPORTVERSION_REQ](../version.mk)
 - Python\* programming language version 3.10 or later
-- [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
+- [gocover-cobertura](https://github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
 
 ### Build the Binary
 
@@ -57,8 +57,7 @@ The binaries are installed in the [$OUT_DIR](../common.mk) folder:
 
 ### Usage
 
-Tools run as standalone binary and there are no difference when deploying in production or during developement and
-testing phases.
+Tools run as standalone binaries and their deployment process is consistent across production, development, and testing phases.
 
 #### Pre-flight tool
 
@@ -216,6 +215,8 @@ See the [docs](docs) for advanced development topics:
 To learn more about internals and software architecture, see
 [Edge Infrastructure Manager developer documentation][inframanager-dev-guide-url].
 
-[user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
-[inframanager-dev-guide-url]: (https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html)
-[contributors-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/index.html
+[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
+[inframanager-dev-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/infra_manager/index.html
+[contributors-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/contributor_guide/index.html
+
+Last Updated Date: April 10, 2025
