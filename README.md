@@ -19,6 +19,10 @@ Read more about Edge Orchestrator in the [User Guide][user-guide-url].
 Navigate through the folders to get started, develop, and contribute to Edge Infrastructure
 Manager.
 
+## License
+
+Edge Manageability Framework is licensed under [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
 Last Updated Date: January 10, 2025
 
 [user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
