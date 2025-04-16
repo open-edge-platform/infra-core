@@ -204,7 +204,7 @@ same during invocation like below -
    to auto onboard the hosts in which case the command should appear like below.
 
    ```bash
-     ./orch-host-bulk-import import --onboard orch.csv https://api.kind.internal
+     ./orch-host-bulk-import import --onboard test.csv https://api.kind.internal
    ```
 
    The bulk import tool validates the input file again similar to the pre-flight tool and generates an error report if
@@ -225,7 +225,7 @@ same during invocation like below -
 	   $ ./orch-host-bulk-import import --onboard --project testProject test.csv https://api.CLUSTER_FQDN
 	   Importing hosts from file: test.csv to server: https://api.CLUSTER_FQDN
 	   Onboarding is enabled
-	   Checking CSV file: hosts.csv
+	   Checking CSV file: test.csv
 	   Generating error file: import_error_2025-04-15T18:28:44+05:30_test.csv
 	   error: Failed to import all hosts
 
