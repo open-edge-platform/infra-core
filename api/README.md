@@ -47,7 +47,7 @@ This code requires the following tools to be installed on your development machi
 - [go-junit-report](https://github.com/jstemmer/go-junit-report) - check [$GOJUNITREPORTVERSION_REQ](../version.mk)
 - [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
 - [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) - check [$OAPI_CODEGEN_VERSION_REQ](../version.mk)
-- [swagger-cli](https://apitools.dev/swagger-cli/)
+- [swagger-cli](https://github.com/APIDevTools/swagger-cli)
 - [openapi-spec-validator](https://github.com/p1c2u/openapi-spec-validator)
 
 You can install Go dependencies by running `make go-dependency`.
