@@ -127,7 +127,7 @@ csv(`preflight_error_timestamp_filename`) to be generated with error messages co
   --metadata <data>              Optional metadata to configure for hosts. Alternatively, set env variable EDGEORCH_METADATA. Metadata format: key=value&key=value
 ```
 
-The fields `OSProfile`, `Site`, `Secure`, `RemoteUser`, and `Metadata` are used for configuration of provisioning for the Edge Node. `OSProfile`, `Site`, and `RemoteUser` are fields that allow both name and ID to be used. The `Secure` field is a boolean value that can be set to `true` or `false`. The `Metadata` field is a key-value pair separated by an `=` sign, and multiple key-value pairs are separated by an `&` sign.
+The fields `OSProfile`, `Site`, `Secure`, `RemoteUser`, and `Metadata` are used for provisioning configuration of the Edge Node. `OSProfile`, `Site`, and `RemoteUser` are fields that allow both name and ID to be used. The `Secure` field is a boolean value that can be set to `true` or `false`. The `Metadata` field is a key-value pair separated by an `=` sign, and multiple key-value pairs are separated by an `&` sign.
 
 Complete the CSV file with the provisioning details for the edge nodes you want to register. `OSProfile` is a mandatory field
 here without which provisioning configuration cannot be completed. Also, be aware that the `OSProfile` and `Secure` fields are
