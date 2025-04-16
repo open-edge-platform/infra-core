@@ -16,8 +16,8 @@ Edge Infrastructure Manager.
 1. orch-host-preflight
 2. orch-host-bulk-import
 
-The former is used to pre-check the data and the latter is used, once the data have been validated, to import the data into
-Edge Infrastructure Manager using the Northboud REST APIs.
+The former is used to pre-check the data and the latter is used, once the data have been validated, to import the data
+into Edge Infrastructure Manager using the Northboud REST APIs.
 
 ## Features
 
@@ -57,7 +57,8 @@ The binaries are installed in the [$OUT_DIR](../common.mk) folder:
 
 ### Usage
 
-Tools run as standalone binaries and their deployment process is consistent across production, development, and testing phases.
+Tools run as standalone binaries and their deployment process is consistent across production, development, and
+testing phases.
 
 #### Pre-flight tool
 
@@ -127,13 +128,16 @@ csv(`preflight_error_timestamp_filename`) to be generated with error messages co
   --metadata <data>              Optional metadata to configure for hosts. Alternatively, set env variable EDGEORCH_METADATA. Metadata format: key=value&key=value
 ```
 
-The fields `OSProfile`, `Site`, `Secure`, `RemoteUser`, and `Metadata` are used for provisioning configuration of the Edge Node. `OSProfile`, `Site`, and `RemoteUser` are fields that allow both name and ID to be used. The `Secure` field is a boolean value that can be set to `true` or `false`. The `Metadata` field is a key-value pair separated by an `=` sign, and multiple key-value pairs are separated by an `&` sign.
+The fields `OSProfile`, `Site`, `Secure`, `RemoteUser`, and `Metadata` are used for provisioning configuration of the
+Edge Node. `OSProfile`, `Site`, and `RemoteUser` are fields that allow both name and ID to be used. The `Secure` field
+is a boolean value that can be set to `true` or `false`. The `Metadata` field is a key-value pair separated by an `=`
+sign, and multiple key-value pairs are separated by an `&` sign.
 
-Complete the CSV file with the provisioning details for the edge nodes you want to register. `OSProfile` is a mandatory field
-here without which provisioning configuration cannot be completed. Also, be aware that the `OSProfile` and `Secure` fields are
-related. If `Secure` is set to `true`, the `OSProfile` must support it. If left blank, `Secure` defaults to `false`. The value
-in other fields are validated before consumption though an empty string is allowed for all of them.
-The following is an example:
+Complete the CSV file with the provisioning details for the edge nodes you want to register. `OSProfile` is a mandatory
+field here without which provisioning configuration cannot be completed. Also, be aware that the `OSProfile` and
+`Secure` fields are related. If `Secure` is set to `true`, the `OSProfile` must support it. If left blank, `Secure`
+defaults to `false`. The value in other fields are validated before consumption though an empty string is allowed for
+all of them. The following is an example:
 
 ```bash
   Serial,UUID,OSProfile,Site,Secure,RemoteUser,Metadata,Error - do not fill
@@ -142,8 +146,8 @@ The following is an example:
   FW908CX,4c4c4544-0946-5310-8052-cac04f515233,os-7d650dd1,Folsom,true,myuser-key,key1=value1&key2=value2,
 ```
 
-Before running the bulk import tool, project name can either be set in environment variable or passed later as an optional
-parameter to import command. Examples below -
+Before running the bulk import tool, project name can either be set in environment variable or passed later as an
+optional parameter to import command. Examples below -
 
 ```bash
   export EDGEORCH_PROJECT=myproject
@@ -165,12 +169,13 @@ command. The following are examples:
 ```
 
 ```bash
-  ./orch-host-bulk-import import --onboard --os-profile myosprofile --site mysite --secure true --remote-user myremoteuser --metadata key1=value1&key2=value2 test.csv https://api.kind.internal
+  ./orch-host-bulk-import import --onboard --os-profile myosprofile --site mysite --secure true \
+  --remote-user myremoteuser --metadata key1=value1&key2=value2 test.csv https://api.kind.internal
 ```
 
-Note that for all the options (except onboard), if optional parameter is passed along with the environment variable set, the
-optional parameter will take precedence. If either the environment variable or the optional parameter is set, they act as global
-values for the corresponding field in the input file and override the local value for all rows.
+Note that for all the options (except onboard), if optional parameter is passed along with the environment variable
+set, the optional parameter will take precedence. If either the environment variable or the optional parameter is set,
+they act as global values for the corresponding field in the input file and override the local value for all rows.
 
 The tool also requires authentication with the orchestrator before it can import hosts. There are two way to make
 credentials available to the tool.

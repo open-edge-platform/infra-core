@@ -13,7 +13,8 @@ download these tools. Follow instructions in [public documentation](https://oras
 
 Download the tools as follows:
 
-The tools are made available in the public AWS Elastic Container Registry. They can be pulled without any credentials using commands like below:
+The tools are made available in the public AWS Elastic Container Registry. They can be pulled without any credentials
+using commands like below:
 
    ```bash
       oras pull registry-rs.edgeorchestration.intel.com/edge-orch/files/orch-host-preflight:3.0
