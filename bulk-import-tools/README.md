@@ -142,7 +142,7 @@ The following is an example:
   FW908CX,4c4c4544-0946-5310-8052-cac04f515233,os-7d650dd1,Folsom,true,myuser-key,key1=value1&key2=value2,
 ```
 
-Before running the bulk import tool, project name can either be set in envioronment variable or passed later as an optional
+Before running the bulk import tool, project name can either be set in environment variable or passed later as an optional
 parameter to import command. Examples below -
 
 ```bash
