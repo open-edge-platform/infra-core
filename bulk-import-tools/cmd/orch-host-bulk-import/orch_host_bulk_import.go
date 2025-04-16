@@ -151,7 +151,8 @@ func displayHelp() {
 	fmt.Println("version                        Display version information")
 	fmt.Print("help                           Show this help message\n\n")
 	fmt.Print("OPTIONS:\n\n")
-	fmt.Println("--onboard                      Optional onboard flag. If set, hosts will be automatically onboarded when connected")
+	fmt.Println("--onboard                      Optional onboard flag.",
+		"If set, hosts will be automatically onboarded when connected")
 	fmt.Println("--project <name>               Required project name in Edge Orchestrator.",
 		"Alternatively, set env variable EDGEORCH_PROJECT")
 	fmt.Println("--os-profile <name/id>         Optional operating system profile name/id to configure for hosts.",
