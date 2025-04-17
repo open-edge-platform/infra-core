@@ -119,7 +119,7 @@ csv(`preflight_error_timestamp_filename`) to be generated with error messages co
 
   OPTIONS:
 
-  --onboard                      Optional onboard flag. If set, hosts will be automatically onboarded when connected
+  --onboard                      Optional onboard option. If set, hosts will be automatically onboarded when connected
   --project <name>               Required project name in Edge Orchestrator. Alternatively, set env variable EDGEORCH_PROJECT
   --os-profile <name/id>         Optional operating system profile name/id to configure for hosts. Alternatively, set env variable EDGEORCH_OSPROFILE
   --site <name/id>               Optional site name/id to configure for hosts. Alternatively, set env variable EDGEORCH_SITE
