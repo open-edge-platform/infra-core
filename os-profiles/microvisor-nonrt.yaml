@@ -15,5 +15,5 @@ spec:
   osImageVersion: 3.0.20250413.2200
   osImageSha256: d643ab8ae42709e2e4bf40a5eb6353d1b13865449a5396fcf0fa5267cc0097c4
   osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250413.2200_pkg_manifest.json
-  securityFeature: SECURITY_FEATURE_NONE
+  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   platformBundle:
