@@ -21,7 +21,7 @@ SPDX-License-Identifier = "Apache-2.0"
 
 
 [[exclude]]
-path = "inventory/inventory-er-diagram.svg"
+path = "inventory-er-diagram.svg"
 
 [[exclude]]
-path = "inventory/output.dbml"
+path = "output.dbml"
