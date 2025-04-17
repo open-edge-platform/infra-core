@@ -24,7 +24,7 @@ into Edge Infrastructure Manager using the Northboud REST APIs.
 - Automated and reduced the number of individual steps required to add multiple new hosts
 - Reduced the likelihood of data entry problems and human error in the process
 - Support for well-known CSV files that are used to inject data into the tools
-- Built with the support for Multitenancy
+- Built with support for multitenancy
 
 ## Get Started
 
@@ -199,9 +199,8 @@ same during invocation like below -
      Enter Password: mypassword
    ```
 
-   Service URL is a mandatory argument to the import command. You can optionally provide a name of the csv file you want
-   to use as source of hosts else it defaults to `edge_nodes.csv`. Also provide the option `--onboard` if it is desireable
-   to auto onboard the hosts in which case the command should appear like below.
+File name and Service URL are mandatory arguments to the import command. Also provide the option `--onboard` if it is
+desireable to auto onboard the hosts in which case the command should appear like below.
 
    ```bash
      ./orch-host-bulk-import import --onboard test.csv https://api.kind.internal
