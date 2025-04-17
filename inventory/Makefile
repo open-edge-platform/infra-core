@@ -27,6 +27,7 @@ PROTOCGENGOGRPC    := true
 
 # Project variables
 PROJECT_NAME       := inventory
+PROJECT_NICKNAME   := inv
 BINARY_NAME        := $(PROJECT_NAME)
 
 # Code versions, tags, and so on
@@ -35,6 +36,7 @@ VERSION_MAJOR      := $(shell cut -c 1 VERSION)
 DOCKER_IMG_NAME    := $(PROJECT_NAME)
 DOCKER_VERSION     ?= $(shell git branch --show-current | sed 's/\//_/g')
 GIT_COMMIT         ?= $(shell git rev-parse HEAD)
+GIT_TAG_PREFIX     := $(PROJECT_NAME)/v
 
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use other  regex '<testname.*>' - example:
@@ -158,7 +160,7 @@ docker-build: policy-build ## Build Docker image
 	$(GOCMD) mod vendor
 	cp ../common.mk ../version.mk .
 	docker build . -f Dockerfile \
-		-t $(DOCKER_IMG_NAME):$(DOCKER_VERSION) \
+		-t $(DOCKER_IMG_NAME):$(VERSION) \
 		--build-arg http_proxy="$(http_proxy)" --build-arg https_proxy="$(https_proxy)" --build-arg no_proxy="$(no_proxy)" \
 		--build-arg HTTP_PROXY="$(HTTP_PROXY)" --build-arg HTTPS_PROXY="$(HTTPS_PROXY)" --build-arg NO_PROXY="$(NO_PROXY)" \
 		--build-arg REPO_URL="$(LABEL_REPO_URL)" --build-arg VERSION="$(LABEL_VERSION)"  \

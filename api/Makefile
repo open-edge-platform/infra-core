@@ -22,6 +22,7 @@ SWAGGERCLI       := true
 
 # Project variables
 PROJECT_NAME     := api
+PROJECT_NICKNAME := api
 BINARY_NAME      := $(PROJECT_NAME)
 
 # Code versions, tags, and so on
@@ -31,6 +32,7 @@ VERSION_MAJOR    := 0
 DOCKER_IMG_NAME  := $(PROJECT_NAME)
 DOCKER_VERSION   ?= $(shell git branch --show-current | sed 's/\//_/g')
 GIT_COMMIT       ?= $(shell git rev-parse HEAD)
+GIT_TAG_PREFIX   := $(PROJECT_NAME)/v
 
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use other regex '<testname.*>' - example:

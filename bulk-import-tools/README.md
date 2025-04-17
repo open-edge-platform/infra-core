@@ -16,15 +16,15 @@ Edge Infrastructure Manager.
 1. orch-host-preflight
 2. orch-host-bulk-import
 
-The former is used to pre-check data and the latter is used, once the data, have been validated to import the data in
-Edge Infrastructure Manager using the Northboud REST APIs.
+The former is used to pre-check the data and the latter is used, once the data have been validated, to import the data
+into Edge Infrastructure Manager using the Northboud REST APIs.
 
 ## Features
 
-- Automate and reduce the number of individual steps required to add multiple new hosts
-- Reduce the likelihood of data entry problems and human error in the process
+- Automated and reduced the number of individual steps required to add multiple new hosts
+- Reduced the likelihood of data entry problems and human error in the process
 - Support for well-known CSV files that are used to inject data into the tools
-- Built with the support for Multitenancy
+- Built with support for multitenancy
 
 ## Get Started
 
@@ -39,7 +39,7 @@ installed on your development machine:
 - [golangci-lint](https://github.com/golangci/golangci-lint) - check [$GOLINTVERSION_REQ](../version.mk)
 - [go-junit-report](https://github.com/jstemmer/go-junit-report) - check [$GOJUNITREPORTVERSION_REQ](../version.mk)
 - Python\* programming language version 3.10 or later
-- [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
+- [gocover-cobertura](https://github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
 
 ### Build the Binary
 
@@ -57,7 +57,7 @@ The binaries are installed in the [$OUT_DIR](../common.mk) folder:
 
 ### Usage
 
-Tools run as standalone binary and there are no difference when deploying in production or during developement and
+Tools run as standalone binaries and their deployment process is consistent across production, development, and
 testing phases.
 
 #### Pre-flight tool
@@ -82,10 +82,13 @@ Run the pre-flight tool after you step into the `out/` directory
   ./orch-host-preflight generate test.csv
 ```
 
-Now, you can populate the csv file by appending details of systems like below -
+Now, you can populate the csv file by appending details of systems like below. Do not change the first line
+`Serial,UUID,OSProfile,Site,Secure,RemoteUser,Metadata,Error - do not fill` because that is the expected format. You
+only need to fill in the first two columns, `Serial` and `UUID`, with the serial number and UUID of the edge node(s)
+you want to register. The other columns are not meant for this stage.
 
 ```bash
-  Serial,UUID,Error - do not fill
+  Serial,UUID,OSProfile,Site,Secure,RemoteUser,Metadata,Error - do not fill
   2500JF3,4c4c4544-2046-5310-8052-cac04f515233
   ICW814D,4c4c4544-4046-5310-8052-cac04f515233
   FW908CX,4c4c4544-0946-5310-8052-cac04f515233
@@ -106,28 +109,73 @@ csv(`preflight_error_timestamp_filename`) to be generated with error messages co
 
   Usage: orch-host-bulk-import COMMAND
 
-  Commands:
-    import [--onboard] <file> <url> <project> Import data from given CSV file to orchestrator URL
-            --onboard  If set, hosts will be automatically onboarded when connected
-            file       Required source CSV file to read data from
-            url        Required Edge Orchestrator URL
-            project    Optional project name in Edge Orchestrator. Alternatively, set env variable EDGEORCH_PROJECT
-    version Display version information
-    help    Show this help message
+  COMMANDS:
+
+  import [OPTIONS] <file> <url>  Import data from given CSV file to orchestrator URL
+        file                     Required source CSV file to read data from
+        url                      Required Edge Orchestrator URL
+  version                        Display version information
+  help                           Show this help message
+
+  OPTIONS:
+
+  --onboard                      Optional onboard option. If set, hosts will be automatically onboarded when connected
+  --project <name>               Required project name in Edge Orchestrator. Alternatively, set env variable EDGEORCH_PROJECT
+  --os-profile <name/id>         Optional operating system profile name/id to configure for hosts. Alternatively, set env variable EDGEORCH_OSPROFILE
+  --site <name/id>               Optional site name/id to configure for hosts. Alternatively, set env variable EDGEORCH_SITE
+  --secure <value>               Optional security feature to configure for hosts. Alternatively, set env variable EDGEORCH_SECURE. Valid values: true, false
+  --remote-user <name/id>        Optional remote user name/id to configure for hosts. Alternatively, set env variable EDGEORCH_REMOTEUSER
+  --metadata <data>              Optional metadata to configure for hosts. Alternatively, set env variable EDGEORCH_METADATA. Metadata format: key=value&key=value
 ```
 
-Before running the bulk import tool, project name can be optionally set in envioronment variable or can be passed
-later as the last argument to import command. Examples below -
+The fields `OSProfile`, `Site`, `Secure`, `RemoteUser`, and `Metadata` are used for provisioning configuration of the
+Edge Node. `OSProfile`, `Site`, and `RemoteUser` are fields that allow both name and ID to be used. The `Secure` field
+is a boolean value that can be set to `true` or `false`. The `Metadata` field is a key-value pair separated by an `=`
+sign, and multiple key-value pairs are separated by an `&` sign.
+
+Complete the CSV file with the provisioning details for the edge nodes you want to register. `OSProfile` is a mandatory
+field here without which provisioning configuration cannot be completed. Also, be aware that the `OSProfile` and
+`Secure` fields are related. If `Secure` is set to `true`, the `OSProfile` must support it. If left blank, `Secure`
+defaults to `false`. The value in other fields are validated before consumption though an empty string is allowed for
+all of them. The following is an example:
+
+```bash
+  Serial,UUID,OSProfile,Site,Secure,RemoteUser,Metadata,Error - do not fill
+  2500JF3,4c4c4544-2046-5310-8052-cac04f515233,os-7d650dd1,site-08c1e377,true,localaccount-9dfb57cb,key1=value1&key2=value2,
+  ICW814D,4c4c4544-4046-5310-8052-cac04f515233,ubuntu-22.04-lts-generic,Folsom,true,myuser-key,key1=value1&key2=value2,
+  FW908CX,4c4c4544-0946-5310-8052-cac04f515233,os-7d650dd1,Folsom,true,myuser-key,key1=value1&key2=value2,
+```
+
+Before running the bulk import tool, project name can either be set in environment variable or passed later as an
+optional parameter to import command. Examples below -
 
 ```bash
   export EDGEORCH_PROJECT=myproject
 ```
 
 ```bash
-  ./orch-host-bulk-import import test.csv https://api.kind.internal myproject
+  ./orch-host-bulk-import import --project myproject test.csv https://api.kind.internal
 ```
 
-Note that if the argument is passed along with the environment variable set, the argument shall take precedence.
+There are several other optional parameters that can be set in the environment or passed as optional parameters to the import
+command. The following are examples:
+
+```bash
+  export EDGEORCH_OSPROFILE=myosprofile
+  export EDGEORCH_SITE=mysite
+  export EDGEORCH_SECURE=true
+  export EDGEORCH_REMOTEUSER=myremoteuser
+  export EDGEORCH_METADATA=key1=value1&key2=value2
+```
+
+```bash
+  ./orch-host-bulk-import import --onboard --os-profile myosprofile --site mysite --secure true \
+  --remote-user myremoteuser --metadata key1=value1&key2=value2 test.csv https://api.kind.internal
+```
+
+Note that for all the options (except onboard), if optional parameter is passed along with the environment variable
+set, the optional parameter will take precedence. If either the environment variable or the optional parameter is set,
+they act as global values for the corresponding field in the input file and override the local value for all rows.
 
 The tool also requires authentication with the orchestrator before it can import hosts. There are two way to make
 credentials available to the tool.
@@ -136,22 +184,14 @@ credentials available to the tool.
 `EDGEORCH_PASSWORD` respectively. You can use commands like below -
 
    ```bash
-     export EDGEORCH_USER=myusername
-     export EDGEORCH_PASSWORD=mypassword
-   ```
-
-   Run the bulk host import tool now.
-
-   ```bash
-     chmod +x orch-host-bulk-import
-     ./orch-host-bulk-import import test.csv https://api.kind.internal
+    export EDGEORCH_USER=myusername
+    export EDGEORCH_PASSWORD=mypassword
    ```
 
 2. **Interactive shell** - If credentials are not provided via environment variables, the tool shall prompt for the
 same during invocation like below -
 
    ```bash
-     $ chmod +x orch-host-bulk-import
      $ ./orch-host-bulk-import import test.csv https://api.kind.internal
      Importing hosts from file: test.csv to server: https://api.kind.internal
      Checking CSV file: test.csv
@@ -159,12 +199,11 @@ same during invocation like below -
      Enter Password: mypassword
    ```
 
-   Service URL is a mandatory argument to the import command. You can optionally provide a name of the csv file you want
-   to use as source of hosts else it defaults to `edge_nodes.csv`. Also provide the option `--onboard` if it is desireable
-   to auto onboard the hosts in which case the command should appear like below.
+File name and Service URL are mandatory arguments to the import command. Also provide the option `--onboard` if it is
+desireable to auto onboard the hosts in which case the command should appear like below.
 
    ```bash
-     ./orch-host-bulk-import import --onboard orch.csv https://api.kind.internal
+     ./orch-host-bulk-import import --onboard test.csv https://api.kind.internal
    ```
 
    The bulk import tool validates the input file again similar to the pre-flight tool and generates an error report if
@@ -172,25 +211,26 @@ same during invocation like below -
    registration that succeeds, expect output similar to below on console.
 
    ```bash
-     Host Serial number : 2500JF3  UUID : 4c4c4544-2046-5310-8052-cac04f515233 registered. Name : host-a835ac40
-     Host Serial number : ICW814D  UUID : 4c4c4544-4046-5310-8052-cac04f515233 registered. Name : host-17f57696
-     Host Serial number : FW908CX  UUID : 4c4c4544-0946-5310-8052-cac04f515233 registered. Name : host-7bd98ae8
-     CSV import successful
+      ✔ Host Serial number : 2500JF3  UUID : 4c4c4544-2046-5310-8052-cac04f515233 registered. Name : host-a835ac40
+      ✔ Host Serial number : ICW814D  UUID : 4c4c4544-4046-5310-8052-cac04f515233 registered. Name : host-17f57696
+      ✔ Host Serial number : FW908CX  UUID : 4c4c4544-0946-5310-8052-cac04f515233 registered. Name : host-7bd98ae8
+      CSV import successful
    ```
 
    However, if there are errors during registration, expect a new csv (with name `import_error_timestamp_filename`) to be
    generated with each failed line having corresponding error message. See below a sample invocation and failure.
 
    ```bash
-     $ ./orch-host-bulk-import import test.csv https://api.kind.internal
-     Importing hosts from file: test.csv to server: https://api.kind.internal
-     Checking CSV file: test.csv
-     Generating error file: import_error_2024-10-03T10:36:07Z_test.csv
-     error: Failed to import all hosts
- 
-     $ cat import_error_2024-10-03T10\:36\:07Z_test.csv
-     Serial,UUID,Error - do not fill
-     JFSRQR3,4c4c4544-0046-5310-8052-cac04f515233,Host UUID already registered
+	   $ ./orch-host-bulk-import import --onboard --project testProject test.csv https://api.CLUSTER_FQDN
+	   Importing hosts from file: test.csv to server: https://api.CLUSTER_FQDN
+	   Onboarding is enabled
+	   Checking CSV file: test.csv
+	   Generating error file: import_error_2025-04-15T18:28:44+05:30_test.csv
+	   error: Failed to import all hosts
+
+	   $ cat import_error_2025-04-15T18\:28\:44+05\:30_test.csv
+	   Serial,UUID,OSProfile,Site,Secure,RemoteUser,Metadata,Error - do not fill
+	   FW908CX,4c4c4544-0946-5310-8052-cac04f515233,os-7d650dd1,Folsom,true,myuser-key,key1=value1&key2=value2,Host already registered
    ```
 
 See the [documentation][user-guide-url] if you want to learn more about using Edge Orchestrator.
@@ -216,6 +256,8 @@ See the [docs](docs) for advanced development topics:
 To learn more about internals and software architecture, see
 [Edge Infrastructure Manager developer documentation][inframanager-dev-guide-url].
 
-[user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
-[inframanager-dev-guide-url]: (https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html)
-[contributors-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/index.html
+[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
+[inframanager-dev-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/infra_manager/index.html
+[contributors-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/contributor_guide/index.html
+
+Last Updated Date: April 10, 2025

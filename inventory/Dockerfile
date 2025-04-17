@@ -36,7 +36,7 @@ WORKDIR /go/src/github.com/open-edge-platform/infra-core/inventory
 
 RUN CGO_ENABLED=0 LABEL_REPO_URL=${REPO_URL} DLABEL_VERSION=${VERSION} LABEL_REVISION=${REVISION} LABEL_BUILD_DATE=${BUILD_DATE} make ${MAKE_TARGET}
 
-# download atlas tool v0.30.0
+# download atlas tool
 RUN curl -Lo /tmp/atlas "https://release.ariga.io/atlas/atlas-community-linux-amd64-v$ATLAS_VERSION" \
     && echo "$ATLAS_SHA  /tmp/atlas" | sha256sum -c - \
     && install -o root -g root -m 0755 /tmp/atlas /usr/local/bin/atlas
