@@ -13,10 +13,15 @@ path = [
   "exporters-inventory/**",
   "inventory/**",
   "tenant-controller/**",
-  "**/*.dbml",
-  "**/*.svg",
 ]
 
 precedence = "aggregate"
 SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"
 SPDX-License-Identifier = "Apache-2.0"
+
+
+[[exclude]]
+path = "inventory/inventory-er-diagram.svg"
+
+[[exclude]]
+path = "inventory/output.dbml"
