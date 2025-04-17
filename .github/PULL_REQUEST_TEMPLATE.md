@@ -1,3 +1,16 @@
+<!---
+  SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+  SPDX-License-Identifier: Apache-2.0
+
+  ------------------------------------------------------
+
+  Author Mandatory (to be filled by PR Author/Submitter)
+  ------------------------------------------------------
+
+  - Developer who submits the Pull Request for merge is required to mark the checklist below as applicable for the PR changes submitted.
+  - Those checklist items which are not marked are considered as not applicable for the PR change.
+-->
+
 ### Description
 
 Please include a summary of the changes and the related issue. List any dependencies that are required for this change.
