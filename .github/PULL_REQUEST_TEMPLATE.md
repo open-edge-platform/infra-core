@@ -1,35 +1,19 @@
-<!---
-  SPDX-FileCopyrightText: (C) 2025 Intel Corporation
-  SPDX-License-Identifier: Apache-2.0
+### Description
 
-  ------------------------------------------------------
+Please include a summary of the changes and the related issue. List any dependencies that are required for this change.
 
-  Author Mandatory (to be filled by PR Author/Submitter)
-  ------------------------------------------------------
+Fixes # (issue)
 
-  - Developer who submits the Pull Request for merge is required to mark the checklist below as applicable for the PR changes submitted.
-  - Those checklist items which are not marked are considered as not applicable for the PR change.
--->
+### Any Newly Introduced Dependencies
 
-### PULL DESCRIPTION
+Please describe any newly introduced 3rd party dependencies in this change. List their name, license information and how they are used in the project.
 
-_Provide a 1-2 line brief overview of the changes submitted through the Pull Request..._
+### How Has This Been Tested?
 
+Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
 
-### Impact Analysis
+### Checklist:
 
-| Info | Please fill out this column                                                      |
-| ------ |----------------------------------------------------------------------------------|
-| Root Cause | Specifically for bugs, empty in case of no variants                              |
-| Jira ticket | Add the name to the Jira ticket |
-
-
-### CODE MAINTAINABILITY
-
-- [ ] Added required new tests relevant to the changes and the URL has been included
-- [ ] Updated Documentation as relevant to the changes
-- [ ] PR change contains code related to security
-- [ ] PR introduces changes that break compatibility with other modules/services (If YES, please provide description)
-
-
-# _Code must act as a teacher for future developers_
+- [ ] I agree to use the APACHE-2.0 license for my code changes
+- [ ] I have not introduced any 3rd party dependency changes
+- [ ] I have performed a self-review of my code
