@@ -1,5 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-
-Files: VERSION README.md go.sum artifacts/* test/README.md internal/README.md .env.jenkins
-Copyright: (C) 2025 Intel Corporation
-License: Apache-2.0
