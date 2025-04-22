@@ -25,6 +25,10 @@ PROTOCGENENT       := true
 PROTOCGENGO        := true
 PROTOCGENGOGRPC    := true
 
+# Required depenendcies to generate ER diagram
+DBMLCLI	           :=true
+DBMLRENDERER 	   :=true
+
 # Project variables
 PROJECT_NAME       := inventory
 PROJECT_NICKNAME   := inv
@@ -245,8 +249,6 @@ go-fuzz: policy-build certificates ## go fuzz test
 	$(MAKE) db-stop
 
 gen-er-diagram: ## Generate ER diagram
-	npm install -g @dbml/cli
 	sql2dbml sql/inventory.sql -o docs/output.dbml
-	npm install -g @softwaretechnik/dbml-renderer
 	dbml-renderer --input docs/output.dbml --output docs/inventory-er-diagram.svg
 

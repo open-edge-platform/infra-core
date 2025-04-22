@@ -2,7 +2,7 @@
 
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
- 
+
 GOLINTVERSION_HAVE          := $(shell golangci-lint version | sed 's/.*version //' | sed 's/ .*//')
 GOLINTVERSION_REQ           := 1.64.5
 GOJUNITREPORTVERSION_HAVE   := $(shell go-junit-report -version | sed s/.*" v"// | sed 's/ .*//')
@@ -28,6 +28,8 @@ PROTOCGENGOVERSION_HAVE     := $(shell protoc-gen-go --version | sed s/.*"protoc
 PROTOCGENGOVERSION_REQ      := 1.30.0
 SWAGGER_CLI_REQ				:= 4.0.4
 SWAGGER_CLI_HAVE			:= $(shell swagger-cli --version)
+DBMLCLI_REQ					:= 3.13.0-alpha.1
+DBMLRENDERER_REQ			:= 1.0.30
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
@@ -46,6 +48,13 @@ endif
 ifeq ($(GCC), true)
 	@(if ! [ $(GCC_REQ) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"gcc\" installed\e[1;m" && exit 1 ; fi)
 endif
+ifeq ($(DBMLCLI), true)
+	@(if ! [ $(DBMLCLI) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"dbmlcli\" installed\e[1;m" && exit 1 ; fi)
+endif
+ifeq ($(DBMLRENDERER), true)
+	@(if ! [ $(DBMLRENDERER) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"dbml-renderer\" installed\e[1;m" && exit 1 ; fi)
+endif
+
 
 go-dependency-check:
 	@(echo "$(GOVERSION_HAVE)" | grep "$(GOVERSION_REQ)" > /dev/null) || \
