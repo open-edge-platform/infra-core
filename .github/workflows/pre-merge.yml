@@ -185,15 +185,25 @@ jobs:
     steps:
       - name: Final Status Check
         run: |
-          pre_merge_pipeline_result="${{ needs.pre-merge-pipeline.result }}"
-          pre_merge_os_profiles_result="${{ needs.pre-merge-os-profiles.result }}"
+          pre_merge_root_pipeline="${{ needs.pre-merge-root.result }}"
+          pre_merge_pipeline="${{ needs.pre-merge-pipeline.result }}"
+          pre_merge_os_profiles="${{ needs.pre-merge-os-profiles.result }}"
+          pre_merge_os_profiles_2="${{ needs.pre-merge-os-profiles-2.result }}"
 
-          echo "Pre-merge pipeline result: $pre_merge_pipeline_result"
-          echo "Pre-merge os-profiles result: $pre_merge_os_profiles_result"
-
-          if [ "$pre_merge_pipeline_result" == "success" ] || [ "$pre_merge_pipeline_result" == "skipped" ] || [ "$pre_merge_os_profiles_result" == "success" ]; then
-            echo "At least one pre-merge check passed successfully."
+          results=("pre_merge_root_pipeline" "pre_merge_pipeline" "pre_merge_os_profiles" "pre_merge_os_profiles_2")
+          status="OK"
+          
+          for result in "${results[@]}"; do
+            pipeline_result=$(eval echo \$$result)
+            echo "${result} result: $pipeline_result"
+            if [[ "$pipeline_result" != "success" && "$pipeline_result" != "skipped" ]]; then
+              status="KO"
+            fi
+          done
+          
+          if [[ "$status" == "OK" ]]; then
+            echo "Pre-merge check passed successfully."
           else
-            echo "Both pre-merge checks failed or were skipped. PR can't get merged"
+            echo "All pre-merge checks failed or were skipped. PR can't get merged"
             exit 1
           fi
