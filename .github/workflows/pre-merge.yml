@@ -185,15 +185,34 @@ jobs:
     steps:
       - name: Final Status Check
         run: |
+          pre_merge_root_pipeline_result="${{ needs.pre-merge-root.result }}"
           pre_merge_pipeline_result="${{ needs.pre-merge-pipeline.result }}"
           pre_merge_os_profiles_result="${{ needs.pre-merge-os-profiles.result }}"
+          pre_merge_os_profiles_2_result="${{ needs.pre-merge-os-profiles-2.result }}"
 
           echo "Pre-merge pipeline result: $pre_merge_pipeline_result"
           echo "Pre-merge os-profiles result: $pre_merge_os_profiles_result"
+          
+          pre_merge_root="KO"
+          if [ "$pre_merge_root_pipeline_result" == "success" ] || [ "$pre_merge_root_pipeline_result" == "skipped" ]; then
+            pre_merge_root="OK"
+          fi
+          pre_merge="KO"
+          if [ "$pre_merge_pipeline_result" == "success" ] || [ "$pre_merge_pipeline_result" == "skipped" ]; then
+            pre_merge="OK"
+          fi
+          pre_merge_os_profiles="KO"
+          if [ "$pre_merge_os_profiles_result" == "success" ] || [ "$pre_merge_os_profiles_result" == "skipped" ]; then
+            pre_merge_os_profiles="OK"
+          fi
+           pre_merge_os_profiles_2="KO"
+          if [ "$pre_merge_os_profiles_2_result" == "success" ] || [ "$pre_merge_os_profiles_2_result" == "skipped" ]; then
+            pre_merge_os_profiles_2="OK"
+          fi
 
-          if [ "$pre_merge_pipeline_result" == "success" ] || [ "$pre_merge_pipeline_result" == "skipped" ] || [ "$pre_merge_os_profiles_result" == "success" ]; then
-            echo "At least one pre-merge check passed successfully."
+          if [ "$pre_merge_root" == "OK" ] && [ "$pre_merge" == "OK" ] && [ "$pre_merge_os_profiles" == "OK" ] && [ "$pre_merge_os_profiles_2" == "OK" ]; then
+            echo Pre-merge check passed successfully."
           else
-            echo "Both pre-merge checks failed or were skipped. PR can't get merged"
+            echo "All pre-merge checks failed or were skipped. PR can't get merged"
             exit 1
           fi
