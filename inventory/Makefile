@@ -246,7 +246,7 @@ go-fuzz: policy-build certificates ## go fuzz test
 
 gen-er-diagram: ## Generate ER diagram
 	npm install -g @dbml/cli
-	sql2dbml sql/inventory.sql -o output.dbml
+	sql2dbml sql/inventory.sql -o docs/output.dbml
 	npm install -g @softwaretechnik/dbml-renderer
-	dbml-renderer --input output.dbml --output inventory-er-diagram.svg
+	dbml-renderer --input docs/output.dbml --output docs/inventory-er-diagram.svg
 
