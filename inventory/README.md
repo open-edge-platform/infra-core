@@ -60,7 +60,7 @@ This code requires the following tools to be installed on your development machi
 - [Community Edition of Atlas tool](https://atlasgo.io/community-edition) - export the `ATLAS_VERSION` variable accordingly
 to [$ATLASVERSION_REQ](../version.mk)
 - [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
-- [dbml/cli](https://github.com/holistics/dbml/blob/master/packages/dbml-cli/README.md) - check [$DBMLCLI_REQ](../version.mk)
+- [dbml/cli](https://github.com/holistics/dbml/blob/master/packages/dbml-cli) - check [$DBMLCLI_REQ](../version.mk)
 - [dbml-renderer](https://www.npmjs.com/package/@softwaretechnik/dbml-renderer) - check [$DBMLRENDERER_REQ](../version.mk)
 - GNU Compiler Collection (GCC)
 
