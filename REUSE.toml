@@ -3,6 +3,12 @@
 
 version = 1
 
+[[exclude]]
+path = [
+    "inventory/docs/inventory-er-diagram.svg",
+    "inventory/docs/output.dbml"
+]
+
 [[annotations]]
 path = [
   "VERSION",
@@ -13,12 +19,6 @@ path = [
   "exporters-inventory/**",
   "inventory/**",
   "tenant-controller/**",
-]
-
-[[exclude]]
-path = [
-    "inventory/docs/inventory-er-diagram.svg",
-    "inventory/docs/output.dbml"
 ]
 
 precedence = "aggregate"
