@@ -5,17 +5,12 @@ version = 1
 
 [[annotations]]
 path = [
-    "VERSION",
-    "go.sum",
     "**.md",
-    "api/proto/buf.lock",
-    "internal/pbapi/services/v1/**.pb*.go",
-    "internal/pbapi/resources/**.pb*.go",
-    "pkg/api/v2/*.gen.go",
-    "mocks/**",
-    "docs/*",
+    "go.sum",
+    "VERSION",
+    "pkg/api/*.pb*.go",
+    "pkg/api/**.gen.go"
 ]
-
 precedence = "aggregate"
 SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"
 SPDX-License-Identifier = "Apache-2.0"
