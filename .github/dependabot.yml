@@ -11,8 +11,6 @@ updates:
       - "/tenant-controller"
       - "/exporters-inventory"
       - "/inventory"
-    registries:
-      - github
     schedule:
       interval: daily
     open-pull-requests-limit: 3
