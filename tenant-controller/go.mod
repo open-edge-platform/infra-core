@@ -12,8 +12,8 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.23.2
-	github.com/open-edge-platform/orch-library/go v0.5.29
-	github.com/open-edge-platform/orch-utils/tenancy-datamodel v0.0.0-20250401180309-9c2571c45857
+	github.com/open-edge-platform/orch-library/go v0.5.31
+	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.1.5
 	github.com/prometheus/client_golang v1.21.1
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394

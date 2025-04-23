@@ -748,10 +748,10 @@ github.com/open-edge-platform/infra-managers/host v1.21.1 h1:77vtzhHkmVSmWlUb1iI
 github.com/open-edge-platform/infra-managers/host v1.21.1/go.mod h1:HLR7ja0tjabUu7NkkCUjgltVXV8++TsgNfw4GlgJR9k=
 github.com/open-edge-platform/infra-managers/maintenance v1.21.1 h1:WcPFKSWdVgvZYaOCfhRXvPdP5GZLsCFpJ48nXF5so7c=
 github.com/open-edge-platform/infra-managers/maintenance v1.21.1/go.mod h1:4IOnwaOp/ZadsSDVZB8KSBM8yNDiPufc/nrYt0Qq8Y8=
-github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.2 h1:7iAvjo29hD7hDq4PIpgkxiiQLsEqkK8tZNvxSafcFxg=
-github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.2/go.mod h1:sLZXeFth0nDI8HEH4FpWkF3nJNOR6e7ocDBq0VKCg9w=
-github.com/open-edge-platform/orch-library/go v0.5.29 h1:LfOaRcRYXpQdcyHrVwN4wC2l11wbdUnBLkc2P7vrZNY=
-github.com/open-edge-platform/orch-library/go v0.5.29/go.mod h1:Wm6A5AJx4DCIOi4u+y1IMJxgFZ4n27f5FLSqW0QPW9k=
+github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4 h1:r7RisHm1olFDfhs5ayaOak2qgWhihTwMN/9qDtgZUK8=
+github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4/go.mod h1:sLZXeFth0nDI8HEH4FpWkF3nJNOR6e7ocDBq0VKCg9w=
+github.com/open-edge-platform/orch-library/go v0.5.31 h1:IIQ8IMLz1fpovZUUYs8UYSiJR615uPeeJB1b+e0D+Tk=
+github.com/open-edge-platform/orch-library/go v0.5.31/go.mod h1:ZjoTX4aTWIAbUzzOod+Pt/imyR2GLi1tpRPq/LgSEew=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.2 h1:YajSGrup0GtzILvXOGL5slbZQMrge513ATBKtadQq38=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.2/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.3.0 h1:zVvQvQg+9+FuSRBt4LgKNzJwsWl/c85kD5jPozJTydY=
