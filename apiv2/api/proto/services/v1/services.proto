@@ -13,6 +13,7 @@ import "resources/os/v1/os.proto";
 import "resources/provider/v1/provider.proto";
 import "resources/schedule/v1/schedule.proto";
 import "resources/telemetry/v1/telemetry.proto";
+import "resources/localaccount/v1/localaccount.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1;servicesv1";
@@ -467,6 +468,29 @@ service TelemetryMetricsProfileService {
   // Delete a telemetry_metrics_profile.
   rpc DeleteTelemetryMetricsProfile(DeleteTelemetryMetricsProfileRequest) returns (DeleteTelemetryMetricsProfileResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"};
+  }
+}
+
+// LocalAccount.
+service LocalAccountService {
+  // Create a localAccount.
+  rpc CreateLocalAccount(CreateLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
+    option (google.api.http) = {
+      post: "/edge-infra.orchestrator.apis/v2/localAccounts"
+      body: "local_account"
+    };
+  }
+  // Get a list of providers.
+  rpc ListLocalAccounts(ListLocalAccountsRequest) returns (ListLocalAccountsResponse) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts"};
+  }
+  // Get a specific provider.
+  rpc GetLocalAccount(GetLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"};
+  }
+  // Delete a provider.
+  rpc DeleteLocalAccount(DeleteLocalAccountRequest) returns (DeleteLocalAccountResponse) {
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"};
   }
 }
 
@@ -2130,3 +2154,97 @@ message DeleteTelemetryMetricsProfileRequest {
 
 // Response message for DeleteTelemetryMetricsProfile.
 message DeleteTelemetryMetricsProfileResponse {}
+
+
+
+/*
+   ###################
+   LocalAccount
+   ###################
+*/
+
+// Request message for the CreateLocalAccount method.
+message CreateLocalAccountRequest {
+  // The localaccount to create.
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the CreateLocalAccount method.
+message CreateLocalAccountResponse {
+  // The created localaccount.
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the GetLocalAccount method.
+message GetLocalAccountRequest {
+  // Name of the requested localaccount.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetLocalAccount method.
+message GetLocalAccountResponse {
+  // The requested localaccount.
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the ListLocalAccounts method.
+message ListLocalAccountsRequest {
+  // Optional comma separated list of fields to specify a sorting order.
+  // See https://google.aip.dev/132 for details.
+  string order_by = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).string = {
+      ignore_empty: true
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9., ]+$"
+    }
+  ];
+  // Optional filter to return only item of interest.
+  // See https://google.aip.dev/160 for details.
+  string filter = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).string = {
+      ignore_empty: true
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // Defines the amount of items to be contained in a single page.
+  // Default of 20.
+  uint32 page_size = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).uint32 = {
+      ignore_empty: true
+      gte: 1
+      lte: 100
+    }
+  ];
+  // Index of the first item to return. This allows skipping items.
+  uint32 offset = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).uint32 = {
+      ignore_empty: true
+      gte: 0
+      lte: 10000
+    }
+  ];
+}
+
+// Response message for the ListLocalAccounts method.
+message ListLocalAccountsResponse {
+  // Sorted and filtered list of localaccounts.
+  repeated resources.localaccount.v1.LocalAccountResource local_accounts = 1 [(google.api.field_behavior) = REQUIRED];
+  // Count of items in the entire list, regardless of pagination.
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  // Inform if there are more elements
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for DeleteLocalAccount.
+message DeleteLocalAccountRequest {
+  // Name of the localaccount to be deleted.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for DeleteLocalAccount.
+message DeleteLocalAccountResponse {}

@@ -23,6 +23,9 @@
     - [OsType](#resources-os-v1-OsType)
     - [SecurityFeature](#resources-os-v1-SecurityFeature)
   
+- [resources/localaccount/v1/localaccount.proto](#resources_localaccount_v1_localaccount-proto)
+    - [LocalAccountResource](#resources-localaccount-v1-LocalAccountResource)
+  
 - [resources/status/v1/status.proto](#resources_status_v1_status-proto)
     - [StatusIndication](#resources-status-v1-StatusIndication)
   
@@ -67,6 +70,8 @@
     - [CreateHostResponse](#services-v1-CreateHostResponse)
     - [CreateInstanceRequest](#services-v1-CreateInstanceRequest)
     - [CreateInstanceResponse](#services-v1-CreateInstanceResponse)
+    - [CreateLocalAccountRequest](#services-v1-CreateLocalAccountRequest)
+    - [CreateLocalAccountResponse](#services-v1-CreateLocalAccountResponse)
     - [CreateOperatingSystemRequest](#services-v1-CreateOperatingSystemRequest)
     - [CreateOperatingSystemResponse](#services-v1-CreateOperatingSystemResponse)
     - [CreateProviderRequest](#services-v1-CreateProviderRequest)
@@ -95,6 +100,8 @@
     - [DeleteHostResponse](#services-v1-DeleteHostResponse)
     - [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest)
     - [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse)
+    - [DeleteLocalAccountRequest](#services-v1-DeleteLocalAccountRequest)
+    - [DeleteLocalAccountResponse](#services-v1-DeleteLocalAccountResponse)
     - [DeleteOperatingSystemRequest](#services-v1-DeleteOperatingSystemRequest)
     - [DeleteOperatingSystemResponse](#services-v1-DeleteOperatingSystemResponse)
     - [DeleteProviderRequest](#services-v1-DeleteProviderRequest)
@@ -125,6 +132,8 @@
     - [GetHostSummaryResponse](#services-v1-GetHostSummaryResponse)
     - [GetInstanceRequest](#services-v1-GetInstanceRequest)
     - [GetInstanceResponse](#services-v1-GetInstanceResponse)
+    - [GetLocalAccountRequest](#services-v1-GetLocalAccountRequest)
+    - [GetLocalAccountResponse](#services-v1-GetLocalAccountResponse)
     - [GetOperatingSystemRequest](#services-v1-GetOperatingSystemRequest)
     - [GetOperatingSystemResponse](#services-v1-GetOperatingSystemResponse)
     - [GetProviderRequest](#services-v1-GetProviderRequest)
@@ -158,6 +167,8 @@
     - [ListHostsResponse](#services-v1-ListHostsResponse)
     - [ListInstancesRequest](#services-v1-ListInstancesRequest)
     - [ListInstancesResponse](#services-v1-ListInstancesResponse)
+    - [ListLocalAccountsRequest](#services-v1-ListLocalAccountsRequest)
+    - [ListLocalAccountsResponse](#services-v1-ListLocalAccountsResponse)
     - [ListLocationsRequest](#services-v1-ListLocationsRequest)
     - [ListLocationsResponse](#services-v1-ListLocationsResponse)
     - [ListLocationsResponse.LocationNode](#services-v1-ListLocationsResponse-LocationNode)
@@ -207,6 +218,7 @@
   
     - [HostService](#services-v1-HostService)
     - [InstanceService](#services-v1-InstanceService)
+    - [LocalAccountService](#services-v1-LocalAccountService)
     - [LocationService](#services-v1-LocationService)
     - [OperatingSystemService](#services-v1-OperatingSystemService)
     - [ProviderService](#services-v1-ProviderService)
@@ -466,6 +478,41 @@ SecurityFeature describes the security capabilities of a resource.
 
 
 
+<a name="resources_localaccount_v1_localaccount-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/localaccount/v1/localaccount.proto
+
+
+
+<a name="resources-localaccount-v1-LocalAccountResource"></a>
+
+### LocalAccountResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| username | [string](#string) |  | Username provided by admin |
+| ssh_key | [string](#string) |  | SSH Public Key of EN |
+| created_at | [string](#string) |  | Creation timestamp |
+| updated_at | [string](#string) |  | Update timestamp |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="resources_status_v1_status-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -675,12 +722,17 @@ host or hypervisor.
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [string](#string) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
 | update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
+| trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
+| trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
+| trusted_attestation_status_timestamp | [uint64](#uint64) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
 | workload_members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The workload members associated with the instance.
 
 back-reference to the Workload Members associated to this Instance |
+| localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
 | instance_id | [string](#string) |  | The instance&#39;s unique identifier. Alias of resourceID. |
 | host_id | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | os_id | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
+| local_account_id | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
 
 
 
@@ -797,10 +849,9 @@ The Instance States.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | INSTANCE_STATE_UNSPECIFIED | 0 | unconfigured |
-| INSTANCE_STATE_ERROR | 1 | unknown |
-| INSTANCE_STATE_RUNNING | 2 | OS is Running |
-| INSTANCE_STATE_DELETED | 3 | OS should be Deleted |
-| INSTANCE_STATE_UNTRUSTED | 4 | OS should not be trusted anymore |
+| INSTANCE_STATE_RUNNING | 1 | OS is Running |
+| INSTANCE_STATE_DELETED | 2 | OS should be Deleted |
+| INSTANCE_STATE_UNTRUSTED | 3 | OS should not be trusted anymore |
 
 
 
@@ -1157,6 +1208,36 @@ Response message for the CreateInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The created instance. |
+
+
+
+
+
+
+<a name="services-v1-CreateLocalAccountRequest"></a>
+
+### CreateLocalAccountRequest
+Request message for the CreateLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The localaccount to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateLocalAccountResponse"></a>
+
+### CreateLocalAccountResponse
+Response message for the CreateLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The created localaccount. |
 
 
 
@@ -1573,6 +1654,31 @@ Response message for DeleteInstance.
 
 
 
+<a name="services-v1-DeleteLocalAccountRequest"></a>
+
+### DeleteLocalAccountRequest
+Request message for DeleteLocalAccount.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the localaccount to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteLocalAccountResponse"></a>
+
+### DeleteLocalAccountResponse
+Response message for DeleteLocalAccount.
+
+
+
+
+
+
 <a name="services-v1-DeleteOperatingSystemRequest"></a>
 
 ### DeleteOperatingSystemRequest
@@ -1960,6 +2066,36 @@ Response message for the GetInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The requested instance. |
+
+
+
+
+
+
+<a name="services-v1-GetLocalAccountRequest"></a>
+
+### GetLocalAccountRequest
+Request message for the GetLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the requested localaccount. |
+
+
+
+
+
+
+<a name="services-v1-GetLocalAccountResponse"></a>
+
+### GetLocalAccountResponse
+Response message for the GetLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The requested localaccount. |
 
 
 
@@ -2457,6 +2593,41 @@ Response message for the ListInstances method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instances | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | repeated | Sorted and filtered list of instances. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
+
+
+
+
+
+
+<a name="services-v1-ListLocalAccountsRequest"></a>
+
+### ListLocalAccountsRequest
+Request message for the ListLocalAccounts method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListLocalAccountsResponse"></a>
+
+### ListLocalAccountsResponse
+Response message for the ListLocalAccounts method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_accounts | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) | repeated | Sorted and filtered list of localaccounts. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
 
@@ -3268,6 +3439,19 @@ Instance.
 | UpdateInstance | [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Update a instance. |
 | DeleteInstance | [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest) | [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse) | Delete a instance. |
 | InvalidateInstance | [InvalidateInstanceRequest](#services-v1-InvalidateInstanceRequest) | [InvalidateInstanceResponse](#services-v1-InvalidateInstanceResponse) | Invalidate a instance. |
+
+
+<a name="services-v1-LocalAccountService"></a>
+
+### LocalAccountService
+LocalAccount.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateLocalAccount | [CreateLocalAccountRequest](#services-v1-CreateLocalAccountRequest) | [.resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) | Create a localAccount. |
+| ListLocalAccounts | [ListLocalAccountsRequest](#services-v1-ListLocalAccountsRequest) | [ListLocalAccountsResponse](#services-v1-ListLocalAccountsResponse) | Get a list of providers. |
+| GetLocalAccount | [GetLocalAccountRequest](#services-v1-GetLocalAccountRequest) | [.resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) | Get a specific provider. |
+| DeleteLocalAccount | [DeleteLocalAccountRequest](#services-v1-DeleteLocalAccountRequest) | [DeleteLocalAccountResponse](#services-v1-DeleteLocalAccountResponse) | Delete a provider. |
 
 
 <a name="services-v1-LocationService"></a>

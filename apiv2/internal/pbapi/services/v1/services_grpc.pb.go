@@ -9,6 +9,7 @@ package servicesv1
 import (
 	context "context"
 	v11 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	v16 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	v1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
 	v12 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
 	v13 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/provider/v1"
@@ -3578,6 +3579,206 @@ var TelemetryMetricsProfileService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteTelemetryMetricsProfile",
 			Handler:    _TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}
+
+// LocalAccountServiceClient is the client API for LocalAccountService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type LocalAccountServiceClient interface {
+	// Create a localAccount.
+	CreateLocalAccount(ctx context.Context, in *CreateLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error)
+	// Get a list of providers.
+	ListLocalAccounts(ctx context.Context, in *ListLocalAccountsRequest, opts ...grpc.CallOption) (*ListLocalAccountsResponse, error)
+	// Get a specific provider.
+	GetLocalAccount(ctx context.Context, in *GetLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error)
+	// Delete a provider.
+	DeleteLocalAccount(ctx context.Context, in *DeleteLocalAccountRequest, opts ...grpc.CallOption) (*DeleteLocalAccountResponse, error)
+}
+
+type localAccountServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewLocalAccountServiceClient(cc grpc.ClientConnInterface) LocalAccountServiceClient {
+	return &localAccountServiceClient{cc}
+}
+
+func (c *localAccountServiceClient) CreateLocalAccount(ctx context.Context, in *CreateLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error) {
+	out := new(v16.LocalAccountResource)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/CreateLocalAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *localAccountServiceClient) ListLocalAccounts(ctx context.Context, in *ListLocalAccountsRequest, opts ...grpc.CallOption) (*ListLocalAccountsResponse, error) {
+	out := new(ListLocalAccountsResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/ListLocalAccounts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *localAccountServiceClient) GetLocalAccount(ctx context.Context, in *GetLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error) {
+	out := new(v16.LocalAccountResource)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/GetLocalAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *localAccountServiceClient) DeleteLocalAccount(ctx context.Context, in *DeleteLocalAccountRequest, opts ...grpc.CallOption) (*DeleteLocalAccountResponse, error) {
+	out := new(DeleteLocalAccountResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/DeleteLocalAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// LocalAccountServiceServer is the server API for LocalAccountService service.
+// All implementations should embed UnimplementedLocalAccountServiceServer
+// for forward compatibility
+type LocalAccountServiceServer interface {
+	// Create a localAccount.
+	CreateLocalAccount(context.Context, *CreateLocalAccountRequest) (*v16.LocalAccountResource, error)
+	// Get a list of providers.
+	ListLocalAccounts(context.Context, *ListLocalAccountsRequest) (*ListLocalAccountsResponse, error)
+	// Get a specific provider.
+	GetLocalAccount(context.Context, *GetLocalAccountRequest) (*v16.LocalAccountResource, error)
+	// Delete a provider.
+	DeleteLocalAccount(context.Context, *DeleteLocalAccountRequest) (*DeleteLocalAccountResponse, error)
+}
+
+// UnimplementedLocalAccountServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedLocalAccountServiceServer struct {
+}
+
+func (UnimplementedLocalAccountServiceServer) CreateLocalAccount(context.Context, *CreateLocalAccountRequest) (*v16.LocalAccountResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLocalAccount not implemented")
+}
+func (UnimplementedLocalAccountServiceServer) ListLocalAccounts(context.Context, *ListLocalAccountsRequest) (*ListLocalAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLocalAccounts not implemented")
+}
+func (UnimplementedLocalAccountServiceServer) GetLocalAccount(context.Context, *GetLocalAccountRequest) (*v16.LocalAccountResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLocalAccount not implemented")
+}
+func (UnimplementedLocalAccountServiceServer) DeleteLocalAccount(context.Context, *DeleteLocalAccountRequest) (*DeleteLocalAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLocalAccount not implemented")
+}
+
+// UnsafeLocalAccountServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to LocalAccountServiceServer will
+// result in compilation errors.
+type UnsafeLocalAccountServiceServer interface {
+	mustEmbedUnimplementedLocalAccountServiceServer()
+}
+
+func RegisterLocalAccountServiceServer(s grpc.ServiceRegistrar, srv LocalAccountServiceServer) {
+	s.RegisterService(&LocalAccountService_ServiceDesc, srv)
+}
+
+func _LocalAccountService_CreateLocalAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLocalAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).CreateLocalAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/CreateLocalAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).CreateLocalAccount(ctx, req.(*CreateLocalAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LocalAccountService_ListLocalAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLocalAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).ListLocalAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/ListLocalAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).ListLocalAccounts(ctx, req.(*ListLocalAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LocalAccountService_GetLocalAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLocalAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).GetLocalAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/GetLocalAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).GetLocalAccount(ctx, req.(*GetLocalAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LocalAccountService_DeleteLocalAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLocalAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).DeleteLocalAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/DeleteLocalAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).DeleteLocalAccount(ctx, req.(*DeleteLocalAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// LocalAccountService_ServiceDesc is the grpc.ServiceDesc for LocalAccountService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var LocalAccountService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.LocalAccountService",
+	HandlerType: (*LocalAccountServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateLocalAccount",
+			Handler:    _LocalAccountService_CreateLocalAccount_Handler,
+		},
+		{
+			MethodName: "ListLocalAccounts",
+			Handler:    _LocalAccountService_ListLocalAccounts_Handler,
+		},
+		{
+			MethodName: "GetLocalAccount",
+			Handler:    _LocalAccountService_GetLocalAccount_Handler,
+		},
+		{
+			MethodName: "DeleteLocalAccount",
+			Handler:    _LocalAccountService_DeleteLocalAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

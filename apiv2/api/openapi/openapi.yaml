@@ -502,6 +502,131 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/localAccounts:
+        get:
+            tags:
+                - LocalAccountService
+            summary: ListLocalAccounts
+            description: Get a list of providers.
+            operationId: LocalAccountService_ListLocalAccounts
+            parameters:
+                - name: orderBy
+                  in: query
+                  description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9., ]+$
+                    type: string
+                - name: filter
+                  in: query
+                  description: Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: Defines the amount of items to be contained in a single page. Default of 20.
+                  schema:
+                    type: integer
+                    format: uint32
+                - name: offset
+                  in: query
+                  description: Index of the first item to return. This allows skipping items.
+                  schema:
+                    type: integer
+                    format: uint32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ListLocalAccountsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - LocalAccountService
+            summary: CreateLocalAccount
+            description: Create a localAccount.
+            operationId: LocalAccountService_CreateLocalAccount
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LocalAccountResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/LocalAccountResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}:
+        get:
+            tags:
+                - LocalAccountService
+            summary: GetLocalAccount
+            description: Get a specific provider.
+            operationId: LocalAccountService_GetLocalAccount
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the requested localaccount.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/LocalAccountResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - LocalAccountService
+            summary: DeleteLocalAccount
+            description: Delete a provider.
+            operationId: LocalAccountService_DeleteLocalAccount
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the localaccount to be deleted.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeleteLocalAccountResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/locations:
         get:
             tags:
@@ -2468,6 +2593,10 @@ components:
             type: object
             properties: {}
             description: Response message for DeleteInstance.
+        DeleteLocalAccountResponse:
+            type: object
+            properties: {}
+            description: Response message for DeleteLocalAccount.
         DeleteOperatingSystemResponse:
             type: object
             properties: {}
@@ -2958,7 +3087,6 @@ components:
                 desiredState:
                     readOnly: true
                     enum:
-                        - INSTANCE_STATE_ERROR
                         - INSTANCE_STATE_RUNNING
                         - INSTANCE_STATE_DELETED
                         - INSTANCE_STATE_UNTRUSTED
@@ -2968,7 +3096,6 @@ components:
                 currentState:
                     readOnly: true
                     enum:
-                        - INSTANCE_STATE_ERROR
                         - INSTANCE_STATE_RUNNING
                         - INSTANCE_STATE_DELETED
                         - INSTANCE_STATE_UNTRUSTED
@@ -2989,9 +3116,11 @@ components:
                     description: Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
                     format: enum
                 instanceStatus:
+                    readOnly: true
                     type: string
                     description: textual message that describes the current instance status. Set by RMs only.
                 instanceStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3000,12 +3129,15 @@ components:
                     description: Indicates interpretation of instance_status. Set by RMs only.
                     format: enum
                 instanceStatusTimestamp:
+                    readOnly: true
                     type: string
                     description: UTC timestamp when instance_status was last changed. Set by RMs only.
                 provisioningStatus:
+                    readOnly: true
                     type: string
                     description: textual message that describes the provisioning status of Instance. Set by RMs only.
                 provisioningStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3014,12 +3146,15 @@ components:
                     description: Indicates interpretation of provisioning_status. Set by RMs only.
                     format: enum
                 provisioningStatusTimestamp:
+                    readOnly: true
                     type: string
                     description: UTC timestamp when provisioning_status was last changed. Set by RMs only.
                 updateStatus:
+                    readOnly: true
                     type: string
                     description: textual message that describes the update status of Instance. Set by RMs only.
                 updateStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3028,17 +3163,39 @@ components:
                     description: Indicates interpretation of update_status. Set by RMs only.
                     format: enum
                 updateStatusTimestamp:
+                    readOnly: true
                     type: string
                     description: UTC timestamp when update_status was last changed. Set by RMs only.
                 updateStatusDetail:
+                    readOnly: true
                     type: string
                     description: JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+                trustedAttestationStatus:
+                    readOnly: true
+                    type: string
+                    description: textual message that describes the trusted_attestation status of Instance. Set by RMs only.
+                trustedAttestationStatusIndicator:
+                    readOnly: true
+                    enum:
+                        - STATUS_INDICATION_ERROR
+                        - STATUS_INDICATION_IN_PROGRESS
+                        - STATUS_INDICATION_IDLE
+                    type: string
+                    description: Indicates interpretation of trusted_attestation_status. Set by RMs only.
+                    format: enum
+                trustedAttestationStatusTimestamp:
+                    readOnly: true
+                    type: integer
+                    description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
+                    format: uint64
                 workloadMembers:
                     readOnly: true
                     type: array
                     items:
                         $ref: '#/components/schemas/WorkloadMember'
                     description: The workload members associated with the instance.
+                localaccount:
+                    $ref: '#/components/schemas/LocalAccountResource'
                 instanceId:
                     readOnly: true
                     pattern: ^inst-[0-9a-f]{8}$
@@ -3054,6 +3211,11 @@ components:
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of OS resource that must be installed on the instance.
+                localAccountId:
+                    writeOnly: true
+                    pattern: ^localaccount-[0-9a-f]{8}$
+                    type: string
+                    description: The unique identifier of local account will be associated with the instance.
             description: InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
         InvalidateHostResponse:
             type: object
@@ -3103,6 +3265,26 @@ components:
                     type: boolean
                     description: Inform if there are more elements
             description: Response message for the ListInstances method.
+        ListLocalAccountsResponse:
+            required:
+                - localAccounts
+                - totalElements
+                - hasNext
+            type: object
+            properties:
+                localAccounts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/LocalAccountResource'
+                    description: Sorted and filtered list of localaccounts.
+                totalElements:
+                    type: integer
+                    description: Count of items in the entire list, regardless of pagination.
+                    format: int32
+                hasNext:
+                    type: boolean
+                    description: Inform if there are more elements
+            description: Response message for the ListLocalAccounts method.
         ListLocationsResponse:
             required:
                 - nodes
@@ -3413,6 +3595,31 @@ components:
                     type: boolean
                     description: Inform if there are more elements
             description: Response message for the ListWorkloads method.
+        LocalAccountResource:
+            required:
+                - username
+                - sshKey
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    pattern: ^localaccount-[0-9a-f]{8}$
+                    type: string
+                    description: resource identifier
+                username:
+                    pattern: ^[a-z][a-z0-9-]{0,31}$
+                    type: string
+                    description: Username provided by admin
+                sshKey:
+                    pattern: ^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$
+                    type: string
+                    description: SSH Public Key of EN
+                createdAt:
+                    readOnly: true
+                    type: string
+                updatedAt:
+                    readOnly: true
+                    type: string
         MetadataItem:
             required:
                 - key
@@ -4069,6 +4276,8 @@ tags:
       description: Host.
     - name: InstanceService
       description: Instance.
+    - name: LocalAccountService
+      description: LocalAccount.
     - name: LocationService
       description: Location.
     - name: OperatingSystemService

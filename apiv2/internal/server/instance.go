@@ -11,11 +11,13 @@ import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	localaccountv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	osv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	inv_localaccountv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/localaccount/v1"
 	inv_osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
@@ -63,6 +65,13 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		}
 	}
 
+	laID := instance.GetLocalAccountId()
+	if isSet(&laID) {
+		invInstance.Localaccount = &inv_localaccountv1.LocalAccountResource{
+			ResourceId: laID,
+		}
+	}
+
 	err := validator.ValidateMessage(invInstance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
@@ -81,6 +90,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var desiredOs *osv1.OperatingSystemResource
 	var currentOs *osv1.OperatingSystemResource
 	var host *computev1.HostResource
+	var la *localaccountv1.LocalAccountResource
 	if invInstance.GetDesiredOs() != nil {
 		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
 	}
@@ -93,6 +103,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		if err != nil {
 			return nil, err
 		}
+	}
+	if invInstance.GetLocalaccount() != nil {
+		la = fromInvLocalAccount(invInstance.GetLocalaccount())
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -123,9 +136,13 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		DesiredState:                computev1.InstanceState(invInstance.GetDesiredState()),
 		CurrentState:                computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:                        host,
+		HostId:                      host.GetResourceId(),
 		DesiredOs:                   desiredOs,
 		CurrentOs:                   currentOs,
+		OsId:                        currentOs.GetResourceId(),
 		SecurityFeature:             osv1.SecurityFeature(invInstance.GetSecurityFeature()),
+		Localaccount:                la,
+		LocalAccountId:              la.GetResourceId(),
 		InstanceStatus:              instanceStatus,
 		InstanceStatusIndicator:     instanceStatusIndicator,
 		InstanceStatusTimestamp:     instanceStatusTimestamp,

@@ -1389,6 +1389,21 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if len(m.GetTrustedAttestationStatus()) > 1024 {
+		err := InstanceResourceValidationError{
+			field:  "TrustedAttestationStatus",
+			reason: "value length must be at most 1024 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for TrustedAttestationStatusIndicator
+
+	// no validation rules for TrustedAttestationStatusTimestamp
+
 	for idx, item := range m.GetWorkloadMembers() {
 		_, _ = idx, item
 
@@ -1421,6 +1436,35 @@ func (m *InstanceResource) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if all {
+		switch v := interface{}(m.GetLocalaccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Localaccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Localaccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLocalaccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InstanceResourceValidationError{
+				field:  "Localaccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(m.GetInstanceId()) > 13 {
@@ -1482,6 +1526,28 @@ func (m *InstanceResource) validate(all bool) error {
 		err := InstanceResourceValidationError{
 			field:  "OsId",
 			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetLocalAccountId()) > 21 {
+		err := InstanceResourceValidationError{
+			field:  "LocalAccountId",
+			reason: "value length must be at most 21 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_InstanceResource_LocalAccountId_Pattern.MatchString(m.GetLocalAccountId()) {
+		err := InstanceResourceValidationError{
+			field:  "LocalAccountId",
+			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -1576,6 +1642,8 @@ var _InstanceResource_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}
 var _InstanceResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
 var _InstanceResource_OsId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
+
+var _InstanceResource_LocalAccountId_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
 
 // Validate checks the field values on WorkloadResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the

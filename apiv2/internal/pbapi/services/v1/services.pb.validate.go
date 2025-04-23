@@ -18149,6 +18149,1037 @@ var _ interface {
 	ErrorName() string
 } = DeleteTelemetryMetricsProfileResponseValidationError{}
 
+// Validate checks the field values on CreateLocalAccountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateLocalAccountRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateLocalAccountRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateLocalAccountRequestMultiError, or nil if none found.
+func (m *CreateLocalAccountRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateLocalAccountRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetLocalAccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateLocalAccountRequestValidationError{
+					field:  "LocalAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateLocalAccountRequestValidationError{
+					field:  "LocalAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLocalAccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateLocalAccountRequestValidationError{
+				field:  "LocalAccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateLocalAccountRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateLocalAccountRequestMultiError is an error wrapping multiple validation
+// errors returned by CreateLocalAccountRequest.ValidateAll() if the
+// designated constraints aren't met.
+type CreateLocalAccountRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateLocalAccountRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateLocalAccountRequestMultiError) AllErrors() []error { return m }
+
+// CreateLocalAccountRequestValidationError is the validation error returned by
+// CreateLocalAccountRequest.Validate if the designated constraints aren't met.
+type CreateLocalAccountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateLocalAccountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateLocalAccountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateLocalAccountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateLocalAccountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateLocalAccountRequestValidationError) ErrorName() string {
+	return "CreateLocalAccountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateLocalAccountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateLocalAccountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateLocalAccountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateLocalAccountRequestValidationError{}
+
+// Validate checks the field values on CreateLocalAccountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateLocalAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateLocalAccountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateLocalAccountResponseMultiError, or nil if none found.
+func (m *CreateLocalAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateLocalAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetLocalAccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateLocalAccountResponseValidationError{
+					field:  "LocalAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateLocalAccountResponseValidationError{
+					field:  "LocalAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLocalAccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateLocalAccountResponseValidationError{
+				field:  "LocalAccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateLocalAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateLocalAccountResponseMultiError is an error wrapping multiple
+// validation errors returned by CreateLocalAccountResponse.ValidateAll() if
+// the designated constraints aren't met.
+type CreateLocalAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateLocalAccountResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateLocalAccountResponseMultiError) AllErrors() []error { return m }
+
+// CreateLocalAccountResponseValidationError is the validation error returned
+// by CreateLocalAccountResponse.Validate if the designated constraints aren't met.
+type CreateLocalAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateLocalAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateLocalAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateLocalAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateLocalAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateLocalAccountResponseValidationError) ErrorName() string {
+	return "CreateLocalAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateLocalAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateLocalAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateLocalAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateLocalAccountResponseValidationError{}
+
+// Validate checks the field values on GetLocalAccountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetLocalAccountRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetLocalAccountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetLocalAccountRequestMultiError, or nil if none found.
+func (m *GetLocalAccountRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLocalAccountRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return GetLocalAccountRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLocalAccountRequestMultiError is an error wrapping multiple validation
+// errors returned by GetLocalAccountRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetLocalAccountRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLocalAccountRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLocalAccountRequestMultiError) AllErrors() []error { return m }
+
+// GetLocalAccountRequestValidationError is the validation error returned by
+// GetLocalAccountRequest.Validate if the designated constraints aren't met.
+type GetLocalAccountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLocalAccountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLocalAccountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLocalAccountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLocalAccountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLocalAccountRequestValidationError) ErrorName() string {
+	return "GetLocalAccountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLocalAccountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLocalAccountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLocalAccountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLocalAccountRequestValidationError{}
+
+// Validate checks the field values on GetLocalAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetLocalAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetLocalAccountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetLocalAccountResponseMultiError, or nil if none found.
+func (m *GetLocalAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetLocalAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetLocalAccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetLocalAccountResponseValidationError{
+					field:  "LocalAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetLocalAccountResponseValidationError{
+					field:  "LocalAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLocalAccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetLocalAccountResponseValidationError{
+				field:  "LocalAccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetLocalAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetLocalAccountResponseMultiError is an error wrapping multiple validation
+// errors returned by GetLocalAccountResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetLocalAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetLocalAccountResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetLocalAccountResponseMultiError) AllErrors() []error { return m }
+
+// GetLocalAccountResponseValidationError is the validation error returned by
+// GetLocalAccountResponse.Validate if the designated constraints aren't met.
+type GetLocalAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetLocalAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetLocalAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetLocalAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetLocalAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetLocalAccountResponseValidationError) ErrorName() string {
+	return "GetLocalAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetLocalAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetLocalAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetLocalAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetLocalAccountResponseValidationError{}
+
+// Validate checks the field values on ListLocalAccountsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListLocalAccountsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListLocalAccountsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListLocalAccountsRequestMultiError, or nil if none found.
+func (m *ListLocalAccountsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListLocalAccountsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetOrderBy() != "" {
+
+		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
+			err := ListLocalAccountsRequestValidationError{
+				field:  "OrderBy",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListLocalAccountsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
+			err := ListLocalAccountsRequestValidationError{
+				field:  "OrderBy",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetFilter() != "" {
+
+		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
+			err := ListLocalAccountsRequestValidationError{
+				field:  "Filter",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListLocalAccountsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
+			err := ListLocalAccountsRequestValidationError{
+				field:  "Filter",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetPageSize() != 0 {
+
+		if val := m.GetPageSize(); val < 1 || val > 100 {
+			err := ListLocalAccountsRequestValidationError{
+				field:  "PageSize",
+				reason: "value must be inside range [1, 100]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetOffset() != 0 {
+
+		if val := m.GetOffset(); val < 0 || val > 10000 {
+			err := ListLocalAccountsRequestValidationError{
+				field:  "Offset",
+				reason: "value must be inside range [0, 10000]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListLocalAccountsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListLocalAccountsRequestMultiError is an error wrapping multiple validation
+// errors returned by ListLocalAccountsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ListLocalAccountsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListLocalAccountsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListLocalAccountsRequestMultiError) AllErrors() []error { return m }
+
+// ListLocalAccountsRequestValidationError is the validation error returned by
+// ListLocalAccountsRequest.Validate if the designated constraints aren't met.
+type ListLocalAccountsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListLocalAccountsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListLocalAccountsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListLocalAccountsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListLocalAccountsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListLocalAccountsRequestValidationError) ErrorName() string {
+	return "ListLocalAccountsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListLocalAccountsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListLocalAccountsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListLocalAccountsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListLocalAccountsRequestValidationError{}
+
+var _ListLocalAccountsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
+
+var _ListLocalAccountsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
+
+// Validate checks the field values on ListLocalAccountsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListLocalAccountsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListLocalAccountsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListLocalAccountsResponseMultiError, or nil if none found.
+func (m *ListLocalAccountsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListLocalAccountsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetLocalAccounts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListLocalAccountsResponseValidationError{
+						field:  fmt.Sprintf("LocalAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListLocalAccountsResponseValidationError{
+						field:  fmt.Sprintf("LocalAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListLocalAccountsResponseValidationError{
+					field:  fmt.Sprintf("LocalAccounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for TotalElements
+
+	// no validation rules for HasNext
+
+	if len(errors) > 0 {
+		return ListLocalAccountsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListLocalAccountsResponseMultiError is an error wrapping multiple validation
+// errors returned by ListLocalAccountsResponse.ValidateAll() if the
+// designated constraints aren't met.
+type ListLocalAccountsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListLocalAccountsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListLocalAccountsResponseMultiError) AllErrors() []error { return m }
+
+// ListLocalAccountsResponseValidationError is the validation error returned by
+// ListLocalAccountsResponse.Validate if the designated constraints aren't met.
+type ListLocalAccountsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListLocalAccountsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListLocalAccountsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListLocalAccountsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListLocalAccountsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListLocalAccountsResponseValidationError) ErrorName() string {
+	return "ListLocalAccountsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListLocalAccountsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListLocalAccountsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListLocalAccountsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListLocalAccountsResponseValidationError{}
+
+// Validate checks the field values on DeleteLocalAccountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteLocalAccountRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteLocalAccountRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteLocalAccountRequestMultiError, or nil if none found.
+func (m *DeleteLocalAccountRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteLocalAccountRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return DeleteLocalAccountRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteLocalAccountRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteLocalAccountRequest.ValidateAll() if the
+// designated constraints aren't met.
+type DeleteLocalAccountRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteLocalAccountRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteLocalAccountRequestMultiError) AllErrors() []error { return m }
+
+// DeleteLocalAccountRequestValidationError is the validation error returned by
+// DeleteLocalAccountRequest.Validate if the designated constraints aren't met.
+type DeleteLocalAccountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteLocalAccountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteLocalAccountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteLocalAccountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteLocalAccountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteLocalAccountRequestValidationError) ErrorName() string {
+	return "DeleteLocalAccountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteLocalAccountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteLocalAccountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteLocalAccountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteLocalAccountRequestValidationError{}
+
+// Validate checks the field values on DeleteLocalAccountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteLocalAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteLocalAccountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteLocalAccountResponseMultiError, or nil if none found.
+func (m *DeleteLocalAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteLocalAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteLocalAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteLocalAccountResponseMultiError is an error wrapping multiple
+// validation errors returned by DeleteLocalAccountResponse.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteLocalAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteLocalAccountResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteLocalAccountResponseMultiError) AllErrors() []error { return m }
+
+// DeleteLocalAccountResponseValidationError is the validation error returned
+// by DeleteLocalAccountResponse.Validate if the designated constraints aren't met.
+type DeleteLocalAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteLocalAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteLocalAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteLocalAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteLocalAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteLocalAccountResponseValidationError) ErrorName() string {
+	return "DeleteLocalAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteLocalAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteLocalAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteLocalAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteLocalAccountResponseValidationError{}
+
 // Validate checks the field values on ListLocationsResponse_LocationNode with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are

@@ -64,7 +64,6 @@ const (
 // Defines values for InstanceResourceCurrentState.
 const (
 	InstanceResourceCurrentStateINSTANCESTATEDELETED   InstanceResourceCurrentState = "INSTANCE_STATE_DELETED"
-	InstanceResourceCurrentStateINSTANCESTATEERROR     InstanceResourceCurrentState = "INSTANCE_STATE_ERROR"
 	InstanceResourceCurrentStateINSTANCESTATERUNNING   InstanceResourceCurrentState = "INSTANCE_STATE_RUNNING"
 	InstanceResourceCurrentStateINSTANCESTATEUNTRUSTED InstanceResourceCurrentState = "INSTANCE_STATE_UNTRUSTED"
 )
@@ -72,7 +71,6 @@ const (
 // Defines values for InstanceResourceDesiredState.
 const (
 	InstanceResourceDesiredStateINSTANCESTATEDELETED   InstanceResourceDesiredState = "INSTANCE_STATE_DELETED"
-	InstanceResourceDesiredStateINSTANCESTATEERROR     InstanceResourceDesiredState = "INSTANCE_STATE_ERROR"
 	InstanceResourceDesiredStateINSTANCESTATERUNNING   InstanceResourceDesiredState = "INSTANCE_STATE_RUNNING"
 	InstanceResourceDesiredStateINSTANCESTATEUNTRUSTED InstanceResourceDesiredState = "INSTANCE_STATE_UNTRUSTED"
 )
@@ -102,11 +100,18 @@ const (
 	InstanceResourceSecurityFeatureSECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION InstanceResourceSecurityFeature = "SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION"
 )
 
+// Defines values for InstanceResourceTrustedAttestationStatusIndicator.
+const (
+	InstanceResourceTrustedAttestationStatusIndicatorSTATUSINDICATIONERROR      InstanceResourceTrustedAttestationStatusIndicator = "STATUS_INDICATION_ERROR"
+	InstanceResourceTrustedAttestationStatusIndicatorSTATUSINDICATIONIDLE       InstanceResourceTrustedAttestationStatusIndicator = "STATUS_INDICATION_IDLE"
+	InstanceResourceTrustedAttestationStatusIndicatorSTATUSINDICATIONINPROGRESS InstanceResourceTrustedAttestationStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+)
+
 // Defines values for InstanceResourceUpdateStatusIndicator.
 const (
-	InstanceResourceUpdateStatusIndicatorSTATUSINDICATIONERROR      InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_ERROR"
-	InstanceResourceUpdateStatusIndicatorSTATUSINDICATIONIDLE       InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_IDLE"
-	InstanceResourceUpdateStatusIndicatorSTATUSINDICATIONINPROGRESS InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	STATUSINDICATIONERROR      InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_ERROR"
+	STATUSINDICATIONIDLE       InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_IDLE"
+	STATUSINDICATIONINPROGRESS InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
 )
 
 // Defines values for ListLocationsResponseLocationNodeType.
@@ -193,6 +198,9 @@ type DeleteHostResponse = map[string]interface{}
 
 // DeleteInstanceResponse Response message for DeleteInstance.
 type DeleteInstanceResponse = map[string]interface{}
+
+// DeleteLocalAccountResponse Response message for DeleteLocalAccount.
+type DeleteLocalAccountResponse = map[string]interface{}
 
 // DeleteOperatingSystemResponse Response message for DeleteOperatingSystem.
 type DeleteOperatingSystemResponse = map[string]interface{}
@@ -552,6 +560,10 @@ type InstanceResource struct {
 	// Kind Kind of resource. Frequently tied to Provider.
 	Kind *InstanceResourceKind `json:"kind,omitempty"`
 
+	// LocalAccountId The unique identifier of local account will be associated with the instance.
+	LocalAccountId *string               `json:"localAccountId,omitempty"`
+	Localaccount   *LocalAccountResource `json:"localaccount,omitempty"`
+
 	// Name The instance's human-readable name.
 	Name *string `json:"name,omitempty"`
 
@@ -572,6 +584,15 @@ type InstanceResource struct {
 
 	// SecurityFeature Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
 	SecurityFeature *InstanceResourceSecurityFeature `json:"securityFeature,omitempty"`
+
+	// TrustedAttestationStatus textual message that describes the trusted_attestation status of Instance. Set by RMs only.
+	TrustedAttestationStatus *string `json:"trustedAttestationStatus,omitempty"`
+
+	// TrustedAttestationStatusIndicator Indicates interpretation of trusted_attestation_status. Set by RMs only.
+	TrustedAttestationStatusIndicator *InstanceResourceTrustedAttestationStatusIndicator `json:"trustedAttestationStatusIndicator,omitempty"`
+
+	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
+	TrustedAttestationStatusTimestamp *uint64 `json:"trustedAttestationStatusTimestamp,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
@@ -607,6 +628,9 @@ type InstanceResourceProvisioningStatusIndicator string
 // InstanceResourceSecurityFeature Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
 type InstanceResourceSecurityFeature string
 
+// InstanceResourceTrustedAttestationStatusIndicator Indicates interpretation of trusted_attestation_status. Set by RMs only.
+type InstanceResourceTrustedAttestationStatusIndicator string
+
 // InstanceResourceUpdateStatusIndicator Indicates interpretation of update_status. Set by RMs only.
 type InstanceResourceUpdateStatusIndicator string
 
@@ -635,6 +659,18 @@ type ListInstancesResponse struct {
 
 	// Instances Sorted and filtered list of instances.
 	Instances []InstanceResource `json:"instances"`
+
+	// TotalElements Count of items in the entire list, regardless of pagination.
+	TotalElements int32 `json:"totalElements"`
+}
+
+// ListLocalAccountsResponse Response message for the ListLocalAccounts method.
+type ListLocalAccountsResponse struct {
+	// HasNext Inform if there are more elements
+	HasNext bool `json:"hasNext"`
+
+	// LocalAccounts Sorted and filtered list of localaccounts.
+	LocalAccounts []LocalAccountResource `json:"localAccounts"`
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
@@ -827,6 +863,21 @@ type ListWorkloadsResponse struct {
 
 	// Workloads Sorted and filtered list of workloads.
 	Workloads []WorkloadResource `json:"workloads"`
+}
+
+// LocalAccountResource defines model for LocalAccountResource.
+type LocalAccountResource struct {
+	CreatedAt *string `json:"createdAt,omitempty"`
+
+	// ResourceId resource identifier
+	ResourceId *string `json:"resourceId,omitempty"`
+
+	// SshKey SSH Public Key of EN
+	SshKey    string  `json:"sshKey"`
+	UpdatedAt *string `json:"updatedAt,omitempty"`
+
+	// Username Username provided by admin
+	Username string `json:"username"`
 }
 
 // MetadataItem A metadata item, represented by a key:value pair.
@@ -1304,6 +1355,21 @@ type InstanceServiceListInstancesParams struct {
 	Offset *uint32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
+type LocalAccountServiceListLocalAccountsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
+	PageSize *uint32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *uint32 `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // LocationServiceListLocationsParams defines parameters for LocationServiceListLocations.
 type LocationServiceListLocationsParams struct {
 	// Name Filter locations by name
@@ -1561,6 +1627,9 @@ type InstanceServiceCreateInstanceJSONRequestBody = InstanceResource
 
 // InstanceServiceUpdateInstanceJSONRequestBody defines body for InstanceServiceUpdateInstance for application/json ContentType.
 type InstanceServiceUpdateInstanceJSONRequestBody = InstanceResource
+
+// LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
+type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
 
 // OperatingSystemServiceCreateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceCreateOperatingSystemJSONRequestBody = OperatingSystemResource

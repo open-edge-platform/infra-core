@@ -81,7 +81,9 @@ func fromInvWorkloadMember(invWorkloadMember *inv_computev1.WorkloadMember) (*co
 		Kind:             computev1.WorkloadMemberKind(invWorkloadMember.GetKind()),
 		Workload:         workload,
 		Instance:         instance,
+		InstanceId:       instance.GetResourceId(),
 		Member:           instance,
+		WorkloadId:       workload.GetResourceId(),
 	}
 
 	return workloadMember, nil
