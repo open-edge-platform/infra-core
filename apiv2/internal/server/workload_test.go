@@ -17,9 +17,9 @@ import (
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example workload member resources
+	// Example workload member resources.
 	exampleAPIWorkloadMemberInternal = &computev1.WorkloadMember{
 		ResourceId:       "workload-member-12345678",
 		WorkloadMemberId: "workload-member-12345678", // Alias of ResourceId
@@ -36,7 +36,7 @@ var (
 		},
 	}
 
-	// Example workload resources
+	// Example workload resources.
 	exampleAPIWorkload = &computev1.WorkloadResource{
 		ResourceId: "workload-12345678",
 		WorkloadId: "workload-12345678", // Alias of ResourceId

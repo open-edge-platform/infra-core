@@ -20,9 +20,9 @@ import (
 	schedule_cache "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client/cache/schedule"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example API single schedule resource with host target
+	// Example API single schedule resource with host target.
 	exampleAPIHostSingleSchedule = &schedulev1.SingleScheduleResource{
 		ResourceId:       "schedule-12345678",
 		SingleScheduleId: "schedule-12345678", // Alias of ResourceId
@@ -36,7 +36,7 @@ var (
 		},
 	}
 
-	// Example API single schedule resource with site target
+	// Example API single schedule resource with site target.
 	exampleAPISiteSingleSchedule = &schedulev1.SingleScheduleResource{
 		ResourceId:       "schedule-23456789",
 		SingleScheduleId: "schedule-23456789", // Alias of ResourceId
@@ -46,10 +46,10 @@ var (
 		EndSeconds:       86400, // 24 hours
 		TargetSiteId:     "site-12345678",
 		// We would typically populate the Relation field here,
-		// but for testing we can leave it empty as the test would mock the response
+		// but for testing we can leave it empty as the test would mock the response.
 	}
 
-	// Example API single schedule resource with region target
+	// Example API single schedule resource with region target.
 	exampleAPIRegionSingleSchedule = &schedulev1.SingleScheduleResource{
 		ResourceId:       "schedule-34567890",
 		SingleScheduleId: "schedule-34567890", // Alias of ResourceId
@@ -59,10 +59,10 @@ var (
 		EndSeconds:       604800, // 7 days
 		TargetRegionId:   "region-12345678",
 		// We would typically populate the Relation field here,
-		// but for testing we can leave it empty as the test would mock the response
+		// but for testing we can leave it empty as the test would mock the response.
 	}
 
-	// Example inventory single schedule resource with host target
+	// Example inventory single schedule resource with host target.
 	exampleInvHostSingleSchedule = &inv_schedulev1.SingleScheduleResource{
 		ResourceId:     "schedule-12345678",
 		Name:           "example-host-schedule",
@@ -79,7 +79,7 @@ var (
 		UpdatedAt: "2025-04-22T10:30:00Z",
 	}
 
-	// Example inventory single schedule resource with site target
+	// Example inventory single schedule resource with site target.
 	exampleInvSiteSingleSchedule = &inv_schedulev1.SingleScheduleResource{
 		ResourceId:     "schedule-23456789",
 		Name:           "example-site-schedule",
@@ -96,7 +96,7 @@ var (
 		UpdatedAt: "2025-04-22T11:30:00Z",
 	}
 
-	// Example inventory single schedule resource with region target
+	// Example inventory single schedule resource with region target.
 	exampleInvRegionSingleSchedule = &inv_schedulev1.SingleScheduleResource{
 		ResourceId:     "schedule-34567890",
 		Name:           "example-region-schedule",
@@ -199,6 +199,7 @@ func TestSingleSchedule_Create(t *testing.T) {
 	}
 }
 
+//nolint:funlen // TestSingleSchedule_Get tests the GetSingleSchedule method of the InventorygRPCServer.
 func TestSingleSchedule_Get(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{
@@ -323,7 +324,8 @@ func TestSingleSchedule_List(t *testing.T) {
 			name: "List SingleSchedules",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
-					mockedClient.On("GetSingleSchedules", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
+					mockedClient.On("GetSingleSchedules",
+						mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 						Return([]*inv_schedulev1.SingleScheduleResource{
 							exampleInvHostSingleSchedule,
 							exampleInvSiteSingleSchedule,
@@ -342,7 +344,8 @@ func TestSingleSchedule_List(t *testing.T) {
 			name: "List SingleSchedules with host filter",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
-					mockedClient.On("GetSingleSchedules", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
+					mockedClient.On("GetSingleSchedules",
+						mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 						Return([]*inv_schedulev1.SingleScheduleResource{
 							exampleInvHostSingleSchedule,
 						}, false, 1, nil).Once(),
@@ -360,7 +363,8 @@ func TestSingleSchedule_List(t *testing.T) {
 			name: "List SingleSchedules with error",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
-					mockedClient.On("GetSingleSchedules", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
+					mockedClient.On("GetSingleSchedules",
+						mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 						Return(nil, false, 0, errors.New("error")).Once(),
 				}
 			},
@@ -400,11 +404,9 @@ func TestSingleSchedule_List(t *testing.T) {
 					t.Errorf("ListSingleSchedules() got %v schedules, want 1", len(reply.GetSingleSchedules()))
 				}
 				compareProtoMessages(t, exampleAPIHostSingleSchedule, reply.GetSingleSchedules()[0])
-			} else {
+			} else if len(reply.GetSingleSchedules()) != 3 {
 				// For no filter, we expect all schedules
-				if len(reply.GetSingleSchedules()) != 3 {
-					t.Errorf("ListSingleSchedules() got %v schedules, want 3", len(reply.GetSingleSchedules()))
-				}
+				t.Errorf("ListSingleSchedules() got %v schedules, want 3", len(reply.GetSingleSchedules()))
 			}
 		})
 	}

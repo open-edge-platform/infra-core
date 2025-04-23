@@ -17,9 +17,9 @@ import (
 	inv_providerv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example provider resource from the API
+	// Example provider resource from the API.
 	exampleAPIProviderResource = &providerv1.ProviderResource{
 		ResourceId:     "provider-12345678",
 		ProviderKind:   providerv1.ProviderKind_PROVIDER_KIND_BAREMETAL,
@@ -31,7 +31,7 @@ var (
 		ProviderId:     "provider-12345678", // Alias of ResourceId
 	}
 
-	// Example provider resource from the Inventory
+	// Example provider resource from the Inventory.
 	exampleInvProviderResource = &inv_providerv1.ProviderResource{
 		ResourceId:     "provider-12345678",
 		ProviderKind:   inv_providerv1.ProviderKind_PROVIDER_KIND_BAREMETAL,

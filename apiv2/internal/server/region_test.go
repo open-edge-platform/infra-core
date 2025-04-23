@@ -18,9 +18,9 @@ import (
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example parent region resources
+	// Example parent region resources.
 	exampleParentAPIRegion = &locationv1.RegionResource{
 		ResourceId:        "region-12345679",
 		RegionId:          "region-12345679", // Alias of ResourceId
@@ -35,7 +35,7 @@ var (
 		Metadata:   `[]`,
 	}
 
-	// Example region resources
+	// Example region resources.
 	exampleAPIRegion = &locationv1.RegionResource{
 		ResourceId:        "region-12345678",
 		RegionId:          "region-12345678", // Alias of ResourceId

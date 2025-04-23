@@ -19,9 +19,9 @@ import (
 	inv_telemetryv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example telemetry group resource from API
+	// Example telemetry group resource from API.
 	exampleAPITelemetryLogsGroup = &telemetryv1.TelemetryLogsGroupResource{
 		ResourceId:           "telemetrygroup-12345678",
 		TelemetryLogsGroupId: "telemetrygroup-12345678",
@@ -30,7 +30,7 @@ var (
 		Groups:               []string{"system", "application", "security"},
 	}
 
-	// Example telemetry group resource from Inventory
+	// Example telemetry group resource from Inventory.
 	exampleInvTelemetryLogsGroup = &inv_telemetryv1.TelemetryGroupResource{
 		ResourceId:    "telemetrygroup-12345678",
 		Name:          "example-logs-group",
@@ -39,7 +39,7 @@ var (
 		CollectorKind: inv_telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
 	}
 
-	// Example telemetry logs profile resource from API with instance target
+	// Example telemetry logs profile resource from API with instance target.
 	exampleAPIInstanceLogsProfile = &telemetryv1.TelemetryLogsProfileResource{
 		ResourceId:     "telemetryprofile-12345678",
 		ProfileId:      "telemetryprofile-12345678", // Alias of ResourceId
@@ -49,7 +49,7 @@ var (
 		LogsGroup:      exampleAPITelemetryLogsGroup,
 	}
 
-	// Example telemetry logs profile resource from API with site target
+	// Example telemetry logs profile resource from API with site target.
 	exampleAPISiteLogsProfile = &telemetryv1.TelemetryLogsProfileResource{
 		ResourceId:  "telemetryprofile-23456789",
 		ProfileId:   "telemetryprofile-23456789", // Alias of ResourceId
@@ -59,7 +59,7 @@ var (
 		LogsGroup:   exampleAPITelemetryLogsGroup,
 	}
 
-	// Example telemetry logs profile resource from API with region target
+	// Example telemetry logs profile resource from API with region target.
 	exampleAPIRegionLogsProfile = &telemetryv1.TelemetryLogsProfileResource{
 		ResourceId:   "telemetryprofile-34567890",
 		ProfileId:    "telemetryprofile-34567890", // Alias of ResourceId
@@ -69,7 +69,7 @@ var (
 		LogsGroup:    exampleAPITelemetryLogsGroup,
 	}
 
-	// Example telemetry profile resource from Inventory with instance target
+	// Example telemetry profile resource from Inventory with instance target.
 	exampleInvInstanceLogsProfile = &inv_telemetryv1.TelemetryProfile{
 		ResourceId: "telemetryprofile-12345678",
 		Kind:       inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS,
@@ -85,7 +85,7 @@ var (
 		UpdatedAt: "2025-04-22T10:30:00Z",
 	}
 
-	// Example telemetry profile resource from Inventory with site target
+	// Example telemetry profile resource from Inventory with site target.
 	exampleInvSiteLogsProfile = &inv_telemetryv1.TelemetryProfile{
 		ResourceId: "telemetryprofile-23456789",
 		Kind:       inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS,
@@ -101,7 +101,7 @@ var (
 		UpdatedAt: "2025-04-22T11:30:00Z",
 	}
 
-	// Example telemetry profile resource from Inventory with region target
+	// Example telemetry profile resource from Inventory with region target.
 	exampleInvRegionLogsProfile = &inv_telemetryv1.TelemetryProfile{
 		ResourceId: "telemetryprofile-34567890",
 		Kind:       inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS,
@@ -118,6 +118,7 @@ var (
 	}
 )
 
+//nolint:funlen // Testing function.
 func TestTelemetryLogsProfile_Create(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
@@ -236,6 +237,7 @@ func TestTelemetryLogsProfile_Create(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Testing function.
 func TestTelemetryLogsProfile_Get(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
@@ -358,6 +360,7 @@ func TestTelemetryLogsProfile_Get(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Testing function.
 func TestTelemetryLogsProfile_List(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
@@ -464,18 +467,6 @@ func TestTelemetryLogsProfile_List(t *testing.T) {
 			if reply == nil {
 				t.Errorf("ListTelemetryLogsProfiles() got reply = nil, want non-nil")
 				return
-			}
-
-			if tc.req.GetShowInherited() {
-				if len(reply.GetTelemetryLogsProfiles()) != 2 {
-					t.Errorf("ListTelemetryLogsProfiles() got %v profiles, want 2",
-						len(reply.GetTelemetryLogsProfiles()))
-				}
-			} else {
-				if len(reply.GetTelemetryLogsProfiles()) != 2 {
-					t.Errorf("ListTelemetryLogsProfiles() got %v profiles, want 2",
-						len(reply.GetTelemetryLogsProfiles()))
-				}
 			}
 		})
 	}

@@ -33,7 +33,6 @@ func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 			compareProtoMessages(t, field1.Interface().(proto.Message), field2.Interface().(proto.Message))
 		} else if field1.Kind() == reflect.Slice &&
 			field1.Type().Elem().Implements(reflect.TypeOf((*proto.Message)(nil)).Elem()) {
-
 			// Check slice lengths first
 			field1Len := field1.Len()
 			field2Len := field2.Len()

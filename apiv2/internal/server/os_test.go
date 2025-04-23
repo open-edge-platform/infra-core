@@ -17,9 +17,9 @@ import (
 	inv_osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example OS resource from the API
+	// Example OS resource from the API.
 	exampleAPIOSResource = &osv1.OperatingSystemResource{
 		ResourceId:        "os-12345678",
 		Name:              "example-os",
@@ -38,7 +38,7 @@ var (
 		OsResourceId:      "os-12345678", // Alias of ResourceId
 	}
 
-	// Example OS resource from the Inventory
+	// Example OS resource from the Inventory.
 	exampleInvOSResource = &inv_osv1.OperatingSystemResource{
 		ResourceId:        "os-12345678",
 		Name:              "example-os",

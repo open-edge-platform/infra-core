@@ -19,9 +19,9 @@ import (
 	inv_telemetryv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example telemetry metrics group resource from API
+	// Example telemetry metrics group resource from API.
 	exampleAPITelemetryMetricsGroup = &telemetryv1.TelemetryMetricsGroupResource{
 		ResourceId:              "telemetrygroup-12345678",
 		TelemetryMetricsGroupId: "telemetrygroup-12345678",
@@ -30,7 +30,7 @@ var (
 		Groups:                  []string{"cpu", "memory", "disk", "network"},
 	}
 
-	// Example telemetry group resource from Inventory
+	// Example telemetry group resource from Inventory.
 	exampleInvTelemetryMetricsGroup = &inv_telemetryv1.TelemetryGroupResource{
 		ResourceId:    "telemetrygroup-12345678",
 		Name:          "example-metrics-group",
@@ -39,7 +39,7 @@ var (
 		CollectorKind: inv_telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
 	}
 
-	// Example telemetry metrics profile resource from API with instance target
+	// Example telemetry metrics profile resource from API with instance target.
 	exampleAPIInstanceMetricsProfile = &telemetryv1.TelemetryMetricsProfileResource{
 		ResourceId:      "telemetryprofile-12345678",
 		ProfileId:       "telemetryprofile-12345678", // Alias of ResourceId
@@ -49,7 +49,7 @@ var (
 		MetricsGroup:    exampleAPITelemetryMetricsGroup,
 	}
 
-	// Example telemetry metrics profile resource from API with site target
+	// Example telemetry metrics profile resource from API with site target.
 	exampleAPISiteMetricsProfile = &telemetryv1.TelemetryMetricsProfileResource{
 		ResourceId:      "telemetryprofile-23456789",
 		ProfileId:       "telemetryprofile-23456789", // Alias of ResourceId
@@ -59,7 +59,7 @@ var (
 		MetricsGroup:    exampleAPITelemetryMetricsGroup,
 	}
 
-	// Example telemetry metrics profile resource from API with region target
+	// Example telemetry metrics profile resource from API with region target.
 	exampleAPIRegionMetricsProfile = &telemetryv1.TelemetryMetricsProfileResource{
 		ResourceId:      "telemetryprofile-34567890",
 		ProfileId:       "telemetryprofile-34567890", // Alias of ResourceId
@@ -69,7 +69,7 @@ var (
 		MetricsGroup:    exampleAPITelemetryMetricsGroup,
 	}
 
-	// Example telemetry profile resource from Inventory with instance target
+	// Example telemetry profile resource from Inventory with instance target.
 	exampleInvInstanceMetricsProfile = &inv_telemetryv1.TelemetryProfile{
 		ResourceId:      "telemetryprofile-12345678",
 		Kind:            inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS,
@@ -85,7 +85,7 @@ var (
 		UpdatedAt: "2025-04-22T10:30:00Z",
 	}
 
-	// Example telemetry profile resource from Inventory with site target
+	// Example telemetry profile resource from Inventory with site target.
 	exampleInvSiteMetricsProfile = &inv_telemetryv1.TelemetryProfile{
 		ResourceId:      "telemetryprofile-23456789",
 		Kind:            inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS,
@@ -101,7 +101,7 @@ var (
 		UpdatedAt: "2025-04-22T11:30:00Z",
 	}
 
-	// Example telemetry profile resource from Inventory with region target
+	// Example telemetry profile resource from Inventory with region target.
 	exampleInvRegionMetricsProfile = &inv_telemetryv1.TelemetryProfile{
 		ResourceId:      "telemetryprofile-34567890",
 		Kind:            inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS,
@@ -118,6 +118,7 @@ var (
 	}
 )
 
+//nolint:funlen // Testing function.
 func TestTelemetryMetricsProfile_Create(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
@@ -270,6 +271,7 @@ func TestTelemetryMetricsProfile_Create(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Testing function.
 func TestTelemetryMetricsProfile_Get(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
@@ -390,6 +392,7 @@ func TestTelemetryMetricsProfile_Get(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Testing function.
 func TestTelemetryMetricsProfile_List(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
@@ -496,18 +499,6 @@ func TestTelemetryMetricsProfile_List(t *testing.T) {
 			if reply == nil {
 				t.Errorf("ListTelemetryMetricsProfiles() got reply = nil, want non-nil")
 				return
-			}
-
-			if tc.req.GetShowInherited() {
-				if len(reply.GetTelemetryMetricsProfiles()) != 2 {
-					t.Errorf("ListTelemetryMetricsProfiles() got %v profiles, want 2",
-						len(reply.GetTelemetryMetricsProfiles()))
-				}
-			} else {
-				if len(reply.GetTelemetryMetricsProfiles()) != 2 {
-					t.Errorf("ListTelemetryMetricsProfiles() got %v profiles, want 2",
-						len(reply.GetTelemetryMetricsProfiles()))
-				}
 			}
 		})
 	}

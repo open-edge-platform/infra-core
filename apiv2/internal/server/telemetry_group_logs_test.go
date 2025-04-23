@@ -17,9 +17,9 @@ import (
 	inv_telemetryv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example telemetry logs group resource from the API
+	// Example telemetry logs group resource from the API.
 	exampleAPITelemetryLogsGroupResource = &telemetryv1.TelemetryLogsGroupResource{
 		ResourceId:           "telemetry-logs-12345678",
 		TelemetryLogsGroupId: "telemetry-logs-12345678", // Alias of ResourceId
@@ -28,8 +28,8 @@ var (
 		Groups:               []string{"system", "application", "security"},
 	}
 
-	// Example telemetry group resource from the Inventory
-	// Note: in inventory it's TelemetryGroupResource with Kind=TELEMETRY_RESOURCE_KIND_LOGS
+	// Example telemetry group resource from the Inventory.
+	// Note: in inventory it's TelemetryGroupResource with Kind=TELEMETRY_RESOURCE_KIND_LOGS.
 	exampleInvTelemetryLogsGroupResource = &inv_telemetryv1.TelemetryGroupResource{
 		ResourceId:    "telemetry-logs-12345678",
 		Name:          "example-logs-group",

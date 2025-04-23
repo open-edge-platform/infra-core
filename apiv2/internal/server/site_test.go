@@ -18,9 +18,9 @@ import (
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example site resource from the API
+	// Example site resource from the API.
 	exampleAPISite = &locationv1.SiteResource{
 		ResourceId: "site-12345678",
 		SiteId:     "site-12345678", // Alias of ResourceId
@@ -38,7 +38,7 @@ var (
 		},
 	}
 
-	// Example site resource from the Inventory
+	// Example site resource from the Inventory.
 	exampleInvSite = &inv_locationv1.SiteResource{
 		ResourceId: "site-12345678",
 		Name:       "example-site",
@@ -156,7 +156,8 @@ func TestSite_Get(t *testing.T) {
 								},
 							},
 							RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-								PhyMetadata: `[{"key":"environment","value":"production"},{"key":"location","value":"datacenter-1"}]`,
+								PhyMetadata: `[{"key":"environment","value":"production"},
+									{"key":"location","value":"datacenter-1"}]`,
 							},
 						}, nil).Once(),
 				}
@@ -233,7 +234,8 @@ func TestSite_List(t *testing.T) {
 										},
 									},
 									RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-										PhyMetadata: `[{"key":"environment","value":"production"},{"key":"location","value":"datacenter-1"}]`,
+										PhyMetadata: `[{"key":"environment","value":"production"},
+											{"key":"location","value":"datacenter-1"}]`,
 									},
 								},
 							},

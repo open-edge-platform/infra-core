@@ -19,9 +19,9 @@ import (
 	inv_schedulev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/schedule/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example API repeated schedule resource with host target
+	// Example API repeated schedule resource with host target.
 	exampleAPIHostRepeatedSchedule = &schedulev1.RepeatedScheduleResource{
 		ResourceId:         "schedule-12345678",
 		RepeatedScheduleId: "schedule-12345678", // Alias of ResourceId
@@ -39,7 +39,7 @@ var (
 		},
 	}
 
-	// Example API repeated schedule resource with site target
+	// Example API repeated schedule resource with site target.
 	exampleAPISiteRepeatedSchedule = &schedulev1.RepeatedScheduleResource{
 		ResourceId:         "schedule-23456789",
 		RepeatedScheduleId: "schedule-23456789", // Alias of ResourceId
@@ -53,10 +53,10 @@ var (
 		CronDayWeek:        "*",
 		TargetSiteId:       "site-12345678",
 		// We would typically populate the Relation field here,
-		// but for testing we can leave it empty as the test would mock the response
+		// but for testing we can leave it empty as the test would mock the response.
 	}
 
-	// Example API repeated schedule resource with region target
+	// Example API repeated schedule resource with region target.
 	exampleAPIRegionRepeatedSchedule = &schedulev1.RepeatedScheduleResource{
 		ResourceId:         "schedule-34567890",
 		RepeatedScheduleId: "schedule-34567890", // Alias of ResourceId
@@ -70,10 +70,10 @@ var (
 		CronDayWeek:        "*",
 		TargetRegionId:     "region-12345678",
 		// We would typically populate the Relation field here,
-		// but for testing we can leave it empty as the test would mock the response
+		// but for testing we can leave it empty as the test would mock the response.
 	}
 
-	// Example inventory repeated schedule resource with host target
+	// Example inventory repeated schedule resource with host target.
 	exampleInvHostRepeatedSchedule = &inv_schedulev1.RepeatedScheduleResource{
 		ResourceId:      "schedule-12345678",
 		Name:            "example-host-schedule",
@@ -94,7 +94,7 @@ var (
 		UpdatedAt: "2025-04-22T10:30:00Z",
 	}
 
-	// Example inventory repeated schedule resource with site target
+	// Example inventory repeated schedule resource with site target.
 	exampleInvSiteRepeatedSchedule = &inv_schedulev1.RepeatedScheduleResource{
 		ResourceId:      "schedule-23456789",
 		Name:            "example-site-schedule",
@@ -115,7 +115,7 @@ var (
 		UpdatedAt: "2025-04-22T11:30:00Z",
 	}
 
-	// Example inventory repeated schedule resource with region target
+	// Example inventory repeated schedule resource with region target.
 	exampleInvRegionRepeatedSchedule = &inv_schedulev1.RepeatedScheduleResource{
 		ResourceId:      "schedule-34567890",
 		Name:            "example-region-schedule",
@@ -222,6 +222,7 @@ func TestRepeatedSchedule_Create(t *testing.T) {
 	}
 }
 
+//nolint:funlen // This function is long, but it's a test function that covers multiple cases.
 func TestRepeatedSchedule_Get(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{
@@ -347,7 +348,8 @@ func TestRepeatedSchedule_List(t *testing.T) {
 			name: "List RepeatedSchedules",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
-					mockedClient.On("GetRepeatedSchedules", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
+					mockedClient.On("GetRepeatedSchedules",
+						mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 						Return([]*inv_schedulev1.RepeatedScheduleResource{
 							exampleInvHostRepeatedSchedule,
 							exampleInvSiteRepeatedSchedule,
@@ -366,7 +368,8 @@ func TestRepeatedSchedule_List(t *testing.T) {
 			name: "List RepeatedSchedules with host filter",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
-					mockedClient.On("GetRepeatedSchedules", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
+					mockedClient.On("GetRepeatedSchedules",
+						mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 						Return([]*inv_schedulev1.RepeatedScheduleResource{
 							exampleInvHostRepeatedSchedule,
 						}, false, 1, nil).Once(),
@@ -384,7 +387,8 @@ func TestRepeatedSchedule_List(t *testing.T) {
 			name: "List RepeatedSchedules with error",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
-					mockedClient.On("GetRepeatedSchedules", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
+					mockedClient.On("GetRepeatedSchedules",
+						mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 						Return(nil, false, 0, errors.New("error")).Once(),
 				}
 			},
@@ -424,11 +428,9 @@ func TestRepeatedSchedule_List(t *testing.T) {
 					t.Errorf("ListRepeatedSchedules() got %v schedules, want 1", len(reply.GetRepeatedSchedules()))
 				}
 				compareProtoMessages(t, exampleAPIHostRepeatedSchedule, reply.GetRepeatedSchedules()[0])
-			} else {
+			} else if len(reply.GetRepeatedSchedules()) != 3 {
 				// For no filter, we expect all schedules
-				if len(reply.GetRepeatedSchedules()) != 3 {
-					t.Errorf("ListRepeatedSchedules() got %v schedules, want 3", len(reply.GetRepeatedSchedules()))
-				}
+				t.Errorf("ListRepeatedSchedules() got %v schedules, want 3", len(reply.GetRepeatedSchedules()))
 			}
 		})
 	}

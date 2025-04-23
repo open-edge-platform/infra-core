@@ -20,9 +20,9 @@ import (
 	inv_statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 )
 
-// Example resources for testing
+// Example resources for testing.
 var (
-	// Example instance resource from the API
+	// Example instance resource from the API.
 	exampleAPIInstanceResource = &computev1.InstanceResource{
 		ResourceId:      "inst-12345678",
 		Kind:            computev1.InstanceKind_INSTANCE_KIND_METAL,
@@ -36,7 +36,7 @@ var (
 		InstanceId: "inst-12345678", // Alias of ResourceId
 	}
 
-	// Example instance resource from the Inventory
+	// Example instance resource from the Inventory.
 	exampleInvInstanceResource = &inv_computev1.InstanceResource{
 		ResourceId:      "inst-12345678",
 		Kind:            inv_computev1.InstanceKind_INSTANCE_KIND_METAL,
