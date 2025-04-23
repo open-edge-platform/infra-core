@@ -21,4 +21,9 @@ updates:
     groups:
       dependencies:
         patterns:
-         - "*"
+          - "*"
+        exclude-patterns:  # Internal dependencies are update into separate PRs.
+          - "*open-edge-platform*"
+      internal-dependencies:
+        patterns:
+          - "*open-edge-platform*"
