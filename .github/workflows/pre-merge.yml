@@ -39,6 +39,9 @@ jobs:
           filtered_projects=$(echo "$changed_projects" | jq -cr --argjson folders_to_remove "$folders_to_remove" 'map(select(. as $item | $folders_to_remove | index($item) | not))')
           other_changed_projects=$(echo "$changed_projects" | jq -cr --argjson filtered_projects "$filtered_projects" 'map(select(. as $item | $filtered_projects | index($item) | not))')
 
+          echo "filtered_projects: $filtered_projects"
+          echo "other_changed_projects: $other_changed_projects"
+
           echo "filtered_projects=$filtered_projects" >> $GITHUB_OUTPUT
           echo "other_changed_projects=$other_changed_projects" >> $GITHUB_OUTPUT
   pre-merge-root:
