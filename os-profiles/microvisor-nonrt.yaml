@@ -13,7 +13,7 @@ spec:
   profileName: microvisor-nonrt  # Name has to be identical to this file's name
   osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250413.2200-prod-signed.raw.gz
   osImageVersion: 3.0.20250413.2200
-  osImageSha256: 5730460ab4cbf2b6117c99ef4751063725ef98309e21dfd818c09f125c3ebaea
+  osImageSha256: BLAAaec070645fe53ee3b3763059376134f058cc337247c978add178b6ccdfb0019f
   osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250413.2200_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   platformBundle:
