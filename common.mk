@@ -24,7 +24,7 @@ SHELL	:= bash -eu -o pipefail
 
 # GO variables
 GOARCH	:= $(shell go env GOARCH)
-GOCMD   := GOPRIVATE="github.com/open-edge-platform/*" go
+GOCMD   := go
 
 # Path variables
 OUT_DIR	:= out
