@@ -453,7 +453,7 @@ func (m *HostResource) validate(all bool) error {
 	if !_HostResource_SiteId_Pattern.MatchString(m.GetSiteId()) {
 		err := HostResourceValidationError{
 			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -614,7 +614,7 @@ var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<
 
 var _HostResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
-var _HostResource_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
 // Validate checks the field values on HoststorageResource with the rules
 // defined in the proto definition for this message. If any rules are

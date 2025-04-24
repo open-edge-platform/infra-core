@@ -357,9 +357,7 @@ func UnallocateHostFromSite(t testing.TB, ctx context.Context, apiClient *api.Cl
 	)
 	if res.StatusCode() != http.StatusOK {
 		fmt.Println("UnallocateHostFromSite failed")
-		fmt.Println(res.JSONDefault.Message)
-		fmt.Println(res.JSONDefault.Details)
-		fmt.Println(res.JSONDefault.Code)
+		fmt.Println(*res.JSONDefault.Message)
 	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())

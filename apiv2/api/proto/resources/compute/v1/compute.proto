@@ -159,7 +159,7 @@ message HostResource {
   string site_id = 5002 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^site-[0-9a-f]{8}$"
+      pattern: "^$|^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
   ];

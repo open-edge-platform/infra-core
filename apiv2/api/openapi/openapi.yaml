@@ -2941,7 +2941,7 @@ components:
                     description: Resource ID, generated on Create.
                 siteId:
                     writeOnly: true
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The site where the host is located.
                 metadata:
