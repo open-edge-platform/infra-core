@@ -15,8 +15,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin os tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)

@@ -14,8 +14,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin RepeatedSched tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)

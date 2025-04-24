@@ -16,8 +16,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestHostCustom(t *testing.T) {
 	log.Info().Msgf("Begin compute host tests")
 

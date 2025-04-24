@@ -37,7 +37,7 @@ func assertSameMemberIDs(t *testing.T, expectedMembers, actualMembers []api.Work
 }
 
 func TestWorkload_CreateGetDelete(t *testing.T) {
-	log.Info().Msgf("Begin workload cluster tests")
+	log.Info().Msgf("Begin workload CRUD tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
@@ -145,7 +145,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 
 	clearInstanceIDs()
 
-	log.Info().Msgf("End workload cluster tests")
+	log.Info().Msgf("End workload CRUD tests")
 }
 
 func TestWorkload_UpdatePut(t *testing.T) {
