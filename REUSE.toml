@@ -14,7 +14,7 @@ path = [
   "inventory/**",
   "tenant-controller/**",
   "inventory/docs/inventory-er-diagram.svg",
-   "inventory/docs/output.dbml",
+  "inventory/docs/output.dbml",
 ]
 
 precedence = "aggregate"

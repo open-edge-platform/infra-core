@@ -249,7 +249,6 @@ go-fuzz: policy-build certificates ## go fuzz test
 	$(MAKE) db-stop
 
 gen-er-diagram: ## Generate ER diagram
-	which sql2dbml
 	sql2dbml sql/inventory.sql -o docs/output.dbml
 	dbml-renderer --input docs/output.dbml --output docs/inventory-er-diagram.svg
 
