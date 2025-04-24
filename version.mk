@@ -51,12 +51,13 @@ ifeq ($(GCC), true)
 	@(if ! [ $(GCC_REQ) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"gcc\" installed\e[1;m" && exit 1 ; fi)
 endif
 ifeq ($(DBMLCLI), true)
+    which sql2dbml
 	@(echo "$(DBMLCLI_HAVE)" | grep "$(DBMLCLI_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-cli\nRecommended: $(DBMLCLI_REQ)\nYours: $(DBMLCLI_HAVE)\e[1;m" && exit 1)
 endif
 ifeq ($(DBMLRENDERER), true)
 	@(echo "$(DBMLRENDERER_HAVE)" | grep "$(DBMLRENDERER_REQ)" > /dev/null) || \
-	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-cli\nRecommended: $(DBMLRENDERER_REQ)\nYours: $(DBMLRENDERER_HAVE)\e[1;m" && exit 1)
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-renderer\nRecommended: $(DBMLRENDERER_REQ)\nYours: $(DBMLRENDERER_HAVE)\e[1;m" && exit 1)
 endif
 
 
