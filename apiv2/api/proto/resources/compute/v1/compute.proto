@@ -380,7 +380,7 @@ message InstanceResource {
   // Indicates interpretation of trusted_attestation_status. Set by RMs only.
   status.v1.StatusIndication trusted_attestation_status_indicator = 27 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-  uint64 trusted_attestation_status_timestamp = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string trusted_attestation_status_timestamp = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The workload members associated with the instance.
   repeated WorkloadMember workload_members = 30 [(google.api.field_behavior) = OUTPUT_ONLY]; // back-reference to the Workload Members associated to this Instance

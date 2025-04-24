@@ -592,7 +592,7 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator *InstanceResourceTrustedAttestationStatusIndicator `json:"trustedAttestationStatusIndicator,omitempty"`
 
 	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	TrustedAttestationStatusTimestamp *uint64 `json:"trustedAttestationStatusTimestamp,omitempty"`
+	TrustedAttestationStatusTimestamp *string `json:"trustedAttestationStatusTimestamp,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`

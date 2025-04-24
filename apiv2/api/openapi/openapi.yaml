@@ -3233,9 +3233,8 @@ components:
                     format: enum
                 trustedAttestationStatusTimestamp:
                     readOnly: true
-                    type: integer
+                    type: string
                     description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-                    format: uint64
                 workloadMembers:
                     readOnly: true
                     type: array
