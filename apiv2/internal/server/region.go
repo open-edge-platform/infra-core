@@ -23,7 +23,7 @@ var OpenAPIRegionToProto = map[string]string{
 	"Name":     inv_locationv1.RegionResourceFieldName,
 	"ParentId": inv_locationv1.RegionResourceEdgeParentRegion,
 	// "Metadata": inv_locationv1.RegionResourceFieldMetadata,
-} // [ResourceId Name ParentRegion RegionId Metadata InheritedMetadata TotalSites ParentId]
+}
 
 var OpenAPIRegionObjectsNames = map[string]struct{}{
 	"Metadata":          {},

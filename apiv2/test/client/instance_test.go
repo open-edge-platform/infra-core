@@ -81,8 +81,8 @@ func TestInstance_Update(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	utils.Host1Request.SiteId = nil
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	utils.Host3Request.SiteId = nil
+	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId
@@ -91,10 +91,24 @@ func TestInstance_Update(t *testing.T) {
 	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	assert.Equal(t, utils.Inst1Name, *inst1.JSON200.Name)
 
-	inst1Get, err := apiClient.InstanceServiceGetInstanceWithResponse(ctx, *inst1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	inst1Mod := *inst1.JSON200
+	newName := utils.Inst1Name + "-mod"
+	inst1Mod.Name = &newName
+	inst1Up, err := apiClient.InstanceServiceUpdateInstanceWithResponse(
+		ctx, *inst1.JSON200.ResourceId,
+		inst1Mod,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, inst1Up.StatusCode())
+	assert.Equal(t, newName, *inst1Up.JSON200.Name)
+
+	inst1Get, err := apiClient.InstanceServiceGetInstanceWithResponse(ctx,
+		*inst1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, inst1Get.StatusCode())
-	assert.Equal(t, utils.Inst1Name, *inst1Get.JSON200.Name)
+	assert.Equal(t, newName, *inst1Get.JSON200.Name)
 
 	log.Info().Msgf("End Instance Update tests")
 }

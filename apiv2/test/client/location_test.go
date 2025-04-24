@@ -326,42 +326,6 @@ func TestLocation_SiteUpdate(t *testing.T) {
 	assert.Equal(t, http.StatusOK, s1res.StatusCode())
 	assert.Nil(t, s1res.JSON200.Region)
 
-	// Updates site using Put, sets Ou to ou1 and verifies it
-	s1Up, err = apiClient.SiteServiceUpdateSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		utils.Site1RequestUpdate,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1Up.StatusCode())
-
-	s1res, err = apiClient.SiteServiceGetSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1res.StatusCode())
-
-	// Updates site using Put, sets Ou to emptyString and verifies it
-	s1Up, err = apiClient.SiteServiceUpdateSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		utils.Site1RequestUpdate,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1Up.StatusCode())
-
-	s1res, err = apiClient.SiteServiceGetSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1res.StatusCode())
-
 	// Updates site using Put and Patch, sets Region to wrong emptyString and verifies
 	// expected error BadRequest
 	utils.Site1RequestUpdate.RegionId = &emptyStringWrong
