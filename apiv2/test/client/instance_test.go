@@ -99,6 +99,7 @@ func TestInstance_Update(t *testing.T) {
 	inst1Mod.ResourceId = nil
 	inst1Mod.CurrentOs = nil
 	inst1Mod.DesiredOs = nil
+	inst1Mod.Host = nil
 	inst1Up, err := apiClient.InstanceServiceUpdateInstanceWithResponse(
 		ctx, *inst1.JSON200.ResourceId,
 		inst1Mod,
