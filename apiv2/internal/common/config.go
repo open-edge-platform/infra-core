@@ -164,6 +164,7 @@ func Config() (*GlobalConfig, error) {
 	enableAuditing := flag.Bool(EnableAuditing, defaultCfg.EnableAuditing, EnableAuditingDescription)
 	gRPCEndpoint := flag.String("grpcEndpoint", defaultCfg.GRPCEndpoint, "The endpoint of the gRPC server")
 	gRPCAddress := flag.String("grpcAddress", defaultCfg.GRPCEndpoint, "The gRPC server address")
+	openAPIPath := flag.String("openAPIPath", defaultCfg.RestServer.OpenAPISpecPath, "The path of the OpenAPI specification")
 	flag.Parse()
 
 	return &GlobalConfig{
@@ -182,6 +183,7 @@ func Config() (*GlobalConfig, error) {
 			OamServerAddr:     *oamservaddr,
 			EnableMetrics:     *enableMetrics,
 			MetricsAddress:    *defaultMetricsPort,
+			OpenAPISpecPath:   *openAPIPath,
 		},
 		Worker: Worker{
 			MaxWorkers: *maxWorkers,
