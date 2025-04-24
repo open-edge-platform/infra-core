@@ -22,6 +22,7 @@ func clearInstanceIDs() {
 	utils.Instance1Request.OsId = nil
 	utils.Instance2Request.OsId = nil
 	utils.Host1Request.Site = nil
+	utils.Host1Request.SiteId = nil
 }
 
 func TestInstance_CreateGetDelete(t *testing.T) {
@@ -108,9 +109,8 @@ func TestInstance_Errors(t *testing.T) {
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
-
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	utils.Host1Request.SiteId = site1.JSON200.SiteId
+	utils.Host1Request.SiteId = site1.JSON200.ResourceId
 	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
 	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)

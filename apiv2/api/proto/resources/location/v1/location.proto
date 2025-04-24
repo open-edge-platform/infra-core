@@ -62,7 +62,7 @@ message RegionResource {
   string parent_id = 5005 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^region-[0-9a-f]{8}$"
+      pattern: "^$|^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
   ];
@@ -129,7 +129,7 @@ message SiteResource {
   string region_id = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^region-[0-9a-f]{8}$"
+      pattern: "^$|^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
   ];

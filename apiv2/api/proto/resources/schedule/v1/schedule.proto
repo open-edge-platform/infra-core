@@ -75,7 +75,7 @@ message SingleScheduleResource {
   string target_host_id = 5002 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^host-[0-9a-f]{8}$"
+      pattern: "^$|^host-[0-9a-f]{8}$"
       max_bytes: 13
     }
   ];
@@ -86,7 +86,7 @@ message SingleScheduleResource {
   string target_site_id = 5003 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^site-[0-9a-f]{8}$"
+      pattern: "^$|^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
   ];
@@ -97,7 +97,7 @@ message SingleScheduleResource {
   string target_region_id = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^region-[0-9a-f]{8}$"
+      pattern: "^$|^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
   ];
@@ -181,7 +181,7 @@ message RepeatedScheduleResource {
   string target_host_id = 5002 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^host-[0-9a-f]{8}$"
+      pattern: "^$|^host-[0-9a-f]{8}$"
       max_bytes: 13
     }
   ];
@@ -192,7 +192,7 @@ message RepeatedScheduleResource {
   string target_site_id = 5003 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^site-[0-9a-f]{8}$"
+      pattern: "^$|^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
   ];
@@ -203,7 +203,7 @@ message RepeatedScheduleResource {
   string target_region_id = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^region-[0-9a-f]{8}$"
+      pattern: "^$|^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
   ];

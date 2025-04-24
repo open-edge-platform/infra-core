@@ -316,7 +316,9 @@ func CreateHost(
 	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, host.StatusCode())
-
+	if host.JSON200 == nil {
+		fmt.Printf("Host creation failed: %s", *host.JSONDefault.Message)
+	}
 	t.Cleanup(func() { SoftDeleteHost(t, context.Background(), apiClient, host.JSON200) })
 	return host
 }

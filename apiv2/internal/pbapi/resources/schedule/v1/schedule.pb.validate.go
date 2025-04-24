@@ -143,7 +143,7 @@ func (m *SingleScheduleResource) validate(all bool) error {
 	if !_SingleScheduleResource_TargetHostId_Pattern.MatchString(m.GetTargetHostId()) {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetHostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^host-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -165,7 +165,7 @@ func (m *SingleScheduleResource) validate(all bool) error {
 	if !_SingleScheduleResource_TargetSiteId_Pattern.MatchString(m.GetTargetSiteId()) {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetSiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -187,7 +187,7 @@ func (m *SingleScheduleResource) validate(all bool) error {
 	if !_SingleScheduleResource_TargetRegionId_Pattern.MatchString(m.GetTargetRegionId()) {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetRegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -409,11 +409,11 @@ var _SingleScheduleResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.
 
 var _SingleScheduleResource_SingleScheduleId_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
 
-var _SingleScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
+var _SingleScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
 
-var _SingleScheduleResource_TargetSiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _SingleScheduleResource_TargetSiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
-var _SingleScheduleResource_TargetRegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _SingleScheduleResource_TargetRegionId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
 
 // Validate checks the field values on RepeatedScheduleResource with the rules
 // defined in the proto definition for this message. If any rules are
@@ -585,7 +585,7 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 	if !_RepeatedScheduleResource_TargetHostId_Pattern.MatchString(m.GetTargetHostId()) {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetHostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^host-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -607,7 +607,7 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 	if !_RepeatedScheduleResource_TargetSiteId_Pattern.MatchString(m.GetTargetSiteId()) {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetSiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -629,7 +629,7 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 	if !_RepeatedScheduleResource_TargetRegionId_Pattern.MatchString(m.GetTargetRegionId()) {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetRegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -861,8 +861,8 @@ var _RepeatedScheduleResource_CronDayWeek_Pattern = regexp.MustCompile("^([*]|([
 
 var _RepeatedScheduleResource_RepeatedScheduleId_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
 
-var _RepeatedScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
+var _RepeatedScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
 
-var _RepeatedScheduleResource_TargetSiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _RepeatedScheduleResource_TargetSiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
-var _RepeatedScheduleResource_TargetRegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _RepeatedScheduleResource_TargetRegionId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")

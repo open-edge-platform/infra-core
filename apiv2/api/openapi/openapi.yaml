@@ -3874,7 +3874,7 @@ components:
                     format: int32
                 parentId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter.
             description: A region resource.
@@ -3943,17 +3943,17 @@ components:
                     description: The repeated schedule's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
-                    pattern: ^host-[0-9a-f]{8}$
+                    pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
             description: A repeated-schedule resource.
@@ -4001,17 +4001,17 @@ components:
                     description: The single schedule resource's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
-                    pattern: ^host-[0-9a-f]{8}$
+                    pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
             description: A single schedule resource.
@@ -4059,7 +4059,7 @@ components:
                     description: The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
                 regionId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The region's unique identifier that the site is associated to. This field cannot be used in filter.
             description: A site resource.
