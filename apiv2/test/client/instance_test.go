@@ -94,6 +94,7 @@ func TestInstance_Update(t *testing.T) {
 	inst1Mod := *inst1.JSON200
 	newName := utils.Inst1Name + "-mod"
 	inst1Mod.Name = &newName
+	inst1Mod.CurrentState = nil
 	inst1Up, err := apiClient.InstanceServiceUpdateInstanceWithResponse(
 		ctx, *inst1.JSON200.ResourceId,
 		inst1Mod,
