@@ -19,6 +19,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
+	"github.com/pb33f/libopenapi/datamodel"
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/auditing"
@@ -316,7 +317,12 @@ func (m *Manager) setValidationMiddleware(e *echo.Echo) {
 	if err != nil {
 		zlog.InfraSec().Fatal().Err(err).Msg("Failed to initialize OpenAPI specification")
 	}
-	document, err := libopenapi.NewDocument(apiSpec)
+
+	// create a DocumentConfiguration that allows loading file references.
+	config := datamodel.DocumentConfiguration{
+		AllowFileReferences: true,
+	}
+	document, err := libopenapi.NewDocumentWithConfiguration(apiSpec, &config)
 	if err != nil {
 		zlog.InfraSec().Fatal().Err(err).Msg("Failed to initialize OpenAPI document")
 	}
