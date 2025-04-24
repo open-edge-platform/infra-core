@@ -693,22 +693,6 @@ func DeleteProvider(
 	assert.Equal(t, http.StatusOK, providerDel.StatusCode())
 }
 
-// This utility function mimics an addition of a required information to the HTTP Header
-func addEcmUserAgentToTheHeader(_ context.Context, req *http.Request) error {
-	req.Header.Add(userAgent, ecmServiceName)
-	return nil
-}
-
-func addRequestEditors(client *api.Client) error {
-	client.RequestEditors = append(client.RequestEditors, authObsUserAgent)
-	return nil
-}
-
-func authObsUserAgent(_ context.Context, req *http.Request) error {
-	req.Header.Set(userAgent, observabilityServiceName)
-	return nil
-}
-
 func GetHostRequestWithRandomUUID() api.HostResource {
 	uuidHost := uuid.New().String()
 	randName := fmt.Sprintf("Test Host %d", rand.Uint32())
