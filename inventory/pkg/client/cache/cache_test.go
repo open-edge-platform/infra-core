@@ -145,6 +145,6 @@ func createDummyHost(
 }
 
 func TestInitClientCache(t *testing.T) {
-	c := cache.NewInventoryCache(30 * time.Second)
+	c := cache.NewInventoryCache(30*time.Second, 0)
 	assert.Equal(t, 30*time.Second, c.StaleTime(), "cache should have default stale time as 30 sec")
 }

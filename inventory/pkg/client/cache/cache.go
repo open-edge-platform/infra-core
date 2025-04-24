@@ -11,9 +11,8 @@ import (
 
 // default cache entry timeout. Used for go-flags.
 const (
-	CacheStaleTimeName                       = "cacheStaleTime"
-	DefaultCacheStaleTime      time.Duration = 30 * time.Second
-	cacheStaleTimeOffsetFactor               = 10
+	DefaultCacheStaleTime             time.Duration = 30 * time.Second
+	DefaultCacheStaleTimeOffsetFactor               = 10
 )
 
 // Inventory Cache.
@@ -22,8 +21,9 @@ const (
 // e.g. hostID:HostResource for resourceId based caching for Inventory client GET methods.
 // e.g. filter-hash: ResourceList result for filter based caching for Inventory client List method.
 type InventoryCache struct {
-	staleTime   time.Duration
-	resourceMap sync.Map
+	staleTime       time.Duration
+	stateTimeOffset int
+	resourceMap     sync.Map
 	// Used by UUID-cache only
 	reverseMap sync.Map   // Map used to store reverse map from UUID, Host[usb|gpu|storage|nic] ID, Instance ID to HostID
 	mu         sync.Mutex // Mutex to access reverseMap
@@ -36,14 +36,18 @@ type Entry struct {
 	Validity time.Time
 }
 
-func NewInventoryCache(staleTime time.Duration) *InventoryCache {
+func NewInventoryCache(staleTime time.Duration, staleTimeOffset int) *InventoryCache {
 	// init cache if not already done.
 	invCache := &InventoryCache{
-		staleTime: DefaultCacheStaleTime,
+		staleTime:       DefaultCacheStaleTime,
+		stateTimeOffset: DefaultCacheStaleTimeOffsetFactor,
 	}
 
 	if staleTime > 0 {
 		invCache.staleTime = staleTime
+	}
+	if staleTimeOffset > 0 {
+		invCache.stateTimeOffset = staleTimeOffset
 	}
 
 	zlog.Info().Msgf("resource cache configured with stale time <%v> seconds", invCache.staleTime)
@@ -62,15 +66,15 @@ func (c *InventoryCache) UpdateStaleTime(staleTime time.Duration) {
 }
 
 func (c *InventoryCache) generateCacheEntryStaleTime() time.Duration {
-	// have random extension by "cacheStaleTimeOffsetFactor"% of stale time.
-	randomTimeOffset := int(c.staleTime.Seconds() / cacheStaleTimeOffsetFactor)
+	// have random extension by "cacheStaleTimeOffsetFactor"% of stale time (positive and negative).
+	randomTimeOffset := int(c.staleTime.Seconds() / DefaultCacheStaleTimeOffsetFactor)
 
 	// if randomTimeOffset is 0 then make offset to 1.
 	if randomTimeOffset == 0 {
 		randomTimeOffset = 1
 	}
-	//nolint:gosec // Use of weak random number generator (math/rand instead of crypto/rand)
-	return time.Duration(int(c.staleTime) + (rand.Intn(randomTimeOffset) * int(time.Second)))
+	//nolint:gosec,mnd // Not necessary to use secure random generator, also using 2 to have positive and negative spread
+	return time.Duration(int(c.staleTime) + ((rand.Intn(randomTimeOffset*2) - randomTimeOffset) * int(time.Second)))
 }
 
 // isCacheEntryStale check if cache entry is stale.

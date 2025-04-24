@@ -423,6 +423,8 @@ type InvClientCacheConfig struct {
 	EnableUUIDCache bool
 	// Cache Entry stale time in second.
 	StaleTime time.Duration
+	// Cache Entry stale time offset in percentage.
+	StateTimeOffset int
 	// Cache susbcription resources
 	ResourceKinds []inv_v1.ResourceKind
 }
@@ -1164,14 +1166,14 @@ func (client *inventoryClient) isClientUUIDCacheEnabled() bool {
 // newInventoryCache initializes client cache if enabled in config.
 func (client *inventoryClient) newInventoryCache() {
 	if client.cfg.ClientCache.EnableUUIDCache && client.cacheUUID == nil {
-		client.cacheUUID = cache.NewInventoryCache(client.cfg.ClientCache.StaleTime)
+		client.cacheUUID = cache.NewInventoryCache(client.cfg.ClientCache.StaleTime, client.cfg.ClientCache.StateTimeOffset)
 		// The assumption here is that GetCacheUUIDSubscriptionResourceKind will always be a subset of
 		// GetCacheSusbcriptionResourceKind.
 		// If this doesn't apply, we need to rewrite this code
 		client.cfg.ClientCache.ResourceKinds = client.cache.GetCacheUUIDSubscriptionResourceKind()
 	}
 	if client.cfg.ClientCache.EnableCache && client.cache == nil {
-		client.cache = cache.NewInventoryCache(client.cfg.ClientCache.StaleTime)
+		client.cache = cache.NewInventoryCache(client.cfg.ClientCache.StaleTime, client.cfg.ClientCache.StateTimeOffset)
 		client.cfg.ClientCache.ResourceKinds = client.cache.GetCacheSusbcriptionResourceKind()
 	}
 }
