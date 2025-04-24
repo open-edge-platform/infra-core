@@ -7,6 +7,15 @@ ARG OPA_SHA
 ARG ATLAS_VERSION
 ARG ATLAS_SHA
 
+# Set proxy environment variables using build arguments
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
+
+ENV http_proxy $http_proxy
+ENV https_proxy $https_proxy
+ENV no_proxy $no_proxy
+
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
 # Install OPA to build policy bundle
