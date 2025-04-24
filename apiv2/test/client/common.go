@@ -355,7 +355,7 @@ func UnallocateHostFromSite(t testing.TB, ctx context.Context, apiClient *api.Cl
 		hostUp,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	fmt.Println(res.Body)
+	fmt.Println(res.HTTPResponse.Body)
 	fmt.Println(err)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
