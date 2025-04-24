@@ -23,7 +23,8 @@ func ListAllInstances(ctx context.Context, client *api.ClientWithResponses, page
 		response, err := client.InstanceServiceListInstancesWithResponse(ctx, &api.InstanceServiceListInstancesParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
-		})
+		},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list instances: %w", err)
 		}
@@ -58,7 +59,8 @@ func ListAllHosts(ctx context.Context, client *api.ClientWithResponses, pageSize
 		response, err := client.HostServiceListHostsWithResponse(ctx, &api.HostServiceListHostsParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
-		})
+		},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list hosts: %w", err)
 		}
@@ -93,7 +95,8 @@ func ListAllRegions(ctx context.Context, client *api.ClientWithResponses, pageSi
 		response, err := client.RegionServiceListRegionsWithResponse(ctx, &api.RegionServiceListRegionsParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
-		})
+		},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list regions: %w", err)
 		}
@@ -128,7 +131,8 @@ func ListAllSites(ctx context.Context, client *api.ClientWithResponses, pageSize
 		response, err := client.SiteServiceListSitesWithResponse(ctx, &api.SiteServiceListSitesParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
-		})
+		},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list sites: %w", err)
 		}
@@ -163,7 +167,8 @@ func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, page
 		response, err := client.WorkloadServiceListWorkloadsWithResponse(ctx, &api.WorkloadServiceListWorkloadsParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
-		})
+		},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list workloads: %w", err)
 		}
