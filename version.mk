@@ -28,7 +28,9 @@ PROTOCGENGOVERSION_HAVE     := $(shell protoc-gen-go --version | sed s/.*"protoc
 PROTOCGENGOVERSION_REQ      := 1.30.0
 SWAGGER_CLI_REQ				:= 4.0.4
 SWAGGER_CLI_HAVE			:= $(shell swagger-cli --version)
-DBMLCLI_REQ					:= 3.13.0-alpha.1
+DBMLCLI_REQ					:= 3.13.0
+DBMLCLI_HAVE				:= $(shell sql2dbml --version)
+DBMLRENDERER_HAVE			:= $(shell dbml-renderer --version)
 DBMLRENDERER_REQ			:= 1.0.30
 
 # No version reported
@@ -49,10 +51,12 @@ ifeq ($(GCC), true)
 	@(if ! [ $(GCC_REQ) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"gcc\" installed\e[1;m" && exit 1 ; fi)
 endif
 ifeq ($(DBMLCLI), true)
-	@(if ! [ $(DBMLCLI) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"dbmlcli\" installed\e[1;m" && exit 1 ; fi)
+	@(echo "$(DBMLCLI_HAVE)" | grep "$(DBMLCLI_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-cli\nRecommended: $(DBMLCLI_REQ)\nYours: $(DBMLCLI_HAVE)\e[1;m" && exit 1)
 endif
 ifeq ($(DBMLRENDERER), true)
-	@(if ! [ $(DBMLRENDERER) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"dbml-renderer\" installed\e[1;m" && exit 1 ; fi)
+	@(echo "$(DBMLRENDERER_HAVE)" | grep "$(DBMLRENDERER_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-cli\nRecommended: $(DBMLRENDERER_REQ)\nYours: $(DBMLRENDERER_HAVE)\e[1;m" && exit 1)
 endif
 
 
