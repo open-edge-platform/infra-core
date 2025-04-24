@@ -548,18 +548,18 @@ message ListRegionsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -651,18 +651,18 @@ message ListSitesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -823,18 +823,18 @@ message ListHostsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -978,18 +978,18 @@ message ListInstancesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1089,18 +1089,18 @@ message ListOperatingSystemsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1189,18 +1189,18 @@ message ListProvidersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1289,18 +1289,18 @@ message ListWorkloadsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1389,18 +1389,18 @@ message ListWorkloadMembersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1445,18 +1445,18 @@ message DeleteWorkloadMemberResponse {}
 message ListSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1549,18 +1549,18 @@ message GetSingleScheduleResponse {
 message ListSingleSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1668,18 +1668,18 @@ message GetRepeatedScheduleResponse {
 message ListRepeatedSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1787,18 +1787,18 @@ message GetTelemetryLogsGroupResponse {
 message ListTelemetryLogsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1869,18 +1869,18 @@ message GetTelemetryMetricsGroupResponse {
 message ListTelemetryMetricsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1951,18 +1951,18 @@ message GetTelemetryLogsProfileResponse {
 message ListTelemetryLogsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -2070,18 +2070,18 @@ message GetTelemetryMetricsProfileResponse {
 message ListTelemetryMetricsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -2211,18 +2211,18 @@ message ListLocalAccountsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000

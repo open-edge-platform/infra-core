@@ -146,11 +146,15 @@ func (is *InventorygRPCServer) ListSites(
 	req *restv1.ListSitesRequest,
 ) (*restv1.ListSitesResponse, error) {
 	zlog.Debug().Msg("ListSites")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Site{Site: &inv_locationv1.SiteResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}

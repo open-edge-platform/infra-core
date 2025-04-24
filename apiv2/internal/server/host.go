@@ -309,10 +309,15 @@ func (is *InventorygRPCServer) ListHosts(
 ) (*restv1.ListHostsResponse, error) {
 	zlog.Debug().Msg("ListHosts")
 
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Host{Host: &inv_computev1.HostResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
@@ -580,19 +585,19 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 
 func (is *InventorygRPCServer) listAllHosts(ctx context.Context, filter string) ([]*computev1.HostResource, error) {
 	var offset int
-	var pageSize uint32 = 100
+	var pageSize int32 = 100
 	hasNext := true
 	hosts := make([]*computev1.HostResource, 0, pageSize)
 
 	for hasNext {
-		offsetUint32, err := SafeIntToUint32(offset)
+		offsetInt32, err := SafeIntToInt32(offset)
 		if err != nil {
 			return nil, err
 		}
 		req := &restv1.ListHostsRequest{
 			Filter:   filter,
 			PageSize: pageSize,
-			Offset:   offsetUint32,
+			Offset:   offsetInt32,
 		}
 		hostsList, err := is.ListHosts(ctx, req)
 		if err != nil {

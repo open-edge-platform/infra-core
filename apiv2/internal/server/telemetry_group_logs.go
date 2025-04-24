@@ -75,15 +75,19 @@ func (is *InventorygRPCServer) ListTelemetryLogsGroups(
 	req *restv1.ListTelemetryLogsGroupsRequest,
 ) (*restv1.ListTelemetryLogsGroupsResponse, error) {
 	zlog.Debug().Msg("ListTelemetryLogsGroups")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_TelemetryGroup{
 				TelemetryGroup: &inv_telemetryv1.TelemetryGroupResource{},
 			},
 		},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter: fmt.Sprintf("%s = %s", inv_telemetryv1.TelemetryGroupResourceFieldKind,
 			inv_telemetryv1.TelemetryResourceKind_name[int32(

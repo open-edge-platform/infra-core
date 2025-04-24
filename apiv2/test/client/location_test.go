@@ -537,8 +537,8 @@ func TestRegionList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateRegion(t, ctx, apiClient, utils.Region1Request)
@@ -663,8 +663,8 @@ func TestLocation_SiteList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateSite(t, ctx, apiClient, utils.SiteListRequest)

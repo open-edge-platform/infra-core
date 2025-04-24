@@ -17,7 +17,6 @@ require (
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.23.2
 	github.com/open-edge-platform/orch-library/go v0.5.29
-	github.com/pb33f/libopenapi v0.21.8
 	github.com/pb33f/libopenapi-validator v0.4.0
 	github.com/prometheus/client_golang v1.21.1
 	github.com/stretchr/testify v1.10.0
@@ -112,6 +111,7 @@ require (
 	github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 // indirect
 	github.com/open-edge-platform/orch-library/go/dazl v0.5.2 // indirect
 	github.com/open-policy-agent/opa v1.3.0 // indirect
+	github.com/pb33f/libopenapi v0.21.8 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect

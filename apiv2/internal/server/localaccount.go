@@ -79,13 +79,17 @@ func (is *InventorygRPCServer) ListLocalAccounts(
 	req *restv1.ListLocalAccountsRequest,
 ) (*restv1.ListLocalAccountsResponse, error) {
 	zlog.Debug().Msg("ListLocalAccounts")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_LocalAccount{
 			LocalAccount: &inv_localaccountv1.LocalAccountResource{},
 		}},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter:  req.GetFilter(),
 	}

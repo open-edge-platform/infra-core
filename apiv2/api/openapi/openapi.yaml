@@ -37,14 +37,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -345,14 +348,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -528,14 +534,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -689,14 +698,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -846,14 +858,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -1003,14 +1018,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: showTotalSites
                   in: query
                   description: Flag to signal if the total amount of site in a region should be returned.
@@ -1151,14 +1169,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: hostId
                   in: query
                   description: The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
@@ -1208,14 +1229,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: hostId
                   in: query
                   description: The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
@@ -1375,14 +1399,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: hostId
                   in: query
                   description: The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
@@ -1556,14 +1583,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -1699,14 +1729,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1817,14 +1850,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1935,14 +1971,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -2108,14 +2147,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -2295,14 +2337,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -2452,14 +2497,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK

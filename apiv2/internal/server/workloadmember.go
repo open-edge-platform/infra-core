@@ -130,13 +130,17 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 	req *restv1.ListWorkloadMembersRequest,
 ) (*restv1.ListWorkloadMembersResponse, error) {
 	zlog.Debug().Msg("ListWorkloadMembers")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_WorkloadMember{WorkloadMember: &inv_computev1.WorkloadMember{}},
 		},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter:  req.GetFilter(),
 	}

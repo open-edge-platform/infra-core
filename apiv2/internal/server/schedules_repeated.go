@@ -233,16 +233,17 @@ func (is *InventorygRPCServer) ListRepeatedSchedules(
 		return nil, err
 	}
 	var offset, limit int
-	offset, err = util.Uint32ToInt(req.GetOffset())
+	offset, err = util.Int32ToInt(req.GetOffset())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert offset")
 		return nil, err
 	}
-	limit, err = util.Uint32ToInt(req.GetPageSize())
+	limit, err = util.Int32ToInt(req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert page size")
 		return nil, err
 	}
+
 	invRepeatedSchedules, hasNext, totalElems, err := is.InvHCacheClient.GetRepeatedSchedules(
 		ctx, tenantID, offset, limit, schedFilters)
 	if err != nil {

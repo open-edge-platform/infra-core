@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 	"unicode"
@@ -17,11 +16,10 @@ import (
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
-	"github.com/pb33f/libopenapi/datamodel"
 	"github.com/prometheus/client_golang/prometheus"
 
+	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/auditing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
@@ -311,28 +309,19 @@ func OpenAPIValidationMiddleware(validatorInstance validator.Validator, basePath
 	}
 }
 
-func (m *Manager) setValidationMiddleware(e *echo.Echo) {
-	zlog.InfraSec().Info().Msg("OpenAPIValidationMiddleware Interceptor is enabled")
-	apiSpec, err := os.ReadFile(m.cfg.RestServer.OpenAPISpecPath)
+func (m *Manager) setOapiValidator(e *echo.Echo) {
+	zlog.InfraSec().Info().Msg("OpenAPI Validator is enabled")
+	openAPIDefinition, err := api.GetSwagger()
 	if err != nil {
-		zlog.InfraSec().Fatal().Err(err).Msg("Failed to initialize OpenAPI specification")
+		zlog.InfraSec().InfraErr(err).Msgf("OpenAPI Validator failed to load OpenAPI definition")
 	}
 
-	// create a DocumentConfiguration that allows loading file references.
-	config := datamodel.DocumentConfiguration{
-		AllowFileReferences:   true,
-		AllowRemoteReferences: true,
+	for _, s := range openAPIDefinition.Servers {
+		zlog.Info().Str("url", s.URL).Msgf("Servers")
+		s.URL = strings.ReplaceAll(s.URL, "{apiRoot}", "")
 	}
-	document, err := libopenapi.NewDocumentWithConfiguration(apiSpec, &config)
-	if err != nil {
-		zlog.InfraSec().Fatal().Err(err).Msg("Failed to initialize OpenAPI document")
-	}
-	openAPIValidator, valErrs := validator.NewValidator(document)
-	if len(valErrs) > 0 {
-		zlog.InfraSec().Fatal().Msgf("Failed to initialize OpenAPI validator %v", valErrs)
-	}
-	// Use the validation middleware
-	e.Use(OpenAPIValidationMiddleware(openAPIValidator, m.cfg.RestServer.BaseURL))
+
+	e.Use(OapiRequestValidator(openAPIDefinition))
 }
 
 // setOptions sets all options to echo.Echo defined in this file.
@@ -352,7 +341,7 @@ func (m *Manager) setOptions(e *echo.Echo) {
 	m.setLimits(e)
 	m.setTimeout(e)
 	m.setSecureConfig(e, []string{})
-	m.setValidationMiddleware(e)
+	m.setOapiValidator(e)
 	e.HideBanner = true
 	e.HidePort = true
 }

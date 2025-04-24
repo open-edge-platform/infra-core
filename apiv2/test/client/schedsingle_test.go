@@ -259,8 +259,8 @@ func TestSchedSingleList(t *testing.T) {
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
