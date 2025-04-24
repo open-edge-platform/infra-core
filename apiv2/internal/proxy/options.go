@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 	"unicode"
@@ -16,6 +17,8 @@ import (
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/pb33f/libopenapi"
+	validator "github.com/pb33f/libopenapi-validator"
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/auditing"
@@ -286,6 +289,45 @@ func (m *Manager) setUnicodeChecker(e *echo.Echo) {
 	e.Use(UnicodePrintableCharsChecker)
 }
 
+// OpenAPIValidationMiddleware validates HTTP requests using OpenAPI specifications.
+func OpenAPIValidationMiddleware(validatorInstance validator.Validator, basePath string) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			req := c.Request()
+			// Validate the request against the OpenAPI spec
+			ok, errors := validatorInstance.ValidateHttpRequest(req)
+			if !ok && len(errors) > 0 {
+				err := fmt.Errorf("request validation failed")
+				zlog.InfraSec().InfraErr(err).Msgf("%v", errors)
+				return &echo.HTTPError{
+					Code:    http.StatusBadRequest,
+					Message: "HTTP Request validation failed",
+				}
+			}
+			// Proceed to the next handler
+			return next(c)
+		}
+	}
+}
+
+func (m *Manager) setValidationMiddleware(e *echo.Echo) {
+	zlog.InfraSec().Info().Msg("OpenAPIValidationMiddleware Interceptor is enabled")
+	apiSpec, err := os.ReadFile(m.cfg.RestServer.OpenAPISpecPath)
+	if err != nil {
+		zlog.InfraSec().Fatal().Err(err).Msg("Failed to initialize OpenAPI specification")
+	}
+	document, err := libopenapi.NewDocument(apiSpec)
+	if err != nil {
+		zlog.InfraSec().Fatal().Err(err).Msg("Failed to initialize OpenAPI document")
+	}
+	openAPIValidator, valErrs := validator.NewValidator(document)
+	if len(valErrs) > 0 {
+		zlog.InfraSec().Fatal().Msgf("Failed to initialize OpenAPI validator %v", valErrs)
+	}
+	// Use the validation middleware
+	e.Use(OpenAPIValidationMiddleware(openAPIValidator, m.cfg.RestServer.BaseURL))
+}
+
 // setOptions sets all options to echo.Echo defined in this file.
 func (m *Manager) setOptions(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("Setting web server options")
@@ -297,12 +339,13 @@ func (m *Manager) setOptions(e *echo.Echo) {
 	m.setTracing(e)
 	m.setTenant(e)
 	m.setAuthentication(e)
-	m.setAuditing(e) // TODO https://jira.devtools.intel.com/browse/NEX-2566 move before authentication
+	m.setAuditing(e)
 	m.setMethodOverride(e)
 	m.setRateLimiter(e)
 	m.setLimits(e)
 	m.setTimeout(e)
 	m.setSecureConfig(e, []string{})
+	m.setValidationMiddleware(e)
 	e.HideBanner = true
 	e.HidePort = true
 }

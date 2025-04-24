@@ -56,6 +56,7 @@ type RestServer struct {
 	EnableMetrics     bool
 	MetricsAddress    string
 	OamServerAddr     string
+	OpenAPISpecPath   string
 }
 
 type Worker struct {
@@ -106,6 +107,7 @@ func DefaultConfig() *GlobalConfig {
 			EnableMetrics:     false,
 			MetricsAddress:    metrics.MetricsAddressDefault,
 			OamServerAddr:     "",
+			OpenAPISpecPath:   "/openapi/openapi.yaml",
 		},
 		Worker: Worker{
 			MaxWorkers: DefaultMaxWorkers,
