@@ -107,7 +107,7 @@ func DefaultConfig() *GlobalConfig {
 			EnableMetrics:     false,
 			MetricsAddress:    metrics.MetricsAddressDefault,
 			OamServerAddr:     "",
-			OpenAPISpecPath:   "/openapi/openapi.yaml",
+			OpenAPISpecPath:   "/openapi/openapi.json",
 		},
 		Worker: Worker{
 			MaxWorkers: DefaultMaxWorkers,

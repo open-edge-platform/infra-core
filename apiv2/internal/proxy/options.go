@@ -320,7 +320,8 @@ func (m *Manager) setValidationMiddleware(e *echo.Echo) {
 
 	// create a DocumentConfiguration that allows loading file references.
 	config := datamodel.DocumentConfiguration{
-		AllowFileReferences: true,
+		AllowFileReferences:   true,
+		AllowRemoteReferences: true,
 	}
 	document, err := libopenapi.NewDocumentWithConfiguration(apiSpec, &config)
 	if err != nil {

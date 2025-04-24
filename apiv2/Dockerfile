@@ -43,6 +43,7 @@ COPY --from=build --chown=nobody:nobody /go/src/github.com/open-edge-platform/in
 COPY --from=build --chown=nobody:nobody /go/src/github.com/open-edge-platform/infra-core/api/rego/authz.rego /rego/authz.rego
 # Copy api spec file
 COPY --from=build --chown=nobody:nobody /go/src/github.com/open-edge-platform/infra-core/api/api/openapi/openapi.yaml /openapi/openapi.yaml
+COPY --from=build --chown=nobody:nobody /go/src/github.com/open-edge-platform/infra-core/api/api/openapi/openapi.json /openapi/openapi.json
       
 # No entrypoint - container is used for both API SERVER and PROXY
 # ENTRYPOINT [""]
