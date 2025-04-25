@@ -22,7 +22,7 @@ func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	utils.Site1Request.Region = nil
+	utils.Site1Request.RegionId = nil
 	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 
 	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
