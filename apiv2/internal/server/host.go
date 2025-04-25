@@ -29,9 +29,9 @@ import (
 // edge-infra-manager-openapi-types.gen.go.
 // Here we should have only fields that are writable from the API.
 var OpenAPIHostToProto = map[string]string{
-	"Name":     inv_computev1.HostResourceFieldName,
-	"SiteId":   inv_computev1.HostResourceEdgeSite,
-	"Metadata": inv_computev1.HostResourceFieldMetadata,
+	computev1.HostResourceFieldName:    inv_computev1.HostResourceFieldName,
+	computev1.HostResourceFieldSiteId:  inv_computev1.HostResourceEdgeSite,
+	computev1.HostResourceEdgeMetadata: inv_computev1.HostResourceFieldMetadata,
 }
 
 func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error) {
