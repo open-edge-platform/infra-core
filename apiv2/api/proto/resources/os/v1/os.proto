@@ -65,8 +65,8 @@ message OperatingSystemResource {
   repeated string update_sources = 5 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {
-      max_bytes: 4000
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
+      max_bytes: 10000
+      pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\\n]+$'
     }
   ];
 

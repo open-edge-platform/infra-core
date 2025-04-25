@@ -4223,9 +4223,7 @@ components:
                 updateSources:
                     type: array
                     items:
-                        pattern: |-
-                            ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \
-                            ]+$
+                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \\n]+$
                         type: string
                     description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
                 imageUrl:
