@@ -272,7 +272,7 @@ func TestOS_CreatewithCustom(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	OSName1 := "Ubuntu 22.04"
+	OSName1 := "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816)"
 	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2 TestName#724"
 	OSKernel1 := "kvmgt vfio-iommu-type1 vfio-mdev i915.enable_gvt=1 kvm.ignore_msrs=1 intel_iommu=on iommu=pt drm.debug=0"
 	OSArch1 := "x86"

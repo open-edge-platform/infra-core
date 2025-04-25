@@ -162,7 +162,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		if !_OperatingSystemResource_UpdateSources_Pattern.MatchString(item) {
 			err := OperatingSystemResourceValidationError{
 				field:  fmt.Sprintf("UpdateSources[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\" \\\\\\\\n]+$\"",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\"\\\\ \\\\\\\\\\\\n]+$\"",
 			}
 			if !all {
 				return err
@@ -429,7 +429,7 @@ var _OperatingSystemResource_Architecture_Pattern = regexp.MustCompile("^$|^[a-z
 
 var _OperatingSystemResource_KernelCommand_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
 
-var _OperatingSystemResource_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\\n]+$")
+var _OperatingSystemResource_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$")
 
 var _OperatingSystemResource_ImageUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
 
