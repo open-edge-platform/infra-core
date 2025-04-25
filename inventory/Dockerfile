@@ -8,13 +8,9 @@ ARG ATLAS_VERSION
 ARG ATLAS_SHA
 
 # Set proxy environment variables using build arguments
-ARG http_proxy
-ARG https_proxy
-ARG no_proxy
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:50054/healthz || exit 1
+#ARG http_proxy
+#ARG https_proxy
+#ARG no_proxy
 
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
