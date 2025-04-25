@@ -64,15 +64,16 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 
 	utils.Site1Request.RegionId = r3.ResourceId
 	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	utils.Site1Request.RegionId = nil
 
 	utils.Site2Request.RegionId = r2.ResourceId
 	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
-	utils.Site2Request.Region = nil
+	utils.Site2Request.RegionId = nil
 
 	getr1, err := apiClient.RegionServiceGetRegionWithResponse(ctx, *r1.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr1.StatusCode())
-	assert.Empty(t, getr1.JSON200.ParentRegion)
+	assert.Empty(t, getr1.JSON200.ParentRegion.ResourceId)
 	assert.Equal(t, utils.MetadataR1, *getr1.JSON200.Metadata)
 	assert.Equal(t, []api.MetadataItem{}, *getr1.JSON200.InheritedMetadata)
 
@@ -324,43 +325,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, s1res.StatusCode())
-	assert.Nil(t, s1res.JSON200.Region)
-
-	// Updates site using Put, sets Ou to ou1 and verifies it
-	s1Up, err = apiClient.SiteServiceUpdateSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		utils.Site1RequestUpdate,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1Up.StatusCode())
-
-	s1res, err = apiClient.SiteServiceGetSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1res.StatusCode())
-
-	// Updates site using Put, sets Ou to emptyString and verifies it
-	s1Up, err = apiClient.SiteServiceUpdateSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		utils.Site1RequestUpdate,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1Up.StatusCode())
-
-	s1res, err = apiClient.SiteServiceGetSiteWithResponse(
-		ctx,
-		*s1.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, s1res.StatusCode())
+	assert.Empty(t, s1res.JSON200.Region.ResourceId)
 
 	// Updates site using Put and Patch, sets Region to wrong emptyString and verifies
 	// expected error BadRequest
@@ -537,8 +502,8 @@ func TestRegionList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateRegion(t, ctx, apiClient, utils.Region1Request)
@@ -556,7 +521,7 @@ func TestRegionList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Regions), pageSize)
+	assert.Equal(t, len(resList.JSON200.Regions), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
@@ -663,8 +628,8 @@ func TestLocation_SiteList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateSite(t, ctx, apiClient, utils.SiteListRequest)
@@ -934,7 +899,7 @@ func TestLocation_FilterSites(t *testing.T) {
 			name:            "test sites: sites with bad metadata value",
 			filter:          fmt.Sprintf(`%s = '%s'`, "metadata", `{"key":"??","value":"site1"}`),
 			amountResources: 0,
-			fail:            false,
+			fail:            true,
 		},
 		{
 			name:            "test sites: sites with bad orderby value",

@@ -44,8 +44,8 @@ message OperatingSystemResource {
 
   // The OS resource's name.
   string name = 2 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    pattern: "^$|^[a-zA-Z-_0-9./: ()]+$"  
+    max_len: 128
   }];
 
   // The OS resource's CPU architecture.
@@ -65,8 +65,8 @@ message OperatingSystemResource {
   repeated string update_sources = 5 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {
-      max_bytes: 4000
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
+      max_bytes: 10000
+      pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$'
     }
   ];
 
@@ -115,6 +115,11 @@ message OperatingSystemResource {
   // Indicating the provider of OS (e.g., Infra or Lenovo).
   OsProviderKind os_provider = 14;
 
+  // Opaque JSON field storing references to custom installation script(s) that
+  // supplements the base OS with additional OS-level dependencies/configurations. 
+  // If empty, the default OS installation will be used.
+  string platform_bundle = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
+
   // The OS resource's unique identifier. Alias of resourceId.
   string os_resource_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
@@ -129,4 +134,8 @@ message OperatingSystemResource {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
   }];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

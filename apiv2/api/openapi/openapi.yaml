@@ -37,14 +37,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -200,6 +203,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - HostService
+            summary: PatchHost
+            description: Patch a host.
+            operationId: HostService_PatchHost
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of host.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/HostResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HostResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate:
         put:
             tags:
@@ -345,14 +386,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -427,7 +471,7 @@ paths:
             parameters:
                 - name: resourceId
                   in: path
-                  description: Name of the instance instance to be updated.
+                  description: ID of the resource to be updated.
                   required: true
                   schema:
                     type: string
@@ -476,6 +520,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - InstanceService
+            summary: PatchInstance
+            description: Patch a instance.
+            operationId: InstanceService_PatchInstance
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of instance.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/InstanceResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/InstanceResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate:
         put:
             tags:
@@ -496,6 +578,134 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/InvalidateInstanceResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/localAccounts:
+        get:
+            tags:
+                - LocalAccountService
+            summary: ListLocalAccounts
+            description: Get a list of providers.
+            operationId: LocalAccountService_ListLocalAccounts
+            parameters:
+                - name: orderBy
+                  in: query
+                  description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9., ]+$
+                    type: string
+                - name: filter
+                  in: query
+                  description: Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: Defines the amount of items to be contained in a single page. Default of 20.
+                  schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
+                    type: integer
+                    format: int32
+                - name: offset
+                  in: query
+                  description: Index of the first item to return. This allows skipping items.
+                  schema:
+                    maximum: !!float 10000
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ListLocalAccountsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - LocalAccountService
+            summary: CreateLocalAccount
+            description: Create a localAccount.
+            operationId: LocalAccountService_CreateLocalAccount
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LocalAccountResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/LocalAccountResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}:
+        get:
+            tags:
+                - LocalAccountService
+            summary: GetLocalAccount
+            description: Get a specific provider.
+            operationId: LocalAccountService_GetLocalAccount
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the requested localaccount.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/LocalAccountResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - LocalAccountService
+            summary: DeleteLocalAccount
+            description: Delete a provider.
+            operationId: LocalAccountService_DeleteLocalAccount
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the localaccount to be deleted.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeleteLocalAccountResponse'
                 default:
                     description: Default error response
                     content:
@@ -564,14 +774,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -695,6 +908,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - OperatingSystemService
+            summary: PatchOperatingSystem
+            description: Patch an OS.
+            operationId: OperatingSystemService_PatchOperatingSystem
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of os.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/OperatingSystemResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OperatingSystemResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/providers:
         get:
             tags:
@@ -721,14 +972,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -852,6 +1106,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - ProviderService
+            summary: PatchProvider
+            description: Patch a provider.
+            operationId: ProviderService_PatchProvider
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of provider.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProviderResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ProviderResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/regions:
         get:
             tags:
@@ -878,14 +1170,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: showTotalSites
                   in: query
                   description: Flag to signal if the total amount of site in a region should be returned.
@@ -1014,6 +1309,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - RegionService
+            summary: PatchRegion
+            description: Patch a region.
+            operationId: RegionService_PatchRegion
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of region.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RegionResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RegionResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/schedules:
         get:
             tags:
@@ -1026,14 +1359,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: hostId
                   in: query
                   description: The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
@@ -1083,14 +1419,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: hostId
                   in: query
                   description: The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
@@ -1238,6 +1577,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - ScheduleService
+            summary: PatchRepeatedSchedule
+            description: Patch a repeated_schedule.
+            operationId: ScheduleService_PatchRepeatedSchedule
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of repeated_schedule.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RepeatedScheduleResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RepeatedScheduleResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/schedules/single:
         get:
             tags:
@@ -1250,14 +1627,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: hostId
                   in: query
                   description: The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
@@ -1405,6 +1785,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - ScheduleService
+            summary: PatchSingleSchedule
+            description: Patch a single_schedule.
+            operationId: ScheduleService_PatchSingleSchedule
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of single_schedule.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SingleScheduleResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SingleScheduleResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/sites:
         get:
             tags:
@@ -1431,14 +1849,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -1562,6 +1983,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - SiteService
+            summary: PatchSite
+            description: Patch a site.
+            operationId: SiteService_PatchSite
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of site.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SiteResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SiteResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/telemetry/groups/logs:
         get:
             tags:
@@ -1574,14 +2033,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1692,14 +2154,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1810,14 +2275,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1971,6 +2439,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - TelemetryLogsProfileService
+            summary: PatchTelemetryLogsProfile
+            description: Patch a telemetry_logs_profile.
+            operationId: TelemetryLogsProfileService_PatchTelemetryLogsProfile
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of telemetry_logs_profile.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TelemetryLogsProfileResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/TelemetryLogsProfileResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics:
         get:
             tags:
@@ -1983,14 +2489,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: orderBy
                   in: query
                   description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -2144,6 +2653,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - TelemetryMetricsProfileService
+            summary: PatchTelemetryMetricsProfile
+            description: Patch a telemetry_metrics_profile.
+            operationId: TelemetryMetricsProfileService_PatchTelemetryMetricsProfile
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of telemetry_metrics_profile.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/workload_members:
         get:
             tags:
@@ -2170,14 +2717,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -2301,6 +2851,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - WorkloadMemberService
+            summary: PatchWorkloadMember
+            description: Patch a workload_member.
+            operationId: WorkloadMemberService_PatchWorkloadMember
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of workload_member.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/WorkloadMember'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/WorkloadMember'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/workloads:
         get:
             tags:
@@ -2327,14 +2915,17 @@ paths:
                   in: query
                   description: Defines the amount of items to be contained in a single page. Default of 20.
                   schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
                     type: integer
-                    format: uint32
+                    format: int32
                 - name: offset
                   in: query
                   description: Index of the first item to return. This allows skipping items.
                   schema:
+                    maximum: !!float 10000
                     type: integer
-                    format: uint32
+                    format: int32
             responses:
                 "200":
                     description: OK
@@ -2458,6 +3049,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - WorkloadService
+            summary: PatchWorkload
+            description: Patch a workload.
+            operationId: WorkloadService_PatchWorkload
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of workload.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/WorkloadResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/WorkloadResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
 components:
     schemas:
         DeleteHostResponse:
@@ -2468,6 +3097,10 @@ components:
             type: object
             properties: {}
             description: Response message for DeleteInstance.
+        DeleteLocalAccountResponse:
+            type: object
+            properties: {}
+            description: Response message for DeleteLocalAccount.
         DeleteOperatingSystemResponse:
             type: object
             properties: {}
@@ -2578,7 +3211,7 @@ components:
                     type: string
                     description: Resource ID, generated on Create.
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The host name.
@@ -2764,7 +3397,7 @@ components:
                     description: Resource ID, generated on Create.
                 siteId:
                     writeOnly: true
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The site where the host is located.
                 metadata:
@@ -2778,6 +3411,14 @@ components:
                     items:
                         $ref: '#/components/schemas/MetadataItem'
                     description: The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A Host resource.
         HostgpuResource:
             type: object
@@ -2810,6 +3451,14 @@ components:
                     readOnly: true
                     type: string
                     description: The features of this GPU device, comma separated.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of available host GPU cards.
         HostnicResource:
             type: object
@@ -2865,6 +3514,14 @@ components:
                     readOnly: true
                     type: boolean
                     description: Whether this is a bmc interface or not.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of available host interfaces.
         HoststorageResource:
             type: object
@@ -2897,6 +3554,14 @@ components:
                     readOnly: true
                     type: string
                     description: The storage device device name (OS provided, like sda, sdb, etc.)
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of available host storage capabilities.
         HostusbResource:
             type: object
@@ -2935,6 +3600,14 @@ components:
                     readOnly: true
                     type: string
                     description: the OS-provided device name.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of host USB resources.
         InstanceResource:
             type: object
@@ -2951,14 +3624,13 @@ components:
                     description: Kind of resource. Frequently tied to Provider.
                     format: enum
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The instance's human-readable name.
                 desiredState:
                     readOnly: true
                     enum:
-                        - INSTANCE_STATE_ERROR
                         - INSTANCE_STATE_RUNNING
                         - INSTANCE_STATE_DELETED
                         - INSTANCE_STATE_UNTRUSTED
@@ -2968,7 +3640,6 @@ components:
                 currentState:
                     readOnly: true
                     enum:
-                        - INSTANCE_STATE_ERROR
                         - INSTANCE_STATE_RUNNING
                         - INSTANCE_STATE_DELETED
                         - INSTANCE_STATE_UNTRUSTED
@@ -2989,9 +3660,11 @@ components:
                     description: Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
                     format: enum
                 instanceStatus:
+                    readOnly: true
                     type: string
                     description: textual message that describes the current instance status. Set by RMs only.
                 instanceStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3000,12 +3673,15 @@ components:
                     description: Indicates interpretation of instance_status. Set by RMs only.
                     format: enum
                 instanceStatusTimestamp:
+                    readOnly: true
                     type: string
                     description: UTC timestamp when instance_status was last changed. Set by RMs only.
                 provisioningStatus:
+                    readOnly: true
                     type: string
                     description: textual message that describes the provisioning status of Instance. Set by RMs only.
                 provisioningStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3014,12 +3690,15 @@ components:
                     description: Indicates interpretation of provisioning_status. Set by RMs only.
                     format: enum
                 provisioningStatusTimestamp:
+                    readOnly: true
                     type: string
                     description: UTC timestamp when provisioning_status was last changed. Set by RMs only.
                 updateStatus:
+                    readOnly: true
                     type: string
                     description: textual message that describes the update status of Instance. Set by RMs only.
                 updateStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3028,17 +3707,38 @@ components:
                     description: Indicates interpretation of update_status. Set by RMs only.
                     format: enum
                 updateStatusTimestamp:
+                    readOnly: true
                     type: string
                     description: UTC timestamp when update_status was last changed. Set by RMs only.
                 updateStatusDetail:
+                    readOnly: true
                     type: string
                     description: JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+                trustedAttestationStatus:
+                    readOnly: true
+                    type: string
+                    description: textual message that describes the trusted_attestation status of Instance. Set by RMs only.
+                trustedAttestationStatusIndicator:
+                    readOnly: true
+                    enum:
+                        - STATUS_INDICATION_ERROR
+                        - STATUS_INDICATION_IN_PROGRESS
+                        - STATUS_INDICATION_IDLE
+                    type: string
+                    description: Indicates interpretation of trusted_attestation_status. Set by RMs only.
+                    format: enum
+                trustedAttestationStatusTimestamp:
+                    readOnly: true
+                    type: string
+                    description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
                 workloadMembers:
                     readOnly: true
                     type: array
                     items:
                         $ref: '#/components/schemas/WorkloadMember'
                     description: The workload members associated with the instance.
+                localaccount:
+                    $ref: '#/components/schemas/LocalAccountResource'
                 instanceId:
                     readOnly: true
                     pattern: ^inst-[0-9a-f]{8}$
@@ -3054,6 +3754,19 @@ components:
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of OS resource that must be installed on the instance.
+                localAccountId:
+                    writeOnly: true
+                    pattern: ^localaccount-[0-9a-f]{8}$
+                    type: string
+                    description: The unique identifier of local account will be associated with the instance.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
         InvalidateHostResponse:
             type: object
@@ -3103,6 +3816,26 @@ components:
                     type: boolean
                     description: Inform if there are more elements
             description: Response message for the ListInstances method.
+        ListLocalAccountsResponse:
+            required:
+                - localAccounts
+                - totalElements
+                - hasNext
+            type: object
+            properties:
+                localAccounts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/LocalAccountResource'
+                    description: Sorted and filtered list of localaccounts.
+                totalElements:
+                    type: integer
+                    description: Count of items in the entire list, regardless of pagination.
+                    format: int32
+                hasNext:
+                    type: boolean
+                    description: Inform if there are more elements
+            description: Response message for the ListLocalAccounts method.
         ListLocationsResponse:
             required:
                 - nodes
@@ -3413,6 +4146,33 @@ components:
                     type: boolean
                     description: Inform if there are more elements
             description: Response message for the ListWorkloads method.
+        LocalAccountResource:
+            required:
+                - username
+                - sshKey
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    pattern: ^localaccount-[0-9a-f]{8}$
+                    type: string
+                    description: resource identifier
+                username:
+                    pattern: ^[a-z][a-z0-9-]{0,31}$
+                    type: string
+                    description: Username provided by admin
+                sshKey:
+                    pattern: ^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$
+                    type: string
+                    description: SSH Public Key of EN
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
         MetadataItem:
             required:
                 - key
@@ -3446,8 +4206,8 @@ components:
                     type: string
                     description: Resource ID, generated by inventory on Create.
                 name:
-                    maxLength: 20
-                    pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
+                    maxLength: 128
+                    pattern: '^$|^[a-zA-Z-_0-9./: ()]+$'
                     type: string
                     description: The OS resource's name.
                 architecture:
@@ -3463,9 +4223,7 @@ components:
                 updateSources:
                     type: array
                     items:
-                        pattern: |-
-                            ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \
-                            ]+$
+                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \\\n]+$
                         type: string
                     description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
                 imageUrl:
@@ -3521,6 +4279,10 @@ components:
                     type: string
                     description: Indicating the provider of OS (e.g., Infra or Lenovo).
                     format: enum
+                platformBundle:
+                    readOnly: true
+                    type: string
+                    description: Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
                 osResourceId:
                     readOnly: true
                     pattern: ^os-[0-9a-f]{8}$
@@ -3531,6 +4293,14 @@ components:
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                     type: string
                     description: // OS image URL. URL of the original installation source.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: An OS resource.
         ProviderResource:
             required:
@@ -3581,6 +4351,14 @@ components:
                     pattern: ^provider-[0-9a-f]{8}$
                     type: string
                     description: The provider resource's unique identifier. Alias of resourceId.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A provider resource.
         RegionResource:
             type: object
@@ -3591,7 +4369,7 @@ components:
                     type: string
                     description: resource ID, generated by the inventory on Create.
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The user-provided, human-readable name of region
@@ -3620,9 +4398,17 @@ components:
                     format: int32
                 parentId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A region resource.
         RepeatedScheduleResource:
             required:
@@ -3648,7 +4434,7 @@ components:
                     description: The schedule status.
                     format: enum
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The schedule's name.
@@ -3689,19 +4475,27 @@ components:
                     description: The repeated schedule's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
-                    pattern: ^host-[0-9a-f]{8}$
+                    pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A repeated-schedule resource.
         SingleScheduleResource:
             required:
@@ -3722,7 +4516,7 @@ components:
                     description: The schedule status.
                     format: enum
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The schedule's name.
@@ -3747,19 +4541,27 @@ components:
                     description: The single schedule resource's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
-                    pattern: ^host-[0-9a-f]{8}$
+                    pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A single schedule resource.
         SiteResource:
             type: object
@@ -3770,7 +4572,7 @@ components:
                     type: string
                     description: resource ID, generated by the inventory on Create.
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The site's human-readable name.
@@ -3805,9 +4607,17 @@ components:
                     description: The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
                 regionId:
                     writeOnly: true
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The region's unique identifier that the site is associated to. This field cannot be used in filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A site resource.
         Status:
             type: object
@@ -3843,7 +4653,7 @@ components:
                     type: string
                     description: Unique ID of the telemetry group. Alias of resource_id.
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the log group.
@@ -3860,6 +4670,14 @@ components:
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                         type: string
                     description: A list of log groups to collect.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: TelemetryLogsGroupResource.
         TelemetryLogsProfileResource:
             required:
@@ -3878,15 +4696,15 @@ components:
                     type: string
                     description: The ID of the telemetry profile.
                 targetInstance:
-                    pattern: ^inst-[0-9a-f]{8}$
+                    pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 logLevel:
@@ -3905,6 +4723,14 @@ components:
                     description: The unique identifier of the telemetry log group.
                 logsGroup:
                     $ref: '#/components/schemas/TelemetryLogsGroupResource'
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A telemetry log profile for a hierarchy object.
         TelemetryMetricsGroupResource:
             required:
@@ -3924,7 +4750,7 @@ components:
                     type: string
                     description: Unique ID of the telemetry group. Alias of resource_id.
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the log group.
@@ -3941,6 +4767,14 @@ components:
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                         type: string
                     description: A list of log groups to collect.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: TelemetryMetricsGroupResource.
         TelemetryMetricsProfileResource:
             required:
@@ -3959,15 +4793,15 @@ components:
                     type: string
                     description: The ID of the telemetry profile.
                 targetInstance:
-                    pattern: ^inst-[0-9a-f]{8}$
+                    pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 metricsInterval:
@@ -3980,6 +4814,14 @@ components:
                     description: The unique identifier of the telemetry metric group.
                 metricsGroup:
                     $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A telemetry metric profile for a hierarchy object.
         WorkloadMember:
             required:
@@ -4020,6 +4862,14 @@ components:
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the instance.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
         WorkloadResource:
             required:
@@ -4040,7 +4890,7 @@ components:
                     description: Type of workload.
                     format: enum
                 name:
-                    maxLength: 20
+                    maxLength: 50
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the workload.
@@ -4063,12 +4913,22 @@ components:
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: The workload unique identifier. Alias of resourceId.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A generic way to group compute resources to obtain a workload.
 tags:
     - name: HostService
       description: Host.
     - name: InstanceService
       description: Instance.
+    - name: LocalAccountService
+      description: LocalAccount.
     - name: LocationService
       description: Location.
     - name: OperatingSystemService

@@ -54,3 +54,9 @@ plugins:
     out: docs
     opt: markdown,proto.md
     strategy: all
+
+  - plugin: go-const
+    out: internal/pbapi
+    path: ["go", "run", "./cmd/protoc-gen-go-const"]
+    opt:
+      - paths=source_relative

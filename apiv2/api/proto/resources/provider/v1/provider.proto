@@ -76,4 +76,8 @@ message ProviderResource {
       max_bytes: 17
     }
   ];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
