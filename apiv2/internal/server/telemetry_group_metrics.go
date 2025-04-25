@@ -26,6 +26,8 @@ func TelemetryMetricsGroupResourcetoAPI(
 		Name:                    telemetryGroup.GetName(),
 		CollectorKind:           telemetryv1.CollectorKind(*telemetryGroup.GetCollectorKind().Enum()),
 		Groups:                  telemetryGroup.GetGroups(),
+		CreatedAt:               telemetryGroup.GetCreatedAt(),
+		UpdatedAt:               telemetryGroup.GetUpdatedAt(),
 	}
 	return telemetryMetricsGroup
 }
@@ -76,21 +78,25 @@ func (is *InventorygRPCServer) ListTelemetryMetricsGroups(
 	req *restv1.ListTelemetryMetricsGroupsRequest,
 ) (*restv1.ListTelemetryMetricsGroupsResponse, error) {
 	zlog.Debug().Msg("ListTelemetryMetricsGroups")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_TelemetryGroup{
 				TelemetryGroup: &inv_telemetryv1.TelemetryGroupResource{},
 			},
 		},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter: fmt.Sprintf("%s = %s", inv_telemetryv1.TelemetryGroupResourceFieldKind,
 			inv_telemetryv1.TelemetryResourceKind_name[int32(
 				inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS)]),
 	}
-	if err := validator.ValidateMessage(filter); err != nil {
+	if err = validator.ValidateMessage(filter); err != nil {
 		zlog.InfraErr(err).Msg("failed to validate query params")
 		return nil, err
 	}
