@@ -168,7 +168,7 @@ func TestHostCustom(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, utils.Host3Name, resHostH1Patched.JSON200.Name)
 	assert.Empty(t, resHostH1Patched.JSON200.Site)
-	assert.Equal(t, api.HostResourceCurrentStateHOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
+	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
 
 	// Expect BadRequest errors in Patch/Put with emptyString wrong
 	utils.Host1RequestUpdate.SiteId = &emptyStringWrong
