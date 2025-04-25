@@ -243,6 +243,41 @@ func (is *InventorygRPCServer) UpdateSite(
 	return invUpRes, nil
 }
 
+// Update a site. (PATCH).
+func (is *InventorygRPCServer) PatchSite(
+	ctx context.Context,
+	req *restv1.PatchSiteRequest,
+) (*locationv1.SiteResource, error) {
+	zlog.Debug().Msg("PatchSite")
+
+	site := req.GetSite()
+	invSite, err := toInvSite(site)
+	if err != nil {
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Site{
+			Site: invSite,
+		},
+	}
+
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetSite()
+	invUpRes, err := fromInvSite(invUp, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a site.
 func (is *InventorygRPCServer) DeleteSite(
 	ctx context.Context,

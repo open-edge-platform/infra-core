@@ -1443,6 +1443,12 @@ type HostServiceRegisterHostParams struct {
 	ResourceId *string `form:"resourceId,omitempty" json:"resourceId,omitempty"`
 }
 
+// HostServicePatchHostParams defines parameters for HostServicePatchHost.
+type HostServicePatchHostParams struct {
+	// FieldMask Field mask to be applied on the patch of host.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // HostServiceInvalidateHostParams defines parameters for HostServiceInvalidateHost.
 type HostServiceInvalidateHostParams struct {
 	Note *string `form:"note,omitempty" json:"note,omitempty"`
@@ -1471,8 +1477,8 @@ type InstanceServiceListInstancesParams struct {
 
 // InstanceServicePatchInstanceParams defines parameters for InstanceServicePatchInstance.
 type InstanceServicePatchInstanceParams struct {
-	// UpdateMask Field mask to be applied on the patch of instance.
-	UpdateMask *string `form:"updateMask,omitempty" json:"updateMask,omitempty"`
+	// FieldMask Field mask to be applied on the patch of instance.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
@@ -1517,6 +1523,12 @@ type OperatingSystemServiceListOperatingSystemsParams struct {
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// OperatingSystemServicePatchOperatingSystemParams defines parameters for OperatingSystemServicePatchOperatingSystem.
+type OperatingSystemServicePatchOperatingSystemParams struct {
+	// FieldMask Field mask to be applied on the patch of os.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // ProviderServiceListProvidersParams defines parameters for ProviderServiceListProviders.
 type ProviderServiceListProvidersParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1530,6 +1542,12 @@ type ProviderServiceListProvidersParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// ProviderServicePatchProviderParams defines parameters for ProviderServicePatchProvider.
+type ProviderServicePatchProviderParams struct {
+	// FieldMask Field mask to be applied on the patch of provider.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
@@ -1548,6 +1566,12 @@ type RegionServiceListRegionsParams struct {
 
 	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
 	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
+}
+
+// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
+type RegionServicePatchRegionParams struct {
+	// FieldMask Field mask to be applied on the patch of region.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
@@ -1592,6 +1616,12 @@ type ScheduleServiceListRepeatedSchedulesParams struct {
 	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
 }
 
+// ScheduleServicePatchRepeatedScheduleParams defines parameters for ScheduleServicePatchRepeatedSchedule.
+type ScheduleServicePatchRepeatedScheduleParams struct {
+	// FieldMask Field mask to be applied on the patch of repeated_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // ScheduleServiceListSingleSchedulesParams defines parameters for ScheduleServiceListSingleSchedules.
 type ScheduleServiceListSingleSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
@@ -1613,6 +1643,12 @@ type ScheduleServiceListSingleSchedulesParams struct {
 	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
 }
 
+// ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
+type ScheduleServicePatchSingleScheduleParams struct {
+	// FieldMask Field mask to be applied on the patch of single_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // SiteServiceListSitesParams defines parameters for SiteServiceListSites.
 type SiteServiceListSitesParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1626,6 +1662,12 @@ type SiteServiceListSitesParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
+type SiteServicePatchSiteParams struct {
+	// FieldMask Field mask to be applied on the patch of site.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
@@ -1676,6 +1718,12 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
 }
 
+// TelemetryLogsProfileServicePatchTelemetryLogsProfileParams defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfileParams struct {
+	// FieldMask Field mask to be applied on the patch of telemetry_logs_profile.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles.
 type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
@@ -1700,6 +1748,12 @@ type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
 }
 
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
+	// FieldMask Field mask to be applied on the patch of telemetry_metrics_profile.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
 type WorkloadMemberServiceListWorkloadMembersParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1713,6 +1767,12 @@ type WorkloadMemberServiceListWorkloadMembersParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// WorkloadMemberServicePatchWorkloadMemberParams defines parameters for WorkloadMemberServicePatchWorkloadMember.
+type WorkloadMemberServicePatchWorkloadMemberParams struct {
+	// FieldMask Field mask to be applied on the patch of workload_member.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
@@ -1730,11 +1790,20 @@ type WorkloadServiceListWorkloadsParams struct {
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// WorkloadServicePatchWorkloadParams defines parameters for WorkloadServicePatchWorkload.
+type WorkloadServicePatchWorkloadParams struct {
+	// FieldMask Field mask to be applied on the patch of workload.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+}
+
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource
 
 // HostServiceRegisterHostJSONRequestBody defines body for HostServiceRegisterHost for application/json ContentType.
 type HostServiceRegisterHostJSONRequestBody = HostRegister
+
+// HostServicePatchHostJSONRequestBody defines body for HostServicePatchHost for application/json ContentType.
+type HostServicePatchHostJSONRequestBody = HostResource
 
 // HostServiceUpdateHostJSONRequestBody defines body for HostServiceUpdateHost for application/json ContentType.
 type HostServiceUpdateHostJSONRequestBody = HostResource
@@ -1757,11 +1826,17 @@ type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
 // OperatingSystemServiceCreateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceCreateOperatingSystemJSONRequestBody = OperatingSystemResource
 
+// OperatingSystemServicePatchOperatingSystemJSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem for application/json ContentType.
+type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystemResource
+
 // OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
+
+// ProviderServicePatchProviderJSONRequestBody defines body for ProviderServicePatchProvider for application/json ContentType.
+type ProviderServicePatchProviderJSONRequestBody = ProviderResource
 
 // ProviderServiceUpdateProviderJSONRequestBody defines body for ProviderServiceUpdateProvider for application/json ContentType.
 type ProviderServiceUpdateProviderJSONRequestBody = ProviderResource
@@ -1769,11 +1844,17 @@ type ProviderServiceUpdateProviderJSONRequestBody = ProviderResource
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource
 
+// RegionServicePatchRegionJSONRequestBody defines body for RegionServicePatchRegion for application/json ContentType.
+type RegionServicePatchRegionJSONRequestBody = RegionResource
+
 // RegionServiceUpdateRegionJSONRequestBody defines body for RegionServiceUpdateRegion for application/json ContentType.
 type RegionServiceUpdateRegionJSONRequestBody = RegionResource
 
 // ScheduleServiceCreateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule for application/json ContentType.
 type ScheduleServiceCreateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServicePatchRepeatedScheduleJSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule for application/json ContentType.
+type ScheduleServicePatchRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
 
 // ScheduleServiceUpdateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule for application/json ContentType.
 type ScheduleServiceUpdateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
@@ -1781,11 +1862,17 @@ type ScheduleServiceUpdateRepeatedScheduleJSONRequestBody = RepeatedScheduleReso
 // ScheduleServiceCreateSingleScheduleJSONRequestBody defines body for ScheduleServiceCreateSingleSchedule for application/json ContentType.
 type ScheduleServiceCreateSingleScheduleJSONRequestBody = SingleScheduleResource
 
+// ScheduleServicePatchSingleScheduleJSONRequestBody defines body for ScheduleServicePatchSingleSchedule for application/json ContentType.
+type ScheduleServicePatchSingleScheduleJSONRequestBody = SingleScheduleResource
+
 // ScheduleServiceUpdateSingleScheduleJSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule for application/json ContentType.
 type ScheduleServiceUpdateSingleScheduleJSONRequestBody = SingleScheduleResource
 
 // SiteServiceCreateSiteJSONRequestBody defines body for SiteServiceCreateSite for application/json ContentType.
 type SiteServiceCreateSiteJSONRequestBody = SiteResource
+
+// SiteServicePatchSiteJSONRequestBody defines body for SiteServicePatchSite for application/json ContentType.
+type SiteServicePatchSiteJSONRequestBody = SiteResource
 
 // SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
 type SiteServiceUpdateSiteJSONRequestBody = SiteResource
@@ -1799,11 +1886,17 @@ type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody = Te
 // TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceCreateTelemetryLogsProfile for application/json ContentType.
 type TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
 
+// TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServicePatchTelemetryLogsProfile for application/json ContentType.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
+
 // TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile for application/json ContentType.
 type TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
 
 // TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile for application/json ContentType.
 type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile for application/json ContentType.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
 
 // TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile for application/json ContentType.
 type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
@@ -1811,11 +1904,17 @@ type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody 
 // WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember
 
+// WorkloadMemberServicePatchWorkloadMemberJSONRequestBody defines body for WorkloadMemberServicePatchWorkloadMember for application/json ContentType.
+type WorkloadMemberServicePatchWorkloadMemberJSONRequestBody = WorkloadMember
+
 // WorkloadMemberServiceUpdateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceUpdateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceUpdateWorkloadMemberJSONRequestBody = WorkloadMember
 
 // WorkloadServiceCreateWorkloadJSONRequestBody defines body for WorkloadServiceCreateWorkload for application/json ContentType.
 type WorkloadServiceCreateWorkloadJSONRequestBody = WorkloadResource
+
+// WorkloadServicePatchWorkloadJSONRequestBody defines body for WorkloadServicePatchWorkload for application/json ContentType.
+type WorkloadServicePatchWorkloadJSONRequestBody = WorkloadResource
 
 // WorkloadServiceUpdateWorkloadJSONRequestBody defines body for WorkloadServiceUpdateWorkload for application/json ContentType.
 type WorkloadServiceUpdateWorkloadJSONRequestBody = WorkloadResource

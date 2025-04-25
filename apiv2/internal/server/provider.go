@@ -194,6 +194,37 @@ func (is *InventorygRPCServer) UpdateProvider(
 	return invUpRes, nil
 }
 
+// Update a provider. (PATCH).
+func (is *InventorygRPCServer) PatchProvider(
+	ctx context.Context,
+	req *restv1.PatchProviderRequest,
+) (*providerv1.ProviderResource, error) {
+	zlog.Debug().Msg("PatchProvider")
+
+	provider := req.GetProvider()
+	invProvider, err := toInvProvider(provider)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory provider")
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Provider{
+			Provider: invProvider,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetProvider()
+	invUpRes := fromInvProvider(invUp)
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a provider.
 func (is *InventorygRPCServer) DeleteProvider(
 	ctx context.Context,

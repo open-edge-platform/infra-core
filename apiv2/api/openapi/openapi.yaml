@@ -203,6 +203,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - HostService
+            summary: PatchHost
+            description: Patch a host.
+            operationId: HostService_PatchHost
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of host.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/HostResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HostResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate:
         put:
             tags:
@@ -433,7 +471,7 @@ paths:
             parameters:
                 - name: resourceId
                   in: path
-                  description: Name of the instance instance to be updated.
+                  description: ID of the resource to be updated.
                   required: true
                   schema:
                     type: string
@@ -491,11 +529,11 @@ paths:
             parameters:
                 - name: resourceId
                   in: path
-                  description: Name of the instance instance to be updated.
+                  description: ID of the resource to be updated.
                   required: true
                   schema:
                     type: string
-                - name: updateMask
+                - name: fieldMask
                   in: query
                   description: Field mask to be applied on the patch of instance.
                   schema:
@@ -870,6 +908,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - OperatingSystemService
+            summary: PatchOperatingSystem
+            description: Patch an OS.
+            operationId: OperatingSystemService_PatchOperatingSystem
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of os.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/OperatingSystemResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OperatingSystemResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/providers:
         get:
             tags:
@@ -1024,6 +1100,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteProviderResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - ProviderService
+            summary: PatchProvider
+            description: Patch a provider.
+            operationId: ProviderService_PatchProvider
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of provider.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProviderResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ProviderResource'
                 default:
                     description: Default error response
                     content:
@@ -1189,6 +1303,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteRegionResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - RegionService
+            summary: PatchRegion
+            description: Patch a region.
+            operationId: RegionService_PatchRegion
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of region.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RegionResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RegionResource'
                 default:
                     description: Default error response
                     content:
@@ -1425,6 +1577,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - ScheduleService
+            summary: PatchRepeatedSchedule
+            description: Patch a repeated_schedule.
+            operationId: ScheduleService_PatchRepeatedSchedule
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of repeated_schedule.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RepeatedScheduleResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RepeatedScheduleResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/schedules/single:
         get:
             tags:
@@ -1595,6 +1785,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - ScheduleService
+            summary: PatchSingleSchedule
+            description: Patch a single_schedule.
+            operationId: ScheduleService_PatchSingleSchedule
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of single_schedule.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SingleScheduleResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SingleScheduleResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/sites:
         get:
             tags:
@@ -1749,6 +1977,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteSiteResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - SiteService
+            summary: PatchSite
+            description: Patch a site.
+            operationId: SiteService_PatchSite
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of site.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SiteResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SiteResource'
                 default:
                     description: Default error response
                     content:
@@ -2173,6 +2439,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - TelemetryLogsProfileService
+            summary: PatchTelemetryLogsProfile
+            description: Patch a telemetry_logs_profile.
+            operationId: TelemetryLogsProfileService_PatchTelemetryLogsProfile
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of telemetry_logs_profile.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TelemetryLogsProfileResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/TelemetryLogsProfileResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics:
         get:
             tags:
@@ -2349,6 +2653,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - TelemetryMetricsProfileService
+            summary: PatchTelemetryMetricsProfile
+            description: Patch a telemetry_metrics_profile.
+            operationId: TelemetryMetricsProfileService_PatchTelemetryMetricsProfile
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of telemetry_metrics_profile.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/workload_members:
         get:
             tags:
@@ -2509,6 +2851,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - WorkloadMemberService
+            summary: PatchWorkloadMember
+            description: Patch a workload_member.
+            operationId: WorkloadMemberService_PatchWorkloadMember
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of workload_member.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/WorkloadMember'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/WorkloadMember'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/workloads:
         get:
             tags:
@@ -2663,6 +3043,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteWorkloadResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - WorkloadService
+            summary: PatchWorkload
+            description: Patch a workload.
+            operationId: WorkloadService_PatchWorkload
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: ID of the resource to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: fieldMask
+                  in: query
+                  description: Field mask to be applied on the patch of workload.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/WorkloadResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/WorkloadResource'
                 default:
                     description: Default error response
                     content:

@@ -414,6 +414,40 @@ func (is *InventorygRPCServer) UpdateHost(
 	return invUpRes, nil
 }
 
+// Update a host. (PATCH).
+func (is *InventorygRPCServer) PatchHost(
+	ctx context.Context,
+	req *restv1.PatchHostRequest,
+) (*computev1.HostResource, error) {
+	zlog.Debug().Msg("PatchHost")
+
+	host := req.GetHost()
+	invHost, err := toInvHostUpdate(host)
+	if err != nil {
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{
+			Host: invHost,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetHost()
+	invUpRes, err := fromInvHost(invUp, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a host.
 func (is *InventorygRPCServer) DeleteHost(
 	ctx context.Context,

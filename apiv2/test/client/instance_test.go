@@ -95,7 +95,6 @@ func TestInstance_Update(t *testing.T) {
 	inst1Mod := api.InstanceResource{
 		Name: &newName,
 	}
-
 	inst1Up, err := apiClient.InstanceServicePatchInstanceWithResponse(
 		ctx, *inst1.JSON200.ResourceId,
 		nil,
@@ -114,6 +113,7 @@ func TestInstance_Update(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, inst1Get.StatusCode())
 	assert.Equal(t, newName, *inst1Get.JSON200.Name)
+	assert.Equal(t, *inst1.JSON200.OsId, *inst1Get.JSON200.OsId)
 
 	log.Info().Msgf("End Instance Update tests")
 }

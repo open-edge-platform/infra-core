@@ -324,7 +324,7 @@ func (is *InventorygRPCServer) PatchInstance(
 		return nil, err
 	}
 
-	fieldmask := req.GetUpdateMask()
+	fieldmask := req.GetFieldMask()
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Instance{
 			Instance: invInstance,

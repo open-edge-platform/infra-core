@@ -229,6 +229,41 @@ func (is *InventorygRPCServer) UpdateWorkload(
 	return invUpRes, nil
 }
 
+// Update a workload. (PATCH).
+func (is *InventorygRPCServer) PatchWorkload(
+	ctx context.Context,
+	req *restv1.PatchWorkloadRequest,
+) (*computev1.WorkloadResource, error) {
+	zlog.Debug().Msg("PatchWorkload")
+
+	workload := req.GetWorkload()
+	invWorkload, err := toInvWorkload(workload)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory workload")
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Workload{
+			Workload: invWorkload,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetWorkload()
+	invUpRes, err := fromInvWorkload(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a workload.
 func (is *InventorygRPCServer) DeleteWorkload(
 	ctx context.Context,

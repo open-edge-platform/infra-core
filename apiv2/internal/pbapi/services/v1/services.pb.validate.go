@@ -993,6 +993,168 @@ var _ interface {
 	ErrorName() string
 } = UpdateRegionRequestValidationError{}
 
+// Validate checks the field values on PatchRegionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchRegionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchRegionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchRegionRequestMultiError, or nil if none found.
+func (m *PatchRegionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchRegionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetRegion()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchRegionRequestValidationError{
+					field:  "Region",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchRegionRequestValidationError{
+					field:  "Region",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRegion()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchRegionRequestValidationError{
+				field:  "Region",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchRegionRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchRegionRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchRegionRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchRegionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchRegionRequestMultiError is an error wrapping multiple validation errors
+// returned by PatchRegionRequest.ValidateAll() if the designated constraints
+// aren't met.
+type PatchRegionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchRegionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchRegionRequestMultiError) AllErrors() []error { return m }
+
+// PatchRegionRequestValidationError is the validation error returned by
+// PatchRegionRequest.Validate if the designated constraints aren't met.
+type PatchRegionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchRegionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchRegionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchRegionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchRegionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchRegionRequestValidationError) ErrorName() string {
+	return "PatchRegionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchRegionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchRegionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchRegionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchRegionRequestValidationError{}
+
 // Validate checks the field values on DeleteRegionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2150,6 +2312,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateSiteRequestValidationError{}
+
+// Validate checks the field values on PatchSiteRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PatchSiteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchSiteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchSiteRequestMultiError, or nil if none found.
+func (m *PatchSiteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchSiteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetSite()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchSiteRequestValidationError{
+					field:  "Site",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchSiteRequestValidationError{
+					field:  "Site",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSite()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchSiteRequestValidationError{
+				field:  "Site",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchSiteRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchSiteRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchSiteRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchSiteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchSiteRequestMultiError is an error wrapping multiple validation errors
+// returned by PatchSiteRequest.ValidateAll() if the designated constraints
+// aren't met.
+type PatchSiteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchSiteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchSiteRequestMultiError) AllErrors() []error { return m }
+
+// PatchSiteRequestValidationError is the validation error returned by
+// PatchSiteRequest.Validate if the designated constraints aren't met.
+type PatchSiteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchSiteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchSiteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchSiteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchSiteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchSiteRequestValidationError) ErrorName() string { return "PatchSiteRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PatchSiteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchSiteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchSiteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchSiteRequestValidationError{}
 
 // Validate checks the field values on DeleteSiteRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -3796,6 +4118,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateHostRequestValidationError{}
+
+// Validate checks the field values on PatchHostRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PatchHostRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchHostRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchHostRequestMultiError, or nil if none found.
+func (m *PatchHostRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchHostRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetHost()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchHostRequestValidationError{
+					field:  "Host",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchHostRequestValidationError{
+					field:  "Host",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetHost()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchHostRequestValidationError{
+				field:  "Host",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchHostRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchHostRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchHostRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchHostRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchHostRequestMultiError is an error wrapping multiple validation errors
+// returned by PatchHostRequest.ValidateAll() if the designated constraints
+// aren't met.
+type PatchHostRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchHostRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchHostRequestMultiError) AllErrors() []error { return m }
+
+// PatchHostRequestValidationError is the validation error returned by
+// PatchHostRequest.Validate if the designated constraints aren't met.
+type PatchHostRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchHostRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchHostRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchHostRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchHostRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchHostRequestValidationError) ErrorName() string { return "PatchHostRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PatchHostRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchHostRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchHostRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchHostRequestValidationError{}
 
 // Validate checks the field values on DeleteHostRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -5799,11 +6281,11 @@ func (m *PatchInstanceRequest) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetUpdateMask()).(type) {
+		switch v := interface{}(m.GetFieldMask()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, PatchInstanceRequestValidationError{
-					field:  "UpdateMask",
+					field:  "FieldMask",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -5811,16 +6293,16 @@ func (m *PatchInstanceRequest) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, PatchInstanceRequestValidationError{
-					field:  "UpdateMask",
+					field:  "FieldMask",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return PatchInstanceRequestValidationError{
-				field:  "UpdateMask",
+				field:  "FieldMask",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -7304,6 +7786,169 @@ var _ interface {
 	ErrorName() string
 } = UpdateOperatingSystemRequestValidationError{}
 
+// Validate checks the field values on PatchOperatingSystemRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchOperatingSystemRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchOperatingSystemRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchOperatingSystemRequestMultiError, or nil if none found.
+func (m *PatchOperatingSystemRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchOperatingSystemRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetOs()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchOperatingSystemRequestValidationError{
+					field:  "Os",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchOperatingSystemRequestValidationError{
+					field:  "Os",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOs()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchOperatingSystemRequestValidationError{
+				field:  "Os",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchOperatingSystemRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchOperatingSystemRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchOperatingSystemRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchOperatingSystemRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchOperatingSystemRequestMultiError is an error wrapping multiple
+// validation errors returned by PatchOperatingSystemRequest.ValidateAll() if
+// the designated constraints aren't met.
+type PatchOperatingSystemRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchOperatingSystemRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchOperatingSystemRequestMultiError) AllErrors() []error { return m }
+
+// PatchOperatingSystemRequestValidationError is the validation error returned
+// by PatchOperatingSystemRequest.Validate if the designated constraints
+// aren't met.
+type PatchOperatingSystemRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchOperatingSystemRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchOperatingSystemRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchOperatingSystemRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchOperatingSystemRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchOperatingSystemRequestValidationError) ErrorName() string {
+	return "PatchOperatingSystemRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchOperatingSystemRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchOperatingSystemRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchOperatingSystemRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchOperatingSystemRequestValidationError{}
+
 // Validate checks the field values on DeleteOperatingSystemRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -8470,6 +9115,168 @@ var _ interface {
 	ErrorName() string
 } = UpdateProviderRequestValidationError{}
 
+// Validate checks the field values on PatchProviderRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchProviderRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchProviderRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchProviderRequestMultiError, or nil if none found.
+func (m *PatchProviderRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchProviderRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetProvider()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchProviderRequestValidationError{
+					field:  "Provider",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchProviderRequestValidationError{
+					field:  "Provider",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProvider()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchProviderRequestValidationError{
+				field:  "Provider",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchProviderRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchProviderRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchProviderRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchProviderRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchProviderRequestMultiError is an error wrapping multiple validation
+// errors returned by PatchProviderRequest.ValidateAll() if the designated
+// constraints aren't met.
+type PatchProviderRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchProviderRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchProviderRequestMultiError) AllErrors() []error { return m }
+
+// PatchProviderRequestValidationError is the validation error returned by
+// PatchProviderRequest.Validate if the designated constraints aren't met.
+type PatchProviderRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchProviderRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchProviderRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchProviderRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchProviderRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchProviderRequestValidationError) ErrorName() string {
+	return "PatchProviderRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchProviderRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchProviderRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchProviderRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchProviderRequestValidationError{}
+
 // Validate checks the field values on DeleteProviderRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -9633,6 +10440,168 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateWorkloadRequestValidationError{}
+
+// Validate checks the field values on PatchWorkloadRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchWorkloadRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchWorkloadRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchWorkloadRequestMultiError, or nil if none found.
+func (m *PatchWorkloadRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchWorkloadRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetWorkload()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchWorkloadRequestValidationError{
+					field:  "Workload",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchWorkloadRequestValidationError{
+					field:  "Workload",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWorkload()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchWorkloadRequestValidationError{
+				field:  "Workload",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchWorkloadRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchWorkloadRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchWorkloadRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchWorkloadRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchWorkloadRequestMultiError is an error wrapping multiple validation
+// errors returned by PatchWorkloadRequest.ValidateAll() if the designated
+// constraints aren't met.
+type PatchWorkloadRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchWorkloadRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchWorkloadRequestMultiError) AllErrors() []error { return m }
+
+// PatchWorkloadRequestValidationError is the validation error returned by
+// PatchWorkloadRequest.Validate if the designated constraints aren't met.
+type PatchWorkloadRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchWorkloadRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchWorkloadRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchWorkloadRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchWorkloadRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchWorkloadRequestValidationError) ErrorName() string {
+	return "PatchWorkloadRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchWorkloadRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchWorkloadRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchWorkloadRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchWorkloadRequestValidationError{}
 
 // Validate checks the field values on DeleteWorkloadRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -10801,6 +11770,168 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateWorkloadMemberRequestValidationError{}
+
+// Validate checks the field values on PatchWorkloadMemberRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchWorkloadMemberRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchWorkloadMemberRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchWorkloadMemberRequestMultiError, or nil if none found.
+func (m *PatchWorkloadMemberRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchWorkloadMemberRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetWorkloadMember()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchWorkloadMemberRequestValidationError{
+					field:  "WorkloadMember",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchWorkloadMemberRequestValidationError{
+					field:  "WorkloadMember",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWorkloadMember()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchWorkloadMemberRequestValidationError{
+				field:  "WorkloadMember",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchWorkloadMemberRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchWorkloadMemberRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchWorkloadMemberRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchWorkloadMemberRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchWorkloadMemberRequestMultiError is an error wrapping multiple
+// validation errors returned by PatchWorkloadMemberRequest.ValidateAll() if
+// the designated constraints aren't met.
+type PatchWorkloadMemberRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchWorkloadMemberRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchWorkloadMemberRequestMultiError) AllErrors() []error { return m }
+
+// PatchWorkloadMemberRequestValidationError is the validation error returned
+// by PatchWorkloadMemberRequest.Validate if the designated constraints aren't met.
+type PatchWorkloadMemberRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchWorkloadMemberRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchWorkloadMemberRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchWorkloadMemberRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchWorkloadMemberRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchWorkloadMemberRequestValidationError) ErrorName() string {
+	return "PatchWorkloadMemberRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchWorkloadMemberRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchWorkloadMemberRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchWorkloadMemberRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchWorkloadMemberRequestValidationError{}
 
 // Validate checks the field values on DeleteWorkloadMemberRequest with the
 // rules defined in the proto definition for this message. If any rules are
@@ -12392,6 +13523,168 @@ var _ interface {
 	ErrorName() string
 } = UpdateSingleScheduleRequestValidationError{}
 
+// Validate checks the field values on PatchSingleScheduleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchSingleScheduleRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchSingleScheduleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchSingleScheduleRequestMultiError, or nil if none found.
+func (m *PatchSingleScheduleRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchSingleScheduleRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetSingleSchedule()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchSingleScheduleRequestValidationError{
+					field:  "SingleSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchSingleScheduleRequestValidationError{
+					field:  "SingleSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSingleSchedule()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchSingleScheduleRequestValidationError{
+				field:  "SingleSchedule",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchSingleScheduleRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchSingleScheduleRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchSingleScheduleRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchSingleScheduleRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchSingleScheduleRequestMultiError is an error wrapping multiple
+// validation errors returned by PatchSingleScheduleRequest.ValidateAll() if
+// the designated constraints aren't met.
+type PatchSingleScheduleRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchSingleScheduleRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchSingleScheduleRequestMultiError) AllErrors() []error { return m }
+
+// PatchSingleScheduleRequestValidationError is the validation error returned
+// by PatchSingleScheduleRequest.Validate if the designated constraints aren't met.
+type PatchSingleScheduleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchSingleScheduleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchSingleScheduleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchSingleScheduleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchSingleScheduleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchSingleScheduleRequestValidationError) ErrorName() string {
+	return "PatchSingleScheduleRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchSingleScheduleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchSingleScheduleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchSingleScheduleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchSingleScheduleRequestValidationError{}
+
 // Validate checks the field values on DeleteSingleScheduleRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -13592,6 +14885,169 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateRepeatedScheduleRequestValidationError{}
+
+// Validate checks the field values on PatchRepeatedScheduleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchRepeatedScheduleRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchRepeatedScheduleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchRepeatedScheduleRequestMultiError, or nil if none found.
+func (m *PatchRepeatedScheduleRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchRepeatedScheduleRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetRepeatedSchedule()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchRepeatedScheduleRequestValidationError{
+					field:  "RepeatedSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchRepeatedScheduleRequestValidationError{
+					field:  "RepeatedSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRepeatedSchedule()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchRepeatedScheduleRequestValidationError{
+				field:  "RepeatedSchedule",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchRepeatedScheduleRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchRepeatedScheduleRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchRepeatedScheduleRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchRepeatedScheduleRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchRepeatedScheduleRequestMultiError is an error wrapping multiple
+// validation errors returned by PatchRepeatedScheduleRequest.ValidateAll() if
+// the designated constraints aren't met.
+type PatchRepeatedScheduleRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchRepeatedScheduleRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchRepeatedScheduleRequestMultiError) AllErrors() []error { return m }
+
+// PatchRepeatedScheduleRequestValidationError is the validation error returned
+// by PatchRepeatedScheduleRequest.Validate if the designated constraints
+// aren't met.
+type PatchRepeatedScheduleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchRepeatedScheduleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchRepeatedScheduleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchRepeatedScheduleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchRepeatedScheduleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchRepeatedScheduleRequestValidationError) ErrorName() string {
+	return "PatchRepeatedScheduleRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchRepeatedScheduleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchRepeatedScheduleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchRepeatedScheduleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchRepeatedScheduleRequestValidationError{}
 
 // Validate checks the field values on DeleteRepeatedScheduleRequest with the
 // rules defined in the proto definition for this message. If any rules are
@@ -16862,6 +18318,171 @@ var _ interface {
 	ErrorName() string
 } = UpdateTelemetryLogsProfileRequestValidationError{}
 
+// Validate checks the field values on PatchTelemetryLogsProfileRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *PatchTelemetryLogsProfileRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchTelemetryLogsProfileRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// PatchTelemetryLogsProfileRequestMultiError, or nil if none found.
+func (m *PatchTelemetryLogsProfileRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchTelemetryLogsProfileRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetTelemetryLogsProfile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchTelemetryLogsProfileRequestValidationError{
+					field:  "TelemetryLogsProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchTelemetryLogsProfileRequestValidationError{
+					field:  "TelemetryLogsProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTelemetryLogsProfile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchTelemetryLogsProfileRequestValidationError{
+				field:  "TelemetryLogsProfile",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchTelemetryLogsProfileRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchTelemetryLogsProfileRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchTelemetryLogsProfileRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchTelemetryLogsProfileRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchTelemetryLogsProfileRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// PatchTelemetryLogsProfileRequest.ValidateAll() if the designated
+// constraints aren't met.
+type PatchTelemetryLogsProfileRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchTelemetryLogsProfileRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchTelemetryLogsProfileRequestMultiError) AllErrors() []error { return m }
+
+// PatchTelemetryLogsProfileRequestValidationError is the validation error
+// returned by PatchTelemetryLogsProfileRequest.Validate if the designated
+// constraints aren't met.
+type PatchTelemetryLogsProfileRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchTelemetryLogsProfileRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchTelemetryLogsProfileRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchTelemetryLogsProfileRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchTelemetryLogsProfileRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchTelemetryLogsProfileRequestValidationError) ErrorName() string {
+	return "PatchTelemetryLogsProfileRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchTelemetryLogsProfileRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchTelemetryLogsProfileRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchTelemetryLogsProfileRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchTelemetryLogsProfileRequestValidationError{}
+
 // Validate checks the field values on DeleteTelemetryLogsProfileRequest with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are
@@ -18098,6 +19719,171 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateTelemetryMetricsProfileRequestValidationError{}
+
+// Validate checks the field values on PatchTelemetryMetricsProfileRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *PatchTelemetryMetricsProfileRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchTelemetryMetricsProfileRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// PatchTelemetryMetricsProfileRequestMultiError, or nil if none found.
+func (m *PatchTelemetryMetricsProfileRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchTelemetryMetricsProfileRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetTelemetryMetricsProfile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchTelemetryMetricsProfileRequestValidationError{
+					field:  "TelemetryMetricsProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchTelemetryMetricsProfileRequestValidationError{
+					field:  "TelemetryMetricsProfile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTelemetryMetricsProfile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchTelemetryMetricsProfileRequestValidationError{
+				field:  "TelemetryMetricsProfile",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchTelemetryMetricsProfileRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchTelemetryMetricsProfileRequestValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchTelemetryMetricsProfileRequestValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchTelemetryMetricsProfileRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchTelemetryMetricsProfileRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// PatchTelemetryMetricsProfileRequest.ValidateAll() if the designated
+// constraints aren't met.
+type PatchTelemetryMetricsProfileRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchTelemetryMetricsProfileRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchTelemetryMetricsProfileRequestMultiError) AllErrors() []error { return m }
+
+// PatchTelemetryMetricsProfileRequestValidationError is the validation error
+// returned by PatchTelemetryMetricsProfileRequest.Validate if the designated
+// constraints aren't met.
+type PatchTelemetryMetricsProfileRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchTelemetryMetricsProfileRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchTelemetryMetricsProfileRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchTelemetryMetricsProfileRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchTelemetryMetricsProfileRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchTelemetryMetricsProfileRequestValidationError) ErrorName() string {
+	return "PatchTelemetryMetricsProfileRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchTelemetryMetricsProfileRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchTelemetryMetricsProfileRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchTelemetryMetricsProfileRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchTelemetryMetricsProfileRequestValidationError{}
 
 // Validate checks the field values on DeleteTelemetryMetricsProfileRequest
 // with the rules defined in the proto definition for this message. If any

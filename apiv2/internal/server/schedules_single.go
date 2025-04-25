@@ -337,6 +337,54 @@ func (is *InventorygRPCServer) UpdateSingleSchedule(
 	return invUpRes, nil
 }
 
+// Update a singleSchedule. (PATCH).
+func (is *InventorygRPCServer) PatchSingleSchedule(
+	ctx context.Context,
+	req *restv1.PatchSingleScheduleRequest,
+) (*schedulev1.SingleScheduleResource, error) {
+	zlog.Debug().Msg("PatchSingleSchedule")
+	tenantID, exists := tenant.GetTenantIDFromContext(ctx)
+	if !exists {
+		// This should never happen! Interceptor should either fail or set it!
+		err := errors.Errorfc(codes.Unauthenticated, "Tenant ID is not present in context")
+		zlog.InfraSec().InfraErr(err).Msg("List single schedule is not authenticated")
+		return nil, err
+	}
+
+	singleSchedule := req.GetSingleSchedule()
+	invSingleschedule, err := toInvSingleschedule(singleSchedule)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory single schedule")
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Singleschedule{
+			Singleschedule: invSingleschedule,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	is.InvHCacheClient.InvalidateCache(
+		tenantID,
+		req.GetResourceId(),
+		inventory.SubscribeEventsResponse_EVENT_KIND_UPDATED,
+	)
+
+	invUp := upRes.GetSingleschedule()
+	invUpRes, err := fromInvSingleschedule(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a singleSchedule.
 func (is *InventorygRPCServer) DeleteSingleSchedule(
 	ctx context.Context,

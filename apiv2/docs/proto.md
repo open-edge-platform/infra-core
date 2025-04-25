@@ -200,7 +200,18 @@
     - [ListWorkloadsResponse](#services-v1-ListWorkloadsResponse)
     - [OnboardHostRequest](#services-v1-OnboardHostRequest)
     - [OnboardHostResponse](#services-v1-OnboardHostResponse)
+    - [PatchHostRequest](#services-v1-PatchHostRequest)
     - [PatchInstanceRequest](#services-v1-PatchInstanceRequest)
+    - [PatchOperatingSystemRequest](#services-v1-PatchOperatingSystemRequest)
+    - [PatchProviderRequest](#services-v1-PatchProviderRequest)
+    - [PatchRegionRequest](#services-v1-PatchRegionRequest)
+    - [PatchRepeatedScheduleRequest](#services-v1-PatchRepeatedScheduleRequest)
+    - [PatchSingleScheduleRequest](#services-v1-PatchSingleScheduleRequest)
+    - [PatchSiteRequest](#services-v1-PatchSiteRequest)
+    - [PatchTelemetryLogsProfileRequest](#services-v1-PatchTelemetryLogsProfileRequest)
+    - [PatchTelemetryMetricsProfileRequest](#services-v1-PatchTelemetryMetricsProfileRequest)
+    - [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest)
+    - [PatchWorkloadRequest](#services-v1-PatchWorkloadRequest)
     - [RegisterHostRequest](#services-v1-RegisterHostRequest)
     - [UpdateHostRequest](#services-v1-UpdateHostRequest)
     - [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest)
@@ -3218,6 +3229,23 @@ Response of a Host Register request.
 
 
 
+<a name="services-v1-PatchHostRequest"></a>
+
+### PatchHostRequest
+Request message for the PatchHost method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of host. |
+
+
+
+
+
+
 <a name="services-v1-PatchInstanceRequest"></a>
 
 ### PatchInstanceRequest
@@ -3226,9 +3254,179 @@ Request message for the PatchInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the instance instance to be updated. |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
-| update_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+
+
+
+
+
+
+<a name="services-v1-PatchOperatingSystemRequest"></a>
+
+### PatchOperatingSystemRequest
+Request message for the PatchOperatingSystem method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of os. |
+
+
+
+
+
+
+<a name="services-v1-PatchProviderRequest"></a>
+
+### PatchProviderRequest
+Request message for the PatchProvider method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Updated values for the provider. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of provider. |
+
+
+
+
+
+
+<a name="services-v1-PatchRegionRequest"></a>
+
+### PatchRegionRequest
+Request message for the PatchRegion method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of region. |
+
+
+
+
+
+
+<a name="services-v1-PatchRepeatedScheduleRequest"></a>
+
+### PatchRepeatedScheduleRequest
+Request message for the PatchRepeatedSchedule method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of repeated_schedule. |
+
+
+
+
+
+
+<a name="services-v1-PatchSingleScheduleRequest"></a>
+
+### PatchSingleScheduleRequest
+Request message for the PatchSingleSchedule method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of single_schedule. |
+
+
+
+
+
+
+<a name="services-v1-PatchSiteRequest"></a>
+
+### PatchSiteRequest
+Request message for the PatchSite method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
+
+
+
+
+
+
+<a name="services-v1-PatchTelemetryLogsProfileRequest"></a>
+
+### PatchTelemetryLogsProfileRequest
+Request message for the PatchTelemetryLogs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_logs_profile. |
+
+
+
+
+
+
+<a name="services-v1-PatchTelemetryMetricsProfileRequest"></a>
+
+### PatchTelemetryMetricsProfileRequest
+Request message for the PatchTelemetryMetricsProfile method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_metrics_profile. |
+
+
+
+
+
+
+<a name="services-v1-PatchWorkloadMemberRequest"></a>
+
+### PatchWorkloadMemberRequest
+Request message for the PatchWorkloadMember method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | Updated values for the workload_member. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload_member. |
+
+
+
+
+
+
+<a name="services-v1-PatchWorkloadRequest"></a>
+
+### PatchWorkloadRequest
+Request message for the PatchWorkload method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload. |
 
 
 
@@ -3275,7 +3473,7 @@ Request message for the UpdateInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the instance instance to be updated. |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 
 
@@ -3474,6 +3672,7 @@ Host.
 | ListHosts | [ListHostsRequest](#services-v1-ListHostsRequest) | [ListHostsResponse](#services-v1-ListHostsResponse) | Get a list of hosts. |
 | GetHost | [GetHostRequest](#services-v1-GetHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Get a specific host. |
 | UpdateHost | [UpdateHostRequest](#services-v1-UpdateHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host. |
+| PatchHost | [PatchHostRequest](#services-v1-PatchHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Patch a host. |
 | DeleteHost | [DeleteHostRequest](#services-v1-DeleteHostRequest) | [DeleteHostResponse](#services-v1-DeleteHostResponse) | Delete a host. |
 | InvalidateHost | [InvalidateHostRequest](#services-v1-InvalidateHostRequest) | [InvalidateHostResponse](#services-v1-InvalidateHostResponse) | Invalidate a host. |
 | RegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Register a host. |
@@ -3531,6 +3730,7 @@ OperatingSystem.
 | ListOperatingSystems | [ListOperatingSystemsRequest](#services-v1-ListOperatingSystemsRequest) | [ListOperatingSystemsResponse](#services-v1-ListOperatingSystemsResponse) | Get a list of OSs. |
 | GetOperatingSystem | [GetOperatingSystemRequest](#services-v1-GetOperatingSystemRequest) | [.resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | Get a specific OS. |
 | UpdateOperatingSystem | [UpdateOperatingSystemRequest](#services-v1-UpdateOperatingSystemRequest) | [.resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | Update an OS. |
+| PatchOperatingSystem | [PatchOperatingSystemRequest](#services-v1-PatchOperatingSystemRequest) | [.resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | Patch an OS. |
 | DeleteOperatingSystem | [DeleteOperatingSystemRequest](#services-v1-DeleteOperatingSystemRequest) | [DeleteOperatingSystemResponse](#services-v1-DeleteOperatingSystemResponse) | Delete an OS. |
 
 
@@ -3545,6 +3745,7 @@ Provider.
 | ListProviders | [ListProvidersRequest](#services-v1-ListProvidersRequest) | [ListProvidersResponse](#services-v1-ListProvidersResponse) | Get a list of providers. |
 | GetProvider | [GetProviderRequest](#services-v1-GetProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Get a specific provider. |
 | UpdateProvider | [UpdateProviderRequest](#services-v1-UpdateProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Update a provider. |
+| PatchProvider | [PatchProviderRequest](#services-v1-PatchProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Patch a provider. |
 | DeleteProvider | [DeleteProviderRequest](#services-v1-DeleteProviderRequest) | [DeleteProviderResponse](#services-v1-DeleteProviderResponse) | Delete a provider. |
 
 
@@ -3559,6 +3760,7 @@ Region.
 | ListRegions | [ListRegionsRequest](#services-v1-ListRegionsRequest) | [ListRegionsResponse](#services-v1-ListRegionsResponse) | Get a list of regions. |
 | GetRegion | [GetRegionRequest](#services-v1-GetRegionRequest) | [.resources.location.v1.RegionResource](#resources-location-v1-RegionResource) | Get a specific region. |
 | UpdateRegion | [UpdateRegionRequest](#services-v1-UpdateRegionRequest) | [.resources.location.v1.RegionResource](#resources-location-v1-RegionResource) | Update a region. |
+| PatchRegion | [PatchRegionRequest](#services-v1-PatchRegionRequest) | [.resources.location.v1.RegionResource](#resources-location-v1-RegionResource) | Patch a region. |
 | DeleteRegion | [DeleteRegionRequest](#services-v1-DeleteRegionRequest) | [DeleteRegionResponse](#services-v1-DeleteRegionResponse) | Delete a region. |
 
 
@@ -3574,11 +3776,13 @@ Schedules.
 | ListSingleSchedules | [ListSingleSchedulesRequest](#services-v1-ListSingleSchedulesRequest) | [ListSingleSchedulesResponse](#services-v1-ListSingleSchedulesResponse) | Get a list of singleSchedules. |
 | GetSingleSchedule | [GetSingleScheduleRequest](#services-v1-GetSingleScheduleRequest) | [.resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) | Get a specific single_schedule. |
 | UpdateSingleSchedule | [UpdateSingleScheduleRequest](#services-v1-UpdateSingleScheduleRequest) | [.resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) | Update a single_schedule. |
+| PatchSingleSchedule | [PatchSingleScheduleRequest](#services-v1-PatchSingleScheduleRequest) | [.resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) | Patch a single_schedule. |
 | DeleteSingleSchedule | [DeleteSingleScheduleRequest](#services-v1-DeleteSingleScheduleRequest) | [DeleteSingleScheduleResponse](#services-v1-DeleteSingleScheduleResponse) | Delete a single_schedule. |
 | CreateRepeatedSchedule | [CreateRepeatedScheduleRequest](#services-v1-CreateRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Create a repeated_schedule. |
 | ListRepeatedSchedules | [ListRepeatedSchedulesRequest](#services-v1-ListRepeatedSchedulesRequest) | [ListRepeatedSchedulesResponse](#services-v1-ListRepeatedSchedulesResponse) | Get a list of repeatedSchedules. |
 | GetRepeatedSchedule | [GetRepeatedScheduleRequest](#services-v1-GetRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Get a specific repeated_schedule. |
 | UpdateRepeatedSchedule | [UpdateRepeatedScheduleRequest](#services-v1-UpdateRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Update a repeated_schedule. |
+| PatchRepeatedSchedule | [PatchRepeatedScheduleRequest](#services-v1-PatchRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Patch a repeated_schedule. |
 | DeleteRepeatedSchedule | [DeleteRepeatedScheduleRequest](#services-v1-DeleteRepeatedScheduleRequest) | [DeleteRepeatedScheduleResponse](#services-v1-DeleteRepeatedScheduleResponse) | Delete a repeated_schedule. |
 
 
@@ -3593,6 +3797,7 @@ Site.
 | ListSites | [ListSitesRequest](#services-v1-ListSitesRequest) | [ListSitesResponse](#services-v1-ListSitesResponse) | Get a list of sites. |
 | GetSite | [GetSiteRequest](#services-v1-GetSiteRequest) | [.resources.location.v1.SiteResource](#resources-location-v1-SiteResource) | Get a specific site. |
 | UpdateSite | [UpdateSiteRequest](#services-v1-UpdateSiteRequest) | [.resources.location.v1.SiteResource](#resources-location-v1-SiteResource) | Update a site. |
+| PatchSite | [PatchSiteRequest](#services-v1-PatchSiteRequest) | [.resources.location.v1.SiteResource](#resources-location-v1-SiteResource) | Patch a site. |
 | DeleteSite | [DeleteSiteRequest](#services-v1-DeleteSiteRequest) | [DeleteSiteResponse](#services-v1-DeleteSiteResponse) | Delete a site. |
 
 
@@ -3620,6 +3825,7 @@ TelemetryLogsProfile.
 | ListTelemetryLogsProfiles | [ListTelemetryLogsProfilesRequest](#services-v1-ListTelemetryLogsProfilesRequest) | [ListTelemetryLogsProfilesResponse](#services-v1-ListTelemetryLogsProfilesResponse) | Get a list of telemetryLogsProfiles. |
 | GetTelemetryLogsProfile | [GetTelemetryLogsProfileRequest](#services-v1-GetTelemetryLogsProfileRequest) | [.resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) | Get a specific telemetry_logs_profile. |
 | UpdateTelemetryLogsProfile | [UpdateTelemetryLogsProfileRequest](#services-v1-UpdateTelemetryLogsProfileRequest) | [.resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) | Update a telemetry_logs_profile. |
+| PatchTelemetryLogsProfile | [PatchTelemetryLogsProfileRequest](#services-v1-PatchTelemetryLogsProfileRequest) | [.resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) | Patch a telemetry_logs_profile. |
 | DeleteTelemetryLogsProfile | [DeleteTelemetryLogsProfileRequest](#services-v1-DeleteTelemetryLogsProfileRequest) | [DeleteTelemetryLogsProfileResponse](#services-v1-DeleteTelemetryLogsProfileResponse) | Delete a telemetry_logs_profile. |
 
 
@@ -3647,6 +3853,7 @@ TelemetryMetricsProfile.
 | ListTelemetryMetricsProfiles | [ListTelemetryMetricsProfilesRequest](#services-v1-ListTelemetryMetricsProfilesRequest) | [ListTelemetryMetricsProfilesResponse](#services-v1-ListTelemetryMetricsProfilesResponse) | Get a list of telemetryMetricsProfiles. |
 | GetTelemetryMetricsProfile | [GetTelemetryMetricsProfileRequest](#services-v1-GetTelemetryMetricsProfileRequest) | [.resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) | Get a specific telemetry_metrics_profile. |
 | UpdateTelemetryMetricsProfile | [UpdateTelemetryMetricsProfileRequest](#services-v1-UpdateTelemetryMetricsProfileRequest) | [.resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) | Update a telemetry_metrics_profile. |
+| PatchTelemetryMetricsProfile | [PatchTelemetryMetricsProfileRequest](#services-v1-PatchTelemetryMetricsProfileRequest) | [.resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) | Patch a telemetry_metrics_profile. |
 | DeleteTelemetryMetricsProfile | [DeleteTelemetryMetricsProfileRequest](#services-v1-DeleteTelemetryMetricsProfileRequest) | [DeleteTelemetryMetricsProfileResponse](#services-v1-DeleteTelemetryMetricsProfileResponse) | Delete a telemetry_metrics_profile. |
 
 
@@ -3661,6 +3868,7 @@ WorkloadMember.
 | ListWorkloadMembers | [ListWorkloadMembersRequest](#services-v1-ListWorkloadMembersRequest) | [ListWorkloadMembersResponse](#services-v1-ListWorkloadMembersResponse) | Get a list of workload_members. |
 | GetWorkloadMember | [GetWorkloadMemberRequest](#services-v1-GetWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Get a specific workload_member. |
 | UpdateWorkloadMember | [UpdateWorkloadMemberRequest](#services-v1-UpdateWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Update a workload_member. |
+| PatchWorkloadMember | [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Patch a workload_member. |
 | DeleteWorkloadMember | [DeleteWorkloadMemberRequest](#services-v1-DeleteWorkloadMemberRequest) | [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse) | Delete a workload_member. |
 
 
@@ -3675,6 +3883,7 @@ Workload.
 | ListWorkloads | [ListWorkloadsRequest](#services-v1-ListWorkloadsRequest) | [ListWorkloadsResponse](#services-v1-ListWorkloadsResponse) | Get a list of workloads. |
 | GetWorkload | [GetWorkloadRequest](#services-v1-GetWorkloadRequest) | [.resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) | Get a specific workload. |
 | UpdateWorkload | [UpdateWorkloadRequest](#services-v1-UpdateWorkloadRequest) | [.resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) | Update a workload. |
+| PatchWorkload | [PatchWorkloadRequest](#services-v1-PatchWorkloadRequest) | [.resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) | Patch a workload. |
 | DeleteWorkload | [DeleteWorkloadRequest](#services-v1-DeleteWorkloadRequest) | [DeleteWorkloadResponse](#services-v1-DeleteWorkloadResponse) | Delete a workload. |
 
  

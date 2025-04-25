@@ -297,6 +297,41 @@ func (is *InventorygRPCServer) UpdateRegion(
 	return invUpRes, nil
 }
 
+// Update a region. (PATCH).
+func (is *InventorygRPCServer) PatchRegion(
+	ctx context.Context,
+	req *restv1.PatchRegionRequest,
+) (*locationv1.RegionResource, error) {
+	zlog.Debug().Msg("PatchRegion")
+
+	region := req.GetRegion()
+	invRegion, err := toInvRegion(region)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory region")
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Region{
+			Region: invRegion,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetRegion()
+	invUpRes, err := fromInvRegion(invUp, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a region.
 func (is *InventorygRPCServer) DeleteRegion(
 	ctx context.Context,

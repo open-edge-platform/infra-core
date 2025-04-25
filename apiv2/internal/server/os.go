@@ -209,6 +209,37 @@ func (is *InventorygRPCServer) UpdateOperatingSystem(
 	return invUpRes, nil
 }
 
+// Update a osResource. (PATCH).
+func (is *InventorygRPCServer) PatchOperatingSystem(
+	ctx context.Context,
+	req *restv1.PatchOperatingSystemRequest,
+) (*osv1.OperatingSystemResource, error) {
+	zlog.Debug().Msg("PatchOperatingSystem")
+
+	osResource := req.GetOs()
+	invOSResource, err := toInvOSResource(osResource)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory OS resource")
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Os{
+			Os: invOSResource,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetOs()
+	invUpRes := fromInvOSResource(invUp)
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a osResource.
 func (is *InventorygRPCServer) DeleteOperatingSystem(
 	ctx context.Context,

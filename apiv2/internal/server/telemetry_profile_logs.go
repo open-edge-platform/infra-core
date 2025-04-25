@@ -267,6 +267,37 @@ func (is *InventorygRPCServer) UpdateTelemetryLogsProfile(
 	return invUpRes, nil
 }
 
+// Update a telemetryLogsProfile. (PATCH).
+func (is *InventorygRPCServer) PatchTelemetryLogsProfile(
+	ctx context.Context,
+	req *restv1.PatchTelemetryLogsProfileRequest,
+) (*telemetryv1.TelemetryLogsProfileResource, error) {
+	zlog.Debug().Msg("PatchTelemetryLogsProfile")
+
+	telemetryLogsProfile := req.GetTelemetryLogsProfile()
+	telemetryProfile, err := TelemetryLogsProfileResourcetoGRPC(telemetryLogsProfile)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry logs profile")
+		return nil, err
+	}
+
+	fieldmask := req.GetFieldMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_TelemetryProfile{
+			TelemetryProfile: telemetryProfile,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetTelemetryProfile()
+	invUpRes := TelemetryLogsProfileResourcetoAPI(invUp)
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Should be called only when requesting inherited telemetry logs.
 func (is *InventorygRPCServer) listInheritedTelemetryLogs(
 	ctx context.Context,
