@@ -316,9 +316,6 @@ func CreateHost(
 	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, host.StatusCode())
-	if host.JSON200 == nil {
-		fmt.Printf("Host creation failed: %s", *host.JSONDefault.Message)
-	}
 	t.Cleanup(func() { SoftDeleteHost(t, context.Background(), apiClient, host.JSON200) })
 	return host
 }
@@ -357,10 +354,6 @@ func UnallocateHostFromSite(t testing.TB, ctx context.Context, apiClient *api.Cl
 		hostUp,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	if res.StatusCode() != http.StatusOK {
-		fmt.Println("UnallocateHostFromSite failed")
-		fmt.Println(*res.JSONDefault.Message)
-	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 }
@@ -418,6 +411,9 @@ func CreateOS(
 		reqOS,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
+	if osCreated.JSON200 == nil {
+		fmt.Printf("Creation failed: %s", *osCreated.JSONDefault.Message)
+	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, osCreated.StatusCode())
 
