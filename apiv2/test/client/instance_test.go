@@ -21,8 +21,10 @@ func clearInstanceIDs() {
 	utils.Instance2Request.HostId = nil
 	utils.Instance1Request.OsId = nil
 	utils.Instance2Request.OsId = nil
-	utils.Host1Request.Site = nil
 	utils.Host1Request.SiteId = nil
+	utils.Host2Request.SiteId = nil
+	utils.Host3Request.SiteId = nil
+	utils.Host4Request.SiteId = nil
 }
 
 func TestInstance_CreateGetDelete(t *testing.T) {
@@ -35,9 +37,9 @@ func TestInstance_CreateGetDelete(t *testing.T) {
 
 	utils.Site1Request.RegionId = nil
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	utils.Host1Request.SiteId = site1.JSON200.SiteId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	utils.Host3Request.SiteId = site1.JSON200.SiteId
+	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
+	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host4Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId
@@ -81,8 +83,8 @@ func TestInstance_Update(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	utils.Host3Request.SiteId = nil
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
+	utils.Host1Request.SiteId = nil
+	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId

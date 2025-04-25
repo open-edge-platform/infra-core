@@ -64,15 +64,16 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 
 	utils.Site1Request.RegionId = r3.ResourceId
 	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	utils.Site1Request.RegionId = nil
 
 	utils.Site2Request.RegionId = r2.ResourceId
 	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
-	utils.Site2Request.Region = nil
+	utils.Site2Request.RegionId = nil
 
 	getr1, err := apiClient.RegionServiceGetRegionWithResponse(ctx, *r1.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr1.StatusCode())
-	assert.Empty(t, getr1.JSON200.ParentRegion)
+	assert.Empty(t, getr1.JSON200.ParentRegion.ResourceId)
 	assert.Equal(t, utils.MetadataR1, *getr1.JSON200.Metadata)
 	assert.Equal(t, []api.MetadataItem{}, *getr1.JSON200.InheritedMetadata)
 
@@ -324,7 +325,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, s1res.StatusCode())
-	assert.Nil(t, s1res.JSON200.Region)
+	assert.Empty(t, s1res.JSON200.Region.ResourceId)
 
 	// Updates site using Put and Patch, sets Region to wrong emptyString and verifies
 	// expected error BadRequest
@@ -898,7 +899,7 @@ func TestLocation_FilterSites(t *testing.T) {
 			name:            "test sites: sites with bad metadata value",
 			filter:          fmt.Sprintf(`%s = '%s'`, "metadata", `{"key":"??","value":"site1"}`),
 			amountResources: 0,
-			fail:            false,
+			fail:            true,
 		},
 		{
 			name:            "test sites: sites with bad orderby value",
