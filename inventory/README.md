@@ -60,6 +60,8 @@ This code requires the following tools to be installed on your development machi
 - [Community Edition of Atlas tool](https://atlasgo.io/community-edition) - export the `ATLAS_VERSION` variable accordingly
 to [$ATLASVERSION_REQ](../version.mk)
 - [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
+- [dbml/cli](https://github.com/holistics/dbml/blob/master/packages/dbml-cli) - check [$DBMLCLI_REQ](../version.mk)
+- [dbml-renderer](https://www.npmjs.com/package/@softwaretechnik/dbml-renderer) - check [$DBMLRENDERER_REQ](../version.mk)
 - GNU Compiler Collection (GCC)
 
 You can install Go dependencies by running `make go-dependency`.
@@ -100,6 +102,14 @@ make docker-run
 
 Note that when running Inventory as a standalone project, the default configuration defined in
 [common.mk](../common.mk) will be used (see `PG*` variables).
+
+#### Generate ER diagram
+
+```bash
+make gen-er-diagram
+```
+
+Generates ER diagram of the inventory data model.
 
 See the [documentation][user-guide-url] if you want to learn more about using Edge Orchestrator.
 
