@@ -389,11 +389,11 @@ func TestCheckCSV(t *testing.T) {
 			expectStr: []types.HostRecord{
 				{
 					Serial: "ABCD123", UUID: "4c4c4c4c-0000-1111-2222-333333333333", OSProfile: "",
-					RawRecord: "ABCD123,4c4c4c4c-0000-1111-2222-333333333333,,,false,,,",
+					RawRecord: "ABCD123,4c4c4c4c-0000-1111-2222-333333333333,,,,,,",
 				},
 				{
 					Serial: "QWERTY123", UUID: "1c1c1c1c-0000-1111-2222-333333333333", OSProfile: "os2",
-					RawRecord: "QWERTY123,1c1c1c1c-0000-1111-2222-333333333333,os2,,false,,,",
+					RawRecord: "QWERTY123,1c1c1c1c-0000-1111-2222-333333333333,os2,,,,,",
 				},
 			},
 		},
@@ -406,7 +406,7 @@ func TestCheckCSV(t *testing.T) {
 			expectStr: []types.HostRecord{
 				{
 					Serial: "ABCD-123", UUID: "4c4c4c4c-0000-1111-2222-333333333333", OSProfile: "os1",
-					Error: "Invalid Serial number;", RawRecord: "ABCD-123,4c4c4c4c-0000-1111-2222-333333333333,os1,,false,,,",
+					Error: "Invalid Serial number;", RawRecord: "ABCD-123,4c4c4c4c-0000-1111-2222-333333333333,os1,,,,,",
 				},
 			},
 			expectErrStr: "Pre-flight check failed",
@@ -421,11 +421,11 @@ func TestCheckCSV(t *testing.T) {
 			expectStr: []types.HostRecord{
 				{
 					Serial: "ABCD123", UUID: "4c4c4c4c-0000-1111-2222-333333333333", OSProfile: "os1",
-					RawRecord: "ABCD123,4c4c4c4c-0000-1111-2222-333333333333,os1,,false,,,",
+					RawRecord: "ABCD123,4c4c4c4c-0000-1111-2222-333333333333,os1,,,,,",
 				},
 				{
 					Serial: "QWERTY123", UUID: "4c4c4c4c-0000-1111-2222-333333333333", Error: "Duplicate UUID : Row 1;",
-					RawRecord: "QWERTY123,4c4c4c4c-0000-1111-2222-333333333333,,,false,,,",
+					RawRecord: "QWERTY123,4c4c4c4c-0000-1111-2222-333333333333,,,,,,",
 				},
 			},
 			expectErrStr: "Pre-flight check failed",

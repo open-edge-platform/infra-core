@@ -2,4 +2,4 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # license check
-reuse~=3.0.1
+reuse~=5.0.2

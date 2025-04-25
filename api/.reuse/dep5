@@ -1,5 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-
-Files: *.md go.sum VERSION pkg/api/*.pb*.go pkg/api/*.gen.go examples/*.json artifacts/*
-Copyright: 2025 Intel Corporation
-License: Apache-2.0

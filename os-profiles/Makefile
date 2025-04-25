@@ -50,7 +50,6 @@ artifact-publish:
   		echo $$file; \
   		profile_name=$$(basename $$file .yaml); \
 		yq e -i '.metadata.release = "'$(VERSION)'"' $$file; \
-		aws ecr create-repository --region us-west-2 --repository-name $(OCI_REPOSITORY)/$$profile_name || true; \
         oras push $(OCI_REGISTRY)/$(OCI_REPOSITORY)/$$profile_name:$(TAGS) --artifact-type application/vnd.intel.orch.en $$file; \
 	done
 
