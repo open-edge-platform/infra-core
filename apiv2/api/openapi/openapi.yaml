@@ -4696,15 +4696,15 @@ components:
                     type: string
                     description: The ID of the telemetry profile.
                 targetInstance:
-                    pattern: ^inst-[0-9a-f]{8}$
+                    pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 logLevel:
@@ -4793,15 +4793,15 @@ components:
                     type: string
                     description: The ID of the telemetry profile.
                 targetInstance:
-                    pattern: ^inst-[0-9a-f]{8}$
+                    pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
-                    pattern: ^site-[0-9a-f]{8}$
+                    pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
-                    pattern: ^region-[0-9a-f]{8}$
+                    pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 metricsInterval:

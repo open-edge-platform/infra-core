@@ -145,19 +145,19 @@ message TelemetryLogsProfileResource {
   // The ID of the instance that the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_instance = 3 [(validate.rules).string = {
-    pattern: "^inst-[0-9a-f]{8}$"
+    pattern: "^$|^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }];
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_site = 4 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
+    pattern: "^$|^site-[0-9a-f]{8}$"
     max_bytes: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_region = 5 [(validate.rules).string = {
-    pattern: "^region-[0-9a-f]{8}$"
+    pattern: "^$|^region-[0-9a-f]{8}$"
     max_bytes: 15
   }];
   // The log level og the telemetry profile.
@@ -201,20 +201,20 @@ message TelemetryMetricsProfileResource {
   // The ID of the instance that the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_instance = 3 [(validate.rules).string = {
-    pattern: "^inst-[0-9a-f]{8}$"
+    pattern: "^$|^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }];
 
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_site = 4 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
+    pattern: "^$|^site-[0-9a-f]{8}$"
     max_bytes: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_region = 5 [(validate.rules).string = {
-    pattern: "^region-[0-9a-f]{8}$"
+    pattern: "^$|^region-[0-9a-f]{8}$"
     max_bytes: 15
   }];
 
