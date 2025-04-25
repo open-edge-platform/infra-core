@@ -131,9 +131,9 @@ func TestInstance_Errors(t *testing.T) {
 		t.Fatalf("new API client error %s", err.Error())
 	}
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	utils.Host1Request.SiteId = site1.JSON200.ResourceId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	utils.Host3Request.SiteId = site1.JSON200.ResourceId
+	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
+	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host4Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId
@@ -209,7 +209,6 @@ func TestInstance_Errors(t *testing.T) {
 	log.Info().Msgf("End Instance Error tests")
 }
 
-// FIXME(Daniele,LPIO-1388): improve TC to randomly create greater amount of instances, which do not overlap
 func TestInstanceList(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()

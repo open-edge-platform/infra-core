@@ -48,7 +48,6 @@ func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("End OSResource tests")
 }
 
-// FIXME(Daniele,LPIO-1388): improve TC
 func TestOS_UpdatePut(t *testing.T) {
 	log.Info().Msgf("Begin OSResource Update tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
