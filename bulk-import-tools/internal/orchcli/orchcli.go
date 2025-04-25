@@ -243,6 +243,61 @@ func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, e
 	return false, nil
 }
 
+func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, error) {
+	if sn == "" && uuid == "" {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	uParsed := *oC.SvcURL
+	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts", oC.Project))
+	query := uParsed.Query()
+	query.Set("filter", buildHostFilter(sn, uuid))
+	uParsed.RawQuery = query.Encode()
+
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
+	if err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	var hosts api.HostsList
+	if err := json.NewDecoder(resp.Body).Decode(&hosts); err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	return findAvailableHostID(&hosts, sn, uuid)
+}
+
+func buildHostFilter(sn, uuid string) string {
+	switch {
+	case sn != "" && uuid != "":
+		return fmt.Sprintf("%s=%q AND %s=%q", "serialNumber", sn, "uuid", uuid)
+	case sn != "":
+		return fmt.Sprintf("%s=%q", "serialNumber", sn)
+	case uuid != "":
+		return fmt.Sprintf("%s=%q", "uuid", uuid)
+	default:
+		return ""
+	}
+}
+
+func findAvailableHostID(hosts *api.HostsList, sn, uuid string) (string, error) {
+	if *hosts.TotalElements > 0 {
+		for _, host := range *hosts.Hosts {
+			if (host.SerialNumber != nil && *host.SerialNumber == sn) || (host.Uuid != nil && host.Uuid.String() == uuid) {
+				if host.Instance == nil {
+					return *host.ResourceId, nil
+				}
+			}
+		}
+	}
+	return "", e.NewCustomError(e.ErrHostNotFound)
+}
+
 func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error) {
 	if os == "" {
 		return "", e.NewCustomError(e.ErrInvalidOSProfile)
