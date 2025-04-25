@@ -16,7 +16,6 @@ import (
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	validator "github.com/pb33f/libopenapi-validator"
 	"github.com/prometheus/client_golang/prometheus"
 
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
@@ -286,27 +285,6 @@ func UnicodePrintableCharsCheckerMiddleware() echo.MiddlewareFunc {
 func (m *Manager) setUnicodeChecker(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("UnicodeChecker is enabled")
 	e.Use(UnicodePrintableCharsChecker)
-}
-
-// OpenAPIValidationMiddleware validates HTTP requests using OpenAPI specifications.
-func OpenAPIValidationMiddleware(validatorInstance validator.Validator, basePath string) echo.MiddlewareFunc {
-	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			req := c.Request()
-			// Validate the request against the OpenAPI spec
-			ok, errors := validatorInstance.ValidateHttpRequest(req)
-			if !ok && len(errors) > 0 {
-				err := fmt.Errorf("request validation failed")
-				zlog.InfraSec().InfraErr(err).Msgf("%v", errors)
-				return &echo.HTTPError{
-					Code:    http.StatusBadRequest,
-					Message: "HTTP Request validation failed",
-				}
-			}
-			// Proceed to the next handler
-			return next(c)
-		}
-	}
 }
 
 func (m *Manager) setOapiValidator(e *echo.Echo) {

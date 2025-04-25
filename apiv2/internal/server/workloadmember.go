@@ -21,8 +21,8 @@ import (
 // structs WorkloadMember defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIWorkloadMemberToProto = map[string]string{
 	computev1.WorkloadMemberFieldKind:       inv_computev1.WorkloadMemberFieldKind,
-	computev1.WorkloadMemberFieldInstanceId: inv_computev1.WorkloadMemberEdgeInstance, // instance_id is carried via the HostResource.ResourceID
-	computev1.WorkloadMemberFieldWorkloadId: inv_computev1.WorkloadMemberEdgeWorkload, // workload_id is carried via the Workload.ResourceID
+	computev1.WorkloadMemberFieldInstanceId: inv_computev1.WorkloadMemberEdgeInstance,
+	computev1.WorkloadMemberFieldWorkloadId: inv_computev1.WorkloadMemberEdgeWorkload,
 }
 
 func toInvWorkloadMember(workloadMember *computev1.WorkloadMember) (*inv_computev1.WorkloadMember, error) {

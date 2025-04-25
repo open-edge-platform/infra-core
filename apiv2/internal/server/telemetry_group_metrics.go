@@ -96,7 +96,7 @@ func (is *InventorygRPCServer) ListTelemetryMetricsGroups(
 			inv_telemetryv1.TelemetryResourceKind_name[int32(
 				inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS)]),
 	}
-	if err := validator.ValidateMessage(filter); err != nil {
+	if err = validator.ValidateMessage(filter); err != nil {
 		zlog.InfraErr(err).Msg("failed to validate query params")
 		return nil, err
 	}

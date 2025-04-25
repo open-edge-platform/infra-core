@@ -8,9 +8,10 @@ import (
 	"errors"
 	"math"
 
-	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
+
+	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 )
 
 func fromInvMetadata(metadata string) ([]*commonv1.MetadataItem, error) {
@@ -106,7 +107,11 @@ func parsePagination(pageSize, off int32) (limit, offset uint32, err error) {
 	return limit, offset, nil
 }
 
-func parseFielmask(message proto.Message, fieldMask *fieldmaskpb.FieldMask, fieldsMap map[string]string) (*fieldmaskpb.FieldMask, error) {
+func parseFielmask(
+	message proto.Message,
+	fieldMask *fieldmaskpb.FieldMask,
+	fieldsMap map[string]string,
+) (*fieldmaskpb.FieldMask, error) {
 	if len(fieldMask.GetPaths()) == 0 {
 		return fieldMask, nil
 	}
