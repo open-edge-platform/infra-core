@@ -103,12 +103,12 @@ make docker-run
 Note that when running Inventory as a standalone project, the default configuration defined in
 [common.mk](../common.mk) will be used (see `PG*` variables).
 
-
 #### Generate ER diagram
 
 ```bash
 make gen-er-diagram
 ```
+
 Generates ER diagram of the inventory data model.
 
 See the [documentation][user-guide-url] if you want to learn more about using Edge Orchestrator.
