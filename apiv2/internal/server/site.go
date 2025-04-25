@@ -21,18 +21,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs SiteTemplate defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPISiteToProto = map[string]string{
-	"SiteLat":  inv_locationv1.SiteResourceFieldSiteLat,
-	"SiteLng":  inv_locationv1.SiteResourceFieldSiteLng,
-	"Metadata": inv_locationv1.SiteResourceFieldMetadata,
-	"Name":     inv_locationv1.SiteResourceFieldName,
-	"RegionId": inv_locationv1.SiteResourceEdgeRegion,
-}
-
-var OpenAPISiteObjectsNames = map[string]struct{}{
-	"Metadata":          {},
-	"InheritedMetadata": {},
-	"Region":            {},
-	"Provider":          {}, // provider must not be set from the API
+	locationv1.SiteResourceFieldSiteLat:  inv_locationv1.SiteResourceFieldSiteLat,
+	locationv1.SiteResourceFieldSiteLng:  inv_locationv1.SiteResourceFieldSiteLng,
+	locationv1.SiteResourceEdgeMetadata:  inv_locationv1.SiteResourceFieldMetadata,
+	locationv1.SiteResourceFieldName:     inv_locationv1.SiteResourceFieldName,
+	locationv1.SiteResourceFieldRegionId: inv_locationv1.SiteResourceEdgeRegion,
 }
 
 func toInvSite(site *locationv1.SiteResource) (*inv_locationv1.SiteResource, error) {
@@ -256,7 +249,10 @@ func (is *InventorygRPCServer) PatchSite(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invSite, req.GetFieldMask(), OpenAPISiteToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Site{
 			Site: invSite,

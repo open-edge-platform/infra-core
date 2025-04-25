@@ -20,11 +20,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIOSResourceToProto = map[string]string{
-	"Name":              inv_osv1.OperatingSystemResourceFieldName,
-	"Architecture":      inv_osv1.OperatingSystemResourceFieldArchitecture,
-	"KernelCommand":     inv_osv1.OperatingSystemResourceFieldKernelCommand,
-	"UpdateSources":     inv_osv1.OperatingSystemResourceFieldUpdateSources,
-	"InstalledPackages": inv_osv1.OperatingSystemResourceFieldInstalledPackages,
+	osv1.OperatingSystemResourceFieldName:              inv_osv1.OperatingSystemResourceFieldName,
+	osv1.OperatingSystemResourceFieldArchitecture:      inv_osv1.OperatingSystemResourceFieldArchitecture,
+	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
+	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
+	osv1.OperatingSystemResourceFieldInstalledPackages: inv_osv1.OperatingSystemResourceFieldInstalledPackages,
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {
@@ -223,7 +223,10 @@ func (is *InventorygRPCServer) PatchOperatingSystem(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invOSResource, req.GetFieldMask(), OpenAPIOSResourceToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Os{
 			Os: invOSResource,

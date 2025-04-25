@@ -20,14 +20,9 @@ import (
 // The key is derived from the json property respectively of the
 // structs WorkloadMember defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIWorkloadMemberToProto = map[string]string{
-	"Kind":       inv_computev1.WorkloadMemberFieldKind,
-	"InstanceId": inv_computev1.WorkloadMemberEdgeInstance, // instance_id is carried via the HostResource.ResourceID
-	"WorkloadId": inv_computev1.WorkloadMemberEdgeWorkload, // workload_id is carried via the Workload.ResourceID
-}
-
-var OpenAPIWorkloadMemberObjectsNames = map[string]struct{}{
-	"Workload": {},
-	"Instance": {},
+	computev1.WorkloadMemberFieldKind:       inv_computev1.WorkloadMemberFieldKind,
+	computev1.WorkloadMemberFieldInstanceId: inv_computev1.WorkloadMemberEdgeInstance, // instance_id is carried via the HostResource.ResourceID
+	computev1.WorkloadMemberFieldWorkloadId: inv_computev1.WorkloadMemberEdgeWorkload, // workload_id is carried via the Workload.ResourceID
 }
 
 func toInvWorkloadMember(workloadMember *computev1.WorkloadMember) (*inv_computev1.WorkloadMember, error) {
@@ -249,7 +244,10 @@ func (is *InventorygRPCServer) PatchWorkloadMember(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invWorkloadMember, req.GetFieldMask(), OpenAPIWorkloadMemberToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_WorkloadMember{
 			WorkloadMember: invWorkloadMember,

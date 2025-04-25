@@ -20,12 +20,12 @@ import (
 // The key is derived from the json property respectively of the
 // structs Provider defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIProviderToProto = map[string]string{
-	"ProviderKind":   inv_providerv1.ProviderResourceFieldProviderKind,
-	"ProviderVendor": inv_providerv1.ProviderResourceFieldProviderVendor,
-	"Name":           inv_providerv1.ProviderResourceFieldName,
-	"ApiEndpoint":    inv_providerv1.ProviderResourceFieldApiEndpoint,
-	"ApiCredentials": inv_providerv1.ProviderResourceFieldApiCredentials,
-	"Config":         inv_providerv1.ProviderResourceFieldConfig,
+	providerv1.ProviderResourceFieldProviderKind:   inv_providerv1.ProviderResourceFieldProviderKind,
+	providerv1.ProviderResourceFieldProviderVendor: inv_providerv1.ProviderResourceFieldProviderVendor,
+	providerv1.ProviderResourceFieldName:           inv_providerv1.ProviderResourceFieldName,
+	providerv1.ProviderResourceFieldApiEndpoint:    inv_providerv1.ProviderResourceFieldApiEndpoint,
+	providerv1.ProviderResourceFieldApiCredentials: inv_providerv1.ProviderResourceFieldApiCredentials,
+	providerv1.ProviderResourceFieldConfig:         inv_providerv1.ProviderResourceFieldConfig,
 }
 
 func toInvProvider(provider *providerv1.ProviderResource) (*inv_providerv1.ProviderResource, error) {
@@ -208,7 +208,10 @@ func (is *InventorygRPCServer) PatchProvider(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invProvider, req.GetFieldMask(), OpenAPIProviderToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Provider{
 			Provider: invProvider,

@@ -20,14 +20,10 @@ import (
 // The key is derived from the json property respectively of the
 // structs Workload defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIWorkloadToProto = map[string]string{
-	"Kind":       inv_computev1.WorkloadResourceFieldKind,
-	"Name":       inv_computev1.WorkloadResourceFieldName,
-	"Status":     inv_computev1.WorkloadResourceFieldStatus,
-	"ExternalId": inv_computev1.WorkloadResourceFieldExternalId,
-}
-
-var OpenAPIWorkloadObjectsNames = map[string]struct{}{
-	"Members": {},
+	computev1.WorkloadResourceFieldKind:       inv_computev1.WorkloadResourceFieldKind,
+	computev1.WorkloadResourceFieldName:       inv_computev1.WorkloadResourceFieldName,
+	computev1.WorkloadResourceFieldStatus:     inv_computev1.WorkloadResourceFieldStatus,
+	computev1.WorkloadResourceFieldExternalId: inv_computev1.WorkloadResourceFieldExternalId,
 }
 
 func toInvWorkload(workload *computev1.WorkloadResource) (*inv_computev1.WorkloadResource, error) {
@@ -243,7 +239,10 @@ func (is *InventorygRPCServer) PatchWorkload(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invWorkload, req.GetFieldMask(), OpenAPIWorkloadToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Workload{
 			Workload: invWorkload,

@@ -26,17 +26,10 @@ import (
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIInstanceToProto = map[string]string{
-	"Name":   inv_computev1.InstanceResourceFieldName,
-	"Kind":   inv_computev1.InstanceResourceFieldKind,
-	"OsID":   inv_computev1.InstanceResourceEdgeDesiredOs,
-	"HostID": inv_computev1.InstanceResourceEdgeHost,
-}
-
-var OpenAPIInstanceObjectsNames = map[string]struct{}{
-	"Host":            {},
-	"DesiredOs":       {},
-	"CurrentOs":       {},
-	"WorkloadMembers": {},
+	computev1.InstanceResourceFieldName:   inv_computev1.InstanceResourceFieldName,
+	computev1.InstanceResourceFieldKind:   inv_computev1.InstanceResourceFieldKind,
+	computev1.InstanceResourceFieldOsId:   inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldHostId: inv_computev1.InstanceResourceEdgeHost,
 }
 
 func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.InstanceResource, error) {
@@ -324,7 +317,10 @@ func (is *InventorygRPCServer) PatchInstance(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invInstance, req.GetFieldMask(), OpenAPIInstanceToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Instance{
 			Instance: invInstance,

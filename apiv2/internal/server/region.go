@@ -20,15 +20,9 @@ import (
 )
 
 var OpenAPIRegionToProto = map[string]string{
-	"Name":     inv_locationv1.RegionResourceFieldName,
-	"ParentId": inv_locationv1.RegionResourceEdgeParentRegion,
-	// "Metadata": inv_locationv1.RegionResourceFieldMetadata,
-}
-
-var OpenAPIRegionObjectsNames = map[string]struct{}{
-	"Metadata":          {},
-	"InheritedMetadata": {},
-	"ParentRegion":      {},
+	locationv1.RegionResourceFieldName:     inv_locationv1.RegionResourceFieldName,
+	locationv1.RegionResourceFieldParentId: inv_locationv1.RegionResourceEdgeParentRegion,
+	locationv1.RegionResourceEdgeMetadata:  inv_locationv1.RegionResourceFieldMetadata,
 }
 
 func toInvRegion(region *locationv1.RegionResource) (*inv_locationv1.RegionResource, error) {
@@ -311,7 +305,10 @@ func (is *InventorygRPCServer) PatchRegion(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invRegion, req.GetFieldMask(), OpenAPIRegionToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Region{
 			Region: invRegion,

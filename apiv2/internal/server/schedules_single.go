@@ -27,13 +27,13 @@ import (
 // The key is derived from the json property respectively of the
 // structs SingleSchedTemplate defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPISingleSchedToProto = map[string]string{
-	"Name":           inv_schedulev1.SingleScheduleResourceFieldName,
-	"TargetRegionId": inv_schedulev1.SingleScheduleResourceEdgeTargetRegion,
-	"TargetSiteId":   inv_schedulev1.SingleScheduleResourceEdgeTargetSite,
-	"TargetHostId":   inv_schedulev1.SingleScheduleResourceEdgeTargetHost,
-	"StartSeconds":   inv_schedulev1.SingleScheduleResourceFieldStartSeconds,
-	"EndSeconds":     inv_schedulev1.SingleScheduleResourceFieldEndSeconds,
-	"ScheduleStatus": inv_schedulev1.SingleScheduleResourceFieldScheduleStatus,
+	schedulev1.SingleScheduleResourceFieldName:           inv_schedulev1.SingleScheduleResourceFieldName,
+	schedulev1.SingleScheduleResourceFieldTargetRegionId: inv_schedulev1.SingleScheduleResourceEdgeTargetRegion,
+	schedulev1.SingleScheduleResourceFieldTargetSiteId:   inv_schedulev1.SingleScheduleResourceEdgeTargetSite,
+	schedulev1.SingleScheduleResourceFieldTargetHostId:   inv_schedulev1.SingleScheduleResourceEdgeTargetHost,
+	schedulev1.SingleScheduleResourceFieldStartSeconds:   inv_schedulev1.SingleScheduleResourceFieldStartSeconds,
+	schedulev1.SingleScheduleResourceFieldEndSeconds:     inv_schedulev1.SingleScheduleResourceFieldEndSeconds,
+	schedulev1.SingleScheduleResourceFieldScheduleStatus: inv_schedulev1.SingleScheduleResourceFieldScheduleStatus,
 }
 
 func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*inv_schedulev1.SingleScheduleResource, error) {
@@ -358,7 +358,10 @@ func (is *InventorygRPCServer) PatchSingleSchedule(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invSingleschedule, req.GetFieldMask(), OpenAPISingleSchedToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Singleschedule{
 			Singleschedule: invSingleschedule,

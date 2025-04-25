@@ -21,11 +21,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs TelemetryLogsProfile defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPITelemetryLogsProfileToProto = map[string]string{
-	"targetRegion":   inv_telemetryv1.TelemetryProfileEdgeRegion,
-	"targetSite":     inv_telemetryv1.TelemetryProfileEdgeSite,
-	"targetInstance": inv_telemetryv1.TelemetryProfileEdgeInstance,
-	"logLevel":       inv_telemetryv1.TelemetryProfileFieldLogLevel,
-	"logsGroupId":    inv_telemetryv1.TelemetryProfileEdgeGroup,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetRegion:   inv_telemetryv1.TelemetryProfileEdgeRegion,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetSite:     inv_telemetryv1.TelemetryProfileEdgeSite,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetInstance: inv_telemetryv1.TelemetryProfileEdgeInstance,
+	telemetryv1.TelemetryLogsProfileResourceFieldLogLevel:       inv_telemetryv1.TelemetryProfileFieldLogLevel,
+	telemetryv1.TelemetryLogsProfileResourceFieldLogsGroupId:    inv_telemetryv1.TelemetryProfileEdgeGroup,
 }
 
 func TelemetryLogsProfileResourcetoAPI(
@@ -281,7 +281,10 @@ func (is *InventorygRPCServer) PatchTelemetryLogsProfile(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(telemetryProfile, req.GetFieldMask(), OpenAPITelemetryLogsProfileToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_TelemetryProfile{
 			TelemetryProfile: telemetryProfile,

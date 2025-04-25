@@ -27,17 +27,17 @@ import (
 // The key is derived from the json property respectively of the
 // structs SchedTemplate defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIRepeatedSchedToProto = map[string]string{
-	"Name":            inv_schedulev1.RepeatedScheduleResourceFieldName,
-	"TargetSiteId":    inv_schedulev1.RepeatedScheduleResourceEdgeTargetSite,
-	"TargetHostId":    inv_schedulev1.RepeatedScheduleResourceEdgeTargetHost,
-	"TargetRegionId":  inv_schedulev1.RepeatedScheduleResourceEdgeTargetRegion,
-	"DurationSeconds": inv_schedulev1.RepeatedScheduleResourceFieldDurationSeconds,
-	"CronMinutes":     inv_schedulev1.RepeatedScheduleResourceFieldCronMinutes,
-	"CronHours":       inv_schedulev1.RepeatedScheduleResourceFieldCronHours,
-	"CronDayMonth":    inv_schedulev1.RepeatedScheduleResourceFieldCronDayMonth,
-	"CronMonth":       inv_schedulev1.RepeatedScheduleResourceFieldCronMonth,
-	"CronDayWeek":     inv_schedulev1.RepeatedScheduleResourceFieldCronDayWeek,
-	"ScheduleStatus":  inv_schedulev1.RepeatedScheduleResourceFieldScheduleStatus,
+	schedulev1.RepeatedScheduleResourceFieldName:            inv_schedulev1.RepeatedScheduleResourceFieldName,
+	schedulev1.RepeatedScheduleResourceFieldTargetSiteId:    inv_schedulev1.RepeatedScheduleResourceEdgeTargetSite,
+	schedulev1.RepeatedScheduleResourceFieldTargetHostId:    inv_schedulev1.RepeatedScheduleResourceEdgeTargetHost,
+	schedulev1.RepeatedScheduleResourceFieldTargetRegionId:  inv_schedulev1.RepeatedScheduleResourceEdgeTargetRegion,
+	schedulev1.RepeatedScheduleResourceFieldDurationSeconds: inv_schedulev1.RepeatedScheduleResourceFieldDurationSeconds,
+	schedulev1.RepeatedScheduleResourceFieldCronMinutes:     inv_schedulev1.RepeatedScheduleResourceFieldCronMinutes,
+	schedulev1.RepeatedScheduleResourceFieldCronHours:       inv_schedulev1.RepeatedScheduleResourceFieldCronHours,
+	schedulev1.RepeatedScheduleResourceFieldCronDayMonth:    inv_schedulev1.RepeatedScheduleResourceFieldCronDayMonth,
+	schedulev1.RepeatedScheduleResourceFieldCronMonth:       inv_schedulev1.RepeatedScheduleResourceFieldCronMonth,
+	schedulev1.RepeatedScheduleResourceFieldCronDayWeek:     inv_schedulev1.RepeatedScheduleResourceFieldCronDayWeek,
+	schedulev1.RepeatedScheduleResourceFieldScheduleStatus:  inv_schedulev1.RepeatedScheduleResourceFieldScheduleStatus,
 }
 
 var OpenAPIScheduleRepeatedObjectsNames = map[string]struct{}{
@@ -378,7 +378,10 @@ func (is *InventorygRPCServer) PatchRepeatedSchedule(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invRepeatedSchedule, req.GetFieldMask(), OpenAPIRepeatedSchedToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Repeatedschedule{
 			Repeatedschedule: invRepeatedSchedule,
