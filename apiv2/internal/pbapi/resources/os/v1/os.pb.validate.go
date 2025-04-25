@@ -79,10 +79,10 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 128 {
 		err := OperatingSystemResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 128 runes",
 		}
 		if !all {
 			return err
@@ -93,7 +93,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	if !_OperatingSystemResource_Name_Pattern.MatchString(m.GetName()) {
 		err := OperatingSystemResourceValidationError{
 			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ()]+$\"",
 		}
 		if !all {
 			return err
@@ -423,7 +423,7 @@ var _ interface {
 
 var _OperatingSystemResource_ResourceId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
-var _OperatingSystemResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
+var _OperatingSystemResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ()]+$")
 
 var _OperatingSystemResource_Architecture_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
 

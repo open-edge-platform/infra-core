@@ -44,8 +44,8 @@ message OperatingSystemResource {
 
   // The OS resource's name.
   string name = 2 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    pattern: "^$|^[a-zA-Z-_0-9./: ()]+$"  
+    max_len: 128
   }];
 
   // The OS resource's CPU architecture.
