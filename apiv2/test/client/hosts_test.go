@@ -996,32 +996,3 @@ func TestHostOnboard(t *testing.T) {
 
 	log.Info().Msgf("End compute host onboard tests")
 }
-
-func TestHost_Cleanup(t *testing.T) {
-	log.Info().Msgf("TestHost_Cleanup")
-
-	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
-	defer cancel()
-
-	apiClient, err := GetAPIClient()
-	require.NoError(t, err)
-
-	resList, err := apiClient.HostServiceListHostsWithResponse(
-		ctx,
-		&api.HostServiceListHostsParams{},
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resList.StatusCode())
-
-	for _, host := range resList.JSON200.Hosts {
-		resHost, err := apiClient.HostServiceDeleteHostWithResponse(
-			ctx,
-			*host.ResourceId,
-			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-			AddProjectIDtoTheHeader,
-		)
-		require.NoError(t, err)
-		assert.Equal(t, http.StatusOK, resHost.StatusCode())
-	}
-}

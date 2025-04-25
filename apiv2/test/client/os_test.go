@@ -191,7 +191,17 @@ func TestOS_List(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	ExistingOSs := 4
+	// Checks if list resources return expected number of entries
+	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+		ctx,
+		&api.OperatingSystemServiceListOperatingSystemsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resList.StatusCode())
+
+	ExistingOSs := len(resList.JSON200.OperatingSystems)
 
 	totalItems := 10
 	var pageId int32 = 1
@@ -207,7 +217,7 @@ func TestOS_List(t *testing.T) {
 	}
 
 	// Checks if list resources return expected number of entries
-	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
 		&api.OperatingSystemServiceListOperatingSystemsParams{
 			Offset:   &pageId,
@@ -231,25 +241,6 @@ func TestOS_List(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystems))
 	assert.Equal(t, false, resList.JSON200.HasNext)
-}
-
-func TestOS_ListEmpty(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
-	defer cancel()
-
-	apiClient, err := GetAPIClient()
-	require.NoError(t, err)
-
-	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
-		ctx,
-		&api.OperatingSystemServiceListOperatingSystemsParams{},
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-
-	ExistingOSs := 4
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, ExistingOSs, len(resList.JSON200.OperatingSystems))
 }
 
 func TestOS_CreatewithInstallPackage(t *testing.T) {
