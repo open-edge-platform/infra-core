@@ -427,7 +427,11 @@ func (is *InventorygRPCServer) PatchHost(
 		return nil, err
 	}
 
-	fieldmask := req.GetFieldMask()
+	fieldmask, err := parseFielmask(invHost, req.GetFieldMask(), OpenAPIHostToProto)
+	if err != nil {
+		return nil, err
+	}
+
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Host{
 			Host: invHost,

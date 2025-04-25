@@ -9,6 +9,8 @@ import (
 	"math"
 
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 )
 
 func fromInvMetadata(metadata string) ([]*commonv1.MetadataItem, error) {
@@ -102,4 +104,28 @@ func parsePagination(pageSize, off int32) (limit, offset uint32, err error) {
 	}
 
 	return limit, offset, nil
+}
+
+func parseFielmask(message proto.Message, fieldMask *fieldmaskpb.FieldMask, fieldsMap map[string]string) (*fieldmaskpb.FieldMask, error) {
+	if len(fieldMask.GetPaths()) == 0 {
+		return fieldMask, nil
+	}
+
+	fieldMaskPaths := make([]string, 0, len(fieldMask.Paths))
+	for _, path := range fieldMask.GetPaths() {
+		fieldName, ok := fieldsMap[path]
+		if !ok {
+			zlog.Warn().Msgf("Field %s not found in fields map", path)
+		} else {
+			fieldMaskPaths = append(fieldMaskPaths, fieldName)
+		}
+	}
+
+	fieldmaskParsed, err := fieldmaskpb.New(message, fieldMaskPaths...)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse fieldmask %s", fieldMask.String())
+		return nil, err
+	}
+	zlog.Debug().Msgf("Fieldmask %s from fields map %s", fieldmaskParsed.String(), fieldMaskPaths)
+	return fieldmaskParsed, nil
 }
