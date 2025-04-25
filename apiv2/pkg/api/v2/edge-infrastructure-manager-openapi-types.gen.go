@@ -1469,6 +1469,12 @@ type InstanceServiceListInstancesParams struct {
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// InstanceServicePatchInstanceParams defines parameters for InstanceServicePatchInstance.
+type InstanceServicePatchInstanceParams struct {
+	// UpdateMask Field mask to be applied on the patch of instance.
+	UpdateMask *string `form:"updateMask,omitempty" json:"updateMask,omitempty"`
+}
+
 // LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
 type LocalAccountServiceListLocalAccountsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1738,6 +1744,9 @@ type HostServiceRegisterUpdateHostJSONRequestBody = HostRegister
 
 // InstanceServiceCreateInstanceJSONRequestBody defines body for InstanceServiceCreateInstance for application/json ContentType.
 type InstanceServiceCreateInstanceJSONRequestBody = InstanceResource
+
+// InstanceServicePatchInstanceJSONRequestBody defines body for InstanceServicePatchInstance for application/json ContentType.
+type InstanceServicePatchInstanceJSONRequestBody = InstanceResource
 
 // InstanceServiceUpdateInstanceJSONRequestBody defines body for InstanceServiceUpdateInstance for application/json ContentType.
 type InstanceServiceUpdateInstanceJSONRequestBody = InstanceResource

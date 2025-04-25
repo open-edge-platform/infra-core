@@ -94,14 +94,11 @@ func TestInstance_Update(t *testing.T) {
 	newName := utils.Inst1Name + "-mod"
 	inst1Mod := api.InstanceResource{
 		Name: &newName,
-		DesiredOs: &api.OperatingSystemResource{
-			ResourceId: inst1.JSON200.DesiredOs.ResourceId,
-			Sha256:     inst1.JSON200.DesiredOs.Sha256,
-		},
 	}
 
-	inst1Up, err := apiClient.InstanceServiceUpdateInstanceWithResponse(
+	inst1Up, err := apiClient.InstanceServicePatchInstanceWithResponse(
 		ctx, *inst1.JSON200.ResourceId,
+		nil,
 		inst1Mod,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

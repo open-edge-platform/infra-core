@@ -1027,6 +1027,8 @@ type InstanceServiceClient interface {
 	GetInstance(ctx context.Context, in *GetInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error)
 	// Update a instance.
 	UpdateInstance(ctx context.Context, in *UpdateInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error)
+	// Patch a instance.
+	PatchInstance(ctx context.Context, in *PatchInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error)
 	// Delete a instance.
 	DeleteInstance(ctx context.Context, in *DeleteInstanceRequest, opts ...grpc.CallOption) (*DeleteInstanceResponse, error)
 	// Invalidate a instance.
@@ -1077,6 +1079,15 @@ func (c *instanceServiceClient) UpdateInstance(ctx context.Context, in *UpdateIn
 	return out, nil
 }
 
+func (c *instanceServiceClient) PatchInstance(ctx context.Context, in *PatchInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error) {
+	out := new(v11.InstanceResource)
+	err := c.cc.Invoke(ctx, "/services.v1.InstanceService/PatchInstance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *instanceServiceClient) DeleteInstance(ctx context.Context, in *DeleteInstanceRequest, opts ...grpc.CallOption) (*DeleteInstanceResponse, error) {
 	out := new(DeleteInstanceResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.InstanceService/DeleteInstance", in, out, opts...)
@@ -1107,6 +1118,8 @@ type InstanceServiceServer interface {
 	GetInstance(context.Context, *GetInstanceRequest) (*v11.InstanceResource, error)
 	// Update a instance.
 	UpdateInstance(context.Context, *UpdateInstanceRequest) (*v11.InstanceResource, error)
+	// Patch a instance.
+	PatchInstance(context.Context, *PatchInstanceRequest) (*v11.InstanceResource, error)
 	// Delete a instance.
 	DeleteInstance(context.Context, *DeleteInstanceRequest) (*DeleteInstanceResponse, error)
 	// Invalidate a instance.
@@ -1128,6 +1141,9 @@ func (UnimplementedInstanceServiceServer) GetInstance(context.Context, *GetInsta
 }
 func (UnimplementedInstanceServiceServer) UpdateInstance(context.Context, *UpdateInstanceRequest) (*v11.InstanceResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateInstance not implemented")
+}
+func (UnimplementedInstanceServiceServer) PatchInstance(context.Context, *PatchInstanceRequest) (*v11.InstanceResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchInstance not implemented")
 }
 func (UnimplementedInstanceServiceServer) DeleteInstance(context.Context, *DeleteInstanceRequest) (*DeleteInstanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteInstance not implemented")
@@ -1219,6 +1235,24 @@ func _InstanceService_UpdateInstance_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InstanceService_PatchInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchInstanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InstanceServiceServer).PatchInstance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.InstanceService/PatchInstance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InstanceServiceServer).PatchInstance(ctx, req.(*PatchInstanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _InstanceService_DeleteInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteInstanceRequest)
 	if err := dec(in); err != nil {
@@ -1277,6 +1311,10 @@ var InstanceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateInstance",
 			Handler:    _InstanceService_UpdateInstance_Handler,
+		},
+		{
+			MethodName: "PatchInstance",
+			Handler:    _InstanceService_PatchInstance_Handler,
 		},
 		{
 			MethodName: "DeleteInstance",

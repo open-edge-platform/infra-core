@@ -7,6 +7,7 @@ package services.v1;
 
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
 import "resources/compute/v1/compute.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
@@ -167,6 +168,13 @@ service InstanceService {
   rpc UpdateInstance(UpdateInstanceRequest) returns (resources.compute.v1.InstanceResource) {
     option (google.api.http) = {
       put: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"
+      body: "instance"
+    };
+  }
+  // Patch a instance.
+  rpc PatchInstance(PatchInstanceRequest) returns (resources.compute.v1.InstanceResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"
       body: "instance"
     };
   }
@@ -1013,6 +1021,16 @@ message UpdateInstanceRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the instance.
   resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchInstance method.
+message PatchInstanceRequest {
+  // Name of the instance instance to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the instance.
+  resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of instance.
+  google.protobuf.FieldMask update_mask = 3;
 }
 
 // Request message for DeleteInstance.

@@ -5745,6 +5745,168 @@ var _ interface {
 	ErrorName() string
 } = UpdateInstanceRequestValidationError{}
 
+// Validate checks the field values on PatchInstanceRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PatchInstanceRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PatchInstanceRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PatchInstanceRequestMultiError, or nil if none found.
+func (m *PatchInstanceRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PatchInstanceRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if all {
+		switch v := interface{}(m.GetInstance()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchInstanceRequestValidationError{
+					field:  "Instance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchInstanceRequestValidationError{
+					field:  "Instance",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInstance()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchInstanceRequestValidationError{
+				field:  "Instance",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUpdateMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PatchInstanceRequestValidationError{
+					field:  "UpdateMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PatchInstanceRequestValidationError{
+					field:  "UpdateMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdateMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PatchInstanceRequestValidationError{
+				field:  "UpdateMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PatchInstanceRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// PatchInstanceRequestMultiError is an error wrapping multiple validation
+// errors returned by PatchInstanceRequest.ValidateAll() if the designated
+// constraints aren't met.
+type PatchInstanceRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PatchInstanceRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PatchInstanceRequestMultiError) AllErrors() []error { return m }
+
+// PatchInstanceRequestValidationError is the validation error returned by
+// PatchInstanceRequest.Validate if the designated constraints aren't met.
+type PatchInstanceRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PatchInstanceRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PatchInstanceRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PatchInstanceRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PatchInstanceRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PatchInstanceRequestValidationError) ErrorName() string {
+	return "PatchInstanceRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PatchInstanceRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPatchInstanceRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PatchInstanceRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PatchInstanceRequestValidationError{}
+
 // Validate checks the field values on DeleteInstanceRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

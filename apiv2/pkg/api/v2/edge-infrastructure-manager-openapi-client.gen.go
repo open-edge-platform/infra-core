@@ -141,6 +141,11 @@ type ClientInterface interface {
 	// InstanceServiceGetInstance request
 	InstanceServiceGetInstance(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// InstanceServicePatchInstanceWithBody request with any body
+	InstanceServicePatchInstanceWithBody(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	InstanceServicePatchInstance(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// InstanceServiceUpdateInstanceWithBody request with any body
 	InstanceServiceUpdateInstanceWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -606,6 +611,30 @@ func (c *Client) InstanceServiceDeleteInstance(ctx context.Context, resourceId s
 
 func (c *Client) InstanceServiceGetInstance(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewInstanceServiceGetInstanceRequest(c.Server, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServicePatchInstanceWithBody(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServicePatchInstanceRequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServicePatchInstance(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServicePatchInstanceRequest(c.Server, resourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2397,6 +2426,75 @@ func NewInstanceServiceGetInstanceRequest(server string, resourceId string) (*ht
 	if err != nil {
 		return nil, err
 	}
+
+	return req, nil
+}
+
+// NewInstanceServicePatchInstanceRequest calls the generic InstanceServicePatchInstance builder with application/json body
+func NewInstanceServicePatchInstanceRequest(server string, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewInstanceServicePatchInstanceRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewInstanceServicePatchInstanceRequestWithBody generates requests for InstanceServicePatchInstance with any type of body
+func NewInstanceServicePatchInstanceRequestWithBody(server string, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.UpdateMask != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "updateMask", runtime.ParamLocationQuery, *params.UpdateMask); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -6066,6 +6164,11 @@ type ClientWithResponsesInterface interface {
 	// InstanceServiceGetInstanceWithResponse request
 	InstanceServiceGetInstanceWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*InstanceServiceGetInstanceResponse, error)
 
+	// InstanceServicePatchInstanceWithBodyWithResponse request with any body
+	InstanceServicePatchInstanceWithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error)
+
+	InstanceServicePatchInstanceWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error)
+
 	// InstanceServiceUpdateInstanceWithBodyWithResponse request with any body
 	InstanceServiceUpdateInstanceWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstanceResponse, error)
 
@@ -6629,6 +6732,29 @@ func (r InstanceServiceGetInstanceResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r InstanceServiceGetInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServicePatchInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *InstanceResource
+	JSONDefault  *Status
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServicePatchInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServicePatchInstanceResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -8319,6 +8445,23 @@ func (c *ClientWithResponses) InstanceServiceGetInstanceWithResponse(ctx context
 	return ParseInstanceServiceGetInstanceResponse(rsp)
 }
 
+// InstanceServicePatchInstanceWithBodyWithResponse request with arbitrary body returning *InstanceServicePatchInstanceResponse
+func (c *ClientWithResponses) InstanceServicePatchInstanceWithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error) {
+	rsp, err := c.InstanceServicePatchInstanceWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServicePatchInstanceResponse(rsp)
+}
+
+func (c *ClientWithResponses) InstanceServicePatchInstanceWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error) {
+	rsp, err := c.InstanceServicePatchInstance(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServicePatchInstanceResponse(rsp)
+}
+
 // InstanceServiceUpdateInstanceWithBodyWithResponse request with arbitrary body returning *InstanceServiceUpdateInstanceResponse
 func (c *ClientWithResponses) InstanceServiceUpdateInstanceWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstanceResponse, error) {
 	rsp, err := c.InstanceServiceUpdateInstanceWithBody(ctx, resourceId, contentType, body, reqEditors...)
@@ -9543,6 +9686,39 @@ func ParseInstanceServiceGetInstanceResponse(rsp *http.Response) (*InstanceServi
 	}
 
 	response := &InstanceServiceGetInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest InstanceResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest Status
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServicePatchInstanceResponse parses an HTTP response from a InstanceServicePatchInstanceWithResponse call
+func ParseInstanceServicePatchInstanceResponse(rsp *http.Response) (*InstanceServicePatchInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServicePatchInstanceResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

@@ -200,6 +200,7 @@
     - [ListWorkloadsResponse](#services-v1-ListWorkloadsResponse)
     - [OnboardHostRequest](#services-v1-OnboardHostRequest)
     - [OnboardHostResponse](#services-v1-OnboardHostResponse)
+    - [PatchInstanceRequest](#services-v1-PatchInstanceRequest)
     - [RegisterHostRequest](#services-v1-RegisterHostRequest)
     - [UpdateHostRequest](#services-v1-UpdateHostRequest)
     - [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest)
@@ -3217,6 +3218,23 @@ Response of a Host Register request.
 
 
 
+<a name="services-v1-PatchInstanceRequest"></a>
+
+### PatchInstanceRequest
+Request message for the PatchInstance method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the instance instance to be updated. |
+| instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
+| update_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+
+
+
+
+
+
 <a name="services-v1-RegisterHostRequest"></a>
 
 ### RegisterHostRequest
@@ -3474,6 +3492,7 @@ Instance.
 | ListInstances | [ListInstancesRequest](#services-v1-ListInstancesRequest) | [ListInstancesResponse](#services-v1-ListInstancesResponse) | Get a list of instances. |
 | GetInstance | [GetInstanceRequest](#services-v1-GetInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Get a specific instance. |
 | UpdateInstance | [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Update a instance. |
+| PatchInstance | [PatchInstanceRequest](#services-v1-PatchInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Patch a instance. |
 | DeleteInstance | [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest) | [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse) | Delete a instance. |
 | InvalidateInstance | [InvalidateInstanceRequest](#services-v1-InvalidateInstanceRequest) | [InvalidateInstanceResponse](#services-v1-InvalidateInstanceResponse) | Invalidate a instance. |
 

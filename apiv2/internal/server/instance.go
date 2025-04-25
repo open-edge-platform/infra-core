@@ -310,6 +310,41 @@ func (is *InventorygRPCServer) UpdateInstance(
 	return invUpRes, nil
 }
 
+// Update a instance. (PATCH).
+func (is *InventorygRPCServer) PatchInstance(
+	ctx context.Context,
+	req *restv1.PatchInstanceRequest,
+) (*computev1.InstanceResource, error) {
+	zlog.Debug().Msg("PatchInstance")
+
+	instance := req.GetInstance()
+	invInstance, err := toInvInstance(instance)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
+		return nil, err
+	}
+
+	fieldmask := req.GetUpdateMask()
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{
+			Instance: invInstance,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetInstance()
+	invUpRes, err := fromInvInstance(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Delete a instance.
 func (is *InventorygRPCServer) DeleteInstance(
 	ctx context.Context,

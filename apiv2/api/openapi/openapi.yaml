@@ -482,6 +482,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+        patch:
+            tags:
+                - InstanceService
+            summary: PatchInstance
+            description: Patch a instance.
+            operationId: InstanceService_PatchInstance
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the instance instance to be updated.
+                  required: true
+                  schema:
+                    type: string
+                - name: updateMask
+                  in: query
+                  description: Field mask to be applied on the patch of instance.
+                  schema:
+                    type: string
+                    format: field-mask
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/InstanceResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/InstanceResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate:
         put:
             tags:
