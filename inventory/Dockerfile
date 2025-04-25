@@ -8,9 +8,9 @@ ARG ATLAS_VERSION
 ARG ATLAS_SHA
 
 # Set proxy environment variables using build arguments
-#ARG http_proxy
-#ARG https_proxy
-#ARG no_proxy
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
 
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
