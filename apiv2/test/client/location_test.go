@@ -521,7 +521,7 @@ func TestRegionList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Regions), pageSize)
+	assert.Equal(t, len(resList.JSON200.Regions), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
