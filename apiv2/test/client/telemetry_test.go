@@ -420,6 +420,10 @@ func TestTelemetryLogsProfile_UpdatePUT(t *testing.T) {
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
+
+	if telemetryLogsProfile1Update.JSON200 == nil {
+		fmt.Printf("Update failed: %s", *telemetryLogsProfile1Update.JSONDefault.Message)
+	}
 	assert.Equal(t, http.StatusOK, telemetryLogsProfile1Update.StatusCode())
 	assert.Equal(t, *TelemetryLogsProfile.TargetRegion, *telemetryLogsProfile1Update.JSON200.TargetRegion)
 

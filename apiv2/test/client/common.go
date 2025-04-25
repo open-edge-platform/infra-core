@@ -411,9 +411,6 @@ func CreateOS(
 		reqOS,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	if osCreated.JSON200 == nil {
-		fmt.Printf("Creation failed: %s", *osCreated.JSONDefault.Message)
-	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, osCreated.StatusCode())
 
