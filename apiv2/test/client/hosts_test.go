@@ -133,9 +133,6 @@ func TestHostCustom(t *testing.T) {
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
 	)
-	if h1Patch.JSON200 == nil {
-		fmt.Printf("failed patch %s", *h1Patch.JSONDefault.Message)
-	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, h1Patch.StatusCode())
 
@@ -170,7 +167,7 @@ func TestHostCustom(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, utils.Host3Name, resHostH1Patched.JSON200.Name)
-	assert.Empty(t, resHostH1Patched.JSON200.Site.ResourceId)
+	assert.Empty(t, resHostH1Patched.JSON200.Site)
 	assert.Equal(t, api.HostResourceCurrentStateHOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
 
 	// Expect BadRequest errors in Patch/Put with emptyString wrong
