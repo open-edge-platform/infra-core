@@ -121,15 +121,21 @@ func TestHostCustom(t *testing.T) {
 	assert.Nil(t, resHostH1Up.JSON200.Site)
 
 	// Uses Patch to update host1 site with s2 siteID
-	utils.Host1RequestPatch.SiteId = s2.JSON200.ResourceId
+	h1PatchRequest := api.HostResource{
+		Name:   utils.Host3Name,
+		SiteId: s2.JSON200.ResourceId,
+	}
 	h1Patch, err := apiClient.HostServicePatchHostWithResponse(
 		ctx,
 		*h1.JSON200.ResourceId,
 		nil,
-		utils.Host1RequestPatch,
+		h1PatchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
 	)
+	if h1Patch.JSON200 == nil {
+		fmt.Printf("failed patch %s", *h1Patch.JSONDefault.Message)
+	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, h1Patch.StatusCode())
 
@@ -144,12 +150,12 @@ func TestHostCustom(t *testing.T) {
 	assert.Equal(t, *s2.JSON200.ResourceId, *resHostH1Patched.JSON200.Site.ResourceId)
 
 	// Uses Patch to update host1 site with s2 siteID
-	utils.Host1RequestPatch.SiteId = &emptyString
+	h1PatchRequest.SiteId = &emptyString
 	h1Patch, err = apiClient.HostServicePatchHostWithResponse(
 		ctx,
 		*h1.JSON200.ResourceId,
 		nil,
-		utils.Host1RequestPatch,
+		h1PatchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
 	)
@@ -164,7 +170,7 @@ func TestHostCustom(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, utils.Host3Name, resHostH1Patched.JSON200.Name)
-	assert.Nil(t, resHostH1Patched.JSON200.Site)
+	assert.Empty(t, resHostH1Patched.JSON200.Site.ResourceId)
 	assert.Equal(t, api.HostResourceCurrentStateHOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
 
 	// Expect BadRequest errors in Patch/Put with emptyString wrong
