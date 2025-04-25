@@ -91,15 +91,11 @@ func TestInstance_Update(t *testing.T) {
 	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	assert.Equal(t, utils.Inst1Name, *inst1.JSON200.Name)
 
-	inst1Mod := *inst1.JSON200
 	newName := utils.Inst1Name + "-mod"
-	inst1Mod.Name = &newName
-	inst1Mod.CurrentState = nil
-	inst1Mod.OsId = nil
-	inst1Mod.ResourceId = nil
-	inst1Mod.CurrentOs = nil
-	inst1Mod.DesiredOs = nil
-	inst1Mod.Host = nil
+	inst1Mod := api.InstanceResource{
+		Name: &newName,
+	}
+
 	inst1Up, err := apiClient.InstanceServiceUpdateInstanceWithResponse(
 		ctx, *inst1.JSON200.ResourceId,
 		inst1Mod,
