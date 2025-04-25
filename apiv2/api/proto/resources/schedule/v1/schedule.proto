@@ -41,7 +41,7 @@ message SingleScheduleResource {
   // The schedule's name.
   string name = 3 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // These three relations are mutually exclusive
@@ -123,7 +123,7 @@ message RepeatedScheduleResource {
   // The schedule's name.
   string name = 3 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // These three relations are mutually exclusive.

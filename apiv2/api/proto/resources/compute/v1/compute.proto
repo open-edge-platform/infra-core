@@ -50,7 +50,7 @@ message HostResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-      max_len: 20
+      max_len: 50
     }
   ];
 
@@ -345,7 +345,7 @@ message InstanceResource {
   // The instance's human-readable name.
   string name = 3 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // The Instance desired state.
@@ -483,7 +483,7 @@ message WorkloadResource {
   // Human-readable name for the workload.
   string name = 3 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.

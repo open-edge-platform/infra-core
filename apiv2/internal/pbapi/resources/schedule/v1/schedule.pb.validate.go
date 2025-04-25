@@ -81,10 +81,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 
 	// no validation rules for ScheduleStatus
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := SingleScheduleResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -465,10 +465,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 
 	// no validation rules for ScheduleStatus
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err

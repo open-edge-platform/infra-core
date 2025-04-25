@@ -87,10 +87,10 @@ func (m *HostResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := HostResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -1238,10 +1238,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for Kind
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := InstanceResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -1715,10 +1715,10 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	// no validation rules for Kind
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := WorkloadResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err

@@ -525,9 +525,6 @@ func CreateInstance(
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, createdInstance.StatusCode())
 
-	if createdInstance.JSON200 == nil {
-		fmt.Printf("createdInstance failed: %s", *createdInstance.JSONDefault.Message)
-	}
 	t.Cleanup(func() { DeleteInstance(t, context.Background(), apiClient, *createdInstance.JSON200.ResourceId) })
 	return createdInstance
 }

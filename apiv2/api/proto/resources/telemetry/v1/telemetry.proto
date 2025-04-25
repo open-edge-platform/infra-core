@@ -62,7 +62,7 @@ message TelemetryLogsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-      max_len: 20
+      max_len: 50
     }
   ];
 
@@ -104,7 +104,7 @@ message TelemetryMetricsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-      max_len: 20
+      max_len: 50
     }
   ];
 

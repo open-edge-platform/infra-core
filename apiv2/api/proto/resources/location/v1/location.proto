@@ -26,7 +26,7 @@ message RegionResource {
   // The user-provided, human-readable name of region
   string name = 2 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // The parent Region associated to the Region, when existent.
@@ -86,7 +86,7 @@ message SiteResource {
   // The site's human-readable name.
   string name = 2 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // Region this site is located in
