@@ -113,6 +113,8 @@ func fromInvSingleschedule(
 		Name:             invSingleschedule.GetName(),
 		StartSeconds:     startSec,
 		EndSeconds:       endSec,
+		CreatedAt:        invSingleschedule.GetCreatedAt(),
+		UpdatedAt:        invSingleschedule.GetUpdatedAt(),
 	}
 
 	switch relation := invSingleschedule.GetRelation().(type) {

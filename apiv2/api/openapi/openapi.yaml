@@ -2955,6 +2955,14 @@ components:
                     items:
                         $ref: '#/components/schemas/MetadataItem'
                     description: The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A Host resource.
         HostgpuResource:
             type: object
@@ -2987,6 +2995,14 @@ components:
                     readOnly: true
                     type: string
                     description: The features of this GPU device, comma separated.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of available host GPU cards.
         HostnicResource:
             type: object
@@ -3042,6 +3058,14 @@ components:
                     readOnly: true
                     type: boolean
                     description: Whether this is a bmc interface or not.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of available host interfaces.
         HoststorageResource:
             type: object
@@ -3074,6 +3098,14 @@ components:
                     readOnly: true
                     type: string
                     description: The storage device device name (OS provided, like sda, sdb, etc.)
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of available host storage capabilities.
         HostusbResource:
             type: object
@@ -3112,6 +3144,14 @@ components:
                     readOnly: true
                     type: string
                     description: the OS-provided device name.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: The set of host USB resources.
         InstanceResource:
             type: object
@@ -3263,6 +3303,14 @@ components:
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of local account will be associated with the instance.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
         InvalidateHostResponse:
             type: object
@@ -3664,9 +3712,11 @@ components:
                 createdAt:
                     readOnly: true
                     type: string
+                    description: Timestamp for the creation of the resource.
                 updatedAt:
                     readOnly: true
                     type: string
+                    description: Timestamp for the last update of the resource.
         MetadataItem:
             required:
                 - key
@@ -3775,6 +3825,10 @@ components:
                     type: string
                     description: Indicating the provider of OS (e.g., Infra or Lenovo).
                     format: enum
+                platformBundle:
+                    readOnly: true
+                    type: string
+                    description: Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
                 osResourceId:
                     readOnly: true
                     pattern: ^os-[0-9a-f]{8}$
@@ -3785,6 +3839,14 @@ components:
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                     type: string
                     description: // OS image URL. URL of the original installation source.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: An OS resource.
         ProviderResource:
             required:
@@ -3835,6 +3897,14 @@ components:
                     pattern: ^provider-[0-9a-f]{8}$
                     type: string
                     description: The provider resource's unique identifier. Alias of resourceId.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A provider resource.
         RegionResource:
             type: object
@@ -3877,6 +3947,14 @@ components:
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A region resource.
         RepeatedScheduleResource:
             required:
@@ -3956,6 +4034,14 @@ components:
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A repeated-schedule resource.
         SingleScheduleResource:
             required:
@@ -4014,6 +4100,14 @@ components:
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A single schedule resource.
         SiteResource:
             type: object
@@ -4062,6 +4156,14 @@ components:
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The region's unique identifier that the site is associated to. This field cannot be used in filter.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A site resource.
         Status:
             type: object
@@ -4114,6 +4216,14 @@ components:
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                         type: string
                     description: A list of log groups to collect.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: TelemetryLogsGroupResource.
         TelemetryLogsProfileResource:
             required:
@@ -4159,6 +4269,14 @@ components:
                     description: The unique identifier of the telemetry log group.
                 logsGroup:
                     $ref: '#/components/schemas/TelemetryLogsGroupResource'
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A telemetry log profile for a hierarchy object.
         TelemetryMetricsGroupResource:
             required:
@@ -4195,6 +4313,14 @@ components:
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                         type: string
                     description: A list of log groups to collect.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: TelemetryMetricsGroupResource.
         TelemetryMetricsProfileResource:
             required:
@@ -4234,6 +4360,14 @@ components:
                     description: The unique identifier of the telemetry metric group.
                 metricsGroup:
                     $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A telemetry metric profile for a hierarchy object.
         WorkloadMember:
             required:
@@ -4274,6 +4408,14 @@ components:
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the instance.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
         WorkloadResource:
             required:
@@ -4317,6 +4459,14 @@ components:
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: The workload unique identifier. Alias of resourceId.
+                createdAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the creation of the resource.
+                updatedAt:
+                    readOnly: true
+                    type: string
+                    description: Timestamp for the last update of the resource.
             description: A generic way to group compute resources to obtain a workload.
 tags:
     - name: HostService

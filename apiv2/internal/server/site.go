@@ -96,6 +96,8 @@ func fromInvSite(invSite *inv_locationv1.SiteResource,
 		SiteLng:           invSite.GetSiteLng(),
 		Metadata:          metadata,
 		InheritedMetadata: []*commonv1.MetadataItem{},
+		CreatedAt:         invSite.GetCreatedAt(),
+		UpdatedAt:         invSite.GetUpdatedAt(),
 	}
 
 	if resMeta != nil {

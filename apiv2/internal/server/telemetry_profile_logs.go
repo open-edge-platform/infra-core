@@ -39,6 +39,8 @@ func TelemetryLogsProfileResourcetoAPI(
 		ResourceId: telemetryProfile.GetResourceId(),
 		ProfileId:  telemetryProfile.GetResourceId(),
 		LogLevel:   telemetryv1.SeverityLevel(*telemetryProfile.GetLogLevel().Enum()),
+		CreatedAt:  telemetryProfile.GetCreatedAt(),
+		UpdatedAt:  telemetryProfile.GetUpdatedAt(),
 	}
 
 	if telemetryProfile.GetInstance() != nil {

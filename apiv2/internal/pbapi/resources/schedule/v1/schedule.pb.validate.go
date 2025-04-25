@@ -195,6 +195,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	switch v := m.Relation.(type) {
 	case *SingleScheduleResource_TargetSite:
 		if v == nil {
@@ -636,6 +640,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	switch v := m.Relation.(type) {
 	case *RepeatedScheduleResource_TargetSite:

@@ -38,6 +38,8 @@ message LocalAccountResource {
     (google.api.field_behavior) = REQUIRED
   ];
   
-  string created_at = 200 [(google.api.field_behavior) = OUTPUT_ONLY]; // Creation timestamp
-  string updated_at = 201 [(google.api.field_behavior) = OUTPUT_ONLY]; // Update timestamp
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

@@ -39,6 +39,8 @@ func TelemetryMetricsProfileResourcetoAPI(
 		ResourceId:      telemetryProfile.GetResourceId(),
 		ProfileId:       telemetryProfile.GetResourceId(),
 		MetricsInterval: telemetryProfile.GetMetricsInterval(),
+		CreatedAt:       telemetryProfile.GetCreatedAt(),
+		UpdatedAt:       telemetryProfile.GetUpdatedAt(),
 	}
 
 	if telemetryProfile.GetInstance() != nil {

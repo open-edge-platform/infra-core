@@ -291,6 +291,8 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	// no validation rules for OsProvider
 
+	// no validation rules for PlatformBundle
+
 	if len(m.GetOsResourceId()) > 11 {
 		err := OperatingSystemResourceValidationError{
 			field:  "OsResourceId",
@@ -334,6 +336,10 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return OperatingSystemResourceMultiError(errors)

@@ -84,6 +84,8 @@ func fromInvWorkloadMember(invWorkloadMember *inv_computev1.WorkloadMember) (*co
 		InstanceId:       instance.GetResourceId(),
 		Member:           instance,
 		WorkloadId:       workload.GetResourceId(),
+		CreatedAt:        invWorkloadMember.GetCreatedAt(),
+		UpdatedAt:        invWorkloadMember.GetUpdatedAt(),
 	}
 
 	return workloadMember, nil

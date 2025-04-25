@@ -291,6 +291,8 @@ A provider resource.
 | api_credentials | [string](#string) | repeated | The provider resource&#39;s list of credentials. |
 | config | [string](#string) |  | Opaque provider configuration. |
 | provider_id | [string](#string) |  | The provider resource&#39;s unique identifier. Alias of resourceId. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -354,6 +356,8 @@ A region resource.
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter. |
 | total_sites | [int32](#int32) |  | The total number of sites in the region. |
 | parent_id | [string](#string) |  | The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -378,6 +382,8 @@ A site resource.
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated to the Region, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter. |
 | region_id | [string](#string) |  | The region&#39;s unique identifier that the site is associated to. This field cannot be used in filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -422,8 +428,11 @@ An OS resource.
 | security_feature | [SecurityFeature](#resources-os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation. |
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
+| platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | os_resource_id | [string](#string) |  | The OS resource&#39;s unique identifier. Alias of resourceId. |
 | repo_url | [string](#string) |  | OS image URL. URL of the original installation source. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -496,8 +505,8 @@ SecurityFeature describes the security capabilities of a resource.
 | resource_id | [string](#string) |  | resource identifier |
 | username | [string](#string) |  | Username provided by admin |
 | ssh_key | [string](#string) |  | SSH Public Key of EN |
-| created_at | [string](#string) |  | Creation timestamp |
-| updated_at | [string](#string) |  | Update timestamp |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -599,6 +608,8 @@ A Host resource.
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -620,6 +631,8 @@ The set of available host GPU cards.
 | description | [string](#string) |  | The human-readable GPU device description. |
 | device_name | [string](#string) |  | GPU name as reported by OS. |
 | features | [string](#string) |  | The features of this GPU device, comma separated. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -645,6 +658,8 @@ The set of available host interfaces.
 | mtu | [uint32](#uint32) |  | Maximum transmission unit of the interface. |
 | link_state | [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState) |  | Link state of this interface. |
 | bmc_interface | [bool](#bool) |  | Whether this is a bmc interface or not. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -666,6 +681,8 @@ The set of available host storage capabilities.
 | model | [string](#string) |  | The storage device model. |
 | capacity_bytes | [string](#string) |  | The storage device Capacity (size) in bytes. |
 | device_name | [string](#string) |  | The storage device device name (OS provided, like sda, sdb, etc.) |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -688,6 +705,8 @@ The set of host USB resources.
 | class | [string](#string) |  | class defined by USB-IF. |
 | serial | [string](#string) |  | Serial number of device. |
 | device_name | [string](#string) |  | the OS-provided device name. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -733,6 +752,8 @@ back-reference to the Workload Members associated to this Instance |
 | host_id | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | os_id | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
 | local_account_id | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -755,6 +776,8 @@ Intermediate resource to represent a relation between a workload and a compute r
 | member | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The reference of the Instance member of the workload. |
 | workload_id | [string](#string) |  | The workload unique identifier. |
 | instance_id | [string](#string) |  | The unique identifier of the instance. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -776,6 +799,8 @@ A generic way to group compute resources to obtain a workload.
 | status | [string](#string) |  | Human-readable status of the workload. |
 | members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The members of the workload. |
 | workload_id | [string](#string) |  | The workload unique identifier. Alias of resourceId. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -946,6 +971,8 @@ A repeated-schedule resource.
 | target_host_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_region_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -974,6 +1001,8 @@ status of one-time-schedule |
 | target_host_id | [string](#string) |  | The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_region_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1026,6 +1055,8 @@ TelemetryLogsGroupResource.
 | name | [string](#string) |  | Human-readable name for the log group. |
 | collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1048,6 +1079,8 @@ A telemetry log profile for a hierarchy object.
 | log_level | [SeverityLevel](#resources-telemetry-v1-SeverityLevel) |  | The log level og the telemetry profile. |
 | logs_group_id | [string](#string) |  | The unique identifier of the telemetry log group. |
 | logs_group | [TelemetryLogsGroupResource](#resources-telemetry-v1-TelemetryLogsGroupResource) |  | The log group associated with the telemetry profile. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1067,6 +1100,8 @@ TelemetryMetricsGroupResource.
 | name | [string](#string) |  | Human-readable name for the log group. |
 | collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1089,6 +1124,8 @@ A telemetry metric profile for a hierarchy object.
 | metrics_interval | [uint32](#uint32) |  | Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS. |
 | metrics_group_id | [string](#string) |  | The unique identifier of the telemetry metric group. |
 | metrics_group | [TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource) |  | The metric group associated with the telemetry profile. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 

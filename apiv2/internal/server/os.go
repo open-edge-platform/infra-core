@@ -76,6 +76,9 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		OsType:            osv1.OsType(invOSResource.GetOsType()),
 		OsProvider:        osv1.OsProviderKind(invOSResource.GetOsProvider()),
 		OsResourceId:      invOSResource.GetResourceId(),
+		CreatedAt:         invOSResource.GetCreatedAt(),
+		UpdatedAt:         invOSResource.GetUpdatedAt(),
+		PlatformBundle:    invOSResource.GetPlatformBundle(),
 	}
 
 	return osResource

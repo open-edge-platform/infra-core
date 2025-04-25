@@ -253,6 +253,10 @@ func (m *RegionResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return RegionResourceMultiError(errors)
 	}
@@ -596,6 +600,10 @@ func (m *SiteResource) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return SiteResourceMultiError(errors)

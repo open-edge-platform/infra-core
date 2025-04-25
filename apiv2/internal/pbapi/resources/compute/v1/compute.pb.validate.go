@@ -529,6 +529,10 @@ func (m *HostResource) validate(all bool) error {
 
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return HostResourceMultiError(errors)
 	}
@@ -671,6 +675,10 @@ func (m *HoststorageResource) validate(all bool) error {
 	// no validation rules for CapacityBytes
 
 	// no validation rules for DeviceName
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return HoststorageResourceMultiError(errors)
@@ -818,6 +826,10 @@ func (m *HostnicResource) validate(all bool) error {
 
 	// no validation rules for BmcInterface
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return HostnicResourceMultiError(errors)
 	}
@@ -956,6 +968,10 @@ func (m *HostusbResource) validate(all bool) error {
 
 	// no validation rules for DeviceName
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return HostusbResourceMultiError(errors)
 	}
@@ -1091,6 +1107,10 @@ func (m *HostgpuResource) validate(all bool) error {
 	// no validation rules for DeviceName
 
 	// no validation rules for Features
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return HostgpuResourceMultiError(errors)
@@ -1555,6 +1575,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return InstanceResourceMultiError(errors)
 	}
@@ -1812,6 +1836,10 @@ func (m *WorkloadResource) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return WorkloadResourceMultiError(errors)
@@ -2099,6 +2127,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return WorkloadMemberMultiError(errors)

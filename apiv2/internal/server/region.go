@@ -90,6 +90,8 @@ func fromInvRegion(
 		ParentId:          parentRegion.GetResourceId(),
 		Metadata:          metadata,
 		InheritedMetadata: []*commonv1.MetadataItem{},
+		CreatedAt:         invRegion.GetCreatedAt(),
+		UpdatedAt:         invRegion.GetUpdatedAt(),
 	}
 
 	if resMeta != nil {

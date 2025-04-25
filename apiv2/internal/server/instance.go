@@ -161,6 +161,8 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		UpdateStatusTimestamp:             updateStatusTimestamp,
 		UpdateStatusDetail:                invInstance.GetUpdateStatusDetail(),
 		WorkloadMembers:                   workloadMembers,
+		CreatedAt:                         invInstance.GetCreatedAt(),
+		UpdatedAt:                         invInstance.GetUpdatedAt(),
 	}
 
 	return instance, nil

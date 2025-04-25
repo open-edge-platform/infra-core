@@ -73,6 +73,10 @@ message TelemetryLogsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"}
   ];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // TelemetryMetricsGroupResource.
@@ -112,6 +116,10 @@ message TelemetryMetricsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"}
   ];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A telemetry log profile for a hierarchy object.
@@ -164,6 +172,10 @@ message TelemetryLogsProfileResource {
   ];
   // The log group associated with the telemetry profile.
   TelemetryLogsGroupResource logs_group = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A telemetry metric profile for a hierarchy object.
@@ -219,4 +231,8 @@ message TelemetryMetricsProfileResource {
   ];
   // The metric group associated with the telemetry profile.
   TelemetryMetricsGroupResource metrics_group = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

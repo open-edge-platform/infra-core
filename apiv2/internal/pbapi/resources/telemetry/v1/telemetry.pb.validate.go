@@ -141,6 +141,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return TelemetryLogsGroupResourceMultiError(errors)
 	}
@@ -334,6 +338,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryMetricsGroupResourceMultiError(errors)
@@ -608,6 +616,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryLogsProfileResourceMultiError(errors)
@@ -886,6 +898,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryMetricsProfileResourceMultiError(errors)

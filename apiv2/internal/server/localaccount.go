@@ -38,6 +38,8 @@ func fromInvLocalAccount(invLocalAccount *inv_localaccountv1.LocalAccountResourc
 		ResourceId: invLocalAccount.GetResourceId(),
 		Username:   invLocalAccount.GetUsername(),
 		SshKey:     invLocalAccount.GetSshKey(),
+		CreatedAt:  invLocalAccount.GetCreatedAt(),
+		UpdatedAt:  invLocalAccount.GetUpdatedAt(),
 	}
 
 	return localaccount

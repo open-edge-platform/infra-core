@@ -179,6 +179,8 @@ func fromInvHost(
 		Instance:                    hostInstance,
 		Metadata:                    metadata,
 		InheritedMetadata:           []*commonv1.MetadataItem{},
+		CreatedAt:                   invHost.GetCreatedAt(),
+		UpdatedAt:                   invHost.GetUpdatedAt(),
 	}
 
 	hostUUID := invHost.GetUuid()
@@ -208,6 +210,8 @@ func fromInvHostStorages(storages []*inv_computev1.HoststorageResource) []*compu
 			Model:         storage.GetModel(),
 			CapacityBytes: fmt.Sprintf("%d", storage.GetCapacityBytes()),
 			DeviceName:    storage.GetDeviceName(),
+			CreatedAt:     storage.GetCreatedAt(),
+			UpdatedAt:     storage.GetUpdatedAt(),
 		})
 	}
 	return hostStorages
@@ -229,6 +233,8 @@ func fromInvHostNics(nics []*inv_computev1.HostnicResource) []*computev1.Hostnic
 			Mtu:           nic.GetMtu(),
 			LinkState:     computev1.NetworkInterfaceLinkState(nic.GetLinkState()),
 			BmcInterface:  nic.GetBmcInterface(),
+			CreatedAt:     nic.GetCreatedAt(),
+			UpdatedAt:     nic.GetUpdatedAt(),
 		})
 	}
 	return hostNics
@@ -247,6 +253,8 @@ func fromInvHostUsbs(usbs []*inv_computev1.HostusbResource) []*computev1.Hostusb
 			Class:      usb.GetClass(),
 			Serial:     usb.GetSerial(),
 			DeviceName: usb.GetDeviceName(),
+			CreatedAt:  usb.GetCreatedAt(),
+			UpdatedAt:  usb.GetUpdatedAt(),
 		})
 	}
 	return hostUsbs
@@ -264,6 +272,8 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 			Description: gpu.GetDescription(),
 			DeviceName:  gpu.GetDeviceName(),
 			Features:    gpu.GetFeatures(),
+			CreatedAt:   gpu.GetCreatedAt(),
+			UpdatedAt:   gpu.GetUpdatedAt(),
 		})
 	}
 	return hostGpus
