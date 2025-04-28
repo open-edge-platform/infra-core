@@ -8,6 +8,9 @@ import (
 	"errors"
 	"math"
 
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
+
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 )
 
@@ -47,6 +50,18 @@ func SafeIntToUint32(n int) (uint32, error) {
 	return uint32(n), nil
 }
 
+// SafeInt32ToUint32 converts an int32 to uint32 safely.
+func SafeInt32ToUint32(n int32) (uint32, error) {
+	if n < 0 {
+		return 0, errors.New("cannot convert a negative int32 to uint32")
+	}
+	res := int(n)
+	if res > math.MaxUint32 && int32(res) != n { //nolint:gosec // no risk of overflow
+		return 0, errors.New("int exceeds uint32 max limit")
+	}
+	return uint32(n), nil
+}
+
 // SafeIntToInt32 converts an int to int32 safely.
 func SafeIntToInt32(n int) (int32, error) {
 	if n < 0 {
@@ -72,4 +87,50 @@ func isUnset(resourceID *string) bool {
 
 func isSet(resourceID *string) bool {
 	return !isUnset(resourceID)
+}
+
+// parsePagination parses the pagination fields converting them to limit and offset for the inventory APIs.
+func parsePagination(pageSize, off int32) (limit, offset uint32, err error) {
+	// We know by design that this cast should never fail, pageSize is limited by the API definition
+	limit, err = SafeInt32ToUint32(pageSize)
+	if err != nil {
+		zlog.InfraErr(err).Msg("error when converting pagination limit/pagesize")
+		return 0, 0, err
+	}
+
+	offset, err = SafeInt32ToUint32(off)
+	if err != nil {
+		zlog.InfraErr(err).Msg("error when converting pagination index")
+		return 0, 0, err
+	}
+
+	return limit, offset, nil
+}
+
+func parseFielmask(
+	message proto.Message,
+	fieldMask *fieldmaskpb.FieldMask,
+	fieldsMap map[string]string,
+) (*fieldmaskpb.FieldMask, error) {
+	if len(fieldMask.GetPaths()) == 0 {
+		return fieldMask, nil
+	}
+
+	fieldMaskPaths := make([]string, 0, len(fieldMask.Paths))
+	for _, path := range fieldMask.GetPaths() {
+		fieldName, ok := fieldsMap[path]
+		if !ok {
+			zlog.Warn().Msgf("Field %s not found in fields map", path)
+		} else {
+			fieldMaskPaths = append(fieldMaskPaths, fieldName)
+		}
+	}
+
+	fieldmaskParsed, err := fieldmaskpb.New(message, fieldMaskPaths...)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse fieldmask %s", fieldMask.String())
+		return nil, err
+	}
+	zlog.Debug().Msgf("Fieldmask %s from fields map %s", fieldmaskParsed.String(), fieldMaskPaths)
+	return fieldmaskParsed, nil
 }

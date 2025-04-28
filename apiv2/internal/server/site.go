@@ -21,18 +21,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs SiteTemplate defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPISiteToProto = map[string]string{
-	"SiteLat":  inv_locationv1.SiteResourceFieldSiteLat,
-	"SiteLng":  inv_locationv1.SiteResourceFieldSiteLng,
-	"Metadata": inv_locationv1.SiteResourceFieldMetadata,
-	"Name":     inv_locationv1.SiteResourceFieldName,
-	"RegionId": inv_locationv1.SiteResourceEdgeRegion,
-}
-
-var OpenAPISiteObjectsNames = map[string]struct{}{
-	"Metadata":          {},
-	"InheritedMetadata": {},
-	"Region":            {},
-	"Provider":          {}, // provider must not be set from the API
+	locationv1.SiteResourceFieldSiteLat:  inv_locationv1.SiteResourceFieldSiteLat,
+	locationv1.SiteResourceFieldSiteLng:  inv_locationv1.SiteResourceFieldSiteLng,
+	locationv1.SiteResourceEdgeMetadata:  inv_locationv1.SiteResourceFieldMetadata,
+	locationv1.SiteResourceFieldName:     inv_locationv1.SiteResourceFieldName,
+	locationv1.SiteResourceFieldRegionId: inv_locationv1.SiteResourceEdgeRegion,
 }
 
 func toInvSite(site *locationv1.SiteResource) (*inv_locationv1.SiteResource, error) {
@@ -96,6 +89,8 @@ func fromInvSite(invSite *inv_locationv1.SiteResource,
 		SiteLng:           invSite.GetSiteLng(),
 		Metadata:          metadata,
 		InheritedMetadata: []*commonv1.MetadataItem{},
+		CreatedAt:         invSite.GetCreatedAt(),
+		UpdatedAt:         invSite.GetUpdatedAt(),
 	}
 
 	if resMeta != nil {
@@ -146,11 +141,15 @@ func (is *InventorygRPCServer) ListSites(
 	req *restv1.ListSitesRequest,
 ) (*restv1.ListSitesResponse, error) {
 	zlog.Debug().Msg("ListSites")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Site{Site: &inv_locationv1.SiteResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
@@ -216,6 +215,44 @@ func (is *InventorygRPCServer) UpdateSite(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Site{
+			Site: invSite,
+		},
+	}
+
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetSite()
+	invUpRes, err := fromInvSite(invUp, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a site. (PATCH).
+func (is *InventorygRPCServer) PatchSite(
+	ctx context.Context,
+	req *restv1.PatchSiteRequest,
+) (*locationv1.SiteResource, error) {
+	zlog.Debug().Msg("PatchSite")
+
+	site := req.GetSite()
+	invSite, err := toInvSite(site)
+	if err != nil {
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invSite, req.GetFieldMask(), OpenAPISiteToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Site{
 			Site: invSite,

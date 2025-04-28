@@ -160,8 +160,8 @@ func TestProviderList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset uint32
-	var pageSize uint32 = 4
+	var offset int32
+	var pageSize int32 = 4
 
 	name := "provider"
 	for id := 0; id < totalItems; id++ {

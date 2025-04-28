@@ -62,7 +62,7 @@ message TelemetryLogsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-      max_len: 20
+      max_len: 50
     }
   ];
 
@@ -73,6 +73,10 @@ message TelemetryLogsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"}
   ];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // TelemetryMetricsGroupResource.
@@ -100,7 +104,7 @@ message TelemetryMetricsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-      max_len: 20
+      max_len: 50
     }
   ];
 
@@ -112,6 +116,10 @@ message TelemetryMetricsGroupResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"}
   ];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A telemetry log profile for a hierarchy object.
@@ -137,19 +145,19 @@ message TelemetryLogsProfileResource {
   // The ID of the instance that the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_instance = 3 [(validate.rules).string = {
-    pattern: "^inst-[0-9a-f]{8}$"
+    pattern: "^$|^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }];
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_site = 4 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
+    pattern: "^$|^site-[0-9a-f]{8}$"
     max_bytes: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_region = 5 [(validate.rules).string = {
-    pattern: "^region-[0-9a-f]{8}$"
+    pattern: "^$|^region-[0-9a-f]{8}$"
     max_bytes: 15
   }];
   // The log level og the telemetry profile.
@@ -164,6 +172,10 @@ message TelemetryLogsProfileResource {
   ];
   // The log group associated with the telemetry profile.
   TelemetryLogsGroupResource logs_group = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A telemetry metric profile for a hierarchy object.
@@ -189,20 +201,20 @@ message TelemetryMetricsProfileResource {
   // The ID of the instance that the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_instance = 3 [(validate.rules).string = {
-    pattern: "^inst-[0-9a-f]{8}$"
+    pattern: "^$|^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }];
 
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_site = 4 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
+    pattern: "^$|^site-[0-9a-f]{8}$"
     max_bytes: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_region = 5 [(validate.rules).string = {
-    pattern: "^region-[0-9a-f]{8}$"
+    pattern: "^$|^region-[0-9a-f]{8}$"
     max_bytes: 15
   }];
 
@@ -219,4 +231,8 @@ message TelemetryMetricsProfileResource {
   ];
   // The metric group associated with the telemetry profile.
   TelemetryMetricsGroupResource metrics_group = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

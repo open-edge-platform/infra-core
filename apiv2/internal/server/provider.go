@@ -20,12 +20,12 @@ import (
 // The key is derived from the json property respectively of the
 // structs Provider defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIProviderToProto = map[string]string{
-	"ProviderKind":   inv_providerv1.ProviderResourceFieldProviderKind,
-	"ProviderVendor": inv_providerv1.ProviderResourceFieldProviderVendor,
-	"Name":           inv_providerv1.ProviderResourceFieldName,
-	"ApiEndpoint":    inv_providerv1.ProviderResourceFieldApiEndpoint,
-	"ApiCredentials": inv_providerv1.ProviderResourceFieldApiCredentials,
-	"Config":         inv_providerv1.ProviderResourceFieldConfig,
+	providerv1.ProviderResourceFieldProviderKind:   inv_providerv1.ProviderResourceFieldProviderKind,
+	providerv1.ProviderResourceFieldProviderVendor: inv_providerv1.ProviderResourceFieldProviderVendor,
+	providerv1.ProviderResourceFieldName:           inv_providerv1.ProviderResourceFieldName,
+	providerv1.ProviderResourceFieldApiEndpoint:    inv_providerv1.ProviderResourceFieldApiEndpoint,
+	providerv1.ProviderResourceFieldApiCredentials: inv_providerv1.ProviderResourceFieldApiCredentials,
+	providerv1.ProviderResourceFieldConfig:         inv_providerv1.ProviderResourceFieldConfig,
 }
 
 func toInvProvider(provider *providerv1.ProviderResource) (*inv_providerv1.ProviderResource, error) {
@@ -62,6 +62,8 @@ func fromInvProvider(invProvider *inv_providerv1.ProviderResource) *providerv1.P
 		ApiCredentials: invProvider.GetApiCredentials(),
 		Config:         invProvider.GetConfig(),
 		ProviderId:     invProvider.GetResourceId(),
+		CreatedAt:      invProvider.GetCreatedAt(),
+		UpdatedAt:      invProvider.GetUpdatedAt(),
 	}
 
 	return provider
@@ -103,11 +105,15 @@ func (is *InventorygRPCServer) ListProviders(
 	req *restv1.ListProvidersRequest,
 ) (*restv1.ListProvidersResponse, error) {
 	zlog.Debug().Msg("ListProviders")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Provider{Provider: &inv_providerv1.ProviderResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
@@ -172,6 +178,40 @@ func (is *InventorygRPCServer) UpdateProvider(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Provider{
+			Provider: invProvider,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetProvider()
+	invUpRes := fromInvProvider(invUp)
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a provider. (PATCH).
+func (is *InventorygRPCServer) PatchProvider(
+	ctx context.Context,
+	req *restv1.PatchProviderRequest,
+) (*providerv1.ProviderResource, error) {
+	zlog.Debug().Msg("PatchProvider")
+
+	provider := req.GetProvider()
+	invProvider, err := toInvProvider(provider)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory provider")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invProvider, req.GetFieldMask(), OpenAPIProviderToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Provider{
 			Provider: invProvider,
