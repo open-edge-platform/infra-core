@@ -1,5 +1,5 @@
+---
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-# This is for Atlas binary, which is not yet released with a fix for this.
-CVE-2025-22869
+ignorefile: inventory/.trivyignore
