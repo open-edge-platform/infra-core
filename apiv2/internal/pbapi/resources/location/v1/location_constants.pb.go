@@ -14,8 +14,7 @@ const (
 	RegionResourceEdgeInheritedMetadata = "inherited_metadata"
 	RegionResourceFieldTotalSites       = "total_sites"
 	RegionResourceFieldParentId         = "parent_id"
-	RegionResourceFieldCreatedAt        = "created_at"
-	RegionResourceFieldUpdatedAt        = "updated_at"
+	RegionResourceEdgeTimestamps        = "timestamps"
 
 	// Fields and Edges constants for "SiteResource"
 	SiteResourceFieldResourceId       = "resource_id"
@@ -28,6 +27,5 @@ const (
 	SiteResourceEdgeMetadata          = "metadata"
 	SiteResourceEdgeInheritedMetadata = "inherited_metadata"
 	SiteResourceFieldRegionId         = "region_id"
-	SiteResourceFieldCreatedAt        = "created_at"
-	SiteResourceFieldUpdatedAt        = "updated_at"
+	SiteResourceEdgeTimestamps        = "timestamps"
 )

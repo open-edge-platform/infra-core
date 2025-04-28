@@ -168,10 +168,8 @@ message HostResource {
   repeated resources.common.v1.MetadataItem metadata = 5003 [(google.api.field_behavior) = OPTIONAL];
   // The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
   repeated resources.common.v1.MetadataItem inherited_metadata = 5004 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The state of the Host component.
@@ -204,10 +202,8 @@ message HoststorageResource {
   string capacity_bytes = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The storage device device name (OS provided, like sda, sdb, etc.)
   string device_name = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The state of the network interface.
@@ -246,10 +242,8 @@ message HostnicResource {
   NetworkInterfaceLinkState link_state = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Whether this is a bmc interface or not.
   bool bmc_interface = 43 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The set of host USB resources.
@@ -276,10 +270,8 @@ message HostusbResource {
   string serial = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
   // the OS-provided device name.
   string device_name = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The set of available host GPU cards.
@@ -304,10 +296,8 @@ message HostgpuResource {
   string device_name = 24 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The features of this GPU device, comma separated.
   string features = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The Instance States.
@@ -442,10 +432,8 @@ message InstanceResource {
       max_bytes: 21
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // Represents the Workload state, used for both current and desired state.
@@ -513,10 +501,8 @@ message WorkloadResource {
     }
   ];
 
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // Represents the type of the workload member.
@@ -577,8 +563,6 @@ message WorkloadMember {
     }
   ];
 
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

@@ -141,9 +141,34 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryLogsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryLogsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryLogsGroupResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryLogsGroupResourceMultiError(errors)
@@ -339,9 +364,34 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryMetricsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryMetricsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryMetricsGroupResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryMetricsGroupResourceMultiError(errors)
@@ -617,9 +667,34 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryLogsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryLogsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryLogsProfileResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryLogsProfileResourceMultiError(errors)
@@ -899,9 +974,34 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryMetricsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryMetricsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryMetricsProfileResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryMetricsProfileResourceMultiError(errors)

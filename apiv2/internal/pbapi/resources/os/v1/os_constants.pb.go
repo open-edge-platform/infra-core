@@ -23,6 +23,5 @@ const (
 	OperatingSystemResourceFieldPlatformBundle    = "platform_bundle"
 	OperatingSystemResourceFieldOsResourceId      = "os_resource_id"
 	OperatingSystemResourceFieldRepoUrl           = "repo_url"
-	OperatingSystemResourceFieldCreatedAt         = "created_at"
-	OperatingSystemResourceFieldUpdatedAt         = "updated_at"
+	OperatingSystemResourceEdgeTimestamps         = "timestamps"
 )

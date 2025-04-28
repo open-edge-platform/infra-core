@@ -63,8 +63,7 @@ func fromInvWorkload(invWorkload *inv_computev1.WorkloadResource) (*computev1.Wo
 		ExternalId: invWorkload.GetExternalId(),
 		Status:     invWorkload.GetStatus(),
 		Members:    members,
-		CreatedAt:  invWorkload.GetCreatedAt(),
-		UpdatedAt:  invWorkload.GetUpdatedAt(),
+		Timestamps: GrpcToOpenAPITimestamps(invWorkload),
 	}
 
 	return workload, nil

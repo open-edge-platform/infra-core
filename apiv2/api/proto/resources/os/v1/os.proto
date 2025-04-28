@@ -6,6 +6,7 @@ syntax = "proto3";
 package resources.os.v1;
 
 import "google/api/field_behavior.proto";
+import "resources/common/v1/common.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1;osv1";
@@ -134,8 +135,6 @@ message OperatingSystemResource {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
   }];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

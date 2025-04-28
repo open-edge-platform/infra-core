@@ -181,3 +181,160 @@ var _ interface {
 var _MetadataItem_Key_Pattern = regexp.MustCompile("^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
 var _MetadataItem_Value_Pattern = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$")
+
+// Validate checks the field values on Timestamps with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Timestamps) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Timestamps with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in TimestampsMultiError, or
+// nil if none found.
+func (m *Timestamps) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Timestamps) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCreatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TimestampsValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TimestampsValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TimestampsValidationError{
+				field:  "CreatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUpdatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TimestampsValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TimestampsValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TimestampsValidationError{
+				field:  "UpdatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return TimestampsMultiError(errors)
+	}
+
+	return nil
+}
+
+// TimestampsMultiError is an error wrapping multiple validation errors
+// returned by Timestamps.ValidateAll() if the designated constraints aren't met.
+type TimestampsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TimestampsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TimestampsMultiError) AllErrors() []error { return m }
+
+// TimestampsValidationError is the validation error returned by
+// Timestamps.Validate if the designated constraints aren't met.
+type TimestampsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TimestampsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TimestampsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TimestampsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TimestampsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TimestampsValidationError) ErrorName() string { return "TimestampsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TimestampsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTimestamps.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TimestampsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TimestampsValidationError{}

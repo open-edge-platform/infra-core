@@ -14,6 +14,5 @@ const (
 	ProviderResourceFieldApiCredentials = "api_credentials"
 	ProviderResourceFieldConfig         = "config"
 	ProviderResourceFieldProviderId     = "provider_id"
-	ProviderResourceFieldCreatedAt      = "created_at"
-	ProviderResourceFieldUpdatedAt      = "updated_at"
+	ProviderResourceEdgeTimestamps      = "timestamps"
 )

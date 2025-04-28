@@ -26,8 +26,7 @@ func TelemetryLogsGroupResourcetoAPI(
 		Name:                 telemetryGroup.GetName(),
 		CollectorKind:        telemetryv1.CollectorKind(*telemetryGroup.GetCollectorKind().Enum()),
 		Groups:               telemetryGroup.GetGroups(),
-		CreatedAt:            telemetryGroup.GetCreatedAt(),
-		UpdatedAt:            telemetryGroup.GetUpdatedAt(),
+		Timestamps:           GrpcToOpenAPITimestamps(telemetryGroup),
 	}
 	return telemetryLogsGroup
 }

@@ -195,9 +195,34 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleScheduleResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	switch v := m.Relation.(type) {
 	case *SingleScheduleResource_TargetSite:
@@ -641,9 +666,34 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RepeatedScheduleResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	switch v := m.Relation.(type) {
 	case *RepeatedScheduleResource_TargetSite:

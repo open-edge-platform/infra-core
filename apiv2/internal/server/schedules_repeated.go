@@ -134,8 +134,7 @@ func fromInvRepeatedSchedule(
 		CronDayMonth:       invRepeatedSchedule.GetCronDayMonth(),
 		CronMonth:          invRepeatedSchedule.GetCronMonth(),
 		CronDayWeek:        invRepeatedSchedule.GetCronDayWeek(),
-		CreatedAt:          invRepeatedSchedule.GetCreatedAt(),
-		UpdatedAt:          invRepeatedSchedule.GetUpdatedAt(),
+		Timestamps:         GrpcToOpenAPITimestamps(invRepeatedSchedule),
 	}
 
 	switch relation := invRepeatedSchedule.GetRelation().(type) {

@@ -9,6 +9,5 @@ const (
 	LocalAccountResourceFieldResourceId = "resource_id"
 	LocalAccountResourceFieldUsername   = "username"
 	LocalAccountResourceFieldSshKey     = "ssh_key"
-	LocalAccountResourceFieldCreatedAt  = "created_at"
-	LocalAccountResourceFieldUpdatedAt  = "updated_at"
+	LocalAccountResourceEdgeTimestamps  = "timestamps"
 )

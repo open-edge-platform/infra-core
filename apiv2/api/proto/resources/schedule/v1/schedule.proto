@@ -6,6 +6,7 @@ syntax = "proto3";
 package resources.schedule.v1;
 
 import "google/api/field_behavior.proto";
+import "resources/common/v1/common.proto";
 import "resources/compute/v1/compute.proto";
 import "resources/location/v1/location.proto";
 import "validate/validate.proto";
@@ -101,10 +102,8 @@ message SingleScheduleResource {
       max_bytes: 15
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A repeated-schedule resource.
@@ -211,8 +210,6 @@ message RepeatedScheduleResource {
       max_bytes: 15
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

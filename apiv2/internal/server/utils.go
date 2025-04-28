@@ -7,12 +7,16 @@ import (
 	"encoding/json"
 	"errors"
 	"math"
+	"time"
 
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 )
+
+const ISO8601TimeFormat = "2006-01-02T15:04:05.999Z"
 
 func fromInvMetadata(metadata string) ([]*commonv1.MetadataItem, error) {
 	var apiMetadata []*commonv1.MetadataItem
@@ -133,4 +137,31 @@ func parseFielmask(
 	}
 	zlog.Debug().Msgf("Fieldmask %s from fields map %s", fieldmaskParsed.String(), fieldMaskPaths)
 	return fieldmaskParsed, nil
+}
+
+type withCreatedAtUpdatedAtInvRes interface {
+	GetCreatedAt() string
+	GetUpdatedAt() string
+}
+
+func GrpcToOpenAPITimestamps(obj withCreatedAtUpdatedAtInvRes) *commonv1.Timestamps {
+	if obj == nil {
+		return nil
+	}
+	createdAt, err := time.Parse(ISO8601TimeFormat, obj.GetCreatedAt())
+	if err != nil {
+		// In case of error, just log and set time to 0.
+		zlog.Err(err).Msg("error when parsing createdAt timestamp, continuing")
+		createdAt = time.Unix(0, 0)
+	}
+	updatedAt, err := time.Parse(ISO8601TimeFormat, obj.GetUpdatedAt())
+	if err != nil {
+		// In case of error, just log and set time to 0.
+		zlog.Err(err).Msg("error when parsing updatedAt timestamp, continuing")
+		updatedAt = time.Unix(0, 0)
+	}
+	return &commonv1.Timestamps{
+		CreatedAt: timestamppb.New(createdAt),
+		UpdatedAt: timestamppb.New(updatedAt),
+	}
 }

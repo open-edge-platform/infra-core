@@ -62,8 +62,7 @@ func fromInvProvider(invProvider *inv_providerv1.ProviderResource) *providerv1.P
 		ApiCredentials: invProvider.GetApiCredentials(),
 		Config:         invProvider.GetConfig(),
 		ProviderId:     invProvider.GetResourceId(),
-		CreatedAt:      invProvider.GetCreatedAt(),
-		UpdatedAt:      invProvider.GetUpdatedAt(),
+		Timestamps:     GrpcToOpenAPITimestamps(invProvider),
 	}
 
 	return provider

@@ -47,8 +47,7 @@ const (
 	HostResourceFieldSiteId                      = "site_id"
 	HostResourceEdgeMetadata                     = "metadata"
 	HostResourceEdgeInheritedMetadata            = "inherited_metadata"
-	HostResourceFieldCreatedAt                   = "created_at"
-	HostResourceFieldUpdatedAt                   = "updated_at"
+	HostResourceEdgeTimestamps                   = "timestamps"
 
 	// Fields and Edges constants for "HoststorageResource"
 	HoststorageResourceFieldResourceId    = "resource_id"
@@ -58,8 +57,7 @@ const (
 	HoststorageResourceFieldModel         = "model"
 	HoststorageResourceFieldCapacityBytes = "capacity_bytes"
 	HoststorageResourceFieldDeviceName    = "device_name"
-	HoststorageResourceFieldCreatedAt     = "created_at"
-	HoststorageResourceFieldUpdatedAt     = "updated_at"
+	HoststorageResourceEdgeTimestamps     = "timestamps"
 
 	// Fields and Edges constants for "HostnicResource"
 	HostnicResourceFieldResourceId    = "resource_id"
@@ -73,8 +71,7 @@ const (
 	HostnicResourceFieldMtu           = "mtu"
 	HostnicResourceFieldLinkState     = "link_state"
 	HostnicResourceFieldBmcInterface  = "bmc_interface"
-	HostnicResourceFieldCreatedAt     = "created_at"
-	HostnicResourceFieldUpdatedAt     = "updated_at"
+	HostnicResourceEdgeTimestamps     = "timestamps"
 
 	// Fields and Edges constants for "HostusbResource"
 	HostusbResourceFieldResourceId = "resource_id"
@@ -85,8 +82,7 @@ const (
 	HostusbResourceFieldClass      = "class"
 	HostusbResourceFieldSerial     = "serial"
 	HostusbResourceFieldDeviceName = "device_name"
-	HostusbResourceFieldCreatedAt  = "created_at"
-	HostusbResourceFieldUpdatedAt  = "updated_at"
+	HostusbResourceEdgeTimestamps  = "timestamps"
 
 	// Fields and Edges constants for "HostgpuResource"
 	HostgpuResourceFieldResourceId  = "resource_id"
@@ -96,8 +92,7 @@ const (
 	HostgpuResourceFieldDescription = "description"
 	HostgpuResourceFieldDeviceName  = "device_name"
 	HostgpuResourceFieldFeatures    = "features"
-	HostgpuResourceFieldCreatedAt   = "created_at"
-	HostgpuResourceFieldUpdatedAt   = "updated_at"
+	HostgpuResourceEdgeTimestamps   = "timestamps"
 
 	// Fields and Edges constants for "InstanceResource"
 	InstanceResourceFieldResourceId                        = "resource_id"
@@ -128,8 +123,7 @@ const (
 	InstanceResourceFieldHostId                            = "host_id"
 	InstanceResourceFieldOsId                              = "os_id"
 	InstanceResourceFieldLocalAccountId                    = "local_account_id"
-	InstanceResourceFieldCreatedAt                         = "created_at"
-	InstanceResourceFieldUpdatedAt                         = "updated_at"
+	InstanceResourceEdgeTimestamps                         = "timestamps"
 
 	// Fields and Edges constants for "WorkloadResource"
 	WorkloadResourceFieldResourceId = "resource_id"
@@ -139,8 +133,7 @@ const (
 	WorkloadResourceFieldStatus     = "status"
 	WorkloadResourceEdgeMembers     = "members"
 	WorkloadResourceFieldWorkloadId = "workload_id"
-	WorkloadResourceFieldCreatedAt  = "created_at"
-	WorkloadResourceFieldUpdatedAt  = "updated_at"
+	WorkloadResourceEdgeTimestamps  = "timestamps"
 
 	// Fields and Edges constants for "WorkloadMember"
 	WorkloadMemberFieldResourceId       = "resource_id"
@@ -151,6 +144,5 @@ const (
 	WorkloadMemberEdgeMember            = "member"
 	WorkloadMemberFieldWorkloadId       = "workload_id"
 	WorkloadMemberFieldInstanceId       = "instance_id"
-	WorkloadMemberFieldCreatedAt        = "created_at"
-	WorkloadMemberFieldUpdatedAt        = "updated_at"
+	WorkloadMemberEdgeTimestamps        = "timestamps"
 )

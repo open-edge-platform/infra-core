@@ -18,8 +18,7 @@ const (
 	SingleScheduleResourceFieldTargetHostId     = "target_host_id"
 	SingleScheduleResourceFieldTargetSiteId     = "target_site_id"
 	SingleScheduleResourceFieldTargetRegionId   = "target_region_id"
-	SingleScheduleResourceFieldCreatedAt        = "created_at"
-	SingleScheduleResourceFieldUpdatedAt        = "updated_at"
+	SingleScheduleResourceEdgeTimestamps        = "timestamps"
 
 	// Fields and Edges constants for "RepeatedScheduleResource"
 	RepeatedScheduleResourceFieldResourceId         = "resource_id"
@@ -38,6 +37,5 @@ const (
 	RepeatedScheduleResourceFieldTargetHostId       = "target_host_id"
 	RepeatedScheduleResourceFieldTargetSiteId       = "target_site_id"
 	RepeatedScheduleResourceFieldTargetRegionId     = "target_region_id"
-	RepeatedScheduleResourceFieldCreatedAt          = "created_at"
-	RepeatedScheduleResourceFieldUpdatedAt          = "updated_at"
+	RepeatedScheduleResourceEdgeTimestamps          = "timestamps"
 )
