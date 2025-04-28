@@ -23,6 +23,9 @@
     - [OsType](#resources-os-v1-OsType)
     - [SecurityFeature](#resources-os-v1-SecurityFeature)
   
+- [resources/localaccount/v1/localaccount.proto](#resources_localaccount_v1_localaccount-proto)
+    - [LocalAccountResource](#resources-localaccount-v1-LocalAccountResource)
+  
 - [resources/status/v1/status.proto](#resources_status_v1_status-proto)
     - [StatusIndication](#resources-status-v1-StatusIndication)
   
@@ -67,6 +70,8 @@
     - [CreateHostResponse](#services-v1-CreateHostResponse)
     - [CreateInstanceRequest](#services-v1-CreateInstanceRequest)
     - [CreateInstanceResponse](#services-v1-CreateInstanceResponse)
+    - [CreateLocalAccountRequest](#services-v1-CreateLocalAccountRequest)
+    - [CreateLocalAccountResponse](#services-v1-CreateLocalAccountResponse)
     - [CreateOperatingSystemRequest](#services-v1-CreateOperatingSystemRequest)
     - [CreateOperatingSystemResponse](#services-v1-CreateOperatingSystemResponse)
     - [CreateProviderRequest](#services-v1-CreateProviderRequest)
@@ -95,6 +100,8 @@
     - [DeleteHostResponse](#services-v1-DeleteHostResponse)
     - [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest)
     - [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse)
+    - [DeleteLocalAccountRequest](#services-v1-DeleteLocalAccountRequest)
+    - [DeleteLocalAccountResponse](#services-v1-DeleteLocalAccountResponse)
     - [DeleteOperatingSystemRequest](#services-v1-DeleteOperatingSystemRequest)
     - [DeleteOperatingSystemResponse](#services-v1-DeleteOperatingSystemResponse)
     - [DeleteProviderRequest](#services-v1-DeleteProviderRequest)
@@ -125,6 +132,8 @@
     - [GetHostSummaryResponse](#services-v1-GetHostSummaryResponse)
     - [GetInstanceRequest](#services-v1-GetInstanceRequest)
     - [GetInstanceResponse](#services-v1-GetInstanceResponse)
+    - [GetLocalAccountRequest](#services-v1-GetLocalAccountRequest)
+    - [GetLocalAccountResponse](#services-v1-GetLocalAccountResponse)
     - [GetOperatingSystemRequest](#services-v1-GetOperatingSystemRequest)
     - [GetOperatingSystemResponse](#services-v1-GetOperatingSystemResponse)
     - [GetProviderRequest](#services-v1-GetProviderRequest)
@@ -158,6 +167,8 @@
     - [ListHostsResponse](#services-v1-ListHostsResponse)
     - [ListInstancesRequest](#services-v1-ListInstancesRequest)
     - [ListInstancesResponse](#services-v1-ListInstancesResponse)
+    - [ListLocalAccountsRequest](#services-v1-ListLocalAccountsRequest)
+    - [ListLocalAccountsResponse](#services-v1-ListLocalAccountsResponse)
     - [ListLocationsRequest](#services-v1-ListLocationsRequest)
     - [ListLocationsResponse](#services-v1-ListLocationsResponse)
     - [ListLocationsResponse.LocationNode](#services-v1-ListLocationsResponse-LocationNode)
@@ -189,6 +200,18 @@
     - [ListWorkloadsResponse](#services-v1-ListWorkloadsResponse)
     - [OnboardHostRequest](#services-v1-OnboardHostRequest)
     - [OnboardHostResponse](#services-v1-OnboardHostResponse)
+    - [PatchHostRequest](#services-v1-PatchHostRequest)
+    - [PatchInstanceRequest](#services-v1-PatchInstanceRequest)
+    - [PatchOperatingSystemRequest](#services-v1-PatchOperatingSystemRequest)
+    - [PatchProviderRequest](#services-v1-PatchProviderRequest)
+    - [PatchRegionRequest](#services-v1-PatchRegionRequest)
+    - [PatchRepeatedScheduleRequest](#services-v1-PatchRepeatedScheduleRequest)
+    - [PatchSingleScheduleRequest](#services-v1-PatchSingleScheduleRequest)
+    - [PatchSiteRequest](#services-v1-PatchSiteRequest)
+    - [PatchTelemetryLogsProfileRequest](#services-v1-PatchTelemetryLogsProfileRequest)
+    - [PatchTelemetryMetricsProfileRequest](#services-v1-PatchTelemetryMetricsProfileRequest)
+    - [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest)
+    - [PatchWorkloadRequest](#services-v1-PatchWorkloadRequest)
     - [RegisterHostRequest](#services-v1-RegisterHostRequest)
     - [UpdateHostRequest](#services-v1-UpdateHostRequest)
     - [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest)
@@ -207,6 +230,7 @@
   
     - [HostService](#services-v1-HostService)
     - [InstanceService](#services-v1-InstanceService)
+    - [LocalAccountService](#services-v1-LocalAccountService)
     - [LocationService](#services-v1-LocationService)
     - [OperatingSystemService](#services-v1-OperatingSystemService)
     - [ProviderService](#services-v1-ProviderService)
@@ -279,6 +303,8 @@ A provider resource.
 | api_credentials | [string](#string) | repeated | The provider resource&#39;s list of credentials. |
 | config | [string](#string) |  | Opaque provider configuration. |
 | provider_id | [string](#string) |  | The provider resource&#39;s unique identifier. Alias of resourceId. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -342,6 +368,8 @@ A region resource.
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter. |
 | total_sites | [int32](#int32) |  | The total number of sites in the region. |
 | parent_id | [string](#string) |  | The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -366,6 +394,8 @@ A site resource.
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated to the Region, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter. |
 | region_id | [string](#string) |  | The region&#39;s unique identifier that the site is associated to. This field cannot be used in filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -410,8 +440,11 @@ An OS resource.
 | security_feature | [SecurityFeature](#resources-os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation. |
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
+| platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | os_resource_id | [string](#string) |  | The OS resource&#39;s unique identifier. Alias of resourceId. |
 | repo_url | [string](#string) |  | OS image URL. URL of the original installation source. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -457,6 +490,41 @@ SecurityFeature describes the security capabilities of a resource.
 | SECURITY_FEATURE_NONE | 1 |  |
 | SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION | 2 |  |
 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="resources_localaccount_v1_localaccount-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/localaccount/v1/localaccount.proto
+
+
+
+<a name="resources-localaccount-v1-LocalAccountResource"></a>
+
+### LocalAccountResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| username | [string](#string) |  | Username provided by admin |
+| ssh_key | [string](#string) |  | SSH Public Key of EN |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+
+
+
+
+
+ 
 
  
 
@@ -552,6 +620,8 @@ A Host resource.
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -573,6 +643,8 @@ The set of available host GPU cards.
 | description | [string](#string) |  | The human-readable GPU device description. |
 | device_name | [string](#string) |  | GPU name as reported by OS. |
 | features | [string](#string) |  | The features of this GPU device, comma separated. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -598,6 +670,8 @@ The set of available host interfaces.
 | mtu | [uint32](#uint32) |  | Maximum transmission unit of the interface. |
 | link_state | [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState) |  | Link state of this interface. |
 | bmc_interface | [bool](#bool) |  | Whether this is a bmc interface or not. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -619,6 +693,8 @@ The set of available host storage capabilities.
 | model | [string](#string) |  | The storage device model. |
 | capacity_bytes | [string](#string) |  | The storage device Capacity (size) in bytes. |
 | device_name | [string](#string) |  | The storage device device name (OS provided, like sda, sdb, etc.) |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -641,6 +717,8 @@ The set of host USB resources.
 | class | [string](#string) |  | class defined by USB-IF. |
 | serial | [string](#string) |  | Serial number of device. |
 | device_name | [string](#string) |  | the OS-provided device name. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -675,12 +753,19 @@ host or hypervisor.
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [string](#string) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
 | update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
+| trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
+| trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
+| trusted_attestation_status_timestamp | [string](#string) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
 | workload_members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The workload members associated with the instance.
 
 back-reference to the Workload Members associated to this Instance |
+| localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
 | instance_id | [string](#string) |  | The instance&#39;s unique identifier. Alias of resourceID. |
 | host_id | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | os_id | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
+| local_account_id | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -703,6 +788,8 @@ Intermediate resource to represent a relation between a workload and a compute r
 | member | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The reference of the Instance member of the workload. |
 | workload_id | [string](#string) |  | The workload unique identifier. |
 | instance_id | [string](#string) |  | The unique identifier of the instance. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -724,6 +811,8 @@ A generic way to group compute resources to obtain a workload.
 | status | [string](#string) |  | Human-readable status of the workload. |
 | members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The members of the workload. |
 | workload_id | [string](#string) |  | The workload unique identifier. Alias of resourceId. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -797,10 +886,9 @@ The Instance States.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | INSTANCE_STATE_UNSPECIFIED | 0 | unconfigured |
-| INSTANCE_STATE_ERROR | 1 | unknown |
-| INSTANCE_STATE_RUNNING | 2 | OS is Running |
-| INSTANCE_STATE_DELETED | 3 | OS should be Deleted |
-| INSTANCE_STATE_UNTRUSTED | 4 | OS should not be trusted anymore |
+| INSTANCE_STATE_RUNNING | 1 | OS is Running |
+| INSTANCE_STATE_DELETED | 2 | OS should be Deleted |
+| INSTANCE_STATE_UNTRUSTED | 3 | OS should not be trusted anymore |
 
 
 
@@ -895,6 +983,8 @@ A repeated-schedule resource.
 | target_host_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_region_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -923,6 +1013,8 @@ status of one-time-schedule |
 | target_host_id | [string](#string) |  | The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_region_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -975,6 +1067,8 @@ TelemetryLogsGroupResource.
 | name | [string](#string) |  | Human-readable name for the log group. |
 | collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -997,6 +1091,8 @@ A telemetry log profile for a hierarchy object.
 | log_level | [SeverityLevel](#resources-telemetry-v1-SeverityLevel) |  | The log level og the telemetry profile. |
 | logs_group_id | [string](#string) |  | The unique identifier of the telemetry log group. |
 | logs_group | [TelemetryLogsGroupResource](#resources-telemetry-v1-TelemetryLogsGroupResource) |  | The log group associated with the telemetry profile. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1016,6 +1112,8 @@ TelemetryMetricsGroupResource.
 | name | [string](#string) |  | Human-readable name for the log group. |
 | collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1038,6 +1136,8 @@ A telemetry metric profile for a hierarchy object.
 | metrics_interval | [uint32](#uint32) |  | Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS. |
 | metrics_group_id | [string](#string) |  | The unique identifier of the telemetry metric group. |
 | metrics_group | [TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource) |  | The metric group associated with the telemetry profile. |
+| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
+| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
 
 
 
@@ -1157,6 +1257,36 @@ Response message for the CreateInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The created instance. |
+
+
+
+
+
+
+<a name="services-v1-CreateLocalAccountRequest"></a>
+
+### CreateLocalAccountRequest
+Request message for the CreateLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The localaccount to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateLocalAccountResponse"></a>
+
+### CreateLocalAccountResponse
+Response message for the CreateLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The created localaccount. |
 
 
 
@@ -1573,6 +1703,31 @@ Response message for DeleteInstance.
 
 
 
+<a name="services-v1-DeleteLocalAccountRequest"></a>
+
+### DeleteLocalAccountRequest
+Request message for DeleteLocalAccount.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the localaccount to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteLocalAccountResponse"></a>
+
+### DeleteLocalAccountResponse
+Response message for DeleteLocalAccount.
+
+
+
+
+
+
 <a name="services-v1-DeleteOperatingSystemRequest"></a>
 
 ### DeleteOperatingSystemRequest
@@ -1960,6 +2115,36 @@ Response message for the GetInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The requested instance. |
+
+
+
+
+
+
+<a name="services-v1-GetLocalAccountRequest"></a>
+
+### GetLocalAccountRequest
+Request message for the GetLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the requested localaccount. |
+
+
+
+
+
+
+<a name="services-v1-GetLocalAccountResponse"></a>
+
+### GetLocalAccountResponse
+Response message for the GetLocalAccount method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The requested localaccount. |
 
 
 
@@ -2405,8 +2590,8 @@ Request message for the ListHosts method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2440,8 +2625,8 @@ Request message for the ListInstances method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2457,6 +2642,41 @@ Response message for the ListInstances method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instances | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | repeated | Sorted and filtered list of instances. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
+
+
+
+
+
+
+<a name="services-v1-ListLocalAccountsRequest"></a>
+
+### ListLocalAccountsRequest
+Request message for the ListLocalAccounts method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListLocalAccountsResponse"></a>
+
+### ListLocalAccountsResponse
+Response message for the ListLocalAccounts method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| local_accounts | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) | repeated | Sorted and filtered list of localaccounts. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
 
@@ -2527,8 +2747,8 @@ Request message for the ListOperatingSystems method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2562,8 +2782,8 @@ Request message for the ListProviders method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2597,8 +2817,8 @@ Request message for the ListRegions method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | show_total_sites | [bool](#bool) |  | Flag to signal if the total amount of site in a region should be returned. |
 
 
@@ -2631,8 +2851,8 @@ Request message for the ListRepeatedSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -2668,8 +2888,8 @@ Request message for the ListSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -2706,8 +2926,8 @@ Request message for the ListSingleSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -2745,8 +2965,8 @@ Request message for the ListSites method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2778,8 +2998,8 @@ Request message for the ListTelemetryLogsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 
 
@@ -2812,8 +3032,8 @@ Request message for the ListTelemetryLogsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | instance_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given instance identifier. |
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
@@ -2850,8 +3070,8 @@ Request message for the ListTelemetryMetricsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 
 
@@ -2884,8 +3104,8 @@ Request message for the ListTelemetryMetricsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | instance_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given instance identifier. |
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
@@ -2924,8 +3144,8 @@ Request message for the ListWorkloadMembers method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2959,8 +3179,8 @@ Request message for the ListWorkloads method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -3009,6 +3229,210 @@ Response of a Host Register request.
 
 
 
+<a name="services-v1-PatchHostRequest"></a>
+
+### PatchHostRequest
+Request message for the PatchHost method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of host. |
+
+
+
+
+
+
+<a name="services-v1-PatchInstanceRequest"></a>
+
+### PatchInstanceRequest
+Request message for the PatchInstance method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+
+
+
+
+
+
+<a name="services-v1-PatchOperatingSystemRequest"></a>
+
+### PatchOperatingSystemRequest
+Request message for the PatchOperatingSystem method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of os. |
+
+
+
+
+
+
+<a name="services-v1-PatchProviderRequest"></a>
+
+### PatchProviderRequest
+Request message for the PatchProvider method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Updated values for the provider. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of provider. |
+
+
+
+
+
+
+<a name="services-v1-PatchRegionRequest"></a>
+
+### PatchRegionRequest
+Request message for the PatchRegion method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of region. |
+
+
+
+
+
+
+<a name="services-v1-PatchRepeatedScheduleRequest"></a>
+
+### PatchRepeatedScheduleRequest
+Request message for the PatchRepeatedSchedule method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of repeated_schedule. |
+
+
+
+
+
+
+<a name="services-v1-PatchSingleScheduleRequest"></a>
+
+### PatchSingleScheduleRequest
+Request message for the PatchSingleSchedule method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of single_schedule. |
+
+
+
+
+
+
+<a name="services-v1-PatchSiteRequest"></a>
+
+### PatchSiteRequest
+Request message for the PatchSite method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
+
+
+
+
+
+
+<a name="services-v1-PatchTelemetryLogsProfileRequest"></a>
+
+### PatchTelemetryLogsProfileRequest
+Request message for the PatchTelemetryLogs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_logs_profile. |
+
+
+
+
+
+
+<a name="services-v1-PatchTelemetryMetricsProfileRequest"></a>
+
+### PatchTelemetryMetricsProfileRequest
+Request message for the PatchTelemetryMetricsProfile method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_metrics_profile. |
+
+
+
+
+
+
+<a name="services-v1-PatchWorkloadMemberRequest"></a>
+
+### PatchWorkloadMemberRequest
+Request message for the PatchWorkloadMember method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | Updated values for the workload_member. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload_member. |
+
+
+
+
+
+
+<a name="services-v1-PatchWorkloadRequest"></a>
+
+### PatchWorkloadRequest
+Request message for the PatchWorkload method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
+| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload. |
+
+
+
+
+
+
 <a name="services-v1-RegisterHostRequest"></a>
 
 ### RegisterHostRequest
@@ -3049,7 +3473,7 @@ Request message for the UpdateInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the instance instance to be updated. |
+| resource_id | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 
 
@@ -3248,6 +3672,7 @@ Host.
 | ListHosts | [ListHostsRequest](#services-v1-ListHostsRequest) | [ListHostsResponse](#services-v1-ListHostsResponse) | Get a list of hosts. |
 | GetHost | [GetHostRequest](#services-v1-GetHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Get a specific host. |
 | UpdateHost | [UpdateHostRequest](#services-v1-UpdateHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host. |
+| PatchHost | [PatchHostRequest](#services-v1-PatchHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Patch a host. |
 | DeleteHost | [DeleteHostRequest](#services-v1-DeleteHostRequest) | [DeleteHostResponse](#services-v1-DeleteHostResponse) | Delete a host. |
 | InvalidateHost | [InvalidateHostRequest](#services-v1-InvalidateHostRequest) | [InvalidateHostResponse](#services-v1-InvalidateHostResponse) | Invalidate a host. |
 | RegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Register a host. |
@@ -3266,8 +3691,22 @@ Instance.
 | ListInstances | [ListInstancesRequest](#services-v1-ListInstancesRequest) | [ListInstancesResponse](#services-v1-ListInstancesResponse) | Get a list of instances. |
 | GetInstance | [GetInstanceRequest](#services-v1-GetInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Get a specific instance. |
 | UpdateInstance | [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Update a instance. |
+| PatchInstance | [PatchInstanceRequest](#services-v1-PatchInstanceRequest) | [.resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) | Patch a instance. |
 | DeleteInstance | [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest) | [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse) | Delete a instance. |
 | InvalidateInstance | [InvalidateInstanceRequest](#services-v1-InvalidateInstanceRequest) | [InvalidateInstanceResponse](#services-v1-InvalidateInstanceResponse) | Invalidate a instance. |
+
+
+<a name="services-v1-LocalAccountService"></a>
+
+### LocalAccountService
+LocalAccount.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateLocalAccount | [CreateLocalAccountRequest](#services-v1-CreateLocalAccountRequest) | [.resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) | Create a localAccount. |
+| ListLocalAccounts | [ListLocalAccountsRequest](#services-v1-ListLocalAccountsRequest) | [ListLocalAccountsResponse](#services-v1-ListLocalAccountsResponse) | Get a list of providers. |
+| GetLocalAccount | [GetLocalAccountRequest](#services-v1-GetLocalAccountRequest) | [.resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) | Get a specific provider. |
+| DeleteLocalAccount | [DeleteLocalAccountRequest](#services-v1-DeleteLocalAccountRequest) | [DeleteLocalAccountResponse](#services-v1-DeleteLocalAccountResponse) | Delete a provider. |
 
 
 <a name="services-v1-LocationService"></a>
@@ -3291,6 +3730,7 @@ OperatingSystem.
 | ListOperatingSystems | [ListOperatingSystemsRequest](#services-v1-ListOperatingSystemsRequest) | [ListOperatingSystemsResponse](#services-v1-ListOperatingSystemsResponse) | Get a list of OSs. |
 | GetOperatingSystem | [GetOperatingSystemRequest](#services-v1-GetOperatingSystemRequest) | [.resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | Get a specific OS. |
 | UpdateOperatingSystem | [UpdateOperatingSystemRequest](#services-v1-UpdateOperatingSystemRequest) | [.resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | Update an OS. |
+| PatchOperatingSystem | [PatchOperatingSystemRequest](#services-v1-PatchOperatingSystemRequest) | [.resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | Patch an OS. |
 | DeleteOperatingSystem | [DeleteOperatingSystemRequest](#services-v1-DeleteOperatingSystemRequest) | [DeleteOperatingSystemResponse](#services-v1-DeleteOperatingSystemResponse) | Delete an OS. |
 
 
@@ -3305,6 +3745,7 @@ Provider.
 | ListProviders | [ListProvidersRequest](#services-v1-ListProvidersRequest) | [ListProvidersResponse](#services-v1-ListProvidersResponse) | Get a list of providers. |
 | GetProvider | [GetProviderRequest](#services-v1-GetProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Get a specific provider. |
 | UpdateProvider | [UpdateProviderRequest](#services-v1-UpdateProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Update a provider. |
+| PatchProvider | [PatchProviderRequest](#services-v1-PatchProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Patch a provider. |
 | DeleteProvider | [DeleteProviderRequest](#services-v1-DeleteProviderRequest) | [DeleteProviderResponse](#services-v1-DeleteProviderResponse) | Delete a provider. |
 
 
@@ -3319,6 +3760,7 @@ Region.
 | ListRegions | [ListRegionsRequest](#services-v1-ListRegionsRequest) | [ListRegionsResponse](#services-v1-ListRegionsResponse) | Get a list of regions. |
 | GetRegion | [GetRegionRequest](#services-v1-GetRegionRequest) | [.resources.location.v1.RegionResource](#resources-location-v1-RegionResource) | Get a specific region. |
 | UpdateRegion | [UpdateRegionRequest](#services-v1-UpdateRegionRequest) | [.resources.location.v1.RegionResource](#resources-location-v1-RegionResource) | Update a region. |
+| PatchRegion | [PatchRegionRequest](#services-v1-PatchRegionRequest) | [.resources.location.v1.RegionResource](#resources-location-v1-RegionResource) | Patch a region. |
 | DeleteRegion | [DeleteRegionRequest](#services-v1-DeleteRegionRequest) | [DeleteRegionResponse](#services-v1-DeleteRegionResponse) | Delete a region. |
 
 
@@ -3334,11 +3776,13 @@ Schedules.
 | ListSingleSchedules | [ListSingleSchedulesRequest](#services-v1-ListSingleSchedulesRequest) | [ListSingleSchedulesResponse](#services-v1-ListSingleSchedulesResponse) | Get a list of singleSchedules. |
 | GetSingleSchedule | [GetSingleScheduleRequest](#services-v1-GetSingleScheduleRequest) | [.resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) | Get a specific single_schedule. |
 | UpdateSingleSchedule | [UpdateSingleScheduleRequest](#services-v1-UpdateSingleScheduleRequest) | [.resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) | Update a single_schedule. |
+| PatchSingleSchedule | [PatchSingleScheduleRequest](#services-v1-PatchSingleScheduleRequest) | [.resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) | Patch a single_schedule. |
 | DeleteSingleSchedule | [DeleteSingleScheduleRequest](#services-v1-DeleteSingleScheduleRequest) | [DeleteSingleScheduleResponse](#services-v1-DeleteSingleScheduleResponse) | Delete a single_schedule. |
 | CreateRepeatedSchedule | [CreateRepeatedScheduleRequest](#services-v1-CreateRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Create a repeated_schedule. |
 | ListRepeatedSchedules | [ListRepeatedSchedulesRequest](#services-v1-ListRepeatedSchedulesRequest) | [ListRepeatedSchedulesResponse](#services-v1-ListRepeatedSchedulesResponse) | Get a list of repeatedSchedules. |
 | GetRepeatedSchedule | [GetRepeatedScheduleRequest](#services-v1-GetRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Get a specific repeated_schedule. |
 | UpdateRepeatedSchedule | [UpdateRepeatedScheduleRequest](#services-v1-UpdateRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Update a repeated_schedule. |
+| PatchRepeatedSchedule | [PatchRepeatedScheduleRequest](#services-v1-PatchRepeatedScheduleRequest) | [.resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) | Patch a repeated_schedule. |
 | DeleteRepeatedSchedule | [DeleteRepeatedScheduleRequest](#services-v1-DeleteRepeatedScheduleRequest) | [DeleteRepeatedScheduleResponse](#services-v1-DeleteRepeatedScheduleResponse) | Delete a repeated_schedule. |
 
 
@@ -3353,6 +3797,7 @@ Site.
 | ListSites | [ListSitesRequest](#services-v1-ListSitesRequest) | [ListSitesResponse](#services-v1-ListSitesResponse) | Get a list of sites. |
 | GetSite | [GetSiteRequest](#services-v1-GetSiteRequest) | [.resources.location.v1.SiteResource](#resources-location-v1-SiteResource) | Get a specific site. |
 | UpdateSite | [UpdateSiteRequest](#services-v1-UpdateSiteRequest) | [.resources.location.v1.SiteResource](#resources-location-v1-SiteResource) | Update a site. |
+| PatchSite | [PatchSiteRequest](#services-v1-PatchSiteRequest) | [.resources.location.v1.SiteResource](#resources-location-v1-SiteResource) | Patch a site. |
 | DeleteSite | [DeleteSiteRequest](#services-v1-DeleteSiteRequest) | [DeleteSiteResponse](#services-v1-DeleteSiteResponse) | Delete a site. |
 
 
@@ -3380,6 +3825,7 @@ TelemetryLogsProfile.
 | ListTelemetryLogsProfiles | [ListTelemetryLogsProfilesRequest](#services-v1-ListTelemetryLogsProfilesRequest) | [ListTelemetryLogsProfilesResponse](#services-v1-ListTelemetryLogsProfilesResponse) | Get a list of telemetryLogsProfiles. |
 | GetTelemetryLogsProfile | [GetTelemetryLogsProfileRequest](#services-v1-GetTelemetryLogsProfileRequest) | [.resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) | Get a specific telemetry_logs_profile. |
 | UpdateTelemetryLogsProfile | [UpdateTelemetryLogsProfileRequest](#services-v1-UpdateTelemetryLogsProfileRequest) | [.resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) | Update a telemetry_logs_profile. |
+| PatchTelemetryLogsProfile | [PatchTelemetryLogsProfileRequest](#services-v1-PatchTelemetryLogsProfileRequest) | [.resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) | Patch a telemetry_logs_profile. |
 | DeleteTelemetryLogsProfile | [DeleteTelemetryLogsProfileRequest](#services-v1-DeleteTelemetryLogsProfileRequest) | [DeleteTelemetryLogsProfileResponse](#services-v1-DeleteTelemetryLogsProfileResponse) | Delete a telemetry_logs_profile. |
 
 
@@ -3407,6 +3853,7 @@ TelemetryMetricsProfile.
 | ListTelemetryMetricsProfiles | [ListTelemetryMetricsProfilesRequest](#services-v1-ListTelemetryMetricsProfilesRequest) | [ListTelemetryMetricsProfilesResponse](#services-v1-ListTelemetryMetricsProfilesResponse) | Get a list of telemetryMetricsProfiles. |
 | GetTelemetryMetricsProfile | [GetTelemetryMetricsProfileRequest](#services-v1-GetTelemetryMetricsProfileRequest) | [.resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) | Get a specific telemetry_metrics_profile. |
 | UpdateTelemetryMetricsProfile | [UpdateTelemetryMetricsProfileRequest](#services-v1-UpdateTelemetryMetricsProfileRequest) | [.resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) | Update a telemetry_metrics_profile. |
+| PatchTelemetryMetricsProfile | [PatchTelemetryMetricsProfileRequest](#services-v1-PatchTelemetryMetricsProfileRequest) | [.resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) | Patch a telemetry_metrics_profile. |
 | DeleteTelemetryMetricsProfile | [DeleteTelemetryMetricsProfileRequest](#services-v1-DeleteTelemetryMetricsProfileRequest) | [DeleteTelemetryMetricsProfileResponse](#services-v1-DeleteTelemetryMetricsProfileResponse) | Delete a telemetry_metrics_profile. |
 
 
@@ -3421,6 +3868,7 @@ WorkloadMember.
 | ListWorkloadMembers | [ListWorkloadMembersRequest](#services-v1-ListWorkloadMembersRequest) | [ListWorkloadMembersResponse](#services-v1-ListWorkloadMembersResponse) | Get a list of workload_members. |
 | GetWorkloadMember | [GetWorkloadMemberRequest](#services-v1-GetWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Get a specific workload_member. |
 | UpdateWorkloadMember | [UpdateWorkloadMemberRequest](#services-v1-UpdateWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Update a workload_member. |
+| PatchWorkloadMember | [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Patch a workload_member. |
 | DeleteWorkloadMember | [DeleteWorkloadMemberRequest](#services-v1-DeleteWorkloadMemberRequest) | [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse) | Delete a workload_member. |
 
 
@@ -3435,6 +3883,7 @@ Workload.
 | ListWorkloads | [ListWorkloadsRequest](#services-v1-ListWorkloadsRequest) | [ListWorkloadsResponse](#services-v1-ListWorkloadsResponse) | Get a list of workloads. |
 | GetWorkload | [GetWorkloadRequest](#services-v1-GetWorkloadRequest) | [.resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) | Get a specific workload. |
 | UpdateWorkload | [UpdateWorkloadRequest](#services-v1-UpdateWorkloadRequest) | [.resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) | Update a workload. |
+| PatchWorkload | [PatchWorkloadRequest](#services-v1-PatchWorkloadRequest) | [.resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) | Patch a workload. |
 | DeleteWorkload | [DeleteWorkloadRequest](#services-v1-DeleteWorkloadRequest) | [DeleteWorkloadResponse](#services-v1-DeleteWorkloadResponse) | Delete a workload. |
 
  
