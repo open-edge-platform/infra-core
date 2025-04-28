@@ -122,7 +122,7 @@ message OperatingSystemResource {
   string platform_bundle = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The OS resource's unique identifier. Alias of resourceId.
-  string os_resource_id = 5001 [
+  string os_resourceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^os-[0-9a-f]{8}$"

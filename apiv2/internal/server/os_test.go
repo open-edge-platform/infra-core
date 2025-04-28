@@ -35,7 +35,7 @@ var (
 		SecurityFeature:   osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
 		OsType:            osv1.OsType_OS_TYPE_MUTABLE,
 		OsProvider:        osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-		OsResourceId:      "os-12345678", // Alias of ResourceId
+		OsResourceID:      "os-12345678", // Alias of ResourceId
 	}
 
 	// Example OS resource from the Inventory.

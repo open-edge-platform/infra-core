@@ -3393,11 +3393,6 @@ components:
                     description: Back-reference to attached host GPU resources.
                 instance:
                     $ref: '#/components/schemas/InstanceResource'
-                hostId:
-                    readOnly: true
-                    pattern: ^host-[0-9a-f]{8}$
-                    type: string
-                    description: Resource ID, generated on Create.
                 siteId:
                     writeOnly: true
                     pattern: ^$|^site-[0-9a-f]{8}$
@@ -3716,22 +3711,22 @@ components:
                     description: The workload members associated with the instance.
                 localaccount:
                     $ref: '#/components/schemas/LocalAccountResource'
-                instanceId:
+                instanceID:
                     readOnly: true
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: The instance's unique identifier. Alias of resourceID.
-                hostId:
+                hostID:
                     writeOnly: true
                     pattern: ^host-[0-9a-f]{8}$
                     type: string
                     description: The host's unique identifier associated with the instance.
-                osId:
+                osID:
                     writeOnly: true
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of OS resource that must be installed on the instance.
-                localAccountId:
+                localAccountID:
                     writeOnly: true
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
@@ -4136,6 +4131,11 @@ components:
                     pattern: ^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$
                     type: string
                     description: SSH Public Key of EN
+                localAccountID:
+                    readOnly: true
+                    pattern: ^localaccount-[0-9a-f]{8}$
+                    type: string
+                    description: The local account resource's unique identifier. Alias of resourceId.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
         MetadataItem:
@@ -4248,7 +4248,7 @@ components:
                     readOnly: true
                     type: string
                     description: Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
-                osResourceId:
+                osResourceID:
                     readOnly: true
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
@@ -4305,7 +4305,7 @@ components:
                     pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
                     type: string
                     description: Opaque provider configuration.
-                providerId:
+                providerID:
                     readOnly: true
                     pattern: ^provider-[0-9a-f]{8}$
                     type: string
@@ -4328,7 +4328,7 @@ components:
                     description: The user-provided, human-readable name of region
                 parentRegion:
                     $ref: '#/components/schemas/RegionResource'
-                regionId:
+                regionID:
                     readOnly: true
                     pattern: ^region-[0-9a-f]{8}$
                     type: string
@@ -4415,7 +4415,7 @@ components:
                     pattern: ^([*]|([0-6])((,([0-6]))*))$
                     type: string
                     description: cron style day of week (0-6), it can be empty only when used in a Filter
-                repeatedScheduleId:
+                repeatedScheduleID:
                     readOnly: true
                     pattern: ^repeatedsche-[0-9a-f]{8}$
                     type: string
@@ -4475,7 +4475,7 @@ components:
                     type: integer
                     description: The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
                     format: uint32
-                singleScheduleId:
+                singleScheduleID:
                     readOnly: true
                     pattern: ^singlesche-[0-9a-f]{8}$
                     type: string
@@ -4525,7 +4525,7 @@ components:
                     format: int32
                 provider:
                     $ref: '#/components/schemas/ProviderResource'
-                siteId:
+                siteID:
                     pattern: ^site-[0-9a-f]{8}$
                     type: string
                     description: The site unique identifier. Alias of resourceId.

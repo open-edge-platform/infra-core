@@ -27,8 +27,8 @@ import (
 var OpenAPIInstanceToProto = map[string]string{
 	computev1.InstanceResourceFieldName:   inv_computev1.InstanceResourceFieldName,
 	computev1.InstanceResourceFieldKind:   inv_computev1.InstanceResourceFieldKind,
-	computev1.InstanceResourceFieldOsId:   inv_computev1.InstanceResourceEdgeDesiredOs,
-	computev1.InstanceResourceFieldHostId: inv_computev1.InstanceResourceEdgeHost,
+	computev1.InstanceResourceFieldOsID:   inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldHostID: inv_computev1.InstanceResourceEdgeHost,
 }
 
 func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.InstanceResource, error) {
@@ -43,21 +43,21 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		SecurityFeature: inv_osv1.SecurityFeature(instance.GetSecurityFeature()),
 	}
 
-	hostID := instance.GetHostId()
+	hostID := instance.GetHostID()
 	if isSet(&hostID) {
 		invInstance.Host = &inv_computev1.HostResource{
 			ResourceId: hostID,
 		}
 	}
 
-	osID := instance.GetOsId()
+	osID := instance.GetOsID()
 	if isSet(&osID) {
 		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
 		}
 	}
 
-	laID := instance.GetLocalAccountId()
+	laID := instance.GetLocalAccountID()
 	if isSet(&laID) {
 		invInstance.Localaccount = &inv_localaccountv1.LocalAccountResource{
 			ResourceId: laID,
@@ -138,19 +138,19 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	instance := &computev1.InstanceResource{
 		ResourceId:                        invInstance.GetResourceId(),
-		InstanceId:                        invInstance.GetResourceId(),
+		InstanceID:                        invInstance.GetResourceId(),
 		Kind:                              computev1.InstanceKind(invInstance.GetKind()),
 		Name:                              invInstance.GetName(),
 		DesiredState:                      computev1.InstanceState(invInstance.GetDesiredState()),
 		CurrentState:                      computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:                              host,
-		HostId:                            host.GetResourceId(),
+		HostID:                            host.GetResourceId(),
 		DesiredOs:                         desiredOs,
 		CurrentOs:                         currentOs,
-		OsId:                              currentOs.GetResourceId(),
+		OsID:                              currentOs.GetResourceId(),
 		SecurityFeature:                   osv1.SecurityFeature(invInstance.GetSecurityFeature()),
 		Localaccount:                      la,
-		LocalAccountId:                    la.GetResourceId(),
+		LocalAccountID:                    la.GetResourceId(),
 		InstanceStatus:                    instanceStatus,
 		InstanceStatusIndicator:           instanceStatusIndicator,
 		InstanceStatusTimestamp:           instanceStatusTimestamp,

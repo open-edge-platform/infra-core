@@ -176,9 +176,9 @@ func (m *ProviderResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetProviderId()) > 17 {
+	if len(m.GetProviderID()) > 17 {
 		err := ProviderResourceValidationError{
-			field:  "ProviderId",
+			field:  "ProviderID",
 			reason: "value length must be at most 17 bytes",
 		}
 		if !all {
@@ -187,9 +187,9 @@ func (m *ProviderResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_ProviderResource_ProviderId_Pattern.MatchString(m.GetProviderId()) {
+	if !_ProviderResource_ProviderID_Pattern.MatchString(m.GetProviderID()) {
 		err := ProviderResourceValidationError{
-			field:  "ProviderId",
+			field:  "ProviderID",
 			reason: "value does not match regex pattern \"^provider-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -315,4 +315,4 @@ var _ProviderResource_ApiCredentials_Pattern = regexp.MustCompile("^[^|]*$")
 
 var _ProviderResource_Config_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
 
-var _ProviderResource_ProviderId_Pattern = regexp.MustCompile("^provider-[0-9a-f]{8}$")
+var _ProviderResource_ProviderID_Pattern = regexp.MustCompile("^provider-[0-9a-f]{8}$")

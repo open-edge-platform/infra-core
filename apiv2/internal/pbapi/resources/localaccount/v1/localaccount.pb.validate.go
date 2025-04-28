@@ -123,6 +123,28 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if len(m.GetLocalAccountID()) > 21 {
+		err := LocalAccountResourceValidationError{
+			field:  "LocalAccountID",
+			reason: "value length must be at most 21 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_LocalAccountResource_LocalAccountID_Pattern.MatchString(m.GetLocalAccountID()) {
+		err := LocalAccountResourceValidationError{
+			field:  "LocalAccountID",
+			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
 		case interface{ ValidateAll() error }:
@@ -237,3 +259,5 @@ var _LocalAccountResource_ResourceId_Pattern = regexp.MustCompile("^localaccount
 var _LocalAccountResource_Username_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]{0,31}$")
 
 var _LocalAccountResource_SshKey_Pattern = regexp.MustCompile("^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$")
+
+var _LocalAccountResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")

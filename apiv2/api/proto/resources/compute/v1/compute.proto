@@ -146,17 +146,8 @@ message HostResource {
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // Resource ID, generated on Create.
-  string host_id = 5001 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^host-[0-9a-f]{8}$"
-      max_bytes: 13
-    }
-  ];
-
   // The site where the host is located.
-  string site_id = 5002 [
+  string site_id = 5001 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
@@ -398,7 +389,7 @@ message InstanceResource {
   resources.localaccount.v1.LocalAccountResource localaccount = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The instance's unique identifier. Alias of resourceID.
-  string instance_id = 5001 [
+  string instanceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
@@ -407,7 +398,7 @@ message InstanceResource {
   ];
 
   // The host's unique identifier associated with the instance.
-  string host_id = 5002 [
+  string hostID = 5002 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^host-[0-9a-f]{8}$"
@@ -416,7 +407,7 @@ message InstanceResource {
   ];
 
   // The unique identifier of OS resource that must be installed on the instance.
-  string os_id = 5003 [
+  string osID = 5003 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^os-[0-9a-f]{8}$"
@@ -425,7 +416,7 @@ message InstanceResource {
   ];
 
   // The unique identifier of local account will be associated with the instance.
-  string local_account_id = 5004 [
+  string local_accountID = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"

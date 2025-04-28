@@ -719,15 +719,15 @@ var (
 	}
 
 	Instance1Request = api.InstanceResource{
-		HostId: &instHostID,
-		OsId:   &instOSID,
+		HostID: &instHostID,
+		OsID:   &instOSID,
 		Kind:   &instKind,
 		Name:   &Inst1Name,
 	}
 
 	Instance2Request = api.InstanceResource{
-		HostId:          &instHostID,
-		OsId:            &instOSID,
+		HostID:          &instHostID,
+		OsID:            &instOSID,
 		Kind:            &instKind,
 		Name:            &Inst2Name,
 		SecurityFeature: &instSecurityFeature,
@@ -740,13 +740,13 @@ var (
 	}
 
 	InstanceRequestNoOSID = api.InstanceResource{
-		HostId: &instHostID,
+		HostID: &instHostID,
 		Kind:   &instKind,
 		Name:   &Inst2Name,
 	}
 
 	InstanceRequestNoHostID = api.InstanceResource{
-		OsId: &instOSID,
+		OsID: &instOSID,
 		Kind: &instKind,
 		Name: &Inst2Name,
 	}

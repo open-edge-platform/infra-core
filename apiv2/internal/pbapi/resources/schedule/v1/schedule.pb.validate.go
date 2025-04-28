@@ -107,9 +107,9 @@ func (m *SingleScheduleResource) validate(all bool) error {
 
 	// no validation rules for EndSeconds
 
-	if len(m.GetSingleScheduleId()) > 19 {
+	if len(m.GetSingleScheduleID()) > 19 {
 		err := SingleScheduleResourceValidationError{
-			field:  "SingleScheduleId",
+			field:  "SingleScheduleID",
 			reason: "value length must be at most 19 bytes",
 		}
 		if !all {
@@ -118,9 +118,9 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_SingleScheduleResource_SingleScheduleId_Pattern.MatchString(m.GetSingleScheduleId()) {
+	if !_SingleScheduleResource_SingleScheduleID_Pattern.MatchString(m.GetSingleScheduleID()) {
 		err := SingleScheduleResourceValidationError{
-			field:  "SingleScheduleId",
+			field:  "SingleScheduleID",
 			reason: "value does not match regex pattern \"^singlesche-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -436,7 +436,7 @@ var _SingleScheduleResource_ResourceId_Pattern = regexp.MustCompile("^singlesche
 
 var _SingleScheduleResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _SingleScheduleResource_SingleScheduleId_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
+var _SingleScheduleResource_SingleScheduleID_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
 
 var _SingleScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
 
@@ -578,9 +578,9 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetRepeatedScheduleId()) > 21 {
+	if len(m.GetRepeatedScheduleID()) > 21 {
 		err := RepeatedScheduleResourceValidationError{
-			field:  "RepeatedScheduleId",
+			field:  "RepeatedScheduleID",
 			reason: "value length must be at most 21 bytes",
 		}
 		if !all {
@@ -589,9 +589,9 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_RepeatedScheduleResource_RepeatedScheduleId_Pattern.MatchString(m.GetRepeatedScheduleId()) {
+	if !_RepeatedScheduleResource_RepeatedScheduleID_Pattern.MatchString(m.GetRepeatedScheduleID()) {
 		err := RepeatedScheduleResourceValidationError{
-			field:  "RepeatedScheduleId",
+			field:  "RepeatedScheduleID",
 			reason: "value does not match regex pattern \"^repeatedsche-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -917,7 +917,7 @@ var _RepeatedScheduleResource_CronMonth_Pattern = regexp.MustCompile("^([*]|([1-
 
 var _RepeatedScheduleResource_CronDayWeek_Pattern = regexp.MustCompile("^([*]|([0-6])((,([0-6]))*))$")
 
-var _RepeatedScheduleResource_RepeatedScheduleId_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
+var _RepeatedScheduleResource_RepeatedScheduleID_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
 
 var _RepeatedScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
 

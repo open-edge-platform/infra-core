@@ -152,7 +152,6 @@ func fromInvHost(
 
 	host := &computev1.HostResource{
 		ResourceId:                  invHost.GetResourceId(),
-		HostId:                      invHost.GetResourceId(),
 		Name:                        invHost.GetName(),
 		DesiredState:                computev1.HostState(invHost.GetDesiredState()),
 		CurrentState:                computev1.HostState(invHost.GetCurrentState()),

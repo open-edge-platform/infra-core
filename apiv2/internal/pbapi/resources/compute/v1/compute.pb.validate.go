@@ -417,28 +417,6 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetHostId()) > 13 {
-		err := HostResourceValidationError{
-			field:  "HostId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostResource_HostId_Pattern.MatchString(m.GetHostId()) {
-		err := HostResourceValidationError{
-			field:  "HostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(m.GetSiteId()) > 13 {
 		err := HostResourceValidationError{
 			field:  "SiteId",
@@ -640,8 +618,6 @@ var _HostResource_ResourceId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 var _HostResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
-
-var _HostResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
 var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
@@ -1612,9 +1588,9 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetInstanceId()) > 13 {
+	if len(m.GetInstanceID()) > 13 {
 		err := InstanceResourceValidationError{
-			field:  "InstanceId",
+			field:  "InstanceID",
 			reason: "value length must be at most 13 bytes",
 		}
 		if !all {
@@ -1623,9 +1599,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_InstanceId_Pattern.MatchString(m.GetInstanceId()) {
+	if !_InstanceResource_InstanceID_Pattern.MatchString(m.GetInstanceID()) {
 		err := InstanceResourceValidationError{
-			field:  "InstanceId",
+			field:  "InstanceID",
 			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1634,9 +1610,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetHostId()) > 13 {
+	if len(m.GetHostID()) > 13 {
 		err := InstanceResourceValidationError{
-			field:  "HostId",
+			field:  "HostID",
 			reason: "value length must be at most 13 bytes",
 		}
 		if !all {
@@ -1645,9 +1621,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_HostId_Pattern.MatchString(m.GetHostId()) {
+	if !_InstanceResource_HostID_Pattern.MatchString(m.GetHostID()) {
 		err := InstanceResourceValidationError{
-			field:  "HostId",
+			field:  "HostID",
 			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1656,9 +1632,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetOsId()) > 11 {
+	if len(m.GetOsID()) > 11 {
 		err := InstanceResourceValidationError{
-			field:  "OsId",
+			field:  "OsID",
 			reason: "value length must be at most 11 bytes",
 		}
 		if !all {
@@ -1667,9 +1643,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_OsId_Pattern.MatchString(m.GetOsId()) {
+	if !_InstanceResource_OsID_Pattern.MatchString(m.GetOsID()) {
 		err := InstanceResourceValidationError{
-			field:  "OsId",
+			field:  "OsID",
 			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1678,9 +1654,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetLocalAccountId()) > 21 {
+	if len(m.GetLocalAccountID()) > 21 {
 		err := InstanceResourceValidationError{
-			field:  "LocalAccountId",
+			field:  "LocalAccountID",
 			reason: "value length must be at most 21 bytes",
 		}
 		if !all {
@@ -1689,9 +1665,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_LocalAccountId_Pattern.MatchString(m.GetLocalAccountId()) {
+	if !_InstanceResource_LocalAccountID_Pattern.MatchString(m.GetLocalAccountID()) {
 		err := InstanceResourceValidationError{
-			field:  "LocalAccountId",
+			field:  "LocalAccountID",
 			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1811,13 +1787,13 @@ var _InstanceResource_ResourceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}
 
 var _InstanceResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _InstanceResource_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
+var _InstanceResource_InstanceID_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
 
-var _InstanceResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
+var _InstanceResource_HostID_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
-var _InstanceResource_OsId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
+var _InstanceResource_OsID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
-var _InstanceResource_LocalAccountId_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
+var _InstanceResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
 
 // Validate checks the field values on WorkloadResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the

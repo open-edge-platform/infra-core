@@ -130,9 +130,9 @@ func (m *RegionResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetRegionId()) > 15 {
+	if len(m.GetRegionID()) > 15 {
 		err := RegionResourceValidationError{
-			field:  "RegionId",
+			field:  "RegionID",
 			reason: "value length must be at most 15 bytes",
 		}
 		if !all {
@@ -141,9 +141,9 @@ func (m *RegionResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_RegionResource_RegionId_Pattern.MatchString(m.GetRegionId()) {
+	if !_RegionResource_RegionID_Pattern.MatchString(m.GetRegionID()) {
 		err := RegionResourceValidationError{
-			field:  "RegionId",
+			field:  "RegionID",
 			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -364,7 +364,7 @@ var _RegionResource_ResourceId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}
 
 var _RegionResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _RegionResource_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _RegionResource_RegionID_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
 
 var _RegionResource_ParentId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
 
@@ -514,9 +514,9 @@ func (m *SiteResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetSiteId()) > 13 {
+	if len(m.GetSiteID()) > 13 {
 		err := SiteResourceValidationError{
-			field:  "SiteId",
+			field:  "SiteID",
 			reason: "value length must be at most 13 bytes",
 		}
 		if !all {
@@ -525,9 +525,9 @@ func (m *SiteResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_SiteResource_SiteId_Pattern.MatchString(m.GetSiteId()) {
+	if !_SiteResource_SiteID_Pattern.MatchString(m.GetSiteID()) {
 		err := SiteResourceValidationError{
-			field:  "SiteId",
+			field:  "SiteID",
 			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -736,6 +736,6 @@ var _SiteResource_ResourceId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
 
 var _SiteResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _SiteResource_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _SiteResource_SiteID_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
 
 var _SiteResource_RegionId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")

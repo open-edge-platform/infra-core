@@ -33,7 +33,7 @@ message RegionResource {
   RegionResource parent_region = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The Region unique identifier. Alias of resourceId.
-  string region_id = 5001 [
+  string regionID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -112,7 +112,7 @@ message SiteResource {
   provider.v1.ProviderResource provider = 30;
 
   // The site unique identifier. Alias of resourceId.
-  string site_id = 5001 [(validate.rules).string = {
+  string siteID = 5001 [(validate.rules).string = {
     pattern: "^site-[0-9a-f]{8}$"
     max_bytes: 13
   }];

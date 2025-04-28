@@ -29,11 +29,11 @@ var (
 		Name:            "example-instance",
 		DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		CurrentState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
-		HostId:          "host-87654321",
+		HostID:          "host-87654321",
 		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
 		// Optional fields
-		OsId:       "os-12345678",
-		InstanceId: "inst-12345678", // Alias of ResourceId
+		OsID:       "os-12345678",
+		InstanceID: "inst-12345678", // Alias of ResourceId
 	}
 
 	// Example instance resource from the Inventory.

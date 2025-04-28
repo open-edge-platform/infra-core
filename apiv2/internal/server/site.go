@@ -81,7 +81,7 @@ func fromInvSite(invSite *inv_locationv1.SiteResource,
 
 	site := &locationv1.SiteResource{
 		ResourceId:        invSite.GetResourceId(),
-		SiteId:            invSite.GetResourceId(),
+		SiteID:            invSite.GetResourceId(),
 		Name:              invSite.GetName(),
 		Region:            region,
 		RegionId:          region.GetResourceId(),

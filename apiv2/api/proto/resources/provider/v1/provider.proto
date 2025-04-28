@@ -70,7 +70,7 @@ message ProviderResource {
   }];
 
   // The provider resource's unique identifier. Alias of resourceId.
-  string provider_id = 5001 [
+  string providerID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^provider-[0-9a-f]{8}$"

@@ -75,7 +75,7 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		SecurityFeature:   osv1.SecurityFeature(invOSResource.GetSecurityFeature()),
 		OsType:            osv1.OsType(invOSResource.GetOsType()),
 		OsProvider:        osv1.OsProviderKind(invOSResource.GetOsProvider()),
-		OsResourceId:      invOSResource.GetResourceId(),
+		OsResourceID:      invOSResource.GetResourceId(),
 		Timestamps:        GrpcToOpenAPITimestamps(invOSResource),
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
 	}

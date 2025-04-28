@@ -28,7 +28,7 @@ var (
 		ApiEndpoint:    "https://api.aws.example.com",
 		ApiCredentials: []string{"access_key", "AKIAIOSFODNN7EXAMPLE", "secret_key", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"},
 		Config:         `{"region": "us-west-2", "zone": "us-west-2a"}`,
-		ProviderId:     "provider-12345678", // Alias of ResourceId
+		ProviderID:     "provider-12345678", // Alias of ResourceId
 	}
 
 	// Example provider resource from the Inventory.

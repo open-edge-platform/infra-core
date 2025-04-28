@@ -35,10 +35,11 @@ func fromInvLocalAccount(invLocalAccount *inv_localaccountv1.LocalAccountResourc
 		return &localaccountv1.LocalAccountResource{}
 	}
 	localaccount := &localaccountv1.LocalAccountResource{
-		ResourceId: invLocalAccount.GetResourceId(),
-		Username:   invLocalAccount.GetUsername(),
-		SshKey:     invLocalAccount.GetSshKey(),
-		Timestamps: GrpcToOpenAPITimestamps(invLocalAccount),
+		ResourceId:     invLocalAccount.GetResourceId(),
+		LocalAccountID: invLocalAccount.GetResourceId(),
+		Username:       invLocalAccount.GetUsername(),
+		SshKey:         invLocalAccount.GetSshKey(),
+		Timestamps:     GrpcToOpenAPITimestamps(invLocalAccount),
 	}
 
 	return localaccount

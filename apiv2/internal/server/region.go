@@ -78,7 +78,7 @@ func fromInvRegion(
 
 	region := &locationv1.RegionResource{
 		ResourceId:        invRegion.GetResourceId(),
-		RegionId:          invRegion.GetResourceId(),
+		RegionID:          invRegion.GetResourceId(),
 		Name:              invRegion.GetName(),
 		ParentRegion:      parentRegion,
 		ParentId:          parentRegion.GetResourceId(),

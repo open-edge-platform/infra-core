@@ -125,7 +125,7 @@ func fromInvRepeatedSchedule(
 	}
 	repeatedSchedule := &schedulev1.RepeatedScheduleResource{
 		ResourceId:         invRepeatedSchedule.GetResourceId(),
-		RepeatedScheduleId: invRepeatedSchedule.GetResourceId(),
+		RepeatedScheduleID: invRepeatedSchedule.GetResourceId(),
 		ScheduleStatus:     schedulev1.ScheduleStatus(invRepeatedSchedule.GetScheduleStatus()),
 		Name:               invRepeatedSchedule.GetName(),
 		DurationSeconds:    invRepeatedSchedule.GetDurationSeconds(),

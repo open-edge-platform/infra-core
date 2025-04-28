@@ -108,7 +108,7 @@ func fromInvSingleschedule(
 
 	singleSchedule := &schedulev1.SingleScheduleResource{
 		ResourceId:       invSingleschedule.GetResourceId(),
-		SingleScheduleId: invSingleschedule.GetResourceId(),
+		SingleScheduleID: invSingleschedule.GetResourceId(),
 		ScheduleStatus:   schedulev1.ScheduleStatus(invSingleschedule.GetScheduleStatus()),
 		Name:             invSingleschedule.GetName(),
 		StartSeconds:     startSec,

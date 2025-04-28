@@ -24,8 +24,8 @@ var (
 )
 
 func clearIDs() {
-	utils.Instance1Request.HostId = nil
-	utils.Instance1Request.OsId = nil
+	utils.Instance1Request.HostID = nil
+	utils.Instance1Request.OsID = nil
 	utils.Site1Request.Region = nil
 	utils.Host1Request.Site = nil
 }
@@ -276,8 +276,8 @@ func TestTelemetryProfile_CreateGetDelete(t *testing.T) {
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
 	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId
-	utils.Instance1Request.OsId = osCreated1.JSON200.ResourceId
+	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
+	utils.Instance1Request.OsID = osCreated1.JSON200.ResourceId
 	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	telemetryGroupMetrics1 := utils.TelemetryMetricsGroup1Request
@@ -804,8 +804,8 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
 	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = host.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = host.JSON200.ResourceId
 	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	for id := 0; id < totalItems; id++ {
@@ -932,8 +932,8 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	})
 
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = host.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = host.JSON200.ResourceId
 	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	for id := 0; id < totalItems; id++ {
@@ -1076,8 +1076,8 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 		})
 		instName := fmt.Sprintf("Site 1 Region 1 - Instance %d", i)
 		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
-			HostId: host.JSON200.ResourceId,
-			OsId:   os.JSON200.ResourceId,
+			HostID: host.JSON200.ResourceId,
+			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
 			Name:   &instName,
 		})
@@ -1095,8 +1095,8 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 		})
 		instName := fmt.Sprintf("Site 2 Region 1 - Instance %d", i)
 		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
-			HostId: host.JSON200.ResourceId,
-			OsId:   os.JSON200.ResourceId,
+			HostID: host.JSON200.ResourceId,
+			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
 			Name:   &instName,
 		})
@@ -1114,8 +1114,8 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 		})
 		instName := fmt.Sprintf("Site 1 Region 2 - Instance %d", i)
 		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
-			HostId: host.JSON200.ResourceId,
-			OsId:   os.JSON200.ResourceId,
+			HostID: host.JSON200.ResourceId,
+			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
 			Name:   &instName,
 		})
@@ -1438,8 +1438,8 @@ func TestTelemetryMetricsProfileListInheritedNestingLimit(t *testing.T) {
 	utils.Host1Request.SiteId = site.JSON200.ResourceId
 	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = host.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = host.JSON200.ResourceId
 	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	// profile per instance
@@ -1575,8 +1575,8 @@ func TestTelemetryMetricsProfileListInheritedNoParents(t *testing.T) {
 	utils.Host1Request.SiteId = nil
 	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = host.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = host.JSON200.ResourceId
 	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	// profile per instance
@@ -1707,8 +1707,8 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 		})
 		instName := fmt.Sprintf("Site 1 Region 1 - Instance %d", i)
 		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
-			HostId: host.JSON200.ResourceId,
-			OsId:   os.JSON200.ResourceId,
+			HostID: host.JSON200.ResourceId,
+			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
 			Name:   &instName,
 		})
@@ -1726,8 +1726,8 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 		})
 		instName := fmt.Sprintf("Site 2 Region 1 - Instance %d", i)
 		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
-			HostId: host.JSON200.ResourceId,
-			OsId:   os.JSON200.ResourceId,
+			HostID: host.JSON200.ResourceId,
+			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
 			Name:   &instName,
 		})
@@ -1745,8 +1745,8 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 		})
 		instName := fmt.Sprintf("Site 1 Region 2 - Instance %d", i)
 		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
-			HostId: host.JSON200.ResourceId,
-			OsId:   os.JSON200.ResourceId,
+			HostID: host.JSON200.ResourceId,
+			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
 			Name:   &instName,
 		})
@@ -2069,8 +2069,8 @@ func TestTelemetryMetricsLogsListInheritedNestingLimit(t *testing.T) {
 	utils.Host1Request.SiteId = site.JSON200.ResourceId
 	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = host.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = host.JSON200.ResourceId
 	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	// profile per instance
@@ -2206,8 +2206,8 @@ func TestTelemetryLogsProfileListInheritedNoParents(t *testing.T) {
 	utils.Host1Request.SiteId = nil
 	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = host.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = host.JSON200.ResourceId
 	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 	// profile per instance

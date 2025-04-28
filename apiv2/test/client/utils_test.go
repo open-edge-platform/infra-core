@@ -209,7 +209,7 @@ func TestDeleteAllRegions(t *testing.T) {
 
 	t.Logf("Retrieved %d regions", len(regions))
 	for _, region := range regions {
-		t.Logf("Region ID: %s, Name: %s", *region.RegionId, *region.Name)
+		t.Logf("Region ID: %s, Name: %s", *region.ResourceId, *region.Name)
 		DeleteRegion(t, ctx, apiClient, *region.ResourceId)
 	}
 }
@@ -230,7 +230,7 @@ func TestDeleteAllSites(t *testing.T) {
 
 	t.Logf("Retrieved %d sites", len(sites))
 	for _, site := range sites {
-		t.Logf("Site ID: %s, Name: %s", *site.SiteId, *site.Name)
+		t.Logf("Site ID: %s, Name: %s", *site.ResourceId, *site.Name)
 		DeleteSite(t, ctx, apiClient, *site.ResourceId)
 	}
 }
@@ -272,7 +272,7 @@ func TestDeleteAllInstances(t *testing.T) {
 
 	t.Logf("Retrieved %d instances", len(instances))
 	for _, instance := range instances {
-		t.Logf("Instance ID: %s, Name: %s", *instance.InstanceId, *instance.Name)
+		t.Logf("Instance ID: %s, Name: %s", *instance.ResourceId, *instance.Name)
 		DeleteInstance(t, ctx, apiClient, *instance.ResourceId)
 	}
 }
@@ -293,7 +293,7 @@ func TestDeleteAllHosts(t *testing.T) {
 
 	t.Logf("Retrieved %d hosts", len(hosts))
 	for _, host := range hosts {
-		t.Logf("Host ID: %s, Name: %s", *host.HostId, host.Name)
+		t.Logf("Host ID: %s, Name: %s", *host.ResourceId, host.Name)
 		SoftDeleteHost(t, ctx, apiClient, &host)
 	}
 }

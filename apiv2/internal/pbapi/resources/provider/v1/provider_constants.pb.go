@@ -13,6 +13,6 @@ const (
 	ProviderResourceFieldApiEndpoint    = "api_endpoint"
 	ProviderResourceFieldApiCredentials = "api_credentials"
 	ProviderResourceFieldConfig         = "config"
-	ProviderResourceFieldProviderId     = "provider_id"
+	ProviderResourceFieldProviderID     = "providerID"
 	ProviderResourceEdgeTimestamps      = "timestamps"
 )

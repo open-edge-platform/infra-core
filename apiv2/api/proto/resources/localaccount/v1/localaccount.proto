@@ -38,6 +38,15 @@ message LocalAccountResource {
     (google.api.field_behavior) = REQUIRED
   ];
   
+  // The local account resource's unique identifier. Alias of resourceId.
+  string local_accountID = 5001 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^localaccount-[0-9a-f]{8}$"
+      max_bytes: 21
+    }
+  ];
+  
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

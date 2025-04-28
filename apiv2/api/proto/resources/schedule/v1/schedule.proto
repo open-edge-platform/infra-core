@@ -62,7 +62,7 @@ message SingleScheduleResource {
   uint32 end_seconds = 10;
 
   // The single schedule resource's unique identifier. Alias of resourceId.
-  string single_schedule_id = 5001 [
+  string single_scheduleID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^singlesche-[0-9a-f]{8}$"
@@ -170,7 +170,7 @@ message RepeatedScheduleResource {
   ];
 
   // The repeated schedule's unique identifier. Alias of resourceId.
-  string repeated_schedule_id = 5001 [
+  string repeated_scheduleID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^repeatedsche-[0-9a-f]{8}$"

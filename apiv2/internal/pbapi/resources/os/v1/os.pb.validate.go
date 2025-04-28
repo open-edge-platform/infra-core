@@ -293,9 +293,9 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	// no validation rules for PlatformBundle
 
-	if len(m.GetOsResourceId()) > 11 {
+	if len(m.GetOsResourceID()) > 11 {
 		err := OperatingSystemResourceValidationError{
-			field:  "OsResourceId",
+			field:  "OsResourceID",
 			reason: "value length must be at most 11 bytes",
 		}
 		if !all {
@@ -304,9 +304,9 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_OperatingSystemResource_OsResourceId_Pattern.MatchString(m.GetOsResourceId()) {
+	if !_OperatingSystemResource_OsResourceID_Pattern.MatchString(m.GetOsResourceID()) {
 		err := OperatingSystemResourceValidationError{
-			field:  "OsResourceId",
+			field:  "OsResourceID",
 			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -466,6 +466,6 @@ var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA
 
 var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$")
 
-var _OperatingSystemResource_OsResourceId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
+var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
 var _OperatingSystemResource_RepoUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")

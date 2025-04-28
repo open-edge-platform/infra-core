@@ -49,18 +49,18 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	h3 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = h1.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = h1.JSON200.ResourceId
 	i1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	i1ID := *i1.JSON200.ResourceId
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = h2.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = h2.JSON200.ResourceId
 	i2 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	i2ID := *i2.JSON200.ResourceId
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = h3.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = h3.JSON200.ResourceId
 	i3 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	i3ID := *i3.JSON200.ResourceId
 
@@ -121,7 +121,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getm1w1.StatusCode())
 	assert.Equal(t, w1ID, *getm1w1.JSON200.Workload.ResourceId)
-	assert.Equal(t, i1ID, *getm1w1.JSON200.Member.InstanceId)
+	assert.Equal(t, i1ID, *getm1w1.JSON200.Member.InstanceID)
 
 	getm2w1, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
@@ -131,7 +131,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getm1w1.StatusCode())
 	assert.Equal(t, w1ID, *getm2w1.JSON200.Workload.ResourceId)
-	assert.Equal(t, i2ID, *getm2w1.JSON200.Member.InstanceId)
+	assert.Equal(t, i2ID, *getm2w1.JSON200.Member.InstanceID)
 
 	getm1w2, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
@@ -141,7 +141,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getm1w2.StatusCode())
 	assert.Equal(t, w2ID, *getm1w2.JSON200.Workload.ResourceId)
-	assert.Equal(t, i3ID, *getm1w2.JSON200.Member.InstanceId)
+	assert.Equal(t, i3ID, *getm1w2.JSON200.Member.InstanceID)
 
 	clearInstanceIDs()
 
@@ -422,8 +422,8 @@ func TestWorkloadMemberList(t *testing.T) {
 	for id := 0; id < totalItems; id++ {
 		host := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
 
-		utils.Instance1Request.OsId = os.JSON200.ResourceId
-		utils.Instance1Request.HostId = host.JSON200.ResourceId
+		utils.Instance1Request.OsID = os.JSON200.ResourceId
+		utils.Instance1Request.HostID = host.JSON200.ResourceId
 		instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 		wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE

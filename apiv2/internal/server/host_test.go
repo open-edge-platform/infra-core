@@ -210,7 +210,6 @@ var exampleAPIHostResource = &computev1.HostResource{
 		UpdateStatusIndicator:       statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 		UpdateStatusTimestamp:       1234567890,
 	},
-	HostId:                      "host-12345678",
 	SiteId:                      "site-12345678",
 	Metadata:                    []*commonv1.MetadataItem{{Key: "key1", Value: "value1"}},
 	OnboardingStatus:            "onboarding",
