@@ -15,8 +15,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin os tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
@@ -50,7 +48,6 @@ func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("End OSResource tests")
 }
 
-// FIXME(Daniele,LPIO-1388): improve TC
 func TestOS_UpdatePut(t *testing.T) {
 	log.Info().Msgf("Begin OSResource Update tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
@@ -193,11 +190,21 @@ func TestOS_List(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	ExistingOSs := 4
+	// Checks if list resources return expected number of entries
+	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+		ctx,
+		&api.OperatingSystemServiceListOperatingSystemsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resList.StatusCode())
+
+	ExistingOSs := len(resList.JSON200.OperatingSystems)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		// Re-generate the random sha for each new OS resource being created
@@ -209,7 +216,7 @@ func TestOS_List(t *testing.T) {
 	}
 
 	// Checks if list resources return expected number of entries
-	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
 		&api.OperatingSystemServiceListOperatingSystemsParams{
 			Offset:   &pageId,
@@ -233,25 +240,6 @@ func TestOS_List(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystems))
 	assert.Equal(t, false, resList.JSON200.HasNext)
-}
-
-func TestOS_ListEmpty(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
-	defer cancel()
-
-	apiClient, err := GetAPIClient()
-	require.NoError(t, err)
-
-	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
-		ctx,
-		&api.OperatingSystemServiceListOperatingSystemsParams{},
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-
-	ExistingOSs := 4
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, ExistingOSs, len(resList.JSON200.OperatingSystems))
 }
 
 func TestOS_CreatewithInstallPackage(t *testing.T) {
