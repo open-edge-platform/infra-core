@@ -5,7 +5,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
@@ -111,20 +110,32 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	instanceStatus := invInstance.GetInstanceStatus()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
-	instanceStatusTimestamp := fmt.Sprintf("%d", invInstance.GetInstanceStatusTimestamp())
-
+	instanceStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 	provisioningStatus := invInstance.GetProvisioningStatus()
 	provisioningStatusIndicator := statusv1.StatusIndication(invInstance.GetProvisioningStatusIndicator())
-	provisioningStatusTimestamp := fmt.Sprintf("%d", invInstance.GetProvisioningStatusTimestamp())
-
+	provisioningStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetProvisioningStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 	updateStatus := invInstance.GetUpdateStatus()
 	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
-	updateStatusTimestamp := fmt.Sprintf("%d", invInstance.GetUpdateStatusTimestamp())
-
+	updateStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetUpdateStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 	attestationStatus := invInstance.GetTrustedAttestationStatus()
 	attestationStatusIndicator := statusv1.StatusIndication(invInstance.GetTrustedAttestationStatusIndicator())
-	attestationStatusTimestamp := fmt.Sprintf("%d", invInstance.GetTrustedAttestationStatusTimestamp())
-
+	attestationStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 	instance := &computev1.InstanceResource{
 		ResourceId:                        invInstance.GetResourceId(),
 		InstanceId:                        invInstance.GetResourceId(),

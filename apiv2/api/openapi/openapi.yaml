@@ -3334,8 +3334,9 @@ components:
                     description: Indicates interpretation of host_status. Set by RMs only.
                     format: enum
                 hostStatusTimestamp:
-                    type: string
+                    type: integer
                     description: UTC timestamp when host_status was last changed. Set by RMs only.
+                    format: uint32
                 onboardingStatus:
                     type: string
                     description: textual message that describes the onboarding status of Host. Set by RMs only.
@@ -3348,8 +3349,9 @@ components:
                     description: Indicates interpretation of onboarding_status. Set by RMs only.
                     format: enum
                 onboardingStatusTimestamp:
-                    type: string
+                    type: integer
                     description: UTC timestamp when onboarding_status was last changed. Set by RMs only.
+                    format: uint32
                 registrationStatus:
                     type: string
                     description: textual message that describes the onboarding status of Host. Set by RMs only.
@@ -3362,8 +3364,9 @@ components:
                     description: Indicates interpretation of registration_status. Set by RMs only.
                     format: enum
                 registrationStatusTimestamp:
-                    type: string
+                    type: integer
                     description: UTC timestamp when registration_status was last changed. Set by RMs only.
+                    format: uint32
                 hostStorages:
                     readOnly: true
                     type: array
@@ -3644,8 +3647,9 @@ components:
                     format: enum
                 instanceStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when instance_status was last changed. Set by RMs only.
+                    format: uint32
                 provisioningStatus:
                     readOnly: true
                     type: string
@@ -3661,8 +3665,9 @@ components:
                     format: enum
                 provisioningStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when provisioning_status was last changed. Set by RMs only.
+                    format: uint32
                 updateStatus:
                     readOnly: true
                     type: string
@@ -3678,8 +3683,9 @@ components:
                     format: enum
                 updateStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when update_status was last changed. Set by RMs only.
+                    format: uint32
                 updateStatusDetail:
                     readOnly: true
                     type: string
@@ -3699,8 +3705,9 @@ components:
                     format: enum
                 trustedAttestationStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
+                    format: uint32
                 workloadMembers:
                     readOnly: true
                     type: array

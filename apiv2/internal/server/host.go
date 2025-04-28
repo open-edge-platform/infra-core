@@ -128,15 +128,27 @@ func fromInvHost(
 
 	hostStatus := invHost.GetHostStatus()
 	hostStatusIndicator := statusv1.StatusIndication(invHost.GetHostStatusIndicator())
-	hostStatusTimestamp := fmt.Sprintf("%d", invHost.GetHostStatusTimestamp())
+	hostStatusTimestamp, err := SafeUint64ToUint32(invHost.GetHostStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 
 	onboardingStatus := invHost.GetOnboardingStatus()
 	onboardingStatusIndicator := statusv1.StatusIndication(invHost.GetOnboardingStatusIndicator())
-	onboardingStatusTimestamp := fmt.Sprintf("%d", invHost.GetOnboardingStatusTimestamp())
+	onboardingStatusTimestamp, err := SafeUint64ToUint32(invHost.GetOnboardingStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 
 	registrationStatus := invHost.GetRegistrationStatus()
 	registrationStatusIndicator := statusv1.StatusIndication(invHost.GetRegistrationStatusIndicator())
-	registrationStatusTimestamp := fmt.Sprintf("%d", invHost.GetRegistrationStatusTimestamp())
+	registrationStatusTimestamp, err := SafeUint64ToUint32(invHost.GetRegistrationStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return nil, err
+	}
 
 	host := &computev1.HostResource{
 		ResourceId:                  invHost.GetResourceId(),
