@@ -85,6 +85,14 @@ func SafeUint64ToUint32(value uint64) (uint32, error) {
 	return uint32(value), nil
 }
 
+// SafeUint64ToInt64 safely converts a uint64 to an int64.
+func SafeUint64ToInt64(value uint64) (int64, error) {
+	if value > math.MaxInt64 {
+		return 0, errors.New("value exceeds int64 range")
+	}
+	return int64(value), nil
+}
+
 func isUnset(resourceID *string) bool {
 	return resourceID == nil || *resourceID == ""
 }

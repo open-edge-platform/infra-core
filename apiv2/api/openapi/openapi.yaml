@@ -4483,13 +4483,15 @@ components:
                 targetRegion:
                     $ref: '#/components/schemas/RegionResource'
                 startSeconds:
+                    minimum: !!float 1
                     type: integer
                     description: The start time in seconds, of the single schedule.
-                    format: uint32
+                    format: int64
                 endSeconds:
+                    minimum: !!float 1
                     type: integer
                     description: The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
-                    format: uint32
+                    format: int64
                 singleScheduleID:
                     readOnly: true
                     pattern: ^singlesche-[0-9a-f]{8}$

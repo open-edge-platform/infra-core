@@ -1010,8 +1010,8 @@ status of one-time-schedule |
 | target_site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Resource ID of Site this applies to. |
 | target_host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Resource ID of Host this applies to. |
 | target_region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Resource ID of Region this applies to. |
-| start_seconds | [uint32](#uint32) |  | The start time in seconds, of the single schedule. |
-| end_seconds | [uint32](#uint32) |  | The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds. |
+| start_seconds | [int64](#int64) |  | The start time in seconds, of the single schedule. |
+| end_seconds | [int64](#int64) |  | The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds. |
 | single_scheduleID | [string](#string) |  | The single schedule resource&#39;s unique identifier. Alias of resourceId. |
 | target_host_id | [string](#string) |  | The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |

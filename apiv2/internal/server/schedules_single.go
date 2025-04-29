@@ -104,11 +104,11 @@ func fromInvSingleschedule(
 	if invSingleschedule == nil {
 		return &schedulev1.SingleScheduleResource{}, nil
 	}
-	startSec, err := SafeUint64ToUint32(invSingleschedule.GetStartSeconds())
+	startSec, err := SafeUint64ToInt64(invSingleschedule.GetStartSeconds())
 	if err != nil {
 		return nil, err
 	}
-	endSec, err := SafeUint64ToUint32(invSingleschedule.GetEndSeconds())
+	endSec, err := SafeUint64ToInt64(invSingleschedule.GetEndSeconds())
 	if err != nil {
 		return nil, err
 	}

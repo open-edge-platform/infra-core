@@ -103,9 +103,27 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for StartSeconds
+	if m.GetStartSeconds() < 1 {
+		err := SingleScheduleResourceValidationError{
+			field:  "StartSeconds",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for EndSeconds
+	if m.GetEndSeconds() < 1 {
+		err := SingleScheduleResourceValidationError{
+			field:  "EndSeconds",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(m.GetSingleScheduleID()) > 19 {
 		err := SingleScheduleResourceValidationError{

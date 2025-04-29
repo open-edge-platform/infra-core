@@ -1081,7 +1081,7 @@ type RepeatedScheduleResourceScheduleStatus string
 // SingleScheduleResource A single schedule resource.
 type SingleScheduleResource struct {
 	// EndSeconds The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
-	EndSeconds *uint32 `json:"endSeconds,omitempty"`
+	EndSeconds *int64 `json:"endSeconds,omitempty"`
 
 	// Name The schedule's name.
 	Name *string `json:"name,omitempty"`
@@ -1096,7 +1096,7 @@ type SingleScheduleResource struct {
 	SingleScheduleID *string `json:"singleScheduleID,omitempty"`
 
 	// StartSeconds The start time in seconds, of the single schedule.
-	StartSeconds uint32 `json:"startSeconds"`
+	StartSeconds int64 `json:"startSeconds"`
 
 	// TargetHost A Host resource.
 	TargetHost *HostResource `json:"targetHost,omitempty"`
