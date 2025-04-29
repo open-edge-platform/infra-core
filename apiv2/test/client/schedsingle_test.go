@@ -477,3 +477,51 @@ func TestSchedList_ListEmpty(t *testing.T) {
 	assert.NotNil(t, resList.JSON200.SingleSchedules)
 	assert.NotNil(t, resList.JSON200.RepeatedSchedules)
 }
+
+func TestSingleSchedule_Patch(t *testing.T) {
+	log.Info().Msgf("Begin SingleSchedule Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a SingleSchedule
+	schedule := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
+	assert.Equal(t, utils.SingleSchedule1Request.ScheduleStatus, schedule.JSON200.ScheduleStatus)
+	assert.Equal(t, utils.SingleSchedule1Request.StartSeconds, schedule.JSON200.StartSeconds)
+
+	// Modify fields for patching
+	newScheduleStatus := api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE
+	var newStartSeconds uint32 = 1234567890
+	patchRequest := api.SingleScheduleResource{
+		ScheduleStatus: newScheduleStatus,
+		StartSeconds:   newStartSeconds,
+	}
+
+	// Perform the Patch operation
+	updatedSchedule, err := apiClient.ScheduleServicePatchSingleScheduleWithResponse(
+		ctx,
+		*schedule.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedSchedule.StatusCode())
+	assert.Equal(t, newScheduleStatus, updatedSchedule.JSON200.ScheduleStatus)
+	assert.Equal(t, newStartSeconds, updatedSchedule.JSON200.StartSeconds)
+
+	// Verify the changes with a Get operation
+	getSchedule, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
+		ctx,
+		*schedule.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getSchedule.StatusCode())
+	assert.Equal(t, newScheduleStatus, getSchedule.JSON200.ScheduleStatus)
+	assert.Equal(t, newStartSeconds, getSchedule.JSON200.StartSeconds)
+
+	log.Info().Msgf("End SingleSchedule Patch tests")
+}

@@ -496,3 +496,100 @@ func TestWorkloadMemberList_ListEmpty(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.Empty(t, resList.JSON200.WorkloadMembers)
 }
+
+func TestWorkload_Patch(t *testing.T) {
+	log.Info().Msgf("Begin Workload Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a Workload
+	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	assert.Equal(t, utils.WorkloadName1, *workload.JSON200.Name)
+
+	// Modify fields for patching
+	newName := utils.WorkloadName1 + "-updated"
+	newExternalId := "Updated description for workload"
+	patchRequest := api.WorkloadResource{
+		Name:       &newName,
+		ExternalId: &newExternalId,
+	}
+
+	// Perform the Patch operation
+	updatedWorkload, err := apiClient.WorkloadServicePatchWorkloadWithResponse(
+		ctx,
+		*workload.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedWorkload.StatusCode())
+	assert.Equal(t, newName, *updatedWorkload.JSON200.Name)
+	assert.Equal(t, newExternalId, *updatedWorkload.JSON200.ExternalId)
+
+	// Verify the changes with a Get operation
+	getWorkload, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
+		ctx,
+		*workload.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getWorkload.StatusCode())
+	assert.Equal(t, newName, *getWorkload.JSON200.Name)
+	assert.Equal(t, newExternalId, *getWorkload.JSON200.ExternalId)
+
+	log.Info().Msgf("End Workload Patch tests")
+}
+
+func TestWorkloadMember_Patch(t *testing.T) {
+	log.Info().Msgf("Begin WorkloadMember Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a Workload and WorkloadMember
+	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
+	workloadMember := CreateWorkloadMember(t, ctx, apiClient, api.WorkloadMember{
+		InstanceId: instance.JSON200.ResourceId,
+		WorkloadId: workload.JSON200.ResourceId,
+		Kind:       wmKind,
+	})
+	assert.Equal(t, wmKind, workloadMember.JSON200.Kind)
+
+	// Modify fields for patching ToDo: make another kind
+	newKind := api.WORKLOADMEMBERKINDCLUSTERNODE
+	patchRequest := api.WorkloadMember{
+		Kind: newKind,
+	}
+
+	// Perform the Patch operation
+	updatedWorkloadMember, err := apiClient.WorkloadMemberServicePatchWorkloadMemberWithResponse(
+		ctx,
+		*workloadMember.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedWorkloadMember.StatusCode())
+	assert.Equal(t, newKind, updatedWorkloadMember.JSON200.Kind)
+
+	// Verify the changes with a Get operation
+	getWorkloadMember, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
+		ctx,
+		*workloadMember.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getWorkloadMember.StatusCode())
+	assert.Equal(t, newKind, getWorkloadMember.JSON200.Kind)
+
+	log.Info().Msgf("End WorkloadMember Patch tests")
+}

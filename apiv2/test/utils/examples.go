@@ -816,4 +816,36 @@ var (
 		Name:           ProviderName1,
 		ApiCredentials: &providerBadApiCredentials,
 	}
+
+	// Example LocalAccount resources for testing
+
+	// LocalAccountUnexistID represents a non-existent LocalAccount ID for testing
+	LocalAccountUnexistID = "nonexistent-id"
+
+	// Example LocalAccount resources for testing
+	LocalAccount1Request = api.LocalAccountResource{
+		LocalAccountID: nil, // This will be populated by the API upon creation
+		ResourceId:     nil, // This will be populated by the API upon creation
+		SshKey:         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey1",
+		Timestamps:     nil, // This will be populated by the API upon creation
+		Username:       "user1",
+	}
+
+	// LocalAccount2Request represents another valid LocalAccount resource for testing
+	LocalAccount2Request = api.LocalAccountResource{
+		LocalAccountID: nil, // This will be populated by the API upon creation
+		ResourceId:     nil, // This will be populated by the API upon creation
+		SshKey:         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey2",
+		Timestamps:     nil, // This will be populated by the API upon creation
+		Username:       "user2",
+	}
+
+	// LocalAccountNoName represents an invalid LocalAccount resource with no username
+	LocalAccountNoName = api.LocalAccountResource{
+		LocalAccountID: nil,
+		ResourceId:     nil,
+		SshKey:         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey3",
+		Timestamps:     nil,
+		Username:       "",
+	}
 )

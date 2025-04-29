@@ -309,3 +309,55 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 	assert.Equal(t, OSName1, *get.JSON200.Name)
 	log.Info().Msgf("End OSResource create test")
 }
+
+func TestOperatingSystem_Patch(t *testing.T) {
+	log.Info().Msgf("Begin OperatingSystem Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create an Operating System
+	osCreated := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	assert.Equal(t, utils.OSResource1Request.Name, osCreated.JSON200.Name)
+
+	// Modify fields for patching
+	newName := *utils.OSResource1Request.Name + "-updated"
+	newKernelCommand := "updated-kernel-command"
+	newImageUrl := "https://updated-image-url.com"
+
+	patchRequest := api.OperatingSystemResource{
+		Name:          &newName,
+		KernelCommand: &newKernelCommand,
+		ImageUrl:      &newImageUrl,
+	}
+
+	// Perform the Patch operation
+	updatedOS, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*osCreated.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedOS.StatusCode())
+	assert.Equal(t, newName, updatedOS.JSON200.Name)
+	assert.Equal(t, newKernelCommand, updatedOS.JSON200.KernelCommand)
+	assert.Equal(t, newImageUrl, updatedOS.JSON200.ImageUrl)
+
+	// Verify the changes with a Get operation
+	getOS, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		*osCreated.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getOS.StatusCode())
+	assert.Equal(t, newName, getOS.JSON200.Name)
+	assert.Equal(t, newKernelCommand, getOS.JSON200.KernelCommand)
+	assert.Equal(t, newImageUrl, getOS.JSON200.ImageUrl)
+
+	log.Info().Msgf("End OperatingSystem Patch tests")
+}

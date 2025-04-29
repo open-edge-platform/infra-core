@@ -2292,3 +2292,98 @@ func TestTelemetryLogsProfileListInheritedNoParents(t *testing.T) {
 		len(resList.JSON200.TelemetryLogsProfiles))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
+
+func TestTelemetryMetricsProfile_Patch(t *testing.T) {
+	log.Info().Msgf("Begin TelemetryMetricsProfile Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	telemetryMetricsProfile := api.TelemetryMetricsProfileResource{
+		MetricsInterval: 300,
+		TargetSite:      siteCreated1.JSON200.ResourceId,
+	}
+	metricsProfile := CreateTelemetryMetricsProfile(t, ctx, apiClient, telemetryMetricsProfile)
+	assert.Equal(t, 100, metricsProfile.JSON200.MetricsInterval)
+
+	// Modify fields for patching
+	var newMetricsInterval uint32 = 200
+	patchRequest := api.TelemetryMetricsProfileResource{
+		MetricsInterval: newMetricsInterval,
+	}
+
+	// Perform the Patch operation
+	updatedMetricsGroup, err := apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
+		ctx,
+		*metricsProfile.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedMetricsGroup.StatusCode())
+	assert.Equal(t, newMetricsInterval, updatedMetricsGroup.JSON200.MetricsInterval)
+
+	// Verify the changes with a Get operation
+	getMetricsGroup, err := apiClient.TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(
+		ctx,
+		*metricsProfile.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getMetricsGroup.StatusCode())
+	assert.Equal(t, newMetricsInterval, getMetricsGroup.JSON200.MetricsInterval)
+
+	log.Info().Msgf("End TelemetryMetricsProfile Patch tests")
+}
+
+func TestTelemetryLogsProfile_Patch(t *testing.T) {
+	log.Info().Msgf("Begin TelemetryLogsProfile Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	TelemetryLogsProfile := api.TelemetryLogsProfileResource{
+		LogLevel:   api.SEVERITYLEVELDEBUG,
+		TargetSite: siteCreated1.JSON200.ResourceId,
+	}
+
+	logsProfile := CreateTelemetryLogsProfile(t, ctx, apiClient, TelemetryLogsProfile)
+	assert.Equal(t, api.SEVERITYLEVELWARN, logsProfile.JSON200.LogLevel)
+
+	// Modify fields for patching
+	newLogLevel := api.SEVERITYLEVELCRITICAL
+	patchRequest := api.TelemetryLogsProfileResource{
+		LogLevel: newLogLevel,
+	}
+
+	// Perform the Patch operation
+	updatedLogsGroup, err := apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
+		ctx,
+		*logsProfile.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedLogsGroup.StatusCode())
+	assert.Equal(t, newLogLevel, updatedLogsGroup.JSON200.LogLevel)
+
+	// Verify the changes with a Get operation
+	getLogsGroup, err := apiClient.TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse(
+		ctx,
+		*logsProfile.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getLogsGroup.StatusCode())
+	assert.Equal(t, newLogLevel, getLogsGroup.JSON200.LogLevel)
+
+	log.Info().Msgf("End TelemetryLogsProfile Patch tests")
+}

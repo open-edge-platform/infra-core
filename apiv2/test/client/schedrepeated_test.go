@@ -498,3 +498,51 @@ func TestSchedRepeated_cronjobValidationError(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, sched.StatusCode())
 	require.NoError(t, err)
 }
+
+func TestRepeatedSchedule_Patch(t *testing.T) {
+	log.Info().Msgf("Begin RepeatedSchedule Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a RepeatedSchedule
+	schedule := CreateSchedRepeated(t, ctx, apiClient, utils.RepeatedSchedule1Request)
+	assert.Equal(t, utils.RepeatedSchedule1Request.ScheduleStatus, schedule.JSON200.ScheduleStatus)
+	assert.Equal(t, utils.RepeatedSchedule1Request.CronDayWeek, schedule.JSON200.CronDayWeek)
+
+	// Modify fields for patching
+	newScheduleStatus := api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE
+	newCronDayWeek := "0 12 * * 1-5"
+	patchRequest := api.RepeatedScheduleResource{
+		ScheduleStatus: newScheduleStatus,
+		CronDayWeek:    newCronDayWeek,
+	}
+
+	// Perform the Patch operation
+	updatedSchedule, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*schedule.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedSchedule.StatusCode())
+	assert.Equal(t, newScheduleStatus, updatedSchedule.JSON200.ScheduleStatus)
+	assert.Equal(t, newCronDayWeek, updatedSchedule.JSON200.CronDayWeek)
+
+	// Verify the changes with a Get operation
+	getSchedule, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
+		ctx,
+		*schedule.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getSchedule.StatusCode())
+	assert.Equal(t, newScheduleStatus, getSchedule.JSON200.ScheduleStatus)
+	assert.Equal(t, newCronDayWeek, getSchedule.JSON200.CronDayWeek)
+
+	log.Info().Msgf("End RepeatedSchedule Patch tests")
+}

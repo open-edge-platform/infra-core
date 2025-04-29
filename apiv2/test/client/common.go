@@ -686,6 +686,39 @@ func DeleteProvider(
 	assert.Equal(t, http.StatusOK, providerDel.StatusCode())
 }
 
+// CreateLocalAccount creates a LocalAccount resource and returns the response.
+func CreateLocalAccount(t *testing.T, ctx context.Context, apiClient *api.ClientWithResponses,
+	request api.LocalAccountResource,
+) *api.LocalAccountServiceCreateLocalAccountResponse {
+	t.Helper()
+
+	response, err := apiClient.LocalAccountServiceCreateLocalAccountWithResponse(
+		ctx,
+		request,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	require.NotNil(t, response.JSON200)
+	require.NotNil(t, response.JSON200.ResourceId)
+
+	return response
+}
+
+// DeleteLocalAccount deletes a LocalAccount resource by its ID.
+func DeleteLocalAccount(t *testing.T, ctx context.Context,
+	apiClient *api.ClientWithResponses, resourceID string,
+) {
+	t.Helper()
+
+	response, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
+		ctx,
+		resourceID,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusNoContent, response.StatusCode())
+}
+
 func GetHostRequestWithRandomUUID() api.HostResource {
 	uuidHost := uuid.New().String()
 	randName := fmt.Sprintf("Test Host %d", rand.Uint32())
