@@ -2310,7 +2310,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	assert.Equal(t, 100, metricsProfile.JSON200.MetricsInterval)
 
 	// Modify fields for patching
-	var newMetricsInterval uint32 = 200
+	var newMetricsInterval int32 = 200
 	patchRequest := api.TelemetryMetricsProfileResource{
 		MetricsInterval: newMetricsInterval,
 	}

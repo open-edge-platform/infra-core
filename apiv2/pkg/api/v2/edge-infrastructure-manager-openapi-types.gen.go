@@ -1041,7 +1041,7 @@ type RepeatedScheduleResource struct {
 	CronMonth string `json:"cronMonth"`
 
 	// DurationSeconds The duration in seconds of the repeated schedule, per schedule.
-	DurationSeconds uint32 `json:"durationSeconds"`
+	DurationSeconds int32 `json:"durationSeconds"`
 
 	// Name The schedule's name.
 	Name *string `json:"name,omitempty"`
@@ -1251,7 +1251,7 @@ type TelemetryMetricsProfileResource struct {
 	MetricsGroupId string `json:"metricsGroupId"`
 
 	// MetricsInterval Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
-	MetricsInterval uint32 `json:"metricsInterval"`
+	MetricsInterval int32 `json:"metricsInterval"`
 
 	// ProfileId The ID of the telemetry profile.
 	ProfileId *string `json:"profileId,omitempty"`

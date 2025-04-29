@@ -4407,9 +4407,11 @@ components:
                 targetRegion:
                     $ref: '#/components/schemas/RegionResource'
                 durationSeconds:
+                    maximum: !!float 86400
+                    minimum: !!float 1
                     type: integer
                     description: The duration in seconds of the repeated schedule, per schedule.
-                    format: uint32
+                    format: int32
                 cronMinutes:
                     pattern: ^([*]|([0-9]|([1-5][0-9]))((,([0-9]|([1-5][0-9])))*))$
                     type: string
@@ -4733,9 +4735,10 @@ components:
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 metricsInterval:
+                    minimum: !!float 1
                     type: integer
                     description: Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
-                    format: uint32
+                    format: int32
                 metricsGroupId:
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string

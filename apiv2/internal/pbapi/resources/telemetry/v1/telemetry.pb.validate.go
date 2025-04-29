@@ -921,7 +921,16 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for MetricsInterval
+	if m.GetMetricsInterval() < 1 {
+		err := TelemetryMetricsProfileResourceValidationError{
+			field:  "MetricsInterval",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(m.GetMetricsGroupId()) > 23 {
 		err := TelemetryMetricsProfileResourceValidationError{

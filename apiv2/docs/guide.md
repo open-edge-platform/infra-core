@@ -176,7 +176,7 @@ in the GET (aka LIST) method the reference of resources is changed as
 `OperatingSystemResources -> OperatingSystems`.
 - The Region resource is changed with the field: totalSites `<int32>`
 - Removes unused site fields: `dnsServers, proxy, dockerRegistries, metricsEndpoint, ou`
-- Moves schedule start/end seconds from uint64 to uint32: this was done given that the
+- Moves schedule start/end seconds from uint64 to int64: this was done given that the
 default JSON unmarshall in golang converts uint64 to string.
 Another option is to move uint64 fields to string.
 A long discussion can be found here `https://github.com/grpc-ecosystem/grpc-gateway/issues/438`.

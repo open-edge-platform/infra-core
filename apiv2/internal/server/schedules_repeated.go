@@ -88,7 +88,7 @@ func toInvRepeatedSchedule(
 	invRepeatedSchedule := &inv_schedulev1.RepeatedScheduleResource{
 		ScheduleStatus:  inv_schedulev1.ScheduleStatus(repeatedSchedule.GetScheduleStatus()),
 		Name:            repeatedSchedule.GetName(),
-		DurationSeconds: repeatedSchedule.GetDurationSeconds(),
+		DurationSeconds: uint32(repeatedSchedule.GetDurationSeconds()),
 		CronMinutes:     repeatedSchedule.GetCronMinutes(),
 		CronHours:       repeatedSchedule.GetCronHours(),
 		CronDayMonth:    repeatedSchedule.GetCronDayMonth(),
@@ -123,12 +123,17 @@ func fromInvRepeatedSchedule(
 	if invRepeatedSchedule == nil {
 		return &schedulev1.RepeatedScheduleResource{}, nil
 	}
+	durationSeconds, err := SafeUint32Toint32(invRepeatedSchedule.GetDurationSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert duration seconds")
+		return nil, err
+	}
 	repeatedSchedule := &schedulev1.RepeatedScheduleResource{
 		ResourceId:         invRepeatedSchedule.GetResourceId(),
 		RepeatedScheduleID: invRepeatedSchedule.GetResourceId(),
 		ScheduleStatus:     schedulev1.ScheduleStatus(invRepeatedSchedule.GetScheduleStatus()),
 		Name:               invRepeatedSchedule.GetName(),
-		DurationSeconds:    invRepeatedSchedule.GetDurationSeconds(),
+		DurationSeconds:    durationSeconds,
 		CronMinutes:        invRepeatedSchedule.GetCronMinutes(),
 		CronHours:          invRepeatedSchedule.GetCronHours(),
 		CronDayMonth:       invRepeatedSchedule.GetCronDayMonth(),

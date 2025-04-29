@@ -977,7 +977,7 @@ A repeated-schedule resource.
 | target_site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Resource ID of Site this applies to. |
 | target_host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Resource ID of Host this applies to. |
 | target_region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Resource ID of Region this applies to. |
-| duration_seconds | [uint32](#uint32) |  | The duration in seconds of the repeated schedule, per schedule. |
+| duration_seconds | [int32](#int32) |  | The duration in seconds of the repeated schedule, per schedule. |
 | cron_minutes | [string](#string) |  | cron style minutes (0-59), it can be empty only when used in a Filter. |
 | cron_hours | [string](#string) |  | cron style hours (0-23), it can be empty only when used in a Filter |
 | cron_day_month | [string](#string) |  | cron style day of month (1-31), it can be empty only when used in a Filter |
@@ -1132,7 +1132,7 @@ A telemetry metric profile for a hierarchy object.
 | target_instance | [string](#string) |  | The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | target_site | [string](#string) |  | The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | target_region | [string](#string) |  | The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
-| metrics_interval | [uint32](#uint32) |  | Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS. |
+| metrics_interval | [int32](#int32) |  | Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS. |
 | metrics_group_id | [string](#string) |  | The unique identifier of the telemetry metric group. |
 | metrics_group | [TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource) |  | The metric group associated with the telemetry profile. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |

@@ -138,9 +138,9 @@ message RepeatedScheduleResource {
   }
 
   // The duration in seconds of the repeated schedule, per schedule.
-  uint32 duration_seconds = 6 [
+  int32 duration_seconds = 6 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       gte: 1
       lte: 86400
     }

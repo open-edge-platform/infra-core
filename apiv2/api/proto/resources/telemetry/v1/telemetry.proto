@@ -215,7 +215,9 @@ message TelemetryMetricsProfileResource {
 
   // Metric interval (in seconds) for the telemetry profile.
   // This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
-  uint32 metrics_interval = 6 [(google.api.field_behavior) = REQUIRED];
+  int32 metrics_interval = 6 [(google.api.field_behavior) = REQUIRED,
+    (validate.rules).int32 = {gte:1}
+  ];
   // The unique identifier of the telemetry metric group.
   string metrics_group_id = 7 [
     (google.api.field_behavior) = REQUIRED,

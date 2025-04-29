@@ -85,6 +85,14 @@ func SafeUint64ToUint32(value uint64) (uint32, error) {
 	return uint32(value), nil
 }
 
+// SafeUint32Toint32 safely converts a uint32 to a int32.
+func SafeUint32Toint32(value uint32) (int32, error) {
+	if value > math.MaxInt32 {
+		return 0, errors.New("value exceeds int32 range")
+	}
+	return int32(value), nil
+}
+
 // SafeUint64ToInt64 safely converts a uint64 to an int64.
 func SafeUint64ToInt64(value uint64) (int64, error) {
 	if value > math.MaxInt64 {

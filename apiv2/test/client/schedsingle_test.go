@@ -493,7 +493,7 @@ func TestSingleSchedule_Patch(t *testing.T) {
 
 	// Modify fields for patching
 	newScheduleStatus := api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE
-	var newStartSeconds uint32 = 1234567890
+	var newStartSeconds int64 = 1234567890
 	patchRequest := api.SingleScheduleResource{
 		ScheduleStatus: newScheduleStatus,
 		StartSeconds:   newStartSeconds,
