@@ -280,10 +280,10 @@ func TestOperatingSystem_List(t *testing.T) {
 				t.Errorf("ListOperatingSystems() got reply = nil, want non-nil")
 				return
 			}
-			if len(reply.GetOperatingSystems()) != 1 {
-				t.Errorf("ListOperatingSystems() got %v operating systems, want 1", len(reply.GetOperatingSystems()))
+			if len(reply.GetOperatingSystemResources()) != 1 {
+				t.Errorf("ListOperatingSystems() got %v operating systems, want 1", len(reply.GetOperatingSystemResources()))
 			}
-			compareProtoMessages(t, exampleAPIOSResource, reply.GetOperatingSystems()[0])
+			compareProtoMessages(t, exampleAPIOSResource, reply.GetOperatingSystemResources()[0])
 		})
 	}
 }

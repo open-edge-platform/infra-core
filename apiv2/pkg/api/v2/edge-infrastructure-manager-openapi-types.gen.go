@@ -712,11 +712,11 @@ type ListLocationsResponseLocationNodeType string
 
 // ListOperatingSystemsResponse Response message for the ListOperatingSystems method.
 type ListOperatingSystemsResponse struct {
+	// OperatingSystemResources Sorted and filtered list of oss.
+	OperatingSystemResources []OperatingSystemResource `json:"OperatingSystemResources"`
+
 	// HasNext Inform if there are more elements
 	HasNext bool `json:"hasNext"`
-
-	// OperatingSystems Sorted and filtered list of oss.
-	OperatingSystems []OperatingSystemResource `json:"operatingSystems"`
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`

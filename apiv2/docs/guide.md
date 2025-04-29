@@ -167,17 +167,12 @@ before 201 defined for Created and 204 for Deleted, other errors converted from
 gRPC to HTTP automatically by grpc-gateway.
 - All return error is set by default: it contains the following fields `code, message, details`.
 Those are directly translated from the gRPC error codes.
-- All paths/resources moved to use resourceId by default
 - Removal of OU resources and paths
 - Enum UNSPECIFIED = 0 are not present in all enums.
 - Removal of /compute: all /compute paths are changed to the /host (/compute/hosts -> /hosts).
 - OS related changes: the path was moved from as `/OSResources -> /operating_systems`;
-in the GET (aka LIST) method the reference of resources is changed as
-`OperatingSystemResources -> OperatingSystems`.
-- The Region resource is changed with the field: totalSites `<int32>`
 - Removes unused site fields: `dnsServers, proxy, dockerRegistries, metricsEndpoint, ou`
 - Moves schedule start/end seconds from uint64 to int64: this was done given that the
 default JSON unmarshall in golang converts uint64 to string.
-Another option is to move uint64 fields to string.
 A long discussion can be found here `https://github.com/grpc-ecosystem/grpc-gateway/issues/438`.
-- Moves all remaining uint64 to uint32: e.g., timestamp in status.
+- Moves all remaining, which are readonly, uint64 to int64: e.g., timestamp in status.

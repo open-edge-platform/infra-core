@@ -1236,7 +1236,7 @@ message ListOperatingSystemsRequest {
 // Response message for the ListOperatingSystems method.
 message ListOperatingSystemsResponse {
   // Sorted and filtered list of oss.
-  repeated resources.os.v1.OperatingSystemResource operating_systems = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated resources.os.v1.OperatingSystemResource Operating_system_resources = 1 [(google.api.field_behavior) = REQUIRED];
   // Count of items in the entire list, regardless of pagination.
   int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
   // Inform if there are more elements

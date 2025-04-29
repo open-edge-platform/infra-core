@@ -3858,12 +3858,12 @@ components:
             description: A node in the location tree.
         ListOperatingSystemsResponse:
             required:
-                - operatingSystems
+                - OperatingSystemResources
                 - totalElements
                 - hasNext
             type: object
             properties:
-                operatingSystems:
+                OperatingSystemResources:
                     type: array
                     items:
                         $ref: '#/components/schemas/OperatingSystemResource'

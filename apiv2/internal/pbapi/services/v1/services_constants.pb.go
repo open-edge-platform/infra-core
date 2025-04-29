@@ -218,9 +218,9 @@ const (
 	ListOperatingSystemsRequestFieldOffset   = "offset"
 
 	// Fields and Edges constants for "ListOperatingSystemsResponse"
-	ListOperatingSystemsResponseEdgeOperatingSystems = "operating_systems"
-	ListOperatingSystemsResponseFieldTotalElements   = "total_elements"
-	ListOperatingSystemsResponseFieldHasNext         = "has_next"
+	ListOperatingSystemsResponseEdgeOperatingSystemResources = "Operating_system_resources"
+	ListOperatingSystemsResponseFieldTotalElements           = "total_elements"
+	ListOperatingSystemsResponseFieldHasNext                 = "has_next"
 
 	// Fields and Edges constants for "UpdateOperatingSystemRequest"
 	UpdateOperatingSystemRequestFieldResourceId = "resource_id"

@@ -200,7 +200,7 @@ func TestOS_List(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 
-	ExistingOSs := len(resList.JSON200.OperatingSystems)
+	ExistingOSs := len(resList.JSON200.OperatingSystemResources)
 
 	totalItems := 10
 	var pageId int32 = 1
@@ -227,7 +227,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.OperatingSystems), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.OperatingSystemResources), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
@@ -238,7 +238,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystems))
+	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
 

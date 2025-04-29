@@ -145,9 +145,9 @@ func (is *InventorygRPCServer) ListOperatingSystems(
 	}
 
 	resp := &restv1.ListOperatingSystemsResponse{
-		OperatingSystems: osResources,
-		TotalElements:    invResp.GetTotalElements(),
-		HasNext:          invResp.GetHasNext(),
+		OperatingSystemResources: osResources,
+		TotalElements:            invResp.GetTotalElements(),
+		HasNext:                  invResp.GetHasNext(),
 	}
 	zlog.Debug().Msgf("Listed %s", resp)
 	return resp, nil

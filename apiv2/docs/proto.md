@@ -2761,7 +2761,7 @@ Response message for the ListOperatingSystems method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| operating_systems | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | repeated | Sorted and filtered list of oss. |
+| Operating_system_resources | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | repeated | Sorted and filtered list of oss. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
 
