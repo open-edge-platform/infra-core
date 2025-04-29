@@ -72,7 +72,7 @@ message TelemetryLogsGroupResource {
   // A list of log groups to collect.
   repeated string groups = 5 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"}
+    (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"}
   ];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -113,7 +113,7 @@ message TelemetryMetricsGroupResource {
   // A list of log groups to collect.
   repeated string groups = 5 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"}
+    (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"}
   ];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];

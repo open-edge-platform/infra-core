@@ -95,8 +95,8 @@ message SiteResource {
   // (degrees are multiplied by 10**7 and rounded to the nearest integer).
   // siteLat must be in the range of +/- 90 degrees.
   int32 site_lat = 8 [
-    (validate.rules).int32.gte = -900000000,
-    (validate.rules).int32.lte = 900000000
+    (validate.rules).int32.lte = 900000000,
+    (validate.rules).int32.gte = -900000000
   ];
 
   // The geolocation longitude of the site.
@@ -104,8 +104,8 @@ message SiteResource {
   // (degrees are multiplied by 10**7 and rounded to the nearest integer).
   // siteLng must be in the range of +/- 180 degrees (inclusive).
   int32 site_lng = 9 [
-    (validate.rules).int32.gte = -1800000000,
-    (validate.rules).int32.lte = 1800000000
+    (validate.rules).int32.lte = 1800000000,
+    (validate.rules).int32.gte = -1800000000
   ];
 
   // Provider this Site is managed by

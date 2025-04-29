@@ -166,10 +166,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for SerialNumber
 
-	if len(m.GetUuid()) > 36 {
+	if utf8.RuneCountInString(m.GetUuid()) > 36 {
 		err := HostResourceValidationError{
 			field:  "Uuid",
-			reason: "value length must be at most 36 bytes",
+			reason: "value length must be at most 36 runes",
 		}
 		if !all {
 			return err
@@ -207,10 +207,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for BiosVendor
 
-	if len(m.GetHostStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetHostStatus()) > 1024 {
 		err := HostResourceValidationError{
 			field:  "HostStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -222,10 +222,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for HostStatusTimestamp
 
-	if len(m.GetOnboardingStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetOnboardingStatus()) > 1024 {
 		err := HostResourceValidationError{
 			field:  "OnboardingStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -237,10 +237,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for OnboardingStatusTimestamp
 
-	if len(m.GetRegistrationStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetRegistrationStatus()) > 1024 {
 		err := HostResourceValidationError{
 			field:  "RegistrationStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1454,10 +1454,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for SecurityFeature
 
-	if len(m.GetInstanceStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetInstanceStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "InstanceStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1469,10 +1469,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for InstanceStatusTimestamp
 
-	if len(m.GetProvisioningStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetProvisioningStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "ProvisioningStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1484,10 +1484,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for ProvisioningStatusTimestamp
 
-	if len(m.GetUpdateStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetUpdateStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "UpdateStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1499,10 +1499,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for UpdateStatusTimestamp
 
-	if len(m.GetUpdateStatusDetail()) > 100000 {
+	if utf8.RuneCountInString(m.GetUpdateStatusDetail()) > 100000 {
 		err := InstanceResourceValidationError{
 			field:  "UpdateStatusDetail",
-			reason: "value length must be at most 100000 bytes",
+			reason: "value length must be at most 100000 runes",
 		}
 		if !all {
 			return err
@@ -1510,10 +1510,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTrustedAttestationStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetTrustedAttestationStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "TrustedAttestationStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err

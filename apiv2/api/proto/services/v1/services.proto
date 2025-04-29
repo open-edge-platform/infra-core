@@ -1012,7 +1012,7 @@ message HostRegister {
   // The host serial number.
   string serial_number = 16 [(validate.rules).string = {pattern: "^([A-Za-z0-9]{5,20})?$"}];
   // The host UUID.
-  string uuid = 17 [(validate.rules).string = {max_bytes: 36}];
+  string uuid = 17 [(validate.rules).string = {max_len: 36}];
 
   // Flag ot signal to automatically onboard the host.
   bool auto_onboard = 18;

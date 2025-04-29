@@ -4792,10 +4792,10 @@ func (m *HostRegister) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetUuid()) > 36 {
+	if utf8.RuneCountInString(m.GetUuid()) > 36 {
 		err := HostRegisterValidationError{
 			field:  "Uuid",
-			reason: "value length must be at most 36 bytes",
+			reason: "value length must be at most 36 runes",
 		}
 		if !all {
 			return err
