@@ -52,6 +52,13 @@ func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*in
 		return nil, err
 	}
 
+	if singleSchedule.EndSeconds < singleSchedule.StartSeconds {
+		err := errors.Errorfc(codes.InvalidArgument,
+			"The schedule end time must be greater than the start time")
+		zlog.InfraErr(err).Msg("error in specified values of end_seconds and start_seconds")
+		return nil, err
+	}
+
 	invSingleschedule := &inv_schedulev1.SingleScheduleResource{
 		ScheduleStatus: inv_schedulev1.ScheduleStatus(singleSchedule.GetScheduleStatus()),
 		Name:           singleSchedule.GetName(),
