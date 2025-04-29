@@ -25,6 +25,10 @@ PROTOCGENENT       := true
 PROTOCGENGO        := true
 PROTOCGENGOGRPC    := true
 
+# Required depenendcies to generate ER diagram
+DBMLCLI	           := true
+DBMLRENDERER 	   := true
+
 # Project variables
 PROJECT_NAME       := inventory
 PROJECT_NICKNAME   := inv
@@ -212,6 +216,7 @@ writeSqlSchema: ## Write sql schema
 	sleep 5
 	$(GOCMD) run cmd/sqlSchemaWriter/main.go
 	@$(MAKE) db-stop
+	$(MAKE) gen-er-diagram
 
 FUZZ_SECONDS	?= 60
 go-fuzz: policy-build certificates ## go fuzz test
@@ -242,3 +247,8 @@ go-fuzz: policy-build certificates ## go fuzz test
 	$(GOCMD) test -fuzz FuzzCreateEndpoint -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(GOCMD) test -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(MAKE) db-stop
+
+gen-er-diagram: ## Generate ER diagram
+	sql2dbml sql/inventory.sql -o docs/output.dbml
+	dbml-renderer --input docs/output.dbml --output docs/inventory-er-diagram.svg
+

@@ -101,10 +101,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -140,6 +140,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryLogsGroupResourceMultiError(errors)
@@ -295,10 +299,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -334,6 +338,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryMetricsGroupResourceMultiError(errors)
@@ -504,7 +512,7 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 	if !_TelemetryLogsProfileResource_TargetInstance_Pattern.MatchString(m.GetTargetInstance()) {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetInstance",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^inst-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -526,7 +534,7 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 	if !_TelemetryLogsProfileResource_TargetSite_Pattern.MatchString(m.GetTargetSite()) {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetSite",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -548,7 +556,7 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 	if !_TelemetryLogsProfileResource_TargetRegion_Pattern.MatchString(m.GetTargetRegion()) {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetRegion",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -608,6 +616,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryLogsProfileResourceMultiError(errors)
@@ -694,11 +706,11 @@ var _TelemetryLogsProfileResource_ResourceId_Pattern = regexp.MustCompile("^tele
 
 var _TelemetryLogsProfileResource_ProfileId_Pattern = regexp.MustCompile("^telemetryprofile-[0-9a-f]{8}$")
 
-var _TelemetryLogsProfileResource_TargetInstance_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
+var _TelemetryLogsProfileResource_TargetInstance_Pattern = regexp.MustCompile("^$|^inst-[0-9a-f]{8}$")
 
-var _TelemetryLogsProfileResource_TargetSite_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _TelemetryLogsProfileResource_TargetSite_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
-var _TelemetryLogsProfileResource_TargetRegion_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _TelemetryLogsProfileResource_TargetRegion_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
 
 var _TelemetryLogsProfileResource_LogsGroupId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
 
@@ -782,7 +794,7 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 	if !_TelemetryMetricsProfileResource_TargetInstance_Pattern.MatchString(m.GetTargetInstance()) {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetInstance",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^inst-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -804,7 +816,7 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 	if !_TelemetryMetricsProfileResource_TargetSite_Pattern.MatchString(m.GetTargetSite()) {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetSite",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -826,7 +838,7 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 	if !_TelemetryMetricsProfileResource_TargetRegion_Pattern.MatchString(m.GetTargetRegion()) {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetRegion",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -886,6 +898,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return TelemetryMetricsProfileResourceMultiError(errors)
@@ -972,10 +988,10 @@ var _TelemetryMetricsProfileResource_ResourceId_Pattern = regexp.MustCompile("^t
 
 var _TelemetryMetricsProfileResource_ProfileId_Pattern = regexp.MustCompile("^telemetryprofile-[0-9a-f]{8}$")
 
-var _TelemetryMetricsProfileResource_TargetInstance_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
+var _TelemetryMetricsProfileResource_TargetInstance_Pattern = regexp.MustCompile("^$|^inst-[0-9a-f]{8}$")
 
-var _TelemetryMetricsProfileResource_TargetSite_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _TelemetryMetricsProfileResource_TargetSite_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
-var _TelemetryMetricsProfileResource_TargetRegion_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _TelemetryMetricsProfileResource_TargetRegion_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
 
 var _TelemetryMetricsProfileResource_MetricsGroupId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
