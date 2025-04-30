@@ -1729,10 +1729,6 @@ type ProviderServiceClient interface {
 	ListProviders(ctx context.Context, in *ListProvidersRequest, opts ...grpc.CallOption) (*ListProvidersResponse, error)
 	// Get a specific provider.
 	GetProvider(ctx context.Context, in *GetProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error)
-	// Update a provider.
-	UpdateProvider(ctx context.Context, in *UpdateProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error)
-	// Patch a provider.
-	PatchProvider(ctx context.Context, in *PatchProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error)
 	// Delete a provider.
 	DeleteProvider(ctx context.Context, in *DeleteProviderRequest, opts ...grpc.CallOption) (*DeleteProviderResponse, error)
 }
@@ -1772,24 +1768,6 @@ func (c *providerServiceClient) GetProvider(ctx context.Context, in *GetProvider
 	return out, nil
 }
 
-func (c *providerServiceClient) UpdateProvider(ctx context.Context, in *UpdateProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error) {
-	out := new(v13.ProviderResource)
-	err := c.cc.Invoke(ctx, "/services.v1.ProviderService/UpdateProvider", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *providerServiceClient) PatchProvider(ctx context.Context, in *PatchProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error) {
-	out := new(v13.ProviderResource)
-	err := c.cc.Invoke(ctx, "/services.v1.ProviderService/PatchProvider", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *providerServiceClient) DeleteProvider(ctx context.Context, in *DeleteProviderRequest, opts ...grpc.CallOption) (*DeleteProviderResponse, error) {
 	out := new(DeleteProviderResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.ProviderService/DeleteProvider", in, out, opts...)
@@ -1809,10 +1787,6 @@ type ProviderServiceServer interface {
 	ListProviders(context.Context, *ListProvidersRequest) (*ListProvidersResponse, error)
 	// Get a specific provider.
 	GetProvider(context.Context, *GetProviderRequest) (*v13.ProviderResource, error)
-	// Update a provider.
-	UpdateProvider(context.Context, *UpdateProviderRequest) (*v13.ProviderResource, error)
-	// Patch a provider.
-	PatchProvider(context.Context, *PatchProviderRequest) (*v13.ProviderResource, error)
 	// Delete a provider.
 	DeleteProvider(context.Context, *DeleteProviderRequest) (*DeleteProviderResponse, error)
 }
@@ -1829,12 +1803,6 @@ func (UnimplementedProviderServiceServer) ListProviders(context.Context, *ListPr
 }
 func (UnimplementedProviderServiceServer) GetProvider(context.Context, *GetProviderRequest) (*v13.ProviderResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProvider not implemented")
-}
-func (UnimplementedProviderServiceServer) UpdateProvider(context.Context, *UpdateProviderRequest) (*v13.ProviderResource, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProvider not implemented")
-}
-func (UnimplementedProviderServiceServer) PatchProvider(context.Context, *PatchProviderRequest) (*v13.ProviderResource, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PatchProvider not implemented")
 }
 func (UnimplementedProviderServiceServer) DeleteProvider(context.Context, *DeleteProviderRequest) (*DeleteProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProvider not implemented")
@@ -1905,42 +1873,6 @@ func _ProviderService_GetProvider_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProviderService_UpdateProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProviderRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProviderServiceServer).UpdateProvider(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/services.v1.ProviderService/UpdateProvider",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProviderServiceServer).UpdateProvider(ctx, req.(*UpdateProviderRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ProviderService_PatchProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PatchProviderRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProviderServiceServer).PatchProvider(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/services.v1.ProviderService/PatchProvider",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProviderServiceServer).PatchProvider(ctx, req.(*PatchProviderRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ProviderService_DeleteProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteProviderRequest)
 	if err := dec(in); err != nil {
@@ -1977,14 +1909,6 @@ var ProviderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProvider",
 			Handler:    _ProviderService_GetProvider_Handler,
-		},
-		{
-			MethodName: "UpdateProvider",
-			Handler:    _ProviderService_UpdateProvider_Handler,
-		},
-		{
-			MethodName: "PatchProvider",
-			Handler:    _ProviderService_PatchProvider_Handler,
 		},
 		{
 			MethodName: "DeleteProvider",

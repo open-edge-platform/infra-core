@@ -6,9 +6,6 @@ package server
 import (
 	"context"
 
-	"golang.org/x/exp/maps"
-	"google.golang.org/protobuf/types/known/fieldmaskpb"
-
 	providerv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/provider/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
@@ -155,76 +152,6 @@ func (is *InventorygRPCServer) GetProvider(
 	provider := fromInvProvider(invProvider)
 	zlog.Debug().Msgf("Got %s", provider)
 	return provider, nil
-}
-
-// Update a provider. (PUT).
-func (is *InventorygRPCServer) UpdateProvider(
-	ctx context.Context,
-	req *restv1.UpdateProviderRequest,
-) (*providerv1.ProviderResource, error) {
-	zlog.Debug().Msg("UpdateProvider")
-
-	provider := req.GetProvider()
-	invProvider, err := toInvProvider(provider)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert to inventory provider")
-		return nil, err
-	}
-
-	fieldmask, err := fieldmaskpb.New(invProvider, maps.Values(OpenAPIProviderToProto)...)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
-	}
-
-	invRes := &inventory.Resource{
-		Resource: &inventory.Resource_Provider{
-			Provider: invProvider,
-		},
-	}
-	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
-	}
-	invUp := upRes.GetProvider()
-	invUpRes := fromInvProvider(invUp)
-	zlog.Debug().Msgf("Updated %s", invUpRes)
-	return invUpRes, nil
-}
-
-// Update a provider. (PATCH).
-func (is *InventorygRPCServer) PatchProvider(
-	ctx context.Context,
-	req *restv1.PatchProviderRequest,
-) (*providerv1.ProviderResource, error) {
-	zlog.Debug().Msg("PatchProvider")
-
-	provider := req.GetProvider()
-	invProvider, err := toInvProvider(provider)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert to inventory provider")
-		return nil, err
-	}
-
-	fieldmask, err := parseFielmask(invProvider, req.GetFieldMask(), OpenAPIProviderToProto)
-	if err != nil {
-		return nil, err
-	}
-	invRes := &inventory.Resource{
-		Resource: &inventory.Resource_Provider{
-			Provider: invProvider,
-		},
-	}
-	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
-	}
-	invUp := upRes.GetProvider()
-	invUpRes := fromInvProvider(invUp)
-	zlog.Debug().Msgf("Updated %s", invUpRes)
-	return invUpRes, nil
 }
 
 // Delete a provider.

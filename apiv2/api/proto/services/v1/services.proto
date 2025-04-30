@@ -259,20 +259,6 @@ service ProviderService {
   rpc GetProvider(GetProviderRequest) returns (resources.provider.v1.ProviderResource) {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"};
   }
-  // Update a provider.
-  rpc UpdateProvider(UpdateProviderRequest) returns (resources.provider.v1.ProviderResource) {
-    option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"
-      body: "provider"
-    };
-  }
-  // Patch a provider.
-  rpc PatchProvider(PatchProviderRequest) returns (resources.provider.v1.ProviderResource) {
-    option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"
-      body: "provider"
-    };
-  }
   // Delete a provider.
   rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"};
@@ -806,7 +792,13 @@ message DeleteSiteResponse {}
 // Request message for the ListLocations method.
 message ListLocationsRequest {
   // Filter locations by name
-  string name = 1 [(google.api.field_behavior) = OPTIONAL];
+  string name = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
+      max_len: 50
+    }
+  ];
   // Return site locations
   bool show_sites = 2 [(google.api.field_behavior) = OPTIONAL];
   // Return region locations
@@ -1346,24 +1338,6 @@ message ListProvidersResponse {
   int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
   // Inform if there are more elements
   bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Request message for the UpdateProvider method.
-message UpdateProviderRequest {
-  // Name of the provider provider to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
-  // Updated values for the provider.
-  resources.provider.v1.ProviderResource provider = 2 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Request message for the PatchProvider method.
-message PatchProviderRequest {
-  // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
-  // Updated values for the provider.
-  resources.provider.v1.ProviderResource provider = 2 [(google.api.field_behavior) = REQUIRED];
-  // Field mask to be applied on the patch of provider.
-  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteProvider.

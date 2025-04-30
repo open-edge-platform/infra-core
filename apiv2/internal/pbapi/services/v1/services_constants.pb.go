@@ -259,15 +259,6 @@ const (
 	ListProvidersResponseFieldTotalElements = "total_elements"
 	ListProvidersResponseFieldHasNext       = "has_next"
 
-	// Fields and Edges constants for "UpdateProviderRequest"
-	UpdateProviderRequestFieldResourceId = "resource_id"
-	UpdateProviderRequestEdgeProvider    = "provider"
-
-	// Fields and Edges constants for "PatchProviderRequest"
-	PatchProviderRequestFieldResourceId = "resource_id"
-	PatchProviderRequestEdgeProvider    = "provider"
-	PatchProviderRequestEdgeFieldMask   = "field_mask"
-
 	// Fields and Edges constants for "DeleteProviderRequest"
 	DeleteProviderRequestFieldResourceId = "resource_id"
 

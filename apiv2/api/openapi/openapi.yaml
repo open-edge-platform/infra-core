@@ -724,6 +724,8 @@ paths:
                   in: query
                   description: Filter locations by name
                   schema:
+                    maxLength: 50
+                    pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                 - name: showSites
                   in: query
@@ -1048,38 +1050,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-        put:
-            tags:
-                - ProviderService
-            summary: UpdateProvider
-            description: Update a provider.
-            operationId: ProviderService_UpdateProvider
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: Name of the provider provider to be updated.
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/ProviderResource'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProviderResource'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
         delete:
             tags:
                 - ProviderService
@@ -1100,44 +1070,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteProviderResponse'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-        patch:
-            tags:
-                - ProviderService
-            summary: PatchProvider
-            description: Patch a provider.
-            operationId: ProviderService_PatchProvider
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: ID of the resource to be updated.
-                  required: true
-                  schema:
-                    type: string
-                - name: fieldMask
-                  in: query
-                  description: Field mask to be applied on the patch of provider.
-                  schema:
-                    type: string
-                    format: field-mask
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/ProviderResource'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProviderResource'
                 default:
                     description: Default error response
                     content:

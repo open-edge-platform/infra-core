@@ -2701,7 +2701,27 @@ func (m *ListLocationsRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) > 50 {
+		err := ListLocationsRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_ListLocationsRequest_Name_Pattern.MatchString(m.GetName()) {
+		err := ListLocationsRequestValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ShowSites
 
@@ -2786,6 +2806,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListLocationsRequestValidationError{}
+
+var _ListLocationsRequest_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 // Validate checks the field values on ListLocationsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -8981,301 +9003,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListProvidersResponseValidationError{}
-
-// Validate checks the field values on UpdateProviderRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateProviderRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on UpdateProviderRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// UpdateProviderRequestMultiError, or nil if none found.
-func (m *UpdateProviderRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *UpdateProviderRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for ResourceId
-
-	if all {
-		switch v := interface{}(m.GetProvider()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateProviderRequestValidationError{
-					field:  "Provider",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateProviderRequestValidationError{
-					field:  "Provider",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetProvider()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateProviderRequestValidationError{
-				field:  "Provider",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return UpdateProviderRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// UpdateProviderRequestMultiError is an error wrapping multiple validation
-// errors returned by UpdateProviderRequest.ValidateAll() if the designated
-// constraints aren't met.
-type UpdateProviderRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m UpdateProviderRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m UpdateProviderRequestMultiError) AllErrors() []error { return m }
-
-// UpdateProviderRequestValidationError is the validation error returned by
-// UpdateProviderRequest.Validate if the designated constraints aren't met.
-type UpdateProviderRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateProviderRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateProviderRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateProviderRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateProviderRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateProviderRequestValidationError) ErrorName() string {
-	return "UpdateProviderRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateProviderRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateProviderRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateProviderRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateProviderRequestValidationError{}
-
-// Validate checks the field values on PatchProviderRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *PatchProviderRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on PatchProviderRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// PatchProviderRequestMultiError, or nil if none found.
-func (m *PatchProviderRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *PatchProviderRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for ResourceId
-
-	if all {
-		switch v := interface{}(m.GetProvider()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PatchProviderRequestValidationError{
-					field:  "Provider",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PatchProviderRequestValidationError{
-					field:  "Provider",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetProvider()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PatchProviderRequestValidationError{
-				field:  "Provider",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetFieldMask()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PatchProviderRequestValidationError{
-					field:  "FieldMask",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PatchProviderRequestValidationError{
-					field:  "FieldMask",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PatchProviderRequestValidationError{
-				field:  "FieldMask",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return PatchProviderRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// PatchProviderRequestMultiError is an error wrapping multiple validation
-// errors returned by PatchProviderRequest.ValidateAll() if the designated
-// constraints aren't met.
-type PatchProviderRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m PatchProviderRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m PatchProviderRequestMultiError) AllErrors() []error { return m }
-
-// PatchProviderRequestValidationError is the validation error returned by
-// PatchProviderRequest.Validate if the designated constraints aren't met.
-type PatchProviderRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e PatchProviderRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e PatchProviderRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e PatchProviderRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e PatchProviderRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e PatchProviderRequestValidationError) ErrorName() string {
-	return "PatchProviderRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e PatchProviderRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sPatchProviderRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = PatchProviderRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = PatchProviderRequestValidationError{}
 
 // Validate checks the field values on DeleteProviderRequest with the rules
 // defined in the proto definition for this message. If any rules are

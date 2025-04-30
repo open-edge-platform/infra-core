@@ -211,7 +211,6 @@
     - [PatchHostRequest](#services-v1-PatchHostRequest)
     - [PatchInstanceRequest](#services-v1-PatchInstanceRequest)
     - [PatchOperatingSystemRequest](#services-v1-PatchOperatingSystemRequest)
-    - [PatchProviderRequest](#services-v1-PatchProviderRequest)
     - [PatchRegionRequest](#services-v1-PatchRegionRequest)
     - [PatchRepeatedScheduleRequest](#services-v1-PatchRepeatedScheduleRequest)
     - [PatchSingleScheduleRequest](#services-v1-PatchSingleScheduleRequest)
@@ -224,7 +223,6 @@
     - [UpdateHostRequest](#services-v1-UpdateHostRequest)
     - [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest)
     - [UpdateOperatingSystemRequest](#services-v1-UpdateOperatingSystemRequest)
-    - [UpdateProviderRequest](#services-v1-UpdateProviderRequest)
     - [UpdateRegionRequest](#services-v1-UpdateRegionRequest)
     - [UpdateRepeatedScheduleRequest](#services-v1-UpdateRepeatedScheduleRequest)
     - [UpdateSingleScheduleRequest](#services-v1-UpdateSingleScheduleRequest)
@@ -3368,23 +3366,6 @@ Request message for the PatchOperatingSystem method.
 
 
 
-<a name="services-v1-PatchProviderRequest"></a>
-
-### PatchProviderRequest
-Request message for the PatchProvider method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
-| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Updated values for the provider. |
-| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of provider. |
-
-
-
-
-
-
 <a name="services-v1-PatchRegionRequest"></a>
 
 ### PatchRegionRequest
@@ -3579,22 +3560,6 @@ Request message for the UpdateOperatingSystem method.
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | Name of the os os to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
-
-
-
-
-
-
-<a name="services-v1-UpdateProviderRequest"></a>
-
-### UpdateProviderRequest
-Request message for the UpdateProvider method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the provider provider to be updated. |
-| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Updated values for the provider. |
 
 
 
@@ -3832,8 +3797,6 @@ Provider.
 | CreateProvider | [CreateProviderRequest](#services-v1-CreateProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Create a provider. |
 | ListProviders | [ListProvidersRequest](#services-v1-ListProvidersRequest) | [ListProvidersResponse](#services-v1-ListProvidersResponse) | Get a list of providers. |
 | GetProvider | [GetProviderRequest](#services-v1-GetProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Get a specific provider. |
-| UpdateProvider | [UpdateProviderRequest](#services-v1-UpdateProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Update a provider. |
-| PatchProvider | [PatchProviderRequest](#services-v1-PatchProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Patch a provider. |
 | DeleteProvider | [DeleteProviderRequest](#services-v1-DeleteProviderRequest) | [DeleteProviderResponse](#services-v1-DeleteProviderResponse) | Delete a provider. |
 
 

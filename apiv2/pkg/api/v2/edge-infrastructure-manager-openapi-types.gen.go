@@ -1503,12 +1503,6 @@ type ProviderServiceListProvidersParams struct {
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// ProviderServicePatchProviderParams defines parameters for ProviderServicePatchProvider.
-type ProviderServicePatchProviderParams struct {
-	// FieldMask Field mask to be applied on the patch of provider.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
-}
-
 // RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
 type RegionServiceListRegionsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1793,12 +1787,6 @@ type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSyste
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
-
-// ProviderServicePatchProviderJSONRequestBody defines body for ProviderServicePatchProvider for application/json ContentType.
-type ProviderServicePatchProviderJSONRequestBody = ProviderResource
-
-// ProviderServiceUpdateProviderJSONRequestBody defines body for ProviderServiceUpdateProvider for application/json ContentType.
-type ProviderServiceUpdateProviderJSONRequestBody = ProviderResource
 
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource
