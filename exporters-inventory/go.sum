@@ -748,10 +748,10 @@ github.com/open-edge-platform/infra-managers/host v1.21.1 h1:77vtzhHkmVSmWlUb1iI
 github.com/open-edge-platform/infra-managers/host v1.21.1/go.mod h1:HLR7ja0tjabUu7NkkCUjgltVXV8++TsgNfw4GlgJR9k=
 github.com/open-edge-platform/infra-managers/maintenance v1.21.1 h1:WcPFKSWdVgvZYaOCfhRXvPdP5GZLsCFpJ48nXF5so7c=
 github.com/open-edge-platform/infra-managers/maintenance v1.21.1/go.mod h1:4IOnwaOp/ZadsSDVZB8KSBM8yNDiPufc/nrYt0Qq8Y8=
-github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.2 h1:7iAvjo29hD7hDq4PIpgkxiiQLsEqkK8tZNvxSafcFxg=
-github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.2/go.mod h1:sLZXeFth0nDI8HEH4FpWkF3nJNOR6e7ocDBq0VKCg9w=
-github.com/open-edge-platform/orch-library/go v0.5.29 h1:LfOaRcRYXpQdcyHrVwN4wC2l11wbdUnBLkc2P7vrZNY=
-github.com/open-edge-platform/orch-library/go v0.5.29/go.mod h1:Wm6A5AJx4DCIOi4u+y1IMJxgFZ4n27f5FLSqW0QPW9k=
+github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4 h1:r7RisHm1olFDfhs5ayaOak2qgWhihTwMN/9qDtgZUK8=
+github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4/go.mod h1:sLZXeFth0nDI8HEH4FpWkF3nJNOR6e7ocDBq0VKCg9w=
+github.com/open-edge-platform/orch-library/go v0.6.0 h1:WZeb7qCulYSO3v4hxBZ6JCenAVlQNe1/Gv+964mEHYI=
+github.com/open-edge-platform/orch-library/go v0.6.0/go.mod h1:oaTKif7k37RI+2eXCn+6czBqgD/E1bqv6rakCWSCYOk=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.2 h1:YajSGrup0GtzILvXOGL5slbZQMrge513ATBKtadQq38=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.2/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.3.0 h1:zVvQvQg+9+FuSRBt4LgKNzJwsWl/c85kD5jPozJTydY=
@@ -979,8 +979,8 @@ golang.org/x/net v0.0.0-20221012135044-0b7e1fb9d458/go.mod h1:YDH+HFinaLZZlnHAfS
 golang.org/x/net v0.0.0-20221014081412-f15817d10f9b/go.mod h1:YDH+HFinaLZZlnHAfSS6ZXJJ9M9t4Dl22yv3iI2vPwk=
 golang.org/x/net v0.6.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
 golang.org/x/net v0.10.0/go.mod h1:0qNGK6F8kojg2nk9dLZ2mShWaEBan6FAoqfSigmmuDg=
-golang.org/x/net v0.37.0 h1:1zLorHbz+LYj7MQlSf1+2tPIIgibq2eL5xkrGk6f+2c=
-golang.org/x/net v0.37.0/go.mod h1:ivrbrMbzFq5J41QOQh0siUuly180yBYtLp+CKbEaFx8=
+golang.org/x/net v0.38.0 h1:vRMAPTMaeGqVhG5QyLJHqNDwecKTomGeqbnfZyKlBI8=
+golang.org/x/net v0.38.0/go.mod h1:ivrbrMbzFq5J41QOQh0siUuly180yBYtLp+CKbEaFx8=
 golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
 golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
 golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
