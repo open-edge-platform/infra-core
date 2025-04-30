@@ -147,6 +147,6 @@ func TestInitClientCache(t *testing.T) {
 	c := cache.NewInventoryCache(0, 0)
 	assert.Equal(t, cache.DefaultCacheStaleTime, c.StaleTime(),
 		"cache should have default stale time of %d", cache.DefaultCacheStaleTime)
-	assert.Equalf(t, 50, cache.DefaultCacheStaleTimeOffsetFactor,
+	assert.Equalf(t, cache.DefaultCacheStaleTimeOffsetFactor, c.StateTimeOffset(),
 		"cache should have default stale time offset of %d", cache.DefaultCacheStaleTimeOffsetFactor)
 }

@@ -59,7 +59,7 @@ const (
 	InvCacheStaleTimeoutDefault           = 5 * time.Minute
 	InvCacheStaleTimeoutOffset            = "invCacheStaleTimeoutOffset"
 	InvCacheStaleTimeoutOffsetDefault     = 30
-	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset for the Inventory UUID cache"
+	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset percentage for the Inventory UUID cache"
 )
 
 type WatchEvents struct {
