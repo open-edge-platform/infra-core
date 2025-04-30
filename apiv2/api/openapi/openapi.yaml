@@ -337,7 +337,7 @@ paths:
             tags:
                 - HostService
             summary: GetHostsSummary
-            description: Get a specific host.
+            description: Get a summary of the hosts status.
             operationId: HostService_GetHostsSummary
             parameters:
                 - name: filter
@@ -3339,7 +3339,7 @@ components:
                 hostStatusTimestamp:
                     type: integer
                     description: UTC timestamp when host_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 onboardingStatus:
                     maxLength: 1024
                     type: string
@@ -3355,7 +3355,7 @@ components:
                 onboardingStatusTimestamp:
                     type: integer
                     description: UTC timestamp when onboarding_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 registrationStatus:
                     maxLength: 1024
                     type: string
@@ -3371,7 +3371,7 @@ components:
                 registrationStatusTimestamp:
                     type: integer
                     description: UTC timestamp when registration_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 hostStorages:
                     readOnly: true
                     type: array
@@ -3694,7 +3694,7 @@ components:
                     readOnly: true
                     type: integer
                     description: UTC timestamp when instance_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 provisioningStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3713,7 +3713,7 @@ components:
                     readOnly: true
                     type: integer
                     description: UTC timestamp when provisioning_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 updateStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3732,7 +3732,7 @@ components:
                     readOnly: true
                     type: integer
                     description: UTC timestamp when update_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 updateStatusDetail:
                     readOnly: true
                     maxLength: 100000
@@ -3756,7 +3756,7 @@ components:
                     readOnly: true
                     type: integer
                     description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-                    format: uint32
+                    format: int64
                 workloadMembers:
                     readOnly: true
                     type: array

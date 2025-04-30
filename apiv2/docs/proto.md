@@ -706,13 +706,13 @@ A Host resource.
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
-| host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
+| host_status_timestamp | [int64](#int64) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
 | onboarding_status | [string](#string) |  | textual message that describes the onboarding status of Host. Set by RMs only. |
 | onboarding_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of onboarding_status. Set by RMs only. |
-| onboarding_status_timestamp | [uint32](#uint32) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
+| onboarding_status_timestamp | [int64](#int64) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
 | registration_status | [string](#string) |  | textual message that describes the onboarding status of Host. Set by RMs only. |
 | registration_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of registration_status. Set by RMs only. |
-| registration_status_timestamp | [uint32](#uint32) |  | UTC timestamp when registration_status was last changed. Set by RMs only. |
+| registration_status_timestamp | [int64](#int64) |  | UTC timestamp when registration_status was last changed. Set by RMs only. |
 | host_storages | [HoststorageResource](#resources-compute-v1-HoststorageResource) | repeated | Back-reference to attached host storage resources. |
 | host_nics | [HostnicResource](#resources-compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. |
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
@@ -842,17 +842,17 @@ host or hypervisor.
 | security_feature | [resources.os.v1.SecurityFeature](#resources-os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
-| instance_status_timestamp | [uint32](#uint32) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
+| instance_status_timestamp | [int64](#int64) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
 | provisioning_status | [string](#string) |  | textual message that describes the provisioning status of Instance. Set by RMs only. |
 | provisioning_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of provisioning_status. Set by RMs only. |
-| provisioning_status_timestamp | [uint32](#uint32) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
+| provisioning_status_timestamp | [int64](#int64) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
 | update_status | [string](#string) |  | textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
-| update_status_timestamp | [uint32](#uint32) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
+| update_status_timestamp | [int64](#int64) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
 | update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
 | trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
-| trusted_attestation_status_timestamp | [uint32](#uint32) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
+| trusted_attestation_status_timestamp | [int64](#int64) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
 | workload_members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The workload members associated with the instance.
 
 back-reference to the Workload Members associated to this Instance |
@@ -3755,7 +3755,7 @@ Host.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetHostsSummary | [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest) | [GetHostSummaryResponse](#services-v1-GetHostSummaryResponse) | Get a specific host. |
+| GetHostsSummary | [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest) | [GetHostSummaryResponse](#services-v1-GetHostSummaryResponse) | Get a summary of the hosts status. |
 | CreateHost | [CreateHostRequest](#services-v1-CreateHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Create a host. |
 | ListHosts | [ListHostsRequest](#services-v1-ListHostsRequest) | [ListHostsResponse](#services-v1-ListHostsResponse) | Get a list of hosts. |
 | GetHost | [GetHostRequest](#services-v1-GetHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Get a specific host. |

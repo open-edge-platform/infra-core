@@ -667,7 +667,7 @@ var LocationService_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HostServiceClient interface {
-	// Get a specific host.
+	// Get a summary of the hosts status.
 	GetHostsSummary(ctx context.Context, in *GetHostSummaryRequest, opts ...grpc.CallOption) (*GetHostSummaryResponse, error)
 	// Create a host.
 	CreateHost(ctx context.Context, in *CreateHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
@@ -802,7 +802,7 @@ func (c *hostServiceClient) OnboardHost(ctx context.Context, in *OnboardHostRequ
 // All implementations should embed UnimplementedHostServiceServer
 // for forward compatibility
 type HostServiceServer interface {
-	// Get a specific host.
+	// Get a summary of the hosts status.
 	GetHostsSummary(context.Context, *GetHostSummaryRequest) (*GetHostSummaryResponse, error)
 	// Create a host.
 	CreateHost(context.Context, *CreateHostRequest) (*v11.HostResource, error)

@@ -349,7 +349,7 @@ type HostResource struct {
 	HostStatusIndicator *HostResourceHostStatusIndicator `json:"hostStatusIndicator,omitempty"`
 
 	// HostStatusTimestamp UTC timestamp when host_status was last changed. Set by RMs only.
-	HostStatusTimestamp *uint32 `json:"hostStatusTimestamp,omitempty"`
+	HostStatusTimestamp *int64 `json:"hostStatusTimestamp,omitempty"`
 
 	// HostStorages Back-reference to attached host storage resources.
 	HostStorages *[]HoststorageResource `json:"hostStorages,omitempty"`
@@ -385,7 +385,7 @@ type HostResource struct {
 	OnboardingStatusIndicator *HostResourceOnboardingStatusIndicator `json:"onboardingStatusIndicator,omitempty"`
 
 	// OnboardingStatusTimestamp UTC timestamp when onboarding_status was last changed. Set by RMs only.
-	OnboardingStatusTimestamp *uint32 `json:"onboardingStatusTimestamp,omitempty"`
+	OnboardingStatusTimestamp *int64 `json:"onboardingStatusTimestamp,omitempty"`
 
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
@@ -397,7 +397,7 @@ type HostResource struct {
 	RegistrationStatusIndicator *HostResourceRegistrationStatusIndicator `json:"registrationStatusIndicator,omitempty"`
 
 	// RegistrationStatusTimestamp UTC timestamp when registration_status was last changed. Set by RMs only.
-	RegistrationStatusTimestamp *uint32 `json:"registrationStatusTimestamp,omitempty"`
+	RegistrationStatusTimestamp *int64 `json:"registrationStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -602,7 +602,7 @@ type InstanceResource struct {
 	InstanceStatusIndicator *InstanceResourceInstanceStatusIndicator `json:"instanceStatusIndicator,omitempty"`
 
 	// InstanceStatusTimestamp UTC timestamp when instance_status was last changed. Set by RMs only.
-	InstanceStatusTimestamp *uint32 `json:"instanceStatusTimestamp,omitempty"`
+	InstanceStatusTimestamp *int64 `json:"instanceStatusTimestamp,omitempty"`
 
 	// Kind Kind of resource. Frequently tied to Provider.
 	Kind *InstanceResourceKind `json:"kind,omitempty"`
@@ -624,7 +624,7 @@ type InstanceResource struct {
 	ProvisioningStatusIndicator *InstanceResourceProvisioningStatusIndicator `json:"provisioningStatusIndicator,omitempty"`
 
 	// ProvisioningStatusTimestamp UTC timestamp when provisioning_status was last changed. Set by RMs only.
-	ProvisioningStatusTimestamp *uint32 `json:"provisioningStatusTimestamp,omitempty"`
+	ProvisioningStatusTimestamp *int64 `json:"provisioningStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -640,7 +640,7 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator *InstanceResourceTrustedAttestationStatusIndicator `json:"trustedAttestationStatusIndicator,omitempty"`
 
 	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	TrustedAttestationStatusTimestamp *uint32 `json:"trustedAttestationStatusTimestamp,omitempty"`
+	TrustedAttestationStatusTimestamp *int64 `json:"trustedAttestationStatusTimestamp,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
@@ -652,7 +652,7 @@ type InstanceResource struct {
 	UpdateStatusIndicator *InstanceResourceUpdateStatusIndicator `json:"updateStatusIndicator,omitempty"`
 
 	// UpdateStatusTimestamp UTC timestamp when update_status was last changed. Set by RMs only.
-	UpdateStatusTimestamp *uint32 `json:"updateStatusTimestamp,omitempty"`
+	UpdateStatusTimestamp *int64 `json:"updateStatusTimestamp,omitempty"`
 
 	// WorkloadMembers The workload members associated with the instance.
 	WorkloadMembers *[]WorkloadMember `json:"workloadMembers,omitempty"`

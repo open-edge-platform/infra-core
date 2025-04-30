@@ -110,28 +110,28 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	instanceStatus := invInstance.GetInstanceStatus()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
-	instanceStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
+	instanceStatusTimestamp, err := SafeUint64Toint64(invInstance.GetInstanceStatusTimestamp())
 	if err != nil {
 		zlog.Error().Err(err).Msg("failed to convert status timestamp")
 		return nil, err
 	}
 	provisioningStatus := invInstance.GetProvisioningStatus()
 	provisioningStatusIndicator := statusv1.StatusIndication(invInstance.GetProvisioningStatusIndicator())
-	provisioningStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetProvisioningStatusTimestamp())
+	provisioningStatusTimestamp, err := SafeUint64Toint64(invInstance.GetProvisioningStatusTimestamp())
 	if err != nil {
 		zlog.Error().Err(err).Msg("failed to convert status timestamp")
 		return nil, err
 	}
 	updateStatus := invInstance.GetUpdateStatus()
 	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
-	updateStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetUpdateStatusTimestamp())
+	updateStatusTimestamp, err := SafeUint64Toint64(invInstance.GetUpdateStatusTimestamp())
 	if err != nil {
 		zlog.Error().Err(err).Msg("failed to convert status timestamp")
 		return nil, err
 	}
 	attestationStatus := invInstance.GetTrustedAttestationStatus()
 	attestationStatusIndicator := statusv1.StatusIndication(invInstance.GetTrustedAttestationStatusIndicator())
-	attestationStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
+	attestationStatusTimestamp, err := SafeUint64Toint64(invInstance.GetTrustedAttestationStatusTimestamp())
 	if err != nil {
 		zlog.Error().Err(err).Msg("failed to convert status timestamp")
 		return nil, err
