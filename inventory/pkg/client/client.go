@@ -52,11 +52,14 @@ const (
 	InventoryAddress            = "inventoryAddress"
 	InventoryAddressDescription = "Inventory service address to connect to. It should have the following " +
 		"format <IP address>:<port>."
-	InvCacheUUIDEnable              = "invCacheUuidEnable"
-	InvCacheUUIDEnableDescription   = "Flag to enable Inventory Client cache by UUID"
-	InvCacheStaleTimeout            = "invCacheStaleTimeout"
-	InvCacheStaleTimeoutDescription = "Flag to enable Inventory Client cache"
-	InvCacheStaleTimeoutDefault     = 5 * time.Minute
+	InvCacheUUIDEnable                    = "invCacheUuidEnable"
+	InvCacheUUIDEnableDescription         = "Flag to enable Inventory Client cache by UUID"
+	InvCacheStaleTimeout                  = "invCacheStaleTimeout"
+	InvCacheStaleTimeoutDescription       = "Flag to enable Inventory Client cache"
+	InvCacheStaleTimeoutDefault           = 5 * time.Minute
+	InvCacheStaleTimeoutOffset            = "invCacheStaleTimeoutOffset"
+	InvCacheStaleTimeoutOffsetDefault     = 30
+	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset for the Inventory UUID cache"
 )
 
 type WatchEvents struct {

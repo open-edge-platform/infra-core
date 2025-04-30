@@ -414,9 +414,10 @@ func TestStoreGetAndInvalidateCacheByTimeout(t *testing.T) {
 	}
 
 	// update cache config with cache entry stale time to 1 sec.
-	c := cache.NewInventoryCache(1*time.Second, 0)
+	c := cache.NewInventoryCache(1*time.Second, 10)
 	// validate that stale time is 1 sec now.
 	assert.Equal(t, 1, int(c.StaleTime().Seconds()))
+	assert.Equal(t, 10, c.StateTimeOffset())
 
 	// host caching.
 	c.StoreResourceByID(res)

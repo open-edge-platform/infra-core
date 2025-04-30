@@ -58,6 +58,10 @@ func (c *InventoryCache) StaleTime() time.Duration {
 	return c.staleTime
 }
 
+func (c *InventoryCache) StateTimeOffset() int {
+	return c.stateTimeOffset
+}
+
 func (c *InventoryCache) UpdateStaleTime(staleTime time.Duration) {
 	if c.staleTime > 0 {
 		c.staleTime = staleTime
