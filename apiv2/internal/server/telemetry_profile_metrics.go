@@ -113,7 +113,7 @@ func (is *InventorygRPCServer) CreateTelemetryMetricsProfile(
 	telemetryProfile, err := TelemetryMetricsProfileResourcetoGRPC(telemetryMetricsProfile)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry metrics profile")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -125,7 +125,7 @@ func (is *InventorygRPCServer) CreateTelemetryMetricsProfile(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create telemetry metrics profile in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	telemetryMetricsProfileCreated := TelemetryMetricsProfileResourcetoAPI(invResp.GetTelemetryProfile())
@@ -146,7 +146,7 @@ func (is *InventorygRPCServer) ListTelemetryMetricsProfiles(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := telemetryProfileFilter(
 		telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS,
@@ -171,7 +171,7 @@ func (is *InventorygRPCServer) ListTelemetryMetricsProfiles(
 		resp, err := is.InvClient.List(ctx, invReq)
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to list telemetry metrics profiles from inventory")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 
 		for _, res := range resp.GetResources() {
@@ -214,7 +214,7 @@ func (is *InventorygRPCServer) GetTelemetryMetricsProfile(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get telemetry metrics profile from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	telemetryProfile := invResp.GetResource().GetTelemetryProfile()
@@ -233,7 +233,7 @@ func (is *InventorygRPCServer) DeleteTelemetryMetricsProfile(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete telemetry metrics profile from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteTelemetryMetricsProfileResponse{}, nil
@@ -250,7 +250,7 @@ func (is *InventorygRPCServer) UpdateTelemetryMetricsProfile(
 	telemetryProfile, err := TelemetryMetricsProfileResourcetoGRPC(telemetryMetricsProfile)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry metrics profile")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(
@@ -258,7 +258,7 @@ func (is *InventorygRPCServer) UpdateTelemetryMetricsProfile(
 		maps.Values(OpenAPITelemetryMetricsProfileToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -269,7 +269,7 @@ func (is *InventorygRPCServer) UpdateTelemetryMetricsProfile(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetTelemetryProfile()
 	invUpRes := TelemetryMetricsProfileResourcetoAPI(invUp)
@@ -288,12 +288,12 @@ func (is *InventorygRPCServer) PatchTelemetryMetricsProfile(
 	telemetryProfile, err := TelemetryMetricsProfileResourcetoGRPC(telemetryMetricsProfile)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry metrics profile")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(telemetryProfile, req.GetFieldMask(), OpenAPITelemetryMetricsProfileToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_TelemetryProfile{
@@ -303,7 +303,7 @@ func (is *InventorygRPCServer) PatchTelemetryMetricsProfile(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetTelemetryProfile()
 	invUpRes := TelemetryMetricsProfileResourcetoAPI(invUp)
@@ -344,7 +344,7 @@ func (is *InventorygRPCServer) listInheritedTelemetryMetrics(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, 0, false, err
+		return nil, 0, false, errors.Wrap(err)
 	}
 	resp, err := is.InvClient.ListInheritedTelemetryProfiles(
 		ctx,
@@ -355,7 +355,7 @@ func (is *InventorygRPCServer) listInheritedTelemetryMetrics(
 		req.GetOrderBy(), offset, limit)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list inherited telemetry metrics profiles from inventory")
-		return nil, 0, false, err
+		return nil, 0, false, errors.Wrap(err)
 	}
 	telProfiles = resp.GetTelemetryProfiles()
 	totalElements = resp.GetTotalElements()

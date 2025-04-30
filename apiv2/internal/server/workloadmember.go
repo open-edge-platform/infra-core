@@ -93,7 +93,7 @@ func (is *InventorygRPCServer) CreateWorkloadMember(
 	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -105,13 +105,13 @@ func (is *InventorygRPCServer) CreateWorkloadMember(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create workload member in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	workloadMemberCreated, err := fromInvWorkloadMember(invResp.GetWorkloadMember())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory workload member")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Created %s", workloadMemberCreated)
@@ -127,7 +127,7 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
@@ -145,7 +145,7 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list workload members from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -153,7 +153,7 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 		workloadMember, err := fromInvWorkloadMember(invRes.GetResource().GetWorkloadMember())
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to convert from inventory workload member")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 		workloadMembers = append(workloadMembers, workloadMember)
 	}
@@ -177,14 +177,14 @@ func (is *InventorygRPCServer) GetWorkloadMember(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get workload member from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invWorkloadMember := invResp.GetResource().GetWorkloadMember()
 	workloadMember, err := fromInvWorkloadMember(invWorkloadMember)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory workload member")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", workloadMember)
 	return workloadMember, nil
@@ -200,7 +200,7 @@ func (is *InventorygRPCServer) DeleteWorkloadMember(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete workload member from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteWorkloadMemberResponse{}, nil

@@ -56,7 +56,7 @@ func (is *InventorygRPCServer) CreateLocalAccount(
 	invLocalAccount, err := toInvLocalAccount(localaccount)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory localaccount")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -68,7 +68,7 @@ func (is *InventorygRPCServer) CreateLocalAccount(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create localaccount in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	localaccountCreated := fromInvLocalAccount(invResp.GetLocalAccount())
@@ -85,7 +85,7 @@ func (is *InventorygRPCServer) ListLocalAccounts(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_LocalAccount{
@@ -103,7 +103,7 @@ func (is *InventorygRPCServer) ListLocalAccounts(
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list localaccounts from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	localaccounts := []*localaccountv1.LocalAccountResource{}
@@ -131,7 +131,7 @@ func (is *InventorygRPCServer) GetLocalAccount(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get localaccount from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invLocalAccount := invResp.GetResource().GetLocalAccount()
@@ -150,7 +150,7 @@ func (is *InventorygRPCServer) DeleteLocalAccount(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete localaccount from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteLocalAccountResponse{}, nil

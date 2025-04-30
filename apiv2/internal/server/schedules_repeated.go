@@ -190,7 +190,7 @@ func (is *InventorygRPCServer) CreateRepeatedSchedule(
 	invRepeatedSchedule, err := toInvRepeatedSchedule(repeatedSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory repeated schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -202,7 +202,7 @@ func (is *InventorygRPCServer) CreateRepeatedSchedule(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create repeated schedule in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	createdRSched := invResp.GetRepeatedschedule()
@@ -212,7 +212,7 @@ func (is *InventorygRPCServer) CreateRepeatedSchedule(
 	repeatedScheduleCreated, err := fromInvRepeatedSchedule(createdRSched)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory repeated schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", repeatedScheduleCreated)
 	return repeatedScheduleCreated, nil
@@ -236,7 +236,7 @@ func (is *InventorygRPCServer) ListRepeatedSchedules(
 	schedFilters, err := parseSchedulesFilter(&hostID, &siteID, &regionID, &epoch)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to parse schedules filter")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	var offset, limit int
 	offset, err = util.Int32ToInt(req.GetOffset())
@@ -254,7 +254,7 @@ func (is *InventorygRPCServer) ListRepeatedSchedules(
 		ctx, tenantID, offset, limit, schedFilters)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get repeated schedules from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	repeatedSchedules := []*schedulev1.RepeatedScheduleResource{}
@@ -262,7 +262,7 @@ func (is *InventorygRPCServer) ListRepeatedSchedules(
 		repeatedSchedule, errConv := fromInvRepeatedSchedule(invRes)
 		if errConv != nil {
 			zlog.InfraErr(errConv).Msg("Failed to convert from inventory repeated schedule")
-			return nil, errConv
+			return nil, errors.Wrap(errConv)
 		}
 		repeatedSchedules = append(repeatedSchedules, repeatedSchedule)
 	}
@@ -299,13 +299,13 @@ func (is *InventorygRPCServer) GetRepeatedSchedule(
 	invRepeatedSchedule, err := is.InvHCacheClient.GetRepeatedSchedule(tenantID, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get repeated schedule from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	repeatedSchedule, err := fromInvRepeatedSchedule(invRepeatedSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory repeated schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", repeatedSchedule)
 	return repeatedSchedule, nil
@@ -328,13 +328,13 @@ func (is *InventorygRPCServer) UpdateRepeatedSchedule(
 	invRepeatedSchedule, err := toInvRepeatedSchedule(repeatedSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory repeated schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invRepeatedSchedule, maps.Values(OpenAPIRepeatedSchedToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -345,7 +345,7 @@ func (is *InventorygRPCServer) UpdateRepeatedSchedule(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	is.InvHCacheClient.InvalidateCache(
 		tenantID,
@@ -355,7 +355,7 @@ func (is *InventorygRPCServer) UpdateRepeatedSchedule(
 	invUp := upRes.GetRepeatedschedule()
 	invUpRes, err := fromInvRepeatedSchedule(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -379,12 +379,12 @@ func (is *InventorygRPCServer) PatchRepeatedSchedule(
 	invRepeatedSchedule, err := toInvRepeatedSchedule(repeatedSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory repeated schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invRepeatedSchedule, req.GetFieldMask(), OpenAPIRepeatedSchedToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Repeatedschedule{
@@ -394,7 +394,7 @@ func (is *InventorygRPCServer) PatchRepeatedSchedule(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	is.InvHCacheClient.InvalidateCache(
 		tenantID,
@@ -404,7 +404,7 @@ func (is *InventorygRPCServer) PatchRepeatedSchedule(
 	invUp := upRes.GetRepeatedschedule()
 	invUpRes, err := fromInvRepeatedSchedule(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -427,7 +427,7 @@ func (is *InventorygRPCServer) DeleteRepeatedSchedule(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete repeated schedule from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	is.InvHCacheClient.InvalidateCache(
 		tenantID,

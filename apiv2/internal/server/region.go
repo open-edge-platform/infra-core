@@ -108,7 +108,7 @@ func (is *InventorygRPCServer) CreateRegion(
 	invRegion, err := toInvRegion(region)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory region")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -120,13 +120,13 @@ func (is *InventorygRPCServer) CreateRegion(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create region in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	regionCreated, err := fromInvRegion(invResp.GetRegion(), nil)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory region")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", regionCreated)
 	return regionCreated, nil
@@ -160,7 +160,7 @@ func (is *InventorygRPCServer) getSitesPerRegion(
 	response, err := is.InvClient.GetSitesPerRegion(ctx, request)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get sites per region from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	collections.MapSlice[*inventory.GetSitesPerRegionResponse_Node, int32](
@@ -183,7 +183,7 @@ func (is *InventorygRPCServer) ListRegions(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Region{Region: &inv_locationv1.RegionResource{}}},
@@ -199,7 +199,7 @@ func (is *InventorygRPCServer) ListRegions(
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list regions from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	sitesPerRegions, err := is.getSitesPerRegion(ctx, req.GetShowTotalSites(), invResp)
@@ -213,7 +213,7 @@ func (is *InventorygRPCServer) ListRegions(
 		region, err := fromInvRegion(invRes.GetResource().GetRegion(), invRes.GetRenderedMetadata())
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to convert from inventory region")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 
 		if totalSites, hasTotalSites := sitesPerRegions[region.GetResourceId()]; hasTotalSites {
@@ -241,14 +241,14 @@ func (is *InventorygRPCServer) GetRegion(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get region from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRegion := invResp.GetResource().GetRegion()
 	region, err := fromInvRegion(invRegion, invResp.GetRenderedMetadata())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory region")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", region)
 	return region, nil
@@ -265,13 +265,13 @@ func (is *InventorygRPCServer) UpdateRegion(
 	invRegion, err := toInvRegion(region)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory region")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invRegion, maps.Values(OpenAPIRegionToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -282,12 +282,12 @@ func (is *InventorygRPCServer) UpdateRegion(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetRegion()
 	invUpRes, err := fromInvRegion(invUp, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -305,12 +305,12 @@ func (is *InventorygRPCServer) PatchRegion(
 	invRegion, err := toInvRegion(region)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory region")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invRegion, req.GetFieldMask(), OpenAPIRegionToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Region{
@@ -320,12 +320,12 @@ func (is *InventorygRPCServer) PatchRegion(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetRegion()
 	invUpRes, err := fromInvRegion(invUp, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -342,7 +342,7 @@ func (is *InventorygRPCServer) DeleteRegion(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete region from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteRegionResponse{}, nil

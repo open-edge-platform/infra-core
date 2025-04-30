@@ -182,7 +182,7 @@ func (is *InventorygRPCServer) CreateInstance(
 	invInstance, err := toInvInstance(instance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -194,13 +194,13 @@ func (is *InventorygRPCServer) CreateInstance(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create instance in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	instanceCreated, err := fromInvInstance(invResp.GetInstance())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", instanceCreated)
 	return instanceCreated, nil
@@ -215,7 +215,7 @@ func (is *InventorygRPCServer) ListInstances(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Instance{Instance: &inv_computev1.InstanceResource{}}},
@@ -231,7 +231,7 @@ func (is *InventorygRPCServer) ListInstances(
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list instances from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invResources := invResp.GetResources()
@@ -240,7 +240,7 @@ func (is *InventorygRPCServer) ListInstances(
 		instance, err := fromInvInstance(invRes.GetResource().GetInstance())
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to convert from inventory instance")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 		instances = append(instances, instance)
 	}
@@ -264,14 +264,14 @@ func (is *InventorygRPCServer) GetInstance(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get instance from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invInstance := invResp.GetResource().GetInstance()
 	instance, err := fromInvInstance(invInstance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", instance)
 	return instance, nil
@@ -288,13 +288,13 @@ func (is *InventorygRPCServer) UpdateInstance(
 	invInstance, err := toInvInstance(instance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invInstance, maps.Values(OpenAPIInstanceToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -305,12 +305,12 @@ func (is *InventorygRPCServer) UpdateInstance(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetInstance()
 	invUpRes, err := fromInvInstance(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -328,12 +328,12 @@ func (is *InventorygRPCServer) PatchInstance(
 	invInstance, err := toInvInstance(instance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invInstance, req.GetFieldMask(), OpenAPIInstanceToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Instance{
@@ -343,12 +343,12 @@ func (is *InventorygRPCServer) PatchInstance(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetInstance()
 	invUpRes, err := fromInvInstance(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -365,7 +365,7 @@ func (is *InventorygRPCServer) DeleteInstance(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteInstanceResponse{}, nil
@@ -388,13 +388,13 @@ func (is *InventorygRPCServer) InvalidateInstance(
 	fm, err := fieldmaskpb.New(res.GetInstance(), inv_computev1.InstanceResourceFieldDesiredState)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	_, err = is.InvClient.Update(ctx, req.GetResourceId(), fm, res)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to invalidate instance in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Invalidated %s", req.GetResourceId())
 	return &restv1.InvalidateInstanceResponse{}, nil

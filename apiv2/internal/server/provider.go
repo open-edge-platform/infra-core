@@ -76,7 +76,7 @@ func (is *InventorygRPCServer) CreateProvider(
 	invProvider, err := toInvProvider(provider)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory provider")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -88,7 +88,7 @@ func (is *InventorygRPCServer) CreateProvider(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create provider in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	providerCreated := fromInvProvider(invResp.GetProvider())
@@ -105,7 +105,7 @@ func (is *InventorygRPCServer) ListProviders(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Provider{Provider: &inv_providerv1.ProviderResource{}}},
@@ -121,7 +121,7 @@ func (is *InventorygRPCServer) ListProviders(
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list providers from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	providers := []*providerv1.ProviderResource{}
@@ -149,7 +149,7 @@ func (is *InventorygRPCServer) GetProvider(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get provider from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invProvider := invResp.GetResource().GetProvider()
@@ -168,7 +168,7 @@ func (is *InventorygRPCServer) DeleteProvider(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete provider from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteProviderResponse{}, nil

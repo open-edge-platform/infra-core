@@ -307,7 +307,7 @@ func (is *InventorygRPCServer) CreateHost(
 	invHost, err := toInvHost(host)
 	if err != nil {
 		zlog.Error().Err(err).Msg("toInvHost failed")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -319,12 +319,12 @@ func (is *InventorygRPCServer) CreateHost(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to create inventory resource %s", invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	hostCreated, err := fromInvHost(invResp.GetHost(), nil, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", hostCreated)
 	return hostCreated, nil
@@ -340,7 +340,7 @@ func (is *InventorygRPCServer) ListHosts(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Host{Host: &inv_computev1.HostResource{}}},
@@ -358,7 +358,7 @@ func (is *InventorygRPCServer) ListHosts(
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to list inventory resources %s", filter)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invResources := invResp.GetResources()
@@ -373,7 +373,7 @@ func (is *InventorygRPCServer) ListHosts(
 
 		host, err := fromInvHost(invRes.GetResource().GetHost(), invRes.GetRenderedMetadata(), nicToIPAddresses)
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 		hosts = append(hosts, host)
 	}
@@ -402,12 +402,12 @@ func (is *InventorygRPCServer) GetHost(ctx context.Context, req *restv1.GetHostR
 	if err != nil {
 		zlog.Error().Err(err).Msgf("failed to get IP addresses for host %s",
 			invHost.GetResourceId())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	host, err := fromInvHost(invHost, invResp.GetRenderedMetadata(), nicToIPAddresses)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", host)
 	return host, nil
@@ -423,12 +423,12 @@ func (is *InventorygRPCServer) UpdateHost(
 	host := req.GetHost()
 	invHost, err := toInvHostUpdate(host)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invHost, maps.Values(OpenAPIHostToProto)...)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -444,7 +444,7 @@ func (is *InventorygRPCServer) UpdateHost(
 	invUp := upRes.GetHost()
 	invUpRes, err := fromInvHost(invUp, nil, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -461,12 +461,12 @@ func (is *InventorygRPCServer) PatchHost(
 	host := req.GetHost()
 	invHost, err := toInvHostUpdate(host)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invHost, req.GetFieldMask(), OpenAPIHostToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -477,12 +477,12 @@ func (is *InventorygRPCServer) PatchHost(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetHost()
 	invUpRes, err := fromInvHost(invUp, nil, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -499,7 +499,7 @@ func (is *InventorygRPCServer) DeleteHost(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to delete inventory resource %s", req.GetResourceId())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteHostResponse{}, nil
@@ -526,12 +526,12 @@ func (is *InventorygRPCServer) InvalidateHost(
 		inv_computev1.HostResourceFieldNote,
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	_, err = is.InvClient.Update(ctx, req.GetResourceId(), fm, res)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Invalidated %s", req.GetResourceId())
 	return &restv1.InvalidateHostResponse{}, nil
@@ -576,12 +576,12 @@ func (is *InventorygRPCServer) RegisterHost(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to create inventory resource %s", invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	hostResp, err := fromInvHost(invResp.GetHost(), nil, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Registered %s", hostResp)
 	return hostResp, nil
@@ -606,19 +606,19 @@ func (is *InventorygRPCServer) OnboardHost(
 		inv_computev1.HostResourceFieldDesiredState,
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fm, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invUp := upRes.GetHost()
 	invUpRes, err := fromInvHost(invUp, nil, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Onboarded %s", invUpRes)
