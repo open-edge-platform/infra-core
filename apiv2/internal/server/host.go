@@ -14,11 +14,13 @@ import (
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
 	locationv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
+	networkv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/network/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
+	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
@@ -102,6 +104,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 func fromInvHost(
 	invHost *inv_computev1.HostResource,
 	resMeta *inventory.GetResourceResponse_ResourceMetadata,
+	nicToIPAdrresses map[string][]*networkv1.IPAddressResource,
 ) (*computev1.HostResource, error) {
 	if invHost == nil {
 		return &computev1.HostResource{}, nil
@@ -184,7 +187,7 @@ func fromInvHost(
 		RegistrationStatusIndicator: registrationStatusIndicator,
 		RegistrationStatusTimestamp: registrationStatusTimestamp,
 		HostStorages:                fromInvHostStorages(invHost.GetHostStorages()),
-		HostNics:                    fromInvHostNics(invHost.GetHostNics()),
+		HostNics:                    fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:                    fromInvHostUsbs(invHost.GetHostUsbs()),
 		HostGpus:                    fromInvHostGpus(invHost.GetHostGpus()),
 		Instance:                    hostInstance,
@@ -226,10 +229,18 @@ func fromInvHostStorages(storages []*inv_computev1.HoststorageResource) []*compu
 	return hostStorages
 }
 
-func fromInvHostNics(nics []*inv_computev1.HostnicResource) []*computev1.HostnicResource {
+func fromInvHostNics(
+	nics []*inv_computev1.HostnicResource,
+	nicToIPAdrresses map[string][]*networkv1.IPAddressResource,
+) []*computev1.HostnicResource {
 	// Conversion logic for HostNics
 	hostNics := make([]*computev1.HostnicResource, 0, len(nics))
 	for _, nic := range nics {
+		ipAdresses := []*networkv1.IPAddressResource{}
+		if nicToIPAdrresses != nil {
+			ipAdresses = nicToIPAdrresses[nic.GetResourceId()]
+		}
+
 		hostNics = append(hostNics, &computev1.HostnicResource{
 			ResourceId:    nic.GetResourceId(),
 			DeviceName:    nic.GetDeviceName(),
@@ -242,6 +253,7 @@ func fromInvHostNics(nics []*inv_computev1.HostnicResource) []*computev1.Hostnic
 			Mtu:           nic.GetMtu(),
 			LinkState:     computev1.NetworkInterfaceLinkState(nic.GetLinkState()),
 			BmcInterface:  nic.GetBmcInterface(),
+			IpAddresses:   ipAdresses,
 			Timestamps:    GrpcToOpenAPITimestamps(nic),
 		})
 	}
@@ -310,7 +322,7 @@ func (is *InventorygRPCServer) CreateHost(
 		return nil, err
 	}
 
-	hostCreated, err := fromInvHost(invResp.GetHost(), nil)
+	hostCreated, err := fromInvHost(invResp.GetHost(), nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +359,14 @@ func (is *InventorygRPCServer) ListHosts(
 	invResources := invResp.GetResources()
 	hosts := make([]*computev1.HostResource, 0, len(invResources))
 	for _, invRes := range invResources {
-		host, err := fromInvHost(invRes.GetResource().GetHost(), invRes.GetRenderedMetadata())
+		nicToIPAddresses, err := is.getInterfaceToIPAddresses(ctx, invRes.GetResource().GetHost())
+		if err != nil {
+			zlog.Error().Err(err).Msgf("failed to get IP addresses for host %s",
+				invRes.GetResource().GetHost().GetResourceId())
+			return nil, err
+		}
+
+		host, err := fromInvHost(invRes.GetResource().GetHost(), invRes.GetRenderedMetadata(), nicToIPAddresses)
 		if err != nil {
 			return nil, err
 		}
@@ -374,7 +393,14 @@ func (is *InventorygRPCServer) GetHost(ctx context.Context, req *restv1.GetHostR
 	}
 
 	invHost := invResp.GetResource().GetHost()
-	host, err := fromInvHost(invHost, invResp.GetRenderedMetadata())
+	nicToIPAddresses, err := is.getInterfaceToIPAddresses(ctx, invHost)
+	if err != nil {
+		zlog.Error().Err(err).Msgf("failed to get IP addresses for host %s",
+			invHost.GetResourceId())
+		return nil, err
+	}
+
+	host, err := fromInvHost(invHost, invResp.GetRenderedMetadata(), nicToIPAddresses)
 	if err != nil {
 		return nil, err
 	}
@@ -411,7 +437,7 @@ func (is *InventorygRPCServer) UpdateHost(
 		return nil, err
 	}
 	invUp := upRes.GetHost()
-	invUpRes, err := fromInvHost(invUp, nil)
+	invUpRes, err := fromInvHost(invUp, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -449,7 +475,7 @@ func (is *InventorygRPCServer) PatchHost(
 		return nil, err
 	}
 	invUp := upRes.GetHost()
-	invUpRes, err := fromInvHost(invUp, nil)
+	invUpRes, err := fromInvHost(invUp, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -548,7 +574,7 @@ func (is *InventorygRPCServer) RegisterHost(
 		return nil, err
 	}
 
-	hostResp, err := fromInvHost(invResp.GetHost(), nil)
+	hostResp, err := fromInvHost(invResp.GetHost(), nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -585,7 +611,7 @@ func (is *InventorygRPCServer) OnboardHost(
 	}
 
 	invUp := upRes.GetHost()
-	invUpRes, err := fromInvHost(invUp, nil)
+	invUpRes, err := fromInvHost(invUp, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -629,7 +655,7 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 		return nil, err
 	}
 
-	invHost, err := fromInvHost(invReply.GetHost(), nil)
+	invHost, err := fromInvHost(invReply.GetHost(), nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -735,4 +761,70 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	}
 
 	return hostsSummary, nil
+}
+
+func fromInvIPAddresses(
+	nicID string,
+	invIPAddresses []*inv_networkv1.IPAddressResource,
+) []*networkv1.IPAddressResource {
+	IPAddresses := []*networkv1.IPAddressResource{}
+	for _, invIPAddress := range invIPAddresses {
+		configMode := networkv1.IPAddressConfigMethod(invIPAddress.GetConfigMethod())
+		status := networkv1.IPAddressStatus(invIPAddress.GetStatus())
+		cidrAddress := invIPAddress.GetAddress()
+		statusDetail := invIPAddress.GetStatusDetail()
+		ipAddress := &networkv1.IPAddressResource{
+			ConfigMethod: configMode,
+			Status:       status,
+			Address:      cidrAddress,
+			StatusDetail: statusDetail,
+		}
+		IPAddresses = append(IPAddresses, ipAddress)
+	}
+	return IPAddresses
+}
+
+func castToIPAddress(resp *inventory.GetResourceResponse) (*inv_networkv1.IPAddressResource, error) {
+	if resp.GetResource().GetIpaddress() != nil {
+		return resp.GetResource().GetIpaddress(), nil
+	}
+	err := errors.Errorfc(codes.Internal, "%s is not an IPAddress", resp.GetResource())
+	zlog.InfraErr(err).Msgf("could not cast inventory resource")
+	return nil, err
+}
+
+func (is *InventorygRPCServer) getInterfaceToIPAddresses(
+	ctx context.Context,
+	host *inv_computev1.HostResource,
+) (map[string][]*networkv1.IPAddressResource, error) {
+	nicToIPAddresses := make(map[string][]*networkv1.IPAddressResource)
+	hostInterfaces := host.GetHostNics()
+	for _, hostInterface := range hostInterfaces {
+		ipAddresses := make([]*networkv1.IPAddressResource, 0)
+		req := &inventory.ResourceFilter{
+			Resource: &inventory.Resource{Resource: &inventory.Resource_Ipaddress{}},
+			Filter: fmt.Sprintf("%s.%s = %q", inv_networkv1.IPAddressResourceEdgeNic,
+				inv_computev1.HostnicResourceFieldResourceId, hostInterface.GetResourceId()),
+		}
+		inventoryRes, err := is.InvClient.List(ctx, req)
+		if errors.IsNotFound(err) {
+			// resp is nil but we can continue in this case
+			nicToIPAddresses[hostInterface.GetResourceId()] = ipAddresses
+			continue
+		}
+		if err != nil {
+			return nil, err
+		}
+		invIPAddresses := make([]*inv_networkv1.IPAddressResource, 0)
+		for _, ipResp := range inventoryRes.GetResources() {
+			invIPAddress, err := castToIPAddress(ipResp)
+			if err != nil {
+				return nil, err
+			}
+			invIPAddresses = append(invIPAddresses, invIPAddress)
+		}
+		IPAddresses := fromInvIPAddresses(hostInterface.GetResourceId(), invIPAddresses)
+		nicToIPAddresses[hostInterface.GetResourceId()] = IPAddresses
+	}
+	return nicToIPAddresses, nil
 }

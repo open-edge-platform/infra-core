@@ -91,7 +91,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 
 	if invInstance.GetHost() != nil {
-		host, err = fromInvHost(invInstance.GetHost(), nil)
+		host, err = fromInvHost(invInstance.GetHost(), nil, nil)
 		if err != nil {
 			return nil, err
 		}

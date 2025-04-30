@@ -852,6 +852,40 @@ func (m *HostnicResource) validate(all bool) error {
 
 	// no validation rules for BmcInterface
 
+	for idx, item := range m.GetIpAddresses() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, HostnicResourceValidationError{
+						field:  fmt.Sprintf("IpAddresses[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, HostnicResourceValidationError{
+						field:  fmt.Sprintf("IpAddresses[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return HostnicResourceValidationError{
+					field:  fmt.Sprintf("IpAddresses[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
 		case interface{ ValidateAll() error }:

@@ -70,6 +70,7 @@ const (
 	HostnicResourceFieldMtu           = "mtu"
 	HostnicResourceFieldLinkState     = "link_state"
 	HostnicResourceFieldBmcInterface  = "bmc_interface"
+	HostnicResourceEdgeIpAddresses    = "ip_addresses"
 	HostnicResourceEdgeTimestamps     = "timestamps"
 
 	// Fields and Edges constants for "HostusbResource"

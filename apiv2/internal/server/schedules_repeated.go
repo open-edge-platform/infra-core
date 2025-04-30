@@ -153,7 +153,7 @@ func fromInvRepeatedSchedule(
 			TargetSite: targetSite,
 		}
 	case *inv_schedulev1.RepeatedScheduleResource_TargetHost:
-		targetHost, err := fromInvHost(relation.TargetHost, nil)
+		targetHost, err := fromInvHost(relation.TargetHost, nil, nil)
 		if err != nil {
 			return nil, err
 		}

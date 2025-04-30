@@ -10,6 +10,7 @@ import "resources/common/v1/common.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
 import "resources/localaccount/v1/localaccount.proto";
+import "resources/network/v1/network.proto";
 import "resources/status/v1/status.proto";
 import "validate/validate.proto";
 
@@ -233,6 +234,8 @@ message HostnicResource {
   NetworkInterfaceLinkState link_state = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Whether this is a bmc interface or not.
   bool bmc_interface = 43 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The interface's IP address list.
+  repeated resources.network.v1.IPAddressResource ip_addresses = 50001 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
