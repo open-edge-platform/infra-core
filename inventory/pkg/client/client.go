@@ -333,6 +333,10 @@ func (client *inventoryClient) eventHandler() {
 		select {
 		case client.cfg.Events <- &WatchEvents{ctx, event}:
 		default:
+			zlog.Warn().Msgf("dropping event, queue is full: clientName=%s, clientUUID=%s",
+				client.cfg.Name, client.clientUUID)
+			zlog.Debug().Msgf("dropped event: clientName=%s, clientUUID=%s, event=%v",
+				client.cfg.Name, client.clientUUID, event)
 		}
 	}
 }
