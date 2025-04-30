@@ -169,10 +169,9 @@ gRPC to HTTP automatically by grpc-gateway.
 Those are directly translated from the gRPC error codes.
 - All paths/resources moved to use resourceId by default
 - Removal of OU resources and paths
-- All PATCH paths deleted: given there is no easy way to define a fieldmask for the gRPC stub.
 - Enum UNSPECIFIED = 0 are not present in all enums.
 - Removal of /compute: all /compute paths are changed to the /host (/compute/hosts -> /hosts).
-- OS related changes: the path was moved from as `/OSResources -> /os_resources`;
+- OS related changes: the path was moved from as `/OSResources -> /operating_systems`;
 in the GET (aka LIST) method the reference of resources is changed as
 `OperatingSystemResources -> OperatingSystems`.
 - The Region resource is changed with the field: totalSites `<int32>`

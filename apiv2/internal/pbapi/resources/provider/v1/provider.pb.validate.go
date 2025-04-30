@@ -198,6 +198,10 @@ func (m *ProviderResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return ProviderResourceMultiError(errors)
 	}

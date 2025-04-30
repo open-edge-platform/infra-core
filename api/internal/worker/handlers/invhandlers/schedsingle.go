@@ -472,7 +472,7 @@ func openapiToGrpcSingleSchedSeconds(body *api.SingleSchedule, sched *schedv1.Si
 	if body.EndSeconds != nil && body.StartSeconds != 0 {
 		if sched.EndSeconds < sched.StartSeconds {
 			err := errors.Errorfc(codes.InvalidArgument,
-				"end_seconds must be equal or bigger than start_seconds")
+				"The schedule end time must be greater than the start time")
 			log.InfraErr(err).Msg("error in specified values of end_seconds and start_seconds")
 			return err
 		}

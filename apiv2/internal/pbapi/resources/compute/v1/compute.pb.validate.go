@@ -87,10 +87,10 @@ func (m *HostResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := HostResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -453,7 +453,7 @@ func (m *HostResource) validate(all bool) error {
 	if !_HostResource_SiteId_Pattern.MatchString(m.GetSiteId()) {
 		err := HostResourceValidationError{
 			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
@@ -528,6 +528,10 @@ func (m *HostResource) validate(all bool) error {
 		}
 
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return HostResourceMultiError(errors)
@@ -614,7 +618,7 @@ var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<
 
 var _HostResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
-var _HostResource_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
 // Validate checks the field values on HoststorageResource with the rules
 // defined in the proto definition for this message. If any rules are
@@ -671,6 +675,10 @@ func (m *HoststorageResource) validate(all bool) error {
 	// no validation rules for CapacityBytes
 
 	// no validation rules for DeviceName
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return HoststorageResourceMultiError(errors)
@@ -818,6 +826,10 @@ func (m *HostnicResource) validate(all bool) error {
 
 	// no validation rules for BmcInterface
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return HostnicResourceMultiError(errors)
 	}
@@ -956,6 +968,10 @@ func (m *HostusbResource) validate(all bool) error {
 
 	// no validation rules for DeviceName
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return HostusbResourceMultiError(errors)
 	}
@@ -1092,6 +1108,10 @@ func (m *HostgpuResource) validate(all bool) error {
 
 	// no validation rules for Features
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return HostgpuResourceMultiError(errors)
 	}
@@ -1218,10 +1238,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for Kind
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := InstanceResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -1389,6 +1409,21 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if len(m.GetTrustedAttestationStatus()) > 1024 {
+		err := InstanceResourceValidationError{
+			field:  "TrustedAttestationStatus",
+			reason: "value length must be at most 1024 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for TrustedAttestationStatusIndicator
+
+	// no validation rules for TrustedAttestationStatusTimestamp
+
 	for idx, item := range m.GetWorkloadMembers() {
 		_, _ = idx, item
 
@@ -1421,6 +1456,35 @@ func (m *InstanceResource) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if all {
+		switch v := interface{}(m.GetLocalaccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Localaccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Localaccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLocalaccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InstanceResourceValidationError{
+				field:  "Localaccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(m.GetInstanceId()) > 13 {
@@ -1488,6 +1552,32 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	if len(m.GetLocalAccountId()) > 21 {
+		err := InstanceResourceValidationError{
+			field:  "LocalAccountId",
+			reason: "value length must be at most 21 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_InstanceResource_LocalAccountId_Pattern.MatchString(m.GetLocalAccountId()) {
+		err := InstanceResourceValidationError{
+			field:  "LocalAccountId",
+			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return InstanceResourceMultiError(errors)
@@ -1577,6 +1667,8 @@ var _InstanceResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
 var _InstanceResource_OsId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
+var _InstanceResource_LocalAccountId_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
+
 // Validate checks the field values on WorkloadResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1623,10 +1715,10 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	// no validation rules for Kind
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := WorkloadResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -1744,6 +1836,10 @@ func (m *WorkloadResource) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return WorkloadResourceMultiError(errors)
@@ -2031,6 +2127,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
 
 	if len(errors) > 0 {
 		return WorkloadMemberMultiError(errors)
