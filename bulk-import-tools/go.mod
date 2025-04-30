@@ -7,7 +7,7 @@ go 1.24.1
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/open-edge-platform/infra-core/api v1.32.0
+	github.com/open-edge-platform/infra-core/api v1.33.1
 	github.com/stretchr/testify v1.10.0
 )
 
@@ -38,7 +38,7 @@ require (
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
