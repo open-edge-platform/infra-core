@@ -319,20 +319,6 @@ service WorkloadMemberService {
   rpc GetWorkloadMember(GetWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"};
   }
-  // Update a workload_member.
-  rpc UpdateWorkloadMember(UpdateWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
-    option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"
-      body: "workload_member"
-    };
-  }
-  // Patch a workload_member.
-  rpc PatchWorkloadMember(PatchWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
-    option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"
-      body: "workload_member"
-    };
-  }  
   // Delete a workload_member.
   rpc DeleteWorkloadMember(DeleteWorkloadMemberRequest) returns (DeleteWorkloadMemberResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"};
@@ -1540,24 +1526,6 @@ message ListWorkloadMembersResponse {
   int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
   // Inform if there are more elements
   bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Request message for the UpdateWorkloadMember method.
-message UpdateWorkloadMemberRequest {
-  // Name of the workload_member workload_member to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
-  // Updated values for the workload_member.
-  resources.compute.v1.WorkloadMember workload_member = 2 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Request message for the PatchWorkloadMember method.
-message PatchWorkloadMemberRequest {
-  // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
-  // Updated values for the workload_member.
-  resources.compute.v1.WorkloadMember workload_member = 2 [(google.api.field_behavior) = REQUIRED];
-  // Field mask to be applied on the patch of workload_member.
-  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteWorkloadMember.

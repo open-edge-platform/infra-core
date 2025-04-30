@@ -2205,10 +2205,6 @@ type WorkloadMemberServiceClient interface {
 	ListWorkloadMembers(ctx context.Context, in *ListWorkloadMembersRequest, opts ...grpc.CallOption) (*ListWorkloadMembersResponse, error)
 	// Get a specific workload_member.
 	GetWorkloadMember(ctx context.Context, in *GetWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error)
-	// Update a workload_member.
-	UpdateWorkloadMember(ctx context.Context, in *UpdateWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error)
-	// Patch a workload_member.
-	PatchWorkloadMember(ctx context.Context, in *PatchWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error)
 	// Delete a workload_member.
 	DeleteWorkloadMember(ctx context.Context, in *DeleteWorkloadMemberRequest, opts ...grpc.CallOption) (*DeleteWorkloadMemberResponse, error)
 }
@@ -2248,24 +2244,6 @@ func (c *workloadMemberServiceClient) GetWorkloadMember(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *workloadMemberServiceClient) UpdateWorkloadMember(ctx context.Context, in *UpdateWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error) {
-	out := new(v11.WorkloadMember)
-	err := c.cc.Invoke(ctx, "/services.v1.WorkloadMemberService/UpdateWorkloadMember", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *workloadMemberServiceClient) PatchWorkloadMember(ctx context.Context, in *PatchWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error) {
-	out := new(v11.WorkloadMember)
-	err := c.cc.Invoke(ctx, "/services.v1.WorkloadMemberService/PatchWorkloadMember", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *workloadMemberServiceClient) DeleteWorkloadMember(ctx context.Context, in *DeleteWorkloadMemberRequest, opts ...grpc.CallOption) (*DeleteWorkloadMemberResponse, error) {
 	out := new(DeleteWorkloadMemberResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.WorkloadMemberService/DeleteWorkloadMember", in, out, opts...)
@@ -2285,10 +2263,6 @@ type WorkloadMemberServiceServer interface {
 	ListWorkloadMembers(context.Context, *ListWorkloadMembersRequest) (*ListWorkloadMembersResponse, error)
 	// Get a specific workload_member.
 	GetWorkloadMember(context.Context, *GetWorkloadMemberRequest) (*v11.WorkloadMember, error)
-	// Update a workload_member.
-	UpdateWorkloadMember(context.Context, *UpdateWorkloadMemberRequest) (*v11.WorkloadMember, error)
-	// Patch a workload_member.
-	PatchWorkloadMember(context.Context, *PatchWorkloadMemberRequest) (*v11.WorkloadMember, error)
 	// Delete a workload_member.
 	DeleteWorkloadMember(context.Context, *DeleteWorkloadMemberRequest) (*DeleteWorkloadMemberResponse, error)
 }
@@ -2305,12 +2279,6 @@ func (UnimplementedWorkloadMemberServiceServer) ListWorkloadMembers(context.Cont
 }
 func (UnimplementedWorkloadMemberServiceServer) GetWorkloadMember(context.Context, *GetWorkloadMemberRequest) (*v11.WorkloadMember, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWorkloadMember not implemented")
-}
-func (UnimplementedWorkloadMemberServiceServer) UpdateWorkloadMember(context.Context, *UpdateWorkloadMemberRequest) (*v11.WorkloadMember, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkloadMember not implemented")
-}
-func (UnimplementedWorkloadMemberServiceServer) PatchWorkloadMember(context.Context, *PatchWorkloadMemberRequest) (*v11.WorkloadMember, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PatchWorkloadMember not implemented")
 }
 func (UnimplementedWorkloadMemberServiceServer) DeleteWorkloadMember(context.Context, *DeleteWorkloadMemberRequest) (*DeleteWorkloadMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkloadMember not implemented")
@@ -2381,42 +2349,6 @@ func _WorkloadMemberService_GetWorkloadMember_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WorkloadMemberService_UpdateWorkloadMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateWorkloadMemberRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WorkloadMemberServiceServer).UpdateWorkloadMember(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/services.v1.WorkloadMemberService/UpdateWorkloadMember",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkloadMemberServiceServer).UpdateWorkloadMember(ctx, req.(*UpdateWorkloadMemberRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _WorkloadMemberService_PatchWorkloadMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PatchWorkloadMemberRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WorkloadMemberServiceServer).PatchWorkloadMember(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/services.v1.WorkloadMemberService/PatchWorkloadMember",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkloadMemberServiceServer).PatchWorkloadMember(ctx, req.(*PatchWorkloadMemberRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _WorkloadMemberService_DeleteWorkloadMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteWorkloadMemberRequest)
 	if err := dec(in); err != nil {
@@ -2453,14 +2385,6 @@ var WorkloadMemberService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWorkloadMember",
 			Handler:    _WorkloadMemberService_GetWorkloadMember_Handler,
-		},
-		{
-			MethodName: "UpdateWorkloadMember",
-			Handler:    _WorkloadMemberService_UpdateWorkloadMember_Handler,
-		},
-		{
-			MethodName: "PatchWorkloadMember",
-			Handler:    _WorkloadMemberService_PatchWorkloadMember_Handler,
 		},
 		{
 			MethodName: "DeleteWorkloadMember",

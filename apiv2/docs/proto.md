@@ -217,7 +217,6 @@
     - [PatchSiteRequest](#services-v1-PatchSiteRequest)
     - [PatchTelemetryLogsProfileRequest](#services-v1-PatchTelemetryLogsProfileRequest)
     - [PatchTelemetryMetricsProfileRequest](#services-v1-PatchTelemetryMetricsProfileRequest)
-    - [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest)
     - [PatchWorkloadRequest](#services-v1-PatchWorkloadRequest)
     - [RegisterHostRequest](#services-v1-RegisterHostRequest)
     - [UpdateHostRequest](#services-v1-UpdateHostRequest)
@@ -229,7 +228,6 @@
     - [UpdateSiteRequest](#services-v1-UpdateSiteRequest)
     - [UpdateTelemetryLogsProfileRequest](#services-v1-UpdateTelemetryLogsProfileRequest)
     - [UpdateTelemetryMetricsProfileRequest](#services-v1-UpdateTelemetryMetricsProfileRequest)
-    - [UpdateWorkloadMemberRequest](#services-v1-UpdateWorkloadMemberRequest)
     - [UpdateWorkloadRequest](#services-v1-UpdateWorkloadRequest)
   
     - [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind)
@@ -3468,23 +3466,6 @@ Request message for the PatchTelemetryMetricsProfile method.
 
 
 
-<a name="services-v1-PatchWorkloadMemberRequest"></a>
-
-### PatchWorkloadMemberRequest
-Request message for the PatchWorkloadMember method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
-| workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | Updated values for the workload_member. |
-| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload_member. |
-
-
-
-
-
-
 <a name="services-v1-PatchWorkloadRequest"></a>
 
 ### PatchWorkloadRequest
@@ -3656,22 +3637,6 @@ Request message for the UpdateTelemetryMetricsProfile method.
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
-
-
-
-
-
-
-<a name="services-v1-UpdateWorkloadMemberRequest"></a>
-
-### UpdateWorkloadMemberRequest
-Request message for the UpdateWorkloadMember method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload_member workload_member to be updated. |
-| workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | Updated values for the workload_member. |
 
 
 
@@ -3918,8 +3883,6 @@ WorkloadMember.
 | CreateWorkloadMember | [CreateWorkloadMemberRequest](#services-v1-CreateWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Create a workload_member. |
 | ListWorkloadMembers | [ListWorkloadMembersRequest](#services-v1-ListWorkloadMembersRequest) | [ListWorkloadMembersResponse](#services-v1-ListWorkloadMembersResponse) | Get a list of workload_members. |
 | GetWorkloadMember | [GetWorkloadMemberRequest](#services-v1-GetWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Get a specific workload_member. |
-| UpdateWorkloadMember | [UpdateWorkloadMemberRequest](#services-v1-UpdateWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Update a workload_member. |
-| PatchWorkloadMember | [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Patch a workload_member. |
 | DeleteWorkloadMember | [DeleteWorkloadMemberRequest](#services-v1-DeleteWorkloadMemberRequest) | [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse) | Delete a workload_member. |
 
 

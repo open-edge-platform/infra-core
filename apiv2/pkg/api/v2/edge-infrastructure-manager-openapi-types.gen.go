@@ -1722,12 +1722,6 @@ type WorkloadMemberServiceListWorkloadMembersParams struct {
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// WorkloadMemberServicePatchWorkloadMemberParams defines parameters for WorkloadMemberServicePatchWorkloadMember.
-type WorkloadMemberServicePatchWorkloadMemberParams struct {
-	// FieldMask Field mask to be applied on the patch of workload_member.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
-}
-
 // WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
 type WorkloadServiceListWorkloadsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1850,12 +1844,6 @@ type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody 
 
 // WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember
-
-// WorkloadMemberServicePatchWorkloadMemberJSONRequestBody defines body for WorkloadMemberServicePatchWorkloadMember for application/json ContentType.
-type WorkloadMemberServicePatchWorkloadMemberJSONRequestBody = WorkloadMember
-
-// WorkloadMemberServiceUpdateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceUpdateWorkloadMember for application/json ContentType.
-type WorkloadMemberServiceUpdateWorkloadMemberJSONRequestBody = WorkloadMember
 
 // WorkloadServiceCreateWorkloadJSONRequestBody defines body for WorkloadServiceCreateWorkload for application/json ContentType.
 type WorkloadServiceCreateWorkloadJSONRequestBody = WorkloadResource

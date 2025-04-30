@@ -2725,38 +2725,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-        put:
-            tags:
-                - WorkloadMemberService
-            summary: UpdateWorkloadMember
-            description: Update a workload_member.
-            operationId: WorkloadMemberService_UpdateWorkloadMember
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: Name of the workload_member workload_member to be updated.
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/WorkloadMember'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/WorkloadMember'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
         delete:
             tags:
                 - WorkloadMemberService
@@ -2777,44 +2745,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteWorkloadMemberResponse'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-        patch:
-            tags:
-                - WorkloadMemberService
-            summary: PatchWorkloadMember
-            description: Patch a workload_member.
-            operationId: WorkloadMemberService_PatchWorkloadMember
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: ID of the resource to be updated.
-                  required: true
-                  schema:
-                    type: string
-                - name: fieldMask
-                  in: query
-                  description: Field mask to be applied on the patch of workload_member.
-                  schema:
-                    type: string
-                    format: field-mask
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/WorkloadMember'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/WorkloadMember'
                 default:
                     description: Default error response
                     content:

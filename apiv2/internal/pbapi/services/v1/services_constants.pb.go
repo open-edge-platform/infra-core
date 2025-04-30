@@ -324,15 +324,6 @@ const (
 	ListWorkloadMembersResponseFieldTotalElements  = "total_elements"
 	ListWorkloadMembersResponseFieldHasNext        = "has_next"
 
-	// Fields and Edges constants for "UpdateWorkloadMemberRequest"
-	UpdateWorkloadMemberRequestFieldResourceId    = "resource_id"
-	UpdateWorkloadMemberRequestEdgeWorkloadMember = "workload_member"
-
-	// Fields and Edges constants for "PatchWorkloadMemberRequest"
-	PatchWorkloadMemberRequestFieldResourceId    = "resource_id"
-	PatchWorkloadMemberRequestEdgeWorkloadMember = "workload_member"
-	PatchWorkloadMemberRequestEdgeFieldMask      = "field_mask"
-
 	// Fields and Edges constants for "DeleteWorkloadMemberRequest"
 	DeleteWorkloadMemberRequestFieldResourceId = "resource_id"
 

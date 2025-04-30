@@ -6,9 +6,6 @@ package server
 import (
 	"context"
 
-	"golang.org/x/exp/maps"
-	"google.golang.org/protobuf/types/known/fieldmaskpb"
-
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
@@ -187,84 +184,6 @@ func (is *InventorygRPCServer) GetWorkloadMember(
 	}
 	zlog.Debug().Msgf("Got %s", workloadMember)
 	return workloadMember, nil
-}
-
-// Update a workloadMember. (PUT).
-func (is *InventorygRPCServer) UpdateWorkloadMember(
-	ctx context.Context,
-	req *restv1.UpdateWorkloadMemberRequest,
-) (*computev1.WorkloadMember, error) {
-	zlog.Debug().Msg("UpdateWorkloadMember")
-
-	workloadMember := req.GetWorkloadMember()
-	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
-		return nil, err
-	}
-
-	fieldmask, err := fieldmaskpb.New(invWorkloadMember, maps.Values(OpenAPIWorkloadMemberToProto)...)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
-	}
-
-	invRes := &inventory.Resource{
-		Resource: &inventory.Resource_WorkloadMember{
-			WorkloadMember: invWorkloadMember,
-		},
-	}
-	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
-	}
-	invUp := upRes.GetWorkloadMember()
-	invUpRes, err := fromInvWorkloadMember(invUp)
-	if err != nil {
-		return nil, err
-	}
-
-	zlog.Debug().Msgf("Updated %s", invUpRes)
-	return invUpRes, nil
-}
-
-// Update a workloadMember. (PATCH).
-func (is *InventorygRPCServer) PatchWorkloadMember(
-	ctx context.Context,
-	req *restv1.PatchWorkloadMemberRequest,
-) (*computev1.WorkloadMember, error) {
-	zlog.Debug().Msg("PatchWorkloadMember")
-
-	workloadMember := req.GetWorkloadMember()
-	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
-		return nil, err
-	}
-
-	fieldmask, err := parseFielmask(invWorkloadMember, req.GetFieldMask(), OpenAPIWorkloadMemberToProto)
-	if err != nil {
-		return nil, err
-	}
-	invRes := &inventory.Resource{
-		Resource: &inventory.Resource_WorkloadMember{
-			WorkloadMember: invWorkloadMember,
-		},
-	}
-	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
-	}
-	invUp := upRes.GetWorkloadMember()
-	invUpRes, err := fromInvWorkloadMember(invUp)
-	if err != nil {
-		return nil, err
-	}
-
-	zlog.Debug().Msgf("Updated %s", invUpRes)
-	return invUpRes, nil
 }
 
 // Delete a workloadMember.
