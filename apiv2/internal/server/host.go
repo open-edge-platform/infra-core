@@ -350,6 +350,11 @@ func (is *InventorygRPCServer) ListHosts(
 		Filter:   req.GetFilter(),
 	}
 
+	if err := validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
+
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to list inventory resources %s", filter)

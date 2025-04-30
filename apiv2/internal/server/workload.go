@@ -13,6 +13,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -135,7 +136,10 @@ func (is *InventorygRPCServer) ListWorkloads(
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-
+	if err := validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list workloads from inventory")

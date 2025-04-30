@@ -14,6 +14,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_telemetryv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -157,7 +158,10 @@ func (is *InventorygRPCServer) ListTelemetryLogsProfiles(
 		OrderBy: req.GetOrderBy(),
 		Filter:  filter,
 	}
-
+	if err := validator.ValidateMessage(invReq); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	if !req.GetShowInherited() {
 		resp, err := is.InvClient.List(ctx, invReq)
 		if err != nil {
