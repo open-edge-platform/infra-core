@@ -35,7 +35,7 @@ require (
 	github.com/mennanov/fmutils v0.3.0
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/open-edge-platform/orch-library/go v0.5.29
+	github.com/open-edge-platform/orch-library/go v0.6.0
 	github.com/open-policy-agent/opa v1.3.0
 	github.com/opencontainers/image-spec v1.1.1
 	github.com/patrickmn/go-cache v2.1.0+incompatible

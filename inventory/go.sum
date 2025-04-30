@@ -725,8 +725,8 @@ github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 h1:C3w9PqII01/Oq
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822/go.mod h1:+n7T8mK8HuQTcFwEeznm/DIxMOiR9yIdICNftLE1DvQ=
 github.com/olekukonko/tablewriter v0.0.5 h1:P2Ga83D34wi1o9J6Wh1mRuqd4mF/x/lgBS7N7AbDhec=
 github.com/olekukonko/tablewriter v0.0.5/go.mod h1:hPp6KlRPjbx+hW8ykQs1w3UBbZlj6HuIJcUGPhkA7kY=
-github.com/open-edge-platform/orch-library/go v0.5.29 h1:LfOaRcRYXpQdcyHrVwN4wC2l11wbdUnBLkc2P7vrZNY=
-github.com/open-edge-platform/orch-library/go v0.5.29/go.mod h1:Wm6A5AJx4DCIOi4u+y1IMJxgFZ4n27f5FLSqW0QPW9k=
+github.com/open-edge-platform/orch-library/go v0.6.0 h1:WZeb7qCulYSO3v4hxBZ6JCenAVlQNe1/Gv+964mEHYI=
+github.com/open-edge-platform/orch-library/go v0.6.0/go.mod h1:oaTKif7k37RI+2eXCn+6czBqgD/E1bqv6rakCWSCYOk=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.2 h1:YajSGrup0GtzILvXOGL5slbZQMrge513ATBKtadQq38=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.2/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.3.0 h1:zVvQvQg+9+FuSRBt4LgKNzJwsWl/c85kD5jPozJTydY=
