@@ -58,7 +58,7 @@ const (
 	InvCacheStaleTimeoutDescription       = "Flag to enable Inventory Client cache"
 	InvCacheStaleTimeoutDefault           = 5 * time.Minute
 	InvCacheStaleTimeoutOffset            = "invCacheStaleTimeoutOffset"
-	InvCacheStaleTimeoutOffsetDefault     = 30
+	InvCacheStaleTimeoutOffsetDefault     = 15
 	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset percentage for the Inventory UUID cache"
 )
 

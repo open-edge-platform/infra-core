@@ -71,13 +71,13 @@ func (c *InventoryCache) UpdateStaleTime(staleTime time.Duration) {
 
 func (c *InventoryCache) generateCacheEntryStaleTime() time.Duration {
 	// have random extension by "cacheStaleTimeOffsetFactor"% of stale time (positive and negative).
-	randomTimeOffset := int(c.staleTime.Seconds() / DefaultCacheStaleTimeOffsetFactor)
+	randomTimeOffset := int(c.staleTime.Seconds() / float64(c.stateTimeOffset))
 
 	// if randomTimeOffset is 0 then make offset to 1.
 	if randomTimeOffset == 0 {
 		randomTimeOffset = 1
 	}
-	//nolint:gosec,mnd // Not necessary to use secure random generator, also using 2 to have positive and negative spread
+	//nolint:gosec,mnd // Not necessary to use secure random generator, also using 2 to have positive and negative offsets.
 	return time.Duration(int(c.staleTime) + ((rand.Intn(randomTimeOffset*2) - randomTimeOffset) * int(time.Second)))
 }
 
