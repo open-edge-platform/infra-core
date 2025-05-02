@@ -27,9 +27,10 @@ GOARCH	:= $(shell go env GOARCH)
 GOCMD   := go
 
 # Path variables
-OUT_DIR	:= out
-SRC     := $(shell find . -type f -name '*.go' ! -name '*_test.go')
-DEPS    := go.mod go.sum
+OUT_DIR	    := out
+SRC         := $(shell find . -type f -name '*.go' ! -name '*_test.go')
+DEPS        := go.mod go.sum
+BASE_BRANCH := main
 
 # Docker variables
 DOCKER_ENV              := DOCKER_BUILDKIT=1
@@ -232,6 +233,7 @@ common-buf-lint: $(VENV_NAME) ## Lint and format protobuf files
 	buf --version
 	buf format -d --exit-code
 	buf lint
+	buf breaking --against 'https://github.com/open-edge-platform/infra-core.git#branch=${BASE_BRANCH},subdir=${SUBPROJECT_DIR}'
 
 #### Clean Targets ###
 
