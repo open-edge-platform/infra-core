@@ -61,7 +61,7 @@ var errorMessages = map[ErrorCode]string{
 	ErrAuthNFailed:            "Failed to authenticate with server",
 	ErrURL:                    "Malformed server URL",
 	ErrAlreadyRegistered:      "Host already registered",
-	ErrHostDetailMismatch:     "Host already registered with mismatching detials",
+	ErrHostDetailMismatch:     "Host already registered with mismatching details",
 	ErrHTTPReq:                "HTTP request error",
 	ErrOSSecurityMismatch:     "OS Profile and Security feature mismatch",
 }
