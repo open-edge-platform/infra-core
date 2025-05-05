@@ -26,3 +26,7 @@ jobs:
       prefix_tag_separator: "/"
       project_folder: "tenant-controller"
     secrets: inherit
+
+permissions:
+  contents: read
+

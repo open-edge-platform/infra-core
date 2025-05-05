@@ -26,3 +26,6 @@ jobs:
       prefix_tag_separator: "/"
       project_folder: "bulk-import-tools"
     secrets: inherit
+
+permissions:
+  contents: read
