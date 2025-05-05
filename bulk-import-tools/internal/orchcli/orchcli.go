@@ -33,6 +33,7 @@ type OrchCli struct {
 	OSProfileCache map[string]api.OperatingSystemResource
 	SiteCache      map[string]api.Site
 	LACache        map[string]api.LocalAccount
+	HostCache      map[string]api.Host
 }
 
 type MetadataItem = struct {
@@ -62,6 +63,7 @@ func NewOrchCli(ctx context.Context, svcURL, project string) (*OrchCli, error) {
 		OSProfileCache: make(map[string]api.OperatingSystemResource),
 		SiteCache:      make(map[string]api.Site),
 		LACache:        make(map[string]api.LocalAccount),
+		HostCache:      make(map[string]api.Host),
 	}, nil
 }
 
@@ -110,6 +112,7 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
+	oC.HostCache[*hostInfo.ResourceId] = hostInfo
 	return *hostInfo.ResourceId, nil
 }
 
@@ -244,14 +247,14 @@ func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, e
 }
 
 func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, error) {
-	if sn == "" && uuid == "" {
+	if uuid == "" {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts", oC.Project))
 	query := uParsed.Query()
-	query.Set("filter", buildHostFilter(sn, uuid))
+	query.Set("filter", fmt.Sprintf("%s=%q", "uuid", uuid))
 	uParsed.RawQuery = query.Encode()
 
 	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
@@ -265,37 +268,32 @@ func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, erro
 	}
 
 	var hosts api.HostsList
-	if err := json.NewDecoder(resp.Body).Decode(&hosts); err != nil {
+	err = json.NewDecoder(resp.Body).Decode(&hosts)
+	if err != nil {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	return findAvailableHostID(&hosts, sn, uuid)
-}
-
-func buildHostFilter(sn, uuid string) string {
-	switch {
-	case sn != "" && uuid != "":
-		return fmt.Sprintf("%s=%q AND %s=%q", "serialNumber", sn, "uuid", uuid)
-	case sn != "":
-		return fmt.Sprintf("%s=%q", "serialNumber", sn)
-	case uuid != "":
-		return fmt.Sprintf("%s=%q", "uuid", uuid)
-	default:
-		return ""
+	host, err := findAvailableHost(&hosts, sn, uuid)
+	if err != nil {
+		return "", err
 	}
+	oC.HostCache[*host.ResourceId] = host
+	return *host.ResourceId, nil
 }
 
-func findAvailableHostID(hosts *api.HostsList, sn, uuid string) (string, error) {
+func findAvailableHost(hosts *api.HostsList, sn, uuid string) (api.Host, error) {
 	if *hosts.TotalElements > 0 {
 		for _, host := range *hosts.Hosts {
-			if (host.SerialNumber != nil && *host.SerialNumber == sn) || (host.Uuid != nil && host.Uuid.String() == uuid) {
-				if host.Instance == nil {
-					return *host.ResourceId, nil
-				}
+			// check if the host is available and matches the serial number and UUID as provided
+			// in the input. Else report an error. Import tool should not update either of those fields
+			// as user intent might not be so.
+			if (host.SerialNumber != nil && *host.SerialNumber == sn) &&
+				(host.Uuid != nil && host.Uuid.String() == uuid) && host.Instance == nil {
+				return host, nil
 			}
 		}
 	}
-	return "", e.NewCustomError(e.ErrHostNotFound)
+	return api.Host{}, e.NewCustomError(e.ErrHostDetailMismatch)
 }
 
 func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error) {
@@ -465,6 +463,9 @@ func (oC *OrchCli) AllocateHostToSiteAndAddMetadata(ctx context.Context, hostID,
 	}
 	// Prepare the form data
 	payload := &api.Host{}
+	if host, ok := oC.HostCache[hostID]; ok {
+		payload.Name = host.Name
+	}
 	if siteID != "" {
 		payload.SiteId = &siteID
 	}

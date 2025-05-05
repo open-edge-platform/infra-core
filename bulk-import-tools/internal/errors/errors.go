@@ -33,7 +33,7 @@ const (
 	ErrAuthNFailed
 	ErrURL
 	ErrAlreadyRegistered
-	ErrHostNotFound
+	ErrHostDetailMismatch
 	ErrHTTPReq
 	ErrOSSecurityMismatch
 )
@@ -61,7 +61,7 @@ var errorMessages = map[ErrorCode]string{
 	ErrAuthNFailed:            "Failed to authenticate with server",
 	ErrURL:                    "Malformed server URL",
 	ErrAlreadyRegistered:      "Host already registered",
-	ErrHostNotFound:           "Host not found",
+	ErrHostDetailMismatch:     "Host already registered with Serial number mismatch",
 	ErrHTTPReq:                "HTTP request error",
 	ErrOSSecurityMismatch:     "OS Profile and Security feature mismatch",
 }

@@ -112,6 +112,7 @@ func newOrchCli(t *testing.T, u, p, jwt string) *orchcli.OrchCli {
 		OSProfileCache: make(map[string]api.OperatingSystemResource),
 		SiteCache:      make(map[string]api.Site),
 		LACache:        make(map[string]api.LocalAccount),
+		HostCache:      make(map[string]api.Host),
 	}
 	return oc
 }
