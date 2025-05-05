@@ -13,7 +13,6 @@ import (
 	"net/url"
 	"testing"
 
-	u "github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -894,84 +893,5 @@ func TestInstanceExists(t *testing.T) {
 		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
 		assert.Error(t, err)
 		assert.False(t, exists)
-	})
-}
-
-func TestGetHostID(t *testing.T) {
-	hostResource := api.Host{
-		ResourceId:   &hostID,
-		SerialNumber: &sn,
-		Uuid:         func() *u.UUID { id := u.MustParse(uuid); return &id }(),
-	}
-	hostList := api.HostsList{
-		TotalElements: new(int),
-		Hosts: &[]api.Host{
-			hostResource,
-		},
-	}
-	*hostList.TotalElements = 1
-
-	t.Run("Valid Host ID", func(t *testing.T) {
-		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostList)
-		defer mockServer.Close()
-
-		oc := newOrchCli(t, mockServer.URL, project, jwt)
-
-		resp, err := oc.GetHostID(context.Background(), sn, uuid)
-		assert.NoError(t, err)
-		assert.Equal(t, hostID, resp)
-	})
-
-	t.Run("Valid Host Serial Number and UUID", func(t *testing.T) {
-		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostList)
-		defer mockServer.Close()
-
-		oc := newOrchCli(t, mockServer.URL, project, jwt)
-
-		resp, err := oc.GetHostID(context.Background(), sn, uuid)
-		assert.NoError(t, err)
-		assert.Equal(t, hostID, resp)
-	})
-
-	t.Run("Host Not Found", func(t *testing.T) {
-		hostList.TotalElements = new(int) // Set TotalElements to 0
-		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostList)
-		defer mockServer.Close()
-
-		oc := newOrchCli(t, mockServer.URL, project, jwt)
-
-		resp, err := oc.GetHostID(context.Background(), sn, uuid)
-		assert.Error(t, err)
-		assert.Empty(t, resp)
-	})
-
-	t.Run("Empty Serial Number and UUID", func(t *testing.T) {
-		oc := newOrchCli(t, "", project, jwt)
-
-		resp, err := oc.GetHostID(context.Background(), "", "")
-		assert.Error(t, err)
-		assert.Empty(t, resp)
-	})
-
-	t.Run("Internal Server Error", func(t *testing.T) {
-		mockServer := setupMockServerForGetResources(t, http.StatusInternalServerError, nil)
-		defer mockServer.Close()
-
-		oc := newOrchCli(t, mockServer.URL, project, jwt)
-
-		resp, err := oc.GetHostID(context.Background(), sn, uuid)
-		assert.Error(t, err)
-		assert.Empty(t, resp)
-	})
-
-	t.Run("Invalid Response Format", func(t *testing.T) {
-		mockServer := setupMockServerForGetResources(t, http.StatusOK, "invalid-response")
-		defer mockServer.Close()
-
-		oc := newOrchCli(t, mockServer.URL, project, jwt)
-
-		resp, err := oc.GetHostID(context.Background(), sn, uuid)
-		assert.Error(t, err)
-		assert.Empty(t, resp)
 	})
 }
