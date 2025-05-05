@@ -316,7 +316,6 @@ func CreateHost(
 	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, host.StatusCode())
-
 	t.Cleanup(func() { SoftDeleteHost(t, context.Background(), apiClient, host.JSON200) })
 	return host
 }
@@ -685,22 +684,6 @@ func DeleteProvider(
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, providerDel.StatusCode())
-}
-
-// This utility function mimics an addition of a required information to the HTTP Header
-func addEcmUserAgentToTheHeader(_ context.Context, req *http.Request) error {
-	req.Header.Add(userAgent, ecmServiceName)
-	return nil
-}
-
-func addRequestEditors(client *api.Client) error {
-	client.RequestEditors = append(client.RequestEditors, authObsUserAgent)
-	return nil
-}
-
-func authObsUserAgent(_ context.Context, req *http.Request) error {
-	req.Header.Set(userAgent, observabilityServiceName)
-	return nil
 }
 
 func GetHostRequestWithRandomUUID() api.HostResource {

@@ -420,6 +420,7 @@ func TestTelemetryLogsProfile_UpdatePUT(t *testing.T) {
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
+
 	assert.Equal(t, http.StatusOK, telemetryLogsProfile1Update.StatusCode())
 	assert.Equal(t, *TelemetryLogsProfile.TargetRegion, *telemetryLogsProfile1Update.JSON200.TargetRegion)
 
@@ -696,8 +697,8 @@ func TestTelemetryLogsGroupList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset uint32 = 1
-	var pageSize uint32 = 4
+	var offset int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
@@ -742,8 +743,8 @@ func TestTelemetryMetricsGroupList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset uint32 = 1
-	var pageSize uint32 = 4
+	var offset int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
@@ -789,8 +790,8 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset uint32 = 1
-	var pageSize uint32 = 4
+	var offset int32 = 1
+	var pageSize int32 = 4
 
 	group := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
 		CollectorKind: collectorKindHostLogs,
@@ -846,7 +847,7 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.TelemetryLogsProfiles), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize uint32 = 30
+	var allPageSize int32 = 30
 	resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -910,8 +911,8 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset uint32 = 1
-	var pageSize uint32 = 4
+	var offset int32 = 1
+	var pageSize int32 = 4
 
 	group := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
 		CollectorKind: collectorKindHostMetrics,
@@ -974,7 +975,7 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.TelemetryMetricsProfiles), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize uint32 = 30
+	var allPageSize int32 = 30
 	resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1184,8 +1185,8 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 		})
 	}
 
-	var offset uint32 = 1
-	var pageSize uint32 = 4
+	var offset int32 = 1
+	var pageSize int32 = 4
 
 	// list all telemetry profiles (no filtering)
 	resList, err := apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
@@ -1202,7 +1203,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.TelemetryMetricsProfiles), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize uint32 = 100
+	var allPageSize int32 = 100
 	resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1472,7 +1473,7 @@ func TestTelemetryMetricsProfileListInheritedNestingLimit(t *testing.T) {
 		TargetRegion:    regionLevel5.JSON200.ResourceId,
 	})
 
-	var allPageSize uint32 = 100
+	var allPageSize int32 = 100
 	resList, err := apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1603,7 +1604,7 @@ func TestTelemetryMetricsProfileListInheritedNoParents(t *testing.T) {
 		TargetRegion:    region2.JSON200.ResourceId,
 	})
 
-	var allPageSize uint32 = 100
+	var allPageSize int32 = 100
 	resList, err := apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1815,8 +1816,8 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 		})
 	}
 
-	var offset uint32 = 1
-	var pageSize uint32 = 4
+	var offset int32 = 1
+	var pageSize int32 = 4
 
 	// list all telemetry profiles (no filtering)
 	resList, err := apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
@@ -1833,7 +1834,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.TelemetryLogsProfiles), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize uint32 = 100
+	var allPageSize int32 = 100
 	resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -2103,7 +2104,7 @@ func TestTelemetryMetricsLogsListInheritedNestingLimit(t *testing.T) {
 		TargetRegion: regionLevel5.JSON200.ResourceId,
 	})
 
-	var allPageSize uint32 = 100
+	var allPageSize int32 = 100
 	resList, err := apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -2234,7 +2235,7 @@ func TestTelemetryLogsProfileListInheritedNoParents(t *testing.T) {
 		TargetRegion: region2.JSON200.ResourceId,
 	})
 
-	var allPageSize uint32 = 100
+	var allPageSize int32 = 100
 	resList, err := apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{

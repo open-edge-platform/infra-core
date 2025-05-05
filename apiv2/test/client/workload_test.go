@@ -37,7 +37,7 @@ func assertSameMemberIDs(t *testing.T, expectedMembers, actualMembers []api.Work
 }
 
 func TestWorkload_CreateGetDelete(t *testing.T) {
-	log.Info().Msgf("Begin workload cluster tests")
+	log.Info().Msgf("Begin workload CRUD tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
@@ -145,7 +145,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 
 	clearInstanceIDs()
 
-	log.Info().Msgf("End workload cluster tests")
+	log.Info().Msgf("End workload CRUD tests")
 }
 
 func TestWorkload_UpdatePut(t *testing.T) {
@@ -371,8 +371,8 @@ func TestWorkloadList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster2Request)
@@ -413,8 +413,8 @@ func TestWorkloadMemberList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)

@@ -20,14 +20,9 @@ import (
 // The key is derived from the json property respectively of the
 // structs WorkloadMember defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIWorkloadMemberToProto = map[string]string{
-	"Kind":       inv_computev1.WorkloadMemberFieldKind,
-	"InstanceId": inv_computev1.WorkloadMemberEdgeInstance, // instance_id is carried via the HostResource.ResourceID
-	"WorkloadId": inv_computev1.WorkloadMemberEdgeWorkload, // workload_id is carried via the Workload.ResourceID
-}
-
-var OpenAPIWorkloadMemberObjectsNames = map[string]struct{}{
-	"Workload": {},
-	"Instance": {},
+	computev1.WorkloadMemberFieldKind:       inv_computev1.WorkloadMemberFieldKind,
+	computev1.WorkloadMemberFieldInstanceId: inv_computev1.WorkloadMemberEdgeInstance,
+	computev1.WorkloadMemberFieldWorkloadId: inv_computev1.WorkloadMemberEdgeWorkload,
 }
 
 func toInvWorkloadMember(workloadMember *computev1.WorkloadMember) (*inv_computev1.WorkloadMember, error) {
@@ -81,7 +76,11 @@ func fromInvWorkloadMember(invWorkloadMember *inv_computev1.WorkloadMember) (*co
 		Kind:             computev1.WorkloadMemberKind(invWorkloadMember.GetKind()),
 		Workload:         workload,
 		Instance:         instance,
+		InstanceId:       instance.GetResourceId(),
 		Member:           instance,
+		WorkloadId:       workload.GetResourceId(),
+		CreatedAt:        invWorkloadMember.GetCreatedAt(),
+		UpdatedAt:        invWorkloadMember.GetUpdatedAt(),
 	}
 
 	return workloadMember, nil
@@ -128,13 +127,17 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 	req *restv1.ListWorkloadMembersRequest,
 ) (*restv1.ListWorkloadMembersResponse, error) {
 	zlog.Debug().Msg("ListWorkloadMembers")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_WorkloadMember{WorkloadMember: &inv_computev1.WorkloadMember{}},
 		},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter:  req.GetFilter(),
 	}
@@ -207,6 +210,44 @@ func (is *InventorygRPCServer) UpdateWorkloadMember(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_WorkloadMember{
+			WorkloadMember: invWorkloadMember,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetWorkloadMember()
+	invUpRes, err := fromInvWorkloadMember(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a workloadMember. (PATCH).
+func (is *InventorygRPCServer) PatchWorkloadMember(
+	ctx context.Context,
+	req *restv1.PatchWorkloadMemberRequest,
+) (*computev1.WorkloadMember, error) {
+	zlog.Debug().Msg("PatchWorkloadMember")
+
+	workloadMember := req.GetWorkloadMember()
+	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invWorkloadMember, req.GetFieldMask(), OpenAPIWorkloadMemberToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_WorkloadMember{
 			WorkloadMember: invWorkloadMember,

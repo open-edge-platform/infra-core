@@ -1,5 +1,8 @@
 # Edge Infrastructure Manager Core
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/open-edge-platform/infra-core/badge)](https://scorecard.dev/viewer/?uri=github.com/open-edge-platform/infra-core)
+
 ## Overview
 
 The repository includes the core micro-services of the Edge Infrastructure Manager of the Edge Manageability Framework.
