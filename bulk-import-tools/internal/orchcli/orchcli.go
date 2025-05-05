@@ -247,14 +247,14 @@ func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, e
 }
 
 func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, error) {
-	if uuid == "" {
+	if sn == "" && uuid == "" {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts", oC.Project))
 	query := uParsed.Query()
-	query.Set("filter", fmt.Sprintf("%s=%q", "uuid", uuid))
+	query.Set("filter", fmt.Sprintf("%s=%q AND %s=%q", "serialNumber", sn, "uuid", uuid))
 	uParsed.RawQuery = query.Encode()
 
 	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
@@ -273,27 +273,14 @@ func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, erro
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	host, err := findAvailableHost(&hosts, sn, uuid)
-	if err != nil {
-		return "", err
+	if *hosts.TotalElements != 1 {
+		return "", e.NewCustomError(e.ErrHostDetailMismatch)
 	}
+	// Get host at index 0 as this is the only host available
+	host := (*hosts.Hosts)[0]
+
 	oC.HostCache[*host.ResourceId] = host
 	return *host.ResourceId, nil
-}
-
-func findAvailableHost(hosts *api.HostsList, sn, uuid string) (api.Host, error) {
-	if *hosts.TotalElements > 0 {
-		for _, host := range *hosts.Hosts {
-			// check if the host is available and matches the serial number and UUID as provided
-			// in the input. Else report an error. Import tool should not update either of those fields
-			// as user intent might not be so.
-			if (host.SerialNumber != nil && *host.SerialNumber == sn) &&
-				(host.Uuid != nil && host.Uuid.String() == uuid) && host.Instance == nil {
-				return host, nil
-			}
-		}
-	}
-	return api.Host{}, e.NewCustomError(e.ErrHostDetailMismatch)
 }
 
 func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error) {
