@@ -2315,6 +2315,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	var newMetricsInterval int32 = 200
 	patchRequest := api.TelemetryMetricsProfileResource{
 		MetricsInterval: newMetricsInterval,
+		MetricsGroupId:  *metricsGroup1.JSON200.ResourceId,
 	}
 
 	// Perform the Patch operation
@@ -2364,7 +2365,8 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	// Modify fields for patching
 	newLogLevel := api.SEVERITYLEVELCRITICAL
 	patchRequest := api.TelemetryLogsProfileResource{
-		LogLevel: newLogLevel,
+		LogLevel:    newLogLevel,
+		LogsGroupId: *metricsGroup1.JSON200.ResourceId,
 	}
 
 	// Perform the Patch operation
