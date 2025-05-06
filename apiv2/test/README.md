@@ -12,7 +12,7 @@ The tests consider to have access to the cluster.
 export KEYCLOAK_URL="https://keycloak.kind.internal"
 export PASSWORD='ChangeMeOn1stLogin!'
 export USERNAME="sample-project-api-user"
-export API_URL="http://127.0.0.1:8080/edge-infra.orchestrator.apis/v1"
+export API_URL="http://127.0.0.1:8080/"
 export CA_PATH="orch-ca.crt"
 
 PROJECT_ID=$(kubectl get projects.project -o json | jq -r ".items[0].status.projectStatus.uID")
