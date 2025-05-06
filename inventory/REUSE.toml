@@ -17,6 +17,7 @@ path = [
     "sql/inventory.sql",
     "docs/inventory-er-diagram.svg",
     "docs/output.dbml"
+    ".gitleaksignore",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"
