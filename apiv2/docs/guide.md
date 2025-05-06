@@ -5,7 +5,7 @@
 - [Design](#overview)
 - [Compile](#compile)
 - [Implement](#implement)
-- [Breaking Changes](#breaking-changes)
+- [Changes](#changes)
 
 ## Overview
 
