@@ -15,6 +15,7 @@ path = [
   "tenant-controller/**",
   "inventory/docs/inventory-er-diagram.svg",
   "inventory/docs/output.dbml",
+  ".gitleaksignore",
 ]
 
 precedence = "aggregate"
