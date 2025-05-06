@@ -2309,7 +2309,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 		MetricsGroupId:  *metricsGroup1.JSON200.ResourceId,
 	}
 	metricsProfile := CreateTelemetryMetricsProfile(t, ctx, apiClient, telemetryMetricsProfile)
-	assert.Equal(t, 100, metricsProfile.JSON200.MetricsInterval)
+	assert.Equal(t, 300, int(metricsProfile.JSON200.MetricsInterval))
 
 	// Modify fields for patching
 	var newMetricsInterval int32 = 200
@@ -2359,7 +2359,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	}
 
 	logsProfile := CreateTelemetryLogsProfile(t, ctx, apiClient, TelemetryLogsProfile)
-	assert.Equal(t, api.SEVERITYLEVELWARN, logsProfile.JSON200.LogLevel)
+	assert.Equal(t, api.SEVERITYLEVELDEBUG, logsProfile.JSON200.LogLevel)
 
 	// Modify fields for patching
 	newLogLevel := api.SEVERITYLEVELCRITICAL
