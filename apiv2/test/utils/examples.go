@@ -55,13 +55,13 @@ var (
 	SschedName2 = "singleSched3"
 	SschedName3 = "singleSched3"
 
-	now                  = int64(time.Now().Unix())
-	FutureEpoch          = time.Unix(int64(now), 0).Add(1801 * time.Second)
-	SschedStart1   int64 = now + 1800
-	SschedStart2   int64 = now + 1800
-	SschedStart3   int64 = now + 1800
-	SschedEnd1     int64 = now + 3600
-	SschedEndError int64 = now - 1800
+	now                   = uint32(time.Now().Unix())
+	FutureEpoch           = time.Unix(int64(now), 0).Add(1801 * time.Second)
+	SschedStart1   uint32 = now + 1800
+	SschedStart2   uint32 = now + 1800
+	SschedStart3   uint32 = now + 1800
+	SschedEnd1     uint32 = now + 3600
+	SschedEndError uint32 = now - 1800
 
 	cronDayMonth = "10"
 	CronAny      = "*"

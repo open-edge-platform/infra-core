@@ -120,21 +120,21 @@ message HostResource {
   // Indicates interpretation of host_status. Set by RMs only.
   status.v1.StatusIndication host_status_indicator = 61;
   // UTC timestamp when host_status was last changed. Set by RMs only.
-  string host_status_timestamp = 62;
+  uint32 host_status_timestamp = 62;
 
   // textual message that describes the onboarding status of Host. Set by RMs only.
   string onboarding_status = 63 [(validate.rules).string = {max_len: 1024}];
   // Indicates interpretation of onboarding_status. Set by RMs only.
   status.v1.StatusIndication onboarding_status_indicator = 64;
   // UTC timestamp when onboarding_status was last changed. Set by RMs only.
-  string onboarding_status_timestamp = 65;
+  uint32 onboarding_status_timestamp = 65;
 
   // textual message that describes the onboarding status of Host. Set by RMs only.
   string registration_status = 66 [(validate.rules).string = {max_len: 1024}];
   // Indicates interpretation of registration_status. Set by RMs only.
   status.v1.StatusIndication registration_status_indicator = 67;
   // UTC timestamp when registration_status was last changed. Set by RMs only.
-  string registration_status_timestamp = 68;
+  uint32 registration_status_timestamp = 68;
 
   // Back-reference to attached host storage resources.
   repeated HoststorageResource host_storages = 70 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -352,7 +352,7 @@ message InstanceResource {
   // Indicates interpretation of instance_status. Set by RMs only.
   status.v1.StatusIndication instance_status_indicator = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when instance_status was last changed. Set by RMs only.
-  string instance_status_timestamp = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 instance_status_timestamp = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the provisioning status of Instance. Set by RMs only.
   string provisioning_status = 18 [(validate.rules).string = {max_len: 1024},
@@ -361,7 +361,7 @@ message InstanceResource {
   // Indicates interpretation of provisioning_status. Set by RMs only.
   status.v1.StatusIndication provisioning_status_indicator = 19 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when provisioning_status was last changed. Set by RMs only.
-  string provisioning_status_timestamp = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 provisioning_status_timestamp = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the update status of Instance. Set by RMs only.
   string update_status = 21 [(validate.rules).string = {max_len: 1024},
@@ -370,7 +370,7 @@ message InstanceResource {
   // Indicates interpretation of update_status. Set by RMs only.
   status.v1.StatusIndication update_status_indicator = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when update_status was last changed. Set by RMs only.
-  string update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
   // JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
   string update_status_detail = 24 [(validate.rules).string = {max_len: 100000},
     (google.api.field_behavior) = OUTPUT_ONLY
@@ -384,7 +384,7 @@ message InstanceResource {
   // Indicates interpretation of trusted_attestation_status. Set by RMs only.
   status.v1.StatusIndication trusted_attestation_status_indicator = 27 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-  string trusted_attestation_status_timestamp = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 trusted_attestation_status_timestamp = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The workload members associated with the instance.
   repeated WorkloadMember workload_members = 30 [(google.api.field_behavior) = OUTPUT_ONLY]; // back-reference to the Workload Members associated to this Instance

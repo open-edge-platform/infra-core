@@ -702,13 +702,13 @@ A Host resource.
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
-| host_status_timestamp | [string](#string) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
+| host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
 | onboarding_status | [string](#string) |  | textual message that describes the onboarding status of Host. Set by RMs only. |
 | onboarding_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of onboarding_status. Set by RMs only. |
-| onboarding_status_timestamp | [string](#string) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
+| onboarding_status_timestamp | [uint32](#uint32) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
 | registration_status | [string](#string) |  | textual message that describes the onboarding status of Host. Set by RMs only. |
 | registration_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of registration_status. Set by RMs only. |
-| registration_status_timestamp | [string](#string) |  | UTC timestamp when registration_status was last changed. Set by RMs only. |
+| registration_status_timestamp | [uint32](#uint32) |  | UTC timestamp when registration_status was last changed. Set by RMs only. |
 | host_storages | [HoststorageResource](#resources-compute-v1-HoststorageResource) | repeated | Back-reference to attached host storage resources. |
 | host_nics | [HostnicResource](#resources-compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. |
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
@@ -838,17 +838,17 @@ host or hypervisor.
 | security_feature | [resources.os.v1.SecurityFeature](#resources-os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
-| instance_status_timestamp | [string](#string) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
+| instance_status_timestamp | [uint32](#uint32) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
 | provisioning_status | [string](#string) |  | textual message that describes the provisioning status of Instance. Set by RMs only. |
 | provisioning_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of provisioning_status. Set by RMs only. |
-| provisioning_status_timestamp | [string](#string) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
+| provisioning_status_timestamp | [uint32](#uint32) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
 | update_status | [string](#string) |  | textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
-| update_status_timestamp | [string](#string) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
+| update_status_timestamp | [uint32](#uint32) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
 | update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
 | trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
-| trusted_attestation_status_timestamp | [string](#string) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
+| trusted_attestation_status_timestamp | [uint32](#uint32) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
 | workload_members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The workload members associated with the instance.
 
 back-reference to the Workload Members associated to this Instance |
@@ -1096,8 +1096,8 @@ status of one-time-schedule |
 | target_site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Resource ID of Site this applies to. |
 | target_host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Resource ID of Host this applies to. |
 | target_region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Resource ID of Region this applies to. |
-| start_seconds | [int64](#int64) |  | The start time in seconds, of the single schedule. |
-| end_seconds | [int64](#int64) |  | The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds. |
+| start_seconds | [uint32](#uint32) |  | The start time in seconds, of the single schedule. |
+| end_seconds | [uint32](#uint32) |  | The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds. |
 | single_scheduleID | [string](#string) |  | The single schedule resource&#39;s unique identifier. Alias of resourceId. |
 | target_host_id | [string](#string) |  | The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |

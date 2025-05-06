@@ -56,12 +56,12 @@ message SingleScheduleResource {
   }
 
   // The start time in seconds, of the single schedule.
-  int64 start_seconds = 9 [(google.api.field_behavior) = REQUIRED,
-    (validate.rules).int64 = {gte:1}
+  uint32 start_seconds = 9 [(google.api.field_behavior) = REQUIRED,
+    (validate.rules).uint32 = {gte:1}
   ];
   // The end time in seconds, of the single schedule.
   // The value of endSeconds must be equal to or bigger than the value of startSeconds.
-  int64 end_seconds = 10 [(validate.rules).int64 = {gte:1}];
+  uint32 end_seconds = 10 [(validate.rules).uint32 = {gte:1}];
 
   // The single schedule resource's unique identifier. Alias of resourceId.
   string single_scheduleID = 5001 [

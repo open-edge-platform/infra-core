@@ -3199,8 +3199,9 @@ components:
                     description: Indicates interpretation of host_status. Set by RMs only.
                     format: enum
                 hostStatusTimestamp:
-                    type: string
+                    type: integer
                     description: UTC timestamp when host_status was last changed. Set by RMs only.
+                    format: uint32
                 onboardingStatus:
                     maxLength: 1024
                     type: string
@@ -3214,8 +3215,9 @@ components:
                     description: Indicates interpretation of onboarding_status. Set by RMs only.
                     format: enum
                 onboardingStatusTimestamp:
-                    type: string
+                    type: integer
                     description: UTC timestamp when onboarding_status was last changed. Set by RMs only.
+                    format: uint32
                 registrationStatus:
                     maxLength: 1024
                     type: string
@@ -3229,8 +3231,9 @@ components:
                     description: Indicates interpretation of registration_status. Set by RMs only.
                     format: enum
                 registrationStatusTimestamp:
-                    type: string
+                    type: integer
                     description: UTC timestamp when registration_status was last changed. Set by RMs only.
+                    format: uint32
                 hostStorages:
                     readOnly: true
                     type: array
@@ -3551,8 +3554,9 @@ components:
                     format: enum
                 instanceStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when instance_status was last changed. Set by RMs only.
+                    format: uint32
                 provisioningStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3569,8 +3573,9 @@ components:
                     format: enum
                 provisioningStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when provisioning_status was last changed. Set by RMs only.
+                    format: uint32
                 updateStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3587,8 +3592,9 @@ components:
                     format: enum
                 updateStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when update_status was last changed. Set by RMs only.
+                    format: uint32
                 updateStatusDetail:
                     readOnly: true
                     maxLength: 100000
@@ -3610,8 +3616,9 @@ components:
                     format: enum
                 trustedAttestationStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
+                    format: uint32
                 workloadMembers:
                     readOnly: true
                     type: array
@@ -4384,15 +4391,13 @@ components:
                 targetRegion:
                     $ref: '#/components/schemas/RegionResource'
                 startSeconds:
-                    minimum: !!float 1
                     type: integer
                     description: The start time in seconds, of the single schedule.
-                    format: int64
+                    format: uint32
                 endSeconds:
-                    minimum: !!float 1
                     type: integer
                     description: The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
-                    format: int64
+                    format: uint32
                 singleScheduleID:
                     readOnly: true
                     pattern: ^singlesche-[0-9a-f]{8}$

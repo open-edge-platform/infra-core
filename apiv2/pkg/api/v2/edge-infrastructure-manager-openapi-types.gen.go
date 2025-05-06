@@ -349,7 +349,7 @@ type HostResource struct {
 	HostStatusIndicator *HostResourceHostStatusIndicator `json:"hostStatusIndicator,omitempty"`
 
 	// HostStatusTimestamp UTC timestamp when host_status was last changed. Set by RMs only.
-	HostStatusTimestamp *string `json:"hostStatusTimestamp,omitempty"`
+	HostStatusTimestamp *uint32 `json:"hostStatusTimestamp,omitempty"`
 
 	// HostStorages Back-reference to attached host storage resources.
 	HostStorages *[]HoststorageResource `json:"hostStorages,omitempty"`
@@ -385,7 +385,7 @@ type HostResource struct {
 	OnboardingStatusIndicator *HostResourceOnboardingStatusIndicator `json:"onboardingStatusIndicator,omitempty"`
 
 	// OnboardingStatusTimestamp UTC timestamp when onboarding_status was last changed. Set by RMs only.
-	OnboardingStatusTimestamp *string `json:"onboardingStatusTimestamp,omitempty"`
+	OnboardingStatusTimestamp *uint32 `json:"onboardingStatusTimestamp,omitempty"`
 
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
@@ -397,7 +397,7 @@ type HostResource struct {
 	RegistrationStatusIndicator *HostResourceRegistrationStatusIndicator `json:"registrationStatusIndicator,omitempty"`
 
 	// RegistrationStatusTimestamp UTC timestamp when registration_status was last changed. Set by RMs only.
-	RegistrationStatusTimestamp *string `json:"registrationStatusTimestamp,omitempty"`
+	RegistrationStatusTimestamp *uint32 `json:"registrationStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -602,7 +602,7 @@ type InstanceResource struct {
 	InstanceStatusIndicator *InstanceResourceInstanceStatusIndicator `json:"instanceStatusIndicator,omitempty"`
 
 	// InstanceStatusTimestamp UTC timestamp when instance_status was last changed. Set by RMs only.
-	InstanceStatusTimestamp *string `json:"instanceStatusTimestamp,omitempty"`
+	InstanceStatusTimestamp *uint32 `json:"instanceStatusTimestamp,omitempty"`
 
 	// Kind Kind of resource. Frequently tied to Provider.
 	Kind *InstanceResourceKind `json:"kind,omitempty"`
@@ -624,7 +624,7 @@ type InstanceResource struct {
 	ProvisioningStatusIndicator *InstanceResourceProvisioningStatusIndicator `json:"provisioningStatusIndicator,omitempty"`
 
 	// ProvisioningStatusTimestamp UTC timestamp when provisioning_status was last changed. Set by RMs only.
-	ProvisioningStatusTimestamp *string `json:"provisioningStatusTimestamp,omitempty"`
+	ProvisioningStatusTimestamp *uint32 `json:"provisioningStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -640,7 +640,7 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator *InstanceResourceTrustedAttestationStatusIndicator `json:"trustedAttestationStatusIndicator,omitempty"`
 
 	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	TrustedAttestationStatusTimestamp *string `json:"trustedAttestationStatusTimestamp,omitempty"`
+	TrustedAttestationStatusTimestamp *uint32 `json:"trustedAttestationStatusTimestamp,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
@@ -652,7 +652,7 @@ type InstanceResource struct {
 	UpdateStatusIndicator *InstanceResourceUpdateStatusIndicator `json:"updateStatusIndicator,omitempty"`
 
 	// UpdateStatusTimestamp UTC timestamp when update_status was last changed. Set by RMs only.
-	UpdateStatusTimestamp *string `json:"updateStatusTimestamp,omitempty"`
+	UpdateStatusTimestamp *uint32 `json:"updateStatusTimestamp,omitempty"`
 
 	// WorkloadMembers The workload members associated with the instance.
 	WorkloadMembers *[]WorkloadMember `json:"workloadMembers,omitempty"`
@@ -1125,7 +1125,7 @@ type RepeatedScheduleResourceScheduleStatus string
 // SingleScheduleResource A single schedule resource.
 type SingleScheduleResource struct {
 	// EndSeconds The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
-	EndSeconds *int64 `json:"endSeconds,omitempty"`
+	EndSeconds *uint32 `json:"endSeconds,omitempty"`
 
 	// Name The schedule's name.
 	Name *string `json:"name,omitempty"`
@@ -1140,7 +1140,7 @@ type SingleScheduleResource struct {
 	SingleScheduleID *string `json:"singleScheduleID,omitempty"`
 
 	// StartSeconds The start time in seconds, of the single schedule.
-	StartSeconds int64 `json:"startSeconds"`
+	StartSeconds uint32 `json:"startSeconds"`
 
 	// TargetHost A Host resource.
 	TargetHost *HostResource `json:"targetHost,omitempty"`
