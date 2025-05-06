@@ -2301,10 +2301,12 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	metricsGroup1 := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
 	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 	telemetryMetricsProfile := api.TelemetryMetricsProfileResource{
 		MetricsInterval: 300,
 		TargetSite:      siteCreated1.JSON200.ResourceId,
+		MetricsGroupId:  *metricsGroup1.JSON200.ResourceId,
 	}
 	metricsProfile := CreateTelemetryMetricsProfile(t, ctx, apiClient, telemetryMetricsProfile)
 	assert.Equal(t, 100, metricsProfile.JSON200.MetricsInterval)
@@ -2348,10 +2350,12 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	metricsGroup1 := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
 	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 	TelemetryLogsProfile := api.TelemetryLogsProfileResource{
-		LogLevel:   api.SEVERITYLEVELDEBUG,
-		TargetSite: siteCreated1.JSON200.ResourceId,
+		LogLevel:    api.SEVERITYLEVELDEBUG,
+		TargetSite:  siteCreated1.JSON200.ResourceId,
+		LogsGroupId: *metricsGroup1.JSON200.ResourceId,
 	}
 
 	logsProfile := CreateTelemetryLogsProfile(t, ctx, apiClient, TelemetryLogsProfile)
