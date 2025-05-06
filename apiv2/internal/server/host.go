@@ -107,27 +107,15 @@ func fromInvHostStatus(
 ) error {
 	hostStatus := invHost.GetHostStatus()
 	hostStatusIndicator := statusv1.StatusIndication(invHost.GetHostStatusIndicator())
-	hostStatusTimestamp, err := SafeUint64ToInt64(invHost.GetHostStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	hostStatusTimestamp := fmt.Sprintf("%d", invHost.GetHostStatusTimestamp())
 
 	onboardingStatus := invHost.GetOnboardingStatus()
 	onboardingStatusIndicator := statusv1.StatusIndication(invHost.GetOnboardingStatusIndicator())
-	onboardingStatusTimestamp, err := SafeUint64ToInt64(invHost.GetOnboardingStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	onboardingStatusTimestamp := fmt.Sprintf("%d", invHost.GetOnboardingStatusTimestamp())
 
 	registrationStatus := invHost.GetRegistrationStatus()
 	registrationStatusIndicator := statusv1.StatusIndication(invHost.GetRegistrationStatusIndicator())
-	registrationStatusTimestamp, err := SafeUint64ToInt64(invHost.GetRegistrationStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	registrationStatusTimestamp := fmt.Sprintf("%d", invHost.GetRegistrationStatusTimestamp())
 
 	host.HostStatus = hostStatus
 	host.HostStatusIndicator = hostStatusIndicator

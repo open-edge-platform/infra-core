@@ -5,6 +5,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
@@ -80,32 +81,20 @@ func fromInvInstanceStatus(
 ) error {
 	instanceStatus := invInstance.GetInstanceStatus()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
-	instanceStatusTimestamp, err := SafeUint64ToInt64(invInstance.GetInstanceStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	instanceStatusTimestamp := fmt.Sprintf("%d", invInstance.GetInstanceStatusTimestamp())
+
 	provisioningStatus := invInstance.GetProvisioningStatus()
 	provisioningStatusIndicator := statusv1.StatusIndication(invInstance.GetProvisioningStatusIndicator())
-	provisioningStatusTimestamp, err := SafeUint64ToInt64(invInstance.GetProvisioningStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	provisioningStatusTimestamp := fmt.Sprintf("%d", invInstance.GetProvisioningStatusTimestamp())
+
 	updateStatus := invInstance.GetUpdateStatus()
 	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
-	updateStatusTimestamp, err := SafeUint64ToInt64(invInstance.GetUpdateStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	updateStatusTimestamp := fmt.Sprintf("%d", invInstance.GetUpdateStatusTimestamp())
+
 	attestationStatus := invInstance.GetTrustedAttestationStatus()
 	attestationStatusIndicator := statusv1.StatusIndication(invInstance.GetTrustedAttestationStatusIndicator())
-	attestationStatusTimestamp, err := SafeUint64ToInt64(invInstance.GetTrustedAttestationStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	attestationStatusTimestamp := fmt.Sprintf("%d", invInstance.GetTrustedAttestationStatusTimestamp())
+
 	instance.InstanceStatus = instanceStatus
 	instance.InstanceStatusIndicator = instanceStatusIndicator
 	instance.InstanceStatusTimestamp = instanceStatusTimestamp
