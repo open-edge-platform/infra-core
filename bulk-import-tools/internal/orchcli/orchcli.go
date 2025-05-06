@@ -246,6 +246,11 @@ func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, e
 	return false, nil
 }
 
+// GetHostID is invoked when a pre-registered host has caused StatusPreconditionFailed error
+// in /register call. HostID is queried in such cases to attempt to complete the import
+// ( i.e. - instance creation & site,metadata allocation).
+// Note that the post register steps would be executed only for a strict match of the Serial
+// Number and UUID. A partial match might indicate intentional registration of another host.
 func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, error) {
 	if sn == "" && uuid == "" {
 		return "", e.NewCustomError(e.ErrInternal)
@@ -279,6 +284,10 @@ func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, erro
 	// Get host at index 0 as this is the only host available
 	host := (*hosts.Hosts)[0]
 
+	// If an instance for the host already exists, return an error
+	if host.Instance != nil {
+		return "", e.NewCustomError(e.ErrAlreadyRegistered)
+	}
 	oC.HostCache[*host.ResourceId] = host
 	return *host.ResourceId, nil
 }

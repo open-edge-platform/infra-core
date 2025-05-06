@@ -975,4 +975,29 @@ func TestGetHostID(t *testing.T) {
 		assert.Error(t, err)
 		assert.Empty(t, resp)
 	})
+
+	t.Run("Host Instance Not Nil", func(t *testing.T) {
+		hostResourceWithInstance := api.Host{
+			ResourceId:   &hostID,
+			SerialNumber: &sn,
+			Uuid:         func() *u.UUID { id := u.MustParse(uuid); return &id }(),
+			Instance:     &api.Instance{}, // Simulate a host with an instance
+		}
+		hostListWithInstance := api.HostsList{
+			TotalElements: new(int),
+			Hosts: &[]api.Host{
+				hostResourceWithInstance,
+			},
+		}
+		*hostListWithInstance.TotalElements = 1
+
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostListWithInstance)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.Empty(t, resp)
+	})
 }
