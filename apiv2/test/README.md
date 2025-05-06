@@ -1,33 +1,54 @@
 # Integration Tests
 
-This file describes how to execute the integration tests placed in this folder.
-
-> These tests do not delete created Hosts from the Inventory, which means that some tests may fail,
-> if you run them two times in a row.
-> To avoid that, please either re-deploy API and Inventory,
-> or use `hostcli` to delete duplicated/unnecessary hosts
-
 ## Requirements
 
-It requires curl, jq, golang and make installed.
-And it requires an infra orchestrator deployed and operational, with a project and user already configured.
+It requires golang and kubectl installed, besides an operational Kubernetes cluster
+with EMF (Edge Manageability Framework) deployed.
+
+The tests consider to have access to the cluster.
+
+```bash
+# Set variables needed for the tests
+export KEYCLOAK_URL="https://keycloak.kind.internal"
+export PASSWORD='ChangeMeOn1stLogin!'
+export USERNAME="sample-project-api-user"
+export API_URL="http://127.0.0.1:8080/edge-infra.orchestrator.apis/v1"
+export CA_PATH="orch-ca.crt"
+
+PROJECT_ID=$(kubectl get projects.project -o json | jq -r ".items[0].status.projectStatus.uID")
+
+JWT_TOKEN=$(curl -k --location --request POST ${KEYCLOAK_URL}/realms/master/protocol/openid-connect/token --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=system-client' --data-urlencode username=${USERNAME} --data-urlencode password=${PASSWORD} --data-urlencode 'scope=openid profile email groups' | jq -r '.access_token')
+```
+
+The integration tests require access to the Infrastructure Manager REST API,
+the the project ID which is associated with the USERNAME,
+the path of the cluster CA file, and the JWT token associated with the USERNAME credentials.
+
+Notice: change the names of the variables according to your deployment setup.
 
 ## Run
 
-Retrieve a token from Keycloak, make sure to set the correct username and password.
+Then enable a port-forward to have interface with the API component via port 8080.
 
 ```bash
-API_TOKEN=$(curl -k --location --request POST 'https://keycloak.kind.internal/realms/master/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=system-client' --data-urlencode 'username=sample-project-api-user' --data-urlencode 'password=ChangeMeOn1stLogin!' --data-urlencode 'scope=openid profile email groups' | jq -r '.access_token')
+kubectl port-forward svc/apiv2-proxy -n orch-infra --address 0.0.0.0 8080:8080 &
 ```
 
-Get the Project ID associated with the user credentials used to get the token above, and run integration tests as below:
+Run the integration tests:
 
 ```bash
-PROJECT_ID=8f13df5b-5853-4ce3-8b83-db23108daa54  JWT_TOKEN=$API_TOKEN go test -timeout=30m -count=1 -failfast -v ./test/client/ -apiurl=https://iaasv2.kind.internal -caPath=ca.crt -run TestHost
+# A test case can be specified after the `go test` statement, such as: -run TestHostCustom
+JWT_TOKEN=${JWT_TOKEN} PROJECT_ID=${PROJECT_ID}  go test -v -count=1 ./test/client/ -apiurl=${API_URL} -caPath=${CA_PATH} 
 ```
 
-Or using a Make target:
+or using Make target:
 
 ```bash
-make int-test-host API_URL="https://iaasv2.kind.internal" PROJECT_ID=8f13df5b-5853-4ce3-8b83-db23108daa54  JWT_TOKEN=$API_TOKEN
+make int-test JWT_TOKEN=${JWT_TOKEN} PROJECT_ID=${PROJECT_ID} API_URL=${API_URL} CA_PATH=${CA_PATH}
+```
+
+Kill the port-forward command:
+
+```bash
+kill $(ps -eaf | grep 'kubectl' | grep 'port-forward svc/apiv2-proxy' | awk '{print $2}')
 ```
