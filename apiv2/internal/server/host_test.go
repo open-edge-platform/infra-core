@@ -19,6 +19,7 @@ import (
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
+	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	inv_statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 )
 
@@ -356,6 +357,20 @@ func TestHost_Get(t *testing.T) {
 								},
 							},
 						}, nil).Once(),
+					mockedClient.On("List", mock.Anything, mock.Anything).
+						Return(&inventory.ListResourcesResponse{
+							Resources: []*inventory.GetResourceResponse{
+								{
+									Resource: &inventory.Resource{
+										Resource: &inventory.Resource_Ipaddress{
+											Ipaddress: &inv_networkv1.IPAddressResource{
+												ResourceId: "ipaddress-12345678",
+											},
+										},
+									},
+								},
+							},
+						}, nil).Once(),
 				}
 			},
 			ctx: context.Background(),
@@ -432,6 +447,22 @@ func TestHost_List(t *testing.T) {
 								},
 							},
 							TotalElements: 1,
+							HasNext:       false,
+						}, nil).Once(),
+					mockedClient.On("List", mock.Anything, mock.Anything).
+						Return(&inventory.ListResourcesResponse{
+							Resources: []*inventory.GetResourceResponse{
+								{
+									Resource: &inventory.Resource{
+										Resource: &inventory.Resource_Ipaddress{
+											Ipaddress: &inv_networkv1.IPAddressResource{
+												ResourceId: "ipaddress-12345678",
+											},
+										},
+									},
+								},
+							},
+							TotalElements: 0,
 							HasNext:       false,
 						}, nil).Once(),
 				}
