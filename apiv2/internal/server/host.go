@@ -101,6 +101,70 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 	return invHost, nil
 }
 
+func fromInvHostStatus(
+	invHost *inv_computev1.HostResource,
+	host *computev1.HostResource,
+) error {
+	hostStatus := invHost.GetHostStatus()
+	hostStatusIndicator := statusv1.StatusIndication(invHost.GetHostStatusIndicator())
+	hostStatusTimestamp, err := SafeUint64ToInt64(invHost.GetHostStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return err
+	}
+
+	onboardingStatus := invHost.GetOnboardingStatus()
+	onboardingStatusIndicator := statusv1.StatusIndication(invHost.GetOnboardingStatusIndicator())
+	onboardingStatusTimestamp, err := SafeUint64ToInt64(invHost.GetOnboardingStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return err
+	}
+
+	registrationStatus := invHost.GetRegistrationStatus()
+	registrationStatusIndicator := statusv1.StatusIndication(invHost.GetRegistrationStatusIndicator())
+	registrationStatusTimestamp, err := SafeUint64ToInt64(invHost.GetRegistrationStatusTimestamp())
+	if err != nil {
+		zlog.Error().Err(err).Msg("failed to convert status timestamp")
+		return err
+	}
+
+	host.HostStatus = hostStatus
+	host.HostStatusIndicator = hostStatusIndicator
+	host.HostStatusTimestamp = hostStatusTimestamp
+	host.OnboardingStatus = onboardingStatus
+	host.OnboardingStatusIndicator = onboardingStatusIndicator
+	host.OnboardingStatusTimestamp = onboardingStatusTimestamp
+	host.RegistrationStatus = registrationStatus
+	host.RegistrationStatusIndicator = registrationStatusIndicator
+	host.RegistrationStatusTimestamp = registrationStatusTimestamp
+	return nil
+}
+
+func fromInvHostEdges(
+	invHost *inv_computev1.HostResource,
+	host *computev1.HostResource,
+) error {
+	var err error
+	var hostInstance *computev1.InstanceResource
+	if invHost.GetInstance() != nil {
+		hostInstance, err = fromInvInstance(invHost.GetInstance())
+		if err != nil {
+			return err
+		}
+	}
+	var hostSite *locationv1.SiteResource
+	if invHost.GetSite() != nil {
+		hostSite, err = fromInvSite(invHost.GetSite(), nil)
+		if err != nil {
+			return err
+		}
+	}
+	host.Instance = hostInstance
+	host.Site = hostSite
+	return nil
+}
+
 func fromInvHost(
 	invHost *inv_computev1.HostResource,
 	resMeta *inventory.GetResourceResponse_ResourceMetadata,
@@ -114,86 +178,46 @@ func fromInvHost(
 	if err != nil {
 		return nil, err
 	}
-	var hostInstance *computev1.InstanceResource
-	if invHost.GetInstance() != nil {
-		hostInstance, err = fromInvInstance(invHost.GetInstance())
-		if err != nil {
-			return nil, err
-		}
-	}
-	var hostSite *locationv1.SiteResource
-	if invHost.GetSite() != nil {
-		hostSite, err = fromInvSite(invHost.GetSite(), nil)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	hostStatus := invHost.GetHostStatus()
-	hostStatusIndicator := statusv1.StatusIndication(invHost.GetHostStatusIndicator())
-	hostStatusTimestamp, err := SafeUint64Toint64(invHost.GetHostStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return nil, err
-	}
-
-	onboardingStatus := invHost.GetOnboardingStatus()
-	onboardingStatusIndicator := statusv1.StatusIndication(invHost.GetOnboardingStatusIndicator())
-	onboardingStatusTimestamp, err := SafeUint64Toint64(invHost.GetOnboardingStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return nil, err
-	}
-
-	registrationStatus := invHost.GetRegistrationStatus()
-	registrationStatusIndicator := statusv1.StatusIndication(invHost.GetRegistrationStatusIndicator())
-	registrationStatusTimestamp, err := SafeUint64Toint64(invHost.GetRegistrationStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return nil, err
-	}
 
 	host := &computev1.HostResource{
-		ResourceId:                  invHost.GetResourceId(),
-		Name:                        invHost.GetName(),
-		DesiredState:                computev1.HostState(invHost.GetDesiredState()),
-		CurrentState:                computev1.HostState(invHost.GetCurrentState()),
-		SiteId:                      invHost.GetSite().GetResourceId(),
-		Site:                        hostSite,
-		Note:                        invHost.GetNote(),
-		SerialNumber:                invHost.GetSerialNumber(),
-		MemoryBytes:                 fmt.Sprintf("%d", invHost.GetMemoryBytes()),
-		CpuModel:                    invHost.GetCpuModel(),
-		CpuSockets:                  invHost.GetCpuSockets(),
-		CpuCores:                    invHost.GetCpuCores(),
-		CpuCapabilities:             invHost.GetCpuCapabilities(),
-		CpuArchitecture:             invHost.GetCpuArchitecture(),
-		CpuThreads:                  invHost.GetCpuThreads(),
-		CpuTopology:                 invHost.GetCpuTopology(),
-		BmcKind:                     computev1.BaremetalControllerKind(invHost.GetBmcKind()),
-		BmcIp:                       invHost.GetBmcIp(),
-		Hostname:                    invHost.GetHostname(),
-		ProductName:                 invHost.GetProductName(),
-		BiosVersion:                 invHost.GetBiosVersion(),
-		BiosReleaseDate:             invHost.GetBiosReleaseDate(),
-		BiosVendor:                  invHost.GetBiosVendor(),
-		HostStatus:                  hostStatus,
-		HostStatusIndicator:         hostStatusIndicator,
-		HostStatusTimestamp:         hostStatusTimestamp,
-		OnboardingStatus:            onboardingStatus,
-		OnboardingStatusIndicator:   onboardingStatusIndicator,
-		OnboardingStatusTimestamp:   onboardingStatusTimestamp,
-		RegistrationStatus:          registrationStatus,
-		RegistrationStatusIndicator: registrationStatusIndicator,
-		RegistrationStatusTimestamp: registrationStatusTimestamp,
-		HostStorages:                fromInvHostStorages(invHost.GetHostStorages()),
-		HostNics:                    fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
-		HostUsbs:                    fromInvHostUsbs(invHost.GetHostUsbs()),
-		HostGpus:                    fromInvHostGpus(invHost.GetHostGpus()),
-		Instance:                    hostInstance,
-		Metadata:                    metadata,
-		InheritedMetadata:           []*commonv1.MetadataItem{},
-		Timestamps:                  GrpcToOpenAPITimestamps(invHost),
+		ResourceId:        invHost.GetResourceId(),
+		Name:              invHost.GetName(),
+		DesiredState:      computev1.HostState(invHost.GetDesiredState()),
+		CurrentState:      computev1.HostState(invHost.GetCurrentState()),
+		SiteId:            invHost.GetSite().GetResourceId(),
+		Note:              invHost.GetNote(),
+		SerialNumber:      invHost.GetSerialNumber(),
+		MemoryBytes:       fmt.Sprintf("%d", invHost.GetMemoryBytes()),
+		CpuModel:          invHost.GetCpuModel(),
+		CpuSockets:        invHost.GetCpuSockets(),
+		CpuCores:          invHost.GetCpuCores(),
+		CpuCapabilities:   invHost.GetCpuCapabilities(),
+		CpuArchitecture:   invHost.GetCpuArchitecture(),
+		CpuThreads:        invHost.GetCpuThreads(),
+		CpuTopology:       invHost.GetCpuTopology(),
+		BmcKind:           computev1.BaremetalControllerKind(invHost.GetBmcKind()),
+		BmcIp:             invHost.GetBmcIp(),
+		Hostname:          invHost.GetHostname(),
+		ProductName:       invHost.GetProductName(),
+		BiosVersion:       invHost.GetBiosVersion(),
+		BiosReleaseDate:   invHost.GetBiosReleaseDate(),
+		BiosVendor:        invHost.GetBiosVendor(),
+		HostStorages:      fromInvHostStorages(invHost.GetHostStorages()),
+		HostNics:          fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
+		HostUsbs:          fromInvHostUsbs(invHost.GetHostUsbs()),
+		HostGpus:          fromInvHostGpus(invHost.GetHostGpus()),
+		Metadata:          metadata,
+		InheritedMetadata: []*commonv1.MetadataItem{},
+		Timestamps:        GrpcToOpenAPITimestamps(invHost),
+	}
+
+	if err = fromInvHostEdges(invHost, host); err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert from inventory host edges")
+		return nil, errors.Wrap(err)
+	}
+	if err = fromInvHostStatus(invHost, host); err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert from inventory host status")
+		return nil, errors.Wrap(err)
 	}
 
 	hostUUID := invHost.GetUuid()
@@ -350,7 +374,7 @@ func (is *InventorygRPCServer) ListHosts(
 		Filter:   req.GetFilter(),
 	}
 
-	if err := validator.ValidateMessage(filter); err != nil {
+	if err = validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}
@@ -769,7 +793,6 @@ func (is *InventorygRPCServer) GetHostsSummary(
 }
 
 func fromInvIPAddresses(
-	nicID string,
 	invIPAddresses []*inv_networkv1.IPAddressResource,
 ) []*networkv1.IPAddressResource {
 	IPAddresses := []*networkv1.IPAddressResource{}
@@ -828,7 +851,7 @@ func (is *InventorygRPCServer) getInterfaceToIPAddresses(
 			}
 			invIPAddresses = append(invIPAddresses, invIPAddress)
 		}
-		IPAddresses := fromInvIPAddresses(hostInterface.GetResourceId(), invIPAddresses)
+		IPAddresses := fromInvIPAddresses(invIPAddresses)
 		nicToIPAddresses[hostInterface.GetResourceId()] = IPAddresses
 	}
 	return nicToIPAddresses, nil

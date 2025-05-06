@@ -77,15 +77,21 @@ func TelemetryMetricsProfileResourcetoGRPC(
 	if telemetryMetricsProfile == nil {
 		return &inv_telemetryv1.TelemetryProfile{}, nil
 	}
+	metricsInterval, err := SafeInt32ToUint32(telemetryMetricsProfile.GetMetricsInterval())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("Failed to convert metrics interval %d", telemetryMetricsProfile.GetMetricsInterval())
+		return nil, err
+	}
+
 	telemetryProfile := &inv_telemetryv1.TelemetryProfile{
 		Kind: inv_telemetryv1.TelemetryResourceKind(*telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS.Enum()),
 		Group: &inv_telemetryv1.TelemetryGroupResource{
 			ResourceId: telemetryMetricsProfile.GetMetricsGroupId(),
 		},
-		MetricsInterval: uint32(telemetryMetricsProfile.GetMetricsInterval()),
+		MetricsInterval: metricsInterval,
 	}
 
-	err := validateAndSetTelemetryProfileRelations(
+	err = validateAndSetTelemetryProfileRelations(
 		telemetryProfile,
 		telemetryMetricsProfile.GetTargetInstance(),
 		telemetryMetricsProfile.GetTargetSite(),

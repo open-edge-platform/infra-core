@@ -192,7 +192,7 @@ func (is *InventorygRPCServer) ListRegions(
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-	if err := validator.ValidateMessage(filter); err != nil {
+	if err = validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}

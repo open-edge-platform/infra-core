@@ -85,10 +85,16 @@ func toInvRepeatedSchedule(
 		return nil, err
 	}
 
+	durationSeconds, err := SafeInt32ToUint32(repeatedSchedule.GetDurationSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert duration seconds")
+		return nil, err
+	}
+
 	invRepeatedSchedule := &inv_schedulev1.RepeatedScheduleResource{
 		ScheduleStatus:  inv_schedulev1.ScheduleStatus(repeatedSchedule.GetScheduleStatus()),
 		Name:            repeatedSchedule.GetName(),
-		DurationSeconds: uint32(repeatedSchedule.GetDurationSeconds()),
+		DurationSeconds: durationSeconds,
 		CronMinutes:     repeatedSchedule.GetCronMinutes(),
 		CronHours:       repeatedSchedule.GetCronHours(),
 		CronDayMonth:    repeatedSchedule.GetCronDayMonth(),
@@ -109,7 +115,7 @@ func toInvRepeatedSchedule(
 		invRepeatedSchedule.Relation = createRSRTargetSite(siteID)
 	}
 
-	err := validator.ValidateMessage(invRepeatedSchedule)
+	err = validator.ValidateMessage(invRepeatedSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
 		return nil, err

@@ -59,11 +59,22 @@ func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*in
 		return nil, err
 	}
 
+	startSeconds, err := SafeInt64ToUint64(singleSchedule.GetStartSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert start seconds")
+		return nil, err
+	}
+
+	endSeconds, err := SafeInt64ToUint64(singleSchedule.GetEndSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert end seconds")
+		return nil, err
+	}
 	invSingleschedule := &inv_schedulev1.SingleScheduleResource{
 		ScheduleStatus: inv_schedulev1.ScheduleStatus(singleSchedule.GetScheduleStatus()),
 		Name:           singleSchedule.GetName(),
-		StartSeconds:   uint64(singleSchedule.GetStartSeconds()),
-		EndSeconds:     uint64(singleSchedule.GetEndSeconds()),
+		StartSeconds:   startSeconds,
+		EndSeconds:     endSeconds,
 	}
 
 	if isSet(&singleSchedule.TargetRegionId) {
@@ -90,7 +101,7 @@ func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*in
 		}
 	}
 
-	err := validator.ValidateMessage(invSingleschedule)
+	err = validator.ValidateMessage(invSingleschedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
 		return nil, err
