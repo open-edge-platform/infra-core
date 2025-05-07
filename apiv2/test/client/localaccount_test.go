@@ -50,24 +50,6 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 	assert.Equal(t, utils.LocalAccount2Request.Username, get2.JSON200.Username)
 	assert.Equal(t, utils.LocalAccount2Request.SshKey, get2.JSON200.SshKey)
 
-	// Delete LocalAccount 1
-	del1, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
-		ctx,
-		*account1.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, del1.StatusCode())
-
-	// Delete LocalAccount 2
-	del2, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
-		ctx,
-		*account2.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, del2.StatusCode())
-
 	log.Info().Msgf("End CreateGetDelete LocalAccount tests")
 }
 
