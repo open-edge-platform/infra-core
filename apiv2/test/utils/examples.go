@@ -826,7 +826,7 @@ var (
 	LocalAccount1Request = api.LocalAccountResource{
 		LocalAccountID: nil, // This will be populated by the API upon creation
 		ResourceId:     nil, // This will be populated by the API upon creation
-		SshKey:         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey1",
+		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey1",
 		Timestamps:     nil, // This will be populated by the API upon creation
 		Username:       "user1",
 	}
@@ -835,7 +835,7 @@ var (
 	LocalAccount2Request = api.LocalAccountResource{
 		LocalAccountID: nil, // This will be populated by the API upon creation
 		ResourceId:     nil, // This will be populated by the API upon creation
-		SshKey:         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey2",
+		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey2",
 		Timestamps:     nil, // This will be populated by the API upon creation
 		Username:       "user2",
 	}
@@ -844,7 +844,7 @@ var (
 	LocalAccountNoName = api.LocalAccountResource{
 		LocalAccountID: nil,
 		ResourceId:     nil,
-		SshKey:         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey3",
+		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey3",
 		Timestamps:     nil,
 		Username:       "",
 	}
