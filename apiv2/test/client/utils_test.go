@@ -6,6 +6,7 @@ package client
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"testing"
 
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
@@ -295,5 +296,52 @@ func TestDeleteAllHosts(t *testing.T) {
 	for _, host := range hosts {
 		t.Logf("Host ID: %s, Name: %s", *host.ResourceId, host.Name)
 		SoftDeleteHost(t, ctx, apiClient, &host)
+	}
+}
+
+func ListAllLocalAccounts(t *testing.T, ctx context.Context, apiClient *api.ClientWithResponses) []api.LocalAccountResource {
+	var allAccounts []api.LocalAccountResource
+	var offset int32
+	var pageSize int32 = 100 // Adjust page size as needed
+
+	for {
+		resList, err := apiClient.LocalAccountServiceListLocalAccountsWithResponse(
+			ctx,
+			&api.LocalAccountServiceListLocalAccountsParams{
+				Offset:   &offset,
+				PageSize: &pageSize,
+			},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, resList.StatusCode())
+
+		allAccounts = append(allAccounts, resList.JSON200.LocalAccounts...)
+
+		if !resList.JSON200.HasNext {
+			break
+		}
+		offset += pageSize
+	}
+
+	return allAccounts
+}
+
+func TestDeleteAllLocalAccounts(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	accounts := ListAllLocalAccounts(t, ctx, apiClient)
+
+	for _, account := range accounts {
+		_, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
+			ctx,
+			*account.ResourceId,
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
+		require.NoError(t, err)
 	}
 }
