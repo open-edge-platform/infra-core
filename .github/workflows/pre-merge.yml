@@ -26,10 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@main
+        uses: open-edge-platform/orch-ci/verify-branch-name@31986a986cab0a87721ecb694388029e94e55ff7
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@main
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@31986a986cab0a87721ecb694388029e94e55ff7
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         run: |
@@ -74,7 +74,7 @@ jobs:
       fail-fast: false
       matrix:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@31986a986cab0a87721ecb694388029e94e55ff7
     with:
       run_security_scans: true
       run_version_check: true
@@ -93,7 +93,7 @@ jobs:
   pre-merge-os-profiles:
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@31986a986cab0a87721ecb694388029e94e55ff7
     with:
       bootstrap_tools: "yq,nodejs"
       run_security_scans: true
@@ -118,7 +118,7 @@ jobs:
         with:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@main
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@31986a986cab0a87721ecb694388029e94e55ff7
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
