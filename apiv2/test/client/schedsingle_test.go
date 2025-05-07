@@ -478,50 +478,101 @@ func TestSchedList_ListEmpty(t *testing.T) {
 	assert.NotNil(t, resList.JSON200.RepeatedSchedules)
 }
 
-func TestSingleSchedule_Patch(t *testing.T) {
-	log.Info().Msgf("Begin SingleSchedule Patch tests")
+func TestSchedSingle_UpdatePatch(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	// Create a SingleSchedule
-	schedule := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
-	assert.Equal(t, utils.SingleSchedule1Request.ScheduleStatus, schedule.JSON200.ScheduleStatus)
-	assert.Equal(t, utils.SingleSchedule1Request.StartSeconds, schedule.JSON200.StartSeconds)
+	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 
-	// Modify fields for patching
-	newScheduleStatus := api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE
-	var newStartSeconds uint32 = 1234567890
-	patchRequest := api.SingleScheduleResource{
-		ScheduleStatus: newScheduleStatus,
-		StartSeconds:   newStartSeconds,
-	}
+	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.SiteID
+	singleSched1 := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
 
-	// Perform the Patch operation
-	updatedSchedule, err := apiClient.ScheduleServicePatchSingleScheduleWithResponse(
+	SingleSchedule1Get, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
-		*schedule.JSON200.ResourceId,
+		*singleSched1.JSON200.SingleScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, SingleSchedule1Get.StatusCode())
+	assert.Equal(t, utils.SschedName1, *SingleSchedule1Get.JSON200.Name)
+
+	siteCreated2 := CreateSite(t, ctx, apiClient, utils.SiteListRequest1)
+	utils.SingleSchedule2Request.TargetSiteId = siteCreated2.JSON200.SiteID
+
+	singleSched1Update, err := apiClient.ScheduleServicePatchSingleScheduleWithResponse(
+		ctx,
+		*singleSched1.JSON200.SingleScheduleID,
 		nil,
-		patchRequest,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		utils.SingleSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, updatedSchedule.StatusCode())
-	assert.Equal(t, newScheduleStatus, updatedSchedule.JSON200.ScheduleStatus)
-	assert.Equal(t, newStartSeconds, updatedSchedule.JSON200.StartSeconds)
+	assert.Equal(t, http.StatusOK, singleSched1Update.StatusCode())
+	assert.Equal(t, utils.SschedName2, *singleSched1Update.JSON200.Name)
 
-	// Verify the changes with a Get operation
-	getSchedule, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
+	SingleSchedule1GetUp, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
-		*schedule.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		*singleSched1.JSON200.SingleScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, getSchedule.StatusCode())
-	assert.Equal(t, newScheduleStatus, getSchedule.JSON200.ScheduleStatus)
-	assert.Equal(t, newStartSeconds, getSchedule.JSON200.StartSeconds)
+	assert.Equal(t, http.StatusOK, SingleSchedule1GetUp.StatusCode())
+	assert.Equal(t, utils.SschedName2, *SingleSchedule1GetUp.JSON200.Name)
+	assert.Equal(t, *siteCreated2.JSON200.SiteID, *SingleSchedule1GetUp.JSON200.TargetSite.ResourceId)
+	assert.Equal(
+		t,
+		*utils.SingleSchedule1Request.EndSeconds,
+		*SingleSchedule1GetUp.JSON200.EndSeconds,
+	)
+	assert.Equal(t, utils.SingleSchedule2Request.ScheduleStatus, SingleSchedule1GetUp.JSON200.ScheduleStatus)
 
-	log.Info().Msgf("End SingleSchedule Patch tests")
+	// Uses PATCH to set empty string to TargetSite and verifies it
+	utils.SingleSchedule2Request.TargetSiteId = &emptyString
+	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
+		ctx,
+		*singleSched1.JSON200.SingleScheduleID,
+		nil,
+		utils.SingleSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, singleSched1Update.StatusCode())
+	assert.Equal(t, utils.SschedName2, *singleSched1Update.JSON200.Name)
+
+	SingleSchedule1GetUp, err = apiClient.ScheduleServiceGetSingleScheduleWithResponse(
+		ctx,
+		*singleSched1.JSON200.SingleScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, SingleSchedule1GetUp.StatusCode())
+	assert.Equal(t, utils.SschedName2, *SingleSchedule1GetUp.JSON200.Name)
+	assert.Empty(t, SingleSchedule1GetUp.JSON200.TargetSite)
+	assert.Equal(
+		t,
+		*utils.SingleSchedule1Request.EndSeconds,
+		*SingleSchedule1GetUp.JSON200.EndSeconds,
+	)
+	assert.Equal(t, utils.SingleSchedule2Request.ScheduleStatus, SingleSchedule1GetUp.JSON200.ScheduleStatus)
+
+	// Uses PATCH to set wrong empty string to TargetSite and verifies its BadRequest error
+	utils.SingleSchedule2Request.TargetSiteId = &emptyStringWrong
+	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
+		ctx,
+		*singleSched1.JSON200.SingleScheduleID,
+		nil,
+		utils.SingleSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusBadRequest, singleSched1Update.StatusCode())
 }
