@@ -233,6 +233,8 @@ common-buf-lint: $(VENV_NAME) ## Lint and format protobuf files
 	buf --version
 	buf format -d --exit-code
 	buf lint
+
+common-buf-breaking:  $(VENV_NAME) ## Find breaking changes in protobuf files
 	buf breaking --against 'https://github.com/open-edge-platform/infra-core.git#branch=${BASE_BRANCH},subdir=${SUBPROJECT_DIR}'
 
 #### Clean Targets ###

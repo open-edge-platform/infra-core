@@ -82,7 +82,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) license yamllint buf-lint go-lint hadolint mdlint ## Run all lint, add `generate` target
+lint: $(OUT_DIR) license yamllint buf-breaking go-lint hadolint mdlint ## Run all lint, add `generate` target
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -219,3 +219,5 @@ buf-gen: buf-gen-api oapi-banner ## compile protoc files
 buf-lint: ## Lint and format protobuf files
 	buf --version
 	# TODO: currently failing buf format and buf lint - need to be fixed
+
+buf-breaking: common-buf-breaking
