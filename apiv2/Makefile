@@ -227,5 +227,5 @@ buf-lint: common-buf-lint ## Lint and format protobuf files
 openapi-breaking-check: # Check for breaking changes in openapi using oasdiff
 	rm -rf ${TEMP_BASE_OPENAPI_DIR}
 	mkdir -p ${TEMP_BASE_OPENAPI_DIR}
-	git archive origin/main ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
+	git archive origin/${BASE_BRANCH} ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
 	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR
