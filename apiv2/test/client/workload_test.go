@@ -515,6 +515,7 @@ func TestWorkload_Patch(t *testing.T) {
 	patchRequest := api.WorkloadResource{
 		Name:       &newName,
 		ExternalId: &newExternalId,
+		Status:     &utils.WorkloadStatus3,
 	}
 
 	// Perform the Patch operation
@@ -529,6 +530,7 @@ func TestWorkload_Patch(t *testing.T) {
 	assert.Equal(t, http.StatusOK, updatedWorkload.StatusCode())
 	assert.Equal(t, newName, *updatedWorkload.JSON200.Name)
 	assert.Equal(t, newExternalId, *updatedWorkload.JSON200.ExternalId)
+	assert.Equal(t, utils.WorkloadStatus3, *updatedWorkload.JSON200.Status)
 
 	// Verify the changes with a Get operation
 	getWorkload, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
