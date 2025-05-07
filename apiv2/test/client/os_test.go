@@ -310,54 +310,67 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 	log.Info().Msgf("End OSResource create test")
 }
 
-func TestOperatingSystem_Patch(t *testing.T) {
-	log.Info().Msgf("Begin OperatingSystem Patch tests")
+func TestOS_UpdatePatch(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	// Create an Operating System
-	osCreated := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	assert.Equal(t, utils.OSResource1Request.Name, osCreated.JSON200.Name)
+	os1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
-	// Modify fields for patching
-	newName := *utils.OSResource1Request.Name + "-updated"
-	newKernelCommand := "updated-kernel-command"
-	newImageUrl := "https://updated-image-url.com"
-
-	patchRequest := api.OperatingSystemResource{
-		Name:          &newName,
-		KernelCommand: &newKernelCommand,
-		ImageUrl:      &newImageUrl,
-	}
-
-	// Perform the Patch operation
-	updatedOS, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
-		*osCreated.JSON200.ResourceId,
+		*os1.JSON200.OsResourceID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, OSResource1Get.StatusCode())
+	assert.Equal(t, utils.OSName1, *OSResource1Get.JSON200.Name)
+
+	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
 		nil,
-		patchRequest,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		utils.OSResource2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, updatedOS.StatusCode())
-	assert.Equal(t, newName, updatedOS.JSON200.Name)
-	assert.Equal(t, newKernelCommand, updatedOS.JSON200.KernelCommand)
-	assert.Equal(t, newImageUrl, updatedOS.JSON200.ImageUrl)
+	assert.Equal(t, http.StatusOK, os1Update.StatusCode())
+	assert.Equal(t, utils.OSName2, *os1Update.JSON200.Name)
 
-	// Verify the changes with a Get operation
-	getOS, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+	OSResource1GetUp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
-		*osCreated.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		*os1.JSON200.OsResourceID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, getOS.StatusCode())
-	assert.Equal(t, newName, getOS.JSON200.Name)
-	assert.Equal(t, newKernelCommand, getOS.JSON200.KernelCommand)
-	assert.Equal(t, newImageUrl, getOS.JSON200.ImageUrl)
+	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
+	assert.Equal(t, *utils.OSResource1Request.KernelCommand, *OSResource1GetUp.JSON200.KernelCommand)
+	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
+	assert.Equal(
+		t,
+		utils.OSResource2Request.Architecture,
+		OSResource1GetUp.JSON200.Architecture,
+	)
+	// Security Feature is immutable
+	assert.Equal(t, *utils.OSResource1Request.SecurityFeature, *OSResource1GetUp.JSON200.SecurityFeature)
 
-	log.Info().Msgf("End OperatingSystem Patch tests")
+	osTypeImmutable := api.OSTYPEIMMUTABLE
+	osProviderInfra := api.OSPROVIDERKINDINFRA
+	immutableUpdate, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		nil,
+		api.OperatingSystemResource{
+			OsType:     &osTypeImmutable,
+			OsProvider: &osProviderInfra,
+		},
+		AddJWTtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusUnauthorized, immutableUpdate.StatusCode())
 }
