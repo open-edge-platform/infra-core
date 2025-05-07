@@ -88,7 +88,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) license yamllint go-lint hadolint mdlint ## Run all lint, add `generate` target
+lint: $(OUT_DIR) license yamllint oasdiff-breaking go-lint hadolint mdlint ## Run all lint, add `generate` target
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -224,7 +224,7 @@ buf-gen: buf-gen-api oapi-banner ## compile protoc files
 
 buf-lint: common-buf-lint ## Lint and format protobuf files
 
-openapi-breaking-check: # Check for breaking changes in openapi using oasdiff
+oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
 	rm -rf ${TEMP_BASE_OPENAPI_DIR}
 	mkdir -p ${TEMP_BASE_OPENAPI_DIR}
 	git archive origin/${BASE_BRANCH} ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
