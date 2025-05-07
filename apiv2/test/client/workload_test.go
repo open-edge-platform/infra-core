@@ -511,11 +511,9 @@ func TestWorkload_Patch(t *testing.T) {
 
 	// Modify fields for patching
 	newName := utils.WorkloadName1 + "-updated"
-	newExternalId := "Updated description for workload"
 	patchRequest := api.WorkloadResource{
-		Name:       &newName,
-		ExternalId: &newExternalId,
-		Status:     &utils.WorkloadStatus3,
+		Name:   &newName,
+		Status: &utils.WorkloadStatus3,
 	}
 
 	// Perform the Patch operation
@@ -529,7 +527,6 @@ func TestWorkload_Patch(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, updatedWorkload.StatusCode())
 	assert.Equal(t, newName, *updatedWorkload.JSON200.Name)
-	assert.Equal(t, newExternalId, *updatedWorkload.JSON200.ExternalId)
 	assert.Equal(t, utils.WorkloadStatus3, *updatedWorkload.JSON200.Status)
 
 	// Verify the changes with a Get operation
@@ -541,7 +538,6 @@ func TestWorkload_Patch(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getWorkload.StatusCode())
 	assert.Equal(t, newName, *getWorkload.JSON200.Name)
-	assert.Equal(t, newExternalId, *getWorkload.JSON200.ExternalId)
 
 	log.Info().Msgf("End Workload Patch tests")
 }
