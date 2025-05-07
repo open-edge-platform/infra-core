@@ -32,7 +32,7 @@ DBMLCLI_REQ				:= 3.12.0
 DBMLCLI_HAVE				:= $(shell sql2dbml --version)
 DBMLRENDERER_HAVE			:= $(shell dbml-renderer --version)
 DBMLRENDERER_REQ			:= 1.0.30
-OASDIFF_HAVE                := $(shell oasdiff --version)
+OASDIFF_HAVE                := $(shell oasdiff --version | sed -n 's/^oasdiff version //p')
 OASDIFF_REQ                 := 1.11.4
 
 # No version reported
@@ -62,7 +62,7 @@ ifeq ($(DBMLRENDERER), true)
 endif
 ifeq ($(OASDIFF), true)
 	@(echo "$(OASDIFF_HAVE)" | grep "$(OASDIFF_REQ)" > /dev/null) || \
-	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-renderer\nRecommended: $(OASDIFF_REQ)\nYours: $(OASDIFF_HAVE)\e[1;m" && exit 1)
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of oasdiff\nRecommended: $(OASDIFF_REQ)\nYours: $(OASDIFF_HAVE)\e[1;m" && exit 1)
 endif
 
 go-dependency-check:
