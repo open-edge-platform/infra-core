@@ -499,50 +499,103 @@ func TestSchedRepeated_cronjobValidationError(t *testing.T) {
 	require.NoError(t, err)
 }
 
-func TestRepeatedSchedule_Patch(t *testing.T) {
-	log.Info().Msgf("Begin RepeatedSchedule Patch tests")
+func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	// Create a RepeatedSchedule
-	schedule := CreateSchedRepeated(t, ctx, apiClient, utils.RepeatedSchedule1Request)
-	assert.Equal(t, utils.RepeatedSchedule1Request.ScheduleStatus, schedule.JSON200.ScheduleStatus)
-	assert.Equal(t, utils.RepeatedSchedule1Request.CronDayWeek, schedule.JSON200.CronDayWeek)
+	utils.Site1Request.RegionId = nil
+	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 
-	// Modify fields for patching
-	newScheduleStatus := api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE
-	newCronDayWeek := "0 12 * * 1-5"
-	patchRequest := api.RepeatedScheduleResource{
-		ScheduleStatus: newScheduleStatus,
-		CronDayWeek:    newCronDayWeek,
-	}
+	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.SiteID
+	RepeatedSched1 := CreateSchedRepeated(t, ctx, apiClient, utils.RepeatedSchedule1Request)
 
-	// Perform the Patch operation
-	updatedSchedule, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+	RepeatedSchedule1Get, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
-		*schedule.JSON200.ResourceId,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSchedule1Get.StatusCode())
+	assert.Equal(t, utils.SschedName1, *RepeatedSchedule1Get.JSON200.Name)
+
+	utils.SiteListRequest1.Region = nil
+	siteCreated2 := CreateSite(t, ctx, apiClient, utils.SiteListRequest1)
+
+	utils.RepeatedSchedule2Request.TargetSiteId = siteCreated2.JSON200.SiteID
+	RepeatedSched1Update, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		nil,
-		patchRequest,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		utils.RepeatedSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, updatedSchedule.StatusCode())
-	assert.Equal(t, newScheduleStatus, updatedSchedule.JSON200.ScheduleStatus)
-	assert.Equal(t, newCronDayWeek, updatedSchedule.JSON200.CronDayWeek)
+	assert.Equal(t, http.StatusOK, RepeatedSched1Update.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSched1Update.JSON200.Name)
 
-	// Verify the changes with a Get operation
-	getSchedule, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
+	RepeatedSchedule1GetUp, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
-		*schedule.JSON200.ResourceId,
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, getSchedule.StatusCode())
-	assert.Equal(t, newScheduleStatus, getSchedule.JSON200.ScheduleStatus)
-	assert.Equal(t, newCronDayWeek, getSchedule.JSON200.CronDayWeek)
+	assert.Equal(t, http.StatusOK, RepeatedSchedule1GetUp.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSchedule1GetUp.JSON200.Name)
+	assert.Equal(t, *siteCreated2.JSON200.SiteID, *RepeatedSchedule1GetUp.JSON200.TargetSite.ResourceId)
+	assert.Equal(
+		t,
+		utils.RepeatedSchedule2Request.CronDayMonth,
+		RepeatedSchedule1GetUp.JSON200.CronDayMonth,
+	)
 
-	log.Info().Msgf("End RepeatedSchedule Patch tests")
+	// Uses PATCH to set empty string to TargetSite and verifies it
+	utils.RepeatedSchedule2Request.TargetSiteId = &emptyString
+	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		nil,
+		utils.RepeatedSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSched1Update.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSched1Update.JSON200.Name)
+
+	RepeatedSchedule1GetUp, err = apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSchedule1GetUp.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSchedule1GetUp.JSON200.Name)
+	assert.Empty(t, RepeatedSchedule1GetUp.JSON200.TargetSite)
+	assert.Equal(
+		t,
+		utils.RepeatedSchedule2Request.CronDayWeek,
+		RepeatedSchedule1GetUp.JSON200.CronDayWeek,
+	)
+
+	// Uses PATCH to set wrong empty string to TargetSite and verifies its BadRequest error
+	utils.RepeatedSchedule2Request.TargetSiteId = &emptyStringWrong
+	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		nil,
+		utils.RepeatedSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusBadRequest, RepeatedSched1Update.StatusCode())
+
+	utils.RepeatedSchedule2Request.TargetSite = nil
 }
