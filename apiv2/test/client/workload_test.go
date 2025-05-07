@@ -513,6 +513,7 @@ func TestWorkload_Patch(t *testing.T) {
 	newName := utils.WorkloadName1 + "-updated"
 	patchRequest := api.WorkloadResource{
 		Name:   &newName,
+		Kind:   api.WORKLOADKINDCLUSTER,
 		Status: &utils.WorkloadStatus3,
 	}
 
