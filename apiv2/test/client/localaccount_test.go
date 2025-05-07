@@ -57,7 +57,7 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusNoContent, del1.StatusCode())
+	assert.Equal(t, http.StatusOK, del1.StatusCode())
 
 	// Delete LocalAccount 2
 	del2, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
@@ -66,7 +66,7 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusNoContent, del2.StatusCode())
+	assert.Equal(t, http.StatusOK, del2.StatusCode())
 
 	log.Info().Msgf("End CreateGetDelete LocalAccount tests")
 }
