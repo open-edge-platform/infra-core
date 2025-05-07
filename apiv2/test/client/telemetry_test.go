@@ -2372,7 +2372,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, telemetryMetricsProfile1Update.StatusCode())
-	assert.Equal(t, 5, telemetryMetricsProfile1Update.JSON200.MetricsInterval)
+	assert.Equal(t, 5, int(telemetryMetricsProfile1Update.JSON200.MetricsInterval))
 
 	TelemetryProfile1Get, err = apiClient.TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(
 		ctx,
@@ -2382,7 +2382,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, TelemetryProfile1Get.StatusCode())
-	assert.Equal(t, 5, telemetryMetricsProfile1Update.JSON200.MetricsInterval)
+	assert.Equal(t, 5, int(telemetryMetricsProfile1Update.JSON200.MetricsInterval))
 
 	// change the telemetry group
 	TelemetryMetricsProfile.MetricsGroupId = *metricsGroup2.JSON200.TelemetryMetricsGroupId
@@ -2419,7 +2419,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusUnprocessableEntity, telemetryMetricsProfile1Update.StatusCode())
+	assert.Equal(t, http.StatusBadRequest, telemetryMetricsProfile1Update.StatusCode())
 
 	// update to wrong type of telemetry group (logs profile cannot be associated with metrics group)
 	logsGroup := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
@@ -2434,7 +2434,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusUnprocessableEntity, telemetryMetricsProfile1Update.StatusCode())
+	assert.Equal(t, http.StatusBadRequest, telemetryMetricsProfile1Update.StatusCode())
 }
 
 func TestTelemetryLogsProfile_Patch(t *testing.T) {
@@ -2563,7 +2563,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusUnprocessableEntity, telemetryLogsProfile1Update.StatusCode())
+	assert.Equal(t, http.StatusBadRequest, telemetryLogsProfile1Update.StatusCode())
 
 	// update to wrong type of telemetry group (logs profile cannot be associated with metrics group)
 	metricsGroup := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
@@ -2578,5 +2578,5 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusUnprocessableEntity, telemetryLogsProfile1Update.StatusCode())
+	assert.Equal(t, http.StatusBadRequest, telemetryLogsProfile1Update.StatusCode())
 }
