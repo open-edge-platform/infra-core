@@ -103,9 +103,6 @@ func TestInstance_Update(t *testing.T) {
 		inst1Mod,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	if inst1Up.JSON200 == nil {
-		log.Error().Msgf("failed to update instance %s", *inst1Up.JSONDefault.Message)
-	}
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, inst1Up.StatusCode())
 	assert.Equal(t, newName, *inst1Up.JSON200.Name)

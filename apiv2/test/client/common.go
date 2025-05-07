@@ -698,9 +698,11 @@ func CreateLocalAccount(t *testing.T, ctx context.Context, apiClient *api.Client
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	require.NotNil(t, response.JSON200)
-	require.NotNil(t, response.JSON200.ResourceId)
+	require.Equal(t, http.StatusOK, response.StatusCode())
 
+	t.Cleanup(func() {
+		DeleteOS(t, context.Background(), apiClient, *response.JSON200.ResourceId)
+	})
 	return response
 }
 
