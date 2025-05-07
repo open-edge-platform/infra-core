@@ -77,35 +77,23 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 func fromInvInstanceStatus(
 	invInstance *inv_computev1.InstanceResource,
 	instance *computev1.InstanceResource,
-) error {
+) {
 	instanceStatus := invInstance.GetInstanceStatus()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
-	instanceStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	instanceStatusTimestamp := TruncateUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
+
 	provisioningStatus := invInstance.GetProvisioningStatus()
 	provisioningStatusIndicator := statusv1.StatusIndication(invInstance.GetProvisioningStatusIndicator())
-	provisioningStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetProvisioningStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	provisioningStatusTimestamp := TruncateUint64ToUint32(invInstance.GetProvisioningStatusTimestamp())
+
 	updateStatus := invInstance.GetUpdateStatus()
 	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
-	updateStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetUpdateStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	updateStatusTimestamp := TruncateUint64ToUint32(invInstance.GetUpdateStatusTimestamp())
+
 	attestationStatus := invInstance.GetTrustedAttestationStatus()
 	attestationStatusIndicator := statusv1.StatusIndication(invInstance.GetTrustedAttestationStatusIndicator())
-	attestationStatusTimestamp, err := SafeUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	attestationStatusTimestamp := TruncateUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
+
 	instance.InstanceStatus = instanceStatus
 	instance.InstanceStatusIndicator = instanceStatusIndicator
 	instance.InstanceStatusTimestamp = instanceStatusTimestamp
@@ -118,7 +106,6 @@ func fromInvInstanceStatus(
 	instance.UpdateStatus = updateStatus
 	instance.UpdateStatusIndicator = updateStatusIndicator
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
-	return nil
 }
 
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
@@ -176,11 +163,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		WorkloadMembers:    workloadMembers,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 	}
-	if err = fromInvInstanceStatus(invInstance, instance); err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert from inventory instance status")
-		return nil, errors.Wrap(err)
-	}
-
+	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }
 

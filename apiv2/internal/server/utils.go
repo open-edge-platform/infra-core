@@ -94,6 +94,11 @@ func SafeUint64ToUint32(value uint64) (uint32, error) {
 	return uint32(value), nil
 }
 
+// TruncateUint64ToUint32 truncates the lower bits of a uint64 to fit into a uint32.
+func TruncateUint64ToUint32(value uint64) uint32 {
+	return uint32(value & math.MaxUint32) //nolint:gosec // Mask the lower 32 bits.
+}
+
 // SafeInt64ToUint64 safely converts a int64 to a uint64.
 func SafeInt64ToUint64(value int64) (uint64, error) {
 	if value < 0 {

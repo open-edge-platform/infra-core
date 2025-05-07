@@ -104,30 +104,18 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 func fromInvHostStatus(
 	invHost *inv_computev1.HostResource,
 	host *computev1.HostResource,
-) error {
+) {
 	hostStatus := invHost.GetHostStatus()
 	hostStatusIndicator := statusv1.StatusIndication(invHost.GetHostStatusIndicator())
-	hostStatusTimestamp, err := SafeUint64ToUint32(invHost.GetHostStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	hostStatusTimestamp := TruncateUint64ToUint32(invHost.GetHostStatusTimestamp())
 
 	onboardingStatus := invHost.GetOnboardingStatus()
 	onboardingStatusIndicator := statusv1.StatusIndication(invHost.GetOnboardingStatusIndicator())
-	onboardingStatusTimestamp, err := SafeUint64ToUint32(invHost.GetOnboardingStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	onboardingStatusTimestamp := TruncateUint64ToUint32(invHost.GetOnboardingStatusTimestamp())
 
 	registrationStatus := invHost.GetRegistrationStatus()
 	registrationStatusIndicator := statusv1.StatusIndication(invHost.GetRegistrationStatusIndicator())
-	registrationStatusTimestamp, err := SafeUint64ToUint32(invHost.GetRegistrationStatusTimestamp())
-	if err != nil {
-		zlog.Error().Err(err).Msg("failed to convert status timestamp")
-		return err
-	}
+	registrationStatusTimestamp := TruncateUint64ToUint32(invHost.GetRegistrationStatusTimestamp())
 
 	host.HostStatus = hostStatus
 	host.HostStatusIndicator = hostStatusIndicator
@@ -138,7 +126,6 @@ func fromInvHostStatus(
 	host.RegistrationStatus = registrationStatus
 	host.RegistrationStatusIndicator = registrationStatusIndicator
 	host.RegistrationStatusTimestamp = registrationStatusTimestamp
-	return nil
 }
 
 func fromInvHostEdges(
@@ -215,10 +202,7 @@ func fromInvHost(
 		zlog.InfraErr(err).Msg("Failed to convert from inventory host edges")
 		return nil, errors.Wrap(err)
 	}
-	if err = fromInvHostStatus(invHost, host); err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert from inventory host status")
-		return nil, errors.Wrap(err)
-	}
+	fromInvHostStatus(invHost, host)
 
 	hostUUID := invHost.GetUuid()
 	if isSet(&hostUUID) {
