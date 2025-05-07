@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+version = 1
+
+[[annotations]]
+path = [
+    "**.md",
+    "go.sum",
+    "VERSION",
+    "api/buf.lock",
+    "python/infra_inventory/**.py",
+    "pkg/api/**.pb.go",
+    "pkg/errors/**.pb.go",
+    "internal/ent/**",
+    "**/**_mock.go",
+    "sql/inventory.sql",
+    "docs/inventory-er-diagram.svg",
+    "docs/output.dbml"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "api/ent/opts.proto"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "(C) 2019-present Facebook"
+SPDX-License-Identifier = "Apache-2.0"

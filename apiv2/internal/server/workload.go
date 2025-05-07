@@ -20,14 +20,10 @@ import (
 // The key is derived from the json property respectively of the
 // structs Workload defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIWorkloadToProto = map[string]string{
-	"Kind":       inv_computev1.WorkloadResourceFieldKind,
-	"Name":       inv_computev1.WorkloadResourceFieldName,
-	"Status":     inv_computev1.WorkloadResourceFieldStatus,
-	"ExternalId": inv_computev1.WorkloadResourceFieldExternalId,
-}
-
-var OpenAPIWorkloadObjectsNames = map[string]struct{}{
-	"Members": {},
+	computev1.WorkloadResourceFieldKind:       inv_computev1.WorkloadResourceFieldKind,
+	computev1.WorkloadResourceFieldName:       inv_computev1.WorkloadResourceFieldName,
+	computev1.WorkloadResourceFieldStatus:     inv_computev1.WorkloadResourceFieldStatus,
+	computev1.WorkloadResourceFieldExternalId: inv_computev1.WorkloadResourceFieldExternalId,
 }
 
 func toInvWorkload(workload *computev1.WorkloadResource) (*inv_computev1.WorkloadResource, error) {
@@ -67,6 +63,8 @@ func fromInvWorkload(invWorkload *inv_computev1.WorkloadResource) (*computev1.Wo
 		ExternalId: invWorkload.GetExternalId(),
 		Status:     invWorkload.GetStatus(),
 		Members:    members,
+		CreatedAt:  invWorkload.GetCreatedAt(),
+		UpdatedAt:  invWorkload.GetUpdatedAt(),
 	}
 
 	return workload, nil
@@ -126,11 +124,15 @@ func (is *InventorygRPCServer) ListWorkloads(
 	req *restv1.ListWorkloadsRequest,
 ) (*restv1.ListWorkloadsResponse, error) {
 	zlog.Debug().Msg("ListWorkloads")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Workload{Workload: &inv_computev1.WorkloadResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
@@ -203,6 +205,44 @@ func (is *InventorygRPCServer) UpdateWorkload(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Workload{
+			Workload: invWorkload,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetWorkload()
+	invUpRes, err := fromInvWorkload(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a workload. (PATCH).
+func (is *InventorygRPCServer) PatchWorkload(
+	ctx context.Context,
+	req *restv1.PatchWorkloadRequest,
+) (*computev1.WorkloadResource, error) {
+	zlog.Debug().Msg("PatchWorkload")
+
+	workload := req.GetWorkload()
+	invWorkload, err := toInvWorkload(workload)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory workload")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invWorkload, req.GetFieldMask(), OpenAPIWorkloadToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Workload{
 			Workload: invWorkload,

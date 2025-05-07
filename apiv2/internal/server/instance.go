@@ -11,11 +11,13 @@ import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	localaccountv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	osv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	inv_localaccountv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/localaccount/v1"
 	inv_osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
@@ -24,17 +26,10 @@ import (
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIInstanceToProto = map[string]string{
-	"Name":   inv_computev1.InstanceResourceFieldName,
-	"Kind":   inv_computev1.InstanceResourceFieldKind,
-	"OsID":   inv_computev1.InstanceResourceEdgeDesiredOs,
-	"HostID": inv_computev1.InstanceResourceEdgeHost,
-}
-
-var OpenAPIInstanceObjectsNames = map[string]struct{}{
-	"Host":            {},
-	"DesiredOs":       {},
-	"CurrentOs":       {},
-	"WorkloadMembers": {},
+	computev1.InstanceResourceFieldName:   inv_computev1.InstanceResourceFieldName,
+	computev1.InstanceResourceFieldKind:   inv_computev1.InstanceResourceFieldKind,
+	computev1.InstanceResourceFieldOsId:   inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldHostId: inv_computev1.InstanceResourceEdgeHost,
 }
 
 func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.InstanceResource, error) {
@@ -63,6 +58,13 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		}
 	}
 
+	laID := instance.GetLocalAccountId()
+	if isSet(&laID) {
+		invInstance.Localaccount = &inv_localaccountv1.LocalAccountResource{
+			ResourceId: laID,
+		}
+	}
+
 	err := validator.ValidateMessage(invInstance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
@@ -81,6 +83,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var desiredOs *osv1.OperatingSystemResource
 	var currentOs *osv1.OperatingSystemResource
 	var host *computev1.HostResource
+	var la *localaccountv1.LocalAccountResource
 	if invInstance.GetDesiredOs() != nil {
 		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
 	}
@@ -93,6 +96,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		if err != nil {
 			return nil, err
 		}
+	}
+	if invInstance.GetLocalaccount() != nil {
+		la = fromInvLocalAccount(invInstance.GetLocalaccount())
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -115,28 +121,41 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
 	updateStatusTimestamp := fmt.Sprintf("%d", invInstance.GetUpdateStatusTimestamp())
 
+	attestationStatus := invInstance.GetTrustedAttestationStatus()
+	attestationStatusIndicator := statusv1.StatusIndication(invInstance.GetTrustedAttestationStatusIndicator())
+	attestationStatusTimestamp := fmt.Sprintf("%d", invInstance.GetTrustedAttestationStatusTimestamp())
+
 	instance := &computev1.InstanceResource{
-		ResourceId:                  invInstance.GetResourceId(),
-		InstanceId:                  invInstance.GetResourceId(),
-		Kind:                        computev1.InstanceKind(invInstance.GetKind()),
-		Name:                        invInstance.GetName(),
-		DesiredState:                computev1.InstanceState(invInstance.GetDesiredState()),
-		CurrentState:                computev1.InstanceState(invInstance.GetCurrentState()),
-		Host:                        host,
-		DesiredOs:                   desiredOs,
-		CurrentOs:                   currentOs,
-		SecurityFeature:             osv1.SecurityFeature(invInstance.GetSecurityFeature()),
-		InstanceStatus:              instanceStatus,
-		InstanceStatusIndicator:     instanceStatusIndicator,
-		InstanceStatusTimestamp:     instanceStatusTimestamp,
-		ProvisioningStatus:          provisioningStatus,
-		ProvisioningStatusIndicator: provisioningStatusIndicator,
-		ProvisioningStatusTimestamp: provisioningStatusTimestamp,
-		UpdateStatus:                updateStatus,
-		UpdateStatusIndicator:       updateStatusIndicator,
-		UpdateStatusTimestamp:       updateStatusTimestamp,
-		UpdateStatusDetail:          invInstance.GetUpdateStatusDetail(),
-		WorkloadMembers:             workloadMembers,
+		ResourceId:                        invInstance.GetResourceId(),
+		InstanceId:                        invInstance.GetResourceId(),
+		Kind:                              computev1.InstanceKind(invInstance.GetKind()),
+		Name:                              invInstance.GetName(),
+		DesiredState:                      computev1.InstanceState(invInstance.GetDesiredState()),
+		CurrentState:                      computev1.InstanceState(invInstance.GetCurrentState()),
+		Host:                              host,
+		HostId:                            host.GetResourceId(),
+		DesiredOs:                         desiredOs,
+		CurrentOs:                         currentOs,
+		OsId:                              currentOs.GetResourceId(),
+		SecurityFeature:                   osv1.SecurityFeature(invInstance.GetSecurityFeature()),
+		Localaccount:                      la,
+		LocalAccountId:                    la.GetResourceId(),
+		InstanceStatus:                    instanceStatus,
+		InstanceStatusIndicator:           instanceStatusIndicator,
+		InstanceStatusTimestamp:           instanceStatusTimestamp,
+		ProvisioningStatus:                provisioningStatus,
+		ProvisioningStatusIndicator:       provisioningStatusIndicator,
+		ProvisioningStatusTimestamp:       provisioningStatusTimestamp,
+		TrustedAttestationStatus:          attestationStatus,
+		TrustedAttestationStatusIndicator: attestationStatusIndicator,
+		TrustedAttestationStatusTimestamp: attestationStatusTimestamp,
+		UpdateStatus:                      updateStatus,
+		UpdateStatusIndicator:             updateStatusIndicator,
+		UpdateStatusTimestamp:             updateStatusTimestamp,
+		UpdateStatusDetail:                invInstance.GetUpdateStatusDetail(),
+		WorkloadMembers:                   workloadMembers,
+		CreatedAt:                         invInstance.GetCreatedAt(),
+		UpdatedAt:                         invInstance.GetUpdatedAt(),
 	}
 
 	return instance, nil
@@ -182,11 +201,15 @@ func (is *InventorygRPCServer) ListInstances(
 	req *restv1.ListInstancesRequest,
 ) (*restv1.ListInstancesResponse, error) {
 	zlog.Debug().Msg("ListInstances")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Instance{Instance: &inv_computev1.InstanceResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
@@ -260,6 +283,44 @@ func (is *InventorygRPCServer) UpdateInstance(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{
+			Instance: invInstance,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetInstance()
+	invUpRes, err := fromInvInstance(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a instance. (PATCH).
+func (is *InventorygRPCServer) PatchInstance(
+	ctx context.Context,
+	req *restv1.PatchInstanceRequest,
+) (*computev1.InstanceResource, error) {
+	zlog.Debug().Msg("PatchInstance")
+
+	instance := req.GetInstance()
+	invInstance, err := toInvInstance(instance)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invInstance, req.GetFieldMask(), OpenAPIInstanceToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Instance{
 			Instance: invInstance,

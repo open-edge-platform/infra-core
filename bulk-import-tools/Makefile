@@ -19,12 +19,14 @@ PROTOCGENDOC  := true
 
 # Project variables
 PROJECT_NAME	:= bulk-import-tools
+PROJECT_NICKNAME := bit
 BULK_IMPORT_BINARY_NAME	:= orch-host-bulk-import
 PREFLIGHT_BINARY_NAME	:= orch-host-preflight
 
 # Versioning variables
-VERSION       := $(shell cat VERSION)
-GIT_COMMIT    ?= $(shell git rev-parse --short HEAD)
+VERSION          := $(shell cat VERSION)
+GIT_COMMIT       ?= $(shell git rev-parse --short HEAD)
+GIT_TAG_PREFIX   := $(PROJECT_NAME)/v
 
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use regex '<testname.*>' - example:
@@ -92,12 +94,10 @@ go-run: go-build ## Run the resource manager
 binary-release: ## Publish binaries to Production Release Service
 	@echo "Publishing orch-host-bulk-import to Production Release Service."
 	cd $(OUT_DIR) && \
-	aws ecr create-repository --region us-west-2 --repository-name $(OCI_REPOSITORY)/files/orch-host-bulk-import || true && \
 	oras push $(OCI_REGISTRY)/$(OCI_REPOSITORY)/files/orch-host-bulk-import:$(TAG) --artifact-type application/vnd.intel.orch.file ./orch-host-bulk-import
 
 	@echo "Publishing orch-host-preflight to Production Release Service."
 	cd $(OUT_DIR) && \
-	aws ecr create-repository --region us-west-2 --repository-name $(OCI_REPOSITORY)/files/orch-host-preflight || true && \
 	oras push $(OCI_REGISTRY)/$(OCI_REPOSITORY)/files/orch-host-preflight:$(TAG) --artifact-type application/vnd.intel.orch.file ./orch-host-preflight
 
 artifact-publish: build binary-release ## Publish binaries

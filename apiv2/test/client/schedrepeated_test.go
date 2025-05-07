@@ -14,8 +14,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin RepeatedSched tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
@@ -24,7 +22,7 @@ func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	utils.Site1Request.Region = nil
+	utils.Site1Request.RegionId = nil
 	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 
 	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
@@ -279,8 +277,8 @@ func TestSchedRepeatedList(t *testing.T) {
 	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateSchedRepeated(t, ctx, apiClient, utils.RepeatedSchedule1Request)

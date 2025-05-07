@@ -2,7 +2,7 @@
 
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
- 
+
 GOLINTVERSION_HAVE          := $(shell golangci-lint version | sed 's/.*version //' | sed 's/ .*//')
 GOLINTVERSION_REQ           := 1.64.5
 GOJUNITREPORTVERSION_HAVE   := $(shell go-junit-report -version | sed s/.*" v"// | sed 's/ .*//')
@@ -16,7 +16,7 @@ MOCKGENVERSION_REQ          := 1.6.0
 OAPI_CODEGEN_VERSION_HAVE   := $(shell oapi-codegen -version | sed -n 2p | sed s/v//)
 OAPI_CODEGEN_VERSION_REQ    := 2.3.0
 ATLAS_REQ                   := $(shell command -v atlas)
-ATLASVERSION_REQ            := 0.30.0
+ATLASVERSION_REQ            := 0.32.0
 GCC_REQ                     := $(shell command -v gcc)
 PROTOCGENDOCVERSION_HAVE    := $(shell protoc-gen-doc --version | sed s/.*"version "// | sed 's/ .*//')
 PROTOCGENDOCVERSION_REQ     := 1.5.1
@@ -28,6 +28,10 @@ PROTOCGENGOVERSION_HAVE     := $(shell protoc-gen-go --version | sed s/.*"protoc
 PROTOCGENGOVERSION_REQ      := 1.30.0
 SWAGGER_CLI_REQ				:= 4.0.4
 SWAGGER_CLI_HAVE			:= $(shell swagger-cli --version)
+DBMLCLI_REQ				:= 3.12.0
+DBMLCLI_HAVE				:= $(shell sql2dbml --version)
+DBMLRENDERER_HAVE			:= $(shell dbml-renderer --version)
+DBMLRENDERER_REQ			:= 1.0.30
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
@@ -36,7 +40,7 @@ POSTGRES_VERSION            := 16.4
 
 # System dependencies binary SHA
 OPA_SHA						:= "c81aa9c1da779d0a8646c837a96d52e1a7040ff562318d9743b8ef51c93b49d6"
-ATLAS_SHA					:= "dbaaf350634304d4bf92753559261a67afb399fe4ff0ea6ae5bb5d1ce6e0011a"
+ATLAS_SHA					:= "8ca6d8488d1ba52372681e895a7995a295a5b33a5c2037a029393ae3a462ebf4"
 
 dependency-check: go-dependency-check
 ifeq ($(SWAGGERCLI), true)
@@ -46,6 +50,15 @@ endif
 ifeq ($(GCC), true)
 	@(if ! [ $(GCC_REQ) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"gcc\" installed\e[1;m" && exit 1 ; fi)
 endif
+ifeq ($(DBMLCLI), true)
+	@(echo "$(DBMLCLI_HAVE)" | grep "$(DBMLCLI_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-cli\nRecommended: $(DBMLCLI_REQ)\nYours: $(DBMLCLI_HAVE)\e[1;m" && exit 1)
+endif
+ifeq ($(DBMLRENDERER), true)
+	@(echo "$(DBMLRENDERER_HAVE)" | grep "$(DBMLRENDERER_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-renderer\nRecommended: $(DBMLRENDERER_REQ)\nYours: $(DBMLRENDERER_HAVE)\e[1;m" && exit 1)
+endif
+
 
 go-dependency-check:
 	@(echo "$(GOVERSION_HAVE)" | grep "$(GOVERSION_REQ)" > /dev/null) || \

@@ -16,8 +16,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestHostCustom(t *testing.T) {
 	log.Info().Msgf("Begin compute host tests")
 
@@ -121,6 +119,56 @@ func TestHostCustom(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, utils.Host2Name, resHostH1Up.JSON200.Name)
 	assert.Nil(t, resHostH1Up.JSON200.Site)
+
+	// Uses Patch to update host1 site with s2 siteID
+	h1PatchRequest := api.HostResource{
+		Name:   utils.Host3Name,
+		SiteId: s2.JSON200.ResourceId,
+	}
+	h1Patch, err := apiClient.HostServicePatchHostWithResponse(
+		ctx,
+		*h1.JSON200.ResourceId,
+		nil,
+		h1PatchRequest,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, h1Patch.StatusCode())
+
+	resHostH1Patched, err := apiClient.HostServiceGetHostWithResponse(
+		ctx,
+		*h1.JSON200.ResourceId,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, utils.Host3Name, resHostH1Patched.JSON200.Name)
+	assert.Equal(t, *s2.JSON200.ResourceId, *resHostH1Patched.JSON200.Site.ResourceId)
+
+	// Uses Patch to update host1 site with s2 siteID
+	h1PatchRequest.SiteId = &emptyString
+	h1Patch, err = apiClient.HostServicePatchHostWithResponse(
+		ctx,
+		*h1.JSON200.ResourceId,
+		nil,
+		h1PatchRequest,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, h1Patch.StatusCode())
+
+	resHostH1Patched, err = apiClient.HostServiceGetHostWithResponse(
+		ctx,
+		*h1.JSON200.ResourceId,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, utils.Host3Name, resHostH1Patched.JSON200.Name)
+	assert.Empty(t, resHostH1Patched.JSON200.Site)
+	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
 
 	// Expect BadRequest errors in Patch/Put with emptyString wrong
 	utils.Host1RequestUpdate.SiteId = &emptyStringWrong
@@ -294,8 +342,8 @@ func TestHostList(t *testing.T) {
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		h := GetHostRequestWithRandomUUID()
@@ -362,8 +410,8 @@ func benchmarkHosts(b *testing.B, nHosts int,
 	b.Helper()
 
 	// Emulate the request of the GUI
-	var pageId uint32 = 1
-	var pageSize uint32 = 100
+	var pageId int32 = 1
+	var pageSize int32 = 100
 
 	for id := 0; id < nHosts; id++ {
 		postResp := CreateHost(b, ctx, apiClient, utils.Host1Request)
@@ -561,7 +609,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.Hosts), 1)
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
-	var largePageSize uint32 = 100
+	var largePageSize int32 = 100
 	// Look for all hosts
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
@@ -997,33 +1045,4 @@ func TestHostOnboard(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resHost.StatusCode())
 
 	log.Info().Msgf("End compute host onboard tests")
-}
-
-func TestHost_Cleanup(t *testing.T) {
-	log.Info().Msgf("TestHost_Cleanup")
-
-	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
-	defer cancel()
-
-	apiClient, err := GetAPIClient()
-	require.NoError(t, err)
-
-	resList, err := apiClient.HostServiceListHostsWithResponse(
-		ctx,
-		&api.HostServiceListHostsParams{},
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resList.StatusCode())
-
-	for _, host := range resList.JSON200.Hosts {
-		resHost, err := apiClient.HostServiceDeleteHostWithResponse(
-			ctx,
-			*host.ResourceId,
-			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-			AddProjectIDtoTheHeader,
-		)
-		require.NoError(t, err)
-		assert.Equal(t, http.StatusOK, resHost.StatusCode())
-	}
 }

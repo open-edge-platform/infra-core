@@ -21,13 +21,13 @@ GIT_COMMIT_SHORT ?= $(shell git rev-parse --short HEAD)
 VERSION          := $(shell cat VERSION)
 TAGS             ?= "$(VERSION),$(BRANCH_NAME)"
 
-# Lint variables
-YAML_LINE_LENGHT := 150
-
 ALL_PROFILES    := $(shell find *.yaml)
 
 # Include shared makefile
 include ../common.mk
+
+# Lint variables
+YAML_LINE_LENGTH := 150
 
 OCI_REPOSITORY := edge-orch/en/files/os-profile
 
@@ -50,7 +50,6 @@ artifact-publish:
   		echo $$file; \
   		profile_name=$$(basename $$file .yaml); \
 		yq e -i '.metadata.release = "'$(VERSION)'"' $$file; \
-		aws ecr create-repository --region us-west-2 --repository-name $(OCI_REPOSITORY)/$$profile_name || true; \
         oras push $(OCI_REGISTRY)/$(OCI_REPOSITORY)/$$profile_name:$(TAGS) --artifact-type application/vnd.intel.orch.en $$file; \
 	done
 

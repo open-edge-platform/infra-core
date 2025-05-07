@@ -25,8 +25,13 @@ PROTOCGENENT       := true
 PROTOCGENGO        := true
 PROTOCGENGOGRPC    := true
 
+# Required depenendcies to generate ER diagram
+DBMLCLI	           := true
+DBMLRENDERER 	   := true
+
 # Project variables
 PROJECT_NAME       := inventory
+PROJECT_NICKNAME   := inv
 BINARY_NAME        := $(PROJECT_NAME)
 
 # Code versions, tags, and so on
@@ -35,6 +40,7 @@ VERSION_MAJOR      := $(shell cut -c 1 VERSION)
 DOCKER_IMG_NAME    := $(PROJECT_NAME)
 DOCKER_VERSION     ?= $(shell git branch --show-current | sed 's/\//_/g')
 GIT_COMMIT         ?= $(shell git rev-parse HEAD)
+GIT_TAG_PREFIX     := $(PROJECT_NAME)/v
 
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use other  regex '<testname.*>' - example:
@@ -158,7 +164,7 @@ docker-build: policy-build ## Build Docker image
 	$(GOCMD) mod vendor
 	cp ../common.mk ../version.mk .
 	docker build . -f Dockerfile \
-		-t $(DOCKER_IMG_NAME):$(DOCKER_VERSION) \
+		-t $(DOCKER_IMG_NAME):$(VERSION) \
 		--build-arg http_proxy="$(http_proxy)" --build-arg https_proxy="$(https_proxy)" --build-arg no_proxy="$(no_proxy)" \
 		--build-arg HTTP_PROXY="$(HTTP_PROXY)" --build-arg HTTPS_PROXY="$(HTTPS_PROXY)" --build-arg NO_PROXY="$(NO_PROXY)" \
 		--build-arg REPO_URL="$(LABEL_REPO_URL)" --build-arg VERSION="$(LABEL_VERSION)"  \
@@ -210,6 +216,7 @@ writeSqlSchema: ## Write sql schema
 	sleep 5
 	$(GOCMD) run cmd/sqlSchemaWriter/main.go
 	@$(MAKE) db-stop
+	$(MAKE) gen-er-diagram
 
 FUZZ_SECONDS	?= 60
 go-fuzz: policy-build certificates ## go fuzz test
@@ -240,3 +247,8 @@ go-fuzz: policy-build certificates ## go fuzz test
 	$(GOCMD) test -fuzz FuzzCreateEndpoint -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(GOCMD) test -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(MAKE) db-stop
+
+gen-er-diagram: ## Generate ER diagram
+	sql2dbml sql/inventory.sql -o docs/output.dbml
+	dbml-renderer --input docs/output.dbml --output docs/inventory-er-diagram.svg
+

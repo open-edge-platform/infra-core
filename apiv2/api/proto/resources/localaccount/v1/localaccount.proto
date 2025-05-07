@@ -1,0 +1,45 @@
+// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto3";
+
+package resources.localaccount.v1;
+
+import "google/api/field_behavior.proto";
+import "resources/common/v1/common.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1;localaccountv1";
+
+message LocalAccountResource {
+  // resource identifier
+  string resource_id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^localaccount-[0-9a-f]{8}$"
+      max_bytes: 21
+    }
+  ];
+  // Username provided by admin
+  string username = 2 [
+    (validate.rules).string = {
+      pattern: "^[a-z][a-z0-9-]{0,31}$"
+      max_bytes: 32
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // SSH Public Key of EN
+  string ssh_key = 3 [
+    (validate.rules).string = {
+      pattern: "^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$"
+      max_bytes: 800
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+  
+  // Timestamp for the creation of the resource.
+  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamp for the last update of the resource.
+  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

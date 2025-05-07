@@ -13,8 +13,13 @@ path = [
   "exporters-inventory/**",
   "inventory/**",
   "tenant-controller/**",
+  "inventory/docs/inventory-er-diagram.svg",
+  "inventory/docs/output.dbml",
+  ".gitleaksignore",
 ]
 
 precedence = "aggregate"
 SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"
 SPDX-License-Identifier = "Apache-2.0"
+
+

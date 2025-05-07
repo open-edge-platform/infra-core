@@ -10,16 +10,16 @@
 
 ## Overview
 
-This sub-repository contains the Observability exporter for Inventory service. It exports, using a
+This sub-repository contains the Observability exporter for the Inventory service. It exports, using a
 [Prometheus\* toolkit](https://prometheus.io/)-compatible interface, some Inventory metrics that cannot be collected
 directly from the edge node software.
 
 ## Features
 
 - Prometheus* compatible northbound APIs
-- Export active maintanance window indication
-- Export host status information such as provisioning, onboarding and update statuses
-- Export edge device specific information such as hostname, serial number, UUID
+- Exportes active maintanance window indication
+- Exportes host status information such as provisioning, onboarding and update statuses
+- Exportes edge device specific information such as hostname, serial number, UUID
 - Built with the support for Multitenancy
 - Flexible deployments that span from a standalone binary to container-based orchestrations
 
@@ -97,7 +97,7 @@ To learn more about internals and software architecture, see
 
 To run the integration tests for Inventory Exporter, please refer to this [README](test/README.md).
 
-[user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
-[inframanager-dev-guide-url]: (https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html)
-[contributors-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/index.html
+[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
+[inframanager-dev-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/infra_manager/index.html
+[contributors-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/contributor_guide/index.html
 [inframanager-charts]: https://github.com/open-edge-platform/infra-charts
