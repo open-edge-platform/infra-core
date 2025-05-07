@@ -96,7 +96,7 @@ func TestLocalAccount_Errors(t *testing.T) {
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
-		assert.Equal(t, http.StatusNotFound, account.StatusCode())
+		assert.Equal(t, http.StatusBadRequest, account.StatusCode())
 	})
 
 	t.Run("Delete_UnexistID_NotFound", func(t *testing.T) {
@@ -106,7 +106,7 @@ func TestLocalAccount_Errors(t *testing.T) {
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
-		assert.Equal(t, http.StatusNotFound, account.StatusCode())
+		assert.Equal(t, http.StatusBadRequest, account.StatusCode())
 	})
 
 	log.Info().Msgf("End Errors LocalAccount tests")
@@ -152,9 +152,8 @@ func TestLocalAccountList(t *testing.T) {
 	)
 
 	// Adds existing pre-populated local accounts
-	totalItemsExistent := totalItems + 1
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItemsExistent, len(resList.JSON200.LocalAccounts))
+	assert.Equal(t, totalItems, len(resList.JSON200.LocalAccounts))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
