@@ -36,6 +36,54 @@ var OpenAPISingleSchedToProto = map[string]string{
 	schedulev1.SingleScheduleResourceFieldScheduleStatus: inv_schedulev1.SingleScheduleResourceFieldScheduleStatus,
 }
 
+func createSSTargetRegion(targetRegionID string) *inv_schedulev1.SingleScheduleResource_TargetRegion {
+	return &inv_schedulev1.SingleScheduleResource_TargetRegion{
+		TargetRegion: &inv_locationv1.RegionResource{
+			ResourceId: targetRegionID,
+		},
+	}
+}
+
+func createSSTargetHost(targetHostID string) *inv_schedulev1.SingleScheduleResource_TargetHost {
+	return &inv_schedulev1.SingleScheduleResource_TargetHost{
+		TargetHost: &inv_computev1.HostResource{
+			ResourceId: targetHostID,
+		},
+	}
+}
+
+func createSSTargetSite(targetSiteID string) *inv_schedulev1.SingleScheduleResource_TargetSite {
+	return &inv_schedulev1.SingleScheduleResource_TargetSite{
+		TargetSite: &inv_locationv1.SiteResource{
+			ResourceId: targetSiteID,
+		},
+	}
+}
+
+func toInvSinglescheduleSeconds(
+	singleSchedule *schedulev1.SingleScheduleResource,
+) (startSeconds, endSeconds uint64, err error) {
+	startSeconds, err = SafeUint32ToUint64(singleSchedule.GetStartSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert start seconds")
+		return 0, 0, err
+	}
+
+	endSeconds, err = SafeUint32ToUint64(singleSchedule.GetEndSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert end seconds")
+		return 0, 0, err
+	}
+
+	if endSeconds != 0 && endSeconds <= startSeconds {
+		err = errors.Errorfc(codes.InvalidArgument,
+			"The schedule end time must be greater than the start time")
+		zlog.InfraErr(err).Msg("error in specified values of end_seconds and start_seconds")
+		return 0, 0, err
+	}
+	return startSeconds, endSeconds, nil
+}
+
 func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*inv_schedulev1.SingleScheduleResource, error) {
 	if singleSchedule == nil {
 		return &inv_schedulev1.SingleScheduleResource{}, nil
@@ -52,25 +100,11 @@ func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*in
 		return nil, err
 	}
 
-	startSeconds, err := SafeUint32ToUint64(singleSchedule.GetStartSeconds())
+	startSeconds, endSeconds, err := toInvSinglescheduleSeconds(singleSchedule)
 	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert start seconds")
+		zlog.InfraErr(err).Msg("Failed to convert start and end seconds")
 		return nil, err
 	}
-
-	endSeconds, err := SafeUint32ToUint64(singleSchedule.GetEndSeconds())
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert end seconds")
-		return nil, err
-	}
-
-	if endSeconds != 0 && endSeconds <= startSeconds {
-		err := errors.Errorfc(codes.InvalidArgument,
-			"The schedule end time must be greater than the start time")
-		zlog.InfraErr(err).Msg("error in specified values of end_seconds and start_seconds")
-		return nil, err
-	}
-
 	invSingleschedule := &inv_schedulev1.SingleScheduleResource{
 		ScheduleStatus: inv_schedulev1.ScheduleStatus(singleSchedule.GetScheduleStatus()),
 		Name:           singleSchedule.GetName(),
@@ -78,28 +112,17 @@ func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*in
 		EndSeconds:     endSeconds,
 	}
 
-	if isSet(&singleSchedule.TargetRegionId) {
-		invSingleschedule.Relation = &inv_schedulev1.SingleScheduleResource_TargetRegion{
-			TargetRegion: &inv_locationv1.RegionResource{
-				ResourceId: singleSchedule.TargetRegionId,
-			},
-		}
+	regionID := singleSchedule.GetTargetRegionId()
+	hostID := singleSchedule.GetTargetHostId()
+	siteID := singleSchedule.GetTargetSiteId()
+	if isSet(&regionID) {
+		invSingleschedule.Relation = createSSTargetRegion(regionID)
 	}
-
-	if isSet(&singleSchedule.TargetHostId) {
-		invSingleschedule.Relation = &inv_schedulev1.SingleScheduleResource_TargetHost{
-			TargetHost: &inv_computev1.HostResource{
-				ResourceId: singleSchedule.TargetHostId,
-			},
-		}
+	if isSet(&hostID) {
+		invSingleschedule.Relation = createSSTargetHost(hostID)
 	}
-
-	if isSet(&singleSchedule.TargetSiteId) {
-		invSingleschedule.Relation = &inv_schedulev1.SingleScheduleResource_TargetSite{
-			TargetSite: &inv_locationv1.SiteResource{
-				ResourceId: singleSchedule.TargetSiteId,
-			},
-		}
+	if isSet(&siteID) {
+		invSingleschedule.Relation = createSSTargetSite(siteID)
 	}
 
 	err = validator.ValidateMessage(invSingleschedule)

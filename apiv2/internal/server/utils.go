@@ -69,7 +69,7 @@ func SafeInt32ToUint32(n int32) (uint32, error) {
 // SafeUint32ToUint64 converts an uint32 to uint64 safely.
 func SafeUint32ToUint64(n uint32) (uint64, error) {
 	res := uint64(n)
-	if uint32(res) != n { //nolint:gosec // no risk of overflow
+	if uint32(res) != n { //nolint:gocritic,gosec // no risk of overflow
 		return 0, errors.New("uint32 wrongly converted to uint64")
 	}
 	return res, nil
