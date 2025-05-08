@@ -20,9 +20,10 @@ import (
 const (
 	OamServerAddress            = "oamServerAddress"
 	OamServerAddressDescription = "The OAM server address to serve on. It should have the following format <IP address>:<port>."
+	ServiceName                 = "InfraOAMgRPC"
 )
 
-var zlog = logging.GetLogger("InfraOAMgRPC")
+var zlog = logging.GetLogger(ServiceName)
 
 // Store the readiness status.
 type OAM struct {
@@ -58,8 +59,20 @@ func (o *OAM) Check(_ context.Context, _ *grpc_health_v1.HealthCheckRequest) (*g
 }
 
 func (o *OAM) List(_ context.Context, _ *grpc_health_v1.HealthListRequest) (*grpc_health_v1.HealthListResponse, error) {
-	zlog.Trace().Msgf("Serving the Watch request for health check")
-	return nil, status.Errorf(codes.Unimplemented, "unimplemented")	
+	zlog.Trace().Msgf("Serving the List request for health check")
+	state := &grpc_health_v1.HealthCheckResponse{
+		Status: grpc_health_v1.HealthCheckResponse_NOT_SERVING,
+	}
+	if o.isReady() {
+		state = &grpc_health_v1.HealthCheckResponse{
+			Status: grpc_health_v1.HealthCheckResponse_SERVING,
+		}
+	}
+	return &grpc_health_v1.HealthListResponse{
+		Statuses: map[string]*grpc_health_v1.HealthCheckResponse{
+			ServiceName: state,
+		},
+	}, nil
 }
 
 // Streaming API for watcher registration.
