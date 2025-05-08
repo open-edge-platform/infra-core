@@ -6,7 +6,7 @@ metadata:
   release: 0.0.0-dev
   version: 0.2.0
 spec:
-  name: Ubuntu 22.04.5 LTS with Intel out-of-tree GPU drivers
+  name: Ubuntu 22.04.5 LTS with Intel out-of-tree GPU drivers - DEPRECATED
   type: OS_TYPE_MUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
