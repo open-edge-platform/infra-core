@@ -57,6 +57,11 @@ func (o *OAM) Check(_ context.Context, _ *grpc_health_v1.HealthCheckRequest) (*g
 	}, nil
 }
 
+func (o *OAM) List(_ context.Context, _ *grpc_health_v1.HealthListRequest) (*grpc_health_v1.HealthListResponse, error) {
+	zlog.Trace().Msgf("Serving the Watch request for health check")
+	return nil, status.Errorf(codes.Unimplemented, "unimplemented")	
+}
+
 // Streaming API for watcher registration.
 func (o *OAM) Watch(_ *grpc_health_v1.HealthCheckRequest, _ grpc_health_v1.Health_WatchServer) error {
 	zlog.Trace().Msgf("Serving the Watch request for health check")
