@@ -27,3 +27,8 @@ jobs:
       prefix_tag_separator: "/"
       project_folder: "os-profiles"
     secrets: inherit
+
+permissions:
+  contents: read
+  security-events: write
+  id-token: write

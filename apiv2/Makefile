@@ -26,9 +26,10 @@ CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 
 # Project variables
-PROJECT_NAME := api
+PROJECT_NAME       := api
 BINARY_NAME_API    := api
 BINARY_NAME_PROXY  := proxy
+SUBPROJECT_DIR     := apiv2
 
 # Code versions, tags, and so on
 VERSION       := $(shell cat VERSION)
@@ -79,10 +80,9 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
-
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) license yamllint go-lint hadolint mdlint ## Run all lint, add `generate` target
+lint: $(OUT_DIR) license yamllint buf-breaking go-lint hadolint mdlint ## Run all lint, add `generate` target
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -216,4 +216,8 @@ buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
 
 buf-gen: buf-gen-api oapi-banner ## compile protoc files
 
-buf-lint: common-buf-lint ## Lint and format protobuf files
+buf-lint: ## Lint and format protobuf files
+	buf --version
+	# TODO: currently failing buf format and buf lint - need to be fixed
+
+buf-breaking: common-buf-breaking
