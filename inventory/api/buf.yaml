@@ -10,7 +10,7 @@ breaking:
     - FILE
 lint:
   use:
-    - DEFAULT
+    - STANDARD
     - ENUM_FIRST_VALUE_ZERO
   ignore_only:
     PACKAGE_VERSION_SUFFIX:
