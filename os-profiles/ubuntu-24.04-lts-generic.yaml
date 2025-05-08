@@ -5,16 +5,16 @@ appVersion: apps/v1
 metadata:
   release: 0.0.0-dev
   version: 0.1.0
-  spec:
-    name: Ubuntu 24.04 LTS
-    type: OS_TYPE_MUTABLE
-    provider: OS_PROVIDER_KIND_INFRA
-    architecture: x86_64
-    profileName: ubuntu-24.04-lts-generic
-    osImageUrl: >-
-      https://cloud-images.ubuntu.com/releases/noble/release-20250430/ubuntu-24.04-server-cloudimg-amd64.img
-    osImageVersion: 24.04
-    osImageSha256: bc471ca49de03b5129c65b70f9862b7f4b5e721622fd34ade78132f6f7999e2d
-    osPackageManifestURL: ""
-    securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
-    platformBundle:
+spec:
+  name: Ubuntu 24.04 LTS
+  type: OS_TYPE_MUTABLE
+  provider: OS_PROVIDER_KIND_INFRA
+  architecture: x86_64
+  profileName: ubuntu-24.04-lts-generic
+  osImageUrl: >-
+    https://cloud-images.ubuntu.com/releases/noble/release-20250430/ubuntu-24.04-server-cloudimg-amd64.img
+  osImageVersion: 24.04
+  osImageSha256: bc471ca49de03b5129c65b70f9862b7f4b5e721622fd34ade78132f6f7999e2d
+  osPackageManifestURL: ""
+  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
+  platformBundle:

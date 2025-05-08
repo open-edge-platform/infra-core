@@ -19,4 +19,4 @@ spec:
   securityFeature: SECURITY_FEATURE_NONE
   platformBundle:
     installerScript: edge-orch/en/files/platformbundle/ubuntu-22.04-lts-generic-ext:1.1.0
-    cloudInitScript: edge-orch/en-files/platformbundle/cloudinit:1.1.0
+    cloudInitScript: edge-orch/en/files/platformbundle/cloudinit:1.1.0
