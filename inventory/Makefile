@@ -33,6 +33,7 @@ DBMLRENDERER 	   := true
 PROJECT_NAME       := inventory
 PROJECT_NICKNAME   := inv
 BINARY_NAME        := $(PROJECT_NAME)
+SUBPROJECT_DIR     := inventory
 
 # Code versions, tags, and so on
 VERSION            := $(shell cat VERSION)
@@ -71,7 +72,7 @@ BUNDLE            := "$(shell pwd)/$(OUT_DIR)/policy_bundle.tar.gz"
 
 generate: buf-gen ent-gen mock-gen cli-gen ## Generate buf and ent
 
-lint: $(OUT_DIR) generate migration-test migration-lint license go-lint yamllint buf-lint hadolint mdlint ## Run all linters, generate targets and validate migrations
+lint: $(OUT_DIR) generate migration-test migration-lint license buf-lint buf-breaking go-lint yamllint hadolint mdlint ## Run all linters, generate targets and validate migrations
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -119,6 +120,8 @@ buf-gen-errors: $(VENV_NAME) ## Compile protoc errors files into code
 buf-gen: buf-gen-infrainv-schema-extender buf-gen-api buf-gen-errors ## Compile protoc files
 
 buf-lint: common-buf-lint ## Lint and format protobuf files
+
+buf-breaking: common-buf-breaking ## Find breaking changes in protobuf files
 
 ent-gen: ## Generate ent schema
 	$(GOCMD) generate ./internal/ent
