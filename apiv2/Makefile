@@ -69,7 +69,6 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
 # OpenAPI breaking change check variables
-BASE_BRANCH           := main # temp TODO remove
 TEMP_BASE_OPENAPI_DIR := /tmp/apiv2-main
 OPENAPI_PATH          := api/openapi/openapi.yaml
 
