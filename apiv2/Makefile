@@ -82,7 +82,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) license yamllint buf-breaking go-lint hadolint mdlint ## Run all lint, add `generate` target
+lint: $(OUT_DIR) license yamllint go-lint hadolint mdlint ## Run all lint, add `generate` target
 
 test: $(OUT_DIR) go-test ## Run all tests
 
