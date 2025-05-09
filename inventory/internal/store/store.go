@@ -18,6 +18,8 @@ import (
 	"google.golang.org/grpc/codes"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/intercept"
 	regions "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
 	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
@@ -28,6 +30,7 @@ import (
 	telemetry_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/status"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 )
 
@@ -63,15 +66,39 @@ func newEntClient(dbURLWriter, dbURLReader string) ent.Client {
 			now := time.Now().UTC().Format(ISO8601Format)
 			switch m.Op() {
 			case ent.OpCreate:
-				err := m.SetField(createdAtFieldName, now)
+				err := applyStringFields(m, true, map[string]string{
+					createdAtFieldName: now,
+					updatedAtFieldName: now,
+				})
 				if err != nil {
 					return nil, err
 				}
-				err = m.SetField(updatedAtFieldName, now)
-				if err != nil {
-					return nil, err
+
+				switch m.(type) {
+				case *ent.HostResourceMutation:
+					err = applyStringFields(m, false, map[string]string{
+						hostresource.FieldHostStatus:         status.DefaultHostStatus,
+						hostresource.FieldOnboardingStatus:   status.DefaultOnboardingStatus,
+						hostresource.FieldRegistrationStatus: status.DefaultRegistrationStatus,
+					})
+					if err != nil {
+						return nil, err
+					}
+				case *ent.InstanceResourceMutation:
+					err = applyStringFields(m, false, map[string]string{
+						instanceresource.FieldInstanceStatus:           status.DefaultInstanceStatus,
+						instanceresource.FieldProvisioningStatus:       status.DefaultProvisioningStatus,
+						instanceresource.FieldUpdateStatus:             status.DefaultUpdateStatus,
+						instanceresource.FieldTrustedAttestationStatus: status.DefaultTrustedAttestationStatus,
+					})
+					if err != nil {
+						return nil, err
+					}
+				default:
+					// Do nothing.
 				}
 			case ent.OpUpdate, ent.OpUpdateOne:
+				ss
 				err := m.SetField(updatedAtFieldName, now)
 				if err != nil {
 					return nil, err
@@ -83,6 +110,20 @@ func newEntClient(dbURLWriter, dbURLReader string) ent.Client {
 		})
 	})
 	return client
+}
+
+func applyStringFields(m ent.Mutation, allowOverride bool, fields map[string]string) error {
+	for field, value := range fields {
+		if _, isSet := m.Field(field); isSet && !allowOverride {
+			continue
+		}
+
+		if err := m.SetField(field, value); err != nil {
+			zlog.InfraSec().InfraErr(err).Msgf("failed to set field %s", field)
+			return err
+		}
+	}
+	return nil
 }
 
 func NewStore(dbURLWriter, dbURLReader string) *InvStore {
