@@ -154,7 +154,6 @@ linters-settings:
           - github.com/grpc-ecosystem
           - github.com/mennanov/fmutils
           - github.com/labstack/echo
-          - github.com/onosproject
           - github.com/open-policy-agent
           - github.com/pkg/errors
           - github.com/rs/zerolog
@@ -188,7 +187,6 @@ linters-settings:
           - github.com/google
           - github.com/grpc-ecosystem
           - github.com/mennanov/fmutils
-          - github.com/onosproject
           - github.com/rs/zerolog
           - github.com/stretchr/testify/require
           - github.com/stretchr/testify/assert

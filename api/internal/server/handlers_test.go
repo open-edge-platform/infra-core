@@ -39,7 +39,7 @@ func TestHandlers(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, h)
 
-	siteName := "site"
+	siteName := "site1"
 	body := api.Site{Name: &siteName}
 	req, err := api.NewPostSitesRequest("http://localhost:8080/edge-infra.orchestrator.apis/v1", body)
 	assert.NoError(t, err)
@@ -75,7 +75,7 @@ func TestHandlersBody(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, h)
 
-	siteName := "site"
+	siteName := "site2"
 	body := api.Site{Name: &siteName}
 	req, err := api.NewPostSitesRequest("http://localhost:8080/edge-infra.orchestrator.apis/v1", body)
 	assert.NoError(t, err)

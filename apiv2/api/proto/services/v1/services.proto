@@ -7,12 +7,14 @@ package services.v1;
 
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
 import "resources/compute/v1/compute.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
 import "resources/provider/v1/provider.proto";
 import "resources/schedule/v1/schedule.proto";
 import "resources/telemetry/v1/telemetry.proto";
+import "resources/localaccount/v1/localaccount.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1;servicesv1";
@@ -41,6 +43,13 @@ service RegionService {
       body: "region"
     };
   }
+  // Patch a region.
+  rpc PatchRegion(PatchRegionRequest) returns (resources.location.v1.RegionResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/regions/{resource_id}"
+      body: "region"
+    };
+  }  
   // Delete a region.
   rpc DeleteRegion(DeleteRegionRequest) returns (DeleteRegionResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/regions/{resource_id}"};
@@ -71,6 +80,13 @@ service SiteService {
       body: "site"
     };
   }
+  // Patch a site.
+  rpc PatchSite(PatchSiteRequest) returns (resources.location.v1.SiteResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/sites/{resource_id}"
+      body: "site"
+    };
+  }  
   // Delete a site.
   rpc DeleteSite(DeleteSiteRequest) returns (DeleteSiteResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/sites/{resource_id}"};
@@ -113,6 +129,13 @@ service HostService {
       body: "host"
     };
   }
+  // Patch a host.
+  rpc PatchHost(PatchHostRequest) returns (resources.compute.v1.HostResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"
+      body: "host"
+    };
+  }  
   // Delete a host.
   rpc DeleteHost(DeleteHostRequest) returns (DeleteHostResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"};
@@ -169,6 +192,13 @@ service InstanceService {
       body: "instance"
     };
   }
+  // Patch a instance.
+  rpc PatchInstance(PatchInstanceRequest) returns (resources.compute.v1.InstanceResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"
+      body: "instance"
+    };
+  }
   // Delete a instance.
   rpc DeleteInstance(DeleteInstanceRequest) returns (DeleteInstanceResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"};
@@ -204,6 +234,13 @@ service OperatingSystemService {
       body: "os"
     };
   }
+  // Patch an OS.
+  rpc PatchOperatingSystem(PatchOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"
+      body: "os"
+    };
+  }
   // Delete an OS.
   rpc DeleteOperatingSystem(DeleteOperatingSystemRequest) returns (DeleteOperatingSystemResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"};
@@ -234,6 +271,13 @@ service ProviderService {
       body: "provider"
     };
   }
+  // Patch a provider.
+  rpc PatchProvider(PatchProviderRequest) returns (resources.provider.v1.ProviderResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"
+      body: "provider"
+    };
+  }  
   // Delete a provider.
   rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"};
@@ -264,6 +308,13 @@ service WorkloadService {
       body: "workload"
     };
   }
+  // Patch a workload.
+  rpc PatchWorkload(PatchWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"
+      body: "workload"
+    };
+  }  
   // Delete a workload.
   rpc DeleteWorkload(DeleteWorkloadRequest) returns (DeleteWorkloadResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"};
@@ -294,6 +345,13 @@ service WorkloadMemberService {
       body: "workload_member"
     };
   }
+  // Patch a workload_member.
+  rpc PatchWorkloadMember(PatchWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"
+      body: "workload_member"
+    };
+  }  
   // Delete a workload_member.
   rpc DeleteWorkloadMember(DeleteWorkloadMemberRequest) returns (DeleteWorkloadMemberResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"};
@@ -329,6 +387,13 @@ service ScheduleService {
       body: "single_schedule"
     };
   }
+  // Patch a single_schedule.
+  rpc PatchSingleSchedule(PatchSingleScheduleRequest) returns (resources.schedule.v1.SingleScheduleResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"
+      body: "single_schedule"
+    };
+  }
   // Delete a single_schedule.
   rpc DeleteSingleSchedule(DeleteSingleScheduleRequest) returns (DeleteSingleScheduleResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"};
@@ -353,6 +418,13 @@ service ScheduleService {
   rpc UpdateRepeatedSchedule(UpdateRepeatedScheduleRequest) returns (resources.schedule.v1.RepeatedScheduleResource) {
     option (google.api.http) = {
       put: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"
+      body: "repeated_schedule"
+    };
+  }
+  // Patch a repeated_schedule.
+  rpc PatchRepeatedSchedule(PatchRepeatedScheduleRequest) returns (resources.schedule.v1.RepeatedScheduleResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"
       body: "repeated_schedule"
     };
   }
@@ -434,6 +506,13 @@ service TelemetryLogsProfileService {
       body: "telemetry_logs_profile"
     };
   }
+  // Patch a telemetry_logs_profile.
+  rpc PatchTelemetryLogsProfile(PatchTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"
+      body: "telemetry_logs_profile"
+    };
+  }
   // Delete a telemetry_logs_profile.
   rpc DeleteTelemetryLogsProfile(DeleteTelemetryLogsProfileRequest) returns (DeleteTelemetryLogsProfileResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"};
@@ -464,9 +543,39 @@ service TelemetryMetricsProfileService {
       body: "telemetry_metrics_profile"
     };
   }
+  // Patch a telemetry_metrics_profile.
+  rpc PatchTelemetryMetricsProfile(PatchTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
+    option (google.api.http) = {
+      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"
+      body: "telemetry_metrics_profile"
+    };
+  }
   // Delete a telemetry_metrics_profile.
   rpc DeleteTelemetryMetricsProfile(DeleteTelemetryMetricsProfileRequest) returns (DeleteTelemetryMetricsProfileResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"};
+  }
+}
+
+// LocalAccount.
+service LocalAccountService {
+  // Create a localAccount.
+  rpc CreateLocalAccount(CreateLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
+    option (google.api.http) = {
+      post: "/edge-infra.orchestrator.apis/v2/localAccounts"
+      body: "local_account"
+    };
+  }
+  // Get a list of providers.
+  rpc ListLocalAccounts(ListLocalAccountsRequest) returns (ListLocalAccountsResponse) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts"};
+  }
+  // Get a specific provider.
+  rpc GetLocalAccount(GetLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"};
+  }
+  // Delete a provider.
+  rpc DeleteLocalAccount(DeleteLocalAccountRequest) returns (DeleteLocalAccountResponse) {
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"};
   }
 }
 
@@ -524,18 +633,18 @@ message ListRegionsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -562,6 +671,16 @@ message UpdateRegionRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
   resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchRegion method.
+message PatchRegionRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the region.
+  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of region.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteRegion.
@@ -627,18 +746,18 @@ message ListSitesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -662,6 +781,16 @@ message UpdateSiteRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the site.
   resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchSite method.
+message PatchSiteRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the site.
+  resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of site.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteSite.
@@ -799,18 +928,18 @@ message ListHostsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -834,6 +963,16 @@ message UpdateHostRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the host.
   resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchHost method.
+message PatchHostRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the host.
+  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of host.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteHost.
@@ -954,18 +1093,18 @@ message ListInstancesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -985,10 +1124,20 @@ message ListInstancesResponse {
 
 // Request message for the UpdateInstance method.
 message UpdateInstanceRequest {
-  // Name of the instance instance to be updated.
+  // ID of the resource to be updated.
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the instance.
   resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchInstance method.
+message PatchInstanceRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the instance.
+  resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of instance.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteInstance.
@@ -1065,18 +1214,18 @@ message ListOperatingSystemsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1100,6 +1249,16 @@ message UpdateOperatingSystemRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
   resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchOperatingSystem method.
+message PatchOperatingSystemRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the os.
+  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of os.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteOperatingSystem.
@@ -1165,18 +1324,18 @@ message ListProvidersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1200,6 +1359,16 @@ message UpdateProviderRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the provider.
   resources.provider.v1.ProviderResource provider = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchProvider method.
+message PatchProviderRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the provider.
+  resources.provider.v1.ProviderResource provider = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of provider.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteProvider.
@@ -1265,18 +1434,18 @@ message ListWorkloadsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1300,6 +1469,16 @@ message UpdateWorkloadRequest {
   string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the workload.
   resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the PatchWorkload method.
+message PatchWorkloadRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the workload.
+  resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of workload.
+  google.protobuf.FieldMask field_mask = 3;
 }
 
 // Request message for DeleteWorkload.
@@ -1365,18 +1544,18 @@ message ListWorkloadMembersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  int32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  int32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1402,6 +1581,16 @@ message UpdateWorkloadMemberRequest {
   resources.compute.v1.WorkloadMember workload_member = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
+// Request message for the PatchWorkloadMember method.
+message PatchWorkloadMemberRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the workload_member.
+  resources.compute.v1.WorkloadMember workload_member = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of workload_member.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
 // Request message for DeleteWorkloadMember.
 message DeleteWorkloadMemberRequest {
   // Name of the workload_member workload_member to be deleted.
@@ -1421,18 +1610,18 @@ message DeleteWorkloadMemberResponse {}
 message ListSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1525,18 +1714,18 @@ message GetSingleScheduleResponse {
 message ListSingleSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1601,6 +1790,16 @@ message UpdateSingleScheduleRequest {
   resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
+// Request message for the PatchSingleSchedule method.
+message PatchSingleScheduleRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the single_schedule.
+  resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of single_schedule.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
 // Request message for DeleteSingleSchedule.
 message DeleteSingleScheduleRequest {
   // Name of the single_schedule single_schedule to be deleted.
@@ -1644,18 +1843,18 @@ message GetRepeatedScheduleResponse {
 message ListRepeatedSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1720,6 +1919,16 @@ message UpdateRepeatedScheduleRequest {
   resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
+// Request message for the PatchRepeatedSchedule method.
+message PatchRepeatedScheduleRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the repeated_schedule.
+  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of repeated_schedule.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
 // Request message for DeleteRepeatedSchedule.
 message DeleteRepeatedScheduleRequest {
   // Name of the repeated_schedule repeated_schedule to be deleted.
@@ -1763,18 +1972,18 @@ message GetTelemetryLogsGroupResponse {
 message ListTelemetryLogsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1845,18 +2054,18 @@ message GetTelemetryMetricsGroupResponse {
 message ListTelemetryMetricsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -1927,18 +2136,18 @@ message GetTelemetryLogsProfileResponse {
 message ListTelemetryLogsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -2003,6 +2212,16 @@ message UpdateTelemetryLogsProfileRequest {
   resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
+// Request message for the PatchTelemetryLogs method.
+message PatchTelemetryLogsProfileRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the telemetry_logs_profile.
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of telemetry_logs_profile.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
 // Request message for DeleteTelemetryLogsProfile.
 message DeleteTelemetryLogsProfileRequest {
   // Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
@@ -2046,18 +2265,18 @@ message GetTelemetryMetricsProfileResponse {
 message ListTelemetryMetricsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  int32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  int32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       ignore_empty: true
       gte: 0
       lte: 10000
@@ -2122,6 +2341,16 @@ message UpdateTelemetryMetricsProfileRequest {
   resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
+// Request message for the PatchTelemetryMetricsProfile method.
+message PatchTelemetryMetricsProfileRequest {
+  // ID of the resource to be updated.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the telemetry_metrics_profile.
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of telemetry_metrics_profile.
+  google.protobuf.FieldMask field_mask = 3;
+}
+
 // Request message for DeleteTelemetryMetricsProfile.
 message DeleteTelemetryMetricsProfileRequest {
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
@@ -2130,3 +2359,97 @@ message DeleteTelemetryMetricsProfileRequest {
 
 // Response message for DeleteTelemetryMetricsProfile.
 message DeleteTelemetryMetricsProfileResponse {}
+
+
+
+/*
+   ###################
+   LocalAccount
+   ###################
+*/
+
+// Request message for the CreateLocalAccount method.
+message CreateLocalAccountRequest {
+  // The localaccount to create.
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the CreateLocalAccount method.
+message CreateLocalAccountResponse {
+  // The created localaccount.
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the GetLocalAccount method.
+message GetLocalAccountRequest {
+  // Name of the requested localaccount.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetLocalAccount method.
+message GetLocalAccountResponse {
+  // The requested localaccount.
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the ListLocalAccounts method.
+message ListLocalAccountsRequest {
+  // Optional comma separated list of fields to specify a sorting order.
+  // See https://google.aip.dev/132 for details.
+  string order_by = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).string = {
+      ignore_empty: true
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9., ]+$"
+    }
+  ];
+  // Optional filter to return only item of interest.
+  // See https://google.aip.dev/160 for details.
+  string filter = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).string = {
+      ignore_empty: true
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // Defines the amount of items to be contained in a single page.
+  // Default of 20.
+  int32 page_size = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).int32 = {
+      ignore_empty: true
+      gte: 1
+      lte: 100
+    }
+  ];
+  // Index of the first item to return. This allows skipping items.
+  int32 offset = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).int32 = {
+      ignore_empty: true
+      gte: 0
+      lte: 10000
+    }
+  ];
+}
+
+// Response message for the ListLocalAccounts method.
+message ListLocalAccountsResponse {
+  // Sorted and filtered list of localaccounts.
+  repeated resources.localaccount.v1.LocalAccountResource local_accounts = 1 [(google.api.field_behavior) = REQUIRED];
+  // Count of items in the entire list, regardless of pagination.
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  // Inform if there are more elements
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for DeleteLocalAccount.
+message DeleteLocalAccountRequest {
+  // Name of the localaccount to be deleted.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for DeleteLocalAccount.
+message DeleteLocalAccountResponse {}

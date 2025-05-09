@@ -21,11 +21,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs TelemetryLogsProfile defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPITelemetryLogsProfileToProto = map[string]string{
-	"targetRegion":   inv_telemetryv1.TelemetryProfileEdgeRegion,
-	"targetSite":     inv_telemetryv1.TelemetryProfileEdgeSite,
-	"targetInstance": inv_telemetryv1.TelemetryProfileEdgeInstance,
-	"logLevel":       inv_telemetryv1.TelemetryProfileFieldLogLevel,
-	"logsGroupId":    inv_telemetryv1.TelemetryProfileEdgeGroup,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetRegion:   inv_telemetryv1.TelemetryProfileEdgeRegion,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetSite:     inv_telemetryv1.TelemetryProfileEdgeSite,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetInstance: inv_telemetryv1.TelemetryProfileEdgeInstance,
+	telemetryv1.TelemetryLogsProfileResourceFieldLogLevel:       inv_telemetryv1.TelemetryProfileFieldLogLevel,
+	telemetryv1.TelemetryLogsProfileResourceFieldLogsGroupId:    inv_telemetryv1.TelemetryProfileEdgeGroup,
 }
 
 func TelemetryLogsProfileResourcetoAPI(
@@ -39,6 +39,8 @@ func TelemetryLogsProfileResourcetoAPI(
 		ResourceId: telemetryProfile.GetResourceId(),
 		ProfileId:  telemetryProfile.GetResourceId(),
 		LogLevel:   telemetryv1.SeverityLevel(*telemetryProfile.GetLogLevel().Enum()),
+		CreatedAt:  telemetryProfile.GetCreatedAt(),
+		UpdatedAt:  telemetryProfile.GetUpdatedAt(),
 	}
 
 	if telemetryProfile.GetInstance() != nil {
@@ -136,7 +138,11 @@ func (is *InventorygRPCServer) ListTelemetryLogsProfiles(
 	hasNext := false
 	var totalElems int32
 	telemetryLogsProfiles := []*telemetryv1.TelemetryLogsProfileResource{}
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := telemetryProfileFilter(
 		telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS,
 		req.GetInstanceId(),
@@ -147,8 +153,8 @@ func (is *InventorygRPCServer) ListTelemetryLogsProfiles(
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_TelemetryProfile{},
 		},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter:  filter,
 	}
@@ -261,6 +267,40 @@ func (is *InventorygRPCServer) UpdateTelemetryLogsProfile(
 	return invUpRes, nil
 }
 
+// Update a telemetryLogsProfile. (PATCH).
+func (is *InventorygRPCServer) PatchTelemetryLogsProfile(
+	ctx context.Context,
+	req *restv1.PatchTelemetryLogsProfileRequest,
+) (*telemetryv1.TelemetryLogsProfileResource, error) {
+	zlog.Debug().Msg("PatchTelemetryLogsProfile")
+
+	telemetryLogsProfile := req.GetTelemetryLogsProfile()
+	telemetryProfile, err := TelemetryLogsProfileResourcetoGRPC(telemetryLogsProfile)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry logs profile")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(telemetryProfile, req.GetFieldMask(), OpenAPITelemetryLogsProfileToProto)
+	if err != nil {
+		return nil, err
+	}
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_TelemetryProfile{
+			TelemetryProfile: telemetryProfile,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetTelemetryProfile()
+	invUpRes := TelemetryLogsProfileResourcetoAPI(invUp)
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
 // Should be called only when requesting inherited telemetry logs.
 func (is *InventorygRPCServer) listInheritedTelemetryLogs(
 	ctx context.Context,
@@ -291,14 +331,18 @@ func (is *InventorygRPCServer) listInheritedTelemetryLogs(
 			},
 		}
 	}
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, 0, false, err
+	}
 	resp, err := is.InvClient.ListInheritedTelemetryProfiles(
 		ctx,
 		&inheritBy,
 		fmt.Sprintf("%s = %s",
 			inv_telemetryv1.TelemetryProfileFieldKind,
 			inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS),
-		req.GetOrderBy(), req.GetPageSize(), req.GetOffset())
+		req.GetOrderBy(), offset, limit)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list inherited telemetry logs profiles from inventory")
 		return nil, 0, false, err

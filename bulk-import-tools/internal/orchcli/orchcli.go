@@ -20,6 +20,7 @@ import (
 	"github.com/open-edge-platform/infra-core/api/pkg/api/v0"
 	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/authn"
 	e "github.com/open-edge-platform/infra-core/bulk-import-tools/internal/errors"
+	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/types"
 	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/validator"
 )
 
@@ -32,6 +33,7 @@ type OrchCli struct {
 	OSProfileCache map[string]api.OperatingSystemResource
 	SiteCache      map[string]api.Site
 	LACache        map[string]api.LocalAccount
+	HostCache      map[string]api.Host
 }
 
 type MetadataItem = struct {
@@ -61,6 +63,7 @@ func NewOrchCli(ctx context.Context, svcURL, project string) (*OrchCli, error) {
 		OSProfileCache: make(map[string]api.OperatingSystemResource),
 		SiteCache:      make(map[string]api.Site),
 		LACache:        make(map[string]api.LocalAccount),
+		HostCache:      make(map[string]api.Host),
 	}, nil
 }
 
@@ -109,47 +112,30 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
+	oC.HostCache[*hostInfo.ResourceId] = hostInfo
 	return *hostInfo.ResourceId, nil
 }
 
-func (oC *OrchCli) CreateInstance(ctx context.Context, hostID, oSResourceID, laID string, secure bool) (string, error) {
-	osRe := regexp.MustCompile(validator.OSPIDPATTERN)
-	if !osRe.MatchString(oSResourceID) {
-		return "", e.NewCustomError(e.ErrInvalidOSProfile)
+func (oC *OrchCli) CreateInstance(ctx context.Context, hostID string, r *types.HostRecord) (string, error) {
+	if exists, err := oC.InstanceExists(ctx, r.Serial, r.UUID); exists {
+		return "", e.NewCustomError(e.ErrAlreadyRegistered)
+	} else if err != nil {
+		return "", err
+	}
+
+	if err := validateOSProfile(r.OSProfile); err != nil {
+		return "", err
+	}
+
+	payload, err := oC.prepareInstancePayload(hostID, r)
+	if err != nil {
+		return "", err
 	}
 
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/instances", oC.Project))
 
-	// Prepare the form data
-	payload := &api.Instance{
-		HostID:          &hostID,
-		OsID:            &oSResourceID,
-		SecurityFeature: new(api.SecurityFeature),
-		Kind:            new(api.InstanceKind),
-	}
-
-	if laID != "" {
-		payload.LocalAccountID = &laID
-	}
-	*payload.Kind = api.INSTANCEKINDUNSPECIFIED
-	osResource, ok := oC.OSProfileCache[oSResourceID]
-	if !ok {
-		return "", e.NewCustomError(e.ErrInternal)
-	}
-
-	*payload.SecurityFeature = *osResource.SecurityFeature
-	if !secure {
-		*payload.SecurityFeature = api.SECURITYFEATURENONE
-	}
-
-	jsonData, err := json.Marshal(payload)
-	if err != nil {
-		return "", e.NewCustomError(e.ErrInternal)
-	}
-
-	// Create the HTTP client and make request
-	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPost, bytes.NewBuffer(jsonData))
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPost, bytes.NewBuffer(payload))
 	if err != nil {
 		return "", err
 	}
@@ -160,12 +146,45 @@ func (oC *OrchCli) CreateInstance(ctx context.Context, hostID, oSResourceID, laI
 	}
 
 	var instanceInfo api.Instance
-
 	if err := json.NewDecoder(resp.Body).Decode(&instanceInfo); err != nil {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
 	return *instanceInfo.ResourceId, nil
+}
+
+func validateOSProfile(osProfile string) error {
+	osRe := regexp.MustCompile(validator.OSPIDPATTERN)
+	if !osRe.MatchString(osProfile) {
+		return e.NewCustomError(e.ErrInvalidOSProfile)
+	}
+	return nil
+}
+
+func (oC *OrchCli) prepareInstancePayload(hostID string, r *types.HostRecord) ([]byte, error) {
+	payload := &api.Instance{
+		HostID:          &hostID,
+		OsID:            &r.OSProfile,
+		SecurityFeature: new(api.SecurityFeature),
+		Kind:            new(api.InstanceKind),
+	}
+
+	if r.RemoteUser != "" {
+		payload.LocalAccountID = &r.RemoteUser
+	}
+	*payload.Kind = api.INSTANCEKINDUNSPECIFIED
+
+	osResource, ok := oC.OSProfileCache[r.OSProfile]
+	if !ok {
+		return nil, e.NewCustomError(e.ErrInternal)
+	}
+
+	*payload.SecurityFeature = *osResource.SecurityFeature
+	if r.Secure != types.SecureTrue {
+		*payload.SecurityFeature = api.SECURITYFEATURENONE
+	}
+
+	return json.Marshal(payload)
 }
 
 func obtainRequestPath(oC *OrchCli, input, pattern, pathByID, pathByName, filter string) (url.URL, *regexp.Regexp) {
@@ -183,6 +202,94 @@ func obtainRequestPath(oC *OrchCli, input, pattern, pathByID, pathByName, filter
 		uParsed.RawQuery = query.Encode()
 	}
 	return uParsed, re
+}
+
+func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, error) {
+	pathByName := "/v1/projects/%s/compute/instances"
+	uParsed := *oC.SvcURL
+	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf(pathByName, oC.Project))
+	query := uParsed.Query()
+	switch {
+	case sn != "" && uuid != "":
+		query.Set("filter", fmt.Sprintf("%s=%q AND %s=%q", "host.serialNumber", sn, "host.uuid", uuid))
+	case sn != "":
+		query.Set("filter", fmt.Sprintf("%s=%q", "host.serialNumber", sn))
+	case uuid != "":
+		query.Set("filter", fmt.Sprintf("%s=%q", "host.uuid", uuid))
+	default:
+		return false, nil
+	}
+	uParsed.RawQuery = query.Encode()
+
+	// Create the HTTP client and make request
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
+	if err != nil {
+		return false, e.NewCustomError(e.ErrInternal)
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, e.NewCustomError(e.ErrInternal)
+	}
+
+	var instances api.InstanceList
+
+	if err := json.NewDecoder(resp.Body).Decode(&instances); err != nil {
+		return false, e.NewCustomError(e.ErrInternal)
+	}
+
+	if *instances.TotalElements > 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+// GetHostID is invoked when a pre-registered host has caused StatusPreconditionFailed error
+// in /register call. HostID is queried in such cases to attempt to complete the import
+// ( i.e. - instance creation & site,metadata allocation).
+// Note that the post register steps would be executed only for a strict match of the Serial
+// Number and UUID. A partial match might indicate intentional registration of another host.
+func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, error) {
+	if sn == "" && uuid == "" {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	uParsed := *oC.SvcURL
+	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts", oC.Project))
+	query := uParsed.Query()
+	query.Set("filter", fmt.Sprintf("%s=%q AND %s=%q", "serialNumber", sn, "uuid", uuid))
+	uParsed.RawQuery = query.Encode()
+
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
+	if err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	var hosts api.HostsList
+	err = json.NewDecoder(resp.Body).Decode(&hosts)
+	if err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	if *hosts.TotalElements != 1 {
+		return "", e.NewCustomError(e.ErrHostDetailMismatch)
+	}
+	// Get host at index 0 as this is the only host available
+	host := (*hosts.Hosts)[0]
+
+	// If an instance for the host already exists, return an error
+	if host.Instance != nil {
+		return "", e.NewCustomError(e.ErrAlreadyRegistered)
+	}
+	oC.HostCache[*host.ResourceId] = host
+	return *host.ResourceId, nil
 }
 
 func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error) {
@@ -225,11 +332,12 @@ func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	// Matches substrings as well. Hence will pick up 1st result only for complete match
-	if *osResources.TotalElements >= 1 && *(*osResources.OperatingSystemResources)[0].ProfileName == os {
-		oC.OSProfileCache[os] = (*osResources.OperatingSystemResources)[0]
-		oC.OSProfileCache[*(*osResources.OperatingSystemResources)[0].ResourceId] = (*osResources.OperatingSystemResources)[0]
-		return *(*osResources.OperatingSystemResources)[0].ResourceId, nil
+	for _, osResource := range *osResources.OperatingSystemResources {
+		if *osResource.ProfileName == os {
+			oC.OSProfileCache[os] = osResource
+			oC.OSProfileCache[*osResource.ResourceId] = osResource
+			return *osResource.ResourceId, nil
+		}
 	}
 
 	return "", e.NewCustomError(e.ErrInvalidOSProfile)
@@ -256,7 +364,7 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", e.NewCustomError(e.ErrInvalidOSProfile)
+		return "", e.NewCustomError(e.ErrInvalidSite)
 	}
 
 	if siteRe.MatchString(site) {
@@ -275,14 +383,15 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	// Matches substrings as well. Hence will pick up 1st result only for complete match
-	if *sites.TotalElements >= 1 && *(*sites.Sites)[0].Name == site {
-		oC.SiteCache[site] = (*sites.Sites)[0]
-		oC.SiteCache[*(*sites.Sites)[0].ResourceId] = (*sites.Sites)[0]
-		return *(*sites.Sites)[0].ResourceId, nil
+	for _, siteItem := range *sites.Sites {
+		if *siteItem.Name == site {
+			oC.SiteCache[site] = siteItem
+			oC.SiteCache[*siteItem.ResourceId] = siteItem
+			return *siteItem.ResourceId, nil
+		}
 	}
 
-	return "", e.NewCustomError(e.ErrInvalidOSProfile)
+	return "", e.NewCustomError(e.ErrInvalidSite)
 }
 
 func (oC *OrchCli) GetLocalAccountID(ctx context.Context, lAName string) (string, error) {
@@ -325,12 +434,14 @@ func (oC *OrchCli) GetLocalAccountID(ctx context.Context, lAName string) (string
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	// Matches substrings as well. Hence will pick up 1st result only for complete match
-	if *lAs.TotalElements >= 1 && (*lAs.LocalAccounts)[0].Username == lAName {
-		oC.LACache[lAName] = (*lAs.LocalAccounts)[0]
-		oC.LACache[*(*lAs.LocalAccounts)[0].ResourceId] = (*lAs.LocalAccounts)[0]
-		return *(*lAs.LocalAccounts)[0].ResourceId, nil
+	for _, la := range *lAs.LocalAccounts {
+		if la.Username == lAName {
+			oC.LACache[lAName] = la
+			oC.LACache[*la.ResourceId] = la
+			return *la.ResourceId, nil
+		}
 	}
+
 	return "", e.NewCustomError(e.ErrInvalidLocalAccount)
 }
 
@@ -348,6 +459,9 @@ func (oC *OrchCli) AllocateHostToSiteAndAddMetadata(ctx context.Context, hostID,
 	}
 	// Prepare the form data
 	payload := &api.Host{}
+	if host, ok := oC.HostCache[hostID]; ok {
+		payload.Name = host.Name
+	}
 	if siteID != "" {
 		payload.SiteId = &siteID
 	}

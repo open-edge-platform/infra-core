@@ -29,9 +29,9 @@ import (
 // edge-infra-manager-openapi-types.gen.go.
 // Here we should have only fields that are writable from the API.
 var OpenAPIHostToProto = map[string]string{
-	"Name":     inv_computev1.HostResourceFieldName,
-	"SiteId":   inv_computev1.HostResourceEdgeSite,
-	"Metadata": inv_computev1.HostResourceFieldMetadata,
+	computev1.HostResourceFieldName:    inv_computev1.HostResourceFieldName,
+	computev1.HostResourceFieldSiteId:  inv_computev1.HostResourceEdgeSite,
+	computev1.HostResourceEdgeMetadata: inv_computev1.HostResourceFieldMetadata,
 }
 
 func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error) {
@@ -179,6 +179,8 @@ func fromInvHost(
 		Instance:                    hostInstance,
 		Metadata:                    metadata,
 		InheritedMetadata:           []*commonv1.MetadataItem{},
+		CreatedAt:                   invHost.GetCreatedAt(),
+		UpdatedAt:                   invHost.GetUpdatedAt(),
 	}
 
 	hostUUID := invHost.GetUuid()
@@ -208,6 +210,8 @@ func fromInvHostStorages(storages []*inv_computev1.HoststorageResource) []*compu
 			Model:         storage.GetModel(),
 			CapacityBytes: fmt.Sprintf("%d", storage.GetCapacityBytes()),
 			DeviceName:    storage.GetDeviceName(),
+			CreatedAt:     storage.GetCreatedAt(),
+			UpdatedAt:     storage.GetUpdatedAt(),
 		})
 	}
 	return hostStorages
@@ -229,6 +233,8 @@ func fromInvHostNics(nics []*inv_computev1.HostnicResource) []*computev1.Hostnic
 			Mtu:           nic.GetMtu(),
 			LinkState:     computev1.NetworkInterfaceLinkState(nic.GetLinkState()),
 			BmcInterface:  nic.GetBmcInterface(),
+			CreatedAt:     nic.GetCreatedAt(),
+			UpdatedAt:     nic.GetUpdatedAt(),
 		})
 	}
 	return hostNics
@@ -247,6 +253,8 @@ func fromInvHostUsbs(usbs []*inv_computev1.HostusbResource) []*computev1.Hostusb
 			Class:      usb.GetClass(),
 			Serial:     usb.GetSerial(),
 			DeviceName: usb.GetDeviceName(),
+			CreatedAt:  usb.GetCreatedAt(),
+			UpdatedAt:  usb.GetUpdatedAt(),
 		})
 	}
 	return hostUsbs
@@ -264,6 +272,8 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 			Description: gpu.GetDescription(),
 			DeviceName:  gpu.GetDeviceName(),
 			Features:    gpu.GetFeatures(),
+			CreatedAt:   gpu.GetCreatedAt(),
+			UpdatedAt:   gpu.GetUpdatedAt(),
 		})
 	}
 	return hostGpus
@@ -309,10 +319,15 @@ func (is *InventorygRPCServer) ListHosts(
 ) (*restv1.ListHostsResponse, error) {
 	zlog.Debug().Msg("ListHosts")
 
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, err
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Host{Host: &inv_computev1.HostResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
@@ -375,6 +390,44 @@ func (is *InventorygRPCServer) UpdateHost(
 	}
 
 	fieldmask, err := fieldmaskpb.New(invHost, maps.Values(OpenAPIHostToProto)...)
+	if err != nil {
+		return nil, err
+	}
+
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{
+			Host: invHost,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	invUp := upRes.GetHost()
+	invUpRes, err := fromInvHost(invUp, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a host. (PATCH).
+func (is *InventorygRPCServer) PatchHost(
+	ctx context.Context,
+	req *restv1.PatchHostRequest,
+) (*computev1.HostResource, error) {
+	zlog.Debug().Msg("PatchHost")
+
+	host := req.GetHost()
+	invHost, err := toInvHostUpdate(host)
+	if err != nil {
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invHost, req.GetFieldMask(), OpenAPIHostToProto)
 	if err != nil {
 		return nil, err
 	}
@@ -580,19 +633,19 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 
 func (is *InventorygRPCServer) listAllHosts(ctx context.Context, filter string) ([]*computev1.HostResource, error) {
 	var offset int
-	var pageSize uint32 = 100
+	var pageSize int32 = 100
 	hasNext := true
 	hosts := make([]*computev1.HostResource, 0, pageSize)
 
 	for hasNext {
-		offsetUint32, err := SafeIntToUint32(offset)
+		offsetInt32, err := SafeIntToInt32(offset)
 		if err != nil {
 			return nil, err
 		}
 		req := &restv1.ListHostsRequest{
 			Filter:   filter,
 			PageSize: pageSize,
-			Offset:   offsetUint32,
+			Offset:   offsetInt32,
 		}
 		hostsList, err := is.ListHosts(ctx, req)
 		if err != nil {

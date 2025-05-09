@@ -13,12 +13,14 @@ import (
 	"net/url"
 	"testing"
 
+	u "github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/api/pkg/api/v0"
 	e "github.com/open-edge-platform/infra-core/bulk-import-tools/internal/errors"
 	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/orchcli"
+	"github.com/open-edge-platform/infra-core/bulk-import-tools/internal/types"
 )
 
 var (
@@ -110,6 +112,7 @@ func newOrchCli(t *testing.T, u, p, jwt string) *orchcli.OrchCli {
 		OSProfileCache: make(map[string]api.OperatingSystemResource),
 		SiteCache:      make(map[string]api.Site),
 		LACache:        make(map[string]api.LocalAccount),
+		HostCache:      make(map[string]api.Host),
 	}
 	return oc
 }
@@ -312,7 +315,13 @@ func TestCreateInstance(t *testing.T) {
 		SecurityFeature: new(api.SecurityFeature),
 	}
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, "", true)
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: "",
+		Secure:     types.SecureTrue,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.NoError(t, err)
 	assert.Equal(t, resourceID, resp)
 }
@@ -323,7 +332,13 @@ func TestCreateInstanceInvalidOSProfile(t *testing.T) {
 
 	oc := newOrchCli(t, mockServer.URL, project, jwt)
 
-	resp, err := oc.CreateInstance(context.Background(), uuid, "invalid-os-id", "", true)
+	hr := &types.HostRecord{
+		OSProfile:  "invalid-os-profile",
+		RemoteUser: "",
+		Secure:     types.SecureTrue,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.Error(t, err)
 	assert.Empty(t, resp)
 }
@@ -334,14 +349,21 @@ func TestCreateInstanceInternalError(t *testing.T) {
 
 	oc := newOrchCli(t, mockServer.URL, project, jwt)
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, "", true)
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: "",
+		Secure:     types.SecureTrue,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.Error(t, err)
 	assert.Empty(t, resp)
 
 	oc.OSProfileCache[oSResourceID] = api.OperatingSystemResource{
 		SecurityFeature: new(api.SecurityFeature),
 	}
-	resp, err = oc.CreateInstance(context.Background(), hostID, oSResourceID, "", true)
+
+	resp, err = oc.CreateInstance(context.Background(), hostID, hr)
 	assert.Error(t, err)
 	assert.Empty(t, resp)
 }
@@ -361,7 +383,13 @@ func TestCreateInstanceWithLocalAccount(t *testing.T) {
 		SecurityFeature: new(api.SecurityFeature),
 	}
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, localAccountID, true)
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: localAccountID,
+		Secure:     types.SecureTrue,
+	}
+
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.NoError(t, err)
 	assert.Equal(t, resourceID, resp)
 }
@@ -379,8 +407,13 @@ func TestCreateInstanceSecurityFeatureNone(t *testing.T) {
 	oc.OSProfileCache[oSResourceID] = api.OperatingSystemResource{
 		SecurityFeature: new(api.SecurityFeature),
 	}
+	hr := &types.HostRecord{
+		OSProfile:  oSResourceID,
+		RemoteUser: "",
+		Secure:     types.SecureFalse,
+	}
 
-	resp, err := oc.CreateInstance(context.Background(), hostID, oSResourceID, "", false)
+	resp, err := oc.CreateInstance(context.Background(), hostID, hr)
 	assert.NoError(t, err)
 	assert.Equal(t, resourceID, resp)
 }
@@ -780,5 +813,191 @@ func TestAllocateHostToSiteAndAddMetadata(t *testing.T) {
 		err := oc.AllocateHostToSiteAndAddMetadata(context.Background(), hostID, siteID, "")
 		assert.Error(t, err)
 		assert.Equal(t, e.NewCustomError(e.ErrHostSiteMetadataFailed), err)
+	})
+}
+
+func TestInstanceExists(t *testing.T) {
+	instanceList := api.InstanceList{
+		TotalElements: new(int),
+	}
+	*instanceList.TotalElements = 1
+
+	t.Run("Instance Exists with Serial Number and UUID", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.NoError(t, err)
+		assert.True(t, exists)
+	})
+
+	t.Run("Instance Exists with Serial Number Only", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, "")
+		assert.NoError(t, err)
+		assert.True(t, exists)
+	})
+
+	t.Run("Instance Exists with UUID Only", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), "", uuid)
+		assert.NoError(t, err)
+		assert.True(t, exists)
+	})
+
+	t.Run("Instance Does Not Exist", func(t *testing.T) {
+		instanceList.TotalElements = new(int) // Set TotalElements to 0
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, instanceList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.NoError(t, err)
+		assert.False(t, exists)
+	})
+
+	t.Run("Empty Serial Number and UUID", func(t *testing.T) {
+		oc := newOrchCli(t, "", project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), "", "")
+		assert.NoError(t, err)
+		assert.False(t, exists)
+	})
+
+	t.Run("Internal Server Error", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusInternalServerError, nil)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.False(t, exists)
+	})
+
+	t.Run("Invalid Response Format", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, "invalid-response")
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		exists, err := oc.InstanceExists(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.False(t, exists)
+	})
+}
+
+func TestGetHostID(t *testing.T) {
+	hostResource := api.Host{
+		ResourceId:   &hostID,
+		SerialNumber: &sn,
+		Uuid:         func() *u.UUID { id := u.MustParse(uuid); return &id }(),
+	}
+	hostList := api.HostsList{
+		TotalElements: new(int),
+		Hosts: &[]api.Host{
+			hostResource,
+		},
+	}
+	*hostList.TotalElements = 1
+
+	t.Run("Valid Host ID", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.NoError(t, err)
+		assert.Equal(t, hostID, resp)
+	})
+
+	t.Run("Valid Host Serial Number and UUID", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.NoError(t, err)
+		assert.Equal(t, hostID, resp)
+	})
+
+	t.Run("Host Not Found", func(t *testing.T) {
+		hostList.TotalElements = new(int) // Set TotalElements to 0
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostList)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.Empty(t, resp)
+	})
+
+	t.Run("Empty Serial Number and UUID", func(t *testing.T) {
+		oc := newOrchCli(t, "", project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), "", "")
+		assert.Error(t, err)
+		assert.Empty(t, resp)
+	})
+
+	t.Run("Internal Server Error", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusInternalServerError, nil)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.Empty(t, resp)
+	})
+
+	t.Run("Invalid Response Format", func(t *testing.T) {
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, "invalid-response")
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.Empty(t, resp)
+	})
+
+	t.Run("Host Instance Not Nil", func(t *testing.T) {
+		hostResourceWithInstance := api.Host{
+			ResourceId:   &hostID,
+			SerialNumber: &sn,
+			Uuid:         func() *u.UUID { id := u.MustParse(uuid); return &id }(),
+			Instance:     &api.Instance{}, // Simulate a host with an instance
+		}
+		hostListWithInstance := api.HostsList{
+			TotalElements: new(int),
+			Hosts: &[]api.Host{
+				hostResourceWithInstance,
+			},
+		}
+		*hostListWithInstance.TotalElements = 1
+
+		mockServer := setupMockServerForGetResources(t, http.StatusOK, hostListWithInstance)
+		defer mockServer.Close()
+
+		oc := newOrchCli(t, mockServer.URL, project, jwt)
+
+		resp, err := oc.GetHostID(context.Background(), sn, uuid)
+		assert.Error(t, err)
+		assert.Empty(t, resp)
 	})
 }

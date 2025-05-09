@@ -27,17 +27,17 @@ import (
 // The key is derived from the json property respectively of the
 // structs SchedTemplate defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIRepeatedSchedToProto = map[string]string{
-	"Name":            inv_schedulev1.RepeatedScheduleResourceFieldName,
-	"TargetSiteId":    inv_schedulev1.RepeatedScheduleResourceEdgeTargetSite,
-	"TargetHostId":    inv_schedulev1.RepeatedScheduleResourceEdgeTargetHost,
-	"TargetRegionId":  inv_schedulev1.RepeatedScheduleResourceEdgeTargetRegion,
-	"DurationSeconds": inv_schedulev1.RepeatedScheduleResourceFieldDurationSeconds,
-	"CronMinutes":     inv_schedulev1.RepeatedScheduleResourceFieldCronMinutes,
-	"CronHours":       inv_schedulev1.RepeatedScheduleResourceFieldCronHours,
-	"CronDayMonth":    inv_schedulev1.RepeatedScheduleResourceFieldCronDayMonth,
-	"CronMonth":       inv_schedulev1.RepeatedScheduleResourceFieldCronMonth,
-	"CronDayWeek":     inv_schedulev1.RepeatedScheduleResourceFieldCronDayWeek,
-	"ScheduleStatus":  inv_schedulev1.RepeatedScheduleResourceFieldScheduleStatus,
+	schedulev1.RepeatedScheduleResourceFieldName:            inv_schedulev1.RepeatedScheduleResourceFieldName,
+	schedulev1.RepeatedScheduleResourceFieldTargetSiteId:    inv_schedulev1.RepeatedScheduleResourceEdgeTargetSite,
+	schedulev1.RepeatedScheduleResourceFieldTargetHostId:    inv_schedulev1.RepeatedScheduleResourceEdgeTargetHost,
+	schedulev1.RepeatedScheduleResourceFieldTargetRegionId:  inv_schedulev1.RepeatedScheduleResourceEdgeTargetRegion,
+	schedulev1.RepeatedScheduleResourceFieldDurationSeconds: inv_schedulev1.RepeatedScheduleResourceFieldDurationSeconds,
+	schedulev1.RepeatedScheduleResourceFieldCronMinutes:     inv_schedulev1.RepeatedScheduleResourceFieldCronMinutes,
+	schedulev1.RepeatedScheduleResourceFieldCronHours:       inv_schedulev1.RepeatedScheduleResourceFieldCronHours,
+	schedulev1.RepeatedScheduleResourceFieldCronDayMonth:    inv_schedulev1.RepeatedScheduleResourceFieldCronDayMonth,
+	schedulev1.RepeatedScheduleResourceFieldCronMonth:       inv_schedulev1.RepeatedScheduleResourceFieldCronMonth,
+	schedulev1.RepeatedScheduleResourceFieldCronDayWeek:     inv_schedulev1.RepeatedScheduleResourceFieldCronDayWeek,
+	schedulev1.RepeatedScheduleResourceFieldScheduleStatus:  inv_schedulev1.RepeatedScheduleResourceFieldScheduleStatus,
 }
 
 var OpenAPIScheduleRepeatedObjectsNames = map[string]struct{}{
@@ -134,6 +134,8 @@ func fromInvRepeatedSchedule(
 		CronDayMonth:       invRepeatedSchedule.GetCronDayMonth(),
 		CronMonth:          invRepeatedSchedule.GetCronMonth(),
 		CronDayWeek:        invRepeatedSchedule.GetCronDayWeek(),
+		CreatedAt:          invRepeatedSchedule.GetCreatedAt(),
+		UpdatedAt:          invRepeatedSchedule.GetUpdatedAt(),
 	}
 
 	switch relation := invRepeatedSchedule.GetRelation().(type) {
@@ -233,16 +235,17 @@ func (is *InventorygRPCServer) ListRepeatedSchedules(
 		return nil, err
 	}
 	var offset, limit int
-	offset, err = util.Uint32ToInt(req.GetOffset())
+	offset, err = util.Int32ToInt(req.GetOffset())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert offset")
 		return nil, err
 	}
-	limit, err = util.Uint32ToInt(req.GetPageSize())
+	limit, err = util.Int32ToInt(req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert page size")
 		return nil, err
 	}
+
 	invRepeatedSchedules, hasNext, totalElems, err := is.InvHCacheClient.GetRepeatedSchedules(
 		ctx, tenantID, offset, limit, schedFilters)
 	if err != nil {
@@ -330,6 +333,55 @@ func (is *InventorygRPCServer) UpdateRepeatedSchedule(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Repeatedschedule{
+			Repeatedschedule: invRepeatedSchedule,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	is.InvHCacheClient.InvalidateCache(
+		tenantID,
+		req.GetResourceId(),
+		inventory.SubscribeEventsResponse_EVENT_KIND_UPDATED,
+	)
+	invUp := upRes.GetRepeatedschedule()
+	invUpRes, err := fromInvRepeatedSchedule(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a repeatedSchedule. (PATCH).
+func (is *InventorygRPCServer) PatchRepeatedSchedule(
+	ctx context.Context,
+	req *restv1.PatchRepeatedScheduleRequest,
+) (*schedulev1.RepeatedScheduleResource, error) {
+	zlog.Debug().Msg("PatchRepeatedSchedule")
+	tenantID, exists := tenant.GetTenantIDFromContext(ctx)
+	if !exists {
+		// This should never happen! Interceptor should either fail or set it!
+		err := errors.Errorfc(codes.Unauthenticated, "Tenant ID is not present in context")
+		zlog.InfraSec().InfraErr(err).Msg("List single schedule is not authenticated")
+		return nil, err
+	}
+	repeatedSchedule := req.GetRepeatedSchedule()
+	invRepeatedSchedule, err := toInvRepeatedSchedule(repeatedSchedule)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory repeated schedule")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invRepeatedSchedule, req.GetFieldMask(), OpenAPIRepeatedSchedToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Repeatedschedule{
 			Repeatedschedule: invRepeatedSchedule,
