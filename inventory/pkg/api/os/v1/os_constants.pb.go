@@ -21,6 +21,7 @@ const (
 	OperatingSystemResourceFieldOsType            = "os_type"
 	OperatingSystemResourceFieldOsProvider        = "os_provider"
 	OperatingSystemResourceFieldPlatformBundle    = "platform_bundle"
+	OperatingSystemResourceFieldDescription       = "description"
 	OperatingSystemResourceFieldTenantId          = "tenant_id"
 	OperatingSystemResourceFieldCreatedAt         = "created_at"
 	OperatingSystemResourceFieldUpdatedAt         = "updated_at"

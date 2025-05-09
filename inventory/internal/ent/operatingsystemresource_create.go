@@ -213,6 +213,20 @@ func (osrc *OperatingSystemResourceCreate) SetNillablePlatformBundle(s *string) 
 	return osrc
 }
 
+// SetDescription sets the "description" field.
+func (osrc *OperatingSystemResourceCreate) SetDescription(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetDescription(s)
+	return osrc
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableDescription(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetDescription(*s)
+	}
+	return osrc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (osrc *OperatingSystemResourceCreate) SetTenantID(s string) *OperatingSystemResourceCreate {
 	osrc.mutation.SetTenantID(s)
@@ -380,6 +394,10 @@ func (osrc *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResourc
 	if value, ok := osrc.mutation.PlatformBundle(); ok {
 		_spec.SetField(operatingsystemresource.FieldPlatformBundle, field.TypeString, value)
 		_node.PlatformBundle = value
+	}
+	if value, ok := osrc.mutation.Description(); ok {
+		_spec.SetField(operatingsystemresource.FieldDescription, field.TypeString, value)
+		_node.Description = value
 	}
 	if value, ok := osrc.mutation.TenantID(); ok {
 		_spec.SetField(operatingsystemresource.FieldTenantID, field.TypeString, value)

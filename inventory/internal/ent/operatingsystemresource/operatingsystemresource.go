@@ -43,6 +43,8 @@ const (
 	FieldOsProvider = "os_provider"
 	// FieldPlatformBundle holds the string denoting the platform_bundle field in the database.
 	FieldPlatformBundle = "platform_bundle"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -71,6 +73,7 @@ var Columns = []string{
 	FieldOsType,
 	FieldOsProvider,
 	FieldPlatformBundle,
+	FieldDescription,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -239,6 +242,11 @@ func ByOsProvider(opts ...sql.OrderTermOption) OrderOption {
 // ByPlatformBundle orders the results by the platform_bundle field.
 func ByPlatformBundle(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPlatformBundle, opts...).ToFunc()
+}
+
+// ByDescription orders the results by the description field.
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescription, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

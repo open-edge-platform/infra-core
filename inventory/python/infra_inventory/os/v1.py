@@ -56,6 +56,7 @@ class OperatingSystemResource(betterproto.Message):
     os_type: "OsType" = betterproto.enum_field(11)
     os_provider: "OsProviderKind" = betterproto.enum_field(14)
     platform_bundle: str = betterproto.string_field(15)
+    description: str = betterproto.string_field(16)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
