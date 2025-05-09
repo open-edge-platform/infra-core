@@ -26,12 +26,14 @@ PROTOCGENGOGRPCVERSION_HAVE := $(shell protoc-gen-go-grpc -version | sed s/.*"pr
 PROTOCGENGOGRPCVERSION_REQ  := 1.2.0
 PROTOCGENGOVERSION_HAVE     := $(shell protoc-gen-go --version | sed s/.*"protoc-gen-go v"// | sed 's/ .*//')
 PROTOCGENGOVERSION_REQ      := 1.30.0
-SWAGGER_CLI_REQ				:= 4.0.4
-SWAGGER_CLI_HAVE			:= $(shell swagger-cli --version)
-DBMLCLI_REQ				:= 3.12.0
-DBMLCLI_HAVE				:= $(shell sql2dbml --version)
-DBMLRENDERER_HAVE			:= $(shell dbml-renderer --version)
-DBMLRENDERER_REQ			:= 1.0.30
+SWAGGER_CLI_REQ	            := 4.0.4
+SWAGGER_CLI_HAVE            := $(shell swagger-cli --version)
+DBMLCLI_REQ                 := 3.12.0
+DBMLCLI_HAVE                := $(shell sql2dbml --version)
+DBMLRENDERER_HAVE           := $(shell dbml-renderer --version)
+DBMLRENDERER_REQ            := 1.0.30
+OASDIFF_HAVE                := $(shell oasdiff --version | sed -n 's/^oasdiff version //p')
+OASDIFF_REQ                 := 1.11.4
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
@@ -58,7 +60,10 @@ ifeq ($(DBMLRENDERER), true)
 	@(echo "$(DBMLRENDERER_HAVE)" | grep "$(DBMLRENDERER_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of dbml-renderer\nRecommended: $(DBMLRENDERER_REQ)\nYours: $(DBMLRENDERER_HAVE)\e[1;m" && exit 1)
 endif
-
+ifeq ($(OASDIFF), true)
+	@(echo "$(OASDIFF_HAVE)" | grep "$(OASDIFF_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of oasdiff\nRecommended: $(OASDIFF_REQ)\nYours: $(OASDIFF_HAVE)\e[1;m" && exit 1)
+endif
 
 go-dependency-check:
 	@(echo "$(GOVERSION_HAVE)" | grep "$(GOVERSION_REQ)" > /dev/null) || \
@@ -133,4 +138,7 @@ ifeq ($(PROTOCGENGO), true)
 endif
 ifeq ($(PROTOCGENGOGRPC), true)
 	$(GOCMD) install google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOCGENGOVERSION_REQ}
+endif
+ifeq ($(OASDIFF), true)
+	$(GOCMD) install github.com/oasdiff/oasdiff@v${OASDIFF_REQ}
 endif
