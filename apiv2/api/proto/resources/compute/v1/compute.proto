@@ -403,7 +403,7 @@ message InstanceResource {
   // Local Account associated with this Instance
   resources.localaccount.v1.LocalAccountResource localaccount = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The instance's unique identifier. Alias of resourceID.
+  // Deprecated, The instance's unique identifier. Alias of resourceID.
   string instanceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
@@ -496,7 +496,7 @@ message WorkloadResource {
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
-  // The workload unique identifier. Alias of resourceId.
+  // Deprecated, The workload unique identifier. Alias of resourceId.
   string workload_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
@@ -535,7 +535,7 @@ message WorkloadMember {
   // The instance resource associated with the workload member.
   InstanceResource instance = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The workload unique identifier. Alias of resourceId.
+  // Deprecated, The workload unique identifier. Alias of resourceId.
   string workload_member_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {

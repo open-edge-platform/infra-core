@@ -63,7 +63,7 @@ message SingleScheduleResource {
   // The value of endSeconds must be equal to or bigger than the value of startSeconds.
   uint32 end_seconds = 10 [(validate.rules).uint32 = {gte:1}];
 
-  // The single schedule resource's unique identifier. Alias of resourceId.
+  // Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
   string single_scheduleID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
@@ -171,7 +171,7 @@ message RepeatedScheduleResource {
     (validate.rules).string = {pattern: "^([*]|([0-6])((,([0-6]))*))$"}
   ];
 
-  // The repeated schedule's unique identifier. Alias of resourceId.
+  // Deprecated, The repeated schedule's unique identifier. Alias of resourceId.
   string repeated_scheduleID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {

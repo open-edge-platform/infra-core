@@ -32,7 +32,7 @@ message RegionResource {
   // The parent Region associated to the Region, when existent.
   RegionResource parent_region = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The Region unique identifier. Alias of resourceId.
+  // Deprecated, The Region unique identifier. Alias of resourceId.
   string regionID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
@@ -111,10 +111,12 @@ message SiteResource {
   // Provider this Site is managed by
   provider.v1.ProviderResource provider = 30;
 
-  // The site unique identifier. Alias of resourceId.
-  string siteID = 5001 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
-    max_len: 13
+  // Deprecated, The site unique identifier. Alias of resourceId.
+  string siteID = 5001 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^site-[0-9a-f]{8}$"
+      max_len: 13
   }];
 
   // The metadata associated to the Region,

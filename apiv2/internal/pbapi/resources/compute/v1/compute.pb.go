@@ -1470,7 +1470,7 @@ type InstanceResource struct {
 	WorkloadMembers []*WorkloadMember `protobuf:"bytes,30,rep,name=workload_members,json=workloadMembers,proto3" json:"workload_members,omitempty"` // back-reference to the Workload Members associated to this Instance
 	// Local Account associated with this Instance
 	Localaccount *v15.LocalAccountResource `protobuf:"bytes,41,opt,name=localaccount,proto3" json:"localaccount,omitempty"`
-	// The instance's unique identifier. Alias of resourceID.
+	// Deprecated, The instance's unique identifier. Alias of resourceID.
 	InstanceID string `protobuf:"bytes,5001,opt,name=instanceID,proto3" json:"instanceID,omitempty"`
 	// The host's unique identifier associated with the instance.
 	HostID string `protobuf:"bytes,5002,opt,name=hostID,proto3" json:"hostID,omitempty"`
@@ -1735,7 +1735,7 @@ type WorkloadResource struct {
 	Status string `protobuf:"bytes,15,opt,name=status,proto3" json:"status,omitempty"`
 	// The members of the workload.
 	Members []*WorkloadMember `protobuf:"bytes,20,rep,name=members,proto3" json:"members,omitempty"`
-	// The workload unique identifier. Alias of resourceId.
+	// Deprecated, The workload unique identifier. Alias of resourceId.
 	WorkloadId string `protobuf:"bytes,5001,opt,name=workload_id,json=workloadId,proto3" json:"workload_id,omitempty"`
 	// Timestamps associated to the resource.
 	Timestamps *v12.Timestamps `protobuf:"bytes,50100,opt,name=timestamps,proto3" json:"timestamps,omitempty"`
@@ -1843,7 +1843,7 @@ type WorkloadMember struct {
 	Workload *WorkloadResource `protobuf:"bytes,10,opt,name=workload,proto3" json:"workload,omitempty"`
 	// The instance resource associated with the workload member.
 	Instance *InstanceResource `protobuf:"bytes,11,opt,name=instance,proto3" json:"instance,omitempty"`
-	// The workload unique identifier. Alias of resourceId.
+	// Deprecated, The workload unique identifier. Alias of resourceId.
 	WorkloadMemberId string `protobuf:"bytes,5001,opt,name=workload_member_id,json=workloadMemberId,proto3" json:"workload_member_id,omitempty"`
 	// The reference of the Instance member of the workload.
 	Member *InstanceResource `protobuf:"bytes,5002,opt,name=member,proto3" json:"member,omitempty"`

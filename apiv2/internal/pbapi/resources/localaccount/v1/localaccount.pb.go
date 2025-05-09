@@ -37,7 +37,7 @@ type LocalAccountResource struct {
 	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	// SSH Public Key of EN
 	SshKey string `protobuf:"bytes,3,opt,name=ssh_key,json=sshKey,proto3" json:"ssh_key,omitempty"`
-	// The local account resource's unique identifier. Alias of resourceId.
+	// Deprecated, The local account resource's unique identifier. Alias of resourceId.
 	LocalAccountID string `protobuf:"bytes,5001,opt,name=local_accountID,json=localAccountID,proto3" json:"local_accountID,omitempty"`
 	// Timestamps associated to the resource.
 	Timestamps *v1.Timestamps `protobuf:"bytes,50100,opt,name=timestamps,proto3" json:"timestamps,omitempty"`

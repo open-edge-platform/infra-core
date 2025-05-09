@@ -121,7 +121,7 @@ message OperatingSystemResource {
   // If empty, the default OS installation will be used.
   string platform_bundle = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The OS resource's unique identifier. Alias of resourceId.
+  // Deprecated, The OS resource's unique identifier. Alias of resourceId.
   string os_resourceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {

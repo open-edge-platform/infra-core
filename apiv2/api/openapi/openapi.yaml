@@ -3651,7 +3651,7 @@ components:
                     maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
-                    description: The instance's unique identifier. Alias of resourceID.
+                    description: Deprecated, The instance's unique identifier. Alias of resourceID.
                 hostID:
                     writeOnly: true
                     maxLength: 13
@@ -4078,7 +4078,7 @@ components:
                     maxLength: 21
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
-                    description: The local account resource's unique identifier. Alias of resourceId.
+                    description: Deprecated, The local account resource's unique identifier. Alias of resourceId.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
         MetadataItem:
@@ -4196,7 +4196,7 @@ components:
                     maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
-                    description: The OS resource's unique identifier. Alias of resourceId.
+                    description: Deprecated, The OS resource's unique identifier. Alias of resourceId.
                 repoUrl:
                     maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
@@ -4258,7 +4258,7 @@ components:
                     maxLength: 17
                     pattern: ^provider-[0-9a-f]{8}$
                     type: string
-                    description: The provider resource's unique identifier. Alias of resourceId.
+                    description: Deprecated, The provider resource's unique identifier. Alias of resourceId.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
             description: A provider resource.
@@ -4283,7 +4283,7 @@ components:
                     maxLength: 15
                     pattern: ^region-[0-9a-f]{8}$
                     type: string
-                    description: The Region unique identifier. Alias of resourceId.
+                    description: Deprecated, The Region unique identifier. Alias of resourceId.
                 metadata:
                     type: array
                     items:
@@ -4375,7 +4375,7 @@ components:
                     maxLength: 21
                     pattern: ^repeatedsche-[0-9a-f]{8}$
                     type: string
-                    description: The repeated schedule's unique identifier. Alias of resourceId.
+                    description: Deprecated, The repeated schedule's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
                     maxLength: 13
@@ -4440,7 +4440,7 @@ components:
                     maxLength: 19
                     pattern: ^singlesche-[0-9a-f]{8}$
                     type: string
-                    description: The single schedule resource's unique identifier. Alias of resourceId.
+                    description: Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
                     maxLength: 13
@@ -4491,10 +4491,11 @@ components:
                 provider:
                     $ref: '#/components/schemas/ProviderResource'
                 siteID:
+                    readOnly: true
                     maxLength: 13
                     pattern: ^site-[0-9a-f]{8}$
                     type: string
-                    description: The site unique identifier. Alias of resourceId.
+                    description: Deprecated, The site unique identifier. Alias of resourceId.
                 metadata:
                     type: array
                     items:
@@ -4549,7 +4550,7 @@ components:
                     maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
-                    description: Unique ID of the telemetry group. Alias of resource_id.
+                    description: Deprecated, Unique ID of the telemetry group. Alias of resource_id.
                 name:
                     maxLength: 50
                     minLength: 1
@@ -4589,7 +4590,7 @@ components:
                     maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
-                    description: The ID of the telemetry profile.
+                    description: Deprecated, The ID of the telemetry profile.
                 targetInstance:
                     maxLength: 13
                     pattern: ^$|^inst-[0-9a-f]{8}$
@@ -4643,7 +4644,7 @@ components:
                     maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
-                    description: Unique ID of the telemetry group. Alias of resource_id.
+                    description: Deprecated, Unique ID of the telemetry group. Alias of resource_id.
                 name:
                     maxLength: 50
                     minLength: 1
@@ -4683,7 +4684,7 @@ components:
                     maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
-                    description: The ID of the telemetry profile.
+                    description: Deprecated, The ID of the telemetry profile.
                 targetInstance:
                     maxLength: 13
                     pattern: ^$|^inst-[0-9a-f]{8}$
@@ -4755,7 +4756,7 @@ components:
                     maxLength: 23
                     pattern: ^workloadmember-[0-9a-f]{8}$
                     type: string
-                    description: The workload unique identifier. Alias of resourceId.
+                    description: Deprecated, The workload unique identifier. Alias of resourceId.
                 member:
                     $ref: '#/components/schemas/InstanceResource'
                 workloadId:
@@ -4817,7 +4818,7 @@ components:
                     maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
-                    description: The workload unique identifier. Alias of resourceId.
+                    description: Deprecated, The workload unique identifier. Alias of resourceId.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
             description: A generic way to group compute resources to obtain a workload.

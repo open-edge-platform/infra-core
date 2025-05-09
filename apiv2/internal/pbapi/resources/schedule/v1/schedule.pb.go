@@ -105,7 +105,7 @@ type SingleScheduleResource struct {
 	// The end time in seconds, of the single schedule.
 	// The value of endSeconds must be equal to or bigger than the value of startSeconds.
 	EndSeconds uint32 `protobuf:"varint,10,opt,name=end_seconds,json=endSeconds,proto3" json:"end_seconds,omitempty"`
-	// The single schedule resource's unique identifier. Alias of resourceId.
+	// Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
 	SingleScheduleID string `protobuf:"bytes,5001,opt,name=single_scheduleID,json=singleScheduleID,proto3" json:"single_scheduleID,omitempty"`
 	// The target host ID of the schedule.
 	// Only one target can be provided per schedule.
@@ -310,7 +310,7 @@ type RepeatedScheduleResource struct {
 	CronMonth string `protobuf:"bytes,12,opt,name=cron_month,json=cronMonth,proto3" json:"cron_month,omitempty"`
 	// cron style day of week (0-6), it can be empty only when used in a Filter
 	CronDayWeek string `protobuf:"bytes,13,opt,name=cron_day_week,json=cronDayWeek,proto3" json:"cron_day_week,omitempty"`
-	// The repeated schedule's unique identifier. Alias of resourceId.
+	// Deprecated, The repeated schedule's unique identifier. Alias of resourceId.
 	RepeatedScheduleID string `protobuf:"bytes,5001,opt,name=repeated_scheduleID,json=repeatedScheduleID,proto3" json:"repeated_scheduleID,omitempty"`
 	// The target region ID of the schedule.
 	// Only one target can be provided per schedule.

@@ -216,7 +216,7 @@ type OperatingSystemResource struct {
 	// supplements the base OS with additional OS-level dependencies/configurations.
 	// If empty, the default OS installation will be used.
 	PlatformBundle string `protobuf:"bytes,15,opt,name=platform_bundle,json=platformBundle,proto3" json:"platform_bundle,omitempty"`
-	// The OS resource's unique identifier. Alias of resourceId.
+	// Deprecated, The OS resource's unique identifier. Alias of resourceId.
 	OsResourceID string `protobuf:"bytes,5001,opt,name=os_resourceID,json=osResourceID,proto3" json:"os_resourceID,omitempty"`
 	// // OS image URL. URL of the original installation source.
 	RepoUrl string `protobuf:"bytes,5002,opt,name=repo_url,json=repoUrl,proto3" json:"repo_url,omitempty"`

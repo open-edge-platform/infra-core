@@ -38,7 +38,7 @@ message LocalAccountResource {
     (google.api.field_behavior) = REQUIRED
   ];
   
-  // The local account resource's unique identifier. Alias of resourceId.
+  // Deprecated, The local account resource's unique identifier. Alias of resourceId.
   string local_accountID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {

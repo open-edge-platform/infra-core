@@ -196,7 +196,7 @@ type TelemetryLogsGroupResource struct {
 
 	// Unique ID of the telemetry group.
 	ResourceId string `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
-	// Unique ID of the telemetry group. Alias of resource_id.
+	// Deprecated, Unique ID of the telemetry group. Alias of resource_id.
 	TelemetryLogsGroupId string `protobuf:"bytes,2,opt,name=telemetry_logs_group_id,json=telemetryLogsGroupId,proto3" json:"telemetry_logs_group_id,omitempty"`
 	// Human-readable name for the log group.
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
@@ -290,7 +290,7 @@ type TelemetryMetricsGroupResource struct {
 
 	// Unique ID of the telemetry group.
 	ResourceId string `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
-	// Unique ID of the telemetry group. Alias of resource_id.
+	// Deprecated, Unique ID of the telemetry group. Alias of resource_id.
 	TelemetryMetricsGroupId string `protobuf:"bytes,2,opt,name=telemetry_metrics_group_id,json=telemetryMetricsGroupId,proto3" json:"telemetry_metrics_group_id,omitempty"`
 	// Human-readable name for the log group.
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
@@ -384,7 +384,7 @@ type TelemetryLogsProfileResource struct {
 
 	// The ID of the telemetry profile.
 	ResourceId string `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
-	// The ID of the telemetry profile.
+	// Deprecated, The ID of the telemetry profile.
 	ProfileId string `protobuf:"bytes,2,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
 	// The ID of the instance that the telemetry profile is assigned to.
 	// Can only be one of targetInstance, targetSite, or targetRegion.
@@ -508,7 +508,7 @@ type TelemetryMetricsProfileResource struct {
 
 	// The ID of the telemetry profile.
 	ResourceId string `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
-	// The ID of the telemetry profile.
+	// Deprecated, The ID of the telemetry profile.
 	ProfileId string `protobuf:"bytes,2,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
 	// The ID of the instance that the telemetry profile is assigned to.
 	// Can only be one of targetInstance, targetSite, or targetRegion.

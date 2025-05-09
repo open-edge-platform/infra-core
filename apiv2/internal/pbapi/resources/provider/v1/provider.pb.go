@@ -143,7 +143,7 @@ type ProviderResource struct {
 	ApiCredentials []string `protobuf:"bytes,17,rep,name=api_credentials,json=apiCredentials,proto3" json:"api_credentials,omitempty"`
 	// Opaque provider configuration.
 	Config string `protobuf:"bytes,18,opt,name=config,proto3" json:"config,omitempty"`
-	// The provider resource's unique identifier. Alias of resourceId.
+	// Deprecated, The provider resource's unique identifier. Alias of resourceId.
 	ProviderID string `protobuf:"bytes,5001,opt,name=providerID,proto3" json:"providerID,omitempty"`
 	// Timestamps associated to the resource.
 	Timestamps *v1.Timestamps `protobuf:"bytes,50100,opt,name=timestamps,proto3" json:"timestamps,omitempty"`
