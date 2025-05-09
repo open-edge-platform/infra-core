@@ -33,6 +33,7 @@ type OrchCli struct {
 	OSProfileCache map[string]api.OperatingSystemResource
 	SiteCache      map[string]api.Site
 	LACache        map[string]api.LocalAccount
+	HostCache      map[string]api.Host
 }
 
 type MetadataItem = struct {
@@ -62,6 +63,7 @@ func NewOrchCli(ctx context.Context, svcURL, project string) (*OrchCli, error) {
 		OSProfileCache: make(map[string]api.OperatingSystemResource),
 		SiteCache:      make(map[string]api.Site),
 		LACache:        make(map[string]api.LocalAccount),
+		HostCache:      make(map[string]api.Host),
 	}, nil
 }
 
@@ -110,6 +112,7 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
+	oC.HostCache[*hostInfo.ResourceId] = hostInfo
 	return *hostInfo.ResourceId, nil
 }
 
@@ -241,6 +244,52 @@ func (oC *OrchCli) InstanceExists(ctx context.Context, sn, uuid string) (bool, e
 	}
 
 	return false, nil
+}
+
+// GetHostID is invoked when a pre-registered host has caused StatusPreconditionFailed error
+// in /register call. HostID is queried in such cases to attempt to complete the import
+// ( i.e. - instance creation & site,metadata allocation).
+// Note that the post register steps would be executed only for a strict match of the Serial
+// Number and UUID. A partial match might indicate intentional registration of another host.
+func (oC *OrchCli) GetHostID(ctx context.Context, sn, uuid string) (string, error) {
+	if sn == "" && uuid == "" {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	uParsed := *oC.SvcURL
+	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts", oC.Project))
+	query := uParsed.Query()
+	query.Set("filter", fmt.Sprintf("%s=%q AND %s=%q", "serialNumber", sn, "uuid", uuid))
+	uParsed.RawQuery = query.Encode()
+
+	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
+	if err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	var hosts api.HostsList
+	err = json.NewDecoder(resp.Body).Decode(&hosts)
+	if err != nil {
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	if *hosts.TotalElements != 1 {
+		return "", e.NewCustomError(e.ErrHostDetailMismatch)
+	}
+	// Get host at index 0 as this is the only host available
+	host := (*hosts.Hosts)[0]
+
+	// If an instance for the host already exists, return an error
+	if host.Instance != nil {
+		return "", e.NewCustomError(e.ErrAlreadyRegistered)
+	}
+	oC.HostCache[*host.ResourceId] = host
+	return *host.ResourceId, nil
 }
 
 func (oC *OrchCli) GetOsProfileID(ctx context.Context, os string) (string, error) {
@@ -410,6 +459,9 @@ func (oC *OrchCli) AllocateHostToSiteAndAddMetadata(ctx context.Context, hostID,
 	}
 	// Prepare the form data
 	payload := &api.Host{}
+	if host, ok := oC.HostCache[hostID]; ok {
+		payload.Name = host.Name
+	}
 	if siteID != "" {
 		payload.SiteId = &siteID
 	}
