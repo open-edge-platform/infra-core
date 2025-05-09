@@ -9,6 +9,16 @@ import (
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 )
 
+const (
+	DefaultHostStatus               = "Not Connected"
+	DefaultOnboardingStatus         = "Not Connected"
+	DefaultRegistrationStatus       = "Unknown"
+	DefaultInstanceStatus           = "Not Installed"
+	DefaultProvisioningStatus       = "Not Provisioned"
+	DefaultUpdateStatus             = "No Current Update"
+	DefaultTrustedAttestationStatus = "Unknown"
+)
+
 type ResourceStatus struct {
 	Status          string
 	StatusIndicator statusv1.StatusIndication
