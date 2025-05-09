@@ -220,11 +220,16 @@ func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
 
 	// Register host
 	hostID, err := oClient.RegisterHost(ctx, "", sNo, uuid, autoOnboard)
-	if err != nil && !e.Is(e.ErrAlreadyRegistered, err) {
-		// add to reject list if failed
-		rIn.Error = err.Error()
-		*erringRecords = append(*erringRecords, rIn)
-		return
+	if err != nil {
+		if e.Is(e.ErrAlreadyRegistered, err) {
+			// If already registered, get the hostID
+			hostID, err = oClient.GetHostID(ctx, sNo, uuid)
+		}
+		if err != nil {
+			rIn.Error = err.Error()
+			*erringRecords = append(*erringRecords, rIn)
+			return
+		}
 	}
 	// Create instance if osProfileID is available else append to error list
 	// Need not notify user of instance ID. Unnecessary detail for user.
