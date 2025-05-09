@@ -6,13 +6,11 @@ package server
 import (
 	"context"
 
-	"golang.org/x/exp/maps"
-	"google.golang.org/protobuf/types/known/fieldmaskpb"
-
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -79,8 +77,7 @@ func fromInvWorkloadMember(invWorkloadMember *inv_computev1.WorkloadMember) (*co
 		InstanceId:       instance.GetResourceId(),
 		Member:           instance,
 		WorkloadId:       workload.GetResourceId(),
-		CreatedAt:        invWorkloadMember.GetCreatedAt(),
-		UpdatedAt:        invWorkloadMember.GetUpdatedAt(),
+		Timestamps:       GrpcToOpenAPITimestamps(invWorkloadMember),
 	}
 
 	return workloadMember, nil
@@ -96,7 +93,7 @@ func (is *InventorygRPCServer) CreateWorkloadMember(
 	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -108,13 +105,13 @@ func (is *InventorygRPCServer) CreateWorkloadMember(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create workload member in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	workloadMemberCreated, err := fromInvWorkloadMember(invResp.GetWorkloadMember())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory workload member")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Created %s", workloadMemberCreated)
@@ -130,7 +127,7 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
@@ -141,11 +138,14 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 		OrderBy: req.GetOrderBy(),
 		Filter:  req.GetFilter(),
 	}
-
+	if err = validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list workload members from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -153,7 +153,7 @@ func (is *InventorygRPCServer) ListWorkloadMembers(
 		workloadMember, err := fromInvWorkloadMember(invRes.GetResource().GetWorkloadMember())
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to convert from inventory workload member")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 		workloadMembers = append(workloadMembers, workloadMember)
 	}
@@ -177,95 +177,17 @@ func (is *InventorygRPCServer) GetWorkloadMember(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get workload member from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invWorkloadMember := invResp.GetResource().GetWorkloadMember()
 	workloadMember, err := fromInvWorkloadMember(invWorkloadMember)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory workload member")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", workloadMember)
 	return workloadMember, nil
-}
-
-// Update a workloadMember. (PUT).
-func (is *InventorygRPCServer) UpdateWorkloadMember(
-	ctx context.Context,
-	req *restv1.UpdateWorkloadMemberRequest,
-) (*computev1.WorkloadMember, error) {
-	zlog.Debug().Msg("UpdateWorkloadMember")
-
-	workloadMember := req.GetWorkloadMember()
-	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
-		return nil, err
-	}
-
-	fieldmask, err := fieldmaskpb.New(invWorkloadMember, maps.Values(OpenAPIWorkloadMemberToProto)...)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
-	}
-
-	invRes := &inventory.Resource{
-		Resource: &inventory.Resource_WorkloadMember{
-			WorkloadMember: invWorkloadMember,
-		},
-	}
-	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
-	}
-	invUp := upRes.GetWorkloadMember()
-	invUpRes, err := fromInvWorkloadMember(invUp)
-	if err != nil {
-		return nil, err
-	}
-
-	zlog.Debug().Msgf("Updated %s", invUpRes)
-	return invUpRes, nil
-}
-
-// Update a workloadMember. (PATCH).
-func (is *InventorygRPCServer) PatchWorkloadMember(
-	ctx context.Context,
-	req *restv1.PatchWorkloadMemberRequest,
-) (*computev1.WorkloadMember, error) {
-	zlog.Debug().Msg("PatchWorkloadMember")
-
-	workloadMember := req.GetWorkloadMember()
-	invWorkloadMember, err := toInvWorkloadMember(workloadMember)
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to convert to inventory workload member")
-		return nil, err
-	}
-
-	fieldmask, err := parseFielmask(invWorkloadMember, req.GetFieldMask(), OpenAPIWorkloadMemberToProto)
-	if err != nil {
-		return nil, err
-	}
-	invRes := &inventory.Resource{
-		Resource: &inventory.Resource_WorkloadMember{
-			WorkloadMember: invWorkloadMember,
-		},
-	}
-	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
-	}
-	invUp := upRes.GetWorkloadMember()
-	invUpRes, err := fromInvWorkloadMember(invUp)
-	if err != nil {
-		return nil, err
-	}
-
-	zlog.Debug().Msgf("Updated %s", invUpRes)
-	return invUpRes, nil
 }
 
 // Delete a workloadMember.
@@ -278,7 +200,7 @@ func (is *InventorygRPCServer) DeleteWorkloadMember(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete workload member from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteWorkloadMemberResponse{}, nil

@@ -23,7 +23,7 @@ var (
 	// Example site resource from the API.
 	exampleAPISite = &locationv1.SiteResource{
 		ResourceId: "site-12345678",
-		SiteId:     "site-12345678", // Alias of ResourceId
+		SiteID:     "site-12345678", // Alias of ResourceId
 		Name:       "example-site",
 		Region:     exampleAPIRegion, // Using the region from region_test.go
 		RegionId:   "region-12345678",

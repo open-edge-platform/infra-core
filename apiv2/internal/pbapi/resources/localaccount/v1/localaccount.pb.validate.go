@@ -57,10 +57,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 21 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 21 {
 		err := LocalAccountResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -79,10 +79,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetUsername()) > 32 {
+	if utf8.RuneCountInString(m.GetUsername()) > 32 {
 		err := LocalAccountResourceValidationError{
 			field:  "Username",
-			reason: "value length must be at most 32 bytes",
+			reason: "value length must be at most 32 runes",
 		}
 		if !all {
 			return err
@@ -101,10 +101,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetSshKey()) > 800 {
+	if utf8.RuneCountInString(m.GetSshKey()) > 800 {
 		err := LocalAccountResourceValidationError{
 			field:  "SshKey",
-			reason: "value length must be at most 800 bytes",
+			reason: "value length must be at most 800 runes",
 		}
 		if !all {
 			return err
@@ -123,9 +123,56 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
+	if utf8.RuneCountInString(m.GetLocalAccountID()) > 21 {
+		err := LocalAccountResourceValidationError{
+			field:  "LocalAccountID",
+			reason: "value length must be at most 21 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for UpdatedAt
+	if !_LocalAccountResource_LocalAccountID_Pattern.MatchString(m.GetLocalAccountID()) {
+		err := LocalAccountResourceValidationError{
+			field:  "LocalAccountID",
+			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, LocalAccountResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, LocalAccountResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return LocalAccountResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return LocalAccountResourceMultiError(errors)
@@ -212,3 +259,5 @@ var _LocalAccountResource_ResourceId_Pattern = regexp.MustCompile("^localaccount
 var _LocalAccountResource_Username_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]{0,31}$")
 
 var _LocalAccountResource_SshKey_Pattern = regexp.MustCompile("^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$")
+
+var _LocalAccountResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")

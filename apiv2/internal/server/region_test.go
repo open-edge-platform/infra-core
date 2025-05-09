@@ -23,7 +23,7 @@ var (
 	// Example parent region resources.
 	exampleParentAPIRegion = &locationv1.RegionResource{
 		ResourceId:        "region-12345679",
-		RegionId:          "region-12345679", // Alias of ResourceId
+		RegionID:          "region-12345679", // Alias of ResourceId
 		Name:              "parent-region",
 		Metadata:          []*commonv1.MetadataItem{},
 		InheritedMetadata: []*commonv1.MetadataItem{},
@@ -38,7 +38,7 @@ var (
 	// Example region resources.
 	exampleAPIRegion = &locationv1.RegionResource{
 		ResourceId:        "region-12345678",
-		RegionId:          "region-12345678", // Alias of ResourceId
+		RegionID:          "region-12345678", // Alias of ResourceId
 		Name:              "example-region",
 		ParentRegion:      exampleParentAPIRegion,
 		ParentId:          "region-12345679",

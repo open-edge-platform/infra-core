@@ -14,6 +14,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -81,7 +82,7 @@ func fromInvSite(invSite *inv_locationv1.SiteResource,
 
 	site := &locationv1.SiteResource{
 		ResourceId:        invSite.GetResourceId(),
-		SiteId:            invSite.GetResourceId(),
+		SiteID:            invSite.GetResourceId(),
 		Name:              invSite.GetName(),
 		Region:            region,
 		RegionId:          region.GetResourceId(),
@@ -89,8 +90,7 @@ func fromInvSite(invSite *inv_locationv1.SiteResource,
 		SiteLng:           invSite.GetSiteLng(),
 		Metadata:          metadata,
 		InheritedMetadata: []*commonv1.MetadataItem{},
-		CreatedAt:         invSite.GetCreatedAt(),
-		UpdatedAt:         invSite.GetUpdatedAt(),
+		Timestamps:        GrpcToOpenAPITimestamps(invSite),
 	}
 
 	if resMeta != nil {
@@ -112,7 +112,7 @@ func (is *InventorygRPCServer) CreateSite(
 	site := req.GetSite()
 	invSite, err := toInvSite(site)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -124,12 +124,12 @@ func (is *InventorygRPCServer) CreateSite(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to create inventory resource %s", invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	siteCreated, err := fromInvSite(invResp.GetSite(), nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", siteCreated)
 	return siteCreated, nil
@@ -144,7 +144,7 @@ func (is *InventorygRPCServer) ListSites(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Site{Site: &inv_locationv1.SiteResource{}}},
@@ -153,18 +153,21 @@ func (is *InventorygRPCServer) ListSites(
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-
+	if err = validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to list inventory resources %s", filter)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	sites := []*locationv1.SiteResource{}
 	for _, invRes := range invResp.GetResources() {
 		site, err := fromInvSite(invRes.GetResource().GetSite(), invRes.GetRenderedMetadata())
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 		sites = append(sites, site)
 	}
@@ -185,13 +188,13 @@ func (is *InventorygRPCServer) GetSite(ctx context.Context, req *restv1.GetSiteR
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to get inventory resource %s", req.GetResourceId())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invSite := invResp.GetResource().GetSite()
 	site, err := fromInvSite(invSite, invResp.GetRenderedMetadata())
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", site)
 	return site, nil
@@ -207,12 +210,12 @@ func (is *InventorygRPCServer) UpdateSite(
 	site := req.GetSite()
 	invSite, err := toInvSite(site)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invSite, maps.Values(OpenAPISiteToProto)...)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -224,12 +227,12 @@ func (is *InventorygRPCServer) UpdateSite(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetSite()
 	invUpRes, err := fromInvSite(invUp, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -246,12 +249,12 @@ func (is *InventorygRPCServer) PatchSite(
 	site := req.GetSite()
 	invSite, err := toInvSite(site)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invSite, req.GetFieldMask(), OpenAPISiteToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Site{
@@ -262,12 +265,12 @@ func (is *InventorygRPCServer) PatchSite(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetSite()
 	invUpRes, err := fromInvSite(invUp, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -284,7 +287,7 @@ func (is *InventorygRPCServer) DeleteSite(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to delete inventory resource %s", req.GetResourceId())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteSiteResponse{}, nil

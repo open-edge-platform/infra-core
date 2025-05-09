@@ -55,7 +55,7 @@ func TestComputeSummary(t *testing.T) {
 	for i := 0; i < hostsWithSiteFromSite1; i++ {
 		expectedTotalHost++
 		hostRequest := GetHostRequestWithRandomUUID()
-		hostRequest.SiteId = s1.JSON200.SiteId
+		hostRequest.SiteId = s1.JSON200.SiteID
 		CreateHost(t, ctx, apiClient, hostRequest)
 	}
 
@@ -63,7 +63,7 @@ func TestComputeSummary(t *testing.T) {
 	for i := 0; i < hostsWithSiteAndMetaFromSite2; i++ {
 		expectedTotalHost++
 		hostRequest := GetHostRequestWithRandomUUID()
-		hostRequest.SiteId = s2.JSON200.SiteId
+		hostRequest.SiteId = s2.JSON200.SiteID
 		hostRequest.Metadata = &utils.MetadataHost2
 		CreateHost(t, ctx, apiClient, hostRequest)
 	}
@@ -100,7 +100,7 @@ func TestComputeSummary(t *testing.T) {
 	assert.Zero(t, *res.JSON200.Running)
 
 	// Filter by host's site-id
-	filter = fmt.Sprintf("site.resourceId=\"%s\"", *s1.JSON200.SiteId)
+	filter = fmt.Sprintf("site.resourceId=\"%s\"", *s1.JSON200.SiteID)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())

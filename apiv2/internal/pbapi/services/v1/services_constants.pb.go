@@ -218,9 +218,9 @@ const (
 	ListOperatingSystemsRequestFieldOffset   = "offset"
 
 	// Fields and Edges constants for "ListOperatingSystemsResponse"
-	ListOperatingSystemsResponseEdgeOperatingSystems = "operating_systems"
-	ListOperatingSystemsResponseFieldTotalElements   = "total_elements"
-	ListOperatingSystemsResponseFieldHasNext         = "has_next"
+	ListOperatingSystemsResponseEdgeOperatingSystemResources = "Operating_system_resources"
+	ListOperatingSystemsResponseFieldTotalElements           = "total_elements"
+	ListOperatingSystemsResponseFieldHasNext                 = "has_next"
 
 	// Fields and Edges constants for "UpdateOperatingSystemRequest"
 	UpdateOperatingSystemRequestFieldResourceId = "resource_id"
@@ -258,15 +258,6 @@ const (
 	ListProvidersResponseEdgeProviders      = "providers"
 	ListProvidersResponseFieldTotalElements = "total_elements"
 	ListProvidersResponseFieldHasNext       = "has_next"
-
-	// Fields and Edges constants for "UpdateProviderRequest"
-	UpdateProviderRequestFieldResourceId = "resource_id"
-	UpdateProviderRequestEdgeProvider    = "provider"
-
-	// Fields and Edges constants for "PatchProviderRequest"
-	PatchProviderRequestFieldResourceId = "resource_id"
-	PatchProviderRequestEdgeProvider    = "provider"
-	PatchProviderRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteProviderRequest"
 	DeleteProviderRequestFieldResourceId = "resource_id"
@@ -332,15 +323,6 @@ const (
 	ListWorkloadMembersResponseEdgeWorkloadMembers = "workload_members"
 	ListWorkloadMembersResponseFieldTotalElements  = "total_elements"
 	ListWorkloadMembersResponseFieldHasNext        = "has_next"
-
-	// Fields and Edges constants for "UpdateWorkloadMemberRequest"
-	UpdateWorkloadMemberRequestFieldResourceId    = "resource_id"
-	UpdateWorkloadMemberRequestEdgeWorkloadMember = "workload_member"
-
-	// Fields and Edges constants for "PatchWorkloadMemberRequest"
-	PatchWorkloadMemberRequestFieldResourceId    = "resource_id"
-	PatchWorkloadMemberRequestEdgeWorkloadMember = "workload_member"
-	PatchWorkloadMemberRequestEdgeFieldMask      = "field_mask"
 
 	// Fields and Edges constants for "DeleteWorkloadMemberRequest"
 	DeleteWorkloadMemberRequestFieldResourceId = "resource_id"

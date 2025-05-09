@@ -6,6 +6,7 @@ syntax = "proto3";
 package resources.common.v1;
 
 import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1;commonv1";
@@ -29,5 +30,16 @@ message MetadataItem {
       min_len: 0
       max_len: 63
     }
+  ];
+}
+
+message Timestamps {
+  // The time when the resource was created.
+  google.protobuf.Timestamp created_at = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+  // The time when the resource was last updated.
+  google.protobuf.Timestamp updated_at = 2 [
+    (google.api.field_behavior) = OUTPUT_ONLY
   ];
 }

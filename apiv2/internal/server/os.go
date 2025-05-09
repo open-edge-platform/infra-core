@@ -13,6 +13,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -75,9 +76,8 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		SecurityFeature:   osv1.SecurityFeature(invOSResource.GetSecurityFeature()),
 		OsType:            osv1.OsType(invOSResource.GetOsType()),
 		OsProvider:        osv1.OsProviderKind(invOSResource.GetOsProvider()),
-		OsResourceId:      invOSResource.GetResourceId(),
-		CreatedAt:         invOSResource.GetCreatedAt(),
-		UpdatedAt:         invOSResource.GetUpdatedAt(),
+		OsResourceID:      invOSResource.GetResourceId(),
+		Timestamps:        GrpcToOpenAPITimestamps(invOSResource),
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
 	}
 
@@ -94,7 +94,7 @@ func (is *InventorygRPCServer) CreateOperatingSystem(
 	invOSResource, err := toInvOSResource(osResource)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory OS resource")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -106,7 +106,7 @@ func (is *InventorygRPCServer) CreateOperatingSystem(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create OS resource in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	osResourceCreated := fromInvOSResource(invResp.GetOs())
@@ -123,7 +123,7 @@ func (is *InventorygRPCServer) ListOperatingSystems(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Os{Os: &inv_osv1.OperatingSystemResource{}}},
@@ -132,11 +132,14 @@ func (is *InventorygRPCServer) ListOperatingSystems(
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-
+	if err = validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list OS resources from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	osResources := []*osv1.OperatingSystemResource{}
@@ -146,9 +149,9 @@ func (is *InventorygRPCServer) ListOperatingSystems(
 	}
 
 	resp := &restv1.ListOperatingSystemsResponse{
-		OperatingSystems: osResources,
-		TotalElements:    invResp.GetTotalElements(),
-		HasNext:          invResp.GetHasNext(),
+		OperatingSystemResources: osResources,
+		TotalElements:            invResp.GetTotalElements(),
+		HasNext:                  invResp.GetHasNext(),
 	}
 	zlog.Debug().Msgf("Listed %s", resp)
 	return resp, nil
@@ -164,7 +167,7 @@ func (is *InventorygRPCServer) GetOperatingSystem(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get OS resource from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invOSResource := invResp.GetResource().GetOs()
@@ -184,13 +187,13 @@ func (is *InventorygRPCServer) UpdateOperatingSystem(
 	invOSResource, err := toInvOSResource(osResource)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory OS resource")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invOSResource, maps.Values(OpenAPIOSResourceToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -201,7 +204,7 @@ func (is *InventorygRPCServer) UpdateOperatingSystem(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetOs()
 	invUpRes := fromInvOSResource(invUp)
@@ -220,12 +223,12 @@ func (is *InventorygRPCServer) PatchOperatingSystem(
 	invOSResource, err := toInvOSResource(osResource)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory OS resource")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invOSResource, req.GetFieldMask(), OpenAPIOSResourceToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Os{
@@ -235,7 +238,7 @@ func (is *InventorygRPCServer) PatchOperatingSystem(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetOs()
 	invUpRes := fromInvOSResource(invUp)
@@ -253,7 +256,7 @@ func (is *InventorygRPCServer) DeleteOperatingSystem(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete OS resource from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteOperatingSystemResponse{}, nil

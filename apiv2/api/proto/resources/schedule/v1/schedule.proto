@@ -6,6 +6,7 @@ syntax = "proto3";
 package resources.schedule.v1;
 
 import "google/api/field_behavior.proto";
+import "resources/common/v1/common.proto";
 import "resources/compute/v1/compute.proto";
 import "resources/location/v1/location.proto";
 import "validate/validate.proto";
@@ -32,7 +33,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^singlesche-[0-9a-f]{8}$"
-      max_bytes: 19
+      max_len: 19
     }
   ];
 
@@ -55,17 +56,19 @@ message SingleScheduleResource {
   }
 
   // The start time in seconds, of the single schedule.
-  uint32 start_seconds = 9 [(google.api.field_behavior) = REQUIRED];
+  uint32 start_seconds = 9 [(google.api.field_behavior) = REQUIRED,
+    (validate.rules).uint32 = {gte:1}
+  ];
   // The end time in seconds, of the single schedule.
   // The value of endSeconds must be equal to or bigger than the value of startSeconds.
-  uint32 end_seconds = 10;
+  uint32 end_seconds = 10 [(validate.rules).uint32 = {gte:1}];
 
-  // The single schedule resource's unique identifier. Alias of resourceId.
-  string single_schedule_id = 5001 [
+  // Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
+  string single_scheduleID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^singlesche-[0-9a-f]{8}$"
-      max_bytes: 19
+      max_len: 19
     }
   ];
 
@@ -76,7 +79,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -87,7 +90,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -98,13 +101,11 @@ message SingleScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A repeated-schedule resource.
@@ -114,7 +115,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^repeatedsche-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
 
@@ -137,9 +138,9 @@ message RepeatedScheduleResource {
   }
 
   // The duration in seconds of the repeated schedule, per schedule.
-  uint32 duration_seconds = 6 [
+  int32 duration_seconds = 6 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).uint32 = {
+    (validate.rules).int32 = {
       gte: 1
       lte: 86400
     }
@@ -170,12 +171,12 @@ message RepeatedScheduleResource {
     (validate.rules).string = {pattern: "^([*]|([0-6])((,([0-6]))*))$"}
   ];
 
-  // The repeated schedule's unique identifier. Alias of resourceId.
-  string repeated_schedule_id = 5001 [
+  // Deprecated, The repeated schedule's unique identifier. Alias of resourceId.
+  string repeated_scheduleID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^repeatedsche-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
 
@@ -186,7 +187,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -197,7 +198,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -208,11 +209,9 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

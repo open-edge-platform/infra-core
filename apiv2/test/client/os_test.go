@@ -200,7 +200,7 @@ func TestOS_List(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 
-	ExistingOSs := len(resList.JSON200.OperatingSystems)
+	ExistingOSs := len(resList.JSON200.OperatingSystemResources)
 
 	totalItems := 10
 	var pageId int32 = 1
@@ -227,7 +227,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.OperatingSystems), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.OperatingSystemResources), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
@@ -238,7 +238,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystems))
+	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
 
@@ -308,4 +308,69 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 	assert.Equal(t, http.StatusOK, get.StatusCode())
 	assert.Equal(t, OSName1, *get.JSON200.Name)
 	log.Info().Msgf("End OSResource create test")
+}
+
+func TestOS_UpdatePatch(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	os1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+
+	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, OSResource1Get.StatusCode())
+	assert.Equal(t, utils.OSName1, *OSResource1Get.JSON200.Name)
+
+	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		nil,
+		utils.OSResource2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, os1Update.StatusCode())
+	assert.Equal(t, utils.OSName2, *os1Update.JSON200.Name)
+
+	OSResource1GetUp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
+	assert.Equal(t, *utils.OSResource1Request.KernelCommand, *OSResource1GetUp.JSON200.KernelCommand)
+	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
+	assert.Equal(
+		t,
+		utils.OSResource2Request.Architecture,
+		OSResource1GetUp.JSON200.Architecture,
+	)
+	// Security Feature is immutable
+	assert.Equal(t, *utils.OSResource1Request.SecurityFeature, *OSResource1GetUp.JSON200.SecurityFeature)
+
+	osTypeImmutable := api.OSTYPEIMMUTABLE
+	osProviderInfra := api.OSPROVIDERKINDINFRA
+	immutableUpdate, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		nil,
+		api.OperatingSystemResource{
+			OsType:     &osTypeImmutable,
+			OsProvider: &osProviderInfra,
+		},
+		AddJWTtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusUnauthorized, immutableUpdate.StatusCode())
 }

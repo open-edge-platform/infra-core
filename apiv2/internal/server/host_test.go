@@ -19,6 +19,7 @@ import (
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
+	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	inv_statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 )
 
@@ -202,26 +203,25 @@ var exampleAPIHostResource = &computev1.HostResource{
 		ResourceId:                  "instance-12345678",
 		InstanceStatus:              "running",
 		InstanceStatusIndicator:     statusv1.StatusIndication_STATUS_INDICATION_IDLE,
-		InstanceStatusTimestamp:     "1234567890",
+		InstanceStatusTimestamp:     1234567890,
 		ProvisioningStatus:          "provisioned",
 		ProvisioningStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
-		ProvisioningStatusTimestamp: "1234567890",
+		ProvisioningStatusTimestamp: 1234567890,
 		UpdateStatus:                "updating",
 		UpdateStatusIndicator:       statusv1.StatusIndication_STATUS_INDICATION_IDLE,
-		UpdateStatusTimestamp:       "1234567890",
+		UpdateStatusTimestamp:       1234567890,
 	},
-	HostId:                      "host-12345678",
 	SiteId:                      "site-12345678",
 	Metadata:                    []*commonv1.MetadataItem{{Key: "key1", Value: "value1"}},
 	OnboardingStatus:            "onboarding",
 	OnboardingStatusIndicator:   statusv1.StatusIndication_STATUS_INDICATION_IDLE,
-	OnboardingStatusTimestamp:   "1234567890",
+	OnboardingStatusTimestamp:   1234567890,
 	RegistrationStatus:          "registered",
 	RegistrationStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
-	RegistrationStatusTimestamp: "1234567890",
+	RegistrationStatusTimestamp: 1234567890,
 	HostStatus:                  "running",
 	HostStatusIndicator:         statusv1.StatusIndication_STATUS_INDICATION_IDLE,
-	HostStatusTimestamp:         "1234567890",
+	HostStatusTimestamp:         1234567890,
 }
 
 //nolint:funlen // Test functions are long but necessary to test all the cases.
@@ -357,6 +357,20 @@ func TestHost_Get(t *testing.T) {
 								},
 							},
 						}, nil).Once(),
+					mockedClient.On("List", mock.Anything, mock.Anything).
+						Return(&inventory.ListResourcesResponse{
+							Resources: []*inventory.GetResourceResponse{
+								{
+									Resource: &inventory.Resource{
+										Resource: &inventory.Resource_Ipaddress{
+											Ipaddress: &inv_networkv1.IPAddressResource{
+												ResourceId: "ipaddress-12345678",
+											},
+										},
+									},
+								},
+							},
+						}, nil).Once(),
 				}
 			},
 			ctx: context.Background(),
@@ -433,6 +447,22 @@ func TestHost_List(t *testing.T) {
 								},
 							},
 							TotalElements: 1,
+							HasNext:       false,
+						}, nil).Once(),
+					mockedClient.On("List", mock.Anything, mock.Anything).
+						Return(&inventory.ListResourcesResponse{
+							Resources: []*inventory.GetResourceResponse{
+								{
+									Resource: &inventory.Resource{
+										Resource: &inventory.Resource_Ipaddress{
+											Ipaddress: &inv_networkv1.IPAddressResource{
+												ResourceId: "ipaddress-12345678",
+											},
+										},
+									},
+								},
+							},
+							TotalElements: 0,
 							HasNext:       false,
 						}, nil).Once(),
 				}
