@@ -139,11 +139,11 @@ func fromInvSingleschedule(
 	if invSingleschedule == nil {
 		return &schedulev1.SingleScheduleResource{}, nil
 	}
-	startSec, err := SafeUint64ToUint32(invSingleschedule.GetStartSeconds())
+	startSec, err := util.Uint64ToUint32(invSingleschedule.GetStartSeconds())
 	if err != nil {
 		return nil, err
 	}
-	endSec, err := SafeUint64ToUint32(invSingleschedule.GetEndSeconds())
+	endSec, err := util.Uint64ToUint32(invSingleschedule.GetEndSeconds())
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 		}
 		singleSchedules = append(singleSchedules, singleSchedule)
 	}
-	totalElements, err := SafeIntToInt32(totalElems)
+	totalElements, err := util.IntToInt32(totalElems)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert total elements to int32")
 		return nil, err

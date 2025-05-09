@@ -22,6 +22,7 @@ import (
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -683,7 +684,7 @@ func (is *InventorygRPCServer) listAllHosts(ctx context.Context, filter string) 
 	hosts := make([]*computev1.HostResource, 0, pageSize)
 
 	for hasNext {
-		offsetInt32, err := SafeIntToInt32(offset)
+		offsetInt32, err := util.IntToInt32(offset)
 		if err != nil {
 			return nil, err
 		}
@@ -761,7 +762,7 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		}
 	}
 
-	total, err = SafeIntToUint32(len(hosts))
+	total, err = util.IntToUint32(len(hosts))
 	if err != nil {
 		return nil, err
 	}

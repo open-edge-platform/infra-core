@@ -273,7 +273,7 @@ func (is *InventorygRPCServer) ListRepeatedSchedules(
 		repeatedSchedules = append(repeatedSchedules, repeatedSchedule)
 	}
 
-	totalElements, err := SafeIntToInt32(totalElems)
+	totalElements, err := util.IntToInt32(totalElems)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert total elements to int32")
 		return nil, err

@@ -43,17 +43,6 @@ func toInvMetadata(apiMetadata []*commonv1.MetadataItem) (string, error) {
 	return invMetadata, nil
 }
 
-// SafeIntToUint32 converts an int to uint32 safely.
-func SafeIntToUint32(n int) (uint32, error) {
-	if n < 0 {
-		return 0, errors.New("cannot convert a negative int to uint32")
-	}
-	if n > math.MaxUint32 {
-		return 0, errors.New("int exceeds uint32 max limit")
-	}
-	return uint32(n), nil
-}
-
 // SafeInt32ToUint32 converts an int32 to uint32 safely.
 func SafeInt32ToUint32(n int32) (uint32, error) {
 	if n < 0 {
@@ -75,41 +64,9 @@ func SafeUint32ToUint64(n uint32) (uint64, error) {
 	return res, nil
 }
 
-// SafeIntToInt32 converts an int to int32 safely.
-func SafeIntToInt32(n int) (int32, error) {
-	if n < 0 {
-		return 0, errors.New("cannot convert a negative int to uint32")
-	}
-	if n > math.MaxInt32 {
-		return 0, errors.New("int exceeds uint32 max limit")
-	}
-	return int32(n), nil
-}
-
-// SafeUint64ToUint32 safely converts a uint64 to a uint32.
-func SafeUint64ToUint32(value uint64) (uint32, error) {
-	if value > math.MaxUint32 {
-		return 0, errors.New("value exceeds uint32 range")
-	}
-	return uint32(value), nil
-}
-
 // TruncateUint64ToUint32 truncates the lower bits of a uint64 to fit into a uint32.
 func TruncateUint64ToUint32(value uint64) uint32 {
 	return uint32(value & math.MaxUint32) //nolint:gosec // Mask the lower 32 bits.
-}
-
-// SafeInt64ToUint64 safely converts a int64 to a uint64.
-func SafeInt64ToUint64(value int64) (uint64, error) {
-	if value < 0 {
-		return 0, errors.New("cannot convert a negative int64 to a uint64")
-	}
-
-	res := uint64(value)
-	if int64(res) != value { //nolint:gosec // no risk of overflow
-		return 0, errors.New("int exceeds uint64 limit")
-	}
-	return res, nil
 }
 
 // SafeUint32Toint32 safely converts a uint32 to a int32.
@@ -118,14 +75,6 @@ func SafeUint32Toint32(value uint32) (int32, error) {
 		return 0, errors.New("value exceeds int32 range")
 	}
 	return int32(value), nil
-}
-
-// SafeUint64ToInt64 safely converts a uint64 to an int64.
-func SafeUint64ToInt64(value uint64) (int64, error) {
-	if value > math.MaxInt64 {
-		return 0, errors.New("value exceeds int64 range")
-	}
-	return int64(value), nil
 }
 
 func isUnset(resourceID *string) bool {

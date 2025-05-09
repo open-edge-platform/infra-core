@@ -14,6 +14,7 @@ import (
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
@@ -242,7 +243,7 @@ func (is *InventorygRPCServer) ListLocations(
 	}
 
 	resp.TotalElements = totalElements
-	outElements, err := SafeIntToInt32(outputElements)
+	outElements, err := util.IntToInt32(outputElements)
 	if err != nil {
 		zlog.InfraErr(err).Msg("failed to convert output elements to int32")
 		return nil, errors.Wrap(err)
