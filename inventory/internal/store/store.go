@@ -98,7 +98,6 @@ func newEntClient(dbURLWriter, dbURLReader string) ent.Client {
 					// Do nothing.
 				}
 			case ent.OpUpdate, ent.OpUpdateOne:
-				ss
 				err := m.SetField(updatedAtFieldName, now)
 				if err != nil {
 					return nil, err
