@@ -93,7 +93,5 @@ func Test_DefaultInstanceResourceStatus(t *testing.T) {
 		require.Equal(t, status.DefaultProvisioningStatus, instance.GetProvisioningStatus())
 		require.Equal(t, status.DefaultUpdateStatus, instance.GetUpdateStatus())
 		require.Equal(t, status.DefaultTrustedAttestationStatus, instance.GetTrustedAttestationStatus())
-
 	})
-
 }
