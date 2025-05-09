@@ -20,6 +20,7 @@ PROTOCGENDOC    := true
 BUF             := true
 PROTOCGENGO     := true
 PROTOCGENGOGRPC := true
+OASDIFF         := true
 
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)
@@ -67,6 +68,10 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
+# OpenAPI breaking change check variables
+TEMP_BASE_OPENAPI_DIR := /tmp/apiv2-main
+OPENAPI_PATH          := api/openapi/openapi.yaml
+
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
 SERVER := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-server.gen.go"
@@ -82,7 +87,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) license yamllint buf-breaking go-lint hadolint mdlint ## Run all lint, add `generate` target
+lint: $(OUT_DIR) license yamllint buf-breaking oasdiff-breaking go-lint hadolint mdlint ## Run all lint, add `generate` target
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -221,3 +226,9 @@ buf-lint: ## Lint and format protobuf files
 	# TODO: currently failing buf format and buf lint - need to be fixed
 
 buf-breaking: common-buf-breaking
+
+oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
+	rm -rf ${TEMP_BASE_OPENAPI_DIR}
+	mkdir -p ${TEMP_BASE_OPENAPI_DIR}
+	git archive origin/${BASE_BRANCH} ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
+	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR
