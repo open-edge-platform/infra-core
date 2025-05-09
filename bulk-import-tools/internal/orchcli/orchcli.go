@@ -459,7 +459,9 @@ func (oC *OrchCli) AllocateHostToSiteAndAddMetadata(ctx context.Context, hostID,
 	}
 	// Prepare the form data
 	payload := &api.Host{}
-
+	if host, ok := oC.HostCache[hostID]; ok {
+		payload.Name = host.Name
+	}
 	if siteID != "" {
 		payload.SiteId = &siteID
 	}
