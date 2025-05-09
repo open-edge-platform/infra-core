@@ -43,7 +43,7 @@ message IPAddressResource {
     (google.api.field_behavior) = OUTPUT_ONLY,  
     (validate.rules).string = {
       pattern: "^ipaddr-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
   // CIDR representation of the IP address.

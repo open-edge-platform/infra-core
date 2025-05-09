@@ -26,7 +26,7 @@ var (
 		ResourceId:           "telemetrygroup-12345678",
 		TelemetryLogsGroupId: "telemetrygroup-12345678",
 		Name:                 "example-logs-group",
-		CollectorKind:        telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
+		CollectorKind:        telemetryv1.TelemetryCollectorKind_TELEMETRY_COLLECTOR_KIND_CLUSTER,
 		Groups:               []string{"system", "application", "security"},
 	}
 

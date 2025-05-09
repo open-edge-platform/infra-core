@@ -69,8 +69,8 @@
     - [TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource)
     - [TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource)
   
-    - [CollectorKind](#resources-telemetry-v1-CollectorKind)
     - [SeverityLevel](#resources-telemetry-v1-SeverityLevel)
+    - [TelemetryCollectorKind](#resources-telemetry-v1-TelemetryCollectorKind)
     - [TelemetryResourceKind](#resources-telemetry-v1-TelemetryResourceKind)
   
 - [services/v1/services.proto](#services_v1_services-proto)
@@ -1004,7 +1004,6 @@ Represents the type of workload.
 | ---- | ------ | ----------- |
 | WORKLOAD_KIND_UNSPECIFIED | 0 | Should never be used. |
 | WORKLOAD_KIND_CLUSTER | 1 | Cluster workload. |
-| WORKLOAD_KIND_DHCP | 2 | currently unused, but useful to test 2-phase delete. |
 
 
 
@@ -1153,7 +1152,7 @@ TelemetryLogsGroupResource.
 | resource_id | [string](#string) |  | Unique ID of the telemetry group. |
 | telemetry_logs_group_id | [string](#string) |  | Unique ID of the telemetry group. Alias of resource_id. |
 | name | [string](#string) |  | Human-readable name for the log group. |
-| collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
+| collector_kind | [TelemetryCollectorKind](#resources-telemetry-v1-TelemetryCollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
@@ -1196,7 +1195,7 @@ TelemetryMetricsGroupResource.
 | resource_id | [string](#string) |  | Unique ID of the telemetry group. |
 | telemetry_metrics_group_id | [string](#string) |  | Unique ID of the telemetry group. Alias of resource_id. |
 | name | [string](#string) |  | Human-readable name for the log group. |
-| collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
+| collector_kind | [TelemetryCollectorKind](#resources-telemetry-v1-TelemetryCollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
@@ -1230,19 +1229,6 @@ A telemetry metric profile for a hierarchy object.
  
 
 
-<a name="resources-telemetry-v1-CollectorKind"></a>
-
-### CollectorKind
-The collector kind.
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| COLLECTOR_KIND_UNSPECIFIED | 0 |  |
-| COLLECTOR_KIND_HOST | 1 | telemetry data collected from bare-metal host. |
-| COLLECTOR_KIND_CLUSTER | 2 | telemetry data collected from Kubernetes cluster. |
-
-
-
 <a name="resources-telemetry-v1-SeverityLevel"></a>
 
 ### SeverityLevel
@@ -1257,6 +1243,19 @@ This field must only be defined if kind equals to TELEMETRY_CONFIG_KIND_LOGS.
 | SEVERITY_LEVEL_WARN | 3 |  |
 | SEVERITY_LEVEL_INFO | 4 |  |
 | SEVERITY_LEVEL_DEBUG | 5 |  |
+
+
+
+<a name="resources-telemetry-v1-TelemetryCollectorKind"></a>
+
+### TelemetryCollectorKind
+The collector kind.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| TELEMETRY_COLLECTOR_KIND_UNSPECIFIED | 0 |  |
+| TELEMETRY_COLLECTOR_KIND_HOST | 1 | telemetry data collected from bare-metal host. |
+| TELEMETRY_COLLECTOR_KIND_CLUSTER | 2 | telemetry data collected from Kubernetes cluster. |
 
 
 

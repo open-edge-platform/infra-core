@@ -39,7 +39,7 @@ message OperatingSystemResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^os-[0-9a-f]{8}$"
-      max_bytes: 11
+      max_len: 11
     }
   ];
 
@@ -66,20 +66,20 @@ message OperatingSystemResource {
   repeated string update_sources = 5 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated.items.string = {
-      max_bytes: 10000
+      max_len: 10000
       pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$'
     }
   ];
 
   // The URL repository of the OS image.
   string image_url = 6 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
     max_len: 500
   }];
 
   // A unique identifier of the OS image that can be retrieved from the running OS.
   string image_id = 13 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
     max_len: 500
   }];
 
@@ -95,7 +95,7 @@ message OperatingSystemResource {
 
   // Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources.
   string profile_name = 8 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
     max_len: 128
   }];
 
@@ -103,7 +103,7 @@ message OperatingSystemResource {
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
   string installed_packages = 9 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
     max_len: 500000
   }];
   // Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE).
@@ -126,7 +126,7 @@ message OperatingSystemResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^os-[0-9a-f]{8}$"
-      max_bytes: 11
+      max_len: 11
     }
   ];
 

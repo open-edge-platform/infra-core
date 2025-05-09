@@ -19,7 +19,7 @@ message RegionResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
 
@@ -37,7 +37,7 @@ message RegionResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
 
@@ -63,7 +63,7 @@ message RegionResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
   // Timestamps associated to the resource.
@@ -77,7 +77,7 @@ message SiteResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -114,7 +114,7 @@ message SiteResource {
   // The site unique identifier. Alias of resourceId.
   string siteID = 5001 [(validate.rules).string = {
     pattern: "^site-[0-9a-f]{8}$"
-    max_bytes: 13
+    max_len: 13
   }];
 
   // The metadata associated to the Region,
@@ -132,7 +132,7 @@ message SiteResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
   // Timestamps associated to the resource.

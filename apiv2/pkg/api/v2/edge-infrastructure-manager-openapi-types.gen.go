@@ -7,6 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
 // Defines values for HostResourceBmcKind.
@@ -180,8 +182,8 @@ const (
 
 // Defines values for TelemetryLogsGroupResourceCollectorKind.
 const (
-	TelemetryLogsGroupResourceCollectorKindCOLLECTORKINDCLUSTER TelemetryLogsGroupResourceCollectorKind = "COLLECTOR_KIND_CLUSTER"
-	TelemetryLogsGroupResourceCollectorKindCOLLECTORKINDHOST    TelemetryLogsGroupResourceCollectorKind = "COLLECTOR_KIND_HOST"
+	TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER TelemetryLogsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
+	TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST    TelemetryLogsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
 )
 
 // Defines values for TelemetryLogsProfileResourceLogLevel.
@@ -195,8 +197,8 @@ const (
 
 // Defines values for TelemetryMetricsGroupResourceCollectorKind.
 const (
-	TelemetryMetricsGroupResourceCollectorKindCOLLECTORKINDCLUSTER TelemetryMetricsGroupResourceCollectorKind = "COLLECTOR_KIND_CLUSTER"
-	TelemetryMetricsGroupResourceCollectorKindCOLLECTORKINDHOST    TelemetryMetricsGroupResourceCollectorKind = "COLLECTOR_KIND_HOST"
+	TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER TelemetryMetricsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
+	TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST    TelemetryMetricsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
 )
 
 // Defines values for WorkloadMemberKind.
@@ -207,7 +209,6 @@ const (
 // Defines values for WorkloadResourceKind.
 const (
 	WORKLOADKINDCLUSTER WorkloadResourceKind = "WORKLOAD_KIND_CLUSTER"
-	WORKLOADKINDDHCP    WorkloadResourceKind = "WORKLOAD_KIND_DHCP"
 )
 
 // DeleteHostResponse Reponse message for DeleteHost.
@@ -289,7 +290,7 @@ type HostRegister struct {
 	SerialNumber *string `json:"serialNumber,omitempty"`
 
 	// Uuid The host UUID.
-	Uuid *string `json:"uuid,omitempty"`
+	Uuid *openapi_types.UUID `json:"uuid,omitempty"`
 }
 
 // HostResource A Host resource.
@@ -413,7 +414,7 @@ type HostResource struct {
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Uuid The host UUID identifier; UUID is unique and immutable.
-	Uuid *string `json:"uuid,omitempty"`
+	Uuid *openapi_types.UUID `json:"uuid,omitempty"`
 }
 
 // HostResourceBmcKind Kind of BMC.

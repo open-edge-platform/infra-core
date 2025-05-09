@@ -43,6 +43,9 @@ var (
 	_ = statusv1.StatusIndication(0)
 )
 
+// define the regex for a UUID once up-front
+var _compute_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
 // Validate checks the field values on HostResource with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -65,10 +68,10 @@ func (m *HostResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
 		err := HostResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -170,6 +173,18 @@ func (m *HostResource) validate(all bool) error {
 		err := HostResourceValidationError{
 			field:  "Uuid",
 			reason: "value length must be at most 36 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetUuid()); err != nil {
+		err = HostResourceValidationError{
+			field:  "Uuid",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
 		if !all {
 			return err
@@ -417,10 +432,10 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetSiteId()) > 13 {
 		err := HostResourceValidationError{
 			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -543,6 +558,14 @@ func (m *HostResource) validate(all bool) error {
 	return nil
 }
 
+func (m *HostResource) _validateUuid(uuid string) error {
+	if matched := _compute_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
 // HostResourceMultiError is an error wrapping multiple validation errors
 // returned by HostResource.ValidateAll() if the designated constraints aren't met.
 type HostResourceMultiError []error
@@ -643,10 +666,10 @@ func (m *HoststorageResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 20 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 20 {
 		err := HoststorageResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 20 bytes",
+			reason: "value length must be at most 20 runes",
 		}
 		if !all {
 			return err
@@ -810,10 +833,10 @@ func (m *HostnicResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 16 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 16 {
 		err := HostnicResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 16 bytes",
+			reason: "value length must be at most 16 runes",
 		}
 		if !all {
 			return err
@@ -1017,10 +1040,10 @@ func (m *HostusbResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 20 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 20 {
 		err := HostusbResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 20 bytes",
+			reason: "value length must be at most 20 runes",
 		}
 		if !all {
 			return err
@@ -1184,10 +1207,10 @@ func (m *HostgpuResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 16 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 16 {
 		err := HostgpuResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 16 bytes",
+			reason: "value length must be at most 16 runes",
 		}
 		if !all {
 			return err
@@ -1349,10 +1372,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
 		err := InstanceResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -1622,10 +1645,10 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetInstanceID()) > 13 {
+	if utf8.RuneCountInString(m.GetInstanceID()) > 13 {
 		err := InstanceResourceValidationError{
 			field:  "InstanceID",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -1644,10 +1667,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetHostID()) > 13 {
+	if utf8.RuneCountInString(m.GetHostID()) > 13 {
 		err := InstanceResourceValidationError{
 			field:  "HostID",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -1666,10 +1689,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetOsID()) > 11 {
+	if utf8.RuneCountInString(m.GetOsID()) > 11 {
 		err := InstanceResourceValidationError{
 			field:  "OsID",
-			reason: "value length must be at most 11 bytes",
+			reason: "value length must be at most 11 runes",
 		}
 		if !all {
 			return err
@@ -1688,10 +1711,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetLocalAccountID()) > 21 {
+	if utf8.RuneCountInString(m.GetLocalAccountID()) > 21 {
 		err := InstanceResourceValidationError{
 			field:  "LocalAccountID",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -1851,10 +1874,10 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 17 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 17 {
 		err := WorkloadResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 17 bytes",
+			reason: "value length must be at most 17 runes",
 		}
 		if !all {
 			return err
@@ -1897,10 +1920,10 @@ func (m *WorkloadResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetExternalId()) > 40 {
+	if utf8.RuneCountInString(m.GetExternalId()) > 40 {
 		err := WorkloadResourceValidationError{
 			field:  "ExternalId",
-			reason: "value length must be at most 40 bytes",
+			reason: "value length must be at most 40 runes",
 		}
 		if !all {
 			return err
@@ -1919,10 +1942,10 @@ func (m *WorkloadResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetStatus()) > 500 {
+	if utf8.RuneCountInString(m.GetStatus()) > 500 {
 		err := WorkloadResourceValidationError{
 			field:  "Status",
-			reason: "value length must be at most 500 bytes",
+			reason: "value length must be at most 500 runes",
 		}
 		if !all {
 			return err
@@ -1975,10 +1998,10 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	}
 
-	if len(m.GetWorkloadId()) > 17 {
+	if utf8.RuneCountInString(m.GetWorkloadId()) > 17 {
 		err := WorkloadResourceValidationError{
 			field:  "WorkloadId",
-			reason: "value length must be at most 17 bytes",
+			reason: "value length must be at most 17 runes",
 		}
 		if !all {
 			return err
@@ -2136,10 +2159,10 @@ func (m *WorkloadMember) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
 		err := WorkloadMemberValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -2218,10 +2241,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetWorkloadMemberId()) > 23 {
+	if utf8.RuneCountInString(m.GetWorkloadMemberId()) > 23 {
 		err := WorkloadMemberValidationError{
 			field:  "WorkloadMemberId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -2269,10 +2292,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetWorkloadId()) > 17 {
+	if utf8.RuneCountInString(m.GetWorkloadId()) > 17 {
 		err := WorkloadMemberValidationError{
 			field:  "WorkloadId",
-			reason: "value length must be at most 17 bytes",
+			reason: "value length must be at most 17 runes",
 		}
 		if !all {
 			return err
@@ -2291,10 +2314,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetInstanceId()) > 13 {
+	if utf8.RuneCountInString(m.GetInstanceId()) > 13 {
 		err := WorkloadMemberValidationError{
 			field:  "InstanceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err

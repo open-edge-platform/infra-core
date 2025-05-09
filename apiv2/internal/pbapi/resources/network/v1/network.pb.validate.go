@@ -57,10 +57,10 @@ func (m *IPAddressResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 15 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 15 {
 		err := IPAddressResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err

@@ -57,10 +57,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 19 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 19 {
 		err := SingleScheduleResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 19 bytes",
+			reason: "value length must be at most 19 runes",
 		}
 		if !all {
 			return err
@@ -125,10 +125,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetSingleScheduleID()) > 19 {
+	if utf8.RuneCountInString(m.GetSingleScheduleID()) > 19 {
 		err := SingleScheduleResourceValidationError{
 			field:  "SingleScheduleID",
-			reason: "value length must be at most 19 bytes",
+			reason: "value length must be at most 19 runes",
 		}
 		if !all {
 			return err
@@ -147,10 +147,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetHostId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetHostId()) > 13 {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetHostId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -169,10 +169,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSiteId()) > 13 {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetSiteId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -191,10 +191,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegionId()) > 15 {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetRegionId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -484,10 +484,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 21 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 21 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -596,10 +596,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetRepeatedScheduleID()) > 21 {
+	if utf8.RuneCountInString(m.GetRepeatedScheduleID()) > 21 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "RepeatedScheduleID",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -618,10 +618,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetHostId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetHostId()) > 13 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetHostId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -640,10 +640,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSiteId()) > 13 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetSiteId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -662,10 +662,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegionId()) > 15 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetRegionId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err

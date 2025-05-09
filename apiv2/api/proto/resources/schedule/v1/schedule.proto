@@ -33,7 +33,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^singlesche-[0-9a-f]{8}$"
-      max_bytes: 19
+      max_len: 19
     }
   ];
 
@@ -68,7 +68,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^singlesche-[0-9a-f]{8}$"
-      max_bytes: 19
+      max_len: 19
     }
   ];
 
@@ -79,7 +79,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -90,7 +90,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -101,7 +101,7 @@ message SingleScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
   // Timestamps associated to the resource.
@@ -115,7 +115,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^repeatedsche-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
 
@@ -176,7 +176,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^repeatedsche-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
 
@@ -187,7 +187,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -198,7 +198,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -209,7 +209,7 @@ message RepeatedScheduleResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
   // Timestamps associated to the resource.

@@ -57,10 +57,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -79,10 +79,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTelemetryLogsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetTelemetryLogsGroupId()) > 23 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "TelemetryLogsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -101,10 +101,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 50 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 50 runes",
+			reason: "value length must be between 1 and 50 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -280,10 +280,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -302,10 +302,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTelemetryMetricsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetTelemetryMetricsGroupId()) > 23 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "TelemetryMetricsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -324,10 +324,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 50 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 50 runes",
+			reason: "value length must be between 1 and 50 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -504,10 +504,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 25 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 25 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -526,10 +526,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetProfileId()) > 25 {
+	if utf8.RuneCountInString(m.GetProfileId()) > 25 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "ProfileId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -548,10 +548,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetInstance()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetInstance()) > 13 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetInstance",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -570,10 +570,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSite()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSite()) > 13 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetSite",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -592,10 +592,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegion()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegion()) > 15 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetRegion",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -616,10 +616,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 
 	// no validation rules for LogLevel
 
-	if len(m.GetLogsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetLogsGroupId()) > 23 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "LogsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -811,10 +811,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 25 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 25 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -833,10 +833,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetProfileId()) > 25 {
+	if utf8.RuneCountInString(m.GetProfileId()) > 25 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "ProfileId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -855,10 +855,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetInstance()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetInstance()) > 13 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetInstance",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -877,10 +877,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSite()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSite()) > 13 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetSite",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -899,10 +899,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegion()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegion()) > 15 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetRegion",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -932,10 +932,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetMetricsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetMetricsGroupId()) > 23 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "MetricsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err

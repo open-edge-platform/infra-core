@@ -42,7 +42,7 @@ message HostResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -81,7 +81,10 @@ message HostResource {
   // The host UUID identifier; UUID is unique and immutable.
   string uuid = 17 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {max_len: 36}
+    (validate.rules).string = {
+      max_len: 36
+      uuid: true
+    }
   ];
 
   // Quantity of memory (RAM) in the system in bytes.
@@ -116,25 +119,34 @@ message HostResource {
   string bios_vendor = 48 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the runtime status of Host. Set by RMs only.
-  string host_status = 60 [(validate.rules).string = {max_len: 1024}];
+  string host_status = 60 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {max_len: 1024}
+  ];
   // Indicates interpretation of host_status. Set by RMs only.
-  status.v1.StatusIndication host_status_indicator = 61;
+  status.v1.StatusIndication host_status_indicator = 61 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when host_status was last changed. Set by RMs only.
-  uint32 host_status_timestamp = 62;
+  uint32 host_status_timestamp = 62 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the onboarding status of Host. Set by RMs only.
-  string onboarding_status = 63 [(validate.rules).string = {max_len: 1024}];
+  string onboarding_status = 63 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {max_len: 1024}
+  ];
   // Indicates interpretation of onboarding_status. Set by RMs only.
-  status.v1.StatusIndication onboarding_status_indicator = 64;
+  status.v1.StatusIndication onboarding_status_indicator = 64 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when onboarding_status was last changed. Set by RMs only.
-  uint32 onboarding_status_timestamp = 65;
+  uint32 onboarding_status_timestamp = 65 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the onboarding status of Host. Set by RMs only.
-  string registration_status = 66 [(validate.rules).string = {max_len: 1024}];
+  string registration_status = 66 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {max_len: 1024}
+  ];
   // Indicates interpretation of registration_status. Set by RMs only.
-  status.v1.StatusIndication registration_status_indicator = 67;
+  status.v1.StatusIndication registration_status_indicator = 67 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when registration_status was last changed. Set by RMs only.
-  uint32 registration_status_timestamp = 68;
+  uint32 registration_status_timestamp = 68 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Back-reference to attached host storage resources.
   repeated HoststorageResource host_storages = 70 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -152,7 +164,7 @@ message HostResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -178,7 +190,7 @@ message HoststorageResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^hoststorage-[0-9a-f]{8}$"
-      max_bytes: 20
+      max_len: 20
     }
   ];
 
@@ -211,7 +223,7 @@ message HostnicResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^hostnic-[0-9a-f]{8}$"
-      max_bytes: 16
+      max_len: 16
     }
   ];
   // The device name (OS provided, like eth0, enp1s0, etc.).
@@ -246,7 +258,7 @@ message HostusbResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^hostusb-[0-9a-f]{8}$"
-      max_bytes: 20
+      max_len: 20
     }
   ];
 
@@ -274,7 +286,7 @@ message HostgpuResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^hostgpu-[0-9a-f]{8}$"
-      max_bytes: 16
+      max_len: 16
     }
   ];
 
@@ -321,7 +333,7 @@ message InstanceResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
   // Kind of resource. Frequently tied to Provider.
@@ -396,7 +408,7 @@ message InstanceResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -405,7 +417,7 @@ message InstanceResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -414,7 +426,7 @@ message InstanceResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^os-[0-9a-f]{8}$"
-      max_bytes: 11
+      max_len: 11
     }
   ];
 
@@ -423,7 +435,7 @@ message InstanceResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
   // Timestamps associated to the resource.
@@ -445,8 +457,6 @@ enum WorkloadKind {
   WORKLOAD_KIND_UNSPECIFIED = 0;
   // Cluster workload.
   WORKLOAD_KIND_CLUSTER = 1;
-  // currently unused, but useful to test 2-phase delete.
-  WORKLOAD_KIND_DHCP = 2;
 }
 
 // A generic way to group compute resources to obtain a workload.
@@ -456,7 +466,7 @@ message WorkloadResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workload-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
@@ -470,13 +480,13 @@ message WorkloadResource {
 
   // The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
   string external_id = 5 [(validate.rules).string = {
-    max_bytes: 40
+    max_len: 40
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
   }];
 
   // Human-readable status of the workload.
   string status = 15 [(validate.rules).string = {
-    max_bytes: 500
+    max_len: 500
     pattern: "^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$"
   }];
 
@@ -491,7 +501,7 @@ message WorkloadResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workload-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
@@ -514,7 +524,7 @@ message WorkloadMember {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workloadmember-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -530,7 +540,7 @@ message WorkloadMember {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workloadmember-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -543,7 +553,7 @@ message WorkloadMember {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workload-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
@@ -553,7 +563,7 @@ message WorkloadMember {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 

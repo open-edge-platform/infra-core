@@ -57,10 +57,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 21 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 21 {
 		err := LocalAccountResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -79,10 +79,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetUsername()) > 32 {
+	if utf8.RuneCountInString(m.GetUsername()) > 32 {
 		err := LocalAccountResourceValidationError{
 			field:  "Username",
-			reason: "value length must be at most 32 bytes",
+			reason: "value length must be at most 32 runes",
 		}
 		if !all {
 			return err
@@ -101,10 +101,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetSshKey()) > 800 {
+	if utf8.RuneCountInString(m.GetSshKey()) > 800 {
 		err := LocalAccountResourceValidationError{
 			field:  "SshKey",
-			reason: "value length must be at most 800 bytes",
+			reason: "value length must be at most 800 runes",
 		}
 		if !all {
 			return err
@@ -123,10 +123,10 @@ func (m *LocalAccountResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetLocalAccountID()) > 21 {
+	if utf8.RuneCountInString(m.GetLocalAccountID()) > 21 {
 		err := LocalAccountResourceValidationError{
 			field:  "LocalAccountID",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err

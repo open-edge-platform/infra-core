@@ -30,12 +30,12 @@ enum TelemetryResourceKind {
 }
 
 // The collector kind.
-enum CollectorKind {
-  COLLECTOR_KIND_UNSPECIFIED = 0;
+enum TelemetryCollectorKind {
+  TELEMETRY_COLLECTOR_KIND_UNSPECIFIED = 0;
   // telemetry data collected from bare-metal host.
-  COLLECTOR_KIND_HOST = 1;
+  TELEMETRY_COLLECTOR_KIND_HOST = 1;
   // // telemetry data collected from Kubernetes cluster.
-  COLLECTOR_KIND_CLUSTER = 2;
+  TELEMETRY_COLLECTOR_KIND_CLUSTER = 2;
 }
 
 // TelemetryLogsGroupResource.
@@ -45,7 +45,7 @@ message TelemetryLogsGroupResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -54,7 +54,7 @@ message TelemetryLogsGroupResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -64,11 +64,12 @@ message TelemetryLogsGroupResource {
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
       max_len: 50
+      min_len: 1
     }
   ];
 
   // The collector kind.
-  CollectorKind collector_kind = 4 [(google.api.field_behavior) = REQUIRED];
+  TelemetryCollectorKind collector_kind = 4 [(google.api.field_behavior) = REQUIRED];
   // A list of log groups to collect.
   repeated string groups = 5 [
     (google.api.field_behavior) = REQUIRED,
@@ -85,7 +86,7 @@ message TelemetryMetricsGroupResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -94,7 +95,7 @@ message TelemetryMetricsGroupResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -104,11 +105,12 @@ message TelemetryMetricsGroupResource {
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
       max_len: 50
+      min_len: 1
     }
   ];
 
   // The collector kind.
-  CollectorKind collector_kind = 4 [(google.api.field_behavior) = REQUIRED];
+  TelemetryCollectorKind collector_kind = 4 [(google.api.field_behavior) = REQUIRED];
 
   // A list of log groups to collect.
   repeated string groups = 5 [
@@ -126,7 +128,7 @@ message TelemetryLogsProfileResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
-      max_bytes: 25
+      max_len: 25
     }
   ];
 
@@ -135,7 +137,7 @@ message TelemetryLogsProfileResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
-      max_bytes: 25
+      max_len: 25
     }
   ];
 
@@ -143,19 +145,19 @@ message TelemetryLogsProfileResource {
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_instance = 3 [(validate.rules).string = {
     pattern: "^$|^inst-[0-9a-f]{8}$"
-    max_bytes: 13
+    max_len: 13
   }];
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_site = 4 [(validate.rules).string = {
     pattern: "^$|^site-[0-9a-f]{8}$"
-    max_bytes: 13
+    max_len: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_region = 5 [(validate.rules).string = {
     pattern: "^$|^region-[0-9a-f]{8}$"
-    max_bytes: 15
+    max_len: 15
   }];
   // The log level og the telemetry profile.
   SeverityLevel log_level = 6 [(google.api.field_behavior) = REQUIRED];
@@ -164,7 +166,7 @@ message TelemetryLogsProfileResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
   // The log group associated with the telemetry profile.
@@ -180,7 +182,7 @@ message TelemetryMetricsProfileResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
-      max_bytes: 25
+      max_len: 25
     }
   ];
 
@@ -189,7 +191,7 @@ message TelemetryMetricsProfileResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
-      max_bytes: 25
+      max_len: 25
     }
   ];
 
@@ -197,20 +199,20 @@ message TelemetryMetricsProfileResource {
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_instance = 3 [(validate.rules).string = {
     pattern: "^$|^inst-[0-9a-f]{8}$"
-    max_bytes: 13
+    max_len: 13
   }];
 
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_site = 4 [(validate.rules).string = {
     pattern: "^$|^site-[0-9a-f]{8}$"
-    max_bytes: 13
+    max_len: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
   string target_region = 5 [(validate.rules).string = {
     pattern: "^$|^region-[0-9a-f]{8}$"
-    max_bytes: 15
+    max_len: 15
   }];
 
   // Metric interval (in seconds) for the telemetry profile.
@@ -223,7 +225,7 @@ message TelemetryMetricsProfileResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
   // The metric group associated with the telemetry profile.

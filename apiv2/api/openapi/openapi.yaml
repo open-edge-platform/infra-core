@@ -3059,6 +3059,7 @@ components:
                     maxLength: 36
                     type: string
                     description: The host UUID.
+                    format: uuid
                 autoOnboard:
                     type: boolean
                     description: Flag ot signal to automatically onboard the host.
@@ -3070,6 +3071,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^host-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated on Create.
@@ -3117,6 +3119,7 @@ components:
                     maxLength: 36
                     type: string
                     description: The host UUID identifier; UUID is unique and immutable.
+                    format: uuid
                 memoryBytes:
                     readOnly: true
                     type: string
@@ -3187,10 +3190,12 @@ components:
                     type: string
                     description: BIOS Vendor.
                 hostStatus:
+                    readOnly: true
                     maxLength: 1024
                     type: string
                     description: textual message that describes the runtime status of Host. Set by RMs only.
                 hostStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3199,14 +3204,17 @@ components:
                     description: Indicates interpretation of host_status. Set by RMs only.
                     format: enum
                 hostStatusTimestamp:
+                    readOnly: true
                     type: integer
                     description: UTC timestamp when host_status was last changed. Set by RMs only.
                     format: uint32
                 onboardingStatus:
+                    readOnly: true
                     maxLength: 1024
                     type: string
                     description: textual message that describes the onboarding status of Host. Set by RMs only.
                 onboardingStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3215,14 +3223,17 @@ components:
                     description: Indicates interpretation of onboarding_status. Set by RMs only.
                     format: enum
                 onboardingStatusTimestamp:
+                    readOnly: true
                     type: integer
                     description: UTC timestamp when onboarding_status was last changed. Set by RMs only.
                     format: uint32
                 registrationStatus:
+                    readOnly: true
                     maxLength: 1024
                     type: string
                     description: textual message that describes the onboarding status of Host. Set by RMs only.
                 registrationStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3231,6 +3242,7 @@ components:
                     description: Indicates interpretation of registration_status. Set by RMs only.
                     format: enum
                 registrationStatusTimestamp:
+                    readOnly: true
                     type: integer
                     description: UTC timestamp when registration_status was last changed. Set by RMs only.
                     format: uint32
@@ -3262,6 +3274,7 @@ components:
                     $ref: '#/components/schemas/InstanceResource'
                 siteId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The site where the host is located.
@@ -3284,6 +3297,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 16
                     pattern: ^hostgpu-[0-9a-f]{8}$
                     type: string
                 pciId:
@@ -3318,6 +3332,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 16
                     pattern: ^hostnic-[0-9a-f]{8}$
                     type: string
                 deviceName:
@@ -3381,6 +3396,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 20
                     pattern: ^hoststorage-[0-9a-f]{8}$
                     type: string
                 wwid:
@@ -3415,6 +3431,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 20
                     pattern: ^hostusb-[0-9a-f]{8}$
                     type: string
                 idvendor:
@@ -3455,6 +3472,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 15
                     pattern: ^ipaddr-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by Inventory on Create
@@ -3493,6 +3511,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated on Create.
@@ -3629,21 +3648,25 @@ components:
                     $ref: '#/components/schemas/LocalAccountResource'
                 instanceID:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: The instance's unique identifier. Alias of resourceID.
                 hostID:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^host-[0-9a-f]{8}$
                     type: string
                     description: The host's unique identifier associated with the instance.
                 osID:
                     writeOnly: true
+                    maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of OS resource that must be installed on the instance.
                 localAccountID:
                     writeOnly: true
+                    maxLength: 21
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of local account will be associated with the instance.
@@ -4036,19 +4059,23 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: resource identifier
                 username:
+                    maxLength: 32
                     pattern: ^[a-z][a-z0-9-]{0,31}$
                     type: string
                     description: Username provided by admin
                 sshKey:
+                    maxLength: 800
                     pattern: ^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$
                     type: string
                     description: SSH Public Key of EN
                 localAccountID:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: The local account resource's unique identifier. Alias of resourceId.
@@ -4083,6 +4110,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by inventory on Create.
@@ -4104,17 +4132,18 @@ components:
                 updateSources:
                     type: array
                     items:
+                        maxLength: 10000
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \\\n]+$
                         type: string
                     description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
                 imageUrl:
                     maxLength: 500
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: The URL repository of the OS image.
                 imageId:
                     maxLength: 500
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: A unique identifier of the OS image that can be retrieved from the running OS.
                 sha256:
@@ -4125,7 +4154,7 @@ components:
                     description: SHA256 checksum of the OS resource in hexadecimal representation.
                 profileName:
                     maxLength: 128
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources.
                 profileVersion:
@@ -4134,9 +4163,7 @@ components:
                     description: Version of OS profile that the OS resource belongs to.
                 installedPackages:
                     maxLength: 500000
-                    pattern: |-
-                        ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \
-                        ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
                     type: string
                     description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
                 securityFeature:
@@ -4166,6 +4193,7 @@ components:
                     description: Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
                 osResourceID:
                     readOnly: true
+                    maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: The OS resource's unique identifier. Alias of resourceId.
@@ -4239,6 +4267,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 15
                     pattern: ^region-[0-9a-f]{8}$
                     type: string
                     description: resource ID, generated by the inventory on Create.
@@ -4251,6 +4280,7 @@ components:
                     $ref: '#/components/schemas/RegionResource'
                 regionID:
                     readOnly: true
+                    maxLength: 15
                     pattern: ^region-[0-9a-f]{8}$
                     type: string
                     description: The Region unique identifier. Alias of resourceId.
@@ -4272,6 +4302,7 @@ components:
                     format: int32
                 parentId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter.
@@ -4291,6 +4322,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^repeatedsche-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4340,21 +4372,25 @@ components:
                     description: cron style day of week (0-6), it can be empty only when used in a Filter
                 repeatedScheduleID:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^repeatedsche-[0-9a-f]{8}$
                     type: string
                     description: The repeated schedule's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
@@ -4369,6 +4405,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 19
                     pattern: ^singlesche-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4400,21 +4437,25 @@ components:
                     format: uint32
                 singleScheduleID:
                     readOnly: true
+                    maxLength: 19
                     pattern: ^singlesche-[0-9a-f]{8}$
                     type: string
                     description: The single schedule resource's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
@@ -4426,6 +4467,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^site-[0-9a-f]{8}$
                     type: string
                     description: resource ID, generated by the inventory on Create.
@@ -4449,6 +4491,7 @@ components:
                 provider:
                     $ref: '#/components/schemas/ProviderResource'
                 siteID:
+                    maxLength: 13
                     pattern: ^site-[0-9a-f]{8}$
                     type: string
                     description: The site unique identifier. Alias of resourceId.
@@ -4465,6 +4508,7 @@ components:
                     description: The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
                 regionId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The region's unique identifier that the site is associated to. This field cannot be used in filter.
@@ -4496,23 +4540,26 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: Unique ID of the telemetry group.
                 telemetryLogsGroupId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: Unique ID of the telemetry group. Alias of resource_id.
                 name:
                     maxLength: 50
+                    minLength: 1
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the log group.
                 collectorKind:
                     enum:
-                        - COLLECTOR_KIND_HOST
-                        - COLLECTOR_KIND_CLUSTER
+                        - TELEMETRY_COLLECTOR_KIND_HOST
+                        - TELEMETRY_COLLECTOR_KIND_CLUSTER
                     type: string
                     description: The collector kind.
                     format: enum
@@ -4533,23 +4580,28 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
                     description: The ID of the telemetry profile.
                 profileId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
                     description: The ID of the telemetry profile.
                 targetInstance:
+                    maxLength: 13
                     pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
@@ -4564,6 +4616,7 @@ components:
                     description: The log level og the telemetry profile.
                     format: enum
                 logsGroupId:
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the telemetry log group.
@@ -4581,23 +4634,26 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: Unique ID of the telemetry group.
                 telemetryMetricsGroupId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: Unique ID of the telemetry group. Alias of resource_id.
                 name:
                     maxLength: 50
+                    minLength: 1
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the log group.
                 collectorKind:
                     enum:
-                        - COLLECTOR_KIND_HOST
-                        - COLLECTOR_KIND_CLUSTER
+                        - TELEMETRY_COLLECTOR_KIND_HOST
+                        - TELEMETRY_COLLECTOR_KIND_CLUSTER
                     type: string
                     description: The collector kind.
                     format: enum
@@ -4618,23 +4674,28 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
                     description: The ID of the telemetry profile.
                 profileId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
                     description: The ID of the telemetry profile.
                 targetInstance:
+                    maxLength: 13
                     pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
@@ -4644,6 +4705,7 @@ components:
                     description: Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
                     format: int32
                 metricsGroupId:
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the telemetry metric group.
@@ -4674,6 +4736,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^workloadmember-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4689,6 +4752,7 @@ components:
                     $ref: '#/components/schemas/InstanceResource'
                 workloadMemberId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^workloadmember-[0-9a-f]{8}$
                     type: string
                     description: The workload unique identifier. Alias of resourceId.
@@ -4696,11 +4760,13 @@ components:
                     $ref: '#/components/schemas/InstanceResource'
                 workloadId:
                     writeOnly: true
+                    maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: The workload unique identifier.
                 instanceId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the instance.
@@ -4715,13 +4781,13 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: resource ID, generated by the inventory on Create.
                 kind:
                     enum:
                         - WORKLOAD_KIND_CLUSTER
-                        - WORKLOAD_KIND_DHCP
                     type: string
                     description: Type of workload.
                     format: enum
@@ -4731,10 +4797,12 @@ components:
                     type: string
                     description: Human-readable name for the workload.
                 externalId:
+                    maxLength: 40
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
                 status:
+                    maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
                     type: string
                     description: Human-readable status of the workload.
@@ -4746,6 +4814,7 @@ components:
                     description: The members of the workload.
                 workloadId:
                     readOnly: true
+                    maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: The workload unique identifier. Alias of resourceId.

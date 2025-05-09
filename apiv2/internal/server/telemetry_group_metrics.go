@@ -25,7 +25,7 @@ func TelemetryMetricsGroupResourcetoAPI(
 		ResourceId:              telemetryGroup.GetResourceId(),
 		TelemetryMetricsGroupId: telemetryGroup.GetResourceId(),
 		Name:                    telemetryGroup.GetName(),
-		CollectorKind:           telemetryv1.CollectorKind(*telemetryGroup.GetCollectorKind().Enum()),
+		CollectorKind:           telemetryv1.TelemetryCollectorKind(*telemetryGroup.GetCollectorKind().Enum()),
 		Groups:                  telemetryGroup.GetGroups(),
 		Timestamps:              GrpcToOpenAPITimestamps(telemetryGroup),
 	}

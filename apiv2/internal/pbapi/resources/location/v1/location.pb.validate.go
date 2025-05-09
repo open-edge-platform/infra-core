@@ -57,10 +57,10 @@ func (m *RegionResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 15 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 15 {
 		err := RegionResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -130,10 +130,10 @@ func (m *RegionResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetRegionID()) > 15 {
+	if utf8.RuneCountInString(m.GetRegionID()) > 15 {
 		err := RegionResourceValidationError{
 			field:  "RegionID",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -231,10 +231,10 @@ func (m *RegionResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetParentId()) > 15 {
+	if utf8.RuneCountInString(m.GetParentId()) > 15 {
 		err := RegionResourceValidationError{
 			field:  "ParentId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -390,10 +390,10 @@ func (m *SiteResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
 		err := SiteResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -514,10 +514,10 @@ func (m *SiteResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetSiteID()) > 13 {
+	if utf8.RuneCountInString(m.GetSiteID()) > 13 {
 		err := SiteResourceValidationError{
 			field:  "SiteID",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -604,10 +604,10 @@ func (m *SiteResource) validate(all bool) error {
 
 	}
 
-	if len(m.GetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetRegionId()) > 15 {
 		err := SiteResourceValidationError{
 			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
