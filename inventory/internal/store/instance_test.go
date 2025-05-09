@@ -327,7 +327,7 @@ func Test_UpdateInstance(t *testing.T) {
 				VmMemoryBytes:   2 * util.Gigabyte,
 				VmCpuCores:      4,
 				VmStorageBytes:  16 * util.Gigabyte,
-				DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				DesiredState:    computev1.InstanceState_INSTANCE_STATE_UNSPECIFIED,
 				SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_NONE,
 			},
 		},
@@ -349,6 +349,18 @@ func Test_UpdateInstance(t *testing.T) {
 		valid        bool
 		expErrorCode codes.Code
 	}{
+		"UpdateInstanceLocalAccountSuccess": {
+			in: &computev1.InstanceResource{
+				Localaccount: localaccount,
+			},
+			resourceID: instanceResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.EdgeLocalaccount,
+				},
+			},
+			valid: true,
+		},
 		"UpdateInstance1": {
 			in: &computev1.InstanceResource{
 				VmCpuCores:   8,
@@ -575,6 +587,21 @@ func Test_UpdateInstance(t *testing.T) {
 			valid:        false,
 			expErrorCode: codes.NotFound,
 		},
+		"UpdateInstanceLocalAccountFail": {
+			in: &computev1.InstanceResource{
+				CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Localaccount: localaccount,
+			},
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.FieldCurrentState,
+					instanceresource.EdgeLocalaccount,
+				},
+			},
+			resourceID:   instanceResID,
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
 		"UpdateInstanceDetailStatus": {
 			in: &computev1.InstanceResource{
 				InstanceStatusDetail: "2 of 5 components Running",
@@ -583,18 +610,6 @@ func Test_UpdateInstance(t *testing.T) {
 			fieldMask: &fieldmaskpb.FieldMask{
 				Paths: []string{
 					instanceresource.FieldInstanceStatusDetail,
-				},
-			},
-			valid: true,
-		},
-		"UpdateInstanceLocalAccount": {
-			in: &computev1.InstanceResource{
-				Localaccount: localaccount,
-			},
-			resourceID: instanceResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{
-					instanceresource.EdgeLocalaccount,
 				},
 			},
 			valid: true,
