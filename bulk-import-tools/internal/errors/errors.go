@@ -3,7 +3,10 @@
 
 package errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type ErrorCode int
 
@@ -30,6 +33,7 @@ const (
 	ErrAuthNFailed
 	ErrURL
 	ErrAlreadyRegistered
+	ErrHostDetailMismatch
 	ErrHTTPReq
 	ErrOSSecurityMismatch
 )
@@ -56,7 +60,8 @@ var errorMessages = map[ErrorCode]string{
 	ErrHostSiteMetadataFailed: "Failed to allocate site or metadata",
 	ErrAuthNFailed:            "Failed to authenticate with server",
 	ErrURL:                    "Malformed server URL",
-	ErrAlreadyRegistered:      "Host UUID already registered",
+	ErrAlreadyRegistered:      "Host already registered",
+	ErrHostDetailMismatch:     "Host already registered with mismatching details",
 	ErrHTTPReq:                "HTTP request error",
 	ErrOSSecurityMismatch:     "OS Profile and Security feature mismatch",
 }
@@ -79,4 +84,12 @@ func NewCustomError(code ErrorCode) error {
 		Code:    code,
 		Message: msg,
 	}
+}
+
+func Is(code ErrorCode, err error) bool {
+	customErr := new(CustomError)
+	if errors.As(err, &customErr) {
+		return customErr.Code == code
+	}
+	return false
 }

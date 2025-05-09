@@ -8,7 +8,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 
 	e "github.com/open-edge-platform/infra-core/bulk-import-tools/internal/errors"
@@ -103,7 +102,7 @@ func ReadHostRecords(filePath string) ([]types.HostRecord, error) {
 			UUID:       getField(record, 1),
 			OSProfile:  getField(record, 2),
 			Site:       getField(record, 3),
-			Secure:     getField(record, 4) == "true",
+			Secure:     types.StringToRecordSecure(getField(record, 4)),
 			RemoteUser: getField(record, 5),
 			Metadata:   getField(record, 6),
 			Error:      getField(record, 7),
@@ -151,7 +150,7 @@ func WriteHostRecords(filePath string, records []types.HostRecord) error {
 			record.UUID,
 			record.OSProfile,
 			record.Site,
-			strconv.FormatBool(record.Secure),
+			string(record.Secure),
 			record.RemoteUser,
 			record.Metadata,
 			record.Error,

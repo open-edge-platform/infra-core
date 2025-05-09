@@ -21,7 +21,10 @@ func clearInstanceIDs() {
 	utils.Instance2Request.HostId = nil
 	utils.Instance1Request.OsId = nil
 	utils.Instance2Request.OsId = nil
-	utils.Host1Request.Site = nil
+	utils.Host1Request.SiteId = nil
+	utils.Host2Request.SiteId = nil
+	utils.Host3Request.SiteId = nil
+	utils.Host4Request.SiteId = nil
 }
 
 func TestInstance_CreateGetDelete(t *testing.T) {
@@ -34,9 +37,9 @@ func TestInstance_CreateGetDelete(t *testing.T) {
 
 	utils.Site1Request.RegionId = nil
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	utils.Host1Request.SiteId = site1.JSON200.SiteId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	utils.Host3Request.SiteId = site1.JSON200.SiteId
+	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
+	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host4Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId
@@ -90,10 +93,29 @@ func TestInstance_Update(t *testing.T) {
 	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	assert.Equal(t, utils.Inst1Name, *inst1.JSON200.Name)
 
-	inst1Get, err := apiClient.InstanceServiceGetInstanceWithResponse(ctx, *inst1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	newName := utils.Inst1Name + "-mod"
+	inst1Mod := api.InstanceResource{
+		Name: &newName,
+	}
+	inst1Up, err := apiClient.InstanceServicePatchInstanceWithResponse(
+		ctx, *inst1.JSON200.ResourceId,
+		nil,
+		inst1Mod,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	if inst1Up.JSON200 == nil {
+		log.Error().Msgf("failed to update instance %s", *inst1Up.JSONDefault.Message)
+	}
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, inst1Up.StatusCode())
+	assert.Equal(t, newName, *inst1Up.JSON200.Name)
+
+	inst1Get, err := apiClient.InstanceServiceGetInstanceWithResponse(ctx,
+		*inst1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, inst1Get.StatusCode())
-	assert.Equal(t, utils.Inst1Name, *inst1Get.JSON200.Name)
+	assert.Equal(t, newName, *inst1Get.JSON200.Name)
+	assert.Equal(t, *inst1.JSON200.OsId, *inst1Get.JSON200.OsId)
 
 	log.Info().Msgf("End Instance Update tests")
 }
@@ -108,11 +130,10 @@ func TestInstance_Errors(t *testing.T) {
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
-
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	utils.Host1Request.SiteId = site1.JSON200.SiteId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	utils.Host3Request.SiteId = site1.JSON200.ResourceId
+	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
+	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host4Request)
 	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostId = hostCreated1.JSON200.ResourceId
@@ -188,7 +209,6 @@ func TestInstance_Errors(t *testing.T) {
 	log.Info().Msgf("End Instance Error tests")
 }
 
-// FIXME(Daniele,LPIO-1388): improve TC to randomly create greater amount of instances, which do not overlap
 func TestInstanceList(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -197,8 +217,8 @@ func TestInstanceList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 5
-	var offset uint32
-	var pageSize uint32 = 4
+	var offset int32
+	var pageSize int32 = 4
 
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.SiteId

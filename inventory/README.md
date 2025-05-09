@@ -60,6 +60,8 @@ This code requires the following tools to be installed on your development machi
 - [Community Edition of Atlas tool](https://atlasgo.io/community-edition) - export the `ATLAS_VERSION` variable accordingly
 to [$ATLASVERSION_REQ](../version.mk)
 - [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
+- [dbml/cli](https://github.com/holistics/dbml/blob/master/packages/dbml-cli) - check [$DBMLCLI_REQ](../version.mk)
+- [dbml-renderer](https://www.npmjs.com/package/@softwaretechnik/dbml-renderer) - check [$DBMLRENDERER_REQ](../version.mk)
 - GNU Compiler Collection (GCC)
 
 You can install Go dependencies by running `make go-dependency`.
@@ -100,6 +102,14 @@ make docker-run
 
 Note that when running Inventory as a standalone project, the default configuration defined in
 [common.mk](../common.mk) will be used (see `PG*` variables).
+
+#### Generate ER diagram
+
+```bash
+make gen-er-diagram
+```
+
+Generates ER diagram of the inventory data model.
 
 See the [documentation][user-guide-url] if you want to learn more about using Edge Orchestrator.
 
@@ -149,7 +159,7 @@ exported packages. See the documentation for the exported packages, as follows:
 
 Note that the documentation also contains runnable examples that demonstrate how to use those libraries in your code.
 
-[user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
-[inframanager-dev-guide-url]: (https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html)
-[contributors-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/index.html
+[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/get_started_guide/index.html
+[inframanager-dev-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/infra_manager/index.html
+[contributors-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/contributor_guide/index.html
 [inframanager-charts]: https://github.com/open-edge-platform/infra-charts

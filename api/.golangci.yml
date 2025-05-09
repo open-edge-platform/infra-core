@@ -88,7 +88,6 @@ linters-settings:
         allow:
           - $gostd
           - github.com/open-edge-platform
-          - github.com/deepmap/oapi-codegen
           - github.com/oapi-codegen/echo-middleware
           - github.com/getkin/kin-openapi
           - github.com/golang-jwt/jwt/v5
@@ -96,7 +95,6 @@ linters-settings:
           - github.com/labstack/echo/v4
           - github.com/labstack/echo-contrib/echoprometheus
           - github.com/modern-go/reflect2
-          - github.com/onosproject/onos-lib-go
           - github.com/stretchr/testify
           - github.com/viant/xunsafe
           - github.com/grpc-ecosystem/go-grpc-middleware
@@ -118,7 +116,6 @@ linters-settings:
           - github.com/open-edge-platform
           - github.com/google/uuid
           - github.com/mennanov/fmutils
-          - github.com/onosproject/onos-lib-go
           - github.com/labstack/echo/v4
           - github.com/grpc-ecosystem/go-grpc-middleware
           - github.com/stretchr/testify/assert

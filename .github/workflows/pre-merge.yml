@@ -9,11 +9,13 @@ on:
     branches:
       - main
       - release-*
-  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  MARKDOWNLINT_CLI_VER: 0.44.0
 
 jobs:
   pre-checks:
@@ -22,7 +24,7 @@ jobs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
       other_changed_projects: ${{ steps.filter-changes.outputs.other_changed_projects }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: "Verify Branch Name"
         uses: open-edge-platform/orch-ci/verify-branch-name@main
       - name: "Discover Changed Subfolders"
@@ -31,14 +33,40 @@ jobs:
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         run: |
-          folders_to_remove='[".github",".reuse","LICENSES",".git","os-profiles"]'
-          
+          folders_to_remove='[".github",".reuse","LICENSES",".git","os-profiles",""]'
+
           changed_projects='${{ steps.discover-changes.outputs.changed_projects }}'
           filtered_projects=$(echo "$changed_projects" | jq -cr --argjson folders_to_remove "$folders_to_remove" 'map(select(. as $item | $folders_to_remove | index($item) | not))')
           other_changed_projects=$(echo "$changed_projects" | jq -cr --argjson filtered_projects "$filtered_projects" 'map(select(. as $item | $filtered_projects | index($item) | not))')
 
           echo "filtered_projects=$filtered_projects" >> $GITHUB_OUTPUT
           echo "other_changed_projects=$other_changed_projects" >> $GITHUB_OUTPUT
+  pre-merge-root:
+    needs: pre-checks
+    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, '.github') || contains(needs.pre-checks.outputs.other_changed_projects, 'LICENSES') || contains(needs.pre-checks.outputs.other_changed_projects, '""')}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+        with:
+          node-version: '18'
+      - run: |
+          npm install -g \
+          "markdownlint-cli@${{ env.MARKDOWNLINT_CLI_VER }}"
+      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        id: setup_python
+        with:
+          python-version: '3.13'
+      - name: Restore cached virtualenv
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
+          path: venv_infra
+
+      - name: Run mdlint
+        run: make mdlint
+      - name: Run license check
+        run: make license
   pre-merge-pipeline:
     needs: pre-checks
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
@@ -56,10 +84,11 @@ jobs:
       run_test: true
       run_validate_clean_folder: true
       run_docker_build: true
-      run_scan_containers: false
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: ${{ matrix.project_folder }}
+      trivy_image_skip:  "postgres:16.4"
+      trivy_config_path: '${{ matrix.project_folder }}/trivy.yaml'
     secrets: inherit
   pre-merge-os-profiles:
     needs: pre-checks
@@ -75,7 +104,6 @@ jobs:
       run_test: true
       run_validate_clean_folder: false
       run_docker_build: false
-      run_scan_containers: false
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: "os-profiles"
@@ -86,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
@@ -94,7 +122,7 @@ jobs:
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@ececac1a45f3b08a01d2dd070d28d111c5fe6722 # v4.1.0
         with:
           aws-access-key-id: ${{ secrets.NO_AUTH_S3_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_S3_PUSH_PASSWD }}
@@ -117,14 +145,14 @@ jobs:
           echo "PUBLISH=$PUBLISH" >> $GITHUB_ENV
       - name: Configure AWS credentials
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@ececac1a45f3b08a01d2dd070d28d111c5fe6722 # v4.1.0
         with:
           aws-access-key-id: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_ECR_PUSH_PASSWD }}
           aws-region: us-west-2
       - name: Login to Amazon ECR
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
         with:
           registries: "080137407410"
       - if: ${{ env.PUBLISH == 'true'}}
@@ -152,19 +180,33 @@ jobs:
   final-check:
     runs-on: ubuntu-latest
     if: ${{ always() }}
-    needs: [pre-merge-pipeline, pre-merge-os-profiles]
+    needs: [pre-merge-root, pre-merge-pipeline, pre-merge-os-profiles, pre-merge-os-profiles-2]
     steps:
       - name: Final Status Check
         run: |
-          pre_merge_pipeline_result="${{ needs.pre-merge-pipeline.result }}"
-          pre_merge_os_profiles_result="${{ needs.pre-merge-os-profiles.result }}"
-          
-          echo "Pre-merge pipeline result: $pre_merge_pipeline_result"
-          echo "Pre-merge os-profiles result: $pre_merge_os_profiles_result"
+          pre_merge_root_pipeline="${{ needs.pre-merge-root.result }}"
+          pre_merge_pipeline="${{ needs.pre-merge-pipeline.result }}"
+          pre_merge_os_profiles="${{ needs.pre-merge-os-profiles.result }}"
+          pre_merge_os_profiles_2="${{ needs.pre-merge-os-profiles-2.result }}"
 
-          if [ "$pre_merge_pipeline_result" == "success" ] || [ "$pre_merge_pipeline_result" == "skipped" ] || [ "$pre_merge_os_profiles_result" == "success" ]; then
-            echo "At least one pre-merge check passed successfully."
+          results=("pre_merge_root_pipeline" "pre_merge_pipeline" "pre_merge_os_profiles" "pre_merge_os_profiles_2")
+          status="OK"
+          
+          for result in "${results[@]}"; do
+            pipeline_result=$(eval echo \$$result)
+            echo "${result} result: $pipeline_result"
+            if [[ "$pipeline_result" != "success" && "$pipeline_result" != "skipped" ]]; then
+              status="KO"
+            fi
+          done
+          
+          if [[ "$status" == "OK" ]]; then
+            echo "Pre-merge check passed successfully."
           else
-            echo "Both pre-merge checks failed or were skipped. PR can't get merged"
+            echo "All pre-merge checks failed or were skipped. PR can't get merged"
             exit 1
           fi
+
+permissions:
+  contents: read
+

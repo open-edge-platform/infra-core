@@ -27,13 +27,13 @@ import (
 // The key is derived from the json property respectively of the
 // structs SingleSchedTemplate defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPISingleSchedToProto = map[string]string{
-	"Name":           inv_schedulev1.SingleScheduleResourceFieldName,
-	"TargetRegionId": inv_schedulev1.SingleScheduleResourceEdgeTargetRegion,
-	"TargetSiteId":   inv_schedulev1.SingleScheduleResourceEdgeTargetSite,
-	"TargetHostId":   inv_schedulev1.SingleScheduleResourceEdgeTargetHost,
-	"StartSeconds":   inv_schedulev1.SingleScheduleResourceFieldStartSeconds,
-	"EndSeconds":     inv_schedulev1.SingleScheduleResourceFieldEndSeconds,
-	"ScheduleStatus": inv_schedulev1.SingleScheduleResourceFieldScheduleStatus,
+	schedulev1.SingleScheduleResourceFieldName:           inv_schedulev1.SingleScheduleResourceFieldName,
+	schedulev1.SingleScheduleResourceFieldTargetRegionId: inv_schedulev1.SingleScheduleResourceEdgeTargetRegion,
+	schedulev1.SingleScheduleResourceFieldTargetSiteId:   inv_schedulev1.SingleScheduleResourceEdgeTargetSite,
+	schedulev1.SingleScheduleResourceFieldTargetHostId:   inv_schedulev1.SingleScheduleResourceEdgeTargetHost,
+	schedulev1.SingleScheduleResourceFieldStartSeconds:   inv_schedulev1.SingleScheduleResourceFieldStartSeconds,
+	schedulev1.SingleScheduleResourceFieldEndSeconds:     inv_schedulev1.SingleScheduleResourceFieldEndSeconds,
+	schedulev1.SingleScheduleResourceFieldScheduleStatus: inv_schedulev1.SingleScheduleResourceFieldScheduleStatus,
 }
 
 func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*inv_schedulev1.SingleScheduleResource, error) {
@@ -113,6 +113,8 @@ func fromInvSingleschedule(
 		Name:             invSingleschedule.GetName(),
 		StartSeconds:     startSec,
 		EndSeconds:       endSec,
+		CreatedAt:        invSingleschedule.GetCreatedAt(),
+		UpdatedAt:        invSingleschedule.GetUpdatedAt(),
 	}
 
 	switch relation := invSingleschedule.GetRelation().(type) {
@@ -212,12 +214,12 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 		return nil, err
 	}
 	var offset, limit int
-	offset, err = util.Uint32ToInt(req.GetOffset())
+	offset, err = util.Int32ToInt(req.GetOffset())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert offset")
 		return nil, err
 	}
-	limit, err = util.Uint32ToInt(req.GetPageSize())
+	limit, err = util.Int32ToInt(req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert page size")
 		return nil, err
@@ -309,6 +311,57 @@ func (is *InventorygRPCServer) UpdateSingleSchedule(
 		return nil, err
 	}
 
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Singleschedule{
+			Singleschedule: invSingleschedule,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, err
+	}
+	is.InvHCacheClient.InvalidateCache(
+		tenantID,
+		req.GetResourceId(),
+		inventory.SubscribeEventsResponse_EVENT_KIND_UPDATED,
+	)
+
+	invUp := upRes.GetSingleschedule()
+	invUpRes, err := fromInvSingleschedule(invUp)
+	if err != nil {
+		return nil, err
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a singleSchedule. (PATCH).
+func (is *InventorygRPCServer) PatchSingleSchedule(
+	ctx context.Context,
+	req *restv1.PatchSingleScheduleRequest,
+) (*schedulev1.SingleScheduleResource, error) {
+	zlog.Debug().Msg("PatchSingleSchedule")
+	tenantID, exists := tenant.GetTenantIDFromContext(ctx)
+	if !exists {
+		// This should never happen! Interceptor should either fail or set it!
+		err := errors.Errorfc(codes.Unauthenticated, "Tenant ID is not present in context")
+		zlog.InfraSec().InfraErr(err).Msg("List single schedule is not authenticated")
+		return nil, err
+	}
+
+	singleSchedule := req.GetSingleSchedule()
+	invSingleschedule, err := toInvSingleschedule(singleSchedule)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory single schedule")
+		return nil, err
+	}
+
+	fieldmask, err := parseFielmask(invSingleschedule, req.GetFieldMask(), OpenAPISingleSchedToProto)
+	if err != nil {
+		return nil, err
+	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Singleschedule{
 			Singleschedule: invSingleschedule,
