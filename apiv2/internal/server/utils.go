@@ -5,15 +5,16 @@ package server
 
 import (
 	"encoding/json"
-	"errors"
 	"math"
 	"time"
 
+	"google.golang.org/grpc/codes"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 )
 
 const ISO8601TimeFormat = "2006-01-02T15:04:05.999Z"
@@ -46,11 +47,11 @@ func toInvMetadata(apiMetadata []*commonv1.MetadataItem) (string, error) {
 // SafeInt32ToUint32 converts an int32 to uint32 safely.
 func SafeInt32ToUint32(n int32) (uint32, error) {
 	if n < 0 {
-		return 0, errors.New("cannot convert a negative int32 to uint32")
+		return 0, errors.Errorfc(codes.InvalidArgument, "cannot convert a negative int32 to uint32")
 	}
 	res := int(n)
 	if res > math.MaxUint32 && int32(res) != n { //nolint:gosec // no risk of overflow
-		return 0, errors.New("int exceeds uint32 max limit")
+		return 0, errors.Errorfc(codes.InvalidArgument, "int exceeds uint32 max limit")
 	}
 	return uint32(n), nil
 }
@@ -59,7 +60,7 @@ func SafeInt32ToUint32(n int32) (uint32, error) {
 func SafeUint32ToUint64(n uint32) (uint64, error) {
 	res := uint64(n)
 	if uint32(res) != n { //nolint:gocritic,gosec // no risk of overflow
-		return 0, errors.New("uint32 wrongly converted to uint64")
+		return 0, errors.Errorfc(codes.InvalidArgument, "uint32 wrongly converted to uint64")
 	}
 	return res, nil
 }
@@ -72,7 +73,7 @@ func TruncateUint64ToUint32(value uint64) uint32 {
 // SafeUint32Toint32 safely converts a uint32 to a int32.
 func SafeUint32Toint32(value uint32) (int32, error) {
 	if value > math.MaxInt32 {
-		return 0, errors.New("value exceeds int32 range")
+		return 0, errors.Errorfc(codes.InvalidArgument, "value exceeds int32 range")
 	}
 	return int32(value), nil
 }
