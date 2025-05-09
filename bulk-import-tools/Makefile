@@ -80,6 +80,7 @@ $(OUT_DIR)/$(PREFLIGHT_BINARY_NAME): $(SRC) $(DEPS) ## Build if sources or depen
 
 go-integration: go-build ## Run integration tests
 	mkdir -p $(OUT_DIR)/coverage/integration
+	@grep -q "127.0.0.1 api.test.svc keycloak.test.svc" /etc/hosts || echo "127.0.0.1 api.test.svc keycloak.test.svc" | sudo tee -a /etc/hosts
 	PREFLIGHT_BIN_PATH=$(shell pwd)/$(OUT_DIR)/$(PREFLIGHT_BINARY_NAME) \
 	$(GOCMD) test -v ./cmd/$(PREFLIGHT_BINARY_NAME)/orch_host_preflight_test.go 
 	BI_BIN_PATH=$(shell pwd)/$(OUT_DIR)/$(BULK_IMPORT_BINARY_NAME) \
