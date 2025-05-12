@@ -67,6 +67,10 @@ func SafeUint32ToUint64(n uint32) (uint64, error) {
 
 // TruncateUint64ToUint32 truncates the lower bits of a uint64 to fit into a uint32.
 func TruncateUint64ToUint32(value uint64) uint32 {
+	if value > math.MaxUint32 {
+		zlog.Warn().Msgf("uint64 value %d exceeds uint32 max limit, truncating", value)
+	}
+
 	return uint32(value & math.MaxUint32) //nolint:gosec // Mask the lower 32 bits.
 }
 
