@@ -23,7 +23,7 @@ func (c *InventoryCache) StoreHostByUUID(uuid string, host *computev1.HostResour
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	hostID := host.ResourceId
+	hostID := host.GetResourceId()
 	tenantID := host.GetTenantId()
 	// The actual hostID to hostResource is stored in the cache
 	c.storeHostResourceInfo(host)

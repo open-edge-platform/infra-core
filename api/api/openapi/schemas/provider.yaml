@@ -57,6 +57,7 @@ Provider:
       description: "The provider resource's list of credentials."
       title: apiCredentials
       type: array
+      maxItems: 100
       items:
         type: string
         maxLength: 500
