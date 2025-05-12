@@ -27,7 +27,7 @@ const (
 )
 
 func TestGetCacheSusbcriptionResourceKind(t *testing.T) {
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 	evt := c.GetCacheSusbcriptionResourceKind()
 	exp := []inv_v1.ResourceKind{
 		inv_v1.ResourceKind_RESOURCE_KIND_SITE,
@@ -45,7 +45,7 @@ func TestGetCacheSusbcriptionResourceKind(t *testing.T) {
 }
 
 func TestGetCacheUUIDSusbcriptionResourceKind(t *testing.T) {
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 	evt := c.GetCacheUUIDSubscriptionResourceKind()
 	exp := []inv_v1.ResourceKind{
 		inv_v1.ResourceKind_RESOURCE_KIND_HOST,
@@ -84,7 +84,7 @@ func TestHostStoreGetAndInvalidateCacheByID(t *testing.T) {
 		},
 	}
 
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
 	// host caching.
 	c.StoreResourceByID(resT1)
@@ -130,7 +130,7 @@ func TestCacheUUIDStoreGetAndInvalidate(t *testing.T) {
 	hostT2.Host.HostNics = []*computev1.HostnicResource{hostNicT2}
 	hostT2.Host.HostStorages = []*computev1.HoststorageResource{hostStorageT2}
 
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
 	// host caching.
 	c.StoreHostByUUID(uuidT1, hostT1.Host)
@@ -186,7 +186,7 @@ func TestCacheUUIDInvalidateMultipleKey(t *testing.T) {
 	hostT2.Host.HostNics = []*computev1.HostnicResource{hostNic}
 	hostT2.Host.HostStorages = []*computev1.HoststorageResource{hostStorage}
 
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
 	c.StoreHostByUUID(uuidT2, hostT2.Host)
 
@@ -249,7 +249,7 @@ func TestGetHostResourceIdFromSubRes(t *testing.T) {
 		Host:       hr.Host,
 	}
 
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
 	testcases := map[string]struct {
 		res *inv_v1.Resource
@@ -307,7 +307,7 @@ func TestInstanceStoreGetAndInvalidateCacheByID(t *testing.T) {
 		},
 	}
 
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
 	// instance caching.
 	c.StoreResourceByID(resT1)
@@ -362,7 +362,7 @@ func TestStoreGetAndInvalidateCacheByResource(t *testing.T) {
 			Resource: hostT2,
 		},
 	}
-	c := cache.NewInventoryCache(defaultCacheTTLTest)
+	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
 	// host caching.
 	c.StoreResourceByID(resT1)
@@ -414,9 +414,10 @@ func TestStoreGetAndInvalidateCacheByTimeout(t *testing.T) {
 	}
 
 	// update cache config with cache entry stale time to 1 sec.
-	c := cache.NewInventoryCache(1 * time.Second)
+	c := cache.NewInventoryCache(1*time.Second, 10)
 	// validate that stale time is 1 sec now.
 	assert.Equal(t, 1, int(c.StaleTime().Seconds()))
+	assert.Equal(t, 10, c.StateTimeOffset())
 
 	// host caching.
 	c.StoreResourceByID(res)
@@ -464,7 +465,7 @@ func TestCacheResourceByFilter(t *testing.T) {
 	}
 
 	// store the result.
-	c := cache.NewInventoryCache(5 * time.Second)
+	c := cache.NewInventoryCache(5*time.Second, 0)
 	c.StoreResourceByFilter(filter, result)
 
 	// get result back.
@@ -523,7 +524,7 @@ func TestCacheResourceByFilterMismatch(t *testing.T) {
 	}
 
 	// store the result.
-	c := cache.NewInventoryCache(5 * time.Second)
+	c := cache.NewInventoryCache(5*time.Second, 0)
 	c.StoreResourceByFilter(filter, result)
 
 	// Negative tests
@@ -579,7 +580,7 @@ func TestCacheResourceByFilterMismatch(t *testing.T) {
 }
 
 func TestUnsupportedResourceCache(t *testing.T) {
-	c := cache.NewInventoryCache(5 * time.Second)
+	c := cache.NewInventoryCache(5*time.Second, 0)
 
 	for _, val := range inv_v1.ResourceKind_value {
 		kind := inv_v1.ResourceKind(val)
