@@ -180,7 +180,7 @@ func (m *HostResource) validate(all bool) error {
 	if !_HostResource_Uuid_Pattern.MatchString(m.GetUuid()) {
 		err := HostResourceValidationError{
 			field:  "Uuid",
-			reason: "value does not match regex pattern \"^$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
+			reason: "value does not match regex pattern \"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\"",
 		}
 		if !all {
 			return err
@@ -630,7 +630,7 @@ var _HostResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
 
-var _HostResource_Uuid_Pattern = regexp.MustCompile("^$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+var _HostResource_Uuid_Pattern = regexp.MustCompile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
