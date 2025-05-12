@@ -3057,7 +3057,7 @@ components:
                     description: The host serial number.
                 uuid:
                     maxLength: 36
-                    pattern: "^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$"
+                    pattern: ^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                     type: string
                     description: The host UUID.
                 autoOnboard:
@@ -3117,7 +3117,7 @@ components:
                     description: SMBIOS device serial number.
                 uuid:
                     maxLength: 36
-                    pattern: "^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$"
+                    pattern: ^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                     type: string
                     description: The host UUID identifier; UUID is unique and immutable.
                 memoryBytes:
