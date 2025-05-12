@@ -15,6 +15,7 @@ venv*
 ci/
 clamav*
 trivy*
+!trivy.yaml
 
 # Go workspace file
 go.work

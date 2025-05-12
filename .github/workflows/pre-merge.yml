@@ -88,6 +88,7 @@ jobs:
       prefix_tag_separator: "/"
       project_folder: ${{ matrix.project_folder }}
       trivy_image_skip:  "postgres:16.4"
+      trivy_config_path: '${{ matrix.project_folder }}/trivy.yaml'
     secrets: inherit
   pre-merge-os-profiles:
     needs: pre-checks
@@ -205,3 +206,7 @@ jobs:
             echo "All pre-merge checks failed or were skipped. PR can't get merged"
             exit 1
           fi
+
+permissions:
+  contents: read
+

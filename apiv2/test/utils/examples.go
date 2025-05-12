@@ -400,8 +400,7 @@ var (
 				Value: "examplevalue2",
 			},
 		},
-		Name:   Host3Name,
-		SiteId: &Site2Name,
+		Name: Host3Name,
 	}
 
 	Host2Request = api.HostResource{

@@ -147,6 +147,7 @@ func (is *InventorygRPCServer) Start(
 	restv1.RegisterTelemetryLogsProfileServiceServer(gsrv, is)
 	restv1.RegisterTelemetryMetricsProfileServiceServer(gsrv, is)
 	restv1.RegisterProviderServiceServer(gsrv, is)
+	restv1.RegisterLocalAccountServiceServer(gsrv, is)
 
 	// enable reflection
 	reflection.Register(gsrv)
