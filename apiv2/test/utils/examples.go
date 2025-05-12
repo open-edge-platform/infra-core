@@ -243,14 +243,14 @@ var (
 		},
 	}
 
-	Host1UUID1, _       = uuid.Parse("BFD3B398-9A4B-480D-AB53-4050ED108F5C")
-	Host4UUID1, _       = uuid.Parse("BFD3B398-9A4C-481D-AB53-4050ED108F5D")
-	Host1UUIDPatched, _ = uuid.Parse("BFD3B398-9A4B-480D-AB53-4050ED108F5E")
-	HostUUIDUnexists, _ = uuid.Parse("BFD3B398-9A4B-480D-AB53-4050ED108F5F")
-	HostUUIDError       = "BFD3B398-9A4B-480D-AB53-4050ED108F5FKK"
-	Host2UUID           = uuid.New()
-	Host3UUID           = uuid.New()
-	Host5UUID           = uuid.New()
+	Host1UUID1       = "BFD3B398-9A4B-480D-AB53-4050ED108F5C"
+	Host4UUID1       = "BFD3B398-9A4C-481D-AB53-4050ED108F5D"
+	Host1UUIDPatched = "BFD3B398-9A4B-480D-AB53-4050ED108F5E"
+	HostUUIDUnexists = "BFD3B398-9A4B-480D-AB53-4050ED108F5F"
+	HostUUIDError    = "BFD3B398-9A4B-480D-AB53-4050ED108F5FKK"
+	Host2UUID        = uuid.New().String()
+	Host3UUID        = uuid.New().String()
+	Host5UUID        = uuid.New().String()
 
 	HostSerialNumber1 = "SN001"
 	HostSerialNumber2 = "SN002"

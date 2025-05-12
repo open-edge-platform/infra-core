@@ -35,9 +35,6 @@ var (
 	_ = sort.Sort
 )
 
-// define the regex for a UUID once up-front
-var _services_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on CreateRegionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -4817,10 +4814,10 @@ func (m *HostRegister) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetUuid()) > 36 {
+	if l := utf8.RuneCountInString(m.GetUuid()); l < 0 || l > 36 {
 		err := HostRegisterValidationError{
 			field:  "Uuid",
-			reason: "value length must be at most 36 runes",
+			reason: "value length must be between 0 and 36 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -4828,11 +4825,10 @@ func (m *HostRegister) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if err := m._validateUuid(m.GetUuid()); err != nil {
-		err = HostRegisterValidationError{
+	if !_HostRegister_Uuid_Pattern.MatchString(m.GetUuid()) {
+		err := HostRegisterValidationError{
 			field:  "Uuid",
-			reason: "value must be a valid UUID",
-			cause:  err,
+			reason: "value does not match regex pattern \"^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\"",
 		}
 		if !all {
 			return err
@@ -4844,14 +4840,6 @@ func (m *HostRegister) validate(all bool) error {
 
 	if len(errors) > 0 {
 		return HostRegisterMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *HostRegister) _validateUuid(uuid string) error {
-	if matched := _services_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -4930,6 +4918,8 @@ var _ interface {
 var _HostRegister_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _HostRegister_SerialNumber_Pattern = regexp.MustCompile("^([A-Za-z0-9]{5,20})?$")
+
+var _HostRegister_Uuid_Pattern = regexp.MustCompile("^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 // Validate checks the field values on RegisterHostRequest with the rules
 // defined in the proto definition for this message. If any rules are

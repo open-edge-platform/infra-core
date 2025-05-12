@@ -7,8 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
 // Defines values for HostResourceBmcKind.
@@ -290,7 +288,7 @@ type HostRegister struct {
 	SerialNumber *string `json:"serialNumber,omitempty"`
 
 	// Uuid The host UUID.
-	Uuid *openapi_types.UUID `json:"uuid,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
 }
 
 // HostResource A Host resource.
@@ -414,7 +412,7 @@ type HostResource struct {
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Uuid The host UUID identifier; UUID is unique and immutable.
-	Uuid *openapi_types.UUID `json:"uuid,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
 }
 
 // HostResourceBmcKind Kind of BMC.

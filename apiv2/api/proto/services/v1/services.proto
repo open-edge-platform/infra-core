@@ -987,8 +987,9 @@ message HostRegister {
   // The host UUID.
   string uuid = 17 [
     (validate.rules).string = {
+      min_len: 0
       max_len: 36
-      uuid: true
+      pattern: "^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
     }
   ];
 

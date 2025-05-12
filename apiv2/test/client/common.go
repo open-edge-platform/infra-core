@@ -722,7 +722,7 @@ func DeleteLocalAccount(t *testing.T, ctx context.Context,
 }
 
 func GetHostRequestWithRandomUUID() api.HostResource {
-	uuidHost := uuid.New()
+	uuidHost := uuid.New().String()
 	randName := fmt.Sprintf("Test Host %d", rand.Uint32())
 	return api.HostResource{
 		Name: randName,

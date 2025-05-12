@@ -43,9 +43,6 @@ var (
 	_ = statusv1.StatusIndication(0)
 )
 
-// define the regex for a UUID once up-front
-var _compute_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on HostResource with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -169,10 +166,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for SerialNumber
 
-	if utf8.RuneCountInString(m.GetUuid()) > 36 {
+	if l := utf8.RuneCountInString(m.GetUuid()); l < 0 || l > 36 {
 		err := HostResourceValidationError{
 			field:  "Uuid",
-			reason: "value length must be at most 36 runes",
+			reason: "value length must be between 0 and 36 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -180,11 +177,10 @@ func (m *HostResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if err := m._validateUuid(m.GetUuid()); err != nil {
-		err = HostResourceValidationError{
+	if !_HostResource_Uuid_Pattern.MatchString(m.GetUuid()) {
+		err := HostResourceValidationError{
 			field:  "Uuid",
-			reason: "value must be a valid UUID",
-			cause:  err,
+			reason: "value does not match regex pattern \"^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\"",
 		}
 		if !all {
 			return err
@@ -558,14 +554,6 @@ func (m *HostResource) validate(all bool) error {
 	return nil
 }
 
-func (m *HostResource) _validateUuid(uuid string) error {
-	if matched := _compute_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
-	}
-
-	return nil
-}
-
 // HostResourceMultiError is an error wrapping multiple validation errors
 // returned by HostResource.ValidateAll() if the designated constraints aren't met.
 type HostResourceMultiError []error
@@ -641,6 +629,8 @@ var _HostResource_ResourceId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 var _HostResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
+
+var _HostResource_Uuid_Pattern = regexp.MustCompile("^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 

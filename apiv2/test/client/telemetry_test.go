@@ -924,7 +924,7 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
-	hostUUID := uuid.New()
+	hostUUID := uuid.New().String()
 	host := CreateHost(t, ctx, apiClient, api.HostResource{
 		Name:     utils.Host1Request.Name,
 		Metadata: utils.Host1Request.Metadata,
@@ -1067,7 +1067,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	site1Region1Instances := make([]*api.InstanceResource, 0)
 	kindMetal := api.INSTANCEKINDMETAL
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New()
+		hostUuid := uuid.New().String()
 		name := fmt.Sprintf("Host %d S1R1", i)
 		host := CreateHost(t, ctx, apiClient, api.HostResource{
 			Name:   name,
@@ -1087,7 +1087,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	// 3 Instances in Site 2 of Region 1
 	site2Region1Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New()
+		hostUuid := uuid.New().String()
 		host := CreateHost(t, ctx, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S2R1", i),
 			SiteId: site2Region1.JSON200.ResourceId,
@@ -1106,7 +1106,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	// 1 Instance in Site 1 of Region 2
 	site1Region2Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 1; i++ {
-		hostUuid := uuid.New()
+		hostUuid := uuid.New().String()
 		host := CreateHost(t, ctx, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S1R2", i),
 			SiteId: site1Region2.JSON200.ResourceId,
@@ -1699,7 +1699,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	site1Region1Instances := make([]*api.InstanceResource, 0)
 	kindMetal := api.INSTANCEKINDMETAL
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New()
+		hostUuid := uuid.New().String()
 		host := CreateHost(t, ctx, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S1R1", i),
 			SiteId: site1Region1.JSON200.ResourceId,
@@ -1718,7 +1718,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	// 3 Instances in Site 2 of Region 1
 	site2Region1Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New()
+		hostUuid := uuid.New().String()
 		host := CreateHost(t, ctx, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S2R1", i),
 			SiteId: site2Region1.JSON200.ResourceId,
@@ -1737,7 +1737,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	// 1 Instance in Site 1 of Region 2
 	site1Region2Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 1; i++ {
-		hostUuid := uuid.New()
+		hostUuid := uuid.New().String()
 		host := CreateHost(t, ctx, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S1R2", i),
 			SiteId: site1Region2.JSON200.ResourceId,
