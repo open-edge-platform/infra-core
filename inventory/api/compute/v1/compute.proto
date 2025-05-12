@@ -135,7 +135,8 @@ message HostResource {
   PowerState desired_power_state = 50 [(ent.field) = {optional: true}]; // Desired power state of the host
 
   // A group of fields describing the Host runtime status. host_status, host_status_indicator and
-  // host_status_timestamp should always be updated in one shot.
+  // host_status_timestamp should always be updated in one shot. If host_status is empty during initialization,
+  // it is automatically set to a default value.
   string host_status = 60 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
@@ -145,7 +146,8 @@ message HostResource {
   uint64 host_status_timestamp = 62 [(ent.field) = {optional: true}]; // UTC timestamp when host_status was last changed. Set by RMs only.
 
   // A group of fields describing the Host onboarding status. onboarding_status, onboarding_status_indicator and
-  // onboarding_status_timestamp should always be updated in one shot.
+  // onboarding_status_timestamp should always be updated in one shot. If onboarding_status is empty during initialization,
+  // it is automatically set to a default value.
   string onboarding_status = 63 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
@@ -155,7 +157,8 @@ message HostResource {
   uint64 onboarding_status_timestamp = 65 [(ent.field) = {optional: true}]; // UTC timestamp when onboarding_status was last changed. Set by RMs only.
 
   // A group of fields describing the Host registration status. registration_status, registration_status_indicator and
-  // registration_status_timestamp should always be updated in one shot.
+  // registration_status_timestamp should always be updated in one shot. If registration_status is empty during initialization,
+  // it is automatically set to a default value.
   string registration_status = 66 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
@@ -590,7 +593,8 @@ message InstanceResource {
   }]; // Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
 
   // A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and
-  // instance_status_timestamp should always be updated in one shot.
+  // instance_status_timestamp should always be updated in one shot. If instance_status is empty during initialization,
+  // it is automatically set to a default value.
   string instance_status = 15 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
@@ -600,7 +604,8 @@ message InstanceResource {
   uint64 instance_status_timestamp = 17 [(ent.field) = {optional: true}]; // UTC timestamp when instance_status was last changed. Set by RMs only.
 
   // A group of fields describing the Instance provisioning status. provisioning_status, provisioning_status_indicator and
-  // provisioning_status_timestamp should always be updated in one shot.
+  // provisioning_status_timestamp should always be updated in one shot. If provisioning_status is empty during initialization,
+  // it is automatically set to a default value.
   string provisioning_status = 18 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
@@ -611,6 +616,7 @@ message InstanceResource {
 
   // A group of fields describing the Instance update status. update_status, update_status_indicator and
   // update_status_timestamp should always be updated in one shot. update_status_detail should be populated when update status reports update finished successfully or failed.
+  // If update_status is empty during initialization, it is automatically set to a default value.
   string update_status = 21 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
@@ -627,6 +633,7 @@ message InstanceResource {
   // A group of fields describing the Instance trusted_attestation status.
   // trusted_attestation_status, trusted_attestation_status_indicator and
   // trusted_attestation_status_timestamp should always be updated in one shot.
+  // If trusted_attestation_status is empty during initialization, it is automatically set to a default value.
   string trusted_attestation_status = 26 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
