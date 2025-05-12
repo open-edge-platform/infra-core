@@ -140,19 +140,23 @@ class HostResource(betterproto.Message):
     desired_power_state: "PowerState" = betterproto.enum_field(50)
     # A group of fields describing the Host runtime status. host_status,
     # host_status_indicator and host_status_timestamp should always be updated in
-    # one shot.
+    # one shot. If host_status is empty during initialization, it is
+    # automatically set to a default value.
     host_status: str = betterproto.string_field(60)
     host_status_indicator: v1.StatusIndication = betterproto.enum_field(61)
     host_status_timestamp: int = betterproto.uint64_field(62)
     # A group of fields describing the Host onboarding status. onboarding_status,
     # onboarding_status_indicator and onboarding_status_timestamp should always
-    # be updated in one shot.
+    # be updated in one shot. If onboarding_status is empty during
+    # initialization, it is automatically set to a default value.
     onboarding_status: str = betterproto.string_field(63)
     onboarding_status_indicator: v1.StatusIndication = betterproto.enum_field(64)
     onboarding_status_timestamp: int = betterproto.uint64_field(65)
     # A group of fields describing the Host registration status.
     # registration_status, registration_status_indicator and
-    # registration_status_timestamp should always be updated in one shot.
+    # registration_status_timestamp should always be updated in one shot. If
+    # registration_status is empty during initialization, it is automatically set
+    # to a default value.
     registration_status: str = betterproto.string_field(66)
     registration_status_indicator: v1.StatusIndication = betterproto.enum_field(67)
     registration_status_timestamp: int = betterproto.uint64_field(68)
@@ -270,20 +274,24 @@ class InstanceResource(betterproto.Message):
     security_feature: v1.SecurityFeature = betterproto.enum_field(14)
     # A group of fields describing the Instance runtime status. instance_status,
     # instance_status_indicator and instance_status_timestamp should always be
-    # updated in one shot.
+    # updated in one shot. If instance_status is empty during initialization, it
+    # is automatically set to a default value.
     instance_status: str = betterproto.string_field(15)
     instance_status_indicator: v1.StatusIndication = betterproto.enum_field(16)
     instance_status_timestamp: int = betterproto.uint64_field(17)
     # A group of fields describing the Instance provisioning status.
     # provisioning_status, provisioning_status_indicator and
-    # provisioning_status_timestamp should always be updated in one shot.
+    # provisioning_status_timestamp should always be updated in one shot. If
+    # provisioning_status is empty during initialization, it is automatically set
+    # to a default value.
     provisioning_status: str = betterproto.string_field(18)
     provisioning_status_indicator: v1.StatusIndication = betterproto.enum_field(19)
     provisioning_status_timestamp: int = betterproto.uint64_field(20)
     # A group of fields describing the Instance update status. update_status,
     # update_status_indicator and update_status_timestamp should always be
     # updated in one shot. update_status_detail should be populated when update
-    # status reports update finished successfully or failed.
+    # status reports update finished successfully or failed. If update_status is
+    # empty during initialization, it is automatically set to a default value.
     update_status: str = betterproto.string_field(21)
     update_status_indicator: v1.StatusIndication = betterproto.enum_field(22)
     update_status_timestamp: int = betterproto.uint64_field(23)
@@ -291,6 +299,8 @@ class InstanceResource(betterproto.Message):
     # A group of fields describing the Instance trusted_attestation status.
     # trusted_attestation_status, trusted_attestation_status_indicator and
     # trusted_attestation_status_timestamp should always be updated in one shot.
+    # If trusted_attestation_status is empty during initialization, it is
+    # automatically set to a default value.
     trusted_attestation_status: str = betterproto.string_field(26)
     trusted_attestation_status_indicator: v1.StatusIndication = betterproto.enum_field(
         27
