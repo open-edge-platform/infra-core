@@ -60,6 +60,7 @@ OperatingSystemResource:
       description: "The list of OS resource update sources."
       title: updateSources
       type: array
+      maxItems: 100
       items:
         type: string
         pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$'
