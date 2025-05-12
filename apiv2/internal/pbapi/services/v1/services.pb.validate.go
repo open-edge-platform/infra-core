@@ -4828,7 +4828,7 @@ func (m *HostRegister) validate(all bool) error {
 	if !_HostRegister_Uuid_Pattern.MatchString(m.GetUuid()) {
 		err := HostRegisterValidationError{
 			field:  "Uuid",
-			reason: "value does not match regex pattern \"^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\"",
+			reason: "value does not match regex pattern \"^$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
 		}
 		if !all {
 			return err
@@ -4919,7 +4919,7 @@ var _HostRegister_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _HostRegister_SerialNumber_Pattern = regexp.MustCompile("^([A-Za-z0-9]{5,20})?$")
 
-var _HostRegister_Uuid_Pattern = regexp.MustCompile("^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
+var _HostRegister_Uuid_Pattern = regexp.MustCompile("^$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 // Validate checks the field values on RegisterHostRequest with the rules
 // defined in the proto definition for this message. If any rules are
