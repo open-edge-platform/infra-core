@@ -7,7 +7,6 @@ import (
 	"flag"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
@@ -145,6 +144,9 @@ func createDummyHost(
 }
 
 func TestInitClientCache(t *testing.T) {
-	c := cache.NewInventoryCache(30 * time.Second)
-	assert.Equal(t, 30*time.Second, c.StaleTime(), "cache should have default stale time as 30 sec")
+	c := cache.NewInventoryCache(0, 0)
+	assert.Equal(t, cache.DefaultCacheStaleTime, c.StaleTime(),
+		"cache should have default stale time of %d", cache.DefaultCacheStaleTime)
+	assert.Equalf(t, cache.DefaultCacheStaleTimeOffsetFactor, c.StateTimeOffset(),
+		"cache should have default stale time offset of %d", cache.DefaultCacheStaleTimeOffsetFactor)
 }
