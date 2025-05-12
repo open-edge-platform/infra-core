@@ -138,6 +138,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{Detail: &enableQueryDetail}},
 			want{
 				callCount: 3,
+				callLimit: 20,
 			},
 		},
 		{
@@ -145,6 +146,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{}},
 			want{
 				callCount: 1,
+				callLimit: 20,
 			},
 		},
 		{
@@ -152,6 +154,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{SiteID: &SiteID, Detail: &enableQueryDetail}},
 			want{
 				callCount:  3,
+				callLimit:  20,
 				callFilter: bySiteFilter,
 				SiteID:     SiteID,
 			},
@@ -161,6 +164,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{InstanceID: &instanceID, Detail: &enableQueryDetail}},
 			want{
 				callCount:  3,
+				callLimit:  20,
 				callFilter: byInstanceFilter,
 				InstanceID: instanceID,
 			},
@@ -170,6 +174,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{Uuid: &UUID, Detail: &enableQueryDetail}},
 			want{
 				callCount:  3,
+				callLimit:  20,
 				callFilter: byUUIDFilter,
 				UUID:       UUID,
 			},
@@ -179,6 +184,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{Metadata: &Metadata, Detail: &enableQueryDetail}},
 			want{
 				callCount: 3,
+				callLimit: 20,
 			},
 		},
 		// All these calls are without detail to avoid interferences of the hidden calls
@@ -214,6 +220,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{OrderBy: &OrderBy}},
 			want{
 				callCount:   1,
+				callLimit:   20,
 				callOrderBy: OrderBy,
 			},
 		},
@@ -222,6 +229,7 @@ func Test_hostHandler_list(t *testing.T) {
 			args{query: api.GetComputeHostsParams{Filter: &hasSiteFilter}},
 			want{
 				callCount:  1,
+				callLimit:  20,
 				callFilter: hasSiteFilter,
 			},
 		},
