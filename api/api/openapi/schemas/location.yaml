@@ -95,6 +95,7 @@ Site:
       description: "The list of DNS servers that the site has available."
       title: site-dns-servers
       type: array
+      maxItems: 1000
       items:
         type: string
         maxLength: 100
@@ -105,6 +106,7 @@ Site:
       description: "The set of Docker* registries that the site has available."
       title: site-docker-registries
       type: array
+      maxItems: 1000
       items:
         type: string
         maxLength: 100
