@@ -932,3 +932,91 @@ func TestLocation_FilterSites(t *testing.T) {
 		})
 	}
 }
+
+func TestRegion_Patch(t *testing.T) {
+	log.Info().Msgf("Begin Region Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a Region
+	region := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	assert.Equal(t, utils.Region1Name, *region.JSON200.Name)
+
+	// Modify fields for patching
+	newName := utils.Region1Name + "-updated"
+	patchRequest := api.RegionResource{
+		Name: &newName,
+	}
+
+	// Perform the Patch operation
+	updatedRegion, err := apiClient.RegionServicePatchRegionWithResponse(
+		ctx,
+		*region.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedRegion.StatusCode())
+	assert.Equal(t, newName, *updatedRegion.JSON200.Name)
+
+	// Verify the changes with a Get operation
+	getRegion, err := apiClient.RegionServiceGetRegionWithResponse(
+		ctx,
+		*region.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getRegion.StatusCode())
+	assert.Equal(t, newName, *getRegion.JSON200.Name)
+
+	log.Info().Msgf("End Region Patch tests")
+}
+
+func TestSite_Patch(t *testing.T) {
+	log.Info().Msgf("Begin Site Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a Site
+	region := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	utils.Site1Request.RegionId = region.JSON200.ResourceId
+	site := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	assert.Equal(t, utils.Site1Name, *site.JSON200.Name)
+
+	// Modify fields for patching
+	newName := utils.Site1Name + "-updated"
+	patchRequest := api.SiteResource{
+		Name: &newName,
+	}
+
+	// Perform the Patch operation
+	updatedSite, err := apiClient.SiteServicePatchSiteWithResponse(
+		ctx,
+		*site.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedSite.StatusCode())
+	assert.Equal(t, newName, *updatedSite.JSON200.Name)
+
+	// Verify the changes with a Get operation
+	getSite, err := apiClient.SiteServiceGetSiteWithResponse(
+		ctx,
+		*site.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getSite.StatusCode())
+	assert.Equal(t, newName, *getSite.JSON200.Name)
+
+	log.Info().Msgf("End Site Patch tests")
+}

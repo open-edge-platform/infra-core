@@ -24,7 +24,7 @@ var (
 		ResourceId:              "telemetry-metrics-12345678",
 		TelemetryMetricsGroupId: "telemetry-metrics-12345678", // Alias of ResourceId
 		Name:                    "example-metrics-group",
-		CollectorKind:           telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
+		CollectorKind:           telemetryv1.TelemetryCollectorKind_TELEMETRY_COLLECTOR_KIND_CLUSTER,
 		Groups:                  []string{"cpu", "memory", "disk", "network"},
 	}
 
@@ -75,7 +75,7 @@ func TestTelemetryMetricsGroup_Create(t *testing.T) {
 			req: &restv1.CreateTelemetryMetricsGroupRequest{
 				TelemetryMetricsGroup: &telemetryv1.TelemetryMetricsGroupResource{
 					Name:          "example-metrics-group",
-					CollectorKind: telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
+					CollectorKind: telemetryv1.TelemetryCollectorKind_TELEMETRY_COLLECTOR_KIND_CLUSTER,
 					Groups:        []string{"cpu", "memory"},
 				},
 			},
