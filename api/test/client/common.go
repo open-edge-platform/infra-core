@@ -735,3 +735,42 @@ func GetHostRequestWithRandomUUID() api.Host {
 		Uuid: &uuidHost,
 	}
 }
+
+func CreateLocalAccount(
+	t testing.TB,
+	ctx context.Context,
+	apiClient *api.ClientWithResponses,
+	reqLocalAccount api.LocalAccount,
+) *api.PostLocalAccountsResponse {
+	t.Helper()
+
+	localAccountCreated, err := apiClient.PostLocalAccountsWithResponse(
+		ctx,
+		reqLocalAccount,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, localAccountCreated.StatusCode())
+
+	t.Cleanup(func() { DeleteLocalAccount(t, context.Background(), apiClient, *localAccountCreated.JSON201.LocalAccountID) })
+	return localAccountCreated
+}
+
+func DeleteLocalAccount(
+	t testing.TB,
+	ctx context.Context,
+	apiClient *api.ClientWithResponses,
+	localAccountID string,
+) {
+	t.Helper()
+
+	localAccountDel, err := apiClient.DeleteLocalAccountsLocalAccountIDWithResponse(
+		ctx,
+		localAccountID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusNoContent, localAccountDel.StatusCode())
+}
