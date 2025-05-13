@@ -719,15 +719,15 @@ var (
 	}
 
 	Instance1Request = api.InstanceResource{
-		HostId: &instHostID,
-		OsId:   &instOSID,
+		HostID: &instHostID,
+		OsID:   &instOSID,
 		Kind:   &instKind,
 		Name:   &Inst1Name,
 	}
 
 	Instance2Request = api.InstanceResource{
-		HostId:          &instHostID,
-		OsId:            &instOSID,
+		HostID:          &instHostID,
+		OsID:            &instOSID,
 		Kind:            &instKind,
 		Name:            &Inst2Name,
 		SecurityFeature: &instSecurityFeature,
@@ -740,27 +740,27 @@ var (
 	}
 
 	InstanceRequestNoOSID = api.InstanceResource{
-		HostId: &instHostID,
+		HostID: &instHostID,
 		Kind:   &instKind,
 		Name:   &Inst2Name,
 	}
 
 	InstanceRequestNoHostID = api.InstanceResource{
-		OsId: &instOSID,
+		OsID: &instOSID,
 		Kind: &instKind,
 		Name: &Inst2Name,
 	}
 
 	TelemetryLogsGroup1Request = api.TelemetryLogsGroupResource{
 		Name:          "HW Usage",
-		CollectorKind: api.TelemetryLogsGroupResourceCollectorKindCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
 		Groups: []string{
 			"syslog",
 		},
 	}
 	TelemetryMetricsGroup1Request = api.TelemetryMetricsGroupResource{
 		Name:          "Network Usage",
-		CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindCOLLECTORKINDHOST,
+		CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
 		Groups: []string{
 			"net", "netstat", "ethtool",
 		},
@@ -815,5 +815,37 @@ var (
 		ProviderVendor: &providerVendor1,
 		Name:           ProviderName1,
 		ApiCredentials: &providerBadApiCredentials,
+	}
+
+	// Example LocalAccount resources for testing
+
+	// LocalAccountUnexistID represents a non-existent LocalAccount ID for testing
+	LocalAccountUnexistID = "nonexistent-id"
+
+	// Example LocalAccount resources for testing
+	LocalAccount1Request = api.LocalAccountResource{
+		LocalAccountID: nil, // This will be populated by the API upon creation
+		ResourceId:     nil, // This will be populated by the API upon creation
+		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey1",
+		Timestamps:     nil, // This will be populated by the API upon creation
+		Username:       "user1",
+	}
+
+	// LocalAccount2Request represents another valid LocalAccount resource for testing
+	LocalAccount2Request = api.LocalAccountResource{
+		LocalAccountID: nil, // This will be populated by the API upon creation
+		ResourceId:     nil, // This will be populated by the API upon creation
+		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey2",
+		Timestamps:     nil, // This will be populated by the API upon creation
+		Username:       "user2",
+	}
+
+	// LocalAccountNoName represents an invalid LocalAccount resource with no username
+	LocalAccountNoName = api.LocalAccountResource{
+		LocalAccountID: nil,
+		ResourceId:     nil,
+		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey3",
+		Timestamps:     nil,
+		Username:       "",
 	}
 )

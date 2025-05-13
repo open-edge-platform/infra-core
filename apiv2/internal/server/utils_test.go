@@ -4,10 +4,15 @@
 package server_test
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
+	"time"
 
+	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/server"
 )
 
 // compareProtoMessages compares two proto.Message parameters and checks if all the fields set in the first
@@ -52,4 +57,17 @@ func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 			t.Errorf("Field %s: got %v, want %v", v1.Type().Field(i).Name, field2.Interface(), field1.Interface())
 		}
 	}
+}
+
+//nolint:gosec // This function is used only for testing purposes.
+func TestTruncateUint64ToUint32(t *testing.T) {
+	now := time.Now()
+	nowUnix := now.Unix()
+	nowUnixUint64 := uint64(nowUnix)
+
+	nowUnixUint32 := server.TruncateUint64ToUint32(nowUnixUint64)
+	assert.Equal(t, uint32(now.Unix()), nowUnixUint32)
+
+	assert.Equal(t, time.Unix(nowUnix, 0), time.Unix(int64(nowUnixUint32), 0))
+	fmt.Println(time.Unix(int64(nowUnixUint32), 0))
 }

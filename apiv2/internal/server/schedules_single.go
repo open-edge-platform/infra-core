@@ -36,6 +36,54 @@ var OpenAPISingleSchedToProto = map[string]string{
 	schedulev1.SingleScheduleResourceFieldScheduleStatus: inv_schedulev1.SingleScheduleResourceFieldScheduleStatus,
 }
 
+func createSSTargetRegion(targetRegionID string) *inv_schedulev1.SingleScheduleResource_TargetRegion {
+	return &inv_schedulev1.SingleScheduleResource_TargetRegion{
+		TargetRegion: &inv_locationv1.RegionResource{
+			ResourceId: targetRegionID,
+		},
+	}
+}
+
+func createSSTargetHost(targetHostID string) *inv_schedulev1.SingleScheduleResource_TargetHost {
+	return &inv_schedulev1.SingleScheduleResource_TargetHost{
+		TargetHost: &inv_computev1.HostResource{
+			ResourceId: targetHostID,
+		},
+	}
+}
+
+func createSSTargetSite(targetSiteID string) *inv_schedulev1.SingleScheduleResource_TargetSite {
+	return &inv_schedulev1.SingleScheduleResource_TargetSite{
+		TargetSite: &inv_locationv1.SiteResource{
+			ResourceId: targetSiteID,
+		},
+	}
+}
+
+func toInvSinglescheduleSeconds(
+	singleSchedule *schedulev1.SingleScheduleResource,
+) (startSeconds, endSeconds uint64, err error) {
+	startSeconds, err = SafeUint32ToUint64(singleSchedule.GetStartSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert start seconds")
+		return 0, 0, err
+	}
+
+	endSeconds, err = SafeUint32ToUint64(singleSchedule.GetEndSeconds())
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert end seconds")
+		return 0, 0, err
+	}
+
+	if endSeconds != 0 && endSeconds <= startSeconds {
+		err = errors.Errorfc(codes.InvalidArgument,
+			"The schedule end time must be greater than the start time")
+		zlog.InfraErr(err).Msg("error in specified values of end_seconds and start_seconds")
+		return 0, 0, err
+	}
+	return startSeconds, endSeconds, nil
+}
+
 func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*inv_schedulev1.SingleScheduleResource, error) {
 	if singleSchedule == nil {
 		return &inv_schedulev1.SingleScheduleResource{}, nil
@@ -52,38 +100,32 @@ func toInvSingleschedule(singleSchedule *schedulev1.SingleScheduleResource) (*in
 		return nil, err
 	}
 
+	startSeconds, endSeconds, err := toInvSinglescheduleSeconds(singleSchedule)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert start and end seconds")
+		return nil, err
+	}
 	invSingleschedule := &inv_schedulev1.SingleScheduleResource{
 		ScheduleStatus: inv_schedulev1.ScheduleStatus(singleSchedule.GetScheduleStatus()),
 		Name:           singleSchedule.GetName(),
-		StartSeconds:   uint64(singleSchedule.GetStartSeconds()),
-		EndSeconds:     uint64(singleSchedule.GetEndSeconds()),
+		StartSeconds:   startSeconds,
+		EndSeconds:     endSeconds,
 	}
 
-	if isSet(&singleSchedule.TargetRegionId) {
-		invSingleschedule.Relation = &inv_schedulev1.SingleScheduleResource_TargetRegion{
-			TargetRegion: &inv_locationv1.RegionResource{
-				ResourceId: singleSchedule.TargetRegionId,
-			},
-		}
+	regionID := singleSchedule.GetTargetRegionId()
+	hostID := singleSchedule.GetTargetHostId()
+	siteID := singleSchedule.GetTargetSiteId()
+	if isSet(&regionID) {
+		invSingleschedule.Relation = createSSTargetRegion(regionID)
+	}
+	if isSet(&hostID) {
+		invSingleschedule.Relation = createSSTargetHost(hostID)
+	}
+	if isSet(&siteID) {
+		invSingleschedule.Relation = createSSTargetSite(siteID)
 	}
 
-	if isSet(&singleSchedule.TargetHostId) {
-		invSingleschedule.Relation = &inv_schedulev1.SingleScheduleResource_TargetHost{
-			TargetHost: &inv_computev1.HostResource{
-				ResourceId: singleSchedule.TargetHostId,
-			},
-		}
-	}
-
-	if isSet(&singleSchedule.TargetSiteId) {
-		invSingleschedule.Relation = &inv_schedulev1.SingleScheduleResource_TargetSite{
-			TargetSite: &inv_locationv1.SiteResource{
-				ResourceId: singleSchedule.TargetSiteId,
-			},
-		}
-	}
-
-	err := validator.ValidateMessage(invSingleschedule)
+	err = validator.ValidateMessage(invSingleschedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
 		return nil, err
@@ -97,24 +139,23 @@ func fromInvSingleschedule(
 	if invSingleschedule == nil {
 		return &schedulev1.SingleScheduleResource{}, nil
 	}
-	startSec, err := SafeUint64ToUint32(invSingleschedule.GetStartSeconds())
+	startSec, err := util.Uint64ToUint32(invSingleschedule.GetStartSeconds())
 	if err != nil {
 		return nil, err
 	}
-	endSec, err := SafeUint64ToUint32(invSingleschedule.GetEndSeconds())
+	endSec, err := util.Uint64ToUint32(invSingleschedule.GetEndSeconds())
 	if err != nil {
 		return nil, err
 	}
 
 	singleSchedule := &schedulev1.SingleScheduleResource{
 		ResourceId:       invSingleschedule.GetResourceId(),
-		SingleScheduleId: invSingleschedule.GetResourceId(),
+		SingleScheduleID: invSingleschedule.GetResourceId(),
 		ScheduleStatus:   schedulev1.ScheduleStatus(invSingleschedule.GetScheduleStatus()),
 		Name:             invSingleschedule.GetName(),
 		StartSeconds:     startSec,
 		EndSeconds:       endSec,
-		CreatedAt:        invSingleschedule.GetCreatedAt(),
-		UpdatedAt:        invSingleschedule.GetUpdatedAt(),
+		Timestamps:       GrpcToOpenAPITimestamps(invSingleschedule),
 	}
 
 	switch relation := invSingleschedule.GetRelation().(type) {
@@ -128,7 +169,7 @@ func fromInvSingleschedule(
 			TargetSite: targetSite,
 		}
 	case *inv_schedulev1.SingleScheduleResource_TargetHost:
-		targetHost, err := fromInvHost(relation.TargetHost, nil)
+		targetHost, err := fromInvHost(relation.TargetHost, nil, nil)
 		if err != nil {
 			return nil, err
 		}
@@ -166,7 +207,7 @@ func (is *InventorygRPCServer) CreateSingleSchedule(
 	invSingleschedule, err := toInvSingleschedule(singleSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory single schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -178,7 +219,7 @@ func (is *InventorygRPCServer) CreateSingleSchedule(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create single schedule in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	createdSSched := invResp.GetSingleschedule()
 	is.InvHCacheClient.InvalidateCache(
@@ -187,7 +228,7 @@ func (is *InventorygRPCServer) CreateSingleSchedule(
 	invSinglescheduleCreated, err := fromInvSingleschedule(createdSSched)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory single schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", invSinglescheduleCreated)
 	return invSinglescheduleCreated, nil
@@ -211,7 +252,7 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 	schedFilters, err := parseSchedulesFilter(&hostID, &siteID, &regionID, &epoch)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to parse schedules filter")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	var offset, limit int
 	offset, err = util.Int32ToInt(req.GetOffset())
@@ -228,7 +269,7 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 		ctx, tenantID, offset, limit, schedFilters)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get single schedules from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	singleSchedules := []*schedulev1.SingleScheduleResource{}
@@ -236,11 +277,11 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 		singleSchedule, errConv := fromInvSingleschedule(invRes)
 		if errConv != nil {
 			zlog.InfraErr(errConv).Msg("Failed to convert from inventory single schedule")
-			return nil, errConv
+			return nil, errors.Wrap(errConv)
 		}
 		singleSchedules = append(singleSchedules, singleSchedule)
 	}
-	totalElements, err := SafeIntToInt32(totalElems)
+	totalElements, err := util.IntToInt32(totalElems)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert total elements to int32")
 		return nil, err
@@ -272,13 +313,13 @@ func (is *InventorygRPCServer) GetSingleSchedule(
 	invSingleschedule, err := is.InvHCacheClient.GetSingleSchedule(tenantID, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get single schedule from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	singleSchedule, err := fromInvSingleschedule(invSingleschedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory single schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", singleSchedule)
 	return singleSchedule, nil
@@ -302,13 +343,13 @@ func (is *InventorygRPCServer) UpdateSingleSchedule(
 	invSingleschedule, err := toInvSingleschedule(singleSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory single schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invSingleschedule, maps.Values(OpenAPISingleSchedToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -319,7 +360,7 @@ func (is *InventorygRPCServer) UpdateSingleSchedule(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	is.InvHCacheClient.InvalidateCache(
 		tenantID,
@@ -330,7 +371,7 @@ func (is *InventorygRPCServer) UpdateSingleSchedule(
 	invUp := upRes.GetSingleschedule()
 	invUpRes, err := fromInvSingleschedule(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -355,12 +396,12 @@ func (is *InventorygRPCServer) PatchSingleSchedule(
 	invSingleschedule, err := toInvSingleschedule(singleSchedule)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory single schedule")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := parseFielmask(invSingleschedule, req.GetFieldMask(), OpenAPISingleSchedToProto)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Singleschedule{
@@ -370,7 +411,7 @@ func (is *InventorygRPCServer) PatchSingleSchedule(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	is.InvHCacheClient.InvalidateCache(
 		tenantID,
@@ -381,7 +422,7 @@ func (is *InventorygRPCServer) PatchSingleSchedule(
 	invUp := upRes.GetSingleschedule()
 	invUpRes, err := fromInvSingleschedule(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -404,7 +445,7 @@ func (is *InventorygRPCServer) DeleteSingleSchedule(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete single schedule from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	is.InvHCacheClient.InvalidateCache(
 		tenantID,

@@ -10,6 +10,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_localaccountv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/localaccount/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -35,11 +36,11 @@ func fromInvLocalAccount(invLocalAccount *inv_localaccountv1.LocalAccountResourc
 		return &localaccountv1.LocalAccountResource{}
 	}
 	localaccount := &localaccountv1.LocalAccountResource{
-		ResourceId: invLocalAccount.GetResourceId(),
-		Username:   invLocalAccount.GetUsername(),
-		SshKey:     invLocalAccount.GetSshKey(),
-		CreatedAt:  invLocalAccount.GetCreatedAt(),
-		UpdatedAt:  invLocalAccount.GetUpdatedAt(),
+		ResourceId:     invLocalAccount.GetResourceId(),
+		LocalAccountID: invLocalAccount.GetResourceId(),
+		Username:       invLocalAccount.GetUsername(),
+		SshKey:         invLocalAccount.GetSshKey(),
+		Timestamps:     GrpcToOpenAPITimestamps(invLocalAccount),
 	}
 
 	return localaccount
@@ -55,7 +56,7 @@ func (is *InventorygRPCServer) CreateLocalAccount(
 	invLocalAccount, err := toInvLocalAccount(localaccount)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory localaccount")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -67,7 +68,7 @@ func (is *InventorygRPCServer) CreateLocalAccount(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create localaccount in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	localaccountCreated := fromInvLocalAccount(invResp.GetLocalAccount())
@@ -84,7 +85,7 @@ func (is *InventorygRPCServer) ListLocalAccounts(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_LocalAccount{
@@ -95,11 +96,14 @@ func (is *InventorygRPCServer) ListLocalAccounts(
 		OrderBy: req.GetOrderBy(),
 		Filter:  req.GetFilter(),
 	}
-
+	if err = validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list localaccounts from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	localaccounts := []*localaccountv1.LocalAccountResource{}
@@ -127,7 +131,7 @@ func (is *InventorygRPCServer) GetLocalAccount(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get localaccount from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invLocalAccount := invResp.GetResource().GetLocalAccount()
@@ -146,7 +150,7 @@ func (is *InventorygRPCServer) DeleteLocalAccount(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete localaccount from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteLocalAccountResponse{}, nil

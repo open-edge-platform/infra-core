@@ -17,14 +17,14 @@ message LocalAccountResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
   // Username provided by admin
   string username = 2 [
     (validate.rules).string = {
       pattern: "^[a-z][a-z0-9-]{0,31}$"
-      max_bytes: 32
+      max_len: 32
     },
     (google.api.field_behavior) = REQUIRED
   ];
@@ -33,13 +33,20 @@ message LocalAccountResource {
   string ssh_key = 3 [
     (validate.rules).string = {
       pattern: "^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$"
-      max_bytes: 800
+      max_len: 800
     },
     (google.api.field_behavior) = REQUIRED
   ];
   
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Deprecated, The local account resource's unique identifier. Alias of resourceId.
+  string local_accountID = 5001 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^localaccount-[0-9a-f]{8}$"
+      max_len: 21
+    }
+  ];
+  
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

@@ -81,6 +81,7 @@ compute:
           Values are expected to be in the form of 'key=value'."
         schema:
           type: array
+          maxItems: 100
           items:
             type: string
             pattern: "^[a-zA-Z-_0-9. ]+=[a-zA-Z-_0-9. ]+$"
@@ -206,6 +207,7 @@ hosts:
           Values are expected to be in the form 'key=value'."
         schema:
           type: array
+          maxItems: 100
           items:
             type: string
             pattern: "^[a-zA-Z-_0-9. ]+=[a-zA-Z-_0-9. ]+$"
