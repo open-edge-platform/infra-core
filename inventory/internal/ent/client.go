@@ -1889,6 +1889,22 @@ func (c *InstanceResourceClient) QueryLocalaccount(ir *InstanceResource) *LocalA
 	return query
 }
 
+// QueryCustomConfig queries the custom_config edge of a InstanceResource.
+func (c *InstanceResourceClient) QueryCustomConfig(ir *InstanceResource) *CustomConfigResourceQuery {
+	query := (&CustomConfigResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := ir.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
+			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
+		)
+		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
 // Hooks returns the client hooks.
 func (c *InstanceResourceClient) Hooks() []Hook {
 	return c.hooks.InstanceResource

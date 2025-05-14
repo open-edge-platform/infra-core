@@ -3,6 +3,9 @@
 
 ## Table of Contents
 
+- [customconfig/v1/customconfig.proto](#customconfig_v1_customconfig-proto)
+    - [CustomConfigResource](#customconfig-v1-CustomConfigResource)
+  
 - [localaccount/v1/localaccount.proto](#localaccount_v1_localaccount-proto)
     - [LocalAccountResource](#localaccount-v1-LocalAccountResource)
   
@@ -49,9 +52,6 @@
     - [WorkloadKind](#compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#compute-v1-WorkloadMemberKind)
     - [WorkloadState](#compute-v1-WorkloadState)
-  
-- [customconfig/v1/customconfig.proto](#customconfig_v1_customconfig-proto)
-    - [CustomConfigResource](#customconfig-v1-CustomConfigResource)
   
 - [network/v1/network.proto](#network_v1_network-proto)
     - [EndpointResource](#network-v1-EndpointResource)
@@ -127,6 +127,42 @@
     - [InventoryService](#inventory-v1-InventoryService)
   
 - [Scalar Value Types](#scalar-value-types)
+
+
+
+<a name="customconfig_v1_customconfig-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## customconfig/v1/customconfig.proto
+
+
+
+<a name="customconfig-v1-CustomConfigResource"></a>
+
+### CustomConfigResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| name | [string](#string) |  | Unique name provided by admin |
+| config | [string](#string) |  | Configuration file. |
+| tenant_id | [string](#string) |  | Tenant Identifier. |
+| created_at | [string](#string) |  | Creation timestamp |
+| updated_at | [string](#string) |  | Update timestamp |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
 
 
 
@@ -712,6 +748,7 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | workload_members | [WorkloadMember](#compute-v1-WorkloadMember) | repeated | back-reference to the Workload Members associated to this Instance |
 | provider | [provider.v1.ProviderResource](#provider-v1-ProviderResource) |  | Provider this Instance is provisioned through |
 | localaccount | [localaccount.v1.LocalAccountResource](#localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| custom_config | [customconfig.v1.CustomConfigResource](#customconfig-v1-CustomConfigResource) | repeated | List of Custom Config associated with this Instance |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | instance_status_detail | [string](#string) |  | textual message that gives detailed status of the instance&#39;s software components. |
 | created_at | [string](#string) |  | Creation timestamp |
@@ -909,42 +946,6 @@ Represents the Workload state, used for both current and desired state.
 | WORKLOAD_STATE_DELETED | 3 |  |
 | WORKLOAD_STATE_PROVISIONED | 4 |  |
 
-
- 
-
- 
-
- 
-
-
-
-<a name="customconfig_v1_customconfig-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## customconfig/v1/customconfig.proto
-
-
-
-<a name="customconfig-v1-CustomConfigResource"></a>
-
-### CustomConfigResource
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | resource identifier |
-| name | [string](#string) |  | Unique name provided by admin |
-| config | [string](#string) |  | Configuration file. |
-| tenant_id | [string](#string) |  | Tenant Identifier. |
-| created_at | [string](#string) |  | Creation timestamp |
-| updated_at | [string](#string) |  | Update timestamp |
-
-
-
-
-
- 
 
  
 

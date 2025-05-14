@@ -401,6 +401,7 @@ var (
 		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_custom_config", Type: field.TypeInt, Nullable: true},
 	}
 	// InstanceResourcesTable holds the schema information for the "instance_resources" table.
 	InstanceResourcesTable = &schema.Table{
@@ -430,6 +431,12 @@ var (
 				Symbol:     "instance_resources_local_account_resources_localaccount",
 				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "instance_resources_custom_config_resources_custom_config",
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -1088,6 +1095,7 @@ func init() {
 	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
 	InstanceResourcesTable.ForeignKeys[2].RefTable = ProviderResourcesTable
 	InstanceResourcesTable.ForeignKeys[3].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[4].RefTable = CustomConfigResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable
