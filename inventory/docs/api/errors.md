@@ -3,12 +3,51 @@
 
 ## Table of Contents
 
+- [customconfig/v1/customconfig.proto](#customconfig_v1_customconfig-proto)
+    - [CustomConfigResource](#customconfig-v1-CustomConfigResource)
+  
 - [errors/errors.proto](#errors_errors-proto)
     - [ErrorInfo](#errors-ErrorInfo)
   
     - [Reason](#errors-Reason)
   
 - [Scalar Value Types](#scalar-value-types)
+
+
+
+<a name="customconfig_v1_customconfig-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## customconfig/v1/customconfig.proto
+
+
+
+<a name="customconfig-v1-CustomConfigResource"></a>
+
+### CustomConfigResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| name | [string](#string) |  | Unique name provided by admin |
+| config | [string](#string) |  | Configuration file. |
+| tenant_id | [string](#string) |  | Tenant Identifier. |
+| created_at | [string](#string) |  | Creation timestamp |
+| updated_at | [string](#string) |  | Update timestamp |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
 
 
 

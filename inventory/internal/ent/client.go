@@ -15,6 +15,7 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
@@ -48,6 +49,8 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
+	// CustomConfigResource is the client for interacting with the CustomConfigResource builders.
+	CustomConfigResource *CustomConfigResourceClient
 	// EndpointResource is the client for interacting with the EndpointResource builders.
 	EndpointResource *EndpointResourceClient
 	// HostResource is the client for interacting with the HostResource builders.
@@ -107,6 +110,7 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
+	c.CustomConfigResource = NewCustomConfigResourceClient(c.config)
 	c.EndpointResource = NewEndpointResourceClient(c.config)
 	c.HostResource = NewHostResourceClient(c.config)
 	c.HostgpuResource = NewHostgpuResourceClient(c.config)
@@ -223,6 +227,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:                       ctx,
 		config:                    cfg,
+		CustomConfigResource:      NewCustomConfigResourceClient(cfg),
 		EndpointResource:          NewEndpointResourceClient(cfg),
 		HostResource:              NewHostResourceClient(cfg),
 		HostgpuResource:           NewHostgpuResourceClient(cfg),
@@ -266,6 +271,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	return &Tx{
 		ctx:                       ctx,
 		config:                    cfg,
+		CustomConfigResource:      NewCustomConfigResourceClient(cfg),
 		EndpointResource:          NewEndpointResourceClient(cfg),
 		HostResource:              NewHostResourceClient(cfg),
 		HostgpuResource:           NewHostgpuResourceClient(cfg),
@@ -296,7 +302,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		EndpointResource.
+//		CustomConfigResource.
 //		Query().
 //		Count(ctx)
 func (c *Client) Debug() *Client {
@@ -319,13 +325,14 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.EndpointResource, c.HostResource, c.HostgpuResource, c.HostnicResource,
-		c.HoststorageResource, c.HostusbResource, c.IPAddressResource,
-		c.InstanceResource, c.LocalAccountResource, c.NetlinkResource,
-		c.NetworkSegment, c.OperatingSystemResource, c.OuResource, c.ProviderResource,
-		c.RegionResource, c.RemoteAccessConfiguration, c.RepeatedScheduleResource,
-		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
-		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
+		c.CustomConfigResource, c.EndpointResource, c.HostResource, c.HostgpuResource,
+		c.HostnicResource, c.HoststorageResource, c.HostusbResource,
+		c.IPAddressResource, c.InstanceResource, c.LocalAccountResource,
+		c.NetlinkResource, c.NetworkSegment, c.OperatingSystemResource, c.OuResource,
+		c.ProviderResource, c.RegionResource, c.RemoteAccessConfiguration,
+		c.RepeatedScheduleResource, c.SingleScheduleResource, c.SiteResource,
+		c.TelemetryGroupResource, c.TelemetryProfile, c.Tenant, c.WorkloadMember,
+		c.WorkloadResource,
 	} {
 		n.Use(hooks...)
 	}
@@ -335,13 +342,14 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.EndpointResource, c.HostResource, c.HostgpuResource, c.HostnicResource,
-		c.HoststorageResource, c.HostusbResource, c.IPAddressResource,
-		c.InstanceResource, c.LocalAccountResource, c.NetlinkResource,
-		c.NetworkSegment, c.OperatingSystemResource, c.OuResource, c.ProviderResource,
-		c.RegionResource, c.RemoteAccessConfiguration, c.RepeatedScheduleResource,
-		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
-		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
+		c.CustomConfigResource, c.EndpointResource, c.HostResource, c.HostgpuResource,
+		c.HostnicResource, c.HoststorageResource, c.HostusbResource,
+		c.IPAddressResource, c.InstanceResource, c.LocalAccountResource,
+		c.NetlinkResource, c.NetworkSegment, c.OperatingSystemResource, c.OuResource,
+		c.ProviderResource, c.RegionResource, c.RemoteAccessConfiguration,
+		c.RepeatedScheduleResource, c.SingleScheduleResource, c.SiteResource,
+		c.TelemetryGroupResource, c.TelemetryProfile, c.Tenant, c.WorkloadMember,
+		c.WorkloadResource,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -350,6 +358,8 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 // Mutate implements the ent.Mutator interface.
 func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	switch m := m.(type) {
+	case *CustomConfigResourceMutation:
+		return c.CustomConfigResource.mutate(ctx, m)
 	case *EndpointResourceMutation:
 		return c.EndpointResource.mutate(ctx, m)
 	case *HostResourceMutation:
@@ -400,6 +410,139 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.WorkloadResource.mutate(ctx, m)
 	default:
 		return nil, fmt.Errorf("ent: unknown mutation type %T", m)
+	}
+}
+
+// CustomConfigResourceClient is a client for the CustomConfigResource schema.
+type CustomConfigResourceClient struct {
+	config
+}
+
+// NewCustomConfigResourceClient returns a client for the CustomConfigResource from the given config.
+func NewCustomConfigResourceClient(c config) *CustomConfigResourceClient {
+	return &CustomConfigResourceClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `customconfigresource.Hooks(f(g(h())))`.
+func (c *CustomConfigResourceClient) Use(hooks ...Hook) {
+	c.hooks.CustomConfigResource = append(c.hooks.CustomConfigResource, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `customconfigresource.Intercept(f(g(h())))`.
+func (c *CustomConfigResourceClient) Intercept(interceptors ...Interceptor) {
+	c.inters.CustomConfigResource = append(c.inters.CustomConfigResource, interceptors...)
+}
+
+// Create returns a builder for creating a CustomConfigResource entity.
+func (c *CustomConfigResourceClient) Create() *CustomConfigResourceCreate {
+	mutation := newCustomConfigResourceMutation(c.config, OpCreate)
+	return &CustomConfigResourceCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of CustomConfigResource entities.
+func (c *CustomConfigResourceClient) CreateBulk(builders ...*CustomConfigResourceCreate) *CustomConfigResourceCreateBulk {
+	return &CustomConfigResourceCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *CustomConfigResourceClient) MapCreateBulk(slice any, setFunc func(*CustomConfigResourceCreate, int)) *CustomConfigResourceCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &CustomConfigResourceCreateBulk{err: fmt.Errorf("calling to CustomConfigResourceClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*CustomConfigResourceCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &CustomConfigResourceCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CustomConfigResource.
+func (c *CustomConfigResourceClient) Update() *CustomConfigResourceUpdate {
+	mutation := newCustomConfigResourceMutation(c.config, OpUpdate)
+	return &CustomConfigResourceUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CustomConfigResourceClient) UpdateOne(ccr *CustomConfigResource) *CustomConfigResourceUpdateOne {
+	mutation := newCustomConfigResourceMutation(c.config, OpUpdateOne, withCustomConfigResource(ccr))
+	return &CustomConfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CustomConfigResourceClient) UpdateOneID(id int) *CustomConfigResourceUpdateOne {
+	mutation := newCustomConfigResourceMutation(c.config, OpUpdateOne, withCustomConfigResourceID(id))
+	return &CustomConfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CustomConfigResource.
+func (c *CustomConfigResourceClient) Delete() *CustomConfigResourceDelete {
+	mutation := newCustomConfigResourceMutation(c.config, OpDelete)
+	return &CustomConfigResourceDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *CustomConfigResourceClient) DeleteOne(ccr *CustomConfigResource) *CustomConfigResourceDeleteOne {
+	return c.DeleteOneID(ccr.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *CustomConfigResourceClient) DeleteOneID(id int) *CustomConfigResourceDeleteOne {
+	builder := c.Delete().Where(customconfigresource.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CustomConfigResourceDeleteOne{builder}
+}
+
+// Query returns a query builder for CustomConfigResource.
+func (c *CustomConfigResourceClient) Query() *CustomConfigResourceQuery {
+	return &CustomConfigResourceQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeCustomConfigResource},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a CustomConfigResource entity by its id.
+func (c *CustomConfigResourceClient) Get(ctx context.Context, id int) (*CustomConfigResource, error) {
+	return c.Query().Where(customconfigresource.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CustomConfigResourceClient) GetX(ctx context.Context, id int) *CustomConfigResource {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CustomConfigResourceClient) Hooks() []Hook {
+	return c.hooks.CustomConfigResource
+}
+
+// Interceptors returns the client interceptors.
+func (c *CustomConfigResourceClient) Interceptors() []Interceptor {
+	return c.inters.CustomConfigResource
+}
+
+func (c *CustomConfigResourceClient) mutate(ctx context.Context, m *CustomConfigResourceMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&CustomConfigResourceCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&CustomConfigResourceUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&CustomConfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&CustomConfigResourceDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown CustomConfigResource mutation op: %q", m.Op())
 	}
 }
 
@@ -4334,21 +4477,21 @@ func (c *WorkloadResourceClient) mutate(ctx context.Context, m *WorkloadResource
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		EndpointResource, HostResource, HostgpuResource, HostnicResource,
-		HoststorageResource, HostusbResource, IPAddressResource, InstanceResource,
-		LocalAccountResource, NetlinkResource, NetworkSegment, OperatingSystemResource,
-		OuResource, ProviderResource, RegionResource, RemoteAccessConfiguration,
-		RepeatedScheduleResource, SingleScheduleResource, SiteResource,
-		TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
+		CustomConfigResource, EndpointResource, HostResource, HostgpuResource,
+		HostnicResource, HoststorageResource, HostusbResource, IPAddressResource,
+		InstanceResource, LocalAccountResource, NetlinkResource, NetworkSegment,
+		OperatingSystemResource, OuResource, ProviderResource, RegionResource,
+		RemoteAccessConfiguration, RepeatedScheduleResource, SingleScheduleResource,
+		SiteResource, TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
 		WorkloadResource []ent.Hook
 	}
 	inters struct {
-		EndpointResource, HostResource, HostgpuResource, HostnicResource,
-		HoststorageResource, HostusbResource, IPAddressResource, InstanceResource,
-		LocalAccountResource, NetlinkResource, NetworkSegment, OperatingSystemResource,
-		OuResource, ProviderResource, RegionResource, RemoteAccessConfiguration,
-		RepeatedScheduleResource, SingleScheduleResource, SiteResource,
-		TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
+		CustomConfigResource, EndpointResource, HostResource, HostgpuResource,
+		HostnicResource, HoststorageResource, HostusbResource, IPAddressResource,
+		InstanceResource, LocalAccountResource, NetlinkResource, NetworkSegment,
+		OperatingSystemResource, OuResource, ProviderResource, RegionResource,
+		RemoteAccessConfiguration, RepeatedScheduleResource, SingleScheduleResource,
+		SiteResource, TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
 		WorkloadResource []ent.Interceptor
 	}
 )

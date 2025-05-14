@@ -9,6 +9,18 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 )
 
+// The CustomConfigResourceFunc type is an adapter to allow the use of ordinary
+// function as CustomConfigResource mutator.
+type CustomConfigResourceFunc func(context.Context, *ent.CustomConfigResourceMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CustomConfigResourceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.CustomConfigResourceMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CustomConfigResourceMutation", m)
+}
+
 // The EndpointResourceFunc type is an adapter to allow the use of ordinary
 // function as EndpointResource mutator.
 type EndpointResourceFunc func(context.Context, *ent.EndpointResourceMutation) (ent.Value, error)

@@ -1,0 +1,104 @@
+// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto3";
+
+package customconfig.v1;
+
+import "buf/validate/validate.proto";
+import "ent/opts.proto";
+import "infrainv/infrainv.proto";
+
+option go_package = "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/customconfig/v1;customconfigv1";
+
+message CustomConfigResource {
+  option (ent.schema) = {gen: true};
+  option (infrainv.schemaExtension) = {
+    indexes: [
+      {
+        fields: [
+          "name",
+          "tenant_id"
+        ]
+        unique: true
+      },
+      {
+        unique: false
+        fields: ["tenant_id"]
+      }
+    ]
+  };
+  // resource identifier
+  string resource_id = 1 [
+    (ent.field) = {unique: true},
+    (buf.validate.field).string = {
+      pattern: "^customconfig-[0-9a-f]{8}$"
+      max_bytes: 21
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Unique name provided by admin
+  string name = 2 [
+    (ent.field) = {
+      optional: false
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      pattern: "^[a-z][a-z0-9-]{0,31}$"
+      max_bytes: 32
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Configuration file.
+  string config = 3 [
+    (ent.field) = {
+      optional: false
+      immutable: true
+    },
+
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 16384
+      pattern: "^[A-Za-z0-9-/_\\[\\]\\.\\\\]*$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];  
+  // Tenant Identifier.
+  string tenant_id = 100 [
+    (ent.field) = {
+      immutable: true
+      optional: false
+    },
+    (buf.validate.field).string = {
+      uuid: true
+      max_bytes: 36
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Creation timestamp
+  string created_at = 200 [(ent.field) = {
+    immutable: true
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }];
+  string updated_at = 201 [(ent.field) = {
+    // The field immutable from API perspective, will be changed internally in the hooks.
+    immutable: false
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }]; // Update timestamp
+
+}
