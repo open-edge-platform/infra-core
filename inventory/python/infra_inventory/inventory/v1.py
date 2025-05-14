@@ -8,6 +8,7 @@ import betterproto
 import grpclib
 
 from .compute import v1
+from .customconfig import v1
 from .google import protobuf
 from .localaccount import v1
 from .location import v1
@@ -54,6 +55,7 @@ class ResourceKind(betterproto.Enum):
     RESOURCE_KIND_TENANT = 130
     RESOURCE_KIND_RMT_ACCESS_CONF = 150
     RESOURCE_KIND_LOCALACCOUNT = 170
+    RESOURCE_KIND_CUSTOMCONFIG = 171
 
 
 class SubscribeEventsResponseEventKind(betterproto.Enum):
@@ -156,6 +158,9 @@ class Resource(betterproto.Message):
     )
     local_account: v1.LocalAccountResource = betterproto.message_field(
         170, group="resource"
+    )
+    custom_config: v1.CustomConfigResource = betterproto.message_field(
+        171, group="resource"
     )
 
 

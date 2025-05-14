@@ -7,6 +7,7 @@ package inventory.v1;
 
 import "buf/validate/validate.proto";
 import "compute/v1/compute.proto";
+import "customconfig/v1/customconfig.proto";
 import "google/protobuf/field_mask.proto";
 import "localaccount/v1/localaccount.proto";
 import "location/v1/location.proto";
@@ -18,6 +19,7 @@ import "remoteaccess/v1/remoteaccess.proto";
 import "schedule/v1/schedule.proto";
 import "telemetry/v1/telemetry.proto";
 import "tenant/v1/tenant.proto";
+
 
 option go_package = "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1;inventoryv1";
 
@@ -187,6 +189,8 @@ enum ResourceKind {
   RESOURCE_KIND_RMT_ACCESS_CONF = 150;
 
   RESOURCE_KIND_LOCALACCOUNT = 170;
+  RESOURCE_KIND_CUSTOMCONFIG = 171;
+
 }
 
 message Resource {
@@ -226,6 +230,7 @@ message Resource {
 
     remoteaccess.v1.RemoteAccessConfiguration remote_access = 150;
     localaccount.v1.LocalAccountResource local_account = 170;
+    customconfig.v1.CustomConfigResource custom_config = 171;
   }
 }
 
