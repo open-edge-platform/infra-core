@@ -5,6 +5,7 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"testing"
 
@@ -13,6 +14,10 @@ import (
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+)
+
+const (
+	NumPreloadedOSResources = 4
 )
 
 func TestOS_CreateGetDelete(t *testing.T) {
@@ -261,6 +266,48 @@ func TestOS_CreatewithInstallPackage(t *testing.T) {
 	assert.Equal(t, http.StatusOK, get.StatusCode())
 	assert.Equal(t, utils.OSName1, *get.JSON200.Name)
 	log.Info().Msgf("End OSResource create test")
+}
+
+func TestOS_GetWithInstalledPackages(t *testing.T) {
+	log.Info().Msgf("Begin OSResource get with installed packages test")
+
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	osList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+		ctx,
+		&api.OperatingSystemServiceListOperatingSystemsParams{},
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, osList.StatusCode())
+	assert.Equal(t, NumPreloadedOSResources, len(osList.JSON200.OperatingSystemResources))
+
+	for _, osRes := range osList.JSON200.OperatingSystemResources {
+		// InstalledPackages shall be JSON-encoded string for IMMUTABLE OS
+		// InstalledPackages is empty string for MUTABLE OS
+		if *osRes.OsType == api.OSTYPEIMMUTABLE {
+			assert.NotEqual(t, "", *osRes.InstalledPackages)
+			var osPackages struct {
+				Repo []struct {
+					Name    *string `json:"name"`
+					Version *string `json:"version"`
+				} `json:"repo"`
+			}
+			// validate that the obtained InstalledPackages is truly unmarshal-able JSON string
+			err := json.Unmarshal([]byte(*osRes.InstalledPackages), &osPackages)
+			require.NoError(t, err)
+			assert.NotEmpty(t, osPackages.Repo)
+			assert.NotNil(t, osPackages.Repo[0].Name)
+			assert.NotNil(t, osPackages.Repo[0].Version)
+		}
+	}
+	log.Info().Msgf("End OSResource get with installed packages test")
 }
 
 func TestOS_CreatewithCustom(t *testing.T) {
