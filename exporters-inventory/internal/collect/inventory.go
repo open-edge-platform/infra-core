@@ -30,10 +30,12 @@ import (
 const (
 	logretension            = 600
 	batchSize               = 100
-	periodicCacheRefreshSec = 10
+	periodicCacheRefreshSec = 60 // sets to refresh the cache every 60 seconds (consider scale)
 	totalNumberOFCurlReq    = 5
 	defaultTimeout          = 30 * time.Second
 	defaultTimeoutRPCCalls  = 5 * time.Second
+	// eventsWatcherBufSize is the buffer size for the events channel.
+	eventsWatcherBufSize = 10
 )
 
 var clientName = "exporter"
@@ -55,7 +57,7 @@ type InventoryCollector struct {
 func NewInventoryCollector(cfg common.CollectorsConfig) (Collector, error) {
 	chanTerm := make(chan bool)
 	var wg sync.WaitGroup
-	eventsWatcher := make(chan *client.WatchEvents)
+	eventsWatcher := make(chan *client.WatchEvents, eventsWatcherBufSize)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	invClient, err := newInventoryClient(
@@ -481,7 +483,7 @@ func loadResourceFromInv(
 func (sc *InvCollectorClient) LoadAllHostsFromInv() {
 	log.Debug().Msgf("LoadAllHostsFromInv")
 	// TODO Current reconciliation is dumb, clean everything in the local cache and re-build it
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeoutRPCCalls)
 	defer cancel()
 
 	// Load all host across tenants.

@@ -57,10 +57,10 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 11 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 11 {
 		err := OperatingSystemResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 11 bytes",
+			reason: "value length must be at most 11 runes",
 		}
 		if !all {
 			return err
@@ -148,10 +148,10 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	for idx, item := range m.GetUpdateSources() {
 		_, _ = idx, item
 
-		if len(item) > 10000 {
+		if utf8.RuneCountInString(item) > 10000 {
 			err := OperatingSystemResourceValidationError{
 				field:  fmt.Sprintf("UpdateSources[%v]", idx),
-				reason: "value length must be at most 10000 bytes",
+				reason: "value length must be at most 10000 runes",
 			}
 			if !all {
 				return err
@@ -186,7 +186,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	if !_OperatingSystemResource_ImageUrl_Pattern.MatchString(m.GetImageUrl()) {
 		err := OperatingSystemResourceValidationError{
 			field:  "ImageUrl",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
 		}
 		if !all {
 			return err
@@ -208,7 +208,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	if !_OperatingSystemResource_ImageId_Pattern.MatchString(m.GetImageId()) {
 		err := OperatingSystemResourceValidationError{
 			field:  "ImageId",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
 		}
 		if !all {
 			return err
@@ -253,7 +253,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	if !_OperatingSystemResource_ProfileName_Pattern.MatchString(m.GetProfileName()) {
 		err := OperatingSystemResourceValidationError{
 			field:  "ProfileName",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
 		}
 		if !all {
 			return err
@@ -277,7 +277,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	if !_OperatingSystemResource_InstalledPackages_Pattern.MatchString(m.GetInstalledPackages()) {
 		err := OperatingSystemResourceValidationError{
 			field:  "InstalledPackages",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" \\\\\\n]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" \\\\\\\\\\\\n]+$\"",
 		}
 		if !all {
 			return err
@@ -293,10 +293,10 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	// no validation rules for PlatformBundle
 
-	if len(m.GetOsResourceId()) > 11 {
+	if utf8.RuneCountInString(m.GetOsResourceID()) > 11 {
 		err := OperatingSystemResourceValidationError{
-			field:  "OsResourceId",
-			reason: "value length must be at most 11 bytes",
+			field:  "OsResourceID",
+			reason: "value length must be at most 11 runes",
 		}
 		if !all {
 			return err
@@ -304,9 +304,9 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_OperatingSystemResource_OsResourceId_Pattern.MatchString(m.GetOsResourceId()) {
+	if !_OperatingSystemResource_OsResourceID_Pattern.MatchString(m.GetOsResourceID()) {
 		err := OperatingSystemResourceValidationError{
-			field:  "OsResourceId",
+			field:  "OsResourceID",
 			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -337,9 +337,34 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OperatingSystemResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OperatingSystemResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OperatingSystemResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return OperatingSystemResourceMultiError(errors)
@@ -431,16 +456,16 @@ var _OperatingSystemResource_KernelCommand_Pattern = regexp.MustCompile("^$|^[a-
 
 var _OperatingSystemResource_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$")
 
-var _OperatingSystemResource_ImageUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
+var _OperatingSystemResource_ImageUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
-var _OperatingSystemResource_ImageId_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
+var _OperatingSystemResource_ImageId_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
 var _OperatingSystemResource_Sha256_Pattern = regexp.MustCompile("^[a-f0-9]+$")
 
-var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
+var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
-var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$")
+var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
 
-var _OperatingSystemResource_OsResourceId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
+var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
 var _OperatingSystemResource_RepoUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")

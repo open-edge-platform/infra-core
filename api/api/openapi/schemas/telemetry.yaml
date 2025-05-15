@@ -47,10 +47,12 @@ TelemetryLogsGroup:
       $ref: "#/TelemetryCollectorKind"
     groups:
       type: array
+      maxItems: 100
       description: "A list of log groups to collect."
       items:
         type: string
         pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"" ]+$'
+        maxLength: 500
       minItems: 0
     timestamps:
       "$ref": "./common.yaml#/Timestamps"
@@ -79,10 +81,12 @@ TelemetryMetricsGroup:
       $ref: "#/TelemetryCollectorKind"
     groups:
       type: array
+      maxItems: 100
       description: "A list of metric groups to collect."
       items:
         type: string
         pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"" ]+$'
+        maxLength: 500
       minItems: 0
     timestamps:
       "$ref": "./common.yaml#/Timestamps"
