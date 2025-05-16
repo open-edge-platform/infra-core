@@ -729,7 +729,7 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
 		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
 	)
-	filterInstanceRunning := `%s.%s = %s AND NOT (%s)`
+	filterInstanceRunning := `%s.%s = %q AND NOT (%s)`
 	filterInstanceRunning = fmt.Sprintf(filterInstanceRunning,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldInstanceStatus,
