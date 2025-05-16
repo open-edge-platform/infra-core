@@ -6,7 +6,7 @@ metadata:
   release: 0.0.0-dev
   version: 0.1.0
 spec:
-  name: Ubuntu 24.04.2 LTS with Intel out-of-tree GPU drivers
+  name: Ubuntu 24.04.2 LTS with Intel out-of-tree GPU drivers - BETA
   type: OS_TYPE_MUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
