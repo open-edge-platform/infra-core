@@ -708,7 +708,7 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	var unallocatedState uint32
 	reqFilter := req.GetFilter()
 
-	filterIsFailedHostStatus := `%s = %q OR %s = %q OR %s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q`
+	filterIsFailedHostStatus := `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
 	filterIsFailedHostStatus = fmt.Sprintf(filterIsFailedHostStatus,
 		inv_computev1.HostResourceFieldHostStatusIndicator,
 		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
@@ -721,15 +721,15 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
 	)
-	filterInstanceRunning := `%s.%s = %q AND NOT (%s)`
+	filterInstanceRunning := `%s.%s = %s AND NOT (%s)`
 	filterInstanceRunning = fmt.Sprintf(filterInstanceRunning,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldInstanceStatus,
