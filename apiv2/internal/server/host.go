@@ -707,9 +707,8 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	var unallocatedState uint32
 	reqFilter := req.GetFilter()
 
-	filterIsFailedHostStatus := `%s AND (%s = %q OR %s = %q OR %s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q)`
+	filterIsFailedHostStatus := `%s = %q OR %s = %q OR %s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q`
 	filterIsFailedHostStatus = fmt.Sprintf(filterIsFailedHostStatus,
-		reqFilter,
 		inv_computev1.HostResourceFieldHostStatusIndicator,
 		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
 		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
@@ -737,15 +736,19 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		filterIsFailedHostStatus,
 	)
 
-	filterIsUnallocated := `%s AND NOT has(%s) OR %s.%s = %q`
+	filterIsUnallocated := `NOT has(%s) OR %s.%s = %q`
 	filterIsUnallocated = fmt.Sprintf(filterIsUnallocated,
-		reqFilter,
 		inv_computev1.HostResourceEdgeSite,
 		inv_computev1.HostResourceEdgeSite,
 		inv_locationv1.SiteResourceFieldResourceId,
 		"")
 
 	filterTotal := reqFilter
+	if reqFilter != "" {
+		filterIsFailedHostStatus = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatus)
+		filterInstanceRunning = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunning)
+		filterIsUnallocated = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocated)
+	}
 
 	totalHosts, err := is.listHosts(ctx, filterTotal)
 	if err != nil {
