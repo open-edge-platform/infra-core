@@ -17,6 +17,7 @@ import (
 	networkv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/network/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
@@ -710,23 +711,23 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	filterIsFailedHostStatus := `%s = %q OR %s = %q OR %s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q OR %s.%s = %q`
 	filterIsFailedHostStatus = fmt.Sprintf(filterIsFailedHostStatus,
 		inv_computev1.HostResourceFieldHostStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
-		statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
 	)
 	filterInstanceRunning := `%s.%s = %q AND NOT (%s)`
 	filterInstanceRunning = fmt.Sprintf(filterInstanceRunning,
