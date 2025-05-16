@@ -7,8 +7,13 @@ import (
 	"context"
 	"errors"
 	"testing"
+	"time"
 
+	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
@@ -17,10 +22,13 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_server "github.com/open-edge-platform/infra-core/apiv2/v2/internal/server"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
+	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	inv_statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
+	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 )
 
 // Write an example of inventory resource with a Host resource filled with all fields.
@@ -654,4 +662,174 @@ func TestHost_Delete(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestHost_Summary(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	t.Cleanup(cancel)
+	region1 := inv_testing.CreateRegion(t, nil)
+	region2 := inv_testing.CreateRegion(t, region1)
+	site1 := inv_testing.CreateSiteWithArgs(t, "SJI1", 100, 100, "", region2, nil, nil)
+	provider1 := inv_testing.CreateProvider(t, "Test Provider1")
+	os1 := inv_testing.CreateOs(t)
+	uuidH1 := uuid.NewString()
+
+	createresreq1 := &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Host{
+			Host: &inv_computev1.HostResource{
+				Name:         "Test Host 3",
+				DesiredState: inv_computev1.HostState_HOST_STATE_ONBOARDED,
+
+				Site:         site1,
+				Provider:     provider1,
+				HardwareKind: "XDgen4",
+				SerialNumber: "1001",
+				MemoryBytes:  64 * util.Gigabyte,
+				Uuid:         uuidH1,
+
+				CpuModel:        "12th Gen Intel(R) Core(TM) i9-12900",
+				CpuSockets:      1,
+				CpuCores:        14,
+				CpuCapabilities: "",
+				CpuArchitecture: "x86_64",
+				CpuThreads:      13,
+
+				MgmtIp: "192.168.10.13",
+
+				BmcKind:     inv_computev1.BaremetalControllerKind_BAREMETAL_CONTROLLER_KIND_PDU,
+				BmcIp:       "10.0.0.13",
+				BmcUsername: "user",
+				BmcPassword: "pass",
+				PxeMac:      "90:49:fa:ff:ff:f3",
+
+				Hostname: "testhost3",
+				Metadata: "",
+			},
+		},
+	}
+
+	createresreq2 := &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Host{
+			Host: &inv_computev1.HostResource{
+				Name:              "Test Host 1",
+				DesiredState:      inv_computev1.HostState_HOST_STATE_REGISTERED,
+				CurrentState:      inv_computev1.HostState_HOST_STATE_UNSPECIFIED,
+				HardwareKind:      "XDgen2",
+				SerialNumber:      "12345678",
+				Uuid:              "E5E53D99-708D-4AF5-8378-63880FF62712",
+				MemoryBytes:       64 * util.Gigabyte,
+				CpuModel:          "12th Gen Intel(R) Core(TM) i9-12900",
+				CpuSockets:        1,
+				CpuCores:          14,
+				CpuCapabilities:   "",
+				CpuArchitecture:   "x86_64",
+				CpuThreads:        20,
+				CpuTopology:       `{"some_json":[]}`,
+				MgmtIp:            "192.168.10.10",
+				BmcKind:           inv_computev1.BaremetalControllerKind_BAREMETAL_CONTROLLER_KIND_PDU,
+				BmcIp:             "10.0.0.10",
+				BmcUsername:       "user",
+				BmcPassword:       "pass",
+				PxeMac:            "90:49:fa:ff:ff:ff",
+				Hostname:          "testhost1",
+				ProductName:       "PowerEdge R750",
+				BiosVersion:       "1.0.0",
+				BiosReleaseDate:   "09/14/2022",
+				BiosVendor:        "Dell Inc.",
+				DesiredPowerState: inv_computev1.PowerState_POWER_STATE_ON,
+				Metadata:          "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
+			},
+		},
+	}
+	// Create hosts.
+	chostResp1, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createresreq1)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	expHost1 := *chostResp1.GetHost()
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, expHost1.GetResourceId()) })
+
+	instance1 := inv_testing.CreateInstance(t, &expHost1, os1)
+
+	chostResp2, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createresreq2)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	expHost2 := *chostResp2.GetHost()
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, expHost2.GetResourceId()) })
+
+	// Instantiate server
+	server := inv_server.InventorygRPCServer{InvClient: inv_testing.TestClients[inv_testing.APIClient]}
+
+	// Test GetHostsSummary with no filters
+	response, err := server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.NotNil(t, response)
+
+	assert.Equal(t, uint32(2), response.Total)
+	assert.Equal(t, uint32(1), response.Unallocated)
+	assert.Equal(t, uint32(0), response.Error)
+	assert.Equal(t, uint32(0), response.Running)
+
+	// Update host status to ERROR
+	updateHost := &inv_computev1.HostResource{
+		HostStatusIndicator: inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+	}
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{computev1.HostResourceFieldHostStatusIndicator},
+	}
+	updateRes := &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Host{Host: updateHost},
+	}
+
+	_, err = inv_testing.TestClients[inv_testing.APIClient].Update(ctx, expHost2.GetResourceId(), fieldMask, updateRes)
+	assert.NoError(t, err)
+
+	// Test GetHostsSummary with host in error
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.NotNil(t, response)
+
+	assert.Equal(t, uint32(2), response.Total)
+	assert.Equal(t, uint32(1), response.Unallocated)
+	assert.Equal(t, uint32(1), response.Error)
+	assert.Equal(t, uint32(0), response.Running)
+
+	// Update Instance status to Running
+	updateInstance := &inv_computev1.InstanceResource{
+		CurrentState: inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
+	}
+	fieldMask = &fieldmaskpb.FieldMask{
+		Paths: []string{
+			inv_computev1.InstanceResourceFieldCurrentState,
+		},
+	}
+	updateRes = &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Instance{Instance: updateInstance},
+	}
+	updateResponse, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instance1.GetResourceId(), fieldMask, updateRes)
+	assert.NoError(t, err)
+	require.Equal(t, inv_computev1.InstanceState_INSTANCE_STATE_RUNNING, updateResponse.GetInstance().GetCurrentState())
+
+	getResponse, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, expHost1.GetResourceId())
+	assert.NoError(t, err)
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetHostStatusIndicator())
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetOnboardingStatusIndicator())
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetRegistrationStatusIndicator())
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetInstance().GetProvisioningStatusIndicator())
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetInstance().GetUpdateStatusIndicator())
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetInstance().GetTrustedAttestationStatusIndicator())
+	require.Equal(t, inv_statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED, getResponse.GetResource().GetHost().GetInstance().GetInstanceStatusIndicator())
+
+	// Test GetHostsSummary with host in error and instance running
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.NotNil(t, response)
+
+	assert.Equal(t, uint32(2), response.Total)
+	assert.Equal(t, uint32(1), response.Unallocated)
+	assert.Equal(t, uint32(1), response.Error)
+	assert.Equal(t, uint32(1), response.Running)
 }
