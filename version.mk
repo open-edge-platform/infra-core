@@ -42,7 +42,7 @@ POSTGRES_VERSION            := 16.4
 
 # System dependencies binary SHA
 OPA_SHA						:= "c81aa9c1da779d0a8646c837a96d52e1a7040ff562318d9743b8ef51c93b49d6"
-ATLAS_SHA					:= "8ca6d8488d1ba52372681e895a7995a295a5b33a5c2037a029393ae3a462ebf4"
+ATLAS_SHA					:= "43827e2eaa8d4df1451d2948d87b9d76e892f4d33a0b0d29940c5d92e137df07"
 
 dependency-check: go-dependency-check
 ifeq ($(SWAGGERCLI), true)
