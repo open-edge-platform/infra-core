@@ -678,21 +678,16 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 }
 
 func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (int32, error) {
-	var offset int32
 	var pageSize int32 = 1
-
 	req := &restv1.ListHostsRequest{
 		Filter:   filter,
 		PageSize: pageSize,
-		Offset:   offset,
 	}
 	hostsList, err := is.ListHosts(ctx, req)
 	if err != nil {
 		return 0, err
 	}
-
-	totalItems := hostsList.GetTotalElements()
-	return totalItems, nil
+	return hostsList.GetTotalElements(), nil
 }
 
 // Get hosts summary.
