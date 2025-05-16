@@ -677,7 +677,7 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 	return invHost, nil
 }
 
-func (is *InventorygRPCServer) listHosts(ctx context.Context, filter string) (int32, error) {
+func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (int32, error) {
 	var offset int32
 	var pageSize int32 = 1
 
@@ -738,12 +738,10 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		filterIsFailedHostStatus,
 	)
 
-	filterIsUnallocated := `NOT has(%s) OR %s.%s = %q`
+	filterIsUnallocated := `NOT has(%s)`
 	filterIsUnallocated = fmt.Sprintf(filterIsUnallocated,
 		inv_computev1.HostResourceEdgeSite,
-		inv_computev1.HostResourceEdgeSite,
-		inv_locationv1.SiteResourceFieldResourceId,
-		"")
+	)
 
 	filterTotal := reqFilter
 	if reqFilter != "" {
@@ -752,19 +750,19 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		filterIsUnallocated = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocated)
 	}
 
-	totalHosts, err := is.listHosts(ctx, filterTotal)
+	totalHosts, err := is.totalHosts(ctx, filterTotal)
 	if err != nil {
 		return nil, err
 	}
-	totalHostsError, err := is.listHosts(ctx, filterIsFailedHostStatus)
+	totalHostsError, err := is.totalHosts(ctx, filterIsFailedHostStatus)
 	if err != nil {
 		return nil, err
 	}
-	totalHostsUnallocated, err := is.listHosts(ctx, filterIsUnallocated)
+	totalHostsUnallocated, err := is.totalHosts(ctx, filterIsUnallocated)
 	if err != nil {
 		return nil, err
 	}
-	totalHostsRunning, err := is.listHosts(ctx, filterInstanceRunning)
+	totalHostsRunning, err := is.totalHosts(ctx, filterInstanceRunning)
 	if err != nil {
 		return nil, err
 	}
