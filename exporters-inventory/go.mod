@@ -7,20 +7,20 @@ go 1.24.1
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/api v1.33.1
+	github.com/open-edge-platform/infra-core/api v1.34.0
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.24.0
 	github.com/open-edge-platform/infra-managers/host v1.21.1
 	github.com/open-edge-platform/infra-managers/maintenance v1.21.1
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4
 	github.com/prometheus/client_golang v1.22.0
-	github.com/prometheus/client_model v0.6.1
-	github.com/prometheus/common v0.63.0
+	github.com/prometheus/client_model v0.6.2
+	github.com/prometheus/common v0.64.0
 	github.com/stretchr/testify v1.10.0
-	google.golang.org/grpc v1.72.0
+	google.golang.org/grpc v1.72.1
 )
 
 require (
-	ariga.io/atlas v0.32.1 // indirect
+	ariga.io/atlas v0.33.0 // indirect
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1 // indirect
 	cel.dev/expr v0.23.1 // indirect
 	entgo.io/contrib v0.6.0 // indirect
@@ -39,7 +39,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/getkin/kin-openapi v0.131.0 // indirect
+	github.com/getkin/kin-openapi v0.132.0 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.4 // indirect
 	github.com/go-jose/go-jose/v4 v4.0.5 // indirect
@@ -79,7 +79,7 @@ require (
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/labstack/echo-contrib v0.17.3 // indirect
+	github.com/labstack/echo-contrib v0.17.4 // indirect
 	github.com/labstack/echo/v4 v4.13.3 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/lib/pq v1.10.9 // indirect
@@ -104,7 +104,7 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/prometheus/procfs v0.16.0 // indirect
+	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rs/zerolog v1.34.0 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
@@ -118,7 +118,7 @@ require (
 	github.com/yashtewari/glob-intersection v0.2.0 // indirect
 	github.com/zclconf/go-cty v1.16.2 // indirect
 	github.com/zclconf/go-cty-yaml v1.1.0 // indirect
-	go.einride.tech/aip v0.70.1 // indirect
+	go.einride.tech/aip v0.70.2 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.60.0 // indirect

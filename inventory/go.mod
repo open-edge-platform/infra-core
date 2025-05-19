@@ -6,7 +6,7 @@ module github.com/open-edge-platform/infra-core/inventory/v2
 go 1.24.1
 
 require (
-	ariga.io/atlas v0.32.1
+	ariga.io/atlas v0.33.0
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1
 	entgo.io/contrib v0.6.0
 	entgo.io/ent v0.14.4
@@ -27,7 +27,7 @@ require (
 	github.com/hashicorp/vault/api/auth/kubernetes v0.9.0
 	github.com/iancoleman/strcase v0.3.0
 	github.com/jackc/pgx/v5 v5.7.4
-	github.com/labstack/echo-contrib v0.17.3
+	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/lib/pq v1.10.9
 	github.com/manifoldco/promptui v0.9.0
@@ -44,7 +44,7 @@ require (
 	github.com/rs/zerolog v1.34.0
 	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.10.0
-	go.einride.tech/aip v0.70.1
+	go.einride.tech/aip v0.70.2
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.60.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.60.0
 	go.opentelemetry.io/otel v1.35.0
@@ -57,7 +57,7 @@ require (
 	golang.org/x/term v0.32.0
 	golang.org/x/tools v0.33.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20250313205543-e70fdf4c4cb4
-	google.golang.org/grpc v1.72.0
+	google.golang.org/grpc v1.72.1
 	google.golang.org/protobuf v1.36.6
 	oras.land/oras-go/v2 v2.6.0
 )
@@ -113,9 +113,9 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.63.0 // indirect
-	github.com/prometheus/procfs v0.16.0 // indirect
+	github.com/prometheus/client_model v0.6.2 // indirect
+	github.com/prometheus/common v0.64.0 // indirect
+	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
