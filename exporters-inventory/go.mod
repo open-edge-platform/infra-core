@@ -7,7 +7,7 @@ go 1.24.1
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/api v1.33.1
+	github.com/open-edge-platform/infra-core/api v1.34.0
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.24.0
 	github.com/open-edge-platform/infra-managers/host v1.21.1
 	github.com/open-edge-platform/infra-managers/maintenance v1.21.1
