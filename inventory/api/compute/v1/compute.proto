@@ -6,7 +6,7 @@ syntax = "proto3";
 package compute.v1;
 
 import "buf/validate/validate.proto";
-import "customconfig/v1/customconfig.proto";
+//import "customconfig/v1/customconfig.proto";
 import "ent/opts.proto";
 import "infrainv/infrainv.proto";
 import "localaccount/v1/localaccount.proto";
@@ -639,7 +639,7 @@ message InstanceResource {
   repeated WorkloadMember workload_members = 30 [(ent.edge) = {ref: "instance"}]; // back-reference to the Workload Members associated to this Instance
   provider.v1.ProviderResource provider = 40 [(ent.edge) = {unique: true}]; // Provider this Instance is provisioned through
   localaccount.v1.LocalAccountResource localaccount = 41 [(ent.edge) = {unique: true}]; // Local Account associated with this Instance
-  repeated customconfig.v1.CustomConfigResource custom_config = 42 [(ent.edge) = {unique: true}]; // List of Custom Config associated with this Instance
+  repeated CustomConfigResource custom_config = 42 [(ent.edge) = {ref: "instances"}]; // List of Custom Config associated with this Instance
 
   string tenant_id = 100 [
     (ent.field) = {
@@ -851,3 +851,99 @@ message WorkloadMember {
   }]; // Update timestamp
 }
 // ---------------------------------------------------------------------------------------------------------------------
+
+
+message CustomConfigResource {
+  option (ent.schema) = {gen: true};
+  option (infrainv.schemaExtension) = {
+    indexes: [
+      {
+        fields: [
+          "name",
+          "tenant_id"
+        ]
+        unique: true
+      },
+      {
+        unique: false
+        fields: ["tenant_id"]
+      }
+    ]
+  };
+  // resource identifier
+  string resource_id = 1 [
+    (ent.field) = {unique: true},
+    (buf.validate.field).string = {
+      pattern: "^customconfig-[0-9a-f]{8}$"
+      max_bytes: 21
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Unique name provided by admin
+  string name = 2 [
+    (ent.field) = {
+      optional: false
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      pattern: "^[a-z][a-z0-9-]{0,31}$"
+      max_bytes: 32
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Configuration file.
+  string config = 3 [
+    (ent.field) = {
+      optional: false
+      immutable: true
+    },
+
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 16384
+      pattern: "^[A-Za-z0-9-/_\\[\\]\\.\\\\]*$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];  
+  // Tenant Identifier.
+  string tenant_id = 100 [
+    (ent.field) = {
+      immutable: true
+      optional: false
+    },
+    (buf.validate.field).string = {
+      uuid: true
+      max_bytes: 36
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Creation timestamp
+  string created_at = 200 [(ent.field) = {
+    immutable: true
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }];
+  string updated_at = 201 [(ent.field) = {
+    // The field immutable from API perspective, will be changed internally in the hooks.
+    immutable: false
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }]; // Update timestamp
+
+  repeated InstanceResource instances = 500 [(ent.edge) = {
+    //ref: "custom_config"
+  }]; // back-reference to the Instances associated to this Custom Config
+}

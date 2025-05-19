@@ -4,6 +4,7 @@ package customconfigresource
 
 import (
 	"entgo.io/ent/dialect/sql"
+	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/predicate"
 )
 
@@ -470,6 +471,29 @@ func UpdatedAtEqualFold(v string) predicate.CustomConfigResource {
 // UpdatedAtContainsFold applies the ContainsFold predicate on the "updated_at" field.
 func UpdatedAtContainsFold(v string) predicate.CustomConfigResource {
 	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldUpdatedAt, v))
+}
+
+// HasInstances applies the HasEdge predicate on the "instances" edge.
+func HasInstances() predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, InstancesTable, InstancesPrimaryKey...),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasInstancesWith applies the HasEdge predicate on the "instances" edge with a given conditions (other predicates).
+func HasInstancesWith(preds ...predicate.InstanceResource) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(func(s *sql.Selector) {
+		step := newInstancesStep()
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
 }
 
 // And groups predicates with the AND operator between them.

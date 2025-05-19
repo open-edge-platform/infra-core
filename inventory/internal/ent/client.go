@@ -521,6 +521,22 @@ func (c *CustomConfigResourceClient) GetX(ctx context.Context, id int) *CustomCo
 	return obj
 }
 
+// QueryInstances queries the instances edge of a CustomConfigResource.
+func (c *CustomConfigResourceClient) QueryInstances(ccr *CustomConfigResource) *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := ccr.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(customconfigresource.Table, customconfigresource.FieldID, id),
+			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
+		)
+		fromV = sqlgraph.Neighbors(ccr.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
 // Hooks returns the client hooks.
 func (c *CustomConfigResourceClient) Hooks() []Hook {
 	return c.hooks.CustomConfigResource
@@ -1897,7 +1913,7 @@ func (c *InstanceResourceClient) QueryCustomConfig(ir *InstanceResource) *Custom
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
+			sqlgraph.Edge(sqlgraph.M2M, true, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
 		)
 		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
 		return fromV, nil

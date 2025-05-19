@@ -4,6 +4,7 @@ package customconfigresource
 
 import (
 	"entgo.io/ent/dialect/sql"
+	"entgo.io/ent/dialect/sql/sqlgraph"
 )
 
 const (
@@ -23,8 +24,15 @@ const (
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
 	FieldUpdatedAt = "updated_at"
+	// EdgeInstances holds the string denoting the instances edge name in mutations.
+	EdgeInstances = "instances"
 	// Table holds the table name of the customconfigresource in the database.
 	Table = "custom_config_resources"
+	// InstancesTable is the table that holds the instances relation/edge. The primary key declared below.
+	InstancesTable = "custom_config_resource_instances"
+	// InstancesInverseTable is the table name for the InstanceResource entity.
+	// It exists in this package in order to avoid circular dependency with the "instanceresource" package.
+	InstancesInverseTable = "instance_resources"
 )
 
 // Columns holds all SQL columns for customconfigresource fields.
@@ -37,6 +45,12 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 }
+
+var (
+	// InstancesPrimaryKey and InstancesColumn2 are the table columns denoting the
+	// primary key for the instances relation (M2M).
+	InstancesPrimaryKey = []string{"custom_config_resource_id", "instance_resource_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {
@@ -84,4 +98,25 @@ func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 // ByUpdatedAt orders the results by the updated_at field.
 func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
+}
+
+// ByInstancesCount orders the results by instances count.
+func ByInstancesCount(opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborsCount(s, newInstancesStep(), opts...)
+	}
+}
+
+// ByInstances orders the results by instances terms.
+func ByInstances(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newInstancesStep(), append([]sql.OrderTerm{term}, terms...)...)
+	}
+}
+func newInstancesStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(InstancesInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.M2M, false, InstancesTable, InstancesPrimaryKey...),
+	)
 }

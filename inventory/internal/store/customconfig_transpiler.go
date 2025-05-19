@@ -15,8 +15,15 @@ func (r *registry) RegisterCustomConfigResource() {
 		newResourceTranspiler(
 			inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
 			customconfigresource.ValidColumn,
-			map[string]edgeHandler{},
-			map[string]sqlPredicate{},
+			map[string]edgeHandler{
+				customconfigresource.EdgeInstances: {
+					func(p sqlPredicate) sqlPredicate { return customconfigresource.HasInstancesWith(p) },
+					inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE,
+				},
+			},
+			map[string]sqlPredicate{
+				customconfigresource.EdgeInstances: customconfigresource.HasInstances(),
+			},
 		))
 
 }
