@@ -724,13 +724,33 @@ func (is *InventorygRPCServer) GetHostsSummary(
 		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
 		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
 	)
+
+	// Create a filter specifically for instance error states
+	filterIsFailedInstanceStatus := `%s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedInstanceStatus = fmt.Sprintf(filterIsFailedInstanceStatus,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Modify running instance filter to only exclude instance-related errors
+	// and not host-related errors.
 	filterInstanceRunning := `has(%s) AND %s.%s = %s AND NOT (%s)`
 	filterInstanceRunning = fmt.Sprintf(filterInstanceRunning,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldCurrentState,
 		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
-		filterIsFailedHostStatus,
+		filterIsFailedInstanceStatus,
 	)
 
 	filterIsUnallocated := `NOT has(%s)`
