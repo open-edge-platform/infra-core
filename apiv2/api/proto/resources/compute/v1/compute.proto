@@ -352,6 +352,8 @@ message InstanceResource {
   // Host this Instance is placed on. Only applicable to baremetal instances.
   HostResource host = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
   // OS resource that should be installed to this Instance.
+  resources.os.v1.OperatingSystemResource os = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // OS resource that should be installed to this Instance.
   resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
   // OS resource that is currently installed for this Instance.
   resources.os.v1.OperatingSystemResource current_os = 25 [(google.api.field_behavior) = OUTPUT_ONLY];

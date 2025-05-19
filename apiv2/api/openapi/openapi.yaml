@@ -3546,6 +3546,8 @@ components:
                     format: enum
                 host:
                     $ref: '#/components/schemas/HostResource'
+                os:
+                    $ref: '#/components/schemas/OperatingSystemResource'
                 desiredOs:
                     $ref: '#/components/schemas/OperatingSystemResource'
                 currentOs:

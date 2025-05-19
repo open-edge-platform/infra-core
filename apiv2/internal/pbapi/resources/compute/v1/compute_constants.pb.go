@@ -101,6 +101,7 @@ const (
 	InstanceResourceFieldDesiredState                      = "desired_state"
 	InstanceResourceFieldCurrentState                      = "current_state"
 	InstanceResourceEdgeHost                               = "host"
+	InstanceResourceEdgeOs                                 = "os"
 	InstanceResourceEdgeDesiredOs                          = "desired_os"
 	InstanceResourceEdgeCurrentOs                          = "current_os"
 	InstanceResourceFieldSecurityFeature                   = "security_feature"
