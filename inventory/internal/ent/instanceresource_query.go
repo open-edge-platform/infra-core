@@ -219,7 +219,7 @@ func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
 		return fromU, nil
@@ -598,7 +598,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 			irq.withCustomConfig != nil,
 		}
 	)
-	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withCustomConfig != nil {
+	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -662,8 +662,11 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		}
 	}
 	if query := irq.withCustomConfig; query != nil {
-		if err := irq.loadCustomConfig(ctx, query, nodes, nil,
-			func(n *InstanceResource, e *CustomConfigResource) { n.Edges.CustomConfig = e }); err != nil {
+		if err := irq.loadCustomConfig(ctx, query, nodes,
+			func(n *InstanceResource) { n.Edges.CustomConfig = []*CustomConfigResource{} },
+			func(n *InstanceResource, e *CustomConfigResource) {
+				n.Edges.CustomConfig = append(n.Edges.CustomConfig, e)
+			}); err != nil {
 			return nil, err
 		}
 	}
@@ -858,34 +861,33 @@ func (irq *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *L
 	return nil
 }
 func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *CustomConfigResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *CustomConfigResource)) error {
-	ids := make([]int, 0, len(nodes))
-	nodeids := make(map[int][]*InstanceResource)
+	fks := make([]driver.Value, 0, len(nodes))
+	nodeids := make(map[int]*InstanceResource)
 	for i := range nodes {
-		if nodes[i].instance_resource_custom_config == nil {
-			continue
+		fks = append(fks, nodes[i].ID)
+		nodeids[nodes[i].ID] = nodes[i]
+		if init != nil {
+			init(nodes[i])
 		}
-		fk := *nodes[i].instance_resource_custom_config
-		if _, ok := nodeids[fk]; !ok {
-			ids = append(ids, fk)
-		}
-		nodeids[fk] = append(nodeids[fk], nodes[i])
 	}
-	if len(ids) == 0 {
-		return nil
-	}
-	query.Where(customconfigresource.IDIn(ids...))
+	query.withFKs = true
+	query.Where(predicate.CustomConfigResource(func(s *sql.Selector) {
+		s.Where(sql.InValues(s.C(instanceresource.CustomConfigColumn), fks...))
+	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		fk := n.instance_resource_custom_config
+		if fk == nil {
+			return fmt.Errorf(`foreign-key "instance_resource_custom_config" is nil for node %v`, n.ID)
+		}
+		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "instance_resource_custom_config" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "instance_resource_custom_config" returned %v for node %v`, *fk, n.ID)
 		}
-		for i := range nodes {
-			assign(nodes[i], n)
-		}
+		assign(node, n)
 	}
 	return nil
 }

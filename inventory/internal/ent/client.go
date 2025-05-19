@@ -1897,7 +1897,7 @@ func (c *InstanceResourceClient) QueryCustomConfig(ir *InstanceResource) *Custom
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
 		)
 		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
 		return fromV, nil

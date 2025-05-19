@@ -639,7 +639,7 @@ message InstanceResource {
   repeated WorkloadMember workload_members = 30 [(ent.edge) = {ref: "instance"}]; // back-reference to the Workload Members associated to this Instance
   provider.v1.ProviderResource provider = 40 [(ent.edge) = {unique: true}]; // Provider this Instance is provisioned through
   localaccount.v1.LocalAccountResource localaccount = 41 [(ent.edge) = {unique: true}]; // Local Account associated with this Instance
-  repeated customconfig.v1.CustomConfigResource custom_config = 42 [(ent.edge) = {unique: true}]; // List of Custom Config associated with this Instance
+  repeated customconfig.v1.CustomConfigResource custom_config = 42 [(ent.edge) = {}]; // List of Custom Config associated with this Instance
 
   string tenant_id = 100 [
     (ent.field) = {
