@@ -8,6 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
@@ -74,12 +75,13 @@ type InstanceResource struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the InstanceResourceQuery when eager-loading is set.
-	Edges                          InstanceResourceEdges `json:"edges"`
-	instance_resource_desired_os   *int
-	instance_resource_current_os   *int
-	instance_resource_provider     *int
-	instance_resource_localaccount *int
-	selectValues                   sql.SelectValues
+	Edges                           InstanceResourceEdges `json:"edges"`
+	instance_resource_desired_os    *int
+	instance_resource_current_os    *int
+	instance_resource_provider      *int
+	instance_resource_localaccount  *int
+	instance_resource_custom_config *int
+	selectValues                    sql.SelectValues
 }
 
 // InstanceResourceEdges holds the relations/edges for other nodes in the graph.
@@ -97,7 +99,7 @@ type InstanceResourceEdges struct {
 	// Localaccount holds the value of the localaccount edge.
 	Localaccount *LocalAccountResource `json:"localaccount,omitempty"`
 	// CustomConfig holds the value of the custom_config edge.
-	CustomConfig []*CustomConfigResource `json:"custom_config,omitempty"`
+	CustomConfig *CustomConfigResource `json:"custom_config,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [7]bool
@@ -168,10 +170,12 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 }
 
 // CustomConfigOrErr returns the CustomConfig value or an error if the edge
-// was not loaded in eager-loading.
-func (e InstanceResourceEdges) CustomConfigOrErr() ([]*CustomConfigResource, error) {
-	if e.loadedTypes[6] {
+// was not loaded in eager-loading, or loaded but was not found.
+func (e InstanceResourceEdges) CustomConfigOrErr() (*CustomConfigResource, error) {
+	if e.CustomConfig != nil {
 		return e.CustomConfig, nil
+	} else if e.loadedTypes[6] {
+		return nil, &NotFoundError{label: customconfigresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "custom_config"}
 }
@@ -192,6 +196,8 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		case instanceresource.ForeignKeys[2]: // instance_resource_provider
 			values[i] = new(sql.NullInt64)
 		case instanceresource.ForeignKeys[3]: // instance_resource_localaccount
+			values[i] = new(sql.NullInt64)
+		case instanceresource.ForeignKeys[4]: // instance_resource_custom_config
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -397,6 +403,13 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				ir.instance_resource_localaccount = new(int)
 				*ir.instance_resource_localaccount = int(value.Int64)
+			}
+		case instanceresource.ForeignKeys[4]:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_custom_config", value)
+			} else if value.Valid {
+				ir.instance_resource_custom_config = new(int)
+				*ir.instance_resource_custom_config = int(value.Int64)
 			}
 		default:
 			ir.selectValues.Set(columns[i], values[i])

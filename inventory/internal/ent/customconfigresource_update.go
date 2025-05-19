@@ -11,7 +11,6 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
-	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/predicate"
 )
 
@@ -56,45 +55,9 @@ func (ccru *CustomConfigResourceUpdate) SetNillableUpdatedAt(s *string) *CustomC
 	return ccru
 }
 
-// AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
-func (ccru *CustomConfigResourceUpdate) AddInstanceIDs(ids ...int) *CustomConfigResourceUpdate {
-	ccru.mutation.AddInstanceIDs(ids...)
-	return ccru
-}
-
-// AddInstances adds the "instances" edges to the InstanceResource entity.
-func (ccru *CustomConfigResourceUpdate) AddInstances(i ...*InstanceResource) *CustomConfigResourceUpdate {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
-	}
-	return ccru.AddInstanceIDs(ids...)
-}
-
 // Mutation returns the CustomConfigResourceMutation object of the builder.
 func (ccru *CustomConfigResourceUpdate) Mutation() *CustomConfigResourceMutation {
 	return ccru.mutation
-}
-
-// ClearInstances clears all "instances" edges to the InstanceResource entity.
-func (ccru *CustomConfigResourceUpdate) ClearInstances() *CustomConfigResourceUpdate {
-	ccru.mutation.ClearInstances()
-	return ccru
-}
-
-// RemoveInstanceIDs removes the "instances" edge to InstanceResource entities by IDs.
-func (ccru *CustomConfigResourceUpdate) RemoveInstanceIDs(ids ...int) *CustomConfigResourceUpdate {
-	ccru.mutation.RemoveInstanceIDs(ids...)
-	return ccru
-}
-
-// RemoveInstances removes "instances" edges to InstanceResource entities.
-func (ccru *CustomConfigResourceUpdate) RemoveInstances(i ...*InstanceResource) *CustomConfigResourceUpdate {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
-	}
-	return ccru.RemoveInstanceIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -138,51 +101,6 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	}
 	if value, ok := ccru.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
-	}
-	if ccru.mutation.InstancesCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := ccru.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !ccru.mutation.InstancesCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := ccru.mutation.InstancesIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, ccru.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -232,45 +150,9 @@ func (ccruo *CustomConfigResourceUpdateOne) SetNillableUpdatedAt(s *string) *Cus
 	return ccruo
 }
 
-// AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
-func (ccruo *CustomConfigResourceUpdateOne) AddInstanceIDs(ids ...int) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.AddInstanceIDs(ids...)
-	return ccruo
-}
-
-// AddInstances adds the "instances" edges to the InstanceResource entity.
-func (ccruo *CustomConfigResourceUpdateOne) AddInstances(i ...*InstanceResource) *CustomConfigResourceUpdateOne {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
-	}
-	return ccruo.AddInstanceIDs(ids...)
-}
-
 // Mutation returns the CustomConfigResourceMutation object of the builder.
 func (ccruo *CustomConfigResourceUpdateOne) Mutation() *CustomConfigResourceMutation {
 	return ccruo.mutation
-}
-
-// ClearInstances clears all "instances" edges to the InstanceResource entity.
-func (ccruo *CustomConfigResourceUpdateOne) ClearInstances() *CustomConfigResourceUpdateOne {
-	ccruo.mutation.ClearInstances()
-	return ccruo
-}
-
-// RemoveInstanceIDs removes the "instances" edge to InstanceResource entities by IDs.
-func (ccruo *CustomConfigResourceUpdateOne) RemoveInstanceIDs(ids ...int) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.RemoveInstanceIDs(ids...)
-	return ccruo
-}
-
-// RemoveInstances removes "instances" edges to InstanceResource entities.
-func (ccruo *CustomConfigResourceUpdateOne) RemoveInstances(i ...*InstanceResource) *CustomConfigResourceUpdateOne {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
-	}
-	return ccruo.RemoveInstanceIDs(ids...)
 }
 
 // Where appends a list predicates to the CustomConfigResourceUpdate builder.
@@ -344,51 +226,6 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	}
 	if value, ok := ccruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
-	}
-	if ccruo.mutation.InstancesCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := ccruo.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !ccruo.mutation.InstancesCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := ccruo.mutation.InstancesIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	_node = &CustomConfigResource{config: ccruo.config}
 	_spec.Assign = _node.assignValues

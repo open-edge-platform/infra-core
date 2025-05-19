@@ -5,7 +5,6 @@ package schema
 import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema"
-	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 )
@@ -18,7 +17,7 @@ func (CustomConfigResource) Fields() []ent.Field {
 	return []ent.Field{field.String("resource_id").Unique(), field.String("name").Immutable(), field.String("config").Immutable(), field.String("tenant_id").Immutable(), field.String("created_at").Immutable().SchemaType(map[string]string{"postgres": "TIMESTAMP"}), field.String("updated_at").SchemaType(map[string]string{"postgres": "TIMESTAMP"})}
 }
 func (CustomConfigResource) Edges() []ent.Edge {
-	return []ent.Edge{edge.To("instances", InstanceResource.Type)}
+	return nil
 }
 func (CustomConfigResource) Annotations() []schema.Annotation {
 	return nil

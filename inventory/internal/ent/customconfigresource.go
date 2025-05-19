@@ -27,29 +27,8 @@ type CustomConfigResource struct {
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
-	UpdatedAt string `json:"updated_at,omitempty"`
-	// Edges holds the relations/edges for other nodes in the graph.
-	// The values are being populated by the CustomConfigResourceQuery when eager-loading is set.
-	Edges        CustomConfigResourceEdges `json:"edges"`
+	UpdatedAt    string `json:"updated_at,omitempty"`
 	selectValues sql.SelectValues
-}
-
-// CustomConfigResourceEdges holds the relations/edges for other nodes in the graph.
-type CustomConfigResourceEdges struct {
-	// Instances holds the value of the instances edge.
-	Instances []*InstanceResource `json:"instances,omitempty"`
-	// loadedTypes holds the information for reporting if a
-	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [1]bool
-}
-
-// InstancesOrErr returns the Instances value or an error if the edge
-// was not loaded in eager-loading.
-func (e CustomConfigResourceEdges) InstancesOrErr() ([]*InstanceResource, error) {
-	if e.loadedTypes[0] {
-		return e.Instances, nil
-	}
-	return nil, &NotLoadedError{edge: "instances"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -129,11 +108,6 @@ func (ccr *CustomConfigResource) assignValues(columns []string, values []any) er
 // This includes values selected through modifiers, order, etc.
 func (ccr *CustomConfigResource) Value(name string) (ent.Value, error) {
 	return ccr.selectValues.Get(name)
-}
-
-// QueryInstances queries the "instances" edge of the CustomConfigResource entity.
-func (ccr *CustomConfigResource) QueryInstances() *InstanceResourceQuery {
-	return NewCustomConfigResourceClient(ccr.config).QueryInstances(ccr)
 }
 
 // Update returns a builder for updating this CustomConfigResource.

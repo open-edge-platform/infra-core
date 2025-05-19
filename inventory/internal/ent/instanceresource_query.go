@@ -219,7 +219,7 @@ func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
 		return fromU, nil
@@ -598,7 +598,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 			irq.withCustomConfig != nil,
 		}
 	)
-	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil {
+	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withCustomConfig != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -662,11 +662,8 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		}
 	}
 	if query := irq.withCustomConfig; query != nil {
-		if err := irq.loadCustomConfig(ctx, query, nodes,
-			func(n *InstanceResource) { n.Edges.CustomConfig = []*CustomConfigResource{} },
-			func(n *InstanceResource, e *CustomConfigResource) {
-				n.Edges.CustomConfig = append(n.Edges.CustomConfig, e)
-			}); err != nil {
+		if err := irq.loadCustomConfig(ctx, query, nodes, nil,
+			func(n *InstanceResource, e *CustomConfigResource) { n.Edges.CustomConfig = e }); err != nil {
 			return nil, err
 		}
 	}
@@ -861,62 +858,33 @@ func (irq *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *L
 	return nil
 }
 func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *CustomConfigResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *CustomConfigResource)) error {
-	edgeIDs := make([]driver.Value, len(nodes))
-	byID := make(map[int]*InstanceResource)
-	nids := make(map[int]map[*InstanceResource]struct{})
-	for i, node := range nodes {
-		edgeIDs[i] = node.ID
-		byID[node.ID] = node
-		if init != nil {
-			init(node)
+	ids := make([]int, 0, len(nodes))
+	nodeids := make(map[int][]*InstanceResource)
+	for i := range nodes {
+		if nodes[i].instance_resource_custom_config == nil {
+			continue
 		}
+		fk := *nodes[i].instance_resource_custom_config
+		if _, ok := nodeids[fk]; !ok {
+			ids = append(ids, fk)
+		}
+		nodeids[fk] = append(nodeids[fk], nodes[i])
 	}
-	query.Where(func(s *sql.Selector) {
-		joinT := sql.Table(instanceresource.CustomConfigTable)
-		s.Join(joinT).On(s.C(customconfigresource.FieldID), joinT.C(instanceresource.CustomConfigPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(instanceresource.CustomConfigPrimaryKey[1]), edgeIDs...))
-		columns := s.SelectedColumns()
-		s.Select(joinT.C(instanceresource.CustomConfigPrimaryKey[1]))
-		s.AppendSelect(columns...)
-		s.SetDistinct(false)
-	})
-	if err := query.prepareQuery(ctx); err != nil {
-		return err
+	if len(ids) == 0 {
+		return nil
 	}
-	qr := QuerierFunc(func(ctx context.Context, q Query) (Value, error) {
-		return query.sqlAll(ctx, func(_ context.Context, spec *sqlgraph.QuerySpec) {
-			assign := spec.Assign
-			values := spec.ScanValues
-			spec.ScanValues = func(columns []string) ([]any, error) {
-				values, err := values(columns[1:])
-				if err != nil {
-					return nil, err
-				}
-				return append([]any{new(sql.NullInt64)}, values...), nil
-			}
-			spec.Assign = func(columns []string, values []any) error {
-				outValue := int(values[0].(*sql.NullInt64).Int64)
-				inValue := int(values[1].(*sql.NullInt64).Int64)
-				if nids[inValue] == nil {
-					nids[inValue] = map[*InstanceResource]struct{}{byID[outValue]: {}}
-					return assign(columns[1:], values[1:])
-				}
-				nids[inValue][byID[outValue]] = struct{}{}
-				return nil
-			}
-		})
-	})
-	neighbors, err := withInterceptors[[]*CustomConfigResource](ctx, query, qr, query.inters)
+	query.Where(customconfigresource.IDIn(ids...))
+	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nids[n.ID]
+		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected "custom_config" node returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "instance_resource_custom_config" returned %v`, n.ID)
 		}
-		for kn := range nodes {
-			assign(kn, n)
+		for i := range nodes {
+			assign(nodes[i], n)
 		}
 	}
 	return nil

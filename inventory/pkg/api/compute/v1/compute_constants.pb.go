@@ -186,13 +186,4 @@ const (
 	WorkloadMemberFieldTenantId   = "tenant_id"
 	WorkloadMemberFieldCreatedAt  = "created_at"
 	WorkloadMemberFieldUpdatedAt  = "updated_at"
-
-	// Fields and Edges constants for "CustomConfigResource"
-	CustomConfigResourceFieldResourceId = "resource_id"
-	CustomConfigResourceFieldName       = "name"
-	CustomConfigResourceFieldConfig     = "config"
-	CustomConfigResourceFieldTenantId   = "tenant_id"
-	CustomConfigResourceFieldCreatedAt  = "created_at"
-	CustomConfigResourceFieldUpdatedAt  = "updated_at"
-	CustomConfigResourceEdgeInstances   = "instances"
 )

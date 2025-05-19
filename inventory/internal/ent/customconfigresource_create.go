@@ -10,7 +10,6 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
-	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 )
 
 // CustomConfigResourceCreate is the builder for creating a CustomConfigResource entity.
@@ -54,21 +53,6 @@ func (ccrc *CustomConfigResourceCreate) SetCreatedAt(s string) *CustomConfigReso
 func (ccrc *CustomConfigResourceCreate) SetUpdatedAt(s string) *CustomConfigResourceCreate {
 	ccrc.mutation.SetUpdatedAt(s)
 	return ccrc
-}
-
-// AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
-func (ccrc *CustomConfigResourceCreate) AddInstanceIDs(ids ...int) *CustomConfigResourceCreate {
-	ccrc.mutation.AddInstanceIDs(ids...)
-	return ccrc
-}
-
-// AddInstances adds the "instances" edges to the InstanceResource entity.
-func (ccrc *CustomConfigResourceCreate) AddInstances(i ...*InstanceResource) *CustomConfigResourceCreate {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
-	}
-	return ccrc.AddInstanceIDs(ids...)
 }
 
 // Mutation returns the CustomConfigResourceMutation object of the builder.
@@ -172,22 +156,6 @@ func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sq
 	if value, ok := ccrc.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
-	}
-	if nodes := ccrc.mutation.InstancesIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2M,
-			Inverse: false,
-			Table:   customconfigresource.InstancesTable,
-			Columns: customconfigresource.InstancesPrimaryKey,
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
 }

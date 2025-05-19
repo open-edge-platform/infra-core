@@ -1661,7 +1661,7 @@ func HasCustomConfig() predicate.InstanceResource {
 	return predicate.InstanceResource(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, CustomConfigTable, CustomConfigPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2O, false, CustomConfigTable, CustomConfigColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
