@@ -19,25 +19,25 @@ message RegionResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
 
   // The user-provided, human-readable name of region
   string name = 2 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // The parent Region associated to the Region, when existent.
   RegionResource parent_region = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The Region unique identifier. Alias of resourceId.
-  string region_id = 5001 [
+  // Deprecated, The Region unique identifier. Alias of resourceId.
+  string regionID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
 
@@ -62,10 +62,12 @@ message RegionResource {
   string parent_id = 5005 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      pattern: "^$|^region-[0-9a-f]{8}$"
+      max_len: 15
     }
   ];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A site resource.
@@ -75,14 +77,14 @@ message SiteResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
   // The site's human-readable name.
   string name = 2 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-    max_len: 20
+    max_len: 50
   }];
 
   // Region this site is located in
@@ -93,8 +95,8 @@ message SiteResource {
   // (degrees are multiplied by 10**7 and rounded to the nearest integer).
   // siteLat must be in the range of +/- 90 degrees.
   int32 site_lat = 8 [
-    (validate.rules).int32.gte = -900000000,
-    (validate.rules).int32.lte = 900000000
+    (validate.rules).int32.lte = 900000000,
+    (validate.rules).int32.gte = -900000000
   ];
 
   // The geolocation longitude of the site.
@@ -102,17 +104,19 @@ message SiteResource {
   // (degrees are multiplied by 10**7 and rounded to the nearest integer).
   // siteLng must be in the range of +/- 180 degrees (inclusive).
   int32 site_lng = 9 [
-    (validate.rules).int32.gte = -1800000000,
-    (validate.rules).int32.lte = 1800000000
+    (validate.rules).int32.lte = 1800000000,
+    (validate.rules).int32.gte = -1800000000
   ];
 
   // Provider this Site is managed by
   provider.v1.ProviderResource provider = 30;
 
-  // The site unique identifier. Alias of resourceId.
-  string site_id = 5001 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
-    max_bytes: 13
+  // Deprecated, The site unique identifier. Alias of resourceId.
+  string siteID = 5001 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^site-[0-9a-f]{8}$"
+      max_len: 13
   }];
 
   // The metadata associated to the Region,
@@ -129,8 +133,10 @@ message SiteResource {
   string region_id = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      pattern: "^$|^region-[0-9a-f]{8}$"
+      max_len: 15
     }
   ];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

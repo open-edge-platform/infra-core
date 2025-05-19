@@ -37,7 +37,7 @@ func assertSameMemberIDs(t *testing.T, expectedMembers, actualMembers []api.Work
 }
 
 func TestWorkload_CreateGetDelete(t *testing.T) {
-	log.Info().Msgf("Begin workload cluster tests")
+	log.Info().Msgf("Begin workload CRUD tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
@@ -49,18 +49,18 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	h3 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = h1.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = h1.JSON200.ResourceId
 	i1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	i1ID := *i1.JSON200.ResourceId
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = h2.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = h2.JSON200.ResourceId
 	i2 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	i2ID := *i2.JSON200.ResourceId
 
-	utils.Instance1Request.OsId = os.JSON200.ResourceId
-	utils.Instance1Request.HostId = h3.JSON200.ResourceId
+	utils.Instance1Request.OsID = os.JSON200.ResourceId
+	utils.Instance1Request.HostID = h3.JSON200.ResourceId
 	i3 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 	i3ID := *i3.JSON200.ResourceId
 
@@ -121,7 +121,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getm1w1.StatusCode())
 	assert.Equal(t, w1ID, *getm1w1.JSON200.Workload.ResourceId)
-	assert.Equal(t, i1ID, *getm1w1.JSON200.Member.InstanceId)
+	assert.Equal(t, i1ID, *getm1w1.JSON200.Member.InstanceID)
 
 	getm2w1, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
@@ -131,7 +131,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getm1w1.StatusCode())
 	assert.Equal(t, w1ID, *getm2w1.JSON200.Workload.ResourceId)
-	assert.Equal(t, i2ID, *getm2w1.JSON200.Member.InstanceId)
+	assert.Equal(t, i2ID, *getm2w1.JSON200.Member.InstanceID)
 
 	getm1w2, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
@@ -141,11 +141,11 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getm1w2.StatusCode())
 	assert.Equal(t, w2ID, *getm1w2.JSON200.Workload.ResourceId)
-	assert.Equal(t, i3ID, *getm1w2.JSON200.Member.InstanceId)
+	assert.Equal(t, i3ID, *getm1w2.JSON200.Member.InstanceID)
 
 	clearInstanceIDs()
 
-	log.Info().Msgf("End workload cluster tests")
+	log.Info().Msgf("End workload CRUD tests")
 }
 
 func TestWorkload_UpdatePut(t *testing.T) {
@@ -371,8 +371,8 @@ func TestWorkloadList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster2Request)
@@ -413,8 +413,8 @@ func TestWorkloadMemberList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
@@ -422,8 +422,8 @@ func TestWorkloadMemberList(t *testing.T) {
 	for id := 0; id < totalItems; id++ {
 		host := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
 
-		utils.Instance1Request.OsId = os.JSON200.ResourceId
-		utils.Instance1Request.HostId = host.JSON200.ResourceId
+		utils.Instance1Request.OsID = os.JSON200.ResourceId
+		utils.Instance1Request.HostID = host.JSON200.ResourceId
 		instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
 
 		wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
@@ -495,4 +495,50 @@ func TestWorkloadMemberList_ListEmpty(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.Empty(t, resList.JSON200.WorkloadMembers)
+}
+
+func TestWorkload_Patch(t *testing.T) {
+	log.Info().Msgf("Begin Workload Patch tests")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// Create a Workload
+	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	assert.Equal(t, utils.WorkloadName1, *workload.JSON200.Name)
+
+	// Modify fields for patching
+	newName := utils.WorkloadName1 + "-updated"
+	patchRequest := api.WorkloadResource{
+		Name:   &newName,
+		Kind:   api.WORKLOADKINDCLUSTER,
+		Status: &utils.WorkloadStatus3,
+	}
+
+	// Perform the Patch operation
+	updatedWorkload, err := apiClient.WorkloadServicePatchWorkloadWithResponse(
+		ctx,
+		*workload.JSON200.ResourceId,
+		nil,
+		patchRequest,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, updatedWorkload.StatusCode())
+	assert.Equal(t, newName, *updatedWorkload.JSON200.Name)
+	assert.Equal(t, utils.WorkloadStatus3, *updatedWorkload.JSON200.Status)
+
+	// Verify the changes with a Get operation
+	getWorkload, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
+		ctx,
+		*workload.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, getWorkload.StatusCode())
+	assert.Equal(t, newName, *getWorkload.JSON200.Name)
+
+	log.Info().Msgf("End Workload Patch tests")
 }

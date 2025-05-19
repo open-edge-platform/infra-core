@@ -151,8 +151,9 @@ func displayHelp() {
 	fmt.Println("version                        Display version information")
 	fmt.Print("help                           Show this help message\n\n")
 	fmt.Print("OPTIONS:\n\n")
-	fmt.Println("--onboard                      If set, hosts will be automatically onboarded when connected")
-	fmt.Println("--project <name>               Optional project name in Edge Orchestrator.",
+	fmt.Println("--onboard                      Optional onboard option.",
+		"If set, hosts will be automatically onboarded when connected")
+	fmt.Println("--project <name>               Required project name in Edge Orchestrator.",
 		"Alternatively, set env variable EDGEORCH_PROJECT")
 	fmt.Println("--os-profile <name/id>         Optional operating system profile name/id to configure for hosts.",
 		"Alternatively, set env variable EDGEORCH_OSPROFILE")
@@ -162,7 +163,7 @@ func displayHelp() {
 		"Alternatively, set env variable EDGEORCH_SECURE. Valid values: true, false")
 	fmt.Println("--remote-user <name/id>        Optional remote user name/id to configure for hosts.",
 		"Alternatively, set env variable EDGEORCH_REMOTEUSER")
-	fmt.Print("--metadata <data>              Optional metadata to configure for hosts.",
+	fmt.Print("--metadata <data>              Optional metadata to configure for hosts. ",
 		"Alternatively, set env variable EDGEORCH_METADATA. Metadata format: key=value&key=value\n\n")
 }
 
@@ -219,11 +220,16 @@ func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
 
 	// Register host
 	hostID, err := oClient.RegisterHost(ctx, "", sNo, uuid, autoOnboard)
-	if err != nil && !e.Is(e.ErrAlreadyRegistered, err) {
-		// add to reject list if failed
-		rIn.Error = err.Error()
-		*erringRecords = append(*erringRecords, rIn)
-		return
+	if err != nil {
+		if e.Is(e.ErrAlreadyRegistered, err) {
+			// If already registered, get the hostID
+			hostID, err = oClient.GetHostID(ctx, sNo, uuid)
+		}
+		if err != nil {
+			rIn.Error = err.Error()
+			*erringRecords = append(*erringRecords, rIn)
+			return
+		}
 	}
 	// Create instance if osProfileID is available else append to error list
 	// Need not notify user of instance ID. Unnecessary detail for user.

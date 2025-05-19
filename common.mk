@@ -24,12 +24,13 @@ SHELL	:= bash -eu -o pipefail
 
 # GO variables
 GOARCH	:= $(shell go env GOARCH)
-GOCMD   := GOPRIVATE="github.com/open-edge-platform/*" go
+GOCMD   := go
 
 # Path variables
-OUT_DIR	:= out
-SRC     := $(shell find . -type f -name '*.go' ! -name '*_test.go')
-DEPS    := go.mod go.sum
+OUT_DIR	    := out
+SRC         := $(shell find . -type f -name '*.go' ! -name '*_test.go')
+DEPS        := go.mod go.sum
+BASE_BRANCH := main
 
 # Docker variables
 DOCKER_ENV              := DOCKER_BUILDKIT=1
@@ -118,8 +119,6 @@ common-docker-build: ## Build Docker image
 	@rm -rf vendor common.mk version.mk
 
 common-docker-push: ## Tag and push Docker image
-	# TODO: remove ecr create
-	aws ecr create-repository --region us-west-2 --repository-name $(DOCKER_REPOSITORY)/$(DOCKER_SECTION)/$(DOCKER_IMG_NAME) || true
 	docker tag $(DOCKER_IMG_NAME):$(VERSION) $(DOCKER_TAG_BRANCH)
 	docker tag $(DOCKER_IMG_NAME):$(VERSION) $(DOCKER_TAG)
 	docker push $(DOCKER_TAG)
@@ -234,6 +233,9 @@ common-buf-lint: $(VENV_NAME) ## Lint and format protobuf files
 	buf --version
 	buf format -d --exit-code
 	buf lint
+
+common-buf-breaking:  $(VENV_NAME) ## Find breaking changes in protobuf files
+	buf breaking --against 'https://github.com/open-edge-platform/infra-core.git#branch=${BASE_BRANCH},subdir=${SUBPROJECT_DIR}'
 
 #### Clean Targets ###
 

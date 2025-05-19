@@ -6,14 +6,14 @@ metadata:
   release: 0.0.0-dev
   version: 0.3.0
 spec:
-  name: Edge Microvisor Toolkit Real Time 3.0.20250413
+  name: Edge Microvisor Toolkit Real Time 3.0.20250514
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-rt  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250413.2100.raw.gz
-  osImageVersion: 3.0.20250413.2100
-  osImageSha256: 4f6c2049e1eb42562502a2f1bb8088bc1506daaf5b368b87ed54f0ba7d4ab195
-  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250413.2100_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250514.2100.raw.gz
+  osImageVersion: 3.0.20250514.2100
+  osImageSha256: 2fd93090dff2c4b0bf6b50b96f22d66df159786d722a930e515aa977690a8e24
+  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250514.2100_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   platformBundle:

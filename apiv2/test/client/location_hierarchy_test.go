@@ -432,7 +432,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pgSize uint32 = 100
+	var pgSize int32 = 100
 	regions, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
 		&api.RegionServiceListRegionsParams{

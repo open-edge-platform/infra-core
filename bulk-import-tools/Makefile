@@ -80,6 +80,7 @@ $(OUT_DIR)/$(PREFLIGHT_BINARY_NAME): $(SRC) $(DEPS) ## Build if sources or depen
 
 go-integration: go-build ## Run integration tests
 	mkdir -p $(OUT_DIR)/coverage/integration
+	@grep -q "127.0.0.1 api.test.svc keycloak.test.svc" /etc/hosts || echo "127.0.0.1 api.test.svc keycloak.test.svc" | sudo tee -a /etc/hosts
 	PREFLIGHT_BIN_PATH=$(shell pwd)/$(OUT_DIR)/$(PREFLIGHT_BINARY_NAME) \
 	$(GOCMD) test -v ./cmd/$(PREFLIGHT_BINARY_NAME)/orch_host_preflight_test.go 
 	BI_BIN_PATH=$(shell pwd)/$(OUT_DIR)/$(BULK_IMPORT_BINARY_NAME) \
@@ -94,12 +95,10 @@ go-run: go-build ## Run the resource manager
 binary-release: ## Publish binaries to Production Release Service
 	@echo "Publishing orch-host-bulk-import to Production Release Service."
 	cd $(OUT_DIR) && \
-	aws ecr create-repository --region us-west-2 --repository-name $(OCI_REPOSITORY)/files/orch-host-bulk-import || true && \
 	oras push $(OCI_REGISTRY)/$(OCI_REPOSITORY)/files/orch-host-bulk-import:$(TAG) --artifact-type application/vnd.intel.orch.file ./orch-host-bulk-import
 
 	@echo "Publishing orch-host-preflight to Production Release Service."
 	cd $(OUT_DIR) && \
-	aws ecr create-repository --region us-west-2 --repository-name $(OCI_REPOSITORY)/files/orch-host-preflight || true && \
 	oras push $(OCI_REGISTRY)/$(OCI_REPOSITORY)/files/orch-host-preflight:$(TAG) --artifact-type application/vnd.intel.orch.file ./orch-host-preflight
 
 artifact-publish: build binary-release ## Publish binaries

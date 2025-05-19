@@ -25,10 +25,15 @@ PROTOCGENENT       := true
 PROTOCGENGO        := true
 PROTOCGENGOGRPC    := true
 
+# Required depenendcies to generate ER diagram
+DBMLCLI	           := true
+DBMLRENDERER 	   := true
+
 # Project variables
 PROJECT_NAME       := inventory
 PROJECT_NICKNAME   := inv
 BINARY_NAME        := $(PROJECT_NAME)
+SUBPROJECT_DIR     := inventory
 
 # Code versions, tags, and so on
 VERSION            := $(shell cat VERSION)
@@ -67,7 +72,7 @@ BUNDLE            := "$(shell pwd)/$(OUT_DIR)/policy_bundle.tar.gz"
 
 generate: buf-gen ent-gen mock-gen cli-gen ## Generate buf and ent
 
-lint: $(OUT_DIR) generate migration-test migration-lint license go-lint yamllint buf-lint hadolint mdlint ## Run all linters, generate targets and validate migrations
+lint: $(OUT_DIR) generate migration-test migration-lint license buf-lint buf-breaking go-lint yamllint hadolint mdlint ## Run all linters, generate targets and validate migrations
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -115,6 +120,8 @@ buf-gen-errors: $(VENV_NAME) ## Compile protoc errors files into code
 buf-gen: buf-gen-infrainv-schema-extender buf-gen-api buf-gen-errors ## Compile protoc files
 
 buf-lint: common-buf-lint ## Lint and format protobuf files
+
+buf-breaking: common-buf-breaking ## Find breaking changes in protobuf files
 
 ent-gen: ## Generate ent schema
 	$(GOCMD) generate ./internal/ent
@@ -212,6 +219,7 @@ writeSqlSchema: ## Write sql schema
 	sleep 5
 	$(GOCMD) run cmd/sqlSchemaWriter/main.go
 	@$(MAKE) db-stop
+	$(MAKE) gen-er-diagram
 
 FUZZ_SECONDS	?= 60
 go-fuzz: policy-build certificates ## go fuzz test
@@ -242,3 +250,8 @@ go-fuzz: policy-build certificates ## go fuzz test
 	$(GOCMD) test -fuzz FuzzCreateEndpoint -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(GOCMD) test -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(MAKE) db-stop
+
+gen-er-diagram: ## Generate ER diagram
+	sql2dbml sql/inventory.sql -o docs/output.dbml
+	dbml-renderer --input docs/output.dbml --output docs/inventory-er-diagram.svg
+

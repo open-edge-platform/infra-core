@@ -5,6 +5,7 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"testing"
 
@@ -15,7 +16,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
+const (
+	NumPreloadedOSResources = 4
+)
 
 func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin os tests")
@@ -50,7 +53,6 @@ func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("End OSResource tests")
 }
 
-// FIXME(Daniele,LPIO-1388): improve TC
 func TestOS_UpdatePut(t *testing.T) {
 	log.Info().Msgf("Begin OSResource Update tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
@@ -193,11 +195,21 @@ func TestOS_List(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	ExistingOSs := 4
+	// Checks if list resources return expected number of entries
+	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+		ctx,
+		&api.OperatingSystemServiceListOperatingSystemsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resList.StatusCode())
+
+	ExistingOSs := len(resList.JSON200.OperatingSystemResources)
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		// Re-generate the random sha for each new OS resource being created
@@ -209,7 +221,7 @@ func TestOS_List(t *testing.T) {
 	}
 
 	// Checks if list resources return expected number of entries
-	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
 		&api.OperatingSystemServiceListOperatingSystemsParams{
 			Offset:   &pageId,
@@ -220,7 +232,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.OperatingSystems), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.OperatingSystemResources), int(pageSize))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
@@ -231,27 +243,8 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystems))
+	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
 	assert.Equal(t, false, resList.JSON200.HasNext)
-}
-
-func TestOS_ListEmpty(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
-	defer cancel()
-
-	apiClient, err := GetAPIClient()
-	require.NoError(t, err)
-
-	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
-		ctx,
-		&api.OperatingSystemServiceListOperatingSystemsParams{},
-		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-	)
-
-	ExistingOSs := 4
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, ExistingOSs, len(resList.JSON200.OperatingSystems))
 }
 
 func TestOS_CreatewithInstallPackage(t *testing.T) {
@@ -273,6 +266,48 @@ func TestOS_CreatewithInstallPackage(t *testing.T) {
 	assert.Equal(t, http.StatusOK, get.StatusCode())
 	assert.Equal(t, utils.OSName1, *get.JSON200.Name)
 	log.Info().Msgf("End OSResource create test")
+}
+
+func TestOS_GetWithInstalledPackages(t *testing.T) {
+	log.Info().Msgf("Begin OSResource get with installed packages test")
+
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	osList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+		ctx,
+		&api.OperatingSystemServiceListOperatingSystemsParams{},
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, osList.StatusCode())
+	assert.Equal(t, NumPreloadedOSResources, len(osList.JSON200.OperatingSystemResources))
+
+	for _, osRes := range osList.JSON200.OperatingSystemResources {
+		// InstalledPackages shall be JSON-encoded string for IMMUTABLE OS
+		// InstalledPackages is empty string for MUTABLE OS
+		if *osRes.OsType == api.OSTYPEIMMUTABLE {
+			assert.NotEqual(t, "", *osRes.InstalledPackages)
+			var osPackages struct {
+				Repo []struct {
+					Name    *string `json:"name"`
+					Version *string `json:"version"`
+				} `json:"repo"`
+			}
+			// validate that the obtained InstalledPackages is truly unmarshal-able JSON string
+			err := json.Unmarshal([]byte(*osRes.InstalledPackages), &osPackages)
+			require.NoError(t, err)
+			assert.NotEmpty(t, osPackages.Repo)
+			assert.NotNil(t, osPackages.Repo[0].Name)
+			assert.NotNil(t, osPackages.Repo[0].Version)
+		}
+	}
+	log.Info().Msgf("End OSResource get with installed packages test")
 }
 
 func TestOS_CreatewithCustom(t *testing.T) {
@@ -320,4 +355,69 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 	assert.Equal(t, http.StatusOK, get.StatusCode())
 	assert.Equal(t, OSName1, *get.JSON200.Name)
 	log.Info().Msgf("End OSResource create test")
+}
+
+func TestOS_UpdatePatch(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	os1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+
+	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, OSResource1Get.StatusCode())
+	assert.Equal(t, utils.OSName1, *OSResource1Get.JSON200.Name)
+
+	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		nil,
+		utils.OSResource2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, os1Update.StatusCode())
+	assert.Equal(t, utils.OSName2, *os1Update.JSON200.Name)
+
+	OSResource1GetUp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
+	assert.Equal(t, *utils.OSResource1Request.KernelCommand, *OSResource1GetUp.JSON200.KernelCommand)
+	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
+	assert.Equal(
+		t,
+		utils.OSResource2Request.Architecture,
+		OSResource1GetUp.JSON200.Architecture,
+	)
+	// Security Feature is immutable
+	assert.Equal(t, *utils.OSResource1Request.SecurityFeature, *OSResource1GetUp.JSON200.SecurityFeature)
+
+	osTypeImmutable := api.OSTYPEIMMUTABLE
+	osProviderInfra := api.OSPROVIDERKINDINFRA
+	immutableUpdate, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
+		ctx,
+		*os1.JSON200.OsResourceID,
+		nil,
+		api.OperatingSystemResource{
+			OsType:     &osTypeImmutable,
+			OsProvider: &osProviderInfra,
+		},
+		AddJWTtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusUnauthorized, immutableUpdate.StatusCode())
 }

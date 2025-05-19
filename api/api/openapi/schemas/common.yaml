@@ -13,6 +13,7 @@ Amount:
 Metadata:
   description: "A metadata list, represented by a list of key:value pairs."
   type: array
+  maxItems: 1000
   items:
     type: object
     required:

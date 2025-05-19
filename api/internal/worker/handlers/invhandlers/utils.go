@@ -109,6 +109,7 @@ func isSet(resourceID *string) bool {
 
 // parsePagination parses the pagination fields converting them to limit and offset for the inventory APIs.
 func parsePagination(pageSize, off *int) (limit, offset uint32, err error) {
+	limit, offset = 20, 0
 	if pageSize != nil {
 		// We know by design that this cast should never fail, pageSize is limited by the API definition
 		limit, err = utils.SafeIntToUint32(*pageSize)

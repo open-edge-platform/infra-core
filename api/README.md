@@ -47,7 +47,7 @@ This code requires the following tools to be installed on your development machi
 - [go-junit-report](https://github.com/jstemmer/go-junit-report) - check [$GOJUNITREPORTVERSION_REQ](../version.mk)
 - [gocover-cobertura](github.com/boumenot/gocover-cobertura) - check [$GOCOBERTURAVERSION_REQ](../version.mk)
 - [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) - check [$OAPI_CODEGEN_VERSION_REQ](../version.mk)
-- [swagger-cli](https://apitools.dev/swagger-cli/)
+- [swagger-cli](https://github.com/APIDevTools/swagger-cli)
 - [openapi-spec-validator](https://github.com/p1c2u/openapi-spec-validator)
 
 You can install Go dependencies by running `make go-dependency`.
@@ -114,7 +114,7 @@ language of preference.
 To run the integration tests for API, please refer to this [README](test/README.md). We also provide useful make
 targets to run the integration tests (int-test*).
 
-[user-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html
-[inframanager-dev-guide-url]: (https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/get_started_guide/gsg_content.html)
-[contributors-guide-url]: https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/index.html
+[user-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/index.html
+[inframanager-dev-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/infra_manager/index.html
+[contributors-guide-url]: https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/contributor_guide/index.html
 [inframanager-charts]: https://github.com/open-edge-platform/infra-charts

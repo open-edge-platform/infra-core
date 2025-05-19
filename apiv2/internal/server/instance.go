@@ -5,18 +5,20 @@ package server
 
 import (
 	"context"
-	"fmt"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	localaccountv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	osv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	inv_localaccountv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/localaccount/v1"
 	inv_osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -24,17 +26,10 @@ import (
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIInstanceToProto = map[string]string{
-	"Name":   inv_computev1.InstanceResourceFieldName,
-	"Kind":   inv_computev1.InstanceResourceFieldKind,
-	"OsID":   inv_computev1.InstanceResourceEdgeDesiredOs,
-	"HostID": inv_computev1.InstanceResourceEdgeHost,
-}
-
-var OpenAPIInstanceObjectsNames = map[string]struct{}{
-	"Host":            {},
-	"DesiredOs":       {},
-	"CurrentOs":       {},
-	"WorkloadMembers": {},
+	computev1.InstanceResourceFieldName:   inv_computev1.InstanceResourceFieldName,
+	computev1.InstanceResourceFieldKind:   inv_computev1.InstanceResourceFieldKind,
+	computev1.InstanceResourceFieldOsID:   inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldHostID: inv_computev1.InstanceResourceEdgeHost,
 }
 
 func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.InstanceResource, error) {
@@ -49,17 +44,24 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		SecurityFeature: inv_osv1.SecurityFeature(instance.GetSecurityFeature()),
 	}
 
-	hostID := instance.GetHostId()
+	hostID := instance.GetHostID()
 	if isSet(&hostID) {
 		invInstance.Host = &inv_computev1.HostResource{
 			ResourceId: hostID,
 		}
 	}
 
-	osID := instance.GetOsId()
+	osID := instance.GetOsID()
 	if isSet(&osID) {
 		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
+		}
+	}
+
+	laID := instance.GetLocalAccountID()
+	if isSet(&laID) {
+		invInstance.Localaccount = &inv_localaccountv1.LocalAccountResource{
+			ResourceId: laID,
 		}
 	}
 
@@ -72,6 +74,40 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 	return invInstance, nil
 }
 
+func fromInvInstanceStatus(
+	invInstance *inv_computev1.InstanceResource,
+	instance *computev1.InstanceResource,
+) {
+	instanceStatus := invInstance.GetInstanceStatus()
+	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
+	instanceStatusTimestamp := TruncateUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
+
+	provisioningStatus := invInstance.GetProvisioningStatus()
+	provisioningStatusIndicator := statusv1.StatusIndication(invInstance.GetProvisioningStatusIndicator())
+	provisioningStatusTimestamp := TruncateUint64ToUint32(invInstance.GetProvisioningStatusTimestamp())
+
+	updateStatus := invInstance.GetUpdateStatus()
+	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
+	updateStatusTimestamp := TruncateUint64ToUint32(invInstance.GetUpdateStatusTimestamp())
+
+	attestationStatus := invInstance.GetTrustedAttestationStatus()
+	attestationStatusIndicator := statusv1.StatusIndication(invInstance.GetTrustedAttestationStatusIndicator())
+	attestationStatusTimestamp := TruncateUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
+
+	instance.InstanceStatus = instanceStatus
+	instance.InstanceStatusIndicator = instanceStatusIndicator
+	instance.InstanceStatusTimestamp = instanceStatusTimestamp
+	instance.ProvisioningStatus = provisioningStatus
+	instance.ProvisioningStatusIndicator = provisioningStatusIndicator
+	instance.ProvisioningStatusTimestamp = provisioningStatusTimestamp
+	instance.TrustedAttestationStatus = attestationStatus
+	instance.TrustedAttestationStatusIndicator = attestationStatusIndicator
+	instance.TrustedAttestationStatusTimestamp = attestationStatusTimestamp
+	instance.UpdateStatus = updateStatus
+	instance.UpdateStatusIndicator = updateStatusIndicator
+	instance.UpdateStatusTimestamp = updateStatusTimestamp
+}
+
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
@@ -81,6 +117,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var desiredOs *osv1.OperatingSystemResource
 	var currentOs *osv1.OperatingSystemResource
 	var host *computev1.HostResource
+	var la *localaccountv1.LocalAccountResource
 	if invInstance.GetDesiredOs() != nil {
 		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
 	}
@@ -89,56 +126,44 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 
 	if invInstance.GetHost() != nil {
-		host, err = fromInvHost(invInstance.GetHost(), nil)
+		host, err = fromInvHost(invInstance.GetHost(), nil, nil)
 		if err != nil {
 			return nil, err
 		}
+	}
+	if invInstance.GetLocalaccount() != nil {
+		la = fromInvLocalAccount(invInstance.GetLocalaccount())
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
 	for _, instWM := range invInstance.GetWorkloadMembers() {
-		workloadMember, err := fromInvWorkloadMember(instWM)
-		if err != nil {
-			return nil, err
+		workloadMember, errWM := fromInvWorkloadMember(instWM)
+		if errWM != nil {
+			return nil, errWM
 		}
 		workloadMembers = append(workloadMembers, workloadMember)
 	}
-	instanceStatus := invInstance.GetInstanceStatus()
-	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
-	instanceStatusTimestamp := fmt.Sprintf("%d", invInstance.GetInstanceStatusTimestamp())
-
-	provisioningStatus := invInstance.GetProvisioningStatus()
-	provisioningStatusIndicator := statusv1.StatusIndication(invInstance.GetProvisioningStatusIndicator())
-	provisioningStatusTimestamp := fmt.Sprintf("%d", invInstance.GetProvisioningStatusTimestamp())
-
-	updateStatus := invInstance.GetUpdateStatus()
-	updateStatusIndicator := statusv1.StatusIndication(invInstance.GetUpdateStatusIndicator())
-	updateStatusTimestamp := fmt.Sprintf("%d", invInstance.GetUpdateStatusTimestamp())
 
 	instance := &computev1.InstanceResource{
-		ResourceId:                  invInstance.GetResourceId(),
-		InstanceId:                  invInstance.GetResourceId(),
-		Kind:                        computev1.InstanceKind(invInstance.GetKind()),
-		Name:                        invInstance.GetName(),
-		DesiredState:                computev1.InstanceState(invInstance.GetDesiredState()),
-		CurrentState:                computev1.InstanceState(invInstance.GetCurrentState()),
-		Host:                        host,
-		DesiredOs:                   desiredOs,
-		CurrentOs:                   currentOs,
-		SecurityFeature:             osv1.SecurityFeature(invInstance.GetSecurityFeature()),
-		InstanceStatus:              instanceStatus,
-		InstanceStatusIndicator:     instanceStatusIndicator,
-		InstanceStatusTimestamp:     instanceStatusTimestamp,
-		ProvisioningStatus:          provisioningStatus,
-		ProvisioningStatusIndicator: provisioningStatusIndicator,
-		ProvisioningStatusTimestamp: provisioningStatusTimestamp,
-		UpdateStatus:                updateStatus,
-		UpdateStatusIndicator:       updateStatusIndicator,
-		UpdateStatusTimestamp:       updateStatusTimestamp,
-		UpdateStatusDetail:          invInstance.GetUpdateStatusDetail(),
-		WorkloadMembers:             workloadMembers,
+		ResourceId:         invInstance.GetResourceId(),
+		InstanceID:         invInstance.GetResourceId(),
+		Kind:               computev1.InstanceKind(invInstance.GetKind()),
+		Name:               invInstance.GetName(),
+		DesiredState:       computev1.InstanceState(invInstance.GetDesiredState()),
+		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
+		Host:               host,
+		HostID:             host.GetResourceId(),
+		DesiredOs:          desiredOs,
+		CurrentOs:          currentOs,
+		OsID:               currentOs.GetResourceId(),
+		SecurityFeature:    osv1.SecurityFeature(invInstance.GetSecurityFeature()),
+		Localaccount:       la,
+		LocalAccountID:     la.GetResourceId(),
+		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
+		WorkloadMembers:    workloadMembers,
+		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 	}
-
+	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }
 
@@ -152,7 +177,7 @@ func (is *InventorygRPCServer) CreateInstance(
 	invInstance, err := toInvInstance(instance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -164,13 +189,13 @@ func (is *InventorygRPCServer) CreateInstance(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create instance in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	instanceCreated, err := fromInvInstance(invResp.GetInstance())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Created %s", instanceCreated)
 	return instanceCreated, nil
@@ -182,19 +207,26 @@ func (is *InventorygRPCServer) ListInstances(
 	req *restv1.ListInstancesRequest,
 ) (*restv1.ListInstancesResponse, error) {
 	zlog.Debug().Msg("ListInstances")
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, errors.Wrap(err)
+	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Instance{Instance: &inv_computev1.InstanceResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
+		Offset:   offset,
+		Limit:    limit,
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-
+	if err = validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list instances from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invResources := invResp.GetResources()
@@ -203,7 +235,7 @@ func (is *InventorygRPCServer) ListInstances(
 		instance, err := fromInvInstance(invRes.GetResource().GetInstance())
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to convert from inventory instance")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 		instances = append(instances, instance)
 	}
@@ -227,14 +259,14 @@ func (is *InventorygRPCServer) GetInstance(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get instance from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invInstance := invResp.GetResource().GetInstance()
 	instance, err := fromInvInstance(invInstance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert from inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Got %s", instance)
 	return instance, nil
@@ -251,13 +283,13 @@ func (is *InventorygRPCServer) UpdateInstance(
 	invInstance, err := toInvInstance(instance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(invInstance, maps.Values(OpenAPIInstanceToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -268,12 +300,50 @@ func (is *InventorygRPCServer) UpdateInstance(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetInstance()
 	invUpRes, err := fromInvInstance(invUp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err)
+	}
+
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a instance. (PATCH).
+func (is *InventorygRPCServer) PatchInstance(
+	ctx context.Context,
+	req *restv1.PatchInstanceRequest,
+) (*computev1.InstanceResource, error) {
+	zlog.Debug().Msg("PatchInstance")
+
+	instance := req.GetInstance()
+	invInstance, err := toInvInstance(instance)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory instance")
+		return nil, errors.Wrap(err)
+	}
+
+	fieldmask, err := parseFielmask(invInstance, req.GetFieldMask(), OpenAPIInstanceToProto)
+	if err != nil {
+		return nil, errors.Wrap(err)
+	}
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{
+			Instance: invInstance,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, errors.Wrap(err)
+	}
+	invUp := upRes.GetInstance()
+	invUpRes, err := fromInvInstance(invUp)
+	if err != nil {
+		return nil, errors.Wrap(err)
 	}
 
 	zlog.Debug().Msgf("Updated %s", invUpRes)
@@ -290,7 +360,7 @@ func (is *InventorygRPCServer) DeleteInstance(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteInstanceResponse{}, nil
@@ -313,13 +383,13 @@ func (is *InventorygRPCServer) InvalidateInstance(
 	fm, err := fieldmaskpb.New(res.GetInstance(), inv_computev1.InstanceResourceFieldDesiredState)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	_, err = is.InvClient.Update(ctx, req.GetResourceId(), fm, res)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to invalidate instance in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Invalidated %s", req.GetResourceId())
 	return &restv1.InvalidateInstanceResponse{}, nil

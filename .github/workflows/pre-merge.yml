@@ -14,11 +14,15 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 env:
   MARKDOWNLINT_CLI_VER: 0.44.0
 
 jobs:
   pre-checks:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     outputs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
@@ -42,8 +46,10 @@ jobs:
           echo "filtered_projects=$filtered_projects" >> $GITHUB_OUTPUT
           echo "other_changed_projects=$other_changed_projects" >> $GITHUB_OUTPUT
   pre-merge-root:
+    permissions:
+      contents: read
     needs: pre-checks
-    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, '.github') || contains(needs.pre-checks.outputs.other_changed_projects, '.reuse') || contains(needs.pre-checks.outputs.other_changed_projects, 'LICENSES') || contains(needs.pre-checks.outputs.other_changed_projects, '""')}}
+    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, '.github') || contains(needs.pre-checks.outputs.other_changed_projects, 'LICENSES') || contains(needs.pre-checks.outputs.other_changed_projects, '""')}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -68,6 +74,8 @@ jobs:
       - name: Run license check
         run: make license
   pre-merge-pipeline:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
     strategy:
@@ -84,13 +92,15 @@ jobs:
       run_test: true
       run_validate_clean_folder: true
       run_docker_build: true
-      run_scan_containers: false
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: ${{ matrix.project_folder }}
       trivy_image_skip:  "postgres:16.4"
+      trivy_config_path: '${{ matrix.project_folder }}/trivy.yaml'
     secrets: inherit
   pre-merge-os-profiles:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
@@ -104,12 +114,13 @@ jobs:
       run_test: true
       run_validate_clean_folder: false
       run_docker_build: false
-      run_scan_containers: false
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: "os-profiles"
     secrets: inherit
   pre-merge-os-profiles-2:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     runs-on: ubuntu-latest
@@ -179,21 +190,33 @@ jobs:
                "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
 
   final-check:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: [pre-merge-root, pre-merge-pipeline, pre-merge-os-profiles, pre-merge-os-profiles-2]
     steps:
       - name: Final Status Check
         run: |
-          pre_merge_pipeline_result="${{ needs.pre-merge-pipeline.result }}"
-          pre_merge_os_profiles_result="${{ needs.pre-merge-os-profiles.result }}"
+          pre_merge_root_pipeline="${{ needs.pre-merge-root.result }}"
+          pre_merge_pipeline="${{ needs.pre-merge-pipeline.result }}"
+          pre_merge_os_profiles="${{ needs.pre-merge-os-profiles.result }}"
+          pre_merge_os_profiles_2="${{ needs.pre-merge-os-profiles-2.result }}"
 
-          echo "Pre-merge pipeline result: $pre_merge_pipeline_result"
-          echo "Pre-merge os-profiles result: $pre_merge_os_profiles_result"
-
-          if [ "$pre_merge_pipeline_result" == "success" ] || [ "$pre_merge_pipeline_result" == "skipped" ] || [ "$pre_merge_os_profiles_result" == "success" ]; then
-            echo "At least one pre-merge check passed successfully."
+          results=("pre_merge_root_pipeline" "pre_merge_pipeline" "pre_merge_os_profiles" "pre_merge_os_profiles_2")
+          status="OK"
+          
+          for result in "${results[@]}"; do
+            pipeline_result=$(eval echo \$$result)
+            echo "${result} result: $pipeline_result"
+            if [[ "$pipeline_result" != "success" && "$pipeline_result" != "skipped" ]]; then
+              status="KO"
+            fi
+          done
+          
+          if [[ "$status" == "OK" ]]; then
+            echo "Pre-merge check passed successfully."
           else
-            echo "Both pre-merge checks failed or were skipped. PR can't get merged"
+            echo "All pre-merge checks failed or were skipped. PR can't get merged"
             exit 1
           fi

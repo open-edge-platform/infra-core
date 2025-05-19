@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+version = 1
+
+[[annotations]]
+path = [
+    "**.md",
+    "go.sum",
+    "VERSION",
+    "pkg/api/*.pb*.go",
+    "pkg/api/**.gen.go"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"
+SPDX-License-Identifier = "Apache-2.0"

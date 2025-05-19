@@ -41,6 +41,7 @@ import (
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	res_status "github.com/open-edge-platform/infra-core/inventory/v2/pkg/status"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
@@ -576,6 +577,9 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				}
 			} else {
 				tc.in.ResourceId = hostResID // Update with created resource ID.
+				tc.in.HostStatus = res_status.DefaultHostStatus
+				tc.in.OnboardingStatus = res_status.DefaultOnboardingStatus
+				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
 				assertSameResource(t, createresreq, chostResp, nil)
@@ -1176,6 +1180,9 @@ func Test_Register_Host(t *testing.T) {
 				}
 			} else {
 				tc.in.ResourceId = hostResID // Update with created resource ID.
+				tc.in.HostStatus = res_status.DefaultHostStatus
+				tc.in.OnboardingStatus = res_status.DefaultOnboardingStatus
+				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
 				assertSameResource(t, createresreq, chostResp, nil)

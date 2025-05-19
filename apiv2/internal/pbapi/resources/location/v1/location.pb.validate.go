@@ -57,10 +57,10 @@ func (m *RegionResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 15 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 15 {
 		err := RegionResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -79,10 +79,10 @@ func (m *RegionResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := RegionResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -130,10 +130,10 @@ func (m *RegionResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetRegionID()) > 15 {
 		err := RegionResourceValidationError{
-			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
+			field:  "RegionID",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -141,9 +141,9 @@ func (m *RegionResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_RegionResource_RegionId_Pattern.MatchString(m.GetRegionId()) {
+	if !_RegionResource_RegionID_Pattern.MatchString(m.GetRegionID()) {
 		err := RegionResourceValidationError{
-			field:  "RegionId",
+			field:  "RegionID",
 			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -231,10 +231,10 @@ func (m *RegionResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetParentId()) > 15 {
+	if utf8.RuneCountInString(m.GetParentId()) > 15 {
 		err := RegionResourceValidationError{
 			field:  "ParentId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -245,12 +245,41 @@ func (m *RegionResource) validate(all bool) error {
 	if !_RegionResource_ParentId_Pattern.MatchString(m.GetParentId()) {
 		err := RegionResourceValidationError{
 			field:  "ParentId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RegionResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RegionResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RegionResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -335,9 +364,9 @@ var _RegionResource_ResourceId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}
 
 var _RegionResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _RegionResource_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _RegionResource_RegionID_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
 
-var _RegionResource_ParentId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _RegionResource_ParentId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
 
 // Validate checks the field values on SiteResource with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -361,10 +390,10 @@ func (m *SiteResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
 		err := SiteResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -383,10 +412,10 @@ func (m *SiteResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := SiteResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 20 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -485,10 +514,10 @@ func (m *SiteResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetSiteID()) > 13 {
 		err := SiteResourceValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
+			field:  "SiteID",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -496,9 +525,9 @@ func (m *SiteResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_SiteResource_SiteId_Pattern.MatchString(m.GetSiteId()) {
+	if !_SiteResource_SiteID_Pattern.MatchString(m.GetSiteID()) {
 		err := SiteResourceValidationError{
-			field:  "SiteId",
+			field:  "SiteID",
 			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -575,10 +604,10 @@ func (m *SiteResource) validate(all bool) error {
 
 	}
 
-	if len(m.GetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetRegionId()) > 15 {
 		err := SiteResourceValidationError{
 			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -589,12 +618,41 @@ func (m *SiteResource) validate(all bool) error {
 	if !_SiteResource_RegionId_Pattern.MatchString(m.GetRegionId()) {
 		err := SiteResourceValidationError{
 			field:  "RegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
+			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
 		}
 		if !all {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SiteResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SiteResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SiteResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -678,6 +736,6 @@ var _SiteResource_ResourceId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
 
 var _SiteResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _SiteResource_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
+var _SiteResource_SiteID_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
 
-var _SiteResource_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
+var _SiteResource_RegionId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")

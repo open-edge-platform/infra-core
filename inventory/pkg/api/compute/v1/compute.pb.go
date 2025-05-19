@@ -591,17 +591,20 @@ type HostResource struct {
 	CurrentPowerState PowerState              `protobuf:"varint,51,opt,name=current_power_state,json=currentPowerState,proto3,enum=compute.v1.PowerState" json:"current_power_state,omitempty"` // Current power state of the host
 	DesiredPowerState PowerState              `protobuf:"varint,50,opt,name=desired_power_state,json=desiredPowerState,proto3,enum=compute.v1.PowerState" json:"desired_power_state,omitempty"` // Desired power state of the host
 	// A group of fields describing the Host runtime status. host_status, host_status_indicator and
-	// host_status_timestamp should always be updated in one shot.
+	// host_status_timestamp should always be updated in one shot. If host_status is empty during initialization,
+	// it is automatically set to a default value.
 	HostStatus          string               `protobuf:"bytes,60,opt,name=host_status,json=hostStatus,proto3" json:"host_status,omitempty"`                                                               // textual message that describes the runtime status of Host. Set by RMs only.
 	HostStatusIndicator v12.StatusIndication `protobuf:"varint,61,opt,name=host_status_indicator,json=hostStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"host_status_indicator,omitempty"` // Indicates interpretation of host_status. Set by RMs only.
 	HostStatusTimestamp uint64               `protobuf:"varint,62,opt,name=host_status_timestamp,json=hostStatusTimestamp,proto3" json:"host_status_timestamp,omitempty"`                                 // UTC timestamp when host_status was last changed. Set by RMs only.
 	// A group of fields describing the Host onboarding status. onboarding_status, onboarding_status_indicator and
-	// onboarding_status_timestamp should always be updated in one shot.
+	// onboarding_status_timestamp should always be updated in one shot. If onboarding_status is empty during initialization,
+	// it is automatically set to a default value.
 	OnboardingStatus          string               `protobuf:"bytes,63,opt,name=onboarding_status,json=onboardingStatus,proto3" json:"onboarding_status,omitempty"`                                                               // textual message that describes the onboarding status of Host. Set by RMs only.
 	OnboardingStatusIndicator v12.StatusIndication `protobuf:"varint,64,opt,name=onboarding_status_indicator,json=onboardingStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"onboarding_status_indicator,omitempty"` // Indicates interpretation of onboarding_status. Set by RMs only.
 	OnboardingStatusTimestamp uint64               `protobuf:"varint,65,opt,name=onboarding_status_timestamp,json=onboardingStatusTimestamp,proto3" json:"onboarding_status_timestamp,omitempty"`                                 // UTC timestamp when onboarding_status was last changed. Set by RMs only.
 	// A group of fields describing the Host registration status. registration_status, registration_status_indicator and
-	// registration_status_timestamp should always be updated in one shot.
+	// registration_status_timestamp should always be updated in one shot. If registration_status is empty during initialization,
+	// it is automatically set to a default value.
 	RegistrationStatus          string                 `protobuf:"bytes,66,opt,name=registration_status,json=registrationStatus,proto3" json:"registration_status,omitempty"`                                                               // textual message that describes the onboarding status of Host. Set by RMs only.
 	RegistrationStatusIndicator v12.StatusIndication   `protobuf:"varint,67,opt,name=registration_status_indicator,json=registrationStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"registration_status_indicator,omitempty"` // Indicates interpretation of registration_status. Set by RMs only.
 	RegistrationStatusTimestamp uint64                 `protobuf:"varint,68,opt,name=registration_status_timestamp,json=registrationStatusTimestamp,proto3" json:"registration_status_timestamp,omitempty"`                                 // UTC timestamp when registration_status was last changed. Set by RMs only.
@@ -1688,17 +1691,20 @@ type InstanceResource struct {
 	CurrentOs       *v13.OperatingSystemResource `protobuf:"bytes,25,opt,name=current_os,json=currentOs,proto3" json:"current_os,omitempty"`                                               // OS resource that is currently installed for this Instance.
 	SecurityFeature v13.SecurityFeature          `protobuf:"varint,14,opt,name=security_feature,json=securityFeature,proto3,enum=os.v1.SecurityFeature" json:"security_feature,omitempty"` // Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
 	// A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and
-	// instance_status_timestamp should always be updated in one shot.
+	// instance_status_timestamp should always be updated in one shot. If instance_status is empty during initialization,
+	// it is automatically set to a default value.
 	InstanceStatus          string               `protobuf:"bytes,15,opt,name=instance_status,json=instanceStatus,proto3" json:"instance_status,omitempty"`                                                               // textual message that describes the current instance status. Set by RMs only.
 	InstanceStatusIndicator v12.StatusIndication `protobuf:"varint,16,opt,name=instance_status_indicator,json=instanceStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"instance_status_indicator,omitempty"` // Indicates interpretation of instance_status. Set by RMs only.
 	InstanceStatusTimestamp uint64               `protobuf:"varint,17,opt,name=instance_status_timestamp,json=instanceStatusTimestamp,proto3" json:"instance_status_timestamp,omitempty"`                                 // UTC timestamp when instance_status was last changed. Set by RMs only.
 	// A group of fields describing the Instance provisioning status. provisioning_status, provisioning_status_indicator and
-	// provisioning_status_timestamp should always be updated in one shot.
+	// provisioning_status_timestamp should always be updated in one shot. If provisioning_status is empty during initialization,
+	// it is automatically set to a default value.
 	ProvisioningStatus          string               `protobuf:"bytes,18,opt,name=provisioning_status,json=provisioningStatus,proto3" json:"provisioning_status,omitempty"`                                                               // textual message that describes the provisioning status of Instance. Set by RMs only.
 	ProvisioningStatusIndicator v12.StatusIndication `protobuf:"varint,19,opt,name=provisioning_status_indicator,json=provisioningStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"provisioning_status_indicator,omitempty"` // Indicates interpretation of provisioning_status. Set by RMs only.
 	ProvisioningStatusTimestamp uint64               `protobuf:"varint,20,opt,name=provisioning_status_timestamp,json=provisioningStatusTimestamp,proto3" json:"provisioning_status_timestamp,omitempty"`                                 // UTC timestamp when provisioning_status was last changed. Set by RMs only.
 	// A group of fields describing the Instance update status. update_status, update_status_indicator and
 	// update_status_timestamp should always be updated in one shot. update_status_detail should be populated when update status reports update finished successfully or failed.
+	// If update_status is empty during initialization, it is automatically set to a default value.
 	UpdateStatus          string               `protobuf:"bytes,21,opt,name=update_status,json=updateStatus,proto3" json:"update_status,omitempty"`                                                               // textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatusIndicator v12.StatusIndication `protobuf:"varint,22,opt,name=update_status_indicator,json=updateStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"update_status_indicator,omitempty"` // Indicates interpretation of update_status. Set by RMs only.
 	UpdateStatusTimestamp uint64               `protobuf:"varint,23,opt,name=update_status_timestamp,json=updateStatusTimestamp,proto3" json:"update_status_timestamp,omitempty"`                                 // UTC timestamp when update_status was last changed. Set by RMs only.
@@ -1706,6 +1712,7 @@ type InstanceResource struct {
 	// A group of fields describing the Instance trusted_attestation status.
 	// trusted_attestation_status, trusted_attestation_status_indicator and
 	// trusted_attestation_status_timestamp should always be updated in one shot.
+	// If trusted_attestation_status is empty during initialization, it is automatically set to a default value.
 	TrustedAttestationStatus          string                    `protobuf:"bytes,26,opt,name=trusted_attestation_status,json=trustedAttestationStatus,proto3" json:"trusted_attestation_status,omitempty"`                                                               // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
 	TrustedAttestationStatusIndicator v12.StatusIndication      `protobuf:"varint,27,opt,name=trusted_attestation_status_indicator,json=trustedAttestationStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"trusted_attestation_status_indicator,omitempty"` // Indicates interpretation of trusted_attestation_status. Set by RMs only.
 	TrustedAttestationStatusTimestamp uint64                    `protobuf:"varint,28,opt,name=trusted_attestation_status_timestamp,json=trustedAttestationStatusTimestamp,proto3" json:"trusted_attestation_status_timestamp,omitempty"`                                 // UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.

@@ -6,6 +6,7 @@ syntax = "proto3";
 package resources.provider.v1;
 
 import "google/api/field_behavior.proto";
+import "resources/common/v1/common.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/provider/v1;providerv1";
@@ -30,7 +31,7 @@ message ProviderResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^provider-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
@@ -43,7 +44,7 @@ message ProviderResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
-      max_bytes: 40
+      max_len: 40
     }
   ];
 
@@ -52,28 +53,31 @@ message ProviderResource {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$"
-      max_bytes: 500
+      max_len: 500
     }
   ];
 
   // The provider resource's list of credentials.
-  repeated string api_credentials = 17 [(validate.rules).repeated.items.string = {
-    pattern: "^[^|]*$" //^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
-    max_len: 500
+  repeated string api_credentials = 17 [
+    (validate.rules).repeated.items.string = {
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
+      max_len: 500
   }];
 
   // Opaque provider configuration.
   string config = 18 [(validate.rules).string = {
-    max_bytes: 2000
+    max_len: 2000
     pattern: "^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$" // NEW
   }];
 
-  // The provider resource's unique identifier. Alias of resourceId.
-  string provider_id = 5001 [
+  // Deprecated, The provider resource's unique identifier. Alias of resourceId.
+  string providerID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^provider-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
