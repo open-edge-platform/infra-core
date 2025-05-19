@@ -6,7 +6,7 @@ module github.com/open-edge-platform/infra-core/inventory/v2
 go 1.24.1
 
 require (
-	ariga.io/atlas v0.33.0
+	ariga.io/atlas v0.33.1
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1
 	entgo.io/contrib v0.6.0
 	entgo.io/ent v0.14.4
@@ -26,7 +26,7 @@ require (
 	github.com/hashicorp/vault/api v1.16.0
 	github.com/hashicorp/vault/api/auth/kubernetes v0.9.0
 	github.com/iancoleman/strcase v0.3.0
-	github.com/jackc/pgx/v5 v5.7.4
+	github.com/jackc/pgx/v5 v5.7.5
 	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/lib/pq v1.10.9
