@@ -37,6 +37,63 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceEdgeMetadata: inv_computev1.HostResourceFieldMetadata,
 }
 
+var (
+	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedHostStatus    = fmt.Sprintf(filterIsFailedHostStatusExp,
+		inv_computev1.HostResourceFieldHostStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Create a filter specifically for instance error states.
+	filterIsFailedInstanceStatusExp = `%s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedInstanceStatus    = fmt.Sprintf(filterIsFailedInstanceStatusExp,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Modify running instance filter to only exclude instance-related errors
+	// and not host-related errors.
+	filterInstanceRunningExp = `has(%s) AND %s.%s = %s AND NOT (%s)`
+	filterInstanceRunning    = fmt.Sprintf(filterInstanceRunningExp,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldCurrentState,
+		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
+		filterIsFailedInstanceStatus,
+	)
+
+	filterIsUnallocatedExp = `NOT has(%s)`
+	filterIsUnallocated    = fmt.Sprintf(filterIsUnallocatedExp,
+		inv_computev1.HostResourceEdgeSite,
+	)
+)
+
 func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error) {
 	if host == nil {
 		return &inv_computev1.HostResource{}, nil
@@ -702,61 +759,6 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	var runningState uint32
 	var unallocatedState uint32
 	reqFilter := req.GetFilter()
-
-	filterIsFailedHostStatus := `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
-	filterIsFailedHostStatus = fmt.Sprintf(filterIsFailedHostStatus,
-		inv_computev1.HostResourceFieldHostStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-	)
-
-	// Create a filter specifically for instance error states
-	filterIsFailedInstanceStatus := `%s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
-	filterIsFailedInstanceStatus = fmt.Sprintf(filterIsFailedInstanceStatus,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
-	)
-
-	// Modify running instance filter to only exclude instance-related errors
-	// and not host-related errors.
-	filterInstanceRunning := `has(%s) AND %s.%s = %s AND NOT (%s)`
-	filterInstanceRunning = fmt.Sprintf(filterInstanceRunning,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.HostResourceEdgeInstance,
-		inv_computev1.InstanceResourceFieldCurrentState,
-		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
-		filterIsFailedInstanceStatus,
-	)
-
-	filterIsUnallocated := `NOT has(%s)`
-	filterIsUnallocated = fmt.Sprintf(filterIsUnallocated,
-		inv_computev1.HostResourceEdgeSite,
-	)
 
 	filterTotal := reqFilter
 	if reqFilter != "" {

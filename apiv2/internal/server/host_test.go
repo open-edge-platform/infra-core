@@ -23,7 +23,6 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inv_server "github.com/open-edge-platform/infra-core/apiv2/v2/internal/server"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
-	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
@@ -664,6 +663,7 @@ func TestHost_Delete(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Test functions are long but necessary to test all the cases.
 func TestHost_Summary_Comprehensive(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	t.Cleanup(cancel)
@@ -679,27 +679,27 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 
 	// SCENARIO 1: Base hosts with different states
 	// Host 1: Normal host with instance, running state
-	host1 := createTestHost(t, ctx, "Host1-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host1 := createTestHost(ctx, t, "Host1-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host1.GetResourceId()) })
 	instance1 := inv_testing.CreateInstance(t, host1, os)
 
 	// Update Instance status to Running
-	updateInstanceState(t, ctx, instance1.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instance1.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
 
 	// Host 2: Host with no site allocation
-	host2 := createTestHost(t, ctx, "Host2-Unallocated", nil, inv_computev1.HostState_HOST_STATE_REGISTERED)
+	host2 := createTestHost(ctx, t, "Host2-Unallocated", nil, inv_computev1.HostState_HOST_STATE_REGISTERED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host2.GetResourceId()) })
 
 	// Host 3: Host with error status
-	host3 := createTestHost(t, ctx, "Host3-Error", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host3 := createTestHost(ctx, t, "Host3-Error", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host3.GetResourceId()) })
-	updateHostStatus(t, ctx, host3.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateHostStatus(ctx, t, host3.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	// Host 4: Host with instance but instance has error
-	host4 := createTestHost(t, ctx, "Host4-InstanceError", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host4 := createTestHost(ctx, t, "Host4-InstanceError", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host4.GetResourceId()) })
 	instance4 := inv_testing.CreateInstance(t, host4, os)
-	updateInstanceStatusIndicator(t, ctx, instance4.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateInstanceStatusIndicator(ctx, t, instance4.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	// VERIFICATION 1: All hosts, no filter
 	response, err := server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -710,7 +710,7 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(1), response.Running, "Should have 1 host running")
 
 	// VERIFICATION 2: Test with filter for specific site
-	siteFilter := fmt.Sprintf("site.resource_id = \"%s\"", site1.GetResourceId())
+	siteFilter := fmt.Sprintf("site.resource_id = %q", site1.GetResourceId())
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{Filter: siteFilter})
 	assert.NoError(t, err)
 	assert.Equal(t, uint32(2), response.Total, "Should have 2 hosts in site1")
@@ -719,9 +719,9 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(1), response.Running, "Should have 1 host running in site1")
 
 	// SCENARIO 3: Test onboarding status error
-	host5 := createTestHost(t, ctx, "Host5-OnboardingError", site2, inv_computev1.HostState_HOST_STATE_REGISTERED)
+	host5 := createTestHost(ctx, t, "Host5-OnboardingError", site2, inv_computev1.HostState_HOST_STATE_REGISTERED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host5.GetResourceId()) })
-	updateHostOnboardingStatus(t, ctx, host5.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateHostOnboardingStatus(ctx, t, host5.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	// VERIFICATION 3: Verify onboarding error is counted
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -731,9 +731,9 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(3), response.Error, "Should have 3 hosts in error state")
 
 	// SCENARIO 4: Test registration status error
-	host6 := createTestHost(t, ctx, "Host6-RegistrationError", site1, inv_computev1.HostState_HOST_STATE_REGISTERED)
+	host6 := createTestHost(ctx, t, "Host6-RegistrationError", site1, inv_computev1.HostState_HOST_STATE_REGISTERED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host6.GetResourceId()) })
-	updateHostRegistrationStatus(t, ctx, host6.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateHostRegistrationStatus(ctx, t, host6.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	// VERIFICATION 4: Verify registration error is counted
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -743,10 +743,15 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(4), response.Error, "Should have 4 hosts in error state")
 
 	// SCENARIO 5: Test instance provisioning status error
-	host7 := createTestHost(t, ctx, "Host7-ProvisioningError", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host7 := createTestHost(ctx, t, "Host7-ProvisioningError", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host7.GetResourceId()) })
 	instance7 := inv_testing.CreateInstance(t, host7, os)
-	updateInstanceProvisioningStatusIndicator(t, ctx, instance7.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateInstanceProvisioningStatusIndicator(
+		ctx,
+		t,
+		instance7.GetResourceId(),
+		inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+	)
 
 	// VERIFICATION 5: Verify provisioning error is counted
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -756,10 +761,10 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(5), response.Error, "Should have 5 hosts in error state")
 
 	// SCENARIO 6: Test instance update status error
-	host8 := createTestHost(t, ctx, "Host8-UpdateError", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host8 := createTestHost(ctx, t, "Host8-UpdateError", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host8.GetResourceId()) })
 	instance8 := inv_testing.CreateInstance(t, host8, os)
-	updateInstanceUpdateStatusIndicator(t, ctx, instance8.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateInstanceUpdateStatusIndicator(ctx, t, instance8.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	// VERIFICATION 6: Verify update error is counted
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -769,10 +774,15 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(6), response.Error, "Should have 6 hosts in error state")
 
 	// SCENARIO 7: Test instance attestation status error
-	host9 := createTestHost(t, ctx, "Host9-AttestationError", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host9 := createTestHost(ctx, t, "Host9-AttestationError", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host9.GetResourceId()) })
 	instance9 := inv_testing.CreateInstance(t, host9, os)
-	updateInstanceAttestationStatusIndicator(t, ctx, instance9.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+	updateInstanceAttestationStatusIndicator(
+		ctx,
+		t,
+		instance9.GetResourceId(),
+		inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+	)
 
 	// VERIFICATION 7: Verify attestation error is counted
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -782,10 +792,10 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(7), response.Error, "Should have 7 hosts in error state")
 
 	// SCENARIO 8: Test multiple running instances
-	host10 := createTestHost(t, ctx, "Host10-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	host10 := createTestHost(ctx, t, "Host10-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host10.GetResourceId()) })
 	instance10 := inv_testing.CreateInstance(t, host10, os)
-	updateInstanceState(t, ctx, instance10.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instance10.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
 
 	// VERIFICATION 8: Verify running count increases
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -796,8 +806,14 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(2), response.Running, "Should have 2 hosts running")
 }
 
-// Helper functions for test
-func createTestHost(t *testing.T, ctx context.Context, name string, site *inv_locationv1.SiteResource, state inv_computev1.HostState) *inv_computev1.HostResource {
+// Helper functions for test.
+func createTestHost(
+	ctx context.Context,
+	t *testing.T,
+	name string,
+	site *inv_locationv1.SiteResource,
+	state inv_computev1.HostState,
+) *inv_computev1.HostResource {
 	t.Helper()
 
 	host := &inv_computev1.HostResource{
@@ -815,8 +831,8 @@ func createTestHost(t *testing.T, ctx context.Context, name string, site *inv_lo
 		host.Site = site
 	}
 
-	createReq := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Host{
+	createReq := &inventory.Resource{
+		Resource: &inventory.Resource_Host{
 			Host: host,
 		},
 	}
@@ -828,7 +844,7 @@ func createTestHost(t *testing.T, ctx context.Context, name string, site *inv_lo
 	return response.GetHost()
 }
 
-func updateHostStatus(t *testing.T, ctx context.Context, hostID string, status inv_statusv1.StatusIndication) {
+func updateHostStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
 	t.Helper()
 
 	updateHost := &inv_computev1.HostResource{
@@ -839,15 +855,15 @@ func updateHostStatus(t *testing.T, ctx context.Context, hostID string, status i
 		Paths: []string{inv_computev1.HostResourceFieldHostStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Host{Host: updateHost},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateHostOnboardingStatus(t *testing.T, ctx context.Context, hostID string, status inv_statusv1.StatusIndication) {
+func updateHostOnboardingStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
 	t.Helper()
 
 	updateHost := &inv_computev1.HostResource{
@@ -858,15 +874,15 @@ func updateHostOnboardingStatus(t *testing.T, ctx context.Context, hostID string
 		Paths: []string{inv_computev1.HostResourceFieldOnboardingStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Host{Host: updateHost},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateHostRegistrationStatus(t *testing.T, ctx context.Context, hostID string, status inv_statusv1.StatusIndication) {
+func updateHostRegistrationStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
 	t.Helper()
 
 	updateHost := &inv_computev1.HostResource{
@@ -877,15 +893,15 @@ func updateHostRegistrationStatus(t *testing.T, ctx context.Context, hostID stri
 		Paths: []string{inv_computev1.HostResourceFieldRegistrationStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Host{Host: updateHost},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateInstanceState(t *testing.T, ctx context.Context, instanceID string, state inv_computev1.InstanceState) {
+func updateInstanceState(ctx context.Context, t *testing.T, instanceID string, state inv_computev1.InstanceState) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
@@ -896,15 +912,15 @@ func updateInstanceState(t *testing.T, ctx context.Context, instanceID string, s
 		Paths: []string{inv_computev1.InstanceResourceFieldCurrentState},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Instance{Instance: updateInstance},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateInstanceStatusIndicator(t *testing.T, ctx context.Context, instanceID string, status inv_statusv1.StatusIndication) {
+func updateInstanceStatusIndicator(ctx context.Context, t *testing.T, instanceID string, status inv_statusv1.StatusIndication) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
@@ -915,15 +931,20 @@ func updateInstanceStatusIndicator(t *testing.T, ctx context.Context, instanceID
 		Paths: []string{inv_computev1.InstanceResourceFieldInstanceStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Instance{Instance: updateInstance},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateInstanceProvisioningStatusIndicator(t *testing.T, ctx context.Context, instanceID string, status inv_statusv1.StatusIndication) {
+func updateInstanceProvisioningStatusIndicator(
+	ctx context.Context,
+	t *testing.T,
+	instanceID string,
+	status inv_statusv1.StatusIndication,
+) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
@@ -934,15 +955,20 @@ func updateInstanceProvisioningStatusIndicator(t *testing.T, ctx context.Context
 		Paths: []string{inv_computev1.InstanceResourceFieldProvisioningStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Instance{Instance: updateInstance},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateInstanceUpdateStatusIndicator(t *testing.T, ctx context.Context, instanceID string, status inv_statusv1.StatusIndication) {
+func updateInstanceUpdateStatusIndicator(
+	ctx context.Context,
+	t *testing.T,
+	instanceID string,
+	status inv_statusv1.StatusIndication,
+) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
@@ -953,15 +979,20 @@ func updateInstanceUpdateStatusIndicator(t *testing.T, ctx context.Context, inst
 		Paths: []string{inv_computev1.InstanceResourceFieldUpdateStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Instance{Instance: updateInstance},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
 
-func updateInstanceAttestationStatusIndicator(t *testing.T, ctx context.Context, instanceID string, status inv_statusv1.StatusIndication) {
+func updateInstanceAttestationStatusIndicator(
+	ctx context.Context,
+	t *testing.T,
+	instanceID string,
+	status inv_statusv1.StatusIndication,
+) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
@@ -972,8 +1003,8 @@ func updateInstanceAttestationStatusIndicator(t *testing.T, ctx context.Context,
 		Paths: []string{inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator},
 	}
 
-	updateRes := &inv_v1.Resource{
-		Resource: &inv_v1.Resource_Instance{Instance: updateInstance},
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
 	}
 
 	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
