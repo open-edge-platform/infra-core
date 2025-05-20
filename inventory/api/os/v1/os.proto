@@ -121,7 +121,7 @@ message OperatingSystemResource {
     },
     (buf.validate.field).string = {
       len_bytes: 1000
-      pattern: "^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^+- ]+$"
+      pattern: "^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\+\\- ]+$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // user-provided, human-readable description of OS
