@@ -6,12 +6,14 @@ package server
 import (
 	"net"
 	"sync"
+	"time"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
 
 	inv_impl "github.com/open-edge-platform/infra-core/inventory/v2/internal/inventory"
@@ -25,6 +27,15 @@ import (
 )
 
 var zlog = logging.GetLogger("InfraInvSrvgRPC")
+
+var (
+	// Ping the client if it is idle for 2 minute to ensure the connection is still active.
+	serverKeepAliveTime = 1 * time.Minute
+	// Wait 1 second for the ping ack before assuming the connection is dead.
+	serverKeepAliveTimeout = 1 * time.Second
+	// If a client pings more than once every 1 minute, terminate the connection.
+	clientMinTime = 1 * time.Minute
+)
 
 type Options struct {
 	EnableTracing  bool
@@ -100,6 +111,25 @@ func GetServerOpts(opts Options) ([]grpc.ServerOption, error) {
 	if opts.EnableAuditing {
 		unaryInter = append(unaryInter, auditing.GrpcInterceptor)
 	}
+
+	keepAliveOpts := []grpc.ServerOption{
+		grpc.KeepaliveParams(keepalive.ServerParameters{
+			// MaxConnectionIdle:     ,	// Leave it to default, infinite.
+			// MaxConnectionAge:      ,	// Leave it to default, infinite.
+			// MaxConnectionAgeGrace: ,	// Leave it to default, infinite.
+			// Ping the client if it is idle for 2 minute to ensure the connection is still active.
+			Time: serverKeepAliveTime,
+			// Wait 1 second for the ping ack before assuming the connection is dead.
+			Timeout: serverKeepAliveTimeout,
+		}),
+		grpc.KeepaliveEnforcementPolicy(keepalive.EnforcementPolicy{
+			// If a client pings more than once every 1 minute, terminate the connection.
+			MinTime: clientMinTime,
+			// Allow pings even when there are no active streams.
+			PermitWithoutStream: true,
+		}),
+	}
+	srvOpts = append(srvOpts, keepAliveOpts...)
 
 	// adding unary and stream interceptors
 	srvOpts = append(srvOpts,

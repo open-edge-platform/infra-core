@@ -15,6 +15,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
@@ -34,6 +35,13 @@ import (
 )
 
 var zlog = logging.GetLogger("InfraAPIClient")
+
+var (
+	// Ping the server if it is idle for 60 seconds to ensure the connection is still active.
+	clientKeepAliveTime = 60 * time.Second
+	// Wait 1 second for the ping ack before assuming the connection is dead.
+	clientKeepAliveTimeout = 1 * time.Second
+)
 
 // ResourceTenantIDCarrier type wrapper for FindResourcesResponse_ResourceTenantIDCarrier.
 type ResourceTenantIDCarrier = inv_v1.FindResourcesResponse_ResourceTenantIDCarrier
@@ -395,6 +403,18 @@ func connect(
 		}
 		opts = append(opts, grpc.WithTransportCredentials(creds))
 	}
+
+	// Adds keepalive options to the client connection.
+	keepAliveOpts := []grpc.DialOption{
+		grpc.WithKeepaliveParams(keepalive.ClientParameters{
+			// Ping the server if it is idle for 60 seconds to ensure the connection is still active.
+			Time: clientKeepAliveTime,
+			// Wait 1 second for the ping ack before assuming the connection is dead.
+			Timeout:             clientKeepAliveTimeout,
+			PermitWithoutStream: true,
+		}),
+	}
+	opts = append(opts, keepAliveOpts...)
 
 	// if testing, use a bufconn, otherwise TCP
 	var err error
