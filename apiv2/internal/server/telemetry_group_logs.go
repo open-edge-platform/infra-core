@@ -11,6 +11,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_telemetryv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -24,10 +25,9 @@ func TelemetryLogsGroupResourcetoAPI(
 		ResourceId:           telemetryGroup.GetResourceId(),
 		TelemetryLogsGroupId: telemetryGroup.GetResourceId(),
 		Name:                 telemetryGroup.GetName(),
-		CollectorKind:        telemetryv1.CollectorKind(*telemetryGroup.GetCollectorKind().Enum()),
+		CollectorKind:        telemetryv1.TelemetryCollectorKind(*telemetryGroup.GetCollectorKind().Enum()),
 		Groups:               telemetryGroup.GetGroups(),
-		CreatedAt:            telemetryGroup.GetCreatedAt(),
-		UpdatedAt:            telemetryGroup.GetUpdatedAt(),
+		Timestamps:           GrpcToOpenAPITimestamps(telemetryGroup),
 	}
 	return telemetryLogsGroup
 }
@@ -52,7 +52,7 @@ func (is *InventorygRPCServer) CreateTelemetryLogsGroup(
 	err := validator.ValidateMessage(telemetryGroup)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -64,7 +64,7 @@ func (is *InventorygRPCServer) CreateTelemetryLogsGroup(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create telemetry logs group in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	telemetryLogsGroupCreated := TelemetryLogsGroupResourcetoAPI(invResp.GetTelemetryGroup())
 	zlog.Debug().Msgf("Created %s", telemetryLogsGroupCreated)
@@ -80,7 +80,7 @@ func (is *InventorygRPCServer) ListTelemetryLogsGroups(
 	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
@@ -97,13 +97,13 @@ func (is *InventorygRPCServer) ListTelemetryLogsGroups(
 	}
 	if err = validator.ValidateMessage(filter); err != nil {
 		zlog.InfraErr(err).Msg("failed to validate query params")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invResp, err := is.InvClient.List(ctx, filter)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list telemetry logs groups from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	telemetryLogsGroups := []*telemetryv1.TelemetryLogsGroupResource{}
@@ -132,7 +132,7 @@ func (is *InventorygRPCServer) GetTelemetryLogsGroup(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get telemetry logs group from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	telemetryGroup := invResp.GetResource().GetTelemetryGroup()
@@ -151,7 +151,7 @@ func (is *InventorygRPCServer) DeleteTelemetryLogsGroup(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete telemetry logs group from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteTelemetryLogsGroupResponse{}, nil

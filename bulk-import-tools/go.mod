@@ -7,7 +7,7 @@ go 1.24.1
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/open-edge-platform/infra-core/api v1.32.0
+	github.com/open-edge-platform/infra-core/api v1.34.0
 	github.com/stretchr/testify v1.10.0
 )
 
@@ -15,7 +15,7 @@ require (
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/getkin/kin-openapi v0.131.0 // indirect
+	github.com/getkin/kin-openapi v0.132.0 // indirect
 	github.com/go-openapi/errors v0.22.1 // indirect
 	github.com/go-openapi/jsonpointer v0.21.1 // indirect
 	github.com/go-openapi/strfmt v0.23.0 // indirect
@@ -26,7 +26,7 @@ require (
 	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/mitchellh/mapstructure v1.5.1-0.20231216201459-8508981c8b6c // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/oapi-codegen/runtime v1.1.1 // indirect
 	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037 // indirect
@@ -37,9 +37,9 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
+	golang.org/x/crypto v0.38.0 // indirect
+	golang.org/x/net v0.40.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/text v0.25.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

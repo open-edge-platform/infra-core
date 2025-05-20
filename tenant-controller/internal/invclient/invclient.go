@@ -22,6 +22,9 @@ var (
 		inv_v1.ResourceKind_RESOURCE_KIND_TENANT,
 		inv_v1.ResourceKind_RESOURCE_KIND_WORKLOAD,
 	}
+
+	// eventsWatcherBufSize is the buffer size for the events channel.
+	eventsWatcherBufSize = 10
 )
 
 type TCInventoryClient struct {
@@ -73,7 +76,7 @@ func NewInventoryClientWithOptions(
 		opt(&options)
 	}
 
-	eventsWatcher := make(chan *client.WatchEvents)
+	eventsWatcher := make(chan *client.WatchEvents, eventsWatcherBufSize)
 
 	cfg := client.InventoryClientConfig{
 		Name:                      clientName,

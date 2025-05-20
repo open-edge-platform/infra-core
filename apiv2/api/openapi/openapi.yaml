@@ -337,7 +337,7 @@ paths:
             tags:
                 - HostService
             summary: GetHostsSummary
-            description: Get a specific host.
+            description: Get a summary of the hosts status.
             operationId: HostService_GetHostsSummary
             parameters:
                 - name: filter
@@ -724,6 +724,8 @@ paths:
                   in: query
                   description: Filter locations by name
                   schema:
+                    maxLength: 50
+                    pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                 - name: showSites
                   in: query
@@ -1048,38 +1050,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-        put:
-            tags:
-                - ProviderService
-            summary: UpdateProvider
-            description: Update a provider.
-            operationId: ProviderService_UpdateProvider
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: Name of the provider provider to be updated.
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/ProviderResource'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProviderResource'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
         delete:
             tags:
                 - ProviderService
@@ -1100,44 +1070,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteProviderResponse'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-        patch:
-            tags:
-                - ProviderService
-            summary: PatchProvider
-            description: Patch a provider.
-            operationId: ProviderService_PatchProvider
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: ID of the resource to be updated.
-                  required: true
-                  schema:
-                    type: string
-                - name: fieldMask
-                  in: query
-                  description: Field mask to be applied on the patch of provider.
-                  schema:
-                    type: string
-                    format: field-mask
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/ProviderResource'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProviderResource'
                 default:
                     description: Default error response
                     content:
@@ -2793,38 +2725,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-        put:
-            tags:
-                - WorkloadMemberService
-            summary: UpdateWorkloadMember
-            description: Update a workload_member.
-            operationId: WorkloadMemberService_UpdateWorkloadMember
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: Name of the workload_member workload_member to be updated.
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/WorkloadMember'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/WorkloadMember'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
         delete:
             tags:
                 - WorkloadMemberService
@@ -2845,44 +2745,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/DeleteWorkloadMemberResponse'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-        patch:
-            tags:
-                - WorkloadMemberService
-            summary: PatchWorkloadMember
-            description: Patch a workload_member.
-            operationId: WorkloadMemberService_PatchWorkloadMember
-            parameters:
-                - name: resourceId
-                  in: path
-                  description: ID of the resource to be updated.
-                  required: true
-                  schema:
-                    type: string
-                - name: fieldMask
-                  in: query
-                  description: Field mask to be applied on the patch of workload_member.
-                  schema:
-                    type: string
-                    format: field-mask
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/WorkloadMember'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/WorkloadMember'
                 default:
                     description: Default error response
                     content:
@@ -3194,6 +3056,8 @@ components:
                     type: string
                     description: The host serial number.
                 uuid:
+                    maxLength: 36
+                    pattern: ^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                     type: string
                     description: The host UUID.
                 autoOnboard:
@@ -3207,6 +3071,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^host-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated on Create.
@@ -3251,6 +3116,8 @@ components:
                     type: string
                     description: SMBIOS device serial number.
                 uuid:
+                    maxLength: 36
+                    pattern: ^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                     type: string
                     description: The host UUID identifier; UUID is unique and immutable.
                 memoryBytes:
@@ -3323,9 +3190,12 @@ components:
                     type: string
                     description: BIOS Vendor.
                 hostStatus:
+                    readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the runtime status of Host. Set by RMs only.
                 hostStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3334,12 +3204,17 @@ components:
                     description: Indicates interpretation of host_status. Set by RMs only.
                     format: enum
                 hostStatusTimestamp:
-                    type: string
+                    readOnly: true
+                    type: integer
                     description: UTC timestamp when host_status was last changed. Set by RMs only.
+                    format: uint32
                 onboardingStatus:
+                    readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the onboarding status of Host. Set by RMs only.
                 onboardingStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3348,12 +3223,17 @@ components:
                     description: Indicates interpretation of onboarding_status. Set by RMs only.
                     format: enum
                 onboardingStatusTimestamp:
-                    type: string
+                    readOnly: true
+                    type: integer
                     description: UTC timestamp when onboarding_status was last changed. Set by RMs only.
+                    format: uint32
                 registrationStatus:
+                    readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the onboarding status of Host. Set by RMs only.
                 registrationStatusIndicator:
+                    readOnly: true
                     enum:
                         - STATUS_INDICATION_ERROR
                         - STATUS_INDICATION_IN_PROGRESS
@@ -3362,8 +3242,10 @@ components:
                     description: Indicates interpretation of registration_status. Set by RMs only.
                     format: enum
                 registrationStatusTimestamp:
-                    type: string
+                    readOnly: true
+                    type: integer
                     description: UTC timestamp when registration_status was last changed. Set by RMs only.
+                    format: uint32
                 hostStorages:
                     readOnly: true
                     type: array
@@ -3390,13 +3272,9 @@ components:
                     description: Back-reference to attached host GPU resources.
                 instance:
                     $ref: '#/components/schemas/InstanceResource'
-                hostId:
-                    readOnly: true
-                    pattern: ^host-[0-9a-f]{8}$
-                    type: string
-                    description: Resource ID, generated on Create.
                 siteId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The site where the host is located.
@@ -3411,20 +3289,15 @@ components:
                     items:
                         $ref: '#/components/schemas/MetadataItem'
                     description: The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A Host resource.
         HostgpuResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 16
                     pattern: ^hostgpu-[0-9a-f]{8}$
                     type: string
                 pciId:
@@ -3451,20 +3324,15 @@ components:
                     readOnly: true
                     type: string
                     description: The features of this GPU device, comma separated.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: The set of available host GPU cards.
         HostnicResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 16
                     pattern: ^hostnic-[0-9a-f]{8}$
                     type: string
                 deviceName:
@@ -3514,20 +3382,21 @@ components:
                     readOnly: true
                     type: boolean
                     description: Whether this is a bmc interface or not.
-                createdAt:
+                ipAddresses:
                     readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/IPAddressResource'
+                    description: The interface's IP address list.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: The set of available host interfaces.
         HoststorageResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 20
                     pattern: ^hoststorage-[0-9a-f]{8}$
                     type: string
                 wwid:
@@ -3554,20 +3423,15 @@ components:
                     readOnly: true
                     type: string
                     description: The storage device device name (OS provided, like sda, sdb, etc.)
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: The set of available host storage capabilities.
         HostusbResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 20
                     pattern: ^hostusb-[0-9a-f]{8}$
                     type: string
                 idvendor:
@@ -3600,20 +3464,54 @@ components:
                     readOnly: true
                     type: string
                     description: the OS-provided device name.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: The set of host USB resources.
+        IPAddressResource:
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    maxLength: 15
+                    pattern: ^ipaddr-[0-9a-f]{8}$
+                    type: string
+                    description: Resource ID, generated by Inventory on Create
+                address:
+                    readOnly: true
+                    type: string
+                    description: CIDR representation of the IP address.
+                status:
+                    readOnly: true
+                    enum:
+                        - IP_ADDRESS_STATUS_ASSIGNMENT_ERROR
+                        - IP_ADDRESS_STATUS_ASSIGNED
+                        - IP_ADDRESS_STATUS_CONFIGURATION_ERROR
+                        - IP_ADDRESS_STATUS_CONFIGURED
+                        - IP_ADDRESS_STATUS_RELEASED
+                        - IP_ADDRESS_STATUS_ERROR
+                    type: string
+                    description: The status of the IP address.
+                    format: enum
+                statusDetail:
+                    readOnly: true
+                    type: string
+                    description: User-friendly status to provide details about the resource state
+                configMethod:
+                    readOnly: true
+                    enum:
+                        - IP_ADDRESS_CONFIG_METHOD_STATIC
+                        - IP_ADDRESS_CONFIG_METHOD_DYNAMIC
+                    type: string
+                    description: Specifies how the IP address is configured.
+                    format: enum
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
         InstanceResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated on Create.
@@ -3661,6 +3559,7 @@ components:
                     format: enum
                 instanceStatus:
                     readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the current instance status. Set by RMs only.
                 instanceStatusIndicator:
@@ -3674,10 +3573,12 @@ components:
                     format: enum
                 instanceStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when instance_status was last changed. Set by RMs only.
+                    format: uint32
                 provisioningStatus:
                     readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the provisioning status of Instance. Set by RMs only.
                 provisioningStatusIndicator:
@@ -3691,10 +3592,12 @@ components:
                     format: enum
                 provisioningStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when provisioning_status was last changed. Set by RMs only.
+                    format: uint32
                 updateStatus:
                     readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the update status of Instance. Set by RMs only.
                 updateStatusIndicator:
@@ -3708,14 +3611,17 @@ components:
                     format: enum
                 updateStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when update_status was last changed. Set by RMs only.
+                    format: uint32
                 updateStatusDetail:
                     readOnly: true
+                    maxLength: 100000
                     type: string
                     description: JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
                 trustedAttestationStatus:
                     readOnly: true
+                    maxLength: 1024
                     type: string
                     description: textual message that describes the trusted_attestation status of Instance. Set by RMs only.
                 trustedAttestationStatusIndicator:
@@ -3729,8 +3635,9 @@ components:
                     format: enum
                 trustedAttestationStatusTimestamp:
                     readOnly: true
-                    type: string
+                    type: integer
                     description: UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
+                    format: uint32
                 workloadMembers:
                     readOnly: true
                     type: array
@@ -3739,34 +3646,32 @@ components:
                     description: The workload members associated with the instance.
                 localaccount:
                     $ref: '#/components/schemas/LocalAccountResource'
-                instanceId:
+                instanceID:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
-                    description: The instance's unique identifier. Alias of resourceID.
-                hostId:
+                    description: Deprecated, The instance's unique identifier. Alias of resourceID.
+                hostID:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^host-[0-9a-f]{8}$
                     type: string
                     description: The host's unique identifier associated with the instance.
-                osId:
+                osID:
                     writeOnly: true
+                    maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of OS resource that must be installed on the instance.
-                localAccountId:
+                localAccountID:
                     writeOnly: true
+                    maxLength: 21
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of local account will be associated with the instance.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
         InvalidateHostResponse:
             type: object
@@ -3882,12 +3787,12 @@ components:
             description: A node in the location tree.
         ListOperatingSystemsResponse:
             required:
-                - operatingSystems
+                - OperatingSystemResources
                 - totalElements
                 - hasNext
             type: object
             properties:
-                operatingSystems:
+                OperatingSystemResources:
                     type: array
                     items:
                         $ref: '#/components/schemas/OperatingSystemResource'
@@ -4154,25 +4059,28 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: resource identifier
                 username:
+                    maxLength: 32
                     pattern: ^[a-z][a-z0-9-]{0,31}$
                     type: string
                     description: Username provided by admin
                 sshKey:
+                    maxLength: 800
                     pattern: ^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$
                     type: string
                     description: SSH Public Key of EN
-                createdAt:
+                localAccountID:
                     readOnly: true
+                    maxLength: 21
+                    pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                    description: Deprecated, The local account resource's unique identifier. Alias of resourceId.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
         MetadataItem:
             required:
                 - key
@@ -4202,6 +4110,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by inventory on Create.
@@ -4223,17 +4132,18 @@ components:
                 updateSources:
                     type: array
                     items:
+                        maxLength: 10000
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \\\n]+$
                         type: string
                     description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
                 imageUrl:
                     maxLength: 500
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: The URL repository of the OS image.
                 imageId:
                     maxLength: 500
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: A unique identifier of the OS image that can be retrieved from the running OS.
                 sha256:
@@ -4244,7 +4154,7 @@ components:
                     description: SHA256 checksum of the OS resource in hexadecimal representation.
                 profileName:
                     maxLength: 128
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources.
                 profileVersion:
@@ -4253,9 +4163,7 @@ components:
                     description: Version of OS profile that the OS resource belongs to.
                 installedPackages:
                     maxLength: 500000
-                    pattern: |-
-                        ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \
-                        ]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
                     type: string
                     description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
                 securityFeature:
@@ -4283,24 +4191,19 @@ components:
                     readOnly: true
                     type: string
                     description: Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
-                osResourceId:
+                osResourceID:
                     readOnly: true
+                    maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
-                    description: The OS resource's unique identifier. Alias of resourceId.
+                    description: Deprecated, The OS resource's unique identifier. Alias of resourceId.
                 repoUrl:
                     maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                     type: string
                     description: // OS image URL. URL of the original installation source.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: An OS resource.
         ProviderResource:
             required:
@@ -4311,6 +4214,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 17
                     pattern: ^provider-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4328,10 +4232,12 @@ components:
                     description: The provider vendor.
                     format: enum
                 name:
+                    maxLength: 40
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The provider resource's name.
                 apiEndpoint:
+                    maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
                     type: string
                     description: The provider resource's API endpoint.
@@ -4339,32 +4245,29 @@ components:
                     type: array
                     items:
                         maxLength: 500
-                        pattern: ^[^|]*$
+                        pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
                         type: string
                     description: The provider resource's list of credentials.
                 config:
+                    maxLength: 2000
                     pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
                     type: string
                     description: Opaque provider configuration.
-                providerId:
+                providerID:
                     readOnly: true
+                    maxLength: 17
                     pattern: ^provider-[0-9a-f]{8}$
                     type: string
-                    description: The provider resource's unique identifier. Alias of resourceId.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                    description: Deprecated, The provider resource's unique identifier. Alias of resourceId.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A provider resource.
         RegionResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 15
                     pattern: ^region-[0-9a-f]{8}$
                     type: string
                     description: resource ID, generated by the inventory on Create.
@@ -4375,11 +4278,12 @@ components:
                     description: The user-provided, human-readable name of region
                 parentRegion:
                     $ref: '#/components/schemas/RegionResource'
-                regionId:
+                regionID:
                     readOnly: true
+                    maxLength: 15
                     pattern: ^region-[0-9a-f]{8}$
                     type: string
-                    description: The Region unique identifier. Alias of resourceId.
+                    description: Deprecated, The Region unique identifier. Alias of resourceId.
                 metadata:
                     type: array
                     items:
@@ -4398,17 +4302,12 @@ components:
                     format: int32
                 parentId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A region resource.
         RepeatedScheduleResource:
             required:
@@ -4423,6 +4322,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^repeatedsche-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4445,9 +4345,11 @@ components:
                 targetRegion:
                     $ref: '#/components/schemas/RegionResource'
                 durationSeconds:
+                    maximum: !!float 86400
+                    minimum: !!float 1
                     type: integer
                     description: The duration in seconds of the repeated schedule, per schedule.
-                    format: uint32
+                    format: int32
                 cronMinutes:
                     pattern: ^([*]|([0-9]|([1-5][0-9]))((,([0-9]|([1-5][0-9])))*))$
                     type: string
@@ -4468,34 +4370,32 @@ components:
                     pattern: ^([*]|([0-6])((,([0-6]))*))$
                     type: string
                     description: cron style day of week (0-6), it can be empty only when used in a Filter
-                repeatedScheduleId:
+                repeatedScheduleID:
                     readOnly: true
+                    maxLength: 21
                     pattern: ^repeatedsche-[0-9a-f]{8}$
                     type: string
-                    description: The repeated schedule's unique identifier. Alias of resourceId.
+                    description: Deprecated, The repeated schedule's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A repeated-schedule resource.
         SingleScheduleResource:
             required:
@@ -4505,6 +4405,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 19
                     pattern: ^singlesche-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4534,40 +4435,39 @@ components:
                     type: integer
                     description: The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
                     format: uint32
-                singleScheduleId:
+                singleScheduleID:
                     readOnly: true
+                    maxLength: 19
                     pattern: ^singlesche-[0-9a-f]{8}$
                     type: string
-                    description: The single schedule resource's unique identifier. Alias of resourceId.
+                    description: Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
                 targetHostId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^host-[0-9a-f]{8}$
                     type: string
                     description: The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetSiteId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
                 targetRegionId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A single schedule resource.
         SiteResource:
             type: object
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 13
                     pattern: ^site-[0-9a-f]{8}$
                     type: string
                     description: resource ID, generated by the inventory on Create.
@@ -4590,10 +4490,12 @@ components:
                     format: int32
                 provider:
                     $ref: '#/components/schemas/ProviderResource'
-                siteId:
+                siteID:
+                    readOnly: true
+                    maxLength: 13
                     pattern: ^site-[0-9a-f]{8}$
                     type: string
-                    description: The site unique identifier. Alias of resourceId.
+                    description: Deprecated, The site unique identifier. Alias of resourceId.
                 metadata:
                     type: array
                     items:
@@ -4607,17 +4509,12 @@ components:
                     description: The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
                 regionId:
                     writeOnly: true
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The region's unique identifier that the site is associated to. This field cannot be used in filter.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A site resource.
         Status:
             type: object
@@ -4644,40 +4541,37 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: Unique ID of the telemetry group.
                 telemetryLogsGroupId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
-                    description: Unique ID of the telemetry group. Alias of resource_id.
+                    description: Deprecated, Unique ID of the telemetry group. Alias of resource_id.
                 name:
                     maxLength: 50
+                    minLength: 1
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the log group.
                 collectorKind:
                     enum:
-                        - COLLECTOR_KIND_HOST
-                        - COLLECTOR_KIND_CLUSTER
+                        - TELEMETRY_COLLECTOR_KIND_HOST
+                        - TELEMETRY_COLLECTOR_KIND_CLUSTER
                     type: string
                     description: The collector kind.
                     format: enum
                 groups:
                     type: array
                     items:
-                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                         type: string
                     description: A list of log groups to collect.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: TelemetryLogsGroupResource.
         TelemetryLogsProfileResource:
             required:
@@ -4687,23 +4581,28 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
                     description: The ID of the telemetry profile.
                 profileId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
-                    description: The ID of the telemetry profile.
+                    description: Deprecated, The ID of the telemetry profile.
                 targetInstance:
+                    maxLength: 13
                     pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
@@ -4718,19 +4617,14 @@ components:
                     description: The log level og the telemetry profile.
                     format: enum
                 logsGroupId:
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the telemetry log group.
                 logsGroup:
                     $ref: '#/components/schemas/TelemetryLogsGroupResource'
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A telemetry log profile for a hierarchy object.
         TelemetryMetricsGroupResource:
             required:
@@ -4741,40 +4635,37 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: Unique ID of the telemetry group.
                 telemetryMetricsGroupId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
-                    description: Unique ID of the telemetry group. Alias of resource_id.
+                    description: Deprecated, Unique ID of the telemetry group. Alias of resource_id.
                 name:
                     maxLength: 50
+                    minLength: 1
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: Human-readable name for the log group.
                 collectorKind:
                     enum:
-                        - COLLECTOR_KIND_HOST
-                        - COLLECTOR_KIND_CLUSTER
+                        - TELEMETRY_COLLECTOR_KIND_HOST
+                        - TELEMETRY_COLLECTOR_KIND_CLUSTER
                     type: string
                     description: The collector kind.
                     format: enum
                 groups:
                     type: array
                     items:
-                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                         type: string
                     description: A list of log groups to collect.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: TelemetryMetricsGroupResource.
         TelemetryMetricsProfileResource:
             required:
@@ -4784,45 +4675,59 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
                     description: The ID of the telemetry profile.
                 profileId:
                     readOnly: true
+                    maxLength: 25
                     pattern: ^telemetryprofile-[0-9a-f]{8}$
                     type: string
-                    description: The ID of the telemetry profile.
+                    description: Deprecated, The ID of the telemetry profile.
                 targetInstance:
+                    maxLength: 13
                     pattern: ^$|^inst-[0-9a-f]{8}$
                     type: string
                     description: The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetSite:
+                    maxLength: 13
                     pattern: ^$|^site-[0-9a-f]{8}$
                     type: string
                     description: The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 targetRegion:
+                    maxLength: 15
                     pattern: ^$|^region-[0-9a-f]{8}$
                     type: string
                     description: The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
                 metricsInterval:
+                    minimum: !!float 1
                     type: integer
                     description: Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
-                    format: uint32
+                    format: int32
                 metricsGroupId:
+                    maxLength: 23
                     pattern: ^telemetrygroup-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the telemetry metric group.
                 metricsGroup:
                     $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
+            description: A telemetry metric profile for a hierarchy object.
+        Timestamps:
+            type: object
+            properties:
                 createdAt:
                     readOnly: true
                     type: string
-                    description: Timestamp for the creation of the resource.
+                    description: The time when the resource was created.
+                    format: date-time
                 updatedAt:
                     readOnly: true
                     type: string
-                    description: Timestamp for the last update of the resource.
-            description: A telemetry metric profile for a hierarchy object.
+                    description: The time when the resource was last updated.
+                    format: date-time
         WorkloadMember:
             required:
                 - kind
@@ -4832,6 +4737,7 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^workloadmember-[0-9a-f]{8}$
                     type: string
                     description: Resource ID, generated by the inventory on Create.
@@ -4847,29 +4753,26 @@ components:
                     $ref: '#/components/schemas/InstanceResource'
                 workloadMemberId:
                     readOnly: true
+                    maxLength: 23
                     pattern: ^workloadmember-[0-9a-f]{8}$
                     type: string
-                    description: The workload unique identifier. Alias of resourceId.
+                    description: Deprecated, The workload unique identifier. Alias of resourceId.
                 member:
                     $ref: '#/components/schemas/InstanceResource'
                 workloadId:
                     writeOnly: true
+                    maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: The workload unique identifier.
                 instanceId:
                     writeOnly: true
+                    maxLength: 13
                     pattern: ^inst-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of the instance.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
         WorkloadResource:
             required:
@@ -4879,13 +4782,13 @@ components:
             properties:
                 resourceId:
                     readOnly: true
+                    maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
                     description: resource ID, generated by the inventory on Create.
                 kind:
                     enum:
                         - WORKLOAD_KIND_CLUSTER
-                        - WORKLOAD_KIND_DHCP
                     type: string
                     description: Type of workload.
                     format: enum
@@ -4895,10 +4798,12 @@ components:
                     type: string
                     description: Human-readable name for the workload.
                 externalId:
+                    maxLength: 40
                     pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
                     type: string
                     description: The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
                 status:
+                    maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
                     type: string
                     description: Human-readable status of the workload.
@@ -4910,17 +4815,12 @@ components:
                     description: The members of the workload.
                 workloadId:
                     readOnly: true
+                    maxLength: 17
                     pattern: ^workload-[0-9a-f]{8}$
                     type: string
-                    description: The workload unique identifier. Alias of resourceId.
-                createdAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the creation of the resource.
-                updatedAt:
-                    readOnly: true
-                    type: string
-                    description: Timestamp for the last update of the resource.
+                    description: Deprecated, The workload unique identifier. Alias of resourceId.
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
             description: A generic way to group compute resources to obtain a workload.
 tags:
     - name: HostService

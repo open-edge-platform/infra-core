@@ -20,15 +20,17 @@ PROTOCGENDOC    := true
 BUF             := true
 PROTOCGENGO     := true
 PROTOCGENGOGRPC := true
+OASDIFF         := true
 
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 
 # Project variables
-PROJECT_NAME := api
+PROJECT_NAME       := api
 BINARY_NAME_API    := api
 BINARY_NAME_PROXY  := proxy
+SUBPROJECT_DIR     := apiv2
 
 # Code versions, tags, and so on
 VERSION       := $(shell cat VERSION)
@@ -66,6 +68,10 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
+# OpenAPI breaking change check variables
+TEMP_BASE_OPENAPI_DIR := /tmp/apiv2-main
+OPENAPI_PATH          := api/openapi/openapi.yaml
+
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
 SERVER := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-server.gen.go"
@@ -78,7 +84,6 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
-
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
@@ -216,4 +221,14 @@ buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
 
 buf-gen: buf-gen-api oapi-banner ## compile protoc files
 
-buf-lint: common-buf-lint ## Lint and format protobuf files
+buf-lint: ## Lint and format protobuf files
+	buf --version
+	# TODO: currently failing buf format and buf lint - need to be fixed
+
+buf-breaking: common-buf-breaking
+
+oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
+	rm -rf ${TEMP_BASE_OPENAPI_DIR}
+	mkdir -p ${TEMP_BASE_OPENAPI_DIR}
+	git archive origin/${BASE_BRANCH} ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
+	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR

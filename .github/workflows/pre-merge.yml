@@ -14,11 +14,15 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 env:
   MARKDOWNLINT_CLI_VER: 0.44.0
 
 jobs:
   pre-checks:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     outputs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
@@ -42,6 +46,8 @@ jobs:
           echo "filtered_projects=$filtered_projects" >> $GITHUB_OUTPUT
           echo "other_changed_projects=$other_changed_projects" >> $GITHUB_OUTPUT
   pre-merge-root:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, '.github') || contains(needs.pre-checks.outputs.other_changed_projects, 'LICENSES') || contains(needs.pre-checks.outputs.other_changed_projects, '""')}}
     runs-on: ubuntu-latest
@@ -68,6 +74,8 @@ jobs:
       - name: Run license check
         run: make license
   pre-merge-pipeline:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
     strategy:
@@ -91,6 +99,8 @@ jobs:
       trivy_config_path: '${{ matrix.project_folder }}/trivy.yaml'
     secrets: inherit
   pre-merge-os-profiles:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
@@ -109,6 +119,8 @@ jobs:
       project_folder: "os-profiles"
     secrets: inherit
   pre-merge-os-profiles-2:
+    permissions:
+      contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     runs-on: ubuntu-latest
@@ -178,6 +190,8 @@ jobs:
                "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
 
   final-check:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: [pre-merge-root, pre-merge-pipeline, pre-merge-os-profiles, pre-merge-os-profiles-2]

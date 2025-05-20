@@ -32,6 +32,7 @@ import (
 	osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	providerv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
+	res_status "github.com/open-edge-platform/infra-core/inventory/v2/pkg/status"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/filters"
@@ -201,6 +202,10 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				}
 			} else {
 				tc.in.ResourceId = instanceResID // Update with created resource ID.
+				tc.in.InstanceStatus = res_status.DefaultInstanceStatus
+				tc.in.ProvisioningStatus = res_status.DefaultProvisioningStatus
+				tc.in.UpdateStatus = res_status.DefaultUpdateStatus
+				tc.in.TrustedAttestationStatus = res_status.DefaultTrustedAttestationStatus
 				tc.in.CreatedAt = cInstResp.GetInstance().GetCreatedAt()
 				tc.in.UpdatedAt = cInstResp.GetInstance().GetUpdatedAt()
 				assertSameResource(t, createresreq, cInstResp, nil)

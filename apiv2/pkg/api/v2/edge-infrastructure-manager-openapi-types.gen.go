@@ -6,6 +6,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // Defines values for HostResourceBmcKind.
@@ -59,6 +60,22 @@ const (
 const (
 	NETWORKINTERFACELINKSTATEDOWN HostnicResourceLinkState = "NETWORK_INTERFACE_LINK_STATE_DOWN"
 	NETWORKINTERFACELINKSTATEUP   HostnicResourceLinkState = "NETWORK_INTERFACE_LINK_STATE_UP"
+)
+
+// Defines values for IPAddressResourceConfigMethod.
+const (
+	IPADDRESSCONFIGMETHODDYNAMIC IPAddressResourceConfigMethod = "IP_ADDRESS_CONFIG_METHOD_DYNAMIC"
+	IPADDRESSCONFIGMETHODSTATIC  IPAddressResourceConfigMethod = "IP_ADDRESS_CONFIG_METHOD_STATIC"
+)
+
+// Defines values for IPAddressResourceStatus.
+const (
+	IPADDRESSSTATUSASSIGNED           IPAddressResourceStatus = "IP_ADDRESS_STATUS_ASSIGNED"
+	IPADDRESSSTATUSASSIGNMENTERROR    IPAddressResourceStatus = "IP_ADDRESS_STATUS_ASSIGNMENT_ERROR"
+	IPADDRESSSTATUSCONFIGURATIONERROR IPAddressResourceStatus = "IP_ADDRESS_STATUS_CONFIGURATION_ERROR"
+	IPADDRESSSTATUSCONFIGURED         IPAddressResourceStatus = "IP_ADDRESS_STATUS_CONFIGURED"
+	IPADDRESSSTATUSERROR              IPAddressResourceStatus = "IP_ADDRESS_STATUS_ERROR"
+	IPADDRESSSTATUSRELEASED           IPAddressResourceStatus = "IP_ADDRESS_STATUS_RELEASED"
 )
 
 // Defines values for InstanceResourceCurrentState.
@@ -163,8 +180,8 @@ const (
 
 // Defines values for TelemetryLogsGroupResourceCollectorKind.
 const (
-	TelemetryLogsGroupResourceCollectorKindCOLLECTORKINDCLUSTER TelemetryLogsGroupResourceCollectorKind = "COLLECTOR_KIND_CLUSTER"
-	TelemetryLogsGroupResourceCollectorKindCOLLECTORKINDHOST    TelemetryLogsGroupResourceCollectorKind = "COLLECTOR_KIND_HOST"
+	TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER TelemetryLogsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
+	TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST    TelemetryLogsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
 )
 
 // Defines values for TelemetryLogsProfileResourceLogLevel.
@@ -178,8 +195,8 @@ const (
 
 // Defines values for TelemetryMetricsGroupResourceCollectorKind.
 const (
-	TelemetryMetricsGroupResourceCollectorKindCOLLECTORKINDCLUSTER TelemetryMetricsGroupResourceCollectorKind = "COLLECTOR_KIND_CLUSTER"
-	TelemetryMetricsGroupResourceCollectorKindCOLLECTORKINDHOST    TelemetryMetricsGroupResourceCollectorKind = "COLLECTOR_KIND_HOST"
+	TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER TelemetryMetricsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
+	TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST    TelemetryMetricsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
 )
 
 // Defines values for WorkloadMemberKind.
@@ -190,7 +207,6 @@ const (
 // Defines values for WorkloadResourceKind.
 const (
 	WORKLOADKINDCLUSTER WorkloadResourceKind = "WORKLOAD_KIND_CLUSTER"
-	WORKLOADKINDDHCP    WorkloadResourceKind = "WORKLOAD_KIND_DHCP"
 )
 
 // DeleteHostResponse Reponse message for DeleteHost.
@@ -313,9 +329,6 @@ type HostResource struct {
 	// CpuTopology JSON field storing the CPU topology, refer to HDA/HRM docs for the JSON schema.
 	CpuTopology *string `json:"cpuTopology,omitempty"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// CurrentState The current state of the Host.
 	CurrentState *HostResourceCurrentState `json:"currentState,omitempty"`
 
@@ -324,9 +337,6 @@ type HostResource struct {
 
 	// HostGpus Back-reference to attached host GPU resources.
 	HostGpus *[]HostgpuResource `json:"hostGpus,omitempty"`
-
-	// HostId Resource ID, generated on Create.
-	HostId *string `json:"hostId,omitempty"`
 
 	// HostNics Back-reference to attached host NIC resources.
 	HostNics *[]HostnicResource `json:"hostNics,omitempty"`
@@ -338,7 +348,7 @@ type HostResource struct {
 	HostStatusIndicator *HostResourceHostStatusIndicator `json:"hostStatusIndicator,omitempty"`
 
 	// HostStatusTimestamp UTC timestamp when host_status was last changed. Set by RMs only.
-	HostStatusTimestamp *string `json:"hostStatusTimestamp,omitempty"`
+	HostStatusTimestamp *uint32 `json:"hostStatusTimestamp,omitempty"`
 
 	// HostStorages Back-reference to attached host storage resources.
 	HostStorages *[]HoststorageResource `json:"hostStorages,omitempty"`
@@ -374,7 +384,7 @@ type HostResource struct {
 	OnboardingStatusIndicator *HostResourceOnboardingStatusIndicator `json:"onboardingStatusIndicator,omitempty"`
 
 	// OnboardingStatusTimestamp UTC timestamp when onboarding_status was last changed. Set by RMs only.
-	OnboardingStatusTimestamp *string `json:"onboardingStatusTimestamp,omitempty"`
+	OnboardingStatusTimestamp *uint32 `json:"onboardingStatusTimestamp,omitempty"`
 
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
@@ -386,7 +396,7 @@ type HostResource struct {
 	RegistrationStatusIndicator *HostResourceRegistrationStatusIndicator `json:"registrationStatusIndicator,omitempty"`
 
 	// RegistrationStatusTimestamp UTC timestamp when registration_status was last changed. Set by RMs only.
-	RegistrationStatusTimestamp *string `json:"registrationStatusTimestamp,omitempty"`
+	RegistrationStatusTimestamp *uint32 `json:"registrationStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -398,10 +408,8 @@ type HostResource struct {
 	Site *SiteResource `json:"site,omitempty"`
 
 	// SiteId The site where the host is located.
-	SiteId *string `json:"siteId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	SiteId     *string     `json:"siteId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Uuid The host UUID identifier; UUID is unique and immutable.
 	Uuid *string `json:"uuid,omitempty"`
@@ -427,9 +435,6 @@ type HostResourceRegistrationStatusIndicator string
 
 // HostgpuResource The set of available host GPU cards.
 type HostgpuResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// Description The human-readable GPU device description.
 	Description *string `json:"description,omitempty"`
 
@@ -443,11 +448,9 @@ type HostgpuResource struct {
 	PciId *string `json:"pciId,omitempty"`
 
 	// Product The GPU device model.
-	Product    *string `json:"product,omitempty"`
-	ResourceId *string `json:"resourceId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	Product    *string     `json:"product,omitempty"`
+	ResourceId *string     `json:"resourceId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Vendor The GPU device vendor.
 	Vendor *string `json:"vendor,omitempty"`
@@ -458,14 +461,14 @@ type HostnicResource struct {
 	// BmcInterface Whether this is a bmc interface or not.
 	BmcInterface *bool `json:"bmcInterface,omitempty"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// DeviceName The device name (OS provided, like eth0, enp1s0, etc.).
 	DeviceName *string `json:"deviceName,omitempty"`
 
 	// Features The features of this interface, comma separated.
 	Features *string `json:"features,omitempty"`
+
+	// IpAddresses The interface's IP address list.
+	IpAddresses *[]IPAddressResource `json:"ipAddresses,omitempty"`
 
 	// LinkState Link state of this interface.
 	LinkState *HostnicResourceLinkState `json:"linkState,omitempty"`
@@ -487,10 +490,8 @@ type HostnicResource struct {
 	SriovVfsNum *uint32 `json:"sriovVfsNum,omitempty"`
 
 	// SriovVfsTotal The maximum number of VFs the interface supports, if SR-IOV is supported.
-	SriovVfsTotal *uint32 `json:"sriovVfsTotal,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	SriovVfsTotal *uint32     `json:"sriovVfsTotal,omitempty"`
+	Timestamps    *Timestamps `json:"timestamps,omitempty"`
 }
 
 // HostnicResourceLinkState Link state of this interface.
@@ -501,9 +502,6 @@ type HoststorageResource struct {
 	// CapacityBytes The storage device Capacity (size) in bytes.
 	CapacityBytes *string `json:"capacityBytes,omitempty"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// DeviceName The storage device device name (OS provided, like sda, sdb, etc.)
 	DeviceName *string `json:"deviceName,omitempty"`
 
@@ -512,10 +510,8 @@ type HoststorageResource struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// Serial The storage device unique serial number.
-	Serial *string `json:"serial,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	Serial     *string     `json:"serial,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Vendor The Storage device vendor.
 	Vendor *string `json:"vendor,omitempty"`
@@ -535,9 +531,6 @@ type HostusbResource struct {
 	// Class class defined by USB-IF.
 	Class *string `json:"class,omitempty"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// DeviceName the OS-provided device name.
 	DeviceName *string `json:"deviceName,omitempty"`
 
@@ -549,17 +542,37 @@ type HostusbResource struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// Serial Serial number of device.
-	Serial *string `json:"serial,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	Serial     *string     `json:"serial,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
+
+// IPAddressResource defines model for IPAddressResource.
+type IPAddressResource struct {
+	// Address CIDR representation of the IP address.
+	Address *string `json:"address,omitempty"`
+
+	// ConfigMethod Specifies how the IP address is configured.
+	ConfigMethod *IPAddressResourceConfigMethod `json:"configMethod,omitempty"`
+
+	// ResourceId Resource ID, generated by Inventory on Create
+	ResourceId *string `json:"resourceId,omitempty"`
+
+	// Status The status of the IP address.
+	Status *IPAddressResourceStatus `json:"status,omitempty"`
+
+	// StatusDetail User-friendly status to provide details about the resource state
+	StatusDetail *string     `json:"statusDetail,omitempty"`
+	Timestamps   *Timestamps `json:"timestamps,omitempty"`
+}
+
+// IPAddressResourceConfigMethod Specifies how the IP address is configured.
+type IPAddressResourceConfigMethod string
+
+// IPAddressResourceStatus The status of the IP address.
+type IPAddressResourceStatus string
 
 // InstanceResource InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
 type InstanceResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// CurrentOs An OS resource.
 	CurrentOs *OperatingSystemResource `json:"currentOs,omitempty"`
 
@@ -575,11 +588,11 @@ type InstanceResource struct {
 	// Host A Host resource.
 	Host *HostResource `json:"host,omitempty"`
 
-	// HostId The host's unique identifier associated with the instance.
-	HostId *string `json:"hostId,omitempty"`
+	// HostID The host's unique identifier associated with the instance.
+	HostID *string `json:"hostID,omitempty"`
 
-	// InstanceId The instance's unique identifier. Alias of resourceID.
-	InstanceId *string `json:"instanceId,omitempty"`
+	// InstanceID Deprecated, The instance's unique identifier. Alias of resourceID.
+	InstanceID *string `json:"instanceID,omitempty"`
 
 	// InstanceStatus textual message that describes the current instance status. Set by RMs only.
 	InstanceStatus *string `json:"instanceStatus,omitempty"`
@@ -588,20 +601,20 @@ type InstanceResource struct {
 	InstanceStatusIndicator *InstanceResourceInstanceStatusIndicator `json:"instanceStatusIndicator,omitempty"`
 
 	// InstanceStatusTimestamp UTC timestamp when instance_status was last changed. Set by RMs only.
-	InstanceStatusTimestamp *string `json:"instanceStatusTimestamp,omitempty"`
+	InstanceStatusTimestamp *uint32 `json:"instanceStatusTimestamp,omitempty"`
 
 	// Kind Kind of resource. Frequently tied to Provider.
 	Kind *InstanceResourceKind `json:"kind,omitempty"`
 
-	// LocalAccountId The unique identifier of local account will be associated with the instance.
-	LocalAccountId *string               `json:"localAccountId,omitempty"`
+	// LocalAccountID The unique identifier of local account will be associated with the instance.
+	LocalAccountID *string               `json:"localAccountID,omitempty"`
 	Localaccount   *LocalAccountResource `json:"localaccount,omitempty"`
 
 	// Name The instance's human-readable name.
 	Name *string `json:"name,omitempty"`
 
-	// OsId The unique identifier of OS resource that must be installed on the instance.
-	OsId *string `json:"osId,omitempty"`
+	// OsID The unique identifier of OS resource that must be installed on the instance.
+	OsID *string `json:"osID,omitempty"`
 
 	// ProvisioningStatus textual message that describes the provisioning status of Instance. Set by RMs only.
 	ProvisioningStatus *string `json:"provisioningStatus,omitempty"`
@@ -610,13 +623,14 @@ type InstanceResource struct {
 	ProvisioningStatusIndicator *InstanceResourceProvisioningStatusIndicator `json:"provisioningStatusIndicator,omitempty"`
 
 	// ProvisioningStatusTimestamp UTC timestamp when provisioning_status was last changed. Set by RMs only.
-	ProvisioningStatusTimestamp *string `json:"provisioningStatusTimestamp,omitempty"`
+	ProvisioningStatusTimestamp *uint32 `json:"provisioningStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// SecurityFeature Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
 	SecurityFeature *InstanceResourceSecurityFeature `json:"securityFeature,omitempty"`
+	Timestamps      *Timestamps                      `json:"timestamps,omitempty"`
 
 	// TrustedAttestationStatus textual message that describes the trusted_attestation status of Instance. Set by RMs only.
 	TrustedAttestationStatus *string `json:"trustedAttestationStatus,omitempty"`
@@ -625,7 +639,7 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator *InstanceResourceTrustedAttestationStatusIndicator `json:"trustedAttestationStatusIndicator,omitempty"`
 
 	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	TrustedAttestationStatusTimestamp *string `json:"trustedAttestationStatusTimestamp,omitempty"`
+	TrustedAttestationStatusTimestamp *uint32 `json:"trustedAttestationStatusTimestamp,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
@@ -637,10 +651,7 @@ type InstanceResource struct {
 	UpdateStatusIndicator *InstanceResourceUpdateStatusIndicator `json:"updateStatusIndicator,omitempty"`
 
 	// UpdateStatusTimestamp UTC timestamp when update_status was last changed. Set by RMs only.
-	UpdateStatusTimestamp *string `json:"updateStatusTimestamp,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	UpdateStatusTimestamp *uint32 `json:"updateStatusTimestamp,omitempty"`
 
 	// WorkloadMembers The workload members associated with the instance.
 	WorkloadMembers *[]WorkloadMember `json:"workloadMembers,omitempty"`
@@ -744,11 +755,11 @@ type ListLocationsResponseLocationNodeType string
 
 // ListOperatingSystemsResponse Response message for the ListOperatingSystems method.
 type ListOperatingSystemsResponse struct {
+	// OperatingSystemResources Sorted and filtered list of oss.
+	OperatingSystemResources []OperatingSystemResource `json:"OperatingSystemResources"`
+
 	// HasNext Inform if there are more elements
 	HasNext bool `json:"hasNext"`
-
-	// OperatingSystems Sorted and filtered list of oss.
-	OperatingSystems []OperatingSystemResource `json:"operatingSystems"`
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
@@ -903,17 +914,15 @@ type ListWorkloadsResponse struct {
 
 // LocalAccountResource defines model for LocalAccountResource.
 type LocalAccountResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
+	// LocalAccountID Deprecated, The local account resource's unique identifier. Alias of resourceId.
+	LocalAccountID *string `json:"localAccountID,omitempty"`
 
 	// ResourceId resource identifier
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// SshKey SSH Public Key of EN
-	SshKey string `json:"sshKey"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	SshKey     string      `json:"sshKey"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Username Username provided by admin
 	Username string `json:"username"`
@@ -936,9 +945,6 @@ type OperatingSystemResource struct {
 	// Architecture The OS resource's CPU architecture.
 	Architecture *string `json:"architecture,omitempty"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// ImageId A unique identifier of the OS image that can be retrieved from the running OS.
 	ImageId *string `json:"imageId,omitempty"`
 
@@ -957,8 +963,8 @@ type OperatingSystemResource struct {
 	// OsProvider Indicating the provider of OS (e.g., Infra or Lenovo).
 	OsProvider *OperatingSystemResourceOsProvider `json:"osProvider,omitempty"`
 
-	// OsResourceId The OS resource's unique identifier. Alias of resourceId.
-	OsResourceId *string `json:"osResourceId,omitempty"`
+	// OsResourceID Deprecated, The OS resource's unique identifier. Alias of resourceId.
+	OsResourceID *string `json:"osResourceID,omitempty"`
 
 	// OsType Indicating the type of OS (for example, mutable or immutable).
 	OsType *OperatingSystemResourceOsType `json:"osType,omitempty"`
@@ -982,13 +988,11 @@ type OperatingSystemResource struct {
 	SecurityFeature *OperatingSystemResourceSecurityFeature `json:"securityFeature,omitempty"`
 
 	// Sha256 SHA256 checksum of the OS resource in hexadecimal representation.
-	Sha256 string `json:"sha256"`
+	Sha256     string      `json:"sha256"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// UpdateSources The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
 	UpdateSources []string `json:"updateSources"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // OperatingSystemResourceOsProvider Indicating the provider of OS (e.g., Infra or Lenovo).
@@ -1011,14 +1015,11 @@ type ProviderResource struct {
 	// Config Opaque provider configuration.
 	Config *string `json:"config,omitempty"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// Name The provider resource's name.
 	Name string `json:"name"`
 
-	// ProviderId The provider resource's unique identifier. Alias of resourceId.
-	ProviderId *string `json:"providerId,omitempty"`
+	// ProviderID Deprecated, The provider resource's unique identifier. Alias of resourceId.
+	ProviderID *string `json:"providerID,omitempty"`
 
 	// ProviderKind The provider kind.
 	ProviderKind ProviderResourceProviderKind `json:"providerKind"`
@@ -1027,10 +1028,8 @@ type ProviderResource struct {
 	ProviderVendor *ProviderResourceProviderVendor `json:"providerVendor,omitempty"`
 
 	// ResourceId Resource ID, generated by the inventory on Create.
-	ResourceId *string `json:"resourceId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	ResourceId *string     `json:"resourceId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
 // ProviderResourceProviderKind The provider kind.
@@ -1041,9 +1040,6 @@ type ProviderResourceProviderVendor string
 
 // RegionResource A region resource.
 type RegionResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// InheritedMetadata The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
 	InheritedMetadata *[]MetadataItem `json:"inheritedMetadata,omitempty"`
 
@@ -1059,24 +1055,19 @@ type RegionResource struct {
 	// ParentRegion A region resource.
 	ParentRegion *RegionResource `json:"parentRegion,omitempty"`
 
-	// RegionId The Region unique identifier. Alias of resourceId.
-	RegionId *string `json:"regionId,omitempty"`
+	// RegionID Deprecated, The Region unique identifier. Alias of resourceId.
+	RegionID *string `json:"regionID,omitempty"`
 
 	// ResourceId resource ID, generated by the inventory on Create.
-	ResourceId *string `json:"resourceId,omitempty"`
+	ResourceId *string     `json:"resourceId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// TotalSites The total number of sites in the region.
 	TotalSites *int32 `json:"totalSites,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // RepeatedScheduleResource A repeated-schedule resource.
 type RepeatedScheduleResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// CronDayMonth cron style day of month (1-31), it can be empty only when used in a Filter
 	CronDayMonth string `json:"cronDayMonth"`
 
@@ -1093,13 +1084,13 @@ type RepeatedScheduleResource struct {
 	CronMonth string `json:"cronMonth"`
 
 	// DurationSeconds The duration in seconds of the repeated schedule, per schedule.
-	DurationSeconds uint32 `json:"durationSeconds"`
+	DurationSeconds int32 `json:"durationSeconds"`
 
 	// Name The schedule's name.
 	Name *string `json:"name,omitempty"`
 
-	// RepeatedScheduleId The repeated schedule's unique identifier. Alias of resourceId.
-	RepeatedScheduleId *string `json:"repeatedScheduleId,omitempty"`
+	// RepeatedScheduleID Deprecated, The repeated schedule's unique identifier. Alias of resourceId.
+	RepeatedScheduleID *string `json:"repeatedScheduleID,omitempty"`
 
 	// ResourceId Resource ID, generated by the inventory on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -1123,10 +1114,8 @@ type RepeatedScheduleResource struct {
 	TargetSite *SiteResource `json:"targetSite,omitempty"`
 
 	// TargetSiteId The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
-	TargetSiteId *string `json:"targetSiteId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	TargetSiteId *string     `json:"targetSiteId,omitempty"`
+	Timestamps   *Timestamps `json:"timestamps,omitempty"`
 }
 
 // RepeatedScheduleResourceScheduleStatus The schedule status.
@@ -1134,9 +1123,6 @@ type RepeatedScheduleResourceScheduleStatus string
 
 // SingleScheduleResource A single schedule resource.
 type SingleScheduleResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// EndSeconds The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
 	EndSeconds *uint32 `json:"endSeconds,omitempty"`
 
@@ -1149,8 +1135,8 @@ type SingleScheduleResource struct {
 	// ScheduleStatus The schedule status.
 	ScheduleStatus SingleScheduleResourceScheduleStatus `json:"scheduleStatus"`
 
-	// SingleScheduleId The single schedule resource's unique identifier. Alias of resourceId.
-	SingleScheduleId *string `json:"singleScheduleId,omitempty"`
+	// SingleScheduleID Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
+	SingleScheduleID *string `json:"singleScheduleID,omitempty"`
 
 	// StartSeconds The start time in seconds, of the single schedule.
 	StartSeconds uint32 `json:"startSeconds"`
@@ -1171,10 +1157,8 @@ type SingleScheduleResource struct {
 	TargetSite *SiteResource `json:"targetSite,omitempty"`
 
 	// TargetSiteId The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
-	TargetSiteId *string `json:"targetSiteId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	TargetSiteId *string     `json:"targetSiteId,omitempty"`
+	Timestamps   *Timestamps `json:"timestamps,omitempty"`
 }
 
 // SingleScheduleResourceScheduleStatus The schedule status.
@@ -1182,9 +1166,6 @@ type SingleScheduleResourceScheduleStatus string
 
 // SiteResource A site resource.
 type SiteResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// InheritedMetadata The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
 	InheritedMetadata *[]MetadataItem `json:"inheritedMetadata,omitempty"`
 
@@ -1206,17 +1187,15 @@ type SiteResource struct {
 	// ResourceId resource ID, generated by the inventory on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// SiteId The site unique identifier. Alias of resourceId.
-	SiteId *string `json:"siteId,omitempty"`
+	// SiteID Deprecated, The site unique identifier. Alias of resourceId.
+	SiteID *string `json:"siteID,omitempty"`
 
 	// SiteLat The geolocation latitude of the site. Points are represented as latitude-longitude pairs in the E7 representation (degrees are multiplied by 10**7 and rounded to the nearest integer). siteLat must be in the range of +/- 90 degrees.
 	SiteLat *int32 `json:"siteLat,omitempty"`
 
 	// SiteLng The geolocation longitude of the site. Points are represented as latitude-longitude pairs in the E7 representation (degrees are multiplied by 10**7 and rounded to the nearest integer). siteLng must be in the range of +/- 180 degrees (inclusive).
-	SiteLng *int32 `json:"siteLng,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	SiteLng    *int32      `json:"siteLng,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
 // Status The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).
@@ -1236,9 +1215,6 @@ type TelemetryLogsGroupResource struct {
 	// CollectorKind The collector kind.
 	CollectorKind TelemetryLogsGroupResourceCollectorKind `json:"collectorKind"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// Groups A list of log groups to collect.
 	Groups []string `json:"groups"`
 
@@ -1248,11 +1224,9 @@ type TelemetryLogsGroupResource struct {
 	// ResourceId Unique ID of the telemetry group.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// TelemetryLogsGroupId Unique ID of the telemetry group. Alias of resource_id.
-	TelemetryLogsGroupId *string `json:"telemetryLogsGroupId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	// TelemetryLogsGroupId Deprecated, Unique ID of the telemetry group. Alias of resource_id.
+	TelemetryLogsGroupId *string     `json:"telemetryLogsGroupId,omitempty"`
+	Timestamps           *Timestamps `json:"timestamps,omitempty"`
 }
 
 // TelemetryLogsGroupResourceCollectorKind The collector kind.
@@ -1260,9 +1234,6 @@ type TelemetryLogsGroupResourceCollectorKind string
 
 // TelemetryLogsProfileResource A telemetry log profile for a hierarchy object.
 type TelemetryLogsProfileResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// LogLevel The log level og the telemetry profile.
 	LogLevel TelemetryLogsProfileResourceLogLevel `json:"logLevel"`
 
@@ -1272,7 +1243,7 @@ type TelemetryLogsProfileResource struct {
 	// LogsGroupId The unique identifier of the telemetry log group.
 	LogsGroupId string `json:"logsGroupId"`
 
-	// ProfileId The ID of the telemetry profile.
+	// ProfileId Deprecated, The ID of the telemetry profile.
 	ProfileId *string `json:"profileId,omitempty"`
 
 	// ResourceId The ID of the telemetry profile.
@@ -1285,10 +1256,8 @@ type TelemetryLogsProfileResource struct {
 	TargetRegion *string `json:"targetRegion,omitempty"`
 
 	// TargetSite The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
-	TargetSite *string `json:"targetSite,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	TargetSite *string     `json:"targetSite,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
 // TelemetryLogsProfileResourceLogLevel The log level og the telemetry profile.
@@ -1299,9 +1268,6 @@ type TelemetryMetricsGroupResource struct {
 	// CollectorKind The collector kind.
 	CollectorKind TelemetryMetricsGroupResourceCollectorKind `json:"collectorKind"`
 
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// Groups A list of log groups to collect.
 	Groups []string `json:"groups"`
 
@@ -1311,11 +1277,9 @@ type TelemetryMetricsGroupResource struct {
 	// ResourceId Unique ID of the telemetry group.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// TelemetryMetricsGroupId Unique ID of the telemetry group. Alias of resource_id.
-	TelemetryMetricsGroupId *string `json:"telemetryMetricsGroupId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	// TelemetryMetricsGroupId Deprecated, Unique ID of the telemetry group. Alias of resource_id.
+	TelemetryMetricsGroupId *string     `json:"telemetryMetricsGroupId,omitempty"`
+	Timestamps              *Timestamps `json:"timestamps,omitempty"`
 }
 
 // TelemetryMetricsGroupResourceCollectorKind The collector kind.
@@ -1323,9 +1287,6 @@ type TelemetryMetricsGroupResourceCollectorKind string
 
 // TelemetryMetricsProfileResource A telemetry metric profile for a hierarchy object.
 type TelemetryMetricsProfileResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// MetricsGroup TelemetryMetricsGroupResource.
 	MetricsGroup *TelemetryMetricsGroupResource `json:"metricsGroup,omitempty"`
 
@@ -1333,9 +1294,9 @@ type TelemetryMetricsProfileResource struct {
 	MetricsGroupId string `json:"metricsGroupId"`
 
 	// MetricsInterval Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
-	MetricsInterval uint32 `json:"metricsInterval"`
+	MetricsInterval int32 `json:"metricsInterval"`
 
-	// ProfileId The ID of the telemetry profile.
+	// ProfileId Deprecated, The ID of the telemetry profile.
 	ProfileId *string `json:"profileId,omitempty"`
 
 	// ResourceId The ID of the telemetry profile.
@@ -1348,17 +1309,21 @@ type TelemetryMetricsProfileResource struct {
 	TargetRegion *string `json:"targetRegion,omitempty"`
 
 	// TargetSite The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
-	TargetSite *string `json:"targetSite,omitempty"`
+	TargetSite *string     `json:"targetSite,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
+}
 
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+// Timestamps defines model for Timestamps.
+type Timestamps struct {
+	// CreatedAt The time when the resource was created.
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+
+	// UpdatedAt The time when the resource was last updated.
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
 
 // WorkloadMember Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
 type WorkloadMember struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// Instance InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
 	Instance *InstanceResource `json:"instance,omitempty"`
 
@@ -1372,10 +1337,8 @@ type WorkloadMember struct {
 	Member *InstanceResource `json:"member,omitempty"`
 
 	// ResourceId Resource ID, generated by the inventory on Create.
-	ResourceId *string `json:"resourceId,omitempty"`
-
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	ResourceId *string     `json:"resourceId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Workload A generic way to group compute resources to obtain a workload.
 	Workload *WorkloadResource `json:"workload,omitempty"`
@@ -1383,7 +1346,7 @@ type WorkloadMember struct {
 	// WorkloadId The workload unique identifier.
 	WorkloadId *string `json:"workloadId,omitempty"`
 
-	// WorkloadMemberId The workload unique identifier. Alias of resourceId.
+	// WorkloadMemberId Deprecated, The workload unique identifier. Alias of resourceId.
 	WorkloadMemberId *string `json:"workloadMemberId,omitempty"`
 }
 
@@ -1392,9 +1355,6 @@ type WorkloadMemberKind string
 
 // WorkloadResource A generic way to group compute resources to obtain a workload.
 type WorkloadResource struct {
-	// CreatedAt Timestamp for the creation of the resource.
-	CreatedAt *string `json:"createdAt,omitempty"`
-
 	// ExternalId The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
 	ExternalId *string `json:"externalId,omitempty"`
 
@@ -1411,12 +1371,10 @@ type WorkloadResource struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// Status Human-readable status of the workload.
-	Status *string `json:"status,omitempty"`
+	Status     *string     `json:"status,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
-	// UpdatedAt Timestamp for the last update of the resource.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
-
-	// WorkloadId The workload unique identifier. Alias of resourceId.
+	// WorkloadId Deprecated, The workload unique identifier. Alias of resourceId.
 	WorkloadId *string `json:"workloadId,omitempty"`
 }
 
@@ -1542,12 +1500,6 @@ type ProviderServiceListProvidersParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// ProviderServicePatchProviderParams defines parameters for ProviderServicePatchProvider.
-type ProviderServicePatchProviderParams struct {
-	// FieldMask Field mask to be applied on the patch of provider.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
@@ -1769,12 +1721,6 @@ type WorkloadMemberServiceListWorkloadMembersParams struct {
 	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// WorkloadMemberServicePatchWorkloadMemberParams defines parameters for WorkloadMemberServicePatchWorkloadMember.
-type WorkloadMemberServicePatchWorkloadMemberParams struct {
-	// FieldMask Field mask to be applied on the patch of workload_member.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
-}
-
 // WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
 type WorkloadServiceListWorkloadsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1834,12 +1780,6 @@ type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSyste
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
-
-// ProviderServicePatchProviderJSONRequestBody defines body for ProviderServicePatchProvider for application/json ContentType.
-type ProviderServicePatchProviderJSONRequestBody = ProviderResource
-
-// ProviderServiceUpdateProviderJSONRequestBody defines body for ProviderServiceUpdateProvider for application/json ContentType.
-type ProviderServiceUpdateProviderJSONRequestBody = ProviderResource
 
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource
@@ -1903,12 +1843,6 @@ type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody 
 
 // WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember
-
-// WorkloadMemberServicePatchWorkloadMemberJSONRequestBody defines body for WorkloadMemberServicePatchWorkloadMember for application/json ContentType.
-type WorkloadMemberServicePatchWorkloadMemberJSONRequestBody = WorkloadMember
-
-// WorkloadMemberServiceUpdateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceUpdateWorkloadMember for application/json ContentType.
-type WorkloadMemberServiceUpdateWorkloadMemberJSONRequestBody = WorkloadMember
 
 // WorkloadServiceCreateWorkloadJSONRequestBody defines body for WorkloadServiceCreateWorkload for application/json ContentType.
 type WorkloadServiceCreateWorkloadJSONRequestBody = WorkloadResource

@@ -12,8 +12,14 @@ on:
     paths:
       - 'inventory/**'
 
+permissions: {}
+
 jobs:
   post-merge-pipeline:
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
     uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@main
     with:
       run_version_check: true
