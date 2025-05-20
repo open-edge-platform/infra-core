@@ -83,6 +83,11 @@ message OperatingSystemResource {
     max_len: 500
   }];
 
+  string description = 16 [(validate.rules).string = {
+    pattern: "^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\+\\- ]+$"
+    max_len: 1000
+  }];
+
   // SHA256 checksum of the OS resource in hexadecimal representation.
   string sha256 = 7 [
     (google.api.field_behavior) = REQUIRED,

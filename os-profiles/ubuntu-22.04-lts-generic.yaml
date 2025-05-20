@@ -17,5 +17,5 @@ spec:
   osImageSha256: b9b65a7e045ca262ad614cbedeaa1bf34b9325d76f856e85e17b68984e7a4314
   osPackageManifestURL: ""
   securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
-  description: Ubuntu for x86_64 architecture
+  description: Ubuntu 22.04.5 LTS for x86_64 architecture
   platformBundle:

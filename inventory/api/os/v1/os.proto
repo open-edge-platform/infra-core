@@ -117,6 +117,7 @@ message OperatingSystemResource {
   string description = 16 [
     (ent.field) = {
       optional: true
+      immutable: true
     },
     (buf.validate.field).string = {
       len_bytes: 1000

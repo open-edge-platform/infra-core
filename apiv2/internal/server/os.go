@@ -26,6 +26,7 @@ var OpenAPIOSResourceToProto = map[string]string{
 	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
 	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
 	osv1.OperatingSystemResourceFieldInstalledPackages: inv_osv1.OperatingSystemResourceFieldInstalledPackages,
+	osv1.OperatingSystemResourceFieldDescription:       inv_osv1.OperatingSystemResourceFieldDescription,
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {
@@ -46,6 +47,7 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		SecurityFeature:   inv_osv1.SecurityFeature(osResource.GetSecurityFeature()),
 		OsType:            inv_osv1.OsType(osResource.GetOsType()),
 		OsProvider:        inv_osv1.OsProviderKind(osResource.GetOsProvider()),
+		Description:       osResource.GetDescription(),
 	}
 
 	err := validator.ValidateMessage(invOSResource)
@@ -79,6 +81,7 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		OsResourceID:      invOSResource.GetResourceId(),
 		Timestamps:        GrpcToOpenAPITimestamps(invOSResource),
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
+		Description:       invOSResource.GetDescription(),
 	}
 
 	return osResource

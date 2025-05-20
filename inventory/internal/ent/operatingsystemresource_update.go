@@ -141,26 +141,6 @@ func (osru *OperatingSystemResourceUpdate) ClearInstalledPackages() *OperatingSy
 	return osru
 }
 
-// SetDescription sets the "description" field.
-func (osru *OperatingSystemResourceUpdate) SetDescription(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetDescription(s)
-	return osru
-}
-
-// SetNillableDescription sets the "description" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableDescription(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetDescription(*s)
-	}
-	return osru
-}
-
-// ClearDescription clears the value of the "description" field.
-func (osru *OperatingSystemResourceUpdate) ClearDescription() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearDescription()
-	return osru
-}
-
 // SetUpdatedAt sets the "updated_at" field.
 func (osru *OperatingSystemResourceUpdate) SetUpdatedAt(s string) *OperatingSystemResourceUpdate {
 	osru.mutation.SetUpdatedAt(s)
@@ -272,9 +252,6 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	}
 	if osru.mutation.PlatformBundleCleared() {
 		_spec.ClearField(operatingsystemresource.FieldPlatformBundle, field.TypeString)
-	}
-	if value, ok := osru.mutation.Description(); ok {
-		_spec.SetField(operatingsystemresource.FieldDescription, field.TypeString, value)
 	}
 	if osru.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
@@ -413,26 +390,6 @@ func (osruo *OperatingSystemResourceUpdateOne) SetNillableInstalledPackages(s *s
 // ClearInstalledPackages clears the value of the "installed_packages" field.
 func (osruo *OperatingSystemResourceUpdateOne) ClearInstalledPackages() *OperatingSystemResourceUpdateOne {
 	osruo.mutation.ClearInstalledPackages()
-	return osruo
-}
-
-// SetDescription sets the "description" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetDescription(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetDescription(s)
-	return osruo
-}
-
-// SetNillableDescription sets the "description" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableDescription(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetDescription(*s)
-	}
-	return osruo
-}
-
-// ClearDescription clears the value of the "description" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearDescription() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearDescription()
 	return osruo
 }
 
@@ -577,9 +534,6 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if osruo.mutation.PlatformBundleCleared() {
 		_spec.ClearField(operatingsystemresource.FieldPlatformBundle, field.TypeString)
-	}
-	if value, ok := osruo.mutation.Description(); ok {
-		_spec.SetField(operatingsystemresource.FieldDescription, field.TypeString, value)
 	}
 	if osruo.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
