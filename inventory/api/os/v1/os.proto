@@ -40,6 +40,13 @@ message OperatingSystemResource {
   option (infrainv.schemaExtension) = {
     indexes: [
       {
+        unique: true
+        fields: [
+          "name",
+          "tenant_id"
+        ]
+      },
+      {
         unique: false
         fields: ["tenant_id"]
       }
