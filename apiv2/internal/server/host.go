@@ -761,25 +761,29 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	reqFilter := req.GetFilter()
 
 	filterTotal := reqFilter
+	filterIsFailedHostStatusParsed := filterIsFailedHostStatus
+	filterInstanceRunningParsed := filterInstanceRunning
+	filterIsUnallocatedParsed := filterIsUnallocated
+
 	if reqFilter != "" {
-		filterIsFailedHostStatus = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatus)
-		filterInstanceRunning = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunning)
-		filterIsUnallocated = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocated)
+		filterIsFailedHostStatusParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatusParsed)
+		filterInstanceRunningParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunningParsed)
+		filterIsUnallocatedParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocatedParsed)
 	}
 
 	totalHosts, err := is.totalHosts(ctx, filterTotal)
 	if err != nil {
 		return nil, err
 	}
-	totalHostsError, err := is.totalHosts(ctx, filterIsFailedHostStatus)
+	totalHostsError, err := is.totalHosts(ctx, filterIsFailedHostStatusParsed)
 	if err != nil {
 		return nil, err
 	}
-	totalHostsUnallocated, err := is.totalHosts(ctx, filterIsUnallocated)
+	totalHostsUnallocated, err := is.totalHosts(ctx, filterIsUnallocatedParsed)
 	if err != nil {
 		return nil, err
 	}
-	totalHostsRunning, err := is.totalHosts(ctx, filterInstanceRunning)
+	totalHostsRunning, err := is.totalHosts(ctx, filterInstanceRunningParsed)
 	if err != nil {
 		return nil, err
 	}
