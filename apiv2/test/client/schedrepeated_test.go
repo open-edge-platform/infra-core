@@ -14,8 +14,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// FIXME LPIO-963
-
 func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin RepeatedSched tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
@@ -24,7 +22,7 @@ func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	utils.Site1Request.Region = nil
+	utils.Site1Request.RegionId = nil
 	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 
 	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
@@ -279,8 +277,8 @@ func TestSchedRepeatedList(t *testing.T) {
 	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId uint32 = 1
-	var pageSize uint32 = 4
+	var pageId int32 = 1
+	var pageSize int32 = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateSchedRepeated(t, ctx, apiClient, utils.RepeatedSchedule1Request)
@@ -499,4 +497,105 @@ func TestSchedRepeated_cronjobValidationError(t *testing.T) {
 	)
 	assert.Equal(t, http.StatusBadRequest, sched.StatusCode())
 	require.NoError(t, err)
+}
+
+func TestSchedRepeated_UpdatePatch(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	utils.Site1Request.RegionId = nil
+	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+
+	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.SiteID
+	RepeatedSched1 := CreateSchedRepeated(t, ctx, apiClient, utils.RepeatedSchedule1Request)
+
+	RepeatedSchedule1Get, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSchedule1Get.StatusCode())
+	assert.Equal(t, utils.SschedName1, *RepeatedSchedule1Get.JSON200.Name)
+
+	utils.SiteListRequest1.Region = nil
+	siteCreated2 := CreateSite(t, ctx, apiClient, utils.SiteListRequest1)
+
+	utils.RepeatedSchedule2Request.TargetSiteId = siteCreated2.JSON200.SiteID
+	RepeatedSched1Update, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		nil,
+		utils.RepeatedSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSched1Update.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSched1Update.JSON200.Name)
+
+	RepeatedSchedule1GetUp, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSchedule1GetUp.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSchedule1GetUp.JSON200.Name)
+	assert.Equal(t, *siteCreated2.JSON200.SiteID, *RepeatedSchedule1GetUp.JSON200.TargetSite.ResourceId)
+	assert.Equal(
+		t,
+		utils.RepeatedSchedule2Request.CronDayMonth,
+		RepeatedSchedule1GetUp.JSON200.CronDayMonth,
+	)
+
+	// Uses PATCH to set empty string to TargetSite and verifies it
+	utils.RepeatedSchedule2Request.TargetSiteId = &emptyString
+	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		nil,
+		utils.RepeatedSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSched1Update.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSched1Update.JSON200.Name)
+
+	RepeatedSchedule1GetUp, err = apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, RepeatedSchedule1GetUp.StatusCode())
+	assert.Equal(t, utils.SschedName2, *RepeatedSchedule1GetUp.JSON200.Name)
+	assert.Empty(t, RepeatedSchedule1GetUp.JSON200.TargetSite)
+	assert.Equal(
+		t,
+		utils.RepeatedSchedule2Request.CronDayWeek,
+		RepeatedSchedule1GetUp.JSON200.CronDayWeek,
+	)
+
+	// Uses PATCH to set wrong empty string to TargetSite and verifies its BadRequest error
+	utils.RepeatedSchedule2Request.TargetSiteId = &emptyStringWrong
+	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
+		ctx,
+		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		nil,
+		utils.RepeatedSchedule2Request,
+		AddJWTtoTheHeader,
+		AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusBadRequest, RepeatedSched1Update.StatusCode())
+
+	utils.RepeatedSchedule2Request.TargetSite = nil
 }

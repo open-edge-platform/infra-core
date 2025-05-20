@@ -9,6 +9,7 @@ package servicesv1
 import (
 	context "context"
 	v11 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	v16 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	v1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
 	v12 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
 	v13 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/provider/v1"
@@ -36,6 +37,8 @@ type RegionServiceClient interface {
 	GetRegion(ctx context.Context, in *GetRegionRequest, opts ...grpc.CallOption) (*v1.RegionResource, error)
 	// Update a region.
 	UpdateRegion(ctx context.Context, in *UpdateRegionRequest, opts ...grpc.CallOption) (*v1.RegionResource, error)
+	// Patch a region.
+	PatchRegion(ctx context.Context, in *PatchRegionRequest, opts ...grpc.CallOption) (*v1.RegionResource, error)
 	// Delete a region.
 	DeleteRegion(ctx context.Context, in *DeleteRegionRequest, opts ...grpc.CallOption) (*DeleteRegionResponse, error)
 }
@@ -84,6 +87,15 @@ func (c *regionServiceClient) UpdateRegion(ctx context.Context, in *UpdateRegion
 	return out, nil
 }
 
+func (c *regionServiceClient) PatchRegion(ctx context.Context, in *PatchRegionRequest, opts ...grpc.CallOption) (*v1.RegionResource, error) {
+	out := new(v1.RegionResource)
+	err := c.cc.Invoke(ctx, "/services.v1.RegionService/PatchRegion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *regionServiceClient) DeleteRegion(ctx context.Context, in *DeleteRegionRequest, opts ...grpc.CallOption) (*DeleteRegionResponse, error) {
 	out := new(DeleteRegionResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.RegionService/DeleteRegion", in, out, opts...)
@@ -105,6 +117,8 @@ type RegionServiceServer interface {
 	GetRegion(context.Context, *GetRegionRequest) (*v1.RegionResource, error)
 	// Update a region.
 	UpdateRegion(context.Context, *UpdateRegionRequest) (*v1.RegionResource, error)
+	// Patch a region.
+	PatchRegion(context.Context, *PatchRegionRequest) (*v1.RegionResource, error)
 	// Delete a region.
 	DeleteRegion(context.Context, *DeleteRegionRequest) (*DeleteRegionResponse, error)
 }
@@ -124,6 +138,9 @@ func (UnimplementedRegionServiceServer) GetRegion(context.Context, *GetRegionReq
 }
 func (UnimplementedRegionServiceServer) UpdateRegion(context.Context, *UpdateRegionRequest) (*v1.RegionResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRegion not implemented")
+}
+func (UnimplementedRegionServiceServer) PatchRegion(context.Context, *PatchRegionRequest) (*v1.RegionResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchRegion not implemented")
 }
 func (UnimplementedRegionServiceServer) DeleteRegion(context.Context, *DeleteRegionRequest) (*DeleteRegionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRegion not implemented")
@@ -212,6 +229,24 @@ func _RegionService_UpdateRegion_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RegionService_PatchRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchRegionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RegionServiceServer).PatchRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.RegionService/PatchRegion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RegionServiceServer).PatchRegion(ctx, req.(*PatchRegionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RegionService_DeleteRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRegionRequest)
 	if err := dec(in); err != nil {
@@ -254,6 +289,10 @@ var RegionService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RegionService_UpdateRegion_Handler,
 		},
 		{
+			MethodName: "PatchRegion",
+			Handler:    _RegionService_PatchRegion_Handler,
+		},
+		{
 			MethodName: "DeleteRegion",
 			Handler:    _RegionService_DeleteRegion_Handler,
 		},
@@ -274,6 +313,8 @@ type SiteServiceClient interface {
 	GetSite(ctx context.Context, in *GetSiteRequest, opts ...grpc.CallOption) (*v1.SiteResource, error)
 	// Update a site.
 	UpdateSite(ctx context.Context, in *UpdateSiteRequest, opts ...grpc.CallOption) (*v1.SiteResource, error)
+	// Patch a site.
+	PatchSite(ctx context.Context, in *PatchSiteRequest, opts ...grpc.CallOption) (*v1.SiteResource, error)
 	// Delete a site.
 	DeleteSite(ctx context.Context, in *DeleteSiteRequest, opts ...grpc.CallOption) (*DeleteSiteResponse, error)
 }
@@ -322,6 +363,15 @@ func (c *siteServiceClient) UpdateSite(ctx context.Context, in *UpdateSiteReques
 	return out, nil
 }
 
+func (c *siteServiceClient) PatchSite(ctx context.Context, in *PatchSiteRequest, opts ...grpc.CallOption) (*v1.SiteResource, error) {
+	out := new(v1.SiteResource)
+	err := c.cc.Invoke(ctx, "/services.v1.SiteService/PatchSite", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *siteServiceClient) DeleteSite(ctx context.Context, in *DeleteSiteRequest, opts ...grpc.CallOption) (*DeleteSiteResponse, error) {
 	out := new(DeleteSiteResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.SiteService/DeleteSite", in, out, opts...)
@@ -343,6 +393,8 @@ type SiteServiceServer interface {
 	GetSite(context.Context, *GetSiteRequest) (*v1.SiteResource, error)
 	// Update a site.
 	UpdateSite(context.Context, *UpdateSiteRequest) (*v1.SiteResource, error)
+	// Patch a site.
+	PatchSite(context.Context, *PatchSiteRequest) (*v1.SiteResource, error)
 	// Delete a site.
 	DeleteSite(context.Context, *DeleteSiteRequest) (*DeleteSiteResponse, error)
 }
@@ -362,6 +414,9 @@ func (UnimplementedSiteServiceServer) GetSite(context.Context, *GetSiteRequest) 
 }
 func (UnimplementedSiteServiceServer) UpdateSite(context.Context, *UpdateSiteRequest) (*v1.SiteResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSite not implemented")
+}
+func (UnimplementedSiteServiceServer) PatchSite(context.Context, *PatchSiteRequest) (*v1.SiteResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchSite not implemented")
 }
 func (UnimplementedSiteServiceServer) DeleteSite(context.Context, *DeleteSiteRequest) (*DeleteSiteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSite not implemented")
@@ -450,6 +505,24 @@ func _SiteService_UpdateSite_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SiteService_PatchSite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchSiteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SiteServiceServer).PatchSite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.SiteService/PatchSite",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SiteServiceServer).PatchSite(ctx, req.(*PatchSiteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SiteService_DeleteSite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteSiteRequest)
 	if err := dec(in); err != nil {
@@ -490,6 +563,10 @@ var SiteService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateSite",
 			Handler:    _SiteService_UpdateSite_Handler,
+		},
+		{
+			MethodName: "PatchSite",
+			Handler:    _SiteService_PatchSite_Handler,
 		},
 		{
 			MethodName: "DeleteSite",
@@ -590,7 +667,7 @@ var LocationService_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HostServiceClient interface {
-	// Get a specific host.
+	// Get a summary of the hosts status.
 	GetHostsSummary(ctx context.Context, in *GetHostSummaryRequest, opts ...grpc.CallOption) (*GetHostSummaryResponse, error)
 	// Create a host.
 	CreateHost(ctx context.Context, in *CreateHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
@@ -600,6 +677,8 @@ type HostServiceClient interface {
 	GetHost(ctx context.Context, in *GetHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
 	// Update a host.
 	UpdateHost(ctx context.Context, in *UpdateHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
+	// Patch a host.
+	PatchHost(ctx context.Context, in *PatchHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
 	// Delete a host.
 	DeleteHost(ctx context.Context, in *DeleteHostRequest, opts ...grpc.CallOption) (*DeleteHostResponse, error)
 	// Invalidate a host.
@@ -665,6 +744,15 @@ func (c *hostServiceClient) UpdateHost(ctx context.Context, in *UpdateHostReques
 	return out, nil
 }
 
+func (c *hostServiceClient) PatchHost(ctx context.Context, in *PatchHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error) {
+	out := new(v11.HostResource)
+	err := c.cc.Invoke(ctx, "/services.v1.HostService/PatchHost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *hostServiceClient) DeleteHost(ctx context.Context, in *DeleteHostRequest, opts ...grpc.CallOption) (*DeleteHostResponse, error) {
 	out := new(DeleteHostResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.HostService/DeleteHost", in, out, opts...)
@@ -714,7 +802,7 @@ func (c *hostServiceClient) OnboardHost(ctx context.Context, in *OnboardHostRequ
 // All implementations should embed UnimplementedHostServiceServer
 // for forward compatibility
 type HostServiceServer interface {
-	// Get a specific host.
+	// Get a summary of the hosts status.
 	GetHostsSummary(context.Context, *GetHostSummaryRequest) (*GetHostSummaryResponse, error)
 	// Create a host.
 	CreateHost(context.Context, *CreateHostRequest) (*v11.HostResource, error)
@@ -724,6 +812,8 @@ type HostServiceServer interface {
 	GetHost(context.Context, *GetHostRequest) (*v11.HostResource, error)
 	// Update a host.
 	UpdateHost(context.Context, *UpdateHostRequest) (*v11.HostResource, error)
+	// Patch a host.
+	PatchHost(context.Context, *PatchHostRequest) (*v11.HostResource, error)
 	// Delete a host.
 	DeleteHost(context.Context, *DeleteHostRequest) (*DeleteHostResponse, error)
 	// Invalidate a host.
@@ -754,6 +844,9 @@ func (UnimplementedHostServiceServer) GetHost(context.Context, *GetHostRequest) 
 }
 func (UnimplementedHostServiceServer) UpdateHost(context.Context, *UpdateHostRequest) (*v11.HostResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateHost not implemented")
+}
+func (UnimplementedHostServiceServer) PatchHost(context.Context, *PatchHostRequest) (*v11.HostResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchHost not implemented")
 }
 func (UnimplementedHostServiceServer) DeleteHost(context.Context, *DeleteHostRequest) (*DeleteHostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteHost not implemented")
@@ -868,6 +961,24 @@ func _HostService_UpdateHost_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HostServiceServer).UpdateHost(ctx, req.(*UpdateHostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _HostService_PatchHost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchHostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HostServiceServer).PatchHost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.HostService/PatchHost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HostServiceServer).PatchHost(ctx, req.(*PatchHostRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -990,6 +1101,10 @@ var HostService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _HostService_UpdateHost_Handler,
 		},
 		{
+			MethodName: "PatchHost",
+			Handler:    _HostService_PatchHost_Handler,
+		},
+		{
 			MethodName: "DeleteHost",
 			Handler:    _HostService_DeleteHost_Handler,
 		},
@@ -1026,6 +1141,8 @@ type InstanceServiceClient interface {
 	GetInstance(ctx context.Context, in *GetInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error)
 	// Update a instance.
 	UpdateInstance(ctx context.Context, in *UpdateInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error)
+	// Patch a instance.
+	PatchInstance(ctx context.Context, in *PatchInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error)
 	// Delete a instance.
 	DeleteInstance(ctx context.Context, in *DeleteInstanceRequest, opts ...grpc.CallOption) (*DeleteInstanceResponse, error)
 	// Invalidate a instance.
@@ -1076,6 +1193,15 @@ func (c *instanceServiceClient) UpdateInstance(ctx context.Context, in *UpdateIn
 	return out, nil
 }
 
+func (c *instanceServiceClient) PatchInstance(ctx context.Context, in *PatchInstanceRequest, opts ...grpc.CallOption) (*v11.InstanceResource, error) {
+	out := new(v11.InstanceResource)
+	err := c.cc.Invoke(ctx, "/services.v1.InstanceService/PatchInstance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *instanceServiceClient) DeleteInstance(ctx context.Context, in *DeleteInstanceRequest, opts ...grpc.CallOption) (*DeleteInstanceResponse, error) {
 	out := new(DeleteInstanceResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.InstanceService/DeleteInstance", in, out, opts...)
@@ -1106,6 +1232,8 @@ type InstanceServiceServer interface {
 	GetInstance(context.Context, *GetInstanceRequest) (*v11.InstanceResource, error)
 	// Update a instance.
 	UpdateInstance(context.Context, *UpdateInstanceRequest) (*v11.InstanceResource, error)
+	// Patch a instance.
+	PatchInstance(context.Context, *PatchInstanceRequest) (*v11.InstanceResource, error)
 	// Delete a instance.
 	DeleteInstance(context.Context, *DeleteInstanceRequest) (*DeleteInstanceResponse, error)
 	// Invalidate a instance.
@@ -1127,6 +1255,9 @@ func (UnimplementedInstanceServiceServer) GetInstance(context.Context, *GetInsta
 }
 func (UnimplementedInstanceServiceServer) UpdateInstance(context.Context, *UpdateInstanceRequest) (*v11.InstanceResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateInstance not implemented")
+}
+func (UnimplementedInstanceServiceServer) PatchInstance(context.Context, *PatchInstanceRequest) (*v11.InstanceResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchInstance not implemented")
 }
 func (UnimplementedInstanceServiceServer) DeleteInstance(context.Context, *DeleteInstanceRequest) (*DeleteInstanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteInstance not implemented")
@@ -1218,6 +1349,24 @@ func _InstanceService_UpdateInstance_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InstanceService_PatchInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchInstanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InstanceServiceServer).PatchInstance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.InstanceService/PatchInstance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InstanceServiceServer).PatchInstance(ctx, req.(*PatchInstanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _InstanceService_DeleteInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteInstanceRequest)
 	if err := dec(in); err != nil {
@@ -1278,6 +1427,10 @@ var InstanceService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _InstanceService_UpdateInstance_Handler,
 		},
 		{
+			MethodName: "PatchInstance",
+			Handler:    _InstanceService_PatchInstance_Handler,
+		},
+		{
 			MethodName: "DeleteInstance",
 			Handler:    _InstanceService_DeleteInstance_Handler,
 		},
@@ -1302,6 +1455,8 @@ type OperatingSystemServiceClient interface {
 	GetOperatingSystem(ctx context.Context, in *GetOperatingSystemRequest, opts ...grpc.CallOption) (*v12.OperatingSystemResource, error)
 	// Update an OS.
 	UpdateOperatingSystem(ctx context.Context, in *UpdateOperatingSystemRequest, opts ...grpc.CallOption) (*v12.OperatingSystemResource, error)
+	// Patch an OS.
+	PatchOperatingSystem(ctx context.Context, in *PatchOperatingSystemRequest, opts ...grpc.CallOption) (*v12.OperatingSystemResource, error)
 	// Delete an OS.
 	DeleteOperatingSystem(ctx context.Context, in *DeleteOperatingSystemRequest, opts ...grpc.CallOption) (*DeleteOperatingSystemResponse, error)
 }
@@ -1350,6 +1505,15 @@ func (c *operatingSystemServiceClient) UpdateOperatingSystem(ctx context.Context
 	return out, nil
 }
 
+func (c *operatingSystemServiceClient) PatchOperatingSystem(ctx context.Context, in *PatchOperatingSystemRequest, opts ...grpc.CallOption) (*v12.OperatingSystemResource, error) {
+	out := new(v12.OperatingSystemResource)
+	err := c.cc.Invoke(ctx, "/services.v1.OperatingSystemService/PatchOperatingSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *operatingSystemServiceClient) DeleteOperatingSystem(ctx context.Context, in *DeleteOperatingSystemRequest, opts ...grpc.CallOption) (*DeleteOperatingSystemResponse, error) {
 	out := new(DeleteOperatingSystemResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.OperatingSystemService/DeleteOperatingSystem", in, out, opts...)
@@ -1371,6 +1535,8 @@ type OperatingSystemServiceServer interface {
 	GetOperatingSystem(context.Context, *GetOperatingSystemRequest) (*v12.OperatingSystemResource, error)
 	// Update an OS.
 	UpdateOperatingSystem(context.Context, *UpdateOperatingSystemRequest) (*v12.OperatingSystemResource, error)
+	// Patch an OS.
+	PatchOperatingSystem(context.Context, *PatchOperatingSystemRequest) (*v12.OperatingSystemResource, error)
 	// Delete an OS.
 	DeleteOperatingSystem(context.Context, *DeleteOperatingSystemRequest) (*DeleteOperatingSystemResponse, error)
 }
@@ -1390,6 +1556,9 @@ func (UnimplementedOperatingSystemServiceServer) GetOperatingSystem(context.Cont
 }
 func (UnimplementedOperatingSystemServiceServer) UpdateOperatingSystem(context.Context, *UpdateOperatingSystemRequest) (*v12.OperatingSystemResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOperatingSystem not implemented")
+}
+func (UnimplementedOperatingSystemServiceServer) PatchOperatingSystem(context.Context, *PatchOperatingSystemRequest) (*v12.OperatingSystemResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchOperatingSystem not implemented")
 }
 func (UnimplementedOperatingSystemServiceServer) DeleteOperatingSystem(context.Context, *DeleteOperatingSystemRequest) (*DeleteOperatingSystemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOperatingSystem not implemented")
@@ -1478,6 +1647,24 @@ func _OperatingSystemService_UpdateOperatingSystem_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OperatingSystemService_PatchOperatingSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchOperatingSystemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperatingSystemServiceServer).PatchOperatingSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OperatingSystemService/PatchOperatingSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperatingSystemServiceServer).PatchOperatingSystem(ctx, req.(*PatchOperatingSystemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OperatingSystemService_DeleteOperatingSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteOperatingSystemRequest)
 	if err := dec(in); err != nil {
@@ -1520,6 +1707,10 @@ var OperatingSystemService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OperatingSystemService_UpdateOperatingSystem_Handler,
 		},
 		{
+			MethodName: "PatchOperatingSystem",
+			Handler:    _OperatingSystemService_PatchOperatingSystem_Handler,
+		},
+		{
 			MethodName: "DeleteOperatingSystem",
 			Handler:    _OperatingSystemService_DeleteOperatingSystem_Handler,
 		},
@@ -1538,8 +1729,6 @@ type ProviderServiceClient interface {
 	ListProviders(ctx context.Context, in *ListProvidersRequest, opts ...grpc.CallOption) (*ListProvidersResponse, error)
 	// Get a specific provider.
 	GetProvider(ctx context.Context, in *GetProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error)
-	// Update a provider.
-	UpdateProvider(ctx context.Context, in *UpdateProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error)
 	// Delete a provider.
 	DeleteProvider(ctx context.Context, in *DeleteProviderRequest, opts ...grpc.CallOption) (*DeleteProviderResponse, error)
 }
@@ -1579,15 +1768,6 @@ func (c *providerServiceClient) GetProvider(ctx context.Context, in *GetProvider
 	return out, nil
 }
 
-func (c *providerServiceClient) UpdateProvider(ctx context.Context, in *UpdateProviderRequest, opts ...grpc.CallOption) (*v13.ProviderResource, error) {
-	out := new(v13.ProviderResource)
-	err := c.cc.Invoke(ctx, "/services.v1.ProviderService/UpdateProvider", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *providerServiceClient) DeleteProvider(ctx context.Context, in *DeleteProviderRequest, opts ...grpc.CallOption) (*DeleteProviderResponse, error) {
 	out := new(DeleteProviderResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.ProviderService/DeleteProvider", in, out, opts...)
@@ -1607,8 +1787,6 @@ type ProviderServiceServer interface {
 	ListProviders(context.Context, *ListProvidersRequest) (*ListProvidersResponse, error)
 	// Get a specific provider.
 	GetProvider(context.Context, *GetProviderRequest) (*v13.ProviderResource, error)
-	// Update a provider.
-	UpdateProvider(context.Context, *UpdateProviderRequest) (*v13.ProviderResource, error)
 	// Delete a provider.
 	DeleteProvider(context.Context, *DeleteProviderRequest) (*DeleteProviderResponse, error)
 }
@@ -1625,9 +1803,6 @@ func (UnimplementedProviderServiceServer) ListProviders(context.Context, *ListPr
 }
 func (UnimplementedProviderServiceServer) GetProvider(context.Context, *GetProviderRequest) (*v13.ProviderResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProvider not implemented")
-}
-func (UnimplementedProviderServiceServer) UpdateProvider(context.Context, *UpdateProviderRequest) (*v13.ProviderResource, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProvider not implemented")
 }
 func (UnimplementedProviderServiceServer) DeleteProvider(context.Context, *DeleteProviderRequest) (*DeleteProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProvider not implemented")
@@ -1698,24 +1873,6 @@ func _ProviderService_GetProvider_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProviderService_UpdateProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProviderRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProviderServiceServer).UpdateProvider(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/services.v1.ProviderService/UpdateProvider",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProviderServiceServer).UpdateProvider(ctx, req.(*UpdateProviderRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ProviderService_DeleteProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteProviderRequest)
 	if err := dec(in); err != nil {
@@ -1754,10 +1911,6 @@ var ProviderService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ProviderService_GetProvider_Handler,
 		},
 		{
-			MethodName: "UpdateProvider",
-			Handler:    _ProviderService_UpdateProvider_Handler,
-		},
-		{
 			MethodName: "DeleteProvider",
 			Handler:    _ProviderService_DeleteProvider_Handler,
 		},
@@ -1778,6 +1931,8 @@ type WorkloadServiceClient interface {
 	GetWorkload(ctx context.Context, in *GetWorkloadRequest, opts ...grpc.CallOption) (*v11.WorkloadResource, error)
 	// Update a workload.
 	UpdateWorkload(ctx context.Context, in *UpdateWorkloadRequest, opts ...grpc.CallOption) (*v11.WorkloadResource, error)
+	// Patch a workload.
+	PatchWorkload(ctx context.Context, in *PatchWorkloadRequest, opts ...grpc.CallOption) (*v11.WorkloadResource, error)
 	// Delete a workload.
 	DeleteWorkload(ctx context.Context, in *DeleteWorkloadRequest, opts ...grpc.CallOption) (*DeleteWorkloadResponse, error)
 }
@@ -1826,6 +1981,15 @@ func (c *workloadServiceClient) UpdateWorkload(ctx context.Context, in *UpdateWo
 	return out, nil
 }
 
+func (c *workloadServiceClient) PatchWorkload(ctx context.Context, in *PatchWorkloadRequest, opts ...grpc.CallOption) (*v11.WorkloadResource, error) {
+	out := new(v11.WorkloadResource)
+	err := c.cc.Invoke(ctx, "/services.v1.WorkloadService/PatchWorkload", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workloadServiceClient) DeleteWorkload(ctx context.Context, in *DeleteWorkloadRequest, opts ...grpc.CallOption) (*DeleteWorkloadResponse, error) {
 	out := new(DeleteWorkloadResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.WorkloadService/DeleteWorkload", in, out, opts...)
@@ -1847,6 +2011,8 @@ type WorkloadServiceServer interface {
 	GetWorkload(context.Context, *GetWorkloadRequest) (*v11.WorkloadResource, error)
 	// Update a workload.
 	UpdateWorkload(context.Context, *UpdateWorkloadRequest) (*v11.WorkloadResource, error)
+	// Patch a workload.
+	PatchWorkload(context.Context, *PatchWorkloadRequest) (*v11.WorkloadResource, error)
 	// Delete a workload.
 	DeleteWorkload(context.Context, *DeleteWorkloadRequest) (*DeleteWorkloadResponse, error)
 }
@@ -1866,6 +2032,9 @@ func (UnimplementedWorkloadServiceServer) GetWorkload(context.Context, *GetWorkl
 }
 func (UnimplementedWorkloadServiceServer) UpdateWorkload(context.Context, *UpdateWorkloadRequest) (*v11.WorkloadResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkload not implemented")
+}
+func (UnimplementedWorkloadServiceServer) PatchWorkload(context.Context, *PatchWorkloadRequest) (*v11.WorkloadResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchWorkload not implemented")
 }
 func (UnimplementedWorkloadServiceServer) DeleteWorkload(context.Context, *DeleteWorkloadRequest) (*DeleteWorkloadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkload not implemented")
@@ -1954,6 +2123,24 @@ func _WorkloadService_UpdateWorkload_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkloadService_PatchWorkload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchWorkloadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkloadServiceServer).PatchWorkload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.WorkloadService/PatchWorkload",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkloadServiceServer).PatchWorkload(ctx, req.(*PatchWorkloadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WorkloadService_DeleteWorkload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteWorkloadRequest)
 	if err := dec(in); err != nil {
@@ -1996,6 +2183,10 @@ var WorkloadService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WorkloadService_UpdateWorkload_Handler,
 		},
 		{
+			MethodName: "PatchWorkload",
+			Handler:    _WorkloadService_PatchWorkload_Handler,
+		},
+		{
 			MethodName: "DeleteWorkload",
 			Handler:    _WorkloadService_DeleteWorkload_Handler,
 		},
@@ -2014,8 +2205,6 @@ type WorkloadMemberServiceClient interface {
 	ListWorkloadMembers(ctx context.Context, in *ListWorkloadMembersRequest, opts ...grpc.CallOption) (*ListWorkloadMembersResponse, error)
 	// Get a specific workload_member.
 	GetWorkloadMember(ctx context.Context, in *GetWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error)
-	// Update a workload_member.
-	UpdateWorkloadMember(ctx context.Context, in *UpdateWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error)
 	// Delete a workload_member.
 	DeleteWorkloadMember(ctx context.Context, in *DeleteWorkloadMemberRequest, opts ...grpc.CallOption) (*DeleteWorkloadMemberResponse, error)
 }
@@ -2055,15 +2244,6 @@ func (c *workloadMemberServiceClient) GetWorkloadMember(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *workloadMemberServiceClient) UpdateWorkloadMember(ctx context.Context, in *UpdateWorkloadMemberRequest, opts ...grpc.CallOption) (*v11.WorkloadMember, error) {
-	out := new(v11.WorkloadMember)
-	err := c.cc.Invoke(ctx, "/services.v1.WorkloadMemberService/UpdateWorkloadMember", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *workloadMemberServiceClient) DeleteWorkloadMember(ctx context.Context, in *DeleteWorkloadMemberRequest, opts ...grpc.CallOption) (*DeleteWorkloadMemberResponse, error) {
 	out := new(DeleteWorkloadMemberResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.WorkloadMemberService/DeleteWorkloadMember", in, out, opts...)
@@ -2083,8 +2263,6 @@ type WorkloadMemberServiceServer interface {
 	ListWorkloadMembers(context.Context, *ListWorkloadMembersRequest) (*ListWorkloadMembersResponse, error)
 	// Get a specific workload_member.
 	GetWorkloadMember(context.Context, *GetWorkloadMemberRequest) (*v11.WorkloadMember, error)
-	// Update a workload_member.
-	UpdateWorkloadMember(context.Context, *UpdateWorkloadMemberRequest) (*v11.WorkloadMember, error)
 	// Delete a workload_member.
 	DeleteWorkloadMember(context.Context, *DeleteWorkloadMemberRequest) (*DeleteWorkloadMemberResponse, error)
 }
@@ -2101,9 +2279,6 @@ func (UnimplementedWorkloadMemberServiceServer) ListWorkloadMembers(context.Cont
 }
 func (UnimplementedWorkloadMemberServiceServer) GetWorkloadMember(context.Context, *GetWorkloadMemberRequest) (*v11.WorkloadMember, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWorkloadMember not implemented")
-}
-func (UnimplementedWorkloadMemberServiceServer) UpdateWorkloadMember(context.Context, *UpdateWorkloadMemberRequest) (*v11.WorkloadMember, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkloadMember not implemented")
 }
 func (UnimplementedWorkloadMemberServiceServer) DeleteWorkloadMember(context.Context, *DeleteWorkloadMemberRequest) (*DeleteWorkloadMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkloadMember not implemented")
@@ -2174,24 +2349,6 @@ func _WorkloadMemberService_GetWorkloadMember_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WorkloadMemberService_UpdateWorkloadMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateWorkloadMemberRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WorkloadMemberServiceServer).UpdateWorkloadMember(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/services.v1.WorkloadMemberService/UpdateWorkloadMember",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkloadMemberServiceServer).UpdateWorkloadMember(ctx, req.(*UpdateWorkloadMemberRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _WorkloadMemberService_DeleteWorkloadMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteWorkloadMemberRequest)
 	if err := dec(in); err != nil {
@@ -2230,10 +2387,6 @@ var WorkloadMemberService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WorkloadMemberService_GetWorkloadMember_Handler,
 		},
 		{
-			MethodName: "UpdateWorkloadMember",
-			Handler:    _WorkloadMemberService_UpdateWorkloadMember_Handler,
-		},
-		{
 			MethodName: "DeleteWorkloadMember",
 			Handler:    _WorkloadMemberService_DeleteWorkloadMember_Handler,
 		},
@@ -2256,6 +2409,8 @@ type ScheduleServiceClient interface {
 	GetSingleSchedule(ctx context.Context, in *GetSingleScheduleRequest, opts ...grpc.CallOption) (*v14.SingleScheduleResource, error)
 	// Update a single_schedule.
 	UpdateSingleSchedule(ctx context.Context, in *UpdateSingleScheduleRequest, opts ...grpc.CallOption) (*v14.SingleScheduleResource, error)
+	// Patch a single_schedule.
+	PatchSingleSchedule(ctx context.Context, in *PatchSingleScheduleRequest, opts ...grpc.CallOption) (*v14.SingleScheduleResource, error)
 	// Delete a single_schedule.
 	DeleteSingleSchedule(ctx context.Context, in *DeleteSingleScheduleRequest, opts ...grpc.CallOption) (*DeleteSingleScheduleResponse, error)
 	// Create a repeated_schedule.
@@ -2266,6 +2421,8 @@ type ScheduleServiceClient interface {
 	GetRepeatedSchedule(ctx context.Context, in *GetRepeatedScheduleRequest, opts ...grpc.CallOption) (*v14.RepeatedScheduleResource, error)
 	// Update a repeated_schedule.
 	UpdateRepeatedSchedule(ctx context.Context, in *UpdateRepeatedScheduleRequest, opts ...grpc.CallOption) (*v14.RepeatedScheduleResource, error)
+	// Patch a repeated_schedule.
+	PatchRepeatedSchedule(ctx context.Context, in *PatchRepeatedScheduleRequest, opts ...grpc.CallOption) (*v14.RepeatedScheduleResource, error)
 	// Delete a repeated_schedule.
 	DeleteRepeatedSchedule(ctx context.Context, in *DeleteRepeatedScheduleRequest, opts ...grpc.CallOption) (*DeleteRepeatedScheduleResponse, error)
 }
@@ -2323,6 +2480,15 @@ func (c *scheduleServiceClient) UpdateSingleSchedule(ctx context.Context, in *Up
 	return out, nil
 }
 
+func (c *scheduleServiceClient) PatchSingleSchedule(ctx context.Context, in *PatchSingleScheduleRequest, opts ...grpc.CallOption) (*v14.SingleScheduleResource, error) {
+	out := new(v14.SingleScheduleResource)
+	err := c.cc.Invoke(ctx, "/services.v1.ScheduleService/PatchSingleSchedule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *scheduleServiceClient) DeleteSingleSchedule(ctx context.Context, in *DeleteSingleScheduleRequest, opts ...grpc.CallOption) (*DeleteSingleScheduleResponse, error) {
 	out := new(DeleteSingleScheduleResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.ScheduleService/DeleteSingleSchedule", in, out, opts...)
@@ -2368,6 +2534,15 @@ func (c *scheduleServiceClient) UpdateRepeatedSchedule(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *scheduleServiceClient) PatchRepeatedSchedule(ctx context.Context, in *PatchRepeatedScheduleRequest, opts ...grpc.CallOption) (*v14.RepeatedScheduleResource, error) {
+	out := new(v14.RepeatedScheduleResource)
+	err := c.cc.Invoke(ctx, "/services.v1.ScheduleService/PatchRepeatedSchedule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *scheduleServiceClient) DeleteRepeatedSchedule(ctx context.Context, in *DeleteRepeatedScheduleRequest, opts ...grpc.CallOption) (*DeleteRepeatedScheduleResponse, error) {
 	out := new(DeleteRepeatedScheduleResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.ScheduleService/DeleteRepeatedSchedule", in, out, opts...)
@@ -2391,6 +2566,8 @@ type ScheduleServiceServer interface {
 	GetSingleSchedule(context.Context, *GetSingleScheduleRequest) (*v14.SingleScheduleResource, error)
 	// Update a single_schedule.
 	UpdateSingleSchedule(context.Context, *UpdateSingleScheduleRequest) (*v14.SingleScheduleResource, error)
+	// Patch a single_schedule.
+	PatchSingleSchedule(context.Context, *PatchSingleScheduleRequest) (*v14.SingleScheduleResource, error)
 	// Delete a single_schedule.
 	DeleteSingleSchedule(context.Context, *DeleteSingleScheduleRequest) (*DeleteSingleScheduleResponse, error)
 	// Create a repeated_schedule.
@@ -2401,6 +2578,8 @@ type ScheduleServiceServer interface {
 	GetRepeatedSchedule(context.Context, *GetRepeatedScheduleRequest) (*v14.RepeatedScheduleResource, error)
 	// Update a repeated_schedule.
 	UpdateRepeatedSchedule(context.Context, *UpdateRepeatedScheduleRequest) (*v14.RepeatedScheduleResource, error)
+	// Patch a repeated_schedule.
+	PatchRepeatedSchedule(context.Context, *PatchRepeatedScheduleRequest) (*v14.RepeatedScheduleResource, error)
 	// Delete a repeated_schedule.
 	DeleteRepeatedSchedule(context.Context, *DeleteRepeatedScheduleRequest) (*DeleteRepeatedScheduleResponse, error)
 }
@@ -2424,6 +2603,9 @@ func (UnimplementedScheduleServiceServer) GetSingleSchedule(context.Context, *Ge
 func (UnimplementedScheduleServiceServer) UpdateSingleSchedule(context.Context, *UpdateSingleScheduleRequest) (*v14.SingleScheduleResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSingleSchedule not implemented")
 }
+func (UnimplementedScheduleServiceServer) PatchSingleSchedule(context.Context, *PatchSingleScheduleRequest) (*v14.SingleScheduleResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchSingleSchedule not implemented")
+}
 func (UnimplementedScheduleServiceServer) DeleteSingleSchedule(context.Context, *DeleteSingleScheduleRequest) (*DeleteSingleScheduleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSingleSchedule not implemented")
 }
@@ -2438,6 +2620,9 @@ func (UnimplementedScheduleServiceServer) GetRepeatedSchedule(context.Context, *
 }
 func (UnimplementedScheduleServiceServer) UpdateRepeatedSchedule(context.Context, *UpdateRepeatedScheduleRequest) (*v14.RepeatedScheduleResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRepeatedSchedule not implemented")
+}
+func (UnimplementedScheduleServiceServer) PatchRepeatedSchedule(context.Context, *PatchRepeatedScheduleRequest) (*v14.RepeatedScheduleResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchRepeatedSchedule not implemented")
 }
 func (UnimplementedScheduleServiceServer) DeleteRepeatedSchedule(context.Context, *DeleteRepeatedScheduleRequest) (*DeleteRepeatedScheduleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRepeatedSchedule not implemented")
@@ -2544,6 +2729,24 @@ func _ScheduleService_UpdateSingleSchedule_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ScheduleService_PatchSingleSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchSingleScheduleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScheduleServiceServer).PatchSingleSchedule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.ScheduleService/PatchSingleSchedule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScheduleServiceServer).PatchSingleSchedule(ctx, req.(*PatchSingleScheduleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ScheduleService_DeleteSingleSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteSingleScheduleRequest)
 	if err := dec(in); err != nil {
@@ -2634,6 +2837,24 @@ func _ScheduleService_UpdateRepeatedSchedule_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ScheduleService_PatchRepeatedSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchRepeatedScheduleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScheduleServiceServer).PatchRepeatedSchedule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.ScheduleService/PatchRepeatedSchedule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScheduleServiceServer).PatchRepeatedSchedule(ctx, req.(*PatchRepeatedScheduleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ScheduleService_DeleteRepeatedSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRepeatedScheduleRequest)
 	if err := dec(in); err != nil {
@@ -2680,6 +2901,10 @@ var ScheduleService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ScheduleService_UpdateSingleSchedule_Handler,
 		},
 		{
+			MethodName: "PatchSingleSchedule",
+			Handler:    _ScheduleService_PatchSingleSchedule_Handler,
+		},
+		{
 			MethodName: "DeleteSingleSchedule",
 			Handler:    _ScheduleService_DeleteSingleSchedule_Handler,
 		},
@@ -2698,6 +2923,10 @@ var ScheduleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateRepeatedSchedule",
 			Handler:    _ScheduleService_UpdateRepeatedSchedule_Handler,
+		},
+		{
+			MethodName: "PatchRepeatedSchedule",
+			Handler:    _ScheduleService_PatchRepeatedSchedule_Handler,
 		},
 		{
 			MethodName: "DeleteRepeatedSchedule",
@@ -3120,6 +3349,8 @@ type TelemetryLogsProfileServiceClient interface {
 	GetTelemetryLogsProfile(ctx context.Context, in *GetTelemetryLogsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryLogsProfileResource, error)
 	// Update a telemetry_logs_profile.
 	UpdateTelemetryLogsProfile(ctx context.Context, in *UpdateTelemetryLogsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryLogsProfileResource, error)
+	// Patch a telemetry_logs_profile.
+	PatchTelemetryLogsProfile(ctx context.Context, in *PatchTelemetryLogsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryLogsProfileResource, error)
 	// Delete a telemetry_logs_profile.
 	DeleteTelemetryLogsProfile(ctx context.Context, in *DeleteTelemetryLogsProfileRequest, opts ...grpc.CallOption) (*DeleteTelemetryLogsProfileResponse, error)
 }
@@ -3168,6 +3399,15 @@ func (c *telemetryLogsProfileServiceClient) UpdateTelemetryLogsProfile(ctx conte
 	return out, nil
 }
 
+func (c *telemetryLogsProfileServiceClient) PatchTelemetryLogsProfile(ctx context.Context, in *PatchTelemetryLogsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryLogsProfileResource, error) {
+	out := new(v15.TelemetryLogsProfileResource)
+	err := c.cc.Invoke(ctx, "/services.v1.TelemetryLogsProfileService/PatchTelemetryLogsProfile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *telemetryLogsProfileServiceClient) DeleteTelemetryLogsProfile(ctx context.Context, in *DeleteTelemetryLogsProfileRequest, opts ...grpc.CallOption) (*DeleteTelemetryLogsProfileResponse, error) {
 	out := new(DeleteTelemetryLogsProfileResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.TelemetryLogsProfileService/DeleteTelemetryLogsProfile", in, out, opts...)
@@ -3189,6 +3429,8 @@ type TelemetryLogsProfileServiceServer interface {
 	GetTelemetryLogsProfile(context.Context, *GetTelemetryLogsProfileRequest) (*v15.TelemetryLogsProfileResource, error)
 	// Update a telemetry_logs_profile.
 	UpdateTelemetryLogsProfile(context.Context, *UpdateTelemetryLogsProfileRequest) (*v15.TelemetryLogsProfileResource, error)
+	// Patch a telemetry_logs_profile.
+	PatchTelemetryLogsProfile(context.Context, *PatchTelemetryLogsProfileRequest) (*v15.TelemetryLogsProfileResource, error)
 	// Delete a telemetry_logs_profile.
 	DeleteTelemetryLogsProfile(context.Context, *DeleteTelemetryLogsProfileRequest) (*DeleteTelemetryLogsProfileResponse, error)
 }
@@ -3208,6 +3450,9 @@ func (UnimplementedTelemetryLogsProfileServiceServer) GetTelemetryLogsProfile(co
 }
 func (UnimplementedTelemetryLogsProfileServiceServer) UpdateTelemetryLogsProfile(context.Context, *UpdateTelemetryLogsProfileRequest) (*v15.TelemetryLogsProfileResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTelemetryLogsProfile not implemented")
+}
+func (UnimplementedTelemetryLogsProfileServiceServer) PatchTelemetryLogsProfile(context.Context, *PatchTelemetryLogsProfileRequest) (*v15.TelemetryLogsProfileResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchTelemetryLogsProfile not implemented")
 }
 func (UnimplementedTelemetryLogsProfileServiceServer) DeleteTelemetryLogsProfile(context.Context, *DeleteTelemetryLogsProfileRequest) (*DeleteTelemetryLogsProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTelemetryLogsProfile not implemented")
@@ -3296,6 +3541,24 @@ func _TelemetryLogsProfileService_UpdateTelemetryLogsProfile_Handler(srv interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TelemetryLogsProfileService_PatchTelemetryLogsProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchTelemetryLogsProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TelemetryLogsProfileServiceServer).PatchTelemetryLogsProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.TelemetryLogsProfileService/PatchTelemetryLogsProfile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TelemetryLogsProfileServiceServer).PatchTelemetryLogsProfile(ctx, req.(*PatchTelemetryLogsProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TelemetryLogsProfileService_DeleteTelemetryLogsProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteTelemetryLogsProfileRequest)
 	if err := dec(in); err != nil {
@@ -3338,6 +3601,10 @@ var TelemetryLogsProfileService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TelemetryLogsProfileService_UpdateTelemetryLogsProfile_Handler,
 		},
 		{
+			MethodName: "PatchTelemetryLogsProfile",
+			Handler:    _TelemetryLogsProfileService_PatchTelemetryLogsProfile_Handler,
+		},
+		{
 			MethodName: "DeleteTelemetryLogsProfile",
 			Handler:    _TelemetryLogsProfileService_DeleteTelemetryLogsProfile_Handler,
 		},
@@ -3358,6 +3625,8 @@ type TelemetryMetricsProfileServiceClient interface {
 	GetTelemetryMetricsProfile(ctx context.Context, in *GetTelemetryMetricsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryMetricsProfileResource, error)
 	// Update a telemetry_metrics_profile.
 	UpdateTelemetryMetricsProfile(ctx context.Context, in *UpdateTelemetryMetricsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryMetricsProfileResource, error)
+	// Patch a telemetry_metrics_profile.
+	PatchTelemetryMetricsProfile(ctx context.Context, in *PatchTelemetryMetricsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryMetricsProfileResource, error)
 	// Delete a telemetry_metrics_profile.
 	DeleteTelemetryMetricsProfile(ctx context.Context, in *DeleteTelemetryMetricsProfileRequest, opts ...grpc.CallOption) (*DeleteTelemetryMetricsProfileResponse, error)
 }
@@ -3406,6 +3675,15 @@ func (c *telemetryMetricsProfileServiceClient) UpdateTelemetryMetricsProfile(ctx
 	return out, nil
 }
 
+func (c *telemetryMetricsProfileServiceClient) PatchTelemetryMetricsProfile(ctx context.Context, in *PatchTelemetryMetricsProfileRequest, opts ...grpc.CallOption) (*v15.TelemetryMetricsProfileResource, error) {
+	out := new(v15.TelemetryMetricsProfileResource)
+	err := c.cc.Invoke(ctx, "/services.v1.TelemetryMetricsProfileService/PatchTelemetryMetricsProfile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *telemetryMetricsProfileServiceClient) DeleteTelemetryMetricsProfile(ctx context.Context, in *DeleteTelemetryMetricsProfileRequest, opts ...grpc.CallOption) (*DeleteTelemetryMetricsProfileResponse, error) {
 	out := new(DeleteTelemetryMetricsProfileResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.TelemetryMetricsProfileService/DeleteTelemetryMetricsProfile", in, out, opts...)
@@ -3427,6 +3705,8 @@ type TelemetryMetricsProfileServiceServer interface {
 	GetTelemetryMetricsProfile(context.Context, *GetTelemetryMetricsProfileRequest) (*v15.TelemetryMetricsProfileResource, error)
 	// Update a telemetry_metrics_profile.
 	UpdateTelemetryMetricsProfile(context.Context, *UpdateTelemetryMetricsProfileRequest) (*v15.TelemetryMetricsProfileResource, error)
+	// Patch a telemetry_metrics_profile.
+	PatchTelemetryMetricsProfile(context.Context, *PatchTelemetryMetricsProfileRequest) (*v15.TelemetryMetricsProfileResource, error)
 	// Delete a telemetry_metrics_profile.
 	DeleteTelemetryMetricsProfile(context.Context, *DeleteTelemetryMetricsProfileRequest) (*DeleteTelemetryMetricsProfileResponse, error)
 }
@@ -3446,6 +3726,9 @@ func (UnimplementedTelemetryMetricsProfileServiceServer) GetTelemetryMetricsProf
 }
 func (UnimplementedTelemetryMetricsProfileServiceServer) UpdateTelemetryMetricsProfile(context.Context, *UpdateTelemetryMetricsProfileRequest) (*v15.TelemetryMetricsProfileResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTelemetryMetricsProfile not implemented")
+}
+func (UnimplementedTelemetryMetricsProfileServiceServer) PatchTelemetryMetricsProfile(context.Context, *PatchTelemetryMetricsProfileRequest) (*v15.TelemetryMetricsProfileResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchTelemetryMetricsProfile not implemented")
 }
 func (UnimplementedTelemetryMetricsProfileServiceServer) DeleteTelemetryMetricsProfile(context.Context, *DeleteTelemetryMetricsProfileRequest) (*DeleteTelemetryMetricsProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTelemetryMetricsProfile not implemented")
@@ -3534,6 +3817,24 @@ func _TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_Handler(srv i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchTelemetryMetricsProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TelemetryMetricsProfileServiceServer).PatchTelemetryMetricsProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.TelemetryMetricsProfileService/PatchTelemetryMetricsProfile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TelemetryMetricsProfileServiceServer).PatchTelemetryMetricsProfile(ctx, req.(*PatchTelemetryMetricsProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteTelemetryMetricsProfileRequest)
 	if err := dec(in); err != nil {
@@ -3576,8 +3877,212 @@ var TelemetryMetricsProfileService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_Handler,
 		},
 		{
+			MethodName: "PatchTelemetryMetricsProfile",
+			Handler:    _TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_Handler,
+		},
+		{
 			MethodName: "DeleteTelemetryMetricsProfile",
 			Handler:    _TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}
+
+// LocalAccountServiceClient is the client API for LocalAccountService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type LocalAccountServiceClient interface {
+	// Create a localAccount.
+	CreateLocalAccount(ctx context.Context, in *CreateLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error)
+	// Get a list of providers.
+	ListLocalAccounts(ctx context.Context, in *ListLocalAccountsRequest, opts ...grpc.CallOption) (*ListLocalAccountsResponse, error)
+	// Get a specific provider.
+	GetLocalAccount(ctx context.Context, in *GetLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error)
+	// Delete a provider.
+	DeleteLocalAccount(ctx context.Context, in *DeleteLocalAccountRequest, opts ...grpc.CallOption) (*DeleteLocalAccountResponse, error)
+}
+
+type localAccountServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewLocalAccountServiceClient(cc grpc.ClientConnInterface) LocalAccountServiceClient {
+	return &localAccountServiceClient{cc}
+}
+
+func (c *localAccountServiceClient) CreateLocalAccount(ctx context.Context, in *CreateLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error) {
+	out := new(v16.LocalAccountResource)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/CreateLocalAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *localAccountServiceClient) ListLocalAccounts(ctx context.Context, in *ListLocalAccountsRequest, opts ...grpc.CallOption) (*ListLocalAccountsResponse, error) {
+	out := new(ListLocalAccountsResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/ListLocalAccounts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *localAccountServiceClient) GetLocalAccount(ctx context.Context, in *GetLocalAccountRequest, opts ...grpc.CallOption) (*v16.LocalAccountResource, error) {
+	out := new(v16.LocalAccountResource)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/GetLocalAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *localAccountServiceClient) DeleteLocalAccount(ctx context.Context, in *DeleteLocalAccountRequest, opts ...grpc.CallOption) (*DeleteLocalAccountResponse, error) {
+	out := new(DeleteLocalAccountResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.LocalAccountService/DeleteLocalAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// LocalAccountServiceServer is the server API for LocalAccountService service.
+// All implementations should embed UnimplementedLocalAccountServiceServer
+// for forward compatibility
+type LocalAccountServiceServer interface {
+	// Create a localAccount.
+	CreateLocalAccount(context.Context, *CreateLocalAccountRequest) (*v16.LocalAccountResource, error)
+	// Get a list of providers.
+	ListLocalAccounts(context.Context, *ListLocalAccountsRequest) (*ListLocalAccountsResponse, error)
+	// Get a specific provider.
+	GetLocalAccount(context.Context, *GetLocalAccountRequest) (*v16.LocalAccountResource, error)
+	// Delete a provider.
+	DeleteLocalAccount(context.Context, *DeleteLocalAccountRequest) (*DeleteLocalAccountResponse, error)
+}
+
+// UnimplementedLocalAccountServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedLocalAccountServiceServer struct {
+}
+
+func (UnimplementedLocalAccountServiceServer) CreateLocalAccount(context.Context, *CreateLocalAccountRequest) (*v16.LocalAccountResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLocalAccount not implemented")
+}
+func (UnimplementedLocalAccountServiceServer) ListLocalAccounts(context.Context, *ListLocalAccountsRequest) (*ListLocalAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLocalAccounts not implemented")
+}
+func (UnimplementedLocalAccountServiceServer) GetLocalAccount(context.Context, *GetLocalAccountRequest) (*v16.LocalAccountResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLocalAccount not implemented")
+}
+func (UnimplementedLocalAccountServiceServer) DeleteLocalAccount(context.Context, *DeleteLocalAccountRequest) (*DeleteLocalAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLocalAccount not implemented")
+}
+
+// UnsafeLocalAccountServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to LocalAccountServiceServer will
+// result in compilation errors.
+type UnsafeLocalAccountServiceServer interface {
+	mustEmbedUnimplementedLocalAccountServiceServer()
+}
+
+func RegisterLocalAccountServiceServer(s grpc.ServiceRegistrar, srv LocalAccountServiceServer) {
+	s.RegisterService(&LocalAccountService_ServiceDesc, srv)
+}
+
+func _LocalAccountService_CreateLocalAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLocalAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).CreateLocalAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/CreateLocalAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).CreateLocalAccount(ctx, req.(*CreateLocalAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LocalAccountService_ListLocalAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLocalAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).ListLocalAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/ListLocalAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).ListLocalAccounts(ctx, req.(*ListLocalAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LocalAccountService_GetLocalAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLocalAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).GetLocalAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/GetLocalAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).GetLocalAccount(ctx, req.(*GetLocalAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LocalAccountService_DeleteLocalAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLocalAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LocalAccountServiceServer).DeleteLocalAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.LocalAccountService/DeleteLocalAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LocalAccountServiceServer).DeleteLocalAccount(ctx, req.(*DeleteLocalAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// LocalAccountService_ServiceDesc is the grpc.ServiceDesc for LocalAccountService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var LocalAccountService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.LocalAccountService",
+	HandlerType: (*LocalAccountServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateLocalAccount",
+			Handler:    _LocalAccountService_CreateLocalAccount_Handler,
+		},
+		{
+			MethodName: "ListLocalAccounts",
+			Handler:    _LocalAccountService_ListLocalAccounts_Handler,
+		},
+		{
+			MethodName: "GetLocalAccount",
+			Handler:    _LocalAccountService_GetLocalAccount_Handler,
+		},
+		{
+			MethodName: "DeleteLocalAccount",
+			Handler:    _LocalAccountService_DeleteLocalAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

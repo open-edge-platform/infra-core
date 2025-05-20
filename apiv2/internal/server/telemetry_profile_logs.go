@@ -14,6 +14,7 @@ import (
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_telemetryv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -21,11 +22,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs TelemetryLogsProfile defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPITelemetryLogsProfileToProto = map[string]string{
-	"targetRegion":   inv_telemetryv1.TelemetryProfileEdgeRegion,
-	"targetSite":     inv_telemetryv1.TelemetryProfileEdgeSite,
-	"targetInstance": inv_telemetryv1.TelemetryProfileEdgeInstance,
-	"logLevel":       inv_telemetryv1.TelemetryProfileFieldLogLevel,
-	"logsGroupId":    inv_telemetryv1.TelemetryProfileEdgeGroup,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetRegion:   inv_telemetryv1.TelemetryProfileEdgeRegion,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetSite:     inv_telemetryv1.TelemetryProfileEdgeSite,
+	telemetryv1.TelemetryLogsProfileResourceFieldTargetInstance: inv_telemetryv1.TelemetryProfileEdgeInstance,
+	telemetryv1.TelemetryLogsProfileResourceFieldLogLevel:       inv_telemetryv1.TelemetryProfileFieldLogLevel,
+	telemetryv1.TelemetryLogsProfileResourceFieldLogsGroupId:    inv_telemetryv1.TelemetryProfileEdgeGroup,
 }
 
 func TelemetryLogsProfileResourcetoAPI(
@@ -39,6 +40,7 @@ func TelemetryLogsProfileResourcetoAPI(
 		ResourceId: telemetryProfile.GetResourceId(),
 		ProfileId:  telemetryProfile.GetResourceId(),
 		LogLevel:   telemetryv1.SeverityLevel(*telemetryProfile.GetLogLevel().Enum()),
+		Timestamps: GrpcToOpenAPITimestamps(telemetryProfile),
 	}
 
 	if telemetryProfile.GetInstance() != nil {
@@ -106,7 +108,7 @@ func (is *InventorygRPCServer) CreateTelemetryLogsProfile(
 	telemetryProfile, err := TelemetryLogsProfileResourcetoGRPC(telemetryLogsProfile)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry logs profile")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -118,7 +120,7 @@ func (is *InventorygRPCServer) CreateTelemetryLogsProfile(
 	invResp, err := is.InvClient.Create(ctx, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create telemetry logs profile in inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	telemetryLogsProfileCreated := TelemetryLogsProfileResourcetoAPI(invResp.GetTelemetryProfile())
@@ -136,7 +138,11 @@ func (is *InventorygRPCServer) ListTelemetryLogsProfiles(
 	hasNext := false
 	var totalElems int32
 	telemetryLogsProfiles := []*telemetryv1.TelemetryLogsProfileResource{}
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, errors.Wrap(err)
+	}
 	filter := telemetryProfileFilter(
 		telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS,
 		req.GetInstanceId(),
@@ -147,17 +153,20 @@ func (is *InventorygRPCServer) ListTelemetryLogsProfiles(
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_TelemetryProfile{},
 		},
-		Offset:  req.GetOffset(),
-		Limit:   req.GetPageSize(),
+		Offset:  offset,
+		Limit:   limit,
 		OrderBy: req.GetOrderBy(),
 		Filter:  filter,
 	}
-
+	if err := validator.ValidateMessage(invReq); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
+		return nil, errors.Wrap(err)
+	}
 	if !req.GetShowInherited() {
 		resp, err := is.InvClient.List(ctx, invReq)
 		if err != nil {
 			zlog.InfraErr(err).Msg("Failed to list telemetry logs profiles from inventory")
-			return nil, err
+			return nil, errors.Wrap(err)
 		}
 
 		for _, res := range resp.GetResources() {
@@ -200,7 +209,7 @@ func (is *InventorygRPCServer) GetTelemetryLogsProfile(
 	invResp, err := is.InvClient.Get(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to get telemetry logs profile from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	telemetryProfile := invResp.GetResource().GetTelemetryProfile()
@@ -219,7 +228,7 @@ func (is *InventorygRPCServer) DeleteTelemetryLogsProfile(
 	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to delete telemetry logs profile from inventory")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
 	return &restv1.DeleteTelemetryLogsProfileResponse{}, nil
@@ -236,13 +245,13 @@ func (is *InventorygRPCServer) UpdateTelemetryLogsProfile(
 	telemetryProfile, err := TelemetryLogsProfileResourcetoGRPC(telemetryLogsProfile)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry logs profile")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	fieldmask, err := fieldmaskpb.New(telemetryProfile, maps.Values(OpenAPITelemetryLogsProfileToProto)...)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to create field mask")
-		return nil, err
+		return nil, errors.Wrap(err)
 	}
 
 	invRes := &inventory.Resource{
@@ -253,7 +262,41 @@ func (is *InventorygRPCServer) UpdateTelemetryLogsProfile(
 	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
 	if err != nil {
 		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
-		return nil, err
+		return nil, errors.Wrap(err)
+	}
+	invUp := upRes.GetTelemetryProfile()
+	invUpRes := TelemetryLogsProfileResourcetoAPI(invUp)
+	zlog.Debug().Msgf("Updated %s", invUpRes)
+	return invUpRes, nil
+}
+
+// Update a telemetryLogsProfile. (PATCH).
+func (is *InventorygRPCServer) PatchTelemetryLogsProfile(
+	ctx context.Context,
+	req *restv1.PatchTelemetryLogsProfileRequest,
+) (*telemetryv1.TelemetryLogsProfileResource, error) {
+	zlog.Debug().Msg("PatchTelemetryLogsProfile")
+
+	telemetryLogsProfile := req.GetTelemetryLogsProfile()
+	telemetryProfile, err := TelemetryLogsProfileResourcetoGRPC(telemetryLogsProfile)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to convert to inventory telemetry logs profile")
+		return nil, errors.Wrap(err)
+	}
+
+	fieldmask, err := parseFielmask(telemetryProfile, req.GetFieldMask(), OpenAPITelemetryLogsProfileToProto)
+	if err != nil {
+		return nil, errors.Wrap(err)
+	}
+	invRes := &inventory.Resource{
+		Resource: &inventory.Resource_TelemetryProfile{
+			TelemetryProfile: telemetryProfile,
+		},
+	}
+	upRes, err := is.InvClient.Update(ctx, req.GetResourceId(), fieldmask, invRes)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to update inventory resource %s %s", req.GetResourceId(), invRes)
+		return nil, errors.Wrap(err)
 	}
 	invUp := upRes.GetTelemetryProfile()
 	invUpRes := TelemetryLogsProfileResourcetoAPI(invUp)
@@ -291,17 +334,21 @@ func (is *InventorygRPCServer) listInheritedTelemetryLogs(
 			},
 		}
 	}
-
+	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
+	if err != nil {
+		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
+		return nil, 0, false, errors.Wrap(err)
+	}
 	resp, err := is.InvClient.ListInheritedTelemetryProfiles(
 		ctx,
 		&inheritBy,
 		fmt.Sprintf("%s = %s",
 			inv_telemetryv1.TelemetryProfileFieldKind,
 			inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_LOGS),
-		req.GetOrderBy(), req.GetPageSize(), req.GetOffset())
+		req.GetOrderBy(), offset, limit)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list inherited telemetry logs profiles from inventory")
-		return nil, 0, false, err
+		return nil, 0, false, errors.Wrap(err)
 	}
 	telProfiles = resp.GetTelemetryProfiles()
 	totalElements = resp.GetTotalElements()

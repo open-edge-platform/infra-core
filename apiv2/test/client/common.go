@@ -316,7 +316,6 @@ func CreateHost(
 	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, host.StatusCode())
-
 	t.Cleanup(func() { SoftDeleteHost(t, context.Background(), apiClient, host.JSON200) })
 	return host
 }
@@ -687,20 +686,39 @@ func DeleteProvider(
 	assert.Equal(t, http.StatusOK, providerDel.StatusCode())
 }
 
-// This utility function mimics an addition of a required information to the HTTP Header
-func addEcmUserAgentToTheHeader(_ context.Context, req *http.Request) error {
-	req.Header.Add(userAgent, ecmServiceName)
-	return nil
+// CreateLocalAccount creates a LocalAccount resource and returns the response.
+func CreateLocalAccount(t *testing.T, ctx context.Context, apiClient *api.ClientWithResponses,
+	request api.LocalAccountResource,
+) *api.LocalAccountServiceCreateLocalAccountResponse {
+	t.Helper()
+
+	response, err := apiClient.LocalAccountServiceCreateLocalAccountWithResponse(
+		ctx,
+		request,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	require.Equal(t, http.StatusOK, response.StatusCode())
+
+	t.Cleanup(func() {
+		DeleteOS(t, context.Background(), apiClient, *response.JSON200.ResourceId)
+	})
+	return response
 }
 
-func addRequestEditors(client *api.Client) error {
-	client.RequestEditors = append(client.RequestEditors, authObsUserAgent)
-	return nil
-}
+// DeleteLocalAccount deletes a LocalAccount resource by its ID.
+func DeleteLocalAccount(t *testing.T, ctx context.Context,
+	apiClient *api.ClientWithResponses, resourceID string,
+) {
+	t.Helper()
 
-func authObsUserAgent(_ context.Context, req *http.Request) error {
-	req.Header.Set(userAgent, observabilityServiceName)
-	return nil
+	response, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
+		ctx,
+		resourceID,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusNoContent, response.StatusCode())
 }
 
 func GetHostRequestWithRandomUUID() api.HostResource {
