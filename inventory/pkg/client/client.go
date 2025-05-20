@@ -407,9 +407,7 @@ func connect(
 	// Adds keepalive options to the client connection.
 	keepAliveOpts := []grpc.DialOption{
 		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			// Ping the server if it is idle for 60 seconds to ensure the connection is still active.
-			Time: clientKeepAliveTime,
-			// Wait 1 second for the ping ack before assuming the connection is dead.
+			Time:                clientKeepAliveTime,
 			Timeout:             clientKeepAliveTimeout,
 			PermitWithoutStream: true,
 		}),

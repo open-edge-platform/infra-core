@@ -29,7 +29,7 @@ import (
 var zlog = logging.GetLogger("InfraInvSrvgRPC")
 
 var (
-	// Ping the client if it is idle for 2 minute to ensure the connection is still active.
+	// Ping the client if it is idle for 1 minute to ensure the connection is still active.
 	serverKeepAliveTime = 1 * time.Minute
 	// Wait 1 second for the ping ack before assuming the connection is dead.
 	serverKeepAliveTimeout = 1 * time.Second
@@ -117,15 +117,11 @@ func GetServerOpts(opts Options) ([]grpc.ServerOption, error) {
 			// MaxConnectionIdle:     ,	// Leave it to default, infinite.
 			// MaxConnectionAge:      ,	// Leave it to default, infinite.
 			// MaxConnectionAgeGrace: ,	// Leave it to default, infinite.
-			// Ping the client if it is idle for 2 minute to ensure the connection is still active.
-			Time: serverKeepAliveTime,
-			// Wait 1 second for the ping ack before assuming the connection is dead.
+			Time:    serverKeepAliveTime,
 			Timeout: serverKeepAliveTimeout,
 		}),
 		grpc.KeepaliveEnforcementPolicy(keepalive.EnforcementPolicy{
-			// If a client pings more than once every 1 minute, terminate the connection.
-			MinTime: clientMinTime,
-			// Allow pings even when there are no active streams.
+			MinTime:             clientMinTime,
 			PermitWithoutStream: true,
 		}),
 	}
