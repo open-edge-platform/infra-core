@@ -121,6 +121,18 @@ message OperatingSystemResource {
     immutable: true
   }]; // An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used.
 
+  string description = 16 [
+    (ent.field) = {
+      optional: true
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      max_bytes: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\+\\- ]+$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // user-provided, human-readable description of OS
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true

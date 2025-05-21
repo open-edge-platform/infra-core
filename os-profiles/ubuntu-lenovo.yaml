@@ -16,4 +16,5 @@ spec:
   osImageSha256: a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd
   osPackageManifestURL: ""
   securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
+  description: Ubuntu for x86_64 architecture
   platformBundle:
