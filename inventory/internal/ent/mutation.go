@@ -16608,6 +16608,7 @@ type OperatingSystemResourceMutation struct {
 	os_type            *operatingsystemresource.OsType
 	os_provider        *operatingsystemresource.OsProvider
 	platform_bundle    *string
+	description        *string
 	tenant_id          *string
 	created_at         *string
 	updated_at         *string
@@ -17424,6 +17425,55 @@ func (m *OperatingSystemResourceMutation) ResetPlatformBundle() {
 	delete(m.clearedFields, operatingsystemresource.FieldPlatformBundle)
 }
 
+// SetDescription sets the "description" field.
+func (m *OperatingSystemResourceMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *OperatingSystemResourceMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ClearDescription clears the value of the "description" field.
+func (m *OperatingSystemResourceMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[operatingsystemresource.FieldDescription] = struct{}{}
+}
+
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldDescription]
+	return ok
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *OperatingSystemResourceMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, operatingsystemresource.FieldDescription)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *OperatingSystemResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -17566,7 +17616,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 18)
+	fields := make([]string, 0, 19)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -17611,6 +17661,9 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.platform_bundle != nil {
 		fields = append(fields, operatingsystemresource.FieldPlatformBundle)
+	}
+	if m.description != nil {
+		fields = append(fields, operatingsystemresource.FieldDescription)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, operatingsystemresource.FieldTenantID)
@@ -17659,6 +17712,8 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.OsProvider()
 	case operatingsystemresource.FieldPlatformBundle:
 		return m.PlatformBundle()
+	case operatingsystemresource.FieldDescription:
+		return m.Description()
 	case operatingsystemresource.FieldTenantID:
 		return m.TenantID()
 	case operatingsystemresource.FieldCreatedAt:
@@ -17704,6 +17759,8 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldOsProvider(ctx)
 	case operatingsystemresource.FieldPlatformBundle:
 		return m.OldPlatformBundle(ctx)
+	case operatingsystemresource.FieldDescription:
+		return m.OldDescription(ctx)
 	case operatingsystemresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case operatingsystemresource.FieldCreatedAt:
@@ -17824,6 +17881,13 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 		}
 		m.SetPlatformBundle(v)
 		return nil
+	case operatingsystemresource.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
+		return nil
 	case operatingsystemresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -17914,6 +17978,9 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldPlatformBundle) {
 		fields = append(fields, operatingsystemresource.FieldPlatformBundle)
 	}
+	if m.FieldCleared(operatingsystemresource.FieldDescription) {
+		fields = append(fields, operatingsystemresource.FieldDescription)
+	}
 	return fields
 }
 
@@ -17967,6 +18034,9 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldPlatformBundle:
 		m.ClearPlatformBundle()
 		return nil
+	case operatingsystemresource.FieldDescription:
+		m.ClearDescription()
+		return nil
 	}
 	return fmt.Errorf("unknown OperatingSystemResource nullable field %s", name)
 }
@@ -18019,6 +18089,9 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldPlatformBundle:
 		m.ResetPlatformBundle()
+		return nil
+	case operatingsystemresource.FieldDescription:
+		m.ResetDescription()
 		return nil
 	case operatingsystemresource.FieldTenantID:
 		m.ResetTenantID()
