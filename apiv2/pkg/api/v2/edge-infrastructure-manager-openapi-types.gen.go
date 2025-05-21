@@ -20,7 +20,6 @@ const (
 // Defines values for HostResourceCurrentState.
 const (
 	HostResourceCurrentStateHOSTSTATEDELETED    HostResourceCurrentState = "HOST_STATE_DELETED"
-	HostResourceCurrentStateHOSTSTATEDELETING   HostResourceCurrentState = "HOST_STATE_DELETING"
 	HostResourceCurrentStateHOSTSTATEONBOARDED  HostResourceCurrentState = "HOST_STATE_ONBOARDED"
 	HostResourceCurrentStateHOSTSTATEREGISTERED HostResourceCurrentState = "HOST_STATE_REGISTERED"
 	HostResourceCurrentStateHOSTSTATEUNTRUSTED  HostResourceCurrentState = "HOST_STATE_UNTRUSTED"
@@ -29,7 +28,6 @@ const (
 // Defines values for HostResourceDesiredState.
 const (
 	HostResourceDesiredStateHOSTSTATEDELETED    HostResourceDesiredState = "HOST_STATE_DELETED"
-	HostResourceDesiredStateHOSTSTATEDELETING   HostResourceDesiredState = "HOST_STATE_DELETING"
 	HostResourceDesiredStateHOSTSTATEONBOARDED  HostResourceDesiredState = "HOST_STATE_ONBOARDED"
 	HostResourceDesiredStateHOSTSTATEREGISTERED HostResourceDesiredState = "HOST_STATE_REGISTERED"
 	HostResourceDesiredStateHOSTSTATEUNTRUSTED  HostResourceDesiredState = "HOST_STATE_UNTRUSTED"

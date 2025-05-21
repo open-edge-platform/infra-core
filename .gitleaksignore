@@ -1,2 +1,3 @@
 api/internal/server/manager_test.go:generic-api-key:767
+inventory/internal/store/host_test.go:generic-api-key:996
 inventory/internal/store/host_test.go:generic-api-key:1010
