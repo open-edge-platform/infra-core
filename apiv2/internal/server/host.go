@@ -17,12 +17,12 @@ import (
 	networkv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/network/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -36,6 +36,63 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldSiteId:  inv_computev1.HostResourceEdgeSite,
 	computev1.HostResourceEdgeMetadata: inv_computev1.HostResourceFieldMetadata,
 }
+
+var (
+	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedHostStatus    = fmt.Sprintf(filterIsFailedHostStatusExp,
+		inv_computev1.HostResourceFieldHostStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Create a filter specifically for instance error states.
+	filterIsFailedInstanceStatusExp = `%s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedInstanceStatus    = fmt.Sprintf(filterIsFailedInstanceStatusExp,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Modify running instance filter to only exclude instance-related errors
+	// and not host-related errors.
+	filterInstanceRunningExp = `has(%s) AND %s.%s = %s AND NOT (%s)`
+	filterInstanceRunning    = fmt.Sprintf(filterInstanceRunningExp,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldCurrentState,
+		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
+		filterIsFailedInstanceStatus,
+	)
+
+	filterIsUnallocatedExp = `NOT has(%s)`
+	filterIsUnallocated    = fmt.Sprintf(filterIsUnallocatedExp,
+		inv_computev1.HostResourceEdgeSite,
+	)
+)
 
 func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error) {
 	if host == nil {
@@ -677,38 +734,20 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 	return invHost, nil
 }
 
-func (is *InventorygRPCServer) listAllHosts(ctx context.Context, filter string) ([]*computev1.HostResource, error) {
-	var offset int
-	var pageSize int32 = 100
-	hasNext := true
-	hosts := make([]*computev1.HostResource, 0, pageSize)
-
-	for hasNext {
-		offsetInt32, err := util.IntToInt32(offset)
-		if err != nil {
-			return nil, err
-		}
-		req := &restv1.ListHostsRequest{
-			Filter:   filter,
-			PageSize: pageSize,
-			Offset:   offsetInt32,
-		}
-		hostsList, err := is.ListHosts(ctx, req)
-		if err != nil {
-			return nil, err
-		}
-
-		hosts = append(hosts, hostsList.GetHosts()...)
-		hasNext = hostsList.GetHasNext()
-		offset += len(hostsList.GetHosts())
+func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (int32, error) {
+	var pageSize int32 = 1
+	req := &restv1.ListHostsRequest{
+		Filter:   filter,
+		PageSize: pageSize,
 	}
-
-	return hosts, nil
+	hostsList, err := is.ListHosts(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	return hostsList.GetTotalElements(), nil
 }
 
 // Get hosts summary.
-//
-//nolint:cyclop // high cyclomatic complexity due to complex status checking
 func (is *InventorygRPCServer) GetHostsSummary(
 	ctx context.Context,
 	req *restv1.GetHostSummaryRequest,
@@ -719,54 +758,52 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	var errorState uint32
 	var runningState uint32
 	var unallocatedState uint32
+	reqFilter := req.GetFilter()
 
-	isFailedHostStatus := func(host *computev1.HostResource) bool {
-		hostErr := host.GetHostStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR ||
-			host.GetOnboardingStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR
+	filterTotal := reqFilter
+	filterIsFailedHostStatusParsed := filterIsFailedHostStatus
+	filterInstanceRunningParsed := filterInstanceRunning
+	filterIsUnallocatedParsed := filterIsUnallocated
 
-		instanceErr := false
-		if host.GetInstance() != nil {
-			instanceErr = host.GetInstance().
-				GetInstanceStatusIndicator() ==
-				statusv1.StatusIndication_STATUS_INDICATION_ERROR ||
-				host.GetInstance().GetProvisioningStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR ||
-				host.GetInstance().GetUpdateStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR
-		}
-		return hostErr || instanceErr
+	if reqFilter != "" {
+		filterIsFailedHostStatusParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatusParsed)
+		filterInstanceRunningParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunningParsed)
+		filterIsUnallocatedParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocatedParsed)
 	}
 
-	hosts, err := is.listAllHosts(ctx, req.GetFilter())
+	totalHosts, err := is.totalHosts(ctx, filterTotal)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsError, err := is.totalHosts(ctx, filterIsFailedHostStatusParsed)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsUnallocated, err := is.totalHosts(ctx, filterIsUnallocatedParsed)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsRunning, err := is.totalHosts(ctx, filterInstanceRunningParsed)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, host := range hosts {
-		if host.GetSite() == nil {
-			unallocatedState++
-		}
-		if host.GetSite() != nil && host.GetSite().GetResourceId() == "" {
-			unallocatedState++
-		}
-
-		if isFailedHostStatus(host) {
-			errorState++
-		}
-
-		// Since IDLE status can be used for multiple status (e.g., Powered off or Invalidated),
-		// we use Instance's current state as a source of Running state.
-		// To avoid counting hosts in both Running and Error states
-		// current state must be RUNNING, but Host/Instance status cannot be a failure status.
-		if host.GetInstance().GetCurrentState() == computev1.InstanceState_INSTANCE_STATE_RUNNING &&
-			!isFailedHostStatus(host) {
-			runningState++
-		}
-	}
-
-	total, err = util.IntToUint32(len(hosts))
+	total, err = SafeInt32ToUint32(totalHosts)
 	if err != nil {
 		return nil, err
 	}
-	// Notice, error and running numbers come from Provider.State
+	errorState, err = SafeInt32ToUint32(totalHostsError)
+	if err != nil {
+		return nil, err
+	}
+	unallocatedState, err = SafeInt32ToUint32(totalHostsUnallocated)
+	if err != nil {
+		return nil, err
+	}
+	runningState, err = SafeInt32ToUint32(totalHostsRunning)
+	if err != nil {
+		return nil, err
+	}
 	hostsSummary := &restv1.GetHostSummaryResponse{
 		Total:       total,
 		Error:       errorState,
