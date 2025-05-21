@@ -717,8 +717,6 @@ func grpcHostStateToOpenAPIState(s computev1.HostState) api.HostState {
 	switch s {
 	case computev1.HostState_HOST_STATE_UNSPECIFIED:
 		return api.HOSTSTATEUNSPECIFIED
-	case computev1.HostState_HOST_STATE_DELETING:
-		return api.HOSTSTATEDELETING
 	case computev1.HostState_HOST_STATE_DELETED:
 		return api.HOSTSTATEDELETED
 	case computev1.HostState_HOST_STATE_ONBOARDED:
