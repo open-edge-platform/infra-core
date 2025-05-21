@@ -5,6 +5,8 @@ module github.com/open-edge-platform/infra-core/api
 
 go 1.24.1
 
+replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+
 require (
 	github.com/getkin/kin-openapi v0.132.0
 	github.com/go-openapi/strfmt v0.23.0

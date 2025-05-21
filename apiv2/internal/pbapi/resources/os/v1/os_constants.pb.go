@@ -13,6 +13,7 @@ const (
 	OperatingSystemResourceFieldUpdateSources     = "update_sources"
 	OperatingSystemResourceFieldImageUrl          = "image_url"
 	OperatingSystemResourceFieldImageId           = "image_id"
+	OperatingSystemResourceFieldDescription       = "description"
 	OperatingSystemResourceFieldSha256            = "sha256"
 	OperatingSystemResourceFieldProfileName       = "profile_name"
 	OperatingSystemResourceFieldProfileVersion    = "profile_version"

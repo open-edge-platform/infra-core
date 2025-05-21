@@ -75,6 +75,10 @@ run:
   go: ""
 
 linters-settings:
+  gomoddirectives:
+    replace-local: true
+    replace-allow-list:
+      - github.com/open-edge-platform/infra-core/inventory
   depguard:
     rules:
       main:
