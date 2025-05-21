@@ -560,7 +560,7 @@ type HostResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -733,7 +733,7 @@ type HoststorageResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HoststorageResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -942,7 +942,7 @@ type HostnicResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostnicResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1109,7 +1109,7 @@ type HostusbResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostusbResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1274,7 +1274,7 @@ type HostgpuResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostgpuResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1635,6 +1635,35 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "UpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "UpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InstanceResourceValidationError{
+				field:  "UpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if utf8.RuneCountInString(m.GetInstanceID()) > 13 {
 		err := InstanceResourceValidationError{
 			field:  "InstanceID",
@@ -1723,6 +1752,28 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetOsUpdatePolicyID()) > 23 {
+		err := InstanceResourceValidationError{
+			field:  "OsUpdatePolicyID",
+			reason: "value length must be at most 23 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_InstanceResource_OsUpdatePolicyID_Pattern.MatchString(m.GetOsUpdatePolicyID()) {
+		err := InstanceResourceValidationError{
+			field:  "OsUpdatePolicyID",
+			reason: "value does not match regex pattern \"^osupdatepolicy-[0-9a-f]{8}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
 		case interface{ ValidateAll() error }:
@@ -1766,7 +1817,7 @@ type InstanceResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m InstanceResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1841,6 +1892,8 @@ var _InstanceResource_HostID_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 var _InstanceResource_OsID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
 var _InstanceResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
+
+var _InstanceResource_OsUpdatePolicyID_Pattern = regexp.MustCompile("^osupdatepolicy-[0-9a-f]{8}$")
 
 // Validate checks the field values on WorkloadResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -2053,7 +2106,7 @@ type WorkloadResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkloadResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2369,7 +2422,7 @@ type WorkloadMemberMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkloadMemberMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2440,3 +2493,283 @@ var _WorkloadMember_WorkloadMemberId_Pattern = regexp.MustCompile("^workloadmemb
 var _WorkloadMember_WorkloadId_Pattern = regexp.MustCompile("^workload-[0-9a-f]{8}$")
 
 var _WorkloadMember_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
+
+// Validate checks the field values on OSUpdatePolicy with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *OSUpdatePolicy) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OSUpdatePolicy with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in OSUpdatePolicyMultiError,
+// or nil if none found.
+func (m *OSUpdatePolicy) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OSUpdatePolicy) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(m.GetResourceId()) > 23 {
+		err := OSUpdatePolicyValidationError{
+			field:  "ResourceId",
+			reason: "value length must be at most 23 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OSUpdatePolicy_ResourceId_Pattern.MatchString(m.GetResourceId()) {
+		err := OSUpdatePolicyValidationError{
+			field:  "ResourceId",
+			reason: "value does not match regex pattern \"^osupdatepolicy-[0-9a-f]{8}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetName()) > 40 {
+		err := OSUpdatePolicyValidationError{
+			field:  "Name",
+			reason: "value length must be at most 40 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OSUpdatePolicy_Name_Pattern.MatchString(m.GetName()) {
+		err := OSUpdatePolicyValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetDescription()) > 200 {
+		err := OSUpdatePolicyValidationError{
+			field:  "Description",
+			reason: "value length must be at most 200 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OSUpdatePolicy_Description_Pattern.MatchString(m.GetDescription()) {
+		err := OSUpdatePolicyValidationError{
+			field:  "Description",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetInstallPackages()) > 500000 {
+		err := OSUpdatePolicyValidationError{
+			field:  "InstallPackages",
+			reason: "value length must be at most 500000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OSUpdatePolicy_InstallPackages_Pattern.MatchString(m.GetInstallPackages()) {
+		err := OSUpdatePolicyValidationError{
+			field:  "InstallPackages",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" \\\\\\n]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetUpdateSources() {
+		_, _ = idx, item
+
+		if len(item) > 10000 {
+			err := OSUpdatePolicyValidationError{
+				field:  fmt.Sprintf("UpdateSources[%v]", idx),
+				reason: "value length must be at most 10000 bytes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_OSUpdatePolicy_UpdateSources_Pattern.MatchString(item) {
+			err := OSUpdatePolicyValidationError{
+				field:  fmt.Sprintf("UpdateSources[%v]", idx),
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\" \\\\\\n]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if utf8.RuneCountInString(m.GetKernelCommand()) > 500 {
+		err := OSUpdatePolicyValidationError{
+			field:  "KernelCommand",
+			reason: "value length must be at most 500 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OSUpdatePolicy_KernelCommand_Pattern.MatchString(m.GetKernelCommand()) {
+		err := OSUpdatePolicyValidationError{
+			field:  "KernelCommand",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetTargetOs()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OSUpdatePolicyValidationError{
+					field:  "TargetOs",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OSUpdatePolicyValidationError{
+					field:  "TargetOs",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTargetOs()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OSUpdatePolicyValidationError{
+				field:  "TargetOs",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for UpdatePolicy
+
+	if len(errors) > 0 {
+		return OSUpdatePolicyMultiError(errors)
+	}
+
+	return nil
+}
+
+// OSUpdatePolicyMultiError is an error wrapping multiple validation errors
+// returned by OSUpdatePolicy.ValidateAll() if the designated constraints
+// aren't met.
+type OSUpdatePolicyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OSUpdatePolicyMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OSUpdatePolicyMultiError) AllErrors() []error { return m }
+
+// OSUpdatePolicyValidationError is the validation error returned by
+// OSUpdatePolicy.Validate if the designated constraints aren't met.
+type OSUpdatePolicyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OSUpdatePolicyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OSUpdatePolicyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OSUpdatePolicyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OSUpdatePolicyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OSUpdatePolicyValidationError) ErrorName() string { return "OSUpdatePolicyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e OSUpdatePolicyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOSUpdatePolicy.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OSUpdatePolicyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OSUpdatePolicyValidationError{}
+
+var _OSUpdatePolicy_ResourceId_Pattern = regexp.MustCompile("^osupdatepolicy-[0-9a-f]{8}$")
+
+var _OSUpdatePolicy_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
+
+var _OSUpdatePolicy_Description_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
+
+var _OSUpdatePolicy_InstallPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$")
+
+var _OSUpdatePolicy_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$")
+
+var _OSUpdatePolicy_KernelCommand_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")

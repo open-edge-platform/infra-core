@@ -948,6 +948,131 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/os_update_policy:
+        get:
+            tags:
+                - OSUpdatePolicy
+            summary: ListOSUpdatePolicy
+            description: Get a list of OS Update Policies.
+            operationId: OSUpdatePolicy_ListOSUpdatePolicy
+            parameters:
+                - name: orderBy
+                  in: query
+                  description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9., ]+$
+                    type: string
+                - name: filter
+                  in: query
+                  description: Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: Defines the amount of items to be contained in a single page. Default of 20.
+                  schema:
+                    type: integer
+                    format: uint32
+                - name: offset
+                  in: query
+                  description: Index of the first item to return. This allows skipping items.
+                  schema:
+                    type: integer
+                    format: uint32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ListOSUpdatePolicyResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - OSUpdatePolicy
+            summary: CreateOSUpdatePolicy
+            description: Create an OS Update Policy.
+            operationId: OSUpdatePolicy_CreateOSUpdatePolicy
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/OSUpdatePolicy'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OSUpdatePolicy'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}:
+        get:
+            tags:
+                - OSUpdatePolicy
+            summary: GetOSUpdatePolicy
+            description: Get a specific OS Update Policy.
+            operationId: OSUpdatePolicy_GetOSUpdatePolicy
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the requested os.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OSUpdatePolicy'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - OSUpdatePolicy
+            summary: DeleteOperatingSystem
+            description: Delete a OS Update Policy.
+            operationId: OSUpdatePolicy_DeleteOperatingSystem
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the os update policy to be deleted.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OSUpdatePolicy'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/providers:
         get:
             tags:
@@ -3644,6 +3769,8 @@ components:
                     description: The workload members associated with the instance.
                 localaccount:
                     $ref: '#/components/schemas/LocalAccountResource'
+                updatePolicy:
+                    $ref: '#/components/schemas/OSUpdatePolicy'
                 instanceID:
                     readOnly: true
                     maxLength: 13
@@ -3668,6 +3795,11 @@ components:
                     pattern: ^localaccount-[0-9a-f]{8}$
                     type: string
                     description: The unique identifier of local account will be associated with the instance.
+                osUpdatePolicyID:
+                    writeOnly: true
+                    maxLength: 23
+                    pattern: ^osupdatepolicy-[0-9a-f]{8}$
+                    type: string
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
             description: InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
@@ -3783,6 +3915,26 @@ components:
                     description: The node type
                     format: enum
             description: A node in the location tree.
+        ListOSUpdatePolicyResponse:
+            required:
+                - osUpdatePolicies
+                - totalElements
+                - hasNext
+            type: object
+            properties:
+                osUpdatePolicies:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/OSUpdatePolicy'
+                    description: Sorted and filtered list of os update policies.
+                totalElements:
+                    type: integer
+                    description: Count of items in the entire list, regardless of pagination.
+                    format: int32
+                hasNext:
+                    type: boolean
+                    description: Inform if there are more elements
+            description: Response message for the ListOSUpdatePolicy method.
         ListOperatingSystemsResponse:
             required:
                 - OperatingSystemResources
@@ -4096,6 +4248,55 @@ components:
                     type: string
                     description: The metadata value.
             description: A metadata item, represented by a key:value pair.
+        OSUpdatePolicy:
+            required:
+                - name
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    pattern: ^osupdatepolicy-[0-9a-f]{8}$
+                    type: string
+                    description: resource ID, generated by the inventory on Create.
+                name:
+                    maxLength: 40
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+                    type: string
+                    description: User-provided, human-readable name.
+                description:
+                    maxLength: 200
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+                    type: string
+                    description: User-provided, human-readable description.
+                installPackages:
+                    maxLength: 500000
+                    pattern: |-
+                        ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \
+                        ]+$
+                    type: string
+                    description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. Applies only to Mutable OSes.
+                updateSources:
+                    type: array
+                    items:
+                        pattern: |-
+                            ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \
+                            ]+$
+                        type: string
+                    description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs. Applies only to Mutable OSes.
+                kernelCommand:
+                    maxLength: 500
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+                    type: string
+                    description: The OS resource's kernel Command Line Options. Applies only to Mutable OSes.
+                targetOs:
+                    $ref: '#/components/schemas/OperatingSystemResource'
+                updatePolicy:
+                    enum:
+                        - UPDATE_POLICY_LATEST
+                        - UPDATE_POLICY_TARGET
+                    type: string
+                    description: 'Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os'
+                    format: enum
         OnboardHostResponse:
             type: object
             properties: {}
@@ -4833,6 +5034,8 @@ tags:
       description: LocalAccount.
     - name: LocationService
       description: Location.
+    - name: OSUpdatePolicy
+      description: OS Update Policy.
     - name: OperatingSystemService
       description: OperatingSystem.
     - name: ProviderService

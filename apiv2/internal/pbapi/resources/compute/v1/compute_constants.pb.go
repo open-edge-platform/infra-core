@@ -119,10 +119,12 @@ const (
 	InstanceResourceFieldTrustedAttestationStatusTimestamp = "trusted_attestation_status_timestamp"
 	InstanceResourceEdgeWorkloadMembers                    = "workload_members"
 	InstanceResourceEdgeLocalaccount                       = "localaccount"
+	InstanceResourceEdgeUpdatePolicy                       = "update_policy"
 	InstanceResourceFieldInstanceID                        = "instanceID"
 	InstanceResourceFieldHostID                            = "hostID"
 	InstanceResourceFieldOsID                              = "osID"
 	InstanceResourceFieldLocalAccountID                    = "local_accountID"
+	InstanceResourceFieldOsUpdatePolicyID                  = "os_update_policyID"
 	InstanceResourceEdgeTimestamps                         = "timestamps"
 
 	// Fields and Edges constants for "WorkloadResource"
@@ -145,4 +147,14 @@ const (
 	WorkloadMemberFieldWorkloadId       = "workload_id"
 	WorkloadMemberFieldInstanceId       = "instance_id"
 	WorkloadMemberEdgeTimestamps        = "timestamps"
+
+	// Fields and Edges constants for "OSUpdatePolicy"
+	OSUpdatePolicyFieldResourceId      = "resource_id"
+	OSUpdatePolicyFieldName            = "name"
+	OSUpdatePolicyFieldDescription     = "description"
+	OSUpdatePolicyFieldInstallPackages = "install_packages"
+	OSUpdatePolicyFieldUpdateSources   = "update_sources"
+	OSUpdatePolicyFieldKernelCommand   = "kernel_command"
+	OSUpdatePolicyEdgeTargetOs         = "target_os"
+	OSUpdatePolicyFieldUpdatePolicy    = "update_policy"
 )
