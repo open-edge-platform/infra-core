@@ -216,6 +216,28 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetDescription()) > 1000 {
+		err := OperatingSystemResourceValidationError{
+			field:  "Description",
+			reason: "value length must be at most 1000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_Description_Pattern.MatchString(m.GetDescription()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "Description",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\\\+\\\\- ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if utf8.RuneCountInString(m.GetSha256()) != 64 {
 		err := OperatingSystemResourceValidationError{
 			field:  "Sha256",
@@ -380,7 +402,7 @@ type OperatingSystemResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OperatingSystemResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -459,6 +481,8 @@ var _OperatingSystemResource_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-
 var _OperatingSystemResource_ImageUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
 var _OperatingSystemResource_ImageId_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+
+var _OperatingSystemResource_Description_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\+\\- ]+$")
 
 var _OperatingSystemResource_Sha256_Pattern = regexp.MustCompile("^[a-f0-9]+$")
 

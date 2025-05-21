@@ -253,6 +253,9 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	if osru.mutation.PlatformBundleCleared() {
 		_spec.ClearField(operatingsystemresource.FieldPlatformBundle, field.TypeString)
 	}
+	if osru.mutation.DescriptionCleared() {
+		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
+	}
 	if value, ok := osru.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)
 	}
@@ -531,6 +534,9 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if osruo.mutation.PlatformBundleCleared() {
 		_spec.ClearField(operatingsystemresource.FieldPlatformBundle, field.TypeString)
+	}
+	if osruo.mutation.DescriptionCleared() {
+		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
 	}
 	if value, ok := osruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)

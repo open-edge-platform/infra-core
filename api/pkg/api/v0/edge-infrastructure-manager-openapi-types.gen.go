@@ -732,6 +732,9 @@ type OperatingSystemResource struct {
 	// Architecture The OS resource's architecture.
 	Architecture *string `json:"architecture,omitempty"`
 
+	// Description The OS resource's description.
+	Description *string `json:"description,omitempty"`
+
 	// ImageId A unique identifier of the OS image that can be retrieved from the running OS.
 	ImageId *string `json:"imageId,omitempty"`
 

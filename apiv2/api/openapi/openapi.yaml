@@ -4146,6 +4146,10 @@ components:
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string
                     description: A unique identifier of the OS image that can be retrieved from the running OS.
+                description:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\+\- ]+$
+                    type: string
                 sha256:
                     maxLength: 64
                     minLength: 64
