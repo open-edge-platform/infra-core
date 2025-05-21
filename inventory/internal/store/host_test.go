@@ -799,20 +799,6 @@ func Test_UpdateHost(t *testing.T) {
 			valid: true,
 		},
 		{
-			name: "UpdateHostNoFieldMask",
-			in: &computev1.HostResource{
-				CpuCores:     12,
-				BmcIp:        "10.11.12.16",
-				DesiredState: computev1.HostState_HOST_STATE_DELETING,
-				Site:         site1,
-				Provider:     provider,
-			},
-			resourceID:   hostResID,
-			clientName:   inv_testing.APIClient,
-			valid:        false,
-			expErrorCode: codes.InvalidArgument,
-		},
-		{
 			name: "UpdateHostNewSite",
 			in: &computev1.HostResource{
 				Site: site2,

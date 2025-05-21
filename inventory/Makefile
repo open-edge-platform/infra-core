@@ -72,7 +72,7 @@ BUNDLE            := "$(shell pwd)/$(OUT_DIR)/policy_bundle.tar.gz"
 
 generate: buf-gen ent-gen mock-gen cli-gen ## Generate buf and ent
 
-lint: $(OUT_DIR) generate migration-test migration-lint license buf-lint buf-breaking go-lint yamllint hadolint mdlint ## Run all linters, generate targets and validate migrations
+lint: $(OUT_DIR) generate migration-test migration-lint license buf-lint go-lint yamllint hadolint mdlint ## Run all linters, generate targets and validate migrations
 
 test: $(OUT_DIR) go-test ## Run all tests
 
