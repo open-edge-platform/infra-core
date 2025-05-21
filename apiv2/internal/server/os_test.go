@@ -36,6 +36,7 @@ var (
 		OsType:            osv1.OsType_OS_TYPE_MUTABLE,
 		OsProvider:        osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 		OsResourceID:      "os-12345678", // Alias of ResourceId
+		Description:       "example description",
 	}
 
 	// Example OS resource from the Inventory.
@@ -57,6 +58,7 @@ var (
 		CreatedAt:         "2025-04-22T10:00:00Z",
 		UpdatedAt:         "2025-04-22T10:30:00Z",
 		TenantId:          "tenant-987654",
+		Description:       "example description",
 	}
 )
 
