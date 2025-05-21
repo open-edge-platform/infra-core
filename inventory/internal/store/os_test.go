@@ -47,6 +47,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				OsType:            os_v1.OsType_OS_TYPE_IMMUTABLE,
 				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 				PlatformBundle:    "test platform bundle",
+				Description:       "test description",
 			},
 			valid: true,
 		},
@@ -63,6 +64,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				ProfileVersion:    "1.0.0",
 				OsType:            os_v1.OsType_OS_TYPE_IMMUTABLE,
 				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_LENOVO,
+				Description:       "test description",
 			},
 			valid: true,
 		},
@@ -633,6 +635,7 @@ func Test_ImmutableFieldsOnUpdate(t *testing.T) {
 		Sha256:            inv_testing.RandomSha256v2,
 		ProfileName:       "Test OS profile name 2",
 		InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+		Description:       "test description",
 	}
 	fmAllFields, err := util.BuildFieldMaskFromMessage(&allFields)
 	require.NoError(t, err, "Failed to create fieldmask for all Fields")

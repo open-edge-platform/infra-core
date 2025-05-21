@@ -560,7 +560,7 @@ type HostResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -733,7 +733,7 @@ type HoststorageResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HoststorageResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -942,7 +942,7 @@ type HostnicResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostnicResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1109,7 +1109,7 @@ type HostusbResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostusbResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1274,7 +1274,7 @@ type HostgpuResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostgpuResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1766,7 +1766,7 @@ type InstanceResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m InstanceResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2053,7 +2053,7 @@ type WorkloadResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkloadResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2369,7 +2369,7 @@ type WorkloadMemberMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkloadMemberMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
