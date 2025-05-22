@@ -245,16 +245,12 @@ func (is *InvStore) UpdateInstance(
 						id, entity.CurrentState, in.DesiredState)
 			}
 
-			if isValidLocalAccountTransition(fieldmask, entity, in) {
+			if isNotValidLocalAccountUpdate(fieldmask, entity) {
 				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
 					id, entity.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
 				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s LocalAccount is not allowed %s, out %t, cmp %t",
-						id, entity.CurrentState, in.DesiredState, in.GetLocalaccount(),
-						isValidLocalAccountTransition(fieldmask, entity, in),
-						(slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
-							(entity.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED ||
-								len(entity.CurrentState) == 0) && in.GetLocalaccount() != nil),
+					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
+						id, in.GetLocalaccount(), entity.CurrentState,
 					)
 			}
 
@@ -589,13 +585,10 @@ func isNotValidInstanceTransition(
 		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
 }
 
-func isValidLocalAccountTransition(
+func isNotValidLocalAccountUpdate(
 	fieldmask *fieldmaskpb.FieldMask,
 	instanceq *ent.InstanceResource,
-	in *computev1.InstanceResource,
 ) bool {
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
-		in.GetLocalaccount() != nil &&
-		(instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED &&
-			len(instanceq.CurrentState) != 0)
+		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
 }
