@@ -60,10 +60,11 @@ message CustomConfigResource {
     (buf.validate.field).string = {
       min_len: 0
       max_len: 256
+      pattern: "^[a-z][a-z0-9-]{0,31}$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
-  
+
   // Configuration file.
   string config_data = 4 [
     (ent.field) = {

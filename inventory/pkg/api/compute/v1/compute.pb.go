@@ -1710,17 +1710,17 @@ type InstanceResource struct {
 	// A group of fields describing the Instance trusted_attestation status.
 	// trusted_attestation_status, trusted_attestation_status_indicator and
 	// trusted_attestation_status_timestamp should always be updated in one shot.
-	TrustedAttestationStatus          string                      `protobuf:"bytes,26,opt,name=trusted_attestation_status,json=trustedAttestationStatus,proto3" json:"trusted_attestation_status,omitempty"`                                                               // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
-	TrustedAttestationStatusIndicator v12.StatusIndication        `protobuf:"varint,27,opt,name=trusted_attestation_status_indicator,json=trustedAttestationStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"trusted_attestation_status_indicator,omitempty"` // Indicates interpretation of trusted_attestation_status. Set by RMs only.
-	TrustedAttestationStatusTimestamp uint64                      `protobuf:"varint,28,opt,name=trusted_attestation_status_timestamp,json=trustedAttestationStatusTimestamp,proto3" json:"trusted_attestation_status_timestamp,omitempty"`                                 // UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	WorkloadMembers                   []*WorkloadMember           `protobuf:"bytes,30,rep,name=workload_members,json=workloadMembers,proto3" json:"workload_members,omitempty"`                                                                                            // back-reference to the Workload Members associated to this Instance
-	Provider                          *v11.ProviderResource       `protobuf:"bytes,40,opt,name=provider,proto3" json:"provider,omitempty"`                                                                                                                                 // Provider this Instance is provisioned through
-	Localaccount                      *v14.LocalAccountResource   `protobuf:"bytes,41,opt,name=localaccount,proto3" json:"localaccount,omitempty"`                                                                                                                         // Local Account associated with this Instance
-	CustomConfig                      []*v15.CustomConfigResource `protobuf:"bytes,42,rep,name=custom_config,json=customConfig,proto3" json:"custom_config,omitempty"`                                                                                                     // List of Custom Config associated with this Instance
-	TenantId                          string                      `protobuf:"bytes,100,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`                                                                                                                // Tenant Identifier
-	InstanceStatusDetail              string                      `protobuf:"bytes,101,opt,name=instance_status_detail,json=instanceStatusDetail,proto3" json:"instance_status_detail,omitempty"`                                                                          // textual message that gives detailed status of the instance's software components.
-	CreatedAt                         string                      `protobuf:"bytes,200,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`                                                                                                             // Creation timestamp
-	UpdatedAt                         string                      `protobuf:"bytes,201,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`                                                                                                             // Update timestamp
+	TrustedAttestationStatus          string                    `protobuf:"bytes,26,opt,name=trusted_attestation_status,json=trustedAttestationStatus,proto3" json:"trusted_attestation_status,omitempty"`                                                               // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
+	TrustedAttestationStatusIndicator v12.StatusIndication      `protobuf:"varint,27,opt,name=trusted_attestation_status_indicator,json=trustedAttestationStatusIndicator,proto3,enum=status.v1.StatusIndication" json:"trusted_attestation_status_indicator,omitempty"` // Indicates interpretation of trusted_attestation_status. Set by RMs only.
+	TrustedAttestationStatusTimestamp uint64                    `protobuf:"varint,28,opt,name=trusted_attestation_status_timestamp,json=trustedAttestationStatusTimestamp,proto3" json:"trusted_attestation_status_timestamp,omitempty"`                                 // UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
+	WorkloadMembers                   []*WorkloadMember         `protobuf:"bytes,30,rep,name=workload_members,json=workloadMembers,proto3" json:"workload_members,omitempty"`                                                                                            // back-reference to the Workload Members associated to this Instance
+	Provider                          *v11.ProviderResource     `protobuf:"bytes,40,opt,name=provider,proto3" json:"provider,omitempty"`                                                                                                                                 // Provider this Instance is provisioned through
+	Localaccount                      *v14.LocalAccountResource `protobuf:"bytes,41,opt,name=localaccount,proto3" json:"localaccount,omitempty"`                                                                                                                         // Local Account associated with this Instance
+	CustomConfig                      *v15.CustomConfigResource `protobuf:"bytes,42,opt,name=custom_config,json=customConfig,proto3" json:"custom_config,omitempty"`                                                                                                     // Custom Config associated with this Instance
+	TenantId                          string                    `protobuf:"bytes,100,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`                                                                                                                // Tenant Identifier
+	InstanceStatusDetail              string                    `protobuf:"bytes,101,opt,name=instance_status_detail,json=instanceStatusDetail,proto3" json:"instance_status_detail,omitempty"`                                                                          // textual message that gives detailed status of the instance's software components.
+	CreatedAt                         string                    `protobuf:"bytes,200,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`                                                                                                             // Creation timestamp
+	UpdatedAt                         string                    `protobuf:"bytes,201,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`                                                                                                             // Update timestamp
 }
 
 func (x *InstanceResource) Reset() {
@@ -1951,7 +1951,7 @@ func (x *InstanceResource) GetLocalaccount() *v14.LocalAccountResource {
 	return nil
 }
 
-func (x *InstanceResource) GetCustomConfig() []*v15.CustomConfigResource {
+func (x *InstanceResource) GetCustomConfig() *v15.CustomConfigResource {
 	if x != nil {
 		return x.CustomConfig
 	}
@@ -2747,7 +2747,7 @@ var file_compute_v1_compute_proto_rawDesc = []byte{
 	0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x42, 0x06,
 	0xc2, 0xa6, 0x49, 0x02, 0x08, 0x01, 0x52, 0x0c, 0x6c, 0x6f, 0x63, 0x61, 0x6c, 0x61, 0x63, 0x63,
 	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x50, 0x0a, 0x0d, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x5f, 0x63,
-	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x18, 0x2a, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x63, 0x75,
+	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x18, 0x2a, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x63, 0x75,
 	0x73, 0x74, 0x6f, 0x6d, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x75,
 	0x73, 0x74, 0x6f, 0x6d, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72,
 	0x63, 0x65, 0x42, 0x04, 0xc2, 0xa6, 0x49, 0x00, 0x52, 0x0c, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d,
