@@ -43,7 +43,14 @@ message RegionResource {
 
   // The metadata associated to the Region,
   // represented by a list of key:value pairs.
-  repeated resources.common.v1.MetadataItem metadata = 5002 [(google.api.field_behavior) = OPTIONAL];
+  repeated resources.common.v1.MetadataItem metadata = 5002 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).repeated = {
+        ignore_empty: true,
+        min_items: 0,
+        max_items: 100,
+    }  
+  ];
 
   // The rendered metadata from the Region parent(s)
   // that can be inherited by the Region, represented by a list of key:value pairs.
@@ -121,7 +128,14 @@ message SiteResource {
 
   // The metadata associated to the Region,
   // represented by a list of key:value pairs.
-  repeated resources.common.v1.MetadataItem metadata = 5002 [(google.api.field_behavior) = OPTIONAL];
+  repeated resources.common.v1.MetadataItem metadata = 5002 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).repeated = {
+          ignore_empty: true,
+          min_items: 0,
+          max_items: 100,
+      }
+  ];
 
   // The rendered metadata from the Region parent(s)
   // that can be inherited by the Region, represented by a list of key:value pairs.
