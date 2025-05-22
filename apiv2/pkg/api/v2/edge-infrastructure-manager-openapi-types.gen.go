@@ -17,12 +17,26 @@ const (
 	BAREMETALCONTROLLERKINDVPRO HostResourceBmcKind = "BAREMETAL_CONTROLLER_KIND_VPRO"
 )
 
+// Defines values for HostResourceCurrentPowerState.
+const (
+	HostResourceCurrentPowerStatePOWERSTATEERROR HostResourceCurrentPowerState = "POWER_STATE_ERROR"
+	HostResourceCurrentPowerStatePOWERSTATEOFF   HostResourceCurrentPowerState = "POWER_STATE_OFF"
+	HostResourceCurrentPowerStatePOWERSTATEON    HostResourceCurrentPowerState = "POWER_STATE_ON"
+)
+
 // Defines values for HostResourceCurrentState.
 const (
 	HostResourceCurrentStateHOSTSTATEDELETED    HostResourceCurrentState = "HOST_STATE_DELETED"
 	HostResourceCurrentStateHOSTSTATEONBOARDED  HostResourceCurrentState = "HOST_STATE_ONBOARDED"
 	HostResourceCurrentStateHOSTSTATEREGISTERED HostResourceCurrentState = "HOST_STATE_REGISTERED"
 	HostResourceCurrentStateHOSTSTATEUNTRUSTED  HostResourceCurrentState = "HOST_STATE_UNTRUSTED"
+)
+
+// Defines values for HostResourceDesiredPowerState.
+const (
+	HostResourceDesiredPowerStatePOWERSTATEERROR HostResourceDesiredPowerState = "POWER_STATE_ERROR"
+	HostResourceDesiredPowerStatePOWERSTATEOFF   HostResourceDesiredPowerState = "POWER_STATE_OFF"
+	HostResourceDesiredPowerStatePOWERSTATEON    HostResourceDesiredPowerState = "POWER_STATE_ON"
 )
 
 // Defines values for HostResourceDesiredState.
@@ -52,12 +66,6 @@ const (
 	HostResourceRegistrationStatusIndicatorSTATUSINDICATIONERROR      HostResourceRegistrationStatusIndicator = "STATUS_INDICATION_ERROR"
 	HostResourceRegistrationStatusIndicatorSTATUSINDICATIONIDLE       HostResourceRegistrationStatusIndicator = "STATUS_INDICATION_IDLE"
 	HostResourceRegistrationStatusIndicatorSTATUSINDICATIONINPROGRESS HostResourceRegistrationStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
-)
-
-// Defines values for HostnicResourceLinkState.
-const (
-	NETWORKINTERFACELINKSTATEDOWN HostnicResourceLinkState = "NETWORK_INTERFACE_LINK_STATE_DOWN"
-	NETWORKINTERFACELINKSTATEUP   HostnicResourceLinkState = "NETWORK_INTERFACE_LINK_STATE_UP"
 )
 
 // Defines values for IPAddressResourceConfigMethod.
@@ -133,6 +141,12 @@ const (
 const (
 	RESOURCEKINDREGION ListLocationsResponseLocationNodeType = "RESOURCE_KIND_REGION"
 	RESOURCEKINDSITE   ListLocationsResponseLocationNodeType = "RESOURCE_KIND_SITE"
+)
+
+// Defines values for NetworkInterfaceLinkStateType.
+const (
+	NETWORKINTERFACELINKSTATEDOWN NetworkInterfaceLinkStateType = "NETWORK_INTERFACE_LINK_STATE_DOWN"
+	NETWORKINTERFACELINKSTATEUP   NetworkInterfaceLinkStateType = "NETWORK_INTERFACE_LINK_STATE_UP"
 )
 
 // Defines values for OperatingSystemResourceOsProvider.
@@ -327,8 +341,14 @@ type HostResource struct {
 	// CpuTopology JSON field storing the CPU topology, refer to HDA/HRM docs for the JSON schema.
 	CpuTopology *string `json:"cpuTopology,omitempty"`
 
+	// CurrentPowerState Current power state of the host
+	CurrentPowerState *HostResourceCurrentPowerState `json:"currentPowerState,omitempty"`
+
 	// CurrentState The current state of the Host.
 	CurrentState *HostResourceCurrentState `json:"currentState,omitempty"`
+
+	// DesiredPowerState Desired power state of the host
+	DesiredPowerState *HostResourceDesiredPowerState `json:"desiredPowerState,omitempty"`
 
 	// DesiredState The desired state of the Host.
 	DesiredState *HostResourceDesiredState `json:"desiredState,omitempty"`
@@ -387,6 +407,9 @@ type HostResource struct {
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
 
+	// Provider A provider resource.
+	Provider *ProviderResource `json:"provider,omitempty"`
+
 	// RegistrationStatus textual message that describes the onboarding status of Host. Set by RMs only.
 	RegistrationStatus *string `json:"registrationStatus,omitempty"`
 
@@ -416,8 +439,14 @@ type HostResource struct {
 // HostResourceBmcKind Kind of BMC.
 type HostResourceBmcKind string
 
+// HostResourceCurrentPowerState Current power state of the host
+type HostResourceCurrentPowerState string
+
 // HostResourceCurrentState The current state of the Host.
 type HostResourceCurrentState string
+
+// HostResourceDesiredPowerState Desired power state of the host
+type HostResourceDesiredPowerState string
 
 // HostResourceDesiredState The desired state of the Host.
 type HostResourceDesiredState string
@@ -433,21 +462,20 @@ type HostResourceRegistrationStatusIndicator string
 
 // HostgpuResource The set of available host GPU cards.
 type HostgpuResource struct {
+	// Capabilities The features of this GPU device, comma separated.
+	Capabilities *[]string `json:"capabilities,omitempty"`
+
 	// Description The human-readable GPU device description.
 	Description *string `json:"description,omitempty"`
 
 	// DeviceName GPU name as reported by OS.
 	DeviceName *string `json:"deviceName,omitempty"`
 
-	// Features The features of this GPU device, comma separated.
-	Features *string `json:"features,omitempty"`
-
 	// PciId The GPU device PCI identifier.
 	PciId *string `json:"pciId,omitempty"`
 
 	// Product The GPU device model.
 	Product    *string     `json:"product,omitempty"`
-	ResourceId *string     `json:"resourceId,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// Vendor The GPU device vendor.
@@ -462,14 +490,9 @@ type HostnicResource struct {
 	// DeviceName The device name (OS provided, like eth0, enp1s0, etc.).
 	DeviceName *string `json:"deviceName,omitempty"`
 
-	// Features The features of this interface, comma separated.
-	Features *string `json:"features,omitempty"`
-
-	// IpAddresses The interface's IP address list.
-	IpAddresses *[]IPAddressResource `json:"ipAddresses,omitempty"`
-
-	// LinkState Link state of this interface.
-	LinkState *HostnicResourceLinkState `json:"linkState,omitempty"`
+	// Ipaddresses The interface's IP address list.
+	Ipaddresses *[]IPAddressResource       `json:"ipaddresses,omitempty"`
+	LinkState   *NetworkInterfaceLinkState `json:"linkState,omitempty"`
 
 	// MacAddr The interface MAC address.
 	MacAddr *string `json:"macAddr,omitempty"`
@@ -479,7 +502,6 @@ type HostnicResource struct {
 
 	// PciIdentifier PCI identifier string for this network interface.
 	PciIdentifier *string `json:"pciIdentifier,omitempty"`
-	ResourceId    *string `json:"resourceId,omitempty"`
 
 	// SriovEnabled If the interface has SRIOV enabled.
 	SriovEnabled *bool `json:"sriovEnabled,omitempty"`
@@ -492,9 +514,6 @@ type HostnicResource struct {
 	Timestamps    *Timestamps `json:"timestamps,omitempty"`
 }
 
-// HostnicResourceLinkState Link state of this interface.
-type HostnicResourceLinkState string
-
 // HoststorageResource The set of available host storage capabilities.
 type HoststorageResource struct {
 	// CapacityBytes The storage device Capacity (size) in bytes.
@@ -504,8 +523,7 @@ type HoststorageResource struct {
 	DeviceName *string `json:"deviceName,omitempty"`
 
 	// Model The storage device model.
-	Model      *string `json:"model,omitempty"`
-	ResourceId *string `json:"resourceId,omitempty"`
+	Model *string `json:"model,omitempty"`
 
 	// Serial The storage device unique serial number.
 	Serial     *string     `json:"serial,omitempty"`
@@ -532,12 +550,11 @@ type HostusbResource struct {
 	// DeviceName the OS-provided device name.
 	DeviceName *string `json:"deviceName,omitempty"`
 
-	// Idproduct Hexadecimal number representing ID of the USB device product.
-	Idproduct *string `json:"idproduct,omitempty"`
+	// IdProduct Hexadecimal number representing ID of the USB device product.
+	IdProduct *string `json:"idProduct,omitempty"`
 
-	// Idvendor Hexadecimal number representing ID of the USB device vendor.
-	Idvendor   *string `json:"idvendor,omitempty"`
-	ResourceId *string `json:"resourceId,omitempty"`
+	// IdVendor Hexadecimal number representing ID of the USB device vendor.
+	IdVendor *string `json:"idVendor,omitempty"`
 
 	// Serial Serial number of device.
 	Serial     *string     `json:"serial,omitempty"`
@@ -610,6 +627,9 @@ type InstanceResource struct {
 
 	// Name The instance's human-readable name.
 	Name *string `json:"name,omitempty"`
+
+	// Os An OS resource.
+	Os *OperatingSystemResource `json:"os,omitempty"`
 
 	// OsID The unique identifier of OS resource that must be installed on the instance.
 	OsID *string `json:"osID,omitempty"`
@@ -935,6 +955,17 @@ type MetadataItem struct {
 	Value string `json:"value"`
 }
 
+// NetworkInterfaceLinkState defines model for NetworkInterfaceLinkState.
+type NetworkInterfaceLinkState struct {
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
+
+	// Type The interface link state.
+	Type *NetworkInterfaceLinkStateType `json:"type,omitempty"`
+}
+
+// NetworkInterfaceLinkStateType The interface link state.
+type NetworkInterfaceLinkStateType string
+
 // OnboardHostResponse Response of a Host Register request.
 type OnboardHostResponse = map[string]interface{}
 
@@ -977,7 +1008,7 @@ type OperatingSystemResource struct {
 	// ProfileVersion Version of OS profile that the OS resource belongs to.
 	ProfileVersion *string `json:"profileVersion,omitempty"`
 
-	// RepoUrl // OS image URL. URL of the original installation source.
+	// RepoUrl Deprecated. OS image URL. URL of the original installation source.
 	RepoUrl *string `json:"repoUrl,omitempty"`
 
 	// ResourceId Resource ID, generated by inventory on Create.

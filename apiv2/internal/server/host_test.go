@@ -159,7 +159,6 @@ var exampleAPIHostResource = &computev1.HostResource{
 	BiosVendor:      "Example Vendor",
 	HostStorages: []*computev1.HoststorageResource{
 		{
-			ResourceId:    "storage-12345678",
 			Wwid:          "wwid-1234",
 			Serial:        "serial-1234",
 			Vendor:        "vendor-1234",
@@ -170,24 +169,23 @@ var exampleAPIHostResource = &computev1.HostResource{
 	},
 	HostNics: []*computev1.HostnicResource{
 		{
-			ResourceId:    "nic-12345678",
 			DeviceName:    "eth0",
 			PciIdentifier: "pci-1234",
 			MacAddr:       "00:11:22:33:44:55",
 			SriovEnabled:  true,
 			SriovVfsNum:   8,
 			SriovVfsTotal: 16,
-			Features:      "feature1,feature2",
 			Mtu:           1500,
-			LinkState:     computev1.NetworkInterfaceLinkState_NETWORK_INTERFACE_LINK_STATE_UP,
-			BmcInterface:  true,
+			LinkState: &computev1.NetworkInterfaceLinkState{
+				Type: computev1.LinkState_NETWORK_INTERFACE_LINK_STATE_UP,
+			},
+			BmcInterface: true,
 		},
 	},
 	HostUsbs: []*computev1.HostusbResource{
 		{
-			ResourceId: "usb-12345678",
-			Idvendor:   "vendor-1234",
-			Idproduct:  "product-1234",
+			IdVendor:   "vendor-1234",
+			IdProduct:  "product-1234",
 			Bus:        123,
 			Addr:       123,
 			Class:      "class-1234",
@@ -197,13 +195,12 @@ var exampleAPIHostResource = &computev1.HostResource{
 	},
 	HostGpus: []*computev1.HostgpuResource{
 		{
-			ResourceId:  "gpu-12345678",
-			PciId:       "pci-1234",
-			Product:     "product-1234",
-			Vendor:      "vendor-1234",
-			Description: "description-1234",
-			DeviceName:  "gpu0",
-			Features:    "feature1,feature2",
+			PciId:        "pci-1234",
+			Product:      "product-1234",
+			Vendor:       "vendor-1234",
+			Description:  "description-1234",
+			DeviceName:   "gpu0",
+			Capabilities: []string{"feature1", "feature2"},
 		},
 	},
 	Instance: &computev1.InstanceResource{

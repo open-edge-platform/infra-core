@@ -65,9 +65,16 @@ message OperatingSystemResource {
   // Should be in 'DEB822 Source Format' for Debian style OSs
   repeated string update_sources = 5 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).repeated.items.string = {
-      max_len: 10000
-      pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$'
+    (validate.rules).repeated = {
+      ignore_empty: true,
+      min_items: 0,
+      max_items: 100,
+      items: {
+        string: {
+          max_len: 10000
+          pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$'
+        }
+      }
     }
   ];
 
@@ -135,7 +142,7 @@ message OperatingSystemResource {
     }
   ];
 
-  // // OS image URL. URL of the original installation source.
+  // Deprecated. OS image URL. URL of the original installation source.
   string repo_url = 5002 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
