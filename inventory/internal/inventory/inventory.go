@@ -107,6 +107,18 @@ func (srv *InventorygRPCServer) SubscribeEvents(
 ) error {
 	zlog.Info().Msgf("SubscribeEvents from client: %v", in)
 
+	// Check if the client is already registered.
+	// if the client is already registered, send the UUID back to the client.
+	// This is a heartbeat message to keep the connection alive.
+	if clientCfg, ok := srv.CR.ClientRegistrationMap().Load(in.GetName()); ok {
+		clientStream := clientCfg.(clientreg.ClientInfo).Stream
+		if err := clientStream.Send(&inv_v1.SubscribeEventsResponse{ClientUuid: in.GetName()}); err != nil {
+			srv.CR.ExitClient(in.GetName())
+			zlog.InfraSec().Info().Msgf("SubscribeEvents stream disconnect client: %v", in.GetName())
+			return errors.Wrap(err)
+		}
+	}
+
 	// Register the new client.
 	clientUUID, err := srv.CR.RegisterClient(clientreg.ClientInfo{
 		Name:          in.GetName(),

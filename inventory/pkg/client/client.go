@@ -297,6 +297,14 @@ func (client *inventoryClient) eventContextTracing() context.Context {
 	return ctx
 }
 
+func (client *inventoryClient) eventHeartbeatHandler(event *inv_v1.SubscribeEventsResponse) error {
+	if event.GetEventKind() == inv_v1.SubscribeEventsResponse_EVENT_KIND_UNSPECIFIED &&
+		event.GetClientUuid() == client.clientUUID {
+		zlog.InfraSec().Debug().Msgf("Heartbeat event received: %s", event.GetEventKind())
+	}
+	return nil
+}
+
 // eventHandler will listen for inventory events and enqueue them internal
 // channel, which can be accessed with EventChannel. This function blocks until
 // the context is canceled or the server closes the connection. It is safe
@@ -323,6 +331,8 @@ func (client *inventoryClient) eventHandler() {
 			// because event is nil.
 			continue
 		}
+
+		client.eventHeartbeatHandler(event)
 		// Adds tracing, if enabled, to the event context.
 		ctx := client.eventContextTracing()
 
@@ -638,6 +648,26 @@ func (client *inventoryClient) register() error {
 	client.clientUUID = resp.ClientUuid
 	zlog.InfraSec().Info().Msgf("Registered inventory client with UUID: %s", resp.ClientUuid)
 	client.uuidMutex.Unlock()
+
+	go func() {
+		ticker := time.NewTicker(30 * time.Second)
+		defer ticker.Stop()
+		for {
+			select {
+			case <-ticker.C:
+				heartbeetReq := &inv_v1.SubscribeEventsRequest{
+					Name: resp.ClientUuid,
+				}
+				_, err := client.invAPI.SubscribeEvents(client.streamCtx, heartbeetReq)
+				if err != nil {
+					client.streamCancel()
+					return
+				}
+			case <-stream.Context().Done():
+				return
+			}
+		}
+	}()
 
 	return nil
 }
