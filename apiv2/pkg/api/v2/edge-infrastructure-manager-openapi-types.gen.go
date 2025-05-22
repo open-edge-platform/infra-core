@@ -611,6 +611,9 @@ type InstanceResource struct {
 	// Name The instance's human-readable name.
 	Name *string `json:"name,omitempty"`
 
+	// Os An OS resource.
+	Os *OperatingSystemResource `json:"os,omitempty"`
+
 	// OsID The unique identifier of OS resource that must be installed on the instance.
 	OsID *string `json:"osID,omitempty"`
 
