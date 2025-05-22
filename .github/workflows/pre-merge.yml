@@ -140,7 +140,7 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@main
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@b39f8770ac653e73001e07f9f47028e1d590be5c  # 0.1.13
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
