@@ -153,6 +153,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:               host,
 		HostID:             host.GetResourceId(),
+		Os:                 desiredOs,
 		DesiredOs:          desiredOs,
 		CurrentOs:          currentOs,
 		OsID:               currentOs.GetResourceId(),
