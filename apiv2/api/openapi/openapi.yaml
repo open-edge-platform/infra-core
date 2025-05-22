@@ -3277,6 +3277,7 @@ components:
                     type: string
                     description: The site where the host is located.
                 metadata:
+                    maxItems: 100
                     type: array
                     items:
                         $ref: '#/components/schemas/MetadataItem'
@@ -4130,6 +4131,7 @@ components:
                     type: string
                     description: The OS resource's kernel Command Line Options.
                 updateSources:
+                    maxItems: 100
                     type: array
                     items:
                         maxLength: 10000
@@ -4246,6 +4248,7 @@ components:
                     type: string
                     description: The provider resource's API endpoint.
                 apiCredentials:
+                    maxItems: 100
                     type: array
                     items:
                         maxLength: 500
@@ -4289,6 +4292,7 @@ components:
                     type: string
                     description: Deprecated, The Region unique identifier. Alias of resourceId.
                 metadata:
+                    maxItems: 100
                     type: array
                     items:
                         $ref: '#/components/schemas/MetadataItem'
@@ -4501,6 +4505,7 @@ components:
                     type: string
                     description: Deprecated, The site unique identifier. Alias of resourceId.
                 metadata:
+                    maxItems: 100
                     type: array
                     items:
                         $ref: '#/components/schemas/MetadataItem'
@@ -4569,9 +4574,11 @@ components:
                     description: The collector kind.
                     format: enum
                 groups:
+                    maxItems: 100
                     type: array
                     items:
-                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                        maxLength: 1000
+                        pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$"'
                         type: string
                     description: A list of log groups to collect.
                 timestamps:
@@ -4663,9 +4670,11 @@ components:
                     description: The collector kind.
                     format: enum
                 groups:
+                    maxItems: 100
                     type: array
                     items:
-                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                        maxLength: 1000
+                        pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$"'
                         type: string
                     description: A list of log groups to collect.
                 timestamps:

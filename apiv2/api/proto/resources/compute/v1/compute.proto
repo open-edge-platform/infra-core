@@ -169,7 +169,14 @@ message HostResource {
   ];
 
   // The metadata associated with the host, represented by a list of key:value pairs.
-  repeated resources.common.v1.MetadataItem metadata = 5003 [(google.api.field_behavior) = OPTIONAL];
+  repeated resources.common.v1.MetadataItem metadata = 5003 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).repeated = {
+        ignore_empty: true,
+        min_items: 0,
+        max_items: 100,
+    }
+  ];
   // The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
   repeated resources.common.v1.MetadataItem inherited_metadata = 5004 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Timestamps associated to the resource.
