@@ -207,6 +207,25 @@ const (
 	WORKLOADKINDCLUSTER WorkloadResourceKind = "WORKLOAD_KIND_CLUSTER"
 )
 
+// CustomConfigResource defines model for CustomConfigResource.
+type CustomConfigResource struct {
+	// ConfigContent Config content
+	ConfigContent string `json:"configContent"`
+
+	// ConfigDescription Config description
+	ConfigDescription *string `json:"configDescription,omitempty"`
+
+	// ConfigName Config provided by admin
+	ConfigName string `json:"configName"`
+
+	// ResourceId resource identifier
+	ResourceId *string     `json:"resourceId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
+}
+
+// DeleteCustomConfigResponse Response message for DeleteCustomConfig.
+type DeleteCustomConfigResponse = map[string]interface{}
+
 // DeleteHostResponse Reponse message for DeleteHost.
 type DeleteHostResponse = map[string]interface{}
 
@@ -684,6 +703,18 @@ type InvalidateHostResponse = map[string]interface{}
 
 // InvalidateInstanceResponse Response message for Invalidate Instance.
 type InvalidateInstanceResponse = map[string]interface{}
+
+// ListCustomConfigsResponse Response message for the ListCustomConfigs method.
+type ListCustomConfigsResponse struct {
+	// CustomConfigs Sorted and filtered list of customconfigs.
+	CustomConfigs []CustomConfigResource `json:"customConfigs"`
+
+	// HasNext Inform if there are more elements
+	HasNext bool `json:"hasNext"`
+
+	// TotalElements Count of items in the entire list, regardless of pagination.
+	TotalElements int32 `json:"totalElements"`
+}
 
 // ListHostsResponse Response message for the ListHosts method.
 type ListHostsResponse struct {
@@ -1380,6 +1411,21 @@ type WorkloadResource struct {
 // WorkloadResourceKind Type of workload.
 type WorkloadResourceKind string
 
+// CustomConfigServiceListCustomConfigsParams defines parameters for CustomConfigServiceListCustomConfigs.
+type CustomConfigServiceListCustomConfigsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
+	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
@@ -1740,6 +1786,9 @@ type WorkloadServicePatchWorkloadParams struct {
 	// FieldMask Field mask to be applied on the patch of workload.
 	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
+
+// CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
+type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource

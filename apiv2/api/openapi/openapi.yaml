@@ -11,6 +11,134 @@ info:
     description: Edge Infrastructure Manager API - License Apache 2.0
     version: 0.2.0-dev
 paths:
+    /edge-infra.orchestrator.apis/v2/customConfigs:
+        get:
+            tags:
+                - CustomConfigService
+            summary: ListCustomConfigs
+            description: Get a list of custom configurations.
+            operationId: CustomConfigService_ListCustomConfigs
+            parameters:
+                - name: orderBy
+                  in: query
+                  description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9., ]+$
+                    type: string
+                - name: filter
+                  in: query
+                  description: Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: Defines the amount of items to be contained in a single page. Default of 20.
+                  schema:
+                    maximum: !!float 100
+                    minimum: !!float 1
+                    type: integer
+                    format: int32
+                - name: offset
+                  in: query
+                  description: Index of the first item to return. This allows skipping items.
+                  schema:
+                    maximum: !!float 10000
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ListCustomConfigsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        post:
+            tags:
+                - CustomConfigService
+            summary: CreateCustomConfig
+            description: Create a custom configuration.
+            operationId: CustomConfigService_CreateCustomConfig
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CustomConfigResource'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CustomConfigResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}:
+        get:
+            tags:
+                - CustomConfigService
+            summary: GetCustomConfig
+            description: Get a specific custom configuration.
+            operationId: CustomConfigService_GetCustomConfig
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the requested custom configuration.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CustomConfigResource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - CustomConfigService
+            summary: DeleteCustomConfig
+            description: Delete a custom configuration.
+            operationId: CustomConfigService_DeleteCustomConfig
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the customconfig to be deleted.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeleteCustomConfigResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/hosts:
         get:
             tags:
@@ -2951,6 +3079,38 @@ paths:
                                 $ref: '#/components/schemas/Status'
 components:
     schemas:
+        CustomConfigResource:
+            required:
+                - configName
+                - configContent
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    maxLength: 21
+                    pattern: ^customconfig-[0-9a-f]{8}$
+                    type: string
+                    description: resource identifier
+                configName:
+                    maxLength: 32
+                    pattern: ^[a-z][a-z0-9-]{0,31}$
+                    type: string
+                    description: Config provided by admin
+                configDescription:
+                    maxLength: 256
+                    pattern: ^.{0,255}$
+                    type: string
+                    description: Config description
+                configContent:
+                    maxLength: 16384
+                    type: string
+                    description: Config content
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
+        DeleteCustomConfigResponse:
+            type: object
+            properties: {}
+            description: Response message for DeleteCustomConfig.
         DeleteHostResponse:
             type: object
             properties: {}
@@ -3679,6 +3839,26 @@ components:
             type: object
             properties: {}
             description: Response message for Invalidate Instance.
+        ListCustomConfigsResponse:
+            required:
+                - customConfigs
+                - totalElements
+                - hasNext
+            type: object
+            properties:
+                customConfigs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CustomConfigResource'
+                    description: Sorted and filtered list of customconfigs.
+                totalElements:
+                    type: integer
+                    description: Count of items in the entire list, regardless of pagination.
+                    format: int32
+                hasNext:
+                    type: boolean
+                    description: Inform if there are more elements
+            description: Response message for the ListCustomConfigs method.
         ListHostsResponse:
             required:
                 - hosts
@@ -4825,6 +5005,8 @@ components:
                     $ref: '#/components/schemas/Timestamps'
             description: A generic way to group compute resources to obtain a workload.
 tags:
+    - name: CustomConfigService
+      description: CustomConfig.
     - name: HostService
       description: Host.
     - name: InstanceService

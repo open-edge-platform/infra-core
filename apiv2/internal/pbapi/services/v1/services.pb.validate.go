@@ -20572,6 +20572,1037 @@ var _ interface {
 	ErrorName() string
 } = DeleteLocalAccountResponseValidationError{}
 
+// Validate checks the field values on CreateCustomConfigRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateCustomConfigRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateCustomConfigRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateCustomConfigRequestMultiError, or nil if none found.
+func (m *CreateCustomConfigRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateCustomConfigRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCustomConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateCustomConfigRequestValidationError{
+					field:  "CustomConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateCustomConfigRequestValidationError{
+					field:  "CustomConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCustomConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateCustomConfigRequestValidationError{
+				field:  "CustomConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateCustomConfigRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateCustomConfigRequestMultiError is an error wrapping multiple validation
+// errors returned by CreateCustomConfigRequest.ValidateAll() if the
+// designated constraints aren't met.
+type CreateCustomConfigRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateCustomConfigRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateCustomConfigRequestMultiError) AllErrors() []error { return m }
+
+// CreateCustomConfigRequestValidationError is the validation error returned by
+// CreateCustomConfigRequest.Validate if the designated constraints aren't met.
+type CreateCustomConfigRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCustomConfigRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCustomConfigRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCustomConfigRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCustomConfigRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCustomConfigRequestValidationError) ErrorName() string {
+	return "CreateCustomConfigRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCustomConfigRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCustomConfigRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCustomConfigRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCustomConfigRequestValidationError{}
+
+// Validate checks the field values on CreateCustomConfigResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateCustomConfigResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateCustomConfigResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateCustomConfigResponseMultiError, or nil if none found.
+func (m *CreateCustomConfigResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateCustomConfigResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCustomConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateCustomConfigResponseValidationError{
+					field:  "CustomConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateCustomConfigResponseValidationError{
+					field:  "CustomConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCustomConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateCustomConfigResponseValidationError{
+				field:  "CustomConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateCustomConfigResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateCustomConfigResponseMultiError is an error wrapping multiple
+// validation errors returned by CreateCustomConfigResponse.ValidateAll() if
+// the designated constraints aren't met.
+type CreateCustomConfigResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateCustomConfigResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateCustomConfigResponseMultiError) AllErrors() []error { return m }
+
+// CreateCustomConfigResponseValidationError is the validation error returned
+// by CreateCustomConfigResponse.Validate if the designated constraints aren't met.
+type CreateCustomConfigResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCustomConfigResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCustomConfigResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCustomConfigResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCustomConfigResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCustomConfigResponseValidationError) ErrorName() string {
+	return "CreateCustomConfigResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCustomConfigResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCustomConfigResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCustomConfigResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCustomConfigResponseValidationError{}
+
+// Validate checks the field values on GetCustomConfigRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetCustomConfigRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCustomConfigRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCustomConfigRequestMultiError, or nil if none found.
+func (m *GetCustomConfigRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCustomConfigRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return GetCustomConfigRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCustomConfigRequestMultiError is an error wrapping multiple validation
+// errors returned by GetCustomConfigRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetCustomConfigRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCustomConfigRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCustomConfigRequestMultiError) AllErrors() []error { return m }
+
+// GetCustomConfigRequestValidationError is the validation error returned by
+// GetCustomConfigRequest.Validate if the designated constraints aren't met.
+type GetCustomConfigRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCustomConfigRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCustomConfigRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCustomConfigRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCustomConfigRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCustomConfigRequestValidationError) ErrorName() string {
+	return "GetCustomConfigRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCustomConfigRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCustomConfigRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCustomConfigRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCustomConfigRequestValidationError{}
+
+// Validate checks the field values on GetCustomConfigResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetCustomConfigResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetCustomConfigResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetCustomConfigResponseMultiError, or nil if none found.
+func (m *GetCustomConfigResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetCustomConfigResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCustomConfig()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetCustomConfigResponseValidationError{
+					field:  "CustomConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetCustomConfigResponseValidationError{
+					field:  "CustomConfig",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCustomConfig()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetCustomConfigResponseValidationError{
+				field:  "CustomConfig",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetCustomConfigResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetCustomConfigResponseMultiError is an error wrapping multiple validation
+// errors returned by GetCustomConfigResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetCustomConfigResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetCustomConfigResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetCustomConfigResponseMultiError) AllErrors() []error { return m }
+
+// GetCustomConfigResponseValidationError is the validation error returned by
+// GetCustomConfigResponse.Validate if the designated constraints aren't met.
+type GetCustomConfigResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCustomConfigResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCustomConfigResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCustomConfigResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCustomConfigResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCustomConfigResponseValidationError) ErrorName() string {
+	return "GetCustomConfigResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCustomConfigResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCustomConfigResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCustomConfigResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCustomConfigResponseValidationError{}
+
+// Validate checks the field values on ListCustomConfigsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListCustomConfigsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListCustomConfigsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListCustomConfigsRequestMultiError, or nil if none found.
+func (m *ListCustomConfigsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListCustomConfigsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetOrderBy() != "" {
+
+		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
+			err := ListCustomConfigsRequestValidationError{
+				field:  "OrderBy",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListCustomConfigsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
+			err := ListCustomConfigsRequestValidationError{
+				field:  "OrderBy",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetFilter() != "" {
+
+		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
+			err := ListCustomConfigsRequestValidationError{
+				field:  "Filter",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListCustomConfigsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
+			err := ListCustomConfigsRequestValidationError{
+				field:  "Filter",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetPageSize() != 0 {
+
+		if val := m.GetPageSize(); val < 1 || val > 100 {
+			err := ListCustomConfigsRequestValidationError{
+				field:  "PageSize",
+				reason: "value must be inside range [1, 100]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetOffset() != 0 {
+
+		if val := m.GetOffset(); val < 0 || val > 10000 {
+			err := ListCustomConfigsRequestValidationError{
+				field:  "Offset",
+				reason: "value must be inside range [0, 10000]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListCustomConfigsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListCustomConfigsRequestMultiError is an error wrapping multiple validation
+// errors returned by ListCustomConfigsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ListCustomConfigsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListCustomConfigsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListCustomConfigsRequestMultiError) AllErrors() []error { return m }
+
+// ListCustomConfigsRequestValidationError is the validation error returned by
+// ListCustomConfigsRequest.Validate if the designated constraints aren't met.
+type ListCustomConfigsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListCustomConfigsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListCustomConfigsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListCustomConfigsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListCustomConfigsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListCustomConfigsRequestValidationError) ErrorName() string {
+	return "ListCustomConfigsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListCustomConfigsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListCustomConfigsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListCustomConfigsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListCustomConfigsRequestValidationError{}
+
+var _ListCustomConfigsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
+
+var _ListCustomConfigsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
+
+// Validate checks the field values on ListCustomConfigsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListCustomConfigsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListCustomConfigsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListCustomConfigsResponseMultiError, or nil if none found.
+func (m *ListCustomConfigsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListCustomConfigsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetCustomConfigs() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListCustomConfigsResponseValidationError{
+						field:  fmt.Sprintf("CustomConfigs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListCustomConfigsResponseValidationError{
+						field:  fmt.Sprintf("CustomConfigs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListCustomConfigsResponseValidationError{
+					field:  fmt.Sprintf("CustomConfigs[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for TotalElements
+
+	// no validation rules for HasNext
+
+	if len(errors) > 0 {
+		return ListCustomConfigsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListCustomConfigsResponseMultiError is an error wrapping multiple validation
+// errors returned by ListCustomConfigsResponse.ValidateAll() if the
+// designated constraints aren't met.
+type ListCustomConfigsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListCustomConfigsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListCustomConfigsResponseMultiError) AllErrors() []error { return m }
+
+// ListCustomConfigsResponseValidationError is the validation error returned by
+// ListCustomConfigsResponse.Validate if the designated constraints aren't met.
+type ListCustomConfigsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListCustomConfigsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListCustomConfigsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListCustomConfigsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListCustomConfigsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListCustomConfigsResponseValidationError) ErrorName() string {
+	return "ListCustomConfigsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListCustomConfigsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListCustomConfigsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListCustomConfigsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListCustomConfigsResponseValidationError{}
+
+// Validate checks the field values on DeleteCustomConfigRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteCustomConfigRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteCustomConfigRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteCustomConfigRequestMultiError, or nil if none found.
+func (m *DeleteCustomConfigRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteCustomConfigRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return DeleteCustomConfigRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteCustomConfigRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteCustomConfigRequest.ValidateAll() if the
+// designated constraints aren't met.
+type DeleteCustomConfigRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteCustomConfigRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteCustomConfigRequestMultiError) AllErrors() []error { return m }
+
+// DeleteCustomConfigRequestValidationError is the validation error returned by
+// DeleteCustomConfigRequest.Validate if the designated constraints aren't met.
+type DeleteCustomConfigRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteCustomConfigRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteCustomConfigRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteCustomConfigRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteCustomConfigRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteCustomConfigRequestValidationError) ErrorName() string {
+	return "DeleteCustomConfigRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteCustomConfigRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteCustomConfigRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteCustomConfigRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteCustomConfigRequestValidationError{}
+
+// Validate checks the field values on DeleteCustomConfigResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteCustomConfigResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteCustomConfigResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteCustomConfigResponseMultiError, or nil if none found.
+func (m *DeleteCustomConfigResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteCustomConfigResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteCustomConfigResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteCustomConfigResponseMultiError is an error wrapping multiple
+// validation errors returned by DeleteCustomConfigResponse.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteCustomConfigResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteCustomConfigResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteCustomConfigResponseMultiError) AllErrors() []error { return m }
+
+// DeleteCustomConfigResponseValidationError is the validation error returned
+// by DeleteCustomConfigResponse.Validate if the designated constraints aren't met.
+type DeleteCustomConfigResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteCustomConfigResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteCustomConfigResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteCustomConfigResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteCustomConfigResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteCustomConfigResponseValidationError) ErrorName() string {
+	return "DeleteCustomConfigResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteCustomConfigResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteCustomConfigResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteCustomConfigResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteCustomConfigResponseValidationError{}
+
 // Validate checks the field values on ListLocationsResponse_LocationNode with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are

@@ -581,6 +581,34 @@ const (
 	// Fields and Edges constants for "DeleteLocalAccountRequest"
 	DeleteLocalAccountRequestFieldResourceId = "resource_id"
 
-// Fields and Edges constants for "DeleteLocalAccountResponse"
+	// Fields and Edges constants for "DeleteLocalAccountResponse"
+
+	// Fields and Edges constants for "CreateCustomConfigRequest"
+	CreateCustomConfigRequestEdgeCustomConfig = "custom_config"
+
+	// Fields and Edges constants for "CreateCustomConfigResponse"
+	CreateCustomConfigResponseEdgeCustomConfig = "custom_config"
+
+	// Fields and Edges constants for "GetCustomConfigRequest"
+	GetCustomConfigRequestFieldResourceId = "resource_id"
+
+	// Fields and Edges constants for "GetCustomConfigResponse"
+	GetCustomConfigResponseEdgeCustomConfig = "custom_config"
+
+	// Fields and Edges constants for "ListCustomConfigsRequest"
+	ListCustomConfigsRequestFieldOrderBy  = "order_by"
+	ListCustomConfigsRequestFieldFilter   = "filter"
+	ListCustomConfigsRequestFieldPageSize = "page_size"
+	ListCustomConfigsRequestFieldOffset   = "offset"
+
+	// Fields and Edges constants for "ListCustomConfigsResponse"
+	ListCustomConfigsResponseEdgeCustomConfigs  = "custom_configs"
+	ListCustomConfigsResponseFieldTotalElements = "total_elements"
+	ListCustomConfigsResponseFieldHasNext       = "has_next"
+
+	// Fields and Edges constants for "DeleteCustomConfigRequest"
+	DeleteCustomConfigRequestFieldResourceId = "resource_id"
+
+// Fields and Edges constants for "DeleteCustomConfigResponse"
 
 )
