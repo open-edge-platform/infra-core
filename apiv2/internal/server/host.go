@@ -6,6 +6,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/grpc/codes"
@@ -326,7 +327,6 @@ func fromInvHostNics(
 			SriovEnabled:  nic.GetSriovEnabled(),
 			SriovVfsNum:   nic.GetSriovVfsNum(),
 			SriovVfsTotal: nic.GetSriovVfsTotal(),
-			Features:      nic.GetFeatures(),
 			Mtu:           nic.GetMtu(),
 			LinkState:     linkState,
 			BmcInterface:  nic.GetBmcInterface(),
@@ -359,14 +359,15 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 	// Conversion logic for HostGpus
 	hostGpus := make([]*computev1.HostgpuResource, 0, len(gpus))
 	for _, gpu := range gpus {
+		gpuCapabilities := strings.Split(gpu.GetFeatures(), ",")
 		hostGpus = append(hostGpus, &computev1.HostgpuResource{
-			PciId:       gpu.GetPciId(),
-			Product:     gpu.GetProduct(),
-			Vendor:      gpu.GetVendor(),
-			Description: gpu.GetDescription(),
-			DeviceName:  gpu.GetDeviceName(),
-			Features:    gpu.GetFeatures(),
-			Timestamps:  GrpcToOpenAPITimestamps(gpu),
+			PciId:        gpu.GetPciId(),
+			Product:      gpu.GetProduct(),
+			Vendor:       gpu.GetVendor(),
+			Description:  gpu.GetDescription(),
+			DeviceName:   gpu.GetDeviceName(),
+			Capabilities: gpuCapabilities,
+			Timestamps:   GrpcToOpenAPITimestamps(gpu),
 		})
 	}
 	return hostGpus

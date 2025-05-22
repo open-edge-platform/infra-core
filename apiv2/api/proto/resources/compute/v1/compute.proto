@@ -253,8 +253,6 @@ message HostnicResource {
   uint32 sriov_vfs_num = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The maximum number of VFs the interface supports, if SR-IOV is supported.
   uint32 sriov_vfs_total = 31 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The features of this interface, comma separated.
-  string features = 30 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Maximum transmission unit of the interface.
   uint32 mtu = 40 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Link state of this interface.
@@ -300,7 +298,7 @@ message HostgpuResource {
   // GPU name as reported by OS.
   string device_name = 24 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The features of this GPU device, comma separated.
-  string features = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated string capabilities = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

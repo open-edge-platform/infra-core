@@ -175,7 +175,6 @@ var exampleAPIHostResource = &computev1.HostResource{
 			SriovEnabled:  true,
 			SriovVfsNum:   8,
 			SriovVfsTotal: 16,
-			Features:      "feature1,feature2",
 			Mtu:           1500,
 			LinkState: &computev1.NetworkInterfaceLinkState{
 				Type: computev1.LinkState_NETWORK_INTERFACE_LINK_STATE_UP,
@@ -196,12 +195,12 @@ var exampleAPIHostResource = &computev1.HostResource{
 	},
 	HostGpus: []*computev1.HostgpuResource{
 		{
-			PciId:       "pci-1234",
-			Product:     "product-1234",
-			Vendor:      "vendor-1234",
-			Description: "description-1234",
-			DeviceName:  "gpu0",
-			Features:    "feature1,feature2",
+			PciId:        "pci-1234",
+			Product:      "product-1234",
+			Vendor:       "vendor-1234",
+			Description:  "description-1234",
+			DeviceName:   "gpu0",
+			Capabilities: []string{"feature1", "feature2"},
 		},
 	},
 	Instance: &computev1.InstanceResource{

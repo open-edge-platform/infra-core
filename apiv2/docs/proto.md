@@ -743,7 +743,7 @@ The set of available host GPU cards.
 | vendor | [string](#string) |  | The GPU device vendor. |
 | description | [string](#string) |  | The human-readable GPU device description. |
 | device_name | [string](#string) |  | GPU name as reported by OS. |
-| features | [string](#string) |  | The features of this GPU device, comma separated. |
+| capabilities | [string](#string) | repeated | The features of this GPU device, comma separated. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -765,7 +765,6 @@ The set of available host interfaces.
 | sriov_enabled | [bool](#bool) |  | If the interface has SRIOV enabled. |
 | sriov_vfs_num | [uint32](#uint32) |  | The number of VFs currently provisioned on the interface, if SR-IOV is supported. |
 | sriov_vfs_total | [uint32](#uint32) |  | The maximum number of VFs the interface supports, if SR-IOV is supported. |
-| features | [string](#string) |  | The features of this interface, comma separated. |
 | mtu | [uint32](#uint32) |  | Maximum transmission unit of the interface. |
 | link_state | [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState) |  | Link state of this interface. |
 | bmc_interface | [bool](#bool) |  | Whether this is a bmc interface or not. |

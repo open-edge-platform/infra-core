@@ -3333,9 +3333,11 @@ components:
                     readOnly: true
                     type: string
                     description: GPU name as reported by OS.
-                features:
+                capabilities:
                     readOnly: true
-                    type: string
+                    type: array
+                    items:
+                        type: string
                     description: The features of this GPU device, comma separated.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
@@ -3369,10 +3371,6 @@ components:
                     type: integer
                     description: The maximum number of VFs the interface supports, if SR-IOV is supported.
                     format: uint32
-                features:
-                    readOnly: true
-                    type: string
-                    description: The features of this interface, comma separated.
                 mtu:
                     readOnly: true
                     type: integer

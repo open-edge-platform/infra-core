@@ -992,8 +992,6 @@ func (m *HostnicResource) validate(all bool) error {
 
 	// no validation rules for SriovVfsTotal
 
-	// no validation rules for Features
-
 	// no validation rules for Mtu
 
 	if all {
@@ -1342,8 +1340,6 @@ func (m *HostgpuResource) validate(all bool) error {
 	// no validation rules for Description
 
 	// no validation rules for DeviceName
-
-	// no validation rules for Features
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {

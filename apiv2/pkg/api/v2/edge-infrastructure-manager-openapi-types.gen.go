@@ -462,14 +462,14 @@ type HostResourceRegistrationStatusIndicator string
 
 // HostgpuResource The set of available host GPU cards.
 type HostgpuResource struct {
+	// Capabilities The features of this GPU device, comma separated.
+	Capabilities *[]string `json:"capabilities,omitempty"`
+
 	// Description The human-readable GPU device description.
 	Description *string `json:"description,omitempty"`
 
 	// DeviceName GPU name as reported by OS.
 	DeviceName *string `json:"deviceName,omitempty"`
-
-	// Features The features of this GPU device, comma separated.
-	Features *string `json:"features,omitempty"`
 
 	// PciId The GPU device PCI identifier.
 	PciId *string `json:"pciId,omitempty"`
@@ -489,9 +489,6 @@ type HostnicResource struct {
 
 	// DeviceName The device name (OS provided, like eth0, enp1s0, etc.).
 	DeviceName *string `json:"deviceName,omitempty"`
-
-	// Features The features of this interface, comma separated.
-	Features *string `json:"features,omitempty"`
 
 	// Ipaddresses The interface's IP address list.
 	Ipaddresses *[]IPAddressResource       `json:"ipaddresses,omitempty"`
