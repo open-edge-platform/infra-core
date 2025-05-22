@@ -3102,6 +3102,8 @@ components:
                     format: enum
                 site:
                     $ref: '#/components/schemas/SiteResource'
+                provider:
+                    $ref: '#/components/schemas/ProviderResource'
                 note:
                     readOnly: true
                     maxLength: 512
@@ -3187,6 +3189,23 @@ components:
                     readOnly: true
                     type: string
                     description: BIOS Vendor.
+                currentPowerState:
+                    readOnly: true
+                    enum:
+                        - POWER_STATE_ERROR
+                        - POWER_STATE_ON
+                        - POWER_STATE_OFF
+                    type: string
+                    description: Current power state of the host
+                    format: enum
+                desiredPowerState:
+                    enum:
+                        - POWER_STATE_ERROR
+                        - POWER_STATE_ON
+                        - POWER_STATE_OFF
+                    type: string
+                    description: Desired power state of the host
+                    format: enum
                 hostStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3277,6 +3296,7 @@ components:
                     type: string
                     description: The site where the host is located.
                 metadata:
+                    maxItems: 100
                     type: array
                     items:
                         $ref: '#/components/schemas/MetadataItem'
@@ -3293,11 +3313,6 @@ components:
         HostgpuResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 16
-                    pattern: ^hostgpu-[0-9a-f]{8}$
-                    type: string
                 pciId:
                     readOnly: true
                     type: string
@@ -3318,9 +3333,11 @@ components:
                     readOnly: true
                     type: string
                     description: GPU name as reported by OS.
-                features:
+                capabilities:
                     readOnly: true
-                    type: string
+                    type: array
+                    items:
+                        type: string
                     description: The features of this GPU device, comma separated.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
@@ -3328,11 +3345,6 @@ components:
         HostnicResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 16
-                    pattern: ^hostnic-[0-9a-f]{8}$
-                    type: string
                 deviceName:
                     readOnly: true
                     type: string
@@ -3359,28 +3371,18 @@ components:
                     type: integer
                     description: The maximum number of VFs the interface supports, if SR-IOV is supported.
                     format: uint32
-                features:
-                    readOnly: true
-                    type: string
-                    description: The features of this interface, comma separated.
                 mtu:
                     readOnly: true
                     type: integer
                     description: Maximum transmission unit of the interface.
                     format: uint32
                 linkState:
-                    readOnly: true
-                    enum:
-                        - NETWORK_INTERFACE_LINK_STATE_UP
-                        - NETWORK_INTERFACE_LINK_STATE_DOWN
-                    type: string
-                    description: Link state of this interface.
-                    format: enum
+                    $ref: '#/components/schemas/NetworkInterfaceLinkState'
                 bmcInterface:
                     readOnly: true
                     type: boolean
                     description: Whether this is a bmc interface or not.
-                ipAddresses:
+                ipaddresses:
                     readOnly: true
                     type: array
                     items:
@@ -3392,11 +3394,6 @@ components:
         HoststorageResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 20
-                    pattern: ^hoststorage-[0-9a-f]{8}$
-                    type: string
                 wwid:
                     readOnly: true
                     type: string
@@ -3427,16 +3424,11 @@ components:
         HostusbResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 20
-                    pattern: ^hostusb-[0-9a-f]{8}$
-                    type: string
-                idvendor:
+                idVendor:
                     readOnly: true
                     type: string
                     description: Hexadecimal number representing ID of the USB device vendor.
-                idproduct:
+                idProduct:
                     readOnly: true
                     type: string
                     description: Hexadecimal number representing ID of the USB device product.
@@ -3544,6 +3536,8 @@ components:
                     format: enum
                 host:
                     $ref: '#/components/schemas/HostResource'
+                os:
+                    $ref: '#/components/schemas/OperatingSystemResource'
                 desiredOs:
                     $ref: '#/components/schemas/OperatingSystemResource'
                 currentOs:
@@ -4096,6 +4090,19 @@ components:
                     type: string
                     description: The metadata value.
             description: A metadata item, represented by a key:value pair.
+        NetworkInterfaceLinkState:
+            type: object
+            properties:
+                type:
+                    readOnly: true
+                    enum:
+                        - NETWORK_INTERFACE_LINK_STATE_UP
+                        - NETWORK_INTERFACE_LINK_STATE_DOWN
+                    type: string
+                    description: The interface link state.
+                    format: enum
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
         OnboardHostResponse:
             type: object
             properties: {}
@@ -4128,6 +4135,7 @@ components:
                     type: string
                     description: The OS resource's kernel Command Line Options.
                 updateSources:
+                    maxItems: 100
                     type: array
                     items:
                         maxLength: 10000
@@ -4203,7 +4211,7 @@ components:
                     maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                     type: string
-                    description: // OS image URL. URL of the original installation source.
+                    description: Deprecated. OS image URL. URL of the original installation source.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
             description: An OS resource.
@@ -4244,6 +4252,7 @@ components:
                     type: string
                     description: The provider resource's API endpoint.
                 apiCredentials:
+                    maxItems: 100
                     type: array
                     items:
                         maxLength: 500
@@ -4287,6 +4296,7 @@ components:
                     type: string
                     description: Deprecated, The Region unique identifier. Alias of resourceId.
                 metadata:
+                    maxItems: 100
                     type: array
                     items:
                         $ref: '#/components/schemas/MetadataItem'
@@ -4499,6 +4509,7 @@ components:
                     type: string
                     description: Deprecated, The site unique identifier. Alias of resourceId.
                 metadata:
+                    maxItems: 100
                     type: array
                     items:
                         $ref: '#/components/schemas/MetadataItem'
@@ -4567,9 +4578,11 @@ components:
                     description: The collector kind.
                     format: enum
                 groups:
+                    maxItems: 100
                     type: array
                     items:
-                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                        maxLength: 1000
+                        pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$"'
                         type: string
                     description: A list of log groups to collect.
                 timestamps:
@@ -4661,9 +4674,11 @@ components:
                     description: The collector kind.
                     format: enum
                 groups:
+                    maxItems: 100
                     type: array
                     items:
-                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                        maxLength: 1000
+                        pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$"'
                         type: string
                     description: A list of log groups to collect.
                 timestamps:

@@ -127,13 +127,12 @@ func (m *ProviderResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	for idx, item := range m.GetApiCredentials() {
-		_, _ = idx, item
+	if len(m.GetApiCredentials()) > 0 {
 
-		if utf8.RuneCountInString(item) > 500 {
+		if len(m.GetApiCredentials()) > 100 {
 			err := ProviderResourceValidationError{
-				field:  fmt.Sprintf("ApiCredentials[%v]", idx),
-				reason: "value length must be at most 500 runes",
+				field:  "ApiCredentials",
+				reason: "value must contain no more than 100 item(s)",
 			}
 			if !all {
 				return err
@@ -141,15 +140,31 @@ func (m *ProviderResource) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
-		if !_ProviderResource_ApiCredentials_Pattern.MatchString(item) {
-			err := ProviderResourceValidationError{
-				field:  fmt.Sprintf("ApiCredentials[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
+		for idx, item := range m.GetApiCredentials() {
+			_, _ = idx, item
+
+			if utf8.RuneCountInString(item) > 500 {
+				err := ProviderResourceValidationError{
+					field:  fmt.Sprintf("ApiCredentials[%v]", idx),
+					reason: "value length must be at most 500 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			if !all {
-				return err
+
+			if !_ProviderResource_ApiCredentials_Pattern.MatchString(item) {
+				err := ProviderResourceValidationError{
+					field:  fmt.Sprintf("ApiCredentials[%v]", idx),
+					reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			errors = append(errors, err)
+
 		}
 
 	}

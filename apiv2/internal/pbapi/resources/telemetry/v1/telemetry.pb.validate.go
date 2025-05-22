@@ -125,18 +125,44 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	// no validation rules for CollectorKind
 
-	for idx, item := range m.GetGroups() {
-		_, _ = idx, item
+	if len(m.GetGroups()) > 0 {
 
-		if !_TelemetryLogsGroupResource_Groups_Pattern.MatchString(item) {
+		if len(m.GetGroups()) > 100 {
 			err := TelemetryLogsGroupResourceValidationError{
-				field:  fmt.Sprintf("Groups[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
+				field:  "Groups",
+				reason: "value must contain no more than 100 item(s)",
 			}
 			if !all {
 				return err
 			}
 			errors = append(errors, err)
+		}
+
+		for idx, item := range m.GetGroups() {
+			_, _ = idx, item
+
+			if utf8.RuneCountInString(item) > 1000 {
+				err := TelemetryLogsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value length must be at most 1000 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_TelemetryLogsGroupResource_Groups_Pattern.MatchString(item) {
+				err := TelemetryLogsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value does not match regex pattern \"\\\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\\\"\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
 		}
 
 	}
@@ -256,7 +282,7 @@ var _TelemetryLogsGroupResource_TelemetryLogsGroupId_Pattern = regexp.MustCompil
 
 var _TelemetryLogsGroupResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _TelemetryLogsGroupResource_Groups_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+var _TelemetryLogsGroupResource_Groups_Pattern = regexp.MustCompile("\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$\"")
 
 // Validate checks the field values on TelemetryMetricsGroupResource with the
 // rules defined in the proto definition for this message. If any rules are
@@ -348,18 +374,44 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 
 	// no validation rules for CollectorKind
 
-	for idx, item := range m.GetGroups() {
-		_, _ = idx, item
+	if len(m.GetGroups()) > 0 {
 
-		if !_TelemetryMetricsGroupResource_Groups_Pattern.MatchString(item) {
+		if len(m.GetGroups()) > 100 {
 			err := TelemetryMetricsGroupResourceValidationError{
-				field:  fmt.Sprintf("Groups[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
+				field:  "Groups",
+				reason: "value must contain no more than 100 item(s)",
 			}
 			if !all {
 				return err
 			}
 			errors = append(errors, err)
+		}
+
+		for idx, item := range m.GetGroups() {
+			_, _ = idx, item
+
+			if utf8.RuneCountInString(item) > 1000 {
+				err := TelemetryMetricsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value length must be at most 1000 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_TelemetryMetricsGroupResource_Groups_Pattern.MatchString(item) {
+				err := TelemetryMetricsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value does not match regex pattern \"\\\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\\\"\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
 		}
 
 	}
@@ -480,7 +532,7 @@ var _TelemetryMetricsGroupResource_TelemetryMetricsGroupId_Pattern = regexp.Must
 
 var _TelemetryMetricsGroupResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _TelemetryMetricsGroupResource_Groups_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+var _TelemetryMetricsGroupResource_Groups_Pattern = regexp.MustCompile("\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$\"")
 
 // Validate checks the field values on TelemetryLogsProfileResource with the
 // rules defined in the proto definition for this message. If any rules are
