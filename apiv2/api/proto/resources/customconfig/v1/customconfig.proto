@@ -1,0 +1,51 @@
+// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto3";
+
+package resources.customconfig.v1;
+
+import "google/api/field_behavior.proto";
+import "resources/common/v1/common.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/customconfig/v1;customconfigv1";
+
+message CustomConfigResource {
+  // resource identifier
+  string resource_id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^customconfig-[0-9a-f]{8}$"
+      max_len: 21
+    }
+  ];
+
+  // Config provided by admin
+  string config_name = 2 [
+    (validate.rules).string = {
+      pattern: "^[a-z][a-z0-9-]{0,31}$"
+      max_len: 32
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+    // Config description
+  string config_description = 3 [
+    (validate.rules).string = {
+      pattern: "^.{0,255}$"
+      max_len: 256
+    },
+    (google.api.field_behavior) = OPTIONAL
+  ];
+  // Config content
+  string config_content = 4 [
+    (validate.rules).string = {
+      max_len: 16384
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
