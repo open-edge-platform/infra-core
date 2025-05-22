@@ -13,10 +13,12 @@ const (
 	FieldID = "id"
 	// FieldResourceID holds the string denoting the resource_id field in the database.
 	FieldResourceID = "resource_id"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
-	// FieldConfig holds the string denoting the config field in the database.
-	FieldConfig = "config"
+	// FieldConfigName holds the string denoting the config_name field in the database.
+	FieldConfigName = "config_name"
+	// FieldConfigDescription holds the string denoting the config_description field in the database.
+	FieldConfigDescription = "config_description"
+	// FieldConfigData holds the string denoting the config_data field in the database.
+	FieldConfigData = "config_data"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -31,8 +33,9 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldResourceID,
-	FieldName,
-	FieldConfig,
+	FieldConfigName,
+	FieldConfigDescription,
+	FieldConfigData,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -72,14 +75,19 @@ func ByResourceID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldResourceID, opts...).ToFunc()
 }
 
-// ByName orders the results by the name field.
-func ByName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldName, opts...).ToFunc()
+// ByConfigName orders the results by the config_name field.
+func ByConfigName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldConfigName, opts...).ToFunc()
 }
 
-// ByConfig orders the results by the config field.
-func ByConfig(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldConfig, opts...).ToFunc()
+// ByConfigDescription orders the results by the config_description field.
+func ByConfigDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldConfigDescription, opts...).ToFunc()
+}
+
+// ByConfigData orders the results by the config_data field.
+func ByConfigData(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldConfigData, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

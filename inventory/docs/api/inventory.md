@@ -146,8 +146,9 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | resource identifier |
-| name | [string](#string) |  | Unique name provided by admin |
-| config | [string](#string) |  | Configuration file. |
+| config_name | [string](#string) |  | Unique name of config provided by admin |
+| config_description | [string](#string) |  | Config Description |
+| config_data | [string](#string) |  | Configuration file. |
 | tenant_id | [string](#string) |  | Tenant Identifier. |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |

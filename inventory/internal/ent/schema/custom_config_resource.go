@@ -14,7 +14,7 @@ type CustomConfigResource struct {
 }
 
 func (CustomConfigResource) Fields() []ent.Field {
-	return []ent.Field{field.String("resource_id").Unique(), field.String("name").Immutable(), field.String("config").Immutable(), field.String("tenant_id").Immutable(), field.String("created_at").Immutable().SchemaType(map[string]string{"postgres": "TIMESTAMP"}), field.String("updated_at").SchemaType(map[string]string{"postgres": "TIMESTAMP"})}
+	return []ent.Field{field.String("resource_id").Unique(), field.String("config_name").Immutable(), field.String("config_description").Optional(), field.String("config_data").Immutable(), field.String("tenant_id").Immutable(), field.String("created_at").Immutable().SchemaType(map[string]string{"postgres": "TIMESTAMP"}), field.String("updated_at").SchemaType(map[string]string{"postgres": "TIMESTAMP"})}
 }
 func (CustomConfigResource) Edges() []ent.Edge {
 	return nil
@@ -23,5 +23,5 @@ func (CustomConfigResource) Annotations() []schema.Annotation {
 	return nil
 }
 func (CustomConfigResource) Indexes() []ent.Index {
-	return []ent.Index{index.Fields("name", "tenant_id").Unique(), index.Fields("tenant_id")}
+	return []ent.Index{index.Fields("config_name", "tenant_id").Unique(), index.Fields("tenant_id")}
 }

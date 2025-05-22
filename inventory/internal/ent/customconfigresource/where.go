@@ -57,14 +57,19 @@ func ResourceID(v string) predicate.CustomConfigResource {
 	return predicate.CustomConfigResource(sql.FieldEQ(FieldResourceID, v))
 }
 
-// Name applies equality check predicate on the "name" field. It's identical to NameEQ.
-func Name(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldEQ(FieldName, v))
+// ConfigName applies equality check predicate on the "config_name" field. It's identical to ConfigNameEQ.
+func ConfigName(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfigName, v))
 }
 
-// Config applies equality check predicate on the "config" field. It's identical to ConfigEQ.
-func Config(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfig, v))
+// ConfigDescription applies equality check predicate on the "config_description" field. It's identical to ConfigDescriptionEQ.
+func ConfigDescription(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfigDescription, v))
+}
+
+// ConfigData applies equality check predicate on the "config_data" field. It's identical to ConfigDataEQ.
+func ConfigData(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfigData, v))
 }
 
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
@@ -147,134 +152,209 @@ func ResourceIDContainsFold(v string) predicate.CustomConfigResource {
 	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldResourceID, v))
 }
 
-// NameEQ applies the EQ predicate on the "name" field.
-func NameEQ(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldEQ(FieldName, v))
+// ConfigNameEQ applies the EQ predicate on the "config_name" field.
+func ConfigNameEQ(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfigName, v))
 }
 
-// NameNEQ applies the NEQ predicate on the "name" field.
-func NameNEQ(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldNEQ(FieldName, v))
+// ConfigNameNEQ applies the NEQ predicate on the "config_name" field.
+func ConfigNameNEQ(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNEQ(FieldConfigName, v))
 }
 
-// NameIn applies the In predicate on the "name" field.
-func NameIn(vs ...string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldIn(FieldName, vs...))
+// ConfigNameIn applies the In predicate on the "config_name" field.
+func ConfigNameIn(vs ...string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldIn(FieldConfigName, vs...))
 }
 
-// NameNotIn applies the NotIn predicate on the "name" field.
-func NameNotIn(vs ...string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldNotIn(FieldName, vs...))
+// ConfigNameNotIn applies the NotIn predicate on the "config_name" field.
+func ConfigNameNotIn(vs ...string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNotIn(FieldConfigName, vs...))
 }
 
-// NameGT applies the GT predicate on the "name" field.
-func NameGT(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldGT(FieldName, v))
+// ConfigNameGT applies the GT predicate on the "config_name" field.
+func ConfigNameGT(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldGT(FieldConfigName, v))
 }
 
-// NameGTE applies the GTE predicate on the "name" field.
-func NameGTE(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldGTE(FieldName, v))
+// ConfigNameGTE applies the GTE predicate on the "config_name" field.
+func ConfigNameGTE(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldGTE(FieldConfigName, v))
 }
 
-// NameLT applies the LT predicate on the "name" field.
-func NameLT(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldLT(FieldName, v))
+// ConfigNameLT applies the LT predicate on the "config_name" field.
+func ConfigNameLT(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldLT(FieldConfigName, v))
 }
 
-// NameLTE applies the LTE predicate on the "name" field.
-func NameLTE(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldLTE(FieldName, v))
+// ConfigNameLTE applies the LTE predicate on the "config_name" field.
+func ConfigNameLTE(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldLTE(FieldConfigName, v))
 }
 
-// NameContains applies the Contains predicate on the "name" field.
-func NameContains(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldContains(FieldName, v))
+// ConfigNameContains applies the Contains predicate on the "config_name" field.
+func ConfigNameContains(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldContains(FieldConfigName, v))
 }
 
-// NameHasPrefix applies the HasPrefix predicate on the "name" field.
-func NameHasPrefix(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldHasPrefix(FieldName, v))
+// ConfigNameHasPrefix applies the HasPrefix predicate on the "config_name" field.
+func ConfigNameHasPrefix(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldHasPrefix(FieldConfigName, v))
 }
 
-// NameHasSuffix applies the HasSuffix predicate on the "name" field.
-func NameHasSuffix(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldHasSuffix(FieldName, v))
+// ConfigNameHasSuffix applies the HasSuffix predicate on the "config_name" field.
+func ConfigNameHasSuffix(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldHasSuffix(FieldConfigName, v))
 }
 
-// NameEqualFold applies the EqualFold predicate on the "name" field.
-func NameEqualFold(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldEqualFold(FieldName, v))
+// ConfigNameEqualFold applies the EqualFold predicate on the "config_name" field.
+func ConfigNameEqualFold(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEqualFold(FieldConfigName, v))
 }
 
-// NameContainsFold applies the ContainsFold predicate on the "name" field.
-func NameContainsFold(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldName, v))
+// ConfigNameContainsFold applies the ContainsFold predicate on the "config_name" field.
+func ConfigNameContainsFold(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldConfigName, v))
 }
 
-// ConfigEQ applies the EQ predicate on the "config" field.
-func ConfigEQ(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfig, v))
+// ConfigDescriptionEQ applies the EQ predicate on the "config_description" field.
+func ConfigDescriptionEQ(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfigDescription, v))
 }
 
-// ConfigNEQ applies the NEQ predicate on the "config" field.
-func ConfigNEQ(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldNEQ(FieldConfig, v))
+// ConfigDescriptionNEQ applies the NEQ predicate on the "config_description" field.
+func ConfigDescriptionNEQ(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNEQ(FieldConfigDescription, v))
 }
 
-// ConfigIn applies the In predicate on the "config" field.
-func ConfigIn(vs ...string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldIn(FieldConfig, vs...))
+// ConfigDescriptionIn applies the In predicate on the "config_description" field.
+func ConfigDescriptionIn(vs ...string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldIn(FieldConfigDescription, vs...))
 }
 
-// ConfigNotIn applies the NotIn predicate on the "config" field.
-func ConfigNotIn(vs ...string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldNotIn(FieldConfig, vs...))
+// ConfigDescriptionNotIn applies the NotIn predicate on the "config_description" field.
+func ConfigDescriptionNotIn(vs ...string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNotIn(FieldConfigDescription, vs...))
 }
 
-// ConfigGT applies the GT predicate on the "config" field.
-func ConfigGT(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldGT(FieldConfig, v))
+// ConfigDescriptionGT applies the GT predicate on the "config_description" field.
+func ConfigDescriptionGT(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldGT(FieldConfigDescription, v))
 }
 
-// ConfigGTE applies the GTE predicate on the "config" field.
-func ConfigGTE(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldGTE(FieldConfig, v))
+// ConfigDescriptionGTE applies the GTE predicate on the "config_description" field.
+func ConfigDescriptionGTE(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldGTE(FieldConfigDescription, v))
 }
 
-// ConfigLT applies the LT predicate on the "config" field.
-func ConfigLT(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldLT(FieldConfig, v))
+// ConfigDescriptionLT applies the LT predicate on the "config_description" field.
+func ConfigDescriptionLT(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldLT(FieldConfigDescription, v))
 }
 
-// ConfigLTE applies the LTE predicate on the "config" field.
-func ConfigLTE(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldLTE(FieldConfig, v))
+// ConfigDescriptionLTE applies the LTE predicate on the "config_description" field.
+func ConfigDescriptionLTE(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldLTE(FieldConfigDescription, v))
 }
 
-// ConfigContains applies the Contains predicate on the "config" field.
-func ConfigContains(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldContains(FieldConfig, v))
+// ConfigDescriptionContains applies the Contains predicate on the "config_description" field.
+func ConfigDescriptionContains(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldContains(FieldConfigDescription, v))
 }
 
-// ConfigHasPrefix applies the HasPrefix predicate on the "config" field.
-func ConfigHasPrefix(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldHasPrefix(FieldConfig, v))
+// ConfigDescriptionHasPrefix applies the HasPrefix predicate on the "config_description" field.
+func ConfigDescriptionHasPrefix(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldHasPrefix(FieldConfigDescription, v))
 }
 
-// ConfigHasSuffix applies the HasSuffix predicate on the "config" field.
-func ConfigHasSuffix(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldHasSuffix(FieldConfig, v))
+// ConfigDescriptionHasSuffix applies the HasSuffix predicate on the "config_description" field.
+func ConfigDescriptionHasSuffix(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldHasSuffix(FieldConfigDescription, v))
 }
 
-// ConfigEqualFold applies the EqualFold predicate on the "config" field.
-func ConfigEqualFold(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldEqualFold(FieldConfig, v))
+// ConfigDescriptionIsNil applies the IsNil predicate on the "config_description" field.
+func ConfigDescriptionIsNil() predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldIsNull(FieldConfigDescription))
 }
 
-// ConfigContainsFold applies the ContainsFold predicate on the "config" field.
-func ConfigContainsFold(v string) predicate.CustomConfigResource {
-	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldConfig, v))
+// ConfigDescriptionNotNil applies the NotNil predicate on the "config_description" field.
+func ConfigDescriptionNotNil() predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNotNull(FieldConfigDescription))
+}
+
+// ConfigDescriptionEqualFold applies the EqualFold predicate on the "config_description" field.
+func ConfigDescriptionEqualFold(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEqualFold(FieldConfigDescription, v))
+}
+
+// ConfigDescriptionContainsFold applies the ContainsFold predicate on the "config_description" field.
+func ConfigDescriptionContainsFold(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldConfigDescription, v))
+}
+
+// ConfigDataEQ applies the EQ predicate on the "config_data" field.
+func ConfigDataEQ(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEQ(FieldConfigData, v))
+}
+
+// ConfigDataNEQ applies the NEQ predicate on the "config_data" field.
+func ConfigDataNEQ(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNEQ(FieldConfigData, v))
+}
+
+// ConfigDataIn applies the In predicate on the "config_data" field.
+func ConfigDataIn(vs ...string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldIn(FieldConfigData, vs...))
+}
+
+// ConfigDataNotIn applies the NotIn predicate on the "config_data" field.
+func ConfigDataNotIn(vs ...string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldNotIn(FieldConfigData, vs...))
+}
+
+// ConfigDataGT applies the GT predicate on the "config_data" field.
+func ConfigDataGT(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldGT(FieldConfigData, v))
+}
+
+// ConfigDataGTE applies the GTE predicate on the "config_data" field.
+func ConfigDataGTE(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldGTE(FieldConfigData, v))
+}
+
+// ConfigDataLT applies the LT predicate on the "config_data" field.
+func ConfigDataLT(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldLT(FieldConfigData, v))
+}
+
+// ConfigDataLTE applies the LTE predicate on the "config_data" field.
+func ConfigDataLTE(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldLTE(FieldConfigData, v))
+}
+
+// ConfigDataContains applies the Contains predicate on the "config_data" field.
+func ConfigDataContains(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldContains(FieldConfigData, v))
+}
+
+// ConfigDataHasPrefix applies the HasPrefix predicate on the "config_data" field.
+func ConfigDataHasPrefix(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldHasPrefix(FieldConfigData, v))
+}
+
+// ConfigDataHasSuffix applies the HasSuffix predicate on the "config_data" field.
+func ConfigDataHasSuffix(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldHasSuffix(FieldConfigData, v))
+}
+
+// ConfigDataEqualFold applies the EqualFold predicate on the "config_data" field.
+func ConfigDataEqualFold(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldEqualFold(FieldConfigData, v))
+}
+
+// ConfigDataContainsFold applies the ContainsFold predicate on the "config_data" field.
+func ConfigDataContainsFold(v string) predicate.CustomConfigResource {
+	return predicate.CustomConfigResource(sql.FieldContainsFold(FieldConfigData, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.

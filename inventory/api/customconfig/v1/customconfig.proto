@@ -17,7 +17,7 @@ message CustomConfigResource {
     indexes: [
       {
         fields: [
-          "name",
+          "config_name",
           "tenant_id"
         ]
         unique: true
@@ -38,8 +38,8 @@ message CustomConfigResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
-  // Unique name provided by admin
-  string name = 2 [
+  // Unique name of config provided by admin
+  string config_name = 2 [
     (ent.field) = {
       optional: false
       immutable: true
@@ -51,8 +51,21 @@ message CustomConfigResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
+  // Config Description
+  string config_description = 3 [
+    (ent.field) = {
+      optional: true
+      immutable: false
+    },
+    (buf.validate.field).string = {
+      min_len: 0
+      max_len: 256
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+  
   // Configuration file.
-  string config = 3 [
+  string config_data = 4 [
     (ent.field) = {
       optional: false
       immutable: true
@@ -61,10 +74,10 @@ message CustomConfigResource {
     (buf.validate.field).string = {
       min_len: 1
       max_len: 16384
-      pattern: "^[A-Za-z0-9-/_\\[\\]\\.\\\\]*$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];  
+  ];
+
   // Tenant Identifier.
   string tenant_id = 100 [
     (ent.field) = {

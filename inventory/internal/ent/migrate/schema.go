@@ -13,8 +13,9 @@ var (
 	CustomConfigResourcesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "config", Type: field.TypeString},
+		{Name: "config_name", Type: field.TypeString},
+		{Name: "config_description", Type: field.TypeString, Nullable: true},
+		{Name: "config_data", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -28,21 +29,21 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "custom_config_resources_instance_resources_custom_config",
-				Columns:    []*schema.Column{CustomConfigResourcesColumns[7]},
+				Columns:    []*schema.Column{CustomConfigResourcesColumns[8]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 		Indexes: []*schema.Index{
 			{
-				Name:    "customconfigresource_name_tenant_id",
+				Name:    "customconfigresource_config_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[4]},
+				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[5]},
 			},
 			{
 				Name:    "customconfigresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{CustomConfigResourcesColumns[4]},
+				Columns: []*schema.Column{CustomConfigResourcesColumns[5]},
 			},
 		},
 	}
