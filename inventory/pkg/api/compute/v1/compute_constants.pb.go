@@ -185,4 +185,17 @@ const (
 	WorkloadMemberFieldTenantId   = "tenant_id"
 	WorkloadMemberFieldCreatedAt  = "created_at"
 	WorkloadMemberFieldUpdatedAt  = "updated_at"
+
+	// Fields and Edges constants for "OSUpdatePolicyResource"
+	OSUpdatePolicyResourceFieldResourceId        = "resource_id"
+	OSUpdatePolicyResourceFieldName              = "name"
+	OSUpdatePolicyResourceFieldDescription       = "description"
+	OSUpdatePolicyResourceFieldInstalledPackages = "installed_packages"
+	OSUpdatePolicyResourceFieldUpdateSources     = "update_sources"
+	OSUpdatePolicyResourceFieldKernelCommand     = "kernel_command"
+	OSUpdatePolicyResourceEdgeTargetOs           = "target_os"
+	OSUpdatePolicyResourceFieldUpdatePolicy      = "update_policy"
+	OSUpdatePolicyResourceFieldTenantId          = "tenant_id"
+	OSUpdatePolicyResourceFieldCreatedAt         = "created_at"
+	OSUpdatePolicyResourceFieldUpdatedAt         = "updated_at"
 )

@@ -508,6 +508,62 @@ var (
 			},
 		},
 	}
+	// OsUpdatePoliciesColumns holds the columns for the "os_update_policies" table.
+	OsUpdatePoliciesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
+		{Name: "update_sources", Type: field.TypeString, Nullable: true},
+		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
+		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "os_update_policy_target_os", Type: field.TypeInt, Nullable: true},
+	}
+	// OsUpdatePoliciesTable holds the schema information for the "os_update_policies" table.
+	OsUpdatePoliciesTable = &schema.Table{
+		Name:       "os_update_policies",
+		Columns:    OsUpdatePoliciesColumns,
+		PrimaryKey: []*schema.Column{OsUpdatePoliciesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "os_update_policies_operating_system_resources_target_os",
+				Columns:    []*schema.Column{OsUpdatePoliciesColumns[9]},
+				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
+	// OsUpdatePolicyResourcesColumns holds the columns for the "os_update_policy_resources" table.
+	OsUpdatePolicyResourcesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
+		{Name: "update_sources", Type: field.TypeString, Nullable: true},
+		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
+		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "os_update_policy_resource_target_os", Type: field.TypeInt, Nullable: true},
+	}
+	// OsUpdatePolicyResourcesTable holds the schema information for the "os_update_policy_resources" table.
+	OsUpdatePolicyResourcesTable = &schema.Table{
+		Name:       "os_update_policy_resources",
+		Columns:    OsUpdatePolicyResourcesColumns,
+		PrimaryKey: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "os_update_policy_resources_operating_system_resources_target_os",
+				Columns:    []*schema.Column{OsUpdatePolicyResourcesColumns[11]},
+				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// OperatingSystemResourcesColumns holds the columns for the "operating_system_resources" table.
 	OperatingSystemResourcesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1030,6 +1086,8 @@ var (
 		LocalAccountResourcesTable,
 		NetlinkResourcesTable,
 		NetworkSegmentsTable,
+		OsUpdatePoliciesTable,
+		OsUpdatePolicyResourcesTable,
 		OperatingSystemResourcesTable,
 		OuResourcesTable,
 		ProviderResourcesTable,
@@ -1063,6 +1121,8 @@ func init() {
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable
+	OsUpdatePoliciesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
+	OsUpdatePolicyResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	OuResourcesTable.ForeignKeys[0].RefTable = OuResourcesTable
 	RegionResourcesTable.ForeignKeys[0].RefTable = RegionResourcesTable
 	RemoteAccessConfigurationsTable.ForeignKeys[0].RefTable = InstanceResourcesTable
