@@ -59,10 +59,18 @@ message ProviderResource {
 
   // The provider resource's list of credentials.
   repeated string api_credentials = 17 [
-    (validate.rules).repeated.items.string = {
-      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
-      max_len: 500
-  }];
+    (validate.rules).repeated = {
+      ignore_empty: true,
+      min_items: 0,
+      max_items: 100,
+      items: {
+        string: {
+          pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
+          max_len: 500
+        }
+      }
+    }
+  ];
 
   // Opaque provider configuration.
   string config = 18 [(validate.rules).string = {

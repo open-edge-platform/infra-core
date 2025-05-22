@@ -6,6 +6,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/grpc/codes"
@@ -15,14 +16,15 @@ import (
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
 	locationv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
 	networkv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/network/v1"
+	providerv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/provider/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	inv_computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
@@ -37,6 +39,63 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceEdgeMetadata: inv_computev1.HostResourceFieldMetadata,
 }
 
+var (
+	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedHostStatus    = fmt.Sprintf(filterIsFailedHostStatusExp,
+		inv_computev1.HostResourceFieldHostStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
+		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Create a filter specifically for instance error states.
+	filterIsFailedInstanceStatusExp = `%s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedInstanceStatus    = fmt.Sprintf(filterIsFailedInstanceStatusExp,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
+		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+	)
+
+	// Modify running instance filter to only exclude instance-related errors
+	// and not host-related errors.
+	filterInstanceRunningExp = `has(%s) AND %s.%s = %s AND NOT (%s)`
+	filterInstanceRunning    = fmt.Sprintf(filterInstanceRunningExp,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.HostResourceEdgeInstance,
+		inv_computev1.InstanceResourceFieldCurrentState,
+		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
+		filterIsFailedInstanceStatus,
+	)
+
+	filterIsUnallocatedExp = `NOT has(%s)`
+	filterIsUnallocated    = fmt.Sprintf(filterIsUnallocatedExp,
+		inv_computev1.HostResourceEdgeSite,
+	)
+)
+
 func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error) {
 	if host == nil {
 		return &inv_computev1.HostResource{}, nil
@@ -48,11 +107,12 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 	}
 
 	invHost := &inv_computev1.HostResource{
-		Name:         host.GetName(),
-		Uuid:         host.GetUuid(),
-		SerialNumber: host.GetSerialNumber(),
-		DesiredState: inv_computev1.HostState_HOST_STATE_ONBOARDED,
-		Metadata:     metadata,
+		Name:              host.GetName(),
+		Uuid:              host.GetUuid(),
+		SerialNumber:      host.GetSerialNumber(),
+		DesiredState:      inv_computev1.HostState_HOST_STATE_ONBOARDED,
+		Metadata:          metadata,
+		DesiredPowerState: inv_computev1.PowerState(host.GetDesiredPowerState()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -82,8 +142,9 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 	}
 
 	invHost := &inv_computev1.HostResource{
-		Name:     host.GetName(),
-		Metadata: metadata,
+		Name:              host.GetName(),
+		Metadata:          metadata,
+		DesiredPowerState: inv_computev1.PowerState(host.GetDesiredPowerState()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -148,8 +209,13 @@ func fromInvHostEdges(
 			return err
 		}
 	}
+	var hostProvider *providerv1.ProviderResource
+	if invHost.GetProvider() != nil {
+		hostProvider = fromInvProvider(invHost.GetProvider())
+	}
 	host.Instance = hostInstance
 	host.Site = hostSite
+	host.Provider = hostProvider
 	return nil
 }
 
@@ -190,6 +256,8 @@ func fromInvHost(
 		BiosVersion:       invHost.GetBiosVersion(),
 		BiosReleaseDate:   invHost.GetBiosReleaseDate(),
 		BiosVendor:        invHost.GetBiosVendor(),
+		CurrentPowerState: computev1.PowerState(invHost.GetCurrentPowerState()),
+		DesiredPowerState: computev1.PowerState(invHost.GetDesiredPowerState()),
 		HostStorages:      fromInvHostStorages(invHost.GetHostStorages()),
 		HostNics:          fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:          fromInvHostUsbs(invHost.GetHostUsbs()),
@@ -225,7 +293,6 @@ func fromInvHostStorages(storages []*inv_computev1.HoststorageResource) []*compu
 	hostStorages := make([]*computev1.HoststorageResource, 0, len(storages))
 	for _, storage := range storages {
 		hostStorages = append(hostStorages, &computev1.HoststorageResource{
-			ResourceId:    storage.GetResourceId(),
 			Wwid:          storage.GetWwid(),
 			Serial:        storage.GetSerial(),
 			Vendor:        storage.GetVendor(),
@@ -250,19 +317,20 @@ func fromInvHostNics(
 			ipAdresses = nicToIPAdrresses[nic.GetResourceId()]
 		}
 
+		linkState := &computev1.NetworkInterfaceLinkState{
+			Type: computev1.LinkState(nic.GetLinkState()),
+		}
 		hostNics = append(hostNics, &computev1.HostnicResource{
-			ResourceId:    nic.GetResourceId(),
 			DeviceName:    nic.GetDeviceName(),
 			PciIdentifier: nic.GetPciIdentifier(),
 			MacAddr:       nic.GetMacAddr(),
 			SriovEnabled:  nic.GetSriovEnabled(),
 			SriovVfsNum:   nic.GetSriovVfsNum(),
 			SriovVfsTotal: nic.GetSriovVfsTotal(),
-			Features:      nic.GetFeatures(),
 			Mtu:           nic.GetMtu(),
-			LinkState:     computev1.NetworkInterfaceLinkState(nic.GetLinkState()),
+			LinkState:     linkState,
 			BmcInterface:  nic.GetBmcInterface(),
-			IpAddresses:   ipAdresses,
+			Ipaddresses:   ipAdresses,
 			Timestamps:    GrpcToOpenAPITimestamps(nic),
 		})
 	}
@@ -274,9 +342,8 @@ func fromInvHostUsbs(usbs []*inv_computev1.HostusbResource) []*computev1.Hostusb
 	hostUsbs := make([]*computev1.HostusbResource, 0, len(usbs))
 	for _, usb := range usbs {
 		hostUsbs = append(hostUsbs, &computev1.HostusbResource{
-			ResourceId: usb.GetResourceId(),
-			Idvendor:   usb.GetIdvendor(),
-			Idproduct:  usb.GetIdproduct(),
+			IdVendor:   usb.GetIdvendor(),
+			IdProduct:  usb.GetIdproduct(),
 			Bus:        usb.GetBus(),
 			Addr:       usb.GetAddr(),
 			Class:      usb.GetClass(),
@@ -292,15 +359,15 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 	// Conversion logic for HostGpus
 	hostGpus := make([]*computev1.HostgpuResource, 0, len(gpus))
 	for _, gpu := range gpus {
+		gpuCapabilities := strings.Split(gpu.GetFeatures(), ",")
 		hostGpus = append(hostGpus, &computev1.HostgpuResource{
-			ResourceId:  gpu.GetResourceId(),
-			PciId:       gpu.GetPciId(),
-			Product:     gpu.GetProduct(),
-			Vendor:      gpu.GetVendor(),
-			Description: gpu.GetDescription(),
-			DeviceName:  gpu.GetDeviceName(),
-			Features:    gpu.GetFeatures(),
-			Timestamps:  GrpcToOpenAPITimestamps(gpu),
+			PciId:        gpu.GetPciId(),
+			Product:      gpu.GetProduct(),
+			Vendor:       gpu.GetVendor(),
+			Description:  gpu.GetDescription(),
+			DeviceName:   gpu.GetDeviceName(),
+			Capabilities: gpuCapabilities,
+			Timestamps:   GrpcToOpenAPITimestamps(gpu),
 		})
 	}
 	return hostGpus
@@ -677,38 +744,20 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 	return invHost, nil
 }
 
-func (is *InventorygRPCServer) listAllHosts(ctx context.Context, filter string) ([]*computev1.HostResource, error) {
-	var offset int
-	var pageSize int32 = 100
-	hasNext := true
-	hosts := make([]*computev1.HostResource, 0, pageSize)
-
-	for hasNext {
-		offsetInt32, err := util.IntToInt32(offset)
-		if err != nil {
-			return nil, err
-		}
-		req := &restv1.ListHostsRequest{
-			Filter:   filter,
-			PageSize: pageSize,
-			Offset:   offsetInt32,
-		}
-		hostsList, err := is.ListHosts(ctx, req)
-		if err != nil {
-			return nil, err
-		}
-
-		hosts = append(hosts, hostsList.GetHosts()...)
-		hasNext = hostsList.GetHasNext()
-		offset += len(hostsList.GetHosts())
+func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (int32, error) {
+	var pageSize int32 = 1
+	req := &restv1.ListHostsRequest{
+		Filter:   filter,
+		PageSize: pageSize,
 	}
-
-	return hosts, nil
+	hostsList, err := is.ListHosts(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	return hostsList.GetTotalElements(), nil
 }
 
 // Get hosts summary.
-//
-//nolint:cyclop // high cyclomatic complexity due to complex status checking
 func (is *InventorygRPCServer) GetHostsSummary(
 	ctx context.Context,
 	req *restv1.GetHostSummaryRequest,
@@ -719,54 +768,52 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	var errorState uint32
 	var runningState uint32
 	var unallocatedState uint32
+	reqFilter := req.GetFilter()
 
-	isFailedHostStatus := func(host *computev1.HostResource) bool {
-		hostErr := host.GetHostStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR ||
-			host.GetOnboardingStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR
+	filterTotal := reqFilter
+	filterIsFailedHostStatusParsed := filterIsFailedHostStatus
+	filterInstanceRunningParsed := filterInstanceRunning
+	filterIsUnallocatedParsed := filterIsUnallocated
 
-		instanceErr := false
-		if host.GetInstance() != nil {
-			instanceErr = host.GetInstance().
-				GetInstanceStatusIndicator() ==
-				statusv1.StatusIndication_STATUS_INDICATION_ERROR ||
-				host.GetInstance().GetProvisioningStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR ||
-				host.GetInstance().GetUpdateStatusIndicator() == statusv1.StatusIndication_STATUS_INDICATION_ERROR
-		}
-		return hostErr || instanceErr
+	if reqFilter != "" {
+		filterIsFailedHostStatusParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatusParsed)
+		filterInstanceRunningParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunningParsed)
+		filterIsUnallocatedParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocatedParsed)
 	}
 
-	hosts, err := is.listAllHosts(ctx, req.GetFilter())
+	totalHosts, err := is.totalHosts(ctx, filterTotal)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsError, err := is.totalHosts(ctx, filterIsFailedHostStatusParsed)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsUnallocated, err := is.totalHosts(ctx, filterIsUnallocatedParsed)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsRunning, err := is.totalHosts(ctx, filterInstanceRunningParsed)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, host := range hosts {
-		if host.GetSite() == nil {
-			unallocatedState++
-		}
-		if host.GetSite() != nil && host.GetSite().GetResourceId() == "" {
-			unallocatedState++
-		}
-
-		if isFailedHostStatus(host) {
-			errorState++
-		}
-
-		// Since IDLE status can be used for multiple status (e.g., Powered off or Invalidated),
-		// we use Instance's current state as a source of Running state.
-		// To avoid counting hosts in both Running and Error states
-		// current state must be RUNNING, but Host/Instance status cannot be a failure status.
-		if host.GetInstance().GetCurrentState() == computev1.InstanceState_INSTANCE_STATE_RUNNING &&
-			!isFailedHostStatus(host) {
-			runningState++
-		}
-	}
-
-	total, err = util.IntToUint32(len(hosts))
+	total, err = SafeInt32ToUint32(totalHosts)
 	if err != nil {
 		return nil, err
 	}
-	// Notice, error and running numbers come from Provider.State
+	errorState, err = SafeInt32ToUint32(totalHostsError)
+	if err != nil {
+		return nil, err
+	}
+	unallocatedState, err = SafeInt32ToUint32(totalHostsUnallocated)
+	if err != nil {
+		return nil, err
+	}
+	runningState, err = SafeInt32ToUint32(totalHostsRunning)
+	if err != nil {
+		return nil, err
+	}
 	hostsSummary := &restv1.GetHostSummaryResponse{
 		Total:       total,
 		Error:       errorState,

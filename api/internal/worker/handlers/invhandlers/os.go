@@ -26,6 +26,7 @@ var OpenAPIOSResourceToProto = map[string]string{
 	"kernelCommand":     osv1.OperatingSystemResourceFieldKernelCommand,
 	"updateSources":     osv1.OperatingSystemResourceFieldUpdateSources,
 	"installedPackages": osv1.OperatingSystemResourceFieldInstalledPackages,
+	"description":       osv1.OperatingSystemResourceFieldDescription,
 }
 
 // OpenAPIOSToProtoExcluded defines exclusion rules as there are some fields
@@ -409,6 +410,10 @@ func openapiToGrpcOSResource(body *api.OperatingSystemResource) (*osv1.Operating
 		os.Name = *body.Name
 	}
 
+	if body.Description != nil {
+		os.Description = *body.Description
+	}
+
 	if body.Architecture != nil {
 		os.Architecture = *body.Architecture
 	}
@@ -465,6 +470,7 @@ func grpcToOpenAPIOSResource(
 ) *api.OperatingSystemResource {
 	resID := os.GetResourceId()
 	resName := os.GetName()
+	description := os.GetDescription()
 	kernel := os.GetKernelCommand()
 	arch := os.GetArchitecture()
 	sources := os.GetUpdateSources()
@@ -482,6 +488,7 @@ func grpcToOpenAPIOSResource(
 	obj := api.OperatingSystemResource{
 		OsResourceID:      &resID,
 		Name:              &resName,
+		Description:       &description,
 		KernelCommand:     &kernel,
 		Architecture:      &arch,
 		UpdateSources:     sources,

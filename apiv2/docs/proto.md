@@ -44,6 +44,7 @@
     - [HoststorageResource](#resources-compute-v1-HoststorageResource)
     - [HostusbResource](#resources-compute-v1-HostusbResource)
     - [InstanceResource](#resources-compute-v1-InstanceResource)
+    - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
@@ -52,7 +53,8 @@
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
-    - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
+    - [LinkState](#resources-compute-v1-LinkState)
+    - [PowerState](#resources-compute-v1-PowerState)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
     - [WorkloadState](#resources-compute-v1-WorkloadState)
@@ -450,6 +452,7 @@ An OS resource.
 | update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs |
 | image_url | [string](#string) |  | The URL repository of the OS image. |
 | image_id | [string](#string) |  | A unique identifier of the OS image that can be retrieved from the running OS. |
+| description | [string](#string) |  |  |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in hexadecimal representation. |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources. |
 | profile_version | [string](#string) |  | Version of OS profile that the OS resource belongs to. |
@@ -459,7 +462,7 @@ An OS resource.
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
-| repo_url | [string](#string) |  | OS image URL. URL of the original installation source. |
+| repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -682,6 +685,7 @@ A Host resource.
 | desired_state | [HostState](#resources-compute-v1-HostState) |  | The desired state of the Host. |
 | current_state | [HostState](#resources-compute-v1-HostState) |  | The current state of the Host. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | The site resource associated with the host. |
+| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | The provider associated with the host. |
 | note | [string](#string) |  | The note associated with the host. |
 | serial_number | [string](#string) |  | SMBIOS device serial number. |
 | uuid | [string](#string) |  | The host UUID identifier; UUID is unique and immutable. |
@@ -700,6 +704,8 @@ A Host resource.
 | bios_version | [string](#string) |  | BIOS Version. |
 | bios_release_date | [string](#string) |  | BIOS Release Date. |
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
+| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
+| desired_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Desired power state of the host |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
 | host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
@@ -732,13 +738,12 @@ The set of available host GPU cards.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | pci_id | [string](#string) |  | The GPU device PCI identifier. |
 | product | [string](#string) |  | The GPU device model. |
 | vendor | [string](#string) |  | The GPU device vendor. |
 | description | [string](#string) |  | The human-readable GPU device description. |
 | device_name | [string](#string) |  | GPU name as reported by OS. |
-| features | [string](#string) |  | The features of this GPU device, comma separated. |
+| capabilities | [string](#string) | repeated | The features of this GPU device, comma separated. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -754,18 +759,16 @@ The set of available host interfaces.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | device_name | [string](#string) |  | The device name (OS provided, like eth0, enp1s0, etc.). |
 | pci_identifier | [string](#string) |  | PCI identifier string for this network interface. |
 | mac_addr | [string](#string) |  | The interface MAC address. |
 | sriov_enabled | [bool](#bool) |  | If the interface has SRIOV enabled. |
 | sriov_vfs_num | [uint32](#uint32) |  | The number of VFs currently provisioned on the interface, if SR-IOV is supported. |
 | sriov_vfs_total | [uint32](#uint32) |  | The maximum number of VFs the interface supports, if SR-IOV is supported. |
-| features | [string](#string) |  | The features of this interface, comma separated. |
 | mtu | [uint32](#uint32) |  | Maximum transmission unit of the interface. |
 | link_state | [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState) |  | Link state of this interface. |
 | bmc_interface | [bool](#bool) |  | Whether this is a bmc interface or not. |
-| ip_addresses | [resources.network.v1.IPAddressResource](#resources-network-v1-IPAddressResource) | repeated | The interface&#39;s IP address list. |
+| ipaddresses | [resources.network.v1.IPAddressResource](#resources-network-v1-IPAddressResource) | repeated | The interface&#39;s IP address list. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -781,7 +784,6 @@ The set of available host storage capabilities.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | wwid | [string](#string) |  | The storage device unique identifier. |
 | serial | [string](#string) |  | The storage device unique serial number. |
 | vendor | [string](#string) |  | The Storage device vendor. |
@@ -803,9 +805,8 @@ The set of host USB resources.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
-| idvendor | [string](#string) |  | Hexadecimal number representing ID of the USB device vendor. |
-| idproduct | [string](#string) |  | Hexadecimal number representing ID of the USB device product. |
+| id_vendor | [string](#string) |  | Hexadecimal number representing ID of the USB device vendor. |
+| id_product | [string](#string) |  | Hexadecimal number representing ID of the USB device product. |
 | bus | [uint32](#uint32) |  | Bus number of device connected with. |
 | addr | [uint32](#uint32) |  | USB Device number assigned by OS. |
 | class | [string](#string) |  | class defined by USB-IF. |
@@ -833,6 +834,7 @@ host or hypervisor.
 | desired_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance desired state. |
 | current_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance current state. |
 | host | [HostResource](#resources-compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
+| os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
 | desired_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
 | current_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
 | security_feature | [resources.os.v1.SecurityFeature](#resources-os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
@@ -857,6 +859,22 @@ back-reference to the Workload Members associated to this Instance |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-NetworkInterfaceLinkState"></a>
+
+### NetworkInterfaceLinkState
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| type | [LinkState](#resources-compute-v1-LinkState) |  | The interface link state. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -948,7 +966,6 @@ States of the host.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |
@@ -982,9 +999,9 @@ The Instance States.
 
 
 
-<a name="resources-compute-v1-NetworkInterfaceLinkState"></a>
+<a name="resources-compute-v1-LinkState"></a>
 
-### NetworkInterfaceLinkState
+### LinkState
 The state of the network interface.
 
 | Name | Number | Description |
@@ -992,6 +1009,20 @@ The state of the network interface.
 | NETWORK_INTERFACE_LINK_STATE_UNSPECIFIED | 0 |  |
 | NETWORK_INTERFACE_LINK_STATE_UP | 1 |  |
 | NETWORK_INTERFACE_LINK_STATE_DOWN | 2 |  |
+
+
+
+<a name="resources-compute-v1-PowerState"></a>
+
+### PowerState
+The host power state.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_STATE_UNSPECIFIED | 0 |  |
+| POWER_STATE_ERROR | 1 |  |
+| POWER_STATE_ON | 2 |  |
+| POWER_STATE_OFF | 3 |  |
 
 
 

@@ -30,7 +30,6 @@ const (
 // Defines values for HostState.
 const (
 	HOSTSTATEDELETED     HostState = "HOST_STATE_DELETED"
-	HOSTSTATEDELETING    HostState = "HOST_STATE_DELETING"
 	HOSTSTATEONBOARDED   HostState = "HOST_STATE_ONBOARDED"
 	HOSTSTATEREGISTERED  HostState = "HOST_STATE_REGISTERED"
 	HOSTSTATEUNSPECIFIED HostState = "HOST_STATE_UNSPECIFIED"
@@ -731,6 +730,9 @@ type OperatingSystemProvider string
 type OperatingSystemResource struct {
 	// Architecture The OS resource's architecture.
 	Architecture *string `json:"architecture,omitempty"`
+
+	// Description The OS resource's description.
+	Description *string `json:"description,omitempty"`
 
 	// ImageId A unique identifier of the OS image that can be retrieved from the running OS.
 	ImageId *string `json:"imageId,omitempty"`

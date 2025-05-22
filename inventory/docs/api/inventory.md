@@ -369,6 +369,7 @@
 | os_type | [OsType](#os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
+| description | [string](#string) |  | user-provided, human-readable description of OS |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -805,7 +806,6 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |
