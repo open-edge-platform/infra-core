@@ -6,6 +6,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/grpc/codes"
@@ -15,6 +16,7 @@ import (
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
 	locationv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
 	networkv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/network/v1"
+	providerv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/provider/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
@@ -105,11 +107,12 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 	}
 
 	invHost := &inv_computev1.HostResource{
-		Name:         host.GetName(),
-		Uuid:         host.GetUuid(),
-		SerialNumber: host.GetSerialNumber(),
-		DesiredState: inv_computev1.HostState_HOST_STATE_ONBOARDED,
-		Metadata:     metadata,
+		Name:              host.GetName(),
+		Uuid:              host.GetUuid(),
+		SerialNumber:      host.GetSerialNumber(),
+		DesiredState:      inv_computev1.HostState_HOST_STATE_ONBOARDED,
+		Metadata:          metadata,
+		DesiredPowerState: inv_computev1.PowerState(host.GetDesiredPowerState()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -139,8 +142,9 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 	}
 
 	invHost := &inv_computev1.HostResource{
-		Name:     host.GetName(),
-		Metadata: metadata,
+		Name:              host.GetName(),
+		Metadata:          metadata,
+		DesiredPowerState: inv_computev1.PowerState(host.GetDesiredPowerState()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -205,8 +209,13 @@ func fromInvHostEdges(
 			return err
 		}
 	}
+	var hostProvider *providerv1.ProviderResource
+	if invHost.GetProvider() != nil {
+		hostProvider = fromInvProvider(invHost.GetProvider())
+	}
 	host.Instance = hostInstance
 	host.Site = hostSite
+	host.Provider = hostProvider
 	return nil
 }
 
@@ -247,6 +256,8 @@ func fromInvHost(
 		BiosVersion:       invHost.GetBiosVersion(),
 		BiosReleaseDate:   invHost.GetBiosReleaseDate(),
 		BiosVendor:        invHost.GetBiosVendor(),
+		CurrentPowerState: computev1.PowerState(invHost.GetCurrentPowerState()),
+		DesiredPowerState: computev1.PowerState(invHost.GetDesiredPowerState()),
 		HostStorages:      fromInvHostStorages(invHost.GetHostStorages()),
 		HostNics:          fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:          fromInvHostUsbs(invHost.GetHostUsbs()),
@@ -282,7 +293,6 @@ func fromInvHostStorages(storages []*inv_computev1.HoststorageResource) []*compu
 	hostStorages := make([]*computev1.HoststorageResource, 0, len(storages))
 	for _, storage := range storages {
 		hostStorages = append(hostStorages, &computev1.HoststorageResource{
-			ResourceId:    storage.GetResourceId(),
 			Wwid:          storage.GetWwid(),
 			Serial:        storage.GetSerial(),
 			Vendor:        storage.GetVendor(),
@@ -307,19 +317,20 @@ func fromInvHostNics(
 			ipAdresses = nicToIPAdrresses[nic.GetResourceId()]
 		}
 
+		linkState := &computev1.NetworkInterfaceLinkState{
+			Type: computev1.LinkState(nic.GetLinkState()),
+		}
 		hostNics = append(hostNics, &computev1.HostnicResource{
-			ResourceId:    nic.GetResourceId(),
 			DeviceName:    nic.GetDeviceName(),
 			PciIdentifier: nic.GetPciIdentifier(),
 			MacAddr:       nic.GetMacAddr(),
 			SriovEnabled:  nic.GetSriovEnabled(),
 			SriovVfsNum:   nic.GetSriovVfsNum(),
 			SriovVfsTotal: nic.GetSriovVfsTotal(),
-			Features:      nic.GetFeatures(),
 			Mtu:           nic.GetMtu(),
-			LinkState:     computev1.NetworkInterfaceLinkState(nic.GetLinkState()),
+			LinkState:     linkState,
 			BmcInterface:  nic.GetBmcInterface(),
-			IpAddresses:   ipAdresses,
+			Ipaddresses:   ipAdresses,
 			Timestamps:    GrpcToOpenAPITimestamps(nic),
 		})
 	}
@@ -331,9 +342,8 @@ func fromInvHostUsbs(usbs []*inv_computev1.HostusbResource) []*computev1.Hostusb
 	hostUsbs := make([]*computev1.HostusbResource, 0, len(usbs))
 	for _, usb := range usbs {
 		hostUsbs = append(hostUsbs, &computev1.HostusbResource{
-			ResourceId: usb.GetResourceId(),
-			Idvendor:   usb.GetIdvendor(),
-			Idproduct:  usb.GetIdproduct(),
+			IdVendor:   usb.GetIdvendor(),
+			IdProduct:  usb.GetIdproduct(),
 			Bus:        usb.GetBus(),
 			Addr:       usb.GetAddr(),
 			Class:      usb.GetClass(),
@@ -349,15 +359,15 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 	// Conversion logic for HostGpus
 	hostGpus := make([]*computev1.HostgpuResource, 0, len(gpus))
 	for _, gpu := range gpus {
+		gpuCapabilities := strings.Split(gpu.GetFeatures(), ",")
 		hostGpus = append(hostGpus, &computev1.HostgpuResource{
-			ResourceId:  gpu.GetResourceId(),
-			PciId:       gpu.GetPciId(),
-			Product:     gpu.GetProduct(),
-			Vendor:      gpu.GetVendor(),
-			Description: gpu.GetDescription(),
-			DeviceName:  gpu.GetDeviceName(),
-			Features:    gpu.GetFeatures(),
-			Timestamps:  GrpcToOpenAPITimestamps(gpu),
+			PciId:        gpu.GetPciId(),
+			Product:      gpu.GetProduct(),
+			Vendor:       gpu.GetVendor(),
+			Description:  gpu.GetDescription(),
+			DeviceName:   gpu.GetDeviceName(),
+			Capabilities: gpuCapabilities,
+			Timestamps:   GrpcToOpenAPITimestamps(gpu),
 		})
 	}
 	return hostGpus

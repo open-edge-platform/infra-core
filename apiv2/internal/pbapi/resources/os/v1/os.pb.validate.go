@@ -145,13 +145,12 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	for idx, item := range m.GetUpdateSources() {
-		_, _ = idx, item
+	if len(m.GetUpdateSources()) > 0 {
 
-		if utf8.RuneCountInString(item) > 10000 {
+		if len(m.GetUpdateSources()) > 100 {
 			err := OperatingSystemResourceValidationError{
-				field:  fmt.Sprintf("UpdateSources[%v]", idx),
-				reason: "value length must be at most 10000 runes",
+				field:  "UpdateSources",
+				reason: "value must contain no more than 100 item(s)",
 			}
 			if !all {
 				return err
@@ -159,15 +158,31 @@ func (m *OperatingSystemResource) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
-		if !_OperatingSystemResource_UpdateSources_Pattern.MatchString(item) {
-			err := OperatingSystemResourceValidationError{
-				field:  fmt.Sprintf("UpdateSources[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\"\\\\ \\\\\\\\\\\\n]+$\"",
+		for idx, item := range m.GetUpdateSources() {
+			_, _ = idx, item
+
+			if utf8.RuneCountInString(item) > 10000 {
+				err := OperatingSystemResourceValidationError{
+					field:  fmt.Sprintf("UpdateSources[%v]", idx),
+					reason: "value length must be at most 10000 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			if !all {
-				return err
+
+			if !_OperatingSystemResource_UpdateSources_Pattern.MatchString(item) {
+				err := OperatingSystemResourceValidationError{
+					field:  fmt.Sprintf("UpdateSources[%v]", idx),
+					reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\"\\\\ \\\\\\\\\\\\n]+$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			errors = append(errors, err)
+
 		}
 
 	}
