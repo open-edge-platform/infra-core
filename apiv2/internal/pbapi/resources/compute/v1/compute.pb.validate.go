@@ -142,6 +142,35 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetProvider()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostResourceValidationError{
+					field:  "Provider",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostResourceValidationError{
+					field:  "Provider",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProvider()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostResourceValidationError{
+				field:  "Provider",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if l := utf8.RuneCountInString(m.GetNote()); l < 1 || l > 512 {
 		err := HostResourceValidationError{
 			field:  "Note",
@@ -217,6 +246,10 @@ func (m *HostResource) validate(all bool) error {
 	// no validation rules for BiosReleaseDate
 
 	// no validation rules for BiosVendor
+
+	// no validation rules for CurrentPowerState
+
+	// no validation rules for DesiredPowerState
 
 	if utf8.RuneCountInString(m.GetHostStatus()) > 1024 {
 		err := HostResourceValidationError{
@@ -671,28 +704,6 @@ func (m *HoststorageResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 20 {
-		err := HoststorageResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 20 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HoststorageResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HoststorageResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hoststorage-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for Wwid
 
 	// no validation rules for Serial
@@ -814,7 +825,138 @@ var _ interface {
 	ErrorName() string
 } = HoststorageResourceValidationError{}
 
-var _HoststorageResource_ResourceId_Pattern = regexp.MustCompile("^hoststorage-[0-9a-f]{8}$")
+// Validate checks the field values on NetworkInterfaceLinkState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *NetworkInterfaceLinkState) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on NetworkInterfaceLinkState with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// NetworkInterfaceLinkStateMultiError, or nil if none found.
+func (m *NetworkInterfaceLinkState) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *NetworkInterfaceLinkState) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, NetworkInterfaceLinkStateValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, NetworkInterfaceLinkStateValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return NetworkInterfaceLinkStateValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return NetworkInterfaceLinkStateMultiError(errors)
+	}
+
+	return nil
+}
+
+// NetworkInterfaceLinkStateMultiError is an error wrapping multiple validation
+// errors returned by NetworkInterfaceLinkState.ValidateAll() if the
+// designated constraints aren't met.
+type NetworkInterfaceLinkStateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m NetworkInterfaceLinkStateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m NetworkInterfaceLinkStateMultiError) AllErrors() []error { return m }
+
+// NetworkInterfaceLinkStateValidationError is the validation error returned by
+// NetworkInterfaceLinkState.Validate if the designated constraints aren't met.
+type NetworkInterfaceLinkStateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e NetworkInterfaceLinkStateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e NetworkInterfaceLinkStateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e NetworkInterfaceLinkStateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e NetworkInterfaceLinkStateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e NetworkInterfaceLinkStateValidationError) ErrorName() string {
+	return "NetworkInterfaceLinkStateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e NetworkInterfaceLinkStateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sNetworkInterfaceLinkState.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = NetworkInterfaceLinkStateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = NetworkInterfaceLinkStateValidationError{}
 
 // Validate checks the field values on HostnicResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -838,28 +980,6 @@ func (m *HostnicResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 16 {
-		err := HostnicResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 16 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostnicResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostnicResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hostnic-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for DeviceName
 
 	// no validation rules for PciIdentifier
@@ -876,11 +996,38 @@ func (m *HostnicResource) validate(all bool) error {
 
 	// no validation rules for Mtu
 
-	// no validation rules for LinkState
+	if all {
+		switch v := interface{}(m.GetLinkState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostnicResourceValidationError{
+					field:  "LinkState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostnicResourceValidationError{
+					field:  "LinkState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLinkState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostnicResourceValidationError{
+				field:  "LinkState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for BmcInterface
 
-	for idx, item := range m.GetIpAddresses() {
+	for idx, item := range m.GetIpaddresses() {
 		_, _ = idx, item
 
 		if all {
@@ -888,7 +1035,7 @@ func (m *HostnicResource) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, HostnicResourceValidationError{
-						field:  fmt.Sprintf("IpAddresses[%v]", idx),
+						field:  fmt.Sprintf("Ipaddresses[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -896,7 +1043,7 @@ func (m *HostnicResource) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, HostnicResourceValidationError{
-						field:  fmt.Sprintf("IpAddresses[%v]", idx),
+						field:  fmt.Sprintf("Ipaddresses[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -905,7 +1052,7 @@ func (m *HostnicResource) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return HostnicResourceValidationError{
-					field:  fmt.Sprintf("IpAddresses[%v]", idx),
+					field:  fmt.Sprintf("Ipaddresses[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1021,8 +1168,6 @@ var _ interface {
 	ErrorName() string
 } = HostnicResourceValidationError{}
 
-var _HostnicResource_ResourceId_Pattern = regexp.MustCompile("^hostnic-[0-9a-f]{8}$")
-
 // Validate checks the field values on HostusbResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1045,31 +1190,9 @@ func (m *HostusbResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 20 {
-		err := HostusbResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 20 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for IdVendor
 
-	if !_HostusbResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostusbResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hostusb-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	// no validation rules for Idvendor
-
-	// no validation rules for Idproduct
+	// no validation rules for IdProduct
 
 	// no validation rules for Bus
 
@@ -1188,8 +1311,6 @@ var _ interface {
 	ErrorName() string
 } = HostusbResourceValidationError{}
 
-var _HostusbResource_ResourceId_Pattern = regexp.MustCompile("^hostusb-[0-9a-f]{8}$")
-
 // Validate checks the field values on HostgpuResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1211,28 +1332,6 @@ func (m *HostgpuResource) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if utf8.RuneCountInString(m.GetResourceId()) > 16 {
-		err := HostgpuResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 16 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostgpuResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostgpuResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hostgpu-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
 
 	// no validation rules for PciId
 
@@ -1352,8 +1451,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = HostgpuResourceValidationError{}
-
-var _HostgpuResource_ResourceId_Pattern = regexp.MustCompile("^hostgpu-[0-9a-f]{8}$")
 
 // Validate checks the field values on InstanceResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the

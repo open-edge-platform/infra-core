@@ -12,6 +12,7 @@ import "resources/os/v1/os.proto";
 import "resources/localaccount/v1/localaccount.proto";
 import "resources/network/v1/network.proto";
 import "resources/status/v1/status.proto";
+import "resources/provider/v1/provider.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1;computev1";
@@ -32,6 +33,14 @@ enum BaremetalControllerKind {
   BAREMETAL_CONTROLLER_KIND_IPMI = 2;
   BAREMETAL_CONTROLLER_KIND_VPRO = 3;
   BAREMETAL_CONTROLLER_KIND_PDU = 4;
+}
+
+// The host power state.
+enum PowerState {
+  POWER_STATE_UNSPECIFIED = 0;
+  POWER_STATE_ERROR = 1;
+  POWER_STATE_ON = 2;
+  POWER_STATE_OFF = 3;
 }
 
 // A Host resource.
@@ -61,10 +70,12 @@ message HostResource {
 
   // The site resource associated with the host.
   resources.location.v1.SiteResource site = 8 [
-    (google.api.field_behavior) = OPTIONAL,
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
-
+  // The provider associated with the host.
+  resources.provider.v1.ProviderResource provider = 9 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
   // The note associated with the host.
   string note = 13 [
     (google.api.field_behavior) = OUTPUT_ONLY,
@@ -117,6 +128,11 @@ message HostResource {
   string bios_release_date = 47 [(google.api.field_behavior) = OUTPUT_ONLY];
   // BIOS Vendor.
   string bios_vendor = 48 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Current power state of the host
+  PowerState current_power_state = 51 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Desired power state of the host
+  PowerState desired_power_state = 50 [(google.api.field_behavior) = OPTIONAL];
 
   // textual message that describes the runtime status of Host. Set by RMs only.
   string host_status = 60 [
@@ -193,14 +209,6 @@ enum HostComponentState {
 
 // The set of available host storage capabilities.
 message HoststorageResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hoststorage-[0-9a-f]{8}$"
-      max_len: 20
-    }
-  ];
-
   // The storage device unique identifier.
   string wwid = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The storage device unique serial number.
@@ -218,21 +226,21 @@ message HoststorageResource {
 }
 
 // The state of the network interface.
-enum NetworkInterfaceLinkState {
+enum LinkState {
   NETWORK_INTERFACE_LINK_STATE_UNSPECIFIED = 0;
   NETWORK_INTERFACE_LINK_STATE_UP = 1;
   NETWORK_INTERFACE_LINK_STATE_DOWN = 2;
 }
+message NetworkInterfaceLinkState {
+  // The interface link state.
+  LinkState type = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
 
 // The set of available host interfaces.
 message HostnicResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hostnic-[0-9a-f]{8}$"
-      max_len: 16
-    }
-  ];
   // The device name (OS provided, like eth0, enp1s0, etc.).
   string device_name = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
   // PCI identifier string for this network interface.
@@ -254,25 +262,17 @@ message HostnicResource {
   // Whether this is a bmc interface or not.
   bool bmc_interface = 43 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The interface's IP address list.
-  repeated resources.network.v1.IPAddressResource ip_addresses = 50001 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated resources.network.v1.IPAddressResource ipaddresses = 50001 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The set of host USB resources.
 message HostusbResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hostusb-[0-9a-f]{8}$"
-      max_len: 20
-    }
-  ];
-
   // Hexadecimal number representing ID of the USB device vendor.
-  string idvendor = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string id_vendor = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Hexadecimal number representing ID of the USB device product.
-  string idproduct = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string id_product = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Bus number of device connected with.
   uint32 bus = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // USB Device number assigned by OS.
@@ -289,14 +289,6 @@ message HostusbResource {
 
 // The set of available host GPU cards.
 message HostgpuResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hostgpu-[0-9a-f]{8}$"
-      max_len: 16
-    }
-  ];
-
   // The GPU device PCI identifier.
   string pci_id = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The GPU device model.

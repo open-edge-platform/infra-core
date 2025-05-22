@@ -3102,6 +3102,8 @@ components:
                     format: enum
                 site:
                     $ref: '#/components/schemas/SiteResource'
+                provider:
+                    $ref: '#/components/schemas/ProviderResource'
                 note:
                     readOnly: true
                     maxLength: 512
@@ -3187,6 +3189,23 @@ components:
                     readOnly: true
                     type: string
                     description: BIOS Vendor.
+                currentPowerState:
+                    readOnly: true
+                    enum:
+                        - POWER_STATE_ERROR
+                        - POWER_STATE_ON
+                        - POWER_STATE_OFF
+                    type: string
+                    description: Current power state of the host
+                    format: enum
+                desiredPowerState:
+                    enum:
+                        - POWER_STATE_ERROR
+                        - POWER_STATE_ON
+                        - POWER_STATE_OFF
+                    type: string
+                    description: Desired power state of the host
+                    format: enum
                 hostStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3294,11 +3313,6 @@ components:
         HostgpuResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 16
-                    pattern: ^hostgpu-[0-9a-f]{8}$
-                    type: string
                 pciId:
                     readOnly: true
                     type: string
@@ -3329,11 +3343,6 @@ components:
         HostnicResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 16
-                    pattern: ^hostnic-[0-9a-f]{8}$
-                    type: string
                 deviceName:
                     readOnly: true
                     type: string
@@ -3370,18 +3379,12 @@ components:
                     description: Maximum transmission unit of the interface.
                     format: uint32
                 linkState:
-                    readOnly: true
-                    enum:
-                        - NETWORK_INTERFACE_LINK_STATE_UP
-                        - NETWORK_INTERFACE_LINK_STATE_DOWN
-                    type: string
-                    description: Link state of this interface.
-                    format: enum
+                    $ref: '#/components/schemas/NetworkInterfaceLinkState'
                 bmcInterface:
                     readOnly: true
                     type: boolean
                     description: Whether this is a bmc interface or not.
-                ipAddresses:
+                ipaddresses:
                     readOnly: true
                     type: array
                     items:
@@ -3393,11 +3396,6 @@ components:
         HoststorageResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 20
-                    pattern: ^hoststorage-[0-9a-f]{8}$
-                    type: string
                 wwid:
                     readOnly: true
                     type: string
@@ -3428,16 +3426,11 @@ components:
         HostusbResource:
             type: object
             properties:
-                resourceId:
-                    readOnly: true
-                    maxLength: 20
-                    pattern: ^hostusb-[0-9a-f]{8}$
-                    type: string
-                idvendor:
+                idVendor:
                     readOnly: true
                     type: string
                     description: Hexadecimal number representing ID of the USB device vendor.
-                idproduct:
+                idProduct:
                     readOnly: true
                     type: string
                     description: Hexadecimal number representing ID of the USB device product.
@@ -4099,6 +4092,19 @@ components:
                     type: string
                     description: The metadata value.
             description: A metadata item, represented by a key:value pair.
+        NetworkInterfaceLinkState:
+            type: object
+            properties:
+                type:
+                    readOnly: true
+                    enum:
+                        - NETWORK_INTERFACE_LINK_STATE_UP
+                        - NETWORK_INTERFACE_LINK_STATE_DOWN
+                    type: string
+                    description: The interface link state.
+                    format: enum
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
         OnboardHostResponse:
             type: object
             properties: {}
@@ -4207,7 +4213,7 @@ components:
                     maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                     type: string
-                    description: // OS image URL. URL of the original installation source.
+                    description: Deprecated. OS image URL. URL of the original installation source.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
             description: An OS resource.

@@ -142,7 +142,7 @@ message OperatingSystemResource {
     }
   ];
 
-  // // OS image URL. URL of the original installation source.
+  // Deprecated. OS image URL. URL of the original installation source.
   string repo_url = 5002 [(validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
