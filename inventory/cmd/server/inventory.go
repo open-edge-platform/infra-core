@@ -15,6 +15,8 @@ import (
 	"sync"
 	"syscall"
 
+	_ "github.com/golang/mock/mockgen/model" // Needed to register the mockgen model.
+
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/migrate/migrations"
 	_ "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/runtime"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/server"
