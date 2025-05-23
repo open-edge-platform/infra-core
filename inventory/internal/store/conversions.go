@@ -811,3 +811,31 @@ func entIPAddressResourceToProtoIPAddressResource(ipaddress *ent.IPAddressResour
 
 	return protoIPAddress
 }
+
+func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePolicyResource,
+) *computev1.OSUpdatePolicyResource {
+	if osup == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	updatePolicy := computev1.UpdatePolicy_value[osup.UpdatePolicy.String()] // Defaults to 0 if not found
+	protoOsUpdatePolicy := &computev1.OSUpdatePolicyResource{
+		Name:              osup.Name,
+		Description:       osup.Description,
+		ResourceId:        osup.ResourceID,
+		InstalledPackages: osup.InstalledPackages,
+		KernelCommand:     osup.KernelCommand,
+		UpdatePolicy:      computev1.UpdatePolicy(updatePolicy),
+		TenantId:          osup.TenantID,
+		CreatedAt:         osup.CreatedAt,
+		UpdatedAt:         osup.UpdatedAt,
+	}
+	if osup.UpdateSources != "" {
+		protoOsUpdatePolicy.UpdateSources = strings.Split(osup.UpdateSources, "|")
+	}
+	// Convert the edges recursively.
+	if os, err := osup.Edges.TargetOsOrErr(); err == nil {
+		protoOsUpdatePolicy.TargetOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
+	}
+	return protoOsUpdatePolicy
+}
