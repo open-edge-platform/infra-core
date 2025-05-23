@@ -311,7 +311,7 @@ type RegionResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegionResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -698,7 +698,7 @@ type SiteResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SiteResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

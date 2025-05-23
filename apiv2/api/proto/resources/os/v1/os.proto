@@ -56,7 +56,9 @@ message OperatingSystemResource {
   }];
 
   // The OS resource's kernel Command Line Options.
-  string kernel_command = 4 [(validate.rules).string = {
+  string kernel_command = 4 [
+    deprecated = true,
+    (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
   }];
@@ -64,6 +66,7 @@ message OperatingSystemResource {
   // The list of OS resource update sources.
   // Should be in 'DEB822 Source Format' for Debian style OSs
   repeated string update_sources = 5 [
+    deprecated = true,
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated = {
       ignore_empty: true,
@@ -114,7 +117,8 @@ message OperatingSystemResource {
   // Version of OS profile that the OS resource belongs to.
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
-  string installed_packages = 9 [(validate.rules).string = {
+  string installed_packages = 9 [(google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
     max_len: 500000
   }];
@@ -149,4 +153,10 @@ message OperatingSystemResource {
   }];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // The URL of the OS manifest which contains install packages details .
+  string installed_packages_source = 50200 [(validate.rules).string = {
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
+    max_len: 500
+  }];
 }
