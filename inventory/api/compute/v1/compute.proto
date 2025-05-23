@@ -31,9 +31,18 @@ enum HostState {
 
 enum PowerState {
   POWER_STATE_UNSPECIFIED = 0;
-  POWER_STATE_ERROR = 1;
+  reserved 1; // Previously POWER_STATE_ERROR, removed in v3.1
   POWER_STATE_ON = 2;
   POWER_STATE_OFF = 3;
+  POWER_STATE_SLEEP = 4;
+  POWER_STATE_HIBERNATE = 5;
+  POWER_STATE_RESET = 6;
+}
+
+enum PowerCommandPolicy {
+  POWER_COMMAND_POLICY_UNSPECIFIED = 0;
+  POWER_COMMAND_POLICY_IMMEDIATE = 1;
+  POWER_COMMAND_POLICY_ORDERED = 2;
 }
 
 enum BaremetalControllerKind {
@@ -42,6 +51,13 @@ enum BaremetalControllerKind {
   BAREMETAL_CONTROLLER_KIND_IPMI = 2;
   BAREMETAL_CONTROLLER_KIND_VPRO = 3;
   BAREMETAL_CONTROLLER_KIND_PDU = 4;
+}
+
+enum AmtState {
+  AMT_STATE_UNSPECIFIED = 0;
+  AMT_STATE_PROVISION = 1;
+  AMT_STATE_UNPROVISION = 2;
+  AMT_STATE_DISCONNECT = 3;
 }
 
 message HostResource {
@@ -131,8 +147,20 @@ message HostResource {
 
   string metadata = 45 [(ent.field) = {optional: true}]; // Record metadata with format as json string. Example: [{"key":"cluster-name","value":""},{"key":"app-id","value":""}]
 
-  PowerState current_power_state = 51 [(ent.field) = {optional: true}]; // Current power state of the host
+  // Power management related fields
   PowerState desired_power_state = 50 [(ent.field) = {optional: true}]; // Desired power state of the host
+  PowerState current_power_state = 51 [(ent.field) = {optional: true}]; // Current power state of the host
+  // A group of fields describing the Power status at runtime. The following 3 fields should always be updated in one shot.
+  // If power_status is empty during initialization, it is automatically set to a Unknown value.
+  string power_status = 52 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {max_bytes: 1024},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // textual message that describes the runtime status of Host power. Set by DM RM only.
+  status.v1.StatusIndication power_status_indicator = 53 [(ent.field) = {optional: true}]; // Indicates dynamicity of the power_status. Set by DM RM only.
+  uint64 power_status_timestamp = 54 [(ent.field) = {optional: true}]; // UTC timestamp when power_status was last changed. Set by DM RM only.
+  PowerCommandPolicy power_command_policy = 55 [(ent.field) = {optional: true}]; // Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED.
+  uint64 power_on_time = 56 [(ent.field) = {optional: true}]; // UTC timestamp when the host was powered on. Set by DM RM only.
 
   // A group of fields describing the Host runtime status. host_status, host_status_indicator and
   // host_status_timestamp should always be updated in one shot. If host_status is empty during initialization,
@@ -176,6 +204,24 @@ message HostResource {
     unique: true
     ref: "host"
   }]; // back-reference to baremetal Instance associated to this host
+
+  string amt_sku = 91 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {max_bytes: 96},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // coming from device introspection
+  AmtState desired_amt_state = 92 [(ent.field) = {optional: true}]; // Desired AMT/vPRO state of the host
+  AmtState current_amt_state = 93 [(ent.field) = {optional: true}]; // Current AMT/vPRO state of the host
+  // A group of fields describing the AMT status. amt_status, amt_status_indicator and
+  // amt_status_timestamp should always be updated in one shot. If amt_status is empty during initialization,
+  // it is automatically set to a Unknown value.
+  string amt_status = 94 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {max_bytes: 1024},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // coming from device introspection
+  status.v1.StatusIndication amt_status_indicator = 95 [(ent.field) = {optional: true}]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
+  uint64 amt_status_timestamp = 96 [(ent.field) = {optional: true}]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
 
   string tenant_id = 100 [
     (ent.field) = {

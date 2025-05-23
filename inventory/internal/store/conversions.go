@@ -363,6 +363,11 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 	hostStatusIndicator := statusv1.StatusIndication_value[host.HostStatusIndicator.String()]
 	onboardingStatusIndicator := statusv1.StatusIndication_value[host.OnboardingStatusIndicator.String()]
 	registrationStatusIndicator := statusv1.StatusIndication_value[host.RegistrationStatusIndicator.String()]
+	powerCommandPolicy := computev1.PowerCommandPolicy_value[host.PowerCommandPolicy.String()]
+	desiredAmtState := computev1.AmtState_value[host.DesiredAmtState.String()]
+	currentAmtState := computev1.AmtState_value[host.CurrentAmtState.String()]
+	powerStatusIndicator := statusv1.StatusIndication_value[host.PowerStatusIndicator.String()]
+	amtStatusIndicator := statusv1.StatusIndication_value[host.AmtStatusIndicator.String()]
 
 	protoHost := &computev1.HostResource{
 		ResourceId:                  host.ResourceID,
@@ -405,6 +410,17 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		Metadata:                    host.Metadata,
 		DesiredPowerState:           computev1.PowerState(desiredPowerState),
 		CurrentPowerState:           computev1.PowerState(currentPowerState),
+		PowerStatus:                 host.PowerStatus,
+		PowerStatusIndicator:        statusv1.StatusIndication(powerStatusIndicator),
+		PowerStatusTimestamp:        host.PowerStatusTimestamp,
+		PowerCommandPolicy:          computev1.PowerCommandPolicy(powerCommandPolicy),
+		PowerOnTime:                 host.PowerOnTime,
+		AmtSku:                      host.AmtSku,
+		DesiredAmtState:             computev1.AmtState(desiredAmtState),
+		CurrentAmtState:             computev1.AmtState(currentAmtState),
+		AmtStatus:                   host.AmtStatus,
+		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
+		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		TenantId:                    host.TenantID,
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,
