@@ -369,6 +369,7 @@
 | os_type | [OsType](#os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
+| description | [string](#string) |  | user-provided, human-readable description of OS |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -509,17 +510,17 @@ type such as &#34;XSPgen3&#34;, &#34;XDgen2&#34;, &#34;CI7gen12&#34; |
 | metadata | [string](#string) |  | Record metadata with format as json string. Example: [{&#34;key&#34;:&#34;cluster-name&#34;,&#34;value&#34;:&#34;&#34;},{&#34;key&#34;:&#34;app-id&#34;,&#34;value&#34;:&#34;&#34;}] |
 | current_power_state | [PowerState](#compute-v1-PowerState) |  | Current power state of the host |
 | desired_power_state | [PowerState](#compute-v1-PowerState) |  | Desired power state of the host |
-| host_status | [string](#string) |  | A group of fields describing the Host runtime status. host_status, host_status_indicator and host_status_timestamp should always be updated in one shot.
+| host_status | [string](#string) |  | A group of fields describing the Host runtime status. host_status, host_status_indicator and host_status_timestamp should always be updated in one shot. If host_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
 | host_status_timestamp | [uint64](#uint64) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
-| onboarding_status | [string](#string) |  | A group of fields describing the Host onboarding status. onboarding_status, onboarding_status_indicator and onboarding_status_timestamp should always be updated in one shot.
+| onboarding_status | [string](#string) |  | A group of fields describing the Host onboarding status. onboarding_status, onboarding_status_indicator and onboarding_status_timestamp should always be updated in one shot. If onboarding_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the onboarding status of Host. Set by RMs only. |
 | onboarding_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of onboarding_status. Set by RMs only. |
 | onboarding_status_timestamp | [uint64](#uint64) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
-| registration_status | [string](#string) |  | A group of fields describing the Host registration status. registration_status, registration_status_indicator and registration_status_timestamp should always be updated in one shot.
+| registration_status | [string](#string) |  | A group of fields describing the Host registration status. registration_status, registration_status_indicator and registration_status_timestamp should always be updated in one shot. If registration_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the onboarding status of Host. Set by RMs only. |
 | registration_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of registration_status. Set by RMs only. |
@@ -685,23 +686,23 @@ host or hypervisor.
 | desired_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
 | current_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
 | security_feature | [os.v1.SecurityFeature](#os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
-| instance_status | [string](#string) |  | A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and instance_status_timestamp should always be updated in one shot.
+| instance_status | [string](#string) |  | A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and instance_status_timestamp should always be updated in one shot. If instance_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
 | instance_status_timestamp | [uint64](#uint64) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
-| provisioning_status | [string](#string) |  | A group of fields describing the Instance provisioning status. provisioning_status, provisioning_status_indicator and provisioning_status_timestamp should always be updated in one shot.
+| provisioning_status | [string](#string) |  | A group of fields describing the Instance provisioning status. provisioning_status, provisioning_status_indicator and provisioning_status_timestamp should always be updated in one shot. If provisioning_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the provisioning status of Instance. Set by RMs only. |
 | provisioning_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of provisioning_status. Set by RMs only. |
 | provisioning_status_timestamp | [uint64](#uint64) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
-| update_status | [string](#string) |  | A group of fields describing the Instance update status. update_status, update_status_indicator and update_status_timestamp should always be updated in one shot. update_status_detail should be populated when update status reports update finished successfully or failed.
+| update_status | [string](#string) |  | A group of fields describing the Instance update status. update_status, update_status_indicator and update_status_timestamp should always be updated in one shot. update_status_detail should be populated when update status reports update finished successfully or failed. If update_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [uint64](#uint64) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
 | update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
-| trusted_attestation_status | [string](#string) |  | A group of fields describing the Instance trusted_attestation status. trusted_attestation_status, trusted_attestation_status_indicator and trusted_attestation_status_timestamp should always be updated in one shot.
+| trusted_attestation_status | [string](#string) |  | A group of fields describing the Instance trusted_attestation status. trusted_attestation_status, trusted_attestation_status_indicator and trusted_attestation_status_timestamp should always be updated in one shot. If trusted_attestation_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
 | trusted_attestation_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
@@ -805,7 +806,6 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |

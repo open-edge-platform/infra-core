@@ -65,10 +65,10 @@ func (m *HostResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
 		err := HostResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -142,6 +142,35 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetProvider()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostResourceValidationError{
+					field:  "Provider",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostResourceValidationError{
+					field:  "Provider",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProvider()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostResourceValidationError{
+				field:  "Provider",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if l := utf8.RuneCountInString(m.GetNote()); l < 1 || l > 512 {
 		err := HostResourceValidationError{
 			field:  "Note",
@@ -166,10 +195,21 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for SerialNumber
 
-	if len(m.GetUuid()) > 36 {
+	if l := utf8.RuneCountInString(m.GetUuid()); l < 0 || l > 36 {
 		err := HostResourceValidationError{
 			field:  "Uuid",
-			reason: "value length must be at most 36 bytes",
+			reason: "value length must be between 0 and 36 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_HostResource_Uuid_Pattern.MatchString(m.GetUuid()) {
+		err := HostResourceValidationError{
+			field:  "Uuid",
+			reason: "value does not match regex pattern \"^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\"",
 		}
 		if !all {
 			return err
@@ -207,10 +247,14 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for BiosVendor
 
-	if len(m.GetHostStatus()) > 1024 {
+	// no validation rules for CurrentPowerState
+
+	// no validation rules for DesiredPowerState
+
+	if utf8.RuneCountInString(m.GetHostStatus()) > 1024 {
 		err := HostResourceValidationError{
 			field:  "HostStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -222,10 +266,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for HostStatusTimestamp
 
-	if len(m.GetOnboardingStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetOnboardingStatus()) > 1024 {
 		err := HostResourceValidationError{
 			field:  "OnboardingStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -237,10 +281,10 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for OnboardingStatusTimestamp
 
-	if len(m.GetRegistrationStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetRegistrationStatus()) > 1024 {
 		err := HostResourceValidationError{
 			field:  "RegistrationStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -417,32 +461,10 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetHostId()) > 13 {
-		err := HostResourceValidationError{
-			field:  "HostId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostResource_HostId_Pattern.MatchString(m.GetHostId()) {
-		err := HostResourceValidationError{
-			field:  "HostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetSiteId()) > 13 {
 		err := HostResourceValidationError{
 			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -461,36 +483,51 @@ func (m *HostResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	for idx, item := range m.GetMetadata() {
-		_, _ = idx, item
+	if len(m.GetMetadata()) > 0 {
 
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, HostResourceValidationError{
-						field:  fmt.Sprintf("Metadata[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
+		if len(m.GetMetadata()) > 100 {
+			err := HostResourceValidationError{
+				field:  "Metadata",
+				reason: "value must contain no more than 100 item(s)",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		for idx, item := range m.GetMetadata() {
+			_, _ = idx, item
+
+			if all {
+				switch v := interface{}(item).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, HostResourceValidationError{
+							field:  fmt.Sprintf("Metadata[%v]", idx),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, HostResourceValidationError{
+							field:  fmt.Sprintf("Metadata[%v]", idx),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
 				}
-			case interface{ Validate() error }:
+			} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 				if err := v.Validate(); err != nil {
-					errors = append(errors, HostResourceValidationError{
+					return HostResourceValidationError{
 						field:  fmt.Sprintf("Metadata[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
-					})
+					}
 				}
 			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return HostResourceValidationError{
-					field:  fmt.Sprintf("Metadata[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
+
 		}
 
 	}
@@ -529,9 +566,34 @@ func (m *HostResource) validate(all bool) error {
 
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return HostResourceMultiError(errors)
@@ -616,7 +678,7 @@ var _HostResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
 
-var _HostResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
+var _HostResource_Uuid_Pattern = regexp.MustCompile("^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
@@ -642,28 +704,6 @@ func (m *HoststorageResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 20 {
-		err := HoststorageResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 20 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HoststorageResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HoststorageResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hoststorage-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for Wwid
 
 	// no validation rules for Serial
@@ -676,9 +716,34 @@ func (m *HoststorageResource) validate(all bool) error {
 
 	// no validation rules for DeviceName
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HoststorageResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HoststorageResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HoststorageResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return HoststorageResourceMultiError(errors)
@@ -760,7 +825,138 @@ var _ interface {
 	ErrorName() string
 } = HoststorageResourceValidationError{}
 
-var _HoststorageResource_ResourceId_Pattern = regexp.MustCompile("^hoststorage-[0-9a-f]{8}$")
+// Validate checks the field values on NetworkInterfaceLinkState with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *NetworkInterfaceLinkState) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on NetworkInterfaceLinkState with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// NetworkInterfaceLinkStateMultiError, or nil if none found.
+func (m *NetworkInterfaceLinkState) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *NetworkInterfaceLinkState) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, NetworkInterfaceLinkStateValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, NetworkInterfaceLinkStateValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return NetworkInterfaceLinkStateValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return NetworkInterfaceLinkStateMultiError(errors)
+	}
+
+	return nil
+}
+
+// NetworkInterfaceLinkStateMultiError is an error wrapping multiple validation
+// errors returned by NetworkInterfaceLinkState.ValidateAll() if the
+// designated constraints aren't met.
+type NetworkInterfaceLinkStateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m NetworkInterfaceLinkStateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m NetworkInterfaceLinkStateMultiError) AllErrors() []error { return m }
+
+// NetworkInterfaceLinkStateValidationError is the validation error returned by
+// NetworkInterfaceLinkState.Validate if the designated constraints aren't met.
+type NetworkInterfaceLinkStateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e NetworkInterfaceLinkStateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e NetworkInterfaceLinkStateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e NetworkInterfaceLinkStateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e NetworkInterfaceLinkStateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e NetworkInterfaceLinkStateValidationError) ErrorName() string {
+	return "NetworkInterfaceLinkStateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e NetworkInterfaceLinkStateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sNetworkInterfaceLinkState.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = NetworkInterfaceLinkStateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = NetworkInterfaceLinkStateValidationError{}
 
 // Validate checks the field values on HostnicResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -784,28 +980,6 @@ func (m *HostnicResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 16 {
-		err := HostnicResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 16 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostnicResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostnicResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hostnic-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for DeviceName
 
 	// no validation rules for PciIdentifier
@@ -818,17 +992,101 @@ func (m *HostnicResource) validate(all bool) error {
 
 	// no validation rules for SriovVfsTotal
 
-	// no validation rules for Features
-
 	// no validation rules for Mtu
 
-	// no validation rules for LinkState
+	if all {
+		switch v := interface{}(m.GetLinkState()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostnicResourceValidationError{
+					field:  "LinkState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostnicResourceValidationError{
+					field:  "LinkState",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLinkState()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostnicResourceValidationError{
+				field:  "LinkState",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for BmcInterface
 
-	// no validation rules for CreatedAt
+	for idx, item := range m.GetIpaddresses() {
+		_, _ = idx, item
 
-	// no validation rules for UpdatedAt
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, HostnicResourceValidationError{
+						field:  fmt.Sprintf("Ipaddresses[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, HostnicResourceValidationError{
+						field:  fmt.Sprintf("Ipaddresses[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return HostnicResourceValidationError{
+					field:  fmt.Sprintf("Ipaddresses[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostnicResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostnicResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostnicResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return HostnicResourceMultiError(errors)
@@ -908,8 +1166,6 @@ var _ interface {
 	ErrorName() string
 } = HostnicResourceValidationError{}
 
-var _HostnicResource_ResourceId_Pattern = regexp.MustCompile("^hostnic-[0-9a-f]{8}$")
-
 // Validate checks the field values on HostusbResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -932,31 +1188,9 @@ func (m *HostusbResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 20 {
-		err := HostusbResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 20 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for IdVendor
 
-	if !_HostusbResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostusbResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hostusb-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	// no validation rules for Idvendor
-
-	// no validation rules for Idproduct
+	// no validation rules for IdProduct
 
 	// no validation rules for Bus
 
@@ -968,9 +1202,34 @@ func (m *HostusbResource) validate(all bool) error {
 
 	// no validation rules for DeviceName
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostusbResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostusbResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostusbResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return HostusbResourceMultiError(errors)
@@ -1050,8 +1309,6 @@ var _ interface {
 	ErrorName() string
 } = HostusbResourceValidationError{}
 
-var _HostusbResource_ResourceId_Pattern = regexp.MustCompile("^hostusb-[0-9a-f]{8}$")
-
 // Validate checks the field values on HostgpuResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1074,28 +1331,6 @@ func (m *HostgpuResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 16 {
-		err := HostgpuResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 16 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostgpuResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostgpuResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^hostgpu-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for PciId
 
 	// no validation rules for Product
@@ -1106,11 +1341,34 @@ func (m *HostgpuResource) validate(all bool) error {
 
 	// no validation rules for DeviceName
 
-	// no validation rules for Features
-
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, HostgpuResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, HostgpuResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HostgpuResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return HostgpuResourceMultiError(errors)
@@ -1190,8 +1448,6 @@ var _ interface {
 	ErrorName() string
 } = HostgpuResourceValidationError{}
 
-var _HostgpuResource_ResourceId_Pattern = regexp.MustCompile("^hostgpu-[0-9a-f]{8}$")
-
 // Validate checks the field values on InstanceResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1214,10 +1470,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
 		err := InstanceResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -1294,6 +1550,35 @@ func (m *InstanceResource) validate(all bool) error {
 	}
 
 	if all {
+		switch v := interface{}(m.GetOs()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Os",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Os",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOs()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InstanceResourceValidationError{
+				field:  "Os",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
 		switch v := interface{}(m.GetDesiredOs()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -1353,10 +1638,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for SecurityFeature
 
-	if len(m.GetInstanceStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetInstanceStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "InstanceStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1368,10 +1653,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for InstanceStatusTimestamp
 
-	if len(m.GetProvisioningStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetProvisioningStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "ProvisioningStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1383,10 +1668,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for ProvisioningStatusTimestamp
 
-	if len(m.GetUpdateStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetUpdateStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "UpdateStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1398,10 +1683,10 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for UpdateStatusTimestamp
 
-	if len(m.GetUpdateStatusDetail()) > 100000 {
+	if utf8.RuneCountInString(m.GetUpdateStatusDetail()) > 100000 {
 		err := InstanceResourceValidationError{
 			field:  "UpdateStatusDetail",
-			reason: "value length must be at most 100000 bytes",
+			reason: "value length must be at most 100000 runes",
 		}
 		if !all {
 			return err
@@ -1409,10 +1694,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTrustedAttestationStatus()) > 1024 {
+	if utf8.RuneCountInString(m.GetTrustedAttestationStatus()) > 1024 {
 		err := InstanceResourceValidationError{
 			field:  "TrustedAttestationStatus",
-			reason: "value length must be at most 1024 bytes",
+			reason: "value length must be at most 1024 runes",
 		}
 		if !all {
 			return err
@@ -1487,10 +1772,10 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetInstanceId()) > 13 {
+	if utf8.RuneCountInString(m.GetInstanceID()) > 13 {
 		err := InstanceResourceValidationError{
-			field:  "InstanceId",
-			reason: "value length must be at most 13 bytes",
+			field:  "InstanceID",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -1498,9 +1783,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_InstanceId_Pattern.MatchString(m.GetInstanceId()) {
+	if !_InstanceResource_InstanceID_Pattern.MatchString(m.GetInstanceID()) {
 		err := InstanceResourceValidationError{
-			field:  "InstanceId",
+			field:  "InstanceID",
 			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1509,10 +1794,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetHostId()) > 13 {
+	if utf8.RuneCountInString(m.GetHostID()) > 13 {
 		err := InstanceResourceValidationError{
-			field:  "HostId",
-			reason: "value length must be at most 13 bytes",
+			field:  "HostID",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -1520,9 +1805,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_HostId_Pattern.MatchString(m.GetHostId()) {
+	if !_InstanceResource_HostID_Pattern.MatchString(m.GetHostID()) {
 		err := InstanceResourceValidationError{
-			field:  "HostId",
+			field:  "HostID",
 			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1531,10 +1816,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetOsId()) > 11 {
+	if utf8.RuneCountInString(m.GetOsID()) > 11 {
 		err := InstanceResourceValidationError{
-			field:  "OsId",
-			reason: "value length must be at most 11 bytes",
+			field:  "OsID",
+			reason: "value length must be at most 11 runes",
 		}
 		if !all {
 			return err
@@ -1542,9 +1827,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_OsId_Pattern.MatchString(m.GetOsId()) {
+	if !_InstanceResource_OsID_Pattern.MatchString(m.GetOsID()) {
 		err := InstanceResourceValidationError{
-			field:  "OsId",
+			field:  "OsID",
 			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1553,10 +1838,10 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetLocalAccountId()) > 21 {
+	if utf8.RuneCountInString(m.GetLocalAccountID()) > 21 {
 		err := InstanceResourceValidationError{
-			field:  "LocalAccountId",
-			reason: "value length must be at most 21 bytes",
+			field:  "LocalAccountID",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -1564,9 +1849,9 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_InstanceResource_LocalAccountId_Pattern.MatchString(m.GetLocalAccountId()) {
+	if !_InstanceResource_LocalAccountID_Pattern.MatchString(m.GetLocalAccountID()) {
 		err := InstanceResourceValidationError{
-			field:  "LocalAccountId",
+			field:  "LocalAccountID",
 			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -1575,9 +1860,34 @@ func (m *InstanceResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InstanceResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InstanceResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return InstanceResourceMultiError(errors)
@@ -1661,13 +1971,13 @@ var _InstanceResource_ResourceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}
 
 var _InstanceResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _InstanceResource_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
+var _InstanceResource_InstanceID_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
 
-var _InstanceResource_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
+var _InstanceResource_HostID_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
-var _InstanceResource_OsId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
+var _InstanceResource_OsID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
-var _InstanceResource_LocalAccountId_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
+var _InstanceResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
 
 // Validate checks the field values on WorkloadResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -1691,10 +2001,10 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 17 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 17 {
 		err := WorkloadResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 17 bytes",
+			reason: "value length must be at most 17 runes",
 		}
 		if !all {
 			return err
@@ -1737,10 +2047,10 @@ func (m *WorkloadResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetExternalId()) > 40 {
+	if utf8.RuneCountInString(m.GetExternalId()) > 40 {
 		err := WorkloadResourceValidationError{
 			field:  "ExternalId",
-			reason: "value length must be at most 40 bytes",
+			reason: "value length must be at most 40 runes",
 		}
 		if !all {
 			return err
@@ -1759,10 +2069,10 @@ func (m *WorkloadResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetStatus()) > 500 {
+	if utf8.RuneCountInString(m.GetStatus()) > 500 {
 		err := WorkloadResourceValidationError{
 			field:  "Status",
-			reason: "value length must be at most 500 bytes",
+			reason: "value length must be at most 500 runes",
 		}
 		if !all {
 			return err
@@ -1815,10 +2125,10 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	}
 
-	if len(m.GetWorkloadId()) > 17 {
+	if utf8.RuneCountInString(m.GetWorkloadId()) > 17 {
 		err := WorkloadResourceValidationError{
 			field:  "WorkloadId",
-			reason: "value length must be at most 17 bytes",
+			reason: "value length must be at most 17 runes",
 		}
 		if !all {
 			return err
@@ -1837,9 +2147,34 @@ func (m *WorkloadResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WorkloadResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WorkloadResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WorkloadResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return WorkloadResourceMultiError(errors)
@@ -1951,10 +2286,10 @@ func (m *WorkloadMember) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
 		err := WorkloadMemberValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -2033,10 +2368,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetWorkloadMemberId()) > 23 {
+	if utf8.RuneCountInString(m.GetWorkloadMemberId()) > 23 {
 		err := WorkloadMemberValidationError{
 			field:  "WorkloadMemberId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -2084,10 +2419,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 	}
 
-	if len(m.GetWorkloadId()) > 17 {
+	if utf8.RuneCountInString(m.GetWorkloadId()) > 17 {
 		err := WorkloadMemberValidationError{
 			field:  "WorkloadId",
-			reason: "value length must be at most 17 bytes",
+			reason: "value length must be at most 17 runes",
 		}
 		if !all {
 			return err
@@ -2106,10 +2441,10 @@ func (m *WorkloadMember) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetInstanceId()) > 13 {
+	if utf8.RuneCountInString(m.GetInstanceId()) > 13 {
 		err := WorkloadMemberValidationError{
 			field:  "InstanceId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -2128,9 +2463,34 @@ func (m *WorkloadMember) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WorkloadMemberValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WorkloadMemberValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WorkloadMemberValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return WorkloadMemberMultiError(errors)

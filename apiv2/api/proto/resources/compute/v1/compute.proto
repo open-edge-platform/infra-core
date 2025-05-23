@@ -10,7 +10,9 @@ import "resources/common/v1/common.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
 import "resources/localaccount/v1/localaccount.proto";
+import "resources/network/v1/network.proto";
 import "resources/status/v1/status.proto";
+import "resources/provider/v1/provider.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1;computev1";
@@ -18,7 +20,6 @@ option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/
 // States of the host.
 enum HostState {
   HOST_STATE_UNSPECIFIED = 0;
-  HOST_STATE_DELETING = 1;
   HOST_STATE_DELETED = 2;
   HOST_STATE_ONBOARDED = 3;
   HOST_STATE_UNTRUSTED = 4;
@@ -34,6 +35,14 @@ enum BaremetalControllerKind {
   BAREMETAL_CONTROLLER_KIND_PDU = 4;
 }
 
+// The host power state.
+enum PowerState {
+  POWER_STATE_UNSPECIFIED = 0;
+  POWER_STATE_ERROR = 1;
+  POWER_STATE_ON = 2;
+  POWER_STATE_OFF = 3;
+}
+
 // A Host resource.
 message HostResource {
   // Resource ID, generated on Create.
@@ -41,7 +50,7 @@ message HostResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -61,10 +70,12 @@ message HostResource {
 
   // The site resource associated with the host.
   resources.location.v1.SiteResource site = 8 [
-    (google.api.field_behavior) = OPTIONAL,
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
-
+  // The provider associated with the host.
+  resources.provider.v1.ProviderResource provider = 9 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
   // The note associated with the host.
   string note = 13 [
     (google.api.field_behavior) = OUTPUT_ONLY,
@@ -80,7 +91,11 @@ message HostResource {
   // The host UUID identifier; UUID is unique and immutable.
   string uuid = 17 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {max_bytes: 36}
+    (validate.rules).string = {
+      min_len: 0
+      max_len: 36
+      pattern: "^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    }
   ];
 
   // Quantity of memory (RAM) in the system in bytes.
@@ -114,26 +129,40 @@ message HostResource {
   // BIOS Vendor.
   string bios_vendor = 48 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // Current power state of the host
+  PowerState current_power_state = 51 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Desired power state of the host
+  PowerState desired_power_state = 50 [(google.api.field_behavior) = OPTIONAL];
+
   // textual message that describes the runtime status of Host. Set by RMs only.
-  string host_status = 60 [(validate.rules).string = {max_bytes: 1024}];
+  string host_status = 60 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {max_len: 1024}
+  ];
   // Indicates interpretation of host_status. Set by RMs only.
-  status.v1.StatusIndication host_status_indicator = 61;
+  status.v1.StatusIndication host_status_indicator = 61 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when host_status was last changed. Set by RMs only.
-  string host_status_timestamp = 62;
+  uint32 host_status_timestamp = 62 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the onboarding status of Host. Set by RMs only.
-  string onboarding_status = 63 [(validate.rules).string = {max_bytes: 1024}];
+  string onboarding_status = 63 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {max_len: 1024}
+  ];
   // Indicates interpretation of onboarding_status. Set by RMs only.
-  status.v1.StatusIndication onboarding_status_indicator = 64;
+  status.v1.StatusIndication onboarding_status_indicator = 64 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when onboarding_status was last changed. Set by RMs only.
-  string onboarding_status_timestamp = 65;
+  uint32 onboarding_status_timestamp = 65 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the onboarding status of Host. Set by RMs only.
-  string registration_status = 66 [(validate.rules).string = {max_bytes: 1024}];
+  string registration_status = 66 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {max_len: 1024}
+  ];
   // Indicates interpretation of registration_status. Set by RMs only.
-  status.v1.StatusIndication registration_status_indicator = 67;
+  status.v1.StatusIndication registration_status_indicator = 67 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when registration_status was last changed. Set by RMs only.
-  string registration_status_timestamp = 68;
+  uint32 registration_status_timestamp = 68 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Back-reference to attached host storage resources.
   repeated HoststorageResource host_storages = 70 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -146,32 +175,28 @@ message HostResource {
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // Resource ID, generated on Create.
-  string host_id = 5001 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^host-[0-9a-f]{8}$"
-      max_bytes: 13
-    }
-  ];
-
   // The site where the host is located.
-  string site_id = 5002 [
+  string site_id = 5001 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
   // The metadata associated with the host, represented by a list of key:value pairs.
-  repeated resources.common.v1.MetadataItem metadata = 5003 [(google.api.field_behavior) = OPTIONAL];
+  repeated resources.common.v1.MetadataItem metadata = 5003 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).repeated = {
+        ignore_empty: true,
+        min_items: 0,
+        max_items: 100,
+    }
+  ];
   // The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
   repeated resources.common.v1.MetadataItem inherited_metadata = 5004 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The state of the Host component.
@@ -184,14 +209,6 @@ enum HostComponentState {
 
 // The set of available host storage capabilities.
 message HoststorageResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hoststorage-[0-9a-f]{8}$"
-      max_bytes: 20
-    }
-  ];
-
   // The storage device unique identifier.
   string wwid = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The storage device unique serial number.
@@ -204,28 +221,26 @@ message HoststorageResource {
   string capacity_bytes = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The storage device device name (OS provided, like sda, sdb, etc.)
   string device_name = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The state of the network interface.
-enum NetworkInterfaceLinkState {
+enum LinkState {
   NETWORK_INTERFACE_LINK_STATE_UNSPECIFIED = 0;
   NETWORK_INTERFACE_LINK_STATE_UP = 1;
   NETWORK_INTERFACE_LINK_STATE_DOWN = 2;
 }
+message NetworkInterfaceLinkState {
+  // The interface link state.
+  LinkState type = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
 
 // The set of available host interfaces.
 message HostnicResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hostnic-[0-9a-f]{8}$"
-      max_bytes: 16
-    }
-  ];
   // The device name (OS provided, like eth0, enp1s0, etc.).
   string device_name = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
   // PCI identifier string for this network interface.
@@ -238,34 +253,24 @@ message HostnicResource {
   uint32 sriov_vfs_num = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The maximum number of VFs the interface supports, if SR-IOV is supported.
   uint32 sriov_vfs_total = 31 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The features of this interface, comma separated.
-  string features = 30 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Maximum transmission unit of the interface.
   uint32 mtu = 40 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Link state of this interface.
   NetworkInterfaceLinkState link_state = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Whether this is a bmc interface or not.
   bool bmc_interface = 43 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The interface's IP address list.
+  repeated resources.network.v1.IPAddressResource ipaddresses = 50001 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The set of host USB resources.
 message HostusbResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hostusb-[0-9a-f]{8}$"
-      max_bytes: 20
-    }
-  ];
-
   // Hexadecimal number representing ID of the USB device vendor.
-  string idvendor = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string id_vendor = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Hexadecimal number representing ID of the USB device product.
-  string idproduct = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string id_product = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Bus number of device connected with.
   uint32 bus = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // USB Device number assigned by OS.
@@ -276,22 +281,12 @@ message HostusbResource {
   string serial = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
   // the OS-provided device name.
   string device_name = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The set of available host GPU cards.
 message HostgpuResource {
-  string resource_id = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
-      pattern: "^hostgpu-[0-9a-f]{8}$"
-      max_bytes: 16
-    }
-  ];
-
   // The GPU device PCI identifier.
   string pci_id = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The GPU device model.
@@ -303,11 +298,9 @@ message HostgpuResource {
   // GPU name as reported by OS.
   string device_name = 24 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The features of this GPU device, comma separated.
-  string features = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated string capabilities = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The Instance States.
@@ -337,7 +330,7 @@ message InstanceResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
   // Kind of resource. Frequently tied to Provider.
@@ -355,6 +348,8 @@ message InstanceResource {
   // Host this Instance is placed on. Only applicable to baremetal instances.
   HostResource host = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
   // OS resource that should be installed to this Instance.
+  resources.os.v1.OperatingSystemResource os = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // OS resource that should be installed to this Instance.
   resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
   // OS resource that is currently installed for this Instance.
   resources.os.v1.OperatingSystemResource current_os = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -362,90 +357,88 @@ message InstanceResource {
   resources.os.v1.SecurityFeature security_feature = 14;
 
   // textual message that describes the current instance status. Set by RMs only.
-  string instance_status = 15 [(validate.rules).string = {max_bytes: 1024},
+  string instance_status = 15 [(validate.rules).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of instance_status. Set by RMs only.
   status.v1.StatusIndication instance_status_indicator = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when instance_status was last changed. Set by RMs only.
-  string instance_status_timestamp = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 instance_status_timestamp = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the provisioning status of Instance. Set by RMs only.
-  string provisioning_status = 18 [(validate.rules).string = {max_bytes: 1024},
+  string provisioning_status = 18 [(validate.rules).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of provisioning_status. Set by RMs only.
   status.v1.StatusIndication provisioning_status_indicator = 19 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when provisioning_status was last changed. Set by RMs only.
-  string provisioning_status_timestamp = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 provisioning_status_timestamp = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the update status of Instance. Set by RMs only.
-  string update_status = 21 [(validate.rules).string = {max_bytes: 1024},
+  string update_status = 21 [(validate.rules).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of update_status. Set by RMs only.
   status.v1.StatusIndication update_status_indicator = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when update_status was last changed. Set by RMs only.
-  string update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
   // JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
-  string update_status_detail = 24 [(validate.rules).string = {max_bytes: 100000},
+  string update_status_detail = 24 [(validate.rules).string = {max_len: 100000},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
   // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
   string trusted_attestation_status = 26 [
-    (validate.rules).string = {max_bytes: 1024},
+    (validate.rules).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of trusted_attestation_status. Set by RMs only.
   status.v1.StatusIndication trusted_attestation_status_indicator = 27 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-  string trusted_attestation_status_timestamp = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 trusted_attestation_status_timestamp = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The workload members associated with the instance.
   repeated WorkloadMember workload_members = 30 [(google.api.field_behavior) = OUTPUT_ONLY]; // back-reference to the Workload Members associated to this Instance
   // Local Account associated with this Instance
   resources.localaccount.v1.LocalAccountResource localaccount = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The instance's unique identifier. Alias of resourceID.
-  string instance_id = 5001 [
+  // Deprecated, The instance's unique identifier. Alias of resourceID.
+  string instanceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
   // The host's unique identifier associated with the instance.
-  string host_id = 5002 [
+  string hostID = 5002 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^host-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
   // The unique identifier of OS resource that must be installed on the instance.
-  string os_id = 5003 [
+  string osID = 5003 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^os-[0-9a-f]{8}$"
-      max_bytes: 11
+      max_len: 11
     }
   ];
 
   // The unique identifier of local account will be associated with the instance.
-  string local_account_id = 5004 [
+  string local_accountID = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"
-      max_bytes: 21
+      max_len: 21
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // Represents the Workload state, used for both current and desired state.
@@ -463,8 +456,6 @@ enum WorkloadKind {
   WORKLOAD_KIND_UNSPECIFIED = 0;
   // Cluster workload.
   WORKLOAD_KIND_CLUSTER = 1;
-  // currently unused, but useful to test 2-phase delete.
-  WORKLOAD_KIND_DHCP = 2;
 }
 
 // A generic way to group compute resources to obtain a workload.
@@ -474,7 +465,7 @@ message WorkloadResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workload-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
@@ -488,13 +479,13 @@ message WorkloadResource {
 
   // The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
   string external_id = 5 [(validate.rules).string = {
-    max_bytes: 40
+    max_len: 40
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
   }];
 
   // Human-readable status of the workload.
   string status = 15 [(validate.rules).string = {
-    max_bytes: 500
+    max_len: 500
     pattern: "^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$"
   }];
 
@@ -504,19 +495,17 @@ message WorkloadResource {
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
-  // The workload unique identifier. Alias of resourceId.
+  // Deprecated, The workload unique identifier. Alias of resourceId.
   string workload_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workload-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // Represents the type of the workload member.
@@ -534,7 +523,7 @@ message WorkloadMember {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workloadmember-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -545,12 +534,12 @@ message WorkloadMember {
   // The instance resource associated with the workload member.
   InstanceResource instance = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The workload unique identifier. Alias of resourceId.
+  // Deprecated, The workload unique identifier. Alias of resourceId.
   string workload_member_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workloadmember-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_len: 23
     }
   ];
 
@@ -563,7 +552,7 @@ message WorkloadMember {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^workload-[0-9a-f]{8}$"
-      max_bytes: 17
+      max_len: 17
     }
   ];
 
@@ -573,12 +562,10 @@ message WorkloadMember {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^inst-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

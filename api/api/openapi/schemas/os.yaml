@@ -44,6 +44,11 @@ OperatingSystemResource:
       type: string
       maxLength: 128
       pattern: '^[a-zA-Z-_0-9. ()]+$'
+    description:
+      description: "The OS resource's description."
+      type: string
+      maxLength: 1000
+      pattern: '^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^+- ]+$'
     architecture:
       description: "The OS resource's architecture."
       title: "architecture"
@@ -60,6 +65,7 @@ OperatingSystemResource:
       description: "The list of OS resource update sources."
       title: updateSources
       type: array
+      maxItems: 100
       items:
         type: string
         pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$'

@@ -101,7 +101,7 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 
 	if tts.updateResource == nil {
 		upRes = proto.Clone(tts.emptyResource())
-		// Here we use reflection to set the created_at field in the uupRes
+		// Here we use reflection to set the created_at field in the upRes
 		upResProto := upRes.ProtoReflect()
 		var fieldName string
 		switch upResProto.Descriptor().Name() {

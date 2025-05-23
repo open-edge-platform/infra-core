@@ -8,4 +8,8 @@ const (
 	// Fields and Edges constants for "MetadataItem"
 	MetadataItemFieldKey   = "key"
 	MetadataItemFieldValue = "value"
+
+	// Fields and Edges constants for "Timestamps"
+	TimestampsEdgeCreatedAt = "created_at"
+	TimestampsEdgeUpdatedAt = "updated_at"
 )

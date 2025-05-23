@@ -5,14 +5,19 @@ package server
 
 import (
 	"encoding/json"
-	"errors"
 	"math"
+	"time"
 
+	"google.golang.org/grpc/codes"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 )
+
+const ISO8601TimeFormat = "2006-01-02T15:04:05.999Z"
 
 func fromInvMetadata(metadata string) ([]*commonv1.MetadataItem, error) {
 	var apiMetadata []*commonv1.MetadataItem
@@ -39,46 +44,42 @@ func toInvMetadata(apiMetadata []*commonv1.MetadataItem) (string, error) {
 	return invMetadata, nil
 }
 
-// SafeIntToUint32 converts an int to uint32 safely.
-func SafeIntToUint32(n int) (uint32, error) {
-	if n < 0 {
-		return 0, errors.New("cannot convert a negative int to uint32")
-	}
-	if n > math.MaxUint32 {
-		return 0, errors.New("int exceeds uint32 max limit")
-	}
-	return uint32(n), nil
-}
-
 // SafeInt32ToUint32 converts an int32 to uint32 safely.
 func SafeInt32ToUint32(n int32) (uint32, error) {
 	if n < 0 {
-		return 0, errors.New("cannot convert a negative int32 to uint32")
+		return 0, errors.Errorfc(codes.InvalidArgument, "cannot convert a negative int32 to uint32")
 	}
 	res := int(n)
 	if res > math.MaxUint32 && int32(res) != n { //nolint:gosec // no risk of overflow
-		return 0, errors.New("int exceeds uint32 max limit")
+		return 0, errors.Errorfc(codes.InvalidArgument, "int exceeds uint32 max limit")
 	}
 	return uint32(n), nil
 }
 
-// SafeIntToInt32 converts an int to int32 safely.
-func SafeIntToInt32(n int) (int32, error) {
-	if n < 0 {
-		return 0, errors.New("cannot convert a negative int to uint32")
+// SafeUint32ToUint64 converts an uint32 to uint64 safely.
+func SafeUint32ToUint64(n uint32) (uint64, error) {
+	res := uint64(n)
+	if uint32(res) != n { //nolint:gocritic,gosec // no risk of overflow
+		return 0, errors.Errorfc(codes.InvalidArgument, "uint32 wrongly converted to uint64")
 	}
-	if n > math.MaxInt32 {
-		return 0, errors.New("int exceeds uint32 max limit")
-	}
-	return int32(n), nil
+	return res, nil
 }
 
-// SafeUint64ToUint32 safely converts a uint64 to a uint32.
-func SafeUint64ToUint32(value uint64) (uint32, error) {
+// TruncateUint64ToUint32 truncates the lower bits of a uint64 to fit into a uint32.
+func TruncateUint64ToUint32(value uint64) uint32 {
 	if value > math.MaxUint32 {
-		return 0, errors.New("value exceeds uint32 range")
+		zlog.Warn().Msgf("uint64 value %d exceeds uint32 max limit, truncating", value)
 	}
-	return uint32(value), nil
+
+	return uint32(value & math.MaxUint32) //nolint:gosec // Mask the lower 32 bits.
+}
+
+// SafeUint32Toint32 safely converts a uint32 to a int32.
+func SafeUint32Toint32(value uint32) (int32, error) {
+	if value > math.MaxInt32 {
+		return 0, errors.Errorfc(codes.InvalidArgument, "value exceeds int32 range")
+	}
+	return int32(value), nil
 }
 
 func isUnset(resourceID *string) bool {
@@ -133,4 +134,31 @@ func parseFielmask(
 	}
 	zlog.Debug().Msgf("Fieldmask %s from fields map %s", fieldmaskParsed.String(), fieldMaskPaths)
 	return fieldmaskParsed, nil
+}
+
+type withCreatedAtUpdatedAtInvRes interface {
+	GetCreatedAt() string
+	GetUpdatedAt() string
+}
+
+func GrpcToOpenAPITimestamps(obj withCreatedAtUpdatedAtInvRes) *commonv1.Timestamps {
+	if obj == nil {
+		return nil
+	}
+	createdAt, err := time.Parse(ISO8601TimeFormat, obj.GetCreatedAt())
+	if err != nil {
+		// In case of error, just log and set time to 0.
+		zlog.Err(err).Msg("error when parsing createdAt timestamp, continuing")
+		createdAt = time.Unix(0, 0)
+	}
+	updatedAt, err := time.Parse(ISO8601TimeFormat, obj.GetUpdatedAt())
+	if err != nil {
+		// In case of error, just log and set time to 0.
+		zlog.Err(err).Msg("error when parsing updatedAt timestamp, continuing")
+		updatedAt = time.Unix(0, 0)
+	}
+	return &commonv1.Timestamps{
+		CreatedAt: timestamppb.New(createdAt),
+		UpdatedAt: timestamppb.New(updatedAt),
+	}
 }

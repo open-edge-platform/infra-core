@@ -11,8 +11,7 @@ const (
 	TelemetryLogsGroupResourceFieldName                 = "name"
 	TelemetryLogsGroupResourceFieldCollectorKind        = "collector_kind"
 	TelemetryLogsGroupResourceFieldGroups               = "groups"
-	TelemetryLogsGroupResourceFieldCreatedAt            = "created_at"
-	TelemetryLogsGroupResourceFieldUpdatedAt            = "updated_at"
+	TelemetryLogsGroupResourceEdgeTimestamps            = "timestamps"
 
 	// Fields and Edges constants for "TelemetryMetricsGroupResource"
 	TelemetryMetricsGroupResourceFieldResourceId              = "resource_id"
@@ -20,8 +19,7 @@ const (
 	TelemetryMetricsGroupResourceFieldName                    = "name"
 	TelemetryMetricsGroupResourceFieldCollectorKind           = "collector_kind"
 	TelemetryMetricsGroupResourceFieldGroups                  = "groups"
-	TelemetryMetricsGroupResourceFieldCreatedAt               = "created_at"
-	TelemetryMetricsGroupResourceFieldUpdatedAt               = "updated_at"
+	TelemetryMetricsGroupResourceEdgeTimestamps               = "timestamps"
 
 	// Fields and Edges constants for "TelemetryLogsProfileResource"
 	TelemetryLogsProfileResourceFieldResourceId     = "resource_id"
@@ -32,8 +30,7 @@ const (
 	TelemetryLogsProfileResourceFieldLogLevel       = "log_level"
 	TelemetryLogsProfileResourceFieldLogsGroupId    = "logs_group_id"
 	TelemetryLogsProfileResourceEdgeLogsGroup       = "logs_group"
-	TelemetryLogsProfileResourceFieldCreatedAt      = "created_at"
-	TelemetryLogsProfileResourceFieldUpdatedAt      = "updated_at"
+	TelemetryLogsProfileResourceEdgeTimestamps      = "timestamps"
 
 	// Fields and Edges constants for "TelemetryMetricsProfileResource"
 	TelemetryMetricsProfileResourceFieldResourceId      = "resource_id"
@@ -44,6 +41,5 @@ const (
 	TelemetryMetricsProfileResourceFieldMetricsInterval = "metrics_interval"
 	TelemetryMetricsProfileResourceFieldMetricsGroupId  = "metrics_group_id"
 	TelemetryMetricsProfileResourceEdgeMetricsGroup     = "metrics_group"
-	TelemetryMetricsProfileResourceFieldCreatedAt       = "created_at"
-	TelemetryMetricsProfileResourceFieldUpdatedAt       = "updated_at"
+	TelemetryMetricsProfileResourceEdgeTimestamps       = "timestamps"
 )

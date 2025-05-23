@@ -50,6 +50,9 @@ const (
 	defaultListAllTimeout   = time.Minute
 
 	defaultRegisterMaxElapsedTime = 30 * time.Second
+
+	// eventsWatcherBufSize is the buffer size for the events channel.
+	eventsWatcherBufSize = 10
 )
 
 type cacheKey struct {
@@ -190,7 +193,7 @@ func NewScheduleCacheClientWithOptions(
 	opts ...Option,
 ) (*ScheduleCacheClient, error) {
 	var wg sync.WaitGroup
-	eventsWatcher := make(chan *client.WatchEvents)
+	eventsWatcher := make(chan *client.WatchEvents, eventsWatcherBufSize)
 
 	var options Options
 	options.RegisterMaxElapsedTime = defaultRegisterMaxElapsedTime

@@ -57,10 +57,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 19 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 19 {
 		err := SingleScheduleResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 19 bytes",
+			reason: "value length must be at most 19 runes",
 		}
 		if !all {
 			return err
@@ -103,14 +103,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for StartSeconds
-
-	// no validation rules for EndSeconds
-
-	if len(m.GetSingleScheduleId()) > 19 {
+	if m.GetStartSeconds() < 1 {
 		err := SingleScheduleResourceValidationError{
-			field:  "SingleScheduleId",
-			reason: "value length must be at most 19 bytes",
+			field:  "StartSeconds",
+			reason: "value must be greater than or equal to 1",
 		}
 		if !all {
 			return err
@@ -118,9 +114,31 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_SingleScheduleResource_SingleScheduleId_Pattern.MatchString(m.GetSingleScheduleId()) {
+	if m.GetEndSeconds() < 1 {
 		err := SingleScheduleResourceValidationError{
-			field:  "SingleScheduleId",
+			field:  "EndSeconds",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetSingleScheduleID()) > 19 {
+		err := SingleScheduleResourceValidationError{
+			field:  "SingleScheduleID",
+			reason: "value length must be at most 19 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_SingleScheduleResource_SingleScheduleID_Pattern.MatchString(m.GetSingleScheduleID()) {
+		err := SingleScheduleResourceValidationError{
+			field:  "SingleScheduleID",
 			reason: "value does not match regex pattern \"^singlesche-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -129,10 +147,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetHostId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetHostId()) > 13 {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetHostId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -151,10 +169,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSiteId()) > 13 {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetSiteId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -173,10 +191,10 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegionId()) > 15 {
 		err := SingleScheduleResourceValidationError{
 			field:  "TargetRegionId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -195,9 +213,34 @@ func (m *SingleScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleScheduleResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	switch v := m.Relation.(type) {
 	case *SingleScheduleResource_TargetSite:
@@ -411,7 +454,7 @@ var _SingleScheduleResource_ResourceId_Pattern = regexp.MustCompile("^singlesche
 
 var _SingleScheduleResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _SingleScheduleResource_SingleScheduleId_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
+var _SingleScheduleResource_SingleScheduleID_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
 
 var _SingleScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
 
@@ -441,10 +484,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 21 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 21 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 21 bytes",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -553,10 +596,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetRepeatedScheduleId()) > 21 {
+	if utf8.RuneCountInString(m.GetRepeatedScheduleID()) > 21 {
 		err := RepeatedScheduleResourceValidationError{
-			field:  "RepeatedScheduleId",
-			reason: "value length must be at most 21 bytes",
+			field:  "RepeatedScheduleID",
+			reason: "value length must be at most 21 runes",
 		}
 		if !all {
 			return err
@@ -564,9 +607,9 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_RepeatedScheduleResource_RepeatedScheduleId_Pattern.MatchString(m.GetRepeatedScheduleId()) {
+	if !_RepeatedScheduleResource_RepeatedScheduleID_Pattern.MatchString(m.GetRepeatedScheduleID()) {
 		err := RepeatedScheduleResourceValidationError{
-			field:  "RepeatedScheduleId",
+			field:  "RepeatedScheduleID",
 			reason: "value does not match regex pattern \"^repeatedsche-[0-9a-f]{8}$\"",
 		}
 		if !all {
@@ -575,10 +618,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetHostId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetHostId()) > 13 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetHostId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -597,10 +640,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSiteId()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSiteId()) > 13 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetSiteId",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -619,10 +662,10 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegionId()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegionId()) > 15 {
 		err := RepeatedScheduleResourceValidationError{
 			field:  "TargetRegionId",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -641,9 +684,34 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RepeatedScheduleResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	switch v := m.Relation.(type) {
 	case *RepeatedScheduleResource_TargetSite:
@@ -867,7 +935,7 @@ var _RepeatedScheduleResource_CronMonth_Pattern = regexp.MustCompile("^([*]|([1-
 
 var _RepeatedScheduleResource_CronDayWeek_Pattern = regexp.MustCompile("^([*]|([0-6])((,([0-6]))*))$")
 
-var _RepeatedScheduleResource_RepeatedScheduleId_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
+var _RepeatedScheduleResource_RepeatedScheduleID_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
 
 var _RepeatedScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
 

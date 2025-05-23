@@ -5,6 +5,7 @@
 
 - [resources/common/v1/common.proto](#resources_common_v1_common-proto)
     - [MetadataItem](#resources-common-v1-MetadataItem)
+    - [Timestamps](#resources-common-v1-Timestamps)
   
 - [resources/provider/v1/provider.proto](#resources_provider_v1_provider-proto)
     - [ProviderResource](#resources-provider-v1-ProviderResource)
@@ -26,6 +27,13 @@
 - [resources/localaccount/v1/localaccount.proto](#resources_localaccount_v1_localaccount-proto)
     - [LocalAccountResource](#resources-localaccount-v1-LocalAccountResource)
   
+- [resources/network/v1/network.proto](#resources_network_v1_network-proto)
+    - [IPAddressResource](#resources-network-v1-IPAddressResource)
+  
+    - [IPAddressConfigMethod](#resources-network-v1-IPAddressConfigMethod)
+    - [IPAddressState](#resources-network-v1-IPAddressState)
+    - [IPAddressStatus](#resources-network-v1-IPAddressStatus)
+  
 - [resources/status/v1/status.proto](#resources_status_v1_status-proto)
     - [StatusIndication](#resources-status-v1-StatusIndication)
   
@@ -36,6 +44,7 @@
     - [HoststorageResource](#resources-compute-v1-HoststorageResource)
     - [HostusbResource](#resources-compute-v1-HostusbResource)
     - [InstanceResource](#resources-compute-v1-InstanceResource)
+    - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
@@ -44,7 +53,8 @@
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
-    - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
+    - [LinkState](#resources-compute-v1-LinkState)
+    - [PowerState](#resources-compute-v1-PowerState)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
     - [WorkloadState](#resources-compute-v1-WorkloadState)
@@ -61,8 +71,8 @@
     - [TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource)
     - [TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource)
   
-    - [CollectorKind](#resources-telemetry-v1-CollectorKind)
     - [SeverityLevel](#resources-telemetry-v1-SeverityLevel)
+    - [TelemetryCollectorKind](#resources-telemetry-v1-TelemetryCollectorKind)
     - [TelemetryResourceKind](#resources-telemetry-v1-TelemetryResourceKind)
   
 - [services/v1/services.proto](#services_v1_services-proto)
@@ -203,27 +213,23 @@
     - [PatchHostRequest](#services-v1-PatchHostRequest)
     - [PatchInstanceRequest](#services-v1-PatchInstanceRequest)
     - [PatchOperatingSystemRequest](#services-v1-PatchOperatingSystemRequest)
-    - [PatchProviderRequest](#services-v1-PatchProviderRequest)
     - [PatchRegionRequest](#services-v1-PatchRegionRequest)
     - [PatchRepeatedScheduleRequest](#services-v1-PatchRepeatedScheduleRequest)
     - [PatchSingleScheduleRequest](#services-v1-PatchSingleScheduleRequest)
     - [PatchSiteRequest](#services-v1-PatchSiteRequest)
     - [PatchTelemetryLogsProfileRequest](#services-v1-PatchTelemetryLogsProfileRequest)
     - [PatchTelemetryMetricsProfileRequest](#services-v1-PatchTelemetryMetricsProfileRequest)
-    - [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest)
     - [PatchWorkloadRequest](#services-v1-PatchWorkloadRequest)
     - [RegisterHostRequest](#services-v1-RegisterHostRequest)
     - [UpdateHostRequest](#services-v1-UpdateHostRequest)
     - [UpdateInstanceRequest](#services-v1-UpdateInstanceRequest)
     - [UpdateOperatingSystemRequest](#services-v1-UpdateOperatingSystemRequest)
-    - [UpdateProviderRequest](#services-v1-UpdateProviderRequest)
     - [UpdateRegionRequest](#services-v1-UpdateRegionRequest)
     - [UpdateRepeatedScheduleRequest](#services-v1-UpdateRepeatedScheduleRequest)
     - [UpdateSingleScheduleRequest](#services-v1-UpdateSingleScheduleRequest)
     - [UpdateSiteRequest](#services-v1-UpdateSiteRequest)
     - [UpdateTelemetryLogsProfileRequest](#services-v1-UpdateTelemetryLogsProfileRequest)
     - [UpdateTelemetryMetricsProfileRequest](#services-v1-UpdateTelemetryMetricsProfileRequest)
-    - [UpdateWorkloadMemberRequest](#services-v1-UpdateWorkloadMemberRequest)
     - [UpdateWorkloadRequest](#services-v1-UpdateWorkloadRequest)
   
     - [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind)
@@ -270,6 +276,22 @@ A metadata item, represented by a key:value pair.
 
 
 
+
+<a name="resources-common-v1-Timestamps"></a>
+
+### Timestamps
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was created. |
+| updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was last updated. |
+
+
+
+
+
  
 
  
@@ -302,9 +324,8 @@ A provider resource.
 | api_endpoint | [string](#string) |  | The provider resource&#39;s API endpoint. |
 | api_credentials | [string](#string) | repeated | The provider resource&#39;s list of credentials. |
 | config | [string](#string) |  | Opaque provider configuration. |
-| provider_id | [string](#string) |  | The provider resource&#39;s unique identifier. Alias of resourceId. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| providerID | [string](#string) |  | Deprecated, The provider resource&#39;s unique identifier. Alias of resourceId. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -363,13 +384,12 @@ A region resource.
 | resource_id | [string](#string) |  | resource ID, generated by the inventory on Create. |
 | name | [string](#string) |  | The user-provided, human-readable name of region |
 | parent_region | [RegionResource](#resources-location-v1-RegionResource) |  | The parent Region associated to the Region, when existent. |
-| region_id | [string](#string) |  | The Region unique identifier. Alias of resourceId. |
+| regionID | [string](#string) |  | Deprecated, The Region unique identifier. Alias of resourceId. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated to the Region, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter. |
 | total_sites | [int32](#int32) |  | The total number of sites in the region. |
 | parent_id | [string](#string) |  | The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -390,12 +410,11 @@ A site resource.
 | site_lat | [int32](#int32) |  | The geolocation latitude of the site. Points are represented as latitude-longitude pairs in the E7 representation (degrees are multiplied by 10**7 and rounded to the nearest integer). siteLat must be in the range of &#43;/- 90 degrees. |
 | site_lng | [int32](#int32) |  | The geolocation longitude of the site. Points are represented as latitude-longitude pairs in the E7 representation (degrees are multiplied by 10**7 and rounded to the nearest integer). siteLng must be in the range of &#43;/- 180 degrees (inclusive). |
 | provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Provider this Site is managed by |
-| site_id | [string](#string) |  | The site unique identifier. Alias of resourceId. |
+| siteID | [string](#string) |  | Deprecated, The site unique identifier. Alias of resourceId. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated to the Region, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter. |
 | region_id | [string](#string) |  | The region&#39;s unique identifier that the site is associated to. This field cannot be used in filter. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -433,6 +452,7 @@ An OS resource.
 | update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs |
 | image_url | [string](#string) |  | The URL repository of the OS image. |
 | image_id | [string](#string) |  | A unique identifier of the OS image that can be retrieved from the running OS. |
+| description | [string](#string) |  |  |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in hexadecimal representation. |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources. |
 | profile_version | [string](#string) |  | Version of OS profile that the OS resource belongs to. |
@@ -441,10 +461,9 @@ An OS resource.
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
-| os_resource_id | [string](#string) |  | The OS resource&#39;s unique identifier. Alias of resourceId. |
-| repo_url | [string](#string) |  | OS image URL. URL of the original installation source. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
+| repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -517,14 +536,96 @@ SecurityFeature describes the security capabilities of a resource.
 | resource_id | [string](#string) |  | resource identifier |
 | username | [string](#string) |  | Username provided by admin |
 | ssh_key | [string](#string) |  | SSH Public Key of EN |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| local_accountID | [string](#string) |  | Deprecated, The local account resource&#39;s unique identifier. Alias of resourceId. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
 
 
  
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="resources_network_v1_network-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/network/v1/network.proto
+
+
+
+<a name="resources-network-v1-IPAddressResource"></a>
+
+### IPAddressResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Resource ID, generated by Inventory on Create |
+| address | [string](#string) |  | CIDR representation of the IP address. |
+| status | [IPAddressStatus](#resources-network-v1-IPAddressStatus) |  | The status of the IP address. |
+| status_detail | [string](#string) |  | User-friendly status to provide details about the resource state |
+| config_method | [IPAddressConfigMethod](#resources-network-v1-IPAddressConfigMethod) |  | Specifies how the IP address is configured. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+ 
+
+
+<a name="resources-network-v1-IPAddressConfigMethod"></a>
+
+### IPAddressConfigMethod
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| IP_ADDRESS_CONFIG_METHOD_UNSPECIFIED | 0 |  |
+| IP_ADDRESS_CONFIG_METHOD_STATIC | 1 |  |
+| IP_ADDRESS_CONFIG_METHOD_DYNAMIC | 2 |  |
+
+
+
+<a name="resources-network-v1-IPAddressState"></a>
+
+### IPAddressState
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| IP_ADDRESS_STATE_UNSPECIFIED | 0 |  |
+| IP_ADDRESS_STATE_ERROR | 1 |  |
+| IP_ADDRESS_STATE_ASSIGNED | 2 |  |
+| IP_ADDRESS_STATE_CONFIGURED | 3 |  |
+| IP_ADDRESS_STATE_RELEASED | 4 |  |
+| IP_ADDRESS_STATE_DELETED | 5 |  |
+
+
+
+<a name="resources-network-v1-IPAddressStatus"></a>
+
+### IPAddressStatus
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| IP_ADDRESS_STATUS_UNSPECIFIED | 0 |  |
+| IP_ADDRESS_STATUS_ASSIGNMENT_ERROR | 1 |  |
+| IP_ADDRESS_STATUS_ASSIGNED | 2 |  |
+| IP_ADDRESS_STATUS_CONFIGURATION_ERROR | 3 |  |
+| IP_ADDRESS_STATUS_CONFIGURED | 4 |  |
+| IP_ADDRESS_STATUS_RELEASED | 5 |  |
+| IP_ADDRESS_STATUS_ERROR | 6 |  |
+
 
  
 
@@ -584,6 +685,7 @@ A Host resource.
 | desired_state | [HostState](#resources-compute-v1-HostState) |  | The desired state of the Host. |
 | current_state | [HostState](#resources-compute-v1-HostState) |  | The current state of the Host. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | The site resource associated with the host. |
+| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | The provider associated with the host. |
 | note | [string](#string) |  | The note associated with the host. |
 | serial_number | [string](#string) |  | SMBIOS device serial number. |
 | uuid | [string](#string) |  | The host UUID identifier; UUID is unique and immutable. |
@@ -602,26 +704,26 @@ A Host resource.
 | bios_version | [string](#string) |  | BIOS Version. |
 | bios_release_date | [string](#string) |  | BIOS Release Date. |
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
+| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
+| desired_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Desired power state of the host |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
-| host_status_timestamp | [string](#string) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
+| host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
 | onboarding_status | [string](#string) |  | textual message that describes the onboarding status of Host. Set by RMs only. |
 | onboarding_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of onboarding_status. Set by RMs only. |
-| onboarding_status_timestamp | [string](#string) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
+| onboarding_status_timestamp | [uint32](#uint32) |  | UTC timestamp when onboarding_status was last changed. Set by RMs only. |
 | registration_status | [string](#string) |  | textual message that describes the onboarding status of Host. Set by RMs only. |
 | registration_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of registration_status. Set by RMs only. |
-| registration_status_timestamp | [string](#string) |  | UTC timestamp when registration_status was last changed. Set by RMs only. |
+| registration_status_timestamp | [uint32](#uint32) |  | UTC timestamp when registration_status was last changed. Set by RMs only. |
 | host_storages | [HoststorageResource](#resources-compute-v1-HoststorageResource) | repeated | Back-reference to attached host storage resources. |
 | host_nics | [HostnicResource](#resources-compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. |
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
-| host_id | [string](#string) |  | Resource ID, generated on Create. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -636,15 +738,13 @@ The set of available host GPU cards.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | pci_id | [string](#string) |  | The GPU device PCI identifier. |
 | product | [string](#string) |  | The GPU device model. |
 | vendor | [string](#string) |  | The GPU device vendor. |
 | description | [string](#string) |  | The human-readable GPU device description. |
 | device_name | [string](#string) |  | GPU name as reported by OS. |
-| features | [string](#string) |  | The features of this GPU device, comma separated. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| capabilities | [string](#string) | repeated | The features of this GPU device, comma separated. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -659,19 +759,17 @@ The set of available host interfaces.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | device_name | [string](#string) |  | The device name (OS provided, like eth0, enp1s0, etc.). |
 | pci_identifier | [string](#string) |  | PCI identifier string for this network interface. |
 | mac_addr | [string](#string) |  | The interface MAC address. |
 | sriov_enabled | [bool](#bool) |  | If the interface has SRIOV enabled. |
 | sriov_vfs_num | [uint32](#uint32) |  | The number of VFs currently provisioned on the interface, if SR-IOV is supported. |
 | sriov_vfs_total | [uint32](#uint32) |  | The maximum number of VFs the interface supports, if SR-IOV is supported. |
-| features | [string](#string) |  | The features of this interface, comma separated. |
 | mtu | [uint32](#uint32) |  | Maximum transmission unit of the interface. |
 | link_state | [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState) |  | Link state of this interface. |
 | bmc_interface | [bool](#bool) |  | Whether this is a bmc interface or not. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| ipaddresses | [resources.network.v1.IPAddressResource](#resources-network-v1-IPAddressResource) | repeated | The interface&#39;s IP address list. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -686,15 +784,13 @@ The set of available host storage capabilities.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | wwid | [string](#string) |  | The storage device unique identifier. |
 | serial | [string](#string) |  | The storage device unique serial number. |
 | vendor | [string](#string) |  | The Storage device vendor. |
 | model | [string](#string) |  | The storage device model. |
 | capacity_bytes | [string](#string) |  | The storage device Capacity (size) in bytes. |
 | device_name | [string](#string) |  | The storage device device name (OS provided, like sda, sdb, etc.) |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -709,16 +805,14 @@ The set of host USB resources.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
-| idvendor | [string](#string) |  | Hexadecimal number representing ID of the USB device vendor. |
-| idproduct | [string](#string) |  | Hexadecimal number representing ID of the USB device product. |
+| id_vendor | [string](#string) |  | Hexadecimal number representing ID of the USB device vendor. |
+| id_product | [string](#string) |  | Hexadecimal number representing ID of the USB device product. |
 | bus | [uint32](#uint32) |  | Bus number of device connected with. |
 | addr | [uint32](#uint32) |  | USB Device number assigned by OS. |
 | class | [string](#string) |  | class defined by USB-IF. |
 | serial | [string](#string) |  | Serial number of device. |
 | device_name | [string](#string) |  | the OS-provided device name. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -740,32 +834,48 @@ host or hypervisor.
 | desired_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance desired state. |
 | current_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance current state. |
 | host | [HostResource](#resources-compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
+| os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
 | desired_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
 | current_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
 | security_feature | [resources.os.v1.SecurityFeature](#resources-os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
-| instance_status_timestamp | [string](#string) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
+| instance_status_timestamp | [uint32](#uint32) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
 | provisioning_status | [string](#string) |  | textual message that describes the provisioning status of Instance. Set by RMs only. |
 | provisioning_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of provisioning_status. Set by RMs only. |
-| provisioning_status_timestamp | [string](#string) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
+| provisioning_status_timestamp | [uint32](#uint32) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
 | update_status | [string](#string) |  | textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
-| update_status_timestamp | [string](#string) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
+| update_status_timestamp | [uint32](#uint32) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
 | update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
 | trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
-| trusted_attestation_status_timestamp | [string](#string) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
+| trusted_attestation_status_timestamp | [uint32](#uint32) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
 | workload_members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The workload members associated with the instance.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
-| instance_id | [string](#string) |  | The instance&#39;s unique identifier. Alias of resourceID. |
-| host_id | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
-| os_id | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
-| local_account_id | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
+| hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
+| osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
+| local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-NetworkInterfaceLinkState"></a>
+
+### NetworkInterfaceLinkState
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| type | [LinkState](#resources-compute-v1-LinkState) |  | The interface link state. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -784,12 +894,11 @@ Intermediate resource to represent a relation between a workload and a compute r
 | kind | [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind) |  | The kind of the workload member. |
 | workload | [WorkloadResource](#resources-compute-v1-WorkloadResource) |  | The workload resource associated with the workload member. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance resource associated with the workload member. |
-| workload_member_id | [string](#string) |  | The workload unique identifier. Alias of resourceId. |
+| workload_member_id | [string](#string) |  | Deprecated, The workload unique identifier. Alias of resourceId. |
 | member | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The reference of the Instance member of the workload. |
 | workload_id | [string](#string) |  | The workload unique identifier. |
 | instance_id | [string](#string) |  | The unique identifier of the instance. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -810,9 +919,8 @@ A generic way to group compute resources to obtain a workload.
 | external_id | [string](#string) |  | The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager. |
 | status | [string](#string) |  | Human-readable status of the workload. |
 | members | [WorkloadMember](#resources-compute-v1-WorkloadMember) | repeated | The members of the workload. |
-| workload_id | [string](#string) |  | The workload unique identifier. Alias of resourceId. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| workload_id | [string](#string) |  | Deprecated, The workload unique identifier. Alias of resourceId. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -858,7 +966,6 @@ States of the host.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |
@@ -892,9 +999,9 @@ The Instance States.
 
 
 
-<a name="resources-compute-v1-NetworkInterfaceLinkState"></a>
+<a name="resources-compute-v1-LinkState"></a>
 
-### NetworkInterfaceLinkState
+### LinkState
 The state of the network interface.
 
 | Name | Number | Description |
@@ -902,6 +1009,20 @@ The state of the network interface.
 | NETWORK_INTERFACE_LINK_STATE_UNSPECIFIED | 0 |  |
 | NETWORK_INTERFACE_LINK_STATE_UP | 1 |  |
 | NETWORK_INTERFACE_LINK_STATE_DOWN | 2 |  |
+
+
+
+<a name="resources-compute-v1-PowerState"></a>
+
+### PowerState
+The host power state.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_STATE_UNSPECIFIED | 0 |  |
+| POWER_STATE_ERROR | 1 |  |
+| POWER_STATE_ON | 2 |  |
+| POWER_STATE_OFF | 3 |  |
 
 
 
@@ -914,7 +1035,6 @@ Represents the type of workload.
 | ---- | ------ | ----------- |
 | WORKLOAD_KIND_UNSPECIFIED | 0 | Should never be used. |
 | WORKLOAD_KIND_CLUSTER | 1 | Cluster workload. |
-| WORKLOAD_KIND_DHCP | 2 | currently unused, but useful to test 2-phase delete. |
 
 
 
@@ -973,18 +1093,17 @@ A repeated-schedule resource.
 | target_site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Resource ID of Site this applies to. |
 | target_host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Resource ID of Host this applies to. |
 | target_region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Resource ID of Region this applies to. |
-| duration_seconds | [uint32](#uint32) |  | The duration in seconds of the repeated schedule, per schedule. |
+| duration_seconds | [int32](#int32) |  | The duration in seconds of the repeated schedule, per schedule. |
 | cron_minutes | [string](#string) |  | cron style minutes (0-59), it can be empty only when used in a Filter. |
 | cron_hours | [string](#string) |  | cron style hours (0-23), it can be empty only when used in a Filter |
 | cron_day_month | [string](#string) |  | cron style day of month (1-31), it can be empty only when used in a Filter |
 | cron_month | [string](#string) |  | cron style month (1-12), it can be empty only when used in a Filter |
 | cron_day_week | [string](#string) |  | cron style day of week (0-6), it can be empty only when used in a Filter |
-| repeated_schedule_id | [string](#string) |  | The repeated schedule&#39;s unique identifier. Alias of resourceId. |
+| repeated_scheduleID | [string](#string) |  | Deprecated, The repeated schedule&#39;s unique identifier. Alias of resourceId. |
 | target_host_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_region_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -1009,12 +1128,11 @@ status of one-time-schedule |
 | target_region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Resource ID of Region this applies to. |
 | start_seconds | [uint32](#uint32) |  | The start time in seconds, of the single schedule. |
 | end_seconds | [uint32](#uint32) |  | The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds. |
-| single_schedule_id | [string](#string) |  | The single schedule resource&#39;s unique identifier. Alias of resourceId. |
+| single_scheduleID | [string](#string) |  | Deprecated, The single schedule resource&#39;s unique identifier. Alias of resourceId. |
 | target_host_id | [string](#string) |  | The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_site_id | [string](#string) |  | The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
 | target_region_id | [string](#string) |  | The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -1063,12 +1181,11 @@ TelemetryLogsGroupResource.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | Unique ID of the telemetry group. |
-| telemetry_logs_group_id | [string](#string) |  | Unique ID of the telemetry group. Alias of resource_id. |
+| telemetry_logs_group_id | [string](#string) |  | Deprecated, Unique ID of the telemetry group. Alias of resource_id. |
 | name | [string](#string) |  | Human-readable name for the log group. |
-| collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
+| collector_kind | [TelemetryCollectorKind](#resources-telemetry-v1-TelemetryCollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -1084,15 +1201,14 @@ A telemetry log profile for a hierarchy object.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | The ID of the telemetry profile. |
-| profile_id | [string](#string) |  | The ID of the telemetry profile. |
+| profile_id | [string](#string) |  | Deprecated, The ID of the telemetry profile. |
 | target_instance | [string](#string) |  | The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | target_site | [string](#string) |  | The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | target_region | [string](#string) |  | The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | log_level | [SeverityLevel](#resources-telemetry-v1-SeverityLevel) |  | The log level og the telemetry profile. |
 | logs_group_id | [string](#string) |  | The unique identifier of the telemetry log group. |
 | logs_group | [TelemetryLogsGroupResource](#resources-telemetry-v1-TelemetryLogsGroupResource) |  | The log group associated with the telemetry profile. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -1108,12 +1224,11 @@ TelemetryMetricsGroupResource.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | Unique ID of the telemetry group. |
-| telemetry_metrics_group_id | [string](#string) |  | Unique ID of the telemetry group. Alias of resource_id. |
+| telemetry_metrics_group_id | [string](#string) |  | Deprecated, Unique ID of the telemetry group. Alias of resource_id. |
 | name | [string](#string) |  | Human-readable name for the log group. |
-| collector_kind | [CollectorKind](#resources-telemetry-v1-CollectorKind) |  | The collector kind. |
+| collector_kind | [TelemetryCollectorKind](#resources-telemetry-v1-TelemetryCollectorKind) |  | The collector kind. |
 | groups | [string](#string) | repeated | A list of log groups to collect. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -1129,34 +1244,20 @@ A telemetry metric profile for a hierarchy object.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | The ID of the telemetry profile. |
-| profile_id | [string](#string) |  | The ID of the telemetry profile. |
+| profile_id | [string](#string) |  | Deprecated, The ID of the telemetry profile. |
 | target_instance | [string](#string) |  | The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | target_site | [string](#string) |  | The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
 | target_region | [string](#string) |  | The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion. |
-| metrics_interval | [uint32](#uint32) |  | Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS. |
+| metrics_interval | [int32](#int32) |  | Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS. |
 | metrics_group_id | [string](#string) |  | The unique identifier of the telemetry metric group. |
 | metrics_group | [TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource) |  | The metric group associated with the telemetry profile. |
-| created_at | [string](#string) |  | Timestamp for the creation of the resource. |
-| updated_at | [string](#string) |  | Timestamp for the last update of the resource. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
 
 
  
-
-
-<a name="resources-telemetry-v1-CollectorKind"></a>
-
-### CollectorKind
-The collector kind.
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| COLLECTOR_KIND_UNSPECIFIED | 0 |  |
-| COLLECTOR_KIND_HOST | 1 | telemetry data collected from bare-metal host. |
-| COLLECTOR_KIND_CLUSTER | 2 | telemetry data collected from Kubernetes cluster. |
-
 
 
 <a name="resources-telemetry-v1-SeverityLevel"></a>
@@ -1173,6 +1274,19 @@ This field must only be defined if kind equals to TELEMETRY_CONFIG_KIND_LOGS.
 | SEVERITY_LEVEL_WARN | 3 |  |
 | SEVERITY_LEVEL_INFO | 4 |  |
 | SEVERITY_LEVEL_DEBUG | 5 |  |
+
+
+
+<a name="resources-telemetry-v1-TelemetryCollectorKind"></a>
+
+### TelemetryCollectorKind
+The collector kind.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| TELEMETRY_COLLECTOR_KIND_UNSPECIFIED | 0 |  |
+| TELEMETRY_COLLECTOR_KIND_HOST | 1 | telemetry data collected from bare-metal host. |
+| TELEMETRY_COLLECTOR_KIND_CLUSTER | 2 | telemetry data collected from Kubernetes cluster. |
 
 
 
@@ -2763,7 +2877,7 @@ Response message for the ListOperatingSystems method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| operating_systems | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | repeated | Sorted and filtered list of oss. |
+| Operating_system_resources | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) | repeated | Sorted and filtered list of oss. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
 
@@ -3280,23 +3394,6 @@ Request message for the PatchOperatingSystem method.
 
 
 
-<a name="services-v1-PatchProviderRequest"></a>
-
-### PatchProviderRequest
-Request message for the PatchProvider method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
-| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Updated values for the provider. |
-| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of provider. |
-
-
-
-
-
-
 <a name="services-v1-PatchRegionRequest"></a>
 
 ### PatchRegionRequest
@@ -3399,23 +3496,6 @@ Request message for the PatchTelemetryMetricsProfile method.
 
 
 
-<a name="services-v1-PatchWorkloadMemberRequest"></a>
-
-### PatchWorkloadMemberRequest
-Request message for the PatchWorkloadMember method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
-| workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | Updated values for the workload_member. |
-| field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload_member. |
-
-
-
-
-
-
 <a name="services-v1-PatchWorkloadRequest"></a>
 
 ### PatchWorkloadRequest
@@ -3491,22 +3571,6 @@ Request message for the UpdateOperatingSystem method.
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | Name of the os os to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
-
-
-
-
-
-
-<a name="services-v1-UpdateProviderRequest"></a>
-
-### UpdateProviderRequest
-Request message for the UpdateProvider method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the provider provider to be updated. |
-| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | Updated values for the provider. |
 
 
 
@@ -3609,22 +3673,6 @@ Request message for the UpdateTelemetryMetricsProfile method.
 
 
 
-<a name="services-v1-UpdateWorkloadMemberRequest"></a>
-
-### UpdateWorkloadMemberRequest
-Request message for the UpdateWorkloadMember method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload_member workload_member to be updated. |
-| workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | Updated values for the workload_member. |
-
-
-
-
-
-
 <a name="services-v1-UpdateWorkloadRequest"></a>
 
 ### UpdateWorkloadRequest
@@ -3667,7 +3715,7 @@ Host.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetHostsSummary | [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest) | [GetHostSummaryResponse](#services-v1-GetHostSummaryResponse) | Get a specific host. |
+| GetHostsSummary | [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest) | [GetHostSummaryResponse](#services-v1-GetHostSummaryResponse) | Get a summary of the hosts status. |
 | CreateHost | [CreateHostRequest](#services-v1-CreateHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Create a host. |
 | ListHosts | [ListHostsRequest](#services-v1-ListHostsRequest) | [ListHostsResponse](#services-v1-ListHostsResponse) | Get a list of hosts. |
 | GetHost | [GetHostRequest](#services-v1-GetHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Get a specific host. |
@@ -3744,8 +3792,6 @@ Provider.
 | CreateProvider | [CreateProviderRequest](#services-v1-CreateProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Create a provider. |
 | ListProviders | [ListProvidersRequest](#services-v1-ListProvidersRequest) | [ListProvidersResponse](#services-v1-ListProvidersResponse) | Get a list of providers. |
 | GetProvider | [GetProviderRequest](#services-v1-GetProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Get a specific provider. |
-| UpdateProvider | [UpdateProviderRequest](#services-v1-UpdateProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Update a provider. |
-| PatchProvider | [PatchProviderRequest](#services-v1-PatchProviderRequest) | [.resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) | Patch a provider. |
 | DeleteProvider | [DeleteProviderRequest](#services-v1-DeleteProviderRequest) | [DeleteProviderResponse](#services-v1-DeleteProviderResponse) | Delete a provider. |
 
 
@@ -3867,8 +3913,6 @@ WorkloadMember.
 | CreateWorkloadMember | [CreateWorkloadMemberRequest](#services-v1-CreateWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Create a workload_member. |
 | ListWorkloadMembers | [ListWorkloadMembersRequest](#services-v1-ListWorkloadMembersRequest) | [ListWorkloadMembersResponse](#services-v1-ListWorkloadMembersResponse) | Get a list of workload_members. |
 | GetWorkloadMember | [GetWorkloadMemberRequest](#services-v1-GetWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Get a specific workload_member. |
-| UpdateWorkloadMember | [UpdateWorkloadMemberRequest](#services-v1-UpdateWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Update a workload_member. |
-| PatchWorkloadMember | [PatchWorkloadMemberRequest](#services-v1-PatchWorkloadMemberRequest) | [.resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) | Patch a workload_member. |
 | DeleteWorkloadMember | [DeleteWorkloadMemberRequest](#services-v1-DeleteWorkloadMemberRequest) | [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse) | Delete a workload_member. |
 
 
