@@ -22,7 +22,6 @@ type CustomConfigResourceQuery struct {
 	order      []customconfigresource.OrderOption
 	inters     []Interceptor
 	predicates []predicate.CustomConfigResource
-	withFKs    bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -333,13 +332,9 @@ func (ccrq *CustomConfigResourceQuery) prepareQuery(ctx context.Context) error {
 
 func (ccrq *CustomConfigResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*CustomConfigResource, error) {
 	var (
-		nodes   = []*CustomConfigResource{}
-		withFKs = ccrq.withFKs
-		_spec   = ccrq.querySpec()
+		nodes = []*CustomConfigResource{}
+		_spec = ccrq.querySpec()
 	)
-	if withFKs {
-		_spec.Node.Columns = append(_spec.Node.Columns, customconfigresource.ForeignKeys...)
-	}
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*CustomConfigResource).scanValues(nil, columns)
 	}

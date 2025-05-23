@@ -28,7 +28,7 @@ var (
 		ApiEndpoint:    "https://api.aws.example.com",
 		ApiCredentials: []string{"access_key", "AKIAIOSFODNN7EXAMPLE", "secret_key", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"},
 		Config:         `{"region": "us-west-2", "zone": "us-west-2a"}`,
-		ProviderId:     "provider-12345678", // Alias of ResourceId
+		ProviderID:     "provider-12345678", // Alias of ResourceId
 	}
 
 	// Example provider resource from the Inventory.
@@ -274,78 +274,6 @@ func TestProvider_List(t *testing.T) {
 				t.Errorf("ListProviders() got %v providers, want 1", len(reply.GetProviders()))
 			}
 			compareProtoMessages(t, exampleAPIProviderResource, reply.GetProviders()[0])
-		})
-	}
-}
-
-func TestProvider_Update(t *testing.T) {
-	mockedClient := newMockedInventoryTestClient()
-	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
-
-	cases := []struct {
-		name    string
-		mocks   func() []*mock.Call
-		ctx     context.Context
-		req     *restv1.UpdateProviderRequest
-		wantErr bool
-	}{
-		{
-			name: "Update Provider",
-			mocks: func() []*mock.Call {
-				return []*mock.Call{
-					mockedClient.On("Update", mock.Anything, "provider-12345678", mock.Anything, mock.Anything).
-						Return(&inventory.Resource{
-							Resource: &inventory.Resource_Provider{
-								Provider: exampleInvProviderResource,
-							},
-						}, nil).Once(),
-				}
-			},
-			ctx: context.Background(),
-			req: &restv1.UpdateProviderRequest{
-				ResourceId: "provider-12345678",
-				Provider:   exampleAPIProviderResource,
-			},
-			wantErr: false,
-		},
-		{
-			name: "Update Provider with error",
-			mocks: func() []*mock.Call {
-				return []*mock.Call{
-					mockedClient.On("Update", mock.Anything, "provider-12345678", mock.Anything, mock.Anything).
-						Return(nil, errors.New("error")).Once(),
-				}
-			},
-			ctx: context.Background(),
-			req: &restv1.UpdateProviderRequest{
-				ResourceId: "provider-12345678",
-				Provider:   exampleAPIProviderResource,
-			},
-			wantErr: true,
-		},
-	}
-	for _, tc := range cases {
-		t.Run(tc.name, func(t *testing.T) {
-			if tc.mocks != nil {
-				tc.mocks()
-			}
-
-			reply, err := server.UpdateProvider(tc.ctx, tc.req)
-			if tc.wantErr {
-				if err == nil {
-					t.Errorf("UpdateProvider() got err = nil, want err")
-				}
-				return
-			}
-			if err != nil {
-				t.Errorf("UpdateProvider() got err = %v, want nil", err)
-				return
-			}
-			if reply == nil {
-				t.Errorf("UpdateProvider() got reply = nil, want non-nil")
-				return
-			}
-			compareProtoMessages(t, exampleAPIProviderResource, reply)
 		})
 	}
 }

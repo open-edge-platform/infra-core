@@ -459,19 +459,23 @@ func (irc *InstanceResourceCreate) SetLocalaccount(l *LocalAccountResource) *Ins
 	return irc.SetLocalaccountID(l.ID)
 }
 
-// AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
-func (irc *InstanceResourceCreate) AddCustomConfigIDs(ids ...int) *InstanceResourceCreate {
-	irc.mutation.AddCustomConfigIDs(ids...)
+// SetCustomConfigID sets the "custom_config" edge to the CustomConfigResource entity by ID.
+func (irc *InstanceResourceCreate) SetCustomConfigID(id int) *InstanceResourceCreate {
+	irc.mutation.SetCustomConfigID(id)
 	return irc
 }
 
-// AddCustomConfig adds the "custom_config" edges to the CustomConfigResource entity.
-func (irc *InstanceResourceCreate) AddCustomConfig(c ...*CustomConfigResource) *InstanceResourceCreate {
-	ids := make([]int, len(c))
-	for i := range c {
-		ids[i] = c[i].ID
+// SetNillableCustomConfigID sets the "custom_config" edge to the CustomConfigResource entity by ID if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableCustomConfigID(id *int) *InstanceResourceCreate {
+	if id != nil {
+		irc = irc.SetCustomConfigID(*id)
 	}
-	return irc.AddCustomConfigIDs(ids...)
+	return irc
+}
+
+// SetCustomConfig sets the "custom_config" edge to the CustomConfigResource entity.
+func (irc *InstanceResourceCreate) SetCustomConfig(c *CustomConfigResource) *InstanceResourceCreate {
+	return irc.SetCustomConfigID(c.ID)
 }
 
 // Mutation returns the InstanceResourceMutation object of the builder.
@@ -795,7 +799,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 	}
 	if nodes := irc.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: []string{instanceresource.CustomConfigColumn},
@@ -807,6 +811,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
+		_node.instance_resource_custom_config = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

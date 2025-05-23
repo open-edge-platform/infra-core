@@ -19,7 +19,7 @@ message RegionResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
 
@@ -32,18 +32,25 @@ message RegionResource {
   // The parent Region associated to the Region, when existent.
   RegionResource parent_region = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The Region unique identifier. Alias of resourceId.
-  string region_id = 5001 [
+  // Deprecated, The Region unique identifier. Alias of resourceId.
+  string regionID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
 
   // The metadata associated to the Region,
   // represented by a list of key:value pairs.
-  repeated resources.common.v1.MetadataItem metadata = 5002 [(google.api.field_behavior) = OPTIONAL];
+  repeated resources.common.v1.MetadataItem metadata = 5002 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).repeated = {
+        ignore_empty: true,
+        min_items: 0,
+        max_items: 100,
+    }  
+  ];
 
   // The rendered metadata from the Region parent(s)
   // that can be inherited by the Region, represented by a list of key:value pairs.
@@ -63,13 +70,11 @@ message RegionResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A site resource.
@@ -79,7 +84,7 @@ message SiteResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^site-[0-9a-f]{8}$"
-      max_bytes: 13
+      max_len: 13
     }
   ];
 
@@ -97,8 +102,8 @@ message SiteResource {
   // (degrees are multiplied by 10**7 and rounded to the nearest integer).
   // siteLat must be in the range of +/- 90 degrees.
   int32 site_lat = 8 [
-    (validate.rules).int32.gte = -900000000,
-    (validate.rules).int32.lte = 900000000
+    (validate.rules).int32.lte = 900000000,
+    (validate.rules).int32.gte = -900000000
   ];
 
   // The geolocation longitude of the site.
@@ -106,22 +111,31 @@ message SiteResource {
   // (degrees are multiplied by 10**7 and rounded to the nearest integer).
   // siteLng must be in the range of +/- 180 degrees (inclusive).
   int32 site_lng = 9 [
-    (validate.rules).int32.gte = -1800000000,
-    (validate.rules).int32.lte = 1800000000
+    (validate.rules).int32.lte = 1800000000,
+    (validate.rules).int32.gte = -1800000000
   ];
 
   // Provider this Site is managed by
   provider.v1.ProviderResource provider = 30;
 
-  // The site unique identifier. Alias of resourceId.
-  string site_id = 5001 [(validate.rules).string = {
-    pattern: "^site-[0-9a-f]{8}$"
-    max_bytes: 13
+  // Deprecated, The site unique identifier. Alias of resourceId.
+  string siteID = 5001 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^site-[0-9a-f]{8}$"
+      max_len: 13
   }];
 
   // The metadata associated to the Region,
   // represented by a list of key:value pairs.
-  repeated resources.common.v1.MetadataItem metadata = 5002 [(google.api.field_behavior) = OPTIONAL];
+  repeated resources.common.v1.MetadataItem metadata = 5002 [
+    (google.api.field_behavior) = OPTIONAL,
+    (validate.rules).repeated = {
+          ignore_empty: true,
+          min_items: 0,
+          max_items: 100,
+      }
+  ];
 
   // The rendered metadata from the Region parent(s)
   // that can be inherited by the Region, represented by a list of key:value pairs.
@@ -134,11 +148,9 @@ message SiteResource {
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {
       pattern: "^$|^region-[0-9a-f]{8}$"
-      max_bytes: 15
+      max_len: 15
     }
   ];
-  // Timestamp for the creation of the resource.
-  string created_at = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Timestamp for the last update of the resource.
-  string updated_at = 50101 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

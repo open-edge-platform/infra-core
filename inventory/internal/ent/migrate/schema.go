@@ -19,21 +19,12 @@ var (
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
-		{Name: "instance_resource_custom_config", Type: field.TypeInt, Nullable: true},
 	}
 	// CustomConfigResourcesTable holds the schema information for the "custom_config_resources" table.
 	CustomConfigResourcesTable = &schema.Table{
 		Name:       "custom_config_resources",
 		Columns:    CustomConfigResourcesColumns,
 		PrimaryKey: []*schema.Column{CustomConfigResourcesColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:     "custom_config_resources_instance_resources_custom_config",
-				Columns:    []*schema.Column{CustomConfigResourcesColumns[8]},
-				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-		},
 		Indexes: []*schema.Index{
 			{
 				Name:    "customconfigresource_config_name_tenant_id",
@@ -85,8 +76,8 @@ var (
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "kind", Type: field.TypeString, Nullable: true},
 		{Name: "name", Type: field.TypeString, Nullable: true},
-		{Name: "desired_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"HOST_STATE_UNSPECIFIED", "HOST_STATE_DELETING", "HOST_STATE_DELETED", "HOST_STATE_ONBOARDED", "HOST_STATE_UNTRUSTED", "HOST_STATE_REGISTERED"}},
-		{Name: "current_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"HOST_STATE_UNSPECIFIED", "HOST_STATE_DELETING", "HOST_STATE_DELETED", "HOST_STATE_ONBOARDED", "HOST_STATE_UNTRUSTED", "HOST_STATE_REGISTERED"}},
+		{Name: "desired_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"HOST_STATE_UNSPECIFIED", "HOST_STATE_DELETED", "HOST_STATE_ONBOARDED", "HOST_STATE_UNTRUSTED", "HOST_STATE_REGISTERED"}},
+		{Name: "current_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"HOST_STATE_UNSPECIFIED", "HOST_STATE_DELETED", "HOST_STATE_ONBOARDED", "HOST_STATE_UNTRUSTED", "HOST_STATE_REGISTERED"}},
 		{Name: "note", Type: field.TypeString, Nullable: true},
 		{Name: "hardware_kind", Type: field.TypeString, Nullable: true},
 		{Name: "serial_number", Type: field.TypeString, Nullable: true},
@@ -411,6 +402,7 @@ var (
 		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_custom_config", Type: field.TypeInt, Nullable: true},
 	}
 	// InstanceResourcesTable holds the schema information for the "instance_resources" table.
 	InstanceResourcesTable = &schema.Table{
@@ -440,6 +432,12 @@ var (
 				Symbol:     "instance_resources_local_account_resources_localaccount",
 				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "instance_resources_custom_config_resources_custom_config",
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -564,6 +562,7 @@ var (
 		{Name: "os_type", Type: field.TypeEnum, Nullable: true, Enums: []string{"OS_TYPE_UNSPECIFIED", "OS_TYPE_MUTABLE", "OS_TYPE_IMMUTABLE"}},
 		{Name: "os_provider", Type: field.TypeEnum, Enums: []string{"OS_PROVIDER_KIND_UNSPECIFIED", "OS_PROVIDER_KIND_INFRA", "OS_PROVIDER_KIND_LENOVO"}},
 		{Name: "platform_bundle", Type: field.TypeString, Nullable: true},
+		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -577,7 +576,7 @@ var (
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[16]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[17]},
 			},
 		},
 	}
@@ -1085,7 +1084,6 @@ var (
 )
 
 func init() {
-	CustomConfigResourcesTable.ForeignKeys[0].RefTable = InstanceResourcesTable
 	EndpointResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostResourcesTable.ForeignKeys[0].RefTable = SiteResourcesTable
 	HostResourcesTable.ForeignKeys[1].RefTable = ProviderResourcesTable
@@ -1099,6 +1097,7 @@ func init() {
 	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
 	InstanceResourcesTable.ForeignKeys[2].RefTable = ProviderResourcesTable
 	InstanceResourcesTable.ForeignKeys[3].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[4].RefTable = CustomConfigResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable

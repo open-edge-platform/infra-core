@@ -29,9 +29,8 @@ type CustomConfigResource struct {
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
-	UpdatedAt                       string `json:"updated_at,omitempty"`
-	instance_resource_custom_config *int
-	selectValues                    sql.SelectValues
+	UpdatedAt    string `json:"updated_at,omitempty"`
+	selectValues sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -43,8 +42,6 @@ func (*CustomConfigResource) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullInt64)
 		case customconfigresource.FieldResourceID, customconfigresource.FieldConfigName, customconfigresource.FieldConfigDescription, customconfigresource.FieldConfigData, customconfigresource.FieldTenantID, customconfigresource.FieldCreatedAt, customconfigresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
-		case customconfigresource.ForeignKeys[0]: // instance_resource_custom_config
-			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -107,13 +104,6 @@ func (ccr *CustomConfigResource) assignValues(columns []string, values []any) er
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
 				ccr.UpdatedAt = value.String
-			}
-		case customconfigresource.ForeignKeys[0]:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_custom_config", value)
-			} else if value.Valid {
-				ccr.instance_resource_custom_config = new(int)
-				*ccr.instance_resource_custom_config = int(value.Int64)
 			}
 		default:
 			ccr.selectValues.Set(columns[i], values[i])

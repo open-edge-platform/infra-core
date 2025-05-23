@@ -6,9 +6,9 @@ package localaccountv1
 
 const (
 	// Fields and Edges constants for "LocalAccountResource"
-	LocalAccountResourceFieldResourceId = "resource_id"
-	LocalAccountResourceFieldUsername   = "username"
-	LocalAccountResourceFieldSshKey     = "ssh_key"
-	LocalAccountResourceFieldCreatedAt  = "created_at"
-	LocalAccountResourceFieldUpdatedAt  = "updated_at"
+	LocalAccountResourceFieldResourceId     = "resource_id"
+	LocalAccountResourceFieldUsername       = "username"
+	LocalAccountResourceFieldSshKey         = "ssh_key"
+	LocalAccountResourceFieldLocalAccountID = "local_accountID"
+	LocalAccountResourceEdgeTimestamps      = "timestamps"
 )

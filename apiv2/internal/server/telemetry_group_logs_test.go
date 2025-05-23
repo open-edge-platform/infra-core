@@ -24,7 +24,7 @@ var (
 		ResourceId:           "telemetry-logs-12345678",
 		TelemetryLogsGroupId: "telemetry-logs-12345678", // Alias of ResourceId
 		Name:                 "example-logs-group",
-		CollectorKind:        telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
+		CollectorKind:        telemetryv1.TelemetryCollectorKind_TELEMETRY_COLLECTOR_KIND_CLUSTER,
 		Groups:               []string{"system", "application", "security"},
 	}
 
@@ -75,7 +75,7 @@ func TestTelemetryLogsGroup_Create(t *testing.T) {
 			req: &restv1.CreateTelemetryLogsGroupRequest{
 				TelemetryLogsGroup: &telemetryv1.TelemetryLogsGroupResource{
 					Name:          "example-logs-group",
-					CollectorKind: telemetryv1.CollectorKind_COLLECTOR_KIND_CLUSTER,
+					CollectorKind: telemetryv1.TelemetryCollectorKind_TELEMETRY_COLLECTOR_KIND_CLUSTER,
 					Groups:        []string{"system", "application"},
 				},
 			},

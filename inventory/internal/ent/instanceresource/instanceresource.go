@@ -125,7 +125,7 @@ const (
 	// LocalaccountColumn is the table column denoting the localaccount relation/edge.
 	LocalaccountColumn = "instance_resource_localaccount"
 	// CustomConfigTable is the table that holds the custom_config relation/edge.
-	CustomConfigTable = "custom_config_resources"
+	CustomConfigTable = "instance_resources"
 	// CustomConfigInverseTable is the table name for the CustomConfigResource entity.
 	// It exists in this package in order to avoid circular dependency with the "customconfigresource" package.
 	CustomConfigInverseTable = "custom_config_resources"
@@ -171,6 +171,7 @@ var ForeignKeys = []string{
 	"instance_resource_current_os",
 	"instance_resource_provider",
 	"instance_resource_localaccount",
+	"instance_resource_custom_config",
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -573,17 +574,10 @@ func ByLocalaccountField(field string, opts ...sql.OrderTermOption) OrderOption 
 	}
 }
 
-// ByCustomConfigCount orders the results by custom_config count.
-func ByCustomConfigCount(opts ...sql.OrderTermOption) OrderOption {
+// ByCustomConfigField orders the results by custom_config field.
+func ByCustomConfigField(field string, opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
-		sqlgraph.OrderByNeighborsCount(s, newCustomConfigStep(), opts...)
-	}
-}
-
-// ByCustomConfig orders the results by custom_config terms.
-func ByCustomConfig(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
-	return func(s *sql.Selector) {
-		sqlgraph.OrderByNeighborTerms(s, newCustomConfigStep(), append([]sql.OrderTerm{term}, terms...)...)
+		sqlgraph.OrderByNeighborTerms(s, newCustomConfigStep(), sql.OrderByField(field, opts...))
 	}
 }
 func newHostStep() *sqlgraph.Step {
@@ -632,6 +626,6 @@ func newCustomConfigStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(CustomConfigInverseTable, FieldID),
-		sqlgraph.Edge(sqlgraph.O2M, false, CustomConfigTable, CustomConfigColumn),
+		sqlgraph.Edge(sqlgraph.M2O, false, CustomConfigTable, CustomConfigColumn),
 	)
 }

@@ -12288,8 +12288,7 @@ type InstanceResourceMutation struct {
 	clearedprovider                         bool
 	localaccount                            *int
 	clearedlocalaccount                     bool
-	custom_config                           map[int]struct{}
-	removedcustom_config                    map[int]struct{}
+	custom_config                           *int
 	clearedcustom_config                    bool
 	done                                    bool
 	oldValue                                func(context.Context) (*InstanceResource, error)
@@ -14012,14 +14011,9 @@ func (m *InstanceResourceMutation) ResetLocalaccount() {
 	m.clearedlocalaccount = false
 }
 
-// AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by ids.
-func (m *InstanceResourceMutation) AddCustomConfigIDs(ids ...int) {
-	if m.custom_config == nil {
-		m.custom_config = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.custom_config[ids[i]] = struct{}{}
-	}
+// SetCustomConfigID sets the "custom_config" edge to the CustomConfigResource entity by id.
+func (m *InstanceResourceMutation) SetCustomConfigID(id int) {
+	m.custom_config = &id
 }
 
 // ClearCustomConfig clears the "custom_config" edge to the CustomConfigResource entity.
@@ -14032,29 +14026,20 @@ func (m *InstanceResourceMutation) CustomConfigCleared() bool {
 	return m.clearedcustom_config
 }
 
-// RemoveCustomConfigIDs removes the "custom_config" edge to the CustomConfigResource entity by IDs.
-func (m *InstanceResourceMutation) RemoveCustomConfigIDs(ids ...int) {
-	if m.removedcustom_config == nil {
-		m.removedcustom_config = make(map[int]struct{})
-	}
-	for i := range ids {
-		delete(m.custom_config, ids[i])
-		m.removedcustom_config[ids[i]] = struct{}{}
-	}
-}
-
-// RemovedCustomConfig returns the removed IDs of the "custom_config" edge to the CustomConfigResource entity.
-func (m *InstanceResourceMutation) RemovedCustomConfigIDs() (ids []int) {
-	for id := range m.removedcustom_config {
-		ids = append(ids, id)
+// CustomConfigID returns the "custom_config" edge ID in the mutation.
+func (m *InstanceResourceMutation) CustomConfigID() (id int, exists bool) {
+	if m.custom_config != nil {
+		return *m.custom_config, true
 	}
 	return
 }
 
 // CustomConfigIDs returns the "custom_config" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// CustomConfigID instead. It exists only for internal usage by the builders.
 func (m *InstanceResourceMutation) CustomConfigIDs() (ids []int) {
-	for id := range m.custom_config {
-		ids = append(ids, id)
+	if id := m.custom_config; id != nil {
+		ids = append(ids, *id)
 	}
 	return
 }
@@ -14063,7 +14048,6 @@ func (m *InstanceResourceMutation) CustomConfigIDs() (ids []int) {
 func (m *InstanceResourceMutation) ResetCustomConfig() {
 	m.custom_config = nil
 	m.clearedcustom_config = false
-	m.removedcustom_config = nil
 }
 
 // Where appends a list predicates to the InstanceResourceMutation builder.
@@ -14902,11 +14886,9 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 			return []ent.Value{*id}
 		}
 	case instanceresource.EdgeCustomConfig:
-		ids := make([]ent.Value, 0, len(m.custom_config))
-		for id := range m.custom_config {
-			ids = append(ids, id)
+		if id := m.custom_config; id != nil {
+			return []ent.Value{*id}
 		}
-		return ids
 	}
 	return nil
 }
@@ -14916,9 +14898,6 @@ func (m *InstanceResourceMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 7)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
-	}
-	if m.removedcustom_config != nil {
-		edges = append(edges, instanceresource.EdgeCustomConfig)
 	}
 	return edges
 }
@@ -14930,12 +14909,6 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 	case instanceresource.EdgeWorkloadMembers:
 		ids := make([]ent.Value, 0, len(m.removedworkload_members))
 		for id := range m.removedworkload_members {
-			ids = append(ids, id)
-		}
-		return ids
-	case instanceresource.EdgeCustomConfig:
-		ids := make([]ent.Value, 0, len(m.removedcustom_config))
-		for id := range m.removedcustom_config {
 			ids = append(ids, id)
 		}
 		return ids
@@ -15010,6 +14983,9 @@ func (m *InstanceResourceMutation) ClearEdge(name string) error {
 		return nil
 	case instanceresource.EdgeLocalaccount:
 		m.ClearLocalaccount()
+		return nil
+	case instanceresource.EdgeCustomConfig:
+		m.ClearCustomConfig()
 		return nil
 	}
 	return fmt.Errorf("unknown InstanceResource unique edge %s", name)
@@ -17365,6 +17341,7 @@ type OperatingSystemResourceMutation struct {
 	os_type            *operatingsystemresource.OsType
 	os_provider        *operatingsystemresource.OsProvider
 	platform_bundle    *string
+	description        *string
 	tenant_id          *string
 	created_at         *string
 	updated_at         *string
@@ -18181,6 +18158,55 @@ func (m *OperatingSystemResourceMutation) ResetPlatformBundle() {
 	delete(m.clearedFields, operatingsystemresource.FieldPlatformBundle)
 }
 
+// SetDescription sets the "description" field.
+func (m *OperatingSystemResourceMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *OperatingSystemResourceMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ClearDescription clears the value of the "description" field.
+func (m *OperatingSystemResourceMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[operatingsystemresource.FieldDescription] = struct{}{}
+}
+
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldDescription]
+	return ok
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *OperatingSystemResourceMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, operatingsystemresource.FieldDescription)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *OperatingSystemResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -18323,7 +18349,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 18)
+	fields := make([]string, 0, 19)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -18368,6 +18394,9 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.platform_bundle != nil {
 		fields = append(fields, operatingsystemresource.FieldPlatformBundle)
+	}
+	if m.description != nil {
+		fields = append(fields, operatingsystemresource.FieldDescription)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, operatingsystemresource.FieldTenantID)
@@ -18416,6 +18445,8 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.OsProvider()
 	case operatingsystemresource.FieldPlatformBundle:
 		return m.PlatformBundle()
+	case operatingsystemresource.FieldDescription:
+		return m.Description()
 	case operatingsystemresource.FieldTenantID:
 		return m.TenantID()
 	case operatingsystemresource.FieldCreatedAt:
@@ -18461,6 +18492,8 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldOsProvider(ctx)
 	case operatingsystemresource.FieldPlatformBundle:
 		return m.OldPlatformBundle(ctx)
+	case operatingsystemresource.FieldDescription:
+		return m.OldDescription(ctx)
 	case operatingsystemresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case operatingsystemresource.FieldCreatedAt:
@@ -18581,6 +18614,13 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 		}
 		m.SetPlatformBundle(v)
 		return nil
+	case operatingsystemresource.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
+		return nil
 	case operatingsystemresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -18671,6 +18711,9 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldPlatformBundle) {
 		fields = append(fields, operatingsystemresource.FieldPlatformBundle)
 	}
+	if m.FieldCleared(operatingsystemresource.FieldDescription) {
+		fields = append(fields, operatingsystemresource.FieldDescription)
+	}
 	return fields
 }
 
@@ -18724,6 +18767,9 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldPlatformBundle:
 		m.ClearPlatformBundle()
 		return nil
+	case operatingsystemresource.FieldDescription:
+		m.ClearDescription()
+		return nil
 	}
 	return fmt.Errorf("unknown OperatingSystemResource nullable field %s", name)
 }
@@ -18776,6 +18822,9 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldPlatformBundle:
 		m.ResetPlatformBundle()
+		return nil
+	case operatingsystemresource.FieldDescription:
+		m.ResetDescription()
 		return nil
 	case operatingsystemresource.FieldTenantID:
 		m.ResetTenantID()

@@ -57,10 +57,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -79,10 +79,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTelemetryLogsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetTelemetryLogsGroupId()) > 23 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "TelemetryLogsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -101,10 +101,10 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 50 {
 		err := TelemetryLogsGroupResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 50 runes",
+			reason: "value length must be between 1 and 50 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -125,13 +125,12 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	// no validation rules for CollectorKind
 
-	for idx, item := range m.GetGroups() {
-		_, _ = idx, item
+	if len(m.GetGroups()) > 0 {
 
-		if !_TelemetryLogsGroupResource_Groups_Pattern.MatchString(item) {
+		if len(m.GetGroups()) > 100 {
 			err := TelemetryLogsGroupResourceValidationError{
-				field:  fmt.Sprintf("Groups[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
+				field:  "Groups",
+				reason: "value must contain no more than 100 item(s)",
 			}
 			if !all {
 				return err
@@ -139,11 +138,63 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
+		for idx, item := range m.GetGroups() {
+			_, _ = idx, item
+
+			if utf8.RuneCountInString(item) > 1000 {
+				err := TelemetryLogsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value length must be at most 1000 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_TelemetryLogsGroupResource_Groups_Pattern.MatchString(item) {
+				err := TelemetryLogsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value does not match regex pattern \"\\\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\\\"\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryLogsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryLogsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryLogsGroupResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryLogsGroupResourceMultiError(errors)
@@ -231,7 +282,7 @@ var _TelemetryLogsGroupResource_TelemetryLogsGroupId_Pattern = regexp.MustCompil
 
 var _TelemetryLogsGroupResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _TelemetryLogsGroupResource_Groups_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
+var _TelemetryLogsGroupResource_Groups_Pattern = regexp.MustCompile("\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$\"")
 
 // Validate checks the field values on TelemetryMetricsGroupResource with the
 // rules defined in the proto definition for this message. If any rules are
@@ -255,10 +306,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -277,10 +328,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTelemetryMetricsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetTelemetryMetricsGroupId()) > 23 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "TelemetryMetricsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -299,10 +350,10 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 50 {
 		err := TelemetryMetricsGroupResourceValidationError{
 			field:  "Name",
-			reason: "value length must be at most 50 runes",
+			reason: "value length must be between 1 and 50 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -323,13 +374,12 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 
 	// no validation rules for CollectorKind
 
-	for idx, item := range m.GetGroups() {
-		_, _ = idx, item
+	if len(m.GetGroups()) > 0 {
 
-		if !_TelemetryMetricsGroupResource_Groups_Pattern.MatchString(item) {
+		if len(m.GetGroups()) > 100 {
 			err := TelemetryMetricsGroupResourceValidationError{
-				field:  fmt.Sprintf("Groups[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
+				field:  "Groups",
+				reason: "value must contain no more than 100 item(s)",
 			}
 			if !all {
 				return err
@@ -337,11 +387,63 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
+		for idx, item := range m.GetGroups() {
+			_, _ = idx, item
+
+			if utf8.RuneCountInString(item) > 1000 {
+				err := TelemetryMetricsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value length must be at most 1000 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+			if !_TelemetryMetricsGroupResource_Groups_Pattern.MatchString(item) {
+				err := TelemetryMetricsGroupResourceValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "value does not match regex pattern \"\\\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\\\"\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryMetricsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryMetricsGroupResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryMetricsGroupResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryMetricsGroupResourceMultiError(errors)
@@ -430,7 +532,7 @@ var _TelemetryMetricsGroupResource_TelemetryMetricsGroupId_Pattern = regexp.Must
 
 var _TelemetryMetricsGroupResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _TelemetryMetricsGroupResource_Groups_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
+var _TelemetryMetricsGroupResource_Groups_Pattern = regexp.MustCompile("\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$\"")
 
 // Validate checks the field values on TelemetryLogsProfileResource with the
 // rules defined in the proto definition for this message. If any rules are
@@ -454,10 +556,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 25 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 25 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -476,10 +578,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetProfileId()) > 25 {
+	if utf8.RuneCountInString(m.GetProfileId()) > 25 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "ProfileId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -498,10 +600,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetInstance()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetInstance()) > 13 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetInstance",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -520,10 +622,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSite()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSite()) > 13 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetSite",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -542,10 +644,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegion()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegion()) > 15 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "TargetRegion",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -566,10 +668,10 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 
 	// no validation rules for LogLevel
 
-	if len(m.GetLogsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetLogsGroupId()) > 23 {
 		err := TelemetryLogsProfileResourceValidationError{
 			field:  "LogsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -617,9 +719,34 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryLogsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryLogsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryLogsProfileResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryLogsProfileResourceMultiError(errors)
@@ -736,10 +863,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 25 {
+	if utf8.RuneCountInString(m.GetResourceId()) > 25 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -758,10 +885,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetProfileId()) > 25 {
+	if utf8.RuneCountInString(m.GetProfileId()) > 25 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "ProfileId",
-			reason: "value length must be at most 25 bytes",
+			reason: "value length must be at most 25 runes",
 		}
 		if !all {
 			return err
@@ -780,10 +907,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetInstance()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetInstance()) > 13 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetInstance",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -802,10 +929,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetSite()) > 13 {
+	if utf8.RuneCountInString(m.GetTargetSite()) > 13 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetSite",
-			reason: "value length must be at most 13 bytes",
+			reason: "value length must be at most 13 runes",
 		}
 		if !all {
 			return err
@@ -824,10 +951,10 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetTargetRegion()) > 15 {
+	if utf8.RuneCountInString(m.GetTargetRegion()) > 15 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "TargetRegion",
-			reason: "value length must be at most 15 bytes",
+			reason: "value length must be at most 15 runes",
 		}
 		if !all {
 			return err
@@ -846,12 +973,21 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for MetricsInterval
+	if m.GetMetricsInterval() < 1 {
+		err := TelemetryMetricsProfileResourceValidationError{
+			field:  "MetricsInterval",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	if len(m.GetMetricsGroupId()) > 23 {
+	if utf8.RuneCountInString(m.GetMetricsGroupId()) > 23 {
 		err := TelemetryMetricsProfileResourceValidationError{
 			field:  "MetricsGroupId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 23 runes",
 		}
 		if !all {
 			return err
@@ -899,9 +1035,34 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TelemetryMetricsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TelemetryMetricsProfileResourceValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TelemetryMetricsProfileResourceValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return TelemetryMetricsProfileResourceMultiError(errors)
