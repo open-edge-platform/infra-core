@@ -8,7 +8,7 @@ go 1.24.1
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
 	github.com/open-edge-platform/infra-core/api v1.34.0
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.24.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.25.0
 	github.com/open-edge-platform/infra-managers/host v1.21.1
 	github.com/open-edge-platform/infra-managers/maintenance v1.21.1
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4
@@ -23,6 +23,7 @@ require (
 	ariga.io/atlas v0.33.0 // indirect
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1 // indirect
 	cel.dev/expr v0.23.1 // indirect
+	cloud.google.com/go/compute/metadata v0.7.0 // indirect
 	entgo.io/contrib v0.6.0 // indirect
 	entgo.io/ent v0.14.4 // indirect
 	github.com/adhocore/gronx v1.19.6 // indirect
