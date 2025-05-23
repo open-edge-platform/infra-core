@@ -61,7 +61,7 @@ message OperatingSystemResource {
 
   repeated string update_sources = 5 [
     (ent.field) = {optional: true},
-    (buf.validate.field).repeated.items.string = {max_bytes: 4000}
+    (buf.validate.field).repeated.items.string = {max_bytes: 10000}
   ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 
   string image_url = 6 [(ent.field) = {
