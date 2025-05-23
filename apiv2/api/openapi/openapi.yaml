@@ -1050,9 +1050,9 @@ paths:
         delete:
             tags:
                 - OSUpdatePolicy
-            summary: DeleteOperatingSystem
+            summary: DeleteOSUpdatePolicy
             description: Delete a OS Update Policy.
-            operationId: OSUpdatePolicy_DeleteOperatingSystem
+            operationId: OSUpdatePolicy_DeleteOSUpdatePolicy
             parameters:
                 - name: resourceId
                   in: path

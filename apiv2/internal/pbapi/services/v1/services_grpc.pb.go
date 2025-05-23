@@ -4100,7 +4100,7 @@ type OSUpdatePolicyClient interface {
 	// Get a specific OS Update Policy.
 	GetOSUpdatePolicy(ctx context.Context, in *GetOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
 	// Delete a OS Update Policy.
-	DeleteOperatingSystem(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
+	DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
 }
 
 type oSUpdatePolicyClient struct {
@@ -4138,9 +4138,9 @@ func (c *oSUpdatePolicyClient) GetOSUpdatePolicy(ctx context.Context, in *GetOSU
 	return out, nil
 }
 
-func (c *oSUpdatePolicyClient) DeleteOperatingSystem(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error) {
+func (c *oSUpdatePolicyClient) DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error) {
 	out := new(v11.OSUpdatePolicy)
-	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/DeleteOperatingSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4158,7 +4158,7 @@ type OSUpdatePolicyServer interface {
 	// Get a specific OS Update Policy.
 	GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
 	// Delete a OS Update Policy.
-	DeleteOperatingSystem(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
+	DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
 }
 
 // UnimplementedOSUpdatePolicyServer should be embedded to have forward compatible implementations.
@@ -4174,8 +4174,8 @@ func (UnimplementedOSUpdatePolicyServer) ListOSUpdatePolicy(context.Context, *Li
 func (UnimplementedOSUpdatePolicyServer) GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdatePolicy not implemented")
 }
-func (UnimplementedOSUpdatePolicyServer) DeleteOperatingSystem(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteOperatingSystem not implemented")
+func (UnimplementedOSUpdatePolicyServer) DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdatePolicy not implemented")
 }
 
 // UnsafeOSUpdatePolicyServer may be embedded to opt out of forward compatibility for this service.
@@ -4243,20 +4243,20 @@ func _OSUpdatePolicy_GetOSUpdatePolicy_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OSUpdatePolicy_DeleteOperatingSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OSUpdatePolicy_DeleteOSUpdatePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteOSUpdatePolicyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OSUpdatePolicyServer).DeleteOperatingSystem(ctx, in)
+		return srv.(OSUpdatePolicyServer).DeleteOSUpdatePolicy(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.v1.OSUpdatePolicy/DeleteOperatingSystem",
+		FullMethod: "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OSUpdatePolicyServer).DeleteOperatingSystem(ctx, req.(*DeleteOSUpdatePolicyRequest))
+		return srv.(OSUpdatePolicyServer).DeleteOSUpdatePolicy(ctx, req.(*DeleteOSUpdatePolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4281,8 +4281,8 @@ var OSUpdatePolicy_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OSUpdatePolicy_GetOSUpdatePolicy_Handler,
 		},
 		{
-			MethodName: "DeleteOperatingSystem",
-			Handler:    _OSUpdatePolicy_DeleteOperatingSystem_Handler,
+			MethodName: "DeleteOSUpdatePolicy",
+			Handler:    _OSUpdatePolicy_DeleteOSUpdatePolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

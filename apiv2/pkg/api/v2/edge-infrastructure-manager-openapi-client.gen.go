@@ -208,8 +208,8 @@ type ClientInterface interface {
 
 	OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OSUpdatePolicyDeleteOperatingSystem request
-	OSUpdatePolicyDeleteOperatingSystem(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OSUpdatePolicyDeleteOSUpdatePolicy request
+	OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// OSUpdatePolicyGetOSUpdatePolicy request
 	OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -970,8 +970,8 @@ func (c *Client) OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, body OS
 	return c.Client.Do(req)
 }
 
-func (c *Client) OSUpdatePolicyDeleteOperatingSystem(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdatePolicyDeleteOperatingSystemRequest(c.Server, resourceId)
+func (c *Client) OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(c.Server, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3670,8 +3670,8 @@ func NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server string, content
 	return req, nil
 }
 
-// NewOSUpdatePolicyDeleteOperatingSystemRequest generates requests for OSUpdatePolicyDeleteOperatingSystem
-func NewOSUpdatePolicyDeleteOperatingSystemRequest(server string, resourceId string) (*http.Request, error) {
+// NewOSUpdatePolicyDeleteOSUpdatePolicyRequest generates requests for OSUpdatePolicyDeleteOSUpdatePolicy
+func NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(server string, resourceId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -7240,8 +7240,8 @@ type ClientWithResponsesInterface interface {
 
 	OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
 
-	// OSUpdatePolicyDeleteOperatingSystemWithResponse request
-	OSUpdatePolicyDeleteOperatingSystemWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOperatingSystemResponse, error)
+	// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request
+	OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error)
 
 	// OSUpdatePolicyGetOSUpdatePolicyWithResponse request
 	OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error)
@@ -8187,7 +8187,7 @@ func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) StatusCode() int {
 	return 0
 }
 
-type OSUpdatePolicyDeleteOperatingSystemResponse struct {
+type OSUpdatePolicyDeleteOSUpdatePolicyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OSUpdatePolicy
@@ -8195,7 +8195,7 @@ type OSUpdatePolicyDeleteOperatingSystemResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r OSUpdatePolicyDeleteOperatingSystemResponse) Status() string {
+func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -8203,7 +8203,7 @@ func (r OSUpdatePolicyDeleteOperatingSystemResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdatePolicyDeleteOperatingSystemResponse) StatusCode() int {
+func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -9973,13 +9973,13 @@ func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx
 	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
 }
 
-// OSUpdatePolicyDeleteOperatingSystemWithResponse request returning *OSUpdatePolicyDeleteOperatingSystemResponse
-func (c *ClientWithResponses) OSUpdatePolicyDeleteOperatingSystemWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOperatingSystemResponse, error) {
-	rsp, err := c.OSUpdatePolicyDeleteOperatingSystem(ctx, resourceId, reqEditors...)
+// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request returning *OSUpdatePolicyDeleteOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyDeleteOSUpdatePolicy(ctx, resourceId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOSUpdatePolicyDeleteOperatingSystemResponse(rsp)
+	return ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp)
 }
 
 // OSUpdatePolicyGetOSUpdatePolicyWithResponse request returning *OSUpdatePolicyGetOSUpdatePolicyResponse
@@ -11745,15 +11745,15 @@ func ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp *http.Response) (*OSUpd
 	return response, nil
 }
 
-// ParseOSUpdatePolicyDeleteOperatingSystemResponse parses an HTTP response from a OSUpdatePolicyDeleteOperatingSystemWithResponse call
-func ParseOSUpdatePolicyDeleteOperatingSystemResponse(rsp *http.Response) (*OSUpdatePolicyDeleteOperatingSystemResponse, error) {
+// ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyDeleteOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OSUpdatePolicyDeleteOperatingSystemResponse{
+	response := &OSUpdatePolicyDeleteOSUpdatePolicyResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

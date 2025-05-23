@@ -2415,7 +2415,7 @@ service OSUpdatePolicy {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"};
   }
   // Delete a OS Update Policy.
-  rpc DeleteOperatingSystem(DeleteOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
+  rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"};
   }
 }
