@@ -13,8 +13,8 @@ var (
 	CustomConfigResourcesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
-		{Name: "config_name", Type: field.TypeString},
-		{Name: "config_description", Type: field.TypeString, Nullable: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "config_data", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -27,7 +27,7 @@ var (
 		PrimaryKey: []*schema.Column{CustomConfigResourcesColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "customconfigresource_config_name_tenant_id",
+				Name:    "customconfigresource_name_tenant_id",
 				Unique:  true,
 				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[5]},
 			},

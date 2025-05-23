@@ -41,23 +41,23 @@ func (ccru *CustomConfigResourceUpdate) SetNillableResourceID(s *string) *Custom
 	return ccru
 }
 
-// SetConfigDescription sets the "config_description" field.
-func (ccru *CustomConfigResourceUpdate) SetConfigDescription(s string) *CustomConfigResourceUpdate {
-	ccru.mutation.SetConfigDescription(s)
+// SetDescription sets the "description" field.
+func (ccru *CustomConfigResourceUpdate) SetDescription(s string) *CustomConfigResourceUpdate {
+	ccru.mutation.SetDescription(s)
 	return ccru
 }
 
-// SetNillableConfigDescription sets the "config_description" field if the given value is not nil.
-func (ccru *CustomConfigResourceUpdate) SetNillableConfigDescription(s *string) *CustomConfigResourceUpdate {
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ccru *CustomConfigResourceUpdate) SetNillableDescription(s *string) *CustomConfigResourceUpdate {
 	if s != nil {
-		ccru.SetConfigDescription(*s)
+		ccru.SetDescription(*s)
 	}
 	return ccru
 }
 
-// ClearConfigDescription clears the value of the "config_description" field.
-func (ccru *CustomConfigResourceUpdate) ClearConfigDescription() *CustomConfigResourceUpdate {
-	ccru.mutation.ClearConfigDescription()
+// ClearDescription clears the value of the "description" field.
+func (ccru *CustomConfigResourceUpdate) ClearDescription() *CustomConfigResourceUpdate {
+	ccru.mutation.ClearDescription()
 	return ccru
 }
 
@@ -119,11 +119,11 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if value, ok := ccru.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := ccru.mutation.ConfigDescription(); ok {
-		_spec.SetField(customconfigresource.FieldConfigDescription, field.TypeString, value)
+	if value, ok := ccru.mutation.Description(); ok {
+		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
 	}
-	if ccru.mutation.ConfigDescriptionCleared() {
-		_spec.ClearField(customconfigresource.FieldConfigDescription, field.TypeString)
+	if ccru.mutation.DescriptionCleared() {
+		_spec.ClearField(customconfigresource.FieldDescription, field.TypeString)
 	}
 	if value, ok := ccru.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
@@ -162,23 +162,23 @@ func (ccruo *CustomConfigResourceUpdateOne) SetNillableResourceID(s *string) *Cu
 	return ccruo
 }
 
-// SetConfigDescription sets the "config_description" field.
-func (ccruo *CustomConfigResourceUpdateOne) SetConfigDescription(s string) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.SetConfigDescription(s)
+// SetDescription sets the "description" field.
+func (ccruo *CustomConfigResourceUpdateOne) SetDescription(s string) *CustomConfigResourceUpdateOne {
+	ccruo.mutation.SetDescription(s)
 	return ccruo
 }
 
-// SetNillableConfigDescription sets the "config_description" field if the given value is not nil.
-func (ccruo *CustomConfigResourceUpdateOne) SetNillableConfigDescription(s *string) *CustomConfigResourceUpdateOne {
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ccruo *CustomConfigResourceUpdateOne) SetNillableDescription(s *string) *CustomConfigResourceUpdateOne {
 	if s != nil {
-		ccruo.SetConfigDescription(*s)
+		ccruo.SetDescription(*s)
 	}
 	return ccruo
 }
 
-// ClearConfigDescription clears the value of the "config_description" field.
-func (ccruo *CustomConfigResourceUpdateOne) ClearConfigDescription() *CustomConfigResourceUpdateOne {
-	ccruo.mutation.ClearConfigDescription()
+// ClearDescription clears the value of the "description" field.
+func (ccruo *CustomConfigResourceUpdateOne) ClearDescription() *CustomConfigResourceUpdateOne {
+	ccruo.mutation.ClearDescription()
 	return ccruo
 }
 
@@ -270,11 +270,11 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if value, ok := ccruo.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := ccruo.mutation.ConfigDescription(); ok {
-		_spec.SetField(customconfigresource.FieldConfigDescription, field.TypeString, value)
+	if value, ok := ccruo.mutation.Description(); ok {
+		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
 	}
-	if ccruo.mutation.ConfigDescriptionCleared() {
-		_spec.ClearField(customconfigresource.FieldConfigDescription, field.TypeString)
+	if ccruo.mutation.DescriptionCleared() {
+		_spec.ClearField(customconfigresource.FieldDescription, field.TypeString)
 	}
 	if value, ok := ccruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)

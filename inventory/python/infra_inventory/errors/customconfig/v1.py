@@ -11,9 +11,9 @@ class CustomConfigResource(betterproto.Message):
     # resource identifier
     resource_id: str = betterproto.string_field(1)
     # Unique name of config provided by admin
-    config_name: str = betterproto.string_field(2)
+    name: str = betterproto.string_field(2)
     # Config Description
-    config_description: str = betterproto.string_field(3)
+    description: str = betterproto.string_field(3)
     # Configuration file.
     config_data: str = betterproto.string_field(4)
     # Tenant Identifier.

@@ -17,7 +17,7 @@ message CustomConfigResource {
     indexes: [
       {
         fields: [
-          "config_name",
+          "name",
           "tenant_id"
         ]
         unique: true
@@ -39,7 +39,7 @@ message CustomConfigResource {
   ];
 
   // Unique name of config provided by admin
-  string config_name = 2 [
+  string name = 2 [
     (ent.field) = {
       optional: false
       immutable: true
@@ -52,7 +52,7 @@ message CustomConfigResource {
   ];
 
   // Config Description
-  string config_description = 3 [
+  string description = 3 [
     (ent.field) = {
       optional: true
       immutable: false

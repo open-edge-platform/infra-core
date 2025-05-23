@@ -18,10 +18,10 @@ type CustomConfigResource struct {
 	ID int `json:"id,omitempty"`
 	// ResourceID holds the value of the "resource_id" field.
 	ResourceID string `json:"resource_id,omitempty"`
-	// ConfigName holds the value of the "config_name" field.
-	ConfigName string `json:"config_name,omitempty"`
-	// ConfigDescription holds the value of the "config_description" field.
-	ConfigDescription string `json:"config_description,omitempty"`
+	// Name holds the value of the "name" field.
+	Name string `json:"name,omitempty"`
+	// Description holds the value of the "description" field.
+	Description string `json:"description,omitempty"`
 	// ConfigData holds the value of the "config_data" field.
 	ConfigData string `json:"config_data,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
@@ -40,7 +40,7 @@ func (*CustomConfigResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case customconfigresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case customconfigresource.FieldResourceID, customconfigresource.FieldConfigName, customconfigresource.FieldConfigDescription, customconfigresource.FieldConfigData, customconfigresource.FieldTenantID, customconfigresource.FieldCreatedAt, customconfigresource.FieldUpdatedAt:
+		case customconfigresource.FieldResourceID, customconfigresource.FieldName, customconfigresource.FieldDescription, customconfigresource.FieldConfigData, customconfigresource.FieldTenantID, customconfigresource.FieldCreatedAt, customconfigresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -69,17 +69,17 @@ func (ccr *CustomConfigResource) assignValues(columns []string, values []any) er
 			} else if value.Valid {
 				ccr.ResourceID = value.String
 			}
-		case customconfigresource.FieldConfigName:
+		case customconfigresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field config_name", values[i])
+				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				ccr.ConfigName = value.String
+				ccr.Name = value.String
 			}
-		case customconfigresource.FieldConfigDescription:
+		case customconfigresource.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field config_description", values[i])
+				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				ccr.ConfigDescription = value.String
+				ccr.Description = value.String
 			}
 		case customconfigresource.FieldConfigData:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -144,11 +144,11 @@ func (ccr *CustomConfigResource) String() string {
 	builder.WriteString("resource_id=")
 	builder.WriteString(ccr.ResourceID)
 	builder.WriteString(", ")
-	builder.WriteString("config_name=")
-	builder.WriteString(ccr.ConfigName)
+	builder.WriteString("name=")
+	builder.WriteString(ccr.Name)
 	builder.WriteString(", ")
-	builder.WriteString("config_description=")
-	builder.WriteString(ccr.ConfigDescription)
+	builder.WriteString("description=")
+	builder.WriteString(ccr.Description)
 	builder.WriteString(", ")
 	builder.WriteString("config_data=")
 	builder.WriteString(ccr.ConfigData)

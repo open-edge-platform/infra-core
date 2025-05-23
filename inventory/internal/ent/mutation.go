@@ -77,20 +77,20 @@ const (
 // CustomConfigResourceMutation represents an operation that mutates the CustomConfigResource nodes in the graph.
 type CustomConfigResourceMutation struct {
 	config
-	op                 Op
-	typ                string
-	id                 *int
-	resource_id        *string
-	config_name        *string
-	config_description *string
-	config_data        *string
-	tenant_id          *string
-	created_at         *string
-	updated_at         *string
-	clearedFields      map[string]struct{}
-	done               bool
-	oldValue           func(context.Context) (*CustomConfigResource, error)
-	predicates         []predicate.CustomConfigResource
+	op            Op
+	typ           string
+	id            *int
+	resource_id   *string
+	name          *string
+	description   *string
+	config_data   *string
+	tenant_id     *string
+	created_at    *string
+	updated_at    *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*CustomConfigResource, error)
+	predicates    []predicate.CustomConfigResource
 }
 
 var _ ent.Mutation = (*CustomConfigResourceMutation)(nil)
@@ -227,89 +227,89 @@ func (m *CustomConfigResourceMutation) ResetResourceID() {
 	m.resource_id = nil
 }
 
-// SetConfigName sets the "config_name" field.
-func (m *CustomConfigResourceMutation) SetConfigName(s string) {
-	m.config_name = &s
+// SetName sets the "name" field.
+func (m *CustomConfigResourceMutation) SetName(s string) {
+	m.name = &s
 }
 
-// ConfigName returns the value of the "config_name" field in the mutation.
-func (m *CustomConfigResourceMutation) ConfigName() (r string, exists bool) {
-	v := m.config_name
+// Name returns the value of the "name" field in the mutation.
+func (m *CustomConfigResourceMutation) Name() (r string, exists bool) {
+	v := m.name
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldConfigName returns the old "config_name" field's value of the CustomConfigResource entity.
+// OldName returns the old "name" field's value of the CustomConfigResource entity.
 // If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *CustomConfigResourceMutation) OldConfigName(ctx context.Context) (v string, err error) {
+func (m *CustomConfigResourceMutation) OldName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldConfigName is only allowed on UpdateOne operations")
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldConfigName requires an ID field in the mutation")
+		return v, errors.New("OldName requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldConfigName: %w", err)
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
 	}
-	return oldValue.ConfigName, nil
+	return oldValue.Name, nil
 }
 
-// ResetConfigName resets all changes to the "config_name" field.
-func (m *CustomConfigResourceMutation) ResetConfigName() {
-	m.config_name = nil
+// ResetName resets all changes to the "name" field.
+func (m *CustomConfigResourceMutation) ResetName() {
+	m.name = nil
 }
 
-// SetConfigDescription sets the "config_description" field.
-func (m *CustomConfigResourceMutation) SetConfigDescription(s string) {
-	m.config_description = &s
+// SetDescription sets the "description" field.
+func (m *CustomConfigResourceMutation) SetDescription(s string) {
+	m.description = &s
 }
 
-// ConfigDescription returns the value of the "config_description" field in the mutation.
-func (m *CustomConfigResourceMutation) ConfigDescription() (r string, exists bool) {
-	v := m.config_description
+// Description returns the value of the "description" field in the mutation.
+func (m *CustomConfigResourceMutation) Description() (r string, exists bool) {
+	v := m.description
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldConfigDescription returns the old "config_description" field's value of the CustomConfigResource entity.
+// OldDescription returns the old "description" field's value of the CustomConfigResource entity.
 // If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *CustomConfigResourceMutation) OldConfigDescription(ctx context.Context) (v string, err error) {
+func (m *CustomConfigResourceMutation) OldDescription(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldConfigDescription is only allowed on UpdateOne operations")
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldConfigDescription requires an ID field in the mutation")
+		return v, errors.New("OldDescription requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldConfigDescription: %w", err)
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
 	}
-	return oldValue.ConfigDescription, nil
+	return oldValue.Description, nil
 }
 
-// ClearConfigDescription clears the value of the "config_description" field.
-func (m *CustomConfigResourceMutation) ClearConfigDescription() {
-	m.config_description = nil
-	m.clearedFields[customconfigresource.FieldConfigDescription] = struct{}{}
+// ClearDescription clears the value of the "description" field.
+func (m *CustomConfigResourceMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[customconfigresource.FieldDescription] = struct{}{}
 }
 
-// ConfigDescriptionCleared returns if the "config_description" field was cleared in this mutation.
-func (m *CustomConfigResourceMutation) ConfigDescriptionCleared() bool {
-	_, ok := m.clearedFields[customconfigresource.FieldConfigDescription]
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *CustomConfigResourceMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[customconfigresource.FieldDescription]
 	return ok
 }
 
-// ResetConfigDescription resets all changes to the "config_description" field.
-func (m *CustomConfigResourceMutation) ResetConfigDescription() {
-	m.config_description = nil
-	delete(m.clearedFields, customconfigresource.FieldConfigDescription)
+// ResetDescription resets all changes to the "description" field.
+func (m *CustomConfigResourceMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, customconfigresource.FieldDescription)
 }
 
 // SetConfigData sets the "config_data" field.
@@ -494,11 +494,11 @@ func (m *CustomConfigResourceMutation) Fields() []string {
 	if m.resource_id != nil {
 		fields = append(fields, customconfigresource.FieldResourceID)
 	}
-	if m.config_name != nil {
-		fields = append(fields, customconfigresource.FieldConfigName)
+	if m.name != nil {
+		fields = append(fields, customconfigresource.FieldName)
 	}
-	if m.config_description != nil {
-		fields = append(fields, customconfigresource.FieldConfigDescription)
+	if m.description != nil {
+		fields = append(fields, customconfigresource.FieldDescription)
 	}
 	if m.config_data != nil {
 		fields = append(fields, customconfigresource.FieldConfigData)
@@ -522,10 +522,10 @@ func (m *CustomConfigResourceMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case customconfigresource.FieldResourceID:
 		return m.ResourceID()
-	case customconfigresource.FieldConfigName:
-		return m.ConfigName()
-	case customconfigresource.FieldConfigDescription:
-		return m.ConfigDescription()
+	case customconfigresource.FieldName:
+		return m.Name()
+	case customconfigresource.FieldDescription:
+		return m.Description()
 	case customconfigresource.FieldConfigData:
 		return m.ConfigData()
 	case customconfigresource.FieldTenantID:
@@ -545,10 +545,10 @@ func (m *CustomConfigResourceMutation) OldField(ctx context.Context, name string
 	switch name {
 	case customconfigresource.FieldResourceID:
 		return m.OldResourceID(ctx)
-	case customconfigresource.FieldConfigName:
-		return m.OldConfigName(ctx)
-	case customconfigresource.FieldConfigDescription:
-		return m.OldConfigDescription(ctx)
+	case customconfigresource.FieldName:
+		return m.OldName(ctx)
+	case customconfigresource.FieldDescription:
+		return m.OldDescription(ctx)
 	case customconfigresource.FieldConfigData:
 		return m.OldConfigData(ctx)
 	case customconfigresource.FieldTenantID:
@@ -573,19 +573,19 @@ func (m *CustomConfigResourceMutation) SetField(name string, value ent.Value) er
 		}
 		m.SetResourceID(v)
 		return nil
-	case customconfigresource.FieldConfigName:
+	case customconfigresource.FieldName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetConfigName(v)
+		m.SetName(v)
 		return nil
-	case customconfigresource.FieldConfigDescription:
+	case customconfigresource.FieldDescription:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetConfigDescription(v)
+		m.SetDescription(v)
 		return nil
 	case customconfigresource.FieldConfigData:
 		v, ok := value.(string)
@@ -645,8 +645,8 @@ func (m *CustomConfigResourceMutation) AddField(name string, value ent.Value) er
 // mutation.
 func (m *CustomConfigResourceMutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(customconfigresource.FieldConfigDescription) {
-		fields = append(fields, customconfigresource.FieldConfigDescription)
+	if m.FieldCleared(customconfigresource.FieldDescription) {
+		fields = append(fields, customconfigresource.FieldDescription)
 	}
 	return fields
 }
@@ -662,8 +662,8 @@ func (m *CustomConfigResourceMutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *CustomConfigResourceMutation) ClearField(name string) error {
 	switch name {
-	case customconfigresource.FieldConfigDescription:
-		m.ClearConfigDescription()
+	case customconfigresource.FieldDescription:
+		m.ClearDescription()
 		return nil
 	}
 	return fmt.Errorf("unknown CustomConfigResource nullable field %s", name)
@@ -676,11 +676,11 @@ func (m *CustomConfigResourceMutation) ResetField(name string) error {
 	case customconfigresource.FieldResourceID:
 		m.ResetResourceID()
 		return nil
-	case customconfigresource.FieldConfigName:
-		m.ResetConfigName()
+	case customconfigresource.FieldName:
+		m.ResetName()
 		return nil
-	case customconfigresource.FieldConfigDescription:
-		m.ResetConfigDescription()
+	case customconfigresource.FieldDescription:
+		m.ResetDescription()
 		return nil
 	case customconfigresource.FieldConfigData:
 		m.ResetConfigData()

@@ -13,10 +13,10 @@ const (
 	FieldID = "id"
 	// FieldResourceID holds the string denoting the resource_id field in the database.
 	FieldResourceID = "resource_id"
-	// FieldConfigName holds the string denoting the config_name field in the database.
-	FieldConfigName = "config_name"
-	// FieldConfigDescription holds the string denoting the config_description field in the database.
-	FieldConfigDescription = "config_description"
+	// FieldName holds the string denoting the name field in the database.
+	FieldName = "name"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
 	// FieldConfigData holds the string denoting the config_data field in the database.
 	FieldConfigData = "config_data"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
@@ -33,8 +33,8 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldResourceID,
-	FieldConfigName,
-	FieldConfigDescription,
+	FieldName,
+	FieldDescription,
 	FieldConfigData,
 	FieldTenantID,
 	FieldCreatedAt,
@@ -64,14 +64,14 @@ func ByResourceID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldResourceID, opts...).ToFunc()
 }
 
-// ByConfigName orders the results by the config_name field.
-func ByConfigName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldConfigName, opts...).ToFunc()
+// ByName orders the results by the name field.
+func ByName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
-// ByConfigDescription orders the results by the config_description field.
-func ByConfigDescription(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldConfigDescription, opts...).ToFunc()
+// ByDescription orders the results by the description field.
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescription, opts...).ToFunc()
 }
 
 // ByConfigData orders the results by the config_data field.

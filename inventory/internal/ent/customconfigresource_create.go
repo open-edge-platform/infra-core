@@ -25,22 +25,22 @@ func (ccrc *CustomConfigResourceCreate) SetResourceID(s string) *CustomConfigRes
 	return ccrc
 }
 
-// SetConfigName sets the "config_name" field.
-func (ccrc *CustomConfigResourceCreate) SetConfigName(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetConfigName(s)
+// SetName sets the "name" field.
+func (ccrc *CustomConfigResourceCreate) SetName(s string) *CustomConfigResourceCreate {
+	ccrc.mutation.SetName(s)
 	return ccrc
 }
 
-// SetConfigDescription sets the "config_description" field.
-func (ccrc *CustomConfigResourceCreate) SetConfigDescription(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetConfigDescription(s)
+// SetDescription sets the "description" field.
+func (ccrc *CustomConfigResourceCreate) SetDescription(s string) *CustomConfigResourceCreate {
+	ccrc.mutation.SetDescription(s)
 	return ccrc
 }
 
-// SetNillableConfigDescription sets the "config_description" field if the given value is not nil.
-func (ccrc *CustomConfigResourceCreate) SetNillableConfigDescription(s *string) *CustomConfigResourceCreate {
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ccrc *CustomConfigResourceCreate) SetNillableDescription(s *string) *CustomConfigResourceCreate {
 	if s != nil {
-		ccrc.SetConfigDescription(*s)
+		ccrc.SetDescription(*s)
 	}
 	return ccrc
 }
@@ -106,8 +106,8 @@ func (ccrc *CustomConfigResourceCreate) check() error {
 	if _, ok := ccrc.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "CustomConfigResource.resource_id"`)}
 	}
-	if _, ok := ccrc.mutation.ConfigName(); !ok {
-		return &ValidationError{Name: "config_name", err: errors.New(`ent: missing required field "CustomConfigResource.config_name"`)}
+	if _, ok := ccrc.mutation.Name(); !ok {
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "CustomConfigResource.name"`)}
 	}
 	if _, ok := ccrc.mutation.ConfigData(); !ok {
 		return &ValidationError{Name: "config_data", err: errors.New(`ent: missing required field "CustomConfigResource.config_data"`)}
@@ -151,13 +151,13 @@ func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sq
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := ccrc.mutation.ConfigName(); ok {
-		_spec.SetField(customconfigresource.FieldConfigName, field.TypeString, value)
-		_node.ConfigName = value
+	if value, ok := ccrc.mutation.Name(); ok {
+		_spec.SetField(customconfigresource.FieldName, field.TypeString, value)
+		_node.Name = value
 	}
-	if value, ok := ccrc.mutation.ConfigDescription(); ok {
-		_spec.SetField(customconfigresource.FieldConfigDescription, field.TypeString, value)
-		_node.ConfigDescription = value
+	if value, ok := ccrc.mutation.Description(); ok {
+		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
+		_node.Description = value
 	}
 	if value, ok := ccrc.mutation.ConfigData(); ok {
 		_spec.SetField(customconfigresource.FieldConfigData, field.TypeString, value)

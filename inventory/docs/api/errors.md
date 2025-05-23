@@ -31,8 +31,8 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resource_id | [string](#string) |  | resource identifier |
-| config_name | [string](#string) |  | Unique name of config provided by admin |
-| config_description | [string](#string) |  | Config Description |
+| name | [string](#string) |  | Unique name of config provided by admin |
+| description | [string](#string) |  | Config Description |
 | config_data | [string](#string) |  | Configuration file. |
 | tenant_id | [string](#string) |  | Tenant Identifier. |
 | created_at | [string](#string) |  | Creation timestamp |

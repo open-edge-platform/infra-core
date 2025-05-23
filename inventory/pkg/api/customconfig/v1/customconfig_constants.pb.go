@@ -6,11 +6,11 @@ package customconfigv1
 
 const (
 	// Fields and Edges constants for "CustomConfigResource"
-	CustomConfigResourceFieldResourceId        = "resource_id"
-	CustomConfigResourceFieldConfigName        = "config_name"
-	CustomConfigResourceFieldConfigDescription = "config_description"
-	CustomConfigResourceFieldConfigData        = "config_data"
-	CustomConfigResourceFieldTenantId          = "tenant_id"
-	CustomConfigResourceFieldCreatedAt         = "created_at"
-	CustomConfigResourceFieldUpdatedAt         = "updated_at"
+	CustomConfigResourceFieldResourceId  = "resource_id"
+	CustomConfigResourceFieldName        = "name"
+	CustomConfigResourceFieldDescription = "description"
+	CustomConfigResourceFieldConfigData  = "config_data"
+	CustomConfigResourceFieldTenantId    = "tenant_id"
+	CustomConfigResourceFieldCreatedAt   = "created_at"
+	CustomConfigResourceFieldUpdatedAt   = "updated_at"
 )
