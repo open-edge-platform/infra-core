@@ -4133,7 +4133,7 @@ components:
                     maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
                     type: string
-                    description: Deprecated, The OS resource's kernel Command Line Options.
+                    description: The OS resource's kernel Command Line Options.
                 updateSources:
                     maxItems: 100
                     type: array
@@ -4141,7 +4141,7 @@ components:
                         maxLength: 10000
                         pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \\\n]+$
                         type: string
-                    description: Deprecated, The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
+                    description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
                 imageUrl:
                     maxLength: 500
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$

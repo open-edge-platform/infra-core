@@ -155,7 +155,9 @@ message OperatingSystemResource {
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // The URL of the OS manifest which contains install packages details .
-  string installed_packages_source = 50200 [(validate.rules).string = {
+  string installed_packages_source = 50200 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
     max_len: 500
   }];
