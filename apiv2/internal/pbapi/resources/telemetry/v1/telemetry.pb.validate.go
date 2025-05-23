@@ -210,7 +210,7 @@ type TelemetryLogsGroupResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m TelemetryLogsGroupResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -459,7 +459,7 @@ type TelemetryMetricsGroupResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m TelemetryMetricsGroupResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -762,7 +762,7 @@ type TelemetryLogsProfileResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m TelemetryLogsProfileResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1078,7 +1078,7 @@ type TelemetryMetricsProfileResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m TelemetryMetricsProfileResourceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
