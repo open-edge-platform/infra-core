@@ -80,11 +80,20 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateBadWithTooLongUpdateSource": {
 			in: &os_v1.OperatingSystemResource{
 				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", inv_testing.RandomString(4001)},
+				UpdateSources: []string{"test entry1", inv_testing.RandomString(10001)},
 				ImageUrl:      "Repo test entry",
 				Sha256:        inv_testing.RandomSha256v1,
 			},
 			valid: false,
+		},
+		"CreateGoodLongUpdateSource": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os 1",
+				UpdateSources: []string{"test entry1", inv_testing.RandomString(9999)},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+			},
+			valid: true,
 		},
 		"CreateGoodOsMissingSha": {
 			in: &os_v1.OperatingSystemResource{
