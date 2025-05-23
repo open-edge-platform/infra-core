@@ -864,9 +864,9 @@ message WorkloadMember {
 // - for mutable: apply the install_packages, update_sources, kernel_command
 // - for immutable: install the version referenced by target_os
 enum UpdatePolicy {
-  UPDATE_POLICY_UNSPECIFIED = 0;  // Should never be used
-  UPDATE_POLICY_LATEST = 1;       // Upgrade to latest version
-  UPDATE_POLICY_TARGET = 2;       // Upgrade to the target version
+  UPDATE_POLICY_UNSPECIFIED = 0; // Should never be used
+  UPDATE_POLICY_LATEST = 1; // Upgrade to latest version
+  UPDATE_POLICY_TARGET = 2; // Upgrade to the target version
 }
 
 message OSUpdatePolicyResource {
@@ -884,7 +884,7 @@ message OSUpdatePolicyResource {
   string name = 2 [
     (ent.field) = {
       immutable: false
-      optional: false,
+      optional: false
     },
     (buf.validate.field).string = {
       max_bytes: 40
@@ -911,7 +911,8 @@ message OSUpdatePolicyResource {
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$"
       max_len: 500000
-    }]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes.
+    }
+  ]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes.
 
   repeated string update_sources = 5 [
     (ent.field) = {
@@ -921,7 +922,8 @@ message OSUpdatePolicyResource {
     (buf.validate.field).repeated.items.string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
       max_bytes: 10000
-    }]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Applies only to Mutable OSes.
+    }
+  ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Applies only to Mutable OSes.
 
   string kernel_command = 6 [
     (ent.field) = {
@@ -931,19 +933,18 @@ message OSUpdatePolicyResource {
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
       max_len: 500
-    }]; // Kernel Command Line Options. Applies only to Mutable OSes.
+    }
+  ]; // Kernel Command Line Options. Applies only to Mutable OSes.
 
   os.v1.OperatingSystemResource target_os = 50 [(ent.edge) = {
     unique: true
     required: false
   }]; // OS resource that should be installed to this Instance. Applies only to Immutable OSes for A/B upgrades. The field is immutable.
 
-  UpdatePolicy update_policy = 60[
-    (ent.field) = {
-      immutable: true
-      optional: true
-    }
-  ]; // Update Policy for the OS update. This field is used to determine the update policy for the OS update.
+  UpdatePolicy update_policy = 60 [(ent.field) = {
+    immutable: true
+    optional: true
+  }]; // Update Policy for the OS update. This field is used to determine the update policy for the OS update.
 
   string tenant_id = 100 [
     (ent.field) = {
