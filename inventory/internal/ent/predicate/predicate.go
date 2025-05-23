@@ -6,6 +6,9 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
+// CustomConfigResource is the predicate function for customconfigresource builders.
+type CustomConfigResource func(*sql.Selector)
+
 // EndpointResource is the predicate function for endpointresource builders.
 type EndpointResource func(*sql.Selector)
 

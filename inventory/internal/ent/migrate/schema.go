@@ -9,6 +9,35 @@ import (
 )
 
 var (
+	// CustomConfigResourcesColumns holds the columns for the "custom_config_resources" table.
+	CustomConfigResourcesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "config_data", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+	}
+	// CustomConfigResourcesTable holds the schema information for the "custom_config_resources" table.
+	CustomConfigResourcesTable = &schema.Table{
+		Name:       "custom_config_resources",
+		Columns:    CustomConfigResourcesColumns,
+		PrimaryKey: []*schema.Column{CustomConfigResourcesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "customconfigresource_name_tenant_id",
+				Unique:  true,
+				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[5]},
+			},
+			{
+				Name:    "customconfigresource_tenant_id",
+				Unique:  false,
+				Columns: []*schema.Column{CustomConfigResourcesColumns[5]},
+			},
+		},
+	}
 	// EndpointResourcesColumns holds the columns for the "endpoint_resources" table.
 	EndpointResourcesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -373,6 +402,7 @@ var (
 		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_custom_config", Type: field.TypeInt, Nullable: true},
 	}
 	// InstanceResourcesTable holds the schema information for the "instance_resources" table.
 	InstanceResourcesTable = &schema.Table{
@@ -402,6 +432,12 @@ var (
 				Symbol:     "instance_resources_local_account_resources_localaccount",
 				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "instance_resources_custom_config_resources_custom_config",
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -1019,6 +1055,7 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		CustomConfigResourcesTable,
 		EndpointResourcesTable,
 		HostResourcesTable,
 		HostgpuResourcesTable,
@@ -1060,6 +1097,7 @@ func init() {
 	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
 	InstanceResourcesTable.ForeignKeys[2].RefTable = ProviderResourcesTable
 	InstanceResourcesTable.ForeignKeys[3].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[4].RefTable = CustomConfigResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable

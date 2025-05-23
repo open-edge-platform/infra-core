@@ -9,6 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
@@ -458,6 +459,25 @@ func (irc *InstanceResourceCreate) SetLocalaccount(l *LocalAccountResource) *Ins
 	return irc.SetLocalaccountID(l.ID)
 }
 
+// SetCustomConfigID sets the "custom_config" edge to the CustomConfigResource entity by ID.
+func (irc *InstanceResourceCreate) SetCustomConfigID(id int) *InstanceResourceCreate {
+	irc.mutation.SetCustomConfigID(id)
+	return irc
+}
+
+// SetNillableCustomConfigID sets the "custom_config" edge to the CustomConfigResource entity by ID if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableCustomConfigID(id *int) *InstanceResourceCreate {
+	if id != nil {
+		irc = irc.SetCustomConfigID(*id)
+	}
+	return irc
+}
+
+// SetCustomConfig sets the "custom_config" edge to the CustomConfigResource entity.
+func (irc *InstanceResourceCreate) SetCustomConfig(c *CustomConfigResource) *InstanceResourceCreate {
+	return irc.SetCustomConfigID(c.ID)
+}
+
 // Mutation returns the InstanceResourceMutation object of the builder.
 func (irc *InstanceResourceCreate) Mutation() *InstanceResourceMutation {
 	return irc.mutation
@@ -775,6 +795,23 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.instance_resource_localaccount = &nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := irc.mutation.CustomConfigIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: []string{instanceresource.CustomConfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_node.instance_resource_custom_config = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

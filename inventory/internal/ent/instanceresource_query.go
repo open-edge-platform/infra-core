@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
@@ -34,6 +35,7 @@ type InstanceResourceQuery struct {
 	withWorkloadMembers *WorkloadMemberQuery
 	withProvider        *ProviderResourceQuery
 	withLocalaccount    *LocalAccountResourceQuery
+	withCustomConfig    *CustomConfigResourceQuery
 	withFKs             bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -196,6 +198,28 @@ func (irq *InstanceResourceQuery) QueryLocalaccount() *LocalAccountResourceQuery
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
 			sqlgraph.To(localaccountresource.Table, localaccountresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.LocalaccountTable, instanceresource.LocalaccountColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryCustomConfig chains the current query on the "custom_config" edge.
+func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery {
+	query := (&CustomConfigResourceClient{config: irq.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := irq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := irq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
+			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
 		return fromU, nil
@@ -401,6 +425,7 @@ func (irq *InstanceResourceQuery) Clone() *InstanceResourceQuery {
 		withWorkloadMembers: irq.withWorkloadMembers.Clone(),
 		withProvider:        irq.withProvider.Clone(),
 		withLocalaccount:    irq.withLocalaccount.Clone(),
+		withCustomConfig:    irq.withCustomConfig.Clone(),
 		// clone intermediate query.
 		sql:  irq.sql.Clone(),
 		path: irq.path,
@@ -470,6 +495,17 @@ func (irq *InstanceResourceQuery) WithLocalaccount(opts ...func(*LocalAccountRes
 		opt(query)
 	}
 	irq.withLocalaccount = query
+	return irq
+}
+
+// WithCustomConfig tells the query-builder to eager-load the nodes that are connected to
+// the "custom_config" edge. The optional arguments are used to configure the query builder of the edge.
+func (irq *InstanceResourceQuery) WithCustomConfig(opts ...func(*CustomConfigResourceQuery)) *InstanceResourceQuery {
+	query := (&CustomConfigResourceClient{config: irq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	irq.withCustomConfig = query
 	return irq
 }
 
@@ -552,16 +588,17 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		nodes       = []*InstanceResource{}
 		withFKs     = irq.withFKs
 		_spec       = irq.querySpec()
-		loadedTypes = [6]bool{
+		loadedTypes = [7]bool{
 			irq.withHost != nil,
 			irq.withDesiredOs != nil,
 			irq.withCurrentOs != nil,
 			irq.withWorkloadMembers != nil,
 			irq.withProvider != nil,
 			irq.withLocalaccount != nil,
+			irq.withCustomConfig != nil,
 		}
 	)
-	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil {
+	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withCustomConfig != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -621,6 +658,12 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	if query := irq.withLocalaccount; query != nil {
 		if err := irq.loadLocalaccount(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *LocalAccountResource) { n.Edges.Localaccount = e }); err != nil {
+			return nil, err
+		}
+	}
+	if query := irq.withCustomConfig; query != nil {
+		if err := irq.loadCustomConfig(ctx, query, nodes, nil,
+			func(n *InstanceResource, e *CustomConfigResource) { n.Edges.CustomConfig = e }); err != nil {
 			return nil, err
 		}
 	}
@@ -807,6 +850,38 @@ func (irq *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *L
 		nodes, ok := nodeids[n.ID]
 		if !ok {
 			return fmt.Errorf(`unexpected foreign-key "instance_resource_localaccount" returned %v`, n.ID)
+		}
+		for i := range nodes {
+			assign(nodes[i], n)
+		}
+	}
+	return nil
+}
+func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *CustomConfigResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *CustomConfigResource)) error {
+	ids := make([]int, 0, len(nodes))
+	nodeids := make(map[int][]*InstanceResource)
+	for i := range nodes {
+		if nodes[i].instance_resource_custom_config == nil {
+			continue
+		}
+		fk := *nodes[i].instance_resource_custom_config
+		if _, ok := nodeids[fk]; !ok {
+			ids = append(ids, fk)
+		}
+		nodeids[fk] = append(nodeids[fk], nodes[i])
+	}
+	if len(ids) == 0 {
+		return nil
+	}
+	query.Where(customconfigresource.IDIn(ids...))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		nodes, ok := nodeids[n.ID]
+		if !ok {
+			return fmt.Errorf(`unexpected foreign-key "instance_resource_custom_config" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
