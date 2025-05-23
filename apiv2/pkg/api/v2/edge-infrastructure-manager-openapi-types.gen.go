@@ -984,6 +984,9 @@ type OperatingSystemResource struct {
 	// InstalledPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
 	InstalledPackages *string `json:"installedPackages,omitempty"`
 
+	// InstalledPackagesSource The URL of the OS manifest which contains install packages details .
+	InstalledPackagesSource *string `json:"installedPackagesSource,omitempty"`
+
 	// KernelCommand The OS resource's kernel Command Line Options.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
 
