@@ -9,9 +9,9 @@ require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
 	github.com/open-edge-platform/infra-core/api v1.34.0
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.25.0
-	github.com/open-edge-platform/infra-managers/host v1.21.1
-	github.com/open-edge-platform/infra-managers/maintenance v1.21.1
-	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.34.4
+	github.com/open-edge-platform/infra-managers/host v1.22.1
+	github.com/open-edge-platform/infra-managers/maintenance v1.22.0
+	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.36.0
 	github.com/prometheus/client_golang v1.22.0
 	github.com/prometheus/client_model v0.6.2
 	github.com/prometheus/common v0.64.0
@@ -87,7 +87,7 @@ require (
 	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mennanov/fmutils v0.3.2 // indirect
+	github.com/mennanov/fmutils v0.3.3 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.1-0.20231216201459-8508981c8b6c // indirect
