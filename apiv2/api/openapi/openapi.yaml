@@ -4374,7 +4374,7 @@ components:
                     description: Version of OS profile that the OS resource belongs to.
                 installedPackages:
                     maxLength: 500000
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()" \\\n\{\}\[\]]+$
                     type: string
                     description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
                 securityFeature:

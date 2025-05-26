@@ -115,7 +115,7 @@ message OperatingSystemResource {
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
   string installed_packages = 9 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$"
     max_len: 500000
   }];
   // Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE).
