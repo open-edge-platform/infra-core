@@ -17,6 +17,9 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
+// TODO: installed_packages_source field in OSResource is to be correctly filled when supported by the backend.
+// This field is the URL where the Manifest file is stored. The field is immutable. This is added to allow manual creation of OSProfiles (advanced feature).
+
 // OpenAPIOSResourceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
