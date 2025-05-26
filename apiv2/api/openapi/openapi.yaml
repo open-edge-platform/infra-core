@@ -948,6 +948,106 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/os_update_run:
+        get:
+            tags:
+                - OSUpdateRun
+            summary: ListOSUpdateRun
+            description: Get a list of OS Update Policies.
+            operationId: OSUpdateRun_ListOSUpdateRun
+            parameters:
+                - name: orderBy
+                  in: query
+                  description: Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9., ]+$
+                    type: string
+                - name: filter
+                  in: query
+                  description: Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+                  schema:
+                    maxLength: 1000
+                    pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: Defines the amount of items to be contained in a single page. Default of 20.
+                  schema:
+                    type: integer
+                    format: uint32
+                - name: offset
+                  in: query
+                  description: Index of the first item to return. This allows skipping items.
+                  schema:
+                    type: integer
+                    format: uint32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ListOSUpdateRunResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}:
+        get:
+            tags:
+                - OSUpdateRun
+            summary: GetOSUpdateRun
+            description: Get a specific OS Update Run.
+            operationId: OSUpdateRun_GetOSUpdateRun
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the requested os.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OSUpdateRun'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+        delete:
+            tags:
+                - OSUpdateRun
+            summary: DeleteOSUpdateRun
+            description: Delete a OS Update Run.
+            operationId: OSUpdateRun_DeleteOSUpdateRun
+            parameters:
+                - name: resourceId
+                  in: path
+                  description: Name of the os update run to be deleted.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OSUpdateRun'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /edge-infra.orchestrator.apis/v2/providers:
         get:
             tags:
@@ -3777,6 +3877,26 @@ components:
                     description: The node type
                     format: enum
             description: A node in the location tree.
+        ListOSUpdateRunResponse:
+            required:
+                - osUpdatePolicies
+                - totalElements
+                - hasNext
+            type: object
+            properties:
+                osUpdatePolicies:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/OSUpdateRun'
+                    description: Sorted and filtered list of os update policies.
+                totalElements:
+                    type: integer
+                    description: Count of items in the entire list, regardless of pagination.
+                    format: int32
+                hasNext:
+                    type: boolean
+                    description: Inform if there are more elements
+            description: Response message for the ListOSUpdateRun method.
         ListOperatingSystemsResponse:
             required:
                 - OperatingSystemResources
@@ -4103,6 +4223,83 @@ components:
                     format: enum
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
+        OSUpdatePolicy:
+            required:
+                - name
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    pattern: ^osupdatepolicy-[0-9a-f]{8}$
+                    type: string
+                    description: resource ID, generated by the inventory on Create.
+                name:
+                    maxLength: 40
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+                    type: string
+                    description: User-provided, human-readable name.
+                description:
+                    maxLength: 200
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+                    type: string
+                    description: User-provided, human-readable description.
+            description: OSUpdatePolicy message is added temporarily now for OSUpdateRun message addition compilation should go through. It will be deleted later on before merging to main in git repo.
+        OSUpdateRun:
+            type: object
+            properties:
+                resourceId:
+                    readOnly: true
+                    pattern: ^osupdaterun-[0-9a-f]{8}$
+                    type: string
+                    description: resource ID, generated by the inventory on Create.
+                name:
+                    readOnly: true
+                    maxLength: 40
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+                    type: string
+                    description: Human-readable name.
+                description:
+                    readOnly: true
+                    maxLength: 200
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+                    type: string
+                    description: Human-readable description.
+                appliedPolicy:
+                    $ref: '#/components/schemas/OSUpdatePolicy'
+                statusIndicator:
+                    readOnly: true
+                    enum:
+                        - STATUS_INDICATION_ERROR
+                        - STATUS_INDICATION_IN_PROGRESS
+                        - STATUS_INDICATION_IDLE
+                    type: string
+                    description: 'Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator  STATUS_INDICATION_IDLE: Update completed successfully Indicator'
+                    format: enum
+                status:
+                    readOnly: true
+                    maxLength: 1024
+                    type: string
+                    description: textual short message that describes the OS Update Status.
+                statusDetails:
+                    readOnly: true
+                    maxLength: 100000
+                    type: string
+                    description: textual long message that describes the OS Update Status.
+                statusTimestamp:
+                    readOnly: true
+                    type: integer
+                    description: UTC timestamp of OS Update status reported.
+                    format: uint32
+                startTime:
+                    readOnly: true
+                    type: integer
+                    description: UTC timestamp of OS Update started.
+                    format: uint32
+                endTime:
+                    readOnly: true
+                    type: integer
+                    description: UTC timestamp of OS Update ended.
+                    format: uint32
         OnboardHostResponse:
             type: object
             properties: {}
@@ -4848,6 +5045,8 @@ tags:
       description: LocalAccount.
     - name: LocationService
       description: Location.
+    - name: OSUpdateRun
+      description: OS Update Run.
     - name: OperatingSystemService
       description: OperatingSystem.
     - name: ProviderService

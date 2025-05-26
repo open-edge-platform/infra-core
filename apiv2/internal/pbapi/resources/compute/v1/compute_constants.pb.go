@@ -148,4 +148,21 @@ const (
 	WorkloadMemberFieldWorkloadId       = "workload_id"
 	WorkloadMemberFieldInstanceId       = "instance_id"
 	WorkloadMemberEdgeTimestamps        = "timestamps"
+
+	// Fields and Edges constants for "OSUpdatePolicy"
+	OSUpdatePolicyFieldResourceId  = "resource_id"
+	OSUpdatePolicyFieldName        = "name"
+	OSUpdatePolicyFieldDescription = "description"
+
+	// Fields and Edges constants for "OSUpdateRun"
+	OSUpdateRunFieldResourceId      = "resource_id"
+	OSUpdateRunFieldName            = "name"
+	OSUpdateRunFieldDescription     = "description"
+	OSUpdateRunEdgeAppliedPolicy    = "applied_policy"
+	OSUpdateRunFieldStatusIndicator = "status_indicator"
+	OSUpdateRunFieldStatus          = "status"
+	OSUpdateRunFieldStatusDetails   = "status_details"
+	OSUpdateRunFieldStatusTimestamp = "status_timestamp"
+	OSUpdateRunFieldStartTime       = "start_time"
+	OSUpdateRunFieldEndTime         = "end_time"
 )
