@@ -1,0 +1,22 @@
+---
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+appVersion: apps/v1
+metadata:
+  release: 0.0.0-dev
+  version: 0.1.0
+spec:
+  name: Edge Microvisor Toolkit Standalone 3.0.20250518
+  type: OS_TYPE_IMMUTABLE
+  provider: OS_PROVIDER_KIND_INFRA
+  architecture: x86_64
+  profileName: microvisor-standalone  # Name has to be identical to this file's name
+  # Keep in sync with https://github.com/open-edge-platform/edge-microvisor-toolkit-standalone-node/blob/2580e23eb7bcaae7fdf5cb5ff68641962a690f8b/standalone-node/host_os/download_tmv.sh#L7.
+  # edge-readonly-3.0.20250413.2200-prod-signed.raw.gz
+  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250413.2200-prod-signed.raw.gz
+  osImageVersion: 3.0.20250413.2200
+  osImageSha256: 5730460ab4cbf2b6117c99ef4751063725ef98309e21dfd818c09f125c3ebaea
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250413.2200_pkg_manifest.json
+  securityFeature: SECURITY_FEATURE_NONE
+  description: Edge Microvisor Toolkit Standalone for x86_64 architecture
+  platformBundle:
