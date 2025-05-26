@@ -7,12 +7,12 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	invserver "github.com/open-edge-platform/infra-core/apiv2/v2/internal/server"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateOSUpdatePolicy(t *testing.T) {
