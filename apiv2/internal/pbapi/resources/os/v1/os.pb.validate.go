@@ -330,6 +330,28 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	// no validation rules for PlatformBundle
 
+	if utf8.RuneCountInString(m.GetMetadata()) > 500 {
+		err := OperatingSystemResourceValidationError{
+			field:  "Metadata",
+			reason: "value length must be at most 500 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_Metadata_Pattern.MatchString(m.GetMetadata()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "Metadata",
+			reason: "value does not match regex pattern \"^$|^[a-z0-9.-_:/\\\"\\\\ \\\\n{}]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if utf8.RuneCountInString(m.GetOsResourceID()) > 11 {
 		err := OperatingSystemResourceValidationError{
 			field:  "OsResourceID",
@@ -504,6 +526,8 @@ var _OperatingSystemResource_Sha256_Pattern = regexp.MustCompile("^[a-f0-9]+$")
 var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
 var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
+
+var _OperatingSystemResource_Metadata_Pattern = regexp.MustCompile("^$|^[a-z0-9.-_:/\"\\ \\n{}]+$")
 
 var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 

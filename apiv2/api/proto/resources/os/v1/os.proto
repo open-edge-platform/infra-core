@@ -133,6 +133,13 @@ message OperatingSystemResource {
   // If empty, the default OS installation will be used.
   string platform_bundle = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // Opaque JSON field storing metadata associated to this OS resource.
+  string metadata = 17 [
+    (validate.rules).string = {
+      pattern: "^$|^[a-z0-9.-_:/\"\\ \\n{}]+$"
+      max_len: 500
+    }];
+
   // Deprecated, The OS resource's unique identifier. Alias of resourceId.
   string os_resourceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
