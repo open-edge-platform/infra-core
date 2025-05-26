@@ -987,7 +987,7 @@ type OperatingSystemResource struct {
 	// InstalledPackagesSource The URL of the OS manifest which contains install packages details .
 	InstalledPackagesSource *string `json:"installedPackagesSource,omitempty"`
 
-	// KernelCommand The OS resource's kernel Command Line Options.
+	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
 
 	// Name The OS resource's name.
@@ -1024,7 +1024,7 @@ type OperatingSystemResource struct {
 	Sha256     string      `json:"sha256"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
-	// UpdateSources The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
+	// UpdateSources Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
 	UpdateSources []string `json:"updateSources"`
 }
 

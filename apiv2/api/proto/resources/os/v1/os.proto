@@ -55,18 +55,16 @@ message OperatingSystemResource {
     max_len: 20
   }];
 
-  // The OS resource's kernel Command Line Options.
+  // Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
   string kernel_command = 4 [
-    deprecated = true,
     (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
   }];
 
-  // The list of OS resource update sources.
+  // Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
   // Should be in 'DEB822 Source Format' for Debian style OSs
   repeated string update_sources = 5 [
-    deprecated = true,
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated = {
       ignore_empty: true,
@@ -159,6 +157,6 @@ message OperatingSystemResource {
     (google.api.field_behavior) = IMMUTABLE,
     (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
-    max_len: 500
+    max_len: 200
   }];
 }

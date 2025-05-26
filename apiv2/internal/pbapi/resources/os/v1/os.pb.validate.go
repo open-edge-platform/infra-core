@@ -403,10 +403,10 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetInstalledPackagesSource()) > 500 {
+	if utf8.RuneCountInString(m.GetInstalledPackagesSource()) > 200 {
 		err := OperatingSystemResourceValidationError{
 			field:  "InstalledPackagesSource",
-			reason: "value length must be at most 500 runes",
+			reason: "value length must be at most 200 runes",
 		}
 		if !all {
 			return err
