@@ -445,6 +445,8 @@ func TestOS_GetWithInstalledPackages(t *testing.T) {
 			assert.NotEmpty(t, osPackages.Repo)
 			assert.NotNil(t, osPackages.Repo[0].Name)
 			assert.NotNil(t, osPackages.Repo[0].Version)
+		} else if *osRes.OsType == api.OPERATINGSYSTEMTYPEMUTABLE {
+			assert.Equal(t, "", *osRes.InstalledPackages)
 		}
 	}
 	log.Info().Msgf("End OSResource get with installed packages test")
