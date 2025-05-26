@@ -790,7 +790,7 @@ type ListOSUpdatePolicyResponse struct {
 	// HasNext Inform if there are more elements
 	HasNext bool `json:"hasNext"`
 
-	// OsUpdatePolicies Sorted and filtered list of os update policies.
+	// OsUpdatePolicies Sorted and filtered list of OS Update Policies.
 	OsUpdatePolicies []OSUpdatePolicy `json:"osUpdatePolicies"`
 
 	// TotalElements Count of items in the entire list, regardless of pagination.

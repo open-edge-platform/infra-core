@@ -408,7 +408,7 @@ message InstanceResource {
   string runtime_packages = 51 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
       max_len: 500000
     }
   ];
@@ -417,7 +417,7 @@ message InstanceResource {
   string os_update_available = 52 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
-      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\" \\\\\\n]+$'
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\ \\n]+$'
       max_len: 10000
     }
   ];
@@ -628,7 +628,7 @@ message OSUpdatePolicy {
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
   // Applies only to Mutable OSes.
   string install_packages = 4 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
     max_len: 500000
   }];
 
@@ -638,7 +638,7 @@ message OSUpdatePolicy {
   repeated string update_sources = 5 [
     (validate.rules).repeated.items.string = {
       max_bytes: 10000
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\n]+$"
     }
   ];
 

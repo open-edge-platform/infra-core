@@ -1465,7 +1465,7 @@ Request message for the CreateOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The os update policy to create. |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The OS Update policy to create. |
 
 
 
@@ -1930,7 +1930,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os update policy to be deleted. |
+| resource_id | [string](#string) |  | Name of the OS Update Policy to be deleted. |
 
 
 
@@ -3012,7 +3012,7 @@ Response message for the ListOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| os_update_policies | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | repeated | Sorted and filtered list of os update policies. |
+| os_update_policies | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | repeated | Sorted and filtered list of OS Update Policies. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
 

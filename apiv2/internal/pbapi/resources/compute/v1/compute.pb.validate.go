@@ -1815,7 +1815,7 @@ func (m *InstanceResource) validate(all bool) error {
 	if !_InstanceResource_RuntimePackages_Pattern.MatchString(m.GetRuntimePackages()) {
 		err := InstanceResourceValidationError{
 			field:  "RuntimePackages",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\" \\\\\\\\\\\\n\\\\{\\\\}\\\\[\\\\]]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\"\\\\ \\\\n{}[]]+$\"",
 		}
 		if !all {
 			return err
@@ -1837,7 +1837,7 @@ func (m *InstanceResource) validate(all bool) error {
 	if !_InstanceResource_OsUpdateAvailable_Pattern.MatchString(m.GetOsUpdateAvailable()) {
 		err := InstanceResourceValidationError{
 			field:  "OsUpdateAvailable",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\\\" \\\\\\\\\\\\n]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\\\"\\\\ \\\\n]+$\"",
 		}
 		if !all {
 			return err
@@ -2066,9 +2066,9 @@ var _InstanceResource_ResourceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}
 
 var _InstanceResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
-var _InstanceResource_RuntimePackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$")
+var _InstanceResource_RuntimePackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$")
 
-var _InstanceResource_OsUpdateAvailable_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\" \\\\\\n]+$")
+var _InstanceResource_OsUpdateAvailable_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\ \\n]+$")
 
 var _InstanceResource_InstanceID_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
 
@@ -2781,7 +2781,7 @@ func (m *OSUpdatePolicy) validate(all bool) error {
 	if !_OSUpdatePolicy_InstallPackages_Pattern.MatchString(m.GetInstallPackages()) {
 		err := OSUpdatePolicyValidationError{
 			field:  "InstallPackages",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\" \\\\\\\\\\\\n\\\\{\\\\}\\\\[\\\\]]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\"\\\\ \\\\n{}[]]+$\"",
 		}
 		if !all {
 			return err
@@ -2806,7 +2806,7 @@ func (m *OSUpdatePolicy) validate(all bool) error {
 		if !_OSUpdatePolicy_UpdateSources_Pattern.MatchString(item) {
 			err := OSUpdatePolicyValidationError{
 				field:  fmt.Sprintf("UpdateSources[%v]", idx),
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\" \\\\\\n]+$\"",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\"\\\\ \\\\n]+$\"",
 			}
 			if !all {
 				return err
@@ -2953,8 +2953,8 @@ var _OSUpdatePolicy_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#
 
 var _OSUpdatePolicy_Description_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
 
-var _OSUpdatePolicy_InstallPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$")
+var _OSUpdatePolicy_InstallPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$")
 
-var _OSUpdatePolicy_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$")
+var _OSUpdatePolicy_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\n]+$")
 
 var _OSUpdatePolicy_KernelCommand_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
