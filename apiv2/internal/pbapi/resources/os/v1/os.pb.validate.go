@@ -314,7 +314,7 @@ func (m *OperatingSystemResource) validate(all bool) error {
 	if !_OperatingSystemResource_InstalledPackages_Pattern.MatchString(m.GetInstalledPackages()) {
 		err := OperatingSystemResourceValidationError{
 			field:  "InstalledPackages",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\" \\\\\\\\\\\\n\\\\{\\\\}\\\\[\\\\]]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" \\\\\\\\\\\\n]+$\"",
 		}
 		if !all {
 			return err
@@ -503,7 +503,7 @@ var _OperatingSystemResource_Sha256_Pattern = regexp.MustCompile("^[a-f0-9]+$")
 
 var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
-var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$")
+var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
 
 var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 

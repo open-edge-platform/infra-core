@@ -611,7 +611,7 @@ message OSUpdatePolicy {
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
   // Applies only to Mutable OSes.
   string install_packages = 4 [(validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$"
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$"
     max_len: 500000
   }];
 

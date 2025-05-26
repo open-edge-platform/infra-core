@@ -2733,7 +2733,7 @@ func (m *OSUpdatePolicy) validate(all bool) error {
 	if !_OSUpdatePolicy_InstallPackages_Pattern.MatchString(m.GetInstallPackages()) {
 		err := OSUpdatePolicyValidationError{
 			field:  "InstallPackages",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" \\\\\\n]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\" \\\\\\\\\\\\n\\\\{\\\\}\\\\[\\\\]]+$\"",
 		}
 		if !all {
 			return err
@@ -2905,7 +2905,7 @@ var _OSUpdatePolicy_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#
 
 var _OSUpdatePolicy_Description_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
 
-var _OSUpdatePolicy_InstallPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$")
+var _OSUpdatePolicy_InstallPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$")
 
 var _OSUpdatePolicy_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$")
 
