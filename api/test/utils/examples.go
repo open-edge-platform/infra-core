@@ -135,13 +135,6 @@ var (
 	ProviderWrongID           = "proider-12345678"
 	providerBadApiCredentials = []string{"%as", "v1/lxca/password"}
 
-	LocalAccountName1     = "localAccount1"
-	LocalAccountSshKey1   = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ test-user@example.com"
-	LocalAccountName2     = "localAccount2"
-	LocalAccountSshKey2   = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ test-user@example.com"
-	LocalAccountUnexistID = "localaccount-00000000"
-	LocalAccountWrongID   = "localaccount-12345678"
-
 	MetadataOU1 = api.Metadata{
 		{
 			Key:   "examplekey",
@@ -830,22 +823,5 @@ var (
 		ProviderVendor: &providerVendor1,
 		Name:           ProviderName1,
 		ApiCredentials: &providerBadApiCredentials,
-	}
-	LocalAccount1Request = api.LocalAccount{
-		Username: LocalAccountName1,
-		SshKey:   LocalAccountSshKey1,
-	}
-	LocalAccount2Request = api.LocalAccount{
-		Username: LocalAccountName2,
-		SshKey:   LocalAccountSshKey2,
-	}
-
-	LocalAccountNoUsername = api.LocalAccount{
-		Username: "",
-		SshKey:   LocalAccountSshKey1,
-	}
-	LocalAccountNoSshKey = api.LocalAccount{
-		Username: LocalAccountName2,
-		SshKey:   "",
 	}
 )
