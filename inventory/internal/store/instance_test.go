@@ -580,6 +580,21 @@ func Test_UpdateInstance(t *testing.T) {
 			valid:        false,
 			expErrorCode: codes.NotFound,
 		},
+		"UpdateInstanceLocalAccountFail": {
+			in: &computev1.InstanceResource{
+				CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Localaccount: localaccount,
+			},
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.FieldCurrentState,
+					instanceresource.EdgeLocalaccount,
+				},
+			},
+			resourceID:   instanceResID,
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
 		"UpdateInstanceDetailStatus": {
 			in: &computev1.InstanceResource{
 				InstanceStatusDetail: "2 of 5 components Running",
@@ -588,18 +603,6 @@ func Test_UpdateInstance(t *testing.T) {
 			fieldMask: &fieldmaskpb.FieldMask{
 				Paths: []string{
 					instanceresource.FieldInstanceStatusDetail,
-				},
-			},
-			valid: true,
-		},
-		"UpdateInstanceLocalAccount": {
-			in: &computev1.InstanceResource{
-				Localaccount: localaccount,
-			},
-			resourceID: instanceResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{
-					instanceresource.EdgeLocalaccount,
 				},
 			},
 			valid: true,
@@ -716,6 +719,93 @@ func Test_InstanceStateTransitionFromUntrusted(t *testing.T) {
 	)
 	require.NoError(t, err, "UpdateInstance() to DELETED should not fail")
 	assert.Equal(t, computev1.InstanceState_INSTANCE_STATE_DELETED, upRes.GetInstance().GetDesiredState())
+}
+
+func Test_InstanceLocalAccountUpdate(t *testing.T) {
+	host1 := inv_testing.CreateHost(t, nil, nil)
+	os1 := inv_testing.CreateOs(t)
+	localaccount := inv_testing.CreateLocalAccount(t,
+		"test-user",
+		"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ test-user1@example.com",
+	)
+	instance1 := inv_testing.CreateInstanceWithLocalAccount(t, host1, os1, localaccount)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	// make progress on the instance
+	upRes, err := inv_testing.GetClient(t, inv_testing.RMClient).Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{instanceresource.FieldCurrentState}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{
+					CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				},
+			},
+		},
+	)
+	require.NoError(t, err, "UpdateInstance() failed")
+	assert.Equal(t, computev1.InstanceState_INSTANCE_STATE_RUNNING, upRes.GetInstance().GetCurrentState())
+
+	// After the instance is no longer in the initial state, we cannot touch anymore
+	// local account.
+	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{instanceresource.EdgeLocalaccount}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{
+					Localaccount: localaccount,
+				},
+			},
+		},
+	)
+	require.Error(t, err, "UpdateInstance() with LocalAccount should fail")
+	assert.Nil(t, upRes)
+	assert.Equal(t, codes.InvalidArgument, status.Code(err))
+
+	// Nilling the local account should also fail
+	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{instanceresource.EdgeLocalaccount}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{},
+			},
+		},
+	)
+	require.Error(t, err, "UpdateInstance() with LocalAccount should fail")
+	assert.Nil(t, upRes)
+	assert.Equal(t, codes.InvalidArgument, status.Code(err))
+
+	curRes, err := inv_testing.TestClients[inv_testing.APIClient].Get(
+		ctx,
+		instance1.ResourceId,
+	)
+	require.NoError(t, err, "GetInstance() with LocalAccount should not fail")
+	assert.NotNil(t, curRes)
+	require.NotNil(t, curRes.GetResource().GetInstance().GetLocalaccount())
+
+	// Should not fail and should not take effect
+	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{
+					Localaccount: localaccount,
+				},
+			},
+		},
+	)
+	require.NoError(t, err, "UpdateInstance() with LocalAccount should not fail")
+	assert.NotNil(t, upRes)
+	assert.NotNil(t, upRes.GetInstance().GetLocalaccount())
 }
 
 func Test_FilterInstances(t *testing.T) {
