@@ -164,6 +164,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		WorkloadMembers:    workloadMembers,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 	}
+	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }

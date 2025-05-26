@@ -349,9 +349,9 @@ message InstanceResource {
   HostResource host = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
   // OS resource that should be installed to this Instance.
   resources.os.v1.OperatingSystemResource os = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // OS resource that should be installed to this Instance.
-  resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // OS resource that is currently installed for this Instance.
+  // Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
+  resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OPTIONAL];
+  // Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance.
   resources.os.v1.OperatingSystemResource current_os = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
   resources.os.v1.SecurityFeature security_feature = 14;
@@ -382,7 +382,7 @@ message InstanceResource {
   status.v1.StatusIndication update_status_indicator = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when update_status was last changed. Set by RMs only.
   uint32 update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+  // Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
   string update_status_detail = 24 [(validate.rules).string = {max_len: 100000},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
@@ -404,6 +404,23 @@ message InstanceResource {
   // Update Policy of this Instance
   OSUpdatePolicy update_policy = 50 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // The packages available on the Instance at runtime, represented as a JSON list.
+  string runtime_packages = 51 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$"
+      max_len: 500000
+    }
+  ];
+
+  // Details about OS Updates available for this Instance. If empty, there are no updates available.
+  string os_update_available = 52 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\" \\\\\\n]+$'
+      max_len: 10000
+    }
+  ];
 
   // Deprecated, The instance's unique identifier. Alias of resourceID.
   string instanceID = 5001 [
@@ -423,7 +440,7 @@ message InstanceResource {
     }
   ];
 
-  // The unique identifier of OS resource that must be installed on the instance.
+  // The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time.
   string osID = 5003 [
     (google.api.field_behavior) = INPUT_ONLY,
     (validate.rules).string = {

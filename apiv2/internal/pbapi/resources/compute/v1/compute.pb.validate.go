@@ -1801,6 +1801,50 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 	}
 
+	if utf8.RuneCountInString(m.GetRuntimePackages()) > 500000 {
+		err := InstanceResourceValidationError{
+			field:  "RuntimePackages",
+			reason: "value length must be at most 500000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_InstanceResource_RuntimePackages_Pattern.MatchString(m.GetRuntimePackages()) {
+		err := InstanceResourceValidationError{
+			field:  "RuntimePackages",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\" \\\\\\\\\\\\n\\\\{\\\\}\\\\[\\\\]]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetOsUpdateAvailable()) > 10000 {
+		err := InstanceResourceValidationError{
+			field:  "OsUpdateAvailable",
+			reason: "value length must be at most 10000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_InstanceResource_OsUpdateAvailable_Pattern.MatchString(m.GetOsUpdateAvailable()) {
+		err := InstanceResourceValidationError{
+			field:  "OsUpdateAvailable",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\\\" \\\\\\\\\\\\n]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if utf8.RuneCountInString(m.GetInstanceID()) > 13 {
 		err := InstanceResourceValidationError{
 			field:  "InstanceID",
@@ -2021,6 +2065,10 @@ var _ interface {
 var _InstanceResource_ResourceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
 
 var _InstanceResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
+
+var _InstanceResource_RuntimePackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\\\\\n\\{\\}\\[\\]]+$")
+
+var _InstanceResource_OsUpdateAvailable_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\" \\\\\\n]+$")
 
 var _InstanceResource_InstanceID_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
 

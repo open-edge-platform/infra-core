@@ -123,6 +123,8 @@ const (
 	InstanceResourceEdgeWorkloadMembers                    = "workload_members"
 	InstanceResourceEdgeLocalaccount                       = "localaccount"
 	InstanceResourceEdgeUpdatePolicy                       = "update_policy"
+	InstanceResourceFieldRuntimePackages                   = "runtime_packages"
+	InstanceResourceFieldOsUpdateAvailable                 = "os_update_available"
 	InstanceResourceFieldInstanceID                        = "instanceID"
 	InstanceResourceFieldHostID                            = "hostID"
 	InstanceResourceFieldOsID                              = "osID"

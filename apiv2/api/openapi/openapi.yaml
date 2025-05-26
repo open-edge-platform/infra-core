@@ -3735,7 +3735,7 @@ components:
                     readOnly: true
                     maxLength: 100000
                     type: string
-                    description: JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+                    description: Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
                 trustedAttestationStatus:
                     readOnly: true
                     maxLength: 1024
@@ -3765,6 +3765,18 @@ components:
                     $ref: '#/components/schemas/LocalAccountResource'
                 updatePolicy:
                     $ref: '#/components/schemas/OSUpdatePolicy'
+                runtimePackages:
+                    readOnly: true
+                    maxLength: 500000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()" \\\n\{\}\[\]]+$
+                    type: string
+                    description: The packages available on the Instance at runtime, represented as a JSON list.
+                osUpdateAvailable:
+                    readOnly: true
+                    maxLength: 10000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()" \\\n]+$
+                    type: string
+                    description: Details about OS Updates available for this Instance. If empty, there are no updates available.
                 instanceID:
                     readOnly: true
                     maxLength: 13
@@ -3782,7 +3794,7 @@ components:
                     maxLength: 11
                     pattern: ^os-[0-9a-f]{8}$
                     type: string
-                    description: The unique identifier of OS resource that must be installed on the instance.
+                    description: The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time.
                 localAccountID:
                     writeOnly: true
                     maxLength: 21

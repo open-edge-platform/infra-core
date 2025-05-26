@@ -637,9 +637,12 @@ type InstanceResource struct {
 	// Os An OS resource.
 	Os *OperatingSystemResource `json:"os,omitempty"`
 
-	// OsID The unique identifier of OS resource that must be installed on the instance.
-	OsID             *string `json:"osID,omitempty"`
-	OsUpdatePolicyID *string `json:"osUpdatePolicyID,omitempty"`
+	// OsID The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time.
+	OsID *string `json:"osID,omitempty"`
+
+	// OsUpdateAvailable Details about OS Updates available for this Instance. If empty, there are no updates available.
+	OsUpdateAvailable *string `json:"osUpdateAvailable,omitempty"`
+	OsUpdatePolicyID  *string `json:"osUpdatePolicyID,omitempty"`
 
 	// ProvisioningStatus textual message that describes the provisioning status of Instance. Set by RMs only.
 	ProvisioningStatus *string `json:"provisioningStatus,omitempty"`
@@ -652,6 +655,9 @@ type InstanceResource struct {
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
+
+	// RuntimePackages The packages available on the Instance at runtime, represented as a JSON list.
+	RuntimePackages *string `json:"runtimePackages,omitempty"`
 
 	// SecurityFeature Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
 	SecurityFeature *InstanceResourceSecurityFeature `json:"securityFeature,omitempty"`
@@ -670,7 +676,7 @@ type InstanceResource struct {
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
 
-	// UpdateStatusDetail JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+	// UpdateStatusDetail Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
 	UpdateStatusDetail *string `json:"updateStatusDetail,omitempty"`
 
 	// UpdateStatusIndicator Indicates interpretation of update_status. Set by RMs only.
