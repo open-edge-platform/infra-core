@@ -8729,7 +8729,7 @@ type CreateOSUpdatePolicyRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// The os update policy to create.
+	// The OS Update policy to create.
 	OsUpdatePolicy *v11.OSUpdatePolicy `protobuf:"bytes,1,opt,name=os_update_policy,json=osUpdatePolicy,proto3" json:"os_update_policy,omitempty"`
 }
 
@@ -9004,7 +9004,7 @@ type ListOSUpdatePolicyResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Sorted and filtered list of os update policies.
+	// Sorted and filtered list of OS Update Policies.
 	OsUpdatePolicies []*v11.OSUpdatePolicy `protobuf:"bytes,1,rep,name=os_update_policies,json=osUpdatePolicies,proto3" json:"os_update_policies,omitempty"`
 	// Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `protobuf:"varint,2,opt,name=total_elements,json=totalElements,proto3" json:"total_elements,omitempty"`
@@ -9071,7 +9071,7 @@ type DeleteOSUpdatePolicyRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Name of the os update policy to be deleted.
+	// Name of the OS Update Policy to be deleted.
 	ResourceId string `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
 }
 

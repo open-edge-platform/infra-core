@@ -1056,7 +1056,7 @@ paths:
             parameters:
                 - name: resourceId
                   in: path
-                  description: Name of the os update policy to be deleted.
+                  description: Name of the OS Update Policy to be deleted.
                   required: true
                   schema:
                     type: string
@@ -3920,7 +3920,7 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/OSUpdatePolicy'
-                    description: Sorted and filtered list of os update policies.
+                    description: Sorted and filtered list of OS Update Policies.
                 totalElements:
                     type: integer
                     description: Count of items in the entire list, regardless of pagination.
@@ -4277,15 +4277,13 @@ components:
                     description: User-provided, human-readable description.
                 installPackages:
                     maxLength: 500000
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()" \\\n\{\}\[\]]+$
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
                     type: string
                     description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. Applies only to Mutable OSes.
                 updateSources:
                     type: array
                     items:
-                        pattern: |-
-                            ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \
-                            ]+$
+                        pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \n]+$
                         type: string
                     description: The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs. Applies only to Mutable OSes.
                 kernelCommand:
