@@ -3638,6 +3638,12 @@ components:
                     description: The workload members associated with the instance.
                 localaccount:
                     $ref: '#/components/schemas/LocalAccountResource'
+                existingCves:
+                    readOnly: true
+                    maxLength: 20000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+                    type: string
+                    description: The CVEs that are currently present on the Instance, encoded as a JSON list.
                 instanceID:
                     readOnly: true
                     maxLength: 13
@@ -4201,6 +4207,28 @@ components:
                     readOnly: true
                     type: string
                     description: Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
+                existingCvesUrl:
+                    maxLength: 2000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                    type: string
+                    description: URL of the file containing information about the existing CVEs on the Operating System.
+                existingCves:
+                    readOnly: true
+                    maxLength: 20000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+                    type: string
+                    description: The CVEs that are currently present on the Operating System, encoded as a JSON list.
+                fixedCvesUrl:
+                    maxLength: 2000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                    type: string
+                    description: URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
+                fixedCves:
+                    readOnly: true
+                    maxLength: 20000
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+                    type: string
+                    description: The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
                 osResourceID:
                     readOnly: true
                     maxLength: 11

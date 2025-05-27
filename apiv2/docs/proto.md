@@ -461,6 +461,10 @@ An OS resource.
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
+| existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
+| fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |
+| fixed_cves | [string](#string) |  | The CVEs that have been fixed by this OS Resource version, encoded as a JSON list. |
 | os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
 | repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
@@ -855,6 +859,7 @@ host or hypervisor.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |

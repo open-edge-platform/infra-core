@@ -330,6 +330,94 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	// no validation rules for PlatformBundle
 
+	if utf8.RuneCountInString(m.GetExistingCvesUrl()) > 2000 {
+		err := OperatingSystemResourceValidationError{
+			field:  "ExistingCvesUrl",
+			reason: "value length must be at most 2000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_ExistingCvesUrl_Pattern.MatchString(m.GetExistingCvesUrl()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "ExistingCvesUrl",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetExistingCves()) > 20000 {
+		err := OperatingSystemResourceValidationError{
+			field:  "ExistingCves",
+			reason: "value length must be at most 20000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_ExistingCves_Pattern.MatchString(m.GetExistingCves()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "ExistingCves",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\"\\\\ \\\\n{}[]]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetFixedCvesUrl()) > 2000 {
+		err := OperatingSystemResourceValidationError{
+			field:  "FixedCvesUrl",
+			reason: "value length must be at most 2000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_FixedCvesUrl_Pattern.MatchString(m.GetFixedCvesUrl()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "FixedCvesUrl",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetFixedCves()) > 20000 {
+		err := OperatingSystemResourceValidationError{
+			field:  "FixedCves",
+			reason: "value length must be at most 20000 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_FixedCves_Pattern.MatchString(m.GetFixedCves()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "FixedCves",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\\\"\\\\ \\\\n{}[]]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if utf8.RuneCountInString(m.GetOsResourceID()) > 11 {
 		err := OperatingSystemResourceValidationError{
 			field:  "OsResourceID",
@@ -504,6 +592,14 @@ var _OperatingSystemResource_Sha256_Pattern = regexp.MustCompile("^[a-f0-9]+$")
 var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
 var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
+
+var _OperatingSystemResource_ExistingCvesUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+
+var _OperatingSystemResource_ExistingCves_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$")
+
+var _OperatingSystemResource_FixedCvesUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+
+var _OperatingSystemResource_FixedCves_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$")
 
 var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 

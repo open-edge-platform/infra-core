@@ -402,6 +402,15 @@ message InstanceResource {
   // Local Account associated with this Instance
   resources.localaccount.v1.LocalAccountResource localaccount = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // The CVEs that are currently present on the Instance, encoded as a JSON list.
+  string existing_cves = 42 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (validate.rules).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      max_len: 20000
+    }
+  ];
+
   // Deprecated, The instance's unique identifier. Alias of resourceID.
   string instanceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,

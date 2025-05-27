@@ -122,6 +122,7 @@ const (
 	InstanceResourceFieldTrustedAttestationStatusTimestamp = "trusted_attestation_status_timestamp"
 	InstanceResourceEdgeWorkloadMembers                    = "workload_members"
 	InstanceResourceEdgeLocalaccount                       = "localaccount"
+	InstanceResourceFieldExistingCves                      = "existing_cves"
 	InstanceResourceFieldInstanceID                        = "instanceID"
 	InstanceResourceFieldHostID                            = "hostID"
 	InstanceResourceFieldOsID                              = "osID"
