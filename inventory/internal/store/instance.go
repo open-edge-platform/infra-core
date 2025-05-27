@@ -7,6 +7,10 @@ package store
 
 import (
 	"context"
+	"github.com/kataras/iris/v12/x/client"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
+	providers "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
+	provider_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 
 	"golang.org/x/exp/slices"
 	"google.golang.org/grpc/codes"
@@ -126,6 +130,10 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		if err := setEdgeProviderIDForMut(ctx, tx.Client(), mut, in.GetProvider()); err != nil {
 			return nil, err
 		}
+		// Look up the optional CustomConfig IDs for this Instance. CustomConfig is M2M relation, so multiple edges could be provided at once
+		if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
+			return nil, err
+		}
 
 		// Look up the optional LocalAccount ID for this Instance.
 		if err := setEdgeLocalAccountIDForMut(ctx, tx.Client(), mut, in.GetLocalaccount()); err != nil {
@@ -178,7 +186,8 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		WithDesiredOs().
 		WithCurrentOs().
 		WithProvider().
-		WithLocalaccount()
+		WithLocalaccount().
+		WithCustomConfig()
 	if nestedLoad {
 		query.
 			WithHost(func(q *ent.HostResourceQuery) {
@@ -266,12 +275,24 @@ func (is *InvStore) UpdateInstance(
 				return nil, booleans.Pointer(false), err
 			}
 
+			// We allow to update the CustomConfig only if the CurrentState is not set (thus EN is not provisioned yet)
+			// TODO check the fieldmask for CustomConfig
+			if entity.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+				// Given the list of CustomConfig, we override whatever is set in the DB right now
+				// First clear all Edges
+				mut.ClearCustomConfig()
+				// Then we add similar to the Create
+				if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
+
+				}
+			}
+
 			err = buildEntMutate(in, mut, InstanceEnumStateMap, fieldmask.GetPaths())
 			if err != nil {
 				return nil, booleans.Pointer(false), err
 			}
 
-			_, err = updateBuilder.Save(ctx)
+			_, err = updateBuilder.Save(ctx) // Do the actual Query
 			if err != nil {
 				return nil, booleans.Pointer(false), errors.Wrap(err)
 			}
@@ -575,4 +596,35 @@ func isNotValidInstanceTransition(
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
 		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
 		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
+}
+
+func getCustomCfgIDFromResourceID(
+	ctx context.Context, client *ent.Client, customConfig *computev1.CustomConfigResource,
+) (int, error) {
+	cc, qerr := client.CustomConfigResource.Query().
+		Where(customconfigresource.ResourceID(customConfig.ResourceId)).
+		Only(ctx)
+	if qerr != nil {
+		return 0, errors.Wrap(qerr)
+	}
+	return cc.ID, nil
+}
+
+// Place this function near other setEdge*ForMut helpers
+
+func setEdgeCustomConfigIDsForMut(
+	ctx context.Context,
+	client *ent.Client,
+	mut *ent.InstanceResourceMutation,
+	customConfigs []*computev1.CustomConfigResource,
+) error {
+	for _, cc := range customConfigs {
+		ccID, err := getCustomCfgIDFromResourceID(ctx, client, cc)
+		if err != nil {
+			zlog.InfraSec().InfraError("Failed to get CustomConfig ID: %s, %v", cc.GetResourceId(), err).Msg("")
+			return errors.Wrap(err)
+		}
+		mut.AddCustomConfigIDs(ccID)
+	}
+	return nil
 }

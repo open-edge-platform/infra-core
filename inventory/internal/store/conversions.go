@@ -724,6 +724,12 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 		protoInstance.Localaccount = entLocalAccountResourceToProtoLocalAccountResource(localaccount)
 	}
 
+	if customConfig, qerr := ins.Edges.CustomConfigOrErr(); qerr == nil {
+		for _, config := range customConfig {
+			protoInstance.CustomConfig = append(protoInstance.CustomConfig, entCustomConfigToProtoCustomConfig(config))
+		}
+	}
+
 	return protoInstance
 }
 
