@@ -4300,6 +4300,8 @@ components:
                     type: string
                     description: 'Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os'
                     format: enum
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
         OnboardHostResponse:
             type: object
             properties: {}

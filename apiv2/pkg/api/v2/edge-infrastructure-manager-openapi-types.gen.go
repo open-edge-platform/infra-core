@@ -1004,7 +1004,8 @@ type OSUpdatePolicy struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// TargetOs An OS resource.
-	TargetOs *OperatingSystemResource `json:"targetOs,omitempty"`
+	TargetOs   *OperatingSystemResource `json:"targetOs,omitempty"`
+	Timestamps *Timestamps              `json:"timestamps,omitempty"`
 
 	// UpdatePolicy Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os
 	UpdatePolicy *OSUpdatePolicyUpdatePolicy `json:"updatePolicy,omitempty"`

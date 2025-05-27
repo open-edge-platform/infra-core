@@ -645,6 +645,9 @@ message OSUpdatePolicy {
   // - for mutable: apply the install_packages, update_sources, kernel_command
   // - for immutable: install the version referenced by target_os
   UpdatePolicy update_policy = 60;
+
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // States of the host.

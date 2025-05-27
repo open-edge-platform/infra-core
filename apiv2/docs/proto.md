@@ -911,6 +911,7 @@ back-reference to the Workload Members associated to this Instance |
 | kernel_command | [string](#string) |  | The OS resource&#39;s kernel Command Line Options. Applies only to Mutable OSes. |
 | target_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The target OS for the update. Applies only to Immutable OSes for A/B upgrades. |
 | update_policy | [UpdatePolicy](#resources-compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
