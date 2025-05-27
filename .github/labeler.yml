@@ -13,6 +13,10 @@ api:
   - changed-files:
     - any-glob-to-any-file: "api/**"
 
+apiv2:
+  - changed-files:
+      - any-glob-to-any-file: "apiv2/**"
+
 bulk-import-tools:
   - changed-files:
     - any-glob-to-any-file: "bulk-import-tools/**"
