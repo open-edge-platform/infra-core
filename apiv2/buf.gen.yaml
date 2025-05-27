@@ -27,7 +27,7 @@ plugins:
   # GOBIN=/tmp go install "github.com/kollalabs/protoc-gen-openapi@latest
   # cp /tmp/protoc-gen-openapi /usr/local/bin/protoc-gen-openapi-kollalabs
   - name: kollalabs
-    path: protoc-gen-openapi-kollalabs
+    path: protoc-gen-openapi
     out: api/openapi
     strategy: all
     opt:
