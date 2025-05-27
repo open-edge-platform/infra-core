@@ -7,6 +7,9 @@
     - [MetadataItem](#resources-common-v1-MetadataItem)
     - [Timestamps](#resources-common-v1-Timestamps)
   
+- [resources/customconfig/v1/customconfig.proto](#resources_customconfig_v1_customconfig-proto)
+    - [CustomConfigResource](#resources-customconfig-v1-CustomConfigResource)
+  
 - [resources/provider/v1/provider.proto](#resources_provider_v1_provider-proto)
     - [ProviderResource](#resources-provider-v1-ProviderResource)
   
@@ -56,9 +59,6 @@
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
     - [WorkloadState](#resources-compute-v1-WorkloadState)
-  
-- [resources/customconfig/v1/customconfig.proto](#resources_customconfig_v1_customconfig-proto)
-    - [CustomConfigResource](#resources-customconfig-v1-CustomConfigResource)
   
 - [resources/schedule/v1/schedule.proto](#resources_schedule_v1_schedule-proto)
     - [RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource)
@@ -297,6 +297,41 @@ A metadata item, represented by a key:value pair.
 | ----- | ---- | ----- | ----------- |
 | created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was created. |
 | updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was last updated. |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="resources_customconfig_v1_customconfig-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/customconfig/v1/customconfig.proto
+
+
+
+<a name="resources-customconfig-v1-CustomConfigResource"></a>
+
+### CustomConfigResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| name | [string](#string) |  | Config provided by admin |
+| description | [string](#string) |  | Config description |
+| config_content | [string](#string) |  | Config content |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -866,6 +901,7 @@ host or hypervisor.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | The list of custom config associated with the instance. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
@@ -1044,41 +1080,6 @@ Represents the Workload state, used for both current and desired state.
 | WORKLOAD_STATE_DELETED | 3 |  |
 | WORKLOAD_STATE_PROVISIONED | 4 |  |
 
-
- 
-
- 
-
- 
-
-
-
-<a name="resources_customconfig_v1_customconfig-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## resources/customconfig/v1/customconfig.proto
-
-
-
-<a name="resources-customconfig-v1-CustomConfigResource"></a>
-
-### CustomConfigResource
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | resource identifier |
-| config_name | [string](#string) |  | Config provided by admin |
-| config_description | [string](#string) |  | Config description |
-| config_content | [string](#string) |  | Config content |
-| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
-
-
-
-
-
- 
 
  
 

@@ -7,6 +7,7 @@ package resources.compute.v1;
 
 import "google/api/field_behavior.proto";
 import "resources/common/v1/common.proto";
+import "resources/customconfig/v1/customconfig.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
 import "resources/localaccount/v1/localaccount.proto";
@@ -402,6 +403,9 @@ message InstanceResource {
   repeated WorkloadMember workload_members = 30 [(google.api.field_behavior) = OUTPUT_ONLY]; // back-reference to the Workload Members associated to this Instance
   // Local Account associated with this Instance
   resources.localaccount.v1.LocalAccountResource localaccount = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // The list of custom config associated with the instance.
+  repeated resources.customconfig.v1.CustomConfigResource custom_config = 42 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Deprecated, The instance's unique identifier. Alias of resourceID.
   string instanceID = 5001 [

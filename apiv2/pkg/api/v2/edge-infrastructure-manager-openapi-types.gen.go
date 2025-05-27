@@ -212,11 +212,11 @@ type CustomConfigResource struct {
 	// ConfigContent Config content
 	ConfigContent string `json:"configContent"`
 
-	// ConfigDescription Config description
-	ConfigDescription *string `json:"configDescription,omitempty"`
+	// Description Config description
+	Description *string `json:"description,omitempty"`
 
-	// ConfigName Config provided by admin
-	ConfigName string `json:"configName"`
+	// Name Config provided by admin
+	Name string `json:"name"`
 
 	// ResourceId resource identifier
 	ResourceId *string     `json:"resourceId,omitempty"`
@@ -595,6 +595,9 @@ type InstanceResource struct {
 
 	// CurrentState The Instance current state.
 	CurrentState *InstanceResourceCurrentState `json:"currentState,omitempty"`
+
+	// CustomConfig The list of custom config associated with the instance.
+	CustomConfig *[]CustomConfigResource `json:"customConfig,omitempty"`
 
 	// DesiredOs An OS resource.
 	DesiredOs *OperatingSystemResource `json:"desiredOs,omitempty"`

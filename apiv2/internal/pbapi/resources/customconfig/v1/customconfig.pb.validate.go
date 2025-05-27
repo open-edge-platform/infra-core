@@ -79,9 +79,9 @@ func (m *CustomConfigResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetConfigName()) > 32 {
+	if utf8.RuneCountInString(m.GetName()) > 32 {
 		err := CustomConfigResourceValidationError{
-			field:  "ConfigName",
+			field:  "Name",
 			reason: "value length must be at most 32 runes",
 		}
 		if !all {
@@ -90,9 +90,9 @@ func (m *CustomConfigResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_CustomConfigResource_ConfigName_Pattern.MatchString(m.GetConfigName()) {
+	if !_CustomConfigResource_Name_Pattern.MatchString(m.GetName()) {
 		err := CustomConfigResourceValidationError{
-			field:  "ConfigName",
+			field:  "Name",
 			reason: "value does not match regex pattern \"^[a-z][a-z0-9-]{0,31}$\"",
 		}
 		if !all {
@@ -101,9 +101,9 @@ func (m *CustomConfigResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetConfigDescription()) > 256 {
+	if utf8.RuneCountInString(m.GetDescription()) > 256 {
 		err := CustomConfigResourceValidationError{
-			field:  "ConfigDescription",
+			field:  "Description",
 			reason: "value length must be at most 256 runes",
 		}
 		if !all {
@@ -112,9 +112,9 @@ func (m *CustomConfigResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_CustomConfigResource_ConfigDescription_Pattern.MatchString(m.GetConfigDescription()) {
+	if !_CustomConfigResource_Description_Pattern.MatchString(m.GetDescription()) {
 		err := CustomConfigResourceValidationError{
-			field:  "ConfigDescription",
+			field:  "Description",
 			reason: "value does not match regex pattern \"^.{0,255}$\"",
 		}
 		if !all {
@@ -245,6 +245,6 @@ var _ interface {
 
 var _CustomConfigResource_ResourceId_Pattern = regexp.MustCompile("^customconfig-[0-9a-f]{8}$")
 
-var _CustomConfigResource_ConfigName_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]{0,31}$")
+var _CustomConfigResource_Name_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]{0,31}$")
 
-var _CustomConfigResource_ConfigDescription_Pattern = regexp.MustCompile("^.{0,255}$")
+var _CustomConfigResource_Description_Pattern = regexp.MustCompile("^.{0,255}$")
