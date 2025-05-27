@@ -206,7 +206,8 @@ type OperatingSystemResource struct {
 	ProfileVersion string `protobuf:"bytes,12,opt,name=profile_version,json=profileVersion,proto3" json:"profile_version,omitempty"`
 	// Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
 	InstalledPackages string `protobuf:"bytes,9,opt,name=installed_packages,json=installedPackages,proto3" json:"installed_packages,omitempty"`
-	// The URL of the OS manifest which contains install packages details.
+	// The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field
+	// for the advance use case to allow manual creation of OSProfiles when supported from backend.
 	InstalledPackagesSource string `protobuf:"bytes,17,opt,name=installed_packages_source,json=installedPackagesSource,proto3" json:"installed_packages_source,omitempty"`
 	// Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE).
 	// Immutable after creation.

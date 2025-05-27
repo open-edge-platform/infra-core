@@ -984,7 +984,7 @@ type OperatingSystemResource struct {
 	// InstalledPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
 	InstalledPackages *string `json:"installedPackages,omitempty"`
 
-	// InstalledPackagesSource The URL of the OS manifest which contains install packages details.
+	// InstalledPackagesSource The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field  for the advance use case to allow manual creation of OSProfiles when supported from backend.
 	InstalledPackagesSource *string `json:"installedPackagesSource,omitempty"`
 
 	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.

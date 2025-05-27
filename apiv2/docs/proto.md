@@ -457,7 +457,7 @@ An OS resource.
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources. |
 | profile_version | [string](#string) |  | Version of OS profile that the OS resource belongs to. |
 | installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. |
-| installed_packages_source | [string](#string) |  | The URL of the OS manifest which contains install packages details. |
+| installed_packages_source | [string](#string) |  | The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field for the advance use case to allow manual creation of OSProfiles when supported from backend. |
 | security_feature | [SecurityFeature](#resources-os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation. |
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
