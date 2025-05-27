@@ -65,7 +65,6 @@ message OperatingSystemResource {
   // Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
   // Should be in 'DEB822 Source Format' for Debian style OSs
   repeated string update_sources = 5 [
-    (google.api.field_behavior) = REQUIRED,
     (validate.rules).repeated = {
       ignore_empty: true,
       min_items: 0,
@@ -114,12 +113,22 @@ message OperatingSystemResource {
 
   // Version of OS profile that the OS resource belongs to.
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
+
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
   string installed_packages = 9 [(google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
     max_len: 500000
   }];
+
+  // The URL of the OS manifest which contains install packages details.
+  string installed_packages_source = 17 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (validate.rules).string = {
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
+    max_len: 200
+  }];
+
   // Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE).
   // Immutable after creation.
   SecurityFeature security_feature = 10;
@@ -152,11 +161,4 @@ message OperatingSystemResource {
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The URL of the OS manifest which contains install packages details .
-  string installed_packages_source = 50200 [
-    (google.api.field_behavior) = IMMUTABLE,
-    (validate.rules).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
-    max_len: 200
-  }];
 }

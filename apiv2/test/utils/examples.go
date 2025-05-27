@@ -620,7 +620,7 @@ var (
 		Name:            &OSName1,
 		KernelCommand:   &OSKernel1,
 		Architecture:    &OSArch1,
-		UpdateSources:   []string{"sourcesList"},
+		UpdateSources:   &[]string{"sourcesList"},
 		RepoUrl:         &OSRepo1,
 		Sha256:          inv_testing.GenerateRandomSha256(),
 		SecurityFeature: &OSSecurityFeature1,
@@ -630,7 +630,7 @@ var (
 	OSResource2Request = api.OperatingSystemResource{
 		Name:            &OSName2,
 		Architecture:    &OSArch2,
-		UpdateSources:   []string{"sourcesList"},
+		UpdateSources:   &[]string{"sourcesList"},
 		RepoUrl:         &OSRepo2,
 		Sha256:          inv_testing.GenerateRandomSha256(),
 		ProfileName:     &OSProfileName1,
@@ -642,7 +642,7 @@ var (
 	OSResource3Request = api.OperatingSystemResource{
 		Name:          &OSName3,
 		Architecture:  &OSArch3,
-		UpdateSources: []string{"sourcesList"},
+		UpdateSources: &[]string{"sourcesList"},
 		RepoUrl:       &OSRepo3,
 		Sha256:        inv_testing.GenerateRandomSha256(),
 		OsType:        &OsTypeMutable,
@@ -652,7 +652,7 @@ var (
 	OSResourceRequestInvalidSha256 = api.OperatingSystemResource{
 		Name:          &OSName3,
 		Architecture:  &OSArch3,
-		UpdateSources: []string{"sourcesList"},
+		UpdateSources: &[]string{"sourcesList"},
 		RepoUrl:       &OSRepo3,
 		Sha256:        strings.ToUpper(inv_testing.GenerateRandomSha256()),
 		OsType:        &OsTypeMutable,
@@ -671,7 +671,7 @@ var (
 	OSResourceRequestNoRepoURL = api.OperatingSystemResource{
 		Name:          &OSName3,
 		Architecture:  &OSArch3,
-		UpdateSources: []string{"sourcesList"},
+		UpdateSources: &[]string{"sourcesList"},
 		Sha256:        inv_testing.GenerateRandomSha256(),
 		OsType:        &OsTypeMutable,
 		OsProvider:    &OSProvider,
@@ -681,7 +681,7 @@ var (
 		Name:          &OSName3,
 		Architecture:  &OSArch3,
 		RepoUrl:       &OSRepo3,
-		UpdateSources: []string{"sourcesList"},
+		UpdateSources: &[]string{"sourcesList"},
 		OsType:        &OsTypeMutable,
 		OsProvider:    &OSProvider,
 	}
@@ -689,7 +689,7 @@ var (
 		Name:              &OSName1,
 		KernelCommand:     &OSKernel1,
 		Architecture:      &OSArch1,
-		UpdateSources:     []string{"sourcesList"},
+		UpdateSources:     &[]string{"sourcesList"},
 		RepoUrl:           &OSRepo1,
 		Sha256:            inv_testing.GenerateRandomSha256(),
 		InstalledPackages: &OSInstalledPackages,

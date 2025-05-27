@@ -457,6 +457,7 @@ An OS resource.
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources. |
 | profile_version | [string](#string) |  | Version of OS profile that the OS resource belongs to. |
 | installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. |
+| installed_packages_source | [string](#string) |  | The URL of the OS manifest which contains install packages details. |
 | security_feature | [SecurityFeature](#resources-os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation. |
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
@@ -464,7 +465,6 @@ An OS resource.
 | os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
 | repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
-| installed_packages_source | [string](#string) |  | The URL of the OS manifest which contains install packages details . |
 
 
 

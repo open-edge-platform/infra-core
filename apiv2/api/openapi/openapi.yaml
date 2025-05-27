@@ -4109,7 +4109,6 @@ components:
             description: Response of a Host Register request.
         OperatingSystemResource:
             required:
-                - updateSources
                 - sha256
             type: object
             properties:
@@ -4177,6 +4176,11 @@ components:
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
                     type: string
                     description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+                installedPackagesSource:
+                    maxLength: 200
+                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+                    type: string
+                    description: The URL of the OS manifest which contains install packages details.
                 securityFeature:
                     enum:
                         - SECURITY_FEATURE_NONE
@@ -4215,11 +4219,6 @@ components:
                     description: Deprecated. OS image URL. URL of the original installation source.
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
-                installedPackagesSource:
-                    maxLength: 200
-                    pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
-                    type: string
-                    description: The URL of the OS manifest which contains install packages details .
             description: An OS resource.
         ProviderResource:
             required:

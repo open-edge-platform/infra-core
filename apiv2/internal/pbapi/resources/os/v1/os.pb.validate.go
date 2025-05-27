@@ -322,6 +322,28 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetInstalledPackagesSource()) > 200 {
+		err := OperatingSystemResourceValidationError{
+			field:  "InstalledPackagesSource",
+			reason: "value length must be at most 200 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_OperatingSystemResource_InstalledPackagesSource_Pattern.MatchString(m.GetInstalledPackagesSource()) {
+		err := OperatingSystemResourceValidationError{
+			field:  "InstalledPackagesSource",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	// no validation rules for SecurityFeature
 
 	// no validation rules for OsType
@@ -401,28 +423,6 @@ func (m *OperatingSystemResource) validate(all bool) error {
 				cause:  err,
 			}
 		}
-	}
-
-	if utf8.RuneCountInString(m.GetInstalledPackagesSource()) > 200 {
-		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackagesSource",
-			reason: "value length must be at most 200 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_InstalledPackagesSource_Pattern.MatchString(m.GetInstalledPackagesSource()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackagesSource",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
@@ -527,8 +527,8 @@ var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA
 
 var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
 
+var _OperatingSystemResource_InstalledPackagesSource_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+
 var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 
 var _OperatingSystemResource_RepoUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
-
-var _OperatingSystemResource_InstalledPackagesSource_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")

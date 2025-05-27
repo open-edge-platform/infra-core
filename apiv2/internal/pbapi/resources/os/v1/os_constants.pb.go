@@ -18,6 +18,7 @@ const (
 	OperatingSystemResourceFieldProfileName             = "profile_name"
 	OperatingSystemResourceFieldProfileVersion          = "profile_version"
 	OperatingSystemResourceFieldInstalledPackages       = "installed_packages"
+	OperatingSystemResourceFieldInstalledPackagesSource = "installed_packages_source"
 	OperatingSystemResourceFieldSecurityFeature         = "security_feature"
 	OperatingSystemResourceFieldOsType                  = "os_type"
 	OperatingSystemResourceFieldOsProvider              = "os_provider"
@@ -25,5 +26,4 @@ const (
 	OperatingSystemResourceFieldOsResourceID            = "os_resourceID"
 	OperatingSystemResourceFieldRepoUrl                 = "repo_url"
 	OperatingSystemResourceEdgeTimestamps               = "timestamps"
-	OperatingSystemResourceFieldInstalledPackagesSource = "installed_packages_source"
 )
