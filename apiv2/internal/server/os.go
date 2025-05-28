@@ -21,6 +21,8 @@ import (
 //  This field is the URL where the Manifest file is stored. The field is immutable.
 //  This is added to allow manual creation of OSProfiles (advanced feature).
 
+// TODO: handle CVEs related fields.
+
 // OpenAPIOSResourceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
