@@ -182,9 +182,6 @@ func CreateSchedSingle(
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
-	if sched.JSON200 == nil {
-		t.Log("CreateSchedSingle: JSON200 is nil, response body: ", *sched.JSONDefault.Message)
-	}
 	assert.Equal(t, http.StatusOK, sched.StatusCode())
 
 	t.Cleanup(func() { DeleteSchedSingle(t, context.Background(), apiClient, *sched.JSON200.ResourceId) })
@@ -550,6 +547,9 @@ func CreateTelemetryLogsGroup(
 
 	created, err := apiClient.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
+	if created.JSON200 == nil {
+		t.Log("CreateTelemetryLogsGroup: JSON200 is nil, response body: ", *created.JSONDefault.Message)
+	}
 	assert.Equal(t, http.StatusOK, created.StatusCode())
 
 	t.Cleanup(func() {

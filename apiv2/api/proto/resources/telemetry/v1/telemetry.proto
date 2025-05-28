@@ -79,7 +79,7 @@ message TelemetryLogsGroupResource {
       items: {
         string: {
           max_len: 1000
-          pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"'
+          pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*[]()\"\\ ]+$"'
         }
       }
     }
@@ -129,7 +129,7 @@ message TelemetryMetricsGroupResource {
       items: {
         string: {
           max_len: 1000
-          pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"'
+          pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*[]()\"\\ ]+$"'
         }
       }
     }    
