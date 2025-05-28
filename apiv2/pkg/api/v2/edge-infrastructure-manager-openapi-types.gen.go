@@ -7,286 +7,778 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-// Defines values for HostResourceBmcKind.
+// Defines values for BaremetalControllerKind.
 const (
-	BAREMETALCONTROLLERKINDIPMI HostResourceBmcKind = "BAREMETAL_CONTROLLER_KIND_IPMI"
-	BAREMETALCONTROLLERKINDNONE HostResourceBmcKind = "BAREMETAL_CONTROLLER_KIND_NONE"
-	BAREMETALCONTROLLERKINDPDU  HostResourceBmcKind = "BAREMETAL_CONTROLLER_KIND_PDU"
-	BAREMETALCONTROLLERKINDVPRO HostResourceBmcKind = "BAREMETAL_CONTROLLER_KIND_VPRO"
+	BAREMETALCONTROLLERKINDIPMI        BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_IPMI"
+	BAREMETALCONTROLLERKINDNONE        BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_NONE"
+	BAREMETALCONTROLLERKINDPDU         BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_PDU"
+	BAREMETALCONTROLLERKINDUNSPECIFIED BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_UNSPECIFIED"
+	BAREMETALCONTROLLERKINDVPRO        BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_VPRO"
 )
 
-// Defines values for HostResourceCurrentPowerState.
+// Defines values for HostComponentState.
 const (
-	HostResourceCurrentPowerStatePOWERSTATEERROR HostResourceCurrentPowerState = "POWER_STATE_ERROR"
-	HostResourceCurrentPowerStatePOWERSTATEOFF   HostResourceCurrentPowerState = "POWER_STATE_OFF"
-	HostResourceCurrentPowerStatePOWERSTATEON    HostResourceCurrentPowerState = "POWER_STATE_ON"
+	HOSTCOMPONENTSTATEDELETED     HostComponentState = "HOST_COMPONENT_STATE_DELETED"
+	HOSTCOMPONENTSTATEERROR       HostComponentState = "HOST_COMPONENT_STATE_ERROR"
+	HOSTCOMPONENTSTATEEXISTS      HostComponentState = "HOST_COMPONENT_STATE_EXISTS"
+	HOSTCOMPONENTSTATEUNSPECIFIED HostComponentState = "HOST_COMPONENT_STATE_UNSPECIFIED"
 )
 
-// Defines values for HostResourceCurrentState.
+// Defines values for HostState.
 const (
-	HostResourceCurrentStateHOSTSTATEDELETED    HostResourceCurrentState = "HOST_STATE_DELETED"
-	HostResourceCurrentStateHOSTSTATEONBOARDED  HostResourceCurrentState = "HOST_STATE_ONBOARDED"
-	HostResourceCurrentStateHOSTSTATEREGISTERED HostResourceCurrentState = "HOST_STATE_REGISTERED"
-	HostResourceCurrentStateHOSTSTATEUNTRUSTED  HostResourceCurrentState = "HOST_STATE_UNTRUSTED"
+	HOSTSTATEDELETED     HostState = "HOST_STATE_DELETED"
+	HOSTSTATEONBOARDED   HostState = "HOST_STATE_ONBOARDED"
+	HOSTSTATEREGISTERED  HostState = "HOST_STATE_REGISTERED"
+	HOSTSTATEUNSPECIFIED HostState = "HOST_STATE_UNSPECIFIED"
+	HOSTSTATEUNTRUSTED   HostState = "HOST_STATE_UNTRUSTED"
 )
 
-// Defines values for HostResourceDesiredPowerState.
+// Defines values for IPAddressConfigMethod.
 const (
-	HostResourceDesiredPowerStatePOWERSTATEERROR HostResourceDesiredPowerState = "POWER_STATE_ERROR"
-	HostResourceDesiredPowerStatePOWERSTATEOFF   HostResourceDesiredPowerState = "POWER_STATE_OFF"
-	HostResourceDesiredPowerStatePOWERSTATEON    HostResourceDesiredPowerState = "POWER_STATE_ON"
+	IPADDRESSCONFIGMETHODDYNAMIC     IPAddressConfigMethod = "IP_ADDRESS_CONFIG_METHOD_DYNAMIC"
+	IPADDRESSCONFIGMETHODSTATIC      IPAddressConfigMethod = "IP_ADDRESS_CONFIG_METHOD_STATIC"
+	IPADDRESSCONFIGMETHODUNSPECIFIED IPAddressConfigMethod = "IP_ADDRESS_CONFIG_METHOD_UNSPECIFIED"
 )
 
-// Defines values for HostResourceDesiredState.
+// Defines values for IPAddressState.
 const (
-	HostResourceDesiredStateHOSTSTATEDELETED    HostResourceDesiredState = "HOST_STATE_DELETED"
-	HostResourceDesiredStateHOSTSTATEONBOARDED  HostResourceDesiredState = "HOST_STATE_ONBOARDED"
-	HostResourceDesiredStateHOSTSTATEREGISTERED HostResourceDesiredState = "HOST_STATE_REGISTERED"
-	HostResourceDesiredStateHOSTSTATEUNTRUSTED  HostResourceDesiredState = "HOST_STATE_UNTRUSTED"
+	IPADDRESSSTATEASSIGNED    IPAddressState = "IP_ADDRESS_STATE_ASSIGNED"
+	IPADDRESSSTATECONFIGURED  IPAddressState = "IP_ADDRESS_STATE_CONFIGURED"
+	IPADDRESSSTATEDELETED     IPAddressState = "IP_ADDRESS_STATE_DELETED"
+	IPADDRESSSTATEERROR       IPAddressState = "IP_ADDRESS_STATE_ERROR"
+	IPADDRESSSTATERELEASED    IPAddressState = "IP_ADDRESS_STATE_RELEASED"
+	IPADDRESSSTATEUNSPECIFIED IPAddressState = "IP_ADDRESS_STATE_UNSPECIFIED"
 )
 
-// Defines values for HostResourceHostStatusIndicator.
+// Defines values for IPAddressStatus.
 const (
-	HostResourceHostStatusIndicatorSTATUSINDICATIONERROR      HostResourceHostStatusIndicator = "STATUS_INDICATION_ERROR"
-	HostResourceHostStatusIndicatorSTATUSINDICATIONIDLE       HostResourceHostStatusIndicator = "STATUS_INDICATION_IDLE"
-	HostResourceHostStatusIndicatorSTATUSINDICATIONINPROGRESS HostResourceHostStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	IPADDRESSSTATUSASSIGNED           IPAddressStatus = "IP_ADDRESS_STATUS_ASSIGNED"
+	IPADDRESSSTATUSASSIGNMENTERROR    IPAddressStatus = "IP_ADDRESS_STATUS_ASSIGNMENT_ERROR"
+	IPADDRESSSTATUSCONFIGURATIONERROR IPAddressStatus = "IP_ADDRESS_STATUS_CONFIGURATION_ERROR"
+	IPADDRESSSTATUSCONFIGURED         IPAddressStatus = "IP_ADDRESS_STATUS_CONFIGURED"
+	IPADDRESSSTATUSERROR              IPAddressStatus = "IP_ADDRESS_STATUS_ERROR"
+	IPADDRESSSTATUSRELEASED           IPAddressStatus = "IP_ADDRESS_STATUS_RELEASED"
+	IPADDRESSSTATUSUNSPECIFIED        IPAddressStatus = "IP_ADDRESS_STATUS_UNSPECIFIED"
 )
 
-// Defines values for HostResourceOnboardingStatusIndicator.
+// Defines values for InstanceKind.
 const (
-	HostResourceOnboardingStatusIndicatorSTATUSINDICATIONERROR      HostResourceOnboardingStatusIndicator = "STATUS_INDICATION_ERROR"
-	HostResourceOnboardingStatusIndicatorSTATUSINDICATIONIDLE       HostResourceOnboardingStatusIndicator = "STATUS_INDICATION_IDLE"
-	HostResourceOnboardingStatusIndicatorSTATUSINDICATIONINPROGRESS HostResourceOnboardingStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	INSTANCEKINDMETAL       InstanceKind = "INSTANCE_KIND_METAL"
+	INSTANCEKINDUNSPECIFIED InstanceKind = "INSTANCE_KIND_UNSPECIFIED"
 )
 
-// Defines values for HostResourceRegistrationStatusIndicator.
+// Defines values for InstanceState.
 const (
-	HostResourceRegistrationStatusIndicatorSTATUSINDICATIONERROR      HostResourceRegistrationStatusIndicator = "STATUS_INDICATION_ERROR"
-	HostResourceRegistrationStatusIndicatorSTATUSINDICATIONIDLE       HostResourceRegistrationStatusIndicator = "STATUS_INDICATION_IDLE"
-	HostResourceRegistrationStatusIndicatorSTATUSINDICATIONINPROGRESS HostResourceRegistrationStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	INSTANCESTATEDELETED     InstanceState = "INSTANCE_STATE_DELETED"
+	INSTANCESTATERUNNING     InstanceState = "INSTANCE_STATE_RUNNING"
+	INSTANCESTATEUNSPECIFIED InstanceState = "INSTANCE_STATE_UNSPECIFIED"
+	INSTANCESTATEUNTRUSTED   InstanceState = "INSTANCE_STATE_UNTRUSTED"
 )
 
-// Defines values for IPAddressResourceConfigMethod.
+// Defines values for LinkState.
 const (
-	IPADDRESSCONFIGMETHODDYNAMIC IPAddressResourceConfigMethod = "IP_ADDRESS_CONFIG_METHOD_DYNAMIC"
-	IPADDRESSCONFIGMETHODSTATIC  IPAddressResourceConfigMethod = "IP_ADDRESS_CONFIG_METHOD_STATIC"
+	NETWORKINTERFACELINKSTATEDOWN        LinkState = "NETWORK_INTERFACE_LINK_STATE_DOWN"
+	NETWORKINTERFACELINKSTATEUNSPECIFIED LinkState = "NETWORK_INTERFACE_LINK_STATE_UNSPECIFIED"
+	NETWORKINTERFACELINKSTATEUP          LinkState = "NETWORK_INTERFACE_LINK_STATE_UP"
 )
 
-// Defines values for IPAddressResourceStatus.
+// Defines values for ListLocationsResponseResourceKind.
 const (
-	IPADDRESSSTATUSASSIGNED           IPAddressResourceStatus = "IP_ADDRESS_STATUS_ASSIGNED"
-	IPADDRESSSTATUSASSIGNMENTERROR    IPAddressResourceStatus = "IP_ADDRESS_STATUS_ASSIGNMENT_ERROR"
-	IPADDRESSSTATUSCONFIGURATIONERROR IPAddressResourceStatus = "IP_ADDRESS_STATUS_CONFIGURATION_ERROR"
-	IPADDRESSSTATUSCONFIGURED         IPAddressResourceStatus = "IP_ADDRESS_STATUS_CONFIGURED"
-	IPADDRESSSTATUSERROR              IPAddressResourceStatus = "IP_ADDRESS_STATUS_ERROR"
-	IPADDRESSSTATUSRELEASED           IPAddressResourceStatus = "IP_ADDRESS_STATUS_RELEASED"
+	RESOURCEKINDREGION      ListLocationsResponseResourceKind = "RESOURCE_KIND_REGION"
+	RESOURCEKINDSITE        ListLocationsResponseResourceKind = "RESOURCE_KIND_SITE"
+	RESOURCEKINDUNSPECIFIED ListLocationsResponseResourceKind = "RESOURCE_KIND_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceCurrentState.
+// Defines values for OsProviderKind.
 const (
-	InstanceResourceCurrentStateINSTANCESTATEDELETED   InstanceResourceCurrentState = "INSTANCE_STATE_DELETED"
-	InstanceResourceCurrentStateINSTANCESTATERUNNING   InstanceResourceCurrentState = "INSTANCE_STATE_RUNNING"
-	InstanceResourceCurrentStateINSTANCESTATEUNTRUSTED InstanceResourceCurrentState = "INSTANCE_STATE_UNTRUSTED"
+	OSPROVIDERKINDINFRA       OsProviderKind = "OS_PROVIDER_KIND_INFRA"
+	OSPROVIDERKINDLENOVO      OsProviderKind = "OS_PROVIDER_KIND_LENOVO"
+	OSPROVIDERKINDUNSPECIFIED OsProviderKind = "OS_PROVIDER_KIND_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceDesiredState.
+// Defines values for OsType.
 const (
-	InstanceResourceDesiredStateINSTANCESTATEDELETED   InstanceResourceDesiredState = "INSTANCE_STATE_DELETED"
-	InstanceResourceDesiredStateINSTANCESTATERUNNING   InstanceResourceDesiredState = "INSTANCE_STATE_RUNNING"
-	InstanceResourceDesiredStateINSTANCESTATEUNTRUSTED InstanceResourceDesiredState = "INSTANCE_STATE_UNTRUSTED"
+	OSTYPEIMMUTABLE   OsType = "OS_TYPE_IMMUTABLE"
+	OSTYPEMUTABLE     OsType = "OS_TYPE_MUTABLE"
+	OSTYPEUNSPECIFIED OsType = "OS_TYPE_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceInstanceStatusIndicator.
+// Defines values for PowerState.
 const (
-	InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR      InstanceResourceInstanceStatusIndicator = "STATUS_INDICATION_ERROR"
-	InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONIDLE       InstanceResourceInstanceStatusIndicator = "STATUS_INDICATION_IDLE"
-	InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONINPROGRESS InstanceResourceInstanceStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	POWERSTATEERROR       PowerState = "POWER_STATE_ERROR"
+	POWERSTATEOFF         PowerState = "POWER_STATE_OFF"
+	POWERSTATEON          PowerState = "POWER_STATE_ON"
+	POWERSTATEUNSPECIFIED PowerState = "POWER_STATE_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceKind.
+// Defines values for ProviderKind.
 const (
-	INSTANCEKINDMETAL InstanceResourceKind = "INSTANCE_KIND_METAL"
+	PROVIDERKINDBAREMETAL   ProviderKind = "PROVIDER_KIND_BAREMETAL"
+	PROVIDERKINDUNSPECIFIED ProviderKind = "PROVIDER_KIND_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceProvisioningStatusIndicator.
+// Defines values for ProviderVendor.
 const (
-	InstanceResourceProvisioningStatusIndicatorSTATUSINDICATIONERROR      InstanceResourceProvisioningStatusIndicator = "STATUS_INDICATION_ERROR"
-	InstanceResourceProvisioningStatusIndicatorSTATUSINDICATIONIDLE       InstanceResourceProvisioningStatusIndicator = "STATUS_INDICATION_IDLE"
-	InstanceResourceProvisioningStatusIndicatorSTATUSINDICATIONINPROGRESS InstanceResourceProvisioningStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	PROVIDERVENDORLENOVOLOCA  ProviderVendor = "PROVIDER_VENDOR_LENOVO_LOCA"
+	PROVIDERVENDORLENOVOLXCA  ProviderVendor = "PROVIDER_VENDOR_LENOVO_LXCA"
+	PROVIDERVENDORUNSPECIFIED ProviderVendor = "PROVIDER_VENDOR_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceSecurityFeature.
+// Defines values for ScheduleStatus.
 const (
-	InstanceResourceSecurityFeatureSECURITYFEATURENONE                            InstanceResourceSecurityFeature = "SECURITY_FEATURE_NONE"
-	InstanceResourceSecurityFeatureSECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION InstanceResourceSecurityFeature = "SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION"
+	SCHEDULESTATUSMAINTENANCE ScheduleStatus = "SCHEDULE_STATUS_MAINTENANCE"
+	SCHEDULESTATUSOSUPDATE    ScheduleStatus = "SCHEDULE_STATUS_OS_UPDATE"
+	SCHEDULESTATUSUNSPECIFIED ScheduleStatus = "SCHEDULE_STATUS_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceTrustedAttestationStatusIndicator.
+// Defines values for SecurityFeature.
 const (
-	InstanceResourceTrustedAttestationStatusIndicatorSTATUSINDICATIONERROR      InstanceResourceTrustedAttestationStatusIndicator = "STATUS_INDICATION_ERROR"
-	InstanceResourceTrustedAttestationStatusIndicatorSTATUSINDICATIONIDLE       InstanceResourceTrustedAttestationStatusIndicator = "STATUS_INDICATION_IDLE"
-	InstanceResourceTrustedAttestationStatusIndicatorSTATUSINDICATIONINPROGRESS InstanceResourceTrustedAttestationStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	SECURITYFEATURENONE                            SecurityFeature = "SECURITY_FEATURE_NONE"
+	SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION SecurityFeature = "SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION"
+	SECURITYFEATUREUNSPECIFIED                     SecurityFeature = "SECURITY_FEATURE_UNSPECIFIED"
 )
 
-// Defines values for InstanceResourceUpdateStatusIndicator.
+// Defines values for SeverityLevel.
 const (
-	STATUSINDICATIONERROR      InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_ERROR"
-	STATUSINDICATIONIDLE       InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_IDLE"
-	STATUSINDICATIONINPROGRESS InstanceResourceUpdateStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	SEVERITYLEVELCRITICAL    SeverityLevel = "SEVERITY_LEVEL_CRITICAL"
+	SEVERITYLEVELDEBUG       SeverityLevel = "SEVERITY_LEVEL_DEBUG"
+	SEVERITYLEVELERROR       SeverityLevel = "SEVERITY_LEVEL_ERROR"
+	SEVERITYLEVELINFO        SeverityLevel = "SEVERITY_LEVEL_INFO"
+	SEVERITYLEVELUNSPECIFIED SeverityLevel = "SEVERITY_LEVEL_UNSPECIFIED"
+	SEVERITYLEVELWARN        SeverityLevel = "SEVERITY_LEVEL_WARN"
 )
 
-// Defines values for ListLocationsResponseLocationNodeType.
+// Defines values for StatusIndication.
 const (
-	RESOURCEKINDREGION ListLocationsResponseLocationNodeType = "RESOURCE_KIND_REGION"
-	RESOURCEKINDSITE   ListLocationsResponseLocationNodeType = "RESOURCE_KIND_SITE"
+	STATUSINDICATIONERROR       StatusIndication = "STATUS_INDICATION_ERROR"
+	STATUSINDICATIONIDLE        StatusIndication = "STATUS_INDICATION_IDLE"
+	STATUSINDICATIONINPROGRESS  StatusIndication = "STATUS_INDICATION_IN_PROGRESS"
+	STATUSINDICATIONUNSPECIFIED StatusIndication = "STATUS_INDICATION_UNSPECIFIED"
 )
 
-// Defines values for NetworkInterfaceLinkStateType.
+// Defines values for TelemetryCollectorKind.
 const (
-	NETWORKINTERFACELINKSTATEDOWN NetworkInterfaceLinkStateType = "NETWORK_INTERFACE_LINK_STATE_DOWN"
-	NETWORKINTERFACELINKSTATEUP   NetworkInterfaceLinkStateType = "NETWORK_INTERFACE_LINK_STATE_UP"
+	TELEMETRYCOLLECTORKINDCLUSTER     TelemetryCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
+	TELEMETRYCOLLECTORKINDHOST        TelemetryCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
+	TELEMETRYCOLLECTORKINDUNSPECIFIED TelemetryCollectorKind = "TELEMETRY_COLLECTOR_KIND_UNSPECIFIED"
 )
 
-// Defines values for OperatingSystemResourceOsProvider.
+// Defines values for TelemetryResourceKind.
 const (
-	OSPROVIDERKINDINFRA  OperatingSystemResourceOsProvider = "OS_PROVIDER_KIND_INFRA"
-	OSPROVIDERKINDLENOVO OperatingSystemResourceOsProvider = "OS_PROVIDER_KIND_LENOVO"
+	TELEMETRYRESOURCEKINDLOGS        TelemetryResourceKind = "TELEMETRY_RESOURCE_KIND_LOGS"
+	TELEMETRYRESOURCEKINDMETRICS     TelemetryResourceKind = "TELEMETRY_RESOURCE_KIND_METRICS"
+	TELEMETRYRESOURCEKINDUNSPECIFIED TelemetryResourceKind = "TELEMETRY_RESOURCE_KIND_UNSPECIFIED"
 )
 
-// Defines values for OperatingSystemResourceOsType.
+// Defines values for UpdatePolicy.
 const (
-	OSTYPEIMMUTABLE OperatingSystemResourceOsType = "OS_TYPE_IMMUTABLE"
-	OSTYPEMUTABLE   OperatingSystemResourceOsType = "OS_TYPE_MUTABLE"
+	UPDATEPOLICYLATEST      UpdatePolicy = "UPDATE_POLICY_LATEST"
+	UPDATEPOLICYTARGET      UpdatePolicy = "UPDATE_POLICY_TARGET"
+	UPDATEPOLICYUNSPECIFIED UpdatePolicy = "UPDATE_POLICY_UNSPECIFIED"
 )
 
-// Defines values for OperatingSystemResourceSecurityFeature.
+// Defines values for WorkloadKind.
 const (
-	OperatingSystemResourceSecurityFeatureSECURITYFEATURENONE                            OperatingSystemResourceSecurityFeature = "SECURITY_FEATURE_NONE"
-	OperatingSystemResourceSecurityFeatureSECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION OperatingSystemResourceSecurityFeature = "SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION"
-)
-
-// Defines values for ProviderResourceProviderKind.
-const (
-	PROVIDERKINDBAREMETAL ProviderResourceProviderKind = "PROVIDER_KIND_BAREMETAL"
-)
-
-// Defines values for ProviderResourceProviderVendor.
-const (
-	PROVIDERVENDORLENOVOLOCA ProviderResourceProviderVendor = "PROVIDER_VENDOR_LENOVO_LOCA"
-	PROVIDERVENDORLENOVOLXCA ProviderResourceProviderVendor = "PROVIDER_VENDOR_LENOVO_LXCA"
-)
-
-// Defines values for RepeatedScheduleResourceScheduleStatus.
-const (
-	RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE RepeatedScheduleResourceScheduleStatus = "SCHEDULE_STATUS_MAINTENANCE"
-	RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE    RepeatedScheduleResourceScheduleStatus = "SCHEDULE_STATUS_OS_UPDATE"
-)
-
-// Defines values for SingleScheduleResourceScheduleStatus.
-const (
-	SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE SingleScheduleResourceScheduleStatus = "SCHEDULE_STATUS_MAINTENANCE"
-	SingleScheduleResourceScheduleStatusSCHEDULESTATUSOSUPDATE    SingleScheduleResourceScheduleStatus = "SCHEDULE_STATUS_OS_UPDATE"
-)
-
-// Defines values for TelemetryLogsGroupResourceCollectorKind.
-const (
-	TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER TelemetryLogsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
-	TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST    TelemetryLogsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
-)
-
-// Defines values for TelemetryLogsProfileResourceLogLevel.
-const (
-	SEVERITYLEVELCRITICAL TelemetryLogsProfileResourceLogLevel = "SEVERITY_LEVEL_CRITICAL"
-	SEVERITYLEVELDEBUG    TelemetryLogsProfileResourceLogLevel = "SEVERITY_LEVEL_DEBUG"
-	SEVERITYLEVELERROR    TelemetryLogsProfileResourceLogLevel = "SEVERITY_LEVEL_ERROR"
-	SEVERITYLEVELINFO     TelemetryLogsProfileResourceLogLevel = "SEVERITY_LEVEL_INFO"
-	SEVERITYLEVELWARN     TelemetryLogsProfileResourceLogLevel = "SEVERITY_LEVEL_WARN"
-)
-
-// Defines values for TelemetryMetricsGroupResourceCollectorKind.
-const (
-	TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER TelemetryMetricsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_CLUSTER"
-	TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST    TelemetryMetricsGroupResourceCollectorKind = "TELEMETRY_COLLECTOR_KIND_HOST"
+	WORKLOADKINDCLUSTER     WorkloadKind = "WORKLOAD_KIND_CLUSTER"
+	WORKLOADKINDUNSPECIFIED WorkloadKind = "WORKLOAD_KIND_UNSPECIFIED"
 )
 
 // Defines values for WorkloadMemberKind.
 const (
 	WORKLOADMEMBERKINDCLUSTERNODE WorkloadMemberKind = "WORKLOAD_MEMBER_KIND_CLUSTER_NODE"
+	WORKLOADMEMBERKINDUNSPECIFIED WorkloadMemberKind = "WORKLOAD_MEMBER_KIND_UNSPECIFIED"
 )
 
-// Defines values for WorkloadResourceKind.
+// Defines values for WorkloadState.
 const (
-	WORKLOADKINDCLUSTER WorkloadResourceKind = "WORKLOAD_KIND_CLUSTER"
+	WORKLOADSTATEDELETED     WorkloadState = "WORKLOAD_STATE_DELETED"
+	WORKLOADSTATEDELETING    WorkloadState = "WORKLOAD_STATE_DELETING"
+	WORKLOADSTATEERROR       WorkloadState = "WORKLOAD_STATE_ERROR"
+	WORKLOADSTATEPROVISIONED WorkloadState = "WORKLOAD_STATE_PROVISIONED"
+	WORKLOADSTATEUNSPECIFIED WorkloadState = "WORKLOAD_STATE_UNSPECIFIED"
 )
+
+// Defines values for ConnectProtocolVersion.
+const (
+	N1 ConnectProtocolVersion = 1
+)
+
+// Defines values for ConnectErrorCode.
+const (
+	Aborted            ConnectErrorCode = "aborted"
+	AlreadyExists      ConnectErrorCode = "already_exists"
+	Canceled           ConnectErrorCode = "canceled"
+	DataLoss           ConnectErrorCode = "data_loss"
+	DeadlineExceeded   ConnectErrorCode = "deadline_exceeded"
+	FailedPrecondition ConnectErrorCode = "failed_precondition"
+	Internal           ConnectErrorCode = "internal"
+	InvalidArgument    ConnectErrorCode = "invalid_argument"
+	NotFound           ConnectErrorCode = "not_found"
+	OutOfRange         ConnectErrorCode = "out_of_range"
+	PermissionDenied   ConnectErrorCode = "permission_denied"
+	ResourceExhausted  ConnectErrorCode = "resource_exhausted"
+	Unauthenticated    ConnectErrorCode = "unauthenticated"
+	Unavailable        ConnectErrorCode = "unavailable"
+	Unimplemented      ConnectErrorCode = "unimplemented"
+	Unknown            ConnectErrorCode = "unknown"
+)
+
+// BaremetalControllerKind The type of BMC.
+type BaremetalControllerKind string
+
+// CreateHostRequest Request message for the CreateHost method.
+type CreateHostRequest struct {
+	// Host A Host resource.
+	Host HostResource `json:"host"`
+}
+
+// CreateHostResponse Response message for the CreateHost method.
+type CreateHostResponse struct {
+	// Host A Host resource.
+	Host HostResource `json:"host"`
+}
+
+// CreateInstanceRequest Request message for the CreateInstance method.
+type CreateInstanceRequest struct {
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
+	Instance InstanceResource `json:"instance"`
+}
+
+// CreateInstanceResponse Response message for the CreateInstance method.
+type CreateInstanceResponse struct {
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
+	Instance InstanceResource `json:"instance"`
+}
+
+// CreateLocalAccountRequest Request message for the CreateLocalAccount method.
+type CreateLocalAccountRequest struct {
+	LocalAccount LocalAccountResource `json:"localAccount"`
+}
+
+// CreateLocalAccountResponse Response message for the CreateLocalAccount method.
+type CreateLocalAccountResponse struct {
+	LocalAccount LocalAccountResource `json:"localAccount"`
+}
+
+// CreateOSUpdatePolicyRequest Request message for the CreateOSUpdatePolicy method.
+type CreateOSUpdatePolicyRequest struct {
+	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
+}
+
+// CreateOSUpdatePolicyResponse Response message for the CreateOSUpdatePolicy method.
+type CreateOSUpdatePolicyResponse struct {
+	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
+}
+
+// CreateOperatingSystemRequest Request message for the CreateOperatingSystem method.
+type CreateOperatingSystemRequest struct {
+	// Os An OS resource.
+	Os OperatingSystemResource `json:"os"`
+}
+
+// CreateOperatingSystemResponse Response message for the CreateOperatingSystem method.
+type CreateOperatingSystemResponse struct {
+	// Os An OS resource.
+	Os OperatingSystemResource `json:"os"`
+}
+
+// CreateProviderRequest Request message for the CreateProvider method.
+type CreateProviderRequest struct {
+	// Provider A provider resource.
+	Provider ProviderResource `json:"provider"`
+}
+
+// CreateProviderResponse Response message for the CreateProvider method.
+type CreateProviderResponse struct {
+	// Provider A provider resource.
+	Provider ProviderResource `json:"provider"`
+}
+
+// CreateRegionRequest Request message for the CreateRegion method.
+type CreateRegionRequest struct {
+	// Region A region resource.
+	Region RegionResource `json:"region"`
+}
+
+// CreateRegionResponse Response message for the CreateRegion method.
+type CreateRegionResponse struct {
+	// Region A region resource.
+	Region RegionResource `json:"region"`
+}
+
+// CreateRepeatedScheduleRequest Request message for the CreateRepeatedSchedule method.
+type CreateRepeatedScheduleRequest struct {
+	// RepeatedSchedule A repeated-schedule resource.
+	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
+}
+
+// CreateRepeatedScheduleResponse Response message for the CreateRepeatedSchedule method.
+type CreateRepeatedScheduleResponse struct {
+	// RepeatedSchedule A repeated-schedule resource.
+	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
+}
+
+// CreateSingleScheduleRequest Request message for the CreateSingleSchedule method.
+type CreateSingleScheduleRequest struct {
+	// SingleSchedule A single schedule resource.
+	SingleSchedule SingleScheduleResource `json:"singleSchedule"`
+}
+
+// CreateSingleScheduleResponse Response message for the CreateSingleSchedule method.
+type CreateSingleScheduleResponse struct {
+	// SingleSchedule A single schedule resource.
+	SingleSchedule SingleScheduleResource `json:"singleSchedule"`
+}
+
+// CreateSiteRequest Request message for the CreateSite method.
+type CreateSiteRequest struct {
+	// Site A site resource.
+	Site SiteResource `json:"site"`
+}
+
+// CreateSiteResponse Response message for the CreateSite method.
+type CreateSiteResponse struct {
+	// Site A site resource.
+	Site SiteResource `json:"site"`
+}
+
+// CreateTelemetryLogsGroupRequest Request message for the CreateTelemetryLogsGroup method.
+type CreateTelemetryLogsGroupRequest struct {
+	// TelemetryLogsGroup TelemetryLogsGroupResource.
+	TelemetryLogsGroup TelemetryLogsGroupResource `json:"telemetryLogsGroup"`
+}
+
+// CreateTelemetryLogsGroupResponse Response message for the CreateTelemetryLogsGroup method.
+type CreateTelemetryLogsGroupResponse struct {
+	// TelemetryLogsGroup TelemetryLogsGroupResource.
+	TelemetryLogsGroup TelemetryLogsGroupResource `json:"telemetryLogsGroup"`
+}
+
+// CreateTelemetryLogsProfileRequest Request message for the CreateTelemetryLogsProfile method.
+type CreateTelemetryLogsProfileRequest struct {
+	// TelemetryLogsProfile A telemetry log profile for a hierarchy object.
+	TelemetryLogsProfile TelemetryLogsProfileResource `json:"telemetryLogsProfile"`
+}
+
+// CreateTelemetryLogsProfileResponse Response message for the CreateTelemetryLogsProfile method.
+type CreateTelemetryLogsProfileResponse struct {
+	// TelemetryLogsProfile A telemetry log profile for a hierarchy object.
+	TelemetryLogsProfile TelemetryLogsProfileResource `json:"telemetryLogsProfile"`
+}
+
+// CreateTelemetryMetricsGroupRequest Request message for the CreateTelemetryMetricsGroup method.
+type CreateTelemetryMetricsGroupRequest struct {
+	// TelemetryMetricsGroup TelemetryMetricsGroupResource.
+	TelemetryMetricsGroup TelemetryMetricsGroupResource `json:"telemetryMetricsGroup"`
+}
+
+// CreateTelemetryMetricsGroupResponse Response message for the CreateTelemetryMetricsGroup method.
+type CreateTelemetryMetricsGroupResponse struct {
+	// TelemetryMetricsGroup TelemetryMetricsGroupResource.
+	TelemetryMetricsGroup TelemetryMetricsGroupResource `json:"telemetryMetricsGroup"`
+}
+
+// CreateTelemetryMetricsProfileRequest Request message for the CreateTelemetryMetricsProfile method.
+type CreateTelemetryMetricsProfileRequest struct {
+	// TelemetryMetricsProfile A telemetry metric profile for a hierarchy object.
+	TelemetryMetricsProfile TelemetryMetricsProfileResource `json:"telemetryMetricsProfile"`
+}
+
+// CreateTelemetryMetricsProfileResponse Response message for the CreateTelemetryMetricsProfile method.
+type CreateTelemetryMetricsProfileResponse struct {
+	// TelemetryMetricsProfile A telemetry metric profile for a hierarchy object.
+	TelemetryMetricsProfile TelemetryMetricsProfileResource `json:"telemetryMetricsProfile"`
+}
+
+// CreateWorkloadMemberRequest Request message for the CreateWorkloadMember method.
+type CreateWorkloadMemberRequest struct {
+	// WorkloadMember Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
+	WorkloadMember WorkloadMember `json:"workloadMember"`
+}
+
+// CreateWorkloadMemberResponse Response message for the CreateWorkloadMember method.
+type CreateWorkloadMemberResponse struct {
+	// WorkloadMember Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
+	WorkloadMember WorkloadMember `json:"workloadMember"`
+}
+
+// CreateWorkloadRequest Request message for the CreateWorkload method.
+type CreateWorkloadRequest struct {
+	// Workload A generic way to group compute resources to obtain a workload.
+	Workload WorkloadResource `json:"workload"`
+}
+
+// CreateWorkloadResponse Response message for the CreateWorkload method.
+type CreateWorkloadResponse struct {
+	// Workload A generic way to group compute resources to obtain a workload.
+	Workload WorkloadResource `json:"workload"`
+}
+
+// DeleteHostRequest Request message for DeleteHost.
+type DeleteHostRequest struct {
+	// ResourceId Name of the host host to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteHostResponse Reponse message for DeleteHost.
 type DeleteHostResponse = map[string]interface{}
 
+// DeleteInstanceRequest Request message for DeleteInstance.
+type DeleteInstanceRequest struct {
+	// ResourceId Name of the instance instance to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteInstanceResponse Response message for DeleteInstance.
 type DeleteInstanceResponse = map[string]interface{}
+
+// DeleteLocalAccountRequest Request message for DeleteLocalAccount.
+type DeleteLocalAccountRequest struct {
+	// ResourceId Name of the localaccount to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteLocalAccountResponse Response message for DeleteLocalAccount.
 type DeleteLocalAccountResponse = map[string]interface{}
 
+// DeleteOSUpdatePolicyRequest Request message for DeleteOperatingSystem.
+type DeleteOSUpdatePolicyRequest struct {
+	// ResourceId Name of the OS Update Policy to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
+// DeleteOSUpdatePolicyResponse Response message for DeleteOperatingSystem.
+type DeleteOSUpdatePolicyResponse = map[string]interface{}
+
+// DeleteOperatingSystemRequest Request message for DeleteOperatingSystem.
+type DeleteOperatingSystemRequest struct {
+	// ResourceId Name of the os os to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteOperatingSystemResponse Response message for DeleteOperatingSystem.
 type DeleteOperatingSystemResponse = map[string]interface{}
+
+// DeleteProviderRequest Request message for DeleteProvider.
+type DeleteProviderRequest struct {
+	// ResourceId Name of the provider provider to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteProviderResponse Response message for DeleteProvider.
 type DeleteProviderResponse = map[string]interface{}
 
+// DeleteRegionRequest Request message for DeleteRegion.
+type DeleteRegionRequest struct {
+	// ResourceId Name of the region region to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteRegionResponse Response message for DeleteRegion.
 type DeleteRegionResponse = map[string]interface{}
+
+// DeleteRepeatedScheduleRequest Request message for DeleteRepeatedSchedule.
+type DeleteRepeatedScheduleRequest struct {
+	// ResourceId Name of the repeated_schedule repeated_schedule to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteRepeatedScheduleResponse Response message for DeleteRepeatedSchedule.
 type DeleteRepeatedScheduleResponse = map[string]interface{}
 
+// DeleteSingleScheduleRequest Request message for DeleteSingleSchedule.
+type DeleteSingleScheduleRequest struct {
+	// ResourceId Name of the single_schedule single_schedule to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteSingleScheduleResponse Response message for DeleteSingleSchedule.
 type DeleteSingleScheduleResponse = map[string]interface{}
+
+// DeleteSiteRequest Request message for DeleteSite.
+type DeleteSiteRequest struct {
+	// ResourceId Name of the site site to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteSiteResponse Response message for DeleteSite.
 type DeleteSiteResponse = map[string]interface{}
 
+// DeleteTelemetryLogsGroupRequest Request message for DeleteTelemetryLogsGroup.
+type DeleteTelemetryLogsGroupRequest struct {
+	// ResourceId Name of the telemetry_logs_group telemetry_logs_group to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteTelemetryLogsGroupResponse Response message for DeleteTelemetryLogsGroup.
 type DeleteTelemetryLogsGroupResponse = map[string]interface{}
+
+// DeleteTelemetryLogsProfileRequest Request message for DeleteTelemetryLogsProfile.
+type DeleteTelemetryLogsProfileRequest struct {
+	// ResourceId Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteTelemetryLogsProfileResponse Response message for DeleteTelemetryLogsProfile.
 type DeleteTelemetryLogsProfileResponse = map[string]interface{}
 
+// DeleteTelemetryMetricsGroupRequest Request message for DeleteTelemetryMetricsGroup.
+type DeleteTelemetryMetricsGroupRequest struct {
+	// ResourceId Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteTelemetryMetricsGroupResponse Response message for DeleteTelemetryMetricsGroup.
 type DeleteTelemetryMetricsGroupResponse = map[string]interface{}
+
+// DeleteTelemetryMetricsProfileRequest Request message for DeleteTelemetryMetricsProfile.
+type DeleteTelemetryMetricsProfileRequest struct {
+	// ResourceId Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteTelemetryMetricsProfileResponse Response message for DeleteTelemetryMetricsProfile.
 type DeleteTelemetryMetricsProfileResponse = map[string]interface{}
 
+// DeleteWorkloadMemberRequest Request message for DeleteWorkloadMember.
+type DeleteWorkloadMemberRequest struct {
+	// ResourceId Name of the workload_member workload_member to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
 // DeleteWorkloadMemberResponse Response message for DeleteWorkloadMember.
 type DeleteWorkloadMemberResponse = map[string]interface{}
+
+// DeleteWorkloadRequest Request message for DeleteWorkload.
+type DeleteWorkloadRequest struct {
+	// ResourceId Name of the workload workload to be deleted.
+	ResourceId string `json:"resourceId"`
+}
 
 // DeleteWorkloadResponse Response message for DeleteWorkload.
 type DeleteWorkloadResponse = map[string]interface{}
 
+// GetHostRequest Request message for the GetHost method.
+type GetHostRequest struct {
+	// ResourceId Name of the requested host.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetHostResponse Response message for the GetHost method.
+type GetHostResponse struct {
+	// Host A Host resource.
+	Host HostResource `json:"host"`
+}
+
+// GetHostSummaryRequest Request the summary of Hosts resources.
+type GetHostSummaryRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+}
+
 // GetHostSummaryResponse Summary of the hosts status.
 type GetHostSummaryResponse struct {
 	// Error The total number of hosts presenting an Error.
-	Error *uint32 `json:"error,omitempty"`
+	Error *int `json:"error,omitempty"`
 
 	// Running The total number of hosts in Running state.
-	Running *uint32 `json:"running,omitempty"`
+	Running *int `json:"running,omitempty"`
 
 	// Total The total number of hosts.
-	Total *uint32 `json:"total,omitempty"`
+	Total *int `json:"total,omitempty"`
 
 	// Unallocated The total number of hosts without a site.
-	Unallocated *uint32 `json:"unallocated,omitempty"`
+	Unallocated *int `json:"unallocated,omitempty"`
 }
 
-// GoogleProtobufAny Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-type GoogleProtobufAny struct {
-	// Type The type of the serialized message.
-	Type                 *string                `json:"@type,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+// GetInstanceRequest Request message for the GetInstance method.
+type GetInstanceRequest struct {
+	// ResourceId Name of the requested instance.
+	ResourceId string `json:"resourceId"`
 }
+
+// GetInstanceResponse Response message for the GetInstance method.
+type GetInstanceResponse struct {
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
+	Instance InstanceResource `json:"instance"`
+}
+
+// GetLocalAccountRequest Request message for the GetLocalAccount method.
+type GetLocalAccountRequest struct {
+	// ResourceId Name of the requested localaccount.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetLocalAccountResponse Response message for the GetLocalAccount method.
+type GetLocalAccountResponse struct {
+	LocalAccount LocalAccountResource `json:"localAccount"`
+}
+
+// GetOSUpdatePolicyRequest Request message for the GetOSUpdatePolicy method.
+type GetOSUpdatePolicyRequest struct {
+	// ResourceId Name of the requested os.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetOSUpdatePolicyResponse Response message for the GetOSUpdatePolicy method.
+type GetOSUpdatePolicyResponse struct {
+	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
+}
+
+// GetOperatingSystemRequest Request message for the GetOperatingSystem method.
+type GetOperatingSystemRequest struct {
+	// ResourceId Name of the requested os.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetOperatingSystemResponse Response message for the GetOperatingSystem method.
+type GetOperatingSystemResponse struct {
+	// Os An OS resource.
+	Os OperatingSystemResource `json:"os"`
+}
+
+// GetProviderRequest Request message for the GetProvider method.
+type GetProviderRequest struct {
+	// ResourceId Name of the requested provider.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetProviderResponse Response message for the GetProvider method.
+type GetProviderResponse struct {
+	// Provider A provider resource.
+	Provider ProviderResource `json:"provider"`
+}
+
+// GetRegionRequest Request message for the GetRegion method.
+type GetRegionRequest struct {
+	// ResourceId Name of the requested region.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetRegionResponse Response message for the GetRegion method.
+type GetRegionResponse struct {
+	// Region A region resource.
+	Region RegionResource `json:"region"`
+}
+
+// GetRepeatedScheduleRequest Request message for the GetRepeatedSchedule method.
+type GetRepeatedScheduleRequest struct {
+	// ResourceId Name of the requested repeated_schedule.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetRepeatedScheduleResponse Response message for the GetRepeatedSchedule method.
+type GetRepeatedScheduleResponse struct {
+	// RepeatedSchedule A repeated-schedule resource.
+	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
+}
+
+// GetSingleScheduleRequest Request message for the GetSingleSchedule method.
+type GetSingleScheduleRequest struct {
+	// ResourceId Name of the requested single_schedule.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetSingleScheduleResponse Response message for the GetSingleSchedule method.
+type GetSingleScheduleResponse struct {
+	// SingleSchedule A single schedule resource.
+	SingleSchedule SingleScheduleResource `json:"singleSchedule"`
+}
+
+// GetSiteRequest Request message for the GetSite method.
+type GetSiteRequest struct {
+	// ResourceId Name of the requested site.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetSiteResponse Response message for the GetSite method.
+type GetSiteResponse struct {
+	// Site A site resource.
+	Site SiteResource `json:"site"`
+}
+
+// GetTelemetryLogsGroupRequest Request message for the GetTelemetryLogsGroup method.
+type GetTelemetryLogsGroupRequest struct {
+	// ResourceId Name of the requested telemetry_logs_group.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetTelemetryLogsGroupResponse Response message for the GetTelemetryLogsGroup method.
+type GetTelemetryLogsGroupResponse struct {
+	// TelemetryLogsGroup TelemetryLogsGroupResource.
+	TelemetryLogsGroup TelemetryLogsGroupResource `json:"telemetryLogsGroup"`
+}
+
+// GetTelemetryLogsProfileRequest Request message for the GetTelemetryLogsProfile method.
+type GetTelemetryLogsProfileRequest struct {
+	// ResourceId Name of the requested telemetry_logs_profile.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetTelemetryLogsProfileResponse Response message for the GetTelemetryLogsProfile method.
+type GetTelemetryLogsProfileResponse struct {
+	// TelemetryLogsProfile A telemetry log profile for a hierarchy object.
+	TelemetryLogsProfile TelemetryLogsProfileResource `json:"telemetryLogsProfile"`
+}
+
+// GetTelemetryMetricsGroupRequest Request message for the GetTelemetryMetricsGroup method.
+type GetTelemetryMetricsGroupRequest struct {
+	// ResourceId Name of the requested telemetry_metrics_group.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetTelemetryMetricsGroupResponse Response message for the GetTelemetryMetricsGroup method.
+type GetTelemetryMetricsGroupResponse struct {
+	// TelemetryMetricsGroup TelemetryMetricsGroupResource.
+	TelemetryMetricsGroup TelemetryMetricsGroupResource `json:"telemetryMetricsGroup"`
+}
+
+// GetTelemetryMetricsProfileRequest Request message for the GetTelemetryMetricsProfile method.
+type GetTelemetryMetricsProfileRequest struct {
+	// ResourceId Name of the requested telemetry_metrics_profile.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetTelemetryMetricsProfileResponse Response message for the GetTelemetryMetricsProfile method.
+type GetTelemetryMetricsProfileResponse struct {
+	// TelemetryMetricsProfile A telemetry metric profile for a hierarchy object.
+	TelemetryMetricsProfile TelemetryMetricsProfileResource `json:"telemetryMetricsProfile"`
+}
+
+// GetWorkloadMemberRequest Request message for the GetWorkloadMember method.
+type GetWorkloadMemberRequest struct {
+	// ResourceId Name of the requested workload_member.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetWorkloadMemberResponse Response message for the GetWorkloadMember method.
+type GetWorkloadMemberResponse struct {
+	// WorkloadMember Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
+	WorkloadMember WorkloadMember `json:"workloadMember"`
+}
+
+// GetWorkloadRequest Request message for the GetWorkload method.
+type GetWorkloadRequest struct {
+	// ResourceId Name of the requested workload.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetWorkloadResponse Response message for the GetWorkload method.
+type GetWorkloadResponse struct {
+	// Workload A generic way to group compute resources to obtain a workload.
+	Workload WorkloadResource `json:"workload"`
+}
+
+// HostComponentState The state of the Host component.
+type HostComponentState string
 
 // HostRegister Message to register a Host.
 type HostRegister struct {
@@ -317,8 +809,8 @@ type HostResource struct {
 	// BmcIp BMC IP address, such as "192.0.0.1".
 	BmcIp *string `json:"bmcIp,omitempty"`
 
-	// BmcKind Kind of BMC.
-	BmcKind *HostResourceBmcKind `json:"bmcKind,omitempty"`
+	// BmcKind The type of BMC.
+	BmcKind *BaremetalControllerKind `json:"bmcKind,omitempty"`
 
 	// CpuArchitecture Architecture of the CPU model, e.g. x86_64.
 	CpuArchitecture *string `json:"cpuArchitecture,omitempty"`
@@ -327,31 +819,31 @@ type HostResource struct {
 	CpuCapabilities *string `json:"cpuCapabilities,omitempty"`
 
 	// CpuCores Number of CPU cores.
-	CpuCores *uint32 `json:"cpuCores,omitempty"`
+	CpuCores *int `json:"cpuCores,omitempty"`
 
 	// CpuModel CPU model of the Host.
 	CpuModel *string `json:"cpuModel,omitempty"`
 
 	// CpuSockets Number of physical CPU sockets.
-	CpuSockets *uint32 `json:"cpuSockets,omitempty"`
+	CpuSockets *int `json:"cpuSockets,omitempty"`
 
 	// CpuThreads Total Number of threads supported by the CPU.
-	CpuThreads *uint32 `json:"cpuThreads,omitempty"`
+	CpuThreads *int `json:"cpuThreads,omitempty"`
 
 	// CpuTopology JSON field storing the CPU topology, refer to HDA/HRM docs for the JSON schema.
 	CpuTopology *string `json:"cpuTopology,omitempty"`
 
-	// CurrentPowerState Current power state of the host
-	CurrentPowerState *HostResourceCurrentPowerState `json:"currentPowerState,omitempty"`
+	// CurrentPowerState The host power state.
+	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
 
-	// CurrentState The current state of the Host.
-	CurrentState *HostResourceCurrentState `json:"currentState,omitempty"`
+	// CurrentState States of the host.
+	CurrentState *HostState `json:"currentState,omitempty"`
 
-	// DesiredPowerState Desired power state of the host
-	DesiredPowerState *HostResourceDesiredPowerState `json:"desiredPowerState,omitempty"`
+	// DesiredPowerState The host power state.
+	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
 
-	// DesiredState The desired state of the Host.
-	DesiredState *HostResourceDesiredState `json:"desiredState,omitempty"`
+	// DesiredState States of the host.
+	DesiredState *HostState `json:"desiredState,omitempty"`
 
 	// HostGpus Back-reference to attached host GPU resources.
 	HostGpus *[]HostgpuResource `json:"hostGpus,omitempty"`
@@ -362,11 +854,11 @@ type HostResource struct {
 	// HostStatus textual message that describes the runtime status of Host. Set by RMs only.
 	HostStatus *string `json:"hostStatus,omitempty"`
 
-	// HostStatusIndicator Indicates interpretation of host_status. Set by RMs only.
-	HostStatusIndicator *HostResourceHostStatusIndicator `json:"hostStatusIndicator,omitempty"`
+	// HostStatusIndicator The status indicator.
+	HostStatusIndicator *StatusIndication `json:"hostStatusIndicator,omitempty"`
 
 	// HostStatusTimestamp UTC timestamp when host_status was last changed. Set by RMs only.
-	HostStatusTimestamp *uint32 `json:"hostStatusTimestamp,omitempty"`
+	HostStatusTimestamp *int `json:"hostStatusTimestamp,omitempty"`
 
 	// HostStorages Back-reference to attached host storage resources.
 	HostStorages *[]HoststorageResource `json:"hostStorages,omitempty"`
@@ -380,13 +872,14 @@ type HostResource struct {
 	// InheritedMetadata The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
 	InheritedMetadata *[]MetadataItem `json:"inheritedMetadata,omitempty"`
 
-	// Instance InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
 	Instance *InstanceResource `json:"instance,omitempty"`
 
 	// MemoryBytes Quantity of memory (RAM) in the system in bytes.
 	MemoryBytes *string `json:"memoryBytes,omitempty"`
 
-	// Metadata The metadata associated with the host, represented by a list of key:value pairs.
+	// Metadata (OPTIONAL) The metadata associated with the host, represented by a list of key:value pairs.
 	Metadata *[]MetadataItem `json:"metadata,omitempty"`
 
 	// Name The host name.
@@ -398,11 +891,11 @@ type HostResource struct {
 	// OnboardingStatus textual message that describes the onboarding status of Host. Set by RMs only.
 	OnboardingStatus *string `json:"onboardingStatus,omitempty"`
 
-	// OnboardingStatusIndicator Indicates interpretation of onboarding_status. Set by RMs only.
-	OnboardingStatusIndicator *HostResourceOnboardingStatusIndicator `json:"onboardingStatusIndicator,omitempty"`
+	// OnboardingStatusIndicator The status indicator.
+	OnboardingStatusIndicator *StatusIndication `json:"onboardingStatusIndicator,omitempty"`
 
 	// OnboardingStatusTimestamp UTC timestamp when onboarding_status was last changed. Set by RMs only.
-	OnboardingStatusTimestamp *uint32 `json:"onboardingStatusTimestamp,omitempty"`
+	OnboardingStatusTimestamp *int `json:"onboardingStatusTimestamp,omitempty"`
 
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
@@ -413,11 +906,11 @@ type HostResource struct {
 	// RegistrationStatus textual message that describes the onboarding status of Host. Set by RMs only.
 	RegistrationStatus *string `json:"registrationStatus,omitempty"`
 
-	// RegistrationStatusIndicator Indicates interpretation of registration_status. Set by RMs only.
-	RegistrationStatusIndicator *HostResourceRegistrationStatusIndicator `json:"registrationStatusIndicator,omitempty"`
+	// RegistrationStatusIndicator The status indicator.
+	RegistrationStatusIndicator *StatusIndication `json:"registrationStatusIndicator,omitempty"`
 
 	// RegistrationStatusTimestamp UTC timestamp when registration_status was last changed. Set by RMs only.
-	RegistrationStatusTimestamp *uint32 `json:"registrationStatusTimestamp,omitempty"`
+	RegistrationStatusTimestamp *int `json:"registrationStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
@@ -432,33 +925,12 @@ type HostResource struct {
 	SiteId     *string     `json:"siteId,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
-	// Uuid The host UUID identifier; UUID is unique and immutable.
+	// Uuid (OPTIONAL) The host UUID identifier; UUID is unique and immutable.
 	Uuid *string `json:"uuid,omitempty"`
 }
 
-// HostResourceBmcKind Kind of BMC.
-type HostResourceBmcKind string
-
-// HostResourceCurrentPowerState Current power state of the host
-type HostResourceCurrentPowerState string
-
-// HostResourceCurrentState The current state of the Host.
-type HostResourceCurrentState string
-
-// HostResourceDesiredPowerState Desired power state of the host
-type HostResourceDesiredPowerState string
-
-// HostResourceDesiredState The desired state of the Host.
-type HostResourceDesiredState string
-
-// HostResourceHostStatusIndicator Indicates interpretation of host_status. Set by RMs only.
-type HostResourceHostStatusIndicator string
-
-// HostResourceOnboardingStatusIndicator Indicates interpretation of onboarding_status. Set by RMs only.
-type HostResourceOnboardingStatusIndicator string
-
-// HostResourceRegistrationStatusIndicator Indicates interpretation of registration_status. Set by RMs only.
-type HostResourceRegistrationStatusIndicator string
+// HostState States of the host.
+type HostState string
 
 // HostgpuResource The set of available host GPU cards.
 type HostgpuResource struct {
@@ -498,7 +970,7 @@ type HostnicResource struct {
 	MacAddr *string `json:"macAddr,omitempty"`
 
 	// Mtu Maximum transmission unit of the interface.
-	Mtu *uint32 `json:"mtu,omitempty"`
+	Mtu *int `json:"mtu,omitempty"`
 
 	// PciIdentifier PCI identifier string for this network interface.
 	PciIdentifier *string `json:"pciIdentifier,omitempty"`
@@ -507,10 +979,10 @@ type HostnicResource struct {
 	SriovEnabled *bool `json:"sriovEnabled,omitempty"`
 
 	// SriovVfsNum The number of VFs currently provisioned on the interface, if SR-IOV is supported.
-	SriovVfsNum *uint32 `json:"sriovVfsNum,omitempty"`
+	SriovVfsNum *int `json:"sriovVfsNum,omitempty"`
 
 	// SriovVfsTotal The maximum number of VFs the interface supports, if SR-IOV is supported.
-	SriovVfsTotal *uint32     `json:"sriovVfsTotal,omitempty"`
+	SriovVfsTotal *int        `json:"sriovVfsTotal,omitempty"`
 	Timestamps    *Timestamps `json:"timestamps,omitempty"`
 }
 
@@ -539,10 +1011,10 @@ type HoststorageResource struct {
 // HostusbResource The set of host USB resources.
 type HostusbResource struct {
 	// Addr USB Device number assigned by OS.
-	Addr *uint32 `json:"addr,omitempty"`
+	Addr *int `json:"addr,omitempty"`
 
 	// Bus Bus number of device connected with.
-	Bus *uint32 `json:"bus,omitempty"`
+	Bus *int `json:"bus,omitempty"`
 
 	// Class class defined by USB-IF.
 	Class *string `json:"class,omitempty"`
@@ -561,44 +1033,48 @@ type HostusbResource struct {
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
+// IPAddressConfigMethod defines model for IPAddressConfigMethod.
+type IPAddressConfigMethod string
+
 // IPAddressResource defines model for IPAddressResource.
 type IPAddressResource struct {
 	// Address CIDR representation of the IP address.
-	Address *string `json:"address,omitempty"`
-
-	// ConfigMethod Specifies how the IP address is configured.
-	ConfigMethod *IPAddressResourceConfigMethod `json:"configMethod,omitempty"`
+	Address      *string                `json:"address,omitempty"`
+	ConfigMethod *IPAddressConfigMethod `json:"configMethod,omitempty"`
 
 	// ResourceId Resource ID, generated by Inventory on Create
-	ResourceId *string `json:"resourceId,omitempty"`
-
-	// Status The status of the IP address.
-	Status *IPAddressResourceStatus `json:"status,omitempty"`
+	ResourceId *string          `json:"resourceId,omitempty"`
+	Status     *IPAddressStatus `json:"status,omitempty"`
 
 	// StatusDetail User-friendly status to provide details about the resource state
 	StatusDetail *string     `json:"statusDetail,omitempty"`
 	Timestamps   *Timestamps `json:"timestamps,omitempty"`
 }
 
-// IPAddressResourceConfigMethod Specifies how the IP address is configured.
-type IPAddressResourceConfigMethod string
+// IPAddressState defines model for IPAddressState.
+type IPAddressState string
 
-// IPAddressResourceStatus The status of the IP address.
-type IPAddressResourceStatus string
+// IPAddressStatus defines model for IPAddressStatus.
+type IPAddressStatus string
 
-// InstanceResource InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
+// InstanceKind The Instance kind.
+type InstanceKind string
+
+// InstanceResource InstanceResource describes an instantiated OS install, running on either a
+//
+//	host or hypervisor.
 type InstanceResource struct {
 	// CurrentOs An OS resource.
 	CurrentOs *OperatingSystemResource `json:"currentOs,omitempty"`
 
-	// CurrentState The Instance current state.
-	CurrentState *InstanceResourceCurrentState `json:"currentState,omitempty"`
+	// CurrentState The Instance States.
+	CurrentState *InstanceState `json:"currentState,omitempty"`
 
 	// DesiredOs An OS resource.
 	DesiredOs *OperatingSystemResource `json:"desiredOs,omitempty"`
 
-	// DesiredState The Instance desired state.
-	DesiredState *InstanceResourceDesiredState `json:"desiredState,omitempty"`
+	// DesiredState The Instance States.
+	DesiredState *InstanceState `json:"desiredState,omitempty"`
 
 	// ExistingCves The CVEs that are currently present on the Instance, encoded as a JSON list.
 	ExistingCves *string `json:"existingCves,omitempty"`
@@ -615,14 +1091,17 @@ type InstanceResource struct {
 	// InstanceStatus textual message that describes the current instance status. Set by RMs only.
 	InstanceStatus *string `json:"instanceStatus,omitempty"`
 
-	// InstanceStatusIndicator Indicates interpretation of instance_status. Set by RMs only.
-	InstanceStatusIndicator *InstanceResourceInstanceStatusIndicator `json:"instanceStatusIndicator,omitempty"`
+	// InstanceStatusDetail Textual message that gives detailed status of the instance's software components.
+	InstanceStatusDetail *string `json:"instanceStatusDetail,omitempty"`
+
+	// InstanceStatusIndicator The status indicator.
+	InstanceStatusIndicator *StatusIndication `json:"instanceStatusIndicator,omitempty"`
 
 	// InstanceStatusTimestamp UTC timestamp when instance_status was last changed. Set by RMs only.
-	InstanceStatusTimestamp *uint32 `json:"instanceStatusTimestamp,omitempty"`
+	InstanceStatusTimestamp *int `json:"instanceStatusTimestamp,omitempty"`
 
-	// Kind Kind of resource. Frequently tied to Provider.
-	Kind *InstanceResourceKind `json:"kind,omitempty"`
+	// Kind The Instance kind.
+	Kind *InstanceKind `json:"kind,omitempty"`
 
 	// LocalAccountID The unique identifier of local account will be associated with the instance.
 	LocalAccountID *string               `json:"localAccountID,omitempty"`
@@ -635,32 +1114,34 @@ type InstanceResource struct {
 	Os *OperatingSystemResource `json:"os,omitempty"`
 
 	// OsID The unique identifier of OS resource that must be installed on the instance.
-	OsID *string `json:"osID,omitempty"`
+	OsID             *string `json:"osID,omitempty"`
+	OsUpdatePolicyID *string `json:"osUpdatePolicyID,omitempty"`
 
 	// ProvisioningStatus textual message that describes the provisioning status of Instance. Set by RMs only.
 	ProvisioningStatus *string `json:"provisioningStatus,omitempty"`
 
-	// ProvisioningStatusIndicator Indicates interpretation of provisioning_status. Set by RMs only.
-	ProvisioningStatusIndicator *InstanceResourceProvisioningStatusIndicator `json:"provisioningStatusIndicator,omitempty"`
+	// ProvisioningStatusIndicator The status indicator.
+	ProvisioningStatusIndicator *StatusIndication `json:"provisioningStatusIndicator,omitempty"`
 
 	// ProvisioningStatusTimestamp UTC timestamp when provisioning_status was last changed. Set by RMs only.
-	ProvisioningStatusTimestamp *uint32 `json:"provisioningStatusTimestamp,omitempty"`
+	ProvisioningStatusTimestamp *int `json:"provisioningStatusTimestamp,omitempty"`
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// SecurityFeature Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
-	SecurityFeature *InstanceResourceSecurityFeature `json:"securityFeature,omitempty"`
-	Timestamps      *Timestamps                      `json:"timestamps,omitempty"`
+	// SecurityFeature SecurityFeature describes the security capabilities of a resource.
+	SecurityFeature *SecurityFeature `json:"securityFeature,omitempty"`
+	Timestamps      *Timestamps      `json:"timestamps,omitempty"`
 
 	// TrustedAttestationStatus textual message that describes the trusted_attestation status of Instance. Set by RMs only.
 	TrustedAttestationStatus *string `json:"trustedAttestationStatus,omitempty"`
 
-	// TrustedAttestationStatusIndicator Indicates interpretation of trusted_attestation_status. Set by RMs only.
-	TrustedAttestationStatusIndicator *InstanceResourceTrustedAttestationStatusIndicator `json:"trustedAttestationStatusIndicator,omitempty"`
+	// TrustedAttestationStatusIndicator The status indicator.
+	TrustedAttestationStatusIndicator *StatusIndication `json:"trustedAttestationStatusIndicator,omitempty"`
 
 	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	TrustedAttestationStatusTimestamp *uint32 `json:"trustedAttestationStatusTimestamp,omitempty"`
+	TrustedAttestationStatusTimestamp *int            `json:"trustedAttestationStatusTimestamp,omitempty"`
+	UpdatePolicy                      *OSUpdatePolicy `json:"updatePolicy,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
@@ -668,45 +1149,60 @@ type InstanceResource struct {
 	// UpdateStatusDetail JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
 	UpdateStatusDetail *string `json:"updateStatusDetail,omitempty"`
 
-	// UpdateStatusIndicator Indicates interpretation of update_status. Set by RMs only.
-	UpdateStatusIndicator *InstanceResourceUpdateStatusIndicator `json:"updateStatusIndicator,omitempty"`
+	// UpdateStatusIndicator The status indicator.
+	UpdateStatusIndicator *StatusIndication `json:"updateStatusIndicator,omitempty"`
 
 	// UpdateStatusTimestamp UTC timestamp when update_status was last changed. Set by RMs only.
-	UpdateStatusTimestamp *uint32 `json:"updateStatusTimestamp,omitempty"`
+	UpdateStatusTimestamp *int `json:"updateStatusTimestamp,omitempty"`
 
-	// WorkloadMembers The workload members associated with the instance.
+	// WorkloadMembers The workload members associated with the instance. back-reference to the Workload Members associated to this Instance
 	WorkloadMembers *[]WorkloadMember `json:"workloadMembers,omitempty"`
 }
 
-// InstanceResourceCurrentState The Instance current state.
-type InstanceResourceCurrentState string
+// InstanceState The Instance States.
+type InstanceState string
 
-// InstanceResourceDesiredState The Instance desired state.
-type InstanceResourceDesiredState string
+// InvalidateHostRequest Request to invalidate/untrust a Host.
+type InvalidateHostRequest struct {
+	// Note user-provided reason for change or a freeform field
+	Note *string `json:"note,omitempty"`
 
-// InstanceResourceInstanceStatusIndicator Indicates interpretation of instance_status. Set by RMs only.
-type InstanceResourceInstanceStatusIndicator string
-
-// InstanceResourceKind Kind of resource. Frequently tied to Provider.
-type InstanceResourceKind string
-
-// InstanceResourceProvisioningStatusIndicator Indicates interpretation of provisioning_status. Set by RMs only.
-type InstanceResourceProvisioningStatusIndicator string
-
-// InstanceResourceSecurityFeature Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
-type InstanceResourceSecurityFeature string
-
-// InstanceResourceTrustedAttestationStatusIndicator Indicates interpretation of trusted_attestation_status. Set by RMs only.
-type InstanceResourceTrustedAttestationStatusIndicator string
-
-// InstanceResourceUpdateStatusIndicator Indicates interpretation of update_status. Set by RMs only.
-type InstanceResourceUpdateStatusIndicator string
+	// ResourceId Host resource ID
+	ResourceId *string `json:"resourceId,omitempty"`
+}
 
 // InvalidateHostResponse Response message for InvalidateHost.
 type InvalidateHostResponse = map[string]interface{}
 
+// InvalidateInstanceRequest Request message for Invalidate Instance.
+type InvalidateInstanceRequest struct {
+	// ResourceId Instance resource ID
+	ResourceId *string `json:"resourceId,omitempty"`
+}
+
 // InvalidateInstanceResponse Response message for Invalidate Instance.
 type InvalidateInstanceResponse = map[string]interface{}
+
+// LinkState The state of the network interface.
+type LinkState string
+
+// ListHostsRequest Request message for the ListHosts method.
+type ListHostsRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
 
 // ListHostsResponse Response message for the ListHosts method.
 type ListHostsResponse struct {
@@ -718,6 +1214,24 @@ type ListHostsResponse struct {
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
+}
+
+// ListInstancesRequest Request message for the ListInstances method.
+type ListInstancesRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListInstancesResponse Response message for the ListInstances method.
@@ -732,6 +1246,24 @@ type ListInstancesResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListLocalAccountsRequest Request message for the ListLocalAccounts method.
+type ListLocalAccountsRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
+
 // ListLocalAccountsResponse Response message for the ListLocalAccounts method.
 type ListLocalAccountsResponse struct {
 	// HasNext Inform if there are more elements
@@ -744,15 +1276,27 @@ type ListLocalAccountsResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListLocationsRequest Request message for the ListLocations method.
+type ListLocationsRequest struct {
+	// Name (OPTIONAL) Filter locations by name
+	Name *string `json:"name,omitempty"`
+
+	// ShowRegions (OPTIONAL) Return region locations
+	ShowRegions *bool `json:"showRegions,omitempty"`
+
+	// ShowSites (OPTIONAL) Return site locations
+	ShowSites *bool `json:"showSites,omitempty"`
+}
+
 // ListLocationsResponse Response message for the ListLocations method.
 type ListLocationsResponse struct {
 	// Nodes Sorted and filtered list of regions.
 	Nodes []ListLocationsResponseLocationNode `json:"nodes"`
 
-	// OutputElements Amount of items in the returned list.
+	// OutputElements (OPTIONAL) Amount of items in the returned list.
 	OutputElements *int32 `json:"outputElements,omitempty"`
 
-	// TotalElements Count of items in the entire list, regardless of pagination.
+	// TotalElements (OPTIONAL) Count of items in the entire list, regardless of pagination.
 	TotalElements *int32 `json:"totalElements,omitempty"`
 }
 
@@ -761,18 +1305,66 @@ type ListLocationsResponseLocationNode struct {
 	// Name The node human readable name.
 	Name string `json:"name"`
 
-	// ParentId The associated resource ID, of the parent resource of this Location node. In the case of a region, it could be empty or a regionId. In the case of a site, it could be empty or a regionId.
+	// ParentId The associated resource ID, of the parent resource of this Location node.
+	//  In the case of a region, it could be empty or a regionId.
+	//  In the case of a site, it could be empty or a regionId.
 	ParentId string `json:"parentId"`
 
 	// ResourceId The associated node resource ID, generated by inventory on Create.
-	ResourceId string `json:"resourceId"`
-
-	// Type The node type
-	Type ListLocationsResponseLocationNodeType `json:"type"`
+	ResourceId string                            `json:"resourceId"`
+	Type       ListLocationsResponseResourceKind `json:"type"`
 }
 
-// ListLocationsResponseLocationNodeType The node type
-type ListLocationsResponseLocationNodeType string
+// ListLocationsResponseResourceKind defines model for ListLocationsResponse.ResourceKind.
+type ListLocationsResponseResourceKind string
+
+// ListOSUpdatePolicyRequest Request message for the ListOSUpdatePolicy method.
+type ListOSUpdatePolicyRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
+
+// ListOSUpdatePolicyResponse Response message for the ListOSUpdatePolicy method.
+type ListOSUpdatePolicyResponse struct {
+	// HasNext Inform if there are more elements
+	HasNext bool `json:"hasNext"`
+
+	// OsUpdatePolicies Sorted and filtered list of OS Update Policies.
+	OsUpdatePolicies []OSUpdatePolicy `json:"osUpdatePolicies"`
+
+	// TotalElements Count of items in the entire list, regardless of pagination.
+	TotalElements int32 `json:"totalElements"`
+}
+
+// ListOperatingSystemsRequest Request message for the ListOperatingSystems method.
+type ListOperatingSystemsRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
 
 // ListOperatingSystemsResponse Response message for the ListOperatingSystems method.
 type ListOperatingSystemsResponse struct {
@@ -784,6 +1376,24 @@ type ListOperatingSystemsResponse struct {
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
+}
+
+// ListProvidersRequest Request message for the ListProviders method.
+type ListProvidersRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListProvidersResponse Response message for the ListProviders method.
@@ -798,6 +1408,27 @@ type ListProvidersResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListRegionsRequest Request message for the ListRegions method.
+type ListRegionsRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// ShowTotalSites (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
+	ShowTotalSites *bool `json:"showTotalSites,omitempty"`
+}
+
 // ListRegionsResponse Response message for the ListRegions method.
 type ListRegionsResponse struct {
 	// HasNext Inform if there are more elements
@@ -810,6 +1441,38 @@ type ListRegionsResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListRepeatedSchedulesRequest Request message for the ListRepeatedSchedules method.
+type ListRepeatedSchedulesRequest struct {
+	// HostId (OPTIONAL) The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `json:"hostId,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `json:"regionId,omitempty"`
+
+	// SiteId (OPTIONAL) The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `json:"siteId,omitempty"`
+
+	// UnixEpoch (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `json:"unixEpoch,omitempty"`
+}
+
 // ListRepeatedSchedulesResponse Response message for the ListRepeatedSchedules method.
 type ListRepeatedSchedulesResponse struct {
 	// HasNext Inform if there are more elements
@@ -820,6 +1483,38 @@ type ListRepeatedSchedulesResponse struct {
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
+}
+
+// ListSchedulesRequest Request message for the ListSchedules method.
+type ListSchedulesRequest struct {
+	// HostId (OPTIONAL) The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `json:"hostId,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `json:"regionId,omitempty"`
+
+	// SiteId (OPTIONAL) The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `json:"siteId,omitempty"`
+
+	// UnixEpoch (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `json:"unixEpoch,omitempty"`
 }
 
 // ListSchedulesResponse Response message for the ListSchedulesResponse method.
@@ -837,6 +1532,38 @@ type ListSchedulesResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListSingleSchedulesRequest Request message for the ListSingleSchedules method.
+type ListSingleSchedulesRequest struct {
+	// HostId (OPTIONAL) The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `json:"hostId,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `json:"regionId,omitempty"`
+
+	// SiteId (OPTIONAL) The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `json:"siteId,omitempty"`
+
+	// UnixEpoch (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `json:"unixEpoch,omitempty"`
+}
+
 // ListSingleSchedulesResponse Response message for the ListSingleSchedules method.
 type ListSingleSchedulesResponse struct {
 	// HasNext Inform if there are more elements
@@ -847,6 +1574,24 @@ type ListSingleSchedulesResponse struct {
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
+}
+
+// ListSitesRequest Request message for the ListSites method.
+type ListSitesRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListSitesResponse Response message for the ListSites method.
@@ -861,6 +1606,20 @@ type ListSitesResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListTelemetryLogsGroupsRequest Request message for the ListTelemetryLogsGroups method.
+type ListTelemetryLogsGroupsRequest struct {
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
+
 // ListTelemetryLogsGroupsResponse Response message for the ListTelemetryLogsGroups method.
 type ListTelemetryLogsGroupsResponse struct {
 	// HasNext Inform if there are more elements
@@ -871,6 +1630,35 @@ type ListTelemetryLogsGroupsResponse struct {
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
+}
+
+// ListTelemetryLogsProfilesRequest Request message for the ListTelemetryLogsProfiles method.
+type ListTelemetryLogsProfilesRequest struct {
+	// InstanceId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
+	RegionId *string `json:"regionId,omitempty"`
+
+	// ShowInherited (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
+	ShowInherited *bool `json:"showInherited,omitempty"`
+
+	// SiteId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
+	SiteId *string `json:"siteId,omitempty"`
 }
 
 // ListTelemetryLogsProfilesResponse Response message for the ListTelemetryLogsProfiles method.
@@ -885,6 +1673,20 @@ type ListTelemetryLogsProfilesResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListTelemetryMetricsGroupsRequest Request message for the ListTelemetryMetricsGroups method.
+type ListTelemetryMetricsGroupsRequest struct {
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
+
 // ListTelemetryMetricsGroupsResponse Response message for the ListTelemetryMetricsGroups method.
 type ListTelemetryMetricsGroupsResponse struct {
 	// HasNext Inform if there are more elements
@@ -895,6 +1697,35 @@ type ListTelemetryMetricsGroupsResponse struct {
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
+}
+
+// ListTelemetryMetricsProfilesRequest Request message for the ListTelemetryMetricsProfiles method.
+type ListTelemetryMetricsProfilesRequest struct {
+	// InstanceId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
+	InstanceId *string `json:"instanceId,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+
+	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
+	RegionId *string `json:"regionId,omitempty"`
+
+	// ShowInherited (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
+	ShowInherited *bool `json:"showInherited,omitempty"`
+
+	// SiteId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
+	SiteId *string `json:"siteId,omitempty"`
 }
 
 // ListTelemetryMetricsProfilesResponse Response message for the ListTelemetryMetricsProfiles method.
@@ -909,6 +1740,24 @@ type ListTelemetryMetricsProfilesResponse struct {
 	TotalElements int32 `json:"totalElements"`
 }
 
+// ListWorkloadMembersRequest Request message for the ListWorkloadMembers method.
+type ListWorkloadMembersRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
+
 // ListWorkloadMembersResponse Response message for the ListWorkloadMembers method.
 type ListWorkloadMembersResponse struct {
 	// HasNext Inform if there are more elements
@@ -919,6 +1768,24 @@ type ListWorkloadMembersResponse struct {
 
 	// WorkloadMembers Sorted and filtered list of workload_members.
 	WorkloadMembers []WorkloadMember `json:"workloadMembers"`
+}
+
+// ListWorkloadsRequest Request message for the ListWorkloads method.
+type ListWorkloadsRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListWorkloadsResponse Response message for the ListWorkloads method.
@@ -962,12 +1829,47 @@ type MetadataItem struct {
 type NetworkInterfaceLinkState struct {
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
-	// Type The interface link state.
-	Type *NetworkInterfaceLinkStateType `json:"type,omitempty"`
+	// Type The state of the network interface.
+	Type *LinkState `json:"type,omitempty"`
 }
 
-// NetworkInterfaceLinkStateType The interface link state.
-type NetworkInterfaceLinkStateType string
+// OSUpdatePolicy defines model for OSUpdatePolicy.
+type OSUpdatePolicy struct {
+	// Description User-provided, human-readable description.
+	Description *string `json:"description,omitempty"`
+
+	// InstallPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+	//  Applies only to Mutable OSes.
+	InstallPackages *string `json:"installPackages,omitempty"`
+
+	// KernelCommand The OS resource's kernel Command Line Options.
+	//  Applies only to Mutable OSes.
+	KernelCommand *string `json:"kernelCommand,omitempty"`
+
+	// Name User-provided, human-readable name.
+	Name string `json:"name"`
+
+	// ResourceId resource ID, generated by the inventory on Create.
+	ResourceId *string `json:"resourceId,omitempty"`
+
+	// TargetOs An OS resource.
+	TargetOs   *OperatingSystemResource `json:"targetOs,omitempty"`
+	Timestamps *Timestamps              `json:"timestamps,omitempty"`
+
+	// UpdatePolicy States of the host.
+	UpdatePolicy *UpdatePolicy `json:"updatePolicy,omitempty"`
+
+	// UpdateSources The list of OS resource update sources.
+	//  Should be in 'DEB822 Source Format' for Debian style OSs.
+	//  Applies only to Mutable OSes.
+	UpdateSources *[]string `json:"updateSources,omitempty"`
+}
+
+// OnboardHostRequest Request to onboard a Host.
+type OnboardHostRequest struct {
+	// ResourceId Host resource ID
+	ResourceId *string `json:"resourceId,omitempty"`
+}
 
 // OnboardHostResponse Response of a Host Register request.
 type OnboardHostResponse = map[string]interface{}
@@ -1005,16 +1907,18 @@ type OperatingSystemResource struct {
 	// Name The OS resource's name.
 	Name *string `json:"name,omitempty"`
 
-	// OsProvider Indicating the provider of OS (e.g., Infra or Lenovo).
-	OsProvider *OperatingSystemResourceOsProvider `json:"osProvider,omitempty"`
+	// OsProvider OsProviderKind describes "owner" of the OS, that will drive OS provisioning.
+	OsProvider *OsProviderKind `json:"osProvider,omitempty"`
 
 	// OsResourceID Deprecated, The OS resource's unique identifier. Alias of resourceId.
 	OsResourceID *string `json:"osResourceID,omitempty"`
 
-	// OsType Indicating the type of OS (for example, mutable or immutable).
-	OsType *OperatingSystemResourceOsType `json:"osType,omitempty"`
+	// OsType OsType describes type of operating system.
+	OsType *OsType `json:"osType,omitempty"`
 
-	// PlatformBundle Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations.  If empty, the default OS installation will be used.
+	// PlatformBundle Opaque JSON field storing references to custom installation script(s) that
+	//  supplements the base OS with additional OS-level dependencies/configurations.
+	//  If empty, the default OS installation will be used.
 	PlatformBundle *string `json:"platformBundle,omitempty"`
 
 	// ProfileName Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources.
@@ -1029,25 +1933,2130 @@ type OperatingSystemResource struct {
 	// ResourceId Resource ID, generated by inventory on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// SecurityFeature Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation.
-	SecurityFeature *OperatingSystemResourceSecurityFeature `json:"securityFeature,omitempty"`
+	// SecurityFeature SecurityFeature describes the security capabilities of a resource.
+	SecurityFeature *SecurityFeature `json:"securityFeature,omitempty"`
 
 	// Sha256 SHA256 checksum of the OS resource in hexadecimal representation.
 	Sha256     string      `json:"sha256"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
-	// UpdateSources The list of OS resource update sources. Should be in 'DEB822 Source Format' for Debian style OSs
+	// UpdateSources The list of OS resource update sources.
+	//  Should be in 'DEB822 Source Format' for Debian style OSs
 	UpdateSources []string `json:"updateSources"`
 }
 
-// OperatingSystemResourceOsProvider Indicating the provider of OS (e.g., Infra or Lenovo).
-type OperatingSystemResourceOsProvider string
+// OsProviderKind OsProviderKind describes "owner" of the OS, that will drive OS provisioning.
+type OsProviderKind string
 
-// OperatingSystemResourceOsType Indicating the type of OS (for example, mutable or immutable).
-type OperatingSystemResourceOsType string
+// OsType OsType describes type of operating system.
+type OsType string
 
-// OperatingSystemResourceSecurityFeature Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation.
-type OperatingSystemResourceSecurityFeature string
+// PatchHostRequest Request message for the PatchHost method.
+type PatchHostRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// Host A Host resource.
+	Host HostResource `json:"host"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// PatchInstanceRequest Request message for the PatchInstance method.
+type PatchInstanceRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
+	Instance InstanceResource `json:"instance"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// PatchOperatingSystemRequest Request message for the PatchOperatingSystem method.
+type PatchOperatingSystemRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// Os An OS resource.
+	Os OperatingSystemResource `json:"os"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// PatchRegionRequest Request message for the PatchRegion method.
+type PatchRegionRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// Region A region resource.
+	Region RegionResource `json:"region"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// PatchRepeatedScheduleRequest Request message for the PatchRepeatedSchedule method.
+type PatchRepeatedScheduleRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// RepeatedSchedule A repeated-schedule resource.
+	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// PatchSingleScheduleRequest Request message for the PatchSingleSchedule method.
+type PatchSingleScheduleRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// SingleSchedule A single schedule resource.
+	SingleSchedule SingleScheduleResource `json:"singleSchedule"`
+}
+
+// PatchSiteRequest Request message for the PatchSite method.
+type PatchSiteRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// Site A site resource.
+	Site SiteResource `json:"site"`
+}
+
+// PatchTelemetryLogsProfileRequest Request message for the PatchTelemetryLogs method.
+type PatchTelemetryLogsProfileRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// TelemetryLogsProfile A telemetry log profile for a hierarchy object.
+	TelemetryLogsProfile TelemetryLogsProfileResource `json:"telemetryLogsProfile"`
+}
+
+// PatchTelemetryMetricsProfileRequest Request message for the PatchTelemetryMetricsProfile method.
+type PatchTelemetryMetricsProfileRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// TelemetryMetricsProfile A telemetry metric profile for a hierarchy object.
+	TelemetryMetricsProfile TelemetryMetricsProfileResource `json:"telemetryMetricsProfile"`
+}
+
+// PatchWorkloadRequest Request message for the PatchWorkload method.
+type PatchWorkloadRequest struct {
+	// FieldMask `FieldMask` represents a set of symbolic field paths, for example:
+	//
+	//      paths: "f.a"
+	//      paths: "f.b.d"
+	//
+	//  Here `f` represents a field in some root message, `a` and `b`
+	//  fields in the message found in `f`, and `d` a field found in the
+	//  message in `f.b`.
+	//
+	//  Field masks are used to specify a subset of fields that should be
+	//  returned by a get operation or modified by an update operation.
+	//  Field masks also have a custom JSON encoding (see below).
+	//
+	//  # Field Masks in Projections
+	//
+	//  When used in the context of a projection, a response message or
+	//  sub-message is filtered by the API to only contain those fields as
+	//  specified in the mask. For example, if the mask in the previous
+	//  example is applied to a response message as follows:
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//          x : 2
+	//        }
+	//        y : 13
+	//      }
+	//      z: 8
+	//
+	//  The result will not contain specific values for fields x,y and z
+	//  (their value will be set to the default, and omitted in proto text
+	//  output):
+	//
+	//
+	//      f {
+	//        a : 22
+	//        b {
+	//          d : 1
+	//        }
+	//      }
+	//
+	//  A repeated field is not allowed except at the last position of a
+	//  paths string.
+	//
+	//  If a FieldMask object is not present in a get operation, the
+	//  operation applies to all fields (as if a FieldMask of all fields
+	//  had been specified).
+	//
+	//  Note that a field mask does not necessarily apply to the
+	//  top-level response message. In case of a REST get operation, the
+	//  field mask applies directly to the response, but in case of a REST
+	//  list operation, the mask instead applies to each individual message
+	//  in the returned resource list. In case of a REST custom method,
+	//  other definitions may be used. Where the mask applies will be
+	//  clearly documented together with its declaration in the API.  In
+	//  any case, the effect on the returned resource/resources is required
+	//  behavior for APIs.
+	//
+	//  # Field Masks in Update Operations
+	//
+	//  A field mask in update operations specifies which fields of the
+	//  targeted resource are going to be updated. The API is required
+	//  to only change the values of the fields as specified in the mask
+	//  and leave the others untouched. If a resource is passed in to
+	//  describe the updated values, the API ignores the values of all
+	//  fields not covered by the mask.
+	//
+	//  If a repeated field is specified for an update operation, new values will
+	//  be appended to the existing repeated field in the target resource. Note that
+	//  a repeated field is only allowed in the last position of a `paths` string.
+	//
+	//  If a sub-message is specified in the last position of the field mask for an
+	//  update operation, then new value will be merged into the existing sub-message
+	//  in the target resource.
+	//
+	//  For example, given the target message:
+	//
+	//      f {
+	//        b {
+	//          d: 1
+	//          x: 2
+	//        }
+	//        c: [1]
+	//      }
+	//
+	//  And an update message:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//        }
+	//        c: [2]
+	//      }
+	//
+	//  then if the field mask is:
+	//
+	//   paths: ["f.b", "f.c"]
+	//
+	//  then the result will be:
+	//
+	//      f {
+	//        b {
+	//          d: 10
+	//          x: 2
+	//        }
+	//        c: [1, 2]
+	//      }
+	//
+	//  An implementation may provide options to override this default behavior for
+	//  repeated and message fields.
+	//
+	//  In order to reset a field's value to the default, the field must
+	//  be in the mask and set to the default value in the provided resource.
+	//  Hence, in order to reset all fields of a resource, provide a default
+	//  instance of the resource and set all fields in the mask, or do
+	//  not provide a mask as described below.
+	//
+	//  If a field mask is not present on update, the operation applies to
+	//  all fields (as if a field mask of all fields has been specified).
+	//  Note that in the presence of schema evolution, this may mean that
+	//  fields the client does not know and has therefore not filled into
+	//  the request will be reset to their default. If this is unwanted
+	//  behavior, a specific service may require a client to always specify
+	//  a field mask, producing an error if not.
+	//
+	//  As with get operations, the location of the resource which
+	//  describes the updated values in the request message depends on the
+	//  operation kind. In any case, the effect of the field mask is
+	//  required to be honored by the API.
+	//
+	//  ## Considerations for HTTP REST
+	//
+	//  The HTTP kind of an update operation which uses a field mask must
+	//  be set to PATCH instead of PUT in order to satisfy HTTP semantics
+	//  (PUT must only be used for full updates).
+	//
+	//  # JSON Encoding of Field Masks
+	//
+	//  In JSON, a field mask is encoded as a single string where paths are
+	//  separated by a comma. Fields name in each path are converted
+	//  to/from lower-camel naming conventions.
+	//
+	//  As an example, consider the following message declarations:
+	//
+	//      message Profile {
+	//        User user = 1;
+	//        Photo photo = 2;
+	//      }
+	//      message User {
+	//        string display_name = 1;
+	//        string address = 2;
+	//      }
+	//
+	//  In proto a field mask for `Profile` may look as such:
+	//
+	//      mask {
+	//        paths: "user.display_name"
+	//        paths: "photo"
+	//      }
+	//
+	//  In JSON, the same mask is represented as below:
+	//
+	//      {
+	//        mask: "user.displayName,photo"
+	//      }
+	//
+	//  # Field Masks and Oneof Fields
+	//
+	//  Field masks treat fields in oneofs just as regular fields. Consider the
+	//  following message:
+	//
+	//      message SampleMessage {
+	//        oneof test_oneof {
+	//          string name = 4;
+	//          SubMessage sub_message = 9;
+	//        }
+	//      }
+	//
+	//  The field mask can be:
+	//
+	//      mask {
+	//        paths: "name"
+	//      }
+	//
+	//  Or:
+	//
+	//      mask {
+	//        paths: "sub_message"
+	//      }
+	//
+	//  Note that oneof type names ("test_oneof" in this case) cannot be used in
+	//  paths.
+	//
+	//  ## Field Mask Verification
+	//
+	//  The implementation of any API method which has a FieldMask type field in the
+	//  request should verify the included field paths, and return an
+	//  `INVALID_ARGUMENT` error if any path is unmappable.
+	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// Workload A generic way to group compute resources to obtain a workload.
+	Workload WorkloadResource `json:"workload"`
+}
+
+// PowerState The host power state.
+type PowerState string
+
+// ProviderKind Kind of provider.
+type ProviderKind string
 
 // ProviderResource A provider resource.
 type ProviderResource struct {
@@ -1066,35 +4075,37 @@ type ProviderResource struct {
 	// ProviderID Deprecated, The provider resource's unique identifier. Alias of resourceId.
 	ProviderID *string `json:"providerID,omitempty"`
 
-	// ProviderKind The provider kind.
-	ProviderKind ProviderResourceProviderKind `json:"providerKind"`
+	// ProviderKind Kind of provider.
+	ProviderKind ProviderKind `json:"providerKind"`
 
-	// ProviderVendor The provider vendor.
-	ProviderVendor *ProviderResourceProviderVendor `json:"providerVendor,omitempty"`
+	// ProviderVendor Vendor of the provider.
+	ProviderVendor *ProviderVendor `json:"providerVendor,omitempty"`
 
 	// ResourceId Resource ID, generated by the inventory on Create.
 	ResourceId *string     `json:"resourceId,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
-// ProviderResourceProviderKind The provider kind.
-type ProviderResourceProviderKind string
-
-// ProviderResourceProviderVendor The provider vendor.
-type ProviderResourceProviderVendor string
+// ProviderVendor Vendor of the provider.
+type ProviderVendor string
 
 // RegionResource A region resource.
 type RegionResource struct {
-	// InheritedMetadata The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
+	// InheritedMetadata The rendered metadata from the Region parent(s)
+	//  that can be inherited by the Region, represented by a list of key:value pairs.
+	//  This field can not be used in filter.
 	InheritedMetadata *[]MetadataItem `json:"inheritedMetadata,omitempty"`
 
-	// Metadata The metadata associated to the Region, represented by a list of key:value pairs.
+	// Metadata (OPTIONAL) The metadata associated to the Region,
+	//  represented by a list of key:value pairs.
 	Metadata *[]MetadataItem `json:"metadata,omitempty"`
 
 	// Name The user-provided, human-readable name of region
 	Name *string `json:"name,omitempty"`
 
-	// ParentId The parent Region unique identifier that the region is associated to, when existent. This field can not be used in filter.
+	// ParentId The parent Region unique identifier
+	//  that the region is associated to, when existent.
+	//  This field can not be used in filter.
 	ParentId *string `json:"parentId,omitempty"`
 
 	// ParentRegion A region resource.
@@ -1109,6 +4120,13 @@ type RegionResource struct {
 
 	// TotalSites The total number of sites in the region.
 	TotalSites *int32 `json:"totalSites,omitempty"`
+}
+
+// RegisterHostRequest Request to register a Host.
+type RegisterHostRequest struct {
+	// Host Message to register a Host.
+	Host       HostRegister `json:"host"`
+	ResourceId *string      `json:"resourceId,omitempty"`
 }
 
 // RepeatedScheduleResource A repeated-schedule resource.
@@ -1140,36 +4158,51 @@ type RepeatedScheduleResource struct {
 	// ResourceId Resource ID, generated by the inventory on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// ScheduleStatus The schedule status.
-	ScheduleStatus RepeatedScheduleResourceScheduleStatus `json:"scheduleStatus"`
+	// ScheduleStatus The representation of a schedule's status.
+	ScheduleStatus ScheduleStatus `json:"scheduleStatus"`
 
 	// TargetHost A Host resource.
 	TargetHost *HostResource `json:"targetHost,omitempty"`
 
-	// TargetHostId The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+	// TargetHostId The target region ID of the schedule.
+	//  Only one target can be provided per schedule.
+	//  This field cannot be used as filter.
 	TargetHostId *string `json:"targetHostId,omitempty"`
 
 	// TargetRegion A region resource.
 	TargetRegion *RegionResource `json:"targetRegion,omitempty"`
 
-	// TargetRegionId The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+	// TargetRegionId The target region ID of the schedule.
+	//  Only one target can be provided per schedule.
+	//  This field cannot be used as filter.
 	TargetRegionId *string `json:"targetRegionId,omitempty"`
 
 	// TargetSite A site resource.
 	TargetSite *SiteResource `json:"targetSite,omitempty"`
 
-	// TargetSiteId The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+	// TargetSiteId The target site ID of the schedule.
+	//  Only one target can be provided per schedule.
+	//  This field cannot be used as filter.
 	TargetSiteId *string     `json:"targetSiteId,omitempty"`
 	Timestamps   *Timestamps `json:"timestamps,omitempty"`
 }
 
-// RepeatedScheduleResourceScheduleStatus The schedule status.
-type RepeatedScheduleResourceScheduleStatus string
+// ScheduleStatus The representation of a schedule's status.
+type ScheduleStatus string
+
+// SecurityFeature SecurityFeature describes the security capabilities of a resource.
+type SecurityFeature string
+
+// SeverityLevel Log level used for the telemetry config.
+//
+//	This field must only be defined if kind equals to TELEMETRY_CONFIG_KIND_LOGS.
+type SeverityLevel string
 
 // SingleScheduleResource A single schedule resource.
 type SingleScheduleResource struct {
-	// EndSeconds The end time in seconds, of the single schedule. The value of endSeconds must be equal to or bigger than the value of startSeconds.
-	EndSeconds *uint32 `json:"endSeconds,omitempty"`
+	// EndSeconds The end time in seconds, of the single schedule.
+	//  The value of endSeconds must be equal to or bigger than the value of startSeconds.
+	EndSeconds *int `json:"endSeconds,omitempty"`
 
 	// Name The schedule's name.
 	Name *string `json:"name,omitempty"`
@@ -1177,44 +4210,50 @@ type SingleScheduleResource struct {
 	// ResourceId Resource ID, generated by the inventory on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// ScheduleStatus The schedule status.
-	ScheduleStatus SingleScheduleResourceScheduleStatus `json:"scheduleStatus"`
+	// ScheduleStatus The representation of a schedule's status.
+	ScheduleStatus ScheduleStatus `json:"scheduleStatus"`
 
 	// SingleScheduleID Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
 	SingleScheduleID *string `json:"singleScheduleID,omitempty"`
 
 	// StartSeconds The start time in seconds, of the single schedule.
-	StartSeconds uint32 `json:"startSeconds"`
+	StartSeconds int `json:"startSeconds"`
 
 	// TargetHost A Host resource.
 	TargetHost *HostResource `json:"targetHost,omitempty"`
 
-	// TargetHostId The target host ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+	// TargetHostId The target host ID of the schedule.
+	//  Only one target can be provided per schedule.
+	//  This field cannot be used as filter.
 	TargetHostId *string `json:"targetHostId,omitempty"`
 
 	// TargetRegion A region resource.
 	TargetRegion *RegionResource `json:"targetRegion,omitempty"`
 
-	// TargetRegionId The target region ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+	// TargetRegionId The target region ID of the schedule.
+	//  Only one target can be provided per schedule.
+	//  This field cannot be used as filter.
 	TargetRegionId *string `json:"targetRegionId,omitempty"`
 
 	// TargetSite A site resource.
 	TargetSite *SiteResource `json:"targetSite,omitempty"`
 
-	// TargetSiteId The target site ID of the schedule. Only one target can be provided per schedule. This field cannot be used as filter.
+	// TargetSiteId The target site ID of the schedule.
+	//  Only one target can be provided per schedule.
+	//  This field cannot be used as filter.
 	TargetSiteId *string     `json:"targetSiteId,omitempty"`
 	Timestamps   *Timestamps `json:"timestamps,omitempty"`
 }
 
-// SingleScheduleResourceScheduleStatus The schedule status.
-type SingleScheduleResourceScheduleStatus string
-
 // SiteResource A site resource.
 type SiteResource struct {
-	// InheritedMetadata The rendered metadata from the Region parent(s) that can be inherited by the Region, represented by a list of key:value pairs. This field can not be used in filter.
+	// InheritedMetadata The rendered metadata from the Region parent(s)
+	//  that can be inherited by the Region, represented by a list of key:value pairs.
+	//  This field can not be used in filter.
 	InheritedMetadata *[]MetadataItem `json:"inheritedMetadata,omitempty"`
 
-	// Metadata The metadata associated to the Region, represented by a list of key:value pairs.
+	// Metadata (OPTIONAL) The metadata associated to the Region,
+	//  represented by a list of key:value pairs.
 	Metadata *[]MetadataItem `json:"metadata,omitempty"`
 
 	// Name The site's human-readable name.
@@ -1226,7 +4265,8 @@ type SiteResource struct {
 	// Region A region resource.
 	Region *RegionResource `json:"region,omitempty"`
 
-	// RegionId The region's unique identifier that the site is associated to. This field cannot be used in filter.
+	// RegionId The region's unique identifier
+	//  that the site is associated to. This field cannot be used in filter.
 	RegionId *string `json:"regionId,omitempty"`
 
 	// ResourceId resource ID, generated by the inventory on Create.
@@ -1235,30 +4275,30 @@ type SiteResource struct {
 	// SiteID Deprecated, The site unique identifier. Alias of resourceId.
 	SiteID *string `json:"siteID,omitempty"`
 
-	// SiteLat The geolocation latitude of the site. Points are represented as latitude-longitude pairs in the E7 representation (degrees are multiplied by 10**7 and rounded to the nearest integer). siteLat must be in the range of +/- 90 degrees.
+	// SiteLat The geolocation latitude of the site.
+	//  Points are represented as latitude-longitude pairs in the E7 representation
+	//  (degrees are multiplied by 10**7 and rounded to the nearest integer).
+	//  siteLat must be in the range of +/- 90 degrees.
 	SiteLat *int32 `json:"siteLat,omitempty"`
 
-	// SiteLng The geolocation longitude of the site. Points are represented as latitude-longitude pairs in the E7 representation (degrees are multiplied by 10**7 and rounded to the nearest integer). siteLng must be in the range of +/- 180 degrees (inclusive).
+	// SiteLng The geolocation longitude of the site.
+	//  Points are represented as latitude-longitude pairs in the E7 representation
+	//  (degrees are multiplied by 10**7 and rounded to the nearest integer).
+	//  siteLng must be in the range of +/- 180 degrees (inclusive).
 	SiteLng    *int32      `json:"siteLng,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
-// Status The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).
-type Status struct {
-	// Code The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-	Code *int32 `json:"code,omitempty"`
+// StatusIndication The status indicator.
+type StatusIndication string
 
-	// Details A list of messages that carry the error details.  There is a common set of message types for APIs to use.
-	Details *[]GoogleProtobufAny `json:"details,omitempty"`
-
-	// Message A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-	Message *string `json:"message,omitempty"`
-}
+// TelemetryCollectorKind The collector kind.
+type TelemetryCollectorKind string
 
 // TelemetryLogsGroupResource TelemetryLogsGroupResource.
 type TelemetryLogsGroupResource struct {
 	// CollectorKind The collector kind.
-	CollectorKind TelemetryLogsGroupResourceCollectorKind `json:"collectorKind"`
+	CollectorKind TelemetryCollectorKind `json:"collectorKind"`
 
 	// Groups A list of log groups to collect.
 	Groups []string `json:"groups"`
@@ -1274,13 +4314,11 @@ type TelemetryLogsGroupResource struct {
 	Timestamps           *Timestamps `json:"timestamps,omitempty"`
 }
 
-// TelemetryLogsGroupResourceCollectorKind The collector kind.
-type TelemetryLogsGroupResourceCollectorKind string
-
 // TelemetryLogsProfileResource A telemetry log profile for a hierarchy object.
 type TelemetryLogsProfileResource struct {
-	// LogLevel The log level og the telemetry profile.
-	LogLevel TelemetryLogsProfileResourceLogLevel `json:"logLevel"`
+	// LogLevel Log level used for the telemetry config.
+	//  This field must only be defined if kind equals to TELEMETRY_CONFIG_KIND_LOGS.
+	LogLevel SeverityLevel `json:"logLevel"`
 
 	// LogsGroup TelemetryLogsGroupResource.
 	LogsGroup *TelemetryLogsGroupResource `json:"logsGroup,omitempty"`
@@ -1294,24 +4332,24 @@ type TelemetryLogsProfileResource struct {
 	// ResourceId The ID of the telemetry profile.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// TargetInstance The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
+	// TargetInstance The ID of the instance that the telemetry profile is assigned to.
+	//  Can only be one of targetInstance, targetSite, or targetRegion.
 	TargetInstance *string `json:"targetInstance,omitempty"`
 
-	// TargetRegion The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
+	// TargetRegion The ID of the region where the telemetry profile is assigned to.
+	//  Can only be one of targetInstance, targetSite, or targetRegion.
 	TargetRegion *string `json:"targetRegion,omitempty"`
 
-	// TargetSite The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
+	// TargetSite The ID of the site where the telemetry profile is assigned to.
+	//  Can only be one of targetInstance, targetSite, or targetRegion.
 	TargetSite *string     `json:"targetSite,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
-// TelemetryLogsProfileResourceLogLevel The log level og the telemetry profile.
-type TelemetryLogsProfileResourceLogLevel string
-
 // TelemetryMetricsGroupResource TelemetryMetricsGroupResource.
 type TelemetryMetricsGroupResource struct {
 	// CollectorKind The collector kind.
-	CollectorKind TelemetryMetricsGroupResourceCollectorKind `json:"collectorKind"`
+	CollectorKind TelemetryCollectorKind `json:"collectorKind"`
 
 	// Groups A list of log groups to collect.
 	Groups []string `json:"groups"`
@@ -1327,9 +4365,6 @@ type TelemetryMetricsGroupResource struct {
 	Timestamps              *Timestamps `json:"timestamps,omitempty"`
 }
 
-// TelemetryMetricsGroupResourceCollectorKind The collector kind.
-type TelemetryMetricsGroupResourceCollectorKind string
-
 // TelemetryMetricsProfileResource A telemetry metric profile for a hierarchy object.
 type TelemetryMetricsProfileResource struct {
 	// MetricsGroup TelemetryMetricsGroupResource.
@@ -1338,7 +4373,8 @@ type TelemetryMetricsProfileResource struct {
 	// MetricsGroupId The unique identifier of the telemetry metric group.
 	MetricsGroupId string `json:"metricsGroupId"`
 
-	// MetricsInterval Metric interval (in seconds) for the telemetry profile. This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
+	// MetricsInterval Metric interval (in seconds) for the telemetry profile.
+	//  This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
 	MetricsInterval int32 `json:"metricsInterval"`
 
 	// ProfileId Deprecated, The ID of the telemetry profile.
@@ -1347,38 +4383,319 @@ type TelemetryMetricsProfileResource struct {
 	// ResourceId The ID of the telemetry profile.
 	ResourceId *string `json:"resourceId,omitempty"`
 
-	// TargetInstance The ID of the instance that the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
+	// TargetInstance The ID of the instance that the telemetry profile is assigned to.
+	//  Can only be one of targetInstance, targetSite, or targetRegion.
 	TargetInstance *string `json:"targetInstance,omitempty"`
 
-	// TargetRegion The ID of the region where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
+	// TargetRegion The ID of the region where the telemetry profile is assigned to.
+	//  Can only be one of targetInstance, targetSite, or targetRegion.
 	TargetRegion *string `json:"targetRegion,omitempty"`
 
-	// TargetSite The ID of the site where the telemetry profile is assigned to. Can only be one of targetInstance, targetSite, or targetRegion.
+	// TargetSite The ID of the site where the telemetry profile is assigned to.
+	//  Can only be one of targetInstance, targetSite, or targetRegion.
 	TargetSite *string     `json:"targetSite,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
+// TelemetryResourceKind Kind of telemetry collector.
+type TelemetryResourceKind string
+
 // Timestamps defines model for Timestamps.
 type Timestamps struct {
-	// CreatedAt The time when the resource was created.
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	// CreatedAt A Timestamp represents a point in time independent of any time zone or local
+	//  calendar, encoded as a count of seconds and fractions of seconds at
+	//  nanosecond resolution. The count is relative to an epoch at UTC midnight on
+	//  January 1, 1970, in the proleptic Gregorian calendar which extends the
+	//  Gregorian calendar backwards to year one.
+	//
+	//  All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+	//  second table is needed for interpretation, using a [24-hour linear
+	//  smear](https://developers.google.com/time/smear).
+	//
+	//  The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+	//  restricting to that range, we ensure that we can convert to and from [RFC
+	//  3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
+	//
+	//  # Examples
+	//
+	//  Example 1: Compute Timestamp from POSIX `time()`.
+	//
+	//      Timestamp timestamp;
+	//      timestamp.set_seconds(time(NULL));
+	//      timestamp.set_nanos(0);
+	//
+	//  Example 2: Compute Timestamp from POSIX `gettimeofday()`.
+	//
+	//      struct timeval tv;
+	//      gettimeofday(&tv, NULL);
+	//
+	//      Timestamp timestamp;
+	//      timestamp.set_seconds(tv.tv_sec);
+	//      timestamp.set_nanos(tv.tv_usec * 1000);
+	//
+	//  Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+	//
+	//      FILETIME ft;
+	//      GetSystemTimeAsFileTime(&ft);
+	//      UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+	//
+	//      // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+	//      // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+	//      Timestamp timestamp;
+	//      timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+	//      timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+	//
+	//  Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+	//
+	//      long millis = System.currentTimeMillis();
+	//
+	//      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+	//          .setNanos((int) ((millis % 1000) * 1000000)).build();
+	//
+	//  Example 5: Compute Timestamp from Java `Instant.now()`.
+	//
+	//      Instant now = Instant.now();
+	//
+	//      Timestamp timestamp =
+	//          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+	//              .setNanos(now.getNano()).build();
+	//
+	//  Example 6: Compute Timestamp from current time in Python.
+	//
+	//      timestamp = Timestamp()
+	//      timestamp.GetCurrentTime()
+	//
+	//  # JSON Mapping
+	//
+	//  In JSON format, the Timestamp type is encoded as a string in the
+	//  [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
+	//  format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
+	//  where {year} is always expressed using four digits while {month}, {day},
+	//  {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
+	//  seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
+	//  are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
+	//  is required. A proto3 JSON serializer should always use UTC (as indicated by
+	//  "Z") when printing the Timestamp type and a proto3 JSON parser should be
+	//  able to accept both UTC and other timezones (as indicated by an offset).
+	//
+	//  For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
+	//  01:30 UTC on January 15, 2017.
+	//
+	//  In JavaScript, one can convert a Date object to this format using the
+	//  standard
+	//  [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+	//  method. In Python, a standard `datetime.datetime` object can be converted
+	//  to this format using
+	//  [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
+	//  the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
+	//  the Joda Time's [`ISODateTimeFormat.dateTime()`](
+	//  http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+	//  ) to obtain a formatter capable of generating timestamps in this format.
+	CreatedAt *GoogleProtobufTimestamp `json:"createdAt,omitempty"`
 
-	// UpdatedAt The time when the resource was last updated.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	// UpdatedAt A Timestamp represents a point in time independent of any time zone or local
+	//  calendar, encoded as a count of seconds and fractions of seconds at
+	//  nanosecond resolution. The count is relative to an epoch at UTC midnight on
+	//  January 1, 1970, in the proleptic Gregorian calendar which extends the
+	//  Gregorian calendar backwards to year one.
+	//
+	//  All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+	//  second table is needed for interpretation, using a [24-hour linear
+	//  smear](https://developers.google.com/time/smear).
+	//
+	//  The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+	//  restricting to that range, we ensure that we can convert to and from [RFC
+	//  3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
+	//
+	//  # Examples
+	//
+	//  Example 1: Compute Timestamp from POSIX `time()`.
+	//
+	//      Timestamp timestamp;
+	//      timestamp.set_seconds(time(NULL));
+	//      timestamp.set_nanos(0);
+	//
+	//  Example 2: Compute Timestamp from POSIX `gettimeofday()`.
+	//
+	//      struct timeval tv;
+	//      gettimeofday(&tv, NULL);
+	//
+	//      Timestamp timestamp;
+	//      timestamp.set_seconds(tv.tv_sec);
+	//      timestamp.set_nanos(tv.tv_usec * 1000);
+	//
+	//  Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+	//
+	//      FILETIME ft;
+	//      GetSystemTimeAsFileTime(&ft);
+	//      UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+	//
+	//      // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+	//      // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+	//      Timestamp timestamp;
+	//      timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+	//      timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+	//
+	//  Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+	//
+	//      long millis = System.currentTimeMillis();
+	//
+	//      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+	//          .setNanos((int) ((millis % 1000) * 1000000)).build();
+	//
+	//  Example 5: Compute Timestamp from Java `Instant.now()`.
+	//
+	//      Instant now = Instant.now();
+	//
+	//      Timestamp timestamp =
+	//          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+	//              .setNanos(now.getNano()).build();
+	//
+	//  Example 6: Compute Timestamp from current time in Python.
+	//
+	//      timestamp = Timestamp()
+	//      timestamp.GetCurrentTime()
+	//
+	//  # JSON Mapping
+	//
+	//  In JSON format, the Timestamp type is encoded as a string in the
+	//  [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
+	//  format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
+	//  where {year} is always expressed using four digits while {month}, {day},
+	//  {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
+	//  seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
+	//  are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
+	//  is required. A proto3 JSON serializer should always use UTC (as indicated by
+	//  "Z") when printing the Timestamp type and a proto3 JSON parser should be
+	//  able to accept both UTC and other timezones (as indicated by an offset).
+	//
+	//  For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
+	//  01:30 UTC on January 15, 2017.
+	//
+	//  In JavaScript, one can convert a Date object to this format using the
+	//  standard
+	//  [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+	//  method. In Python, a standard `datetime.datetime` object can be converted
+	//  to this format using
+	//  [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
+	//  the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
+	//  the Joda Time's [`ISODateTimeFormat.dateTime()`](
+	//  http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+	//  ) to obtain a formatter capable of generating timestamps in this format.
+	UpdatedAt *GoogleProtobufTimestamp `json:"updatedAt,omitempty"`
 }
+
+// UpdateHostRequest Request message for the UpdateHost method.
+type UpdateHostRequest struct {
+	// Host A Host resource.
+	Host HostResource `json:"host"`
+
+	// ResourceId Name of the host host to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// UpdateInstanceRequest Request message for the UpdateInstance method.
+type UpdateInstanceRequest struct {
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
+	Instance InstanceResource `json:"instance"`
+
+	// ResourceId ID of the resource to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// UpdateOperatingSystemRequest Request message for the UpdateOperatingSystem method.
+type UpdateOperatingSystemRequest struct {
+	// Os An OS resource.
+	Os OperatingSystemResource `json:"os"`
+
+	// ResourceId Name of the os os to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// UpdatePolicy States of the host.
+type UpdatePolicy string
+
+// UpdateRegionRequest Request message for the UpdateRegion method.
+type UpdateRegionRequest struct {
+	// Region A region resource.
+	Region RegionResource `json:"region"`
+
+	// ResourceId Name of the region region to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// UpdateRepeatedScheduleRequest Request message for the UpdateRepeatedSchedule method.
+type UpdateRepeatedScheduleRequest struct {
+	// RepeatedSchedule A repeated-schedule resource.
+	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
+
+	// ResourceId Name of the repeated_schedule repeated_schedule to be updated.
+	ResourceId string `json:"resourceId"`
+}
+
+// UpdateSingleScheduleRequest Request message for the UpdateSingleSchedule method.
+type UpdateSingleScheduleRequest struct {
+	// ResourceId Name of the single_schedule single_schedule to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// SingleSchedule A single schedule resource.
+	SingleSchedule SingleScheduleResource `json:"singleSchedule"`
+}
+
+// UpdateSiteRequest Request message for the UpdateSite method.
+type UpdateSiteRequest struct {
+	// ResourceId Name of the site site to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// Site A site resource.
+	Site SiteResource `json:"site"`
+}
+
+// UpdateTelemetryLogsProfileRequest Request message for the UpdateTelemetryLogsProfile method.
+type UpdateTelemetryLogsProfileRequest struct {
+	// ResourceId Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// TelemetryLogsProfile A telemetry log profile for a hierarchy object.
+	TelemetryLogsProfile TelemetryLogsProfileResource `json:"telemetryLogsProfile"`
+}
+
+// UpdateTelemetryMetricsProfileRequest Request message for the UpdateTelemetryMetricsProfile method.
+type UpdateTelemetryMetricsProfileRequest struct {
+	// ResourceId Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// TelemetryMetricsProfile A telemetry metric profile for a hierarchy object.
+	TelemetryMetricsProfile TelemetryMetricsProfileResource `json:"telemetryMetricsProfile"`
+}
+
+// UpdateWorkloadRequest Request message for the UpdateWorkload method.
+type UpdateWorkloadRequest struct {
+	// ResourceId Name of the workload workload to be updated.
+	ResourceId string `json:"resourceId"`
+
+	// Workload A generic way to group compute resources to obtain a workload.
+	Workload WorkloadResource `json:"workload"`
+}
+
+// WorkloadKind Represents the type of workload.
+type WorkloadKind string
 
 // WorkloadMember Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
 type WorkloadMember struct {
-	// Instance InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
+	// Instance InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
 	Instance *InstanceResource `json:"instance,omitempty"`
 
 	// InstanceId The unique identifier of the instance.
 	InstanceId *string `json:"instanceId,omitempty"`
 
-	// Kind The kind of the workload member.
+	// Kind Represents the type of the workload member.
 	Kind WorkloadMemberKind `json:"kind"`
 
-	// Member InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
+	// Member InstanceResource describes an instantiated OS install, running on either a
+	//  host or hypervisor.
 	Member *InstanceResource `json:"member,omitempty"`
 
 	// ResourceId Resource ID, generated by the inventory on Create.
@@ -1395,7 +4712,7 @@ type WorkloadMember struct {
 	WorkloadMemberId *string `json:"workloadMemberId,omitempty"`
 }
 
-// WorkloadMemberKind The kind of the workload member.
+// WorkloadMemberKind Represents the type of the workload member.
 type WorkloadMemberKind string
 
 // WorkloadResource A generic way to group compute resources to obtain a workload.
@@ -1403,8 +4720,8 @@ type WorkloadResource struct {
 	// ExternalId The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
 	ExternalId *string `json:"externalId,omitempty"`
 
-	// Kind Type of workload.
-	Kind WorkloadResourceKind `json:"kind"`
+	// Kind Represents the type of workload.
+	Kind WorkloadKind `json:"kind"`
 
 	// Members The members of the workload.
 	Members *[]WorkloadMember `json:"members,omitempty"`
@@ -1423,80 +4740,397 @@ type WorkloadResource struct {
 	WorkloadId *string `json:"workloadId,omitempty"`
 }
 
-// WorkloadResourceKind Type of workload.
-type WorkloadResourceKind string
+// WorkloadState Represents the Workload state, used for both current and desired state.
+type WorkloadState string
+
+// ConnectProtocolVersion Define the version of the Connect protocol
+type ConnectProtocolVersion float32
+
+// ConnectTimeoutHeader Define the timeout, in ms
+type ConnectTimeoutHeader = float32
+
+// ConnectError Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation
+type ConnectError struct {
+	// Code The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+	Code *ConnectErrorCode `json:"code,omitempty"`
+
+	// Detail Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+	Detail *GoogleProtobufAny `json:"detail,omitempty"`
+
+	// Message A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+	Message              *string                `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
+}
+
+// ConnectErrorCode The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+type ConnectErrorCode string
+
+// GoogleProtobufAny Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+type GoogleProtobufAny struct {
+	Debug                *map[string]interface{} `json:"debug,omitempty"`
+	Type                 *string                 `json:"type,omitempty"`
+	Value                *openapi_types.File     `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}  `json:"-"`
+}
+
+// GoogleProtobufFieldMask `FieldMask` represents a set of symbolic field paths, for example:
+//
+//	    paths: "f.a"
+//	    paths: "f.b.d"
+//
+//	Here `f` represents a field in some root message, `a` and `b`
+//	fields in the message found in `f`, and `d` a field found in the
+//	message in `f.b`.
+//
+//	Field masks are used to specify a subset of fields that should be
+//	returned by a get operation or modified by an update operation.
+//	Field masks also have a custom JSON encoding (see below).
+//
+//	# Field Masks in Projections
+//
+//	When used in the context of a projection, a response message or
+//	sub-message is filtered by the API to only contain those fields as
+//	specified in the mask. For example, if the mask in the previous
+//	example is applied to a response message as follows:
+//
+//	    f {
+//	      a : 22
+//	      b {
+//	        d : 1
+//	        x : 2
+//	      }
+//	      y : 13
+//	    }
+//	    z: 8
+//
+//	The result will not contain specific values for fields x,y and z
+//	(their value will be set to the default, and omitted in proto text
+//	output):
+//
+//
+//	    f {
+//	      a : 22
+//	      b {
+//	        d : 1
+//	      }
+//	    }
+//
+//	A repeated field is not allowed except at the last position of a
+//	paths string.
+//
+//	If a FieldMask object is not present in a get operation, the
+//	operation applies to all fields (as if a FieldMask of all fields
+//	had been specified).
+//
+//	Note that a field mask does not necessarily apply to the
+//	top-level response message. In case of a REST get operation, the
+//	field mask applies directly to the response, but in case of a REST
+//	list operation, the mask instead applies to each individual message
+//	in the returned resource list. In case of a REST custom method,
+//	other definitions may be used. Where the mask applies will be
+//	clearly documented together with its declaration in the API.  In
+//	any case, the effect on the returned resource/resources is required
+//	behavior for APIs.
+//
+//	# Field Masks in Update Operations
+//
+//	A field mask in update operations specifies which fields of the
+//	targeted resource are going to be updated. The API is required
+//	to only change the values of the fields as specified in the mask
+//	and leave the others untouched. If a resource is passed in to
+//	describe the updated values, the API ignores the values of all
+//	fields not covered by the mask.
+//
+//	If a repeated field is specified for an update operation, new values will
+//	be appended to the existing repeated field in the target resource. Note that
+//	a repeated field is only allowed in the last position of a `paths` string.
+//
+//	If a sub-message is specified in the last position of the field mask for an
+//	update operation, then new value will be merged into the existing sub-message
+//	in the target resource.
+//
+//	For example, given the target message:
+//
+//	    f {
+//	      b {
+//	        d: 1
+//	        x: 2
+//	      }
+//	      c: [1]
+//	    }
+//
+//	And an update message:
+//
+//	    f {
+//	      b {
+//	        d: 10
+//	      }
+//	      c: [2]
+//	    }
+//
+//	then if the field mask is:
+//
+//	 paths: ["f.b", "f.c"]
+//
+//	then the result will be:
+//
+//	    f {
+//	      b {
+//	        d: 10
+//	        x: 2
+//	      }
+//	      c: [1, 2]
+//	    }
+//
+//	An implementation may provide options to override this default behavior for
+//	repeated and message fields.
+//
+//	In order to reset a field's value to the default, the field must
+//	be in the mask and set to the default value in the provided resource.
+//	Hence, in order to reset all fields of a resource, provide a default
+//	instance of the resource and set all fields in the mask, or do
+//	not provide a mask as described below.
+//
+//	If a field mask is not present on update, the operation applies to
+//	all fields (as if a field mask of all fields has been specified).
+//	Note that in the presence of schema evolution, this may mean that
+//	fields the client does not know and has therefore not filled into
+//	the request will be reset to their default. If this is unwanted
+//	behavior, a specific service may require a client to always specify
+//	a field mask, producing an error if not.
+//
+//	As with get operations, the location of the resource which
+//	describes the updated values in the request message depends on the
+//	operation kind. In any case, the effect of the field mask is
+//	required to be honored by the API.
+//
+//	## Considerations for HTTP REST
+//
+//	The HTTP kind of an update operation which uses a field mask must
+//	be set to PATCH instead of PUT in order to satisfy HTTP semantics
+//	(PUT must only be used for full updates).
+//
+//	# JSON Encoding of Field Masks
+//
+//	In JSON, a field mask is encoded as a single string where paths are
+//	separated by a comma. Fields name in each path are converted
+//	to/from lower-camel naming conventions.
+//
+//	As an example, consider the following message declarations:
+//
+//	    message Profile {
+//	      User user = 1;
+//	      Photo photo = 2;
+//	    }
+//	    message User {
+//	      string display_name = 1;
+//	      string address = 2;
+//	    }
+//
+//	In proto a field mask for `Profile` may look as such:
+//
+//	    mask {
+//	      paths: "user.display_name"
+//	      paths: "photo"
+//	    }
+//
+//	In JSON, the same mask is represented as below:
+//
+//	    {
+//	      mask: "user.displayName,photo"
+//	    }
+//
+//	# Field Masks and Oneof Fields
+//
+//	Field masks treat fields in oneofs just as regular fields. Consider the
+//	following message:
+//
+//	    message SampleMessage {
+//	      oneof test_oneof {
+//	        string name = 4;
+//	        SubMessage sub_message = 9;
+//	      }
+//	    }
+//
+//	The field mask can be:
+//
+//	    mask {
+//	      paths: "name"
+//	    }
+//
+//	Or:
+//
+//	    mask {
+//	      paths: "sub_message"
+//	    }
+//
+//	Note that oneof type names ("test_oneof" in this case) cannot be used in
+//	paths.
+//
+//	## Field Mask Verification
+//
+//	The implementation of any API method which has a FieldMask type field in the
+//	request should verify the included field paths, and return an
+//	`INVALID_ARGUMENT` error if any path is unmappable.
+type GoogleProtobufFieldMask = string
+
+// GoogleProtobufTimestamp A Timestamp represents a point in time independent of any time zone or local
+//
+//	calendar, encoded as a count of seconds and fractions of seconds at
+//	nanosecond resolution. The count is relative to an epoch at UTC midnight on
+//	January 1, 1970, in the proleptic Gregorian calendar which extends the
+//	Gregorian calendar backwards to year one.
+//
+//	All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+//	second table is needed for interpretation, using a [24-hour linear
+//	smear](https://developers.google.com/time/smear).
+//
+//	The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+//	restricting to that range, we ensure that we can convert to and from [RFC
+//	3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
+//
+//	# Examples
+//
+//	Example 1: Compute Timestamp from POSIX `time()`.
+//
+//	    Timestamp timestamp;
+//	    timestamp.set_seconds(time(NULL));
+//	    timestamp.set_nanos(0);
+//
+//	Example 2: Compute Timestamp from POSIX `gettimeofday()`.
+//
+//	    struct timeval tv;
+//	    gettimeofday(&tv, NULL);
+//
+//	    Timestamp timestamp;
+//	    timestamp.set_seconds(tv.tv_sec);
+//	    timestamp.set_nanos(tv.tv_usec * 1000);
+//
+//	Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+//
+//	    FILETIME ft;
+//	    GetSystemTimeAsFileTime(&ft);
+//	    UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+//
+//	    // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+//	    // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+//	    Timestamp timestamp;
+//	    timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+//	    timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+//
+//	Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+//
+//	    long millis = System.currentTimeMillis();
+//
+//	    Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+//	        .setNanos((int) ((millis % 1000) * 1000000)).build();
+//
+//	Example 5: Compute Timestamp from Java `Instant.now()`.
+//
+//	    Instant now = Instant.now();
+//
+//	    Timestamp timestamp =
+//	        Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+//	            .setNanos(now.getNano()).build();
+//
+//	Example 6: Compute Timestamp from current time in Python.
+//
+//	    timestamp = Timestamp()
+//	    timestamp.GetCurrentTime()
+//
+//	# JSON Mapping
+//
+//	In JSON format, the Timestamp type is encoded as a string in the
+//	[RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
+//	format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
+//	where {year} is always expressed using four digits while {month}, {day},
+//	{hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
+//	seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
+//	are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
+//	is required. A proto3 JSON serializer should always use UTC (as indicated by
+//	"Z") when printing the Timestamp type and a proto3 JSON parser should be
+//	able to accept both UTC and other timezones (as indicated by an offset).
+//
+//	For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
+//	01:30 UTC on January 15, 2017.
+//
+//	In JavaScript, one can convert a Date object to this format using the
+//	standard
+//	[toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+//	method. In Python, a standard `datetime.datetime` object can be converted
+//	to this format using
+//	[`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
+//	the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
+//	the Joda Time's [`ISODateTimeFormat.dateTime()`](
+//	http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+//	) to obtain a formatter capable of generating timestamps in this format.
+type GoogleProtobufTimestamp = time.Time
 
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// HostServiceRegisterHostParams defines parameters for HostServiceRegisterHost.
-type HostServiceRegisterHostParams struct {
-	ResourceId *string `form:"resourceId,omitempty" json:"resourceId,omitempty"`
-}
-
-// HostServicePatchHostParams defines parameters for HostServicePatchHost.
-type HostServicePatchHostParams struct {
-	// FieldMask Field mask to be applied on the patch of host.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // HostServiceInvalidateHostParams defines parameters for HostServiceInvalidateHost.
 type HostServiceInvalidateHostParams struct {
+	// Note user-provided reason for change or a freeform field
 	Note *string `form:"note,omitempty" json:"note,omitempty"`
 }
 
 // HostServiceGetHostsSummaryParams defines parameters for HostServiceGetHostsSummary.
 type HostServiceGetHostsSummaryParams struct {
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 }
 
 // InstanceServiceListInstancesParams defines parameters for InstanceServiceListInstances.
 type InstanceServiceListInstancesParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// InstanceServicePatchInstanceParams defines parameters for InstanceServicePatchInstance.
-type InstanceServicePatchInstanceParams struct {
-	// FieldMask Field mask to be applied on the patch of instance.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
 type LocalAccountServiceListLocalAccountsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // LocationServiceListLocationsParams defines parameters for LocationServiceListLocations.
@@ -1513,79 +5147,105 @@ type LocationServiceListLocationsParams struct {
 
 // OperatingSystemServiceListOperatingSystemsParams defines parameters for OperatingSystemServiceListOperatingSystems.
 type OperatingSystemServiceListOperatingSystemsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// OperatingSystemServicePatchOperatingSystemParams defines parameters for OperatingSystemServicePatchOperatingSystem.
-type OperatingSystemServicePatchOperatingSystemParams struct {
-	// FieldMask Field mask to be applied on the patch of os.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+// OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
+type OSUpdatePolicyListOSUpdatePolicyParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // ProviderServiceListProvidersParams defines parameters for ProviderServiceListProviders.
 type ProviderServiceListProvidersParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
 type RegionServiceListRegionsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
 	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
 	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
 }
 
-// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
-type RegionServicePatchRegionParams struct {
-	// FieldMask Field mask to be applied on the patch of region.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
-}
-
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
 type ScheduleServiceListSchedulesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// HostId The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
 	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
 
-	// SiteId The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
 	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
 
-	// RegionId The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target.
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 
 	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
@@ -1594,112 +5254,125 @@ type ScheduleServiceListSchedulesParams struct {
 
 // ScheduleServiceListRepeatedSchedulesParams defines parameters for ScheduleServiceListRepeatedSchedules.
 type ScheduleServiceListRepeatedSchedulesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// HostId The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
 	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
 
-	// SiteId The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
 	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
 
-	// RegionId The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target.
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 
 	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
 	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
-}
-
-// ScheduleServicePatchRepeatedScheduleParams defines parameters for ScheduleServicePatchRepeatedSchedule.
-type ScheduleServicePatchRepeatedScheduleParams struct {
-	// FieldMask Field mask to be applied on the patch of repeated_schedule.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // ScheduleServiceListSingleSchedulesParams defines parameters for ScheduleServiceListSingleSchedules.
 type ScheduleServiceListSingleSchedulesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// HostId The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target.
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
 	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
 
-	// SiteId The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
 	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
 
-	// RegionId The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target.
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 
 	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
 	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
 }
 
-// ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
-type ScheduleServicePatchSingleScheduleParams struct {
-	// FieldMask Field mask to be applied on the patch of single_schedule.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
-}
-
 // SiteServiceListSitesParams defines parameters for SiteServiceListSites.
 type SiteServiceListSitesParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
-type SiteServicePatchSiteParams struct {
-	// FieldMask Field mask to be applied on the patch of site.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
 type TelemetryLogsGroupServiceListTelemetryLogsGroupsParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 }
 
 // TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups.
 type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 }
 
 // TelemetryLogsProfileServiceListTelemetryLogsProfilesParams defines parameters for TelemetryLogsProfileServiceListTelemetryLogsProfiles.
 type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
 	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
@@ -1711,25 +5384,24 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 
-	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry profiles rendered from hierarchy. This flag is only used along with one of siteId, regionId or instanceId. If siteId, regionId or instanceId are not set, this flag is ignored.
+	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
 	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
-}
-
-// TelemetryLogsProfileServicePatchTelemetryLogsProfileParams defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile.
-type TelemetryLogsProfileServicePatchTelemetryLogsProfileParams struct {
-	// FieldMask Field mask to be applied on the patch of telemetry_logs_profile.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles.
 type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
 	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
@@ -1741,50 +5413,47 @@ type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 
-	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry profiles rendered from hierarchy. This flag is only used along with one of siteId, regionId or instanceId. If siteId, regionId or instanceId are not set, this flag is ignored.
+	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
 	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
-}
-
-// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile.
-type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
-	// FieldMask Field mask to be applied on the patch of telemetry_metrics_profile.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
 type WorkloadMemberServiceListWorkloadMembersParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
 type WorkloadServiceListWorkloadsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details.
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 
-	// Filter Optional filter to return only item of interest. See https://google.aip.dev/160 for details.
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 
-	// PageSize Defines the amount of items to be contained in a single page. Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// WorkloadServicePatchWorkloadParams defines parameters for WorkloadServicePatchWorkload.
-type WorkloadServicePatchWorkloadParams struct {
-	// FieldMask Field mask to be applied on the patch of workload.
-	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
@@ -1822,6 +5491,9 @@ type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystem
 
 // OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
+type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
@@ -1898,6 +5570,104 @@ type WorkloadServicePatchWorkloadJSONRequestBody = WorkloadResource
 // WorkloadServiceUpdateWorkloadJSONRequestBody defines body for WorkloadServiceUpdateWorkload for application/json ContentType.
 type WorkloadServiceUpdateWorkloadJSONRequestBody = WorkloadResource
 
+// Getter for additional properties for ConnectError. Returns the specified
+// element and whether it was found
+func (a ConnectError) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for ConnectError
+func (a *ConnectError) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for ConnectError to handle AdditionalProperties
+func (a *ConnectError) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["code"]; found {
+		err = json.Unmarshal(raw, &a.Code)
+		if err != nil {
+			return fmt.Errorf("error reading 'code': %w", err)
+		}
+		delete(object, "code")
+	}
+
+	if raw, found := object["detail"]; found {
+		err = json.Unmarshal(raw, &a.Detail)
+		if err != nil {
+			return fmt.Errorf("error reading 'detail': %w", err)
+		}
+		delete(object, "detail")
+	}
+
+	if raw, found := object["message"]; found {
+		err = json.Unmarshal(raw, &a.Message)
+		if err != nil {
+			return fmt.Errorf("error reading 'message': %w", err)
+		}
+		delete(object, "message")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return fmt.Errorf("error unmarshaling field %s: %w", fieldName, err)
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for ConnectError to handle AdditionalProperties
+func (a ConnectError) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Code != nil {
+		object["code"], err = json.Marshal(a.Code)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'code': %w", err)
+		}
+	}
+
+	if a.Detail != nil {
+		object["detail"], err = json.Marshal(a.Detail)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'detail': %w", err)
+		}
+	}
+
+	if a.Message != nil {
+		object["message"], err = json.Marshal(a.Message)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'message': %w", err)
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling '%s': %w", fieldName, err)
+		}
+	}
+	return json.Marshal(object)
+}
+
 // Getter for additional properties for GoogleProtobufAny. Returns the specified
 // element and whether it was found
 func (a GoogleProtobufAny) Get(fieldName string) (value interface{}, found bool) {
@@ -1923,12 +5693,28 @@ func (a *GoogleProtobufAny) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["@type"]; found {
+	if raw, found := object["debug"]; found {
+		err = json.Unmarshal(raw, &a.Debug)
+		if err != nil {
+			return fmt.Errorf("error reading 'debug': %w", err)
+		}
+		delete(object, "debug")
+	}
+
+	if raw, found := object["type"]; found {
 		err = json.Unmarshal(raw, &a.Type)
 		if err != nil {
-			return fmt.Errorf("error reading '@type': %w", err)
+			return fmt.Errorf("error reading 'type': %w", err)
 		}
-		delete(object, "@type")
+		delete(object, "type")
+	}
+
+	if raw, found := object["value"]; found {
+		err = json.Unmarshal(raw, &a.Value)
+		if err != nil {
+			return fmt.Errorf("error reading 'value': %w", err)
+		}
+		delete(object, "value")
 	}
 
 	if len(object) != 0 {
@@ -1950,10 +5736,24 @@ func (a GoogleProtobufAny) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Type != nil {
-		object["@type"], err = json.Marshal(a.Type)
+	if a.Debug != nil {
+		object["debug"], err = json.Marshal(a.Debug)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling '@type': %w", err)
+			return nil, fmt.Errorf("error marshaling 'debug': %w", err)
+		}
+	}
+
+	if a.Type != nil {
+		object["type"], err = json.Marshal(a.Type)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'type': %w", err)
+		}
+	}
+
+	if a.Value != nil {
+		object["value"], err = json.Marshal(a.Value)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'value': %w", err)
 		}
 	}
 

@@ -98,9 +98,9 @@ type ClientInterface interface {
 	HostServiceCreateHost(ctx context.Context, body HostServiceCreateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// HostServiceRegisterHostWithBody request with any body
-	HostServiceRegisterHostWithBody(ctx context.Context, params *HostServiceRegisterHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	HostServiceRegisterHostWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	HostServiceRegisterHost(ctx context.Context, params *HostServiceRegisterHostParams, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	HostServiceRegisterHost(ctx context.Context, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// HostServiceDeleteHost request
 	HostServiceDeleteHost(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -109,9 +109,9 @@ type ClientInterface interface {
 	HostServiceGetHost(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// HostServicePatchHostWithBody request with any body
-	HostServicePatchHostWithBody(ctx context.Context, resourceId string, params *HostServicePatchHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	HostServicePatchHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	HostServicePatchHost(ctx context.Context, resourceId string, params *HostServicePatchHostParams, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	HostServicePatchHost(ctx context.Context, resourceId string, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// HostServiceUpdateHostWithBody request with any body
 	HostServiceUpdateHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -147,9 +147,9 @@ type ClientInterface interface {
 	InstanceServiceGetInstance(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// InstanceServicePatchInstanceWithBody request with any body
-	InstanceServicePatchInstanceWithBody(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	InstanceServicePatchInstanceWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	InstanceServicePatchInstance(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	InstanceServicePatchInstance(ctx context.Context, resourceId string, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// InstanceServiceUpdateInstanceWithBody request with any body
 	InstanceServiceUpdateInstanceWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -191,14 +191,28 @@ type ClientInterface interface {
 	OperatingSystemServiceGetOperatingSystem(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// OperatingSystemServicePatchOperatingSystemWithBody request with any body
-	OperatingSystemServicePatchOperatingSystemWithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	OperatingSystemServicePatchOperatingSystemWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	OperatingSystemServicePatchOperatingSystem(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	OperatingSystemServicePatchOperatingSystem(ctx context.Context, resourceId string, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// OperatingSystemServiceUpdateOperatingSystemWithBody request with any body
 	OperatingSystemServiceUpdateOperatingSystemWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyListOSUpdatePolicy request
+	OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyCreateOSUpdatePolicyWithBody request with any body
+	OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyDeleteOSUpdatePolicy request
+	OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyGetOSUpdatePolicy request
+	OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ProviderServiceListProviders request
 	ProviderServiceListProviders(ctx context.Context, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -229,9 +243,9 @@ type ClientInterface interface {
 	RegionServiceGetRegion(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RegionServicePatchRegionWithBody request with any body
-	RegionServicePatchRegionWithBody(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegionServicePatchRegionWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	RegionServicePatchRegion(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	RegionServicePatchRegion(ctx context.Context, resourceId string, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RegionServiceUpdateRegionWithBody request with any body
 	RegionServiceUpdateRegionWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -256,9 +270,9 @@ type ClientInterface interface {
 	ScheduleServiceGetRepeatedSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ScheduleServicePatchRepeatedScheduleWithBody request with any body
-	ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	ScheduleServicePatchRepeatedSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScheduleServicePatchRepeatedSchedule(ctx context.Context, resourceId string, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ScheduleServiceUpdateRepeatedScheduleWithBody request with any body
 	ScheduleServiceUpdateRepeatedScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -280,9 +294,9 @@ type ClientInterface interface {
 	ScheduleServiceGetSingleSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ScheduleServicePatchSingleScheduleWithBody request with any body
-	ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	ScheduleServicePatchSingleSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	ScheduleServicePatchSingleSchedule(ctx context.Context, resourceId string, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ScheduleServiceUpdateSingleScheduleWithBody request with any body
 	ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -304,9 +318,9 @@ type ClientInterface interface {
 	SiteServiceGetSite(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServicePatchSiteWithBody request with any body
-	SiteServicePatchSiteWithBody(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServicePatchSiteWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SiteServicePatchSite(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServicePatchSite(ctx context.Context, resourceId string, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServiceUpdateSiteWithBody request with any body
 	SiteServiceUpdateSiteWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -356,9 +370,9 @@ type ClientInterface interface {
 	TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody request with any body
-	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, resourceId string, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody request with any body
 	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -380,9 +394,9 @@ type ClientInterface interface {
 	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody request with any body
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, resourceId string, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody request with any body
 	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -418,9 +432,9 @@ type ClientInterface interface {
 	WorkloadServiceGetWorkload(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// WorkloadServicePatchWorkloadWithBody request with any body
-	WorkloadServicePatchWorkloadWithBody(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	WorkloadServicePatchWorkloadWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	WorkloadServicePatchWorkload(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	WorkloadServicePatchWorkload(ctx context.Context, resourceId string, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// WorkloadServiceUpdateWorkloadWithBody request with any body
 	WorkloadServiceUpdateWorkloadWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -464,8 +478,8 @@ func (c *Client) HostServiceCreateHost(ctx context.Context, body HostServiceCrea
 	return c.Client.Do(req)
 }
 
-func (c *Client) HostServiceRegisterHostWithBody(ctx context.Context, params *HostServiceRegisterHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServiceRegisterHostRequestWithBody(c.Server, params, contentType, body)
+func (c *Client) HostServiceRegisterHostWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceRegisterHostRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -476,8 +490,8 @@ func (c *Client) HostServiceRegisterHostWithBody(ctx context.Context, params *Ho
 	return c.Client.Do(req)
 }
 
-func (c *Client) HostServiceRegisterHost(ctx context.Context, params *HostServiceRegisterHostParams, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServiceRegisterHostRequest(c.Server, params, body)
+func (c *Client) HostServiceRegisterHost(ctx context.Context, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceRegisterHostRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -512,8 +526,8 @@ func (c *Client) HostServiceGetHost(ctx context.Context, resourceId string, reqE
 	return c.Client.Do(req)
 }
 
-func (c *Client) HostServicePatchHostWithBody(ctx context.Context, resourceId string, params *HostServicePatchHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServicePatchHostRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) HostServicePatchHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchHostRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -524,8 +538,8 @@ func (c *Client) HostServicePatchHostWithBody(ctx context.Context, resourceId st
 	return c.Client.Do(req)
 }
 
-func (c *Client) HostServicePatchHost(ctx context.Context, resourceId string, params *HostServicePatchHostParams, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServicePatchHostRequest(c.Server, resourceId, params, body)
+func (c *Client) HostServicePatchHost(ctx context.Context, resourceId string, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchHostRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -680,8 +694,8 @@ func (c *Client) InstanceServiceGetInstance(ctx context.Context, resourceId stri
 	return c.Client.Do(req)
 }
 
-func (c *Client) InstanceServicePatchInstanceWithBody(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewInstanceServicePatchInstanceRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) InstanceServicePatchInstanceWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServicePatchInstanceRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -692,8 +706,8 @@ func (c *Client) InstanceServicePatchInstanceWithBody(ctx context.Context, resou
 	return c.Client.Do(req)
 }
 
-func (c *Client) InstanceServicePatchInstance(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewInstanceServicePatchInstanceRequest(c.Server, resourceId, params, body)
+func (c *Client) InstanceServicePatchInstance(ctx context.Context, resourceId string, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServicePatchInstanceRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -872,8 +886,8 @@ func (c *Client) OperatingSystemServiceGetOperatingSystem(ctx context.Context, r
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServicePatchOperatingSystemWithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServicePatchOperatingSystemRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) OperatingSystemServicePatchOperatingSystemWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystemRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -884,8 +898,8 @@ func (c *Client) OperatingSystemServicePatchOperatingSystemWithBody(ctx context.
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServicePatchOperatingSystem(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServicePatchOperatingSystemRequest(c.Server, resourceId, params, body)
+func (c *Client) OperatingSystemServicePatchOperatingSystem(ctx context.Context, resourceId string, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystemRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -910,6 +924,66 @@ func (c *Client) OperatingSystemServiceUpdateOperatingSystemWithBody(ctx context
 
 func (c *Client) OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewOperatingSystemServiceUpdateOperatingSystemRequest(c.Server, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyListOSUpdatePolicyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyCreateOSUpdatePolicyRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(c.Server, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyGetOSUpdatePolicyRequest(c.Server, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -1040,8 +1114,8 @@ func (c *Client) RegionServiceGetRegion(ctx context.Context, resourceId string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) RegionServicePatchRegionWithBody(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServicePatchRegionRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) RegionServicePatchRegionWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServicePatchRegionRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1052,8 +1126,8 @@ func (c *Client) RegionServicePatchRegionWithBody(ctx context.Context, resourceI
 	return c.Client.Do(req)
 }
 
-func (c *Client) RegionServicePatchRegion(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServicePatchRegionRequest(c.Server, resourceId, params, body)
+func (c *Client) RegionServicePatchRegion(ctx context.Context, resourceId string, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServicePatchRegionRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1160,8 +1234,8 @@ func (c *Client) ScheduleServiceGetRepeatedSchedule(ctx context.Context, resourc
 	return c.Client.Do(req)
 }
 
-func (c *Client) ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchRepeatedScheduleRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchRepeatedScheduleRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1172,8 +1246,8 @@ func (c *Client) ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Contex
 	return c.Client.Do(req)
 }
 
-func (c *Client) ScheduleServicePatchRepeatedSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchRepeatedScheduleRequest(c.Server, resourceId, params, body)
+func (c *Client) ScheduleServicePatchRepeatedSchedule(ctx context.Context, resourceId string, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchRepeatedScheduleRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1268,8 +1342,8 @@ func (c *Client) ScheduleServiceGetSingleSchedule(ctx context.Context, resourceI
 	return c.Client.Do(req)
 }
 
-func (c *Client) ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchSingleScheduleRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchSingleScheduleRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1280,8 +1354,8 @@ func (c *Client) ScheduleServicePatchSingleScheduleWithBody(ctx context.Context,
 	return c.Client.Do(req)
 }
 
-func (c *Client) ScheduleServicePatchSingleSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchSingleScheduleRequest(c.Server, resourceId, params, body)
+func (c *Client) ScheduleServicePatchSingleSchedule(ctx context.Context, resourceId string, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchSingleScheduleRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1376,8 +1450,8 @@ func (c *Client) SiteServiceGetSite(ctx context.Context, resourceId string, reqE
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServicePatchSiteWithBody(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServicePatchSiteRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) SiteServicePatchSiteWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSiteRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1388,8 +1462,8 @@ func (c *Client) SiteServicePatchSiteWithBody(ctx context.Context, resourceId st
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServicePatchSite(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServicePatchSiteRequest(c.Server, resourceId, params, body)
+func (c *Client) SiteServicePatchSite(ctx context.Context, resourceId string, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSiteRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1604,8 +1678,8 @@ func (c *Client) TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx context.
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1616,8 +1690,8 @@ func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ct
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(c.Server, resourceId, params, body)
+func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, resourceId string, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1712,8 +1786,8 @@ func (c *Client) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx co
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1724,8 +1798,8 @@ func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithB
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(c.Server, resourceId, params, body)
+func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, resourceId string, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1880,8 +1954,8 @@ func (c *Client) WorkloadServiceGetWorkload(ctx context.Context, resourceId stri
 	return c.Client.Do(req)
 }
 
-func (c *Client) WorkloadServicePatchWorkloadWithBody(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadServicePatchWorkloadRequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) WorkloadServicePatchWorkloadWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServicePatchWorkloadRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1892,8 +1966,8 @@ func (c *Client) WorkloadServicePatchWorkloadWithBody(ctx context.Context, resou
 	return c.Client.Do(req)
 }
 
-func (c *Client) WorkloadServicePatchWorkload(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadServicePatchWorkloadRequest(c.Server, resourceId, params, body)
+func (c *Client) WorkloadServicePatchWorkload(ctx context.Context, resourceId string, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServicePatchWorkloadRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2066,18 +2140,18 @@ func NewHostServiceCreateHostRequestWithBody(server string, contentType string, 
 }
 
 // NewHostServiceRegisterHostRequest calls the generic HostServiceRegisterHost builder with application/json body
-func NewHostServiceRegisterHostRequest(server string, params *HostServiceRegisterHostParams, body HostServiceRegisterHostJSONRequestBody) (*http.Request, error) {
+func NewHostServiceRegisterHostRequest(server string, body HostServiceRegisterHostJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewHostServiceRegisterHostRequestWithBody(server, params, "application/json", bodyReader)
+	return NewHostServiceRegisterHostRequestWithBody(server, "application/json", bodyReader)
 }
 
 // NewHostServiceRegisterHostRequestWithBody generates requests for HostServiceRegisterHost with any type of body
-func NewHostServiceRegisterHostRequestWithBody(server string, params *HostServiceRegisterHostParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewHostServiceRegisterHostRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -2093,28 +2167,6 @@ func NewHostServiceRegisterHostRequestWithBody(server string, params *HostServic
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.ResourceId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "resourceId", runtime.ParamLocationQuery, *params.ResourceId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("POST", queryURL.String(), body)
@@ -2133,7 +2185,7 @@ func NewHostServiceDeleteHostRequest(server string, resourceId string) (*http.Re
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2167,7 +2219,7 @@ func NewHostServiceGetHostRequest(server string, resourceId string) (*http.Reque
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2196,23 +2248,23 @@ func NewHostServiceGetHostRequest(server string, resourceId string) (*http.Reque
 }
 
 // NewHostServicePatchHostRequest calls the generic HostServicePatchHost builder with application/json body
-func NewHostServicePatchHostRequest(server string, resourceId string, params *HostServicePatchHostParams, body HostServicePatchHostJSONRequestBody) (*http.Request, error) {
+func NewHostServicePatchHostRequest(server string, resourceId string, body HostServicePatchHostJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewHostServicePatchHostRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewHostServicePatchHostRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewHostServicePatchHostRequestWithBody generates requests for HostServicePatchHost with any type of body
-func NewHostServicePatchHostRequestWithBody(server string, resourceId string, params *HostServicePatchHostParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewHostServicePatchHostRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2230,28 +2282,6 @@ func NewHostServicePatchHostRequestWithBody(server string, resourceId string, pa
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -2281,7 +2311,7 @@ func NewHostServiceUpdateHostRequestWithBody(server string, resourceId string, c
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2317,7 +2347,7 @@ func NewHostServiceInvalidateHostRequest(server string, resourceId string, param
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2373,7 +2403,7 @@ func NewHostServiceOnboardHostRequest(server string, resourceId string) (*http.R
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2418,7 +2448,7 @@ func NewHostServiceRegisterUpdateHostRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2640,7 +2670,7 @@ func NewInstanceServiceDeleteInstanceRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2674,7 +2704,7 @@ func NewInstanceServiceGetInstanceRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2703,23 +2733,23 @@ func NewInstanceServiceGetInstanceRequest(server string, resourceId string) (*ht
 }
 
 // NewInstanceServicePatchInstanceRequest calls the generic InstanceServicePatchInstance builder with application/json body
-func NewInstanceServicePatchInstanceRequest(server string, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody) (*http.Request, error) {
+func NewInstanceServicePatchInstanceRequest(server string, resourceId string, body InstanceServicePatchInstanceJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewInstanceServicePatchInstanceRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewInstanceServicePatchInstanceRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewInstanceServicePatchInstanceRequestWithBody generates requests for InstanceServicePatchInstance with any type of body
-func NewInstanceServicePatchInstanceRequestWithBody(server string, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewInstanceServicePatchInstanceRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2737,28 +2767,6 @@ func NewInstanceServicePatchInstanceRequestWithBody(server string, resourceId st
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -2788,7 +2796,7 @@ func NewInstanceServiceUpdateInstanceRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2824,7 +2832,7 @@ func NewInstanceServiceInvalidateInstanceRequest(server string, resourceId strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2995,7 +3003,7 @@ func NewLocalAccountServiceDeleteLocalAccountRequest(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3029,7 +3037,7 @@ func NewLocalAccountServiceGetLocalAccountRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3281,7 +3289,7 @@ func NewOperatingSystemServiceDeleteOperatingSystemRequest(server string, resour
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3315,7 +3323,7 @@ func NewOperatingSystemServiceGetOperatingSystemRequest(server string, resourceI
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3344,23 +3352,23 @@ func NewOperatingSystemServiceGetOperatingSystemRequest(server string, resourceI
 }
 
 // NewOperatingSystemServicePatchOperatingSystemRequest calls the generic OperatingSystemServicePatchOperatingSystem builder with application/json body
-func NewOperatingSystemServicePatchOperatingSystemRequest(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, body OperatingSystemServicePatchOperatingSystemJSONRequestBody) (*http.Request, error) {
+func NewOperatingSystemServicePatchOperatingSystemRequest(server string, resourceId string, body OperatingSystemServicePatchOperatingSystemJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewOperatingSystemServicePatchOperatingSystemRequestWithBody generates requests for OperatingSystemServicePatchOperatingSystem with any type of body
-func NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3378,28 +3386,6 @@ func NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server string,
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -3429,7 +3415,7 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3455,6 +3441,211 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyListOSUpdatePolicyRequest generates requests for OSUpdatePolicyListOSUpdatePolicy
+func NewOSUpdatePolicyListOSUpdatePolicyRequest(server string, params *OSUpdatePolicyListOSUpdatePolicyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyCreateOSUpdatePolicyRequest calls the generic OSUpdatePolicyCreateOSUpdatePolicy builder with application/json body
+func NewOSUpdatePolicyCreateOSUpdatePolicyRequest(server string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody generates requests for OSUpdatePolicyCreateOSUpdatePolicy with any type of body
+func NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyDeleteOSUpdatePolicyRequest generates requests for OSUpdatePolicyDeleteOSUpdatePolicy
+func NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(server string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyGetOSUpdatePolicyRequest generates requests for OSUpdatePolicyGetOSUpdatePolicy
+func NewOSUpdatePolicyGetOSUpdatePolicyRequest(server string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	return req, nil
 }
@@ -3602,7 +3793,7 @@ func NewProviderServiceDeleteProviderRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3636,7 +3827,7 @@ func NewProviderServiceGetProviderRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3823,7 +4014,7 @@ func NewRegionServiceDeleteRegionRequest(server string, resourceId string) (*htt
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3857,7 +4048,7 @@ func NewRegionServiceGetRegionRequest(server string, resourceId string) (*http.R
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3886,23 +4077,23 @@ func NewRegionServiceGetRegionRequest(server string, resourceId string) (*http.R
 }
 
 // NewRegionServicePatchRegionRequest calls the generic RegionServicePatchRegion builder with application/json body
-func NewRegionServicePatchRegionRequest(server string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody) (*http.Request, error) {
+func NewRegionServicePatchRegionRequest(server string, resourceId string, body RegionServicePatchRegionJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewRegionServicePatchRegionRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewRegionServicePatchRegionRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewRegionServicePatchRegionRequestWithBody generates requests for RegionServicePatchRegion with any type of body
-func NewRegionServicePatchRegionRequestWithBody(server string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewRegionServicePatchRegionRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3920,28 +4111,6 @@ func NewRegionServicePatchRegionRequestWithBody(server string, resourceId string
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -3971,7 +4140,7 @@ func NewRegionServiceUpdateRegionRequestWithBody(server string, resourceId strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4305,7 +4474,7 @@ func NewScheduleServiceDeleteRepeatedScheduleRequest(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4339,7 +4508,7 @@ func NewScheduleServiceGetRepeatedScheduleRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4368,23 +4537,23 @@ func NewScheduleServiceGetRepeatedScheduleRequest(server string, resourceId stri
 }
 
 // NewScheduleServicePatchRepeatedScheduleRequest calls the generic ScheduleServicePatchRepeatedSchedule builder with application/json body
-func NewScheduleServicePatchRepeatedScheduleRequest(server string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody) (*http.Request, error) {
+func NewScheduleServicePatchRepeatedScheduleRequest(server string, resourceId string, body ScheduleServicePatchRepeatedScheduleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServicePatchRepeatedScheduleRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewScheduleServicePatchRepeatedScheduleRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewScheduleServicePatchRepeatedScheduleRequestWithBody generates requests for ScheduleServicePatchRepeatedSchedule with any type of body
-func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4402,28 +4571,6 @@ func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, resou
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -4453,7 +4600,7 @@ func NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server string, reso
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4658,7 +4805,7 @@ func NewScheduleServiceDeleteSingleScheduleRequest(server string, resourceId str
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4692,7 +4839,7 @@ func NewScheduleServiceGetSingleScheduleRequest(server string, resourceId string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4721,23 +4868,23 @@ func NewScheduleServiceGetSingleScheduleRequest(server string, resourceId string
 }
 
 // NewScheduleServicePatchSingleScheduleRequest calls the generic ScheduleServicePatchSingleSchedule builder with application/json body
-func NewScheduleServicePatchSingleScheduleRequest(server string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody) (*http.Request, error) {
+func NewScheduleServicePatchSingleScheduleRequest(server string, resourceId string, body ScheduleServicePatchSingleScheduleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServicePatchSingleScheduleRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewScheduleServicePatchSingleScheduleRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewScheduleServicePatchSingleScheduleRequestWithBody generates requests for ScheduleServicePatchSingleSchedule with any type of body
-func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4755,28 +4902,6 @@ func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, resourc
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -4806,7 +4931,7 @@ func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, resour
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4979,7 +5104,7 @@ func NewSiteServiceDeleteSiteRequest(server string, resourceId string) (*http.Re
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5013,7 +5138,7 @@ func NewSiteServiceGetSiteRequest(server string, resourceId string) (*http.Reque
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5042,23 +5167,23 @@ func NewSiteServiceGetSiteRequest(server string, resourceId string) (*http.Reque
 }
 
 // NewSiteServicePatchSiteRequest calls the generic SiteServicePatchSite builder with application/json body
-func NewSiteServicePatchSiteRequest(server string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody) (*http.Request, error) {
+func NewSiteServicePatchSiteRequest(server string, resourceId string, body SiteServicePatchSiteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSiteServicePatchSiteRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewSiteServicePatchSiteRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewSiteServicePatchSiteRequestWithBody generates requests for SiteServicePatchSite with any type of body
-func NewSiteServicePatchSiteRequestWithBody(server string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewSiteServicePatchSiteRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5076,28 +5201,6 @@ func NewSiteServicePatchSiteRequestWithBody(server string, resourceId string, pa
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -5127,7 +5230,7 @@ func NewSiteServiceUpdateSiteRequestWithBody(server string, resourceId string, c
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5284,7 +5387,7 @@ func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(server string, 
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5318,7 +5421,7 @@ func NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(server string, res
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5473,7 +5576,7 @@ func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(server st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5507,7 +5610,7 @@ func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(server strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5726,7 +5829,7 @@ func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(server stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5760,7 +5863,7 @@ func NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(server string,
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5789,23 +5892,23 @@ func NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(server string,
 }
 
 // NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServicePatchTelemetryLogsProfile builder with application/json body
-func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(server string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
+func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(server string, resourceId string, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServicePatchTelemetryLogsProfile with any type of body
-func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5823,28 +5926,6 @@ func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(serv
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -5874,7 +5955,7 @@ func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(ser
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6095,7 +6176,7 @@ func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(serve
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6129,7 +6210,7 @@ func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(server s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6158,23 +6239,23 @@ func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(server s
 }
 
 // NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServicePatchTelemetryMetricsProfile builder with application/json body
-func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(server string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
+func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(server string, resourceId string, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile with any type of body
-func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6192,28 +6273,6 @@ func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBod
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -6243,7 +6302,7 @@ func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBo
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6416,7 +6475,7 @@ func NewWorkloadMemberServiceDeleteWorkloadMemberRequest(server string, resource
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6450,7 +6509,7 @@ func NewWorkloadMemberServiceGetWorkloadMemberRequest(server string, resourceId 
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6621,7 +6680,7 @@ func NewWorkloadServiceDeleteWorkloadRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6655,7 +6714,7 @@ func NewWorkloadServiceGetWorkloadRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6684,23 +6743,23 @@ func NewWorkloadServiceGetWorkloadRequest(server string, resourceId string) (*ht
 }
 
 // NewWorkloadServicePatchWorkloadRequest calls the generic WorkloadServicePatchWorkload builder with application/json body
-func NewWorkloadServicePatchWorkloadRequest(server string, resourceId string, params *WorkloadServicePatchWorkloadParams, body WorkloadServicePatchWorkloadJSONRequestBody) (*http.Request, error) {
+func NewWorkloadServicePatchWorkloadRequest(server string, resourceId string, body WorkloadServicePatchWorkloadJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewWorkloadServicePatchWorkloadRequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewWorkloadServicePatchWorkloadRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
 // NewWorkloadServicePatchWorkloadRequestWithBody generates requests for WorkloadServicePatchWorkload with any type of body
-func NewWorkloadServicePatchWorkloadRequestWithBody(server string, resourceId string, params *WorkloadServicePatchWorkloadParams, contentType string, body io.Reader) (*http.Request, error) {
+func NewWorkloadServicePatchWorkloadRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6718,28 +6777,6 @@ func NewWorkloadServicePatchWorkloadRequestWithBody(server string, resourceId st
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMask != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PATCH", queryURL.String(), body)
@@ -6769,7 +6806,7 @@ func NewWorkloadServiceUpdateWorkloadRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6851,9 +6888,9 @@ type ClientWithResponsesInterface interface {
 	HostServiceCreateHostWithResponse(ctx context.Context, body HostServiceCreateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceCreateHostResponse, error)
 
 	// HostServiceRegisterHostWithBodyWithResponse request with any body
-	HostServiceRegisterHostWithBodyWithResponse(ctx context.Context, params *HostServiceRegisterHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error)
+	HostServiceRegisterHostWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error)
 
-	HostServiceRegisterHostWithResponse(ctx context.Context, params *HostServiceRegisterHostParams, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error)
+	HostServiceRegisterHostWithResponse(ctx context.Context, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error)
 
 	// HostServiceDeleteHostWithResponse request
 	HostServiceDeleteHostWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*HostServiceDeleteHostResponse, error)
@@ -6862,9 +6899,9 @@ type ClientWithResponsesInterface interface {
 	HostServiceGetHostWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*HostServiceGetHostResponse, error)
 
 	// HostServicePatchHostWithBodyWithResponse request with any body
-	HostServicePatchHostWithBodyWithResponse(ctx context.Context, resourceId string, params *HostServicePatchHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error)
+	HostServicePatchHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error)
 
-	HostServicePatchHostWithResponse(ctx context.Context, resourceId string, params *HostServicePatchHostParams, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error)
+	HostServicePatchHostWithResponse(ctx context.Context, resourceId string, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error)
 
 	// HostServiceUpdateHostWithBodyWithResponse request with any body
 	HostServiceUpdateHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceUpdateHostResponse, error)
@@ -6900,9 +6937,9 @@ type ClientWithResponsesInterface interface {
 	InstanceServiceGetInstanceWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*InstanceServiceGetInstanceResponse, error)
 
 	// InstanceServicePatchInstanceWithBodyWithResponse request with any body
-	InstanceServicePatchInstanceWithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error)
+	InstanceServicePatchInstanceWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error)
 
-	InstanceServicePatchInstanceWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error)
+	InstanceServicePatchInstanceWithResponse(ctx context.Context, resourceId string, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error)
 
 	// InstanceServiceUpdateInstanceWithBodyWithResponse request with any body
 	InstanceServiceUpdateInstanceWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstanceResponse, error)
@@ -6944,14 +6981,28 @@ type ClientWithResponsesInterface interface {
 	OperatingSystemServiceGetOperatingSystemWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystemResponse, error)
 
 	// OperatingSystemServicePatchOperatingSystemWithBodyWithResponse request with any body
-	OperatingSystemServicePatchOperatingSystemWithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error)
+	OperatingSystemServicePatchOperatingSystemWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error)
 
-	OperatingSystemServicePatchOperatingSystemWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error)
+	OperatingSystemServicePatchOperatingSystemWithResponse(ctx context.Context, resourceId string, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error)
 
 	// OperatingSystemServiceUpdateOperatingSystemWithBodyWithResponse request with any body
 	OperatingSystemServiceUpdateOperatingSystemWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
 
 	OperatingSystemServiceUpdateOperatingSystemWithResponse(ctx context.Context, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
+
+	// OSUpdatePolicyListOSUpdatePolicyWithResponse request
+	OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error)
+
+	// OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse request with any body
+	OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
+
+	OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
+
+	// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request
+	OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error)
+
+	// OSUpdatePolicyGetOSUpdatePolicyWithResponse request
+	OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error)
 
 	// ProviderServiceListProvidersWithResponse request
 	ProviderServiceListProvidersWithResponse(ctx context.Context, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*ProviderServiceListProvidersResponse, error)
@@ -6982,9 +7033,9 @@ type ClientWithResponsesInterface interface {
 	RegionServiceGetRegionWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceGetRegionResponse, error)
 
 	// RegionServicePatchRegionWithBodyWithResponse request with any body
-	RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
+	RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
 
-	RegionServicePatchRegionWithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
+	RegionServicePatchRegionWithResponse(ctx context.Context, resourceId string, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
 
 	// RegionServiceUpdateRegionWithBodyWithResponse request with any body
 	RegionServiceUpdateRegionWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error)
@@ -7009,9 +7060,9 @@ type ClientWithResponsesInterface interface {
 	ScheduleServiceGetRepeatedScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedScheduleResponse, error)
 
 	// ScheduleServicePatchRepeatedScheduleWithBodyWithResponse request with any body
-	ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
+	ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
 
-	ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
+	ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
 
 	// ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse request with any body
 	ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error)
@@ -7033,9 +7084,9 @@ type ClientWithResponsesInterface interface {
 	ScheduleServiceGetSingleScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleScheduleResponse, error)
 
 	// ScheduleServicePatchSingleScheduleWithBodyWithResponse request with any body
-	ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
+	ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
 
-	ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
+	ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
 
 	// ScheduleServiceUpdateSingleScheduleWithBodyWithResponse request with any body
 	ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
@@ -7057,9 +7108,9 @@ type ClientWithResponsesInterface interface {
 	SiteServiceGetSiteWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error)
 
 	// SiteServicePatchSiteWithBodyWithResponse request with any body
-	SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
+	SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
 
-	SiteServicePatchSiteWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
+	SiteServicePatchSiteWithResponse(ctx context.Context, resourceId string, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
 
 	// SiteServiceUpdateSiteWithBodyWithResponse request with any body
 	SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
@@ -7109,9 +7160,9 @@ type ClientWithResponsesInterface interface {
 	TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error)
 
 	// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse request with any body
-	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
+	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
 
-	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
+	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
 
 	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse request with any body
 	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error)
@@ -7133,9 +7184,9 @@ type ClientWithResponsesInterface interface {
 	TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error)
 
 	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse request with any body
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
 
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
 
 	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse request with any body
 	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error)
@@ -7171,9 +7222,9 @@ type ClientWithResponsesInterface interface {
 	WorkloadServiceGetWorkloadWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadServiceGetWorkloadResponse, error)
 
 	// WorkloadServicePatchWorkloadWithBodyWithResponse request with any body
-	WorkloadServicePatchWorkloadWithBodyWithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error)
+	WorkloadServicePatchWorkloadWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error)
 
-	WorkloadServicePatchWorkloadWithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error)
+	WorkloadServicePatchWorkloadWithResponse(ctx context.Context, resourceId string, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error)
 
 	// WorkloadServiceUpdateWorkloadWithBodyWithResponse request with any body
 	WorkloadServiceUpdateWorkloadWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
@@ -7185,7 +7236,7 @@ type HostServiceListHostsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListHostsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7208,7 +7259,7 @@ type HostServiceCreateHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7231,7 +7282,7 @@ type HostServiceRegisterHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7254,7 +7305,7 @@ type HostServiceDeleteHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteHostResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7277,7 +7328,7 @@ type HostServiceGetHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7300,7 +7351,7 @@ type HostServicePatchHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7323,7 +7374,7 @@ type HostServiceUpdateHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7346,7 +7397,7 @@ type HostServiceInvalidateHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *InvalidateHostResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7369,7 +7420,7 @@ type HostServiceOnboardHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OnboardHostResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7392,7 +7443,7 @@ type HostServiceRegisterUpdateHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7415,7 +7466,7 @@ type HostServiceGetHostsSummaryResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *GetHostSummaryResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7438,7 +7489,7 @@ type InstanceServiceListInstancesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListInstancesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7461,7 +7512,7 @@ type InstanceServiceCreateInstanceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *InstanceResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7484,7 +7535,7 @@ type InstanceServiceDeleteInstanceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteInstanceResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7507,7 +7558,7 @@ type InstanceServiceGetInstanceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *InstanceResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7530,7 +7581,7 @@ type InstanceServicePatchInstanceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *InstanceResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7553,7 +7604,7 @@ type InstanceServiceUpdateInstanceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *InstanceResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7576,7 +7627,7 @@ type InstanceServiceInvalidateInstanceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *InvalidateInstanceResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7599,7 +7650,7 @@ type LocalAccountServiceListLocalAccountsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListLocalAccountsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7622,7 +7673,7 @@ type LocalAccountServiceCreateLocalAccountResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *LocalAccountResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7645,7 +7696,7 @@ type LocalAccountServiceDeleteLocalAccountResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteLocalAccountResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7668,7 +7719,7 @@ type LocalAccountServiceGetLocalAccountResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *LocalAccountResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7691,7 +7742,7 @@ type LocationServiceListLocationsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListLocationsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7714,7 +7765,7 @@ type OperatingSystemServiceListOperatingSystemsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListOperatingSystemsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7737,7 +7788,7 @@ type OperatingSystemServiceCreateOperatingSystemResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7760,7 +7811,7 @@ type OperatingSystemServiceDeleteOperatingSystemResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteOperatingSystemResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7783,7 +7834,7 @@ type OperatingSystemServiceGetOperatingSystemResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7806,7 +7857,7 @@ type OperatingSystemServicePatchOperatingSystemResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7829,7 +7880,7 @@ type OperatingSystemServiceUpdateOperatingSystemResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7848,11 +7899,103 @@ func (r OperatingSystemServiceUpdateOperatingSystemResponse) StatusCode() int {
 	return 0
 }
 
+type OSUpdatePolicyListOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOSUpdatePolicyResponse
+	JSONDefault  *ConnectError
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyListOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyListOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyCreateOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+	JSONDefault  *ConnectError
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyDeleteOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+	JSONDefault  *ConnectError
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyGetOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+	JSONDefault  *ConnectError
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyGetOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyGetOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type ProviderServiceListProvidersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListProvidersResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7875,7 +8018,7 @@ type ProviderServiceCreateProviderResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProviderResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7898,7 +8041,7 @@ type ProviderServiceDeleteProviderResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteProviderResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7921,7 +8064,7 @@ type ProviderServiceGetProviderResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ProviderResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7944,7 +8087,7 @@ type RegionServiceListRegionsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListRegionsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7967,7 +8110,7 @@ type RegionServiceCreateRegionResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RegionResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7990,7 +8133,7 @@ type RegionServiceDeleteRegionResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteRegionResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8013,7 +8156,7 @@ type RegionServiceGetRegionResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RegionResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8036,7 +8179,7 @@ type RegionServicePatchRegionResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RegionResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8059,7 +8202,7 @@ type RegionServiceUpdateRegionResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RegionResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8082,7 +8225,7 @@ type ScheduleServiceListSchedulesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListSchedulesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8105,7 +8248,7 @@ type ScheduleServiceListRepeatedSchedulesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListRepeatedSchedulesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8128,7 +8271,7 @@ type ScheduleServiceCreateRepeatedScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RepeatedScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8151,7 +8294,7 @@ type ScheduleServiceDeleteRepeatedScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteRepeatedScheduleResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8174,7 +8317,7 @@ type ScheduleServiceGetRepeatedScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RepeatedScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8197,7 +8340,7 @@ type ScheduleServicePatchRepeatedScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RepeatedScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8220,7 +8363,7 @@ type ScheduleServiceUpdateRepeatedScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *RepeatedScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8243,7 +8386,7 @@ type ScheduleServiceListSingleSchedulesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListSingleSchedulesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8266,7 +8409,7 @@ type ScheduleServiceCreateSingleScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SingleScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8289,7 +8432,7 @@ type ScheduleServiceDeleteSingleScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteSingleScheduleResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8312,7 +8455,7 @@ type ScheduleServiceGetSingleScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SingleScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8335,7 +8478,7 @@ type ScheduleServicePatchSingleScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SingleScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8358,7 +8501,7 @@ type ScheduleServiceUpdateSingleScheduleResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SingleScheduleResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8381,7 +8524,7 @@ type SiteServiceListSitesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListSitesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8404,7 +8547,7 @@ type SiteServiceCreateSiteResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8427,7 +8570,7 @@ type SiteServiceDeleteSiteResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteSiteResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8450,7 +8593,7 @@ type SiteServiceGetSiteResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8473,7 +8616,7 @@ type SiteServicePatchSiteResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8496,7 +8639,7 @@ type SiteServiceUpdateSiteResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8519,7 +8662,7 @@ type TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListTelemetryLogsGroupsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8542,7 +8685,7 @@ type TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsGroupResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8565,7 +8708,7 @@ type TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteTelemetryLogsGroupResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8588,7 +8731,7 @@ type TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsGroupResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8611,7 +8754,7 @@ type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListTelemetryMetricsGroupsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8634,7 +8777,7 @@ type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsGroupResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8657,7 +8800,7 @@ type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteTelemetryMetricsGroupResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8680,7 +8823,7 @@ type TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsGroupResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8703,7 +8846,7 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListTelemetryLogsProfilesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8726,7 +8869,7 @@ type TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8749,7 +8892,7 @@ type TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteTelemetryLogsProfileResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8772,7 +8915,7 @@ type TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8795,7 +8938,7 @@ type TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8818,7 +8961,7 @@ type TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8841,7 +8984,7 @@ type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListTelemetryMetricsProfilesResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8864,7 +9007,7 @@ type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse struct 
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8887,7 +9030,7 @@ type TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse struct 
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteTelemetryMetricsProfileResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8910,7 +9053,7 @@ type TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8933,7 +9076,7 @@ type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8956,7 +9099,7 @@ type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse struct 
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsProfileResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -8979,7 +9122,7 @@ type WorkloadMemberServiceListWorkloadMembersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListWorkloadMembersResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9002,7 +9145,7 @@ type WorkloadMemberServiceCreateWorkloadMemberResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *WorkloadMember
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9025,7 +9168,7 @@ type WorkloadMemberServiceDeleteWorkloadMemberResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteWorkloadMemberResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9048,7 +9191,7 @@ type WorkloadMemberServiceGetWorkloadMemberResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *WorkloadMember
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9071,7 +9214,7 @@ type WorkloadServiceListWorkloadsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListWorkloadsResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9094,7 +9237,7 @@ type WorkloadServiceCreateWorkloadResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *WorkloadResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9117,7 +9260,7 @@ type WorkloadServiceDeleteWorkloadResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteWorkloadResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9140,7 +9283,7 @@ type WorkloadServiceGetWorkloadResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *WorkloadResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9163,7 +9306,7 @@ type WorkloadServicePatchWorkloadResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *WorkloadResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9186,7 +9329,7 @@ type WorkloadServiceUpdateWorkloadResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *WorkloadResource
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -9232,16 +9375,16 @@ func (c *ClientWithResponses) HostServiceCreateHostWithResponse(ctx context.Cont
 }
 
 // HostServiceRegisterHostWithBodyWithResponse request with arbitrary body returning *HostServiceRegisterHostResponse
-func (c *ClientWithResponses) HostServiceRegisterHostWithBodyWithResponse(ctx context.Context, params *HostServiceRegisterHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error) {
-	rsp, err := c.HostServiceRegisterHostWithBody(ctx, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) HostServiceRegisterHostWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error) {
+	rsp, err := c.HostServiceRegisterHostWithBody(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseHostServiceRegisterHostResponse(rsp)
 }
 
-func (c *ClientWithResponses) HostServiceRegisterHostWithResponse(ctx context.Context, params *HostServiceRegisterHostParams, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error) {
-	rsp, err := c.HostServiceRegisterHost(ctx, params, body, reqEditors...)
+func (c *ClientWithResponses) HostServiceRegisterHostWithResponse(ctx context.Context, body HostServiceRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterHostResponse, error) {
+	rsp, err := c.HostServiceRegisterHost(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9267,16 +9410,16 @@ func (c *ClientWithResponses) HostServiceGetHostWithResponse(ctx context.Context
 }
 
 // HostServicePatchHostWithBodyWithResponse request with arbitrary body returning *HostServicePatchHostResponse
-func (c *ClientWithResponses) HostServicePatchHostWithBodyWithResponse(ctx context.Context, resourceId string, params *HostServicePatchHostParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error) {
-	rsp, err := c.HostServicePatchHostWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) HostServicePatchHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error) {
+	rsp, err := c.HostServicePatchHostWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseHostServicePatchHostResponse(rsp)
 }
 
-func (c *ClientWithResponses) HostServicePatchHostWithResponse(ctx context.Context, resourceId string, params *HostServicePatchHostParams, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error) {
-	rsp, err := c.HostServicePatchHost(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) HostServicePatchHostWithResponse(ctx context.Context, resourceId string, body HostServicePatchHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchHostResponse, error) {
+	rsp, err := c.HostServicePatchHost(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9389,16 +9532,16 @@ func (c *ClientWithResponses) InstanceServiceGetInstanceWithResponse(ctx context
 }
 
 // InstanceServicePatchInstanceWithBodyWithResponse request with arbitrary body returning *InstanceServicePatchInstanceResponse
-func (c *ClientWithResponses) InstanceServicePatchInstanceWithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error) {
-	rsp, err := c.InstanceServicePatchInstanceWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) InstanceServicePatchInstanceWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error) {
+	rsp, err := c.InstanceServicePatchInstanceWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseInstanceServicePatchInstanceResponse(rsp)
 }
 
-func (c *ClientWithResponses) InstanceServicePatchInstanceWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstanceParams, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error) {
-	rsp, err := c.InstanceServicePatchInstance(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) InstanceServicePatchInstanceWithResponse(ctx context.Context, resourceId string, body InstanceServicePatchInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstanceResponse, error) {
+	rsp, err := c.InstanceServicePatchInstance(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9529,16 +9672,16 @@ func (c *ClientWithResponses) OperatingSystemServiceGetOperatingSystemWithRespon
 }
 
 // OperatingSystemServicePatchOperatingSystemWithBodyWithResponse request with arbitrary body returning *OperatingSystemServicePatchOperatingSystemResponse
-func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystemWithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error) {
-	rsp, err := c.OperatingSystemServicePatchOperatingSystemWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystemWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystemWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseOperatingSystemServicePatchOperatingSystemResponse(rsp)
 }
 
-func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystemWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystemParams, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error) {
-	rsp, err := c.OperatingSystemServicePatchOperatingSystem(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystemWithResponse(ctx context.Context, resourceId string, body OperatingSystemServicePatchOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystemResponse, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9560,6 +9703,50 @@ func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystemWithRes
 		return nil, err
 	}
 	return ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp)
+}
+
+// OSUpdatePolicyListOSUpdatePolicyWithResponse request returning *OSUpdatePolicyListOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyListOSUpdatePolicy(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse request with arbitrary body returning *OSUpdatePolicyCreateOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
+}
+
+func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicy(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request returning *OSUpdatePolicyDeleteOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyDeleteOSUpdatePolicy(ctx, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdatePolicyGetOSUpdatePolicyWithResponse request returning *OSUpdatePolicyGetOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyGetOSUpdatePolicy(ctx, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp)
 }
 
 // ProviderServiceListProvidersWithResponse request returning *ProviderServiceListProvidersResponse
@@ -9651,16 +9838,16 @@ func (c *ClientWithResponses) RegionServiceGetRegionWithResponse(ctx context.Con
 }
 
 // RegionServicePatchRegionWithBodyWithResponse request with arbitrary body returning *RegionServicePatchRegionResponse
-func (c *ClientWithResponses) RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
-	rsp, err := c.RegionServicePatchRegionWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
+	rsp, err := c.RegionServicePatchRegionWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseRegionServicePatchRegionResponse(rsp)
 }
 
-func (c *ClientWithResponses) RegionServicePatchRegionWithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
-	rsp, err := c.RegionServicePatchRegion(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) RegionServicePatchRegionWithResponse(ctx context.Context, resourceId string, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
+	rsp, err := c.RegionServicePatchRegion(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9738,16 +9925,16 @@ func (c *ClientWithResponses) ScheduleServiceGetRepeatedScheduleWithResponse(ctx
 }
 
 // ScheduleServicePatchRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchRepeatedScheduleResponse
-func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchRepeatedScheduleWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchRepeatedScheduleWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseScheduleServicePatchRepeatedScheduleResponse(rsp)
 }
 
-func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchRepeatedSchedule(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchRepeatedSchedule(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9816,16 +10003,16 @@ func (c *ClientWithResponses) ScheduleServiceGetSingleScheduleWithResponse(ctx c
 }
 
 // ScheduleServicePatchSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchSingleScheduleResponse
-func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchSingleScheduleWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchSingleScheduleWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseScheduleServicePatchSingleScheduleResponse(rsp)
 }
 
-func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchSingleSchedule(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchSingleSchedule(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -9894,16 +10081,16 @@ func (c *ClientWithResponses) SiteServiceGetSiteWithResponse(ctx context.Context
 }
 
 // SiteServicePatchSiteWithBodyWithResponse request with arbitrary body returning *SiteServicePatchSiteResponse
-func (c *ClientWithResponses) SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
-	rsp, err := c.SiteServicePatchSiteWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
+	rsp, err := c.SiteServicePatchSiteWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseSiteServicePatchSiteResponse(rsp)
 }
 
-func (c *ClientWithResponses) SiteServicePatchSiteWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
-	rsp, err := c.SiteServicePatchSite(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) SiteServicePatchSiteWithResponse(ctx context.Context, resourceId string, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
+	rsp, err := c.SiteServicePatchSite(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -10060,16 +10247,16 @@ func (c *ClientWithResponses) TelemetryLogsProfileServiceGetTelemetryLogsProfile
 }
 
 // TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp)
 }
 
-func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -10138,16 +10325,16 @@ func (c *ClientWithResponses) TelemetryMetricsProfileServiceGetTelemetryMetricsP
 }
 
 // TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp)
 }
 
-func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -10260,16 +10447,16 @@ func (c *ClientWithResponses) WorkloadServiceGetWorkloadWithResponse(ctx context
 }
 
 // WorkloadServicePatchWorkloadWithBodyWithResponse request with arbitrary body returning *WorkloadServicePatchWorkloadResponse
-func (c *ClientWithResponses) WorkloadServicePatchWorkloadWithBodyWithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error) {
-	rsp, err := c.WorkloadServicePatchWorkloadWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+func (c *ClientWithResponses) WorkloadServicePatchWorkloadWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error) {
+	rsp, err := c.WorkloadServicePatchWorkloadWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseWorkloadServicePatchWorkloadResponse(rsp)
 }
 
-func (c *ClientWithResponses) WorkloadServicePatchWorkloadWithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkloadParams, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error) {
-	rsp, err := c.WorkloadServicePatchWorkload(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) WorkloadServicePatchWorkloadWithResponse(ctx context.Context, resourceId string, body WorkloadServicePatchWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkloadResponse, error) {
+	rsp, err := c.WorkloadServicePatchWorkload(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -10315,7 +10502,7 @@ func ParseHostServiceListHostsResponse(rsp *http.Response) (*HostServiceListHost
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10348,7 +10535,7 @@ func ParseHostServiceCreateHostResponse(rsp *http.Response) (*HostServiceCreateH
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10381,7 +10568,7 @@ func ParseHostServiceRegisterHostResponse(rsp *http.Response) (*HostServiceRegis
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10414,7 +10601,7 @@ func ParseHostServiceDeleteHostResponse(rsp *http.Response) (*HostServiceDeleteH
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10447,7 +10634,7 @@ func ParseHostServiceGetHostResponse(rsp *http.Response) (*HostServiceGetHostRes
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10480,7 +10667,7 @@ func ParseHostServicePatchHostResponse(rsp *http.Response) (*HostServicePatchHos
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10513,7 +10700,7 @@ func ParseHostServiceUpdateHostResponse(rsp *http.Response) (*HostServiceUpdateH
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10546,7 +10733,7 @@ func ParseHostServiceInvalidateHostResponse(rsp *http.Response) (*HostServiceInv
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10579,7 +10766,7 @@ func ParseHostServiceOnboardHostResponse(rsp *http.Response) (*HostServiceOnboar
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10612,7 +10799,7 @@ func ParseHostServiceRegisterUpdateHostResponse(rsp *http.Response) (*HostServic
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10645,7 +10832,7 @@ func ParseHostServiceGetHostsSummaryResponse(rsp *http.Response) (*HostServiceGe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10678,7 +10865,7 @@ func ParseInstanceServiceListInstancesResponse(rsp *http.Response) (*InstanceSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10711,7 +10898,7 @@ func ParseInstanceServiceCreateInstanceResponse(rsp *http.Response) (*InstanceSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10744,7 +10931,7 @@ func ParseInstanceServiceDeleteInstanceResponse(rsp *http.Response) (*InstanceSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10777,7 +10964,7 @@ func ParseInstanceServiceGetInstanceResponse(rsp *http.Response) (*InstanceServi
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10810,7 +10997,7 @@ func ParseInstanceServicePatchInstanceResponse(rsp *http.Response) (*InstanceSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10843,7 +11030,7 @@ func ParseInstanceServiceUpdateInstanceResponse(rsp *http.Response) (*InstanceSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10876,7 +11063,7 @@ func ParseInstanceServiceInvalidateInstanceResponse(rsp *http.Response) (*Instan
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10909,7 +11096,7 @@ func ParseLocalAccountServiceListLocalAccountsResponse(rsp *http.Response) (*Loc
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10942,7 +11129,7 @@ func ParseLocalAccountServiceCreateLocalAccountResponse(rsp *http.Response) (*Lo
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -10975,7 +11162,7 @@ func ParseLocalAccountServiceDeleteLocalAccountResponse(rsp *http.Response) (*Lo
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11008,7 +11195,7 @@ func ParseLocalAccountServiceGetLocalAccountResponse(rsp *http.Response) (*Local
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11041,7 +11228,7 @@ func ParseLocationServiceListLocationsResponse(rsp *http.Response) (*LocationSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11074,7 +11261,7 @@ func ParseOperatingSystemServiceListOperatingSystemsResponse(rsp *http.Response)
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11107,7 +11294,7 @@ func ParseOperatingSystemServiceCreateOperatingSystemResponse(rsp *http.Response
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11140,7 +11327,7 @@ func ParseOperatingSystemServiceDeleteOperatingSystemResponse(rsp *http.Response
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11173,7 +11360,7 @@ func ParseOperatingSystemServiceGetOperatingSystemResponse(rsp *http.Response) (
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11206,7 +11393,7 @@ func ParseOperatingSystemServicePatchOperatingSystemResponse(rsp *http.Response)
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11239,7 +11426,139 @@ func ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp *http.Response
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyListOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyListOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyListOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOSUpdatePolicyResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest ConnectError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyCreateOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyCreateOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyCreateOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest ConnectError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyDeleteOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyDeleteOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest ConnectError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyGetOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyGetOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyGetOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11272,7 +11591,7 @@ func ParseProviderServiceListProvidersResponse(rsp *http.Response) (*ProviderSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11305,7 +11624,7 @@ func ParseProviderServiceCreateProviderResponse(rsp *http.Response) (*ProviderSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11338,7 +11657,7 @@ func ParseProviderServiceDeleteProviderResponse(rsp *http.Response) (*ProviderSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11371,7 +11690,7 @@ func ParseProviderServiceGetProviderResponse(rsp *http.Response) (*ProviderServi
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11404,7 +11723,7 @@ func ParseRegionServiceListRegionsResponse(rsp *http.Response) (*RegionServiceLi
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11437,7 +11756,7 @@ func ParseRegionServiceCreateRegionResponse(rsp *http.Response) (*RegionServiceC
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11470,7 +11789,7 @@ func ParseRegionServiceDeleteRegionResponse(rsp *http.Response) (*RegionServiceD
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11503,7 +11822,7 @@ func ParseRegionServiceGetRegionResponse(rsp *http.Response) (*RegionServiceGetR
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11536,7 +11855,7 @@ func ParseRegionServicePatchRegionResponse(rsp *http.Response) (*RegionServicePa
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11569,7 +11888,7 @@ func ParseRegionServiceUpdateRegionResponse(rsp *http.Response) (*RegionServiceU
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11602,7 +11921,7 @@ func ParseScheduleServiceListSchedulesResponse(rsp *http.Response) (*ScheduleSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11635,7 +11954,7 @@ func ParseScheduleServiceListRepeatedSchedulesResponse(rsp *http.Response) (*Sch
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11668,7 +11987,7 @@ func ParseScheduleServiceCreateRepeatedScheduleResponse(rsp *http.Response) (*Sc
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11701,7 +12020,7 @@ func ParseScheduleServiceDeleteRepeatedScheduleResponse(rsp *http.Response) (*Sc
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11734,7 +12053,7 @@ func ParseScheduleServiceGetRepeatedScheduleResponse(rsp *http.Response) (*Sched
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11767,7 +12086,7 @@ func ParseScheduleServicePatchRepeatedScheduleResponse(rsp *http.Response) (*Sch
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11800,7 +12119,7 @@ func ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp *http.Response) (*Sc
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11833,7 +12152,7 @@ func ParseScheduleServiceListSingleSchedulesResponse(rsp *http.Response) (*Sched
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11866,7 +12185,7 @@ func ParseScheduleServiceCreateSingleScheduleResponse(rsp *http.Response) (*Sche
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11899,7 +12218,7 @@ func ParseScheduleServiceDeleteSingleScheduleResponse(rsp *http.Response) (*Sche
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11932,7 +12251,7 @@ func ParseScheduleServiceGetSingleScheduleResponse(rsp *http.Response) (*Schedul
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11965,7 +12284,7 @@ func ParseScheduleServicePatchSingleScheduleResponse(rsp *http.Response) (*Sched
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11998,7 +12317,7 @@ func ParseScheduleServiceUpdateSingleScheduleResponse(rsp *http.Response) (*Sche
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12031,7 +12350,7 @@ func ParseSiteServiceListSitesResponse(rsp *http.Response) (*SiteServiceListSite
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12064,7 +12383,7 @@ func ParseSiteServiceCreateSiteResponse(rsp *http.Response) (*SiteServiceCreateS
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12097,7 +12416,7 @@ func ParseSiteServiceDeleteSiteResponse(rsp *http.Response) (*SiteServiceDeleteS
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12130,7 +12449,7 @@ func ParseSiteServiceGetSiteResponse(rsp *http.Response) (*SiteServiceGetSiteRes
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12163,7 +12482,7 @@ func ParseSiteServicePatchSiteResponse(rsp *http.Response) (*SiteServicePatchSit
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12196,7 +12515,7 @@ func ParseSiteServiceUpdateSiteResponse(rsp *http.Response) (*SiteServiceUpdateS
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12229,7 +12548,7 @@ func ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse(rsp *http.Res
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12262,7 +12581,7 @@ func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp *http.Re
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12295,7 +12614,7 @@ func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse(rsp *http.Re
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12328,7 +12647,7 @@ func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse(rsp *http.Respo
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12361,7 +12680,7 @@ func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse(rsp *ht
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12394,7 +12713,7 @@ func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp *h
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12427,7 +12746,7 @@ func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse(rsp *h
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12460,7 +12779,7 @@ func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp *http
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12493,7 +12812,7 @@ func ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse(rsp *http
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12526,7 +12845,7 @@ func ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp *htt
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12559,7 +12878,7 @@ func ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse(rsp *htt
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12592,7 +12911,7 @@ func ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse(rsp *http.R
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12625,7 +12944,7 @@ func ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp *http
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12658,7 +12977,7 @@ func ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp *htt
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12691,7 +13010,7 @@ func ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse(rsp
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12724,7 +13043,7 @@ func ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rs
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12757,7 +13076,7 @@ func ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse(rs
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12790,7 +13109,7 @@ func ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse(rsp *
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12823,7 +13142,7 @@ func ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12856,7 +13175,7 @@ func ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rs
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12889,7 +13208,7 @@ func ParseWorkloadMemberServiceListWorkloadMembersResponse(rsp *http.Response) (
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12922,7 +13241,7 @@ func ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp *http.Response) 
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12955,7 +13274,7 @@ func ParseWorkloadMemberServiceDeleteWorkloadMemberResponse(rsp *http.Response) 
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12988,7 +13307,7 @@ func ParseWorkloadMemberServiceGetWorkloadMemberResponse(rsp *http.Response) (*W
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13021,7 +13340,7 @@ func ParseWorkloadServiceListWorkloadsResponse(rsp *http.Response) (*WorkloadSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13054,7 +13373,7 @@ func ParseWorkloadServiceCreateWorkloadResponse(rsp *http.Response) (*WorkloadSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13087,7 +13406,7 @@ func ParseWorkloadServiceDeleteWorkloadResponse(rsp *http.Response) (*WorkloadSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13120,7 +13439,7 @@ func ParseWorkloadServiceGetWorkloadResponse(rsp *http.Response) (*WorkloadServi
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13153,7 +13472,7 @@ func ParseWorkloadServicePatchWorkloadResponse(rsp *http.Response) (*WorkloadSer
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13186,7 +13505,7 @@ func ParseWorkloadServiceUpdateWorkloadResponse(rsp *http.Response) (*WorkloadSe
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

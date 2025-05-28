@@ -57,49 +57,9 @@ func (m *MetadataItem) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetKey()); l < 0 || l > 316 {
-		err := MetadataItemValidationError{
-			field:  "Key",
-			reason: "value length must be between 0 and 316 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Key
 
-	if !_MetadataItem_Key_Pattern.MatchString(m.GetKey()) {
-		err := MetadataItemValidationError{
-			field:  "Key",
-			reason: "value does not match regex pattern \"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if l := utf8.RuneCountInString(m.GetValue()); l < 0 || l > 63 {
-		err := MetadataItemValidationError{
-			field:  "Value",
-			reason: "value length must be between 0 and 63 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_MetadataItem_Value_Pattern.MatchString(m.GetValue()) {
-		err := MetadataItemValidationError{
-			field:  "Value",
-			reason: "value does not match regex pattern \"^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Value
 
 	if len(errors) > 0 {
 		return MetadataItemMultiError(errors)
@@ -177,10 +137,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MetadataItemValidationError{}
-
-var _MetadataItem_Key_Pattern = regexp.MustCompile("^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
-
-var _MetadataItem_Value_Pattern = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$")
 
 // Validate checks the field values on Timestamps with the rules defined in the
 // proto definition for this message. If any rules are violated, the first

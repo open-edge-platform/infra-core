@@ -57,161 +57,19 @@ func (m *ProviderResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 17 {
-		err := ProviderResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 17 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ProviderResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := ProviderResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^provider-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for ProviderKind
 
 	// no validation rules for ProviderVendor
 
-	if utf8.RuneCountInString(m.GetName()) > 40 {
-		err := ProviderResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 40 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
-	if !_ProviderResource_Name_Pattern.MatchString(m.GetName()) {
-		err := ProviderResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ApiEndpoint
 
-	if utf8.RuneCountInString(m.GetApiEndpoint()) > 500 {
-		err := ProviderResourceValidationError{
-			field:  "ApiEndpoint",
-			reason: "value length must be at most 500 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Config
 
-	if !_ProviderResource_ApiEndpoint_Pattern.MatchString(m.GetApiEndpoint()) {
-		err := ProviderResourceValidationError{
-			field:  "ApiEndpoint",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetApiCredentials()) > 0 {
-
-		if len(m.GetApiCredentials()) > 100 {
-			err := ProviderResourceValidationError{
-				field:  "ApiCredentials",
-				reason: "value must contain no more than 100 item(s)",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		for idx, item := range m.GetApiCredentials() {
-			_, _ = idx, item
-
-			if utf8.RuneCountInString(item) > 500 {
-				err := ProviderResourceValidationError{
-					field:  fmt.Sprintf("ApiCredentials[%v]", idx),
-					reason: "value length must be at most 500 runes",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-			if !_ProviderResource_ApiCredentials_Pattern.MatchString(item) {
-				err := ProviderResourceValidationError{
-					field:  fmt.Sprintf("ApiCredentials[%v]", idx),
-					reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-		}
-
-	}
-
-	if utf8.RuneCountInString(m.GetConfig()) > 2000 {
-		err := ProviderResourceValidationError{
-			field:  "Config",
-			reason: "value length must be at most 2000 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ProviderResource_Config_Pattern.MatchString(m.GetConfig()) {
-		err := ProviderResourceValidationError{
-			field:  "Config",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetProviderID()) > 17 {
-		err := ProviderResourceValidationError{
-			field:  "ProviderID",
-			reason: "value length must be at most 17 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ProviderResource_ProviderID_Pattern.MatchString(m.GetProviderID()) {
-		err := ProviderResourceValidationError{
-			field:  "ProviderID",
-			reason: "value does not match regex pattern \"^provider-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ProviderID
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -319,15 +177,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ProviderResourceValidationError{}
-
-var _ProviderResource_ResourceId_Pattern = regexp.MustCompile("^provider-[0-9a-f]{8}$")
-
-var _ProviderResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _ProviderResource_ApiEndpoint_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
-
-var _ProviderResource_ApiCredentials_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
-
-var _ProviderResource_Config_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
-
-var _ProviderResource_ProviderID_Pattern = regexp.MustCompile("^provider-[0-9a-f]{8}$")

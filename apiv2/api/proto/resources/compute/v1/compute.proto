@@ -13,7 +13,7 @@ import "resources/localaccount/v1/localaccount.proto";
 import "resources/network/v1/network.proto";
 import "resources/status/v1/status.proto";
 import "resources/provider/v1/provider.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1;computev1";
 
@@ -48,7 +48,7 @@ message HostResource {
   // Resource ID, generated on Create.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
       max_len: 13
     }
@@ -57,7 +57,7 @@ message HostResource {
   // The host name.
   string name = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
       max_len: 50
     }
@@ -79,7 +79,7 @@ message HostResource {
   // The note associated with the host.
   string note = 13 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       min_len: 1
       max_len: 512
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
@@ -91,7 +91,7 @@ message HostResource {
   // The host UUID identifier; UUID is unique and immutable.
   string uuid = 17 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       min_len: 0
       max_len: 36
       pattern: "^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
@@ -137,7 +137,7 @@ message HostResource {
   // textual message that describes the runtime status of Host. Set by RMs only.
   string host_status = 60 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {max_len: 1024}
+    (buf.validate.field).string = {max_len: 1024}
   ];
   // Indicates interpretation of host_status. Set by RMs only.
   status.v1.StatusIndication host_status_indicator = 61 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -147,7 +147,7 @@ message HostResource {
   // textual message that describes the onboarding status of Host. Set by RMs only.
   string onboarding_status = 63 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {max_len: 1024}
+    (buf.validate.field).string = {max_len: 1024}
   ];
   // Indicates interpretation of onboarding_status. Set by RMs only.
   status.v1.StatusIndication onboarding_status_indicator = 64 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -157,7 +157,7 @@ message HostResource {
   // textual message that describes the onboarding status of Host. Set by RMs only.
   string registration_status = 66 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {max_len: 1024}
+    (buf.validate.field).string = {max_len: 1024}
   ];
   // Indicates interpretation of registration_status. Set by RMs only.
   status.v1.StatusIndication registration_status_indicator = 67 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -178,7 +178,7 @@ message HostResource {
   // The site where the host is located.
   string site_id = 5001 [
     (google.api.field_behavior) = INPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^site-[0-9a-f]{8}$"
       max_len: 13
     }
@@ -187,8 +187,7 @@ message HostResource {
   // The metadata associated with the host, represented by a list of key:value pairs.
   repeated resources.common.v1.MetadataItem metadata = 5003 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).repeated = {
-        ignore_empty: true,
+    (buf.validate.field).repeated = {
         min_items: 0,
         max_items: 100,
     }
@@ -328,7 +327,7 @@ message InstanceResource {
   // Resource ID, generated on Create.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
       max_len: 13
     }
@@ -336,7 +335,7 @@ message InstanceResource {
   // Kind of resource. Frequently tied to Provider.
   InstanceKind kind = 2;
   // The instance's human-readable name.
-  string name = 3 [(validate.rules).string = {
+  string name = 3 [(buf.validate.field).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
     max_len: 50
   }];
@@ -357,7 +356,7 @@ message InstanceResource {
   resources.os.v1.SecurityFeature security_feature = 14;
 
   // textual message that describes the current instance status. Set by RMs only.
-  string instance_status = 15 [(validate.rules).string = {max_len: 1024},
+  string instance_status = 15 [(buf.validate.field).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of instance_status. Set by RMs only.
@@ -366,7 +365,7 @@ message InstanceResource {
   uint32 instance_status_timestamp = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the provisioning status of Instance. Set by RMs only.
-  string provisioning_status = 18 [(validate.rules).string = {max_len: 1024},
+  string provisioning_status = 18 [(buf.validate.field).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of provisioning_status. Set by RMs only.
@@ -375,7 +374,7 @@ message InstanceResource {
   uint32 provisioning_status_timestamp = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // textual message that describes the update status of Instance. Set by RMs only.
-  string update_status = 21 [(validate.rules).string = {max_len: 1024},
+  string update_status = 21 [(buf.validate.field).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of update_status. Set by RMs only.
@@ -383,13 +382,13 @@ message InstanceResource {
   // UTC timestamp when update_status was last changed. Set by RMs only.
   uint32 update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
   // JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
-  string update_status_detail = 24 [(validate.rules).string = {max_len: 100000},
+  string update_status_detail = 24 [(buf.validate.field).string = {max_len: 100000},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
   // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
   string trusted_attestation_status = 26 [
-    (validate.rules).string = {max_len: 1024},
+    (buf.validate.field).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
   // Indicates interpretation of trusted_attestation_status. Set by RMs only.
@@ -401,11 +400,24 @@ message InstanceResource {
   repeated WorkloadMember workload_members = 30 [(google.api.field_behavior) = OUTPUT_ONLY]; // back-reference to the Workload Members associated to this Instance
   // Local Account associated with this Instance
   resources.localaccount.v1.LocalAccountResource localaccount = 41 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Update Policy of this Instance
+  OSUpdatePolicy update_policy = 50 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+
+  // Textual message that gives detailed status of the instance's software components.
+  string instance_status_detail = 101 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {
+      max_len: 1024
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; 
 
   // The CVEs that are currently present on the Instance, encoded as a JSON list.
   string existing_cves = 42 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
       max_len: 20000
     }
@@ -414,7 +426,7 @@ message InstanceResource {
   // Deprecated, The instance's unique identifier. Alias of resourceID.
   string instanceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
       max_len: 13
     }
@@ -423,7 +435,7 @@ message InstanceResource {
   // The host's unique identifier associated with the instance.
   string hostID = 5002 [
     (google.api.field_behavior) = INPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
       max_len: 13
     }
@@ -432,7 +444,7 @@ message InstanceResource {
   // The unique identifier of OS resource that must be installed on the instance.
   string osID = 5003 [
     (google.api.field_behavior) = INPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^os-[0-9a-f]{8}$"
       max_len: 11
     }
@@ -441,9 +453,17 @@ message InstanceResource {
   // The unique identifier of local account will be associated with the instance.
   string local_accountID = 5004 [
     (google.api.field_behavior) = INPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"
       max_len: 21
+    }
+  ];
+
+  string os_update_policyID = 5005 [
+    (google.api.field_behavior) = INPUT_ONLY,
+    (buf.validate.field).string = {
+      pattern: "^osupdatepolicy-[0-9a-f]{8}$"
+      max_len: 23
     }
   ];
   // Timestamps associated to the resource.
@@ -472,7 +492,7 @@ message WorkloadResource {
   // resource ID, generated by the inventory on Create.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^workload-[0-9a-f]{8}$"
       max_len: 17
     }
@@ -481,19 +501,19 @@ message WorkloadResource {
   // Type of workload.
   WorkloadKind kind = 2 [(google.api.field_behavior) = REQUIRED];
   // Human-readable name for the workload.
-  string name = 3 [(validate.rules).string = {
+  string name = 3 [(buf.validate.field).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
     max_len: 50
   }];
 
   // The ID of the external resource, used to link to resources outside the realm of Edge Infrastructure Manager.
-  string external_id = 5 [(validate.rules).string = {
+  string external_id = 5 [(buf.validate.field).string = {
     max_len: 40
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
   }];
 
   // Human-readable status of the workload.
-  string status = 15 [(validate.rules).string = {
+  string status = 15 [(buf.validate.field).string = {
     max_len: 500
     pattern: "^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$"
   }];
@@ -507,7 +527,7 @@ message WorkloadResource {
   // Deprecated, The workload unique identifier. Alias of resourceId.
   string workload_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^workload-[0-9a-f]{8}$"
       max_len: 17
     }
@@ -530,7 +550,7 @@ message WorkloadMember {
   // Resource ID, generated by the inventory on Create.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^workloadmember-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -546,7 +566,7 @@ message WorkloadMember {
   // Deprecated, The workload unique identifier. Alias of resourceId.
   string workload_member_id = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^workloadmember-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -559,7 +579,7 @@ message WorkloadMember {
   string workload_id = 5003 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.field_behavior) = INPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^workload-[0-9a-f]{8}$"
       max_len: 17
     }
@@ -569,7 +589,7 @@ message WorkloadMember {
   string instance_id = 5004 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.field_behavior) = INPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
       max_len: 13
     }
@@ -577,4 +597,80 @@ message WorkloadMember {
 
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message OSUpdatePolicy {
+  // resource ID, generated by the inventory on Create.
+  string resource_id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {
+      pattern: "^osupdatepolicy-[0-9a-f]{8}$"
+      max_bytes: 23
+    }
+  ];
+
+  // User-provided, human-readable name.
+  string name = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
+      max_len: 50
+    }
+  ];
+
+  // User-provided, human-readable description.
+  string description = 3 [
+    (buf.validate.field).string = {
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
+      max_len: 200
+    }
+  ];
+
+  // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+  // Applies only to Mutable OSes.
+  string install_packages = 4 [(buf.validate.field).string = {
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+    max_len: 500000
+  }];
+
+  // The list of OS resource update sources.
+  // Should be in 'DEB822 Source Format' for Debian style OSs.
+  // Applies only to Mutable OSes.
+  repeated string update_sources = 5 [
+    (buf.validate.field).repeated.items.string = {
+      max_bytes: 10000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\n]+$"
+    }
+  ];
+
+  // The OS resource's kernel Command Line Options.
+  // Applies only to Mutable OSes.
+  string kernel_command = 6 [(buf.validate.field).string = {
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+    max_len: 500
+  }];
+
+
+  // The target OS for the update.
+  // Applies only to Immutable OSes for A/B upgrades.
+  resources.os.v1.OperatingSystemResource target_os = 50;
+
+  // Update Policy for the OS update. This field is used to determine the update policy for the OS update.
+  // UPDATE_POLICY_LATEST:
+  // - for mutable: unsupported
+  // - for immutable: latest version of the OS Resource
+  // UPDATE_POLICY_TARGET:
+  // - for mutable: apply the install_packages, update_sources, kernel_command
+  // - for immutable: install the version referenced by target_os
+  UpdatePolicy update_policy = 60;
+
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+// States of the host.
+enum UpdatePolicy {
+  UPDATE_POLICY_UNSPECIFIED = 0;  // Should never be used
+  UPDATE_POLICY_LATEST = 1;       // Upgrade to latest version
+  UPDATE_POLICY_TARGET = 2;       // Upgrade to the target version
 }
