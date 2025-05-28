@@ -63,17 +63,6 @@ const (
 	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset percentage for the Inventory UUID cache"
 )
 
-var (
-	GrpcMessageSizeServerOpts = []grpc.ServerOption{
-		grpc.MaxRecvMsgSize(MaxMessageSize),
-		grpc.MaxSendMsgSize(MaxMessageSize),
-	}
-	GrpcMessageSizeCallOpts = []grpc.CallOption{
-		grpc.MaxCallRecvMsgSize(MaxMessageSize),
-		grpc.MaxCallSendMsgSize(MaxMessageSize),
-	}
-)
-
 type WatchEvents struct {
 	Ctx   context.Context
 	Event *inv_v1.SubscribeEventsResponse
@@ -408,7 +397,7 @@ func connect(
 		opts = append(opts, grpc.WithTransportCredentials(creds))
 	}
 
-	opts = append(opts, grpc.WithDefaultCallOptions(GrpcMessageSizeCallOpts...))
+	opts = append(opts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(MaxMessageSize)))
 
 	// if testing, use a bufconn, otherwise TCP
 	var err error

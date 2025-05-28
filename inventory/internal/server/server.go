@@ -18,7 +18,6 @@ import (
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/auditing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/cert"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	inv_errors "github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
@@ -101,9 +100,7 @@ func GetServerOpts(opts Options) ([]grpc.ServerOption, error) {
 	if opts.EnableAuditing {
 		unaryInter = append(unaryInter, auditing.GrpcInterceptor)
 	}
-
-	srvOpts = append(srvOpts, client.GrpcMessageSizeServerOpts...)
-
+	
 	// adding unary and stream interceptors
 	srvOpts = append(srvOpts,
 		grpc.UnaryInterceptor(
