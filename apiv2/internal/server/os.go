@@ -18,16 +18,17 @@ import (
 )
 
 // TODO: installed_packages_source field in OSResource is to be correctly filled when supported by the backend.
-// This field is the URL where the Manifest file is stored. The field is immutable. This is added to allow manual creation of OSProfiles (advanced feature).
+//  This field is the URL where the Manifest file is stored. The field is immutable.
+//  This is added to allow manual creation of OSProfiles (advanced feature).
 
 // OpenAPIOSResourceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIOSResourceToProto = map[string]string{
-	osv1.OperatingSystemResourceFieldName:              inv_osv1.OperatingSystemResourceFieldName,
-	osv1.OperatingSystemResourceFieldArchitecture:      inv_osv1.OperatingSystemResourceFieldArchitecture,
-	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
-	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
+	osv1.OperatingSystemResourceFieldName:          inv_osv1.OperatingSystemResourceFieldName,
+	osv1.OperatingSystemResourceFieldArchitecture:  inv_osv1.OperatingSystemResourceFieldArchitecture,
+	osv1.OperatingSystemResourceFieldKernelCommand: inv_osv1.OperatingSystemResourceFieldKernelCommand,
+	osv1.OperatingSystemResourceFieldUpdateSources: inv_osv1.OperatingSystemResourceFieldUpdateSources,
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {

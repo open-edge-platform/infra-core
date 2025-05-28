@@ -3449,6 +3449,158 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteLocalAccountResponse'
+  /edge-infra.orchestrator.apis/v2/os_update_policy:
+    get:
+      tags:
+        - OSUpdatePolicy
+      summary: ListOSUpdatePolicy
+      description: Get a list of OS Update Policies.
+      operationId: OSUpdatePolicy_ListOSUpdatePolicy
+      parameters:
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOSUpdatePolicyResponse'
+    post:
+      tags:
+        - OSUpdatePolicy
+      summary: CreateOSUpdatePolicy
+      description: Create an OS Update Policy.
+      operationId: OSUpdatePolicy_CreateOSUpdatePolicy
+      requestBody:
+        description: The OS Update policy to create.
+        content:
+          application/json:
+            schema:
+              title: os_update_policy
+              description: The OS Update policy to create.
+              $ref: '#/components/schemas/OSUpdatePolicy'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdatePolicy'
+  /edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}:
+    get:
+      tags:
+        - OSUpdatePolicy
+      summary: GetOSUpdatePolicy
+      description: Get a specific OS Update Policy.
+      operationId: OSUpdatePolicy_GetOSUpdatePolicy
+      parameters:
+        - name: resource_id
+          in: path
+          description: Name of the requested os.
+          required: true
+          schema:
+            type: string
+            title: resource_id
+            description: Name of the requested os.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdatePolicy'
+    delete:
+      tags:
+        - OSUpdatePolicy
+      summary: DeleteOSUpdatePolicy
+      description: Delete a OS Update Policy.
+      operationId: OSUpdatePolicy_DeleteOSUpdatePolicy
+      parameters:
+        - name: resource_id
+          in: path
+          description: Name of the OS Update Policy to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resource_id
+            description: Name of the OS Update Policy to be deleted.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdatePolicy'
 components:
   schemas:
     google.protobuf.Timestamp:
@@ -4152,6 +4304,14 @@ components:
         - POWER_STATE_ON
         - POWER_STATE_OFF
       description: The host power state.
+    UpdatePolicy:
+      type: string
+      title: UpdatePolicy
+      enum:
+        - UPDATE_POLICY_UNSPECIFIED
+        - UPDATE_POLICY_LATEST
+        - UPDATE_POLICY_TARGET
+      description: States of the host.
     WorkloadKind:
       type: string
       title: WorkloadKind
@@ -4757,6 +4917,11 @@ components:
           description: Local Account associated with this Instance
           readOnly: true
           $ref: '#/components/schemas/LocalAccountResource'
+        updatePolicy:
+          title: update_policy
+          description: Update Policy of this Instance
+          readOnly: true
+          $ref: '#/components/schemas/OSUpdatePolicy'
         instanceStatusDetail:
           type: string
           title: instance_status_detail
@@ -4792,6 +4957,12 @@ components:
           pattern: ^localaccount-[0-9a-f]{8}$
           description: The unique identifier of local account will be associated with the instance.
           writeOnly: true
+        osUpdatePolicyID:
+          type: string
+          title: os_update_policyID
+          maxLength: 23
+          pattern: ^osupdatepolicy-[0-9a-f]{8}$
+          writeOnly: true
         timestamps:
           title: timestamps
           description: Timestamps associated to the resource.
@@ -4816,6 +4987,79 @@ components:
           readOnly: true
           $ref: '#/components/schemas/Timestamps'
       title: NetworkInterfaceLinkState
+      additionalProperties: false
+    OSUpdatePolicy:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          pattern: ^osupdatepolicy-[0-9a-f]{8}$
+          description: resource ID, generated by the inventory on Create.
+          readOnly: true
+        name:
+          type: string
+          title: name
+          maxLength: 50
+          pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
+          description: User-provided, human-readable name.
+        description:
+          type: string
+          title: description
+          maxLength: 200
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          description: User-provided, human-readable description.
+        installPackages:
+          type: string
+          title: install_packages
+          maxLength: 500000
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          description: |-
+            Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+             Applies only to Mutable OSes.
+        updateSources:
+          type: array
+          items:
+            type: string
+            pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \n]+$
+          title: update_sources
+          description: |-
+            The list of OS resource update sources.
+             Should be in 'DEB822 Source Format' for Debian style OSs.
+             Applies only to Mutable OSes.
+        kernelCommand:
+          type: string
+          title: kernel_command
+          maxLength: 500
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+          description: |-
+            The OS resource's kernel Command Line Options.
+             Applies only to Mutable OSes.
+        targetOs:
+          title: target_os
+          description: |-
+            The target OS for the update.
+             Applies only to Immutable OSes for A/B upgrades.
+          $ref: '#/components/schemas/OperatingSystemResource'
+        updatePolicy:
+          title: update_policy
+          description: |-
+            Update Policy for the OS update. This field is used to determine the update policy for the OS update.
+             UPDATE_POLICY_LATEST:
+             - for mutable: unsupported
+             - for immutable: latest version of the OS Resource
+             UPDATE_POLICY_TARGET:
+             - for mutable: apply the install_packages, update_sources, kernel_command
+             - for immutable: install the version referenced by target_os
+          $ref: '#/components/schemas/UpdatePolicy'
+        timestamps:
+          title: timestamps
+          description: Timestamps associated to the resource.
+          readOnly: true
+          $ref: '#/components/schemas/Timestamps'
+      title: OSUpdatePolicy
+      required:
+        - name
       additionalProperties: false
     WorkloadMember:
       type: object
@@ -5709,6 +5953,30 @@ components:
         - localAccount
       additionalProperties: false
       description: Response message for the CreateLocalAccount method.
+    CreateOSUpdatePolicyRequest:
+      type: object
+      properties:
+        osUpdatePolicy:
+          title: os_update_policy
+          description: The OS Update policy to create.
+          $ref: '#/components/schemas/OSUpdatePolicy'
+      title: CreateOSUpdatePolicyRequest
+      required:
+        - osUpdatePolicy
+      additionalProperties: false
+      description: Request message for the CreateOSUpdatePolicy method.
+    CreateOSUpdatePolicyResponse:
+      type: object
+      properties:
+        osUpdatePolicy:
+          title: os_update_policy
+          description: The created os.
+          $ref: '#/components/schemas/OSUpdatePolicy'
+      title: CreateOSUpdatePolicyResponse
+      required:
+        - osUpdatePolicy
+      additionalProperties: false
+      description: Response message for the CreateOSUpdatePolicy method.
     CreateOperatingSystemRequest:
       type: object
       properties:
@@ -6048,6 +6316,23 @@ components:
       title: DeleteLocalAccountResponse
       additionalProperties: false
       description: Response message for DeleteLocalAccount.
+    DeleteOSUpdatePolicyRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          description: Name of the OS Update Policy to be deleted.
+      title: DeleteOSUpdatePolicyRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for DeleteOperatingSystem.
+    DeleteOSUpdatePolicyResponse:
+      type: object
+      title: DeleteOSUpdatePolicyResponse
+      additionalProperties: false
+      description: Response message for DeleteOperatingSystem.
     DeleteOperatingSystemRequest:
       type: object
       properties:
@@ -6364,6 +6649,30 @@ components:
         - localAccount
       additionalProperties: false
       description: Response message for the GetLocalAccount method.
+    GetOSUpdatePolicyRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          description: Name of the requested os.
+      title: GetOSUpdatePolicyRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for the GetOSUpdatePolicy method.
+    GetOSUpdatePolicyResponse:
+      type: object
+      properties:
+        osUpdatePolicy:
+          title: os_update_policy
+          description: The requested os.
+          $ref: '#/components/schemas/OSUpdatePolicy'
+      title: GetOSUpdatePolicyResponse
+      required:
+        - osUpdatePolicy
+      additionalProperties: false
+      description: Response message for the GetOSUpdatePolicy method.
     GetOperatingSystemRequest:
       type: object
       properties:
@@ -6972,6 +7281,66 @@ components:
         - type
       additionalProperties: false
       description: A node in the location tree.
+    ListOSUpdatePolicyRequest:
+      type: object
+      properties:
+        orderBy:
+          type: string
+          title: order_by
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9., ]+$
+          description: |-
+            (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+        filter:
+          type: string
+          title: filter
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+          description: |-
+            (OPTIONAL) Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+        pageSize:
+          type: integer
+          title: page_size
+          maximum: 100
+          minimum: 1
+          description: |-
+            (OPTIONAL) Defines the amount of items to be contained in a single page.
+             Default of 20.
+        offset:
+          type: integer
+          title: offset
+          maximum: 10000
+          description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      title: ListOSUpdatePolicyRequest
+      additionalProperties: false
+      description: Request message for the ListOSUpdatePolicy method.
+    ListOSUpdatePolicyResponse:
+      type: object
+      properties:
+        osUpdatePolicies:
+          type: array
+          items:
+            $ref: '#/components/schemas/OSUpdatePolicy'
+          title: os_update_policies
+          description: Sorted and filtered list of OS Update Policies.
+        totalElements:
+          type: integer
+          title: total_elements
+          format: int32
+          description: Count of items in the entire list, regardless of pagination.
+        hasNext:
+          type: boolean
+          title: has_next
+          description: Inform if there are more elements
+      title: ListOSUpdatePolicyResponse
+      required:
+        - osUpdatePolicies
+        - totalElements
+        - hasNext
+      additionalProperties: false
+      description: Response message for the ListOSUpdatePolicy method.
     ListOperatingSystemsRequest:
       type: object
       properties:
@@ -8328,3 +8697,5 @@ tags:
     description: TelemetryMetricsProfile.
   - name: LocalAccountService
     description: LocalAccount.
+  - name: OSUpdatePolicy
+    description: OS Update Policy.
