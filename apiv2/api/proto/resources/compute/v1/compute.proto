@@ -639,7 +639,7 @@ message OSUpdateRun {
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
-  // textual short message that describes the OS Update Status.
+  // Short message that describes what happened during the OS Update.
   string status = 6 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {max_len: 1024}
