@@ -100,7 +100,7 @@ func GetServerOpts(opts Options) ([]grpc.ServerOption, error) {
 	if opts.EnableAuditing {
 		unaryInter = append(unaryInter, auditing.GrpcInterceptor)
 	}
-	
+
 	// adding unary and stream interceptors
 	srvOpts = append(srvOpts,
 		grpc.UnaryInterceptor(
