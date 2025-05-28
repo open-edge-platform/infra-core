@@ -645,7 +645,7 @@ message OSUpdateRun {
     (validate.rules).string = {max_len: 1024}
   ];
 
-  // textual long message that describes the OS Update Status.
+  // Details about what happened during the OS Update.
   string status_details = 7 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {max_len: 100000}
