@@ -4231,6 +4231,12 @@ components:
           title: platform_bundle
           description: "Opaque JSON field storing references to custom installation script(s) that\n supplements the base OS with additional OS-level dependencies/configurations. \n If empty, the default OS installation will be used."
           readOnly: true
+        metadata:
+          type: string
+          title: metadata
+          maxLength: 500
+          pattern: ^$|^[a-z0-9.-_:/"\ \n{}]+$
+          description: Opaque JSON field storing metadata associated to this OS resource.
         osResourceID:
           type: string
           title: os_resourceID

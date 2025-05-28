@@ -2254,6 +2254,9 @@ type OperatingSystemResource struct {
 	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
 
+	// Metadata Opaque JSON field storing metadata associated to this OS resource.
+	Metadata *string `json:"metadata,omitempty"`
+
 	// Name The OS resource's name.
 	Name *string `json:"name,omitempty"`
 
