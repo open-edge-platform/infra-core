@@ -90,24 +90,6 @@ func isSet(resourceID *string) bool {
 	return !isUnset(resourceID)
 }
 
-// parsePagination parses the pagination fields converting them to limit and offset for the inventory APIs.
-func parsePagination(pageSize, off int32) (limit, offset uint32, err error) {
-	// We know by design that this cast should never fail, pageSize is limited by the API definition
-	limit, err = SafeInt32ToUint32(pageSize)
-	if err != nil {
-		zlog.InfraErr(err).Msg("error when converting pagination limit/pagesize")
-		return 0, 0, err
-	}
-
-	offset, err = SafeInt32ToUint32(off)
-	if err != nil {
-		zlog.InfraErr(err).Msg("error when converting pagination index")
-		return 0, 0, err
-	}
-
-	return limit, offset, nil
-}
-
 func parseFielmask(
 	message proto.Message,
 	fieldMask *fieldmaskpb.FieldMask,

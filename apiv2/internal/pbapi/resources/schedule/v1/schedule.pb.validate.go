@@ -57,161 +57,110 @@ func (m *SingleScheduleResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 19 {
-		err := SingleScheduleResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 19 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_SingleScheduleResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := SingleScheduleResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^singlesche-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for ScheduleStatus
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
-		err := SingleScheduleResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 50 runes",
+	// no validation rules for Name
+
+	if all {
+		switch v := interface{}(m.GetTargetSite()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "TargetSite",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "TargetSite",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetTargetSite()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleScheduleResourceValidationError{
+				field:  "TargetSite",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
-	if !_SingleScheduleResource_Name_Pattern.MatchString(m.GetName()) {
-		err := SingleScheduleResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
+	if all {
+		switch v := interface{}(m.GetTargetHost()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "TargetHost",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "TargetHost",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetTargetHost()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleScheduleResourceValidationError{
+				field:  "TargetHost",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
-	if m.GetStartSeconds() < 1 {
-		err := SingleScheduleResourceValidationError{
-			field:  "StartSeconds",
-			reason: "value must be greater than or equal to 1",
+	if all {
+		switch v := interface{}(m.GetTargetRegion()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "TargetRegion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SingleScheduleResourceValidationError{
+					field:  "TargetRegion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetTargetRegion()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleScheduleResourceValidationError{
+				field:  "TargetRegion",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
-	if m.GetEndSeconds() < 1 {
-		err := SingleScheduleResourceValidationError{
-			field:  "EndSeconds",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for StartSeconds
 
-	if utf8.RuneCountInString(m.GetSingleScheduleID()) > 19 {
-		err := SingleScheduleResourceValidationError{
-			field:  "SingleScheduleID",
-			reason: "value length must be at most 19 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for EndSeconds
 
-	if !_SingleScheduleResource_SingleScheduleID_Pattern.MatchString(m.GetSingleScheduleID()) {
-		err := SingleScheduleResourceValidationError{
-			field:  "SingleScheduleID",
-			reason: "value does not match regex pattern \"^singlesche-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for SingleScheduleID
 
-	if utf8.RuneCountInString(m.GetTargetHostId()) > 13 {
-		err := SingleScheduleResourceValidationError{
-			field:  "TargetHostId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetHostId
 
-	if !_SingleScheduleResource_TargetHostId_Pattern.MatchString(m.GetTargetHostId()) {
-		err := SingleScheduleResourceValidationError{
-			field:  "TargetHostId",
-			reason: "value does not match regex pattern \"^$|^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetSiteId
 
-	if utf8.RuneCountInString(m.GetTargetSiteId()) > 13 {
-		err := SingleScheduleResourceValidationError{
-			field:  "TargetSiteId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_SingleScheduleResource_TargetSiteId_Pattern.MatchString(m.GetTargetSiteId()) {
-		err := SingleScheduleResourceValidationError{
-			field:  "TargetSiteId",
-			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetTargetRegionId()) > 15 {
-		err := SingleScheduleResourceValidationError{
-			field:  "TargetRegionId",
-			reason: "value length must be at most 15 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_SingleScheduleResource_TargetRegionId_Pattern.MatchString(m.GetTargetRegionId()) {
-		err := SingleScheduleResourceValidationError{
-			field:  "TargetRegionId",
-			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetRegionId
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -240,134 +189,6 @@ func (m *SingleScheduleResource) validate(all bool) error {
 				cause:  err,
 			}
 		}
-	}
-
-	switch v := m.Relation.(type) {
-	case *SingleScheduleResource_TargetSite:
-		if v == nil {
-			err := SingleScheduleResourceValidationError{
-				field:  "Relation",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetTargetSite()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, SingleScheduleResourceValidationError{
-						field:  "TargetSite",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, SingleScheduleResourceValidationError{
-						field:  "TargetSite",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetTargetSite()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SingleScheduleResourceValidationError{
-					field:  "TargetSite",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *SingleScheduleResource_TargetHost:
-		if v == nil {
-			err := SingleScheduleResourceValidationError{
-				field:  "Relation",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetTargetHost()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, SingleScheduleResourceValidationError{
-						field:  "TargetHost",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, SingleScheduleResourceValidationError{
-						field:  "TargetHost",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetTargetHost()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SingleScheduleResourceValidationError{
-					field:  "TargetHost",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *SingleScheduleResource_TargetRegion:
-		if v == nil {
-			err := SingleScheduleResourceValidationError{
-				field:  "Relation",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetTargetRegion()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, SingleScheduleResourceValidationError{
-						field:  "TargetRegion",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, SingleScheduleResourceValidationError{
-						field:  "TargetRegion",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetTargetRegion()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SingleScheduleResourceValidationError{
-					field:  "TargetRegion",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	default:
-		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
@@ -450,18 +271,6 @@ var _ interface {
 	ErrorName() string
 } = SingleScheduleResourceValidationError{}
 
-var _SingleScheduleResource_ResourceId_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
-
-var _SingleScheduleResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _SingleScheduleResource_SingleScheduleID_Pattern = regexp.MustCompile("^singlesche-[0-9a-f]{8}$")
-
-var _SingleScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
-
-var _SingleScheduleResource_TargetSiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
-
-var _SingleScheduleResource_TargetRegionId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
-
 // Validate checks the field values on RepeatedScheduleResource with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -484,205 +293,118 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 21 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 21 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_RepeatedScheduleResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^repeatedsche-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for ScheduleStatus
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 50 runes",
+	// no validation rules for Name
+
+	if all {
+		switch v := interface{}(m.GetTargetSite()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "TargetSite",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "TargetSite",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetTargetSite()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RepeatedScheduleResourceValidationError{
+				field:  "TargetSite",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
-	if !_RepeatedScheduleResource_Name_Pattern.MatchString(m.GetName()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
+	if all {
+		switch v := interface{}(m.GetTargetHost()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "TargetHost",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "TargetHost",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetTargetHost()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RepeatedScheduleResourceValidationError{
+				field:  "TargetHost",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
-	if val := m.GetDurationSeconds(); val < 1 || val > 86400 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "DurationSeconds",
-			reason: "value must be inside range [1, 86400]",
+	if all {
+		switch v := interface{}(m.GetTargetRegion()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "TargetRegion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RepeatedScheduleResourceValidationError{
+					field:  "TargetRegion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetTargetRegion()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RepeatedScheduleResourceValidationError{
+				field:  "TargetRegion",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
-	if !_RepeatedScheduleResource_CronMinutes_Pattern.MatchString(m.GetCronMinutes()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "CronMinutes",
-			reason: "value does not match regex pattern \"^([*]|([0-9]|([1-5][0-9]))((,([0-9]|([1-5][0-9])))*))$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for DurationSeconds
 
-	if !_RepeatedScheduleResource_CronHours_Pattern.MatchString(m.GetCronHours()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "CronHours",
-			reason: "value does not match regex pattern \"^([*]|([0-9]|1[0-9]|2[0-3])((,([0-9]|1[0-9]|2[0-3]))*))$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for CronMinutes
 
-	if !_RepeatedScheduleResource_CronDayMonth_Pattern.MatchString(m.GetCronDayMonth()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "CronDayMonth",
-			reason: "value does not match regex pattern \"^([*]|([1-9]|([12][0-9])|3[01])((,([1-9]|([12][0-9])|3[01]))*))$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for CronHours
 
-	if !_RepeatedScheduleResource_CronMonth_Pattern.MatchString(m.GetCronMonth()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "CronMonth",
-			reason: "value does not match regex pattern \"^([*]|([1-9]|1[012])((,([1-9]|1[012]))*))$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for CronDayMonth
 
-	if !_RepeatedScheduleResource_CronDayWeek_Pattern.MatchString(m.GetCronDayWeek()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "CronDayWeek",
-			reason: "value does not match regex pattern \"^([*]|([0-6])((,([0-6]))*))$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for CronMonth
 
-	if utf8.RuneCountInString(m.GetRepeatedScheduleID()) > 21 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "RepeatedScheduleID",
-			reason: "value length must be at most 21 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for CronDayWeek
 
-	if !_RepeatedScheduleResource_RepeatedScheduleID_Pattern.MatchString(m.GetRepeatedScheduleID()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "RepeatedScheduleID",
-			reason: "value does not match regex pattern \"^repeatedsche-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for RepeatedScheduleID
 
-	if utf8.RuneCountInString(m.GetTargetHostId()) > 13 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "TargetHostId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetHostId
 
-	if !_RepeatedScheduleResource_TargetHostId_Pattern.MatchString(m.GetTargetHostId()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "TargetHostId",
-			reason: "value does not match regex pattern \"^$|^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetSiteId
 
-	if utf8.RuneCountInString(m.GetTargetSiteId()) > 13 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "TargetSiteId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_RepeatedScheduleResource_TargetSiteId_Pattern.MatchString(m.GetTargetSiteId()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "TargetSiteId",
-			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetTargetRegionId()) > 15 {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "TargetRegionId",
-			reason: "value length must be at most 15 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_RepeatedScheduleResource_TargetRegionId_Pattern.MatchString(m.GetTargetRegionId()) {
-		err := RepeatedScheduleResourceValidationError{
-			field:  "TargetRegionId",
-			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetRegionId
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -711,134 +433,6 @@ func (m *RepeatedScheduleResource) validate(all bool) error {
 				cause:  err,
 			}
 		}
-	}
-
-	switch v := m.Relation.(type) {
-	case *RepeatedScheduleResource_TargetSite:
-		if v == nil {
-			err := RepeatedScheduleResourceValidationError{
-				field:  "Relation",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetTargetSite()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, RepeatedScheduleResourceValidationError{
-						field:  "TargetSite",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, RepeatedScheduleResourceValidationError{
-						field:  "TargetSite",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetTargetSite()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return RepeatedScheduleResourceValidationError{
-					field:  "TargetSite",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *RepeatedScheduleResource_TargetHost:
-		if v == nil {
-			err := RepeatedScheduleResourceValidationError{
-				field:  "Relation",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetTargetHost()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, RepeatedScheduleResourceValidationError{
-						field:  "TargetHost",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, RepeatedScheduleResourceValidationError{
-						field:  "TargetHost",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetTargetHost()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return RepeatedScheduleResourceValidationError{
-					field:  "TargetHost",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *RepeatedScheduleResource_TargetRegion:
-		if v == nil {
-			err := RepeatedScheduleResourceValidationError{
-				field:  "Relation",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetTargetRegion()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, RepeatedScheduleResourceValidationError{
-						field:  "TargetRegion",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, RepeatedScheduleResourceValidationError{
-						field:  "TargetRegion",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetTargetRegion()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return RepeatedScheduleResourceValidationError{
-					field:  "TargetRegion",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	default:
-		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
@@ -920,25 +514,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RepeatedScheduleResourceValidationError{}
-
-var _RepeatedScheduleResource_ResourceId_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
-
-var _RepeatedScheduleResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _RepeatedScheduleResource_CronMinutes_Pattern = regexp.MustCompile("^([*]|([0-9]|([1-5][0-9]))((,([0-9]|([1-5][0-9])))*))$")
-
-var _RepeatedScheduleResource_CronHours_Pattern = regexp.MustCompile("^([*]|([0-9]|1[0-9]|2[0-3])((,([0-9]|1[0-9]|2[0-3]))*))$")
-
-var _RepeatedScheduleResource_CronDayMonth_Pattern = regexp.MustCompile("^([*]|([1-9]|([12][0-9])|3[01])((,([1-9]|([12][0-9])|3[01]))*))$")
-
-var _RepeatedScheduleResource_CronMonth_Pattern = regexp.MustCompile("^([*]|([1-9]|1[012])((,([1-9]|1[012]))*))$")
-
-var _RepeatedScheduleResource_CronDayWeek_Pattern = regexp.MustCompile("^([*]|([0-6])((,([0-6]))*))$")
-
-var _RepeatedScheduleResource_RepeatedScheduleID_Pattern = regexp.MustCompile("^repeatedsche-[0-9a-f]{8}$")
-
-var _RepeatedScheduleResource_TargetHostId_Pattern = regexp.MustCompile("^$|^host-[0-9a-f]{8}$")
-
-var _RepeatedScheduleResource_TargetSiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
-
-var _RepeatedScheduleResource_TargetRegionId_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
