@@ -5090,13 +5090,13 @@ components:
         startSeconds:
           type: integer
           title: start_seconds
-          maximum: 31536000
+          maximum: 4294967295
           minimum: 1
           description: The start time in seconds, of the single schedule.
         endSeconds:
           type: integer
           title: end_seconds
-          maximum: 31536000
+          maximum: 4294967295
           minimum: 1
           description: |-
             The end time in seconds, of the single schedule.

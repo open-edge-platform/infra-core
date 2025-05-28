@@ -182,6 +182,9 @@ func CreateSchedSingle(
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
+	if sched.JSON200 == nil {
+		t.Log("CreateSchedSingle: JSON200 is nil, response body: ", *sched.JSONDefault.Message)
+	}
 	assert.Equal(t, http.StatusOK, sched.StatusCode())
 
 	t.Cleanup(func() { DeleteSchedSingle(t, context.Background(), apiClient, *sched.JSON200.ResourceId) })

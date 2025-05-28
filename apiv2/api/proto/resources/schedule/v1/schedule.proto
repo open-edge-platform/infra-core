@@ -59,14 +59,14 @@ message SingleScheduleResource {
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).uint32 = {
       gte:1
-      lte: 31536000 // 1 year in seconds
+      lte: 4294967295 // 32-bit unsigned integer max value
   }];
   // The end time in seconds, of the single schedule.
   // The value of endSeconds must be equal to or bigger than the value of startSeconds.
   uint32 end_seconds = 10 [
     (buf.validate.field).uint32 = {
       gte:1
-      lte: 31536000 // 1 year in seconds
+      lte: 4294967295 // 32-bit unsigned integer max value
   }];
 
   // Deprecated, The single schedule resource's unique identifier. Alias of resourceId.
