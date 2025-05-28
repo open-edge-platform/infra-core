@@ -660,11 +660,15 @@ message OSUpdateRun {
   // UTC timestamp of OS Update ended.
   uint32 end_time = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // Timestamps associated to the resource.
+  resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+
 }
 
 // Status type/indicator of the OS Update run.
 enum StatusIndicator {
-  STATUS_INDICATION_ERROR = 0;  // An error happened during the update.
-  STATUS_INDICATION_IN_PROGRESS = 1;       // In Progress, the progress about the update is kept into the update_status field of the Instance.
-  STATUS_INDICATION_IDLE = 2;       // The update was successful.
+  STATUS_INDICATION_UNSPECIFIED = 0; // Should never be used
+  STATUS_INDICATION_ERROR = 1;  // An error happened during the update.
+  STATUS_INDICATION_IN_PROGRESS = 2;       // In Progress, the progress about the update is kept into the update_status field of the Instance.
+  STATUS_INDICATION_IDLE = 3;       // The update was successful.
 }

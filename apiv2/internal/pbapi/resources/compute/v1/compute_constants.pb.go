@@ -165,4 +165,5 @@ const (
 	OSUpdateRunFieldStatusTimestamp = "status_timestamp"
 	OSUpdateRunFieldStartTime       = "start_time"
 	OSUpdateRunFieldEndTime         = "end_time"
+	OSUpdateRunEdgeTimestamps       = "timestamps"
 )

@@ -608,7 +608,7 @@ type HostResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -759,7 +759,7 @@ type HoststorageResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HoststorageResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -892,7 +892,7 @@ type NetworkInterfaceLinkStateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m NetworkInterfaceLinkStateMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1102,7 +1102,7 @@ type HostnicResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostnicResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1245,7 +1245,7 @@ type HostusbResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostusbResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1384,7 +1384,7 @@ type HostgpuResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m HostgpuResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1903,7 +1903,7 @@ type InstanceResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m InstanceResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2190,7 +2190,7 @@ type WorkloadResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkloadResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2506,7 +2506,7 @@ type WorkloadMemberMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkloadMemberMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2680,7 +2680,7 @@ type OSUpdatePolicyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OSUpdatePolicyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2772,10 +2772,10 @@ func (m *OSUpdateRun) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 23 {
+	if len(m.GetResourceId()) > 20 {
 		err := OSUpdateRunValidationError{
 			field:  "ResourceId",
-			reason: "value length must be at most 23 bytes",
+			reason: "value length must be at most 20 bytes",
 		}
 		if !all {
 			return err
@@ -2897,6 +2897,35 @@ func (m *OSUpdateRun) validate(all bool) error {
 
 	// no validation rules for EndTime
 
+	if all {
+		switch v := interface{}(m.GetTimestamps()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OSUpdateRunValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OSUpdateRunValidationError{
+					field:  "Timestamps",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTimestamps()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OSUpdateRunValidationError{
+				field:  "Timestamps",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return OSUpdateRunMultiError(errors)
 	}
@@ -2910,7 +2939,7 @@ type OSUpdateRunMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OSUpdateRunMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

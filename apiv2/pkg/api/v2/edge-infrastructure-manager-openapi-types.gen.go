@@ -1017,17 +1017,18 @@ type OSUpdateRun struct {
 	// StartTime UTC timestamp of OS Update started.
 	StartTime *uint32 `json:"startTime,omitempty"`
 
-	// Status textual short message that describes the OS Update Status.
+	// Status Short message that describes what happened during the OS Update.
 	Status *string `json:"status,omitempty"`
 
-	// StatusDetails textual long message that describes the OS Update Status.
+	// StatusDetails Details about what happened during the OS Update.
 	StatusDetails *string `json:"statusDetails,omitempty"`
 
 	// StatusIndicator Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator  STATUS_INDICATION_IDLE: Update completed successfully Indicator
 	StatusIndicator *OSUpdateRunStatusIndicator `json:"statusIndicator,omitempty"`
 
 	// StatusTimestamp UTC timestamp of OS Update status reported.
-	StatusTimestamp *uint32 `json:"statusTimestamp,omitempty"`
+	StatusTimestamp *uint32     `json:"statusTimestamp,omitempty"`
+	Timestamps      *Timestamps `json:"timestamps,omitempty"`
 }
 
 // OSUpdateRunStatusIndicator Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator  STATUS_INDICATION_IDLE: Update completed successfully Indicator

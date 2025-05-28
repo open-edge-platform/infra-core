@@ -4279,12 +4279,12 @@ components:
                     readOnly: true
                     maxLength: 1024
                     type: string
-                    description: textual short message that describes the OS Update Status.
+                    description: Short message that describes what happened during the OS Update.
                 statusDetails:
                     readOnly: true
                     maxLength: 100000
                     type: string
-                    description: textual long message that describes the OS Update Status.
+                    description: Details about what happened during the OS Update.
                 statusTimestamp:
                     readOnly: true
                     type: integer
@@ -4300,6 +4300,8 @@ components:
                     type: integer
                     description: UTC timestamp of OS Update ended.
                     format: uint32
+                timestamps:
+                    $ref: '#/components/schemas/Timestamps'
         OnboardHostResponse:
             type: object
             properties: {}
