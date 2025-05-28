@@ -57,115 +57,13 @@ func (m *TelemetryLogsGroupResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
-		err := TelemetryLogsGroupResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_TelemetryLogsGroupResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := TelemetryLogsGroupResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^telemetrygroup-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TelemetryLogsGroupId
 
-	if utf8.RuneCountInString(m.GetTelemetryLogsGroupId()) > 23 {
-		err := TelemetryLogsGroupResourceValidationError{
-			field:  "TelemetryLogsGroupId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryLogsGroupResource_TelemetryLogsGroupId_Pattern.MatchString(m.GetTelemetryLogsGroupId()) {
-		err := TelemetryLogsGroupResourceValidationError{
-			field:  "TelemetryLogsGroupId",
-			reason: "value does not match regex pattern \"^telemetrygroup-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 50 {
-		err := TelemetryLogsGroupResourceValidationError{
-			field:  "Name",
-			reason: "value length must be between 1 and 50 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryLogsGroupResource_Name_Pattern.MatchString(m.GetName()) {
-		err := TelemetryLogsGroupResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
 	// no validation rules for CollectorKind
-
-	if len(m.GetGroups()) > 0 {
-
-		if len(m.GetGroups()) > 100 {
-			err := TelemetryLogsGroupResourceValidationError{
-				field:  "Groups",
-				reason: "value must contain no more than 100 item(s)",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		for idx, item := range m.GetGroups() {
-			_, _ = idx, item
-
-			if utf8.RuneCountInString(item) > 1000 {
-				err := TelemetryLogsGroupResourceValidationError{
-					field:  fmt.Sprintf("Groups[%v]", idx),
-					reason: "value length must be at most 1000 runes",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-			if !_TelemetryLogsGroupResource_Groups_Pattern.MatchString(item) {
-				err := TelemetryLogsGroupResourceValidationError{
-					field:  fmt.Sprintf("Groups[%v]", idx),
-					reason: "value does not match regex pattern \"\\\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\\\"\"",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-		}
-
-	}
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -276,14 +174,6 @@ var _ interface {
 	ErrorName() string
 } = TelemetryLogsGroupResourceValidationError{}
 
-var _TelemetryLogsGroupResource_ResourceId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
-
-var _TelemetryLogsGroupResource_TelemetryLogsGroupId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
-
-var _TelemetryLogsGroupResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _TelemetryLogsGroupResource_Groups_Pattern = regexp.MustCompile("\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$\"")
-
 // Validate checks the field values on TelemetryMetricsGroupResource with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -306,115 +196,13 @@ func (m *TelemetryMetricsGroupResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
-		err := TelemetryMetricsGroupResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_TelemetryMetricsGroupResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := TelemetryMetricsGroupResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^telemetrygroup-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TelemetryMetricsGroupId
 
-	if utf8.RuneCountInString(m.GetTelemetryMetricsGroupId()) > 23 {
-		err := TelemetryMetricsGroupResourceValidationError{
-			field:  "TelemetryMetricsGroupId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryMetricsGroupResource_TelemetryMetricsGroupId_Pattern.MatchString(m.GetTelemetryMetricsGroupId()) {
-		err := TelemetryMetricsGroupResourceValidationError{
-			field:  "TelemetryMetricsGroupId",
-			reason: "value does not match regex pattern \"^telemetrygroup-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 50 {
-		err := TelemetryMetricsGroupResourceValidationError{
-			field:  "Name",
-			reason: "value length must be between 1 and 50 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryMetricsGroupResource_Name_Pattern.MatchString(m.GetName()) {
-		err := TelemetryMetricsGroupResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
 	// no validation rules for CollectorKind
-
-	if len(m.GetGroups()) > 0 {
-
-		if len(m.GetGroups()) > 100 {
-			err := TelemetryMetricsGroupResourceValidationError{
-				field:  "Groups",
-				reason: "value must contain no more than 100 item(s)",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		for idx, item := range m.GetGroups() {
-			_, _ = idx, item
-
-			if utf8.RuneCountInString(item) > 1000 {
-				err := TelemetryMetricsGroupResourceValidationError{
-					field:  fmt.Sprintf("Groups[%v]", idx),
-					reason: "value length must be at most 1000 runes",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-			if !_TelemetryMetricsGroupResource_Groups_Pattern.MatchString(item) {
-				err := TelemetryMetricsGroupResourceValidationError{
-					field:  fmt.Sprintf("Groups[%v]", idx),
-					reason: "value does not match regex pattern \"\\\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\\\"\"",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-		}
-
-	}
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -526,14 +314,6 @@ var _ interface {
 	ErrorName() string
 } = TelemetryMetricsGroupResourceValidationError{}
 
-var _TelemetryMetricsGroupResource_ResourceId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
-
-var _TelemetryMetricsGroupResource_TelemetryMetricsGroupId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
-
-var _TelemetryMetricsGroupResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _TelemetryMetricsGroupResource_Groups_Pattern = regexp.MustCompile("\"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$\"")
-
 // Validate checks the field values on TelemetryLogsProfileResource with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -556,139 +336,19 @@ func (m *TelemetryLogsProfileResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 25 {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 25 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_TelemetryLogsProfileResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^telemetryprofile-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ProfileId
 
-	if utf8.RuneCountInString(m.GetProfileId()) > 25 {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "ProfileId",
-			reason: "value length must be at most 25 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetInstance
 
-	if !_TelemetryLogsProfileResource_ProfileId_Pattern.MatchString(m.GetProfileId()) {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "ProfileId",
-			reason: "value does not match regex pattern \"^telemetryprofile-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetSite
 
-	if utf8.RuneCountInString(m.GetTargetInstance()) > 13 {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "TargetInstance",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryLogsProfileResource_TargetInstance_Pattern.MatchString(m.GetTargetInstance()) {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "TargetInstance",
-			reason: "value does not match regex pattern \"^$|^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetTargetSite()) > 13 {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "TargetSite",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryLogsProfileResource_TargetSite_Pattern.MatchString(m.GetTargetSite()) {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "TargetSite",
-			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetTargetRegion()) > 15 {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "TargetRegion",
-			reason: "value length must be at most 15 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryLogsProfileResource_TargetRegion_Pattern.MatchString(m.GetTargetRegion()) {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "TargetRegion",
-			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetRegion
 
 	// no validation rules for LogLevel
 
-	if utf8.RuneCountInString(m.GetLogsGroupId()) > 23 {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "LogsGroupId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryLogsProfileResource_LogsGroupId_Pattern.MatchString(m.GetLogsGroupId()) {
-		err := TelemetryLogsProfileResourceValidationError{
-			field:  "LogsGroupId",
-			reason: "value does not match regex pattern \"^telemetrygroup-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for LogsGroupId
 
 	if all {
 		switch v := interface{}(m.GetLogsGroup()).(type) {
@@ -829,18 +489,6 @@ var _ interface {
 	ErrorName() string
 } = TelemetryLogsProfileResourceValidationError{}
 
-var _TelemetryLogsProfileResource_ResourceId_Pattern = regexp.MustCompile("^telemetryprofile-[0-9a-f]{8}$")
-
-var _TelemetryLogsProfileResource_ProfileId_Pattern = regexp.MustCompile("^telemetryprofile-[0-9a-f]{8}$")
-
-var _TelemetryLogsProfileResource_TargetInstance_Pattern = regexp.MustCompile("^$|^inst-[0-9a-f]{8}$")
-
-var _TelemetryLogsProfileResource_TargetSite_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
-
-var _TelemetryLogsProfileResource_TargetRegion_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
-
-var _TelemetryLogsProfileResource_LogsGroupId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
-
 // Validate checks the field values on TelemetryMetricsProfileResource with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -863,148 +511,19 @@ func (m *TelemetryMetricsProfileResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 25 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 25 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_TelemetryMetricsProfileResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^telemetryprofile-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ProfileId
 
-	if utf8.RuneCountInString(m.GetProfileId()) > 25 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "ProfileId",
-			reason: "value length must be at most 25 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetInstance
 
-	if !_TelemetryMetricsProfileResource_ProfileId_Pattern.MatchString(m.GetProfileId()) {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "ProfileId",
-			reason: "value does not match regex pattern \"^telemetryprofile-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetSite
 
-	if utf8.RuneCountInString(m.GetTargetInstance()) > 13 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "TargetInstance",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TargetRegion
 
-	if !_TelemetryMetricsProfileResource_TargetInstance_Pattern.MatchString(m.GetTargetInstance()) {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "TargetInstance",
-			reason: "value does not match regex pattern \"^$|^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for MetricsInterval
 
-	if utf8.RuneCountInString(m.GetTargetSite()) > 13 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "TargetSite",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryMetricsProfileResource_TargetSite_Pattern.MatchString(m.GetTargetSite()) {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "TargetSite",
-			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetTargetRegion()) > 15 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "TargetRegion",
-			reason: "value length must be at most 15 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryMetricsProfileResource_TargetRegion_Pattern.MatchString(m.GetTargetRegion()) {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "TargetRegion",
-			reason: "value does not match regex pattern \"^$|^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if m.GetMetricsInterval() < 1 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "MetricsInterval",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetMetricsGroupId()) > 23 {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "MetricsGroupId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_TelemetryMetricsProfileResource_MetricsGroupId_Pattern.MatchString(m.GetMetricsGroupId()) {
-		err := TelemetryMetricsProfileResourceValidationError{
-			field:  "MetricsGroupId",
-			reason: "value does not match regex pattern \"^telemetrygroup-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for MetricsGroupId
 
 	if all {
 		switch v := interface{}(m.GetMetricsGroup()).(type) {
@@ -1144,15 +663,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TelemetryMetricsProfileResourceValidationError{}
-
-var _TelemetryMetricsProfileResource_ResourceId_Pattern = regexp.MustCompile("^telemetryprofile-[0-9a-f]{8}$")
-
-var _TelemetryMetricsProfileResource_ProfileId_Pattern = regexp.MustCompile("^telemetryprofile-[0-9a-f]{8}$")
-
-var _TelemetryMetricsProfileResource_TargetInstance_Pattern = regexp.MustCompile("^$|^inst-[0-9a-f]{8}$")
-
-var _TelemetryMetricsProfileResource_TargetSite_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
-
-var _TelemetryMetricsProfileResource_TargetRegion_Pattern = regexp.MustCompile("^$|^region-[0-9a-f]{8}$")
-
-var _TelemetryMetricsProfileResource_MetricsGroupId_Pattern = regexp.MustCompile("^telemetrygroup-[0-9a-f]{8}$")
