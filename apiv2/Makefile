@@ -50,6 +50,10 @@ TEST_PKG         ?= $(shell go list ./... | grep -v "mocks" | grep -v "pkg/api" 
 TEST_COVER       := atomic ./cmd/... ./pkg/... ./internal/...
 TEST_USE_DB      := true
 
+# OpenAPI breaking change check variables
+TEMP_BASE_OPENAPI_DIR := /tmp/apiv2-main
+OPENAPI_PATH          := api/openapi/openapi.yaml
+
 # yamllint variables
 YAML_IGNORE := vendor, $(OPENAPI_PATH), .github/workflows, ./$(VENV_NAME)
 
@@ -67,10 +71,6 @@ CA_PATH					   ?= ""
 GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(GOCMD) test -timeout=20m -count=1 -failfast -v ./test/client/ -apiurl=$(API_URL) -caPath=$(CA_PATH)
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
-
-# OpenAPI breaking change check variables
-TEMP_BASE_OPENAPI_DIR := /tmp/apiv2-main
-OPENAPI_PATH          := api/openapi/openapi.yaml
 
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
