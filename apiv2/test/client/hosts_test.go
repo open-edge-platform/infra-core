@@ -806,12 +806,12 @@ func TestHostsSummary(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resHostSummary.StatusCode())
 	assert.GreaterOrEqual(t, int(*resHostSummary.JSON200.Total), 2)
 	if resHostSummary.JSON200.Error != nil {
-		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Error, uint32(0))
+		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Error, 0)
 	}
 	if resHostSummary.JSON200.Running != nil {
-		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Running, uint32(0))
+		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Running, 0)
 	}
-	assert.GreaterOrEqual(t, *resHostSummary.JSON200.Unallocated, uint32(1))
+	assert.GreaterOrEqual(t, *resHostSummary.JSON200.Unallocated, 1)
 }
 
 func TestHostRegister(t *testing.T) {

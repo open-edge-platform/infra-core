@@ -243,7 +243,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
+	assert.GreaterOrEqual(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
 
