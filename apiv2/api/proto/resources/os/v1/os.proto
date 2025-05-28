@@ -123,7 +123,7 @@ message OperatingSystemResource {
 
   // The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field 
   // for the advance use case to allow manual creation of OSProfiles when supported from backend.
-  string installed_packages_source = 17 [
+  string installed_packages_url = 17 [
     (google.api.field_behavior) = IMMUTABLE,
     (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
