@@ -149,11 +149,7 @@ func (is *InventorygRPCServer) ListTelemetryMetricsProfiles(
 	hasNext := false
 	var totalElems int32
 	telemetryMetricsProfiles := []*telemetryv1.TelemetryMetricsProfileResource{}
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
+
 	filter := telemetryProfileFilter(
 		telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS,
 		req.GetInstanceId(),
@@ -164,8 +160,8 @@ func (is *InventorygRPCServer) ListTelemetryMetricsProfiles(
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_TelemetryProfile{},
 		},
-		Offset:  offset,
-		Limit:   limit,
+		Offset:  req.GetOffset(),
+		Limit:   req.GetPageSize(),
 		OrderBy: req.GetOrderBy(),
 		Filter:  filter,
 	}
@@ -347,18 +343,13 @@ func (is *InventorygRPCServer) listInheritedTelemetryMetrics(
 			},
 		}
 	}
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, 0, false, errors.Wrap(err)
-	}
 	resp, err := is.InvClient.ListInheritedTelemetryProfiles(
 		ctx,
 		&inheritBy,
 		fmt.Sprintf("%s = %s",
 			inv_telemetryv1.TelemetryProfileFieldKind,
 			inv_telemetryv1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS),
-		req.GetOrderBy(), offset, limit)
+		req.GetOrderBy(), req.GetOffset(), req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to list inherited telemetry metrics profiles from inventory")
 		return nil, 0, false, errors.Wrap(err)
