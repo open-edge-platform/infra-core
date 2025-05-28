@@ -4288,3 +4288,165 @@ var OSUpdatePolicy_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "services/v1/services.proto",
 }
+
+// OSUpdateRunClient is the client API for OSUpdateRun service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type OSUpdateRunClient interface {
+	// Get a list of OS Update Policies.
+	ListOSUpdateRun(ctx context.Context, in *ListOSUpdateRunRequest, opts ...grpc.CallOption) (*ListOSUpdateRunResponse, error)
+	// Get a specific OS Update Run.
+	GetOSUpdateRun(ctx context.Context, in *GetOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
+	// Delete a OS Update Run.
+	DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
+}
+
+type oSUpdateRunClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewOSUpdateRunClient(cc grpc.ClientConnInterface) OSUpdateRunClient {
+	return &oSUpdateRunClient{cc}
+}
+
+func (c *oSUpdateRunClient) ListOSUpdateRun(ctx context.Context, in *ListOSUpdateRunRequest, opts ...grpc.CallOption) (*ListOSUpdateRunResponse, error) {
+	out := new(ListOSUpdateRunResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/ListOSUpdateRun", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdateRunClient) GetOSUpdateRun(ctx context.Context, in *GetOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error) {
+	out := new(v11.OSUpdateRun)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/GetOSUpdateRun", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdateRunClient) DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error) {
+	out := new(v11.OSUpdateRun)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OSUpdateRunServer is the server API for OSUpdateRun service.
+// All implementations should embed UnimplementedOSUpdateRunServer
+// for forward compatibility
+type OSUpdateRunServer interface {
+	// Get a list of OS Update Policies.
+	ListOSUpdateRun(context.Context, *ListOSUpdateRunRequest) (*ListOSUpdateRunResponse, error)
+	// Get a specific OS Update Run.
+	GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error)
+	// Delete a OS Update Run.
+	DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*v11.OSUpdateRun, error)
+}
+
+// UnimplementedOSUpdateRunServer should be embedded to have forward compatible implementations.
+type UnimplementedOSUpdateRunServer struct {
+}
+
+func (UnimplementedOSUpdateRunServer) ListOSUpdateRun(context.Context, *ListOSUpdateRunRequest) (*ListOSUpdateRunResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOSUpdateRun not implemented")
+}
+func (UnimplementedOSUpdateRunServer) GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdateRun not implemented")
+}
+func (UnimplementedOSUpdateRunServer) DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdateRun not implemented")
+}
+
+// UnsafeOSUpdateRunServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OSUpdateRunServer will
+// result in compilation errors.
+type UnsafeOSUpdateRunServer interface {
+	mustEmbedUnimplementedOSUpdateRunServer()
+}
+
+func RegisterOSUpdateRunServer(s grpc.ServiceRegistrar, srv OSUpdateRunServer) {
+	s.RegisterService(&OSUpdateRun_ServiceDesc, srv)
+}
+
+func _OSUpdateRun_ListOSUpdateRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOSUpdateRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdateRunServer).ListOSUpdateRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdateRun/ListOSUpdateRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdateRunServer).ListOSUpdateRun(ctx, req.(*ListOSUpdateRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdateRun_GetOSUpdateRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOSUpdateRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdateRunServer).GetOSUpdateRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdateRun/GetOSUpdateRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdateRunServer).GetOSUpdateRun(ctx, req.(*GetOSUpdateRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdateRun_DeleteOSUpdateRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOSUpdateRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdateRunServer).DeleteOSUpdateRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdateRun/DeleteOSUpdateRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdateRunServer).DeleteOSUpdateRun(ctx, req.(*DeleteOSUpdateRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// OSUpdateRun_ServiceDesc is the grpc.ServiceDesc for OSUpdateRun service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var OSUpdateRun_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.OSUpdateRun",
+	HandlerType: (*OSUpdateRunServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListOSUpdateRun",
+			Handler:    _OSUpdateRun_ListOSUpdateRun_Handler,
+		},
+		{
+			MethodName: "GetOSUpdateRun",
+			Handler:    _OSUpdateRun_GetOSUpdateRun_Handler,
+		},
+		{
+			MethodName: "DeleteOSUpdateRun",
+			Handler:    _OSUpdateRun_DeleteOSUpdateRun_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}

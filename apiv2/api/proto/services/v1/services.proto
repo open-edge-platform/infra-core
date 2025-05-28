@@ -2470,3 +2470,107 @@ message DeleteOSUpdatePolicyRequest {
 // Response message for DeleteOperatingSystem.
 message DeleteOSUpdatePolicyResponse {}
 
+
+// OS Update Run.
+service OSUpdateRun {
+  // Get a list of OS Update Policies.
+  rpc ListOSUpdateRun(ListOSUpdateRunRequest) returns (ListOSUpdateRunResponse) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run"};
+  }
+  // Get a specific OS Update Run.
+  rpc GetOSUpdateRun(GetOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"};
+  }
+  // Delete a OS Update Run.
+  rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"};
+  }
+}
+
+/*
+   ###################
+   OS Update Run
+   ###################
+*/
+
+// Request message for the CreateOSUpdateRun method.
+message CreateOSUpdateRunRequest {
+  // The os update run to create.
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the CreateOSUpdateRun method.
+message CreateOSUpdateRunResponse {
+  // The created os.
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the GetOSUpdateRun method.
+message GetOSUpdateRunRequest {
+  // Name of the requested os.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetOSUpdateRun method.
+message GetOSUpdateRunResponse {
+  // The requested os.
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the ListOSUpdateRun method.
+message ListOSUpdateRunRequest {
+  // Optional comma separated list of fields to specify a sorting order.
+  // See https://google.aip.dev/132 for details.
+  string order_by = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9., ]+$"
+    }
+  ];
+  // Optional filter to return only item of interest.
+  // See https://google.aip.dev/160 for details.
+  string filter = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // Defines the amount of items to be contained in a single page.
+  // Default of 20.
+  uint32 page_size = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).uint32 = {
+      gte: 1
+      lte: 100
+    }
+  ];
+  // Index of the first item to return. This allows skipping items.
+  uint32 offset = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).uint32 = {
+      gte: 0
+      lte: 10000
+    }
+  ];
+}
+
+// Response message for the ListOSUpdateRun method.
+message ListOSUpdateRunResponse {
+  // Sorted and filtered list of os update policies.
+  repeated resources.compute.v1.OSUpdateRun os_update_policies = 1 [(google.api.field_behavior) = REQUIRED];
+  // Count of items in the entire list, regardless of pagination.
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  // Inform if there are more elements
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for DeleteOperatingSystem.
+message DeleteOSUpdateRunRequest {
+  // Name of the os update run to be deleted.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for DeleteOperatingSystem.
+message DeleteOSUpdateRunResponse {}
