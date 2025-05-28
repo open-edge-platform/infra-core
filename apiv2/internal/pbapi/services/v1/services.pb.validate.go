@@ -19008,6 +19008,1041 @@ var _ interface {
 	ErrorName() string
 } = DeleteLocalAccountResponseValidationError{}
 
+// Validate checks the field values on CreateOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *CreateOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyRequestValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyRequestValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOSUpdatePolicyRequestValidationError{
+				field:  "OsUpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateOSUpdatePolicyRequestMultiError is an error wrapping multiple
+// validation errors returned by CreateOSUpdatePolicyRequest.ValidateAll() if
+// the designated constraints aren't met.
+type CreateOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// CreateOSUpdatePolicyRequestValidationError is the validation error returned
+// by CreateOSUpdatePolicyRequest.Validate if the designated constraints
+// aren't met.
+type CreateOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "CreateOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateOSUpdatePolicyRequestValidationError{}
+
+// Validate checks the field values on CreateOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *CreateOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOSUpdatePolicyResponseValidationError{
+				field:  "OsUpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateOSUpdatePolicyResponseMultiError is an error wrapping multiple
+// validation errors returned by CreateOSUpdatePolicyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type CreateOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// CreateOSUpdatePolicyResponseValidationError is the validation error returned
+// by CreateOSUpdatePolicyResponse.Validate if the designated constraints
+// aren't met.
+type CreateOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "CreateOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateOSUpdatePolicyResponseValidationError{}
+
+// Validate checks the field values on GetOSUpdatePolicyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *GetOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return GetOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetOSUpdatePolicyRequestMultiError is an error wrapping multiple validation
+// errors returned by GetOSUpdatePolicyRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// GetOSUpdatePolicyRequestValidationError is the validation error returned by
+// GetOSUpdatePolicyRequest.Validate if the designated constraints aren't met.
+type GetOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "GetOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetOSUpdatePolicyRequestValidationError{}
+
+// Validate checks the field values on GetOSUpdatePolicyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *GetOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetOSUpdatePolicyResponseValidationError{
+				field:  "OsUpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetOSUpdatePolicyResponseMultiError is an error wrapping multiple validation
+// errors returned by GetOSUpdatePolicyResponse.ValidateAll() if the
+// designated constraints aren't met.
+type GetOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// GetOSUpdatePolicyResponseValidationError is the validation error returned by
+// GetOSUpdatePolicyResponse.Validate if the designated constraints aren't met.
+type GetOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "GetOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetOSUpdatePolicyResponseValidationError{}
+
+// Validate checks the field values on ListOSUpdatePolicyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *ListOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetOrderBy() != "" {
+
+		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "OrderBy",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListOSUpdatePolicyRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "OrderBy",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetFilter() != "" {
+
+		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "Filter",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListOSUpdatePolicyRequest_Filter_Pattern.MatchString(m.GetFilter()) {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "Filter",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetPageSize() != 0 {
+
+		if val := m.GetPageSize(); val < 1 || val > 100 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "PageSize",
+				reason: "value must be inside range [1, 100]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetOffset() != 0 {
+
+		if val := m.GetOffset(); val < 0 || val > 10000 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "Offset",
+				reason: "value must be inside range [0, 10000]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListOSUpdatePolicyRequestMultiError is an error wrapping multiple validation
+// errors returned by ListOSUpdatePolicyRequest.ValidateAll() if the
+// designated constraints aren't met.
+type ListOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// ListOSUpdatePolicyRequestValidationError is the validation error returned by
+// ListOSUpdatePolicyRequest.Validate if the designated constraints aren't met.
+type ListOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "ListOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListOSUpdatePolicyRequestValidationError{}
+
+var _ListOSUpdatePolicyRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
+
+var _ListOSUpdatePolicyRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
+
+// Validate checks the field values on ListOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *ListOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetOsUpdatePolicies() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListOSUpdatePolicyResponseValidationError{
+						field:  fmt.Sprintf("OsUpdatePolicies[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListOSUpdatePolicyResponseValidationError{
+						field:  fmt.Sprintf("OsUpdatePolicies[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListOSUpdatePolicyResponseValidationError{
+					field:  fmt.Sprintf("OsUpdatePolicies[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for TotalElements
+
+	// no validation rules for HasNext
+
+	if len(errors) > 0 {
+		return ListOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListOSUpdatePolicyResponseMultiError is an error wrapping multiple
+// validation errors returned by ListOSUpdatePolicyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type ListOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// ListOSUpdatePolicyResponseValidationError is the validation error returned
+// by ListOSUpdatePolicyResponse.Validate if the designated constraints aren't met.
+type ListOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "ListOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListOSUpdatePolicyResponseValidationError{}
+
+// Validate checks the field values on DeleteOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *DeleteOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return DeleteOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteOSUpdatePolicyRequestMultiError is an error wrapping multiple
+// validation errors returned by DeleteOSUpdatePolicyRequest.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// DeleteOSUpdatePolicyRequestValidationError is the validation error returned
+// by DeleteOSUpdatePolicyRequest.Validate if the designated constraints
+// aren't met.
+type DeleteOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "DeleteOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteOSUpdatePolicyRequestValidationError{}
+
+// Validate checks the field values on DeleteOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *DeleteOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteOSUpdatePolicyResponseMultiError is an error wrapping multiple
+// validation errors returned by DeleteOSUpdatePolicyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// DeleteOSUpdatePolicyResponseValidationError is the validation error returned
+// by DeleteOSUpdatePolicyResponse.Validate if the designated constraints
+// aren't met.
+type DeleteOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "DeleteOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteOSUpdatePolicyResponseValidationError{}
+
 // Validate checks the field values on ListLocationsResponse_LocationNode with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the first error encountered is returned, or nil if there are

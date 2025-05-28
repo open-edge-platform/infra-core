@@ -45,6 +45,7 @@
     - [HostusbResource](#resources-compute-v1-HostusbResource)
     - [InstanceResource](#resources-compute-v1-InstanceResource)
     - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
+    - [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy)
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
@@ -55,6 +56,7 @@
     - [InstanceState](#resources-compute-v1-InstanceState)
     - [LinkState](#resources-compute-v1-LinkState)
     - [PowerState](#resources-compute-v1-PowerState)
+    - [UpdatePolicy](#resources-compute-v1-UpdatePolicy)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
     - [WorkloadState](#resources-compute-v1-WorkloadState)
@@ -82,6 +84,8 @@
     - [CreateInstanceResponse](#services-v1-CreateInstanceResponse)
     - [CreateLocalAccountRequest](#services-v1-CreateLocalAccountRequest)
     - [CreateLocalAccountResponse](#services-v1-CreateLocalAccountResponse)
+    - [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest)
+    - [CreateOSUpdatePolicyResponse](#services-v1-CreateOSUpdatePolicyResponse)
     - [CreateOperatingSystemRequest](#services-v1-CreateOperatingSystemRequest)
     - [CreateOperatingSystemResponse](#services-v1-CreateOperatingSystemResponse)
     - [CreateProviderRequest](#services-v1-CreateProviderRequest)
@@ -112,6 +116,8 @@
     - [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse)
     - [DeleteLocalAccountRequest](#services-v1-DeleteLocalAccountRequest)
     - [DeleteLocalAccountResponse](#services-v1-DeleteLocalAccountResponse)
+    - [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest)
+    - [DeleteOSUpdatePolicyResponse](#services-v1-DeleteOSUpdatePolicyResponse)
     - [DeleteOperatingSystemRequest](#services-v1-DeleteOperatingSystemRequest)
     - [DeleteOperatingSystemResponse](#services-v1-DeleteOperatingSystemResponse)
     - [DeleteProviderRequest](#services-v1-DeleteProviderRequest)
@@ -144,6 +150,8 @@
     - [GetInstanceResponse](#services-v1-GetInstanceResponse)
     - [GetLocalAccountRequest](#services-v1-GetLocalAccountRequest)
     - [GetLocalAccountResponse](#services-v1-GetLocalAccountResponse)
+    - [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest)
+    - [GetOSUpdatePolicyResponse](#services-v1-GetOSUpdatePolicyResponse)
     - [GetOperatingSystemRequest](#services-v1-GetOperatingSystemRequest)
     - [GetOperatingSystemResponse](#services-v1-GetOperatingSystemResponse)
     - [GetProviderRequest](#services-v1-GetProviderRequest)
@@ -182,6 +190,8 @@
     - [ListLocationsRequest](#services-v1-ListLocationsRequest)
     - [ListLocationsResponse](#services-v1-ListLocationsResponse)
     - [ListLocationsResponse.LocationNode](#services-v1-ListLocationsResponse-LocationNode)
+    - [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest)
+    - [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse)
     - [ListOperatingSystemsRequest](#services-v1-ListOperatingSystemsRequest)
     - [ListOperatingSystemsResponse](#services-v1-ListOperatingSystemsResponse)
     - [ListProvidersRequest](#services-v1-ListProvidersRequest)
@@ -238,6 +248,7 @@
     - [InstanceService](#services-v1-InstanceService)
     - [LocalAccountService](#services-v1-LocalAccountService)
     - [LocationService](#services-v1-LocationService)
+    - [OSUpdatePolicy](#services-v1-OSUpdatePolicy)
     - [OperatingSystemService](#services-v1-OperatingSystemService)
     - [ProviderService](#services-v1-ProviderService)
     - [RegionService](#services-v1-RegionService)
@@ -855,11 +866,13 @@ host or hypervisor.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| update_policy | [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | Update Policy of this Instance |
 | instance_status_detail | [string](#string) |  | Textual message that gives detailed status of the instance&#39;s software components. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
+| os_update_policyID | [string](#string) |  |  |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -876,6 +889,29 @@ back-reference to the Workload Members associated to this Instance |
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | type | [LinkState](#resources-compute-v1-LinkState) |  | The interface link state. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-OSUpdatePolicy"></a>
+
+### OSUpdatePolicy
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource ID, generated by the inventory on Create. |
+| name | [string](#string) |  | User-provided, human-readable name. |
+| description | [string](#string) |  | User-provided, human-readable description. |
+| install_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. Applies only to Mutable OSes. |
+| update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Applies only to Mutable OSes. |
+| kernel_command | [string](#string) |  | The OS resource&#39;s kernel Command Line Options. Applies only to Mutable OSes. |
+| target_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The target OS for the update. Applies only to Immutable OSes for A/B upgrades. |
+| update_policy | [UpdatePolicy](#resources-compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -1024,6 +1060,19 @@ The host power state.
 | POWER_STATE_ERROR | 1 |  |
 | POWER_STATE_ON | 2 |  |
 | POWER_STATE_OFF | 3 |  |
+
+
+
+<a name="resources-compute-v1-UpdatePolicy"></a>
+
+### UpdatePolicy
+States of the host.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UPDATE_POLICY_UNSPECIFIED | 0 | Should never be used |
+| UPDATE_POLICY_LATEST | 1 | Upgrade to latest version |
+| UPDATE_POLICY_TARGET | 2 | Upgrade to the target version |
 
 
 
@@ -1402,6 +1451,36 @@ Response message for the CreateLocalAccount method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The created localaccount. |
+
+
+
+
+
+
+<a name="services-v1-CreateOSUpdatePolicyRequest"></a>
+
+### CreateOSUpdatePolicyRequest
+Request message for the CreateOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The OS Update policy to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateOSUpdatePolicyResponse"></a>
+
+### CreateOSUpdatePolicyResponse
+Response message for the CreateOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The created os. |
 
 
 
@@ -1843,6 +1922,31 @@ Response message for DeleteLocalAccount.
 
 
 
+<a name="services-v1-DeleteOSUpdatePolicyRequest"></a>
+
+### DeleteOSUpdatePolicyRequest
+Request message for DeleteOperatingSystem.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the OS Update Policy to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteOSUpdatePolicyResponse"></a>
+
+### DeleteOSUpdatePolicyResponse
+Response message for DeleteOperatingSystem.
+
+
+
+
+
+
 <a name="services-v1-DeleteOperatingSystemRequest"></a>
 
 ### DeleteOperatingSystemRequest
@@ -2260,6 +2364,36 @@ Response message for the GetLocalAccount method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The requested localaccount. |
+
+
+
+
+
+
+<a name="services-v1-GetOSUpdatePolicyRequest"></a>
+
+### GetOSUpdatePolicyRequest
+Request message for the GetOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Name of the requested os. |
+
+
+
+
+
+
+<a name="services-v1-GetOSUpdatePolicyResponse"></a>
+
+### GetOSUpdatePolicyResponse
+Response message for the GetOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The requested os. |
 
 
 
@@ -2846,6 +2980,41 @@ A node in the location tree.
 | parent_id | [string](#string) |  | The associated resource ID, of the parent resource of this Location node. In the case of a region, it could be empty or a regionId. In the case of a site, it could be empty or a regionId. |
 | name | [string](#string) |  | The node human readable name. |
 | type | [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind) |  | The node type |
+
+
+
+
+
+
+<a name="services-v1-ListOSUpdatePolicyRequest"></a>
+
+### ListOSUpdatePolicyRequest
+Request message for the ListOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListOSUpdatePolicyResponse"></a>
+
+### ListOSUpdatePolicyResponse
+Response message for the ListOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policies | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | repeated | Sorted and filtered list of OS Update Policies. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
 
 
 
@@ -3766,6 +3935,19 @@ Location.
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | ListLocations | [ListLocationsRequest](#services-v1-ListLocationsRequest) | [ListLocationsResponse](#services-v1-ListLocationsResponse) | Get a list of locations. |
+
+
+<a name="services-v1-OSUpdatePolicy"></a>
+
+### OSUpdatePolicy
+OS Update Policy.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateOSUpdatePolicy | [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Create an OS Update Policy. |
+| ListOSUpdatePolicy | [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest) | [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse) | Get a list of OS Update Policies. |
+| GetOSUpdatePolicy | [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Get a specific OS Update Policy. |
+| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Delete a OS Update Policy. |
 
 
 <a name="services-v1-OperatingSystemService"></a>

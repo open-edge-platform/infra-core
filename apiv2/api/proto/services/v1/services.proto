@@ -2358,3 +2358,115 @@ message DeleteLocalAccountRequest {
 
 // Response message for DeleteLocalAccount.
 message DeleteLocalAccountResponse {}
+
+// OS Update Policy.
+service OSUpdatePolicy {
+  // Create an OS Update Policy.
+  rpc CreateOSUpdatePolicy(CreateOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
+    option (google.api.http) = {
+      post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+      body: "os_update_policy"
+    };
+  }
+  // Get a list of OS Update Policies.
+  rpc ListOSUpdatePolicy(ListOSUpdatePolicyRequest) returns (ListOSUpdatePolicyResponse) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy"};
+  }
+  // Get a specific OS Update Policy.
+  rpc GetOSUpdatePolicy(GetOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"};
+  }
+  // Delete a OS Update Policy.
+  rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"};
+  }
+}
+
+/*
+   ###################
+   OS Update Policy
+   ###################
+*/
+
+// Request message for the CreateOSUpdatePolicy method.
+message CreateOSUpdatePolicyRequest {
+  // The OS Update policy to create.
+  resources.compute.v1.OSUpdatePolicy os_update_policy = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the CreateOSUpdatePolicy method.
+message CreateOSUpdatePolicyResponse {
+  // The created os.
+  resources.compute.v1.OSUpdatePolicy os_update_policy = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the GetOSUpdatePolicy method.
+message GetOSUpdatePolicyRequest {
+  // Name of the requested os.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetOSUpdatePolicy method.
+message GetOSUpdatePolicyResponse {
+  // The requested os.
+  resources.compute.v1.OSUpdatePolicy os_update_policy = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the ListOSUpdatePolicy method.
+message ListOSUpdatePolicyRequest {
+  // Optional comma separated list of fields to specify a sorting order.
+  // See https://google.aip.dev/132 for details.
+  string order_by = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9., ]+$"
+    }
+  ];
+  // Optional filter to return only item of interest.
+  // See https://google.aip.dev/160 for details.
+  string filter = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // Defines the amount of items to be contained in a single page.
+  // Default of 20.
+  uint32 page_size = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).uint32 = {
+      gte: 1
+      lte: 100
+    }
+  ];
+  // Index of the first item to return. This allows skipping items.
+  uint32 offset = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).uint32 = {
+      gte: 0
+      lte: 10000
+    }
+  ];
+}
+
+// Response message for the ListOSUpdatePolicy method.
+message ListOSUpdatePolicyResponse {
+  // Sorted and filtered list of OS Update Policies.
+  repeated resources.compute.v1.OSUpdatePolicy os_update_policies = 1 [(google.api.field_behavior) = REQUIRED];
+  // Count of items in the entire list, regardless of pagination.
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  // Inform if there are more elements
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for DeleteOperatingSystem.
+message DeleteOSUpdatePolicyRequest {
+  // Name of the OS Update Policy to be deleted.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for DeleteOperatingSystem.
+message DeleteOSUpdatePolicyResponse {}
+
