@@ -12,21 +12,24 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-// Custom error structure that includes code as string
+// Custom error structure that includes code as string.
 type errorResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 	Details []any  `json:"details,omitempty"`
 }
 
-// Custom error handler that converts gRPC status code to string
-func customErrorHandler(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, r *http.Request, err error) {
-	// Extract gRPC status
+// Custom error handler that converts gRPC status code to string.
+func customErrorHandler(_ context.Context, _ *runtime.ServeMux,
+	_ runtime.Marshaler, w http.ResponseWriter, _ *http.Request,
+	err error,
+) {
+	// Extract gRPC status.
 	st := status.Convert(err)
 
-	// Create error response with code as string
+	// Create error response with code as string.
 	errResp := &errorResponse{
-		Code:    st.Code().String(), // Convert gRPC code to string
+		Code:    st.Code().String(), // Convert gRPC code to string.
 		Message: st.Message(),
 		Details: nil,
 	}
@@ -37,5 +40,10 @@ func customErrorHandler(ctx context.Context, mux *runtime.ServeMux, marshaler ru
 	w.WriteHeader(httpStatus)
 
 	// Marshal and write error response
-	json.NewEncoder(w).Encode(errResp)
+	err = json.NewEncoder(w).Encode(errResp)
+	if err != nil {
+		// If encoding fails, log the error but do not write to response
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
 }
