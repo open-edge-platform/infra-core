@@ -163,4 +163,18 @@ const (
 	OSUpdatePolicyEdgeTargetOs         = "target_os"
 	OSUpdatePolicyFieldUpdatePolicy    = "update_policy"
 	OSUpdatePolicyEdgeTimestamps       = "timestamps"
+
+	// Fields and Edges constants for "OSUpdateRun"
+	OSUpdateRunFieldResourceId      = "resource_id"
+	OSUpdateRunFieldName            = "name"
+	OSUpdateRunFieldDescription     = "description"
+	OSUpdateRunEdgeAppliedPolicy    = "applied_policy"
+	OSUpdateRunEdgeInstance         = "instance"
+	OSUpdateRunFieldStatusIndicator = "status_indicator"
+	OSUpdateRunFieldStatus          = "status"
+	OSUpdateRunFieldStatusDetails   = "status_details"
+	OSUpdateRunEdgeStatusTimestamp  = "status_timestamp"
+	OSUpdateRunEdgeStartTime        = "start_time"
+	OSUpdateRunEdgeEndTime          = "end_time"
+	OSUpdateRunEdgeTimestamps       = "timestamps"
 )
