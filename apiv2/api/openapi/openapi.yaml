@@ -3453,9 +3453,6 @@ components:
   schemas:
     google.protobuf.Timestamp:
       type: string
-      examples:
-        - 1s
-        - 1.000340012s
       format: date-time
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
@@ -3875,7 +3872,7 @@ components:
           title: kernel_command
           maxLength: 500
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
-          description: The OS resource's kernel Command Line Options.
+          description: Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
         updateSources:
           type: array
           items:
@@ -3886,7 +3883,7 @@ components:
           title: update_sources
           maxItems: 100
           description: |-
-            The list of OS resource update sources.
+            Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
              Should be in 'DEB822 Source Format' for Debian style OSs
         imageUrl:
           type: string
@@ -3928,7 +3925,16 @@ components:
           title: installed_packages
           maxLength: 500000
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
-          description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+          description: List of installed packages, encoded as a JSON list.
+          readOnly: true
+        installedPackagesUrl:
+          type: string
+          title: installed_packages_url
+          maxLength: 200
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+          description: |-
+            (IMMUTABLE) The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field
+             for the advance use case to allow manual creation of OSProfiles when supported from backend.
         securityFeature:
           title: security_feature
           description: |-
@@ -3968,7 +3974,6 @@ components:
           $ref: '#/components/schemas/Timestamps'
       title: OperatingSystemResource
       required:
-        - updateSources
         - sha256
       additionalProperties: false
       description: An OS resource.
