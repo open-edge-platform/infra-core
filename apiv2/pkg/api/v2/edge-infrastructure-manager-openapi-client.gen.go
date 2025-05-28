@@ -3588,7 +3588,7 @@ func NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3622,7 +3622,7 @@ func NewOSUpdatePolicyGetOSUpdatePolicyRequest(server string, resourceId string)
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -7903,7 +7903,7 @@ type OSUpdatePolicyListOSUpdatePolicyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListOSUpdatePolicyResponse
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7926,7 +7926,7 @@ type OSUpdatePolicyCreateOSUpdatePolicyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OSUpdatePolicy
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7949,7 +7949,7 @@ type OSUpdatePolicyDeleteOSUpdatePolicyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OSUpdatePolicy
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -7972,7 +7972,7 @@ type OSUpdatePolicyGetOSUpdatePolicyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OSUpdatePolicy
-	JSONDefault  *Status
+	JSONDefault  *ConnectError
 }
 
 // Status returns HTTPResponse.Status
@@ -11459,7 +11459,7 @@ func ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdat
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11492,7 +11492,7 @@ func ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp *http.Response) (*OSUpd
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11525,7 +11525,7 @@ func ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp *http.Response) (*OSUpd
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11558,7 +11558,7 @@ func ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdate
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest Status
+		var dest ConnectError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
