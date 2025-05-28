@@ -110,6 +110,7 @@ const (
 	InstanceResourceFieldInstanceStatus                    = "instance_status"
 	InstanceResourceFieldInstanceStatusIndicator           = "instance_status_indicator"
 	InstanceResourceFieldInstanceStatusTimestamp           = "instance_status_timestamp"
+	InstanceResourceFieldInstanceStatusDetail              = "instance_status_detail"
 	InstanceResourceFieldProvisioningStatus                = "provisioning_status"
 	InstanceResourceFieldProvisioningStatusIndicator       = "provisioning_status_indicator"
 	InstanceResourceFieldProvisioningStatusTimestamp       = "provisioning_status_timestamp"

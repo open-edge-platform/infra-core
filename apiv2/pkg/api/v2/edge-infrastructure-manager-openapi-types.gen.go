@@ -1051,6 +1051,9 @@ type InstanceResource struct {
 	// InstanceStatus textual message that describes the current instance status. Set by RMs only.
 	InstanceStatus *string `json:"instanceStatus,omitempty"`
 
+	// InstanceStatusDetail Textual message that gives detailed status of the instance's software components.
+	InstanceStatusDetail *string `json:"instanceStatusDetail,omitempty"`
+
 	// InstanceStatusIndicator The status indicator.
 	InstanceStatusIndicator *StatusIndication `json:"instanceStatusIndicator,omitempty"`
 

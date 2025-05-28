@@ -4686,6 +4686,13 @@ components:
           title: instance_status_timestamp
           description: UTC timestamp when instance_status was last changed. Set by RMs only.
           readOnly: true
+        instanceStatusDetail:
+          type: string
+          title: instance_status_detail
+          maxLength: 1024
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          description: Textual message that gives detailed status of the instance's software components.
+          readOnly: true
         provisioningStatus:
           type: string
           title: provisioning_status

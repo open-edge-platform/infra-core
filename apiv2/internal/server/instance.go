@@ -79,6 +79,7 @@ func fromInvInstanceStatus(
 	instance *computev1.InstanceResource,
 ) {
 	instanceStatus := invInstance.GetInstanceStatus()
+	instanceStatusDetail := invInstance.GetInstanceStatusDetail()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
 	instanceStatusTimestamp := TruncateUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
 
@@ -95,6 +96,7 @@ func fromInvInstanceStatus(
 	attestationStatusTimestamp := TruncateUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
 
 	instance.InstanceStatus = instanceStatus
+	instance.InstanceStatusDetail = instanceStatusDetail
 	instance.InstanceStatusIndicator = instanceStatusIndicator
 	instance.InstanceStatusTimestamp = instanceStatusTimestamp
 	instance.ProvisioningStatus = provisioningStatus

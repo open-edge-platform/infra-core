@@ -364,6 +364,16 @@ message InstanceResource {
   // UTC timestamp when instance_status was last changed. Set by RMs only.
   uint32 instance_status_timestamp = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // Textual message that gives detailed status of the instance's software components.
+  string instance_status_detail = 101 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {
+      max_len: 1024
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; 
+
   // textual message that describes the provisioning status of Instance. Set by RMs only.
   string provisioning_status = 18 [(buf.validate.field).string = {max_len: 1024},
     (google.api.field_behavior) = OUTPUT_ONLY
