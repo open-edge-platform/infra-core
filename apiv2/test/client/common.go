@@ -547,9 +547,6 @@ func CreateTelemetryLogsGroup(
 
 	created, err := apiClient.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
-	if created.JSON200 == nil {
-		t.Log("CreateTelemetryLogsGroup: JSON200 is nil, response body: ", *created.JSONDefault.Message)
-	}
 	assert.Equal(t, http.StatusOK, created.StatusCode())
 
 	t.Cleanup(func() {
