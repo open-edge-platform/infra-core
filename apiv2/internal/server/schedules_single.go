@@ -249,12 +249,12 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 		return nil, errors.Wrap(err)
 	}
 	var offset, limit int
-	offset, err = util.Int32ToInt(req.GetOffset())
+	offset, err = util.Uint32ToInt(req.GetOffset())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert offset")
 		return nil, err
 	}
-	limit, err = util.Int32ToInt(req.GetPageSize())
+	limit, err = util.Uint32ToInt(req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert page size")
 		return nil, err

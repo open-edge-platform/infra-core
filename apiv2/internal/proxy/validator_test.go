@@ -31,8 +31,8 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	e := echo.New()
 
 	siteName := "site"
-	body := api.SiteResource{Name: &siteName}
-	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", body)
+	siteBody := api.SiteResource{Name: &siteName}
+	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", siteBody)
 	assert.NoError(t, err)
 
 	regionID := "region-12345678"
@@ -40,7 +40,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", params)
 	assert.NoError(t, err)
 
-	var pageSizeWrong int32 = 2000
+	pageSizeWrong := 2000
 	paramsWrong := &api.SiteServiceListSitesParams{PageSize: &pageSizeWrong}
 	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", paramsWrong)
 	assert.NoError(t, err)
@@ -67,6 +67,14 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		"", hostInvalidBodyRequest)
 	assert.NoError(t, err)
 
+	// Enforce the test of required fields in the request body.
+	workloadInvalidBodyRequest := api.WorkloadResource{
+		// Kind: api.WORKLOADKINDCLUSTER,
+	}
+	workloadPostRequestInvalidNoName, err := api.NewWorkloadServiceCreateWorkloadRequest(
+		"", workloadInvalidBodyRequest)
+	assert.NoError(t, err)
+
 	tests := []struct {
 		name           string
 		request        *http.Request
@@ -83,9 +91,8 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 			expectedStatus: http.StatusNotFound,
 		},
 		{
-			name: "Invalid Body Format",
-			request: createRequestWithMethodPathParams(http.MethodPost,
-				"/edge-infra.orchestrator.apis/v2/hosts"),
+			name:           "Invalid Body Format",
+			request:        workloadPostRequestInvalidNoName,
 			expectedStatus: http.StatusBadRequest,
 		},
 		{

@@ -58,7 +58,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -290,7 +289,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -593,7 +591,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -948,7 +945,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -1203,7 +1199,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -1428,7 +1423,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -1581,7 +1575,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -1806,7 +1799,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -1933,7 +1925,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -2034,7 +2025,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -2291,7 +2281,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -2548,7 +2537,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -2688,7 +2676,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -2828,7 +2815,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -3079,7 +3065,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -3356,7 +3341,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -6746,7 +6730,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -6807,7 +6790,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -6868,7 +6850,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7003,7 +6984,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7064,7 +7044,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7125,7 +7104,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7174,7 +7152,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7252,7 +7229,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7337,7 +7313,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7431,7 +7406,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7476,7 +7450,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7529,7 +7502,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7605,7 +7577,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7658,7 +7629,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7750,7 +7720,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7811,7 +7780,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.

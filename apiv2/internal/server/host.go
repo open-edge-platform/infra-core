@@ -413,20 +413,15 @@ func (is *InventorygRPCServer) ListHosts(
 ) (*restv1.ListHostsResponse, error) {
 	zlog.Debug().Msg("ListHosts")
 
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Host{Host: &inv_computev1.HostResource{}}},
-		Offset:   offset,
-		Limit:    limit,
+		Offset:   req.GetOffset(),
+		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
 
-	if err = validator.ValidateMessage(filter); err != nil {
+	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}
@@ -745,7 +740,7 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 }
 
 func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (int32, error) {
-	var pageSize int32 = 1
+	var pageSize uint32 = 1
 	req := &restv1.ListHostsRequest{
 		Filter:   filter,
 		PageSize: pageSize,

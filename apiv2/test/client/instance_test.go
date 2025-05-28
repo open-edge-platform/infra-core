@@ -213,8 +213,8 @@ func TestInstanceList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 5
-	var offset int32
-	var pageSize int32 = 4
+	var offset int
+	var pageSize int = 4
 
 	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.SiteID

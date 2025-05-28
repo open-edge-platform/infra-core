@@ -615,9 +615,9 @@ message ListRegionsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -724,9 +724,9 @@ message ListSitesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -907,9 +907,9 @@ message ListHostsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1074,9 +1074,9 @@ message ListInstancesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1191,9 +1191,9 @@ message ListOperatingSystemsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1297,9 +1297,9 @@ message ListProvidersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1385,9 +1385,9 @@ message ListWorkloadsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1491,9 +1491,9 @@ message ListWorkloadMembersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1537,9 +1537,9 @@ message DeleteWorkloadMemberResponse {}
 message ListSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1639,9 +1639,9 @@ message GetSingleScheduleResponse {
 message ListSingleSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1766,9 +1766,9 @@ message GetRepeatedScheduleResponse {
 message ListRepeatedSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1893,9 +1893,9 @@ message GetTelemetryLogsGroupResponse {
 message ListTelemetryLogsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -1972,9 +1972,9 @@ message GetTelemetryMetricsGroupResponse {
 message ListTelemetryMetricsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -2051,9 +2051,9 @@ message GetTelemetryLogsProfileResponse {
 message ListTelemetryLogsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -2177,9 +2177,9 @@ message GetTelemetryMetricsProfileResponse {
 message ListTelemetryMetricsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -2323,9 +2323,9 @@ message ListLocalAccountsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }

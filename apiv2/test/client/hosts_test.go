@@ -340,8 +340,8 @@ func TestHostList(t *testing.T) {
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	for id := 0; id < totalItems; id++ {
 		h := GetHostRequestWithRandomUUID()
@@ -408,8 +408,8 @@ func benchmarkHosts(b *testing.B, nHosts int,
 	b.Helper()
 
 	// Emulate the request of the GUI
-	var pageId int32 = 1
-	var pageSize int32 = 100
+	var pageId int = 1
+	var pageSize int = 100
 
 	for id := 0; id < nHosts; id++ {
 		postResp := CreateHost(b, ctx, apiClient, utils.Host1Request)
@@ -607,7 +607,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.Hosts), 1)
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
-	var largePageSize int32 = 100
+	var largePageSize int = 100
 	// Look for all hosts
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,

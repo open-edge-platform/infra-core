@@ -208,8 +208,8 @@ func TestOS_List(t *testing.T) {
 	ExistingOSs := len(resList.JSON200.OperatingSystemResources)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	for id := 0; id < totalItems; id++ {
 		// Re-generate the random sha for each new OS resource being created

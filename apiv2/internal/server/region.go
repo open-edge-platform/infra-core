@@ -180,19 +180,15 @@ func (is *InventorygRPCServer) ListRegions(
 	req *restv1.ListRegionsRequest,
 ) (*restv1.ListRegionsResponse, error) {
 	zlog.Debug().Msg("ListRegions")
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
+
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Region{Region: &inv_locationv1.RegionResource{}}},
-		Offset:   offset,
-		Limit:    limit,
+		Offset:   req.GetOffset(),
+		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-	if err = validator.ValidateMessage(filter); err != nil {
+	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}

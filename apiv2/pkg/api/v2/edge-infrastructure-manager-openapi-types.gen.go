@@ -1156,7 +1156,7 @@ type ListHostsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListHostsResponse Response message for the ListHosts method.
@@ -1186,7 +1186,7 @@ type ListInstancesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListInstancesResponse Response message for the ListInstances method.
@@ -1216,7 +1216,7 @@ type ListLocalAccountsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListLocalAccountsResponse Response message for the ListLocalAccounts method.
@@ -1288,7 +1288,7 @@ type ListOperatingSystemsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListOperatingSystemsResponse Response message for the ListOperatingSystems method.
@@ -1318,7 +1318,7 @@ type ListProvidersRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListProvidersResponse Response message for the ListProviders method.
@@ -1348,7 +1348,7 @@ type ListRegionsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 
 	// ShowTotalSites (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
 	ShowTotalSites *bool `json:"showTotalSites,omitempty"`
@@ -1379,7 +1379,7 @@ type ListRepeatedSchedulesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
 	//  returns all schedules (given the other query params).
@@ -1423,7 +1423,7 @@ type ListSchedulesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
 	//  returns all schedules (given the other query params).
@@ -1470,7 +1470,7 @@ type ListSingleSchedulesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
 	//  returns all schedules (given the other query params).
@@ -1516,7 +1516,7 @@ type ListSitesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListSitesResponse Response message for the ListSites method.
@@ -1542,7 +1542,7 @@ type ListTelemetryLogsGroupsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListTelemetryLogsGroupsResponse Response message for the ListTelemetryLogsGroups method.
@@ -1571,7 +1571,7 @@ type ListTelemetryLogsProfilesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
 	RegionId *string `json:"regionId,omitempty"`
@@ -1609,7 +1609,7 @@ type ListTelemetryMetricsGroupsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListTelemetryMetricsGroupsResponse Response message for the ListTelemetryMetricsGroups method.
@@ -1638,7 +1638,7 @@ type ListTelemetryMetricsProfilesRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
 	RegionId *string `json:"regionId,omitempty"`
@@ -1680,7 +1680,7 @@ type ListWorkloadMembersRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListWorkloadMembersResponse Response message for the ListWorkloadMembers method.
@@ -1710,7 +1710,7 @@ type ListWorkloadsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListWorkloadsResponse Response message for the ListWorkloads method.
@@ -4956,7 +4956,7 @@ type HostServiceListHostsParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -4987,7 +4987,7 @@ type InstanceServiceListInstancesParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5005,7 +5005,7 @@ type LocalAccountServiceListLocalAccountsParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5035,7 +5035,7 @@ type OperatingSystemServiceListOperatingSystemsParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5053,7 +5053,7 @@ type ProviderServiceListProvidersParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5071,7 +5071,7 @@ type RegionServiceListRegionsParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5084,7 +5084,7 @@ type RegionServiceListRegionsParams struct {
 type ScheduleServiceListSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5116,7 +5116,7 @@ type ScheduleServiceListSchedulesParams struct {
 type ScheduleServiceListRepeatedSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5148,7 +5148,7 @@ type ScheduleServiceListRepeatedSchedulesParams struct {
 type ScheduleServiceListSingleSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5188,7 +5188,7 @@ type SiteServiceListSitesParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5198,7 +5198,7 @@ type SiteServiceListSitesParams struct {
 type TelemetryLogsGroupServiceListTelemetryLogsGroupsParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5212,7 +5212,7 @@ type TelemetryLogsGroupServiceListTelemetryLogsGroupsParams struct {
 type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5226,7 +5226,7 @@ type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams struct {
 type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5255,7 +5255,7 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5292,7 +5292,7 @@ type WorkloadMemberServiceListWorkloadMembersParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
@@ -5310,7 +5310,7 @@ type WorkloadServiceListWorkloadsParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
