@@ -473,6 +473,7 @@ An OS resource.
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
+| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. |
 | os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
 | repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
