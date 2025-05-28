@@ -21,33 +21,21 @@ plugins:
       - paths=source_relative
       - require_unimplemented_servers=false
 
-  # openapi v3 - https://github.com/kollalabs/protoc-gen-openapi
-  # If running locally install to match the path on
-  #  devops-docker: oie_ci_testing
-  # GOBIN=/tmp go install "github.com/kollalabs/protoc-gen-openapi@latest
-  # cp /tmp/protoc-gen-openapi /usr/local/bin/protoc-gen-openapi-kollalabs
-  - name: kollalabs
-    path: protoc-gen-openapi-kollalabs
+  # go install github.com/sudorandom/protoc-gen-connect-openapi@v0.17.0
+  - name: connect-openapi
     out: api/openapi
     strategy: all
     opt:
-      - title=Edge Infrastructure Manager
-      - version=0.2.0-dev
-      - validate=true
-      - description=Edge Infrastructure Manager API - License Apache 2.0
+      - format=yaml
+      - short-service-tags
+      - short-operation-ids
+      - path=openapi.yaml
 
   # grpc-gateway - https://grpc-ecosystem.github.io/grpc-gateway/
   - name: grpc-gateway
     out: internal/pbapi
     opt:
       - paths=source_relative
-
-  # validation - https://github.com/envoyproxy/protoc-gen-validate
-  - name: validate
-    out: internal/pbapi
-    opt:
-      - paths=source_relative
-      - lang=go
 
   # docs - https://github.com/pseudomuto/protoc-gen-doc
   - plugin: doc

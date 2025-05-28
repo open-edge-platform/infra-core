@@ -7,7 +7,7 @@ package resources.localaccount.v1;
 
 import "google/api/field_behavior.proto";
 import "resources/common/v1/common.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1;localaccountv1";
 
@@ -15,14 +15,14 @@ message LocalAccountResource {
   // resource identifier
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"
       max_len: 21
     }
   ];
   // Username provided by admin
   string username = 2 [
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^[a-z][a-z0-9-]{0,31}$"
       max_len: 32
     },
@@ -31,7 +31,7 @@ message LocalAccountResource {
 
   // SSH Public Key of EN
   string ssh_key = 3 [
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$"
       max_len: 800
     },
@@ -41,7 +41,7 @@ message LocalAccountResource {
   // Deprecated, The local account resource's unique identifier. Alias of resourceId.
   string local_accountID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^localaccount-[0-9a-f]{8}$"
       max_len: 21
     }

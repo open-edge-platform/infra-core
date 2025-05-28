@@ -609,6 +609,34 @@ const (
 	// Fields and Edges constants for "DeleteOSUpdatePolicyRequest"
 	DeleteOSUpdatePolicyRequestFieldResourceId = "resource_id"
 
-// Fields and Edges constants for "DeleteOSUpdatePolicyResponse"
+	// Fields and Edges constants for "DeleteOSUpdatePolicyResponse"
+
+	// Fields and Edges constants for "CreateOSUpdateRunRequest"
+	CreateOSUpdateRunRequestEdgeOsUpdateRun = "os_update_run"
+
+	// Fields and Edges constants for "CreateOSUpdateRunResponse"
+	CreateOSUpdateRunResponseEdgeOsUpdateRun = "os_update_run"
+
+	// Fields and Edges constants for "GetOSUpdateRunRequest"
+	GetOSUpdateRunRequestFieldResourceId = "resource_id"
+
+	// Fields and Edges constants for "GetOSUpdateRunResponse"
+	GetOSUpdateRunResponseEdgeOsUpdateRun = "os_update_run"
+
+	// Fields and Edges constants for "ListOSUpdateRunRequest"
+	ListOSUpdateRunRequestFieldOrderBy  = "order_by"
+	ListOSUpdateRunRequestFieldFilter   = "filter"
+	ListOSUpdateRunRequestFieldPageSize = "page_size"
+	ListOSUpdateRunRequestFieldOffset   = "offset"
+
+	// Fields and Edges constants for "ListOSUpdateRunResponse"
+	ListOSUpdateRunResponseEdgeOsUpdatePolicies = "os_update_policies"
+	ListOSUpdateRunResponseFieldTotalElements   = "total_elements"
+	ListOSUpdateRunResponseFieldHasNext         = "has_next"
+
+	// Fields and Edges constants for "DeleteOSUpdateRunRequest"
+	DeleteOSUpdateRunRequestFieldResourceId = "resource_id"
+
+// Fields and Edges constants for "DeleteOSUpdateRunResponse"
 
 )

@@ -15,9 +15,26 @@ import "resources/provider/v1/provider.proto";
 import "resources/schedule/v1/schedule.proto";
 import "resources/telemetry/v1/telemetry.proto";
 import "resources/localaccount/v1/localaccount.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
+import "gnostic/openapi/v3/annotations.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1;servicesv1";
+
+option (gnostic.openapi.v3.document) = {
+  info: {
+    title: "Edge Infrastructure Manager";
+    version: "0.2.0";
+    description: "Edge Infrastructure Manager API";
+    contact: {
+      name: "Open Edge Platform GitHub Organization";
+      url: "https://github.com/open-edge-platform";
+    }
+    license: {
+      name: "Apache 2.0";
+      url: "https://www.apache.org/licenses/LICENSE-2.0.html";
+    }
+  }
+};
 
 // Region.
 service RegionService {
@@ -582,8 +599,7 @@ message ListRegionsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -592,27 +608,24 @@ message ListRegionsRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -695,8 +708,7 @@ message ListSitesRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -705,27 +717,24 @@ message ListSitesRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -780,7 +789,7 @@ message ListLocationsRequest {
   // Filter locations by name
   string name = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
       max_len: 50
     }
@@ -833,8 +842,7 @@ message GetHostSummaryRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
@@ -883,8 +891,7 @@ message ListHostsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -893,27 +900,24 @@ message ListHostsRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -959,12 +963,12 @@ message DeleteHostResponse {}
 
 // Request to invalidate/untrust a Host.
 message InvalidateHostRequest {
-  string resource_id = 1 [(validate.rules).string = {
+  string resource_id = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
 
-  string note = 2 [(validate.rules).string = {
+  string note = 2 [(buf.validate.field).string = {
     min_len: 1
     max_len: 512
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
@@ -977,16 +981,16 @@ message InvalidateHostResponse {}
 // Message to register a Host.
 message HostRegister {
   // The host name.
-  string name = 3 [(validate.rules).string = {
+  string name = 3 [(buf.validate.field).string = {
     pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
     max_len: 20
   }];
 
   // The host serial number.
-  string serial_number = 16 [(validate.rules).string = {pattern: "^([A-Za-z0-9]{5,20})?$"}];
+  string serial_number = 16 [(buf.validate.field).string = {pattern: "^([A-Za-z0-9]{5,20})?$"}];
   // The host UUID.
   string uuid = 17 [
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       min_len: 0
       max_len: 36
       pattern: "^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
@@ -999,7 +1003,7 @@ message HostRegister {
 
 // Request to register a Host.
 message RegisterHostRequest {
-  string resource_id = 1 [(validate.rules).string = {
+  string resource_id = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }];
@@ -1009,7 +1013,7 @@ message RegisterHostRequest {
 
 // Request to onboard a Host.
 message OnboardHostRequest {
-  string resource_id = 1 [(validate.rules).string = {
+  string resource_id = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
@@ -1054,8 +1058,7 @@ message ListInstancesRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -1064,27 +1067,24 @@ message ListInstancesRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1130,7 +1130,7 @@ message DeleteInstanceResponse {}
 
 // Request message for Invalidate Instance.
 message InvalidateInstanceRequest {
-  string resource_id = 1 [(validate.rules).string = {
+  string resource_id = 1 [(buf.validate.field).string = {
     pattern: "^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Instance resource ID
@@ -1175,8 +1175,7 @@ message ListOperatingSystemsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -1185,27 +1184,24 @@ message ListOperatingSystemsRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1285,8 +1281,7 @@ message ListProvidersRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -1295,27 +1290,24 @@ message ListProvidersRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1377,8 +1369,7 @@ message ListWorkloadsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -1387,27 +1378,24 @@ message ListWorkloadsRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1487,8 +1475,7 @@ message ListWorkloadMembersRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -1497,27 +1484,24 @@ message ListWorkloadMembersRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1553,19 +1537,17 @@ message DeleteWorkloadMemberResponse {}
 message ListSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1576,7 +1558,7 @@ message ListSchedulesRequest {
   // (parent site if not null). If null, returns all the schedules without a host ID as target.
   string host_id = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -1587,7 +1569,7 @@ message ListSchedulesRequest {
   // If null, returns all the schedules without a site ID as target
   string site_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -1599,7 +1581,7 @@ message ListSchedulesRequest {
   // If null, returns all the schedules without a region ID as target.
   string region_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
@@ -1607,7 +1589,7 @@ message ListSchedulesRequest {
   // Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
   string unix_epoch = 6 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {pattern: "^[0-9]+$"}
+    (buf.validate.field).string = {pattern: "^[0-9]+$"}
   ];
 }
 
@@ -1657,19 +1639,17 @@ message GetSingleScheduleResponse {
 message ListSingleSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1680,7 +1660,7 @@ message ListSingleSchedulesRequest {
   // (parent site if not null). If null, returns all the schedules without a host ID as target.
   string host_id = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -1691,7 +1671,7 @@ message ListSingleSchedulesRequest {
   // If null, returns all the schedules without a site ID as target
   string site_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -1703,7 +1683,7 @@ message ListSingleSchedulesRequest {
   // If null, returns all the schedules without a region ID as target.
   string region_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
@@ -1711,7 +1691,7 @@ message ListSingleSchedulesRequest {
   // Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
   string unix_epoch = 6 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {pattern: "^[0-9]+$"}
+    (buf.validate.field).string = {pattern: "^[0-9]+$"}
   ];
 }
 
@@ -1786,19 +1766,17 @@ message GetRepeatedScheduleResponse {
 message ListRepeatedSchedulesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1809,7 +1787,7 @@ message ListRepeatedSchedulesRequest {
   // (parent site if not null). If null, returns all the schedules without a host ID as target.
   string host_id = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -1820,7 +1798,7 @@ message ListRepeatedSchedulesRequest {
   // If null, returns all the schedules without a site ID as target
   string site_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -1832,7 +1810,7 @@ message ListRepeatedSchedulesRequest {
   // If null, returns all the schedules without a region ID as target.
   string region_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
@@ -1840,7 +1818,7 @@ message ListRepeatedSchedulesRequest {
   // Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
   string unix_epoch = 6 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {pattern: "^[0-9]+$"}
+    (buf.validate.field).string = {pattern: "^[0-9]+$"}
   ];
 }
 
@@ -1915,19 +1893,17 @@ message GetTelemetryLogsGroupResponse {
 message ListTelemetryLogsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -1936,8 +1912,7 @@ message ListTelemetryLogsGroupsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -1997,19 +1972,17 @@ message GetTelemetryMetricsGroupResponse {
 message ListTelemetryMetricsGroupsRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -2018,8 +1991,7 @@ message ListTelemetryMetricsGroupsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -2079,19 +2051,17 @@ message GetTelemetryLogsProfileResponse {
 message ListTelemetryLogsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -2100,8 +2070,7 @@ message ListTelemetryLogsProfilesRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -2109,7 +2078,7 @@ message ListTelemetryLogsProfilesRequest {
   // Returns only the telemetry profiles that are assigned with the given instance identifier.
   string instance_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -2117,7 +2086,7 @@ message ListTelemetryLogsProfilesRequest {
   // Returns only the telemetry profiles that are assigned with the given siteID.
   string site_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -2125,7 +2094,7 @@ message ListTelemetryLogsProfilesRequest {
   // Returns only the telemetry profiles that are assigned with the given regionID.
   string region_id = 6 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
@@ -2208,19 +2177,17 @@ message GetTelemetryMetricsProfileResponse {
 message ListTelemetryMetricsProfilesRequest {
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 1 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 2 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -2229,8 +2196,7 @@ message ListTelemetryMetricsProfilesRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -2238,7 +2204,7 @@ message ListTelemetryMetricsProfilesRequest {
   // Returns only the telemetry profiles that are assigned with the given instance identifier.
   string instance_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -2246,7 +2212,7 @@ message ListTelemetryMetricsProfilesRequest {
   // Returns only the telemetry profiles that are assigned with the given siteID.
   string site_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
       max_bytes: 13
     }
@@ -2254,7 +2220,7 @@ message ListTelemetryMetricsProfilesRequest {
   // Returns only the telemetry profiles that are assigned with the given regionID.
   string region_id = 6 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
       max_bytes: 15
     }
@@ -2341,8 +2307,7 @@ message ListLocalAccountsRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -2351,27 +2316,24 @@ message ListLocalAccountsRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).int32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -2456,8 +2418,7 @@ message ListOSUpdatePolicyRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -2466,8 +2427,7 @@ message ListOSUpdatePolicyRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
@@ -2476,8 +2436,7 @@ message ListOSUpdatePolicyRequest {
   // Default of 20.
   uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -2485,8 +2444,7 @@ message ListOSUpdatePolicyRequest {
   // Index of the first item to return. This allows skipping items.
   uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
@@ -2512,3 +2470,107 @@ message DeleteOSUpdatePolicyRequest {
 // Response message for DeleteOperatingSystem.
 message DeleteOSUpdatePolicyResponse {}
 
+
+// OS Update Run.
+service OSUpdateRun {
+  // Get a list of OS Update Policies.
+  rpc ListOSUpdateRun(ListOSUpdateRunRequest) returns (ListOSUpdateRunResponse) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run"};
+  }
+  // Get a specific OS Update Run.
+  rpc GetOSUpdateRun(GetOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"};
+  }
+  // Delete a OS Update Run.
+  rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"};
+  }
+}
+
+/*
+   ###################
+   OS Update Run
+   ###################
+*/
+
+// Request message for the CreateOSUpdateRun method.
+message CreateOSUpdateRunRequest {
+  // The os update run to create.
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the CreateOSUpdateRun method.
+message CreateOSUpdateRunResponse {
+  // The created os.
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the GetOSUpdateRun method.
+message GetOSUpdateRunRequest {
+  // Name of the requested os.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetOSUpdateRun method.
+message GetOSUpdateRunResponse {
+  // The requested os.
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the ListOSUpdateRun method.
+message ListOSUpdateRunRequest {
+  // Optional comma separated list of fields to specify a sorting order.
+  // See https://google.aip.dev/132 for details.
+  string order_by = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9., ]+$"
+    }
+  ];
+  // Optional filter to return only item of interest.
+  // See https://google.aip.dev/160 for details.
+  string filter = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // Defines the amount of items to be contained in a single page.
+  // Default of 20.
+  uint32 page_size = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).uint32 = {
+      gte: 1
+      lte: 100
+    }
+  ];
+  // Index of the first item to return. This allows skipping items.
+  uint32 offset = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).uint32 = {
+      gte: 0
+      lte: 10000
+    }
+  ];
+}
+
+// Response message for the ListOSUpdateRun method.
+message ListOSUpdateRunResponse {
+  // Sorted and filtered list of os update policies.
+  repeated resources.compute.v1.OSUpdateRun os_update_policies = 1 [(google.api.field_behavior) = REQUIRED];
+  // Count of items in the entire list, regardless of pagination.
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  // Inform if there are more elements
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for DeleteOperatingSystem.
+message DeleteOSUpdateRunRequest {
+  // Name of the os update run to be deleted.
+  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for DeleteOperatingSystem.
+message DeleteOSUpdateRunResponse {}
