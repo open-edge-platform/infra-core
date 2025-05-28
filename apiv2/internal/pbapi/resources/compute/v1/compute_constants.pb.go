@@ -124,6 +124,7 @@ const (
 	InstanceResourceEdgeLocalaccount                       = "localaccount"
 	InstanceResourceEdgeUpdatePolicy                       = "update_policy"
 	InstanceResourceFieldInstanceStatusDetail              = "instance_status_detail"
+	InstanceResourceFieldExistingCves                      = "existing_cves"
 	InstanceResourceFieldInstanceID                        = "instanceID"
 	InstanceResourceFieldHostID                            = "hostID"
 	InstanceResourceFieldOsID                              = "osID"
