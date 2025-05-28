@@ -4269,15 +4269,6 @@ components:
         - POWER_STATE_ON
         - POWER_STATE_OFF
       description: The host power state.
-    StatusIndicator:
-      type: string
-      title: StatusIndicator
-      enum:
-        - STATUS_INDICATION_UNSPECIFIED
-        - STATUS_INDICATION_ERROR
-        - STATUS_INDICATION_IN_PROGRESS
-        - STATUS_INDICATION_IDLE
-      description: Status type/indicator of the OS Update run.
     WorkloadKind:
       type: string
       title: WorkloadKind
@@ -5008,7 +4999,7 @@ components:
           title: status_indicator
           description: "Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run.\n STATUS_INDICATION_ERROR: Update failed in error Indicator\n STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator \n STATUS_INDICATION_IDLE: Update completed successfully Indicator"
           readOnly: true
-          $ref: '#/components/schemas/StatusIndicator'
+          $ref: '#/components/schemas/StatusIndication'
         status:
           type: string
           title: status

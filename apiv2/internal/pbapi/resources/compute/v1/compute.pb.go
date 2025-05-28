@@ -560,59 +560,6 @@ func (WorkloadMemberKind) EnumDescriptor() ([]byte, []int) {
 	return file_resources_compute_v1_compute_proto_rawDescGZIP(), []int{9}
 }
 
-// Status type/indicator of the OS Update run.
-type StatusIndicator int32
-
-const (
-	StatusIndicator_STATUS_INDICATION_UNSPECIFIED StatusIndicator = 0 // Should never be used
-	StatusIndicator_STATUS_INDICATION_ERROR       StatusIndicator = 1 // An error happened during the update.
-	StatusIndicator_STATUS_INDICATION_IN_PROGRESS StatusIndicator = 2 // In Progress, the progress about the update is kept into the update_status field of the Instance.
-	StatusIndicator_STATUS_INDICATION_IDLE        StatusIndicator = 3 // The update was successful.
-)
-
-// Enum value maps for StatusIndicator.
-var (
-	StatusIndicator_name = map[int32]string{
-		0: "STATUS_INDICATION_UNSPECIFIED",
-		1: "STATUS_INDICATION_ERROR",
-		2: "STATUS_INDICATION_IN_PROGRESS",
-		3: "STATUS_INDICATION_IDLE",
-	}
-	StatusIndicator_value = map[string]int32{
-		"STATUS_INDICATION_UNSPECIFIED": 0,
-		"STATUS_INDICATION_ERROR":       1,
-		"STATUS_INDICATION_IN_PROGRESS": 2,
-		"STATUS_INDICATION_IDLE":        3,
-	}
-)
-
-func (x StatusIndicator) Enum() *StatusIndicator {
-	p := new(StatusIndicator)
-	*p = x
-	return p
-}
-
-func (x StatusIndicator) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (StatusIndicator) Descriptor() protoreflect.EnumDescriptor {
-	return file_resources_compute_v1_compute_proto_enumTypes[10].Descriptor()
-}
-
-func (StatusIndicator) Type() protoreflect.EnumType {
-	return &file_resources_compute_v1_compute_proto_enumTypes[10]
-}
-
-func (x StatusIndicator) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use StatusIndicator.Descriptor instead.
-func (StatusIndicator) EnumDescriptor() ([]byte, []int) {
-	return file_resources_compute_v1_compute_proto_rawDescGZIP(), []int{10}
-}
-
 // A Host resource.
 type HostResource struct {
 	state         protoimpl.MessageState
@@ -2203,7 +2150,7 @@ type OSUpdateRun struct {
 	// STATUS_INDICATION_ERROR: Update failed in error Indicator
 	// STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator
 	// STATUS_INDICATION_IDLE: Update completed successfully Indicator
-	StatusIndicator StatusIndicator `protobuf:"varint,6,opt,name=status_indicator,json=statusIndicator,proto3,enum=resources.compute.v1.StatusIndicator" json:"status_indicator,omitempty"`
+	StatusIndicator v12.StatusIndication `protobuf:"varint,6,opt,name=status_indicator,json=statusIndicator,proto3,enum=resources.status.v1.StatusIndication" json:"status_indicator,omitempty"`
 	// Short message that describes what happened during the OS Update.
 	Status string `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
 	// Details about what happened during the OS Update.
@@ -2285,11 +2232,11 @@ func (x *OSUpdateRun) GetInstance() *InstanceResource {
 	return nil
 }
 
-func (x *OSUpdateRun) GetStatusIndicator() StatusIndicator {
+func (x *OSUpdateRun) GetStatusIndicator() v12.StatusIndication {
 	if x != nil {
 		return x.StatusIndicator
 	}
-	return StatusIndicator_STATUS_INDICATION_UNSPECIFIED
+	return v12.StatusIndication(0)
 }
 
 func (x *OSUpdateRun) GetStatus() string {
@@ -2905,9 +2852,9 @@ var file_resources_compute_v1_compute_proto_rawDesc = []byte{
 	0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x42, 0x03, 0xe0, 0x41, 0x03, 0x52, 0x08, 0x69,
 	0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x55, 0x0a, 0x10, 0x73, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x5f, 0x69, 0x6e, 0x64, 0x69, 0x63, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x06, 0x20, 0x01, 0x28,
-	0x0e, 0x32, 0x25, 0x2e, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x63, 0x6f,
-	0x6d, 0x70, 0x75, 0x74, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x49,
-	0x6e, 0x64, 0x69, 0x63, 0x61, 0x74, 0x6f, 0x72, 0x42, 0x03, 0xe0, 0x41, 0x03, 0x52, 0x0f, 0x73,
+	0x0e, 0x32, 0x25, 0x2e, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x73, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x49, 0x6e,
+	0x64, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x03, 0xe0, 0x41, 0x03, 0x52, 0x0f, 0x73,
 	0x74, 0x61, 0x74, 0x75, 0x73, 0x49, 0x6e, 0x64, 0x69, 0x63, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x23,
 	0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b,
 	0xe0, 0x41, 0x03, 0xba, 0x48, 0x05, 0x72, 0x03, 0x18, 0x80, 0x08, 0x52, 0x06, 0x73, 0x74, 0x61,
@@ -3013,23 +2960,13 @@ var file_resources_compute_v1_compute_proto_rawDesc = []byte{
 	0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x25, 0x0a,
 	0x21, 0x57, 0x4f, 0x52, 0x4b, 0x4c, 0x4f, 0x41, 0x44, 0x5f, 0x4d, 0x45, 0x4d, 0x42, 0x45, 0x52,
 	0x5f, 0x4b, 0x49, 0x4e, 0x44, 0x5f, 0x43, 0x4c, 0x55, 0x53, 0x54, 0x45, 0x52, 0x5f, 0x4e, 0x4f,
-	0x44, 0x45, 0x10, 0x01, 0x2a, 0x90, 0x01, 0x0a, 0x0f, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x49,
-	0x6e, 0x64, 0x69, 0x63, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x21, 0x0a, 0x1d, 0x53, 0x54, 0x41, 0x54,
-	0x55, 0x53, 0x5f, 0x49, 0x4e, 0x44, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x55, 0x4e,
-	0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x1b, 0x0a, 0x17, 0x53,
-	0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x44, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e,
-	0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x01, 0x12, 0x21, 0x0a, 0x1d, 0x53, 0x54, 0x41, 0x54,
-	0x55, 0x53, 0x5f, 0x49, 0x4e, 0x44, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x49, 0x4e,
-	0x5f, 0x50, 0x52, 0x4f, 0x47, 0x52, 0x45, 0x53, 0x53, 0x10, 0x02, 0x12, 0x1a, 0x0a, 0x16, 0x53,
-	0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x44, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e,
-	0x5f, 0x49, 0x44, 0x4c, 0x45, 0x10, 0x03, 0x42, 0x61, 0x5a, 0x5f, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x2d, 0x65, 0x64, 0x67, 0x65, 0x2d,
-	0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x69, 0x6e, 0x66, 0x72, 0x61, 0x2d, 0x63,
-	0x6f, 0x72, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x76, 0x32, 0x2f, 0x76, 0x32, 0x2f, 0x69, 0x6e, 0x74,
-	0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x70, 0x62, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65, 0x73, 0x6f,
-	0x75, 0x72, 0x63, 0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6d, 0x70, 0x75, 0x74, 0x65, 0x2f, 0x76, 0x31,
-	0x3b, 0x63, 0x6f, 0x6d, 0x70, 0x75, 0x74, 0x65, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x44, 0x45, 0x10, 0x01, 0x42, 0x61, 0x5a, 0x5f, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x6f, 0x70, 0x65, 0x6e, 0x2d, 0x65, 0x64, 0x67, 0x65, 0x2d, 0x70, 0x6c, 0x61,
+	0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x69, 0x6e, 0x66, 0x72, 0x61, 0x2d, 0x63, 0x6f, 0x72, 0x65,
+	0x2f, 0x61, 0x70, 0x69, 0x76, 0x32, 0x2f, 0x76, 0x32, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e,
+	0x61, 0x6c, 0x2f, 0x70, 0x62, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6d, 0x70, 0x75, 0x74, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x63, 0x6f,
+	0x6d, 0x70, 0x75, 0x74, 0x65, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3044,7 +2981,7 @@ func file_resources_compute_v1_compute_proto_rawDescGZIP() []byte {
 	return file_resources_compute_v1_compute_proto_rawDescData
 }
 
-var file_resources_compute_v1_compute_proto_enumTypes = make([]protoimpl.EnumInfo, 11)
+var file_resources_compute_v1_compute_proto_enumTypes = make([]protoimpl.EnumInfo, 10)
 var file_resources_compute_v1_compute_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_resources_compute_v1_compute_proto_goTypes = []interface{}{
 	(HostState)(0),                      // 0: resources.compute.v1.HostState
@@ -3057,86 +2994,85 @@ var file_resources_compute_v1_compute_proto_goTypes = []interface{}{
 	(WorkloadState)(0),                  // 7: resources.compute.v1.WorkloadState
 	(WorkloadKind)(0),                   // 8: resources.compute.v1.WorkloadKind
 	(WorkloadMemberKind)(0),             // 9: resources.compute.v1.WorkloadMemberKind
-	(StatusIndicator)(0),                // 10: resources.compute.v1.StatusIndicator
-	(*HostResource)(nil),                // 11: resources.compute.v1.HostResource
-	(*HoststorageResource)(nil),         // 12: resources.compute.v1.HoststorageResource
-	(*NetworkInterfaceLinkState)(nil),   // 13: resources.compute.v1.NetworkInterfaceLinkState
-	(*HostnicResource)(nil),             // 14: resources.compute.v1.HostnicResource
-	(*HostusbResource)(nil),             // 15: resources.compute.v1.HostusbResource
-	(*HostgpuResource)(nil),             // 16: resources.compute.v1.HostgpuResource
-	(*InstanceResource)(nil),            // 17: resources.compute.v1.InstanceResource
-	(*WorkloadResource)(nil),            // 18: resources.compute.v1.WorkloadResource
-	(*WorkloadMember)(nil),              // 19: resources.compute.v1.WorkloadMember
-	(*OSUpdatePolicy)(nil),              // 20: resources.compute.v1.OSUpdatePolicy
-	(*OSUpdateRun)(nil),                 // 21: resources.compute.v1.OSUpdateRun
-	(*v1.SiteResource)(nil),             // 22: resources.location.v1.SiteResource
-	(*v11.ProviderResource)(nil),        // 23: resources.provider.v1.ProviderResource
-	(v12.StatusIndication)(0),           // 24: resources.status.v1.StatusIndication
-	(*v13.MetadataItem)(nil),            // 25: resources.common.v1.MetadataItem
-	(*v13.Timestamps)(nil),              // 26: resources.common.v1.Timestamps
-	(*v14.IPAddressResource)(nil),       // 27: resources.network.v1.IPAddressResource
-	(*v15.OperatingSystemResource)(nil), // 28: resources.os.v1.OperatingSystemResource
-	(v15.SecurityFeature)(0),            // 29: resources.os.v1.SecurityFeature
-	(*v16.LocalAccountResource)(nil),    // 30: resources.localaccount.v1.LocalAccountResource
-	(*timestamppb.Timestamp)(nil),       // 31: google.protobuf.Timestamp
+	(*HostResource)(nil),                // 10: resources.compute.v1.HostResource
+	(*HoststorageResource)(nil),         // 11: resources.compute.v1.HoststorageResource
+	(*NetworkInterfaceLinkState)(nil),   // 12: resources.compute.v1.NetworkInterfaceLinkState
+	(*HostnicResource)(nil),             // 13: resources.compute.v1.HostnicResource
+	(*HostusbResource)(nil),             // 14: resources.compute.v1.HostusbResource
+	(*HostgpuResource)(nil),             // 15: resources.compute.v1.HostgpuResource
+	(*InstanceResource)(nil),            // 16: resources.compute.v1.InstanceResource
+	(*WorkloadResource)(nil),            // 17: resources.compute.v1.WorkloadResource
+	(*WorkloadMember)(nil),              // 18: resources.compute.v1.WorkloadMember
+	(*OSUpdatePolicy)(nil),              // 19: resources.compute.v1.OSUpdatePolicy
+	(*OSUpdateRun)(nil),                 // 20: resources.compute.v1.OSUpdateRun
+	(*v1.SiteResource)(nil),             // 21: resources.location.v1.SiteResource
+	(*v11.ProviderResource)(nil),        // 22: resources.provider.v1.ProviderResource
+	(v12.StatusIndication)(0),           // 23: resources.status.v1.StatusIndication
+	(*v13.MetadataItem)(nil),            // 24: resources.common.v1.MetadataItem
+	(*v13.Timestamps)(nil),              // 25: resources.common.v1.Timestamps
+	(*v14.IPAddressResource)(nil),       // 26: resources.network.v1.IPAddressResource
+	(*v15.OperatingSystemResource)(nil), // 27: resources.os.v1.OperatingSystemResource
+	(v15.SecurityFeature)(0),            // 28: resources.os.v1.SecurityFeature
+	(*v16.LocalAccountResource)(nil),    // 29: resources.localaccount.v1.LocalAccountResource
+	(*timestamppb.Timestamp)(nil),       // 30: google.protobuf.Timestamp
 }
 var file_resources_compute_v1_compute_proto_depIdxs = []int32{
 	0,  // 0: resources.compute.v1.HostResource.desired_state:type_name -> resources.compute.v1.HostState
 	0,  // 1: resources.compute.v1.HostResource.current_state:type_name -> resources.compute.v1.HostState
-	22, // 2: resources.compute.v1.HostResource.site:type_name -> resources.location.v1.SiteResource
-	23, // 3: resources.compute.v1.HostResource.provider:type_name -> resources.provider.v1.ProviderResource
+	21, // 2: resources.compute.v1.HostResource.site:type_name -> resources.location.v1.SiteResource
+	22, // 3: resources.compute.v1.HostResource.provider:type_name -> resources.provider.v1.ProviderResource
 	1,  // 4: resources.compute.v1.HostResource.bmc_kind:type_name -> resources.compute.v1.BaremetalControllerKind
 	2,  // 5: resources.compute.v1.HostResource.current_power_state:type_name -> resources.compute.v1.PowerState
 	2,  // 6: resources.compute.v1.HostResource.desired_power_state:type_name -> resources.compute.v1.PowerState
-	24, // 7: resources.compute.v1.HostResource.host_status_indicator:type_name -> resources.status.v1.StatusIndication
-	24, // 8: resources.compute.v1.HostResource.onboarding_status_indicator:type_name -> resources.status.v1.StatusIndication
-	24, // 9: resources.compute.v1.HostResource.registration_status_indicator:type_name -> resources.status.v1.StatusIndication
-	12, // 10: resources.compute.v1.HostResource.host_storages:type_name -> resources.compute.v1.HoststorageResource
-	14, // 11: resources.compute.v1.HostResource.host_nics:type_name -> resources.compute.v1.HostnicResource
-	15, // 12: resources.compute.v1.HostResource.host_usbs:type_name -> resources.compute.v1.HostusbResource
-	16, // 13: resources.compute.v1.HostResource.host_gpus:type_name -> resources.compute.v1.HostgpuResource
-	17, // 14: resources.compute.v1.HostResource.instance:type_name -> resources.compute.v1.InstanceResource
-	25, // 15: resources.compute.v1.HostResource.metadata:type_name -> resources.common.v1.MetadataItem
-	25, // 16: resources.compute.v1.HostResource.inherited_metadata:type_name -> resources.common.v1.MetadataItem
-	26, // 17: resources.compute.v1.HostResource.timestamps:type_name -> resources.common.v1.Timestamps
-	26, // 18: resources.compute.v1.HoststorageResource.timestamps:type_name -> resources.common.v1.Timestamps
+	23, // 7: resources.compute.v1.HostResource.host_status_indicator:type_name -> resources.status.v1.StatusIndication
+	23, // 8: resources.compute.v1.HostResource.onboarding_status_indicator:type_name -> resources.status.v1.StatusIndication
+	23, // 9: resources.compute.v1.HostResource.registration_status_indicator:type_name -> resources.status.v1.StatusIndication
+	11, // 10: resources.compute.v1.HostResource.host_storages:type_name -> resources.compute.v1.HoststorageResource
+	13, // 11: resources.compute.v1.HostResource.host_nics:type_name -> resources.compute.v1.HostnicResource
+	14, // 12: resources.compute.v1.HostResource.host_usbs:type_name -> resources.compute.v1.HostusbResource
+	15, // 13: resources.compute.v1.HostResource.host_gpus:type_name -> resources.compute.v1.HostgpuResource
+	16, // 14: resources.compute.v1.HostResource.instance:type_name -> resources.compute.v1.InstanceResource
+	24, // 15: resources.compute.v1.HostResource.metadata:type_name -> resources.common.v1.MetadataItem
+	24, // 16: resources.compute.v1.HostResource.inherited_metadata:type_name -> resources.common.v1.MetadataItem
+	25, // 17: resources.compute.v1.HostResource.timestamps:type_name -> resources.common.v1.Timestamps
+	25, // 18: resources.compute.v1.HoststorageResource.timestamps:type_name -> resources.common.v1.Timestamps
 	4,  // 19: resources.compute.v1.NetworkInterfaceLinkState.type:type_name -> resources.compute.v1.LinkState
-	26, // 20: resources.compute.v1.NetworkInterfaceLinkState.timestamps:type_name -> resources.common.v1.Timestamps
-	13, // 21: resources.compute.v1.HostnicResource.link_state:type_name -> resources.compute.v1.NetworkInterfaceLinkState
-	27, // 22: resources.compute.v1.HostnicResource.ipaddresses:type_name -> resources.network.v1.IPAddressResource
-	26, // 23: resources.compute.v1.HostnicResource.timestamps:type_name -> resources.common.v1.Timestamps
-	26, // 24: resources.compute.v1.HostusbResource.timestamps:type_name -> resources.common.v1.Timestamps
-	26, // 25: resources.compute.v1.HostgpuResource.timestamps:type_name -> resources.common.v1.Timestamps
+	25, // 20: resources.compute.v1.NetworkInterfaceLinkState.timestamps:type_name -> resources.common.v1.Timestamps
+	12, // 21: resources.compute.v1.HostnicResource.link_state:type_name -> resources.compute.v1.NetworkInterfaceLinkState
+	26, // 22: resources.compute.v1.HostnicResource.ipaddresses:type_name -> resources.network.v1.IPAddressResource
+	25, // 23: resources.compute.v1.HostnicResource.timestamps:type_name -> resources.common.v1.Timestamps
+	25, // 24: resources.compute.v1.HostusbResource.timestamps:type_name -> resources.common.v1.Timestamps
+	25, // 25: resources.compute.v1.HostgpuResource.timestamps:type_name -> resources.common.v1.Timestamps
 	6,  // 26: resources.compute.v1.InstanceResource.kind:type_name -> resources.compute.v1.InstanceKind
 	5,  // 27: resources.compute.v1.InstanceResource.desired_state:type_name -> resources.compute.v1.InstanceState
 	5,  // 28: resources.compute.v1.InstanceResource.current_state:type_name -> resources.compute.v1.InstanceState
-	11, // 29: resources.compute.v1.InstanceResource.host:type_name -> resources.compute.v1.HostResource
-	28, // 30: resources.compute.v1.InstanceResource.os:type_name -> resources.os.v1.OperatingSystemResource
-	28, // 31: resources.compute.v1.InstanceResource.desired_os:type_name -> resources.os.v1.OperatingSystemResource
-	28, // 32: resources.compute.v1.InstanceResource.current_os:type_name -> resources.os.v1.OperatingSystemResource
-	29, // 33: resources.compute.v1.InstanceResource.security_feature:type_name -> resources.os.v1.SecurityFeature
-	24, // 34: resources.compute.v1.InstanceResource.instance_status_indicator:type_name -> resources.status.v1.StatusIndication
-	24, // 35: resources.compute.v1.InstanceResource.provisioning_status_indicator:type_name -> resources.status.v1.StatusIndication
-	24, // 36: resources.compute.v1.InstanceResource.update_status_indicator:type_name -> resources.status.v1.StatusIndication
-	24, // 37: resources.compute.v1.InstanceResource.trusted_attestation_status_indicator:type_name -> resources.status.v1.StatusIndication
-	19, // 38: resources.compute.v1.InstanceResource.workload_members:type_name -> resources.compute.v1.WorkloadMember
-	30, // 39: resources.compute.v1.InstanceResource.localaccount:type_name -> resources.localaccount.v1.LocalAccountResource
-	26, // 40: resources.compute.v1.InstanceResource.timestamps:type_name -> resources.common.v1.Timestamps
+	10, // 29: resources.compute.v1.InstanceResource.host:type_name -> resources.compute.v1.HostResource
+	27, // 30: resources.compute.v1.InstanceResource.os:type_name -> resources.os.v1.OperatingSystemResource
+	27, // 31: resources.compute.v1.InstanceResource.desired_os:type_name -> resources.os.v1.OperatingSystemResource
+	27, // 32: resources.compute.v1.InstanceResource.current_os:type_name -> resources.os.v1.OperatingSystemResource
+	28, // 33: resources.compute.v1.InstanceResource.security_feature:type_name -> resources.os.v1.SecurityFeature
+	23, // 34: resources.compute.v1.InstanceResource.instance_status_indicator:type_name -> resources.status.v1.StatusIndication
+	23, // 35: resources.compute.v1.InstanceResource.provisioning_status_indicator:type_name -> resources.status.v1.StatusIndication
+	23, // 36: resources.compute.v1.InstanceResource.update_status_indicator:type_name -> resources.status.v1.StatusIndication
+	23, // 37: resources.compute.v1.InstanceResource.trusted_attestation_status_indicator:type_name -> resources.status.v1.StatusIndication
+	18, // 38: resources.compute.v1.InstanceResource.workload_members:type_name -> resources.compute.v1.WorkloadMember
+	29, // 39: resources.compute.v1.InstanceResource.localaccount:type_name -> resources.localaccount.v1.LocalAccountResource
+	25, // 40: resources.compute.v1.InstanceResource.timestamps:type_name -> resources.common.v1.Timestamps
 	8,  // 41: resources.compute.v1.WorkloadResource.kind:type_name -> resources.compute.v1.WorkloadKind
-	19, // 42: resources.compute.v1.WorkloadResource.members:type_name -> resources.compute.v1.WorkloadMember
-	26, // 43: resources.compute.v1.WorkloadResource.timestamps:type_name -> resources.common.v1.Timestamps
+	18, // 42: resources.compute.v1.WorkloadResource.members:type_name -> resources.compute.v1.WorkloadMember
+	25, // 43: resources.compute.v1.WorkloadResource.timestamps:type_name -> resources.common.v1.Timestamps
 	9,  // 44: resources.compute.v1.WorkloadMember.kind:type_name -> resources.compute.v1.WorkloadMemberKind
-	18, // 45: resources.compute.v1.WorkloadMember.workload:type_name -> resources.compute.v1.WorkloadResource
-	17, // 46: resources.compute.v1.WorkloadMember.instance:type_name -> resources.compute.v1.InstanceResource
-	17, // 47: resources.compute.v1.WorkloadMember.member:type_name -> resources.compute.v1.InstanceResource
-	26, // 48: resources.compute.v1.WorkloadMember.timestamps:type_name -> resources.common.v1.Timestamps
-	20, // 49: resources.compute.v1.OSUpdateRun.applied_policy:type_name -> resources.compute.v1.OSUpdatePolicy
-	17, // 50: resources.compute.v1.OSUpdateRun.instance:type_name -> resources.compute.v1.InstanceResource
-	10, // 51: resources.compute.v1.OSUpdateRun.status_indicator:type_name -> resources.compute.v1.StatusIndicator
-	31, // 52: resources.compute.v1.OSUpdateRun.status_timestamp:type_name -> google.protobuf.Timestamp
-	31, // 53: resources.compute.v1.OSUpdateRun.start_time:type_name -> google.protobuf.Timestamp
-	31, // 54: resources.compute.v1.OSUpdateRun.end_time:type_name -> google.protobuf.Timestamp
-	26, // 55: resources.compute.v1.OSUpdateRun.timestamps:type_name -> resources.common.v1.Timestamps
+	17, // 45: resources.compute.v1.WorkloadMember.workload:type_name -> resources.compute.v1.WorkloadResource
+	16, // 46: resources.compute.v1.WorkloadMember.instance:type_name -> resources.compute.v1.InstanceResource
+	16, // 47: resources.compute.v1.WorkloadMember.member:type_name -> resources.compute.v1.InstanceResource
+	25, // 48: resources.compute.v1.WorkloadMember.timestamps:type_name -> resources.common.v1.Timestamps
+	19, // 49: resources.compute.v1.OSUpdateRun.applied_policy:type_name -> resources.compute.v1.OSUpdatePolicy
+	16, // 50: resources.compute.v1.OSUpdateRun.instance:type_name -> resources.compute.v1.InstanceResource
+	23, // 51: resources.compute.v1.OSUpdateRun.status_indicator:type_name -> resources.status.v1.StatusIndication
+	30, // 52: resources.compute.v1.OSUpdateRun.status_timestamp:type_name -> google.protobuf.Timestamp
+	30, // 53: resources.compute.v1.OSUpdateRun.start_time:type_name -> google.protobuf.Timestamp
+	30, // 54: resources.compute.v1.OSUpdateRun.end_time:type_name -> google.protobuf.Timestamp
+	25, // 55: resources.compute.v1.OSUpdateRun.timestamps:type_name -> resources.common.v1.Timestamps
 	56, // [56:56] is the sub-list for method output_type
 	56, // [56:56] is the sub-list for method input_type
 	56, // [56:56] is the sub-list for extension type_name
@@ -3288,7 +3224,7 @@ func file_resources_compute_v1_compute_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_resources_compute_v1_compute_proto_rawDesc,
-			NumEnums:      11,
+			NumEnums:      10,
 			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,

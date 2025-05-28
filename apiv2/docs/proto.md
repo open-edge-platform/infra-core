@@ -57,7 +57,6 @@
     - [InstanceState](#resources-compute-v1-InstanceState)
     - [LinkState](#resources-compute-v1-LinkState)
     - [PowerState](#resources-compute-v1-PowerState)
-    - [StatusIndicator](#resources-compute-v1-StatusIndicator)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
     - [WorkloadState](#resources-compute-v1-WorkloadState)
@@ -926,7 +925,7 @@ It will be deleted later on before merging to main in git repo.
 | description | [string](#string) |  | Human-readable description. |
 | applied_policy | [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | Update Policy of this Instance |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance resource associated with this OS Update. This OS Update Run is executed for this instance. |
-| status_indicator | [StatusIndicator](#resources-compute-v1-StatusIndicator) |  | Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator STATUS_INDICATION_IDLE: Update completed successfully Indicator |
+| status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator STATUS_INDICATION_IDLE: Update completed successfully Indicator |
 | status | [string](#string) |  | Short message that describes what happened during the OS Update. |
 | status_details | [string](#string) |  | Details about what happened during the OS Update. |
 | status_timestamp | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update status reported. |
@@ -1080,20 +1079,6 @@ The host power state.
 | POWER_STATE_ERROR | 1 |  |
 | POWER_STATE_ON | 2 |  |
 | POWER_STATE_OFF | 3 |  |
-
-
-
-<a name="resources-compute-v1-StatusIndicator"></a>
-
-### StatusIndicator
-Status type/indicator of the OS Update run.
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| STATUS_INDICATION_UNSPECIFIED | 0 | Should never be used |
-| STATUS_INDICATION_ERROR | 1 | An error happened during the update. |
-| STATUS_INDICATION_IN_PROGRESS | 2 | In Progress, the progress about the update is kept into the update_status field of the Instance. |
-| STATUS_INDICATION_IDLE | 3 | The update was successful. |
 
 
 

@@ -154,18 +154,10 @@ const (
 
 // Defines values for StatusIndication.
 const (
-	StatusIndicationSTATUSINDICATIONERROR       StatusIndication = "STATUS_INDICATION_ERROR"
-	StatusIndicationSTATUSINDICATIONIDLE        StatusIndication = "STATUS_INDICATION_IDLE"
-	StatusIndicationSTATUSINDICATIONINPROGRESS  StatusIndication = "STATUS_INDICATION_IN_PROGRESS"
-	StatusIndicationSTATUSINDICATIONUNSPECIFIED StatusIndication = "STATUS_INDICATION_UNSPECIFIED"
-)
-
-// Defines values for StatusIndicator.
-const (
-	StatusIndicatorSTATUSINDICATIONERROR       StatusIndicator = "STATUS_INDICATION_ERROR"
-	StatusIndicatorSTATUSINDICATIONIDLE        StatusIndicator = "STATUS_INDICATION_IDLE"
-	StatusIndicatorSTATUSINDICATIONINPROGRESS  StatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
-	StatusIndicatorSTATUSINDICATIONUNSPECIFIED StatusIndicator = "STATUS_INDICATION_UNSPECIFIED"
+	STATUSINDICATIONERROR       StatusIndication = "STATUS_INDICATION_ERROR"
+	STATUSINDICATIONIDLE        StatusIndication = "STATUS_INDICATION_IDLE"
+	STATUSINDICATIONINPROGRESS  StatusIndication = "STATUS_INDICATION_IN_PROGRESS"
+	STATUSINDICATIONUNSPECIFIED StatusIndication = "STATUS_INDICATION_UNSPECIFIED"
 )
 
 // Defines values for TelemetryCollectorKind.
@@ -2050,8 +2042,8 @@ type OSUpdateRun struct {
 	// StatusDetails Details about what happened during the OS Update.
 	StatusDetails *string `json:"statusDetails,omitempty"`
 
-	// StatusIndicator Status type/indicator of the OS Update run.
-	StatusIndicator *StatusIndicator `json:"statusIndicator,omitempty"`
+	// StatusIndicator The status indicator.
+	StatusIndicator *StatusIndication `json:"statusIndicator,omitempty"`
 
 	// StatusTimestamp A Timestamp represents a point in time independent of any time zone or local
 	//  calendar, encoded as a count of seconds and fractions of seconds at
@@ -4560,9 +4552,6 @@ type SiteResource struct {
 
 // StatusIndication The status indicator.
 type StatusIndication string
-
-// StatusIndicator Status type/indicator of the OS Update run.
-type StatusIndicator string
 
 // TelemetryCollectorKind The collector kind.
 type TelemetryCollectorKind string

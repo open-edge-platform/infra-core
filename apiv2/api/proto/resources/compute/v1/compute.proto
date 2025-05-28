@@ -648,7 +648,7 @@ message OSUpdateRun {
   // STATUS_INDICATION_ERROR: Update failed in error Indicator
   // STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator 
   // STATUS_INDICATION_IDLE: Update completed successfully Indicator 
-  StatusIndicator status_indicator = 6 [
+  status.v1.StatusIndication status_indicator = 6 [
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
@@ -676,12 +676,4 @@ message OSUpdateRun {
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-}
-
-// Status type/indicator of the OS Update run.
-enum StatusIndicator {
-  STATUS_INDICATION_UNSPECIFIED = 0; // Should never be used
-  STATUS_INDICATION_ERROR = 1;  // An error happened during the update.
-  STATUS_INDICATION_IN_PROGRESS = 2;       // In Progress, the progress about the update is kept into the update_status field of the Instance.
-  STATUS_INDICATION_IDLE = 3;       // The update was successful.
 }
