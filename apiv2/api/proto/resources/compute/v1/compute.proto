@@ -350,7 +350,7 @@ message InstanceResource {
   // OS resource that should be installed to this Instance.
   resources.os.v1.OperatingSystemResource os = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
-  resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OPTIONAL];
+  resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance.
   resources.os.v1.OperatingSystemResource current_os = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).

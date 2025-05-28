@@ -4980,7 +4980,8 @@ components:
           $ref: '#/components/schemas/OperatingSystemResource'
         desiredOs:
           title: desired_os
-          description: (OPTIONAL) Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
+          description: Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
+          readOnly: true
           $ref: '#/components/schemas/OperatingSystemResource'
         currentOs:
           title: current_os
