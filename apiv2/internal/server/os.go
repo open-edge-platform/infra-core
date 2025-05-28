@@ -17,17 +17,21 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
+// TODO: installed_packages_source field in OSResource is to be correctly filled when supported by the backend.
+//  This field is the URL where the Manifest file is stored. The field is immutable.
+//  This is added to allow manual creation of OSProfiles (advanced feature).
+
 // TODO: handle CVEs related fields.
 
 // OpenAPIOSResourceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIOSResourceToProto = map[string]string{
-	osv1.OperatingSystemResourceFieldName:              inv_osv1.OperatingSystemResourceFieldName,
-	osv1.OperatingSystemResourceFieldArchitecture:      inv_osv1.OperatingSystemResourceFieldArchitecture,
-	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
-	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
-	osv1.OperatingSystemResourceFieldInstalledPackages: inv_osv1.OperatingSystemResourceFieldInstalledPackages,
+	osv1.OperatingSystemResourceFieldName:          inv_osv1.OperatingSystemResourceFieldName,
+	osv1.OperatingSystemResourceFieldArchitecture:  inv_osv1.OperatingSystemResourceFieldArchitecture,
+	osv1.OperatingSystemResourceFieldKernelCommand: inv_osv1.OperatingSystemResourceFieldKernelCommand,
+	osv1.OperatingSystemResourceFieldUpdateSources: inv_osv1.OperatingSystemResourceFieldUpdateSources,
+	// TODO: add metadata.
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {
@@ -50,6 +54,7 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		OsProvider:        inv_osv1.OsProviderKind(osResource.GetOsProvider()),
 		Description:       osResource.GetDescription(),
 	}
+	// TODO: handle the metadata field.
 
 	err := validator.ValidateMessage(invOSResource)
 	if err != nil {
@@ -84,6 +89,7 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
 		Description:       invOSResource.GetDescription(),
 	}
+	// TODO: handle the metadata field.
 
 	return osResource
 }
