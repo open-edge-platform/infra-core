@@ -29,6 +29,7 @@ var OpenAPIOSResourceToProto = map[string]string{
 	osv1.OperatingSystemResourceFieldArchitecture:  inv_osv1.OperatingSystemResourceFieldArchitecture,
 	osv1.OperatingSystemResourceFieldKernelCommand: inv_osv1.OperatingSystemResourceFieldKernelCommand,
 	osv1.OperatingSystemResourceFieldUpdateSources: inv_osv1.OperatingSystemResourceFieldUpdateSources,
+	// TODO: add metadata.
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {
@@ -51,6 +52,7 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		OsProvider:        inv_osv1.OsProviderKind(osResource.GetOsProvider()),
 		Description:       osResource.GetDescription(),
 	}
+	// TODO: handle the metadata field.
 
 	err := validator.ValidateMessage(invOSResource)
 	if err != nil {
@@ -85,6 +87,7 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
 		Description:       invOSResource.GetDescription(),
 	}
+	// TODO: handle the metadata field.
 
 	return osResource
 }
