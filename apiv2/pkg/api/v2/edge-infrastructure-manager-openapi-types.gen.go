@@ -174,6 +174,13 @@ const (
 	TELEMETRYRESOURCEKINDUNSPECIFIED TelemetryResourceKind = "TELEMETRY_RESOURCE_KIND_UNSPECIFIED"
 )
 
+// Defines values for UpdatePolicy.
+const (
+	UPDATEPOLICYLATEST      UpdatePolicy = "UPDATE_POLICY_LATEST"
+	UPDATEPOLICYTARGET      UpdatePolicy = "UPDATE_POLICY_TARGET"
+	UPDATEPOLICYUNSPECIFIED UpdatePolicy = "UPDATE_POLICY_UNSPECIFIED"
+)
+
 // Defines values for WorkloadKind.
 const (
 	WORKLOADKINDCLUSTER     WorkloadKind = "WORKLOAD_KIND_CLUSTER"
@@ -257,6 +264,16 @@ type CreateLocalAccountRequest struct {
 // CreateLocalAccountResponse Response message for the CreateLocalAccount method.
 type CreateLocalAccountResponse struct {
 	LocalAccount LocalAccountResource `json:"localAccount"`
+}
+
+// CreateOSUpdatePolicyRequest Request message for the CreateOSUpdatePolicy method.
+type CreateOSUpdatePolicyRequest struct {
+	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
+}
+
+// CreateOSUpdatePolicyResponse Response message for the CreateOSUpdatePolicy method.
+type CreateOSUpdatePolicyResponse struct {
+	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
 }
 
 // CreateOSUpdateRunRequest Request message for the CreateOSUpdateRun method.
@@ -440,6 +457,15 @@ type DeleteLocalAccountRequest struct {
 // DeleteLocalAccountResponse Response message for DeleteLocalAccount.
 type DeleteLocalAccountResponse = map[string]interface{}
 
+// DeleteOSUpdatePolicyRequest Request message for DeleteOperatingSystem.
+type DeleteOSUpdatePolicyRequest struct {
+	// ResourceId Name of the OS Update Policy to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
+// DeleteOSUpdatePolicyResponse Response message for DeleteOperatingSystem.
+type DeleteOSUpdatePolicyResponse = map[string]interface{}
+
 // DeleteOSUpdateRunRequest Request message for DeleteOperatingSystem.
 type DeleteOSUpdateRunRequest struct {
 	// ResourceId Name of the os update run to be deleted.
@@ -613,6 +639,17 @@ type GetLocalAccountRequest struct {
 // GetLocalAccountResponse Response message for the GetLocalAccount method.
 type GetLocalAccountResponse struct {
 	LocalAccount LocalAccountResource `json:"localAccount"`
+}
+
+// GetOSUpdatePolicyRequest Request message for the GetOSUpdatePolicy method.
+type GetOSUpdatePolicyRequest struct {
+	// ResourceId Name of the requested os.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetOSUpdatePolicyResponse Response message for the GetOSUpdatePolicy method.
+type GetOSUpdatePolicyResponse struct {
+	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
 }
 
 // GetOSUpdateRunRequest Request message for the GetOSUpdateRun method.
@@ -1104,7 +1141,8 @@ type InstanceResource struct {
 	Os *OperatingSystemResource `json:"os,omitempty"`
 
 	// OsID The unique identifier of OS resource that must be installed on the instance.
-	OsID *string `json:"osID,omitempty"`
+	OsID             *string `json:"osID,omitempty"`
+	OsUpdatePolicyID *string `json:"osUpdatePolicyID,omitempty"`
 
 	// ProvisioningStatus textual message that describes the provisioning status of Instance. Set by RMs only.
 	ProvisioningStatus *string `json:"provisioningStatus,omitempty"`
@@ -1129,7 +1167,8 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator *StatusIndication `json:"trustedAttestationStatusIndicator,omitempty"`
 
 	// TrustedAttestationStatusTimestamp UTC timestamp when trusted_attestation_status was last changed. Set by RMs only.
-	TrustedAttestationStatusTimestamp *int `json:"trustedAttestationStatusTimestamp,omitempty"`
+	TrustedAttestationStatusTimestamp *int            `json:"trustedAttestationStatusTimestamp,omitempty"`
+	UpdatePolicy                      *OSUpdatePolicy `json:"updatePolicy,omitempty"`
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
@@ -1305,6 +1344,36 @@ type ListLocationsResponseLocationNode struct {
 
 // ListLocationsResponseResourceKind defines model for ListLocationsResponse.ResourceKind.
 type ListLocationsResponseResourceKind string
+
+// ListOSUpdatePolicyRequest Request message for the ListOSUpdatePolicy method.
+type ListOSUpdatePolicyRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `json:"pageSize,omitempty"`
+}
+
+// ListOSUpdatePolicyResponse Response message for the ListOSUpdatePolicy method.
+type ListOSUpdatePolicyResponse struct {
+	// HasNext Inform if there are more elements
+	HasNext bool `json:"hasNext"`
+
+	// OsUpdatePolicies Sorted and filtered list of OS Update Policies.
+	OsUpdatePolicies []OSUpdatePolicy `json:"osUpdatePolicies"`
+
+	// TotalElements Count of items in the entire list, regardless of pagination.
+	TotalElements int32 `json:"totalElements"`
+}
 
 // ListOSUpdateRunRequest Request message for the ListOSUpdateRun method.
 type ListOSUpdateRunRequest struct {
@@ -1821,24 +1890,40 @@ type NetworkInterfaceLinkState struct {
 	Type *LinkState `json:"type,omitempty"`
 }
 
-// OSUpdatePolicy OSUpdatePolicy message is added temporarily now for OSUpdateRun message addition compilation should go through.
-//
-//	It will be deleted later on before merging to main in git repo.
+// OSUpdatePolicy defines model for OSUpdatePolicy.
 type OSUpdatePolicy struct {
 	// Description User-provided, human-readable description.
 	Description *string `json:"description,omitempty"`
+
+	// InstallPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+	//  Applies only to Mutable OSes.
+	InstallPackages *string `json:"installPackages,omitempty"`
+
+	// KernelCommand The OS resource's kernel Command Line Options.
+	//  Applies only to Mutable OSes.
+	KernelCommand *string `json:"kernelCommand,omitempty"`
 
 	// Name User-provided, human-readable name.
 	Name string `json:"name"`
 
 	// ResourceId resource ID, generated by the inventory on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
+
+	// TargetOs An OS resource.
+	TargetOs   *OperatingSystemResource `json:"targetOs,omitempty"`
+	Timestamps *Timestamps              `json:"timestamps,omitempty"`
+
+	// UpdatePolicy States of the host.
+	UpdatePolicy *UpdatePolicy `json:"updatePolicy,omitempty"`
+
+	// UpdateSources The list of OS resource update sources.
+	//  Should be in 'DEB822 Source Format' for Debian style OSs.
+	//  Applies only to Mutable OSes.
+	UpdateSources *[]string `json:"updateSources,omitempty"`
 }
 
 // OSUpdateRun defines model for OSUpdateRun.
 type OSUpdateRun struct {
-	// AppliedPolicy OSUpdatePolicy message is added temporarily now for OSUpdateRun message addition compilation should go through.
-	//  It will be deleted later on before merging to main in git repo.
 	AppliedPolicy *OSUpdatePolicy `json:"appliedPolicy,omitempty"`
 
 	// Description Human-readable description.
@@ -2159,10 +2244,14 @@ type OperatingSystemResource struct {
 	// ImageUrl The URL repository of the OS image.
 	ImageUrl *string `json:"imageUrl,omitempty"`
 
-	// InstalledPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+	// InstalledPackages List of installed packages, encoded as a JSON list.
 	InstalledPackages *string `json:"installedPackages,omitempty"`
 
-	// KernelCommand The OS resource's kernel Command Line Options.
+	// InstalledPackagesUrl (IMMUTABLE) The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field
+	//  for the advance use case to allow manual creation of OSProfiles when supported from backend.
+	InstalledPackagesUrl *string `json:"installedPackagesUrl,omitempty"`
+
+	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
 
 	// Name The OS resource's name.
@@ -2201,9 +2290,9 @@ type OperatingSystemResource struct {
 	Sha256     string      `json:"sha256"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
-	// UpdateSources The list of OS resource update sources.
+	// UpdateSources Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
 	//  Should be in 'DEB822 Source Format' for Debian style OSs
-	UpdateSources []string `json:"updateSources"`
+	UpdateSources *[]string `json:"updateSources,omitempty"`
 }
 
 // OsProviderKind OsProviderKind describes "owner" of the OS, that will drive OS provisioning.
@@ -4874,6 +4963,9 @@ type UpdateOperatingSystemRequest struct {
 	ResourceId string `json:"resourceId"`
 }
 
+// UpdatePolicy States of the host.
+type UpdatePolicy string
+
 // UpdateRegionRequest Request message for the UpdateRegion method.
 type UpdateRegionRequest struct {
 	// Region A region resource.
@@ -5421,6 +5513,24 @@ type OperatingSystemServiceListOperatingSystemsParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
+type OSUpdatePolicyListOSUpdatePolicyParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // OSUpdateRunListOSUpdateRunParams defines parameters for OSUpdateRunListOSUpdateRun.
 type OSUpdateRunListOSUpdateRunParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5749,6 +5859,9 @@ type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystem
 
 // OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
+type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
