@@ -57,93 +57,13 @@ func (m *LocalAccountResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 21 {
-		err := LocalAccountResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 21 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_LocalAccountResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := LocalAccountResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Username
 
-	if utf8.RuneCountInString(m.GetUsername()) > 32 {
-		err := LocalAccountResourceValidationError{
-			field:  "Username",
-			reason: "value length must be at most 32 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for SshKey
 
-	if !_LocalAccountResource_Username_Pattern.MatchString(m.GetUsername()) {
-		err := LocalAccountResourceValidationError{
-			field:  "Username",
-			reason: "value does not match regex pattern \"^[a-z][a-z0-9-]{0,31}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetSshKey()) > 800 {
-		err := LocalAccountResourceValidationError{
-			field:  "SshKey",
-			reason: "value length must be at most 800 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_LocalAccountResource_SshKey_Pattern.MatchString(m.GetSshKey()) {
-		err := LocalAccountResourceValidationError{
-			field:  "SshKey",
-			reason: "value does not match regex pattern \"^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetLocalAccountID()) > 21 {
-		err := LocalAccountResourceValidationError{
-			field:  "LocalAccountID",
-			reason: "value length must be at most 21 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_LocalAccountResource_LocalAccountID_Pattern.MatchString(m.GetLocalAccountID()) {
-		err := LocalAccountResourceValidationError{
-			field:  "LocalAccountID",
-			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for LocalAccountID
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -253,11 +173,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = LocalAccountResourceValidationError{}
-
-var _LocalAccountResource_ResourceId_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
-
-var _LocalAccountResource_Username_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]{0,31}$")
-
-var _LocalAccountResource_SshKey_Pattern = regexp.MustCompile("^(ssh-ed25519|ecdsa-sha2-nistp521) ([A-Za-z0-9+/=]+) ?(.*)?$")
-
-var _LocalAccountResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
