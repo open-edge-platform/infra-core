@@ -606,7 +606,7 @@ message OSUpdateRun {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
       pattern: "^osupdaterun-[0-9a-f]{8}$"
-      max_bytes: 23
+      max_bytes: 20
     }
   ];
 
