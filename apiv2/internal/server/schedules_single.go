@@ -165,27 +165,21 @@ func fromInvSingleschedule(
 			return nil, err
 		}
 		singleSchedule.TargetSiteId = relation.TargetSite.GetResourceId()
-		singleSchedule.Relation = &schedulev1.SingleScheduleResource_TargetSite{
-			TargetSite: targetSite,
-		}
+		singleSchedule.TargetSite = targetSite
 	case *inv_schedulev1.SingleScheduleResource_TargetHost:
 		targetHost, err := fromInvHost(relation.TargetHost, nil, nil)
 		if err != nil {
 			return nil, err
 		}
 		singleSchedule.TargetHostId = relation.TargetHost.GetResourceId()
-		singleSchedule.Relation = &schedulev1.SingleScheduleResource_TargetHost{
-			TargetHost: targetHost,
-		}
+		singleSchedule.TargetHost = targetHost
 	case *inv_schedulev1.SingleScheduleResource_TargetRegion:
 		targetRegion, err := fromInvRegion(relation.TargetRegion, nil)
 		if err != nil {
 			return nil, err
 		}
 		singleSchedule.TargetRegionId = relation.TargetRegion.GetResourceId()
-		singleSchedule.Relation = &schedulev1.SingleScheduleResource_TargetRegion{
-			TargetRegion: targetRegion,
-		}
+		singleSchedule.TargetRegion = targetRegion
 	}
 	return singleSchedule, nil
 }
@@ -255,12 +249,12 @@ func (is *InventorygRPCServer) ListSingleSchedules(
 		return nil, errors.Wrap(err)
 	}
 	var offset, limit int
-	offset, err = util.Int32ToInt(req.GetOffset())
+	offset, err = util.Uint32ToInt(req.GetOffset())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert offset")
 		return nil, err
 	}
-	limit, err = util.Int32ToInt(req.GetPageSize())
+	limit, err = util.Uint32ToInt(req.GetPageSize())
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to convert page size")
 		return nil, err

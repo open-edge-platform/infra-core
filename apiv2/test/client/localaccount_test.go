@@ -102,8 +102,8 @@ func TestLocalAccountList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 5
-	var offset int32
-	var pageSize int32 = 2
+	var offset int
+	var pageSize int = 2
 
 	for id := 0; id < totalItems; id++ {
 		// Generate sequential usernames
