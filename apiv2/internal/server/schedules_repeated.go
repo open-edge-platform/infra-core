@@ -155,27 +155,21 @@ func fromInvRepeatedSchedule(
 			return nil, err
 		}
 		repeatedSchedule.TargetSiteId = relation.TargetSite.GetResourceId()
-		repeatedSchedule.Relation = &schedulev1.RepeatedScheduleResource_TargetSite{
-			TargetSite: targetSite,
-		}
+		repeatedSchedule.TargetSite = targetSite
 	case *inv_schedulev1.RepeatedScheduleResource_TargetHost:
 		targetHost, err := fromInvHost(relation.TargetHost, nil, nil)
 		if err != nil {
 			return nil, err
 		}
 		repeatedSchedule.TargetHostId = relation.TargetHost.GetResourceId()
-		repeatedSchedule.Relation = &schedulev1.RepeatedScheduleResource_TargetHost{
-			TargetHost: targetHost,
-		}
+		repeatedSchedule.TargetHost = targetHost
 	case *inv_schedulev1.RepeatedScheduleResource_TargetRegion:
 		targetRegion, err := fromInvRegion(relation.TargetRegion, nil)
 		if err != nil {
 			return nil, err
 		}
 		repeatedSchedule.TargetRegionId = relation.TargetRegion.GetResourceId()
-		repeatedSchedule.Relation = &schedulev1.RepeatedScheduleResource_TargetRegion{
-			TargetRegion: targetRegion,
-		}
+		repeatedSchedule.TargetRegion = targetRegion
 	}
 	return repeatedSchedule, nil
 }

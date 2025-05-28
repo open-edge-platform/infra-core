@@ -19,8 +19,8 @@ import (
 )
 
 var (
-	collectorKindHostLogs    = api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST
-	collectorKindHostMetrics = api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST
+	collectorKindHostLogs    = api.TELEMETRYCOLLECTORKINDHOST
+	collectorKindHostMetrics = api.TELEMETRYCOLLECTORKINDHOST
 )
 
 func clearIDs() {
@@ -702,7 +702,7 @@ func TestTelemetryLogsGroupList(t *testing.T) {
 
 	for id := 0; id < totalItems; id++ {
 		CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
-			CollectorKind: api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+			CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 			Groups:        []string{"test"},
 			Name:          "Test Name",
 		})
@@ -748,7 +748,7 @@ func TestTelemetryMetricsGroupList(t *testing.T) {
 
 	for id := 0; id < totalItems; id++ {
 		CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
-			CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+			CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 			Groups:        []string{"test"},
 			Name:          "Test Name",
 		})
@@ -2303,7 +2303,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	metricsGroup1 := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
 	metricsGroup2 := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
 		Name:          "NW Usage",
-		CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 		Groups: []string{
 			"net",
 		},
@@ -2338,7 +2338,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err := apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2365,7 +2364,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2389,7 +2387,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2413,7 +2410,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2428,7 +2424,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2448,7 +2443,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	logsGroup1 := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
 	logsGroup2 := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
 		Name:          "Kernel logs",
-		CollectorKind: api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 		Groups: []string{
 			"kern",
 		},
@@ -2482,7 +2477,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err := apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2509,7 +2503,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2533,7 +2526,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2557,7 +2549,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2572,7 +2563,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

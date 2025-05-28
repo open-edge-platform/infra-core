@@ -59,7 +59,7 @@ func TestInstance_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, get1.StatusCode())
 	assert.Equal(t, *utils.Instance1Request.Name, *get1.JSON200.Name)
-	assert.Equal(t, api.InstanceResourceDesiredStateINSTANCESTATERUNNING, *get1.JSON200.DesiredState)
+	assert.Equal(t, api.INSTANCESTATERUNNING, *get1.JSON200.DesiredState)
 
 	get2, err := apiClient.InstanceServiceGetInstanceWithResponse(
 		ctx,
@@ -99,7 +99,6 @@ func TestInstance_Update(t *testing.T) {
 	}
 	inst1Up, err := apiClient.InstanceServicePatchInstanceWithResponse(
 		ctx, *inst1.JSON200.ResourceId,
-		nil,
 		inst1Mod,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -480,7 +479,7 @@ func TestInstanceInvalidate(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, get1.StatusCode())
 	assert.Equal(t, *utils.Instance1Request.Name, *get1.JSON200.Name)
-	assert.Equal(t, api.InstanceResourceDesiredStateINSTANCESTATERUNNING, *get1.JSON200.DesiredState)
+	assert.Equal(t, api.INSTANCESTATERUNNING, *get1.JSON200.DesiredState)
 
 	log.Info().Msg("PutInstancesInstanceIDInvalidateWithResponse")
 	_, err = apiClient.InstanceServiceInvalidateInstanceWithResponse(
@@ -504,7 +503,7 @@ func TestInstanceInvalidate(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, get2.StatusCode())
 	assert.Equal(t, *utils.Instance1Request.Name, *get2.JSON200.Name)
-	assert.Equal(t, api.InstanceResourceDesiredStateINSTANCESTATEUNTRUSTED, *get2.JSON200.DesiredState)
+	assert.Equal(t, api.INSTANCESTATEUNTRUSTED, *get2.JSON200.DesiredState)
 	clearInstanceIDs()
 
 	log.Info().Msg("TestInstanceInvalidate Finished")

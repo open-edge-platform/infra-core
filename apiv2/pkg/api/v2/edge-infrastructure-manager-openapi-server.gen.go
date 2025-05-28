@@ -28,27 +28,27 @@ type ServerInterface interface {
 	HostServiceCreateHost(ctx echo.Context) error
 	// RegisterHost
 	// (POST /edge-infra.orchestrator.apis/v2/hosts/register)
-	HostServiceRegisterHost(ctx echo.Context, params HostServiceRegisterHostParams) error
+	HostServiceRegisterHost(ctx echo.Context) error
 	// DeleteHost
-	// (DELETE /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/hosts/{resource_id})
 	HostServiceDeleteHost(ctx echo.Context, resourceId string) error
 	// GetHost
-	// (GET /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/hosts/{resource_id})
 	HostServiceGetHost(ctx echo.Context, resourceId string) error
 	// PatchHost
-	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
-	HostServicePatchHost(ctx echo.Context, resourceId string, params HostServicePatchHostParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resource_id})
+	HostServicePatchHost(ctx echo.Context, resourceId string) error
 	// UpdateHost
-	// (PUT /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/hosts/{resource_id})
 	HostServiceUpdateHost(ctx echo.Context, resourceId string) error
 	// InvalidateHost
-	// (PUT /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate)
+	// (PUT /edge-infra.orchestrator.apis/v2/hosts/{resource_id}/invalidate)
 	HostServiceInvalidateHost(ctx echo.Context, resourceId string, params HostServiceInvalidateHostParams) error
 	// OnboardHost
-	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard)
+	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resource_id}/onboard)
 	HostServiceOnboardHost(ctx echo.Context, resourceId string) error
 	// RegisterUpdateHost
-	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register)
+	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resource_id}/register)
 	HostServiceRegisterUpdateHost(ctx echo.Context, resourceId string) error
 	// GetHostsSummary
 	// (GET /edge-infra.orchestrator.apis/v2/hosts_summary)
@@ -60,19 +60,19 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/instances)
 	InstanceServiceCreateInstance(ctx echo.Context) error
 	// DeleteInstance
-	// (DELETE /edge-infra.orchestrator.apis/v2/instances/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/instances/{resource_id})
 	InstanceServiceDeleteInstance(ctx echo.Context, resourceId string) error
 	// GetInstance
-	// (GET /edge-infra.orchestrator.apis/v2/instances/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/instances/{resource_id})
 	InstanceServiceGetInstance(ctx echo.Context, resourceId string) error
 	// PatchInstance
-	// (PATCH /edge-infra.orchestrator.apis/v2/instances/{resourceId})
-	InstanceServicePatchInstance(ctx echo.Context, resourceId string, params InstanceServicePatchInstanceParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/instances/{resource_id})
+	InstanceServicePatchInstance(ctx echo.Context, resourceId string) error
 	// UpdateInstance
-	// (PUT /edge-infra.orchestrator.apis/v2/instances/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/instances/{resource_id})
 	InstanceServiceUpdateInstance(ctx echo.Context, resourceId string) error
 	// InvalidateInstance
-	// (PUT /edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate)
+	// (PUT /edge-infra.orchestrator.apis/v2/instances/{resource_id}/invalidate)
 	InstanceServiceInvalidateInstance(ctx echo.Context, resourceId string) error
 	// ListLocalAccounts
 	// (GET /edge-infra.orchestrator.apis/v2/localAccounts)
@@ -81,10 +81,10 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/localAccounts)
 	LocalAccountServiceCreateLocalAccount(ctx echo.Context) error
 	// DeleteLocalAccount
-	// (DELETE /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/localAccounts/{resource_id})
 	LocalAccountServiceDeleteLocalAccount(ctx echo.Context, resourceId string) error
 	// GetLocalAccount
-	// (GET /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/localAccounts/{resource_id})
 	LocalAccountServiceGetLocalAccount(ctx echo.Context, resourceId string) error
 	// ListLocations
 	// (GET /edge-infra.orchestrator.apis/v2/locations)
@@ -96,16 +96,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/operating_systems)
 	OperatingSystemServiceCreateOperatingSystem(ctx echo.Context) error
 	// DeleteOperatingSystem
-	// (DELETE /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/operating_systems/{resource_id})
 	OperatingSystemServiceDeleteOperatingSystem(ctx echo.Context, resourceId string) error
 	// GetOperatingSystem
-	// (GET /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/operating_systems/{resource_id})
 	OperatingSystemServiceGetOperatingSystem(ctx echo.Context, resourceId string) error
 	// PatchOperatingSystem
-	// (PATCH /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServicePatchOperatingSystem(ctx echo.Context, resourceId string, params OperatingSystemServicePatchOperatingSystemParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/operating_systems/{resource_id})
+	OperatingSystemServicePatchOperatingSystem(ctx echo.Context, resourceId string) error
 	// UpdateOperatingSystem
-	// (PUT /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/operating_systems/{resource_id})
 	OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context, resourceId string) error
 	// ListProviders
 	// (GET /edge-infra.orchestrator.apis/v2/providers)
@@ -114,10 +114,10 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/providers)
 	ProviderServiceCreateProvider(ctx echo.Context) error
 	// DeleteProvider
-	// (DELETE /edge-infra.orchestrator.apis/v2/providers/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/providers/{resource_id})
 	ProviderServiceDeleteProvider(ctx echo.Context, resourceId string) error
 	// GetProvider
-	// (GET /edge-infra.orchestrator.apis/v2/providers/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/providers/{resource_id})
 	ProviderServiceGetProvider(ctx echo.Context, resourceId string) error
 	// ListRegions
 	// (GET /edge-infra.orchestrator.apis/v2/regions)
@@ -126,16 +126,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/regions)
 	RegionServiceCreateRegion(ctx echo.Context) error
 	// DeleteRegion
-	// (DELETE /edge-infra.orchestrator.apis/v2/regions/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/regions/{resource_id})
 	RegionServiceDeleteRegion(ctx echo.Context, resourceId string) error
 	// GetRegion
-	// (GET /edge-infra.orchestrator.apis/v2/regions/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/regions/{resource_id})
 	RegionServiceGetRegion(ctx echo.Context, resourceId string) error
 	// PatchRegion
-	// (PATCH /edge-infra.orchestrator.apis/v2/regions/{resourceId})
-	RegionServicePatchRegion(ctx echo.Context, resourceId string, params RegionServicePatchRegionParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/regions/{resource_id})
+	RegionServicePatchRegion(ctx echo.Context, resourceId string) error
 	// UpdateRegion
-	// (PUT /edge-infra.orchestrator.apis/v2/regions/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/regions/{resource_id})
 	RegionServiceUpdateRegion(ctx echo.Context, resourceId string) error
 	// ListSchedules
 	// (GET /edge-infra.orchestrator.apis/v2/schedules)
@@ -147,16 +147,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/schedules/repeated)
 	ScheduleServiceCreateRepeatedSchedule(ctx echo.Context) error
 	// DeleteRepeatedSchedule
-	// (DELETE /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id})
 	ScheduleServiceDeleteRepeatedSchedule(ctx echo.Context, resourceId string) error
 	// GetRepeatedSchedule
-	// (GET /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id})
 	ScheduleServiceGetRepeatedSchedule(ctx echo.Context, resourceId string) error
 	// PatchRepeatedSchedule
-	// (PATCH /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
-	ScheduleServicePatchRepeatedSchedule(ctx echo.Context, resourceId string, params ScheduleServicePatchRepeatedScheduleParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id})
+	ScheduleServicePatchRepeatedSchedule(ctx echo.Context, resourceId string) error
 	// UpdateRepeatedSchedule
-	// (PUT /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id})
 	ScheduleServiceUpdateRepeatedSchedule(ctx echo.Context, resourceId string) error
 	// ListSingleSchedules
 	// (GET /edge-infra.orchestrator.apis/v2/schedules/single)
@@ -165,16 +165,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/schedules/single)
 	ScheduleServiceCreateSingleSchedule(ctx echo.Context) error
 	// DeleteSingleSchedule
-	// (DELETE /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/schedules/single/{resource_id})
 	ScheduleServiceDeleteSingleSchedule(ctx echo.Context, resourceId string) error
 	// GetSingleSchedule
-	// (GET /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/schedules/single/{resource_id})
 	ScheduleServiceGetSingleSchedule(ctx echo.Context, resourceId string) error
 	// PatchSingleSchedule
-	// (PATCH /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
-	ScheduleServicePatchSingleSchedule(ctx echo.Context, resourceId string, params ScheduleServicePatchSingleScheduleParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/schedules/single/{resource_id})
+	ScheduleServicePatchSingleSchedule(ctx echo.Context, resourceId string) error
 	// UpdateSingleSchedule
-	// (PUT /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/schedules/single/{resource_id})
 	ScheduleServiceUpdateSingleSchedule(ctx echo.Context, resourceId string) error
 	// ListSites
 	// (GET /edge-infra.orchestrator.apis/v2/sites)
@@ -183,16 +183,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/sites)
 	SiteServiceCreateSite(ctx echo.Context) error
 	// DeleteSite
-	// (DELETE /edge-infra.orchestrator.apis/v2/sites/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/sites/{resource_id})
 	SiteServiceDeleteSite(ctx echo.Context, resourceId string) error
 	// GetSite
-	// (GET /edge-infra.orchestrator.apis/v2/sites/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/sites/{resource_id})
 	SiteServiceGetSite(ctx echo.Context, resourceId string) error
 	// PatchSite
-	// (PATCH /edge-infra.orchestrator.apis/v2/sites/{resourceId})
-	SiteServicePatchSite(ctx echo.Context, resourceId string, params SiteServicePatchSiteParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/sites/{resource_id})
+	SiteServicePatchSite(ctx echo.Context, resourceId string) error
 	// UpdateSite
-	// (PUT /edge-infra.orchestrator.apis/v2/sites/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/sites/{resource_id})
 	SiteServiceUpdateSite(ctx echo.Context, resourceId string) error
 	// ListTelemetryLogsGroups
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/logs)
@@ -201,10 +201,10 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/groups/logs)
 	TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx echo.Context) error
 	// DeleteTelemetryLogsGroup
-	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id})
 	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx echo.Context, resourceId string) error
 	// GetTelemetryLogsGroup
-	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id})
 	TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx echo.Context, resourceId string) error
 	// ListTelemetryMetricsGroups
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics)
@@ -213,10 +213,10 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics)
 	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx echo.Context) error
 	// DeleteTelemetryMetricsGroup
-	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id})
 	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx echo.Context, resourceId string) error
 	// GetTelemetryMetricsGroup
-	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id})
 	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx echo.Context, resourceId string) error
 	// ListTelemetryLogsProfiles
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs)
@@ -225,16 +225,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs)
 	TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx echo.Context) error
 	// DeleteTelemetryLogsProfile
-	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id})
 	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx echo.Context, resourceId string) error
 	// GetTelemetryLogsProfile
-	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id})
 	TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx echo.Context, resourceId string) error
 	// PatchTelemetryLogsProfile
-	// (PATCH /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
-	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx echo.Context, resourceId string, params TelemetryLogsProfileServicePatchTelemetryLogsProfileParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id})
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx echo.Context, resourceId string) error
 	// UpdateTelemetryLogsProfile
-	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id})
 	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx echo.Context, resourceId string) error
 	// ListTelemetryMetricsProfiles
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics)
@@ -243,16 +243,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics)
 	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx echo.Context) error
 	// DeleteTelemetryMetricsProfile
-	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id})
 	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
 	// GetTelemetryMetricsProfile
-	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id})
 	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
 	// PatchTelemetryMetricsProfile
-	// (PATCH /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx echo.Context, resourceId string, params TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id})
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
 	// UpdateTelemetryMetricsProfile
-	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id})
 	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
 	// ListWorkloadMembers
 	// (GET /edge-infra.orchestrator.apis/v2/workload_members)
@@ -261,10 +261,10 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/workload_members)
 	WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context) error
 	// DeleteWorkloadMember
-	// (DELETE /edge-infra.orchestrator.apis/v2/workload_members/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/workload_members/{resource_id})
 	WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context, resourceId string) error
 	// GetWorkloadMember
-	// (GET /edge-infra.orchestrator.apis/v2/workload_members/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/workload_members/{resource_id})
 	WorkloadMemberServiceGetWorkloadMember(ctx echo.Context, resourceId string) error
 	// ListWorkloads
 	// (GET /edge-infra.orchestrator.apis/v2/workloads)
@@ -273,16 +273,16 @@ type ServerInterface interface {
 	// (POST /edge-infra.orchestrator.apis/v2/workloads)
 	WorkloadServiceCreateWorkload(ctx echo.Context) error
 	// DeleteWorkload
-	// (DELETE /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
+	// (DELETE /edge-infra.orchestrator.apis/v2/workloads/{resource_id})
 	WorkloadServiceDeleteWorkload(ctx echo.Context, resourceId string) error
 	// GetWorkload
-	// (GET /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
+	// (GET /edge-infra.orchestrator.apis/v2/workloads/{resource_id})
 	WorkloadServiceGetWorkload(ctx echo.Context, resourceId string) error
 	// PatchWorkload
-	// (PATCH /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
-	WorkloadServicePatchWorkload(ctx echo.Context, resourceId string, params WorkloadServicePatchWorkloadParams) error
+	// (PATCH /edge-infra.orchestrator.apis/v2/workloads/{resource_id})
+	WorkloadServicePatchWorkload(ctx echo.Context, resourceId string) error
 	// UpdateWorkload
-	// (PUT /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
+	// (PUT /edge-infra.orchestrator.apis/v2/workloads/{resource_id})
 	WorkloadServiceUpdateWorkload(ctx echo.Context, resourceId string) error
 }
 
@@ -343,29 +343,20 @@ func (w *ServerInterfaceWrapper) HostServiceCreateHost(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) HostServiceRegisterHost(ctx echo.Context) error {
 	var err error
 
-	// Parameter object where we will unmarshal all parameters from the context
-	var params HostServiceRegisterHostParams
-	// ------------- Optional query parameter "resourceId" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "resourceId", ctx.QueryParams(), &params.ResourceId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceRegisterHost(ctx, params)
+	err = w.Handler.HostServiceRegisterHost(ctx)
 	return err
 }
 
 // HostServiceDeleteHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServiceDeleteHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -376,12 +367,12 @@ func (w *ServerInterfaceWrapper) HostServiceDeleteHost(ctx echo.Context) error {
 // HostServiceGetHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServiceGetHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -392,37 +383,28 @@ func (w *ServerInterfaceWrapper) HostServiceGetHost(ctx echo.Context) error {
 // HostServicePatchHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServicePatchHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params HostServicePatchHostParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServicePatchHost(ctx, resourceId, params)
+	err = w.Handler.HostServicePatchHost(ctx, resourceId)
 	return err
 }
 
 // HostServiceUpdateHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServiceUpdateHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -433,12 +415,12 @@ func (w *ServerInterfaceWrapper) HostServiceUpdateHost(ctx echo.Context) error {
 // HostServiceInvalidateHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServiceInvalidateHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
@@ -458,12 +440,12 @@ func (w *ServerInterfaceWrapper) HostServiceInvalidateHost(ctx echo.Context) err
 // HostServiceOnboardHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServiceOnboardHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -474,12 +456,12 @@ func (w *ServerInterfaceWrapper) HostServiceOnboardHost(ctx echo.Context) error 
 // HostServiceRegisterUpdateHost converts echo context to params.
 func (w *ServerInterfaceWrapper) HostServiceRegisterUpdateHost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -556,12 +538,12 @@ func (w *ServerInterfaceWrapper) InstanceServiceCreateInstance(ctx echo.Context)
 // InstanceServiceDeleteInstance converts echo context to params.
 func (w *ServerInterfaceWrapper) InstanceServiceDeleteInstance(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -572,12 +554,12 @@ func (w *ServerInterfaceWrapper) InstanceServiceDeleteInstance(ctx echo.Context)
 // InstanceServiceGetInstance converts echo context to params.
 func (w *ServerInterfaceWrapper) InstanceServiceGetInstance(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -588,37 +570,28 @@ func (w *ServerInterfaceWrapper) InstanceServiceGetInstance(ctx echo.Context) er
 // InstanceServicePatchInstance converts echo context to params.
 func (w *ServerInterfaceWrapper) InstanceServicePatchInstance(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params InstanceServicePatchInstanceParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServicePatchInstance(ctx, resourceId, params)
+	err = w.Handler.InstanceServicePatchInstance(ctx, resourceId)
 	return err
 }
 
 // InstanceServiceUpdateInstance converts echo context to params.
 func (w *ServerInterfaceWrapper) InstanceServiceUpdateInstance(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -629,12 +602,12 @@ func (w *ServerInterfaceWrapper) InstanceServiceUpdateInstance(ctx echo.Context)
 // InstanceServiceInvalidateInstance converts echo context to params.
 func (w *ServerInterfaceWrapper) InstanceServiceInvalidateInstance(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -693,12 +666,12 @@ func (w *ServerInterfaceWrapper) LocalAccountServiceCreateLocalAccount(ctx echo.
 // LocalAccountServiceDeleteLocalAccount converts echo context to params.
 func (w *ServerInterfaceWrapper) LocalAccountServiceDeleteLocalAccount(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -709,12 +682,12 @@ func (w *ServerInterfaceWrapper) LocalAccountServiceDeleteLocalAccount(ctx echo.
 // LocalAccountServiceGetLocalAccount converts echo context to params.
 func (w *ServerInterfaceWrapper) LocalAccountServiceGetLocalAccount(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -805,12 +778,12 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem(ctx
 // OperatingSystemServiceDeleteOperatingSystem converts echo context to params.
 func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -821,12 +794,12 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem(ctx
 // OperatingSystemServiceGetOperatingSystem converts echo context to params.
 func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -837,37 +810,28 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem(ctx ec
 // OperatingSystemServicePatchOperatingSystem converts echo context to params.
 func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServicePatchOperatingSystemParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServicePatchOperatingSystem(ctx, resourceId, params)
+	err = w.Handler.OperatingSystemServicePatchOperatingSystem(ctx, resourceId)
 	return err
 }
 
 // OperatingSystemServiceUpdateOperatingSystem converts echo context to params.
 func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -926,12 +890,12 @@ func (w *ServerInterfaceWrapper) ProviderServiceCreateProvider(ctx echo.Context)
 // ProviderServiceDeleteProvider converts echo context to params.
 func (w *ServerInterfaceWrapper) ProviderServiceDeleteProvider(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -942,12 +906,12 @@ func (w *ServerInterfaceWrapper) ProviderServiceDeleteProvider(ctx echo.Context)
 // ProviderServiceGetProvider converts echo context to params.
 func (w *ServerInterfaceWrapper) ProviderServiceGetProvider(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1013,12 +977,12 @@ func (w *ServerInterfaceWrapper) RegionServiceCreateRegion(ctx echo.Context) err
 // RegionServiceDeleteRegion converts echo context to params.
 func (w *ServerInterfaceWrapper) RegionServiceDeleteRegion(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1029,12 +993,12 @@ func (w *ServerInterfaceWrapper) RegionServiceDeleteRegion(ctx echo.Context) err
 // RegionServiceGetRegion converts echo context to params.
 func (w *ServerInterfaceWrapper) RegionServiceGetRegion(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1045,37 +1009,28 @@ func (w *ServerInterfaceWrapper) RegionServiceGetRegion(ctx echo.Context) error 
 // RegionServicePatchRegion converts echo context to params.
 func (w *ServerInterfaceWrapper) RegionServicePatchRegion(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params RegionServicePatchRegionParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServicePatchRegion(ctx, resourceId, params)
+	err = w.Handler.RegionServicePatchRegion(ctx, resourceId)
 	return err
 }
 
 // RegionServiceUpdateRegion converts echo context to params.
 func (w *ServerInterfaceWrapper) RegionServiceUpdateRegion(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1201,12 +1156,12 @@ func (w *ServerInterfaceWrapper) ScheduleServiceCreateRepeatedSchedule(ctx echo.
 // ScheduleServiceDeleteRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceDeleteRepeatedSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1217,12 +1172,12 @@ func (w *ServerInterfaceWrapper) ScheduleServiceDeleteRepeatedSchedule(ctx echo.
 // ScheduleServiceGetRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceGetRepeatedSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1233,37 +1188,28 @@ func (w *ServerInterfaceWrapper) ScheduleServiceGetRepeatedSchedule(ctx echo.Con
 // ScheduleServicePatchRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServicePatchRepeatedSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params ScheduleServicePatchRepeatedScheduleParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServicePatchRepeatedSchedule(ctx, resourceId, params)
+	err = w.Handler.ScheduleServicePatchRepeatedSchedule(ctx, resourceId)
 	return err
 }
 
 // ScheduleServiceUpdateRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceUpdateRepeatedSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1336,12 +1282,12 @@ func (w *ServerInterfaceWrapper) ScheduleServiceCreateSingleSchedule(ctx echo.Co
 // ScheduleServiceDeleteSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceDeleteSingleSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1352,12 +1298,12 @@ func (w *ServerInterfaceWrapper) ScheduleServiceDeleteSingleSchedule(ctx echo.Co
 // ScheduleServiceGetSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceGetSingleSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1368,37 +1314,28 @@ func (w *ServerInterfaceWrapper) ScheduleServiceGetSingleSchedule(ctx echo.Conte
 // ScheduleServicePatchSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServicePatchSingleSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params ScheduleServicePatchSingleScheduleParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServicePatchSingleSchedule(ctx, resourceId, params)
+	err = w.Handler.ScheduleServicePatchSingleSchedule(ctx, resourceId)
 	return err
 }
 
 // ScheduleServiceUpdateSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceUpdateSingleSchedule(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1457,12 +1394,12 @@ func (w *ServerInterfaceWrapper) SiteServiceCreateSite(ctx echo.Context) error {
 // SiteServiceDeleteSite converts echo context to params.
 func (w *ServerInterfaceWrapper) SiteServiceDeleteSite(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1473,12 +1410,12 @@ func (w *ServerInterfaceWrapper) SiteServiceDeleteSite(ctx echo.Context) error {
 // SiteServiceGetSite converts echo context to params.
 func (w *ServerInterfaceWrapper) SiteServiceGetSite(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1489,37 +1426,28 @@ func (w *ServerInterfaceWrapper) SiteServiceGetSite(ctx echo.Context) error {
 // SiteServicePatchSite converts echo context to params.
 func (w *ServerInterfaceWrapper) SiteServicePatchSite(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params SiteServicePatchSiteParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServicePatchSite(ctx, resourceId, params)
+	err = w.Handler.SiteServicePatchSite(ctx, resourceId)
 	return err
 }
 
 // SiteServiceUpdateSite converts echo context to params.
 func (w *ServerInterfaceWrapper) SiteServiceUpdateSite(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1571,12 +1499,12 @@ func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceCreateTelemetryLogsGro
 // TelemetryLogsGroupServiceDeleteTelemetryLogsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1587,12 +1515,12 @@ func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceDeleteTelemetryLogsGro
 // TelemetryLogsGroupServiceGetTelemetryLogsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1644,12 +1572,12 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceCreateTelemetryMetr
 // TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1660,12 +1588,12 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceDeleteTelemetryMetr
 // TelemetryMetricsGroupServiceGetTelemetryMetricsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1745,12 +1673,12 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceCreateTelemetryLogsP
 // TelemetryLogsProfileServiceDeleteTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1761,12 +1689,12 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceDeleteTelemetryLogsP
 // TelemetryLogsProfileServiceGetTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1777,37 +1705,28 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceGetTelemetryLogsProf
 // TelemetryLogsProfileServicePatchTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params TelemetryLogsProfileServicePatchTelemetryLogsProfileParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, resourceId, params)
+	err = w.Handler.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, resourceId)
 	return err
 }
 
 // TelemetryLogsProfileServiceUpdateTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1887,12 +1806,12 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceCreateTelemetryMe
 // TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1903,12 +1822,12 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceDeleteTelemetryMe
 // TelemetryMetricsProfileServiceGetTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -1919,37 +1838,28 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceGetTelemetryMetri
 // TelemetryMetricsProfileServicePatchTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, resourceId, params)
+	err = w.Handler.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, resourceId)
 	return err
 }
 
 // TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -2008,12 +1918,12 @@ func (w *ServerInterfaceWrapper) WorkloadMemberServiceCreateWorkloadMember(ctx e
 // WorkloadMemberServiceDeleteWorkloadMember converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -2024,12 +1934,12 @@ func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember(ctx e
 // WorkloadMemberServiceGetWorkloadMember converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadMemberServiceGetWorkloadMember(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -2088,12 +1998,12 @@ func (w *ServerInterfaceWrapper) WorkloadServiceCreateWorkload(ctx echo.Context)
 // WorkloadServiceDeleteWorkload converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -2104,12 +2014,12 @@ func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload(ctx echo.Context)
 // WorkloadServiceGetWorkload converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -2120,37 +2030,28 @@ func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload(ctx echo.Context) er
 // WorkloadServicePatchWorkload converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadServicePatchWorkload(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params WorkloadServicePatchWorkloadParams
-	// ------------- Optional query parameter "fieldMask" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServicePatchWorkload(ctx, resourceId, params)
+	err = w.Handler.WorkloadServicePatchWorkload(ctx, resourceId)
 	return err
 }
 
 // WorkloadServiceUpdateWorkload converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadServiceUpdateWorkload(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "resourceId" -------------
+	// ------------- Path parameter "resource_id" -------------
 	var resourceId string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "resource_id", ctx.Param("resource_id"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resource_id: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -2189,300 +2090,362 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts", wrapper.HostServiceListHosts)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/hosts", wrapper.HostServiceCreateHost)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/register", wrapper.HostServiceRegisterHost)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceDeleteHost)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceGetHost)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServicePatchHost)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceUpdateHost)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/invalidate", wrapper.HostServiceInvalidateHost)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/onboard", wrapper.HostServiceOnboardHost)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/register", wrapper.HostServiceRegisterUpdateHost)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id", wrapper.HostServiceDeleteHost)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id", wrapper.HostServiceGetHost)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id", wrapper.HostServicePatchHost)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id", wrapper.HostServiceUpdateHost)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id/invalidate", wrapper.HostServiceInvalidateHost)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id/onboard", wrapper.HostServiceOnboardHost)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resource_id/register", wrapper.HostServiceRegisterUpdateHost)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts_summary", wrapper.HostServiceGetHostsSummary)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances", wrapper.InstanceServiceListInstances)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/instances", wrapper.InstanceServiceCreateInstance)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceDeleteInstance)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceGetInstance)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServicePatchInstance)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceUpdateInstance)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId/invalidate", wrapper.InstanceServiceInvalidateInstance)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resource_id", wrapper.InstanceServiceDeleteInstance)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resource_id", wrapper.InstanceServiceGetInstance)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resource_id", wrapper.InstanceServicePatchInstance)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resource_id", wrapper.InstanceServiceUpdateInstance)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resource_id/invalidate", wrapper.InstanceServiceInvalidateInstance)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts", wrapper.LocalAccountServiceListLocalAccounts)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts", wrapper.LocalAccountServiceCreateLocalAccount)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceDeleteLocalAccount)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceGetLocalAccount)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resource_id", wrapper.LocalAccountServiceDeleteLocalAccount)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resource_id", wrapper.LocalAccountServiceGetLocalAccount)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/locations", wrapper.LocationServiceListLocations)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceListOperatingSystems)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceCreateOperatingSystem)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resource_id", wrapper.OperatingSystemServiceDeleteOperatingSystem)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resource_id", wrapper.OperatingSystemServiceGetOperatingSystem)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resource_id", wrapper.OperatingSystemServicePatchOperatingSystem)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resource_id", wrapper.OperatingSystemServiceUpdateOperatingSystem)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers", wrapper.ProviderServiceListProviders)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/providers", wrapper.ProviderServiceCreateProvider)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resourceId", wrapper.ProviderServiceDeleteProvider)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resourceId", wrapper.ProviderServiceGetProvider)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resource_id", wrapper.ProviderServiceDeleteProvider)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resource_id", wrapper.ProviderServiceGetProvider)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions", wrapper.RegionServiceListRegions)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/regions", wrapper.RegionServiceCreateRegion)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceDeleteRegion)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceGetRegion)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServicePatchRegion)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceUpdateRegion)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resource_id", wrapper.RegionServiceDeleteRegion)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resource_id", wrapper.RegionServiceGetRegion)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resource_id", wrapper.RegionServicePatchRegion)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resource_id", wrapper.RegionServiceUpdateRegion)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules", wrapper.ScheduleServiceListSchedules)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated", wrapper.ScheduleServiceListRepeatedSchedules)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated", wrapper.ScheduleServiceCreateRepeatedSchedule)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceDeleteRepeatedSchedule)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceGetRepeatedSchedule)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServicePatchRepeatedSchedule)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceUpdateRepeatedSchedule)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resource_id", wrapper.ScheduleServiceDeleteRepeatedSchedule)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resource_id", wrapper.ScheduleServiceGetRepeatedSchedule)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resource_id", wrapper.ScheduleServicePatchRepeatedSchedule)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resource_id", wrapper.ScheduleServiceUpdateRepeatedSchedule)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single", wrapper.ScheduleServiceListSingleSchedules)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single", wrapper.ScheduleServiceCreateSingleSchedule)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceDeleteSingleSchedule)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceGetSingleSchedule)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServicePatchSingleSchedule)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceUpdateSingleSchedule)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resource_id", wrapper.ScheduleServiceDeleteSingleSchedule)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resource_id", wrapper.ScheduleServiceGetSingleSchedule)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resource_id", wrapper.ScheduleServicePatchSingleSchedule)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resource_id", wrapper.ScheduleServiceUpdateSingleSchedule)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites", wrapper.SiteServiceListSites)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/sites", wrapper.SiteServiceCreateSite)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceDeleteSite)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceGetSite)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServicePatchSite)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceUpdateSite)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resource_id", wrapper.SiteServiceDeleteSite)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resource_id", wrapper.SiteServiceGetSite)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resource_id", wrapper.SiteServicePatchSite)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resource_id", wrapper.SiteServiceUpdateSite)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceListTelemetryLogsGroups)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceCreateTelemetryLogsGroup)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceGetTelemetryLogsGroup)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resource_id", wrapper.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resource_id", wrapper.TelemetryLogsGroupServiceGetTelemetryLogsGroup)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceListTelemetryMetricsGroups)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resource_id", wrapper.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resource_id", wrapper.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceListTelemetryLogsProfiles)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceCreateTelemetryLogsProfile)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceGetTelemetryLogsProfile)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServicePatchTelemetryLogsProfile)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resource_id", wrapper.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resource_id", wrapper.TelemetryLogsProfileServiceGetTelemetryLogsProfile)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resource_id", wrapper.TelemetryLogsProfileServicePatchTelemetryLogsProfile)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resource_id", wrapper.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resource_id", wrapper.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resource_id", wrapper.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resource_id", wrapper.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resource_id", wrapper.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceListWorkloadMembers)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceCreateWorkloadMember)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceDeleteWorkloadMember)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceGetWorkloadMember)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resource_id", wrapper.WorkloadMemberServiceDeleteWorkloadMember)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resource_id", wrapper.WorkloadMemberServiceGetWorkloadMember)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads", wrapper.WorkloadServiceListWorkloads)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workloads", wrapper.WorkloadServiceCreateWorkload)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceDeleteWorkload)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceGetWorkload)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServicePatchWorkload)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceUpdateWorkload)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resource_id", wrapper.WorkloadServiceDeleteWorkload)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resource_id", wrapper.WorkloadServiceGetWorkload)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resource_id", wrapper.WorkloadServicePatchWorkload)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resource_id", wrapper.WorkloadServiceUpdateWorkload)
 
 }
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/+x9D3fbOJLnV8Fp+97Y3bL8J5Nsd/btm1EsxdG1Lfkku3t7E48HJiEJa4rQEKATd3e+",
-	"+z38IQmSIAVSkm3mtG/fdCwChQLwQ6FQVSj80XLIYkl85DPaevtHizpztIDinz3kIYY+EMrGiC6JTxH/",
-	"1UXUCfCSYeK33rbGSHwAC0QpnCEwJQFI6nVa7RZ7XKLW2xa5+x/ksNbXtiI78CmDvoPKSNMi2lHlEvrn",
-	"xIFe13FI6LNabegEStoZLVEAGfZnk0fK0KJWUxkaJa1dBuQBuyio1UxUuYT+GM0w8WtRl1VLaS8RZMid",
-	"OHPkhh6q2UqaSEl7E+zPPLRWa2kSpW2xui2wMrpXyEMLxILHczKjZwEJl7VayZOxbfMyIFNcc/RMhGza",
-	"vUAswM4muqtTqtDyRjqdplXS+q8kuPcIdC/Q4q7myk6TsGhrrVaM9M8Q4xJ/Ei4WMHgspq8KADIFbI7A",
-	"nFBGAWWQhZTTXQZkiQKGkdiBUBCQIE/jao4AIwx6wA95hzkxSWgZIIp8LkoB9EGfV+dUpyRYQNZ62wqx",
-	"z16dtNqtAEF35HuPrbcsCFHcH+wzNEMB71AQ+j72Z1Vaxz4Yy1qiR6hu04J6hYbrthP60POIw+VplW5+",
-	"xmxOQgYgoLhuJ7+aIETIzOO7FCN34bTrP3KmoOtizhH0LjVoSKJphk+JzyD2KZ95GNxhFnCcURRg6OHf",
-	"kRsjGnrEn4leAAj+ztkAbA4ZkOTuEBXIFL8rlOaJ5LH6d9kf4zCuJKXGgrKAQ844OlIPm2HKkGFJXKi+",
-	"MQICVQhAEOlgaU5hyMjIvyMwMEz7ew/OAGGA4pkPPU6PF19Ahh3oeY+AyIrx4tW4vyPEQ9DnzPpwUTAW",
-	"vA7gn3nFBfxyjvwZm7fenhy1W0vIGAp4yX989+c/PsKD37sH/31we3TwU+fwLbj54bv8SLVbckCHAqMl",
-	"TcpiCstiTJLG9j52D/4bHvx+dPDTzR+v2ydHX/f/ZmwrDLFb0sb19aCX6darN7luHR38BA+m3YP3N3/8",
-	"+PVA//OvVf48Pvn6XRXkUBIGjmFSugIlIFAF8nC5w4SOkYcgRT3IDBTeDUYToEqAnpJ7BQIgGUtO9hfk",
-	"uyYBLyjKjxVoBVTULiAmvtpRWziDpYHOxSkYXALougGitA1o6MwBpOBT6/ink85R56hz/Kll28DP2Dcg",
-	"if/KBcW7i1NOCPnhovX2Y+tdd9y/6F91z29PR8Or8ej8vD++/Xkw7N0OR8N+q11SYHB5MSgt8MvleFRa",
-	"4LJ33brRRLxgyqKTzjLsBs4cM+SwMDABT/saScfTy2uwIC7y2gB1Zh3w5cc3t2/+2rFs7xQu4R32cITc",
-	"jOYhigIPU8abg54nmnO0SmBvSSjFd94j+D+T0XDfumESmFocxhunaIgXqrtVO8vwgo9LvpF4yKIxjIS+",
-	"DeMT4twjVsr6cv5IuewXfaCy/Bq9uJrzYoYWr4SukbTLZEFAw+WSBAy54O4xwsg67ZMl8cjsMc8An3Ew",
-	"xchzAWVEYCWCJFOV2iBAUxTwXfFDr3v4YXwBXOJQoSPzsoKEtKDYzUAYBMhnl+QzCibMKFxPZRGw5GWk",
-	"WqnrzpqUuBz92h/fTq66V/3b/ng8Grfaqd9Gw+wP79/XW9mSpQKG+W6oSqTZjXAZ8fthNLlSnPT65/2r",
-	"fq/V1n8cDd+NuuNe9ufr4dX4epIrPe6fDSZX/XG/V6tPLqI4QG7ZTPRkkSeciSIuS0ZelWjQyPOxO1uG",
-	"BonwDjr3B2LBId8Rqi1kDDpz5Ep16+zyOlZbhEjCDC0Ene8CNG29bf3bYWLbPFSGzUM+GLNlGCtEXwt5",
-	"hEEAHyMWh9ipweJwcFqTRR87VVmciFN0nkmGvrAQevH5x3DYCUKf4QVSB3GOG4EZMEGMi93xBQXE9x4z",
-	"yu3x0clfLWdY8jbwXexAZlL51CfET9EMBcsAMcg/RcfOW2UjMLEU4Zrj8XpyOxj2Bqfdq8FoGK++/JfB",
-	"8PZyPDob9ycT8/feeb82nmVvr/ACUQYXBl3y+uoUsOgz+DxHvt5J8BlS4EHKgDOH/gy5xl7X2QAlcySA",
-	"M1QDzVTWrIloVbsqqq/pXQ1WryfvarIZ0ruqLJpPux/UFytNAPtzFGCG3AvEoAsZNIv3hfoK4vKRVsT5",
-	"4OqJsoDJDzDWdu/R49sH6IUILCEOKC/puyiQxYQNiK816LvAIzOh7lEWhEI3tx++iPcBQwubscPKjbOK",
-	"ruYriudlgRYkeHz3yExA/r8h9BlmwsooC4K9cfdiH2BfGmGEn4X/dccJWM3Qwm5iIKXEwZBPgLAwVZ+b",
-	"2sO9gF8Gst7x0VF+tKvbZF7Xtcn4pEg/4V8Kxyjb/PFJu7XAfrzdrODmP/7z73/7X//W/hQeHb1yxP+i",
-	"7/f2P7UUlytnWJm2sD9bYydNiGxnM80yWXNLTcg0ZmPN9rza9prr8PY22WVA3NBhQ+N6ky5ecCnLgKHt",
-	"BrFUzttVQkHzEGt72AxTFojJf8HQzrNZE9w6ocbAO9/7agA3dHp7EI9Uq4Fr9CCKb2DQa4MZ8lEgJD3x",
-	"wWmAlHVYB8erlFjn+0Bk577548evVpK73AcwuRAmYBc9YAflHQGrqWO2UkVRAQDxkuN1BgW+Av6Nz1mA",
-	"4p0PYAqUJ658eL778x+8enaE0jy3W5+5bph06mu7FaNlpVpxlZS0c3kA7CKf4SlGwX+oHygIffyvEAmN",
-	"Ei8WIYN3Hnp+30iA/hXiALl81Qt96KbAX6JbCMyTiKQV+QFij/ctMUk4MHANvmyn1DjNSU4RFPq2NNtg",
-	"KqhJ1LaBQxYLCChawiBCSawkGmRJueKdats4t+EC+gecjOhbwgjQynbsDGu8mnkv5GT5LABIuXYcW3lH",
-	"E7st0cFFS0xj+PJ0oAHUdq/lm/NK0sLsbkWx7up7KHCQZRh5sHWVFbkHdWtTBbiLrXcK1RE74zZcOIPo",
-	"c57mr3PE5iiQOMcUQHC3cBJ6gAT8qFDSI83ZXAYxaRMVgySQtjeaAKVKuW3g4XsEEJsftQHyl8eU/5c5",
-	"HTu/D14qV2DReo578xeqOQ7Fsc/6jDe47MpqVWwSHvbvYxtxGfUhYp9JcB/P03lcURwnHd72ir6Bi+5p",
-	"1DW7czQLDeEL8AtehAvAAujTBaaUa3Khj1lkwo7bq62Uc2ERSYE8A2kpASS7yq+DKfDlQKXZWK04BJg8",
-	"9H2+XgxyapDpGZhDCibjwegXgGQdO/iLVn6Z0iFXZo1n7tin9st7GvlmvEe5DvhIS+0sxUwb4CmYjA84",
-	"N1hzwtUd/ojJq+LQpoXCQJrd9BApPuim2asnn4ukadbSWUGiRiZWXVsw6xIOZkXmL0FeEVLC71TVAHsU",
-	"/472q5m+VgnYTFsr5C11YRtQ907JWiuZYXZ9G9q235LlOcCKqNJlq58ctrHtT9K8PdhHyXz+XKTKm/tb",
-	"SWsqWgu6Ob1sHZit9pnANeN2xCv1FOSk6ICU4pmv65J1ZMKd0ScZUk1AqfFyiO8jJzJn1g5O8CA1tCh+",
-	"Bi6aYtWj68m7g8H7tRcuF6yjyUG0OPVVa6f+uJdFavIH9AW6yMGLJHg0Nn7zbXXQi7Z1PneqYaV0W7Zd",
-	"FDlWq+kKa6hIakx02ZBAY4tSwrTg8tri2z8MawiZcHY66I2TsYptaXyoEuXVLqqF+FM8u0BsTgzyZrJE",
-	"DhcqFMzJ5wx5vpfL2mEgN/PIRDe4vO32euP+ZHJ7Ohq+H5zdXvSvPox6IgZhcNpqF5fo/TbsXgxOaxrl",
-	"Ktu57h7BwH9APiPBY2L0yhh1XqcsH/IkUd3qVWDKlRI9MtDmJ9AwpsqO2Z1MBmfDi/7wKraAFhUSUSD5",
-	"j3Lor8dpM2pxuQIy4/55vzsp+Cip1plOOSo9xCA2rOFrioKDaYCR73qP0QgyEukvwBX1KIB3JGQybCKC",
-	"gAi3eeK1nnWKGkzk6RKaOR/6QDpfmXTDjSbyb89rA3XxgWMXYXFIh3J3JgGYPy5R8ICplJYZpVQeLEYr",
-	"e5a/MhefbFeHlkWdSseYpWA9nFx1h6f9KDzpejgcDM84ktIfktCnzIckzmmNSLK1hmF1nFc8DKmArxc0",
-	"DCIkziLcQu82rzPoFVub/0LzqqnRmYy1+6HVXA2rDekRbROjPb59Cit+G1xpfJgY74CuhyGV/iq1y/TK",
-	"GebkKu8SEQ9rOP6ipRaRAiU+tepuvzSDNV1+EZHGuPvSva7m6st0dntuvvvSWwrxlRHwPkD/CqVRiWHk",
-	"8k1Tv2ycE0niYoG4bmAV9uppV7GL5ENeMJCpcKl5AMqa4DP2PHCHqkiMk3TMiaCnyFWXHHrtVaIxc309",
-	"FpHFQTyarMl4bzYZ2UPW2dYIrTR7o0miYAmptAgp4xOoVBXdbGmW9+nZI7T6nMU20vWignQymm4e5zHY",
-	"jCTNM1tTmuqEGiNR872vJlUNnW5iAEUtJYEiJwwwe3wvXdAm+4aHHMYFu/RNgKhG4rWO7sNN+BcE3hHC",
-	"wN7k3b6IAXgfeh7oYXoP+r4TPAqyYO99r7+fwlH/9Ho8uPrt9n2/e3U97kf323K/ix/6t+9Go6vb7rB3",
-	"+/76/Py2N5j8fNsfno5/u+RIstpa6lpoWRBShtwuY/zHNQOrFLFbmFDbnpAo4rymqDDw3hiJUTQU1eRG",
-	"8QhsT3yESxeydVR6SWB7KNMZLLK3GC7cRSYWjaE0q3n2wDvEYBvQUFhGuISSg53jm/9fRc5rrglJojHL",
-	"QO9xNeinOro9tH9OpTcpsHhGhcBCllqp5lvFX6Qzq6wOvjBb6h6gh/lIrcqlZUi9kq5sTL2SFKmZVCsh",
-	"AEoza51jKpK80Ir0+cjHdcFCOAby9sM5pEP0hZmWGgcNwMKWHSAAAwQWJEBApNrxGTWmoBC5SgyKjIwy",
-	"4zrJFHtMXIGJLmLEyVSsLwvpp5tsFI5IntKPWMz7W8SZlEyBaCy6mcLPPwESHLVBgGYwcD1EhUBcwhn2",
-	"YRR4F6+jaBkZMqzo0Y5yOLJcteNRvymY7wgQdec8rv9U8x4t8YpzH1ezD80y3Ep62RhIhqY6DnSDRF0s",
-	"pGg8FR5041FFTOgGG3tcFJluXjY20sNUDx+87XWwIeoX4sInbtVFHYichBWmztSR2+iXIXGNE0lCtgxZ",
-	"8Ux2F8apDBALA19xazVlLw0zckasEZEeSEMiIk4vYjq+k8oCZEhKVGwHFUSEBRTkLKB5mxEMkM+Kosg1",
-	"DTLQbTLKqy4rJ5+isP2om4KVDhjIDjmQiiJQobINMAMOCT0X3CGAFkv2CEgQfx64hpoUM7S6XqtiIEOm",
-	"q2IAg8LgBpwPbjC2WJwOTTQgPicHoXF/MroeR66Bcf9sIJJkpH+eDK76FladDEq1rmsTrkzpqnIRhjPG",
-	"7LrCLUumUMYVGM8rij1C7UVeibk+d9V9sxvzy5JlhSNffSuMXF910RLXfyoVKbpbWhFmcTVrsJkup75s",
-	"tSgZmuo4kBmR66JA1X4qDChVabv6VZxeuiGzHw1KnblP56muj4IMnafDQ6bhqsiQ1W9pVL8CSHJ5whsD",
-	"l+yYVQfOuoDJ1d8BRgcMTWV0r8ijrFyDw1wq+oYAOjta7c1APE21LtDTVJ4K5jsArQeg6mBha0CEPSUw",
-	"WHU4sEoYYI2aeVZrvvNPVdSdfQOlp8ICyzddDRkxgVuPzOjtTJCwRorx1ZCG4MY0dGuiSD3BsREcRbSe",
-	"BUlR42thaamI1ENT8jRKE/EUD+AaiNLflFkbUiliT46pVOt1QbWQRGrLqMxrP02DVXoM18fVpoRVhtxz",
-	"YWtdkRWhq77Uyr3p1FCErSG70kFMdaGVofJkiHreWbGIPitDclT5VkWlrRF4lgs009GSZbI+SNaFx/9/",
-	"wKgJiepYKBZeBWiojANT6EouhcCq61jZW5DpW1iRO9b2TqRb/0rWWtf7Yw94wt72GKF0/jMyvEkymXwA",
-	"l+Gdhx3wMxLprPvDNBc/HqWvcu1ROj9A7snr18c//Ykcl8IDOocnBz6mbPn65HgfaK9d/XD4nzc/7IO/",
-	"7XW+L3jxqnbaSIoCc4zGtfoSpwUSybDdBfYz2SFPUv36CA9+v/ko2T64+eOo/erYIsdjzEY8xCbYpxJp",
-	"G+JSkqzrDC0MibzTCbzzgu/eNLWprOH3KBtn/+r4jemKXufmh0Ptn2pA4oG57dx8H/1mKKZ+iv5bWNOE",
-	"BNHBFd0QZTIdefPK1A+NG42Lzu1BKReZ2eXjGjFmmtfi9HY5mVb7HlBhlEuStMzD/n3+fv6wf/XraPzz",
-	"7WB41R+/7572b88Hw5+ju/eXrXZ5id7o12GNaH9TfLp6C9AyOF0EIokn46LXCIG4/VsQnF4UX5JfZr5+",
-	"4dOQ/Kn0MbErkc1I31xOL6+BXqfqe4Mrssmb8j7oOVUzV09KGyto64+v/J8nb/73d//8x6dPP3z6dFDU",
-	"Nl7AmXET65pv1srcT0BUk7eDHOiDOxGTGGD0gFwwDcgiehpG3FqVibRSd4jrDuGnT6UduQ4K0rJdj89F",
-	"nliKZfxZuiNPwV508fgSOvfmN1TeBwgJbZahL6wNRpMDFy2Rz4e/A7pJ7IwkICITaRsQH4ElCrioQGDP",
-	"R5/FP+Jsv/sdcBFSBnzCgCOfOQUP8kVDgH0pApTemh6Bo9qDAD6J//MLRuIeBT7yTsliAX3XZjnKCkDV",
-	"AOe8fyNRnG5s4gqfoygMFk3zaLgof3zy46qb8nv7hXflL7Wk/cbrY9Ejc1GYkbr2voc6s04bDPxpAAEJ",
-	"wDnyyQNJXZUdTW4vx6NfBr34pcfh+3G31c5/OO8PR7+MrG7DkjhxmI1enx68Wsr8yhv6q1+FoFfGLTgz",
-	"wNETvHxw+akVfYGLpYfaQKUm56Mc5ynPDvTVb5f924vrq+67874cYfHL4CL6zWZslx5kvNC70Hc9A8Oj",
-	"JeTjZ7gUGT9zJLJROSFlZBHlQFCXhQWdPbovhTkNl0t14BOdv4NUzJZ88jh+UJkLJw89IA9EIsrBiB5G",
-	"Cdhk8HYHgMFUhhm3BTEXTWHoMS1llOQhyq4R0tLEtan7+lPsFWQn5L8KVUNoBaqo7B1LQw/cIY/4Mz42",
-	"HXAtQOg9JjCkAIIpXGDvMZNSglZe6dX3C8V34dO06oPizLaXdifbJTHuo8ki7iQqwPX4vCN2V7WlkgDP",
-	"MEdIGmWxZrZVaV0v515BWPpGZc3KLAma0MHqMgAfYyrT+XoC0SpXsUgvHaVOEHlxq+ZNAINIXgE45Wq4",
-	"w3ut1IDny6hA5/Dk9RuDKeND9+T1G+DMkXNPw4WmvSWWFh/Mtfyd6WSU2WPlX1NvQ/E/09aCKT9D/rBZ",
-	"o4a8KF0Uki9sXUq/07sVXWBXYgdM5tHtDeyDv/T67348OQGSKngvhvcvwrLaQ3cY+oCyR4+PE9XNhdmb",
-	"7TXW4A9KdpUreqWPimWtLanxiaFgOprnIsENR5dYKSo5FC7xaYCErIdewZTkyPyFxtPkJJU7BcNrI+D+",
-	"9ve8gAN1BrTNe9T33SXBPrPvTvdyAJCqVUM+V2FfageF6kvMXUqLyJ29N8xUsYJvGi2Dmv/XuvmwIvo2",
-	"+rKJl3pa87+nuI3oVt7Poormx+hTLN9jP5WPN33EiF+Pt9OEFdFfSrKcxw0nuZlzTf/SH/ZGY3W+uT3/",
-	"r1N+/Cn6OjrtWjFXT/uQuSVWaiAbmrfaSWRNN1vE5Me34XTxY5LbmRscBqkt70yUyGzLp07jB0pj63Js",
-	"kpJMqPuX8alHmbByL6OO1XVL6/c3wRVX3OQZjBP1CYsONnzHlg69rT2KWv2dUUbq9fPJ3xkNKQoOktcg",
-	"DGkKk0tFG8pXWH7BV93gVXjKm0rjk5gCNabpcW/LNDjoC6ZMGPhskVOcC/y7P/8hG6uRq1D0Rnam+k0s",
-	"dX3YYh8rGi6rrSvdW3NXN+O3rSukN8JhbX8SYdCb4MJnXcR37ZkBEWadZBSYFUUvrEqy9NUo6wvu1Ril",
-	"vix7EN1tKNkAnID4Pfh4QXw+3rn3LgISnXlcKF9w5gXB3vHBq+N9eftdSnp19933HlU2KrXMIHgvFlor",
-	"7Rj/+P3Nn3sfjw9+Ev85ueFTerP/56uPR8c3+3t77cJv+9/v75t1YdmRXxG6t+nHZ4Tuwd7RwZv1e3F0",
-	"8EbxLP5VyuEHEpqiljT+5rwE5+zk1SZY++nmz2P5n5OPRwevYkZzv5eyfYH90LgMNMYXsgxn/fVPlVjv",
-	"FPPOcfBaIUBjPfVzOecrgR0j+vhkQ4g+/nh0fKLDWP1QyKirjmYT5BDfLZA2USHOA5UFI7tNtOBBtODb",
-	"woEV/WUUQuqFr9bbH9/8lWsOC+zLv49N4VXFekTUiPksV1tXyN5ts9kLc8OwobCmiC4nu9Htcd0zzCb5",
-	"jMZsUvaQSbSfqGyKum3z9EO/d33ej94FuegOhlf9YXd4Kiycma+jye31Za97ZeetYTCYIZGwrnIauLhm",
-	"kdYpS0Q6ZfIiUbx2AB814RNWRZV4iCOmUisto3TqOiekBTpnLian3lsIkr26Gqde+wWP1cb0c8ngpMZr",
-	"0knNFeMknpZ+GYh6ymeqs3cP03Ilv9mlNQxdTWqntVN9Q0/reybjSMEtXYO6LO/FAgtlGflu6RaNfFdk",
-	"ZdW26DhBVaaVjtixpAWATEFCOU6sj/4VQg8wAkgA7vBsJo/A8nAR16MMBkzVNGd0fRF7+RbNeD+lmJKj",
-	"/K1tgOmb2zaqUBGma1u5NzfMGmILn0sLmPU6sgT9E+gQ4l2unQax0yB2GsR2NYiUCDHv/WzFjs/Qzimy",
-	"c4rktx7Mtvxm01KLQq2anS9Yz5vgFsGYfzU+5xe7XMSCyTpcygTL9h0sW3U7vMpoO6yGnsPFu5WmxlBN",
-	"nWxDXJ7DguiWGSJx5l8PMsxCFyVqGEMdcEmwz6i4I6ovavH2hCx/4BF/JmuKNR25R/r/nn3feM9FswAh",
-	"SW0RegwvPSxn7fjo++//XYTgBST03USi+AgGiDKgFL39DlAd0p4nkxZS6M8E7z8cHoCfjoBqq9wy+tOR",
-	"+j+TQika8mcWIxcPQBOGzp+VDt3xj/HYgT3sO15I8YOM0S4ex+MfywZyc6/wlp3c/ik//lMGn8sX3Cnf",
-	"esgMO9ADKAhIABbERZ4Ue5gCGmIZ0jklAXDxVER+M65lzQK4WGB/BpD/gAPii/DuNhAD4vLfx/3JFehe",
-	"DqgY+vHlqfijAwaCsBCRd4/g42x8eXqzN2dsSd8eHs4wm4d3HYcsDmfB0tnvgD505gnr0U1vdeuEAjYP",
-	"EAJLjBwkRAXfA9+qrjjERe2oW7JiWzAjf1KP+3TAbyQUOsRUPCQZMnnZO3pWGdPUyPD64qVwIm5OyyB2",
-	"zCKofOxeDkAPUTzzwVmIXZT0zfFI6HZmhMw8JHoIl5geuqLsoWiC7hu8k8bk5Nqb2rKXn+fYmQMah3JC",
-	"H/CjdGIm+agaDpZO55S46Cb3g+U1czVsJqUyUmLUYNNI5wsCue1kxp0L/0BuqsAhiwXhR12dgEAqFdgT",
-	"QGKE48ZaJzoTHbwMCCN34bTrP5qybKimTN1x0QPy+FwcTKEjoJ6GUnbMsQ/6/szDdN4BXf9RxpeYqmp1",
-	"xDVt/Lu6nE/ls7YSSdr8SPh31MjdlHySukgbkEAjrXZ9x8PIZ52W1S3MkqRdeTQWljXh2fOQw0hJlF9c",
-	"JBfmd9U/71/0r8a/3Z6Ozs/7p1cjFfH3YTS5arWLv5+eX0+u+mMrU9OsIP9QV3uIYwZkKXEDRrLbKYmH",
-	"1rWUT9Xvcnxq1YjcNav4HwxBTlHajLhbBk1fi20/3oINVF6U0Q76cboZI0cnab0vLizKVg+OycHXxKKu",
-	"ta5kN6+73mJ3u53YhJ1BRV2m12i8Im5WiYlsUiPDEkoGiqMtumI0FS9GzDEKYODMH4GknxceHpmdc6Fc",
-	"cNmBzIC8QEZmmVlRDaWvovzSF1dOzvu/9M9vT8eDq8Fp91xcRkl9iZ/AS//8a3c8zP86GL4f5X/t9d9d",
-	"n1m+La0guF5SRa8MyYUvHKfHrEgcVMJt0R20VSuM82haXtpE6iy9NrOkSm80YuF5OZPWzuitr1XcxS/k",
-	"x2aMHL/KpoFnvrJonEJfhvzcIWFf5aRSjbZBYr0VioZu9l5pRTW9B1zQy8QMX9ZHZUn/LHTJ5+hiLXtO",
-	"znpe1kVhIHm+DtawhG9qQ4oFflqkle5ExgyOxTqrqfhObd2prc1RW3UE7zTXypprQUbOUuVV5gGtrL8u",
-	"tJlaOyPtYsW0W6p5qiub1/QUfyLd1QM06OyyYzIz1QP0wF4S67Afr+68gqX7XIShNtrppEnTVYkbpZlT",
-	"hBAJeacL2eH7wZmUsPyXwenEbL0tjQfeKbI7RXanyO4UWbv9KSsMc+LbuEWlWs7eWhKB7t0Cx6WIHROX",
-	"NiS0lDf4M6RA1UyJPBcydMDr2D/QX6dp8Ry/ql63fZOxOpOd2JAIhaFggVwMtagXvinEXkTxYKlKLHOH",
-	"2GeEfACTR/yh70onxTLUKezhDuq0Y+m0bwqkSQRc1de7o7qVN3esvZpfjP/VAswUdHBfeP65F+4zyUE8",
-	"cDLPtH4Y+nU0/vl81OVb78W7fvqgczsc9eziQRfxTFcd1a3eRkmPcDQKktknu7QZNVsnj3NUtwhz8cTm",
-	"4zVKkwtE9aoDLp1K3EbdKuHR5ubTBucwmyBWHkq0MU4t8psSyVZ2LBFAxQ74DB+5TBPaeU5WCR2Y3Ilc",
-	"jYlgMwT4f+E9h95qjTEqGTfRll59RmSKWSFeo8ZJyCh2kdoSoCcSLvXdGZJZBSkLQpEWFVxAH85yaKqd",
-	"EKVAXKn0e/ow5ORTZQvMoigjvwwKlM8UZATkGgn4VwUpVrek6Ext+9ZDsNnkJUXyxSYY3xgxkxknFWxh",
-	"mL0tJjdadwPYvrDczCyYxWS0nPJi8atQjqYk37sSiSKyUh2Ac+wgnyLQXUJnjsBJ54iPPGYeKq/earce",
-	"oryJraPOSefowEUPIuXnEvlwiVtvW686R51X8lL0XEzZIXJn6ABzgh0SOHNEWQAZCToi9Ofh5HBOqHws",
-	"YoYM2vQZYlposCjLx5/IHNYynrX1gVA2QcEDdtA5puKWBpUvy8MFYkIefcxnx1IpNx2yWMAksW/clrCu",
-	"iC2DLpGDp48AAqrSBJLA5eCYIATisC0ZjwLxsuOih8PjVycyYExF+ohtrvW29a8QBY9Rcp+3LUHoHf9B",
-	"wrhqnuq2ed18bRd2Vwbkyp2JhYE6W3L5K17m4KcERFl5394c2fRtGl2Qr9m1t4f/KVNut/5i28ueiujj",
-	"Agou0s+NMMJP0CpqLrrEr+4RLeEMdUBP5VElU3ByVNQrXnSCf0epfpVEPa66VZ/vxMB30ZdIzE5xQJmc",
-	"nnjKlPkPeh75TAG9x8ulyG/Ju1kItOmUImbPtClK8+uN2M9E0nmxYk+OjqRjyGdIJseDy6WHZcjr4f9Q",
-	"afBJWiwT3/HCjRPeCxmXQfHPMvxOzNPGmlYRo4b2IkTI0LUg4azdouFiAYPH1tuWLnIYnHFho0uk1s3X",
-	"dmuprpxlHsQRuzqAQq6VijVZUlxckxsFouwdcR83Ngbp+27p7SiJtd/O1OfbbsCsp2bEPO1f25a732Gg",
-	"3m0QNi4jVOKXHSzAEpVVzGW2QZN00LRUXUJo0nn1XUIlHrYFTTVAO2iuhmZm/tcF5x8JOr5KYHrIZOfu",
-	"id9tACpLmuFpTjrOt0Jxs1b8j9zKJR9uvONxlbMA0mnA6BA3YnhLYEq63bg9LjVjRZtciQIvVWjsrMbG",
-	"mbqfXQEYSuggN6beDDw0Urgk81Oo60DmGJJtXfKfbaSDKGiDAd1vmPgz7pDuXtkcEnJ6+nvpfof0XjUr",
-	"5gS5gEi3jxiH6NRafEhCnnsB6b1ZNRefDxby+5PutztV0HpJ6IAtXBShQTZeyzT0FmtCllx3x9zKutih",
-	"8GWgMAWRTep8h9h/gB52o1f6QuN7sVERGzQnpUuOKJsS2iap6xOGigxTr49PKgVNVntMZasKRXpcG6dk",
-	"5mCxURQT+aaiOteaNBT16qINgrUHGrcJ322CxfTGZFOQkh7+jcIkZYox4yS1bYOogpVJpmwfb8iWvDPE",
-	"VDbEbHJrvo3Jl3rMVCldE6RavrpVx286Ua3YetG+JbfSNqWuGl81vI0TvHl41IdzFPZj6/yNy+cBHAW5",
-	"aU7gQUx95wjeOYJ3juBGOYLjxdtIZ7AueiLxmJFQNk5hPYS5VNzJGvE9ku0of/k44qdVAM3tN8ZRrM1O",
-	"MSQq7ZrV/XLWgJI1NJatLY7xJaXktlKTfXUa6Jror7MCnZ3fzho7Z9qNtlo+PL2lZmClsaIpPVelW1W5",
-	"T88aHaKCLT6a4t/LIfbl+/h2u/k6vj7bRVPq87NeM7LGy1w0O3i+RCfglpXNyg5Ba6gntYrh3hSdINuT",
-	"BrvjNoYnkY+z6zgk9K3vfES50g1mv3ONnGb6O0+1sjP/7cx/O/Nfo8x/qQXcSBNgVgRFYtMgsWxMgbrc",
-	"tBKDsqb+YUtmQb2J59LWinlojHkwM1PlcKm801Y3FUabrhXYZK1MF6wtP4JTKOs121qYwWETLYaVcGhn",
-	"OawEpTPE6uIosSDqiGoOhhotxfLzthkRxnmwPSjE5c1Ik6+Npg4JkvoKjMl3vhPq4O4RqFSLxtBS+ckc",
-	"Wlovi0ReNRxLlV3kEvO0jpgYonPyeYLlq6o5ZN8R4iHol7ShUrLZtCIzjq1o5yl0R8FoY/XGaJj1FaSB",
-	"13L1qAXgz27pI42yq1isotHEsH5GEbGJoKUto8yX3XF7d9zeHbcbdtzOruFGSk6DIIoEqFl6WZy7fTCa",
-	"WMpCWSXzbUtn7kwrz3XsLmWjMSfv/JSthE2t7bfyGZyDz3YnlnXyXbE+PBHK/7/Rp+88HJt4AK8BR7tj",
-	"uD2YzhBbA0nJMZzQ5kCo6bLMOGc2+19pXE8VESSqVMRNUwJ8CG1QaM9OO9hcoE+9NVUW9lNlSck6G9rV",
-	"mxT+s4PwBoOBtqTgxmEZ64dxRK/ca2aly5j6zp60syft7EmNsifFi7eRhiRd9ESSMiOhbEI2it2eGWKy",
-	"RvTjlkxGEfnn2krN7TfGSKTNTjEkKu2amwzJyLAia2gsW+uLURPJPxptEdJA10RTkBXo1o3ByFA8Q6wO",
-	"cBKjj95SM7DSWNGUnqv15FKgXPd2urwqnUeTjADQ9PgkJGCnxe+0+J0Wv0EtPm/O9OBMrBA849iKngAl",
-	"DHra+IuYITHcKrKHzknouXw6ZIe0fd4Q43PFyVmEE237jKEESyNPGIlQjIR2Sm7anC6C+HHHEgEsS6uX",
-	"N7dzrpDEn+tUYWq9MWeKeF6KQFBh365+mrACkCwdM1pBHRSSRf2n0WeIGGJNPEGshJjd6cEKK2fxG7+1",
-	"zg1JG81AR0NFjz5LJZtPebYHKzyIwnaIaIobOIPRl+8K3u3OdR2/NoukNLuD1RqRpTezvzbJv7vDZW1v",
-	"7ka0Rs6RG3rWmTfj8mBPntEPA7QUL6jv5xE+UYU1K9Akbm8FyHcmg6c1GVxFj0QMeoDBYIZYxHc85R0w",
-	"mAKfsEgdRG5bdUP0QMfGDD+oF+8Jm6MAiC4AMeF0X9Ax0Eg1BtgcMjCHD/KV5Lh4zGS0NTPCCyzaQL4+",
-	"r3jHvuOFLh9LmYtujgIsIhE5pvaWMEA+UwYQ2Sc/9DzJGf9XumNpxj5jNichi5J+c1aoarZoynjB9R5U",
-	"M86X4P+lz1fEZP35qjgrcYPRrBTZsDAreeWOf601KWorfunTkrC5gYWkiK2xlDR2Vi0mWbR45uT3ynOn",
-	"LnfeQZro+/GT022AviyRw+Qw3SFwPRz8F0BL4szB9dVpUpDvRRQ5xHcL5Xfo4y99XrOoA5zzp09Hntqd",
-	"G2lM1XWLSCfKqCBVtaJYu7F2h8niMStWStE4W2unHO2Uo51ytFOOdsrRTjnaKUcvRDnK7dIN9TjndY1i",
-	"ZcnC+yzJ3Ua4XanwRC7PNBtbc0qnm3k+Q2MZHw1yVOdmbdOKdh3/dVUIRi7RXGcqmN0zbRp+abizOwfY",
-	"Zrq9KwDW1gVeFW7C07oO1hLPuKHppjjJGy4AzZNYunOucp1XxZFyR1ZDUnM86kXYboJzfadlbNLhXm2Z",
-	"rXC+V11lkXP1KZSDZnnqdyDfqPd+a6q0NPbaOvRF4Wr26km6zs5avbNW76zVO2v1zlq9s1bvrNUvxZWf",
-	"3qOb6dDP6RlrWKqlUlHVTp1mYUtW6nQjz6VYl3HRGAt1br42q1RXt05XhZ2smOuG9eEz017u70ZbpXMQ",
-	"baJNugJE7SzSVSF2hlh9fCXWaEOzzcBSwwWdafrWsENXRY+oVw0/TbFBFyH65VugdxrEpqzP1ZZWqe25",
-	"6sqSFbe99TfJ5ryD9cbszZtWjEXeD1sTMzMaljFLG5UZ2mUH2mUH2vkHGpbjUyzchtqXWNqqlEgkO4sS",
-	"Q6ViLTJJsO0Zjtgz7oqsuUYihgqn3Xr3q2MLWgGYyEDAKup9TP1Pw407rLkmnRJA2RpxVmBDHPtZbVsN",
-	"a5SBhjXULFMKg5WGmBUIUOdT9g3ZW1izjCy73baOQaV8UawwoaxYE9Hhdr0ds1k2kR0Ka9k/1tT5GPLQ",
-	"ArHg8XAWkHBJDz0ys7WAxHVveaVbSSCP66uo2DmZ0TNeSLOP5D/uAu9eWODdt22d2rYdwQDwRloVzAs1",
-	"EjyFa9zG4mCSIxXEiKST/7wl60S+oefat1Zx0hjLhXHubKBVe4erbuVYE6SSjrGj1vqdiYWCH5tsMTHC",
-	"uon2k9qwtrOtrInIM8TWg2NihynipBmo+wbEaNFcbk2G8j+wU/mgcCGrna06KejlTIeFFJ3deWF3XvgG",
-	"zwspjDf7yJBdrjmxZFjv1Q4OSh6t3AQNDWVUUL3Etk8QelvPfogoZqZ554jMJFribZ2dcJ0DxRrgzSia",
-	"mX7XOFmkeCn+/Zs4X2QQ3+gjRj3EVz1orIFUXUWtC1PTiSPHUsMOHY0WuyWTuhWZuwzIFHuonpeCn30u",
-	"FYEV52RVrMhPEVHZnTx2J49njKMdq2vLImo2tY2DaKHI29UwQABSimccaJ8xm4vS8u429imDvoMAdpHP",
-	"8BRrT9tmOhYVLb7ZzEtUvte8kW6Iu/K9ztPdpN8I1+qmeO+Jb5IPfJdvF4gCPBVrQ99RE/aThzPRF4Z8",
-	"N+Y/XzTgnwPkgmlAFmCOUQADZ/6oRMPUgzOA1ViFFLkAesSfSWrER1HUzEAkCZBdBiQACeBkKoHSImKg",
-	"RdYCxNqA6e3imU+C8mc/B1HegOd99dO4zTTfX6htmEaTZHq/reEzVECstK0bfE+qwFN4DlVTL8J3aOSl",
-	"md7DZAbtgLaG/rm2D7EOaA2epaTLdT2JipHCn78Zb2IC9Mb7E6sCvZZPsQ5Cs76oGvAs9Cxq/DTQt9hU",
-	"MVs8o9abeXmM+AZQJ0jVwV1TospXrISXH2e+0362EYe+7sIsjVPfwLqUtJ5DX2lS9PtubWwlOv45Tgbr",
-	"RcZY2KfTJUuiY3ZW6p2Vemel3lmpd1bqnZV6uzFq34ahOr9tFvmw1zFXR/EKq5VpY2PmQKcnslunW3sp",
-	"EWvfiPU6N5XW6FtPU91E5FpNMJtjmNY6H2Y4KvvyLcWwfSOG7fproG4kW03kGgKfNmTnNjDWzIi2b8Ha",
-	"vQ4erW3ea0IxbQasBsbmGb+LlkeD7N87LWp7VvC1FqylLXzN9ZoxTT6H0tNI0/hu2WzRQL7dw8dnEtx7",
-	"BLq3C7S4E8C2Mo5nq+VX2q+qxIUooNnC0x92CXh3CXh3fo2GJeDNLOFG2hbzYiiSq0bJZWNJzAhFS5ko",
-	"q6c/bclamGnkifdnU+uNsQXm5mcVWupsvtXtffUgJ6vnumSt3mZazf3daPtdelgaararDFc7I109uJ0h",
-	"Vh9riSHO0HgzcNVQwWeatk1KvapnjZJDhuF4sTtY7A4Wu4NFQw8WzT5SmA4TNY4RK8VdWjPd8pnhuax6",
-	"5vYbd24ohUSlXbP+IWEloNK6Y50TQfKPb+IM0HDtf4UcqqLxr8SOpi2up943T69voh/dEiIrPOXW6BAV",
-	"bPHRFNd3DrEv39O9283X8WXbLppSb7X1mpE1NrkbN8m5vEPqWu5jO73za/w1C6cPhLJOgg3+Z1TPdGCV",
-	"MfRahein4krnxIFe13H4IV2rqP9cXpn/M1OR/1RcaSRXmz+bPFKGFlrdzJdiEpcBecCuND6qutFPxZXG",
-	"4rqBVkX+UFwheiGXanWyr+Yaaqmni6IK2oMz+cL5tNNa1eKc1CsIXSZxNyZSmQiFEmJ6RjoTNVPGutXk",
-	"Stgzx1DkSaYNnxols0W0mIChalzp5uv/CwAA//8yX7+ViPUBAA==",
+	"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",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

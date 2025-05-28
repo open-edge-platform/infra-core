@@ -124,7 +124,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, RepeatedSchedule1GetUp.StatusCode())
 	assert.Equal(t, utils.SschedName2, *RepeatedSchedule1GetUp.JSON200.Name)
-	assert.Equal(t, *siteCreated2.JSON200.ResourceId, *RepeatedSchedule1GetUp.JSON200.TargetSite.ResourceId)
+	assert.Equal(t, *siteCreated2.JSON200.ResourceId, *RepeatedSchedule1GetUp.JSON200.TargetSiteId)
 	assert.Equal(
 		t,
 		utils.RepeatedSchedule2Request.CronDayMonth,
@@ -529,7 +529,6 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	RepeatedSched1Update, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
-		nil,
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -559,7 +558,6 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
-		nil,
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -589,7 +587,6 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
-		nil,
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

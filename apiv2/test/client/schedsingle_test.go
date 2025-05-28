@@ -506,7 +506,6 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	singleSched1Update, err := apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
 		*singleSched1.JSON200.SingleScheduleID,
-		nil,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -537,7 +536,6 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
 		*singleSched1.JSON200.SingleScheduleID,
-		nil,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -568,7 +566,6 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
 		*singleSched1.JSON200.SingleScheduleID,
-		nil,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

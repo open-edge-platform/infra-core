@@ -51,7 +51,7 @@ TEST_COVER       := atomic ./cmd/... ./pkg/... ./internal/...
 TEST_USE_DB      := true
 
 # yamllint variables
-YAML_IGNORE := vendor, api/openapi/openapi.yaml, .github/workflows, ./$(VENV_NAME)
+YAML_IGNORE := vendor, $(OPENAPI_PATH), .github/workflows, ./$(VENV_NAME)
 
 # Lint variables
 LINT_DIRS := cmd/... pkg/... internal/...
@@ -99,23 +99,27 @@ run: build ## Run API binary
 	$(OUT_DIR)/$(BINARY_NAME)
 
 oapi-banner: ## generate a single/complete OpenAPI file
-	sed -i $(COPYRIGHT_BANNER) $$PWD/api/openapi/openapi.yaml
+	sed -i $(COPYRIGHT_BANNER) $$PWD/$(OPENAPI_PATH)
 
+oapi-patch: ## Patches OpenAPI file by removing message prefixes
+	awk '{gsub(/resources\.[a-z]+\.v1\./, ""); print}' $(OPENAPI_PATH) > $(OPENAPI_PATH).tmp && mv $(OPENAPI_PATH).tmp $(OPENAPI_PATH) # Removes resource prefixes
+	awk '{gsub(/services\.v1\./, ""); print}' $(OPENAPI_PATH) > $(OPENAPI_PATH).tmp && mv $(OPENAPI_PATH).tmp $(OPENAPI_PATH) # Removes service prefixes
+	
 oapi-docs:  ## generates a single/complete documentation of the OpenAPI spec in a html static file
 	docker run --rm -v "$$PWD/api/openapi:/local" \
 		redocly/cli build-docs  /local/openapi.yaml  --output=/local/openapi-static-doc.html
 
-$(TYPES): api/openapi/openapi.yaml ## generate types API from OpenAPI specs
+$(TYPES): $(OPENAPI_PATH) ## generate types API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
 	oapi-codegen --config=api/openapi/types.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-types.gen.go $@
 
-$(SERVER): api/openapi/openapi.yaml ## generate server API from OpenAPI specs
+$(SERVER): $(OPENAPI_PATH) ## generate server API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
 	oapi-codegen --config=api/openapi/server.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-server.gen.go $@
 
-$(CLIENT): api/openapi/openapi.yaml ## generate client API from OpenAPI specs
+$(CLIENT): $(OPENAPI_PATH) ## generate client API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
 	oapi-codegen --config=api/openapi/client.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-client.gen.go $@
@@ -145,7 +149,7 @@ db-shell: common-db-shell ## Run the postgres shell connected to a local databas
 
 validate-openapi: $(VENV_NAME) ## Check OpenAPI spec validity
 	. ./$</bin/activate ; set -u ;\
-  openapi-spec-validator --errors=all api/openapi/openapi.yaml
+  openapi-spec-validator --errors=all $(OPENAPI_PATH)
 
 ##### Integration tests from test/client #####
 
@@ -219,7 +223,7 @@ buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
   buf --version ;\
   HUMAN=true buf generate
 
-buf-gen: buf-gen-api oapi-banner ## compile protoc files
+buf-gen: buf-gen-api oapi-patch oapi-banner ## compile protoc files
 
 buf-lint: ## Lint and format protobuf files
 	buf --version
