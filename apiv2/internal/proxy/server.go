@@ -117,6 +117,7 @@ func (m *Manager) Start() error {
 			return md
 		}),
 		runtime.WithRoutingErrorHandler(ginutils.HandleRoutingError),
+		runtime.WithErrorHandler(customErrorHandler),
 	)
 
 	err := m.setupClients(mux)
