@@ -55,13 +55,13 @@ var (
 	SschedName2 = "singleSched3"
 	SschedName3 = "singleSched3"
 
-	now                   = uint32(time.Now().Unix())
-	FutureEpoch           = time.Unix(int64(now), 0).Add(1801 * time.Second)
-	SschedStart1   uint32 = now + 1800
-	SschedStart2   uint32 = now + 1800
-	SschedStart3   uint32 = now + 1800
-	SschedEnd1     uint32 = now + 3600
-	SschedEndError uint32 = now - 1800
+	now                = int(time.Now().Unix())
+	FutureEpoch        = time.Unix(int64(now), 0).Add(1801 * time.Second)
+	SschedStart1   int = now + 1800
+	SschedStart2   int = now + 1800
+	SschedStart3   int = now + 1800
+	SschedEnd1     int = now + 3600
+	SschedEndError int = now - 1800
 
 	cronDayMonth = "10"
 	CronAny      = "*"
@@ -84,8 +84,8 @@ var (
 	OSRepo3             = "OSRepo3"
 	OSProfileName1      = "Test OS profile"
 	OSInstalledPackages = "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero"
-	OSSecurityFeature1  = api.OperatingSystemResourceSecurityFeatureSECURITYFEATURENONE
-	OSSecurityFeature2  = api.OperatingSystemResourceSecurityFeatureSECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION
+	OSSecurityFeature1  = api.SECURITYFEATURENONE
+	OSSecurityFeature2  = api.SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION
 
 	OSResourceWrongID   = "os-XXXXXX"
 	OSResourceUnexistID = "os-00000000"
@@ -110,7 +110,7 @@ var (
 	instHostID          = ""
 	instOSID            = ""
 	instKind            = api.INSTANCEKINDMETAL
-	instSecurityFeature = api.InstanceResourceSecurityFeatureSECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION
+	instSecurityFeature = api.SECURITYFEATURESECUREBOOTANDFULLDISKENCRYPTION
 
 	providerKind1           = api.PROVIDERKINDBAREMETAL
 	providerVendor1         = api.PROVIDERVENDORLENOVOLXCA
@@ -501,28 +501,28 @@ var (
 		Name:           &SschedName1,
 		StartSeconds:   SschedStart1,
 		EndSeconds:     &SschedEnd1,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	SingleSchedule2Request = api.SingleScheduleResource{
 		Name:           &SschedName2,
 		StartSeconds:   SschedStart2,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	SingleSchedule3Request = api.SingleScheduleResource{
 		Name:           &SschedName3,
 		StartSeconds:   SschedStart3,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	SingleScheduleError = api.SingleScheduleResource{
 		Name:           &SschedName3,
 		StartSeconds:   SschedStart3,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	SingleScheduleErrorSeconds = api.SingleScheduleResource{
 		Name:           &SschedName3,
 		StartSeconds:   SschedStart3,
 		EndSeconds:     &SschedEndError,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 
 	RepeatedSchedule1Request = api.RepeatedScheduleResource{
@@ -534,7 +534,7 @@ var (
 		CronHours:      CronAny,
 		CronMonth:      CronAny,
 		CronDayWeek:    CronAny,
-		ScheduleStatus: api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	RepeatedSchedule2Request = api.RepeatedScheduleResource{
 		Name:            &SschedName2,
@@ -545,7 +545,7 @@ var (
 		CronDayMonth:   CronAny,
 		CronMonth:      CronAny,
 		CronDayWeek:    CronAny,
-		ScheduleStatus: api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	RepeatedSchedule3Request = api.RepeatedScheduleResource{
 		Name:            &SschedName3,
@@ -556,7 +556,7 @@ var (
 		CronDayMonth:   CronAny,
 		CronMonth:      CronAny,
 		CronDayWeek:    CronAny,
-		ScheduleStatus: api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	RepeatedScheduleError = api.RepeatedScheduleResource{
 		Name:            &SschedName3,
@@ -567,7 +567,7 @@ var (
 		CronDayMonth:   CronAny,
 		CronMonth:      CronAny,
 		CronDayWeek:    CronAny,
-		ScheduleStatus: api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	RepeatedMissingRequest = api.RepeatedScheduleResource{
 		Name:            &SschedName3,
@@ -577,7 +577,7 @@ var (
 		CronHours:      CronAny,
 		CronDayMonth:   CronAny,
 		CronMonth:      CronAny,
-		ScheduleStatus: api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	RepeatedScheduleCronReqErr = api.RepeatedScheduleResource{
 		Name:            &SschedName3,
@@ -587,19 +587,19 @@ var (
 		CronDayMonth:    "*",
 		CronMonth:       "*",
 		CronDayWeek:     "*",
-		ScheduleStatus:  api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus:  api.SCHEDULESTATUSMAINTENANCE,
 	}
 
 	SingleScheduleAlwaysRequest = api.SingleScheduleResource{
 		Name:           &SschedName1,
 		StartSeconds:   SschedStart2,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	SingleScheduleNever = api.SingleScheduleResource{
 		Name:           &SschedName2,
 		StartSeconds:   SschedStart2,
 		EndSeconds:     &SschedEnd1,
-		ScheduleStatus: api.SingleScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus: api.SCHEDULESTATUSMAINTENANCE,
 	}
 	RepeatedScheduleAlwaysRequest = api.RepeatedScheduleResource{
 		Name:            &SschedName1,
@@ -609,7 +609,7 @@ var (
 		CronDayMonth:    CronAny,
 		CronMonth:       CronAny,
 		CronDayWeek:     CronAny,
-		ScheduleStatus:  api.RepeatedScheduleResourceScheduleStatusSCHEDULESTATUSMAINTENANCE,
+		ScheduleStatus:  api.SCHEDULESTATUSMAINTENANCE,
 	}
 
 	OsTypeMutable  = api.OSTYPEMUTABLE
@@ -753,14 +753,14 @@ var (
 
 	TelemetryLogsGroup1Request = api.TelemetryLogsGroupResource{
 		Name:          "HW Usage",
-		CollectorKind: api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TELEMETRYCOLLECTORKINDHOST,
 		Groups: []string{
 			"syslog",
 		},
 	}
 	TelemetryMetricsGroup1Request = api.TelemetryMetricsGroupResource{
 		Name:          "Network Usage",
-		CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TELEMETRYCOLLECTORKINDHOST,
 		Groups: []string{
 			"net", "netstat", "ethtool",
 		},

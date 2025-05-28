@@ -79,6 +79,7 @@ func fromInvInstanceStatus(
 	instance *computev1.InstanceResource,
 ) {
 	instanceStatus := invInstance.GetInstanceStatus()
+	instanceStatusDetail := invInstance.GetInstanceStatusDetail()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
 	instanceStatusTimestamp := TruncateUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
 
@@ -95,6 +96,7 @@ func fromInvInstanceStatus(
 	attestationStatusTimestamp := TruncateUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
 
 	instance.InstanceStatus = instanceStatus
+	instance.InstanceStatusDetail = instanceStatusDetail
 	instance.InstanceStatusIndicator = instanceStatusIndicator
 	instance.InstanceStatusTimestamp = instanceStatusTimestamp
 	instance.ProvisioningStatus = provisioningStatus
@@ -208,19 +210,15 @@ func (is *InventorygRPCServer) ListInstances(
 	req *restv1.ListInstancesRequest,
 ) (*restv1.ListInstancesResponse, error) {
 	zlog.Debug().Msg("ListInstances")
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
+
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Instance{Instance: &inv_computev1.InstanceResource{}}},
-		Offset:   offset,
-		Limit:    limit,
+		Offset:   req.GetOffset(),
+		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-	if err = validator.ValidateMessage(filter); err != nil {
+	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}

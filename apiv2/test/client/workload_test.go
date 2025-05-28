@@ -371,8 +371,8 @@ func TestWorkloadList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster2Request)
@@ -413,8 +413,8 @@ func TestWorkloadMemberList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
 	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
@@ -521,7 +521,6 @@ func TestWorkload_Patch(t *testing.T) {
 	updatedWorkload, err := apiClient.WorkloadServicePatchWorkloadWithResponse(
 		ctx,
 		*workload.JSON200.ResourceId,
-		nil,
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

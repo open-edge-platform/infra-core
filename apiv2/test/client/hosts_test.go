@@ -128,7 +128,6 @@ func TestHostCustom(t *testing.T) {
 	h1Patch, err := apiClient.HostServicePatchHostWithResponse(
 		ctx,
 		*h1.JSON200.ResourceId,
-		nil,
 		h1PatchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -151,7 +150,6 @@ func TestHostCustom(t *testing.T) {
 	h1Patch, err = apiClient.HostServicePatchHostWithResponse(
 		ctx,
 		*h1.JSON200.ResourceId,
-		nil,
 		h1PatchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -168,7 +166,7 @@ func TestHostCustom(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, utils.Host3Name, resHostH1Patched.JSON200.Name)
 	assert.Empty(t, resHostH1Patched.JSON200.Site)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEONBOARDED, *resHostH1Patched.JSON200.DesiredState)
 
 	// Expect BadRequest errors in Patch/Put with emptyString wrong
 	utils.Host1RequestUpdate.SiteId = &emptyStringWrong
@@ -342,8 +340,8 @@ func TestHostList(t *testing.T) {
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	for id := 0; id < totalItems; id++ {
 		h := GetHostRequestWithRandomUUID()
@@ -410,8 +408,8 @@ func benchmarkHosts(b *testing.B, nHosts int,
 	b.Helper()
 
 	// Emulate the request of the GUI
-	var pageId int32 = 1
-	var pageSize int32 = 100
+	var pageId int = 1
+	var pageSize int = 100
 
 	for id := 0; id < nHosts; id++ {
 		postResp := CreateHost(b, ctx, apiClient, utils.Host1Request)
@@ -609,7 +607,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.Hosts), 1)
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
-	var largePageSize int32 = 100
+	var largePageSize int = 100
 	// Look for all hosts
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
@@ -690,7 +688,7 @@ func TestHostInvalidate(t *testing.T) {
 	)
 
 	require.NoError(t, err)
-	assert.Equal(t, api.HostResourceCurrentStateHOSTSTATEUNTRUSTED, *res.JSON200.CurrentState)
+	assert.Equal(t, api.HOSTSTATEUNTRUSTED, *res.JSON200.CurrentState)
 	assert.Equal(t, "Invalidated", *res.JSON200.HostStatus)
 	assert.Equal(t, note, *res.JSON200.Note)
 }
@@ -808,12 +806,12 @@ func TestHostsSummary(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resHostSummary.StatusCode())
 	assert.GreaterOrEqual(t, int(*resHostSummary.JSON200.Total), 2)
 	if resHostSummary.JSON200.Error != nil {
-		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Error, uint32(0))
+		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Error, 0)
 	}
 	if resHostSummary.JSON200.Running != nil {
-		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Running, uint32(0))
+		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Running, 0)
 	}
-	assert.GreaterOrEqual(t, *resHostSummary.JSON200.Unallocated, uint32(1))
+	assert.GreaterOrEqual(t, *resHostSummary.JSON200.Unallocated, 1)
 }
 
 func TestHostRegister(t *testing.T) {
@@ -829,7 +827,6 @@ func TestHostRegister(t *testing.T) {
 	// register host using UUID & SN
 	registeredHost1, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
-		nil,
 		utils.HostRegister,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -837,7 +834,7 @@ func TestHostRegister(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost1.StatusCode())
 	assert.Equal(t, *utils.HostRegister.Uuid, *registeredHost1.JSON200.Uuid)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEREGISTERED, *registeredHost1.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost1.JSON200.DesiredState)
 
 	// change registered host name - via Patch
 	resHostRegisterPatch, err := apiClient.HostServiceRegisterUpdateHostWithResponse(
@@ -880,7 +877,7 @@ func TestHostRegister(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resHostGet.StatusCode())
 	assert.Equal(t, utils.Host2bName, resHostGet.JSON200.Name)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEONBOARDED, *resHostGet.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEONBOARDED, *resHostGet.JSON200.DesiredState)
 
 	// change autoOnboard=false only for registered host - via Patch
 	resHostRegisterPatch, err = apiClient.HostServiceRegisterUpdateHostWithResponse(
@@ -902,19 +899,18 @@ func TestHostRegister(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resHostGet.StatusCode())
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEREGISTERED, *resHostGet.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEREGISTERED, *resHostGet.JSON200.DesiredState)
 
 	// register host with autoOnboard=true
 	registeredHost2, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
-		nil,
 		utils.HostRegisterAutoOnboard,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	registeredHosts = append(registeredHosts, registeredHost2)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost2.StatusCode())
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEONBOARDED, *registeredHost2.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEONBOARDED, *registeredHost2.JSON200.DesiredState)
 
 	// change name & autoOnboard=false for registered host - via Patch
 	resHostRegisterPatch, err = apiClient.HostServiceRegisterUpdateHostWithResponse(
@@ -938,12 +934,11 @@ func TestHostRegister(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resHostGet.StatusCode())
 	assert.Equal(t, utils.Host1Name, resHostGet.JSON200.Name)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEREGISTERED, *resHostGet.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEREGISTERED, *resHostGet.JSON200.DesiredState)
 
 	// register host using UUID only
 	registeredHost3, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
-		nil,
 		api.HostRegister{
 			Uuid: &utils.Host5UUID,
 		},
@@ -953,12 +948,11 @@ func TestHostRegister(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost3.StatusCode())
 	assert.Equal(t, utils.Host5UUID, *registeredHost3.JSON200.Uuid)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEREGISTERED, *registeredHost3.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost3.JSON200.DesiredState)
 
 	// register host using SN only
 	registeredHost4, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
-		nil,
 		api.HostRegister{
 			SerialNumber: &utils.HostSerialNumber3,
 		},
@@ -968,12 +962,11 @@ func TestHostRegister(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost4.StatusCode())
 	assert.Equal(t, utils.HostSerialNumber3, *registeredHost4.JSON200.SerialNumber)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEREGISTERED, *registeredHost4.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost4.JSON200.DesiredState)
 
 	// invalid register command - no UUID, no SN
 	resHostRegisterInv, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
-		nil,
 		api.HostRegister{Name: &utils.Host4Name},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -1007,14 +1000,13 @@ func TestHostOnboard(t *testing.T) {
 	// register host using UUID & SN
 	registeredHost, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
-		nil,
 		utils.HostRegister,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost.StatusCode())
 	assert.Equal(t, *utils.HostRegister.Uuid, *registeredHost.JSON200.Uuid)
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEREGISTERED, *registeredHost.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost.JSON200.DesiredState)
 
 	// onboard host
 	resOnboard, err := apiClient.HostServiceOnboardHostWithResponse(
@@ -1033,7 +1025,7 @@ func TestHostOnboard(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, onboardedHost.StatusCode())
-	assert.Equal(t, api.HostResourceDesiredStateHOSTSTATEONBOARDED, *onboardedHost.JSON200.DesiredState)
+	assert.Equal(t, api.HOSTSTATEONBOARDED, *onboardedHost.JSON200.DesiredState)
 
 	// delete the onboarded host
 	resHost, err := apiClient.HostServiceDeleteHostWithResponse(

@@ -57,27 +57,7 @@ func (m *IPAddressResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 15 {
-		err := IPAddressResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 15 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_IPAddressResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := IPAddressResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^ipaddr-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for Address
 
@@ -195,5 +175,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = IPAddressResourceValidationError{}
-
-var _IPAddressResource_ResourceId_Pattern = regexp.MustCompile("^ipaddr-[0-9a-f]{8}$")
