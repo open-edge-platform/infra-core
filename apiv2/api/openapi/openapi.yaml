@@ -5211,7 +5211,7 @@ components:
           items:
             type: string
             maxLength: 1000
-            pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*[]()"\ ]+$"'
+            pattern: ^$|^[a-zA-Z-_0-9.:;=@?!#*()"\ ]+$
             maxItems: 100
           title: groups
           maxItems: 100
@@ -5328,7 +5328,7 @@ components:
           items:
             type: string
             maxLength: 1000
-            pattern: '"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*[]()"\ ]+$"'
+            pattern: ^$|^[a-zA-Z-_0-9.:;=@?!#*()"\ ]+$
             maxItems: 100
           title: groups
           maxItems: 100

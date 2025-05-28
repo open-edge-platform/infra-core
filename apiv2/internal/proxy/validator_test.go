@@ -75,6 +75,10 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		"", workloadInvalidBodyRequest)
 	assert.NoError(t, err)
 
+	telemetrylogsPostRequest, err := api.NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(
+		"", utils.TelemetryLogsGroup1Request)
+	assert.NoError(t, err)
+
 	tests := []struct {
 		name           string
 		request        *http.Request
@@ -146,6 +150,11 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		{
 			name:           "Valid path prefix/request - host register POST",
 			request:        hostsPostRegisterRequestValid,
+			expectedStatus: http.StatusOK,
+		},
+		{
+			name:           "Valid path prefix/request - telemetry logs POST",
+			request:        telemetrylogsPostRequest,
 			expectedStatus: http.StatusOK,
 		},
 		{
