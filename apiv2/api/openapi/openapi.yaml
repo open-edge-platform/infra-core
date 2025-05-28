@@ -4175,8 +4175,8 @@ components:
                     maxLength: 500000
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
                     type: string
-                    description: Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
-                installedPackagesSource:
+                    description: List of installed packages, encoded as a JSON list.
+                installedPackagesUrl:
                     maxLength: 200
                     pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
                     type: string

@@ -114,7 +114,7 @@ message OperatingSystemResource {
   // Version of OS profile that the OS resource belongs to.
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+  // List of installed packages, encoded as a JSON list.
   string installed_packages = 9 [(google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"

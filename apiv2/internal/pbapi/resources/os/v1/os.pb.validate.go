@@ -322,9 +322,9 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetInstalledPackagesSource()) > 200 {
+	if utf8.RuneCountInString(m.GetInstalledPackagesUrl()) > 200 {
 		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackagesSource",
+			field:  "InstalledPackagesUrl",
 			reason: "value length must be at most 200 runes",
 		}
 		if !all {
@@ -333,9 +333,9 @@ func (m *OperatingSystemResource) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_OperatingSystemResource_InstalledPackagesSource_Pattern.MatchString(m.GetInstalledPackagesSource()) {
+	if !_OperatingSystemResource_InstalledPackagesUrl_Pattern.MatchString(m.GetInstalledPackagesUrl()) {
 		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackagesSource",
+			field:  "InstalledPackagesUrl",
 			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
 		}
 		if !all {
@@ -439,7 +439,7 @@ type OperatingSystemResourceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OperatingSystemResourceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -527,7 +527,7 @@ var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA
 
 var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
 
-var _OperatingSystemResource_InstalledPackagesSource_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
+var _OperatingSystemResource_InstalledPackagesUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
 
 var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
 

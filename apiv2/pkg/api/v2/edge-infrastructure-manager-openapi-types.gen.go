@@ -981,11 +981,11 @@ type OperatingSystemResource struct {
 	// ImageUrl The URL repository of the OS image.
 	ImageUrl *string `json:"imageUrl,omitempty"`
 
-	// InstalledPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+	// InstalledPackages List of installed packages, encoded as a JSON list.
 	InstalledPackages *string `json:"installedPackages,omitempty"`
 
-	// InstalledPackagesSource The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field  for the advance use case to allow manual creation of OSProfiles when supported from backend.
-	InstalledPackagesSource *string `json:"installedPackagesSource,omitempty"`
+	// InstalledPackagesUrl The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field  for the advance use case to allow manual creation of OSProfiles when supported from backend.
+	InstalledPackagesUrl *string `json:"installedPackagesUrl,omitempty"`
 
 	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
