@@ -2411,8 +2411,7 @@ message ListOSUpdateRunRequest {
   // See https://google.aip.dev/132 for details.
   string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
@@ -2421,8 +2420,7 @@ message ListOSUpdateRunRequest {
   // See https://google.aip.dev/160 for details.
   string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).string = {
-      ignore_empty: true
+    (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
     }
@@ -2431,8 +2429,7 @@ message ListOSUpdateRunRequest {
   // Default of 20.
   uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -2440,8 +2437,7 @@ message ListOSUpdateRunRequest {
   // Index of the first item to return. This allows skipping items.
   uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (validate.rules).uint32 = {
-      ignore_empty: true
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }

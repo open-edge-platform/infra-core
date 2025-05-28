@@ -3449,13 +3449,135 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteLocalAccountResponse'
+  /edge-infra.orchestrator.apis/v2/os_update_run:
+    get:
+      tags:
+        - OSUpdateRun
+      summary: ListOSUpdateRun
+      description: Get a list of OS Update Policies.
+      operationId: OSUpdateRun_ListOSUpdateRun
+      parameters:
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOSUpdateRunResponse'
+  /edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}:
+    get:
+      tags:
+        - OSUpdateRun
+      summary: GetOSUpdateRun
+      description: Get a specific OS Update Run.
+      operationId: OSUpdateRun_GetOSUpdateRun
+      parameters:
+        - name: resource_id
+          in: path
+          description: Name of the requested os.
+          required: true
+          schema:
+            type: string
+            title: resource_id
+            description: Name of the requested os.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdateRun'
+    delete:
+      tags:
+        - OSUpdateRun
+      summary: DeleteOSUpdateRun
+      description: Delete a OS Update Run.
+      operationId: OSUpdateRun_DeleteOSUpdateRun
+      parameters:
+        - name: resource_id
+          in: path
+          description: Name of the os update run to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resource_id
+            description: Name of the os update run to be deleted.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdateRun'
 components:
   schemas:
     google.protobuf.Timestamp:
       type: string
-      examples:
-        - 1s
-        - 1.000340012s
       format: date-time
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
@@ -4147,6 +4269,15 @@ components:
         - POWER_STATE_ON
         - POWER_STATE_OFF
       description: The host power state.
+    StatusIndicator:
+      type: string
+      title: StatusIndicator
+      enum:
+        - STATUS_INDICATION_UNSPECIFIED
+        - STATUS_INDICATION_ERROR
+        - STATUS_INDICATION_IN_PROGRESS
+        - STATUS_INDICATION_IDLE
+      description: Status type/indicator of the OS Update run.
     WorkloadKind:
       type: string
       title: WorkloadKind
@@ -4811,6 +4942,106 @@ components:
           readOnly: true
           $ref: '#/components/schemas/Timestamps'
       title: NetworkInterfaceLinkState
+      additionalProperties: false
+    OSUpdatePolicy:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          pattern: ^osupdatepolicy-[0-9a-f]{8}$
+          description: resource ID, generated by the inventory on Create.
+          readOnly: true
+        name:
+          type: string
+          title: name
+          maxLength: 40
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          description: User-provided, human-readable name.
+        description:
+          type: string
+          title: description
+          maxLength: 200
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          description: User-provided, human-readable description.
+      title: OSUpdatePolicy
+      required:
+        - name
+      additionalProperties: false
+      description: |-
+        OSUpdatePolicy message is added temporarily now for OSUpdateRun message addition compilation should go through.
+         It will be deleted later on before merging to main in git repo.
+    OSUpdateRun:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          pattern: ^osupdaterun-[0-9a-f]{8}$
+          description: resource ID, generated by the inventory on Create.
+          readOnly: true
+        name:
+          type: string
+          title: name
+          maxLength: 40
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          description: Human-readable name.
+          readOnly: true
+        description:
+          type: string
+          title: description
+          maxLength: 200
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          description: Human-readable description.
+          readOnly: true
+        appliedPolicy:
+          title: applied_policy
+          description: Update Policy of this Instance
+          readOnly: true
+          $ref: '#/components/schemas/OSUpdatePolicy'
+        instance:
+          title: instance
+          description: The instance resource associated with this OS Update. This OS Update Run is executed for this instance.
+          readOnly: true
+          $ref: '#/components/schemas/InstanceResource'
+        statusIndicator:
+          title: status_indicator
+          description: "Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run.\n STATUS_INDICATION_ERROR: Update failed in error Indicator\n STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator \n STATUS_INDICATION_IDLE: Update completed successfully Indicator"
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndicator'
+        status:
+          type: string
+          title: status
+          maxLength: 1024
+          description: Short message that describes what happened during the OS Update.
+          readOnly: true
+        statusDetails:
+          type: string
+          title: status_details
+          maxLength: 100000
+          description: Details about what happened during the OS Update.
+          readOnly: true
+        statusTimestamp:
+          title: status_timestamp
+          description: UTC timestamp of OS Update status reported.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        startTime:
+          title: start_time
+          description: UTC timestamp of OS Update started.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        endTime:
+          title: end_time
+          description: UTC timestamp of OS Update ended.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestamps:
+          title: timestamps
+          description: Timestamps associated to the resource.
+          readOnly: true
+          $ref: '#/components/schemas/Timestamps'
+      title: OSUpdateRun
       additionalProperties: false
     WorkloadMember:
       type: object
@@ -5704,6 +5935,30 @@ components:
         - localAccount
       additionalProperties: false
       description: Response message for the CreateLocalAccount method.
+    CreateOSUpdateRunRequest:
+      type: object
+      properties:
+        osUpdateRun:
+          title: os_update_run
+          description: The os update run to create.
+          $ref: '#/components/schemas/OSUpdateRun'
+      title: CreateOSUpdateRunRequest
+      required:
+        - osUpdateRun
+      additionalProperties: false
+      description: Request message for the CreateOSUpdateRun method.
+    CreateOSUpdateRunResponse:
+      type: object
+      properties:
+        osUpdateRun:
+          title: os_update_run
+          description: The created os.
+          $ref: '#/components/schemas/OSUpdateRun'
+      title: CreateOSUpdateRunResponse
+      required:
+        - osUpdateRun
+      additionalProperties: false
+      description: Response message for the CreateOSUpdateRun method.
     CreateOperatingSystemRequest:
       type: object
       properties:
@@ -6043,6 +6298,23 @@ components:
       title: DeleteLocalAccountResponse
       additionalProperties: false
       description: Response message for DeleteLocalAccount.
+    DeleteOSUpdateRunRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          description: Name of the os update run to be deleted.
+      title: DeleteOSUpdateRunRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for DeleteOperatingSystem.
+    DeleteOSUpdateRunResponse:
+      type: object
+      title: DeleteOSUpdateRunResponse
+      additionalProperties: false
+      description: Response message for DeleteOperatingSystem.
     DeleteOperatingSystemRequest:
       type: object
       properties:
@@ -6359,6 +6631,30 @@ components:
         - localAccount
       additionalProperties: false
       description: Response message for the GetLocalAccount method.
+    GetOSUpdateRunRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          description: Name of the requested os.
+      title: GetOSUpdateRunRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for the GetOSUpdateRun method.
+    GetOSUpdateRunResponse:
+      type: object
+      properties:
+        osUpdateRun:
+          title: os_update_run
+          description: The requested os.
+          $ref: '#/components/schemas/OSUpdateRun'
+      title: GetOSUpdateRunResponse
+      required:
+        - osUpdateRun
+      additionalProperties: false
+      description: Response message for the GetOSUpdateRun method.
     GetOperatingSystemRequest:
       type: object
       properties:
@@ -6967,6 +7263,66 @@ components:
         - type
       additionalProperties: false
       description: A node in the location tree.
+    ListOSUpdateRunRequest:
+      type: object
+      properties:
+        orderBy:
+          type: string
+          title: order_by
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9., ]+$
+          description: |-
+            (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+        filter:
+          type: string
+          title: filter
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+          description: |-
+            (OPTIONAL) Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+        pageSize:
+          type: integer
+          title: page_size
+          maximum: 100
+          minimum: 1
+          description: |-
+            (OPTIONAL) Defines the amount of items to be contained in a single page.
+             Default of 20.
+        offset:
+          type: integer
+          title: offset
+          maximum: 10000
+          description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      title: ListOSUpdateRunRequest
+      additionalProperties: false
+      description: Request message for the ListOSUpdateRun method.
+    ListOSUpdateRunResponse:
+      type: object
+      properties:
+        osUpdatePolicies:
+          type: array
+          items:
+            $ref: '#/components/schemas/OSUpdateRun'
+          title: os_update_policies
+          description: Sorted and filtered list of os update policies.
+        totalElements:
+          type: integer
+          title: total_elements
+          format: int32
+          description: Count of items in the entire list, regardless of pagination.
+        hasNext:
+          type: boolean
+          title: has_next
+          description: Inform if there are more elements
+      title: ListOSUpdateRunResponse
+      required:
+        - osUpdatePolicies
+        - totalElements
+        - hasNext
+      additionalProperties: false
+      description: Response message for the ListOSUpdateRun method.
     ListOperatingSystemsRequest:
       type: object
       properties:
@@ -8323,3 +8679,5 @@ tags:
     description: TelemetryMetricsProfile.
   - name: LocalAccountService
     description: LocalAccount.
+  - name: OSUpdateRun
+    description: OS Update Run.
