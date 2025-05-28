@@ -168,8 +168,8 @@ service HostService {
       body: "host"
     };
   }
-  // Update a host register.
-  rpc RegisterUpdateHost(RegisterHostRequest) returns (resources.compute.v1.HostResource) {
+  // Update a host registration.
+  rpc PatchRegisterHost(RegisterHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
       patch: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/register"
       body: "host"

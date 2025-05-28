@@ -4059,7 +4059,7 @@ Host.
 | DeleteHost | [DeleteHostRequest](#services-v1-DeleteHostRequest) | [DeleteHostResponse](#services-v1-DeleteHostResponse) | Delete a host. |
 | InvalidateHost | [InvalidateHostRequest](#services-v1-InvalidateHostRequest) | [InvalidateHostResponse](#services-v1-InvalidateHostResponse) | Invalidate a host. |
 | RegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Register a host. |
-| RegisterUpdateHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host register. |
+| PatchRegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host registration. |
 | OnboardHost | [OnboardHostRequest](#services-v1-OnboardHostRequest) | [OnboardHostResponse](#services-v1-OnboardHostResponse) | Onboard a host. |
 
 
