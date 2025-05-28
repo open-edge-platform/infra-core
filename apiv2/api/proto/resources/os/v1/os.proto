@@ -74,7 +74,8 @@ message OperatingSystemResource {
           pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$'
         }
       }
-    }
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
   // The URL repository of the OS image.
