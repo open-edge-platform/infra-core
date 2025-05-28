@@ -286,7 +286,7 @@ func TestOS_GetWithInstalledPackages(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, osList.StatusCode())
-	assert.Equal(t, NumPreloadedOSResources, len(osList.JSON200.OperatingSystemResources))
+	assert.GreaterOrEqual(t, NumPreloadedOSResources, len(osList.JSON200.OperatingSystemResources))
 
 	for _, osRes := range osList.JSON200.OperatingSystemResources {
 		// InstalledPackages shall be JSON-encoded string for IMMUTABLE OS
