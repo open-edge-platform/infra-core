@@ -125,6 +125,8 @@ const (
 	InstanceResourceEdgeUpdatePolicy                       = "update_policy"
 	InstanceResourceFieldInstanceStatusDetail              = "instance_status_detail"
 	InstanceResourceFieldExistingCves                      = "existing_cves"
+	InstanceResourceFieldRuntimePackages                   = "runtime_packages"
+	InstanceResourceFieldOsUpdateAvailable                 = "os_update_available"
 	InstanceResourceFieldInstanceID                        = "instanceID"
 	InstanceResourceFieldHostID                            = "hostID"
 	InstanceResourceFieldOsID                              = "osID"
