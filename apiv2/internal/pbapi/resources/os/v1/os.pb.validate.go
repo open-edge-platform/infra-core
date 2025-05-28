@@ -57,292 +57,27 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 11 {
-		err := OperatingSystemResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 11 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_OperatingSystemResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
-	if utf8.RuneCountInString(m.GetName()) > 128 {
-		err := OperatingSystemResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 128 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Architecture
 
-	if !_OperatingSystemResource_Name_Pattern.MatchString(m.GetName()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ()]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for KernelCommand
 
-	if utf8.RuneCountInString(m.GetArchitecture()) > 20 {
-		err := OperatingSystemResourceValidationError{
-			field:  "Architecture",
-			reason: "value length must be at most 20 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ImageUrl
 
-	if !_OperatingSystemResource_Architecture_Pattern.MatchString(m.GetArchitecture()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "Architecture",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ImageId
 
-	if utf8.RuneCountInString(m.GetKernelCommand()) > 500 {
-		err := OperatingSystemResourceValidationError{
-			field:  "KernelCommand",
-			reason: "value length must be at most 500 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Description
 
-	if !_OperatingSystemResource_KernelCommand_Pattern.MatchString(m.GetKernelCommand()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "KernelCommand",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Sha256
 
-	if len(m.GetUpdateSources()) > 0 {
-
-		if len(m.GetUpdateSources()) > 100 {
-			err := OperatingSystemResourceValidationError{
-				field:  "UpdateSources",
-				reason: "value must contain no more than 100 item(s)",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		for idx, item := range m.GetUpdateSources() {
-			_, _ = idx, item
-
-			if utf8.RuneCountInString(item) > 10000 {
-				err := OperatingSystemResourceValidationError{
-					field:  fmt.Sprintf("UpdateSources[%v]", idx),
-					reason: "value length must be at most 10000 runes",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-			if !_OperatingSystemResource_UpdateSources_Pattern.MatchString(item) {
-				err := OperatingSystemResourceValidationError{
-					field:  fmt.Sprintf("UpdateSources[%v]", idx),
-					reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\\"\\\\ \\\\\\\\\\\\n]+$\"",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
-			}
-
-		}
-
-	}
-
-	if utf8.RuneCountInString(m.GetImageUrl()) > 500 {
-		err := OperatingSystemResourceValidationError{
-			field:  "ImageUrl",
-			reason: "value length must be at most 500 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_ImageUrl_Pattern.MatchString(m.GetImageUrl()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "ImageUrl",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetImageId()) > 500 {
-		err := OperatingSystemResourceValidationError{
-			field:  "ImageId",
-			reason: "value length must be at most 500 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_ImageId_Pattern.MatchString(m.GetImageId()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "ImageId",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetDescription()) > 1000 {
-		err := OperatingSystemResourceValidationError{
-			field:  "Description",
-			reason: "value length must be at most 1000 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_Description_Pattern.MatchString(m.GetDescription()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "Description",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\\\+\\\\- ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetSha256()) != 64 {
-		err := OperatingSystemResourceValidationError{
-			field:  "Sha256",
-			reason: "value length must be 64 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-
-	}
-
-	if !_OperatingSystemResource_Sha256_Pattern.MatchString(m.GetSha256()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "Sha256",
-			reason: "value does not match regex pattern \"^[a-f0-9]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetProfileName()) > 128 {
-		err := OperatingSystemResourceValidationError{
-			field:  "ProfileName",
-			reason: "value length must be at most 128 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_ProfileName_Pattern.MatchString(m.GetProfileName()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "ProfileName",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ProfileName
 
 	// no validation rules for ProfileVersion
 
-	if utf8.RuneCountInString(m.GetInstalledPackages()) > 500000 {
-		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackages",
-			reason: "value length must be at most 500000 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_InstalledPackages_Pattern.MatchString(m.GetInstalledPackages()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackages",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" \\\\\\\\\\\\n]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetInstalledPackagesUrl()) > 200 {
-		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackagesUrl",
-			reason: "value length must be at most 200 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_InstalledPackagesUrl_Pattern.MatchString(m.GetInstalledPackagesUrl()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "InstalledPackagesUrl",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\"\\\\ ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for InstalledPackages
 
 	// no validation rules for SecurityFeature
 
@@ -352,49 +87,9 @@ func (m *OperatingSystemResource) validate(all bool) error {
 
 	// no validation rules for PlatformBundle
 
-	if utf8.RuneCountInString(m.GetOsResourceID()) > 11 {
-		err := OperatingSystemResourceValidationError{
-			field:  "OsResourceID",
-			reason: "value length must be at most 11 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for OsResourceID
 
-	if !_OperatingSystemResource_OsResourceID_Pattern.MatchString(m.GetOsResourceID()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "OsResourceID",
-			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetRepoUrl()) > 500 {
-		err := OperatingSystemResourceValidationError{
-			field:  "RepoUrl",
-			reason: "value length must be at most 500 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OperatingSystemResource_RepoUrl_Pattern.MatchString(m.GetRepoUrl()) {
-		err := OperatingSystemResourceValidationError{
-			field:  "RepoUrl",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for RepoUrl
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -504,31 +199,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = OperatingSystemResourceValidationError{}
-
-var _OperatingSystemResource_ResourceId_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
-
-var _OperatingSystemResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ()]+$")
-
-var _OperatingSystemResource_Architecture_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
-
-var _OperatingSystemResource_KernelCommand_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
-
-var _OperatingSystemResource_UpdateSources_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$")
-
-var _OperatingSystemResource_ImageUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
-
-var _OperatingSystemResource_ImageId_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
-
-var _OperatingSystemResource_Description_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.:;=@?!#,<>*(){}&%$`^\\+\\- ]+$")
-
-var _OperatingSystemResource_Sha256_Pattern = regexp.MustCompile("^[a-f0-9]+$")
-
-var _OperatingSystemResource_ProfileName_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
-
-var _OperatingSystemResource_InstalledPackages_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$")
-
-var _OperatingSystemResource_InstalledPackagesUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$")
-
-var _OperatingSystemResource_OsResourceID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
-
-var _OperatingSystemResource_RepoUrl_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")

@@ -856,6 +856,7 @@ host or hypervisor.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| instance_status_detail | [string](#string) |  | Textual message that gives detailed status of the instance&#39;s software components. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
@@ -2705,8 +2706,8 @@ Request message for the ListHosts method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2740,8 +2741,8 @@ Request message for the ListInstances method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2775,8 +2776,8 @@ Request message for the ListLocalAccounts method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2862,8 +2863,8 @@ Request message for the ListOperatingSystems method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2897,8 +2898,8 @@ Request message for the ListProviders method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2932,8 +2933,8 @@ Request message for the ListRegions method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | show_total_sites | [bool](#bool) |  | Flag to signal if the total amount of site in a region should be returned. |
 
 
@@ -2966,8 +2967,8 @@ Request message for the ListRepeatedSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -3003,8 +3004,8 @@ Request message for the ListSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -3041,8 +3042,8 @@ Request message for the ListSingleSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -3080,8 +3081,8 @@ Request message for the ListSites method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -3113,8 +3114,8 @@ Request message for the ListTelemetryLogsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 
 
@@ -3147,8 +3148,8 @@ Request message for the ListTelemetryLogsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | instance_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given instance identifier. |
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
@@ -3185,8 +3186,8 @@ Request message for the ListTelemetryMetricsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 
 
@@ -3219,8 +3220,8 @@ Request message for the ListTelemetryMetricsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | instance_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given instance identifier. |
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
@@ -3259,8 +3260,8 @@ Request message for the ListWorkloadMembers method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -3294,8 +3295,8 @@ Request message for the ListWorkloads method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
