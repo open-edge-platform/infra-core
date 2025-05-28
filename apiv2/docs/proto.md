@@ -841,7 +841,6 @@ host or hypervisor.
 | instance_status | [string](#string) |  | textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
 | instance_status_timestamp | [uint32](#uint32) |  | UTC timestamp when instance_status was last changed. Set by RMs only. |
-| instance_status_detail | [string](#string) |  | Textual message that gives detailed status of the instance&#39;s software components. |
 | provisioning_status | [string](#string) |  | textual message that describes the provisioning status of Instance. Set by RMs only. |
 | provisioning_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of provisioning_status. Set by RMs only. |
 | provisioning_status_timestamp | [uint32](#uint32) |  | UTC timestamp when provisioning_status was last changed. Set by RMs only. |
@@ -856,6 +855,7 @@ host or hypervisor.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| instance_status_detail | [string](#string) |  | Textual message that gives detailed status of the instance&#39;s software components. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
