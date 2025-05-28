@@ -39,6 +39,7 @@ var zlog = logging.GetLogger("InfraAPIClient")
 type ResourceTenantIDCarrier = inv_v1.FindResourcesResponse_ResourceTenantIDCarrier
 
 const (
+	MaxMessageSize          = 40 * 1024 * 1024 // 40 MB
 	BatchSize               = 100
 	InsecureGrpc            = "insecureGRPC"
 	InsecureGrpcDescription = "Flag to disable secure connectivity"
@@ -60,6 +61,17 @@ const (
 	InvCacheStaleTimeoutOffset            = "invCacheStaleTimeoutOffset"
 	InvCacheStaleTimeoutOffsetDefault     = 15
 	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset percentage for the Inventory UUID cache"
+)
+
+var (
+	GrpcMessageSizeServerOpts = []grpc.ServerOption{
+		grpc.MaxRecvMsgSize(MaxMessageSize),
+		grpc.MaxSendMsgSize(MaxMessageSize),
+	}
+	GrpcMessageSizeCallOpts = []grpc.CallOption{
+		grpc.MaxCallRecvMsgSize(MaxMessageSize),
+		grpc.MaxCallSendMsgSize(MaxMessageSize),
+	}
 )
 
 type WatchEvents struct {
@@ -395,6 +407,8 @@ func connect(
 		}
 		opts = append(opts, grpc.WithTransportCredentials(creds))
 	}
+
+	opts = append(opts, grpc.WithDefaultCallOptions(GrpcMessageSizeCallOpts...))
 
 	// if testing, use a bufconn, otherwise TCP
 	var err error

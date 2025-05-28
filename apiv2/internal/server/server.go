@@ -104,6 +104,8 @@ func getServerOpts(enableTracing, enableAuth, insecureGrpc bool,
 		srvOpts = append(srvOpts, grpc.StatsHandler(otelgrpc.NewServerHandler()))
 	}
 
+	srvOpts = append(srvOpts, client.GrpcMessageSizeServerOpts...)
+
 	// adding unary and stream interceptors
 	srvOpts = append(srvOpts,
 		grpc.UnaryInterceptor(

@@ -5,6 +5,8 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.1
 
+replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+
 require (
 	github.com/envoyproxy/protoc-gen-validate v1.2.1
 	github.com/getkin/kin-openapi v0.131.0
