@@ -1006,7 +1006,10 @@ type OSUpdateRun struct {
 	Description *string `json:"description,omitempty"`
 
 	// EndTime UTC timestamp of OS Update ended.
-	EndTime *uint32 `json:"endTime,omitempty"`
+	EndTime *time.Time `json:"endTime,omitempty"`
+
+	// Instance InstanceResource describes an instantiated OS install, running on either a host or hypervisor.
+	Instance *InstanceResource `json:"instance,omitempty"`
 
 	// Name Human-readable name.
 	Name *string `json:"name,omitempty"`
@@ -1015,7 +1018,7 @@ type OSUpdateRun struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// StartTime UTC timestamp of OS Update started.
-	StartTime *uint32 `json:"startTime,omitempty"`
+	StartTime *time.Time `json:"startTime,omitempty"`
 
 	// Status Short message that describes what happened during the OS Update.
 	Status *string `json:"status,omitempty"`
@@ -1027,7 +1030,7 @@ type OSUpdateRun struct {
 	StatusIndicator *OSUpdateRunStatusIndicator `json:"statusIndicator,omitempty"`
 
 	// StatusTimestamp UTC timestamp of OS Update status reported.
-	StatusTimestamp *uint32     `json:"statusTimestamp,omitempty"`
+	StatusTimestamp *time.Time  `json:"statusTimestamp,omitempty"`
 	Timestamps      *Timestamps `json:"timestamps,omitempty"`
 }
 

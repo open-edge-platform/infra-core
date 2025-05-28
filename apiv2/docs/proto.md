@@ -924,12 +924,13 @@ It will be deleted later on before merging to main in git repo.
 | name | [string](#string) |  | Human-readable name. |
 | description | [string](#string) |  | Human-readable description. |
 | applied_policy | [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | Update Policy of this Instance |
+| instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance resource associated with this OS Update. This OS Update Run is executed for this instance. |
 | status_indicator | [StatusIndicator](#resources-compute-v1-StatusIndicator) |  | Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator STATUS_INDICATION_IDLE: Update completed successfully Indicator |
 | status | [string](#string) |  | Short message that describes what happened during the OS Update. |
 | status_details | [string](#string) |  | Details about what happened during the OS Update. |
-| status_timestamp | [uint32](#uint32) |  | UTC timestamp of OS Update status reported. |
-| start_time | [uint32](#uint32) |  | UTC timestamp of OS Update started. |
-| end_time | [uint32](#uint32) |  | UTC timestamp of OS Update ended. |
+| status_timestamp | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update status reported. |
+| start_time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update started. |
+| end_time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update ended. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 

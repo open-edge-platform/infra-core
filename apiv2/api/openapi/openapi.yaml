@@ -4266,6 +4266,8 @@ components:
                     description: Human-readable description.
                 appliedPolicy:
                     $ref: '#/components/schemas/OSUpdatePolicy'
+                instance:
+                    $ref: '#/components/schemas/InstanceResource'
                 statusIndicator:
                     readOnly: true
                     enum:
@@ -4287,19 +4289,19 @@ components:
                     description: Details about what happened during the OS Update.
                 statusTimestamp:
                     readOnly: true
-                    type: integer
+                    type: string
                     description: UTC timestamp of OS Update status reported.
-                    format: uint32
+                    format: date-time
                 startTime:
                     readOnly: true
-                    type: integer
+                    type: string
                     description: UTC timestamp of OS Update started.
-                    format: uint32
+                    format: date-time
                 endTime:
                     readOnly: true
-                    type: integer
+                    type: string
                     description: UTC timestamp of OS Update ended.
-                    format: uint32
+                    format: date-time
                 timestamps:
                     $ref: '#/components/schemas/Timestamps'
         OnboardHostResponse:

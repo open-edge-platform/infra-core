@@ -6,6 +6,7 @@ syntax = "proto3";
 package resources.compute.v1;
 
 import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
 import "resources/common/v1/common.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
@@ -631,34 +632,37 @@ message OSUpdateRun {
   // Update Policy of this Instance
   OSUpdatePolicy applied_policy = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 
+  // The instance resource associated with this OS Update. This OS Update Run is executed for this instance.
+  InstanceResource instance = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+
   // Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run.
   // STATUS_INDICATION_ERROR: Update failed in error Indicator
   // STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator 
   // STATUS_INDICATION_IDLE: Update completed successfully Indicator 
-  StatusIndicator status_indicator = 5 [
+  StatusIndicator status_indicator = 6 [
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 
   // Short message that describes what happened during the OS Update.
-  string status = 6 [
+  string status = 7 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {max_len: 1024}
   ];
 
   // Details about what happened during the OS Update.
-  string status_details = 7 [
+  string status_details = 8 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (validate.rules).string = {max_len: 100000}
   ];
 
   // UTC timestamp of OS Update status reported.
-  uint32 status_timestamp = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp status_timestamp = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // UTC timestamp of OS Update started.
-  uint32 start_time = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp start_time = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // UTC timestamp of OS Update ended.
-  uint32 end_time = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp end_time = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
