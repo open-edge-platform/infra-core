@@ -4980,12 +4980,12 @@ components:
           $ref: '#/components/schemas/OperatingSystemResource'
         desiredOs:
           title: desired_os
-          description: OS resource that should be installed to this Instance.
+          description: Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
           readOnly: true
           $ref: '#/components/schemas/OperatingSystemResource'
         currentOs:
           title: current_os
-          description: OS resource that is currently installed for this Instance.
+          description: Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance.
           readOnly: true
           $ref: '#/components/schemas/OperatingSystemResource'
         securityFeature:
@@ -5044,7 +5044,7 @@ components:
           type: string
           title: update_status_detail
           maxLength: 100000
-          description: JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+          description: Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
           readOnly: true
         trustedAttestationStatus:
           type: string
@@ -5093,6 +5093,20 @@ components:
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
           description: The CVEs that are currently present on the Instance, encoded as a JSON list.
           readOnly: true
+        runtimePackages:
+          type: string
+          title: runtime_packages
+          maxLength: 500000
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          description: The packages available on the Instance at runtime, represented as a JSON list.
+          readOnly: true
+        osUpdateAvailable:
+          type: string
+          title: os_update_available
+          maxLength: 10000
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()"\ \n]+$
+          description: Details about OS Updates available for this Instance. If empty, there are no updates available.
+          readOnly: true
         instanceID:
           type: string
           title: instanceID
@@ -5112,7 +5126,7 @@ components:
           title: osID
           maxLength: 11
           pattern: ^os-[0-9a-f]{8}$
-          description: The unique identifier of OS resource that must be installed on the instance.
+          description: The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time.
           writeOnly: true
         localAccountID:
           type: string
