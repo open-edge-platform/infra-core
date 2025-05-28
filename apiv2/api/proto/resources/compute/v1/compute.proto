@@ -595,8 +595,8 @@ message OSUpdatePolicy {
   string name = 2 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {
-      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
-      max_len: 40
+      pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
+      max_len: 50
     }
   ];
 

@@ -2675,10 +2675,10 @@ func (m *OSUpdatePolicy) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetName()) > 40 {
+	if utf8.RuneCountInString(m.GetName()) > 50 {
 		err := OSUpdatePolicyValidationError{
 			field:  "Name",
-			reason: "value length must be at most 40 runes",
+			reason: "value length must be at most 50 runes",
 		}
 		if !all {
 			return err
@@ -2689,7 +2689,7 @@ func (m *OSUpdatePolicy) validate(all bool) error {
 	if !_OSUpdatePolicy_Name_Pattern.MatchString(m.GetName()) {
 		err := OSUpdatePolicyValidationError{
 			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
+			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
 		}
 		if !all {
 			return err
@@ -2930,7 +2930,7 @@ var _ interface {
 
 var _OSUpdatePolicy_ResourceId_Pattern = regexp.MustCompile("^osupdatepolicy-[0-9a-f]{8}$")
 
-var _OSUpdatePolicy_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
+var _OSUpdatePolicy_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 var _OSUpdatePolicy_Description_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
 
