@@ -5,6 +5,8 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.1
 
+replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1
 	github.com/getkin/kin-openapi v0.131.0
