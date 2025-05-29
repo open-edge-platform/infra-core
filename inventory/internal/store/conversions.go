@@ -822,7 +822,7 @@ func entCustomConfigResourceToProtoCustomConfigResource(
 		ResourceId:  customconfig.ResourceID,
 		Name:        customconfig.Name,
 		Description: customconfig.Description,
-		
+		Config:      customconfig.Config,
 		TenantId:    customconfig.TenantID,
 		CreatedAt:   customconfig.CreatedAt,
 	}

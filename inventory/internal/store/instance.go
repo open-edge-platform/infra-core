@@ -126,12 +126,14 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		if err := setEdgeProviderIDForMut(ctx, tx.Client(), mut, in.GetProvider()); err != nil {
 			return nil, err
 		}
-
 		// Look up the optional LocalAccount ID for this Instance.
 		if err := setEdgeLocalAccountIDForMut(ctx, tx.Client(), mut, in.GetLocalaccount()); err != nil {
 			return nil, err
 		}
-
+		// Look up the optional CustomConfig IDs for this Instance. CustomConfig is M2M relation, so multiple edges could be provided at once
+		if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
+			return nil, err
+		}
 		if err := mut.SetField(instanceresource.FieldResourceID, id); err != nil {
 			return nil, errors.Wrap(err)
 		}
@@ -178,7 +180,8 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		WithDesiredOs().
 		WithCurrentOs().
 		WithProvider().
-		WithLocalaccount()
+		WithLocalaccount().
+		WithCustomConfig()
 	if nestedLoad {
 		query.
 			WithHost(func(q *ent.HostResourceQuery) {
@@ -254,6 +257,15 @@ func (is *InvStore) UpdateInstance(
 					)
 			}
 
+			if isNotValidCustomConfigUpdate(fieldmask, entity) {
+				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+					id, entity.CurrentState, in.GetCustomConfig()).Msgf("UpdateInstance")
+				return nil, booleans.Pointer(false),
+					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s CustomConfig is not allowed %s, currentState: %s",
+						id, in.GetCustomConfig(), entity.CurrentState,
+					)
+			}
+
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
 			// updating an already set O2O edge, we have to clear it before setting it in the mutation.
 			if in.GetHost().GetResourceId() != "" {
@@ -266,7 +278,17 @@ func (is *InvStore) UpdateInstance(
 			}
 
 			updateBuilder := tx.InstanceResource.UpdateOneID(entity.ID)
+
 			mut := updateBuilder.Mutation()
+			
+			if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig {
+				//TODO: Check if this has to be done outside the if condition
+				mut.ClearCustomConfig()
+				// Then we add similar to the Create
+				if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
+					return nil, booleans.Pointer(false), err
+				}
+			}
 
 			// Look up the (new) referenced edges for this Instance.
 			err = setRelationsForInstanceMutIfNeeded(ctx, tx.Client(), mut, in, fieldmask)
@@ -590,5 +612,13 @@ func isNotValidLocalAccountUpdate(
 	instanceq *ent.InstanceResource,
 ) bool {
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
+		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
+}
+
+func isNotValidCustomConfigUpdate(
+	fieldmask *fieldmaskpb.FieldMask,
+	instanceq *ent.InstanceResource,
+) bool {
+	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) &&
 		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
 }
