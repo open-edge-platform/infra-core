@@ -10,6 +10,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 )
 
 // CustomConfigResourceCreate is the builder for creating a CustomConfigResource entity.
@@ -31,23 +32,9 @@ func (ccrc *CustomConfigResourceCreate) SetName(s string) *CustomConfigResourceC
 	return ccrc
 }
 
-// SetDescription sets the "description" field.
-func (ccrc *CustomConfigResourceCreate) SetDescription(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetDescription(s)
-	return ccrc
-}
-
-// SetNillableDescription sets the "description" field if the given value is not nil.
-func (ccrc *CustomConfigResourceCreate) SetNillableDescription(s *string) *CustomConfigResourceCreate {
-	if s != nil {
-		ccrc.SetDescription(*s)
-	}
-	return ccrc
-}
-
-// SetConfigData sets the "config_data" field.
-func (ccrc *CustomConfigResourceCreate) SetConfigData(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetConfigData(s)
+// SetConfig sets the "config" field.
+func (ccrc *CustomConfigResourceCreate) SetConfig(s string) *CustomConfigResourceCreate {
+	ccrc.mutation.SetConfig(s)
 	return ccrc
 }
 
@@ -67,6 +54,21 @@ func (ccrc *CustomConfigResourceCreate) SetCreatedAt(s string) *CustomConfigReso
 func (ccrc *CustomConfigResourceCreate) SetUpdatedAt(s string) *CustomConfigResourceCreate {
 	ccrc.mutation.SetUpdatedAt(s)
 	return ccrc
+}
+
+// AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
+func (ccrc *CustomConfigResourceCreate) AddInstanceIDs(ids ...int) *CustomConfigResourceCreate {
+	ccrc.mutation.AddInstanceIDs(ids...)
+	return ccrc
+}
+
+// AddInstances adds the "instances" edges to the InstanceResource entity.
+func (ccrc *CustomConfigResourceCreate) AddInstances(i ...*InstanceResource) *CustomConfigResourceCreate {
+	ids := make([]int, len(i))
+	for j := range i {
+		ids[j] = i[j].ID
+	}
+	return ccrc.AddInstanceIDs(ids...)
 }
 
 // Mutation returns the CustomConfigResourceMutation object of the builder.
@@ -109,8 +111,8 @@ func (ccrc *CustomConfigResourceCreate) check() error {
 	if _, ok := ccrc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "CustomConfigResource.name"`)}
 	}
-	if _, ok := ccrc.mutation.ConfigData(); !ok {
-		return &ValidationError{Name: "config_data", err: errors.New(`ent: missing required field "CustomConfigResource.config_data"`)}
+	if _, ok := ccrc.mutation.Config(); !ok {
+		return &ValidationError{Name: "config", err: errors.New(`ent: missing required field "CustomConfigResource.config"`)}
 	}
 	if _, ok := ccrc.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "CustomConfigResource.tenant_id"`)}
@@ -155,13 +157,9 @@ func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sq
 		_spec.SetField(customconfigresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := ccrc.mutation.Description(); ok {
-		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
-		_node.Description = value
-	}
-	if value, ok := ccrc.mutation.ConfigData(); ok {
-		_spec.SetField(customconfigresource.FieldConfigData, field.TypeString, value)
-		_node.ConfigData = value
+	if value, ok := ccrc.mutation.Config(); ok {
+		_spec.SetField(customconfigresource.FieldConfig, field.TypeString, value)
+		_node.Config = value
 	}
 	if value, ok := ccrc.mutation.TenantID(); ok {
 		_spec.SetField(customconfigresource.FieldTenantID, field.TypeString, value)
@@ -174,6 +172,22 @@ func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sq
 	if value, ok := ccrc.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
+	}
+	if nodes := ccrc.mutation.InstancesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   customconfigresource.InstancesTable,
+			Columns: customconfigresource.InstancesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
 }

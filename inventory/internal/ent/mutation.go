@@ -77,20 +77,22 @@ const (
 // CustomConfigResourceMutation represents an operation that mutates the CustomConfigResource nodes in the graph.
 type CustomConfigResourceMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *int
-	resource_id   *string
-	name          *string
-	description   *string
-	config_data   *string
-	tenant_id     *string
-	created_at    *string
-	updated_at    *string
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*CustomConfigResource, error)
-	predicates    []predicate.CustomConfigResource
+	op               Op
+	typ              string
+	id               *int
+	resource_id      *string
+	name             *string
+	_config          *string
+	tenant_id        *string
+	created_at       *string
+	updated_at       *string
+	clearedFields    map[string]struct{}
+	instances        map[int]struct{}
+	removedinstances map[int]struct{}
+	clearedinstances bool
+	done             bool
+	oldValue         func(context.Context) (*CustomConfigResource, error)
+	predicates       []predicate.CustomConfigResource
 }
 
 var _ ent.Mutation = (*CustomConfigResourceMutation)(nil)
@@ -263,89 +265,40 @@ func (m *CustomConfigResourceMutation) ResetName() {
 	m.name = nil
 }
 
-// SetDescription sets the "description" field.
-func (m *CustomConfigResourceMutation) SetDescription(s string) {
-	m.description = &s
+// SetConfig sets the "config" field.
+func (m *CustomConfigResourceMutation) SetConfig(s string) {
+	m._config = &s
 }
 
-// Description returns the value of the "description" field in the mutation.
-func (m *CustomConfigResourceMutation) Description() (r string, exists bool) {
-	v := m.description
+// Config returns the value of the "config" field in the mutation.
+func (m *CustomConfigResourceMutation) Config() (r string, exists bool) {
+	v := m._config
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldDescription returns the old "description" field's value of the CustomConfigResource entity.
+// OldConfig returns the old "config" field's value of the CustomConfigResource entity.
 // If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *CustomConfigResourceMutation) OldDescription(ctx context.Context) (v string, err error) {
+func (m *CustomConfigResourceMutation) OldConfig(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+		return v, errors.New("OldConfig is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldDescription requires an ID field in the mutation")
+		return v, errors.New("OldConfig requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+		return v, fmt.Errorf("querying old value for OldConfig: %w", err)
 	}
-	return oldValue.Description, nil
+	return oldValue.Config, nil
 }
 
-// ClearDescription clears the value of the "description" field.
-func (m *CustomConfigResourceMutation) ClearDescription() {
-	m.description = nil
-	m.clearedFields[customconfigresource.FieldDescription] = struct{}{}
-}
-
-// DescriptionCleared returns if the "description" field was cleared in this mutation.
-func (m *CustomConfigResourceMutation) DescriptionCleared() bool {
-	_, ok := m.clearedFields[customconfigresource.FieldDescription]
-	return ok
-}
-
-// ResetDescription resets all changes to the "description" field.
-func (m *CustomConfigResourceMutation) ResetDescription() {
-	m.description = nil
-	delete(m.clearedFields, customconfigresource.FieldDescription)
-}
-
-// SetConfigData sets the "config_data" field.
-func (m *CustomConfigResourceMutation) SetConfigData(s string) {
-	m.config_data = &s
-}
-
-// ConfigData returns the value of the "config_data" field in the mutation.
-func (m *CustomConfigResourceMutation) ConfigData() (r string, exists bool) {
-	v := m.config_data
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldConfigData returns the old "config_data" field's value of the CustomConfigResource entity.
-// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *CustomConfigResourceMutation) OldConfigData(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldConfigData is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldConfigData requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldConfigData: %w", err)
-	}
-	return oldValue.ConfigData, nil
-}
-
-// ResetConfigData resets all changes to the "config_data" field.
-func (m *CustomConfigResourceMutation) ResetConfigData() {
-	m.config_data = nil
+// ResetConfig resets all changes to the "config" field.
+func (m *CustomConfigResourceMutation) ResetConfig() {
+	m._config = nil
 }
 
 // SetTenantID sets the "tenant_id" field.
@@ -456,6 +409,60 @@ func (m *CustomConfigResourceMutation) ResetUpdatedAt() {
 	m.updated_at = nil
 }
 
+// AddInstanceIDs adds the "instances" edge to the InstanceResource entity by ids.
+func (m *CustomConfigResourceMutation) AddInstanceIDs(ids ...int) {
+	if m.instances == nil {
+		m.instances = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.instances[ids[i]] = struct{}{}
+	}
+}
+
+// ClearInstances clears the "instances" edge to the InstanceResource entity.
+func (m *CustomConfigResourceMutation) ClearInstances() {
+	m.clearedinstances = true
+}
+
+// InstancesCleared reports if the "instances" edge to the InstanceResource entity was cleared.
+func (m *CustomConfigResourceMutation) InstancesCleared() bool {
+	return m.clearedinstances
+}
+
+// RemoveInstanceIDs removes the "instances" edge to the InstanceResource entity by IDs.
+func (m *CustomConfigResourceMutation) RemoveInstanceIDs(ids ...int) {
+	if m.removedinstances == nil {
+		m.removedinstances = make(map[int]struct{})
+	}
+	for i := range ids {
+		delete(m.instances, ids[i])
+		m.removedinstances[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedInstances returns the removed IDs of the "instances" edge to the InstanceResource entity.
+func (m *CustomConfigResourceMutation) RemovedInstancesIDs() (ids []int) {
+	for id := range m.removedinstances {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// InstancesIDs returns the "instances" edge IDs in the mutation.
+func (m *CustomConfigResourceMutation) InstancesIDs() (ids []int) {
+	for id := range m.instances {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetInstances resets all changes to the "instances" edge.
+func (m *CustomConfigResourceMutation) ResetInstances() {
+	m.instances = nil
+	m.clearedinstances = false
+	m.removedinstances = nil
+}
+
 // Where appends a list predicates to the CustomConfigResourceMutation builder.
 func (m *CustomConfigResourceMutation) Where(ps ...predicate.CustomConfigResource) {
 	m.predicates = append(m.predicates, ps...)
@@ -490,18 +497,15 @@ func (m *CustomConfigResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CustomConfigResourceMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 6)
 	if m.resource_id != nil {
 		fields = append(fields, customconfigresource.FieldResourceID)
 	}
 	if m.name != nil {
 		fields = append(fields, customconfigresource.FieldName)
 	}
-	if m.description != nil {
-		fields = append(fields, customconfigresource.FieldDescription)
-	}
-	if m.config_data != nil {
-		fields = append(fields, customconfigresource.FieldConfigData)
+	if m._config != nil {
+		fields = append(fields, customconfigresource.FieldConfig)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, customconfigresource.FieldTenantID)
@@ -524,10 +528,8 @@ func (m *CustomConfigResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.ResourceID()
 	case customconfigresource.FieldName:
 		return m.Name()
-	case customconfigresource.FieldDescription:
-		return m.Description()
-	case customconfigresource.FieldConfigData:
-		return m.ConfigData()
+	case customconfigresource.FieldConfig:
+		return m.Config()
 	case customconfigresource.FieldTenantID:
 		return m.TenantID()
 	case customconfigresource.FieldCreatedAt:
@@ -547,10 +549,8 @@ func (m *CustomConfigResourceMutation) OldField(ctx context.Context, name string
 		return m.OldResourceID(ctx)
 	case customconfigresource.FieldName:
 		return m.OldName(ctx)
-	case customconfigresource.FieldDescription:
-		return m.OldDescription(ctx)
-	case customconfigresource.FieldConfigData:
-		return m.OldConfigData(ctx)
+	case customconfigresource.FieldConfig:
+		return m.OldConfig(ctx)
 	case customconfigresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case customconfigresource.FieldCreatedAt:
@@ -580,19 +580,12 @@ func (m *CustomConfigResourceMutation) SetField(name string, value ent.Value) er
 		}
 		m.SetName(v)
 		return nil
-	case customconfigresource.FieldDescription:
+	case customconfigresource.FieldConfig:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetDescription(v)
-		return nil
-	case customconfigresource.FieldConfigData:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetConfigData(v)
+		m.SetConfig(v)
 		return nil
 	case customconfigresource.FieldTenantID:
 		v, ok := value.(string)
@@ -644,11 +637,7 @@ func (m *CustomConfigResourceMutation) AddField(name string, value ent.Value) er
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *CustomConfigResourceMutation) ClearedFields() []string {
-	var fields []string
-	if m.FieldCleared(customconfigresource.FieldDescription) {
-		fields = append(fields, customconfigresource.FieldDescription)
-	}
-	return fields
+	return nil
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -661,11 +650,6 @@ func (m *CustomConfigResourceMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *CustomConfigResourceMutation) ClearField(name string) error {
-	switch name {
-	case customconfigresource.FieldDescription:
-		m.ClearDescription()
-		return nil
-	}
 	return fmt.Errorf("unknown CustomConfigResource nullable field %s", name)
 }
 
@@ -679,11 +663,8 @@ func (m *CustomConfigResourceMutation) ResetField(name string) error {
 	case customconfigresource.FieldName:
 		m.ResetName()
 		return nil
-	case customconfigresource.FieldDescription:
-		m.ResetDescription()
-		return nil
-	case customconfigresource.FieldConfigData:
-		m.ResetConfigData()
+	case customconfigresource.FieldConfig:
+		m.ResetConfig()
 		return nil
 	case customconfigresource.FieldTenantID:
 		m.ResetTenantID()
@@ -700,49 +681,85 @@ func (m *CustomConfigResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *CustomConfigResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 0)
+	edges := make([]string, 0, 1)
+	if m.instances != nil {
+		edges = append(edges, customconfigresource.EdgeInstances)
+	}
 	return edges
 }
 
 // AddedIDs returns all IDs (to other nodes) that were added for the given edge
 // name in this mutation.
 func (m *CustomConfigResourceMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		ids := make([]ent.Value, 0, len(m.instances))
+		for id := range m.instances {
+			ids = append(ids, id)
+		}
+		return ids
+	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *CustomConfigResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 0)
+	edges := make([]string, 0, 1)
+	if m.removedinstances != nil {
+		edges = append(edges, customconfigresource.EdgeInstances)
+	}
 	return edges
 }
 
 // RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
 // the given name in this mutation.
 func (m *CustomConfigResourceMutation) RemovedIDs(name string) []ent.Value {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		ids := make([]ent.Value, 0, len(m.removedinstances))
+		for id := range m.removedinstances {
+			ids = append(ids, id)
+		}
+		return ids
+	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *CustomConfigResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 0)
+	edges := make([]string, 0, 1)
+	if m.clearedinstances {
+		edges = append(edges, customconfigresource.EdgeInstances)
+	}
 	return edges
 }
 
 // EdgeCleared returns a boolean which indicates if the edge with the given name
 // was cleared in this mutation.
 func (m *CustomConfigResourceMutation) EdgeCleared(name string) bool {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		return m.clearedinstances
+	}
 	return false
 }
 
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
 func (m *CustomConfigResourceMutation) ClearEdge(name string) error {
+	switch name {
+	}
 	return fmt.Errorf("unknown CustomConfigResource unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
 func (m *CustomConfigResourceMutation) ResetEdge(name string) error {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		m.ResetInstances()
+		return nil
+	}
 	return fmt.Errorf("unknown CustomConfigResource edge %s", name)
 }
 
@@ -12288,7 +12305,8 @@ type InstanceResourceMutation struct {
 	clearedprovider                         bool
 	localaccount                            *int
 	clearedlocalaccount                     bool
-	custom_config                           *int
+	custom_config                           map[int]struct{}
+	removedcustom_config                    map[int]struct{}
 	clearedcustom_config                    bool
 	done                                    bool
 	oldValue                                func(context.Context) (*InstanceResource, error)
@@ -14011,9 +14029,14 @@ func (m *InstanceResourceMutation) ResetLocalaccount() {
 	m.clearedlocalaccount = false
 }
 
-// SetCustomConfigID sets the "custom_config" edge to the CustomConfigResource entity by id.
-func (m *InstanceResourceMutation) SetCustomConfigID(id int) {
-	m.custom_config = &id
+// AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by ids.
+func (m *InstanceResourceMutation) AddCustomConfigIDs(ids ...int) {
+	if m.custom_config == nil {
+		m.custom_config = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.custom_config[ids[i]] = struct{}{}
+	}
 }
 
 // ClearCustomConfig clears the "custom_config" edge to the CustomConfigResource entity.
@@ -14026,20 +14049,29 @@ func (m *InstanceResourceMutation) CustomConfigCleared() bool {
 	return m.clearedcustom_config
 }
 
-// CustomConfigID returns the "custom_config" edge ID in the mutation.
-func (m *InstanceResourceMutation) CustomConfigID() (id int, exists bool) {
-	if m.custom_config != nil {
-		return *m.custom_config, true
+// RemoveCustomConfigIDs removes the "custom_config" edge to the CustomConfigResource entity by IDs.
+func (m *InstanceResourceMutation) RemoveCustomConfigIDs(ids ...int) {
+	if m.removedcustom_config == nil {
+		m.removedcustom_config = make(map[int]struct{})
+	}
+	for i := range ids {
+		delete(m.custom_config, ids[i])
+		m.removedcustom_config[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedCustomConfig returns the removed IDs of the "custom_config" edge to the CustomConfigResource entity.
+func (m *InstanceResourceMutation) RemovedCustomConfigIDs() (ids []int) {
+	for id := range m.removedcustom_config {
+		ids = append(ids, id)
 	}
 	return
 }
 
 // CustomConfigIDs returns the "custom_config" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// CustomConfigID instead. It exists only for internal usage by the builders.
 func (m *InstanceResourceMutation) CustomConfigIDs() (ids []int) {
-	if id := m.custom_config; id != nil {
-		ids = append(ids, *id)
+	for id := range m.custom_config {
+		ids = append(ids, id)
 	}
 	return
 }
@@ -14048,6 +14080,7 @@ func (m *InstanceResourceMutation) CustomConfigIDs() (ids []int) {
 func (m *InstanceResourceMutation) ResetCustomConfig() {
 	m.custom_config = nil
 	m.clearedcustom_config = false
+	m.removedcustom_config = nil
 }
 
 // Where appends a list predicates to the InstanceResourceMutation builder.
@@ -14886,9 +14919,11 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 			return []ent.Value{*id}
 		}
 	case instanceresource.EdgeCustomConfig:
-		if id := m.custom_config; id != nil {
-			return []ent.Value{*id}
+		ids := make([]ent.Value, 0, len(m.custom_config))
+		for id := range m.custom_config {
+			ids = append(ids, id)
 		}
+		return ids
 	}
 	return nil
 }
@@ -14898,6 +14933,9 @@ func (m *InstanceResourceMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 7)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
+	}
+	if m.removedcustom_config != nil {
+		edges = append(edges, instanceresource.EdgeCustomConfig)
 	}
 	return edges
 }
@@ -14909,6 +14947,12 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 	case instanceresource.EdgeWorkloadMembers:
 		ids := make([]ent.Value, 0, len(m.removedworkload_members))
 		for id := range m.removedworkload_members {
+			ids = append(ids, id)
+		}
+		return ids
+	case instanceresource.EdgeCustomConfig:
+		ids := make([]ent.Value, 0, len(m.removedcustom_config))
+		for id := range m.removedcustom_config {
 			ids = append(ids, id)
 		}
 		return ids
@@ -14983,9 +15027,6 @@ func (m *InstanceResourceMutation) ClearEdge(name string) error {
 		return nil
 	case instanceresource.EdgeLocalaccount:
 		m.ClearLocalaccount()
-		return nil
-	case instanceresource.EdgeCustomConfig:
-		m.ClearCustomConfig()
 		return nil
 	}
 	return fmt.Errorf("unknown InstanceResource unique edge %s", name)

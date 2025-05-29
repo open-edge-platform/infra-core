@@ -7,7 +7,6 @@ package inventory.v1;
 
 import "buf/validate/validate.proto";
 import "compute/v1/compute.proto";
-import "customconfig/v1/customconfig.proto";
 import "google/protobuf/field_mask.proto";
 import "localaccount/v1/localaccount.proto";
 import "location/v1/location.proto";
@@ -230,7 +229,7 @@ message Resource {
 
     remoteaccess.v1.RemoteAccessConfiguration remote_access = 150;
     localaccount.v1.LocalAccountResource local_account = 170;
-    customconfig.v1.CustomConfigResource custom_config = 171;
+    compute.v1.CustomConfigResource custom_config = 171;
   }
 }
 

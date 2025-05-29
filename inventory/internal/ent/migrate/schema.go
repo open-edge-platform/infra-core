@@ -14,8 +14,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "name", Type: field.TypeString},
-		{Name: "description", Type: field.TypeString, Nullable: true},
-		{Name: "config_data", Type: field.TypeString},
+		{Name: "config", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -29,12 +28,12 @@ var (
 			{
 				Name:    "customconfigresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[5]},
+				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[4]},
 			},
 			{
 				Name:    "customconfigresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{CustomConfigResourcesColumns[5]},
+				Columns: []*schema.Column{CustomConfigResourcesColumns[4]},
 			},
 		},
 	}
@@ -402,7 +401,6 @@ var (
 		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
-		{Name: "instance_resource_custom_config", Type: field.TypeInt, Nullable: true},
 	}
 	// InstanceResourcesTable holds the schema information for the "instance_resources" table.
 	InstanceResourcesTable = &schema.Table{
@@ -432,12 +430,6 @@ var (
 				Symbol:     "instance_resources_local_account_resources_localaccount",
 				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:     "instance_resources_custom_config_resources_custom_config",
-				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
-				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -1053,6 +1045,31 @@ var (
 			},
 		},
 	}
+	// CustomConfigResourceInstancesColumns holds the columns for the "custom_config_resource_instances" table.
+	CustomConfigResourceInstancesColumns = []*schema.Column{
+		{Name: "custom_config_resource_id", Type: field.TypeInt},
+		{Name: "instance_resource_id", Type: field.TypeInt},
+	}
+	// CustomConfigResourceInstancesTable holds the schema information for the "custom_config_resource_instances" table.
+	CustomConfigResourceInstancesTable = &schema.Table{
+		Name:       "custom_config_resource_instances",
+		Columns:    CustomConfigResourceInstancesColumns,
+		PrimaryKey: []*schema.Column{CustomConfigResourceInstancesColumns[0], CustomConfigResourceInstancesColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "custom_config_resource_instances_custom_config_resource_id",
+				Columns:    []*schema.Column{CustomConfigResourceInstancesColumns[0]},
+				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "custom_config_resource_instances_instance_resource_id",
+				Columns:    []*schema.Column{CustomConfigResourceInstancesColumns[1]},
+				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		CustomConfigResourcesTable,
@@ -1080,6 +1097,7 @@ var (
 		TenantsTable,
 		WorkloadMembersTable,
 		WorkloadResourcesTable,
+		CustomConfigResourceInstancesTable,
 	}
 )
 
@@ -1097,7 +1115,6 @@ func init() {
 	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
 	InstanceResourcesTable.ForeignKeys[2].RefTable = ProviderResourcesTable
 	InstanceResourcesTable.ForeignKeys[3].RefTable = LocalAccountResourcesTable
-	InstanceResourcesTable.ForeignKeys[4].RefTable = CustomConfigResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable
@@ -1121,4 +1138,6 @@ func init() {
 	TelemetryProfilesTable.ForeignKeys[3].RefTable = TelemetryGroupResourcesTable
 	WorkloadMembersTable.ForeignKeys[0].RefTable = WorkloadResourcesTable
 	WorkloadMembersTable.ForeignKeys[1].RefTable = InstanceResourcesTable
+	CustomConfigResourceInstancesTable.ForeignKeys[0].RefTable = CustomConfigResourcesTable
+	CustomConfigResourceInstancesTable.ForeignKeys[1].RefTable = InstanceResourcesTable
 }

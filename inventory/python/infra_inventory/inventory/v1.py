@@ -8,7 +8,6 @@ import betterproto
 import grpclib
 
 from .compute import v1
-from .customconfig import v1
 from .google import protobuf
 from .localaccount import v1
 from .location import v1
