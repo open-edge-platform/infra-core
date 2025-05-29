@@ -51,25 +51,25 @@ service RegionService {
   }
   // Get a specific region.
   rpc GetRegion(GetRegionRequest) returns (resources.location.v1.RegionResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/regions/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"};
   }
   // Update a region.
   rpc UpdateRegion(UpdateRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/regions/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"
       body: "region"
     };
   }
   // Patch a region.
   rpc PatchRegion(PatchRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/regions/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"
       body: "region"
     };
   }  
   // Delete a region.
   rpc DeleteRegion(DeleteRegionRequest) returns (DeleteRegionResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/regions/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"};
   }
 }
 
@@ -88,25 +88,25 @@ service SiteService {
   }
   // Get a specific site.
   rpc GetSite(GetSiteRequest) returns (resources.location.v1.SiteResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/sites/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"};
   }
   // Update a site.
   rpc UpdateSite(UpdateSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/sites/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
       body: "site"
     };
   }
   // Patch a site.
   rpc PatchSite(PatchSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/sites/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
       body: "site"
     };
   }  
   // Delete a site.
   rpc DeleteSite(DeleteSiteRequest) returns (DeleteSiteResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/sites/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"};
   }
 }
 
@@ -137,29 +137,29 @@ service HostService {
   }
   // Get a specific host.
   rpc GetHost(GetHostRequest) returns (resources.compute.v1.HostResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"};
   }
   // Update a host.
   rpc UpdateHost(UpdateHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"
       body: "host"
     };
   }
   // Patch a host.
   rpc PatchHost(PatchHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"
       body: "host"
     };
   }  
   // Delete a host.
   rpc DeleteHost(DeleteHostRequest) returns (DeleteHostResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"};
   }
   // Invalidate a host.
   rpc InvalidateHost(InvalidateHostRequest) returns (InvalidateHostResponse) {
-    option (google.api.http) = {put: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/invalidate"};
+    option (google.api.http) = {put: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate"};
   }
   // Register a host.
   rpc RegisterHost(RegisterHostRequest) returns (resources.compute.v1.HostResource) {
@@ -171,13 +171,13 @@ service HostService {
   // Update a host registration.
   rpc PatchRegisterHost(RegisterHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/register"
+      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register"
       body: "host"
     };
   }
   // Onboard a host.
   rpc OnboardHost(OnboardHostRequest) returns (OnboardHostResponse) {
-    option (google.api.http) = {patch: "/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/onboard"};
+    option (google.api.http) = {patch: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard"};
   }
 }
 
@@ -196,29 +196,29 @@ service InstanceService {
   }
   // Get a specific instance.
   rpc GetInstance(GetInstanceRequest) returns (resources.compute.v1.InstanceResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"};
   }
   // Update a instance.
   rpc UpdateInstance(UpdateInstanceRequest) returns (resources.compute.v1.InstanceResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"
       body: "instance"
     };
   }
   // Patch a instance.
   rpc PatchInstance(PatchInstanceRequest) returns (resources.compute.v1.InstanceResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"
       body: "instance"
     };
   }
   // Delete a instance.
   rpc DeleteInstance(DeleteInstanceRequest) returns (DeleteInstanceResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"};
   }
   // Invalidate a instance.
   rpc InvalidateInstance(InvalidateInstanceRequest) returns (InvalidateInstanceResponse) {
-    option (google.api.http) = {put: "/edge-infra.orchestrator.apis/v2/instances/{resource_id}/invalidate"};
+    option (google.api.http) = {put: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate"};
   }
 }
 
@@ -237,25 +237,25 @@ service OperatingSystemService {
   }
   // Get a specific OS.
   rpc GetOperatingSystem(GetOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"};
   }
   // Update an OS.
   rpc UpdateOperatingSystem(UpdateOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
       body: "os"
     };
   }
   // Patch an OS.
   rpc PatchOperatingSystem(PatchOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
       body: "os"
     };
   }
   // Delete an OS.
   rpc DeleteOperatingSystem(DeleteOperatingSystemRequest) returns (DeleteOperatingSystemResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"};
   }
 }
 
@@ -274,11 +274,11 @@ service ProviderService {
   }
   // Get a specific provider.
   rpc GetProvider(GetProviderRequest) returns (resources.provider.v1.ProviderResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/providers/{resourceId}"};
   }
   // Delete a provider.
   rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/providers/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/providers/{resourceId}"};
   }
 }
 
@@ -297,25 +297,25 @@ service WorkloadService {
   }
   // Get a specific workload.
   rpc GetWorkload(GetWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"};
   }
   // Update a workload.
   rpc UpdateWorkload(UpdateWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
       body: "workload"
     };
   }
   // Patch a workload.
   rpc PatchWorkload(PatchWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
       body: "workload"
     };
   }  
   // Delete a workload.
   rpc DeleteWorkload(DeleteWorkloadRequest) returns (DeleteWorkloadResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"};
   }
 }
 
@@ -334,11 +334,11 @@ service WorkloadMemberService {
   }
   // Get a specific workload_member.
   rpc GetWorkloadMember(GetWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"};
   }
   // Delete a workload_member.
   rpc DeleteWorkloadMember(DeleteWorkloadMemberRequest) returns (DeleteWorkloadMemberResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"};
   }
 }
 
@@ -362,25 +362,25 @@ service ScheduleService {
   }
   // Get a specific single_schedule.
   rpc GetSingleSchedule(GetSingleScheduleRequest) returns (resources.schedule.v1.SingleScheduleResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"};
   }
   // Update a single_schedule.
   rpc UpdateSingleSchedule(UpdateSingleScheduleRequest) returns (resources.schedule.v1.SingleScheduleResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
       body: "single_schedule"
     };
   }
   // Patch a single_schedule.
   rpc PatchSingleSchedule(PatchSingleScheduleRequest) returns (resources.schedule.v1.SingleScheduleResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
       body: "single_schedule"
     };
   }
   // Delete a single_schedule.
   rpc DeleteSingleSchedule(DeleteSingleScheduleRequest) returns (DeleteSingleScheduleResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"};
   }
 
   // Create a repeated_schedule.
@@ -396,25 +396,25 @@ service ScheduleService {
   }
   // Get a specific repeated_schedule.
   rpc GetRepeatedSchedule(GetRepeatedScheduleRequest) returns (resources.schedule.v1.RepeatedScheduleResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"};
   }
   // Update a repeated_schedule.
   rpc UpdateRepeatedSchedule(UpdateRepeatedScheduleRequest) returns (resources.schedule.v1.RepeatedScheduleResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
       body: "repeated_schedule"
     };
   }
   // Patch a repeated_schedule.
   rpc PatchRepeatedSchedule(PatchRepeatedScheduleRequest) returns (resources.schedule.v1.RepeatedScheduleResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
       body: "repeated_schedule"
     };
   }
   // Delete a repeated_schedule.
   rpc DeleteRepeatedSchedule(DeleteRepeatedScheduleRequest) returns (DeleteRepeatedScheduleResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"};
   }
 }
 
@@ -433,12 +433,12 @@ service TelemetryLogsGroupService {
   }
   // Get a specific telemetry_logs_group.
   rpc GetTelemetryLogsGroup(GetTelemetryLogsGroupRequest) returns (resources.telemetry.v1.TelemetryLogsGroupResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"};
   }
 
   // Delete a telemetry_logs_group.
   rpc DeleteTelemetryLogsGroup(DeleteTelemetryLogsGroupRequest) returns (DeleteTelemetryLogsGroupResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"};
   }
 }
 
@@ -457,12 +457,12 @@ service TelemetryMetricsGroupService {
   }
   // Get a specific telemetry_metrics_group.
   rpc GetTelemetryMetricsGroup(GetTelemetryMetricsGroupRequest) returns (resources.telemetry.v1.TelemetryMetricsGroupResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"};
   }
 
   // Delete a telemetry_metrics_group.
   rpc DeleteTelemetryMetricsGroup(DeleteTelemetryMetricsGroupRequest) returns (DeleteTelemetryMetricsGroupResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"};
   }
 }
 
@@ -481,25 +481,25 @@ service TelemetryLogsProfileService {
   }
   // Get a specific telemetry_logs_profile.
   rpc GetTelemetryLogsProfile(GetTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"};
   }
   // Update a telemetry_logs_profile.
   rpc UpdateTelemetryLogsProfile(UpdateTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"
       body: "telemetry_logs_profile"
     };
   }
   // Patch a telemetry_logs_profile.
   rpc PatchTelemetryLogsProfile(PatchTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"
       body: "telemetry_logs_profile"
     };
   }
   // Delete a telemetry_logs_profile.
   rpc DeleteTelemetryLogsProfile(DeleteTelemetryLogsProfileRequest) returns (DeleteTelemetryLogsProfileResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"};
   }
 }
 
@@ -518,25 +518,25 @@ service TelemetryMetricsProfileService {
   }
   // Get a specific telemetry_metrics_profile.
   rpc GetTelemetryMetricsProfile(GetTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"};
   }
   // Update a telemetry_metrics_profile.
   rpc UpdateTelemetryMetricsProfile(UpdateTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"
+      put: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"
       body: "telemetry_metrics_profile"
     };
   }
   // Patch a telemetry_metrics_profile.
   rpc PatchTelemetryMetricsProfile(PatchTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"
+      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"
       body: "telemetry_metrics_profile"
     };
   }
   // Delete a telemetry_metrics_profile.
   rpc DeleteTelemetryMetricsProfile(DeleteTelemetryMetricsProfileRequest) returns (DeleteTelemetryMetricsProfileResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"};
   }
 }
 
@@ -555,11 +555,11 @@ service LocalAccountService {
   }
   // Get a specific provider.
   rpc GetLocalAccount(GetLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"};
   }
   // Delete a provider.
   rpc DeleteLocalAccount(DeleteLocalAccountRequest) returns (DeleteLocalAccountResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"};
   }
 }
 
@@ -584,7 +584,7 @@ message CreateRegionResponse {
 // Request message for the GetRegion method.
 message GetRegionRequest {
   // Name of the requested region.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetRegion method.
@@ -648,7 +648,7 @@ message ListRegionsResponse {
 // Request message for the UpdateRegion method.
 message UpdateRegionRequest {
   // Name of the region region to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
   resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -656,7 +656,7 @@ message UpdateRegionRequest {
 // Request message for the PatchRegion method.
 message PatchRegionRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
   resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of region.
@@ -666,7 +666,7 @@ message PatchRegionRequest {
 // Request message for DeleteRegion.
 message DeleteRegionRequest {
   // Name of the region region to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteRegion.
@@ -693,7 +693,7 @@ message CreateSiteResponse {
 // Request message for the GetSite method.
 message GetSiteRequest {
   // Name of the requested site.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetSite method.
@@ -754,7 +754,7 @@ message ListSitesResponse {
 // Request message for the UpdateSite method.
 message UpdateSiteRequest {
   // Name of the site site to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the site.
   resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -762,7 +762,7 @@ message UpdateSiteRequest {
 // Request message for the PatchSite method.
 message PatchSiteRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the site.
   resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of site.
@@ -772,7 +772,7 @@ message PatchSiteRequest {
 // Request message for DeleteSite.
 message DeleteSiteRequest {
   // Name of the site site to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteSite.
@@ -811,7 +811,7 @@ message ListLocationsResponse {
   // A node in the location tree.
   message LocationNode {
     // The associated node resource ID, generated by inventory on Create.
-    string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+    string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
     // The associated resource ID, of the parent resource of this Location node.
     // In the case of a region, it could be empty or a regionId.
     // In the case of a site, it could be empty or a regionId.
@@ -876,7 +876,7 @@ message CreateHostResponse {
 // Request message for the GetHost method.
 message GetHostRequest {
   // Name of the requested host.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetHost method.
@@ -937,7 +937,7 @@ message ListHostsResponse {
 // Request message for the UpdateHost method.
 message UpdateHostRequest {
   // Name of the host host to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the host.
   resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -945,7 +945,7 @@ message UpdateHostRequest {
 // Request message for the PatchHost method.
 message PatchHostRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the host.
   resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of host.
@@ -955,7 +955,7 @@ message PatchHostRequest {
 // Request message for DeleteHost.
 message DeleteHostRequest {
   // Name of the host host to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Reponse message for DeleteHost.
@@ -963,7 +963,7 @@ message DeleteHostResponse {}
 
 // Request to invalidate/untrust a Host.
 message InvalidateHostRequest {
-  string resource_id = 1 [(buf.validate.field).string = {
+  string resourceId = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
@@ -1003,7 +1003,7 @@ message HostRegister {
 
 // Request to register a Host.
 message RegisterHostRequest {
-  string resource_id = 1 [(buf.validate.field).string = {
+  string resourceId = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }];
@@ -1013,7 +1013,7 @@ message RegisterHostRequest {
 
 // Request to onboard a Host.
 message OnboardHostRequest {
-  string resource_id = 1 [(buf.validate.field).string = {
+  string resourceId = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
@@ -1043,7 +1043,7 @@ message CreateInstanceResponse {
 // Request message for the GetInstance method.
 message GetInstanceRequest {
   // Name of the requested instance.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetInstance method.
@@ -1104,7 +1104,7 @@ message ListInstancesResponse {
 // Request message for the UpdateInstance method.
 message UpdateInstanceRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the instance.
   resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -1112,7 +1112,7 @@ message UpdateInstanceRequest {
 // Request message for the PatchInstance method.
 message PatchInstanceRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the instance.
   resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of instance.
@@ -1122,7 +1122,7 @@ message PatchInstanceRequest {
 // Request message for DeleteInstance.
 message DeleteInstanceRequest {
   // Name of the instance instance to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteInstance.
@@ -1130,7 +1130,7 @@ message DeleteInstanceResponse {}
 
 // Request message for Invalidate Instance.
 message InvalidateInstanceRequest {
-  string resource_id = 1 [(buf.validate.field).string = {
+  string resourceId = 1 [(buf.validate.field).string = {
     pattern: "^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Instance resource ID
@@ -1160,7 +1160,7 @@ message CreateOperatingSystemResponse {
 // Request message for the GetOperatingSystem method.
 message GetOperatingSystemRequest {
   // Name of the requested os.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOperatingSystem method.
@@ -1221,7 +1221,7 @@ message ListOperatingSystemsResponse {
 // Request message for the UpdateOperatingSystem method.
 message UpdateOperatingSystemRequest {
   // Name of the os os to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
   resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -1229,7 +1229,7 @@ message UpdateOperatingSystemRequest {
 // Request message for the PatchOperatingSystem method.
 message PatchOperatingSystemRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
   resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of os.
@@ -1239,7 +1239,7 @@ message PatchOperatingSystemRequest {
 // Request message for DeleteOperatingSystem.
 message DeleteOperatingSystemRequest {
   // Name of the os os to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
@@ -1266,7 +1266,7 @@ message CreateProviderResponse {
 // Request message for the GetProvider method.
 message GetProviderRequest {
   // Name of the requested provider.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetProvider method.
@@ -1327,7 +1327,7 @@ message ListProvidersResponse {
 // Request message for DeleteProvider.
 message DeleteProviderRequest {
   // Name of the provider provider to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteProvider.
@@ -1354,7 +1354,7 @@ message CreateWorkloadResponse {
 // Request message for the GetWorkload method.
 message GetWorkloadRequest {
   // Name of the requested workload.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetWorkload method.
@@ -1415,7 +1415,7 @@ message ListWorkloadsResponse {
 // Request message for the UpdateWorkload method.
 message UpdateWorkloadRequest {
   // Name of the workload workload to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the workload.
   resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -1423,7 +1423,7 @@ message UpdateWorkloadRequest {
 // Request message for the PatchWorkload method.
 message PatchWorkloadRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the workload.
   resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of workload.
@@ -1433,7 +1433,7 @@ message PatchWorkloadRequest {
 // Request message for DeleteWorkload.
 message DeleteWorkloadRequest {
   // Name of the workload workload to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteWorkload.
@@ -1460,7 +1460,7 @@ message CreateWorkloadMemberResponse {
 // Request message for the GetWorkloadMember method.
 message GetWorkloadMemberRequest {
   // Name of the requested workload_member.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetWorkloadMember method.
@@ -1521,7 +1521,7 @@ message ListWorkloadMembersResponse {
 // Request message for DeleteWorkloadMember.
 message DeleteWorkloadMemberRequest {
   // Name of the workload_member workload_member to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteWorkloadMember.
@@ -1626,7 +1626,7 @@ message CreateSingleScheduleResponse {
 // Request message for the GetSingleSchedule method.
 message GetSingleScheduleRequest {
   // Name of the requested single_schedule.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetSingleSchedule method.
@@ -1708,7 +1708,7 @@ message ListSingleSchedulesResponse {
 // Request message for the UpdateSingleSchedule method.
 message UpdateSingleScheduleRequest {
   // Name of the single_schedule single_schedule to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the single_schedule.
   resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -1716,7 +1716,7 @@ message UpdateSingleScheduleRequest {
 // Request message for the PatchSingleSchedule method.
 message PatchSingleScheduleRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the single_schedule.
   resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of single_schedule.
@@ -1726,7 +1726,7 @@ message PatchSingleScheduleRequest {
 // Request message for DeleteSingleSchedule.
 message DeleteSingleScheduleRequest {
   // Name of the single_schedule single_schedule to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteSingleSchedule.
@@ -1753,7 +1753,7 @@ message CreateRepeatedScheduleResponse {
 // Request message for the GetRepeatedSchedule method.
 message GetRepeatedScheduleRequest {
   // Name of the requested repeated_schedule.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetRepeatedSchedule method.
@@ -1835,7 +1835,7 @@ message ListRepeatedSchedulesResponse {
 // Request message for the UpdateRepeatedSchedule method.
 message UpdateRepeatedScheduleRequest {
   // Name of the repeated_schedule repeated_schedule to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the repeated_schedule.
   resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -1843,7 +1843,7 @@ message UpdateRepeatedScheduleRequest {
 // Request message for the PatchRepeatedSchedule method.
 message PatchRepeatedScheduleRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the repeated_schedule.
   resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of repeated_schedule.
@@ -1853,7 +1853,7 @@ message PatchRepeatedScheduleRequest {
 // Request message for DeleteRepeatedSchedule.
 message DeleteRepeatedScheduleRequest {
   // Name of the repeated_schedule repeated_schedule to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteRepeatedSchedule.
@@ -1880,7 +1880,7 @@ message CreateTelemetryLogsGroupResponse {
 // Request message for the GetTelemetryLogsGroup method.
 message GetTelemetryLogsGroupRequest {
   // Name of the requested telemetry_logs_group.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryLogsGroup method.
@@ -1932,7 +1932,7 @@ message ListTelemetryLogsGroupsResponse {
 // Request message for DeleteTelemetryLogsGroup.
 message DeleteTelemetryLogsGroupRequest {
   // Name of the telemetry_logs_group telemetry_logs_group to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryLogsGroup.
@@ -1959,7 +1959,7 @@ message CreateTelemetryMetricsGroupResponse {
 // Request message for the GetTelemetryMetricsGroup method.
 message GetTelemetryMetricsGroupRequest {
   // Name of the requested telemetry_metrics_group.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryMetricsGroup method.
@@ -2011,7 +2011,7 @@ message ListTelemetryMetricsGroupsResponse {
 // Request message for DeleteTelemetryMetricsGroup.
 message DeleteTelemetryMetricsGroupRequest {
   // Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryMetricsGroup.
@@ -2038,7 +2038,7 @@ message CreateTelemetryLogsProfileResponse {
 // Request message for the GetTelemetryLogsProfile method.
 message GetTelemetryLogsProfileRequest {
   // Name of the requested telemetry_logs_profile.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryLogsProfile method.
@@ -2119,7 +2119,7 @@ message ListTelemetryLogsProfilesResponse {
 // Request message for the UpdateTelemetryLogsProfile method.
 message UpdateTelemetryLogsProfileRequest {
   // Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_logs_profile.
   resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -2127,7 +2127,7 @@ message UpdateTelemetryLogsProfileRequest {
 // Request message for the PatchTelemetryLogs method.
 message PatchTelemetryLogsProfileRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_logs_profile.
   resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of telemetry_logs_profile.
@@ -2137,7 +2137,7 @@ message PatchTelemetryLogsProfileRequest {
 // Request message for DeleteTelemetryLogsProfile.
 message DeleteTelemetryLogsProfileRequest {
   // Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryLogsProfile.
@@ -2164,7 +2164,7 @@ message CreateTelemetryMetricsProfileResponse {
 // Request message for the GetTelemetryMetricsProfile method.
 message GetTelemetryMetricsProfileRequest {
   // Name of the requested telemetry_metrics_profile.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryMetricsProfile method.
@@ -2245,7 +2245,7 @@ message ListTelemetryMetricsProfilesResponse {
 // Request message for the UpdateTelemetryMetricsProfile method.
 message UpdateTelemetryMetricsProfileRequest {
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_metrics_profile.
   resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -2253,7 +2253,7 @@ message UpdateTelemetryMetricsProfileRequest {
 // Request message for the PatchTelemetryMetricsProfile method.
 message PatchTelemetryMetricsProfileRequest {
   // ID of the resource to be updated.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_metrics_profile.
   resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of telemetry_metrics_profile.
@@ -2263,7 +2263,7 @@ message PatchTelemetryMetricsProfileRequest {
 // Request message for DeleteTelemetryMetricsProfile.
 message DeleteTelemetryMetricsProfileRequest {
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryMetricsProfile.
@@ -2292,7 +2292,7 @@ message CreateLocalAccountResponse {
 // Request message for the GetLocalAccount method.
 message GetLocalAccountRequest {
   // Name of the requested localaccount.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetLocalAccount method.
@@ -2353,7 +2353,7 @@ message ListLocalAccountsResponse {
 // Request message for DeleteLocalAccount.
 message DeleteLocalAccountRequest {
   // Name of the localaccount to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteLocalAccount.
