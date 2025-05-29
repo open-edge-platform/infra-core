@@ -841,9 +841,9 @@ paths:
     patch:
       tags:
         - HostService
-      summary: RegisterUpdateHost
-      description: Update a host register.
-      operationId: HostService_RegisterUpdateHost
+      summary: PatchRegisterHost
+      description: Update a host registration.
+      operationId: HostService_PatchRegisterHost
       parameters:
         - name: resource_id
           in: path
@@ -3730,6 +3730,9 @@ components:
   schemas:
     google.protobuf.Timestamp:
       type: string
+      examples:
+        - 1s
+        - 1.000340012s
       format: date-time
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
