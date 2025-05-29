@@ -280,8 +280,8 @@ func (is *InvStore) UpdateInstance(
 			updateBuilder := tx.InstanceResource.UpdateOneID(entity.ID)
 
 			mut := updateBuilder.Mutation()
-			
-			if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig {
+
+			if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
 				//TODO: Check if this has to be done outside the if condition
 				mut.ClearCustomConfig()
 				// Then we add similar to the Create
