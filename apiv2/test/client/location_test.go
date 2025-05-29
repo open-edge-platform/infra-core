@@ -9,25 +9,28 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func setupRegionHierarchy(
-	t *testing.T,
 	ctx context.Context,
+	t *testing.T,
 	apiClient *api.ClientWithResponses,
-) (*api.RegionResource, *api.RegionResource, *api.RegionResource) {
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+) (reg1, reg2, reg3 *api.RegionResource) {
+	t.Helper()
+
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	utils.Region2Request.ParentId = r1.JSON200.ResourceId
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 	utils.Region2Request.ParentId = nil
 
 	utils.Region3Request.ParentId = r2.JSON200.ResourceId
-	r3 := CreateRegion(t, ctx, apiClient, utils.Region3Request)
+	r3 := CreateRegion(ctx, t, apiClient, utils.Region3Request)
 	utils.Region3Request.ParentId = nil
 
 	return r1.JSON200, r2.JSON200, r3.JSON200
@@ -41,15 +44,19 @@ func TestLocation_Metadata(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, utils.Region1RequestMetadataNOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	region, err := apiClient.RegionServiceCreateRegionWithResponse(
+		ctx, utils.Region1RequestMetadataNOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	require.NotNil(t, region)
 	assert.Equal(t, http.StatusBadRequest, region.StatusCode())
-	require.NoError(t, err)
 
-	region, err = apiClient.RegionServiceCreateRegionWithResponse(ctx, utils.Region1RequestMetadataOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	region, err = apiClient.RegionServiceCreateRegionWithResponse(
+		ctx, utils.Region1RequestMetadataOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	require.NotNil(t, region)
 	assert.Equal(t, http.StatusOK, region.StatusCode())
-	require.NoError(t, err)
 
-	t.Cleanup(func() { DeleteRegion(t, context.Background(), apiClient, *region.JSON200.ResourceId) })
+	t.Cleanup(func() { DeleteRegion(context.Background(), t, apiClient, *region.JSON200.ResourceId) })
 }
 
 func TestLocation_MetadataInheritance(t *testing.T) {
@@ -60,38 +67,42 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1, r2, r3 := setupRegionHierarchy(t, ctx, apiClient)
+	r1, r2, r3 := setupRegionHierarchy(ctx, t, apiClient)
 
 	utils.Site1Request.RegionId = r3.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site1Request.RegionId = nil
 
 	utils.Site2Request.RegionId = r2.ResourceId
-	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 	utils.Site2Request.RegionId = nil
 
-	getr1, err := apiClient.RegionServiceGetRegionWithResponse(ctx, *r1.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	getr1, err := apiClient.RegionServiceGetRegionWithResponse(
+		ctx, *r1.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr1.StatusCode())
 	assert.Empty(t, getr1.JSON200.ParentRegion.ResourceId)
 	assert.Equal(t, utils.MetadataR1, *getr1.JSON200.Metadata)
 	assert.Equal(t, []api.MetadataItem{}, *getr1.JSON200.InheritedMetadata)
 
-	getr2, err := apiClient.RegionServiceGetRegionWithResponse(ctx, *r2.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	getr2, err := apiClient.RegionServiceGetRegionWithResponse(
+		ctx, *r2.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr2.StatusCode())
 	assert.Equal(t, *r1.ResourceId, *getr2.JSON200.ParentRegion.ResourceId)
 	assert.Equal(t, utils.MetadataR2, *getr2.JSON200.Metadata)
 	assert.Equal(t, []api.MetadataItem{}, *getr2.JSON200.InheritedMetadata)
 
-	getr3, err := apiClient.RegionServiceGetRegionWithResponse(ctx, *r3.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	getr3, err := apiClient.RegionServiceGetRegionWithResponse(
+		ctx, *r3.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr3.StatusCode())
 	assert.Equal(t, *r2.ResourceId, *getr3.JSON200.ParentId)
 	assert.Equal(t, utils.MetadataR3, *getr3.JSON200.Metadata)
 	assert.Equal(t, utils.MetadataR3Inherited, *getr3.JSON200.InheritedMetadata)
 
-	gets1, err := apiClient.SiteServiceGetSiteWithResponse(ctx, *s1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	gets1, err := apiClient.SiteServiceGetSiteWithResponse(
+		ctx, *s1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, gets1.StatusCode())
 	assert.Equal(t, *r3.ResourceId, *gets1.JSON200.Region.ResourceId)
@@ -105,7 +116,8 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 		ListMetadataContains(*gets1.JSON200.InheritedMetadata, "examplekey", "r3"),
 	)
 
-	gets2, err := apiClient.SiteServiceGetSiteWithResponse(ctx, *s2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	gets2, err := apiClient.SiteServiceGetSiteWithResponse(
+		ctx, *s2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, gets2.StatusCode())
 	assert.Equal(t, *r2.ResourceId, *gets2.JSON200.Region.ResourceId)
@@ -124,14 +136,14 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 
 	utils.Site1Request.RegionId = nil
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Site2Request.RegionId = nil
-	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 
 	sites1, err := apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
@@ -176,10 +188,10 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 	assert.Equal(t, utils.Region2Name, *r2.JSON200.Name)
 
 	region1Get, err := apiClient.RegionServiceGetRegionWithResponse(
@@ -278,14 +290,14 @@ func TestLocation_SiteUpdate(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 	assert.Equal(t, utils.Region2Name, *r2.JSON200.Name)
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	// Updates site using Put, sets Region to r1 regionID and verifies it
 	utils.Site1RequestUpdate.RegionId = r1.JSON200.ResourceId
@@ -502,18 +514,18 @@ func TestRegionList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int = 1
-	var pageSize int = 4
+	pageID := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
-		CreateRegion(t, ctx, apiClient, utils.Region1Request)
+		CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	}
 
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
 		&api.RegionServiceListRegionsParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -521,7 +533,7 @@ func TestRegionList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Regions), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.Regions), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
@@ -551,20 +563,20 @@ func TestLocation_RegionListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	postResp1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	postResp1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	utils.Region2Request.ParentId = postResp1.JSON200.ResourceId
-	CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	CreateRegion(ctx, t, apiClient, utils.Region2Request)
 
 	utils.Region3Request.ParentId = postResp1.JSON200.ResourceId
-	CreateRegion(t, ctx, apiClient, utils.Region3Request)
+	CreateRegion(ctx, t, apiClient, utils.Region3Request)
 
 	// Checks Regions with Parent Region ID
-	filterByParentRegionId := fmt.Sprintf(FilterRegionParentId, *postResp1.JSON200.ResourceId)
+	filterByParentRegionID := fmt.Sprintf(FilterRegionParentID, *postResp1.JSON200.ResourceId)
 	resList, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
 		&api.RegionServiceListRegionsParams{
-			Filter: &filterByParentRegionId,
+			Filter: &filterByParentRegionID,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -628,18 +640,18 @@ func TestLocation_SiteList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int = 1
-	var pageSize int = 4
+	pageID := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
-		CreateSite(t, ctx, apiClient, utils.SiteListRequest)
+		CreateSite(ctx, t, apiClient, utils.SiteListRequest)
 	}
 
 	// Checks if list resources return expected number of entries
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
 		&api.SiteServiceListSitesParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -647,7 +659,7 @@ func TestLocation_SiteList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resSiteList.StatusCode())
-	assert.Equal(t, len(resSiteList.JSON200.Sites), int(pageSize))
+	assert.Equal(t, len(resSiteList.JSON200.Sites), pageSize)
 	assert.Equal(t, true, resSiteList.JSON200.HasNext)
 
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
@@ -669,14 +681,14 @@ func TestLocation_SiteListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	postRespRegion := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	postRespRegion := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
-	CreateSite(t, ctx, apiClient, utils.SiteListRequest1)
+	CreateSite(ctx, t, apiClient, utils.SiteListRequest1)
 
-	CreateSite(t, ctx, apiClient, utils.SiteListRequest2)
+	CreateSite(ctx, t, apiClient, utils.SiteListRequest2)
 
 	utils.SiteListRequest3.RegionId = postRespRegion.JSON200.ResourceId
-	CreateSite(t, ctx, apiClient, utils.SiteListRequest3)
+	CreateSite(ctx, t, apiClient, utils.SiteListRequest3)
 
 	// Checks query to all sites
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
@@ -691,11 +703,11 @@ func TestLocation_SiteListQuery(t *testing.T) {
 	assert.Equal(t, false, resSiteList.JSON200.HasNext)
 
 	// Checks query to sites with region ID
-	filterByRegionId := fmt.Sprintf(FilterSiteRegionId, *postRespRegion.JSON200.ResourceId)
+	filterByRegionID := fmt.Sprintf(FilterSiteRegionID, *postRespRegion.JSON200.ResourceId)
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
 		ctx,
 		&api.SiteServiceListSitesParams{
-			Filter: &filterByRegionId,
+			Filter: &filterByRegionID,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -765,22 +777,22 @@ func TestLocation_Filter(t *testing.T) {
 	require.NoError(t, err)
 
 	// create regions
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Region2Request.ParentId = nil
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 
 	// create sites with region
 	s1req := utils.Site1Request
 	s1req.RegionId = r1.JSON200.ResourceId
 	s1req.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, s1req)
+	s1 := CreateSite(ctx, t, apiClient, s1req)
 
 	s2req := utils.Site2Request
 	s2req.RegionId = r2.JSON200.ResourceId
-	s2 := CreateSite(t, ctx, apiClient, s2req)
+	s2 := CreateSite(ctx, t, apiClient, s2req)
 
 	// filter- site->region->resource-id
-	filter := fmt.Sprintf("region.resourceId=\"%s\"", *r1.JSON200.ResourceId)
+	filter := fmt.Sprintf("region.resourceId=%q", *r1.JSON200.ResourceId)
 	sites1, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
 		&api.SiteServiceListSitesParams{Filter: &filter},
@@ -792,7 +804,7 @@ func TestLocation_Filter(t *testing.T) {
 	assert.Equal(t, *s1.JSON200.Region.ResourceId, *r1.JSON200.ResourceId)
 
 	// filter- site->region->resource-id
-	filter = fmt.Sprintf("region.resourceId=\"%s\"", *r2.JSON200.ResourceId)
+	filter = fmt.Sprintf("region.resourceId=%q", *r2.JSON200.ResourceId)
 	sites2, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
 		&api.SiteServiceListSitesParams{Filter: &filter},
@@ -830,19 +842,19 @@ func TestLocation_FilterSites(t *testing.T) {
 	require.NoError(t, err)
 
 	// create regions
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Region2Request.ParentId = nil
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 
 	// create sites with region
 	s1req := utils.Site1Request
 	s1req.RegionId = r1.JSON200.ResourceId
 	s1req.RegionId = r1.JSON200.ResourceId
-	CreateSite(t, ctx, apiClient, s1req)
+	CreateSite(ctx, t, apiClient, s1req)
 
 	s2req := utils.Site2Request
 	s2req.RegionId = r2.JSON200.ResourceId
-	CreateSite(t, ctx, apiClient, s2req)
+	CreateSite(ctx, t, apiClient, s2req)
 
 	orderByResourceID := "resource_id asc"
 	orderByRegion := "site_resource_region desc, resource_id"
@@ -942,7 +954,7 @@ func TestRegion_Patch(t *testing.T) {
 	require.NoError(t, err)
 
 	// Create a Region
-	region := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	region := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *region.JSON200.Name)
 
 	// Modify fields for patching
@@ -984,9 +996,9 @@ func TestSite_Patch(t *testing.T) {
 	require.NoError(t, err)
 
 	// Create a Site
-	region := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	region := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = region.JSON200.ResourceId
-	site := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	assert.Equal(t, utils.Site1Name, *site.JSON200.Name)
 
 	// Modify fields for patching
