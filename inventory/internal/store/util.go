@@ -12,6 +12,7 @@ import (
 	"github.com/iancoleman/strcase"
 	"google.golang.org/grpc/codes"
 
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	internal_ent "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
@@ -255,7 +256,8 @@ type OrderOption interface {
 		telemetrygroupresource.OrderOption |
 		remoteaccessconfiguration.OrderOption |
 		tenant.OrderOption |
-		localaccountresource.OrderOption
+		localaccountresource.OrderOption |
+		customconfigresource.OrderOption
 }
 
 // GetOrderByOptions takes an AIP-132 compliant orderBy string and returns the
