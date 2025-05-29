@@ -22,6 +22,8 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
+// TODO: handle CVEs related field.
+
 // OpenAPIInstanceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
@@ -166,6 +168,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		WorkloadMembers:    workloadMembers,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 	}
+	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }
