@@ -129,7 +129,7 @@ message OperatingSystemResource {
   string existing_cves = 17 [
     (ent.field) = {
     optional: true
-    immutable: true
+    immutable: false
     },
     (buf.validate.field).string = {
       max_bytes: 20000
@@ -141,7 +141,7 @@ message OperatingSystemResource {
   string existing_cves_url = 18[
     (ent.field) = {
     optional: true
-    immutable: true
+    immutable: false
     },
     (buf.validate.field).string = {
       max_bytes: 500
@@ -153,7 +153,7 @@ message OperatingSystemResource {
   string fixed_cves = 19 [
     (ent.field) = {
     optional: true
-    immutable: true
+    immutable: false
     },
     (buf.validate.field).string = {
       max_bytes: 20000
@@ -165,7 +165,7 @@ message OperatingSystemResource {
   string fixed_cves_url = 20 [
     (ent.field) = {
     optional: true
-    immutable: true
+    immutable: false
     },
     (buf.validate.field).string = {
       max_bytes: 500
