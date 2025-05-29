@@ -2111,7 +2111,7 @@ func NewHostServiceDeleteHostRequest(server string, resourceId string) (*http.Re
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2145,7 +2145,7 @@ func NewHostServiceGetHostRequest(server string, resourceId string) (*http.Reque
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2190,7 +2190,7 @@ func NewHostServicePatchHostRequestWithBody(server string, resourceId string, co
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2237,7 +2237,7 @@ func NewHostServiceUpdateHostRequestWithBody(server string, resourceId string, c
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2273,7 +2273,7 @@ func NewHostServiceInvalidateHostRequest(server string, resourceId string, param
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2329,7 +2329,7 @@ func NewHostServiceOnboardHostRequest(server string, resourceId string) (*http.R
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2374,7 +2374,7 @@ func NewHostServiceRegisterUpdateHostRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2596,7 +2596,7 @@ func NewInstanceServiceDeleteInstanceRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2630,7 +2630,7 @@ func NewInstanceServiceGetInstanceRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2675,7 +2675,7 @@ func NewInstanceServicePatchInstanceRequestWithBody(server string, resourceId st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2722,7 +2722,7 @@ func NewInstanceServiceUpdateInstanceRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2758,7 +2758,7 @@ func NewInstanceServiceInvalidateInstanceRequest(server string, resourceId strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2929,7 +2929,7 @@ func NewLocalAccountServiceDeleteLocalAccountRequest(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2963,7 +2963,7 @@ func NewLocalAccountServiceGetLocalAccountRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3215,7 +3215,7 @@ func NewOperatingSystemServiceDeleteOperatingSystemRequest(server string, resour
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3249,7 +3249,7 @@ func NewOperatingSystemServiceGetOperatingSystemRequest(server string, resourceI
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3294,7 +3294,7 @@ func NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server string,
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3341,7 +3341,7 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3514,7 +3514,7 @@ func NewProviderServiceDeleteProviderRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3548,7 +3548,7 @@ func NewProviderServiceGetProviderRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3735,7 +3735,7 @@ func NewRegionServiceDeleteRegionRequest(server string, resourceId string) (*htt
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3769,7 +3769,7 @@ func NewRegionServiceGetRegionRequest(server string, resourceId string) (*http.R
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3814,7 +3814,7 @@ func NewRegionServicePatchRegionRequestWithBody(server string, resourceId string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3861,7 +3861,7 @@ func NewRegionServiceUpdateRegionRequestWithBody(server string, resourceId strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4195,7 +4195,7 @@ func NewScheduleServiceDeleteRepeatedScheduleRequest(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4229,7 +4229,7 @@ func NewScheduleServiceGetRepeatedScheduleRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4274,7 +4274,7 @@ func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, resou
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4321,7 +4321,7 @@ func NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server string, reso
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4526,7 +4526,7 @@ func NewScheduleServiceDeleteSingleScheduleRequest(server string, resourceId str
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4560,7 +4560,7 @@ func NewScheduleServiceGetSingleScheduleRequest(server string, resourceId string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4605,7 +4605,7 @@ func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, resourc
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4652,7 +4652,7 @@ func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, resour
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4825,7 +4825,7 @@ func NewSiteServiceDeleteSiteRequest(server string, resourceId string) (*http.Re
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4859,7 +4859,7 @@ func NewSiteServiceGetSiteRequest(server string, resourceId string) (*http.Reque
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4904,7 +4904,7 @@ func NewSiteServicePatchSiteRequestWithBody(server string, resourceId string, co
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4951,7 +4951,7 @@ func NewSiteServiceUpdateSiteRequestWithBody(server string, resourceId string, c
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5108,7 +5108,7 @@ func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(server string, 
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5142,7 +5142,7 @@ func NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(server string, res
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5297,7 +5297,7 @@ func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(server st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5331,7 +5331,7 @@ func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(server strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5550,7 +5550,7 @@ func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(server stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5584,7 +5584,7 @@ func NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(server string,
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5629,7 +5629,7 @@ func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(serv
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5676,7 +5676,7 @@ func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(ser
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5897,7 +5897,7 @@ func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(serve
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5931,7 +5931,7 @@ func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(server s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5976,7 +5976,7 @@ func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBod
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6023,7 +6023,7 @@ func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBo
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6196,7 +6196,7 @@ func NewWorkloadMemberServiceDeleteWorkloadMemberRequest(server string, resource
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6230,7 +6230,7 @@ func NewWorkloadMemberServiceGetWorkloadMemberRequest(server string, resourceId 
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6401,7 +6401,7 @@ func NewWorkloadServiceDeleteWorkloadRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6435,7 +6435,7 @@ func NewWorkloadServiceGetWorkloadRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6480,7 +6480,7 @@ func NewWorkloadServicePatchWorkloadRequestWithBody(server string, resourceId st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6527,7 +6527,7 @@ func NewWorkloadServiceUpdateWorkloadRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
