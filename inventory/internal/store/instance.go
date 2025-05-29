@@ -244,7 +244,15 @@ func (is *InvStore) UpdateInstance(
 					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
 						id, entity.CurrentState, in.DesiredState)
 			}
-			// fixme ITEP-23276: We should not allow to local account update when instance is not provisioned
+
+			if isNotValidLocalAccountUpdate(fieldmask, entity) {
+				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+					id, entity.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
+				return nil, booleans.Pointer(false),
+					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
+						id, in.GetLocalaccount(), entity.CurrentState,
+					)
+			}
 
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
 			// updating an already set O2O edge, we have to clear it before setting it in the mutation.
@@ -575,4 +583,12 @@ func isNotValidInstanceTransition(
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
 		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
 		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
+}
+
+func isNotValidLocalAccountUpdate(
+	fieldmask *fieldmaskpb.FieldMask,
+	instanceq *ent.InstanceResource,
+) bool {
+	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
+		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
 }

@@ -53,6 +53,7 @@ This code requires the following tools to be installed on your development machi
 - [protoc-gen-go](https://pkg.go.dev/google.golang.org/protobuf) - check [$PROTOCGENGOVERSION_REQ](../version.mk)
 - [protoc-gen-go-grpc](https://pkg.go.dev/google.golang.org/grpc) - check [$PROTOCGENGOGRPCVERSION_REQ](../version.mk)
 - [protoc-gen-openapi](github.com/kollalabs/protoc-gen-openapi) - check `latest`
+- [oasdiff](https://github.com/oasdiff/oasdiff) - check [$OASDIFF_REQ](../version.mk)
 
 You can install Go dependencies by running `make go-dependency`.
 

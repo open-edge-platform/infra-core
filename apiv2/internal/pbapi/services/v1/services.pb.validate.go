@@ -552,87 +552,13 @@ func (m *ListRegionsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListRegionsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListRegionsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListRegionsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListRegionsRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListRegionsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListRegionsRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListRegionsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListRegionsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	// no validation rules for ShowTotalSites
 
@@ -715,10 +641,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListRegionsRequestValidationError{}
-
-var _ListRegionsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListRegionsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListRegionsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1876,87 +1798,13 @@ func (m *ListSitesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListSitesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListSitesRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListSitesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListSitesRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListSitesRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListSitesRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListSitesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListSitesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListSitesRequestMultiError(errors)
@@ -2035,10 +1883,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListSitesRequestValidationError{}
-
-var _ListSitesRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListSitesRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListSitesResponse with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -2701,27 +2545,7 @@ func (m *ListLocationsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
-		err := ListLocationsRequestValidationError{
-			field:  "Name",
-			reason: "value length must be at most 50 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListLocationsRequest_Name_Pattern.MatchString(m.GetName()) {
-		err := ListLocationsRequestValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
 	// no validation rules for ShowSites
 
@@ -2806,8 +2630,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListLocationsRequestValidationError{}
-
-var _ListLocationsRequest_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
 
 // Validate checks the field values on ListLocationsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2971,31 +2793,7 @@ func (m *GetHostSummaryRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := GetHostSummaryRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_GetHostSummaryRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := GetHostSummaryRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Filter
 
 	if len(errors) > 0 {
 		return GetHostSummaryRequestMultiError(errors)
@@ -3076,8 +2874,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetHostSummaryRequestValidationError{}
-
-var _GetHostSummaryRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on GetHostSummaryResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3704,87 +3500,13 @@ func (m *ListHostsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListHostsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListHostsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListHostsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListHostsRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListHostsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListHostsRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListHostsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListHostsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListHostsRequestMultiError(errors)
@@ -3863,10 +3585,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListHostsRequestValidationError{}
-
-var _ListHostsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListHostsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListHostsResponse with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -4529,49 +4247,9 @@ func (m *InvalidateHostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
-		err := InvalidateHostRequestValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_InvalidateHostRequest_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := InvalidateHostRequestValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if l := utf8.RuneCountInString(m.GetNote()); l < 1 || l > 512 {
-		err := InvalidateHostRequestValidationError{
-			field:  "Note",
-			reason: "value length must be between 1 and 512 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_InvalidateHostRequest_Note_Pattern.MatchString(m.GetNote()) {
-		err := InvalidateHostRequestValidationError{
-			field:  "Note",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Note
 
 	if len(errors) > 0 {
 		return InvalidateHostRequestMultiError(errors)
@@ -4652,10 +4330,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = InvalidateHostRequestValidationError{}
-
-var _InvalidateHostRequest_ResourceId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
-var _InvalidateHostRequest_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
 
 // Validate checks the field values on InvalidateHostResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -4781,60 +4455,11 @@ func (m *HostRegister) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetName()) > 20 {
-		err := HostRegisterValidationError{
-			field:  "Name",
-			reason: "value length must be at most 20 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
-	if !_HostRegister_Name_Pattern.MatchString(m.GetName()) {
-		err := HostRegisterValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for SerialNumber
 
-	if !_HostRegister_SerialNumber_Pattern.MatchString(m.GetSerialNumber()) {
-		err := HostRegisterValidationError{
-			field:  "SerialNumber",
-			reason: "value does not match regex pattern \"^([A-Za-z0-9]{5,20})?$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if l := utf8.RuneCountInString(m.GetUuid()); l < 0 || l > 36 {
-		err := HostRegisterValidationError{
-			field:  "Uuid",
-			reason: "value length must be between 0 and 36 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostRegister_Uuid_Pattern.MatchString(m.GetUuid()) {
-		err := HostRegisterValidationError{
-			field:  "Uuid",
-			reason: "value does not match regex pattern \"^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Uuid
 
 	// no validation rules for AutoOnboard
 
@@ -4915,12 +4540,6 @@ var _ interface {
 	ErrorName() string
 } = HostRegisterValidationError{}
 
-var _HostRegister_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _HostRegister_SerialNumber_Pattern = regexp.MustCompile("^([A-Za-z0-9]{5,20})?$")
-
-var _HostRegister_Uuid_Pattern = regexp.MustCompile("^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on RegisterHostRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -4943,27 +4562,7 @@ func (m *RegisterHostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
-		err := RegisterHostRequestValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_RegisterHostRequest_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := RegisterHostRequestValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	if all {
 		switch v := interface{}(m.GetHost()).(type) {
@@ -5074,8 +4673,6 @@ var _ interface {
 	ErrorName() string
 } = RegisterHostRequestValidationError{}
 
-var _RegisterHostRequest_ResourceId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
 // Validate checks the field values on OnboardHostRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -5098,27 +4695,7 @@ func (m *OnboardHostRequest) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
-		err := OnboardHostRequestValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_OnboardHostRequest_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := OnboardHostRequestValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	if len(errors) > 0 {
 		return OnboardHostRequestMultiError(errors)
@@ -5199,8 +4776,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = OnboardHostRequestValidationError{}
-
-var _OnboardHostRequest_ResourceId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
 
 // Validate checks the field values on OnboardHostResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -5823,87 +5398,13 @@ func (m *ListInstancesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListInstancesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListInstancesRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListInstancesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListInstancesRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListInstancesRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListInstancesRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListInstancesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListInstancesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListInstancesRequestMultiError(errors)
@@ -5984,10 +5485,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListInstancesRequestValidationError{}
-
-var _ListInstancesRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListInstancesRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListInstancesResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -6652,27 +6149,7 @@ func (m *InvalidateInstanceRequest) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetResourceId()) > 13 {
-		err := InvalidateInstanceRequestValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_InvalidateInstanceRequest_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := InvalidateInstanceRequestValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	if len(errors) > 0 {
 		return InvalidateInstanceRequestMultiError(errors)
@@ -6753,8 +6230,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = InvalidateInstanceRequestValidationError{}
-
-var _InvalidateInstanceRequest_ResourceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
 
 // Validate checks the field values on InvalidateInstanceResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -7379,87 +6854,13 @@ func (m *ListOperatingSystemsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListOperatingSystemsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListOperatingSystemsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListOperatingSystemsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListOperatingSystemsRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListOperatingSystemsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListOperatingSystemsRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListOperatingSystemsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListOperatingSystemsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListOperatingSystemsRequestMultiError(errors)
@@ -7541,10 +6942,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListOperatingSystemsRequestValidationError{}
-
-var _ListOperatingSystemsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListOperatingSystemsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListOperatingSystemsResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -8711,87 +8108,13 @@ func (m *ListProvidersRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListProvidersRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListProvidersRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListProvidersRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListProvidersRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListProvidersRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListProvidersRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListProvidersRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListProvidersRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListProvidersRequestMultiError(errors)
@@ -8872,10 +8195,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListProvidersRequestValidationError{}
-
-var _ListProvidersRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListProvidersRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListProvidersResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -9742,87 +9061,13 @@ func (m *ListWorkloadsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListWorkloadsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListWorkloadsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListWorkloadsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListWorkloadsRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListWorkloadsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListWorkloadsRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListWorkloadsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListWorkloadsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListWorkloadsRequestMultiError(errors)
@@ -9903,10 +9148,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListWorkloadsRequestValidationError{}
-
-var _ListWorkloadsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListWorkloadsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListWorkloadsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -11070,87 +10311,13 @@ func (m *ListWorkloadMembersRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListWorkloadMembersRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListWorkloadMembersRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListWorkloadMembersRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListWorkloadMembersRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListWorkloadMembersRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListWorkloadMembersRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListWorkloadMembersRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListWorkloadMembersRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListWorkloadMembersRequestMultiError(errors)
@@ -11231,10 +10398,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListWorkloadMembersRequestValidationError{}
-
-var _ListWorkloadMembersRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListWorkloadMembersRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListWorkloadMembersResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -11607,112 +10770,17 @@ func (m *ListSchedulesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListSchedulesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
+	// no validation rules for HostId
 
-	if m.GetOffset() != 0 {
+	// no validation rules for SiteId
 
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListSchedulesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for RegionId
 
-	}
-
-	if len(m.GetHostId()) > 13 {
-		err := ListSchedulesRequestValidationError{
-			field:  "HostId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSchedulesRequest_HostId_Pattern.MatchString(m.GetHostId()) {
-		err := ListSchedulesRequestValidationError{
-			field:  "HostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetSiteId()) > 13 {
-		err := ListSchedulesRequestValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSchedulesRequest_SiteId_Pattern.MatchString(m.GetSiteId()) {
-		err := ListSchedulesRequestValidationError{
-			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetRegionId()) > 15 {
-		err := ListSchedulesRequestValidationError{
-			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSchedulesRequest_RegionId_Pattern.MatchString(m.GetRegionId()) {
-		err := ListSchedulesRequestValidationError{
-			field:  "RegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSchedulesRequest_UnixEpoch_Pattern.MatchString(m.GetUnixEpoch()) {
-		err := ListSchedulesRequestValidationError{
-			field:  "UnixEpoch",
-			reason: "value does not match regex pattern \"^[0-9]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UnixEpoch
 
 	if len(errors) > 0 {
 		return ListSchedulesRequestMultiError(errors)
@@ -11793,14 +10861,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListSchedulesRequestValidationError{}
-
-var _ListSchedulesRequest_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
-var _ListSchedulesRequest_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
-
-var _ListSchedulesRequest_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
-
-var _ListSchedulesRequest_UnixEpoch_Pattern = regexp.MustCompile("^[0-9]+$")
 
 // Validate checks the field values on ListSchedulesResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -12497,112 +11557,17 @@ func (m *ListSingleSchedulesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListSingleSchedulesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
+	// no validation rules for HostId
 
-	if m.GetOffset() != 0 {
+	// no validation rules for SiteId
 
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListSingleSchedulesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for RegionId
 
-	}
-
-	if len(m.GetHostId()) > 13 {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "HostId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSingleSchedulesRequest_HostId_Pattern.MatchString(m.GetHostId()) {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "HostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetSiteId()) > 13 {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSingleSchedulesRequest_SiteId_Pattern.MatchString(m.GetSiteId()) {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetRegionId()) > 15 {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSingleSchedulesRequest_RegionId_Pattern.MatchString(m.GetRegionId()) {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "RegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListSingleSchedulesRequest_UnixEpoch_Pattern.MatchString(m.GetUnixEpoch()) {
-		err := ListSingleSchedulesRequestValidationError{
-			field:  "UnixEpoch",
-			reason: "value does not match regex pattern \"^[0-9]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UnixEpoch
 
 	if len(errors) > 0 {
 		return ListSingleSchedulesRequestMultiError(errors)
@@ -12683,14 +11648,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListSingleSchedulesRequestValidationError{}
-
-var _ListSingleSchedulesRequest_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
-var _ListSingleSchedulesRequest_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
-
-var _ListSingleSchedulesRequest_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
-
-var _ListSingleSchedulesRequest_UnixEpoch_Pattern = regexp.MustCompile("^[0-9]+$")
 
 // Validate checks the field values on ListSingleSchedulesResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -13859,112 +12816,17 @@ func (m *ListRepeatedSchedulesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListRepeatedSchedulesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
+	// no validation rules for HostId
 
-	if m.GetOffset() != 0 {
+	// no validation rules for SiteId
 
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListRepeatedSchedulesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for RegionId
 
-	}
-
-	if len(m.GetHostId()) > 13 {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "HostId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListRepeatedSchedulesRequest_HostId_Pattern.MatchString(m.GetHostId()) {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "HostId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetSiteId()) > 13 {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListRepeatedSchedulesRequest_SiteId_Pattern.MatchString(m.GetSiteId()) {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetRegionId()) > 15 {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListRepeatedSchedulesRequest_RegionId_Pattern.MatchString(m.GetRegionId()) {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "RegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListRepeatedSchedulesRequest_UnixEpoch_Pattern.MatchString(m.GetUnixEpoch()) {
-		err := ListRepeatedSchedulesRequestValidationError{
-			field:  "UnixEpoch",
-			reason: "value does not match regex pattern \"^[0-9]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UnixEpoch
 
 	if len(errors) > 0 {
 		return ListRepeatedSchedulesRequestMultiError(errors)
@@ -14046,14 +12908,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListRepeatedSchedulesRequestValidationError{}
-
-var _ListRepeatedSchedulesRequest_HostId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
-var _ListRepeatedSchedulesRequest_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
-
-var _ListRepeatedSchedulesRequest_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
-
-var _ListRepeatedSchedulesRequest_UnixEpoch_Pattern = regexp.MustCompile("^[0-9]+$")
 
 // Validate checks the field values on ListRepeatedSchedulesResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -15226,61 +14080,11 @@ func (m *ListTelemetryLogsGroupsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListTelemetryLogsGroupsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListTelemetryLogsGroupsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOrderBy() != "" {
-
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListTelemetryLogsGroupsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListTelemetryLogsGroupsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListTelemetryLogsGroupsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for OrderBy
 
 	if len(errors) > 0 {
 		return ListTelemetryLogsGroupsRequestMultiError(errors)
@@ -15362,8 +14166,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListTelemetryLogsGroupsRequestValidationError{}
-
-var _ListTelemetryLogsGroupsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
 
 // Validate checks the field values on ListTelemetryLogsGroupsResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -16246,61 +15048,11 @@ func (m *ListTelemetryMetricsGroupsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListTelemetryMetricsGroupsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListTelemetryMetricsGroupsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOrderBy() != "" {
-
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListTelemetryMetricsGroupsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListTelemetryMetricsGroupsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListTelemetryMetricsGroupsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for OrderBy
 
 	if len(errors) > 0 {
 		return ListTelemetryMetricsGroupsRequestMultiError(errors)
@@ -16383,8 +15135,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListTelemetryMetricsGroupsRequestValidationError{}
-
-var _ListTelemetryMetricsGroupsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
 
 // Validate checks the field values on ListTelemetryMetricsGroupsResponse with
 // the rules defined in the proto definition for this message. If any rules
@@ -17269,127 +16019,17 @@ func (m *ListTelemetryLogsProfilesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListTelemetryLogsProfilesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
+	// no validation rules for OrderBy
 
-	if m.GetOffset() != 0 {
+	// no validation rules for InstanceId
 
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListTelemetryLogsProfilesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for SiteId
 
-	}
-
-	if m.GetOrderBy() != "" {
-
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListTelemetryLogsProfilesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListTelemetryLogsProfilesRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListTelemetryLogsProfilesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if len(m.GetInstanceId()) > 13 {
-		err := ListTelemetryLogsProfilesRequestValidationError{
-			field:  "InstanceId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListTelemetryLogsProfilesRequest_InstanceId_Pattern.MatchString(m.GetInstanceId()) {
-		err := ListTelemetryLogsProfilesRequestValidationError{
-			field:  "InstanceId",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetSiteId()) > 13 {
-		err := ListTelemetryLogsProfilesRequestValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListTelemetryLogsProfilesRequest_SiteId_Pattern.MatchString(m.GetSiteId()) {
-		err := ListTelemetryLogsProfilesRequestValidationError{
-			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetRegionId()) > 15 {
-		err := ListTelemetryLogsProfilesRequestValidationError{
-			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListTelemetryLogsProfilesRequest_RegionId_Pattern.MatchString(m.GetRegionId()) {
-		err := ListTelemetryLogsProfilesRequestValidationError{
-			field:  "RegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for RegionId
 
 	// no validation rules for ShowInherited
 
@@ -17474,14 +16114,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListTelemetryLogsProfilesRequestValidationError{}
-
-var _ListTelemetryLogsProfilesRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListTelemetryLogsProfilesRequest_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
-
-var _ListTelemetryLogsProfilesRequest_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
-
-var _ListTelemetryLogsProfilesRequest_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
 
 // Validate checks the field values on ListTelemetryLogsProfilesResponse with
 // the rules defined in the proto definition for this message. If any rules
@@ -18671,127 +17303,17 @@ func (m *ListTelemetryMetricsProfilesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetPageSize() != 0 {
+	// no validation rules for PageSize
 
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListTelemetryMetricsProfilesRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Offset
 
-	}
+	// no validation rules for OrderBy
 
-	if m.GetOffset() != 0 {
+	// no validation rules for InstanceId
 
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListTelemetryMetricsProfilesRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for SiteId
 
-	}
-
-	if m.GetOrderBy() != "" {
-
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListTelemetryMetricsProfilesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListTelemetryMetricsProfilesRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListTelemetryMetricsProfilesRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if len(m.GetInstanceId()) > 13 {
-		err := ListTelemetryMetricsProfilesRequestValidationError{
-			field:  "InstanceId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListTelemetryMetricsProfilesRequest_InstanceId_Pattern.MatchString(m.GetInstanceId()) {
-		err := ListTelemetryMetricsProfilesRequestValidationError{
-			field:  "InstanceId",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetSiteId()) > 13 {
-		err := ListTelemetryMetricsProfilesRequestValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListTelemetryMetricsProfilesRequest_SiteId_Pattern.MatchString(m.GetSiteId()) {
-		err := ListTelemetryMetricsProfilesRequestValidationError{
-			field:  "SiteId",
-			reason: "value does not match regex pattern \"^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(m.GetRegionId()) > 15 {
-		err := ListTelemetryMetricsProfilesRequestValidationError{
-			field:  "RegionId",
-			reason: "value length must be at most 15 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_ListTelemetryMetricsProfilesRequest_RegionId_Pattern.MatchString(m.GetRegionId()) {
-		err := ListTelemetryMetricsProfilesRequestValidationError{
-			field:  "RegionId",
-			reason: "value does not match regex pattern \"^region-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for RegionId
 
 	// no validation rules for ShowInherited
 
@@ -18876,14 +17398,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListTelemetryMetricsProfilesRequestValidationError{}
-
-var _ListTelemetryMetricsProfilesRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListTelemetryMetricsProfilesRequest_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
-
-var _ListTelemetryMetricsProfilesRequest_SiteId_Pattern = regexp.MustCompile("^site-[0-9a-f]{8}$")
-
-var _ListTelemetryMetricsProfilesRequest_RegionId_Pattern = regexp.MustCompile("^region-[0-9a-f]{8}$")
 
 // Validate checks the field values on ListTelemetryMetricsProfilesResponse
 // with the rules defined in the proto definition for this message. If any
@@ -20060,87 +18574,13 @@ func (m *ListLocalAccountsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrderBy() != "" {
+	// no validation rules for OrderBy
 
-		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
-			err := ListLocalAccountsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for Filter
 
-		if !_ListLocalAccountsRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
-			err := ListLocalAccountsRequestValidationError{
-				field:  "OrderBy",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+	// no validation rules for PageSize
 
-	}
-
-	if m.GetFilter() != "" {
-
-		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
-			err := ListLocalAccountsRequestValidationError{
-				field:  "Filter",
-				reason: "value length must be at most 1000 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_ListLocalAccountsRequest_Filter_Pattern.MatchString(m.GetFilter()) {
-			err := ListLocalAccountsRequestValidationError{
-				field:  "Filter",
-				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetPageSize() != 0 {
-
-		if val := m.GetPageSize(); val < 1 || val > 100 {
-			err := ListLocalAccountsRequestValidationError{
-				field:  "PageSize",
-				reason: "value must be inside range [1, 100]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.GetOffset() != 0 {
-
-		if val := m.GetOffset(); val < 0 || val > 10000 {
-			err := ListLocalAccountsRequestValidationError{
-				field:  "Offset",
-				reason: "value must be inside range [0, 10000]",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
+	// no validation rules for Offset
 
 	if len(errors) > 0 {
 		return ListLocalAccountsRequestMultiError(errors)
@@ -20221,10 +18661,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListLocalAccountsRequestValidationError{}
-
-var _ListLocalAccountsRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
-
-var _ListLocalAccountsRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
 
 // Validate checks the field values on ListLocalAccountsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -20571,6 +19007,1041 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteLocalAccountResponseValidationError{}
+
+// Validate checks the field values on CreateOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *CreateOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyRequestValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyRequestValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOSUpdatePolicyRequestValidationError{
+				field:  "OsUpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateOSUpdatePolicyRequestMultiError is an error wrapping multiple
+// validation errors returned by CreateOSUpdatePolicyRequest.ValidateAll() if
+// the designated constraints aren't met.
+type CreateOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// CreateOSUpdatePolicyRequestValidationError is the validation error returned
+// by CreateOSUpdatePolicyRequest.Validate if the designated constraints
+// aren't met.
+type CreateOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "CreateOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateOSUpdatePolicyRequestValidationError{}
+
+// Validate checks the field values on CreateOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *CreateOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOSUpdatePolicyResponseValidationError{
+				field:  "OsUpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateOSUpdatePolicyResponseMultiError is an error wrapping multiple
+// validation errors returned by CreateOSUpdatePolicyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type CreateOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// CreateOSUpdatePolicyResponseValidationError is the validation error returned
+// by CreateOSUpdatePolicyResponse.Validate if the designated constraints
+// aren't met.
+type CreateOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "CreateOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateOSUpdatePolicyResponseValidationError{}
+
+// Validate checks the field values on GetOSUpdatePolicyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *GetOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return GetOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetOSUpdatePolicyRequestMultiError is an error wrapping multiple validation
+// errors returned by GetOSUpdatePolicyRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// GetOSUpdatePolicyRequestValidationError is the validation error returned by
+// GetOSUpdatePolicyRequest.Validate if the designated constraints aren't met.
+type GetOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "GetOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetOSUpdatePolicyRequestValidationError{}
+
+// Validate checks the field values on GetOSUpdatePolicyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *GetOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsUpdatePolicy()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetOSUpdatePolicyResponseValidationError{
+					field:  "OsUpdatePolicy",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsUpdatePolicy()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetOSUpdatePolicyResponseValidationError{
+				field:  "OsUpdatePolicy",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetOSUpdatePolicyResponseMultiError is an error wrapping multiple validation
+// errors returned by GetOSUpdatePolicyResponse.ValidateAll() if the
+// designated constraints aren't met.
+type GetOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// GetOSUpdatePolicyResponseValidationError is the validation error returned by
+// GetOSUpdatePolicyResponse.Validate if the designated constraints aren't met.
+type GetOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "GetOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetOSUpdatePolicyResponseValidationError{}
+
+// Validate checks the field values on ListOSUpdatePolicyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *ListOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetOrderBy() != "" {
+
+		if utf8.RuneCountInString(m.GetOrderBy()) > 1000 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "OrderBy",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListOSUpdatePolicyRequest_OrderBy_Pattern.MatchString(m.GetOrderBy()) {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "OrderBy",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9., ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetFilter() != "" {
+
+		if utf8.RuneCountInString(m.GetFilter()) > 1000 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "Filter",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ListOSUpdatePolicyRequest_Filter_Pattern.MatchString(m.GetFilter()) {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "Filter",
+				reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9.,:/=*(){}\\\"' ]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetPageSize() != 0 {
+
+		if val := m.GetPageSize(); val < 1 || val > 100 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "PageSize",
+				reason: "value must be inside range [1, 100]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetOffset() != 0 {
+
+		if val := m.GetOffset(); val < 0 || val > 10000 {
+			err := ListOSUpdatePolicyRequestValidationError{
+				field:  "Offset",
+				reason: "value must be inside range [0, 10000]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListOSUpdatePolicyRequestMultiError is an error wrapping multiple validation
+// errors returned by ListOSUpdatePolicyRequest.ValidateAll() if the
+// designated constraints aren't met.
+type ListOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// ListOSUpdatePolicyRequestValidationError is the validation error returned by
+// ListOSUpdatePolicyRequest.Validate if the designated constraints aren't met.
+type ListOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "ListOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListOSUpdatePolicyRequestValidationError{}
+
+var _ListOSUpdatePolicyRequest_OrderBy_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9., ]+$")
+
+var _ListOSUpdatePolicyRequest_Filter_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$")
+
+// Validate checks the field values on ListOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *ListOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetOsUpdatePolicies() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListOSUpdatePolicyResponseValidationError{
+						field:  fmt.Sprintf("OsUpdatePolicies[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListOSUpdatePolicyResponseValidationError{
+						field:  fmt.Sprintf("OsUpdatePolicies[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListOSUpdatePolicyResponseValidationError{
+					field:  fmt.Sprintf("OsUpdatePolicies[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for TotalElements
+
+	// no validation rules for HasNext
+
+	if len(errors) > 0 {
+		return ListOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListOSUpdatePolicyResponseMultiError is an error wrapping multiple
+// validation errors returned by ListOSUpdatePolicyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type ListOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// ListOSUpdatePolicyResponseValidationError is the validation error returned
+// by ListOSUpdatePolicyResponse.Validate if the designated constraints aren't met.
+type ListOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "ListOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListOSUpdatePolicyResponseValidationError{}
+
+// Validate checks the field values on DeleteOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteOSUpdatePolicyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteOSUpdatePolicyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteOSUpdatePolicyRequestMultiError, or nil if none found.
+func (m *DeleteOSUpdatePolicyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteOSUpdatePolicyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ResourceId
+
+	if len(errors) > 0 {
+		return DeleteOSUpdatePolicyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteOSUpdatePolicyRequestMultiError is an error wrapping multiple
+// validation errors returned by DeleteOSUpdatePolicyRequest.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteOSUpdatePolicyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteOSUpdatePolicyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteOSUpdatePolicyRequestMultiError) AllErrors() []error { return m }
+
+// DeleteOSUpdatePolicyRequestValidationError is the validation error returned
+// by DeleteOSUpdatePolicyRequest.Validate if the designated constraints
+// aren't met.
+type DeleteOSUpdatePolicyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteOSUpdatePolicyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteOSUpdatePolicyRequestValidationError) ErrorName() string {
+	return "DeleteOSUpdatePolicyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteOSUpdatePolicyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteOSUpdatePolicyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteOSUpdatePolicyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteOSUpdatePolicyRequestValidationError{}
+
+// Validate checks the field values on DeleteOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteOSUpdatePolicyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteOSUpdatePolicyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteOSUpdatePolicyResponseMultiError, or nil if none found.
+func (m *DeleteOSUpdatePolicyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteOSUpdatePolicyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteOSUpdatePolicyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteOSUpdatePolicyResponseMultiError is an error wrapping multiple
+// validation errors returned by DeleteOSUpdatePolicyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteOSUpdatePolicyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteOSUpdatePolicyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteOSUpdatePolicyResponseMultiError) AllErrors() []error { return m }
+
+// DeleteOSUpdatePolicyResponseValidationError is the validation error returned
+// by DeleteOSUpdatePolicyResponse.Validate if the designated constraints
+// aren't met.
+type DeleteOSUpdatePolicyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteOSUpdatePolicyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteOSUpdatePolicyResponseValidationError) ErrorName() string {
+	return "DeleteOSUpdatePolicyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteOSUpdatePolicyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteOSUpdatePolicyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteOSUpdatePolicyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteOSUpdatePolicyResponseValidationError{}
 
 // Validate checks the field values on ListLocationsResponse_LocationNode with
 // the rules defined in the proto definition for this message. If any rules
