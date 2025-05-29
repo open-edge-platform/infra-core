@@ -38,6 +38,20 @@ func (ccrc *CustomConfigResourceCreate) SetConfig(s string) *CustomConfigResourc
 	return ccrc
 }
 
+// SetDescription sets the "description" field.
+func (ccrc *CustomConfigResourceCreate) SetDescription(s string) *CustomConfigResourceCreate {
+	ccrc.mutation.SetDescription(s)
+	return ccrc
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ccrc *CustomConfigResourceCreate) SetNillableDescription(s *string) *CustomConfigResourceCreate {
+	if s != nil {
+		ccrc.SetDescription(*s)
+	}
+	return ccrc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (ccrc *CustomConfigResourceCreate) SetTenantID(s string) *CustomConfigResourceCreate {
 	ccrc.mutation.SetTenantID(s)
@@ -160,6 +174,10 @@ func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sq
 	if value, ok := ccrc.mutation.Config(); ok {
 		_spec.SetField(customconfigresource.FieldConfig, field.TypeString, value)
 		_node.Config = value
+	}
+	if value, ok := ccrc.mutation.Description(); ok {
+		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
+		_node.Description = value
 	}
 	if value, ok := ccrc.mutation.TenantID(); ok {
 		_spec.SetField(customconfigresource.FieldTenantID, field.TypeString, value)

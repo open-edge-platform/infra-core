@@ -912,7 +912,21 @@ message CustomConfigResource {
       pattern: "^[A-Za-z0-9-/_\\[\\]\\.\\\\]*$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];  
+  ];
+
+  // Config Description
+  string description = 4 [
+    (ent.field) = {
+      optional: true
+      immutable: false
+    },
+    (buf.validate.field).string = {
+      min_len: 0
+      max_len: 256
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
   // Tenant Identifier.
   string tenant_id = 100 [
     (ent.field) = {

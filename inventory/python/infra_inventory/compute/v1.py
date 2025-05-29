@@ -365,6 +365,8 @@ class CustomConfigResource(betterproto.Message):
     name: str = betterproto.string_field(2)
     # Configuration file.
     config: str = betterproto.string_field(3)
+    # Config Description
+    description: str = betterproto.string_field(4)
     # Tenant Identifier.
     tenant_id: str = betterproto.string_field(100)
     # Creation timestamp

@@ -42,6 +42,26 @@ func (ccru *CustomConfigResourceUpdate) SetNillableResourceID(s *string) *Custom
 	return ccru
 }
 
+// SetDescription sets the "description" field.
+func (ccru *CustomConfigResourceUpdate) SetDescription(s string) *CustomConfigResourceUpdate {
+	ccru.mutation.SetDescription(s)
+	return ccru
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ccru *CustomConfigResourceUpdate) SetNillableDescription(s *string) *CustomConfigResourceUpdate {
+	if s != nil {
+		ccru.SetDescription(*s)
+	}
+	return ccru
+}
+
+// ClearDescription clears the value of the "description" field.
+func (ccru *CustomConfigResourceUpdate) ClearDescription() *CustomConfigResourceUpdate {
+	ccru.mutation.ClearDescription()
+	return ccru
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (ccru *CustomConfigResourceUpdate) SetUpdatedAt(s string) *CustomConfigResourceUpdate {
 	ccru.mutation.SetUpdatedAt(s)
@@ -136,6 +156,12 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if value, ok := ccru.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 	}
+	if value, ok := ccru.mutation.Description(); ok {
+		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
+	}
+	if ccru.mutation.DescriptionCleared() {
+		_spec.ClearField(customconfigresource.FieldDescription, field.TypeString)
+	}
 	if value, ok := ccru.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
 	}
@@ -215,6 +241,26 @@ func (ccruo *CustomConfigResourceUpdateOne) SetNillableResourceID(s *string) *Cu
 	if s != nil {
 		ccruo.SetResourceID(*s)
 	}
+	return ccruo
+}
+
+// SetDescription sets the "description" field.
+func (ccruo *CustomConfigResourceUpdateOne) SetDescription(s string) *CustomConfigResourceUpdateOne {
+	ccruo.mutation.SetDescription(s)
+	return ccruo
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (ccruo *CustomConfigResourceUpdateOne) SetNillableDescription(s *string) *CustomConfigResourceUpdateOne {
+	if s != nil {
+		ccruo.SetDescription(*s)
+	}
+	return ccruo
+}
+
+// ClearDescription clears the value of the "description" field.
+func (ccruo *CustomConfigResourceUpdateOne) ClearDescription() *CustomConfigResourceUpdateOne {
+	ccruo.mutation.ClearDescription()
 	return ccruo
 }
 
@@ -341,6 +387,12 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	}
 	if value, ok := ccruo.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
+	}
+	if value, ok := ccruo.mutation.Description(); ok {
+		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
+	}
+	if ccruo.mutation.DescriptionCleared() {
+		_spec.ClearField(customconfigresource.FieldDescription, field.TypeString)
 	}
 	if value, ok := ccruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)

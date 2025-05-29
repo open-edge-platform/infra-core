@@ -15,6 +15,7 @@ var (
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "config", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -28,12 +29,12 @@ var (
 			{
 				Name:    "customconfigresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[4]},
+				Columns: []*schema.Column{CustomConfigResourcesColumns[2], CustomConfigResourcesColumns[5]},
 			},
 			{
 				Name:    "customconfigresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{CustomConfigResourcesColumns[4]},
+				Columns: []*schema.Column{CustomConfigResourcesColumns[5]},
 			},
 		},
 	}

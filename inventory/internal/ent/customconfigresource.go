@@ -22,6 +22,8 @@ type CustomConfigResource struct {
 	Name string `json:"name,omitempty"`
 	// Config holds the value of the "config" field.
 	Config string `json:"config,omitempty"`
+	// Description holds the value of the "description" field.
+	Description string `json:"description,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -59,7 +61,7 @@ func (*CustomConfigResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case customconfigresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case customconfigresource.FieldResourceID, customconfigresource.FieldName, customconfigresource.FieldConfig, customconfigresource.FieldTenantID, customconfigresource.FieldCreatedAt, customconfigresource.FieldUpdatedAt:
+		case customconfigresource.FieldResourceID, customconfigresource.FieldName, customconfigresource.FieldConfig, customconfigresource.FieldDescription, customconfigresource.FieldTenantID, customconfigresource.FieldCreatedAt, customconfigresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -99,6 +101,12 @@ func (ccr *CustomConfigResource) assignValues(columns []string, values []any) er
 				return fmt.Errorf("unexpected type %T for field config", values[i])
 			} else if value.Valid {
 				ccr.Config = value.String
+			}
+		case customconfigresource.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				ccr.Description = value.String
 			}
 		case customconfigresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -167,6 +175,9 @@ func (ccr *CustomConfigResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("config=")
 	builder.WriteString(ccr.Config)
+	builder.WriteString(", ")
+	builder.WriteString("description=")
+	builder.WriteString(ccr.Description)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(ccr.TenantID)

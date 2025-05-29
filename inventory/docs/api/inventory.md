@@ -479,6 +479,7 @@ like SB&#43;FDE.
 | resource_id | [string](#string) |  | resource identifier |
 | name | [string](#string) |  | Unique name provided by admin |
 | config | [string](#string) |  | Configuration file. |
+| description | [string](#string) |  | Config Description |
 | tenant_id | [string](#string) |  | Tenant Identifier. |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
