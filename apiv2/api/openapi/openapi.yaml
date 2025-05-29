@@ -116,7 +116,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegionResource'
-  /edge-infra.orchestrator.apis/v2/regions/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/regions/{resourceId}:
     get:
       tags:
         - RegionService
@@ -124,13 +124,13 @@ paths:
       description: Get a specific region.
       operationId: RegionService_GetRegion
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested region.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested region.
       responses:
         default:
@@ -152,13 +152,13 @@ paths:
       description: Update a region.
       operationId: RegionService_UpdateRegion
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the region region to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the region region to be updated.
       requestBody:
         description: Updated values for the region.
@@ -188,13 +188,13 @@ paths:
       description: Delete a region.
       operationId: RegionService_DeleteRegion
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the region region to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the region region to be deleted.
       responses:
         default:
@@ -216,13 +216,13 @@ paths:
       description: Patch a region.
       operationId: RegionService_PatchRegion
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the region.
@@ -340,7 +340,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SiteResource'
-  /edge-infra.orchestrator.apis/v2/sites/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/sites/{resourceId}:
     get:
       tags:
         - SiteService
@@ -348,13 +348,13 @@ paths:
       description: Get a specific site.
       operationId: SiteService_GetSite
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested site.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested site.
       responses:
         default:
@@ -376,13 +376,13 @@ paths:
       description: Update a site.
       operationId: SiteService_UpdateSite
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the site site to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the site site to be updated.
       requestBody:
         description: Updated values for the site.
@@ -412,13 +412,13 @@ paths:
       description: Delete a site.
       operationId: SiteService_DeleteSite
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the site site to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the site site to be deleted.
       responses:
         default:
@@ -440,13 +440,13 @@ paths:
       description: Patch a site.
       operationId: SiteService_PatchSite
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the site.
@@ -642,7 +642,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HostResource'
-  /edge-infra.orchestrator.apis/v2/hosts/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}:
     get:
       tags:
         - HostService
@@ -650,13 +650,13 @@ paths:
       description: Get a specific host.
       operationId: HostService_GetHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested host.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested host.
       responses:
         default:
@@ -678,13 +678,13 @@ paths:
       description: Update a host.
       operationId: HostService_UpdateHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the host host to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the host host to be updated.
       requestBody:
         description: Updated values for the host.
@@ -714,13 +714,13 @@ paths:
       description: Delete a host.
       operationId: HostService_DeleteHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the host host to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the host host to be deleted.
       responses:
         default:
@@ -742,13 +742,13 @@ paths:
       description: Patch a host.
       operationId: HostService_PatchHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the host.
@@ -771,7 +771,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HostResource'
-  /edge-infra.orchestrator.apis/v2/hosts/{resource_id}/invalidate:
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate:
     put:
       tags:
         - HostService
@@ -779,13 +779,13 @@ paths:
       description: Invalidate a host.
       operationId: HostService_InvalidateHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Host resource ID
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             pattern: ^host-[0-9a-f]{8}$
             description: Host resource ID
         - name: note
@@ -837,7 +837,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HostResource'
-  /edge-infra.orchestrator.apis/v2/hosts/{resource_id}/register:
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register:
     patch:
       tags:
         - HostService
@@ -845,12 +845,12 @@ paths:
       description: Update a host registration.
       operationId: HostService_PatchRegisterHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             pattern: ^host-[0-9a-f]{8}$
       requestBody:
         content:
@@ -871,7 +871,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HostResource'
-  /edge-infra.orchestrator.apis/v2/hosts/{resource_id}/onboard:
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard:
     patch:
       tags:
         - HostService
@@ -879,13 +879,13 @@ paths:
       description: Onboard a host.
       operationId: HostService_OnboardHost
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Host resource ID
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             pattern: ^host-[0-9a-f]{8}$
             description: Host resource ID
       responses:
@@ -996,7 +996,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InstanceResource'
-  /edge-infra.orchestrator.apis/v2/instances/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/instances/{resourceId}:
     get:
       tags:
         - InstanceService
@@ -1004,13 +1004,13 @@ paths:
       description: Get a specific instance.
       operationId: InstanceService_GetInstance
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested instance.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested instance.
       responses:
         default:
@@ -1032,13 +1032,13 @@ paths:
       description: Update a instance.
       operationId: InstanceService_UpdateInstance
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the instance.
@@ -1068,13 +1068,13 @@ paths:
       description: Delete a instance.
       operationId: InstanceService_DeleteInstance
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the instance instance to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the instance instance to be deleted.
       responses:
         default:
@@ -1096,13 +1096,13 @@ paths:
       description: Patch a instance.
       operationId: InstanceService_PatchInstance
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the instance.
@@ -1125,7 +1125,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InstanceResource'
-  /edge-infra.orchestrator.apis/v2/instances/{resource_id}/invalidate:
+  /edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate:
     put:
       tags:
         - InstanceService
@@ -1133,13 +1133,13 @@ paths:
       description: Invalidate a instance.
       operationId: InstanceService_InvalidateInstance
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Instance resource ID
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             pattern: ^inst-[0-9a-f]{8}$
             description: Instance resource ID
       responses:
@@ -1250,7 +1250,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperatingSystemResource'
-  /edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}:
     get:
       tags:
         - OperatingSystemService
@@ -1258,13 +1258,13 @@ paths:
       description: Get a specific OS.
       operationId: OperatingSystemService_GetOperatingSystem
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested os.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested os.
       responses:
         default:
@@ -1286,13 +1286,13 @@ paths:
       description: Update an OS.
       operationId: OperatingSystemService_UpdateOperatingSystem
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the os os to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the os os to be updated.
       requestBody:
         description: Updated values for the os.
@@ -1322,13 +1322,13 @@ paths:
       description: Delete an OS.
       operationId: OperatingSystemService_DeleteOperatingSystem
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the os os to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the os os to be deleted.
       responses:
         default:
@@ -1350,13 +1350,13 @@ paths:
       description: Patch an OS.
       operationId: OperatingSystemService_PatchOperatingSystem
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the os.
@@ -1474,7 +1474,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProviderResource'
-  /edge-infra.orchestrator.apis/v2/providers/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/providers/{resourceId}:
     get:
       tags:
         - ProviderService
@@ -1482,13 +1482,13 @@ paths:
       description: Get a specific provider.
       operationId: ProviderService_GetProvider
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested provider.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested provider.
       responses:
         default:
@@ -1510,13 +1510,13 @@ paths:
       description: Delete a provider.
       operationId: ProviderService_DeleteProvider
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the provider provider to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the provider provider to be deleted.
       responses:
         default:
@@ -1626,7 +1626,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkloadResource'
-  /edge-infra.orchestrator.apis/v2/workloads/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/workloads/{resourceId}:
     get:
       tags:
         - WorkloadService
@@ -1634,13 +1634,13 @@ paths:
       description: Get a specific workload.
       operationId: WorkloadService_GetWorkload
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested workload.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested workload.
       responses:
         default:
@@ -1662,13 +1662,13 @@ paths:
       description: Update a workload.
       operationId: WorkloadService_UpdateWorkload
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the workload workload to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the workload workload to be updated.
       requestBody:
         description: Updated values for the workload.
@@ -1698,13 +1698,13 @@ paths:
       description: Delete a workload.
       operationId: WorkloadService_DeleteWorkload
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the workload workload to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the workload workload to be deleted.
       responses:
         default:
@@ -1726,13 +1726,13 @@ paths:
       description: Patch a workload.
       operationId: WorkloadService_PatchWorkload
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the workload.
@@ -1850,7 +1850,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkloadMember'
-  /edge-infra.orchestrator.apis/v2/workload_members/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/workload_members/{resourceId}:
     get:
       tags:
         - WorkloadMemberService
@@ -1858,13 +1858,13 @@ paths:
       description: Get a specific workload_member.
       operationId: WorkloadMemberService_GetWorkloadMember
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested workload_member.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested workload_member.
       responses:
         default:
@@ -1886,13 +1886,13 @@ paths:
       description: Delete a workload_member.
       operationId: WorkloadMemberService_DeleteWorkloadMember
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the workload_member workload_member to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the workload_member workload_member to be deleted.
       responses:
         default:
@@ -2134,7 +2134,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleScheduleResource'
-  /edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}:
     get:
       tags:
         - ScheduleService
@@ -2142,13 +2142,13 @@ paths:
       description: Get a specific single_schedule.
       operationId: ScheduleService_GetSingleSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested single_schedule.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested single_schedule.
       responses:
         default:
@@ -2170,13 +2170,13 @@ paths:
       description: Update a single_schedule.
       operationId: ScheduleService_UpdateSingleSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the single_schedule single_schedule to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the single_schedule single_schedule to be updated.
       requestBody:
         description: Updated values for the single_schedule.
@@ -2206,13 +2206,13 @@ paths:
       description: Delete a single_schedule.
       operationId: ScheduleService_DeleteSingleSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the single_schedule single_schedule to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the single_schedule single_schedule to be deleted.
       responses:
         default:
@@ -2234,13 +2234,13 @@ paths:
       description: Patch a single_schedule.
       operationId: ScheduleService_PatchSingleSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the single_schedule.
@@ -2390,7 +2390,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RepeatedScheduleResource'
-  /edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}:
     get:
       tags:
         - ScheduleService
@@ -2398,13 +2398,13 @@ paths:
       description: Get a specific repeated_schedule.
       operationId: ScheduleService_GetRepeatedSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested repeated_schedule.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested repeated_schedule.
       responses:
         default:
@@ -2426,13 +2426,13 @@ paths:
       description: Update a repeated_schedule.
       operationId: ScheduleService_UpdateRepeatedSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the repeated_schedule repeated_schedule to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the repeated_schedule repeated_schedule to be updated.
       requestBody:
         description: Updated values for the repeated_schedule.
@@ -2462,13 +2462,13 @@ paths:
       description: Delete a repeated_schedule.
       operationId: ScheduleService_DeleteRepeatedSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the repeated_schedule repeated_schedule to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the repeated_schedule repeated_schedule to be deleted.
       responses:
         default:
@@ -2490,13 +2490,13 @@ paths:
       description: Patch a repeated_schedule.
       operationId: ScheduleService_PatchRepeatedSchedule
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the repeated_schedule.
@@ -2601,7 +2601,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TelemetryLogsGroupResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}:
     get:
       tags:
         - TelemetryLogsGroupService
@@ -2609,13 +2609,13 @@ paths:
       description: Get a specific telemetry_logs_group.
       operationId: TelemetryLogsGroupService_GetTelemetryLogsGroup
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested telemetry_logs_group.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested telemetry_logs_group.
       responses:
         default:
@@ -2637,13 +2637,13 @@ paths:
       description: Delete a telemetry_logs_group.
       operationId: TelemetryLogsGroupService_DeleteTelemetryLogsGroup
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
       responses:
         default:
@@ -2740,7 +2740,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TelemetryMetricsGroupResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}:
     get:
       tags:
         - TelemetryMetricsGroupService
@@ -2748,13 +2748,13 @@ paths:
       description: Get a specific telemetry_metrics_group.
       operationId: TelemetryMetricsGroupService_GetTelemetryMetricsGroup
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested telemetry_metrics_group.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested telemetry_metrics_group.
       responses:
         default:
@@ -2776,13 +2776,13 @@ paths:
       description: Delete a telemetry_metrics_group.
       operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
       responses:
         default:
@@ -2918,7 +2918,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TelemetryLogsProfileResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}:
     get:
       tags:
         - TelemetryLogsProfileService
@@ -2926,13 +2926,13 @@ paths:
       description: Get a specific telemetry_logs_profile.
       operationId: TelemetryLogsProfileService_GetTelemetryLogsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested telemetry_logs_profile.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested telemetry_logs_profile.
       responses:
         default:
@@ -2954,13 +2954,13 @@ paths:
       description: Update a telemetry_logs_profile.
       operationId: TelemetryLogsProfileService_UpdateTelemetryLogsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
       requestBody:
         description: Updated values for the telemetry_logs_profile.
@@ -2990,13 +2990,13 @@ paths:
       description: Delete a telemetry_logs_profile.
       operationId: TelemetryLogsProfileService_DeleteTelemetryLogsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
       responses:
         default:
@@ -3018,13 +3018,13 @@ paths:
       description: Patch a telemetry_logs_profile.
       operationId: TelemetryLogsProfileService_PatchTelemetryLogsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the telemetry_logs_profile.
@@ -3168,7 +3168,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}:
     get:
       tags:
         - TelemetryMetricsProfileService
@@ -3176,13 +3176,13 @@ paths:
       description: Get a specific telemetry_metrics_profile.
       operationId: TelemetryMetricsProfileService_GetTelemetryMetricsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested telemetry_metrics_profile.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested telemetry_metrics_profile.
       responses:
         default:
@@ -3204,13 +3204,13 @@ paths:
       description: Update a telemetry_metrics_profile.
       operationId: TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
       requestBody:
         description: Updated values for the telemetry_metrics_profile.
@@ -3240,13 +3240,13 @@ paths:
       description: Delete a telemetry_metrics_profile.
       operationId: TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
       responses:
         default:
@@ -3268,13 +3268,13 @@ paths:
       description: Patch a telemetry_metrics_profile.
       operationId: TelemetryMetricsProfileService_PatchTelemetryMetricsProfile
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: ID of the resource to be updated.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: ID of the resource to be updated.
       requestBody:
         description: Updated values for the telemetry_metrics_profile.
@@ -3392,7 +3392,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocalAccountResource'
-  /edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}:
     get:
       tags:
         - LocalAccountService
@@ -3400,13 +3400,13 @@ paths:
       description: Get a specific provider.
       operationId: LocalAccountService_GetLocalAccount
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested localaccount.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested localaccount.
       responses:
         default:
@@ -3428,13 +3428,13 @@ paths:
       description: Delete a provider.
       operationId: LocalAccountService_DeleteLocalAccount
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the localaccount to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the localaccount to be deleted.
       responses:
         default:
@@ -3544,7 +3544,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OSUpdatePolicy'
-  /edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}:
     get:
       tags:
         - OSUpdatePolicy
@@ -3552,13 +3552,13 @@ paths:
       description: Get a specific OS Update Policy.
       operationId: OSUpdatePolicy_GetOSUpdatePolicy
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested os.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested os.
       responses:
         default:
@@ -3580,13 +3580,13 @@ paths:
       description: Delete a OS Update Policy.
       operationId: OSUpdatePolicy_DeleteOSUpdatePolicy
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the OS Update Policy to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the OS Update Policy to be deleted.
       responses:
         default:
@@ -3669,7 +3669,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListOSUpdateRunResponse'
-  /edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}:
+  /edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}:
     get:
       tags:
         - OSUpdateRun
@@ -3677,13 +3677,13 @@ paths:
       description: Get a specific OS Update Run.
       operationId: OSUpdateRun_GetOSUpdateRun
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the requested os.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the requested os.
       responses:
         default:
@@ -3705,13 +3705,13 @@ paths:
       description: Delete a OS Update Run.
       operationId: OSUpdateRun_DeleteOSUpdateRun
       parameters:
-        - name: resource_id
+        - name: resourceId
           in: path
           description: Name of the os update run to be deleted.
           required: true
           schema:
             type: string
-            title: resource_id
+            title: resourceId
             description: Name of the os update run to be deleted.
       responses:
         default:
@@ -3730,9 +3730,6 @@ components:
   schemas:
     google.protobuf.Timestamp:
       type: string
-      examples:
-        - 1s
-        - 1.000340012s
       format: date-time
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
@@ -6551,7 +6548,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the host host to be deleted.
       title: DeleteHostRequest
       required:
@@ -6568,7 +6565,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the instance instance to be deleted.
       title: DeleteInstanceRequest
       required:
@@ -6585,7 +6582,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the localaccount to be deleted.
       title: DeleteLocalAccountRequest
       required:
@@ -6602,7 +6599,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the OS Update Policy to be deleted.
       title: DeleteOSUpdatePolicyRequest
       required:
@@ -6619,7 +6616,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the os update run to be deleted.
       title: DeleteOSUpdateRunRequest
       required:
@@ -6636,7 +6633,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the os os to be deleted.
       title: DeleteOperatingSystemRequest
       required:
@@ -6653,7 +6650,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the provider provider to be deleted.
       title: DeleteProviderRequest
       required:
@@ -6670,7 +6667,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the region region to be deleted.
       title: DeleteRegionRequest
       required:
@@ -6687,7 +6684,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the repeated_schedule repeated_schedule to be deleted.
       title: DeleteRepeatedScheduleRequest
       required:
@@ -6704,7 +6701,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the single_schedule single_schedule to be deleted.
       title: DeleteSingleScheduleRequest
       required:
@@ -6721,7 +6718,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the site site to be deleted.
       title: DeleteSiteRequest
       required:
@@ -6738,7 +6735,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
       title: DeleteTelemetryLogsGroupRequest
       required:
@@ -6755,7 +6752,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
       title: DeleteTelemetryLogsProfileRequest
       required:
@@ -6772,7 +6769,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
       title: DeleteTelemetryMetricsGroupRequest
       required:
@@ -6789,7 +6786,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
       title: DeleteTelemetryMetricsProfileRequest
       required:
@@ -6806,7 +6803,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the workload_member workload_member to be deleted.
       title: DeleteWorkloadMemberRequest
       required:
@@ -6823,7 +6820,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the workload workload to be deleted.
       title: DeleteWorkloadRequest
       required:
@@ -6840,7 +6837,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested host.
       title: GetHostRequest
       required:
@@ -6904,7 +6901,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested instance.
       title: GetInstanceRequest
       required:
@@ -6928,7 +6925,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested localaccount.
       title: GetLocalAccountRequest
       required:
@@ -6952,7 +6949,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested os.
       title: GetOSUpdatePolicyRequest
       required:
@@ -6976,7 +6973,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested os.
       title: GetOSUpdateRunRequest
       required:
@@ -7000,7 +6997,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested os.
       title: GetOperatingSystemRequest
       required:
@@ -7024,7 +7021,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested provider.
       title: GetProviderRequest
       required:
@@ -7048,7 +7045,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested region.
       title: GetRegionRequest
       required:
@@ -7072,7 +7069,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested repeated_schedule.
       title: GetRepeatedScheduleRequest
       required:
@@ -7096,7 +7093,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested single_schedule.
       title: GetSingleScheduleRequest
       required:
@@ -7120,7 +7117,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested site.
       title: GetSiteRequest
       required:
@@ -7144,7 +7141,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested telemetry_logs_group.
       title: GetTelemetryLogsGroupRequest
       required:
@@ -7168,7 +7165,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested telemetry_logs_profile.
       title: GetTelemetryLogsProfileRequest
       required:
@@ -7192,7 +7189,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested telemetry_metrics_group.
       title: GetTelemetryMetricsGroupRequest
       required:
@@ -7216,7 +7213,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested telemetry_metrics_profile.
       title: GetTelemetryMetricsProfileRequest
       required:
@@ -7240,7 +7237,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested workload_member.
       title: GetWorkloadMemberRequest
       required:
@@ -7264,7 +7261,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the requested workload.
       title: GetWorkloadRequest
       required:
@@ -7315,7 +7312,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           pattern: ^host-[0-9a-f]{8}$
           description: Host resource ID
         note:
@@ -7338,7 +7335,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           pattern: ^inst-[0-9a-f]{8}$
           description: Instance resource ID
       title: InvalidateInstanceRequest
@@ -7578,7 +7575,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: The associated node resource ID, generated by inventory on Create.
         parentId:
           type: string
@@ -8584,7 +8581,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           pattern: ^host-[0-9a-f]{8}$
           description: Host resource ID
       title: OnboardHostRequest
@@ -8600,7 +8597,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         host:
           title: host
@@ -8621,7 +8618,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         instance:
           title: instance
@@ -8642,7 +8639,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         os:
           title: os
@@ -8663,7 +8660,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         region:
           title: region
@@ -8684,7 +8681,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         repeatedSchedule:
           title: repeated_schedule
@@ -8705,7 +8702,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         singleSchedule:
           title: single_schedule
@@ -8726,7 +8723,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         site:
           title: site
@@ -8747,7 +8744,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         telemetryLogsProfile:
           title: telemetry_logs_profile
@@ -8768,7 +8765,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         telemetryMetricsProfile:
           title: telemetry_metrics_profile
@@ -8789,7 +8786,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         workload:
           title: workload
@@ -8810,7 +8807,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           pattern: ^host-[0-9a-f]{8}$
         host:
           title: host
@@ -8825,7 +8822,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the host host to be updated.
         host:
           title: host
@@ -8842,7 +8839,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: ID of the resource to be updated.
         instance:
           title: instance
@@ -8859,7 +8856,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the os os to be updated.
         os:
           title: os
@@ -8876,7 +8873,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the region region to be updated.
         region:
           title: region
@@ -8893,7 +8890,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the repeated_schedule repeated_schedule to be updated.
         repeatedSchedule:
           title: repeated_schedule
@@ -8910,7 +8907,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the single_schedule single_schedule to be updated.
         singleSchedule:
           title: single_schedule
@@ -8927,7 +8924,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the site site to be updated.
         site:
           title: site
@@ -8944,7 +8941,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
         telemetryLogsProfile:
           title: telemetry_logs_profile
@@ -8961,7 +8958,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
         telemetryMetricsProfile:
           title: telemetry_metrics_profile
@@ -8978,7 +8975,7 @@ components:
       properties:
         resourceId:
           type: string
-          title: resource_id
+          title: resourceId
           description: Name of the workload workload to be updated.
         workload:
           title: workload
