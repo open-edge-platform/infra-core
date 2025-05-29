@@ -11596,6 +11596,7 @@ type InstanceResourceMutation struct {
 	trusted_attestation_status_indicator    *instanceresource.TrustedAttestationStatusIndicator
 	trusted_attestation_status_timestamp    *uint64
 	addtrusted_attestation_status_timestamp *int64
+	existing_cves                           *string
 	tenant_id                               *string
 	instance_status_detail                  *string
 	created_at                              *string
@@ -12929,6 +12930,55 @@ func (m *InstanceResourceMutation) ResetTrustedAttestationStatusTimestamp() {
 	delete(m.clearedFields, instanceresource.FieldTrustedAttestationStatusTimestamp)
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (m *InstanceResourceMutation) SetExistingCves(s string) {
+	m.existing_cves = &s
+}
+
+// ExistingCves returns the value of the "existing_cves" field in the mutation.
+func (m *InstanceResourceMutation) ExistingCves() (r string, exists bool) {
+	v := m.existing_cves
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExistingCves returns the old "existing_cves" field's value of the InstanceResource entity.
+// If the InstanceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *InstanceResourceMutation) OldExistingCves(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExistingCves is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExistingCves requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExistingCves: %w", err)
+	}
+	return oldValue.ExistingCves, nil
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (m *InstanceResourceMutation) ClearExistingCves() {
+	m.existing_cves = nil
+	m.clearedFields[instanceresource.FieldExistingCves] = struct{}{}
+}
+
+// ExistingCvesCleared returns if the "existing_cves" field was cleared in this mutation.
+func (m *InstanceResourceMutation) ExistingCvesCleared() bool {
+	_, ok := m.clearedFields[instanceresource.FieldExistingCves]
+	return ok
+}
+
+// ResetExistingCves resets all changes to the "existing_cves" field.
+func (m *InstanceResourceMutation) ResetExistingCves() {
+	m.existing_cves = nil
+	delete(m.clearedFields, instanceresource.FieldExistingCves)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *InstanceResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -13369,7 +13419,7 @@ func (m *InstanceResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *InstanceResourceMutation) Fields() []string {
-	fields := make([]string, 0, 26)
+	fields := make([]string, 0, 27)
 	if m.resource_id != nil {
 		fields = append(fields, instanceresource.FieldResourceID)
 	}
@@ -13436,6 +13486,9 @@ func (m *InstanceResourceMutation) Fields() []string {
 	if m.trusted_attestation_status_timestamp != nil {
 		fields = append(fields, instanceresource.FieldTrustedAttestationStatusTimestamp)
 	}
+	if m.existing_cves != nil {
+		fields = append(fields, instanceresource.FieldExistingCves)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, instanceresource.FieldTenantID)
 	}
@@ -13500,6 +13553,8 @@ func (m *InstanceResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.TrustedAttestationStatusIndicator()
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		return m.TrustedAttestationStatusTimestamp()
+	case instanceresource.FieldExistingCves:
+		return m.ExistingCves()
 	case instanceresource.FieldTenantID:
 		return m.TenantID()
 	case instanceresource.FieldInstanceStatusDetail:
@@ -13561,6 +13616,8 @@ func (m *InstanceResourceMutation) OldField(ctx context.Context, name string) (e
 		return m.OldTrustedAttestationStatusIndicator(ctx)
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		return m.OldTrustedAttestationStatusTimestamp(ctx)
+	case instanceresource.FieldExistingCves:
+		return m.OldExistingCves(ctx)
 	case instanceresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case instanceresource.FieldInstanceStatusDetail:
@@ -13731,6 +13788,13 @@ func (m *InstanceResourceMutation) SetField(name string, value ent.Value) error 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTrustedAttestationStatusTimestamp(v)
+		return nil
+	case instanceresource.FieldExistingCves:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExistingCves(v)
 		return nil
 	case instanceresource.FieldTenantID:
 		v, ok := value.(string)
@@ -13940,6 +14004,9 @@ func (m *InstanceResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(instanceresource.FieldTrustedAttestationStatusTimestamp) {
 		fields = append(fields, instanceresource.FieldTrustedAttestationStatusTimestamp)
 	}
+	if m.FieldCleared(instanceresource.FieldExistingCves) {
+		fields = append(fields, instanceresource.FieldExistingCves)
+	}
 	if m.FieldCleared(instanceresource.FieldInstanceStatusDetail) {
 		fields = append(fields, instanceresource.FieldInstanceStatusDetail)
 	}
@@ -14020,6 +14087,9 @@ func (m *InstanceResourceMutation) ClearField(name string) error {
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		m.ClearTrustedAttestationStatusTimestamp()
 		return nil
+	case instanceresource.FieldExistingCves:
+		m.ClearExistingCves()
+		return nil
 	case instanceresource.FieldInstanceStatusDetail:
 		m.ClearInstanceStatusDetail()
 		return nil
@@ -14096,6 +14166,9 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 		return nil
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		m.ResetTrustedAttestationStatusTimestamp()
+		return nil
+	case instanceresource.FieldExistingCves:
+		m.ResetExistingCves()
 		return nil
 	case instanceresource.FieldTenantID:
 		m.ResetTenantID()
@@ -16609,6 +16682,10 @@ type OperatingSystemResourceMutation struct {
 	os_provider        *operatingsystemresource.OsProvider
 	platform_bundle    *string
 	description        *string
+	existing_cves      *string
+	existing_cves_url  *string
+	fixed_cves         *string
+	fixed_cves_url     *string
 	tenant_id          *string
 	created_at         *string
 	updated_at         *string
@@ -17474,6 +17551,202 @@ func (m *OperatingSystemResourceMutation) ResetDescription() {
 	delete(m.clearedFields, operatingsystemresource.FieldDescription)
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (m *OperatingSystemResourceMutation) SetExistingCves(s string) {
+	m.existing_cves = &s
+}
+
+// ExistingCves returns the value of the "existing_cves" field in the mutation.
+func (m *OperatingSystemResourceMutation) ExistingCves() (r string, exists bool) {
+	v := m.existing_cves
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExistingCves returns the old "existing_cves" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldExistingCves(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExistingCves is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExistingCves requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExistingCves: %w", err)
+	}
+	return oldValue.ExistingCves, nil
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (m *OperatingSystemResourceMutation) ClearExistingCves() {
+	m.existing_cves = nil
+	m.clearedFields[operatingsystemresource.FieldExistingCves] = struct{}{}
+}
+
+// ExistingCvesCleared returns if the "existing_cves" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) ExistingCvesCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldExistingCves]
+	return ok
+}
+
+// ResetExistingCves resets all changes to the "existing_cves" field.
+func (m *OperatingSystemResourceMutation) ResetExistingCves() {
+	m.existing_cves = nil
+	delete(m.clearedFields, operatingsystemresource.FieldExistingCves)
+}
+
+// SetExistingCvesURL sets the "existing_cves_url" field.
+func (m *OperatingSystemResourceMutation) SetExistingCvesURL(s string) {
+	m.existing_cves_url = &s
+}
+
+// ExistingCvesURL returns the value of the "existing_cves_url" field in the mutation.
+func (m *OperatingSystemResourceMutation) ExistingCvesURL() (r string, exists bool) {
+	v := m.existing_cves_url
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExistingCvesURL returns the old "existing_cves_url" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldExistingCvesURL(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExistingCvesURL is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExistingCvesURL requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExistingCvesURL: %w", err)
+	}
+	return oldValue.ExistingCvesURL, nil
+}
+
+// ClearExistingCvesURL clears the value of the "existing_cves_url" field.
+func (m *OperatingSystemResourceMutation) ClearExistingCvesURL() {
+	m.existing_cves_url = nil
+	m.clearedFields[operatingsystemresource.FieldExistingCvesURL] = struct{}{}
+}
+
+// ExistingCvesURLCleared returns if the "existing_cves_url" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) ExistingCvesURLCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldExistingCvesURL]
+	return ok
+}
+
+// ResetExistingCvesURL resets all changes to the "existing_cves_url" field.
+func (m *OperatingSystemResourceMutation) ResetExistingCvesURL() {
+	m.existing_cves_url = nil
+	delete(m.clearedFields, operatingsystemresource.FieldExistingCvesURL)
+}
+
+// SetFixedCves sets the "fixed_cves" field.
+func (m *OperatingSystemResourceMutation) SetFixedCves(s string) {
+	m.fixed_cves = &s
+}
+
+// FixedCves returns the value of the "fixed_cves" field in the mutation.
+func (m *OperatingSystemResourceMutation) FixedCves() (r string, exists bool) {
+	v := m.fixed_cves
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFixedCves returns the old "fixed_cves" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldFixedCves(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFixedCves is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFixedCves requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFixedCves: %w", err)
+	}
+	return oldValue.FixedCves, nil
+}
+
+// ClearFixedCves clears the value of the "fixed_cves" field.
+func (m *OperatingSystemResourceMutation) ClearFixedCves() {
+	m.fixed_cves = nil
+	m.clearedFields[operatingsystemresource.FieldFixedCves] = struct{}{}
+}
+
+// FixedCvesCleared returns if the "fixed_cves" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) FixedCvesCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldFixedCves]
+	return ok
+}
+
+// ResetFixedCves resets all changes to the "fixed_cves" field.
+func (m *OperatingSystemResourceMutation) ResetFixedCves() {
+	m.fixed_cves = nil
+	delete(m.clearedFields, operatingsystemresource.FieldFixedCves)
+}
+
+// SetFixedCvesURL sets the "fixed_cves_url" field.
+func (m *OperatingSystemResourceMutation) SetFixedCvesURL(s string) {
+	m.fixed_cves_url = &s
+}
+
+// FixedCvesURL returns the value of the "fixed_cves_url" field in the mutation.
+func (m *OperatingSystemResourceMutation) FixedCvesURL() (r string, exists bool) {
+	v := m.fixed_cves_url
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFixedCvesURL returns the old "fixed_cves_url" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldFixedCvesURL(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFixedCvesURL is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFixedCvesURL requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFixedCvesURL: %w", err)
+	}
+	return oldValue.FixedCvesURL, nil
+}
+
+// ClearFixedCvesURL clears the value of the "fixed_cves_url" field.
+func (m *OperatingSystemResourceMutation) ClearFixedCvesURL() {
+	m.fixed_cves_url = nil
+	m.clearedFields[operatingsystemresource.FieldFixedCvesURL] = struct{}{}
+}
+
+// FixedCvesURLCleared returns if the "fixed_cves_url" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) FixedCvesURLCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldFixedCvesURL]
+	return ok
+}
+
+// ResetFixedCvesURL resets all changes to the "fixed_cves_url" field.
+func (m *OperatingSystemResourceMutation) ResetFixedCvesURL() {
+	m.fixed_cves_url = nil
+	delete(m.clearedFields, operatingsystemresource.FieldFixedCvesURL)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *OperatingSystemResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -17616,7 +17889,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 19)
+	fields := make([]string, 0, 23)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -17664,6 +17937,18 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.description != nil {
 		fields = append(fields, operatingsystemresource.FieldDescription)
+	}
+	if m.existing_cves != nil {
+		fields = append(fields, operatingsystemresource.FieldExistingCves)
+	}
+	if m.existing_cves_url != nil {
+		fields = append(fields, operatingsystemresource.FieldExistingCvesURL)
+	}
+	if m.fixed_cves != nil {
+		fields = append(fields, operatingsystemresource.FieldFixedCves)
+	}
+	if m.fixed_cves_url != nil {
+		fields = append(fields, operatingsystemresource.FieldFixedCvesURL)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, operatingsystemresource.FieldTenantID)
@@ -17714,6 +17999,14 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.PlatformBundle()
 	case operatingsystemresource.FieldDescription:
 		return m.Description()
+	case operatingsystemresource.FieldExistingCves:
+		return m.ExistingCves()
+	case operatingsystemresource.FieldExistingCvesURL:
+		return m.ExistingCvesURL()
+	case operatingsystemresource.FieldFixedCves:
+		return m.FixedCves()
+	case operatingsystemresource.FieldFixedCvesURL:
+		return m.FixedCvesURL()
 	case operatingsystemresource.FieldTenantID:
 		return m.TenantID()
 	case operatingsystemresource.FieldCreatedAt:
@@ -17761,6 +18054,14 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldPlatformBundle(ctx)
 	case operatingsystemresource.FieldDescription:
 		return m.OldDescription(ctx)
+	case operatingsystemresource.FieldExistingCves:
+		return m.OldExistingCves(ctx)
+	case operatingsystemresource.FieldExistingCvesURL:
+		return m.OldExistingCvesURL(ctx)
+	case operatingsystemresource.FieldFixedCves:
+		return m.OldFixedCves(ctx)
+	case operatingsystemresource.FieldFixedCvesURL:
+		return m.OldFixedCvesURL(ctx)
 	case operatingsystemresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case operatingsystemresource.FieldCreatedAt:
@@ -17888,6 +18189,34 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 		}
 		m.SetDescription(v)
 		return nil
+	case operatingsystemresource.FieldExistingCves:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExistingCves(v)
+		return nil
+	case operatingsystemresource.FieldExistingCvesURL:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExistingCvesURL(v)
+		return nil
+	case operatingsystemresource.FieldFixedCves:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFixedCves(v)
+		return nil
+	case operatingsystemresource.FieldFixedCvesURL:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFixedCvesURL(v)
+		return nil
 	case operatingsystemresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -17981,6 +18310,18 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldDescription) {
 		fields = append(fields, operatingsystemresource.FieldDescription)
 	}
+	if m.FieldCleared(operatingsystemresource.FieldExistingCves) {
+		fields = append(fields, operatingsystemresource.FieldExistingCves)
+	}
+	if m.FieldCleared(operatingsystemresource.FieldExistingCvesURL) {
+		fields = append(fields, operatingsystemresource.FieldExistingCvesURL)
+	}
+	if m.FieldCleared(operatingsystemresource.FieldFixedCves) {
+		fields = append(fields, operatingsystemresource.FieldFixedCves)
+	}
+	if m.FieldCleared(operatingsystemresource.FieldFixedCvesURL) {
+		fields = append(fields, operatingsystemresource.FieldFixedCvesURL)
+	}
 	return fields
 }
 
@@ -18037,6 +18378,18 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldDescription:
 		m.ClearDescription()
 		return nil
+	case operatingsystemresource.FieldExistingCves:
+		m.ClearExistingCves()
+		return nil
+	case operatingsystemresource.FieldExistingCvesURL:
+		m.ClearExistingCvesURL()
+		return nil
+	case operatingsystemresource.FieldFixedCves:
+		m.ClearFixedCves()
+		return nil
+	case operatingsystemresource.FieldFixedCvesURL:
+		m.ClearFixedCvesURL()
+		return nil
 	}
 	return fmt.Errorf("unknown OperatingSystemResource nullable field %s", name)
 }
@@ -18092,6 +18445,18 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldDescription:
 		m.ResetDescription()
+		return nil
+	case operatingsystemresource.FieldExistingCves:
+		m.ResetExistingCves()
+		return nil
+	case operatingsystemresource.FieldExistingCvesURL:
+		m.ResetExistingCvesURL()
+		return nil
+	case operatingsystemresource.FieldFixedCves:
+		m.ResetFixedCves()
+		return nil
+	case operatingsystemresource.FieldFixedCvesURL:
+		m.ResetFixedCvesURL()
 		return nil
 	case operatingsystemresource.FieldTenantID:
 		m.ResetTenantID()

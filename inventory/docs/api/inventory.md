@@ -370,6 +370,10 @@
 | os_provider | [OsProviderKind](#os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | description | [string](#string) |  | user-provided, human-readable description of OS |
+| existing_cves | [string](#string) |  | JSON string, containig existing CVEs |
+| existing_cves_url | [string](#string) |  | Location of the open CVEs for the image |
+| fixed_cves | [string](#string) |  | JSON string, containig fixed CVEs |
+| fixed_cves_url | [string](#string) |  | Location of the fixed CVEs for the image |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -710,6 +714,7 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | workload_members | [WorkloadMember](#compute-v1-WorkloadMember) | repeated | back-reference to the Workload Members associated to this Instance |
 | provider | [provider.v1.ProviderResource](#provider-v1-ProviderResource) |  | Provider this Instance is provisioned through |
 | localaccount | [localaccount.v1.LocalAccountResource](#localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| existing_cves | [string](#string) |  | JSON string, containig existing CVEs from the current OS Profile |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | instance_status_detail | [string](#string) |  | textual message that gives detailed status of the instance&#39;s software components. |
 | created_at | [string](#string) |  | Creation timestamp |

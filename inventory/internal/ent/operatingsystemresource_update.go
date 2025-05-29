@@ -256,6 +256,18 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	if osru.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
 	}
+	if osru.mutation.ExistingCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCves, field.TypeString)
+	}
+	if osru.mutation.ExistingCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
+	}
+	if osru.mutation.FixedCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCves, field.TypeString)
+	}
+	if osru.mutation.FixedCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCvesURL, field.TypeString)
+	}
 	if value, ok := osru.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)
 	}
@@ -537,6 +549,18 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if osruo.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
+	}
+	if osruo.mutation.ExistingCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCves, field.TypeString)
+	}
+	if osruo.mutation.ExistingCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
+	}
+	if osruo.mutation.FixedCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCves, field.TypeString)
+	}
+	if osruo.mutation.FixedCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCvesURL, field.TypeString)
 	}
 	if value, ok := osruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)

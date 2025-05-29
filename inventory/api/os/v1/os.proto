@@ -126,6 +126,54 @@ message OperatingSystemResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // user-provided, human-readable description of OS
 
+  string existing_cves = 17 [
+    (ent.field) = {
+    optional: true
+    immutable: true
+    },
+    (buf.validate.field).string = {
+      max_bytes: 20000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\n{}\\[\\]]+$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // JSON string, containig existing CVEs 
+
+  string existing_cves_url = 18[
+    (ent.field) = {
+    optional: true
+    immutable: true
+    },
+    (buf.validate.field).string = {
+      max_bytes: 500
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // Location of the open CVEs for the image
+
+  string fixed_cves = 19 [
+    (ent.field) = {
+    optional: true
+    immutable: true
+    },
+    (buf.validate.field).string = {
+      max_bytes: 20000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\n{}\\[\\]]+$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // JSON string, containig fixed CVEs 
+
+  string fixed_cves_url = 20 [
+    (ent.field) = {
+    optional: true
+    immutable: true
+    },
+    (buf.validate.field).string = {
+      max_bytes: 500
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // Location of the fixed CVEs for the image
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
@@ -137,6 +185,8 @@ message OperatingSystemResource {
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // Tenant Identifier
+
+  
 
   string created_at = 200 [(ent.field) = {
     immutable: true
