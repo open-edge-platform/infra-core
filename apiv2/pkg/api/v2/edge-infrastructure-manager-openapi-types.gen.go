@@ -5860,8 +5860,8 @@ type HostServicePatchHostJSONRequestBody = HostResource
 // HostServiceUpdateHostJSONRequestBody defines body for HostServiceUpdateHost for application/json ContentType.
 type HostServiceUpdateHostJSONRequestBody = HostResource
 
-// HostServiceRegisterUpdateHostJSONRequestBody defines body for HostServiceRegisterUpdateHost for application/json ContentType.
-type HostServiceRegisterUpdateHostJSONRequestBody = HostRegister
+// HostServicePatchRegisterHostJSONRequestBody defines body for HostServicePatchRegisterHost for application/json ContentType.
+type HostServicePatchRegisterHostJSONRequestBody = HostRegister
 
 // InstanceServiceCreateInstanceJSONRequestBody defines body for InstanceServiceCreateInstance for application/json ContentType.
 type InstanceServiceCreateInstanceJSONRequestBody = InstanceResource
