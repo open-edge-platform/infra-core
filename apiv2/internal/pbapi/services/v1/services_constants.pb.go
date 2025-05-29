@@ -590,7 +590,7 @@ const (
 	CreateOSUpdatePolicyResponseEdgeOsUpdatePolicy = "os_update_policy"
 
 	// Fields and Edges constants for "GetOSUpdatePolicyRequest"
-	GetOSUpdatePolicyRequestFieldResourceId = "resource_id"
+	GetOSUpdatePolicyRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetOSUpdatePolicyResponse"
 	GetOSUpdatePolicyResponseEdgeOsUpdatePolicy = "os_update_policy"
@@ -607,7 +607,7 @@ const (
 	ListOSUpdatePolicyResponseFieldHasNext         = "has_next"
 
 	// Fields and Edges constants for "DeleteOSUpdatePolicyRequest"
-	DeleteOSUpdatePolicyRequestFieldResourceId = "resource_id"
+	DeleteOSUpdatePolicyRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteOSUpdatePolicyResponse"
 
@@ -618,7 +618,7 @@ const (
 	CreateOSUpdateRunResponseEdgeOsUpdateRun = "os_update_run"
 
 	// Fields and Edges constants for "GetOSUpdateRunRequest"
-	GetOSUpdateRunRequestFieldResourceId = "resource_id"
+	GetOSUpdateRunRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetOSUpdateRunResponse"
 	GetOSUpdateRunResponseEdgeOsUpdateRun = "os_update_run"
@@ -635,7 +635,7 @@ const (
 	ListOSUpdateRunResponseFieldHasNext         = "has_next"
 
 	// Fields and Edges constants for "DeleteOSUpdateRunRequest"
-	DeleteOSUpdateRunRequestFieldResourceId = "resource_id"
+	DeleteOSUpdateRunRequestFieldResourceId = "resourceId"
 
 // Fields and Edges constants for "DeleteOSUpdateRunResponse"
 

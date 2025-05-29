@@ -2005,7 +2005,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the OS Update Policy to be deleted. |
+| resourceId | [string](#string) |  | Name of the OS Update Policy to be deleted. |
 
 
 
@@ -2030,7 +2030,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os update run to be deleted. |
+| resourceId | [string](#string) |  | Name of the os update run to be deleted. |
 
 
 
@@ -2478,7 +2478,7 @@ Request message for the GetOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested os. |
+| resourceId | [string](#string) |  | Name of the requested os. |
 
 
 
@@ -2508,7 +2508,7 @@ Request message for the GetOSUpdateRun method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested os. |
+| resourceId | [string](#string) |  | Name of the requested os. |
 
 
 

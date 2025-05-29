@@ -2374,11 +2374,11 @@ service OSUpdatePolicy {
   }
   // Get a specific OS Update Policy.
   rpc GetOSUpdatePolicy(GetOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
   }
   // Delete a OS Update Policy.
   rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
   }
 }
 
@@ -2403,7 +2403,7 @@ message CreateOSUpdatePolicyResponse {
 // Request message for the GetOSUpdatePolicy method.
 message GetOSUpdatePolicyRequest {
   // Name of the requested os.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOSUpdatePolicy method.
@@ -2464,7 +2464,7 @@ message ListOSUpdatePolicyResponse {
 // Request message for DeleteOperatingSystem.
 message DeleteOSUpdatePolicyRequest {
   // Name of the OS Update Policy to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
@@ -2479,11 +2479,11 @@ service OSUpdateRun {
   }
   // Get a specific OS Update Run.
   rpc GetOSUpdateRun(GetOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
   }
   // Delete a OS Update Run.
   rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"};
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
   }
 }
 
@@ -2508,7 +2508,7 @@ message CreateOSUpdateRunResponse {
 // Request message for the GetOSUpdateRun method.
 message GetOSUpdateRunRequest {
   // Name of the requested os.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOSUpdateRun method.
@@ -2569,7 +2569,7 @@ message ListOSUpdateRunResponse {
 // Request message for DeleteOperatingSystem.
 message DeleteOSUpdateRunRequest {
   // Name of the os update run to be deleted.
-  string resource_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
