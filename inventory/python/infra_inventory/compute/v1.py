@@ -308,6 +308,7 @@ class InstanceResource(betterproto.Message):
     workload_members: List["WorkloadMember"] = betterproto.message_field(30)
     provider: v1.ProviderResource = betterproto.message_field(40)
     localaccount: v1.LocalAccountResource = betterproto.message_field(41)
+    existing_cves: str = betterproto.string_field(50)
     tenant_id: str = betterproto.string_field(100)
     instance_status_detail: str = betterproto.string_field(101)
     created_at: str = betterproto.string_field(200)
