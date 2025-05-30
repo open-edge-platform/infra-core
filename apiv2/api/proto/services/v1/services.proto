@@ -997,8 +997,10 @@ message HostRegister {
     }
   ];
 
-  // Flag ot signal to automatically onboard the host.
+  // Flag to signal to automatically onboard the host.
   bool auto_onboard = 18;
+  // Flag to signal to enable vPRO on the host.
+  bool enable_vpro = 19;
 }
 
 // Request to register a Host.

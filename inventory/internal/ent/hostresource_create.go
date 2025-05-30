@@ -424,6 +424,20 @@ func (hrc *HostResourceCreate) SetNillableMetadata(s *string) *HostResourceCreat
 	return hrc
 }
 
+// SetDesiredPowerState sets the "desired_power_state" field.
+func (hrc *HostResourceCreate) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceCreate {
+	hrc.mutation.SetDesiredPowerState(hps)
+	return hrc
+}
+
+// SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceCreate {
+	if hps != nil {
+		hrc.SetDesiredPowerState(*hps)
+	}
+	return hrc
+}
+
 // SetCurrentPowerState sets the "current_power_state" field.
 func (hrc *HostResourceCreate) SetCurrentPowerState(hps hostresource.CurrentPowerState) *HostResourceCreate {
 	hrc.mutation.SetCurrentPowerState(hps)
@@ -438,16 +452,72 @@ func (hrc *HostResourceCreate) SetNillableCurrentPowerState(hps *hostresource.Cu
 	return hrc
 }
 
-// SetDesiredPowerState sets the "desired_power_state" field.
-func (hrc *HostResourceCreate) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceCreate {
-	hrc.mutation.SetDesiredPowerState(hps)
+// SetPowerStatus sets the "power_status" field.
+func (hrc *HostResourceCreate) SetPowerStatus(s string) *HostResourceCreate {
+	hrc.mutation.SetPowerStatus(s)
 	return hrc
 }
 
-// SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceCreate {
-	if hps != nil {
-		hrc.SetDesiredPowerState(*hps)
+// SetNillablePowerStatus sets the "power_status" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillablePowerStatus(s *string) *HostResourceCreate {
+	if s != nil {
+		hrc.SetPowerStatus(*s)
+	}
+	return hrc
+}
+
+// SetPowerStatusIndicator sets the "power_status_indicator" field.
+func (hrc *HostResourceCreate) SetPowerStatusIndicator(hsi hostresource.PowerStatusIndicator) *HostResourceCreate {
+	hrc.mutation.SetPowerStatusIndicator(hsi)
+	return hrc
+}
+
+// SetNillablePowerStatusIndicator sets the "power_status_indicator" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillablePowerStatusIndicator(hsi *hostresource.PowerStatusIndicator) *HostResourceCreate {
+	if hsi != nil {
+		hrc.SetPowerStatusIndicator(*hsi)
+	}
+	return hrc
+}
+
+// SetPowerStatusTimestamp sets the "power_status_timestamp" field.
+func (hrc *HostResourceCreate) SetPowerStatusTimestamp(u uint64) *HostResourceCreate {
+	hrc.mutation.SetPowerStatusTimestamp(u)
+	return hrc
+}
+
+// SetNillablePowerStatusTimestamp sets the "power_status_timestamp" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillablePowerStatusTimestamp(u *uint64) *HostResourceCreate {
+	if u != nil {
+		hrc.SetPowerStatusTimestamp(*u)
+	}
+	return hrc
+}
+
+// SetPowerCommandPolicy sets the "power_command_policy" field.
+func (hrc *HostResourceCreate) SetPowerCommandPolicy(hcp hostresource.PowerCommandPolicy) *HostResourceCreate {
+	hrc.mutation.SetPowerCommandPolicy(hcp)
+	return hrc
+}
+
+// SetNillablePowerCommandPolicy sets the "power_command_policy" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillablePowerCommandPolicy(hcp *hostresource.PowerCommandPolicy) *HostResourceCreate {
+	if hcp != nil {
+		hrc.SetPowerCommandPolicy(*hcp)
+	}
+	return hrc
+}
+
+// SetPowerOnTime sets the "power_on_time" field.
+func (hrc *HostResourceCreate) SetPowerOnTime(u uint64) *HostResourceCreate {
+	hrc.mutation.SetPowerOnTime(u)
+	return hrc
+}
+
+// SetNillablePowerOnTime sets the "power_on_time" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillablePowerOnTime(u *uint64) *HostResourceCreate {
+	if u != nil {
+		hrc.SetPowerOnTime(*u)
 	}
 	return hrc
 }
@@ -574,6 +644,90 @@ func (hrc *HostResourceCreate) SetRegistrationStatusTimestamp(u uint64) *HostRes
 func (hrc *HostResourceCreate) SetNillableRegistrationStatusTimestamp(u *uint64) *HostResourceCreate {
 	if u != nil {
 		hrc.SetRegistrationStatusTimestamp(*u)
+	}
+	return hrc
+}
+
+// SetAmtSku sets the "amt_sku" field.
+func (hrc *HostResourceCreate) SetAmtSku(s string) *HostResourceCreate {
+	hrc.mutation.SetAmtSku(s)
+	return hrc
+}
+
+// SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableAmtSku(s *string) *HostResourceCreate {
+	if s != nil {
+		hrc.SetAmtSku(*s)
+	}
+	return hrc
+}
+
+// SetDesiredAmtState sets the "desired_amt_state" field.
+func (hrc *HostResourceCreate) SetDesiredAmtState(has hostresource.DesiredAmtState) *HostResourceCreate {
+	hrc.mutation.SetDesiredAmtState(has)
+	return hrc
+}
+
+// SetNillableDesiredAmtState sets the "desired_amt_state" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableDesiredAmtState(has *hostresource.DesiredAmtState) *HostResourceCreate {
+	if has != nil {
+		hrc.SetDesiredAmtState(*has)
+	}
+	return hrc
+}
+
+// SetCurrentAmtState sets the "current_amt_state" field.
+func (hrc *HostResourceCreate) SetCurrentAmtState(has hostresource.CurrentAmtState) *HostResourceCreate {
+	hrc.mutation.SetCurrentAmtState(has)
+	return hrc
+}
+
+// SetNillableCurrentAmtState sets the "current_amt_state" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableCurrentAmtState(has *hostresource.CurrentAmtState) *HostResourceCreate {
+	if has != nil {
+		hrc.SetCurrentAmtState(*has)
+	}
+	return hrc
+}
+
+// SetAmtStatus sets the "amt_status" field.
+func (hrc *HostResourceCreate) SetAmtStatus(s string) *HostResourceCreate {
+	hrc.mutation.SetAmtStatus(s)
+	return hrc
+}
+
+// SetNillableAmtStatus sets the "amt_status" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableAmtStatus(s *string) *HostResourceCreate {
+	if s != nil {
+		hrc.SetAmtStatus(*s)
+	}
+	return hrc
+}
+
+// SetAmtStatusIndicator sets the "amt_status_indicator" field.
+func (hrc *HostResourceCreate) SetAmtStatusIndicator(hsi hostresource.AmtStatusIndicator) *HostResourceCreate {
+	hrc.mutation.SetAmtStatusIndicator(hsi)
+	return hrc
+}
+
+// SetNillableAmtStatusIndicator sets the "amt_status_indicator" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableAmtStatusIndicator(hsi *hostresource.AmtStatusIndicator) *HostResourceCreate {
+	if hsi != nil {
+		hrc.SetAmtStatusIndicator(*hsi)
+	}
+	return hrc
+}
+
+// SetAmtStatusTimestamp sets the "amt_status_timestamp" field.
+func (hrc *HostResourceCreate) SetAmtStatusTimestamp(u uint64) *HostResourceCreate {
+	hrc.mutation.SetAmtStatusTimestamp(u)
+	return hrc
+}
+
+// SetNillableAmtStatusTimestamp sets the "amt_status_timestamp" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableAmtStatusTimestamp(u *uint64) *HostResourceCreate {
+	if u != nil {
+		hrc.SetAmtStatusTimestamp(*u)
 	}
 	return hrc
 }
@@ -765,14 +919,24 @@ func (hrc *HostResourceCreate) check() error {
 			return &ValidationError{Name: "bmc_kind", err: fmt.Errorf(`ent: validator failed for field "HostResource.bmc_kind": %w`, err)}
 		}
 	}
+	if v, ok := hrc.mutation.DesiredPowerState(); ok {
+		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
+		}
+	}
 	if v, ok := hrc.mutation.CurrentPowerState(); ok {
 		if err := hostresource.CurrentPowerStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_power_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.DesiredPowerState(); ok {
-		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
-			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
+	if v, ok := hrc.mutation.PowerStatusIndicator(); ok {
+		if err := hostresource.PowerStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "power_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := hrc.mutation.PowerCommandPolicy(); ok {
+		if err := hostresource.PowerCommandPolicyValidator(v); err != nil {
+			return &ValidationError{Name: "power_command_policy", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_command_policy": %w`, err)}
 		}
 	}
 	if v, ok := hrc.mutation.HostStatusIndicator(); ok {
@@ -788,6 +952,21 @@ func (hrc *HostResourceCreate) check() error {
 	if v, ok := hrc.mutation.RegistrationStatusIndicator(); ok {
 		if err := hostresource.RegistrationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := hrc.mutation.DesiredAmtState(); ok {
+		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
+		}
+	}
+	if v, ok := hrc.mutation.CurrentAmtState(); ok {
+		if err := hostresource.CurrentAmtStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_amt_state": %w`, err)}
+		}
+	}
+	if v, ok := hrc.mutation.AmtStatusIndicator(); ok {
+		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
 		}
 	}
 	if _, ok := hrc.mutation.TenantID(); !ok {
@@ -941,13 +1120,33 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		_spec.SetField(hostresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
 	}
+	if value, ok := hrc.mutation.DesiredPowerState(); ok {
+		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
+		_node.DesiredPowerState = value
+	}
 	if value, ok := hrc.mutation.CurrentPowerState(); ok {
 		_spec.SetField(hostresource.FieldCurrentPowerState, field.TypeEnum, value)
 		_node.CurrentPowerState = value
 	}
-	if value, ok := hrc.mutation.DesiredPowerState(); ok {
-		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
-		_node.DesiredPowerState = value
+	if value, ok := hrc.mutation.PowerStatus(); ok {
+		_spec.SetField(hostresource.FieldPowerStatus, field.TypeString, value)
+		_node.PowerStatus = value
+	}
+	if value, ok := hrc.mutation.PowerStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldPowerStatusIndicator, field.TypeEnum, value)
+		_node.PowerStatusIndicator = value
+	}
+	if value, ok := hrc.mutation.PowerStatusTimestamp(); ok {
+		_spec.SetField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64, value)
+		_node.PowerStatusTimestamp = value
+	}
+	if value, ok := hrc.mutation.PowerCommandPolicy(); ok {
+		_spec.SetField(hostresource.FieldPowerCommandPolicy, field.TypeEnum, value)
+		_node.PowerCommandPolicy = value
+	}
+	if value, ok := hrc.mutation.PowerOnTime(); ok {
+		_spec.SetField(hostresource.FieldPowerOnTime, field.TypeUint64, value)
+		_node.PowerOnTime = value
 	}
 	if value, ok := hrc.mutation.HostStatus(); ok {
 		_spec.SetField(hostresource.FieldHostStatus, field.TypeString, value)
@@ -984,6 +1183,30 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 	if value, ok := hrc.mutation.RegistrationStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64, value)
 		_node.RegistrationStatusTimestamp = value
+	}
+	if value, ok := hrc.mutation.AmtSku(); ok {
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+		_node.AmtSku = value
+	}
+	if value, ok := hrc.mutation.DesiredAmtState(); ok {
+		_spec.SetField(hostresource.FieldDesiredAmtState, field.TypeEnum, value)
+		_node.DesiredAmtState = value
+	}
+	if value, ok := hrc.mutation.CurrentAmtState(); ok {
+		_spec.SetField(hostresource.FieldCurrentAmtState, field.TypeEnum, value)
+		_node.CurrentAmtState = value
+	}
+	if value, ok := hrc.mutation.AmtStatus(); ok {
+		_spec.SetField(hostresource.FieldAmtStatus, field.TypeString, value)
+		_node.AmtStatus = value
+	}
+	if value, ok := hrc.mutation.AmtStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldAmtStatusIndicator, field.TypeEnum, value)
+		_node.AmtStatusIndicator = value
+	}
+	if value, ok := hrc.mutation.AmtStatusTimestamp(); ok {
+		_spec.SetField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
+		_node.AmtStatusTimestamp = value
 	}
 	if value, ok := hrc.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)
