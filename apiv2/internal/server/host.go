@@ -43,23 +43,23 @@ var (
 	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
 	filterIsFailedHostStatus    = fmt.Sprintf(filterIsFailedHostStatusExp,
 		inv_computev1.HostResourceFieldHostStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
-		api.HostResourceHostStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 	)
 
 	// Create a filter specifically for instance error states.
@@ -67,16 +67,16 @@ var (
 	filterIsFailedInstanceStatus    = fmt.Sprintf(filterIsFailedInstanceStatusExp,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldProvisioningStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldUpdateStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
-		api.InstanceResourceInstanceStatusIndicatorSTATUSINDICATIONERROR,
+		api.STATUSINDICATIONERROR,
 	)
 
 	// Modify running instance filter to only exclude instance-related errors
@@ -413,20 +413,15 @@ func (is *InventorygRPCServer) ListHosts(
 ) (*restv1.ListHostsResponse, error) {
 	zlog.Debug().Msg("ListHosts")
 
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Host{Host: &inv_computev1.HostResource{}}},
-		Offset:   offset,
-		Limit:    limit,
+		Offset:   req.GetOffset(),
+		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
 
-	if err = validator.ValidateMessage(filter); err != nil {
+	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}
@@ -702,11 +697,11 @@ func (is *InventorygRPCServer) OnboardHost(
 }
 
 // Onboard a host.
-func (is *InventorygRPCServer) RegisterUpdateHost(
+func (is *InventorygRPCServer) PatchRegisterHost(
 	ctx context.Context,
 	req *restv1.RegisterHostRequest,
 ) (*computev1.HostResource, error) {
-	zlog.Debug().Msg("RegisterUpdateHost")
+	zlog.Debug().Msg("PatchRegisterHost")
 	hostResource := &inv_computev1.HostResource{
 		Name:         req.GetHost().GetName(),
 		DesiredState: inv_computev1.HostState_HOST_STATE_REGISTERED,
@@ -745,7 +740,7 @@ func (is *InventorygRPCServer) RegisterUpdateHost(
 }
 
 func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (int32, error) {
-	var pageSize int32 = 1
+	var pageSize uint32 = 1
 	req := &restv1.ListHostsRequest{
 		Filter:   filter,
 		PageSize: pageSize,

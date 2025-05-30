@@ -5,10 +5,13 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.1
 
+replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+
 require (
-	github.com/envoyproxy/protoc-gen-validate v1.2.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1
 	github.com/getkin/kin-openapi v0.131.0
 	github.com/golang-jwt/jwt/v5 v5.2.2
+	github.com/google/gnostic v0.7.0
 	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.3
@@ -28,9 +31,7 @@ require (
 
 require (
 	ariga.io/atlas v0.33.0 // indirect
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1 // indirect
 	cel.dev/expr v0.23.1 // indirect
-	cloud.google.com/go/compute/metadata v0.6.0 // indirect
 	entgo.io/contrib v0.6.0 // indirect
 	entgo.io/ent v0.14.4 // indirect
 	github.com/adhocore/gronx v1.19.6 // indirect
@@ -66,6 +67,7 @@ require (
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/google/cel-go v0.25.0 // indirect
+	github.com/google/gnostic-models v0.6.9-0.20230804172637-c7be7c783f49 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect

@@ -6,6 +6,7 @@ package client_test
 import (
 	"context"
 	"flag"
+	"math/rand"
 	"net"
 	"os"
 	"path/filepath"
@@ -1322,6 +1323,44 @@ func TestGetSitesPerRegion(t *testing.T) {
 	require.Equal(t, 1, int(respRegion0.GetChildSites()))
 	respRegion1 = respRegions[1]
 	require.Equal(t, 1, int(respRegion1.GetChildSites()))
+}
+
+func TestMaxMessageSize(t *testing.T) {
+	// TODO: extend with more lengthy fields to validate max message size is large enough.
+	// This test validate that the max message size is large enough to handle 100 hosts with large size of installed_packages.
+	dao := inv_testing.NewInvResourceDAOOrFail(t)
+	tenantID := uuid.NewString()
+	randString10k := generateRandomString(50000) // 50k characters, max supported from API perspective.
+	createdOs := dao.CreateOsWithOpts(t, tenantID, true,
+		inv_testing.InstalledPackages(randString10k),
+		inv_testing.Sha256(inv_testing.RandomSha256v1),
+	)
+	// Create 100 Hosts with large installed_packages
+	for i := 0; i < 100; i++ {
+		host := dao.CreateHost(t, tenantID)
+		dao.CreateInstance(t, tenantID, host, createdOs)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	apiClient := inv_testing.TestClients[inv_testing.APIClient]
+	filter := &inv_v1.ResourceFilter{
+		Resource: &inv_v1.Resource{
+			Resource: &inv_v1.Resource_Host{},
+		},
+	}
+	_, err := apiClient.List(ctx, filter)
+	require.NoError(t, err, "ListHost() failed")
+}
+
+func generateRandomString(length int) string {
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, length)
+	for i := range b {
+		//nolint:gosec // no need for cryptographic security here
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
 
 func assertUUIDNotInCache(t *testing.T, hostUUID string) {
