@@ -441,7 +441,10 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
-				Metadata:          "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
+
+				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISION,
+
+				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
 			clientName: inv_testing.APIClient,
 			valid:      true,
@@ -483,7 +486,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
-				Metadata:          "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
+
+				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
 			clientName: inv_testing.APIClient,
 			valid:      true,
@@ -540,9 +544,19 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 		"CreateFromRM": {
 			// This tests case verifies that a host can be created from RM with RM-updatable fields
 			in: &computev1.HostResource{
-				Uuid:              uuid.NewString(),
-				CurrentState:      computev1.HostState_HOST_STATE_ONBOARDED,
-				CurrentPowerState: computev1.PowerState_POWER_STATE_OFF,
+				Uuid:         uuid.NewString(),
+				CurrentState: computev1.HostState_HOST_STATE_ONBOARDED,
+
+				CurrentPowerState:    computev1.PowerState_POWER_STATE_OFF,
+				PowerStatus:          "Powered On",
+				PowerStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+				PowerStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
+
+				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISION,
+				AmtStatus:          "Provisioned",
+				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
+				AmtSku:             "vPRO Corporate 16.5.2",
 			},
 			clientName: inv_testing.RMClient,
 			valid:      true,
@@ -582,6 +596,15 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
+				if tc.in.AmtSku == "" {
+					tc.in.AmtSku = "Unknown"
+				}
+				if tc.in.AmtStatus == "" {
+					tc.in.AmtStatus = res_status.DefaultAmtStatus
+				}
+				if tc.in.PowerStatus == "" {
+					tc.in.PowerStatus = res_status.DefaultPowerStatus
+				}
 				assertSameResource(t, createresreq, chostResp, nil)
 				if !tc.valid {
 					t.Errorf("CreateHost() succeeded but should have failed")
@@ -961,6 +984,37 @@ func Test_UpdateHost(t *testing.T) {
 			valid:        false,
 			expErrorCode: codes.NotFound,
 		},
+		{
+			name: "UpdateAmtInfoPowerInfoFromRM",
+			in: &computev1.HostResource{
+				CpuCores: 8,
+				BmcIp:    "10.11.12.14",
+
+				CurrentPowerState:    computev1.PowerState_POWER_STATE_ON,
+				PowerStatus:          "Powered On",
+				PowerStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+				PowerStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
+
+				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISION,
+				AmtStatus:          "Provisioned",
+				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
+				AmtSku:             "vPRO Corporate 16.5.2",
+			},
+			resourceID: hostResID,
+			clientName: inv_testing.RMClient,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					hostresource.FieldCPUCores, hostresource.FieldBmcIP,
+					hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus,
+					hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerStatusTimestamp,
+					hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus,
+					hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtStatusTimestamp,
+					hostresource.FieldAmtSku,
+				},
+			},
+			valid: true,
+		},
 	}
 
 	for _, tc := range testcases {
@@ -1158,6 +1212,17 @@ func Test_Register_Host(t *testing.T) {
 			clientName: inv_testing.RMClient,
 			valid:      false,
 		},
+		{
+			name: "RegisterHostWithAMT",
+			in: &computev1.HostResource{
+				Name:            "Test Host Register",
+				Uuid:            uuid.New().String(),
+				DesiredState:    computev1.HostState_HOST_STATE_ONBOARDED,
+				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISION,
+			},
+			clientName: inv_testing.APIClient,
+			valid:      true,
+		},
 	}
 
 	for _, tc := range testcases {
@@ -1185,6 +1250,15 @@ func Test_Register_Host(t *testing.T) {
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
+				if tc.in.AmtSku == "" {
+					tc.in.AmtSku = "Unknown"
+				}
+				if tc.in.AmtStatus == "" {
+					tc.in.AmtStatus = res_status.DefaultAmtStatus
+				}
+				if tc.in.PowerStatus == "" {
+					tc.in.PowerStatus = res_status.DefaultPowerStatus
+				}
 				assertSameResource(t, createresreq, chostResp, nil)
 				if !tc.valid {
 					t.Errorf("CreateHost() succeeded but should have failed")
@@ -1455,6 +1529,10 @@ func Test_LimitAndOffsetWithMetadataFilter(t *testing.T) {
 	assert.Equal(t, findRes2.TotalElements, int32(99))
 }
 
+// Note the delicacy of handling NULL columns. With a naive NEQ filter, nothing is returned as a SQL NULL is not equal
+// to anything, nor is it unequal to anything.
+// See: https://stackoverflow.com/a/18243804
+// To address this, an additional `OR <> = null` clause can be used.
 func Test_FilterHosts(t *testing.T) {
 	region1 := inv_testing.CreateRegion(t, nil)
 	region2 := inv_testing.CreateRegion(t, region1)
@@ -1594,7 +1672,16 @@ func Test_FilterHosts(t *testing.T) {
 				Hostname: "testhost4",
 				Metadata: metaHost2,
 
-				CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+				CurrentPowerState:    computev1.PowerState_POWER_STATE_ON,
+				PowerStatus:          "Powered On",
+				PowerStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+				PowerStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
+
+				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISION,
+				AmtStatus:          "Provisioned",
+				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
+				AmtSku:             "vPRO Corporate 16.5.2",
 			},
 		},
 	}
@@ -2156,33 +2243,30 @@ func Test_FilterHosts(t *testing.T) {
 			resources: []*computev1.HostResource{&expHost1},
 			valid:     true,
 		},
-		"FilterByCurrentPowerStateNull": {
+		"FilterByCurrentPowerStateUnspecified": {
 			in: &inv_v1.ResourceFilter{
 				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
-				Filter:   fmt.Sprintf(`%s = null`, hostresource.FieldCurrentPowerState),
+				Filter: fmt.Sprintf(`%s = %s`, hostresource.FieldCurrentPowerState,
+					computev1.PowerState_POWER_STATE_UNSPECIFIED),
 			},
 			resources: []*computev1.HostResource{&expHost1, &expHost2, &expHost3},
 			valid:     true,
 		},
-		"FilterByCurrentPowerStateNotNull": {
+		"FilterByCurrentPowerStateNotUnspecified": {
 			in: &inv_v1.ResourceFilter{
 				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
-				Filter:   fmt.Sprintf(`%s != null`, hostresource.FieldCurrentPowerState),
+				Filter: fmt.Sprintf(`%s != %s`, hostresource.FieldCurrentPowerState,
+					computev1.PowerState_POWER_STATE_UNSPECIFIED),
 			},
 			resources: []*computev1.HostResource{&expHost4},
 			valid:     true,
 		},
-		// This test and the below one show the delicacy of handling NULL columns. Host 4 has
-		// current power state = ERROR, all other hosts have an unset current power state. With a naive NEQ filter,
-		// nothing is returned as a SQL NULL is not equal to anything, nor is it unequal to anything.
-		// See: https://stackoverflow.com/a/18243804
-		// To address this, an additional `OR <> = null` clause can be used.
 		"FilterByCurrentPowerStateNotOn": {
 			in: &inv_v1.ResourceFilter{
 				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
 				Filter:   fmt.Sprintf(`%s != %s`, hostresource.FieldCurrentPowerState, computev1.PowerState_POWER_STATE_ON),
 			},
-			resources: []*computev1.HostResource{},
+			resources: []*computev1.HostResource{&expHost1, &expHost2, &expHost3},
 			valid:     true,
 		},
 		"FilterByCurrentPowerStateNotOnOrNull": {
@@ -2309,6 +2393,30 @@ func Test_FilterHosts(t *testing.T) {
 			},
 			resources: nil,
 			valid:     false,
+		},
+		"FilterByPowerStatus": {
+			in: &inv_v1.ResourceFilter{
+				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
+				Filter:   fmt.Sprintf(`%s = %q`, hostresource.FieldPowerStatus, "Powered On"),
+			},
+			resources: []*computev1.HostResource{&expHost4},
+			valid:     true,
+		},
+		"FilterByAmtSku": {
+			in: &inv_v1.ResourceFilter{
+				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
+				Filter:   fmt.Sprintf(`%s = %q`, hostresource.FieldAmtSku, "Unknown"),
+			},
+			resources: []*computev1.HostResource{&expHost1, &expHost2, &expHost3},
+			valid:     true,
+		},
+		"FilterByAmtStatus": {
+			in: &inv_v1.ResourceFilter{
+				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
+				Filter:   fmt.Sprintf(`%s = %q`, hostresource.FieldAmtStatus, "Provisioned"),
+			},
+			resources: []*computev1.HostResource{&expHost4},
+			valid:     true,
 		},
 	}
 
