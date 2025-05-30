@@ -51,9 +51,9 @@ class BaremetalControllerKind(betterproto.Enum):
 
 class AmtState(betterproto.Enum):
     AMT_STATE_UNSPECIFIED = 0
-    AMT_STATE_PROVISION = 1
-    AMT_STATE_UNPROVISION = 2
-    AMT_STATE_DISCONNECT = 3
+    AMT_STATE_PROVISIONED = 1
+    AMT_STATE_UNPROVISIONED = 2
+    AMT_STATE_DISCONNECTED = 3
 
 
 class HostComponentState(betterproto.Enum):

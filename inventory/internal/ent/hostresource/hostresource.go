@@ -532,10 +532,10 @@ type DesiredAmtState string
 
 // DesiredAmtState values.
 const (
-	DesiredAmtStateAMT_STATE_UNSPECIFIED DesiredAmtState = "AMT_STATE_UNSPECIFIED"
-	DesiredAmtStateAMT_STATE_PROVISION   DesiredAmtState = "AMT_STATE_PROVISION"
-	DesiredAmtStateAMT_STATE_UNPROVISION DesiredAmtState = "AMT_STATE_UNPROVISION"
-	DesiredAmtStateAMT_STATE_DISCONNECT  DesiredAmtState = "AMT_STATE_DISCONNECT"
+	DesiredAmtStateAMT_STATE_UNSPECIFIED   DesiredAmtState = "AMT_STATE_UNSPECIFIED"
+	DesiredAmtStateAMT_STATE_PROVISIONED   DesiredAmtState = "AMT_STATE_PROVISIONED"
+	DesiredAmtStateAMT_STATE_UNPROVISIONED DesiredAmtState = "AMT_STATE_UNPROVISIONED"
+	DesiredAmtStateAMT_STATE_DISCONNECTED  DesiredAmtState = "AMT_STATE_DISCONNECTED"
 )
 
 func (das DesiredAmtState) String() string {
@@ -545,7 +545,7 @@ func (das DesiredAmtState) String() string {
 // DesiredAmtStateValidator is a validator for the "desired_amt_state" field enum values. It is called by the builders before save.
 func DesiredAmtStateValidator(das DesiredAmtState) error {
 	switch das {
-	case DesiredAmtStateAMT_STATE_UNSPECIFIED, DesiredAmtStateAMT_STATE_PROVISION, DesiredAmtStateAMT_STATE_UNPROVISION, DesiredAmtStateAMT_STATE_DISCONNECT:
+	case DesiredAmtStateAMT_STATE_UNSPECIFIED, DesiredAmtStateAMT_STATE_PROVISIONED, DesiredAmtStateAMT_STATE_UNPROVISIONED, DesiredAmtStateAMT_STATE_DISCONNECTED:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for desired_amt_state field: %q", das)
@@ -557,10 +557,10 @@ type CurrentAmtState string
 
 // CurrentAmtState values.
 const (
-	CurrentAmtStateAMT_STATE_UNSPECIFIED CurrentAmtState = "AMT_STATE_UNSPECIFIED"
-	CurrentAmtStateAMT_STATE_PROVISION   CurrentAmtState = "AMT_STATE_PROVISION"
-	CurrentAmtStateAMT_STATE_UNPROVISION CurrentAmtState = "AMT_STATE_UNPROVISION"
-	CurrentAmtStateAMT_STATE_DISCONNECT  CurrentAmtState = "AMT_STATE_DISCONNECT"
+	CurrentAmtStateAMT_STATE_UNSPECIFIED   CurrentAmtState = "AMT_STATE_UNSPECIFIED"
+	CurrentAmtStateAMT_STATE_PROVISIONED   CurrentAmtState = "AMT_STATE_PROVISIONED"
+	CurrentAmtStateAMT_STATE_UNPROVISIONED CurrentAmtState = "AMT_STATE_UNPROVISIONED"
+	CurrentAmtStateAMT_STATE_DISCONNECTED  CurrentAmtState = "AMT_STATE_DISCONNECTED"
 )
 
 func (cas CurrentAmtState) String() string {
@@ -570,7 +570,7 @@ func (cas CurrentAmtState) String() string {
 // CurrentAmtStateValidator is a validator for the "current_amt_state" field enum values. It is called by the builders before save.
 func CurrentAmtStateValidator(cas CurrentAmtState) error {
 	switch cas {
-	case CurrentAmtStateAMT_STATE_UNSPECIFIED, CurrentAmtStateAMT_STATE_PROVISION, CurrentAmtStateAMT_STATE_UNPROVISION, CurrentAmtStateAMT_STATE_DISCONNECT:
+	case CurrentAmtStateAMT_STATE_UNSPECIFIED, CurrentAmtStateAMT_STATE_PROVISIONED, CurrentAmtStateAMT_STATE_UNPROVISIONED, CurrentAmtStateAMT_STATE_DISCONNECTED:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for current_amt_state field: %q", cas)
