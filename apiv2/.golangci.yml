@@ -111,6 +111,7 @@ linters-settings:
           - github.com/prometheus/client_golang/prometheus
           - github.com/grpc-ecosystem/grpc-gateway/v2/runtime
           - github.com/stretchr/testify/mock
+          - github.com/stretchr/testify/require
       test:
         files:
           - "$test"
@@ -229,6 +230,14 @@ issues:
         - staticcheck
         - cyclop
         - funlen
+    - path: test/utils/examples.go
+      linters:
+        - mnd
+    - path: test/client
+      linters:
+        - funlen
+        - cyclop
+        - testpackage
 
   uniq-by-line: false
 

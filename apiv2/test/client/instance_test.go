@@ -10,10 +10,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func clearInstanceIDs() {
@@ -36,11 +37,11 @@ func TestInstance_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 
 	utils.Site1Request.RegionId = nil
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host3Request.SiteId = site1.JSON200.SiteID
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host4Request)
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host3Request)
+	hostCreated2 := CreateHost(ctx, t, apiClient, utils.Host4Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance2Request.HostID = hostCreated2.JSON200.ResourceId
@@ -48,8 +49,8 @@ func TestInstance_CreateGetDelete(t *testing.T) {
 	utils.Instance1Request.OsID = osCreated1.JSON200.OsResourceID
 	utils.Instance2Request.OsID = osCreated1.JSON200.OsResourceID
 
-	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
-	inst2 := CreateInstance(t, ctx, apiClient, utils.Instance2Request)
+	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
+	inst2 := CreateInstance(ctx, t, apiClient, utils.Instance2Request)
 
 	get1, err := apiClient.InstanceServiceGetInstanceWithResponse(
 		ctx,
@@ -84,13 +85,13 @@ func TestInstance_Update(t *testing.T) {
 	require.NoError(t, err)
 
 	utils.Host1Request.SiteId = nil
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance1Request.OsID = osCreated1.JSON200.OsResourceID
 
-	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 	assert.Equal(t, utils.Inst1Name, *inst1.JSON200.Name)
 
 	newName := utils.Inst1Name + "-mod"
@@ -126,11 +127,11 @@ func TestInstance_Errors(t *testing.T) {
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host3Request.SiteId = site1.JSON200.ResourceId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host3Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host4Request)
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host3Request)
+	hostCreated2 := CreateHost(ctx, t, apiClient, utils.Host4Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance2Request.HostID = hostCreated2.JSON200.ResourceId
@@ -214,14 +215,14 @@ func TestInstanceList(t *testing.T) {
 
 	totalItems := 5
 	var offset int
-	var pageSize int = 4
+	pageSize := 4
 
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.SiteID
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	hostCreated2 := CreateHost(ctx, t, apiClient, utils.Host2Request)
 	host3Name := "Host-Three"
-	hostCreated3 := CreateHost(t, ctx, apiClient, api.HostResource{
+	hostCreated3 := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name: host3Name,
 		Metadata: &[]api.MetadataItem{
 			{
@@ -235,7 +236,7 @@ func TestInstanceList(t *testing.T) {
 		Uuid: &utils.Host3UUID,
 	})
 	host4Name := "Host-Four"
-	hostCreated4 := CreateHost(t, ctx, apiClient, api.HostResource{
+	hostCreated4 := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name: host4Name,
 		Metadata: &[]api.MetadataItem{
 			{
@@ -249,7 +250,7 @@ func TestInstanceList(t *testing.T) {
 		Uuid: &utils.Host4UUID1,
 	})
 	host5Name := "Host-Five"
-	hostCreated5 := CreateHost(t, ctx, apiClient, api.HostResource{
+	hostCreated5 := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name: host5Name,
 		Metadata: &[]api.MetadataItem{
 			{
@@ -262,37 +263,37 @@ func TestInstanceList(t *testing.T) {
 		},
 		Uuid: &utils.Host5UUID,
 	})
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	osCreated2 := CreateOS(t, ctx, apiClient, utils.OSResource2Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+	osCreated2 := CreateOS(ctx, t, apiClient, utils.OSResource2Request)
 
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance1Request.OsID = osCreated1.JSON200.OsResourceID
 	// creating 1st Instance
-	CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// composing request to create 2nd Instance
 	utils.Instance2Request.HostID = hostCreated2.JSON200.ResourceId
 	utils.Instance2Request.OsID = osCreated1.JSON200.OsResourceID
 	// creating 2nd Instance
-	CreateInstance(t, ctx, apiClient, utils.Instance2Request)
+	CreateInstance(ctx, t, apiClient, utils.Instance2Request)
 
 	// composing request to create 3rd Instance
 	utils.Instance2Request.HostID = hostCreated3.JSON200.ResourceId
 	utils.Instance2Request.OsID = osCreated2.JSON200.OsResourceID
 	// creating 3rd Instance
-	CreateInstance(t, ctx, apiClient, utils.Instance2Request)
+	CreateInstance(ctx, t, apiClient, utils.Instance2Request)
 
 	// composing request to create 4th Instance
 	utils.Instance2Request.HostID = hostCreated4.JSON200.ResourceId
 	utils.Instance2Request.OsID = osCreated2.JSON200.OsResourceID
 	// creating 4th Instance
-	CreateInstance(t, ctx, apiClient, utils.Instance2Request)
+	CreateInstance(ctx, t, apiClient, utils.Instance2Request)
 
 	// composing request to create 5th Instance
 	utils.Instance2Request.HostID = hostCreated5.JSON200.ResourceId
 	utils.Instance2Request.OsID = osCreated2.JSON200.OsResourceID
 	// creating 5th Instance
-	CreateInstance(t, ctx, apiClient, utils.Instance2Request)
+	CreateInstance(ctx, t, apiClient, utils.Instance2Request)
 
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.InstanceServiceListInstancesWithResponse(
@@ -306,7 +307,7 @@ func TestInstanceList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Instances), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.Instances), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.InstanceServiceListInstancesWithResponse(
@@ -349,22 +350,22 @@ func TestInstance_Filter(t *testing.T) {
 	require.NoError(t, err)
 
 	utils.Site1Request.Region = nil
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.SiteID
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	hostCreated2 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	hostCreated2 := CreateHost(ctx, t, apiClient, utils.Host2Request)
 
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance1Request.OsID = osCreated1.JSON200.OsResourceID
-	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	utils.Instance1Request.HostID = hostCreated2.JSON200.ResourceId
-	_ = CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	_ = CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// filter on Instance->Host->resourceId (host.resourceId="hostId")
-	filter := fmt.Sprintf("host.resourceId=\"%s\"", *inst1.JSON200.Host.ResourceId)
+	filter := fmt.Sprintf("host.resourceId=%q", *inst1.JSON200.Host.ResourceId)
 	assert.Equal(t, *hostCreated1.JSON200.ResourceId, *inst1.JSON200.Host.ResourceId)
 	get1, err := apiClient.InstanceServiceListInstancesWithResponse(
 		ctx,
@@ -377,7 +378,7 @@ func TestInstance_Filter(t *testing.T) {
 	assert.Equal(t, 1, int(get1.JSON200.TotalElements))
 
 	// filter on Instance->Host->Site->resourceId (host.site.resourceId="siteId")
-	filter = fmt.Sprintf("host.site.resourceId=\"%s\"", *site1.JSON200.SiteID)
+	filter = fmt.Sprintf("host.site.resourceId=%q", *site1.JSON200.SiteID)
 	assert.Equal(t, *hostCreated1.JSON200.Site.ResourceId, *site1.JSON200.SiteID)
 	get1, err = apiClient.InstanceServiceListInstancesWithResponse(
 		ctx,
@@ -403,9 +404,9 @@ func TestInstance_Filter(t *testing.T) {
 	assert.Equal(t, http.StatusOK, get1.StatusCode())
 	assert.Equal(t, 0, int(get1.JSON200.TotalElements))
 
-	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	workload := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 	wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
-	workloadMember := CreateWorkloadMember(t, ctx, apiClient, api.WorkloadMember{
+	workloadMember := CreateWorkloadMember(ctx, t, apiClient, api.WorkloadMember{
 		InstanceId: inst1.JSON200.ResourceId,
 		WorkloadId: workload.JSON200.WorkloadId,
 		Kind:       wmKind,
@@ -413,7 +414,7 @@ func TestInstance_Filter(t *testing.T) {
 
 	// filter workloadMember=created ones
 
-	byWorkloadMemberIDFilter := fmt.Sprintf(FilterByWorkloadMemberId, *workloadMember.JSON200.ResourceId)
+	byWorkloadMemberIDFilter := fmt.Sprintf(FilterByWorkloadMemberID, *workloadMember.JSON200.ResourceId)
 	get1, err = apiClient.InstanceServiceListInstancesWithResponse(
 		ctx,
 		&api.InstanceServiceListInstancesParams{Filter: &byWorkloadMemberIDFilter},
@@ -461,15 +462,15 @@ func TestInstanceInvalidate(t *testing.T) {
 	require.NoError(t, err)
 
 	utils.Site1Request.RegionId = nil
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.SiteID
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance1Request.OsID = osCreated1.JSON200.OsResourceID
 
-	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	get1, err := apiClient.InstanceServiceGetInstanceWithResponse(
 		ctx,

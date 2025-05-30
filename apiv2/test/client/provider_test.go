@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func TestProvider_CreateGetDelete(t *testing.T) {
@@ -24,9 +24,9 @@ func TestProvider_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	provider1 := CreateProvider(t, ctx, apiClient, utils.Provider1Request)
-	provider2 := CreateProvider(t, ctx, apiClient, utils.Provider2Request)
-	provider3 := CreateProvider(t, ctx, apiClient, utils.Provider3Request)
+	provider1 := CreateProvider(ctx, t, apiClient, utils.Provider1Request)
+	provider2 := CreateProvider(ctx, t, apiClient, utils.Provider2Request)
+	provider3 := CreateProvider(ctx, t, apiClient, utils.Provider3Request)
 
 	get1, err := apiClient.ProviderServiceGetProviderWithResponse(
 		ctx,
@@ -93,7 +93,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Post_NoApiEndpoint_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceCreateProviderWithResponse(
 			ctx,
-			utils.ProviderNoApiEndpoint,
+			utils.ProviderNoAPIEndpoint,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
@@ -161,14 +161,14 @@ func TestProviderList(t *testing.T) {
 
 	totalItems := 10
 	var offset int
-	var pageSize int = 4
+	pageSize := 4
 
 	name := "provider"
 	for id := 0; id < totalItems; id++ {
 		// Generate sequentialnames
-		nameId := fmt.Sprintf("%s%d", name, id)
-		utils.Provider1Request.Name = nameId
-		CreateProvider(t, ctx, apiClient, utils.Provider1Request)
+		nameID := fmt.Sprintf("%s%d", name, id)
+		utils.Provider1Request.Name = nameID
+		CreateProvider(ctx, t, apiClient, utils.Provider1Request)
 	}
 
 	// Checks if list resources return expected number of entries
@@ -183,7 +183,7 @@ func TestProviderList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Providers), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.Providers), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.ProviderServiceListProvidersWithResponse(

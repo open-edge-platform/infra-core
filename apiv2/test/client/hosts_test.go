@@ -10,10 +10,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func TestHostCustom(t *testing.T) {
@@ -25,20 +26,20 @@ func TestHostCustom(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Site2Request.RegionId = r1.JSON200.ResourceId
-	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 	utils.Host2Request.SiteId = s1.JSON200.ResourceId
 
-	h1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	CreateHost(t, ctx, apiClient, utils.Host2Request)
+	h1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	CreateHost(ctx, t, apiClient, utils.Host2Request)
 
 	resHostH1, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
@@ -61,7 +62,7 @@ func TestHostCustom(t *testing.T) {
 	assert.Equal(t, http.StatusOK, h1Up.StatusCode())
 
 	// now check the filter, 1 host in site1, 1 host in site2
-	filterBySite := fmt.Sprintf(FilterSiteId, *s1.JSON200.ResourceId)
+	filterBySite := fmt.Sprintf(FilterSiteID, *s1.JSON200.ResourceId)
 	res, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
@@ -71,7 +72,7 @@ func TestHostCustom(t *testing.T) {
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	assert.Equal(t, 1, len(res.JSON200.Hosts))
 
-	filterBySite = fmt.Sprintf(FilterSiteId, *s2.JSON200.ResourceId)
+	filterBySite = fmt.Sprintf(FilterSiteID, *s2.JSON200.ResourceId)
 	res, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
@@ -101,7 +102,7 @@ func TestHostCustom(t *testing.T) {
 	assert.Equal(t, http.StatusOK, h1Up.StatusCode())
 
 	// now check the filter
-	filterBySite = fmt.Sprintf(FilterSiteId, *s2.JSON200.ResourceId)
+	filterBySite = fmt.Sprintf(FilterSiteID, *s2.JSON200.ResourceId)
 	res, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
@@ -195,20 +196,20 @@ func TestHostSites(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 	utils.Host2Request.SiteId = nil
 
-	h1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	CreateHost(t, ctx, apiClient, utils.Host2Request)
+	h1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	CreateHost(ctx, t, apiClient, utils.Host2Request)
 
 	// now check the filter
-	filterBySite := fmt.Sprintf(FilterSiteId, *s1.JSON200.ResourceId)
+	filterBySite := fmt.Sprintf(FilterSiteID, *s1.JSON200.ResourceId)
 	res, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
@@ -331,27 +332,27 @@ func TestHostList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId int = 1
-	var pageSize int = 4
+	pageID := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
 		h := GetHostRequestWithRandomUUID()
-		CreateHost(t, ctx, apiClient, h)
+		CreateHost(ctx, t, apiClient, h)
 	}
 
 	resList, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
 		&api.HostServiceListHostsParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -359,7 +360,7 @@ func TestHostList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Hosts), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.Hosts), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	// Use default page size (20)
@@ -381,39 +382,39 @@ func BenchmarkHostList(b *testing.B) {
 	apiClient, err := GetAPIClient()
 	assert.NoError(b, err)
 
-	r1 := CreateRegion(b, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, b, apiClient, utils.Region1Request)
 	assert.Equal(b, utils.Region1Name, *r1.JSON200.Name)
-	b.Cleanup(func() { DeleteRegion(b, ctx, apiClient, *r1.JSON200.ResourceId) })
+	b.Cleanup(func() { DeleteRegion(ctx, b, apiClient, *r1.JSON200.ResourceId) })
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(b, ctx, apiClient, utils.Site1Request)
-	b.Cleanup(func() { DeleteSite(b, ctx, apiClient, *s1.JSON200.ResourceId) })
+	s1 := CreateSite(ctx, b, apiClient, utils.Site1Request)
+	b.Cleanup(func() { DeleteSite(ctx, b, apiClient, *s1.JSON200.ResourceId) })
 
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 
 	// this is the shakeup run
-	benchmarkHosts(b, 5, apiClient, ctx)
+	benchmarkHosts(ctx, b, 5, apiClient)
 
 	// Loop for different number of hosts.
 	for _, i := range []int{10, 50, 100, 250} {
 		b.Run(fmt.Sprintf("Hosts%d", i), func(b *testing.B) {
-			benchmarkHosts(b, i, apiClient, ctx)
+			benchmarkHosts(ctx, b, i, apiClient)
 		})
 	}
 }
 
-func benchmarkHosts(b *testing.B, nHosts int,
-	apiClient *api.ClientWithResponses, ctx context.Context,
+func benchmarkHosts(ctx context.Context, b *testing.B, nHosts int,
+	apiClient *api.ClientWithResponses,
 ) {
 	b.Helper()
 
 	// Emulate the request of the GUI
-	var pageId int = 1
-	var pageSize int = 100
+	pageID := 1
+	pageSize := 100
 
 	for id := 0; id < nHosts; id++ {
-		postResp := CreateHost(b, ctx, apiClient, utils.Host1Request)
-		b.Cleanup(func() { SoftDeleteHost(b, ctx, apiClient, postResp.JSON200) })
+		postResp := CreateHost(ctx, b, apiClient, utils.Host1Request)
+		b.Cleanup(func() { SoftDeleteHost(ctx, b, apiClient, postResp.JSON200) })
 	}
 
 	b.ResetTimer()
@@ -421,7 +422,7 @@ func benchmarkHosts(b *testing.B, nHosts int,
 		resList, err := apiClient.HostServiceListHostsWithResponse(
 			ctx,
 			&api.HostServiceListHostsParams{
-				Offset:   &pageId,
+				Offset:   &pageID,
 				PageSize: &pageSize,
 			},
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -441,11 +442,11 @@ func TestHostListFilterMetadata(t *testing.T) {
 	require.NoError(t, err)
 
 	// creating host #1
-	postResp := CreateHost(t, ctx, apiClient, utils.HostReqFilterMeta1)
+	postResp := CreateHost(ctx, t, apiClient, utils.HostReqFilterMeta1)
 	hID1 := *postResp.JSON200.ResourceId
 
 	// creating host #2
-	postResp = CreateHost(t, ctx, apiClient, utils.HostReqFilterMeta2)
+	postResp = CreateHost(ctx, t, apiClient, utils.HostReqFilterMeta2)
 	hID2 := *postResp.JSON200.ResourceId
 
 	// obtaining host with Metadata Key=filtermetakey1 and Value=filtermetavalue1
@@ -460,8 +461,8 @@ func TestHostListFilterMetadata(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.GreaterOrEqual(t, len(resList.JSON200.Hosts), 2)
-	assert.True(t, hostsContainsId(resList.JSON200.Hosts, hID1))
-	assert.True(t, hostsContainsId(resList.JSON200.Hosts, hID2))
+	assert.True(t, hostsContainsID(resList.JSON200.Hosts, hID1))
+	assert.True(t, hostsContainsID(resList.JSON200.Hosts, hID2))
 
 	// obtaining host with Metadata Key=filtermetakey2 and Value=filtermetavalue2
 	filterMetadata = fmt.Sprintf(FilterByMetadata, `{"key":"filtermetakey2","value":"filtermetavalue2"}`)
@@ -475,8 +476,8 @@ func TestHostListFilterMetadata(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.GreaterOrEqual(t, len(resList.JSON200.Hosts), 1)
-	assert.True(t, hostsContainsId(resList.JSON200.Hosts, hID1))
-	assert.False(t, hostsContainsId(resList.JSON200.Hosts, hID2))
+	assert.True(t, hostsContainsID(resList.JSON200.Hosts, hID1))
+	assert.False(t, hostsContainsID(resList.JSON200.Hosts, hID2))
 
 	// obtaining host with Metadata Key=filtermetakey2 and Value=filtermetavalue2_mod
 	filterMetadata = fmt.Sprintf(FilterByMetadata, `{"key":"filtermetakey2","value":"filtermetavalue2_mod"}`)
@@ -490,8 +491,8 @@ func TestHostListFilterMetadata(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.GreaterOrEqual(t, len(resList.JSON200.Hosts), 1)
-	assert.False(t, hostsContainsId(resList.JSON200.Hosts, hID1))
-	assert.True(t, hostsContainsId(resList.JSON200.Hosts, hID2))
+	assert.False(t, hostsContainsID(resList.JSON200.Hosts, hID1))
+	assert.True(t, hostsContainsID(resList.JSON200.Hosts, hID2))
 
 	// obtaining host with Metadata from Host1
 	// reqMetadataJoin := []string{"filtermetakey1=filtermetavalue1", "filtermetakey2=filtermetavalue2"}
@@ -507,7 +508,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.GreaterOrEqual(t, len(resList.JSON200.Hosts), 1)
-	assert.True(t, hostsContainsId(resList.JSON200.Hosts, hID1))
+	assert.True(t, hostsContainsID(resList.JSON200.Hosts, hID1))
 
 	// obtaining host with Metadata from Host2
 	// reqMetadataJoin = []string{"filtermetakey1=filtermetavalue1", "filtermetakey2=filtermetavalue2_mod"}
@@ -523,7 +524,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.GreaterOrEqual(t, len(resList.JSON200.Hosts), 1)
-	assert.True(t, hostsContainsId(resList.JSON200.Hosts, hID2))
+	assert.True(t, hostsContainsID(resList.JSON200.Hosts, hID2))
 
 	// Look for a host with wrong metadata
 	// reqMetadata4 := []string{"randomKey=randomValue"}
@@ -548,29 +549,29 @@ func TestHostListFilterUUID(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Site2Request.RegionId = r1.JSON200.ResourceId
-	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 	utils.Host2Request.SiteId = s1.JSON200.ResourceId
 
 	// creating host #1
-	CreateHost(t, ctx, apiClient, utils.Host1Request)
+	CreateHost(ctx, t, apiClient, utils.Host1Request)
 
 	// creating host #2
-	CreateHost(t, ctx, apiClient, utils.Host2Request)
+	CreateHost(ctx, t, apiClient, utils.Host2Request)
 
 	metadata := []api.MetadataItem{
 		{Key: "k", Value: "v"},
 	}
 	// creating host #3
-	CreateHost(t, ctx, apiClient, api.HostResource{
+	CreateHost(ctx, t, apiClient, api.HostResource{
 		Name:     utils.Host3Name,
 		SiteId:   s2.JSON200.ResourceId,
 		Metadata: &metadata,
@@ -607,7 +608,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	assert.Equal(t, len(resList.JSON200.Hosts), 1)
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
-	var largePageSize int = 100
+	largePageSize := 100
 	// Look for all hosts
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
@@ -656,7 +657,7 @@ func TestHostInvalidate(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	_, _, h4 := loadZTPTest(t, ctx, apiClient, &utils.Region1Request,
+	_, _, h4 := loadZTPTest(ctx, t, apiClient, &utils.Region1Request,
 		&utils.Site1Request, &utils.Host4Request)
 	require.NoError(t, err)
 
@@ -693,19 +694,22 @@ func TestHostInvalidate(t *testing.T) {
 	assert.Equal(t, note, *res.JSON200.Note)
 }
 
-func loadZTPTest(t *testing.T, ctx context.Context, apiClient *api.ClientWithResponses,
+//nolint:unparam // Consider if we can remove some returns values.
+func loadZTPTest(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses,
 	regionRequest *api.RegionResource, siteRequest *api.SiteResource, hostRequest *api.HostResource) (
 	*api.RegionServiceCreateRegionResponse, *api.SiteServiceCreateSiteResponse, *api.HostServiceCreateHostResponse,
 ) {
-	reg := CreateRegion(t, ctx, apiClient, *regionRequest)
+	t.Helper()
+
+	reg := CreateRegion(ctx, t, apiClient, *regionRequest)
 	assert.Equal(t, regionRequest.Name, reg.JSON200.Name)
 
 	siteRequest.RegionId = reg.JSON200.ResourceId
-	sit := CreateSite(t, ctx, apiClient, *siteRequest)
+	sit := CreateSite(ctx, t, apiClient, *siteRequest)
 	assert.Equal(t, siteRequest.Name, sit.JSON200.Name)
 
 	// No site defined
-	hos := CreateHost(t, ctx, apiClient, *hostRequest)
+	hos := CreateHost(ctx, t, apiClient, *hostRequest)
 
 	resH, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
@@ -720,7 +724,7 @@ func loadZTPTest(t *testing.T, ctx context.Context, apiClient *api.ClientWithRes
 	return reg, sit, hos
 }
 
-// Test main workflow for ZTP using PUT
+// Test main workflow for ZTP using PUT.
 func TestHostZTPWithPut(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -728,7 +732,7 @@ func TestHostZTPWithPut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	_, s1, h4 := loadZTPTest(t, ctx, apiClient, &utils.Region1Request,
+	_, s1, h4 := loadZTPTest(ctx, t, apiClient, &utils.Region1Request,
 		&utils.Site1Request, &utils.Host4Request)
 	require.NoError(t, err)
 
@@ -771,20 +775,20 @@ func TestHostsSummary(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Site2Request.RegionId = r1.JSON200.ResourceId
-	CreateSite(t, ctx, apiClient, utils.Site2Request)
+	CreateSite(ctx, t, apiClient, utils.Site2Request)
 
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 	utils.Host2Request.SiteId = nil
 
-	h1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	CreateHost(t, ctx, apiClient, utils.Host2Request)
+	h1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	CreateHost(ctx, t, apiClient, utils.Host2Request)
 
 	resHostH1, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
@@ -804,7 +808,7 @@ func TestHostsSummary(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resHostSummary.StatusCode())
-	assert.GreaterOrEqual(t, int(*resHostSummary.JSON200.Total), 2)
+	assert.GreaterOrEqual(t, *resHostSummary.JSON200.Total, 2)
 	if resHostSummary.JSON200.Error != nil {
 		assert.GreaterOrEqual(t, *resHostSummary.JSON200.Error, 0)
 	}
