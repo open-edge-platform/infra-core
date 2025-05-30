@@ -685,8 +685,8 @@ type HostServiceClient interface {
 	InvalidateHost(ctx context.Context, in *InvalidateHostRequest, opts ...grpc.CallOption) (*InvalidateHostResponse, error)
 	// Register a host.
 	RegisterHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
-	// Update a host register.
-	RegisterUpdateHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
+	// Update a host registration.
+	PatchRegisterHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
 	// Onboard a host.
 	OnboardHost(ctx context.Context, in *OnboardHostRequest, opts ...grpc.CallOption) (*OnboardHostResponse, error)
 }
@@ -780,9 +780,9 @@ func (c *hostServiceClient) RegisterHost(ctx context.Context, in *RegisterHostRe
 	return out, nil
 }
 
-func (c *hostServiceClient) RegisterUpdateHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error) {
+func (c *hostServiceClient) PatchRegisterHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error) {
 	out := new(v11.HostResource)
-	err := c.cc.Invoke(ctx, "/services.v1.HostService/RegisterUpdateHost", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/services.v1.HostService/PatchRegisterHost", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -820,8 +820,8 @@ type HostServiceServer interface {
 	InvalidateHost(context.Context, *InvalidateHostRequest) (*InvalidateHostResponse, error)
 	// Register a host.
 	RegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error)
-	// Update a host register.
-	RegisterUpdateHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error)
+	// Update a host registration.
+	PatchRegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error)
 	// Onboard a host.
 	OnboardHost(context.Context, *OnboardHostRequest) (*OnboardHostResponse, error)
 }
@@ -857,8 +857,8 @@ func (UnimplementedHostServiceServer) InvalidateHost(context.Context, *Invalidat
 func (UnimplementedHostServiceServer) RegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterHost not implemented")
 }
-func (UnimplementedHostServiceServer) RegisterUpdateHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterUpdateHost not implemented")
+func (UnimplementedHostServiceServer) PatchRegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchRegisterHost not implemented")
 }
 func (UnimplementedHostServiceServer) OnboardHost(context.Context, *OnboardHostRequest) (*OnboardHostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OnboardHost not implemented")
@@ -1037,20 +1037,20 @@ func _HostService_RegisterHost_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _HostService_RegisterUpdateHost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _HostService_PatchRegisterHost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegisterHostRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(HostServiceServer).RegisterUpdateHost(ctx, in)
+		return srv.(HostServiceServer).PatchRegisterHost(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.v1.HostService/RegisterUpdateHost",
+		FullMethod: "/services.v1.HostService/PatchRegisterHost",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HostServiceServer).RegisterUpdateHost(ctx, req.(*RegisterHostRequest))
+		return srv.(HostServiceServer).PatchRegisterHost(ctx, req.(*RegisterHostRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1117,8 +1117,8 @@ var HostService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _HostService_RegisterHost_Handler,
 		},
 		{
-			MethodName: "RegisterUpdateHost",
-			Handler:    _HostService_RegisterUpdateHost_Handler,
+			MethodName: "PatchRegisterHost",
+			Handler:    _HostService_PatchRegisterHost_Handler,
 		},
 		{
 			MethodName: "OnboardHost",

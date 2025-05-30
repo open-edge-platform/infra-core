@@ -39,6 +39,7 @@ var zlog = logging.GetLogger("InfraAPIClient")
 type ResourceTenantIDCarrier = inv_v1.FindResourcesResponse_ResourceTenantIDCarrier
 
 const (
+	MaxMessageSize          = 40 * 1024 * 1024 // 40 MB
 	BatchSize               = 100
 	InsecureGrpc            = "insecureGRPC"
 	InsecureGrpcDescription = "Flag to disable secure connectivity"
@@ -395,6 +396,8 @@ func connect(
 		}
 		opts = append(opts, grpc.WithTransportCredentials(creds))
 	}
+
+	opts = append(opts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(MaxMessageSize)))
 
 	// if testing, use a bufconn, otherwise TCP
 	var err error
