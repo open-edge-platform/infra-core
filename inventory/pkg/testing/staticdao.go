@@ -282,12 +282,12 @@ func CreateTelemetryProfile(
 
 func CreateOsWithArgs(
 	tb testing.TB,
-	sha256Hex, profileName string,
+	sha256Hex, name, profileName string,
 	feature osv1.SecurityFeature,
 	osType osv1.OsType,
 ) *osv1.OperatingSystemResource {
 	tb.Helper()
-	return getInvResourceDAO().CreateOsWithArgs(tb, client.FakeTenantID, sha256Hex, profileName, feature, osType)
+	return getInvResourceDAO().CreateOsWithArgs(tb, client.FakeTenantID, sha256Hex, name, profileName, feature, osType)
 }
 
 func CreateOsWithOpts(
