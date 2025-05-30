@@ -6,7 +6,7 @@ package server
 import (
 	"context"
 
-	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	customconfig_v1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/customconfig/v1"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"google.golang.org/grpc/codes"
@@ -15,8 +15,8 @@ import (
 
 func (is *InventorygRPCServer) CreateCustomConfig(
 	ctx context.Context,
-	req *restv1.CreateInstanceRequest,
-) (*computev1.CustomConfigResource, error) {
+	req *restv1.CreateCustomConfigRequest,
+) (*customconfig_v1.CustomConfigResource, error) {
 	zlog.Debug().Msg("CreateCustomConfig")
 	return nil, errors.Errorfc(codes.Unimplemented, "CreateCustomConfig not implemented")
 }
@@ -32,7 +32,7 @@ func (is *InventorygRPCServer) ListCustomConfigs(
 func (is *InventorygRPCServer) GetCustomConfig(
 	ctx context.Context,
 	req *restv1.GetCustomConfigRequest,
-) (*computev1.CustomConfigResource, error) {
+) (*customconfig_v1.CustomConfigResource, error) {
 	zlog.Debug().Msg("GetCustomConfig")
 	return nil, errors.Errorfc(codes.Unimplemented, "GetCustomConfig not implemented")
 }
