@@ -77,10 +77,20 @@ type HostResource struct {
 	BiosVendor string `json:"bios_vendor,omitempty"`
 	// Metadata holds the value of the "metadata" field.
 	Metadata string `json:"metadata,omitempty"`
-	// CurrentPowerState holds the value of the "current_power_state" field.
-	CurrentPowerState hostresource.CurrentPowerState `json:"current_power_state,omitempty"`
 	// DesiredPowerState holds the value of the "desired_power_state" field.
 	DesiredPowerState hostresource.DesiredPowerState `json:"desired_power_state,omitempty"`
+	// CurrentPowerState holds the value of the "current_power_state" field.
+	CurrentPowerState hostresource.CurrentPowerState `json:"current_power_state,omitempty"`
+	// PowerStatus holds the value of the "power_status" field.
+	PowerStatus string `json:"power_status,omitempty"`
+	// PowerStatusIndicator holds the value of the "power_status_indicator" field.
+	PowerStatusIndicator hostresource.PowerStatusIndicator `json:"power_status_indicator,omitempty"`
+	// PowerStatusTimestamp holds the value of the "power_status_timestamp" field.
+	PowerStatusTimestamp uint64 `json:"power_status_timestamp,omitempty"`
+	// PowerCommandPolicy holds the value of the "power_command_policy" field.
+	PowerCommandPolicy hostresource.PowerCommandPolicy `json:"power_command_policy,omitempty"`
+	// PowerOnTime holds the value of the "power_on_time" field.
+	PowerOnTime uint64 `json:"power_on_time,omitempty"`
 	// HostStatus holds the value of the "host_status" field.
 	HostStatus string `json:"host_status,omitempty"`
 	// HostStatusIndicator holds the value of the "host_status_indicator" field.
@@ -99,6 +109,18 @@ type HostResource struct {
 	RegistrationStatusIndicator hostresource.RegistrationStatusIndicator `json:"registration_status_indicator,omitempty"`
 	// RegistrationStatusTimestamp holds the value of the "registration_status_timestamp" field.
 	RegistrationStatusTimestamp uint64 `json:"registration_status_timestamp,omitempty"`
+	// AmtSku holds the value of the "amt_sku" field.
+	AmtSku string `json:"amt_sku,omitempty"`
+	// DesiredAmtState holds the value of the "desired_amt_state" field.
+	DesiredAmtState hostresource.DesiredAmtState `json:"desired_amt_state,omitempty"`
+	// CurrentAmtState holds the value of the "current_amt_state" field.
+	CurrentAmtState hostresource.CurrentAmtState `json:"current_amt_state,omitempty"`
+	// AmtStatus holds the value of the "amt_status" field.
+	AmtStatus string `json:"amt_status,omitempty"`
+	// AmtStatusIndicator holds the value of the "amt_status_indicator" field.
+	AmtStatusIndicator hostresource.AmtStatusIndicator `json:"amt_status_indicator,omitempty"`
+	// AmtStatusTimestamp holds the value of the "amt_status_timestamp" field.
+	AmtStatusTimestamp uint64 `json:"amt_status_timestamp,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -209,9 +231,9 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp:
+		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp:
 			values[i] = new(sql.NullInt64)
-		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldCurrentPowerState, hostresource.FieldDesiredPowerState, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
+		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case hostresource.ForeignKeys[0]: // host_resource_site
 			values[i] = new(sql.NullInt64)
@@ -414,17 +436,47 @@ func (hr *HostResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				hr.Metadata = value.String
 			}
+		case hostresource.FieldDesiredPowerState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field desired_power_state", values[i])
+			} else if value.Valid {
+				hr.DesiredPowerState = hostresource.DesiredPowerState(value.String)
+			}
 		case hostresource.FieldCurrentPowerState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_power_state", values[i])
 			} else if value.Valid {
 				hr.CurrentPowerState = hostresource.CurrentPowerState(value.String)
 			}
-		case hostresource.FieldDesiredPowerState:
+		case hostresource.FieldPowerStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field desired_power_state", values[i])
+				return fmt.Errorf("unexpected type %T for field power_status", values[i])
 			} else if value.Valid {
-				hr.DesiredPowerState = hostresource.DesiredPowerState(value.String)
+				hr.PowerStatus = value.String
+			}
+		case hostresource.FieldPowerStatusIndicator:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field power_status_indicator", values[i])
+			} else if value.Valid {
+				hr.PowerStatusIndicator = hostresource.PowerStatusIndicator(value.String)
+			}
+		case hostresource.FieldPowerStatusTimestamp:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field power_status_timestamp", values[i])
+			} else if value.Valid {
+				hr.PowerStatusTimestamp = uint64(value.Int64)
+			}
+		case hostresource.FieldPowerCommandPolicy:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field power_command_policy", values[i])
+			} else if value.Valid {
+				hr.PowerCommandPolicy = hostresource.PowerCommandPolicy(value.String)
+			}
+		case hostresource.FieldPowerOnTime:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field power_on_time", values[i])
+			} else if value.Valid {
+				hr.PowerOnTime = uint64(value.Int64)
 			}
 		case hostresource.FieldHostStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -479,6 +531,42 @@ func (hr *HostResource) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field registration_status_timestamp", values[i])
 			} else if value.Valid {
 				hr.RegistrationStatusTimestamp = uint64(value.Int64)
+			}
+		case hostresource.FieldAmtSku:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field amt_sku", values[i])
+			} else if value.Valid {
+				hr.AmtSku = value.String
+			}
+		case hostresource.FieldDesiredAmtState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field desired_amt_state", values[i])
+			} else if value.Valid {
+				hr.DesiredAmtState = hostresource.DesiredAmtState(value.String)
+			}
+		case hostresource.FieldCurrentAmtState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field current_amt_state", values[i])
+			} else if value.Valid {
+				hr.CurrentAmtState = hostresource.CurrentAmtState(value.String)
+			}
+		case hostresource.FieldAmtStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field amt_status", values[i])
+			} else if value.Valid {
+				hr.AmtStatus = value.String
+			}
+		case hostresource.FieldAmtStatusIndicator:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field amt_status_indicator", values[i])
+			} else if value.Valid {
+				hr.AmtStatusIndicator = hostresource.AmtStatusIndicator(value.String)
+			}
+		case hostresource.FieldAmtStatusTimestamp:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field amt_status_timestamp", values[i])
+			} else if value.Valid {
+				hr.AmtStatusTimestamp = uint64(value.Int64)
 			}
 		case hostresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -677,11 +765,26 @@ func (hr *HostResource) String() string {
 	builder.WriteString("metadata=")
 	builder.WriteString(hr.Metadata)
 	builder.WriteString(", ")
+	builder.WriteString("desired_power_state=")
+	builder.WriteString(fmt.Sprintf("%v", hr.DesiredPowerState))
+	builder.WriteString(", ")
 	builder.WriteString("current_power_state=")
 	builder.WriteString(fmt.Sprintf("%v", hr.CurrentPowerState))
 	builder.WriteString(", ")
-	builder.WriteString("desired_power_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.DesiredPowerState))
+	builder.WriteString("power_status=")
+	builder.WriteString(hr.PowerStatus)
+	builder.WriteString(", ")
+	builder.WriteString("power_status_indicator=")
+	builder.WriteString(fmt.Sprintf("%v", hr.PowerStatusIndicator))
+	builder.WriteString(", ")
+	builder.WriteString("power_status_timestamp=")
+	builder.WriteString(fmt.Sprintf("%v", hr.PowerStatusTimestamp))
+	builder.WriteString(", ")
+	builder.WriteString("power_command_policy=")
+	builder.WriteString(fmt.Sprintf("%v", hr.PowerCommandPolicy))
+	builder.WriteString(", ")
+	builder.WriteString("power_on_time=")
+	builder.WriteString(fmt.Sprintf("%v", hr.PowerOnTime))
 	builder.WriteString(", ")
 	builder.WriteString("host_status=")
 	builder.WriteString(hr.HostStatus)
@@ -709,6 +812,24 @@ func (hr *HostResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("registration_status_timestamp=")
 	builder.WriteString(fmt.Sprintf("%v", hr.RegistrationStatusTimestamp))
+	builder.WriteString(", ")
+	builder.WriteString("amt_sku=")
+	builder.WriteString(hr.AmtSku)
+	builder.WriteString(", ")
+	builder.WriteString("desired_amt_state=")
+	builder.WriteString(fmt.Sprintf("%v", hr.DesiredAmtState))
+	builder.WriteString(", ")
+	builder.WriteString("current_amt_state=")
+	builder.WriteString(fmt.Sprintf("%v", hr.CurrentAmtState))
+	builder.WriteString(", ")
+	builder.WriteString("amt_status=")
+	builder.WriteString(hr.AmtStatus)
+	builder.WriteString(", ")
+	builder.WriteString("amt_status_indicator=")
+	builder.WriteString(fmt.Sprintf("%v", hr.AmtStatusIndicator))
+	builder.WriteString(", ")
+	builder.WriteString("amt_status_timestamp=")
+	builder.WriteString(fmt.Sprintf("%v", hr.AmtStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(hr.TenantID)

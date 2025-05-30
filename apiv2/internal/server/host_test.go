@@ -30,6 +30,8 @@ import (
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 )
 
+// handle AMT and Power related fields in the *HostRequest and *RegisterHostRequest
+
 // Write an example of inventory resource with a Host resource filled with all fields.
 var exampleInvHostResource = &inv_computev1.HostResource{
 	ResourceId:   "host-12345678",

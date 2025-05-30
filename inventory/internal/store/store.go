@@ -80,6 +80,9 @@ func newEntClient(dbURLWriter, dbURLReader string) ent.Client {
 						hostresource.FieldHostStatus:         status.DefaultHostStatus,
 						hostresource.FieldOnboardingStatus:   status.DefaultOnboardingStatus,
 						hostresource.FieldRegistrationStatus: status.DefaultRegistrationStatus,
+						hostresource.FieldPowerStatus:        status.DefaultPowerStatus,
+						hostresource.FieldAmtStatus:          status.DefaultAmtStatus,
+						hostresource.FieldAmtSku:             "Unknown",
 					})
 					if err != nil {
 						return nil, err
