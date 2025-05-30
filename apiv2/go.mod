@@ -5,7 +5,8 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.1
 
-replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+// TODO uncomment
+// replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v1.2.1
@@ -17,7 +18,8 @@ require (
 	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/oapi-codegen/runtime v1.1.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.24.0
+	// TODO update after https://github.com/open-edge-platform/infra-core/pull/128/ is merged
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.25.1-0.20250530065805-49cc4546de34
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/prometheus/client_golang v1.22.0
 	github.com/stretchr/testify v1.10.0
