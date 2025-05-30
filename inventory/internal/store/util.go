@@ -25,6 +25,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/netlinkresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/networksegment"
 	oss "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -255,7 +256,8 @@ type OrderOption interface {
 		telemetrygroupresource.OrderOption |
 		remoteaccessconfiguration.OrderOption |
 		tenant.OrderOption |
-		localaccountresource.OrderOption
+		localaccountresource.OrderOption |
+		osupdatepolicyresource.OrderOption
 }
 
 // GetOrderByOptions takes an AIP-132 compliant orderBy string and returns the

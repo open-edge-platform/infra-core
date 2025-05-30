@@ -1461,6 +1461,57 @@ func (c *InvResourceDAO) createLocalAccount(tb testing.TB,
 	return accountResp
 }
 
+func (c *InvResourceDAO) CreateOSUpdatePolicyNoCleanup(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdatePolicyResource],
+) *computev1.OSUpdatePolicyResource {
+	tb.Helper()
+
+	oup, err := c.createOSUpdatePolicy(tb, tenantID, opts...)
+	require.NoError(tb, err)
+	return oup
+}
+
+func (c *InvResourceDAO) CreateOSUpdatePolicy(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdatePolicyResource],
+) *computev1.OSUpdatePolicyResource {
+	tb.Helper()
+
+	oup, err := c.createOSUpdatePolicy(tb, tenantID, opts...)
+	require.NoError(tb, err)
+	tb.Cleanup(func() { c.DeleteResource(tb, tenantID, oup.ResourceId) })
+	return oup
+}
+
+func (c *InvResourceDAO) createOSUpdatePolicy(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdatePolicyResource],
+) (*computev1.OSUpdatePolicyResource, error) {
+	tb.Helper()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	oup := &computev1.OSUpdatePolicyResource{
+		TenantId: tenantID,
+	}
+	collections.ForEach(opts, func(opt Opt[computev1.OSUpdatePolicyResource]) { opt(oup) })
+	resp, err := c.apiClient.Create(
+		ctx,
+		tenantID,
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_OsUpdatePolicy{OsUpdatePolicy: oup},
+		})
+	if err != nil {
+		return nil, err
+	}
+	oupResp := resp.GetOsUpdatePolicy()
+	// When this test object is used in protobuf comparisons as part of another
+	// resource, we do not expect further embedded messages. This matches the
+	// structure of objects returned by ent queries, i.e. no two layers of
+	// embedded objects for edges.
+	oupResp.TargetOs = nil
+
+	return oupResp, nil
+}
+
 // CreateOuAndReturnError - creates ou and return error if any. This function does not take care about cleanup.
 // Note this helper is not really meant to be used for the
 // test of OuResource, but they are typically leveraged in case of wider
