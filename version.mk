@@ -148,10 +148,10 @@ ifeq ($(PROTOCGENGOGRPC), true)
 	$(GOCMD) install google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOCGENGOVERSION_REQ}
 endif
 ifeq ($(PROTOCGENOAPI), true)
-	$(GOCMD) install github.com/sudorandom/protoc-gen-connect-openapi@v${PROTOCGENOAPI_REQ}
+	$(GOCMD) install github.com/sudorandom/protoc-gen-connect-openapi@v${PROTOCGENOAPIVERSION_REQ}
 endif
 ifeq ($(PROTOCGENGRPCGW), true)
-	$(GOCMD) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v${PROTOCGENGRPCGW_REQ}
+	$(GOCMD) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v${PROTOCGENGRPCGWVERSION_REQ}
 endif
 ifeq ($(OASDIFF), true)
 	$(GOCMD) install github.com/oasdiff/oasdiff@v${OASDIFF_REQ}
