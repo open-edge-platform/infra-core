@@ -57,9 +57,9 @@ enum PowerCommandPolicy {
 // The state of the AMT (Active Management Technology) component.
 enum AmtState {
   AMT_STATE_UNSPECIFIED = 0;
-  AMT_STATE_PROVISION = 1;
-  AMT_STATE_UNPROVISION = 2;
-  AMT_STATE_DISCONNECT = 3;
+  AMT_STATE_PROVISIONED = 1;
+  AMT_STATE_UNPROVISIONED = 2;
+  AMT_STATE_DISCONNECTED = 3;
 }
 
 // A Host resource.
