@@ -53,12 +53,14 @@
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
+    - [AmtState](#resources-compute-v1-AmtState)
     - [BaremetalControllerKind](#resources-compute-v1-BaremetalControllerKind)
     - [HostComponentState](#resources-compute-v1-HostComponentState)
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
     - [LinkState](#resources-compute-v1-LinkState)
+    - [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy)
     - [PowerState](#resources-compute-v1-PowerState)
     - [UpdatePolicy](#resources-compute-v1-UpdatePolicy)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
@@ -778,8 +780,13 @@ A Host resource.
 | bios_version | [string](#string) |  | BIOS Version. |
 | bios_release_date | [string](#string) |  | BIOS Release Date. |
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
-| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
 | desired_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Desired power state of the host |
+| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
+| power_status | [string](#string) |  | textual message that describes the runtime status of Host power. Set by DM RM only. |
+| power_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the power_status. Set by DM RM only. |
+| power_status_timestamp | [uint32](#uint32) |  | UTC timestamp when power_status was last changed. Set by DM RM only. |
+| power_command_policy | [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy) |  | Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED. |
+| power_on_time | [uint32](#uint32) |  | UTC timestamp when the host was powered on. Set by DM RM only. |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
 | host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
@@ -794,6 +801,12 @@ A Host resource.
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
+| amt_sku | [string](#string) |  | coming from device introspection |
+| desired_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
+| current_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
+| amt_status | [string](#string) |  | coming from device introspection. Set only by the DM RM. |
+| amt_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
+| amt_status_timestamp | [uint32](#uint32) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -1060,6 +1073,20 @@ A generic way to group compute resources to obtain a workload.
  
 
 
+<a name="resources-compute-v1-AmtState"></a>
+
+### AmtState
+The state of the AMT (Active Management Technology) component.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_STATE_UNSPECIFIED | 0 |  |
+| AMT_STATE_PROVISIONED | 1 |  |
+| AMT_STATE_UNPROVISIONED | 2 |  |
+| AMT_STATE_DISCONNECTED | 3 |  |
+
+
+
 <a name="resources-compute-v1-BaremetalControllerKind"></a>
 
 ### BaremetalControllerKind
@@ -1143,6 +1170,19 @@ The state of the network interface.
 
 
 
+<a name="resources-compute-v1-PowerCommandPolicy"></a>
+
+### PowerCommandPolicy
+The policy for handling power commands.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_COMMAND_POLICY_UNSPECIFIED | 0 |  |
+| POWER_COMMAND_POLICY_IMMEDIATE | 1 |  |
+| POWER_COMMAND_POLICY_ORDERED | 2 |  |
+
+
+
 <a name="resources-compute-v1-PowerState"></a>
 
 ### PowerState
@@ -1151,9 +1191,11 @@ The host power state.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | POWER_STATE_UNSPECIFIED | 0 |  |
-| POWER_STATE_ERROR | 1 |  |
 | POWER_STATE_ON | 2 |  |
 | POWER_STATE_OFF | 3 |  |
+| POWER_STATE_SLEEP | 4 |  |
+| POWER_STATE_HIBERNATE | 5 |  |
+| POWER_STATE_RESET | 6 |  |
 
 
 
@@ -3035,7 +3077,8 @@ Message to register a Host.
 | name | [string](#string) |  | The host name. |
 | serial_number | [string](#string) |  | The host serial number. |
 | uuid | [string](#string) |  | The host UUID. |
-| auto_onboard | [bool](#bool) |  | Flag ot signal to automatically onboard the host. |
+| auto_onboard | [bool](#bool) |  | Flag to signal to automatically onboard the host. |
+| enable_vpro | [bool](#bool) |  | Flag to signal to enable vPRO on the host. |
 
 
 

@@ -147,6 +147,7 @@ const (
 	HostRegisterFieldSerialNumber = "serial_number"
 	HostRegisterFieldUuid         = "uuid"
 	HostRegisterFieldAutoOnboard  = "auto_onboard"
+	HostRegisterFieldEnableVpro   = "enable_vpro"
 
 	// Fields and Edges constants for "RegisterHostRequest"
 	RegisterHostRequestFieldResourceId = "resourceId"

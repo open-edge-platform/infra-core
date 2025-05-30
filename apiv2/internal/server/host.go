@@ -28,6 +28,8 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
+// handle AMT and Power related fields in the *HostRequest and *RegisterHostRequest
+
 // OpenAPIHostToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs HostTemplate and HostBmManagementInfo defined in

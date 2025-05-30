@@ -40,9 +40,27 @@ enum BaremetalControllerKind {
 // The host power state.
 enum PowerState {
   POWER_STATE_UNSPECIFIED = 0;
-  POWER_STATE_ERROR = 1;
+  reserved 1; // Previously POWER_STATE_ERROR, removed in v3.1
   POWER_STATE_ON = 2;
   POWER_STATE_OFF = 3;
+  POWER_STATE_SLEEP = 4;
+  POWER_STATE_HIBERNATE = 5;
+  POWER_STATE_RESET = 6;
+}
+
+// The policy for handling power commands.
+enum PowerCommandPolicy {
+  POWER_COMMAND_POLICY_UNSPECIFIED = 0;
+  POWER_COMMAND_POLICY_IMMEDIATE = 1;
+  POWER_COMMAND_POLICY_ORDERED = 2;
+}
+
+// The state of the AMT (Active Management Technology) component.
+enum AmtState {
+  AMT_STATE_UNSPECIFIED = 0;
+  AMT_STATE_PROVISIONED = 1;
+  AMT_STATE_UNPROVISIONED = 2;
+  AMT_STATE_DISCONNECTED = 3;
 }
 
 // A Host resource.
@@ -131,10 +149,19 @@ message HostResource {
   // BIOS Vendor.
   string bios_vendor = 48 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // Current power state of the host
-  PowerState current_power_state = 51 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Desired power state of the host
   PowerState desired_power_state = 50 [(google.api.field_behavior) = OPTIONAL];
+  // Current power state of the host
+  PowerState current_power_state = 51 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string power_status = 52 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 1024}
+  ]; // textual message that describes the runtime status of Host power. Set by DM RM only.
+  status.v1.StatusIndication power_status_indicator = 53 [(google.api.field_behavior) = OUTPUT_ONLY]; // Indicates dynamicity of the power_status. Set by DM RM only.
+  uint32 power_status_timestamp = 54 [(google.api.field_behavior) = OUTPUT_ONLY]; // UTC timestamp when power_status was last changed. Set by DM RM only.
+  PowerCommandPolicy power_command_policy = 55 [(google.api.field_behavior) = OPTIONAL]; // Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED.
+  uint32 power_on_time = 56 [(google.api.field_behavior) = OUTPUT_ONLY]; // UTC timestamp when the host was powered on. Set by DM RM only.
+
 
   // textual message that describes the runtime status of Host. Set by RMs only.
   string host_status = 60 [
@@ -176,6 +203,19 @@ message HostResource {
   repeated HostgpuResource host_gpus = 73 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  string amt_sku = 91 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 96}
+  ]; // coming from device introspection
+  AmtState desired_amt_state = 92 [(google.api.field_behavior) = OUTPUT_ONLY]; // Desired AMT/vPRO state of the host
+  AmtState current_amt_state = 93 [(google.api.field_behavior) = OUTPUT_ONLY]; // Current AMT/vPRO state of the host
+  string amt_status = 94 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 1024}
+  ]; // coming from device introspection. Set only by the DM RM.
+  status.v1.StatusIndication amt_status_indicator = 95 [(google.api.field_behavior) = OUTPUT_ONLY]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
+  uint32 amt_status_timestamp = 96 [(google.api.field_behavior) = OUTPUT_ONLY]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
 
   // The site where the host is located.
   string site_id = 5001 [
