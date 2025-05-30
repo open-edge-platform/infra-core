@@ -169,6 +169,7 @@ const (
 	InstanceResourceEdgeWorkloadMembers                    = "workload_members"
 	InstanceResourceEdgeProvider                           = "provider"
 	InstanceResourceEdgeLocalaccount                       = "localaccount"
+	InstanceResourceEdgeCustomConfig                       = "custom_config"
 	InstanceResourceFieldTenantId                          = "tenant_id"
 	InstanceResourceFieldInstanceStatusDetail              = "instance_status_detail"
 	InstanceResourceFieldCreatedAt                         = "created_at"
@@ -196,4 +197,14 @@ const (
 	WorkloadMemberFieldTenantId   = "tenant_id"
 	WorkloadMemberFieldCreatedAt  = "created_at"
 	WorkloadMemberFieldUpdatedAt  = "updated_at"
+
+	// Fields and Edges constants for "CustomConfigResource"
+	CustomConfigResourceFieldResourceId  = "resource_id"
+	CustomConfigResourceFieldName        = "name"
+	CustomConfigResourceFieldConfig      = "config"
+	CustomConfigResourceFieldDescription = "description"
+	CustomConfigResourceFieldTenantId    = "tenant_id"
+	CustomConfigResourceFieldCreatedAt   = "created_at"
+	CustomConfigResourceFieldUpdatedAt   = "updated_at"
+	CustomConfigResourceEdgeInstances    = "instances"
 )

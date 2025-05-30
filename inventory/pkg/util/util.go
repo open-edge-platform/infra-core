@@ -78,6 +78,7 @@ const (
 	ResourcePrefixRemoteAccessConf ResourcePrefix = "rmtacconf"
 	ResourcePrefixLocalAccount     ResourcePrefix = "localaccount"
 	ResourcePrefixTenant           ResourcePrefix = "tenant"
+	ResourcePrefixCustomConfig     ResourcePrefix = "customconfig"
 )
 
 func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
@@ -106,6 +107,7 @@ func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
 		inv_v1.ResourceKind_RESOURCE_KIND_RMT_ACCESS_CONF:   ResourcePrefixRemoteAccessConf,
 		inv_v1.ResourceKind_RESOURCE_KIND_TENANT:            ResourcePrefixTenant,
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      ResourcePrefixLocalAccount,
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      ResourcePrefixCustomConfig,
 	}
 
 	prefix, ok := mapResourceKindToPrefix[kind]
@@ -169,6 +171,8 @@ func GetResourceKindFromResource(resource *inv_v1.Resource) inv_v1.ResourceKind 
 		return inv_v1.ResourceKind_RESOURCE_KIND_TENANT
 	case *inv_v1.Resource_LocalAccount:
 		return inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT
+	case *inv_v1.Resource_CustomConfig:
+		return inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG
 	}
 	zlog.InfraSec().InfraError("Unable to map resource to its prefix: %s", resource).Msg("")
 	return inv_v1.ResourceKind_RESOURCE_KIND_UNSPECIFIED
@@ -200,6 +204,7 @@ func PrefixToResourceKind(prefix ResourcePrefix) inv_v1.ResourceKind {
 		ResourcePrefixRemoteAccessConf: inv_v1.ResourceKind_RESOURCE_KIND_RMT_ACCESS_CONF,
 		ResourcePrefixLocalAccount:     inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT,
 		ResourcePrefixTenant:           inv_v1.ResourceKind_RESOURCE_KIND_TENANT,
+		ResourcePrefixCustomConfig:     inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
 	}
 
 	resourceKind, ok := mapPrefixToResourceKind[prefix]
@@ -239,6 +244,7 @@ func stringToPrefix(s string) (ResourcePrefix, error) {
 		string(ResourcePrefixRemoteAccessConf): ResourcePrefixRemoteAccessConf,
 		string(ResourcePrefixLocalAccount):     ResourcePrefixLocalAccount,
 		string(ResourcePrefixTenant):           ResourcePrefixTenant,
+		string(ResourcePrefixCustomConfig):     ResourcePrefixCustomConfig,
 	}
 
 	prefix, ok := mapStringToPrefix[s]
@@ -321,6 +327,8 @@ func GetResourceIDFromResource(resource *inv_v1.Resource) (string, error) {
 		return resource.GetTenant().GetResourceId(), nil
 	case *inv_v1.Resource_LocalAccount:
 		return resource.GetLocalAccount().GetResourceId(), nil
+	case *inv_v1.Resource_CustomConfig:
+		return resource.GetCustomConfig().GetResourceId(), nil
 	default:
 		zlog.InfraSec().InfraError("unknown Resource type: %T", resource.GetResource()).Msg("")
 		return "", errors.Errorfc(codes.InvalidArgument, "unknown Resource type: %T", resource.GetResource())
@@ -387,6 +395,10 @@ func WrapResource(resource proto.Message) (*inv_v1.Resource, error) {
 		wrap.Resource = &inv_v1.Resource_LocalAccount{
 			LocalAccount: r,
 		}
+	case *compute_v1.CustomConfigResource:
+		wrap.Resource = &inv_v1.Resource_CustomConfig{
+			CustomConfig: r,
+		}
 	default:
 		zlog.InfraSec().InfraError("unknown Resource type: %T", resource).Msg("")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource type: %T", resource)
@@ -442,6 +454,7 @@ func GetResourceKindFromMessage(message proto.Message) (inv_v1.ResourceKind, err
 		"IPAddressResource":        inv_v1.ResourceKind_RESOURCE_KIND_IPADDRESS,
 		"RemoteAccessConfResource": inv_v1.ResourceKind_RESOURCE_KIND_RMT_ACCESS_CONF,
 		"LocalAccountResource":     inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT,
+		"CustomConfigResource":     inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
 		string(proto.MessageName(&tenantv1.Tenant{}).Name()): inv_v1.ResourceKind_RESOURCE_KIND_TENANT,
 	}
 	resname := string(proto.MessageName(message).Name())
@@ -811,6 +824,7 @@ func GetResourceFromKind(resourceType inv_v1.ResourceKind) (*inv_v1.Resource, er
 		inv_v1.ResourceKind_RESOURCE_KIND_RMT_ACCESS_CONF: {Resource: &inv_v1.Resource_RemoteAccess{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_TENANT:          {Resource: &inv_v1.Resource_Tenant{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:    {Resource: &inv_v1.Resource_LocalAccount{}},
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:    {Resource: &inv_v1.Resource_CustomConfig{}},
 	}
 	if res, ok := invResMap[resourceType]; ok {
 		return res, nil
@@ -896,6 +910,9 @@ func GetSetResource(resource *inv_v1.Resource) (proto.Message, error) {
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT: func(r *inv_v1.Resource) proto.Message {
 			return r.GetLocalAccount()
 		},
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG: func(r *inv_v1.Resource) proto.Message {
+			return r.GetCustomConfig()
+		},
 	}
 	convert, ok := kindToResource[kind]
 	if !ok {
@@ -962,6 +979,8 @@ func getResourceProtoMessage(resource *inv_v1.Resource) (proto.Message, error) {
 		message = resource.GetTenant()
 	case *inv_v1.Resource_LocalAccount:
 		message = resource.GetLocalAccount()
+	case *inv_v1.Resource_CustomConfig:
+		message = resource.GetCustomConfig()
 	default:
 		zlog.InfraSec().InfraError("unknown Resource type: %T", resource.GetResource()).Msg("")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource type: %T", resource.GetResource())
