@@ -886,7 +886,7 @@ func (c *InvResourceDAO) createOsWithOpts(
 // Deprecated: Use CreateOsWithOpts instead.
 func (c *InvResourceDAO) CreateOsWithArgs(
 	tb testing.TB,
-	tenantID, sha256Hex, profileName string,
+	tenantID, sha256Hex, name, profileName string,
 	feature osv1.SecurityFeature, osType osv1.OsType,
 ) *osv1.OperatingSystemResource {
 	tb.Helper()
@@ -894,6 +894,7 @@ func (c *InvResourceDAO) CreateOsWithArgs(
 	return c.createOsWithOpts(tb, tenantID, true, func(osr *osv1.OperatingSystemResource) {
 		osr.Sha256 = sha256Hex
 		osr.ProfileName = profileName
+		osr.Name = name
 		osr.SecurityFeature = feature
 		osr.OsType = osType
 	})
@@ -920,6 +921,7 @@ func (c *InvResourceDAO) CreateOs(tb testing.TB, tenantID string) *osv1.Operatin
 		func(osr *osv1.OperatingSystemResource) {
 			osr.Sha256 = GenerateRandomSha256()
 			osr.ProfileName = GenerateRandomProfileName()
+			osr.Name = GenerateRandomOsResourceName()
 			osr.SecurityFeature = osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED
 			osr.OsType = osv1.OsType_OS_TYPE_MUTABLE
 		},
@@ -938,6 +940,7 @@ func (c *InvResourceDAO) CreateOsNoCleanup(tb testing.TB, tenantID string) *osv1
 		func(osr *osv1.OperatingSystemResource) {
 			osr.Sha256 = GenerateRandomSha256()
 			osr.ProfileName = GenerateRandomProfileName()
+			osr.Name = GenerateRandomOsResourceName()
 			osr.SecurityFeature = osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED
 			osr.OsType = osv1.OsType_OS_TYPE_MUTABLE
 		},

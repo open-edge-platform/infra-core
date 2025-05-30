@@ -233,9 +233,9 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 }
 
 func Test_FilterOss(t *testing.T) {
-	cupdatesourceResp1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v1, "Test OS profile name 1",
+	cupdatesourceResp1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v1, "Test OS 1", "Test OS profile name 1",
 		os_v1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION, os_v1.OsType_OS_TYPE_MUTABLE)
-	cupdatesourceResp2 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS profile name 2",
+	cupdatesourceResp2 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS 2", "Test OS profile name 2",
 		os_v1.SecurityFeature_SECURITY_FEATURE_NONE, os_v1.OsType_OS_TYPE_MUTABLE)
 
 	testcases := map[string]struct {
@@ -616,7 +616,7 @@ func Test_ImmutableFieldsOnUpdate(t *testing.T) {
 	osResID := inv_testing.GetResourceIDOrFail(t, cosResp)
 	t.Cleanup(func() { inv_testing.DeleteResource(t, osResID) })
 
-	os1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS profile name 2",
+	os1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS 2", "Test OS profile name 2",
 		os_v1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED, os_v1.OsType_OS_TYPE_MUTABLE)
 
 	getresp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, os1.ResourceId)
