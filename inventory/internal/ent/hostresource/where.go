@@ -183,6 +183,21 @@ func Metadata(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldMetadata, v))
 }
 
+// PowerStatus applies equality check predicate on the "power_status" field. It's identical to PowerStatusEQ.
+func PowerStatus(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerStatus, v))
+}
+
+// PowerStatusTimestamp applies equality check predicate on the "power_status_timestamp" field. It's identical to PowerStatusTimestampEQ.
+func PowerStatusTimestamp(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerStatusTimestamp, v))
+}
+
+// PowerOnTime applies equality check predicate on the "power_on_time" field. It's identical to PowerOnTimeEQ.
+func PowerOnTime(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerOnTime, v))
+}
+
 // HostStatus applies equality check predicate on the "host_status" field. It's identical to HostStatusEQ.
 func HostStatus(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldHostStatus, v))
@@ -211,6 +226,21 @@ func RegistrationStatus(v string) predicate.HostResource {
 // RegistrationStatusTimestamp applies equality check predicate on the "registration_status_timestamp" field. It's identical to RegistrationStatusTimestampEQ.
 func RegistrationStatusTimestamp(v uint64) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldRegistrationStatusTimestamp, v))
+}
+
+// AmtSku applies equality check predicate on the "amt_sku" field. It's identical to AmtSkuEQ.
+func AmtSku(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtSku, v))
+}
+
+// AmtStatus applies equality check predicate on the "amt_status" field. It's identical to AmtStatusEQ.
+func AmtStatus(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtStatus, v))
+}
+
+// AmtStatusTimestamp applies equality check predicate on the "amt_status_timestamp" field. It's identical to AmtStatusTimestampEQ.
+func AmtStatusTimestamp(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtStatusTimestamp, v))
 }
 
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
@@ -2158,6 +2188,36 @@ func MetadataContainsFold(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldContainsFold(FieldMetadata, v))
 }
 
+// DesiredPowerStateEQ applies the EQ predicate on the "desired_power_state" field.
+func DesiredPowerStateEQ(v DesiredPowerState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldDesiredPowerState, v))
+}
+
+// DesiredPowerStateNEQ applies the NEQ predicate on the "desired_power_state" field.
+func DesiredPowerStateNEQ(v DesiredPowerState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldDesiredPowerState, v))
+}
+
+// DesiredPowerStateIn applies the In predicate on the "desired_power_state" field.
+func DesiredPowerStateIn(vs ...DesiredPowerState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldDesiredPowerState, vs...))
+}
+
+// DesiredPowerStateNotIn applies the NotIn predicate on the "desired_power_state" field.
+func DesiredPowerStateNotIn(vs ...DesiredPowerState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldDesiredPowerState, vs...))
+}
+
+// DesiredPowerStateIsNil applies the IsNil predicate on the "desired_power_state" field.
+func DesiredPowerStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldDesiredPowerState))
+}
+
+// DesiredPowerStateNotNil applies the NotNil predicate on the "desired_power_state" field.
+func DesiredPowerStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldDesiredPowerState))
+}
+
 // CurrentPowerStateEQ applies the EQ predicate on the "current_power_state" field.
 func CurrentPowerStateEQ(v CurrentPowerState) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldCurrentPowerState, v))
@@ -2188,34 +2248,239 @@ func CurrentPowerStateNotNil() predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotNull(FieldCurrentPowerState))
 }
 
-// DesiredPowerStateEQ applies the EQ predicate on the "desired_power_state" field.
-func DesiredPowerStateEQ(v DesiredPowerState) predicate.HostResource {
-	return predicate.HostResource(sql.FieldEQ(FieldDesiredPowerState, v))
+// PowerStatusEQ applies the EQ predicate on the "power_status" field.
+func PowerStatusEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerStatus, v))
 }
 
-// DesiredPowerStateNEQ applies the NEQ predicate on the "desired_power_state" field.
-func DesiredPowerStateNEQ(v DesiredPowerState) predicate.HostResource {
-	return predicate.HostResource(sql.FieldNEQ(FieldDesiredPowerState, v))
+// PowerStatusNEQ applies the NEQ predicate on the "power_status" field.
+func PowerStatusNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldPowerStatus, v))
 }
 
-// DesiredPowerStateIn applies the In predicate on the "desired_power_state" field.
-func DesiredPowerStateIn(vs ...DesiredPowerState) predicate.HostResource {
-	return predicate.HostResource(sql.FieldIn(FieldDesiredPowerState, vs...))
+// PowerStatusIn applies the In predicate on the "power_status" field.
+func PowerStatusIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldPowerStatus, vs...))
 }
 
-// DesiredPowerStateNotIn applies the NotIn predicate on the "desired_power_state" field.
-func DesiredPowerStateNotIn(vs ...DesiredPowerState) predicate.HostResource {
-	return predicate.HostResource(sql.FieldNotIn(FieldDesiredPowerState, vs...))
+// PowerStatusNotIn applies the NotIn predicate on the "power_status" field.
+func PowerStatusNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldPowerStatus, vs...))
 }
 
-// DesiredPowerStateIsNil applies the IsNil predicate on the "desired_power_state" field.
-func DesiredPowerStateIsNil() predicate.HostResource {
-	return predicate.HostResource(sql.FieldIsNull(FieldDesiredPowerState))
+// PowerStatusGT applies the GT predicate on the "power_status" field.
+func PowerStatusGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldPowerStatus, v))
 }
 
-// DesiredPowerStateNotNil applies the NotNil predicate on the "desired_power_state" field.
-func DesiredPowerStateNotNil() predicate.HostResource {
-	return predicate.HostResource(sql.FieldNotNull(FieldDesiredPowerState))
+// PowerStatusGTE applies the GTE predicate on the "power_status" field.
+func PowerStatusGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldPowerStatus, v))
+}
+
+// PowerStatusLT applies the LT predicate on the "power_status" field.
+func PowerStatusLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldPowerStatus, v))
+}
+
+// PowerStatusLTE applies the LTE predicate on the "power_status" field.
+func PowerStatusLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldPowerStatus, v))
+}
+
+// PowerStatusContains applies the Contains predicate on the "power_status" field.
+func PowerStatusContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldPowerStatus, v))
+}
+
+// PowerStatusHasPrefix applies the HasPrefix predicate on the "power_status" field.
+func PowerStatusHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldPowerStatus, v))
+}
+
+// PowerStatusHasSuffix applies the HasSuffix predicate on the "power_status" field.
+func PowerStatusHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldPowerStatus, v))
+}
+
+// PowerStatusIsNil applies the IsNil predicate on the "power_status" field.
+func PowerStatusIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldPowerStatus))
+}
+
+// PowerStatusNotNil applies the NotNil predicate on the "power_status" field.
+func PowerStatusNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldPowerStatus))
+}
+
+// PowerStatusEqualFold applies the EqualFold predicate on the "power_status" field.
+func PowerStatusEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldPowerStatus, v))
+}
+
+// PowerStatusContainsFold applies the ContainsFold predicate on the "power_status" field.
+func PowerStatusContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldPowerStatus, v))
+}
+
+// PowerStatusIndicatorEQ applies the EQ predicate on the "power_status_indicator" field.
+func PowerStatusIndicatorEQ(v PowerStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerStatusIndicator, v))
+}
+
+// PowerStatusIndicatorNEQ applies the NEQ predicate on the "power_status_indicator" field.
+func PowerStatusIndicatorNEQ(v PowerStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldPowerStatusIndicator, v))
+}
+
+// PowerStatusIndicatorIn applies the In predicate on the "power_status_indicator" field.
+func PowerStatusIndicatorIn(vs ...PowerStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldPowerStatusIndicator, vs...))
+}
+
+// PowerStatusIndicatorNotIn applies the NotIn predicate on the "power_status_indicator" field.
+func PowerStatusIndicatorNotIn(vs ...PowerStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldPowerStatusIndicator, vs...))
+}
+
+// PowerStatusIndicatorIsNil applies the IsNil predicate on the "power_status_indicator" field.
+func PowerStatusIndicatorIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldPowerStatusIndicator))
+}
+
+// PowerStatusIndicatorNotNil applies the NotNil predicate on the "power_status_indicator" field.
+func PowerStatusIndicatorNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldPowerStatusIndicator))
+}
+
+// PowerStatusTimestampEQ applies the EQ predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerStatusTimestamp, v))
+}
+
+// PowerStatusTimestampNEQ applies the NEQ predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampNEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldPowerStatusTimestamp, v))
+}
+
+// PowerStatusTimestampIn applies the In predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldPowerStatusTimestamp, vs...))
+}
+
+// PowerStatusTimestampNotIn applies the NotIn predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampNotIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldPowerStatusTimestamp, vs...))
+}
+
+// PowerStatusTimestampGT applies the GT predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampGT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldPowerStatusTimestamp, v))
+}
+
+// PowerStatusTimestampGTE applies the GTE predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampGTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldPowerStatusTimestamp, v))
+}
+
+// PowerStatusTimestampLT applies the LT predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampLT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldPowerStatusTimestamp, v))
+}
+
+// PowerStatusTimestampLTE applies the LTE predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampLTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldPowerStatusTimestamp, v))
+}
+
+// PowerStatusTimestampIsNil applies the IsNil predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldPowerStatusTimestamp))
+}
+
+// PowerStatusTimestampNotNil applies the NotNil predicate on the "power_status_timestamp" field.
+func PowerStatusTimestampNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldPowerStatusTimestamp))
+}
+
+// PowerCommandPolicyEQ applies the EQ predicate on the "power_command_policy" field.
+func PowerCommandPolicyEQ(v PowerCommandPolicy) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerCommandPolicy, v))
+}
+
+// PowerCommandPolicyNEQ applies the NEQ predicate on the "power_command_policy" field.
+func PowerCommandPolicyNEQ(v PowerCommandPolicy) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldPowerCommandPolicy, v))
+}
+
+// PowerCommandPolicyIn applies the In predicate on the "power_command_policy" field.
+func PowerCommandPolicyIn(vs ...PowerCommandPolicy) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldPowerCommandPolicy, vs...))
+}
+
+// PowerCommandPolicyNotIn applies the NotIn predicate on the "power_command_policy" field.
+func PowerCommandPolicyNotIn(vs ...PowerCommandPolicy) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldPowerCommandPolicy, vs...))
+}
+
+// PowerCommandPolicyIsNil applies the IsNil predicate on the "power_command_policy" field.
+func PowerCommandPolicyIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldPowerCommandPolicy))
+}
+
+// PowerCommandPolicyNotNil applies the NotNil predicate on the "power_command_policy" field.
+func PowerCommandPolicyNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldPowerCommandPolicy))
+}
+
+// PowerOnTimeEQ applies the EQ predicate on the "power_on_time" field.
+func PowerOnTimeEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldPowerOnTime, v))
+}
+
+// PowerOnTimeNEQ applies the NEQ predicate on the "power_on_time" field.
+func PowerOnTimeNEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldPowerOnTime, v))
+}
+
+// PowerOnTimeIn applies the In predicate on the "power_on_time" field.
+func PowerOnTimeIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldPowerOnTime, vs...))
+}
+
+// PowerOnTimeNotIn applies the NotIn predicate on the "power_on_time" field.
+func PowerOnTimeNotIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldPowerOnTime, vs...))
+}
+
+// PowerOnTimeGT applies the GT predicate on the "power_on_time" field.
+func PowerOnTimeGT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldPowerOnTime, v))
+}
+
+// PowerOnTimeGTE applies the GTE predicate on the "power_on_time" field.
+func PowerOnTimeGTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldPowerOnTime, v))
+}
+
+// PowerOnTimeLT applies the LT predicate on the "power_on_time" field.
+func PowerOnTimeLT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldPowerOnTime, v))
+}
+
+// PowerOnTimeLTE applies the LTE predicate on the "power_on_time" field.
+func PowerOnTimeLTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldPowerOnTime, v))
+}
+
+// PowerOnTimeIsNil applies the IsNil predicate on the "power_on_time" field.
+func PowerOnTimeIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldPowerOnTime))
+}
+
+// PowerOnTimeNotNil applies the NotNil predicate on the "power_on_time" field.
+func PowerOnTimeNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldPowerOnTime))
 }
 
 // HostStatusEQ applies the EQ predicate on the "host_status" field.
@@ -2681,6 +2946,296 @@ func RegistrationStatusTimestampIsNil() predicate.HostResource {
 // RegistrationStatusTimestampNotNil applies the NotNil predicate on the "registration_status_timestamp" field.
 func RegistrationStatusTimestampNotNil() predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotNull(FieldRegistrationStatusTimestamp))
+}
+
+// AmtSkuEQ applies the EQ predicate on the "amt_sku" field.
+func AmtSkuEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtSku, v))
+}
+
+// AmtSkuNEQ applies the NEQ predicate on the "amt_sku" field.
+func AmtSkuNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldAmtSku, v))
+}
+
+// AmtSkuIn applies the In predicate on the "amt_sku" field.
+func AmtSkuIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldAmtSku, vs...))
+}
+
+// AmtSkuNotIn applies the NotIn predicate on the "amt_sku" field.
+func AmtSkuNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldAmtSku, vs...))
+}
+
+// AmtSkuGT applies the GT predicate on the "amt_sku" field.
+func AmtSkuGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldAmtSku, v))
+}
+
+// AmtSkuGTE applies the GTE predicate on the "amt_sku" field.
+func AmtSkuGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldAmtSku, v))
+}
+
+// AmtSkuLT applies the LT predicate on the "amt_sku" field.
+func AmtSkuLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldAmtSku, v))
+}
+
+// AmtSkuLTE applies the LTE predicate on the "amt_sku" field.
+func AmtSkuLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldAmtSku, v))
+}
+
+// AmtSkuContains applies the Contains predicate on the "amt_sku" field.
+func AmtSkuContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldAmtSku, v))
+}
+
+// AmtSkuHasPrefix applies the HasPrefix predicate on the "amt_sku" field.
+func AmtSkuHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldAmtSku, v))
+}
+
+// AmtSkuHasSuffix applies the HasSuffix predicate on the "amt_sku" field.
+func AmtSkuHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldAmtSku, v))
+}
+
+// AmtSkuIsNil applies the IsNil predicate on the "amt_sku" field.
+func AmtSkuIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldAmtSku))
+}
+
+// AmtSkuNotNil applies the NotNil predicate on the "amt_sku" field.
+func AmtSkuNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldAmtSku))
+}
+
+// AmtSkuEqualFold applies the EqualFold predicate on the "amt_sku" field.
+func AmtSkuEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldAmtSku, v))
+}
+
+// AmtSkuContainsFold applies the ContainsFold predicate on the "amt_sku" field.
+func AmtSkuContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldAmtSku, v))
+}
+
+// DesiredAmtStateEQ applies the EQ predicate on the "desired_amt_state" field.
+func DesiredAmtStateEQ(v DesiredAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldDesiredAmtState, v))
+}
+
+// DesiredAmtStateNEQ applies the NEQ predicate on the "desired_amt_state" field.
+func DesiredAmtStateNEQ(v DesiredAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldDesiredAmtState, v))
+}
+
+// DesiredAmtStateIn applies the In predicate on the "desired_amt_state" field.
+func DesiredAmtStateIn(vs ...DesiredAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldDesiredAmtState, vs...))
+}
+
+// DesiredAmtStateNotIn applies the NotIn predicate on the "desired_amt_state" field.
+func DesiredAmtStateNotIn(vs ...DesiredAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldDesiredAmtState, vs...))
+}
+
+// DesiredAmtStateIsNil applies the IsNil predicate on the "desired_amt_state" field.
+func DesiredAmtStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldDesiredAmtState))
+}
+
+// DesiredAmtStateNotNil applies the NotNil predicate on the "desired_amt_state" field.
+func DesiredAmtStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldDesiredAmtState))
+}
+
+// CurrentAmtStateEQ applies the EQ predicate on the "current_amt_state" field.
+func CurrentAmtStateEQ(v CurrentAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldCurrentAmtState, v))
+}
+
+// CurrentAmtStateNEQ applies the NEQ predicate on the "current_amt_state" field.
+func CurrentAmtStateNEQ(v CurrentAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldCurrentAmtState, v))
+}
+
+// CurrentAmtStateIn applies the In predicate on the "current_amt_state" field.
+func CurrentAmtStateIn(vs ...CurrentAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldCurrentAmtState, vs...))
+}
+
+// CurrentAmtStateNotIn applies the NotIn predicate on the "current_amt_state" field.
+func CurrentAmtStateNotIn(vs ...CurrentAmtState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldCurrentAmtState, vs...))
+}
+
+// CurrentAmtStateIsNil applies the IsNil predicate on the "current_amt_state" field.
+func CurrentAmtStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldCurrentAmtState))
+}
+
+// CurrentAmtStateNotNil applies the NotNil predicate on the "current_amt_state" field.
+func CurrentAmtStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldCurrentAmtState))
+}
+
+// AmtStatusEQ applies the EQ predicate on the "amt_status" field.
+func AmtStatusEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtStatus, v))
+}
+
+// AmtStatusNEQ applies the NEQ predicate on the "amt_status" field.
+func AmtStatusNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldAmtStatus, v))
+}
+
+// AmtStatusIn applies the In predicate on the "amt_status" field.
+func AmtStatusIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldAmtStatus, vs...))
+}
+
+// AmtStatusNotIn applies the NotIn predicate on the "amt_status" field.
+func AmtStatusNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldAmtStatus, vs...))
+}
+
+// AmtStatusGT applies the GT predicate on the "amt_status" field.
+func AmtStatusGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldAmtStatus, v))
+}
+
+// AmtStatusGTE applies the GTE predicate on the "amt_status" field.
+func AmtStatusGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldAmtStatus, v))
+}
+
+// AmtStatusLT applies the LT predicate on the "amt_status" field.
+func AmtStatusLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldAmtStatus, v))
+}
+
+// AmtStatusLTE applies the LTE predicate on the "amt_status" field.
+func AmtStatusLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldAmtStatus, v))
+}
+
+// AmtStatusContains applies the Contains predicate on the "amt_status" field.
+func AmtStatusContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldAmtStatus, v))
+}
+
+// AmtStatusHasPrefix applies the HasPrefix predicate on the "amt_status" field.
+func AmtStatusHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldAmtStatus, v))
+}
+
+// AmtStatusHasSuffix applies the HasSuffix predicate on the "amt_status" field.
+func AmtStatusHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldAmtStatus, v))
+}
+
+// AmtStatusIsNil applies the IsNil predicate on the "amt_status" field.
+func AmtStatusIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldAmtStatus))
+}
+
+// AmtStatusNotNil applies the NotNil predicate on the "amt_status" field.
+func AmtStatusNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldAmtStatus))
+}
+
+// AmtStatusEqualFold applies the EqualFold predicate on the "amt_status" field.
+func AmtStatusEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldAmtStatus, v))
+}
+
+// AmtStatusContainsFold applies the ContainsFold predicate on the "amt_status" field.
+func AmtStatusContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldAmtStatus, v))
+}
+
+// AmtStatusIndicatorEQ applies the EQ predicate on the "amt_status_indicator" field.
+func AmtStatusIndicatorEQ(v AmtStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtStatusIndicator, v))
+}
+
+// AmtStatusIndicatorNEQ applies the NEQ predicate on the "amt_status_indicator" field.
+func AmtStatusIndicatorNEQ(v AmtStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldAmtStatusIndicator, v))
+}
+
+// AmtStatusIndicatorIn applies the In predicate on the "amt_status_indicator" field.
+func AmtStatusIndicatorIn(vs ...AmtStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldAmtStatusIndicator, vs...))
+}
+
+// AmtStatusIndicatorNotIn applies the NotIn predicate on the "amt_status_indicator" field.
+func AmtStatusIndicatorNotIn(vs ...AmtStatusIndicator) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldAmtStatusIndicator, vs...))
+}
+
+// AmtStatusIndicatorIsNil applies the IsNil predicate on the "amt_status_indicator" field.
+func AmtStatusIndicatorIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldAmtStatusIndicator))
+}
+
+// AmtStatusIndicatorNotNil applies the NotNil predicate on the "amt_status_indicator" field.
+func AmtStatusIndicatorNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldAmtStatusIndicator))
+}
+
+// AmtStatusTimestampEQ applies the EQ predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtStatusTimestamp, v))
+}
+
+// AmtStatusTimestampNEQ applies the NEQ predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampNEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldAmtStatusTimestamp, v))
+}
+
+// AmtStatusTimestampIn applies the In predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldAmtStatusTimestamp, vs...))
+}
+
+// AmtStatusTimestampNotIn applies the NotIn predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampNotIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldAmtStatusTimestamp, vs...))
+}
+
+// AmtStatusTimestampGT applies the GT predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampGT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldAmtStatusTimestamp, v))
+}
+
+// AmtStatusTimestampGTE applies the GTE predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampGTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldAmtStatusTimestamp, v))
+}
+
+// AmtStatusTimestampLT applies the LT predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampLT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldAmtStatusTimestamp, v))
+}
+
+// AmtStatusTimestampLTE applies the LTE predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampLTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldAmtStatusTimestamp, v))
+}
+
+// AmtStatusTimestampIsNil applies the IsNil predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldAmtStatusTimestamp))
+}
+
+// AmtStatusTimestampNotNil applies the NotNil predicate on the "amt_status_timestamp" field.
+func AmtStatusTimestampNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldAmtStatusTimestamp))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.
