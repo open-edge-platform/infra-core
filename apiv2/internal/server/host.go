@@ -729,11 +729,11 @@ func (is *InventorygRPCServer) OnboardHost(
 }
 
 // Onboard a host.
-func (is *InventorygRPCServer) RegisterUpdateHost(
+func (is *InventorygRPCServer) PatchRegisterHost(
 	ctx context.Context,
 	req *restv1.RegisterHostRequest,
 ) (*computev1.HostResource, error) {
-	zlog.Debug().Msg("RegisterUpdateHost")
+	zlog.Debug().Msg("PatchRegisterHost")
 	hostResource := &inv_computev1.HostResource{
 		Name:            req.GetHost().GetName(),
 		DesiredState:    inv_computev1.HostState_HOST_STATE_REGISTERED,
