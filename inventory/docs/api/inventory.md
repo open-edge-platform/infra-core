@@ -483,7 +483,7 @@ like SB&#43;FDE.
 | tenant_id | [string](#string) |  | Tenant Identifier. |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
-| instances | [InstanceResource](#compute-v1-InstanceResource) | repeated | back-reference to the Instances associated to this Custom Config, we don&#39;t handle setting edges via back-reference. |
+| instances | [InstanceResource](#compute-v1-InstanceResource) | repeated | back-reference to the Instances associated to this Custom Config, we don&#39;t handle setting edges via back-reference and we dont eager load this edge. |
 
 
 

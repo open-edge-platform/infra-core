@@ -529,7 +529,7 @@ func (c *CustomConfigResourceClient) QueryInstances(ccr *CustomConfigResource) *
 		step := sqlgraph.NewStep(
 			sqlgraph.From(customconfigresource.Table, customconfigresource.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
 		)
 		fromV = sqlgraph.Neighbors(ccr.driver.Dialect(), step)
 		return fromV, nil
@@ -1913,7 +1913,7 @@ func (c *InstanceResourceClient) QueryCustomConfig(ir *InstanceResource) *Custom
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
 		)
 		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
 		return fromV, nil

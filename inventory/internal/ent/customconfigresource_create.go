@@ -194,7 +194,7 @@ func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sq
 	if nodes := ccrc.mutation.InstancesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,

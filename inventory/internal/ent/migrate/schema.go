@@ -1046,27 +1046,27 @@ var (
 			},
 		},
 	}
-	// CustomConfigResourceInstancesColumns holds the columns for the "custom_config_resource_instances" table.
-	CustomConfigResourceInstancesColumns = []*schema.Column{
-		{Name: "custom_config_resource_id", Type: field.TypeInt},
+	// InstanceResourceCustomConfigColumns holds the columns for the "instance_resource_custom_config" table.
+	InstanceResourceCustomConfigColumns = []*schema.Column{
 		{Name: "instance_resource_id", Type: field.TypeInt},
+		{Name: "custom_config_resource_id", Type: field.TypeInt},
 	}
-	// CustomConfigResourceInstancesTable holds the schema information for the "custom_config_resource_instances" table.
-	CustomConfigResourceInstancesTable = &schema.Table{
-		Name:       "custom_config_resource_instances",
-		Columns:    CustomConfigResourceInstancesColumns,
-		PrimaryKey: []*schema.Column{CustomConfigResourceInstancesColumns[0], CustomConfigResourceInstancesColumns[1]},
+	// InstanceResourceCustomConfigTable holds the schema information for the "instance_resource_custom_config" table.
+	InstanceResourceCustomConfigTable = &schema.Table{
+		Name:       "instance_resource_custom_config",
+		Columns:    InstanceResourceCustomConfigColumns,
+		PrimaryKey: []*schema.Column{InstanceResourceCustomConfigColumns[0], InstanceResourceCustomConfigColumns[1]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "custom_config_resource_instances_custom_config_resource_id",
-				Columns:    []*schema.Column{CustomConfigResourceInstancesColumns[0]},
-				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
+				Symbol:     "instance_resource_custom_config_instance_resource_id",
+				Columns:    []*schema.Column{InstanceResourceCustomConfigColumns[0]},
+				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "custom_config_resource_instances_instance_resource_id",
-				Columns:    []*schema.Column{CustomConfigResourceInstancesColumns[1]},
-				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
+				Symbol:     "instance_resource_custom_config_custom_config_resource_id",
+				Columns:    []*schema.Column{InstanceResourceCustomConfigColumns[1]},
+				RefColumns: []*schema.Column{CustomConfigResourcesColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -1098,7 +1098,7 @@ var (
 		TenantsTable,
 		WorkloadMembersTable,
 		WorkloadResourcesTable,
-		CustomConfigResourceInstancesTable,
+		InstanceResourceCustomConfigTable,
 	}
 )
 
@@ -1139,6 +1139,6 @@ func init() {
 	TelemetryProfilesTable.ForeignKeys[3].RefTable = TelemetryGroupResourcesTable
 	WorkloadMembersTable.ForeignKeys[0].RefTable = WorkloadResourcesTable
 	WorkloadMembersTable.ForeignKeys[1].RefTable = InstanceResourcesTable
-	CustomConfigResourceInstancesTable.ForeignKeys[0].RefTable = CustomConfigResourcesTable
-	CustomConfigResourceInstancesTable.ForeignKeys[1].RefTable = InstanceResourcesTable
+	InstanceResourceCustomConfigTable.ForeignKeys[0].RefTable = InstanceResourcesTable
+	InstanceResourceCustomConfigTable.ForeignKeys[1].RefTable = CustomConfigResourcesTable
 }

@@ -31,7 +31,7 @@ const (
 	// Table holds the table name of the customconfigresource in the database.
 	Table = "custom_config_resources"
 	// InstancesTable is the table that holds the instances relation/edge. The primary key declared below.
-	InstancesTable = "custom_config_resource_instances"
+	InstancesTable = "instance_resource_custom_config"
 	// InstancesInverseTable is the table name for the InstanceResource entity.
 	// It exists in this package in order to avoid circular dependency with the "instanceresource" package.
 	InstancesInverseTable = "instance_resources"
@@ -52,7 +52,7 @@ var Columns = []string{
 var (
 	// InstancesPrimaryKey and InstancesColumn2 are the table columns denoting the
 	// primary key for the instances relation (M2M).
-	InstancesPrimaryKey = []string{"custom_config_resource_id", "instance_resource_id"}
+	InstancesPrimaryKey = []string{"instance_resource_id", "custom_config_resource_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -125,6 +125,6 @@ func newInstancesStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(InstancesInverseTable, FieldID),
-		sqlgraph.Edge(sqlgraph.M2M, false, InstancesTable, InstancesPrimaryKey...),
+		sqlgraph.Edge(sqlgraph.M2M, true, InstancesTable, InstancesPrimaryKey...),
 	)
 }

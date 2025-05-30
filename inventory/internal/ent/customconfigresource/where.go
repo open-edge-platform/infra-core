@@ -558,7 +558,7 @@ func HasInstances() predicate.CustomConfigResource {
 	return predicate.CustomConfigResource(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, InstancesTable, InstancesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, InstancesTable, InstancesPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})

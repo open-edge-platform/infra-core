@@ -1155,7 +1155,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if iru.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,
@@ -1168,7 +1168,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if nodes := iru.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !iru.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,
@@ -1184,7 +1184,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if nodes := iru.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,
@@ -2369,7 +2369,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 	if iruo.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,
@@ -2382,7 +2382,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 	if nodes := iruo.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !iruo.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,
@@ -2398,7 +2398,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 	if nodes := iruo.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,

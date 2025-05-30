@@ -168,7 +168,7 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if ccru.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,
@@ -181,7 +181,7 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if nodes := ccru.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !ccru.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,
@@ -197,7 +197,7 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if nodes := ccru.mutation.InstancesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,
@@ -400,7 +400,7 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if ccruo.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,
@@ -413,7 +413,7 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if nodes := ccruo.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !ccruo.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,
@@ -429,7 +429,7 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if nodes := ccruo.mutation.InstancesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   customconfigresource.InstancesTable,
 			Columns: customconfigresource.InstancesPrimaryKey,
 			Bidi:    false,

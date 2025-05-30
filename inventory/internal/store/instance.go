@@ -281,15 +281,6 @@ func (is *InvStore) UpdateInstance(
 
 			mut := updateBuilder.Mutation()
 
-			if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
-				//TODO: Check if this has to be done outside the if condition
-				mut.ClearCustomConfig()
-				// Then we add similar to the Create
-				if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
-					return nil, booleans.Pointer(false), err
-				}
-			}
-
 			// Look up the (new) referenced edges for this Instance.
 			err = setRelationsForInstanceMutIfNeeded(ctx, tx.Client(), mut, in, fieldmask)
 			if err != nil {
@@ -575,6 +566,14 @@ func setRelationsForInstanceMutIfNeeded(
 			return err
 		}
 	}
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
+
+		mut.ClearCustomConfig()
+		if err := setEdgeCustomConfigIDsForMut(ctx, client, mut, in.GetCustomConfig()); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -620,5 +619,6 @@ func isNotValidCustomConfigUpdate(
 	instanceq *ent.InstanceResource,
 ) bool {
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) &&
-		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
+		(instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
+			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED)
 }

@@ -75,7 +75,7 @@ func (ccrq *CustomConfigResourceQuery) QueryInstances() *InstanceResourceQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(customconfigresource.Table, customconfigresource.FieldID, selector),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(ccrq.driver.Dialect(), step)
 		return fromU, nil
@@ -416,10 +416,10 @@ func (ccrq *CustomConfigResourceQuery) loadInstances(ctx context.Context, query 
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(customconfigresource.InstancesTable)
-		s.Join(joinT).On(s.C(instanceresource.FieldID), joinT.C(customconfigresource.InstancesPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(customconfigresource.InstancesPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(instanceresource.FieldID), joinT.C(customconfigresource.InstancesPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(customconfigresource.InstancesPrimaryKey[1]), edgeIDs...))
 		columns := s.SelectedColumns()
-		s.Select(joinT.C(customconfigresource.InstancesPrimaryKey[0]))
+		s.Select(joinT.C(customconfigresource.InstancesPrimaryKey[1]))
 		s.AppendSelect(columns...)
 		s.SetDistinct(false)
 	})

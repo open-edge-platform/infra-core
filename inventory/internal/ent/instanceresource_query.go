@@ -219,7 +219,7 @@ func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
 		return fromU, nil
@@ -873,10 +873,10 @@ func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *C
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(instanceresource.CustomConfigTable)
-		s.Join(joinT).On(s.C(customconfigresource.FieldID), joinT.C(instanceresource.CustomConfigPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(instanceresource.CustomConfigPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(customconfigresource.FieldID), joinT.C(instanceresource.CustomConfigPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(instanceresource.CustomConfigPrimaryKey[0]), edgeIDs...))
 		columns := s.SelectedColumns()
-		s.Select(joinT.C(instanceresource.CustomConfigPrimaryKey[1]))
+		s.Select(joinT.C(instanceresource.CustomConfigPrimaryKey[0]))
 		s.AppendSelect(columns...)
 		s.SetDistinct(false)
 	})

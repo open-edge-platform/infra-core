@@ -125,7 +125,7 @@ const (
 	// LocalaccountColumn is the table column denoting the localaccount relation/edge.
 	LocalaccountColumn = "instance_resource_localaccount"
 	// CustomConfigTable is the table that holds the custom_config relation/edge. The primary key declared below.
-	CustomConfigTable = "custom_config_resource_instances"
+	CustomConfigTable = "instance_resource_custom_config"
 	// CustomConfigInverseTable is the table name for the CustomConfigResource entity.
 	// It exists in this package in order to avoid circular dependency with the "customconfigresource" package.
 	CustomConfigInverseTable = "custom_config_resources"
@@ -174,7 +174,7 @@ var ForeignKeys = []string{
 var (
 	// CustomConfigPrimaryKey and CustomConfigColumn2 are the table columns denoting the
 	// primary key for the custom_config relation (M2M).
-	CustomConfigPrimaryKey = []string{"custom_config_resource_id", "instance_resource_id"}
+	CustomConfigPrimaryKey = []string{"instance_resource_id", "custom_config_resource_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -636,6 +636,6 @@ func newCustomConfigStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(CustomConfigInverseTable, FieldID),
-		sqlgraph.Edge(sqlgraph.M2M, true, CustomConfigTable, CustomConfigPrimaryKey...),
+		sqlgraph.Edge(sqlgraph.M2M, false, CustomConfigTable, CustomConfigPrimaryKey...),
 	)
 }

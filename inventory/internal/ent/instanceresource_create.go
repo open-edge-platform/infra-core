@@ -796,7 +796,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 	if nodes := irc.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   instanceresource.CustomConfigTable,
 			Columns: instanceresource.CustomConfigPrimaryKey,
 			Bidi:    false,

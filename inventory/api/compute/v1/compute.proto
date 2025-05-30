@@ -645,7 +645,9 @@ message InstanceResource {
   repeated WorkloadMember workload_members = 30 [(ent.edge) = {ref: "instance"}]; // back-reference to the Workload Members associated to this Instance
   provider.v1.ProviderResource provider = 40 [(ent.edge) = {unique: true}]; // Provider this Instance is provisioned through
   localaccount.v1.LocalAccountResource localaccount = 41 [(ent.edge) = {unique: true}]; // Local Account associated with this Instance
-  repeated CustomConfigResource custom_config = 42 [(ent.edge) = {ref: "instances"}]; // List of Custom Config associated with this Instance
+  repeated CustomConfigResource custom_config = 42 [(ent.edge) = {
+    //ref: "instances"
+  }]; // List of Custom Config associated with this Instance
 
   string tenant_id = 100 [
     (ent.field) = {
@@ -964,7 +966,7 @@ message CustomConfigResource {
   }]; // Update timestamp
 
   repeated InstanceResource instances = 500 [(ent.edge) = {
-    //ref: "custom_config"
-  }]; // back-reference to the Instances associated to this Custom Config, we don't handle setting edges via back-reference.
+    ref: "custom_config"
+  }]; // back-reference to the Instances associated to this Custom Config, we don't handle setting edges via back-reference and we dont eager load this edge.
 }
 // ---------------------------------------------------------------------------------------------------------------------

@@ -245,7 +245,6 @@ func setEdgeCustomConfigIDsForMut(
 	for _, cc := range customConfigs {
 		ccID, err := getCustomConfigIDFromResourceID(ctx, client, cc)
 		if err != nil {
-			zlog.InfraSec().InfraError("Failed to get CustomConfig ID: %s, %v", cc.GetResourceId(), err).Msg("")
 			return errors.Wrap(err)
 		}
 		mut.AddCustomConfigIDs(ccID)
