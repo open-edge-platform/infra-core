@@ -21,6 +21,8 @@ BUF             := true
 PROTOCGENGO     := true
 PROTOCGENGOGRPC := true
 OASDIFF         := true
+PROTOCGENOAPI   := true
+PROTOCGENGRPCGW := true
 
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)

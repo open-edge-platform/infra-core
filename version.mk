@@ -34,6 +34,10 @@ DBMLRENDERER_HAVE           := $(shell dbml-renderer --version)
 DBMLRENDERER_REQ            := 1.0.30
 OASDIFF_HAVE                := $(shell oasdiff --version | sed -n 's/^oasdiff version //p')
 OASDIFF_REQ                 := 1.11.4
+PROTOCGENOAPIVERSION_HAVE   := $(shell protoc-gen-connect-openapi -version | sed s/.*"protoc-gen-connect-openapi "// | sed 's/ .*//')
+PROTOCGENOAPIVERSION_REQ    := 0.17.0
+PROTOCGENGRPCGWVERSION_HAVE := $(shell protoc-gen-grpc-gateway -version | sed s/.*"protoc-gen-grpc-gateway "// | sed 's/ .*//')
+PROTOCGENGRPCGWVERSION_REQ  := 2.26.3
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
@@ -107,6 +111,14 @@ ifeq ($(PROTOCGENGOGRPC), true)
 	@(echo "$(PROTOCGENGOGRPCVERSION_HAVE)" | grep "$(PROTOCGENGOGRPCVERSION_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-go-grpc\nRecommended: $(PROTOCGENGOGRPCVERSION_REQ)\nYours: $(PROTOCGENGOGRPCVERSION_HAVE)\e[1;m" && exit 1)
 endif
+ifeq ($(PROTOCGENOAPI), true)
+	@(echo "$(PROTOCGENOAPIVERSION_HAVE)" | grep "$(PROTOCGENOAPIVERSION_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-connect-openapi\nRecommended: $(PROTOCGENOAPIVERSION_REQ)\nYours: $(PROTOCGENOAPIVERSION_HAVE)\e[1;m" && exit 1)
+endif
+ifeq ($(PROTOCGENGRPCGW), true)
+	@(echo "$(PROTOCGENGRPCGWVERSION_HAVE)" | grep "$(PROTOCGENGRPCGWVERSION_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-grpc-gateway\nRecommended: $(PROTOCGENGRPCGWVERSION_REQ)\nYours: $(PROTOCGENGRPCGWVERSION_HAVE)\e[1;m" && exit 1)
+endif
 
 go-dependency: ## install go dependency tooling
 ifeq ($(OAPI_CODEGEN), true)
@@ -138,6 +150,12 @@ ifeq ($(PROTOCGENGO), true)
 endif
 ifeq ($(PROTOCGENGOGRPC), true)
 	$(GOCMD) install google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOCGENGOVERSION_REQ}
+endif
+ifeq ($(PROTOCGENOAPI), true)
+	$(GOCMD) install github.com/sudorandom/protoc-gen-connect-openapi@v${PROTOCGENOAPI_REQ}
+endif
+ifeq ($(PROTOCGENGRPCGW), true)
+	$(GOCMD) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v${PROTOCGENGRPCGW_REQ}
 endif
 ifeq ($(OASDIFF), true)
 	$(GOCMD) install github.com/oasdiff/oasdiff@v${OASDIFF_REQ}
