@@ -4947,6 +4947,13 @@ type GoogleProtobufFieldMask = string
 //	) to obtain a formatter capable of generating timestamps in this format.
 type GoogleProtobufTimestamp = time.Time
 
+// HostServiceGetHostsSummaryParams defines parameters for HostServiceGetHostsSummary.
+type HostServiceGetHostsSummaryParams struct {
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+}
+
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -4969,13 +4976,6 @@ type HostServiceListHostsParams struct {
 type HostServiceInvalidateHostParams struct {
 	// Note user-provided reason for change or a freeform field
 	Note *string `form:"note,omitempty" json:"note,omitempty"`
-}
-
-// HostServiceGetHostsSummaryParams defines parameters for HostServiceGetHostsSummary.
-type HostServiceGetHostsSummaryParams struct {
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 }
 
 // InstanceServiceListInstancesParams defines parameters for InstanceServiceListInstances.

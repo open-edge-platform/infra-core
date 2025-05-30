@@ -513,7 +513,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListLocationsResponse'
-  /edge-infra.orchestrator.apis/v2/hosts_summary:
+  /edge-infra.orchestrator.apis/v2/compute/summary:
     get:
       tags:
         - HostService

@@ -89,6 +89,9 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// HostServiceGetHostsSummary request
+	HostServiceGetHostsSummary(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// HostServiceListHosts request
 	HostServiceListHosts(ctx context.Context, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -128,9 +131,6 @@ type ClientInterface interface {
 	HostServiceRegisterUpdateHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	HostServiceRegisterUpdateHost(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// HostServiceGetHostsSummary request
-	HostServiceGetHostsSummary(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// InstanceServiceListInstances request
 	InstanceServiceListInstances(ctx context.Context, params *InstanceServiceListInstancesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -428,6 +428,18 @@ type ClientInterface interface {
 	WorkloadServiceUpdateWorkload(ctx context.Context, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
+func (c *Client) HostServiceGetHostsSummary(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceGetHostsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) HostServiceListHosts(ctx context.Context, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewHostServiceListHostsRequest(c.Server, params)
 	if err != nil {
@@ -598,18 +610,6 @@ func (c *Client) HostServiceRegisterUpdateHostWithBody(ctx context.Context, reso
 
 func (c *Client) HostServiceRegisterUpdateHost(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewHostServiceRegisterUpdateHostRequest(c.Server, resourceId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) HostServiceGetHostsSummary(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServiceGetHostsSummaryRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1928,6 +1928,55 @@ func (c *Client) WorkloadServiceUpdateWorkload(ctx context.Context, resourceId s
 	return c.Client.Do(req)
 }
 
+// NewHostServiceGetHostsSummaryRequest generates requests for HostServiceGetHostsSummary
+func NewHostServiceGetHostsSummaryRequest(server string, params *HostServiceGetHostsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/compute/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewHostServiceListHostsRequest generates requests for HostServiceListHosts
 func NewHostServiceListHostsRequest(server string, params *HostServiceListHostsParams) (*http.Request, error) {
 	var err error
@@ -2400,55 +2449,6 @@ func NewHostServiceRegisterUpdateHostRequestWithBody(server string, resourceId s
 	}
 
 	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewHostServiceGetHostsSummaryRequest generates requests for HostServiceGetHostsSummary
-func NewHostServiceGetHostsSummaryRequest(server string, params *HostServiceGetHostsSummaryParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts_summary")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
 
 	return req, nil
 }
@@ -6600,6 +6600,9 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// HostServiceGetHostsSummaryWithResponse request
+	HostServiceGetHostsSummaryWithResponse(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummaryResponse, error)
+
 	// HostServiceListHostsWithResponse request
 	HostServiceListHostsWithResponse(ctx context.Context, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error)
 
@@ -6639,9 +6642,6 @@ type ClientWithResponsesInterface interface {
 	HostServiceRegisterUpdateHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterUpdateHostResponse, error)
 
 	HostServiceRegisterUpdateHostWithResponse(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterUpdateHostResponse, error)
-
-	// HostServiceGetHostsSummaryWithResponse request
-	HostServiceGetHostsSummaryWithResponse(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummaryResponse, error)
 
 	// InstanceServiceListInstancesWithResponse request
 	InstanceServiceListInstancesWithResponse(ctx context.Context, params *InstanceServiceListInstancesParams, reqEditors ...RequestEditorFn) (*InstanceServiceListInstancesResponse, error)
@@ -6939,6 +6939,29 @@ type ClientWithResponsesInterface interface {
 	WorkloadServiceUpdateWorkloadWithResponse(ctx context.Context, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
 }
 
+type HostServiceGetHostsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *GetHostSummaryResponse
+	JSONDefault  *ConnectError
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceGetHostsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceGetHostsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type HostServiceListHostsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -7163,29 +7186,6 @@ func (r HostServiceRegisterUpdateHostResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r HostServiceRegisterUpdateHostResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type HostServiceGetHostsSummaryResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *GetHostSummaryResponse
-	JSONDefault  *ConnectError
-}
-
-// Status returns HTTPResponse.Status
-func (r HostServiceGetHostsSummaryResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r HostServiceGetHostsSummaryResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -8963,6 +8963,15 @@ func (r WorkloadServiceUpdateWorkloadResponse) StatusCode() int {
 	return 0
 }
 
+// HostServiceGetHostsSummaryWithResponse request returning *HostServiceGetHostsSummaryResponse
+func (c *ClientWithResponses) HostServiceGetHostsSummaryWithResponse(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummaryResponse, error) {
+	rsp, err := c.HostServiceGetHostsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceGetHostsSummaryResponse(rsp)
+}
+
 // HostServiceListHostsWithResponse request returning *HostServiceListHostsResponse
 func (c *ClientWithResponses) HostServiceListHostsWithResponse(ctx context.Context, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error) {
 	rsp, err := c.HostServiceListHosts(ctx, params, reqEditors...)
@@ -9091,15 +9100,6 @@ func (c *ClientWithResponses) HostServiceRegisterUpdateHostWithResponse(ctx cont
 		return nil, err
 	}
 	return ParseHostServiceRegisterUpdateHostResponse(rsp)
-}
-
-// HostServiceGetHostsSummaryWithResponse request returning *HostServiceGetHostsSummaryResponse
-func (c *ClientWithResponses) HostServiceGetHostsSummaryWithResponse(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummaryResponse, error) {
-	rsp, err := c.HostServiceGetHostsSummary(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseHostServiceGetHostsSummaryResponse(rsp)
 }
 
 // InstanceServiceListInstancesWithResponse request returning *InstanceServiceListInstancesResponse
@@ -10051,6 +10051,39 @@ func (c *ClientWithResponses) WorkloadServiceUpdateWorkloadWithResponse(ctx cont
 	return ParseWorkloadServiceUpdateWorkloadResponse(rsp)
 }
 
+// ParseHostServiceGetHostsSummaryResponse parses an HTTP response from a HostServiceGetHostsSummaryWithResponse call
+func ParseHostServiceGetHostsSummaryResponse(rsp *http.Response) (*HostServiceGetHostsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceGetHostsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest GetHostSummaryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest ConnectError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseHostServiceListHostsResponse parses an HTTP response from a HostServiceListHostsWithResponse call
 func ParseHostServiceListHostsResponse(rsp *http.Response) (*HostServiceListHostsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -10364,39 +10397,6 @@ func ParseHostServiceRegisterUpdateHostResponse(rsp *http.Response) (*HostServic
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest HostResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
-		var dest ConnectError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSONDefault = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseHostServiceGetHostsSummaryResponse parses an HTTP response from a HostServiceGetHostsSummaryWithResponse call
-func ParseHostServiceGetHostsSummaryResponse(rsp *http.Response) (*HostServiceGetHostsSummaryResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &HostServiceGetHostsSummaryResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest GetHostSummaryResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

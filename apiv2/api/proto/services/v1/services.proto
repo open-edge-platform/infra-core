@@ -122,7 +122,7 @@ service LocationService {
 service HostService {
   // Get a summary of the hosts status.
   rpc GetHostsSummary(GetHostSummaryRequest) returns (GetHostSummaryResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/hosts_summary"};
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/compute/summary"};
   }
   // Create a host.
   rpc CreateHost(CreateHostRequest) returns (resources.compute.v1.HostResource) {
