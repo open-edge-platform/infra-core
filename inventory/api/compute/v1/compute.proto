@@ -55,9 +55,9 @@ enum BaremetalControllerKind {
 
 enum AmtState {
   AMT_STATE_UNSPECIFIED = 0;
-  AMT_STATE_PROVISION = 1;
-  AMT_STATE_UNPROVISION = 2;
-  AMT_STATE_DISCONNECT = 3;
+  AMT_STATE_PROVISIONED = 1;
+  AMT_STATE_UNPROVISIONED = 2;
+  AMT_STATE_DISCONNECTED = 3;
 }
 
 message HostResource {
@@ -219,7 +219,7 @@ message HostResource {
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 1024},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ]; // coming from device introspection
+  ]; // textual message that describes the AMT status of Host. Set by DM RM only.
   status.v1.StatusIndication amt_status_indicator = 95 [(ent.field) = {optional: true}]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
   uint64 amt_status_timestamp = 96 [(ent.field) = {optional: true}]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
 
