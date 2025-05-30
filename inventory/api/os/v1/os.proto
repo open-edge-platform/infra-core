@@ -136,9 +136,9 @@ message OperatingSystemResource {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\n{}\\[\\]]+$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ]; // JSON string, containig existing CVEs 
+  ]; // JSON string, containig existing CVEs
 
-  string existing_cves_url = 18[
+  string existing_cves_url = 18 [
     (ent.field) = {
       optional: true
       immutable: false
@@ -160,7 +160,7 @@ message OperatingSystemResource {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\" \\n{}\\[\\]]+$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ]; // JSON string, containig fixed CVEs 
+  ]; // JSON string, containig fixed CVEs
 
   string fixed_cves_url = 20 [
     (ent.field) = {
