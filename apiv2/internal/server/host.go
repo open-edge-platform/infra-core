@@ -28,27 +28,30 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-// handle AMT and Power related fields in the *HostRequest and *RegisterHostRequest
-
 // OpenAPIHostToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs HostTemplate and HostBmManagementInfo defined in
 // edge-infra-manager-openapi-types.gen.go.
 // Here we should have only fields that are writable from the API.
 var OpenAPIHostToProto = map[string]string{
-	computev1.HostResourceFieldName:    inv_computev1.HostResourceFieldName,
-	computev1.HostResourceFieldSiteId:  inv_computev1.HostResourceEdgeSite,
-	computev1.HostResourceEdgeMetadata: inv_computev1.HostResourceFieldMetadata,
+	computev1.HostResourceFieldName:               inv_computev1.HostResourceFieldName,
+	computev1.HostResourceFieldSiteId:             inv_computev1.HostResourceEdgeSite,
+	computev1.HostResourceEdgeMetadata:            inv_computev1.HostResourceFieldMetadata,
+	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 }
 
 var (
-	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
 	filterIsFailedHostStatus    = fmt.Sprintf(filterIsFailedHostStatusExp,
 		inv_computev1.HostResourceFieldHostStatusIndicator,
 		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
 		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldPowerStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldAmtStatusIndicator,
 		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldInstanceStatusIndicator,
@@ -109,12 +112,14 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 	}
 
 	invHost := &inv_computev1.HostResource{
-		Name:              host.GetName(),
-		Uuid:              host.GetUuid(),
-		SerialNumber:      host.GetSerialNumber(),
-		DesiredState:      inv_computev1.HostState_HOST_STATE_ONBOARDED,
-		Metadata:          metadata,
-		DesiredPowerState: inv_computev1.PowerState(host.GetDesiredPowerState()),
+		Name:               host.GetName(),
+		Uuid:               host.GetUuid(),
+		SerialNumber:       host.GetSerialNumber(),
+		DesiredState:       inv_computev1.HostState_HOST_STATE_ONBOARDED,
+		Metadata:           metadata,
+		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
+		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+		DesiredAmtState:    inv_computev1.AmtState_AMT_STATE_PROVISION,
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -144,9 +149,10 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 	}
 
 	invHost := &inv_computev1.HostResource{
-		Name:              host.GetName(),
-		Metadata:          metadata,
-		DesiredPowerState: inv_computev1.PowerState(host.GetDesiredPowerState()),
+		Name:               host.GetName(),
+		Metadata:           metadata,
+		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
+		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -181,6 +187,14 @@ func fromInvHostStatus(
 	registrationStatusIndicator := statusv1.StatusIndication(invHost.GetRegistrationStatusIndicator())
 	registrationStatusTimestamp := TruncateUint64ToUint32(invHost.GetRegistrationStatusTimestamp())
 
+	powerStatus := invHost.GetPowerStatus()
+	powerStatusIndicator := statusv1.StatusIndication(invHost.GetPowerStatusIndicator())
+	powerStatusTimestamp := TruncateUint64ToUint32(invHost.GetPowerStatusTimestamp())
+
+	amtStatus := invHost.GetAmtStatus()
+	amtStatusIndicator := statusv1.StatusIndication(invHost.GetPowerStatusIndicator())
+	amtStatusTimestamp := TruncateUint64ToUint32(invHost.GetAmtStatusTimestamp())
+
 	host.HostStatus = hostStatus
 	host.HostStatusIndicator = hostStatusIndicator
 	host.HostStatusTimestamp = hostStatusTimestamp
@@ -190,6 +204,12 @@ func fromInvHostStatus(
 	host.RegistrationStatus = registrationStatus
 	host.RegistrationStatusIndicator = registrationStatusIndicator
 	host.RegistrationStatusTimestamp = registrationStatusTimestamp
+	host.PowerStatus = powerStatus
+	host.PowerStatusIndicator = powerStatusIndicator
+	host.PowerStatusTimestamp = powerStatusTimestamp
+	host.AmtStatus = amtStatus
+	host.AmtStatusIndicator = amtStatusIndicator
+	host.AmtStatusTimestamp = amtStatusTimestamp
 }
 
 func fromInvHostEdges(
@@ -236,37 +256,42 @@ func fromInvHost(
 	}
 
 	host := &computev1.HostResource{
-		ResourceId:        invHost.GetResourceId(),
-		Name:              invHost.GetName(),
-		DesiredState:      computev1.HostState(invHost.GetDesiredState()),
-		CurrentState:      computev1.HostState(invHost.GetCurrentState()),
-		SiteId:            invHost.GetSite().GetResourceId(),
-		Note:              invHost.GetNote(),
-		SerialNumber:      invHost.GetSerialNumber(),
-		MemoryBytes:       fmt.Sprintf("%d", invHost.GetMemoryBytes()),
-		CpuModel:          invHost.GetCpuModel(),
-		CpuSockets:        invHost.GetCpuSockets(),
-		CpuCores:          invHost.GetCpuCores(),
-		CpuCapabilities:   invHost.GetCpuCapabilities(),
-		CpuArchitecture:   invHost.GetCpuArchitecture(),
-		CpuThreads:        invHost.GetCpuThreads(),
-		CpuTopology:       invHost.GetCpuTopology(),
-		BmcKind:           computev1.BaremetalControllerKind(invHost.GetBmcKind()),
-		BmcIp:             invHost.GetBmcIp(),
-		Hostname:          invHost.GetHostname(),
-		ProductName:       invHost.GetProductName(),
-		BiosVersion:       invHost.GetBiosVersion(),
-		BiosReleaseDate:   invHost.GetBiosReleaseDate(),
-		BiosVendor:        invHost.GetBiosVendor(),
-		CurrentPowerState: computev1.PowerState(invHost.GetCurrentPowerState()),
-		DesiredPowerState: computev1.PowerState(invHost.GetDesiredPowerState()),
-		HostStorages:      fromInvHostStorages(invHost.GetHostStorages()),
-		HostNics:          fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
-		HostUsbs:          fromInvHostUsbs(invHost.GetHostUsbs()),
-		HostGpus:          fromInvHostGpus(invHost.GetHostGpus()),
-		Metadata:          metadata,
-		InheritedMetadata: []*commonv1.MetadataItem{},
-		Timestamps:        GrpcToOpenAPITimestamps(invHost),
+		ResourceId:         invHost.GetResourceId(),
+		Name:               invHost.GetName(),
+		DesiredState:       computev1.HostState(invHost.GetDesiredState()),
+		CurrentState:       computev1.HostState(invHost.GetCurrentState()),
+		SiteId:             invHost.GetSite().GetResourceId(),
+		Note:               invHost.GetNote(),
+		SerialNumber:       invHost.GetSerialNumber(),
+		MemoryBytes:        fmt.Sprintf("%d", invHost.GetMemoryBytes()),
+		CpuModel:           invHost.GetCpuModel(),
+		CpuSockets:         invHost.GetCpuSockets(),
+		CpuCores:           invHost.GetCpuCores(),
+		CpuCapabilities:    invHost.GetCpuCapabilities(),
+		CpuArchitecture:    invHost.GetCpuArchitecture(),
+		CpuThreads:         invHost.GetCpuThreads(),
+		CpuTopology:        invHost.GetCpuTopology(),
+		BmcKind:            computev1.BaremetalControllerKind(invHost.GetBmcKind()),
+		BmcIp:              invHost.GetBmcIp(),
+		Hostname:           invHost.GetHostname(),
+		ProductName:        invHost.GetProductName(),
+		BiosVersion:        invHost.GetBiosVersion(),
+		BiosReleaseDate:    invHost.GetBiosReleaseDate(),
+		BiosVendor:         invHost.GetBiosVendor(),
+		CurrentPowerState:  computev1.PowerState(invHost.GetCurrentPowerState()),
+		DesiredPowerState:  computev1.PowerState(invHost.GetDesiredPowerState()),
+		PowerCommandPolicy: computev1.PowerCommandPolicy(invHost.GetPowerCommandPolicy()),
+		PowerOnTime:        TruncateUint64ToUint32(invHost.GetPowerOnTime()),
+		HostStorages:       fromInvHostStorages(invHost.GetHostStorages()),
+		HostNics:           fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
+		HostUsbs:           fromInvHostUsbs(invHost.GetHostUsbs()),
+		HostGpus:           fromInvHostGpus(invHost.GetHostGpus()),
+		AmtSku:             invHost.GetAmtSku(),
+		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
+		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
+		Metadata:           metadata,
+		InheritedMetadata:  []*commonv1.MetadataItem{},
+		Timestamps:         GrpcToOpenAPITimestamps(invHost),
 	}
 
 	if err = fromInvHostEdges(invHost, host); err != nil {
@@ -617,8 +642,9 @@ func (is *InventorygRPCServer) RegisterHost(
 ) (*computev1.HostResource, error) {
 	zlog.Debug().Msg("RegisterHost")
 	hostResource := &inv_computev1.HostResource{
-		Name:         req.GetHost().GetName(),
-		DesiredState: inv_computev1.HostState_HOST_STATE_REGISTERED,
+		Name:            req.GetHost().GetName(),
+		DesiredState:    inv_computev1.HostState_HOST_STATE_REGISTERED,
+		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISION,
 	}
 
 	hostUUID := req.GetHost().GetUuid()
@@ -638,6 +664,10 @@ func (is *InventorygRPCServer) RegisterHost(
 
 	if req.GetHost().GetAutoOnboard() {
 		hostResource.DesiredState = inv_computev1.HostState_HOST_STATE_ONBOARDED
+	}
+
+	if req.GetHost().GetEnableVpro() {
+		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISION
 	}
 
 	invRes := &inventory.Resource{
@@ -699,19 +729,24 @@ func (is *InventorygRPCServer) OnboardHost(
 }
 
 // Onboard a host.
-func (is *InventorygRPCServer) PatchRegisterHost(
+func (is *InventorygRPCServer) RegisterUpdateHost(
 	ctx context.Context,
 	req *restv1.RegisterHostRequest,
 ) (*computev1.HostResource, error) {
-	zlog.Debug().Msg("PatchRegisterHost")
+	zlog.Debug().Msg("RegisterUpdateHost")
 	hostResource := &inv_computev1.HostResource{
-		Name:         req.GetHost().GetName(),
-		DesiredState: inv_computev1.HostState_HOST_STATE_REGISTERED,
+		Name:            req.GetHost().GetName(),
+		DesiredState:    inv_computev1.HostState_HOST_STATE_REGISTERED,
+		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISION,
 	}
 	fieldList := []string{inv_computev1.HostResourceFieldName, inv_computev1.HostResourceFieldDesiredState}
 
 	if req.GetHost().GetAutoOnboard() {
 		hostResource.DesiredState = inv_computev1.HostState_HOST_STATE_ONBOARDED
+	}
+
+	if req.GetHost().GetEnableVpro() {
+		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISION
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Host{
