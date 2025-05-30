@@ -450,6 +450,7 @@ An OS resource.
 | update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs |
 | image_url | [string](#string) |  | The URL repository of the OS image. |
 | image_id | [string](#string) |  | A unique identifier of the OS image that can be retrieved from the running OS. |
+| description | [string](#string) |  |  |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in hexadecimal representation. |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources. |
 | profile_version | [string](#string) |  | Version of OS profile that the OS resource belongs to. |
