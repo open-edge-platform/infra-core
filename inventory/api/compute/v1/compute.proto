@@ -648,8 +648,8 @@ message InstanceResource {
 
   string existing_cves = 50 [
     (ent.field) = {
-    optional: true
-    immutable: false
+      optional: true
+      immutable: false
     },
     (buf.validate.field).string = {
       max_bytes: 20000
