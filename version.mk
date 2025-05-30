@@ -111,10 +111,6 @@ ifeq ($(PROTOCGENGOGRPC), true)
 	@(echo "$(PROTOCGENGOGRPCVERSION_HAVE)" | grep "$(PROTOCGENGOGRPCVERSION_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-go-grpc\nRecommended: $(PROTOCGENGOGRPCVERSION_REQ)\nYours: $(PROTOCGENGOGRPCVERSION_HAVE)\e[1;m" && exit 1)
 endif
-ifeq ($(PROTOCGENOAPI), true)
-	@(echo "$(PROTOCGENOAPIVERSION_HAVE)" | grep "$(PROTOCGENOAPIVERSION_REQ)" > /dev/null) || \
-	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-connect-openapi\nRecommended: $(PROTOCGENOAPIVERSION_REQ)\nYours: $(PROTOCGENOAPIVERSION_HAVE)\e[1;m" && exit 1)
-endif
 ifeq ($(PROTOCGENGRPCGW), true)
 	@(echo "$(PROTOCGENGRPCGWVERSION_HAVE)" | grep "$(PROTOCGENGRPCGWVERSION_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-grpc-gateway\nRecommended: $(PROTOCGENGRPCGWVERSION_REQ)\nYours: $(PROTOCGENGRPCGWVERSION_HAVE)\e[1;m" && exit 1)
