@@ -186,8 +186,6 @@ message OperatingSystemResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // Tenant Identifier
 
-  
-
   string created_at = 200 [(ent.field) = {
     immutable: true
     optional: false
