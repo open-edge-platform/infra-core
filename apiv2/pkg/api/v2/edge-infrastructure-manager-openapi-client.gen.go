@@ -124,10 +124,10 @@ type ClientInterface interface {
 	// HostServiceOnboardHost request
 	HostServiceOnboardHost(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// HostServiceRegisterUpdateHostWithBody request with any body
-	HostServiceRegisterUpdateHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// HostServicePatchRegisterHostWithBody request with any body
+	HostServicePatchRegisterHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	HostServiceRegisterUpdateHost(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	HostServicePatchRegisterHost(ctx context.Context, resourceId string, body HostServicePatchRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// HostServiceGetHostsSummary request
 	HostServiceGetHostsSummary(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -607,8 +607,8 @@ func (c *Client) HostServiceOnboardHost(ctx context.Context, resourceId string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) HostServiceRegisterUpdateHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServiceRegisterUpdateHostRequestWithBody(c.Server, resourceId, contentType, body)
+func (c *Client) HostServicePatchRegisterHostWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchRegisterHostRequestWithBody(c.Server, resourceId, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -619,8 +619,8 @@ func (c *Client) HostServiceRegisterUpdateHostWithBody(ctx context.Context, reso
 	return c.Client.Do(req)
 }
 
-func (c *Client) HostServiceRegisterUpdateHost(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewHostServiceRegisterUpdateHostRequest(c.Server, resourceId, body)
+func (c *Client) HostServicePatchRegisterHost(ctx context.Context, resourceId string, body HostServicePatchRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchRegisterHostRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2230,7 +2230,7 @@ func NewHostServiceDeleteHostRequest(server string, resourceId string) (*http.Re
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2264,7 +2264,7 @@ func NewHostServiceGetHostRequest(server string, resourceId string) (*http.Reque
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2309,7 +2309,7 @@ func NewHostServicePatchHostRequestWithBody(server string, resourceId string, co
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2356,7 +2356,7 @@ func NewHostServiceUpdateHostRequestWithBody(server string, resourceId string, c
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2392,7 +2392,7 @@ func NewHostServiceInvalidateHostRequest(server string, resourceId string, param
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2448,7 +2448,7 @@ func NewHostServiceOnboardHostRequest(server string, resourceId string) (*http.R
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2476,24 +2476,24 @@ func NewHostServiceOnboardHostRequest(server string, resourceId string) (*http.R
 	return req, nil
 }
 
-// NewHostServiceRegisterUpdateHostRequest calls the generic HostServiceRegisterUpdateHost builder with application/json body
-func NewHostServiceRegisterUpdateHostRequest(server string, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody) (*http.Request, error) {
+// NewHostServicePatchRegisterHostRequest calls the generic HostServicePatchRegisterHost builder with application/json body
+func NewHostServicePatchRegisterHostRequest(server string, resourceId string, body HostServicePatchRegisterHostJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewHostServiceRegisterUpdateHostRequestWithBody(server, resourceId, "application/json", bodyReader)
+	return NewHostServicePatchRegisterHostRequestWithBody(server, resourceId, "application/json", bodyReader)
 }
 
-// NewHostServiceRegisterUpdateHostRequestWithBody generates requests for HostServiceRegisterUpdateHost with any type of body
-func NewHostServiceRegisterUpdateHostRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+// NewHostServicePatchRegisterHostRequestWithBody generates requests for HostServicePatchRegisterHost with any type of body
+func NewHostServicePatchRegisterHostRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2715,7 +2715,7 @@ func NewInstanceServiceDeleteInstanceRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2749,7 +2749,7 @@ func NewInstanceServiceGetInstanceRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2794,7 +2794,7 @@ func NewInstanceServicePatchInstanceRequestWithBody(server string, resourceId st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2841,7 +2841,7 @@ func NewInstanceServiceUpdateInstanceRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2877,7 +2877,7 @@ func NewInstanceServiceInvalidateInstanceRequest(server string, resourceId strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3048,7 +3048,7 @@ func NewLocalAccountServiceDeleteLocalAccountRequest(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3082,7 +3082,7 @@ func NewLocalAccountServiceGetLocalAccountRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3334,7 +3334,7 @@ func NewOperatingSystemServiceDeleteOperatingSystemRequest(server string, resour
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3368,7 +3368,7 @@ func NewOperatingSystemServiceGetOperatingSystemRequest(server string, resourceI
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3413,7 +3413,7 @@ func NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server string,
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3460,7 +3460,7 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3633,7 +3633,7 @@ func NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3667,7 +3667,7 @@ func NewOSUpdatePolicyGetOSUpdatePolicyRequest(server string, resourceId string)
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3798,7 +3798,7 @@ func NewOSUpdateRunDeleteOSUpdateRunRequest(server string, resourceId string) (*
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -3832,7 +3832,7 @@ func NewOSUpdateRunGetOSUpdateRunRequest(server string, resourceId string) (*htt
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4003,7 +4003,7 @@ func NewProviderServiceDeleteProviderRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4037,7 +4037,7 @@ func NewProviderServiceGetProviderRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4224,7 +4224,7 @@ func NewRegionServiceDeleteRegionRequest(server string, resourceId string) (*htt
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4258,7 +4258,7 @@ func NewRegionServiceGetRegionRequest(server string, resourceId string) (*http.R
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4303,7 +4303,7 @@ func NewRegionServicePatchRegionRequestWithBody(server string, resourceId string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4350,7 +4350,7 @@ func NewRegionServiceUpdateRegionRequestWithBody(server string, resourceId strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4684,7 +4684,7 @@ func NewScheduleServiceDeleteRepeatedScheduleRequest(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4718,7 +4718,7 @@ func NewScheduleServiceGetRepeatedScheduleRequest(server string, resourceId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4763,7 +4763,7 @@ func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, resou
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4810,7 +4810,7 @@ func NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server string, reso
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5015,7 +5015,7 @@ func NewScheduleServiceDeleteSingleScheduleRequest(server string, resourceId str
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5049,7 +5049,7 @@ func NewScheduleServiceGetSingleScheduleRequest(server string, resourceId string
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5094,7 +5094,7 @@ func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, resourc
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5141,7 +5141,7 @@ func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, resour
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5314,7 +5314,7 @@ func NewSiteServiceDeleteSiteRequest(server string, resourceId string) (*http.Re
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5348,7 +5348,7 @@ func NewSiteServiceGetSiteRequest(server string, resourceId string) (*http.Reque
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5393,7 +5393,7 @@ func NewSiteServicePatchSiteRequestWithBody(server string, resourceId string, co
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5440,7 +5440,7 @@ func NewSiteServiceUpdateSiteRequestWithBody(server string, resourceId string, c
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5597,7 +5597,7 @@ func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(server string, 
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5631,7 +5631,7 @@ func NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(server string, res
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5786,7 +5786,7 @@ func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(server st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -5820,7 +5820,7 @@ func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(server strin
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6039,7 +6039,7 @@ func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(server stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6073,7 +6073,7 @@ func NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(server string,
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6118,7 +6118,7 @@ func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(serv
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6165,7 +6165,7 @@ func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(ser
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6386,7 +6386,7 @@ func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(serve
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6420,7 +6420,7 @@ func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(server s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6465,7 +6465,7 @@ func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBod
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6512,7 +6512,7 @@ func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBo
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6685,7 +6685,7 @@ func NewWorkloadMemberServiceDeleteWorkloadMemberRequest(server string, resource
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6719,7 +6719,7 @@ func NewWorkloadMemberServiceGetWorkloadMemberRequest(server string, resourceId 
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6890,7 +6890,7 @@ func NewWorkloadServiceDeleteWorkloadRequest(server string, resourceId string) (
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6924,7 +6924,7 @@ func NewWorkloadServiceGetWorkloadRequest(server string, resourceId string) (*ht
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -6969,7 +6969,7 @@ func NewWorkloadServicePatchWorkloadRequestWithBody(server string, resourceId st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -7016,7 +7016,7 @@ func NewWorkloadServiceUpdateWorkloadRequestWithBody(server string, resourceId s
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resource_id", runtime.ParamLocationPath, resourceId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -7124,10 +7124,10 @@ type ClientWithResponsesInterface interface {
 	// HostServiceOnboardHostWithResponse request
 	HostServiceOnboardHostWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*HostServiceOnboardHostResponse, error)
 
-	// HostServiceRegisterUpdateHostWithBodyWithResponse request with any body
-	HostServiceRegisterUpdateHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterUpdateHostResponse, error)
+	// HostServicePatchRegisterHostWithBodyWithResponse request with any body
+	HostServicePatchRegisterHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHostResponse, error)
 
-	HostServiceRegisterUpdateHostWithResponse(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterUpdateHostResponse, error)
+	HostServicePatchRegisterHostWithResponse(ctx context.Context, resourceId string, body HostServicePatchRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHostResponse, error)
 
 	// HostServiceGetHostsSummaryWithResponse request
 	HostServiceGetHostsSummaryWithResponse(ctx context.Context, params *HostServiceGetHostsSummaryParams, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummaryResponse, error)
@@ -7658,7 +7658,7 @@ func (r HostServiceOnboardHostResponse) StatusCode() int {
 	return 0
 }
 
-type HostServiceRegisterUpdateHostResponse struct {
+type HostServicePatchRegisterHostResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *HostResource
@@ -7666,7 +7666,7 @@ type HostServiceRegisterUpdateHostResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r HostServiceRegisterUpdateHostResponse) Status() string {
+func (r HostServicePatchRegisterHostResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -7674,7 +7674,7 @@ func (r HostServiceRegisterUpdateHostResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r HostServiceRegisterUpdateHostResponse) StatusCode() int {
+func (r HostServicePatchRegisterHostResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -9749,21 +9749,21 @@ func (c *ClientWithResponses) HostServiceOnboardHostWithResponse(ctx context.Con
 	return ParseHostServiceOnboardHostResponse(rsp)
 }
 
-// HostServiceRegisterUpdateHostWithBodyWithResponse request with arbitrary body returning *HostServiceRegisterUpdateHostResponse
-func (c *ClientWithResponses) HostServiceRegisterUpdateHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterUpdateHostResponse, error) {
-	rsp, err := c.HostServiceRegisterUpdateHostWithBody(ctx, resourceId, contentType, body, reqEditors...)
+// HostServicePatchRegisterHostWithBodyWithResponse request with arbitrary body returning *HostServicePatchRegisterHostResponse
+func (c *ClientWithResponses) HostServicePatchRegisterHostWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHostResponse, error) {
+	rsp, err := c.HostServicePatchRegisterHostWithBody(ctx, resourceId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseHostServiceRegisterUpdateHostResponse(rsp)
+	return ParseHostServicePatchRegisterHostResponse(rsp)
 }
 
-func (c *ClientWithResponses) HostServiceRegisterUpdateHostWithResponse(ctx context.Context, resourceId string, body HostServiceRegisterUpdateHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterUpdateHostResponse, error) {
-	rsp, err := c.HostServiceRegisterUpdateHost(ctx, resourceId, body, reqEditors...)
+func (c *ClientWithResponses) HostServicePatchRegisterHostWithResponse(ctx context.Context, resourceId string, body HostServicePatchRegisterHostJSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHostResponse, error) {
+	rsp, err := c.HostServicePatchRegisterHost(ctx, resourceId, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseHostServiceRegisterUpdateHostResponse(rsp)
+	return ParseHostServicePatchRegisterHostResponse(rsp)
 }
 
 // HostServiceGetHostsSummaryWithResponse request returning *HostServiceGetHostsSummaryResponse
@@ -11092,15 +11092,15 @@ func ParseHostServiceOnboardHostResponse(rsp *http.Response) (*HostServiceOnboar
 	return response, nil
 }
 
-// ParseHostServiceRegisterUpdateHostResponse parses an HTTP response from a HostServiceRegisterUpdateHostWithResponse call
-func ParseHostServiceRegisterUpdateHostResponse(rsp *http.Response) (*HostServiceRegisterUpdateHostResponse, error) {
+// ParseHostServicePatchRegisterHostResponse parses an HTTP response from a HostServicePatchRegisterHostWithResponse call
+func ParseHostServicePatchRegisterHostResponse(rsp *http.Response) (*HostServicePatchRegisterHostResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &HostServiceRegisterUpdateHostResponse{
+	response := &HostServicePatchRegisterHostResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
