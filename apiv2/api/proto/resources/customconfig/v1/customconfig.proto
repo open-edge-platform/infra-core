@@ -7,7 +7,7 @@ package resources.customconfig.v1;
 
 import "google/api/field_behavior.proto";
 import "resources/common/v1/common.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/customconfig/v1;customconfigv1";
 
@@ -15,7 +15,7 @@ message CustomConfigResource {
   // resource identifier
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^customconfig-[0-9a-f]{8}$"
       max_len: 21
     }
@@ -23,7 +23,7 @@ message CustomConfigResource {
 
   // Config provided by admin
   string name = 2 [
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^[a-z][a-z0-9-]{0,31}$"
       max_len: 32
     },
@@ -32,15 +32,16 @@ message CustomConfigResource {
 
     // Config description
   string description = 3 [
-    (validate.rules).string = {
-      pattern: "^.{0,255}$"
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+      min_len: 1
       max_len: 256
     },
     (google.api.field_behavior) = OPTIONAL
   ];
   // Config content
   string config_content = 4 [
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       max_len: 16384
     },
     (google.api.field_behavior) = REQUIRED
