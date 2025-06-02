@@ -1,3 +1,5 @@
 api/internal/server/manager_test.go:generic-api-key:767
 inventory/internal/store/host_test.go:generic-api-key:996
 inventory/internal/store/host_test.go:generic-api-key:1010
+inventory/internal/store/host_test.go:generic-api-key:1050
+apiv2/pkg/api/v2/edge-infrastructure-manager-openapi-server.gen.go:generic-api-key:2364

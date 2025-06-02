@@ -502,8 +502,8 @@ func TestRegionList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateRegion(t, ctx, apiClient, utils.Region1Request)
@@ -628,8 +628,8 @@ func TestLocation_SiteList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	var pageId int = 1
+	var pageSize int = 4
 
 	for id := 0; id < totalItems; id++ {
 		CreateSite(t, ctx, apiClient, utils.SiteListRequest)
@@ -955,7 +955,6 @@ func TestRegion_Patch(t *testing.T) {
 	updatedRegion, err := apiClient.RegionServicePatchRegionWithResponse(
 		ctx,
 		*region.JSON200.ResourceId,
-		nil,
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -1000,7 +999,6 @@ func TestSite_Patch(t *testing.T) {
 	updatedSite, err := apiClient.SiteServicePatchSiteWithResponse(
 		ctx,
 		*site.JSON200.ResourceId,
-		nil,
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

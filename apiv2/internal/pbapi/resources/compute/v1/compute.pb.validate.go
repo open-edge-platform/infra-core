@@ -65,49 +65,9 @@ func (m *HostResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
-		err := HostResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
-	if !_HostResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := HostResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetName()) > 50 {
-		err := HostResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 50 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostResource_Name_Pattern.MatchString(m.GetName()) {
-		err := HostResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
 	// no validation rules for DesiredState
 
@@ -171,51 +131,11 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
-	if l := utf8.RuneCountInString(m.GetNote()); l < 1 || l > 512 {
-		err := HostResourceValidationError{
-			field:  "Note",
-			reason: "value length must be between 1 and 512 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostResource_Note_Pattern.MatchString(m.GetNote()) {
-		err := HostResourceValidationError{
-			field:  "Note",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\\\" ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Note
 
 	// no validation rules for SerialNumber
 
-	if l := utf8.RuneCountInString(m.GetUuid()); l < 0 || l > 36 {
-		err := HostResourceValidationError{
-			field:  "Uuid",
-			reason: "value length must be between 0 and 36 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_HostResource_Uuid_Pattern.MatchString(m.GetUuid()) {
-		err := HostResourceValidationError{
-			field:  "Uuid",
-			reason: "value does not match regex pattern \"^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Uuid
 
 	// no validation rules for MemoryBytes
 
@@ -251,46 +171,19 @@ func (m *HostResource) validate(all bool) error {
 
 	// no validation rules for DesiredPowerState
 
-	if utf8.RuneCountInString(m.GetHostStatus()) > 1024 {
-		err := HostResourceValidationError{
-			field:  "HostStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for HostStatus
 
 	// no validation rules for HostStatusIndicator
 
 	// no validation rules for HostStatusTimestamp
 
-	if utf8.RuneCountInString(m.GetOnboardingStatus()) > 1024 {
-		err := HostResourceValidationError{
-			field:  "OnboardingStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for OnboardingStatus
 
 	// no validation rules for OnboardingStatusIndicator
 
 	// no validation rules for OnboardingStatusTimestamp
 
-	if utf8.RuneCountInString(m.GetRegistrationStatus()) > 1024 {
-		err := HostResourceValidationError{
-			field:  "RegistrationStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for RegistrationStatus
 
 	// no validation rules for RegistrationStatusIndicator
 
@@ -461,73 +354,38 @@ func (m *HostResource) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetSiteId()) > 13 {
-		err := HostResourceValidationError{
-			field:  "SiteId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for SiteId
 
-	if !_HostResource_SiteId_Pattern.MatchString(m.GetSiteId()) {
-		err := HostResourceValidationError{
-			field:  "SiteId",
-			reason: "value does not match regex pattern \"^$|^site-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	for idx, item := range m.GetMetadata() {
+		_, _ = idx, item
 
-	if len(m.GetMetadata()) > 0 {
-
-		if len(m.GetMetadata()) > 100 {
-			err := HostResourceValidationError{
-				field:  "Metadata",
-				reason: "value must contain no more than 100 item(s)",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		for idx, item := range m.GetMetadata() {
-			_, _ = idx, item
-
-			if all {
-				switch v := interface{}(item).(type) {
-				case interface{ ValidateAll() error }:
-					if err := v.ValidateAll(); err != nil {
-						errors = append(errors, HostResourceValidationError{
-							field:  fmt.Sprintf("Metadata[%v]", idx),
-							reason: "embedded message failed validation",
-							cause:  err,
-						})
-					}
-				case interface{ Validate() error }:
-					if err := v.Validate(); err != nil {
-						errors = append(errors, HostResourceValidationError{
-							field:  fmt.Sprintf("Metadata[%v]", idx),
-							reason: "embedded message failed validation",
-							cause:  err,
-						})
-					}
-				}
-			} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-				if err := v.Validate(); err != nil {
-					return HostResourceValidationError{
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, HostResourceValidationError{
 						field:  fmt.Sprintf("Metadata[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
-					}
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, HostResourceValidationError{
+						field:  fmt.Sprintf("Metadata[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
 				}
 			}
-
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return HostResourceValidationError{
+					field:  fmt.Sprintf("Metadata[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
 		}
 
 	}
@@ -671,16 +529,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = HostResourceValidationError{}
-
-var _HostResource_ResourceId_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
-var _HostResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _HostResource_Note_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$")
-
-var _HostResource_Uuid_Pattern = regexp.MustCompile("^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
-var _HostResource_SiteId_Pattern = regexp.MustCompile("^$|^site-[0-9a-f]{8}$")
 
 // Validate checks the field values on HoststorageResource with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1470,51 +1318,11 @@ func (m *InstanceResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 13 {
-		err := InstanceResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_InstanceResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := InstanceResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for Kind
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
-		err := InstanceResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 50 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_InstanceResource_Name_Pattern.MatchString(m.GetName()) {
-		err := InstanceResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
 	// no validation rules for DesiredState
 
@@ -1638,72 +1446,27 @@ func (m *InstanceResource) validate(all bool) error {
 
 	// no validation rules for SecurityFeature
 
-	if utf8.RuneCountInString(m.GetInstanceStatus()) > 1024 {
-		err := InstanceResourceValidationError{
-			field:  "InstanceStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for InstanceStatus
 
 	// no validation rules for InstanceStatusIndicator
 
 	// no validation rules for InstanceStatusTimestamp
 
-	if utf8.RuneCountInString(m.GetProvisioningStatus()) > 1024 {
-		err := InstanceResourceValidationError{
-			field:  "ProvisioningStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ProvisioningStatus
 
 	// no validation rules for ProvisioningStatusIndicator
 
 	// no validation rules for ProvisioningStatusTimestamp
 
-	if utf8.RuneCountInString(m.GetUpdateStatus()) > 1024 {
-		err := InstanceResourceValidationError{
-			field:  "UpdateStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UpdateStatus
 
 	// no validation rules for UpdateStatusIndicator
 
 	// no validation rules for UpdateStatusTimestamp
 
-	if utf8.RuneCountInString(m.GetUpdateStatusDetail()) > 100000 {
-		err := InstanceResourceValidationError{
-			field:  "UpdateStatusDetail",
-			reason: "value length must be at most 100000 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UpdateStatusDetail
 
-	if utf8.RuneCountInString(m.GetTrustedAttestationStatus()) > 1024 {
-		err := InstanceResourceValidationError{
-			field:  "TrustedAttestationStatus",
-			reason: "value length must be at most 1024 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for TrustedAttestationStatus
 
 	// no validation rules for TrustedAttestationStatusIndicator
 
@@ -1772,93 +1535,13 @@ func (m *InstanceResource) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetInstanceID()) > 13 {
-		err := InstanceResourceValidationError{
-			field:  "InstanceID",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for InstanceID
 
-	if !_InstanceResource_InstanceID_Pattern.MatchString(m.GetInstanceID()) {
-		err := InstanceResourceValidationError{
-			field:  "InstanceID",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for HostID
 
-	if utf8.RuneCountInString(m.GetHostID()) > 13 {
-		err := InstanceResourceValidationError{
-			field:  "HostID",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for OsID
 
-	if !_InstanceResource_HostID_Pattern.MatchString(m.GetHostID()) {
-		err := InstanceResourceValidationError{
-			field:  "HostID",
-			reason: "value does not match regex pattern \"^host-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetOsID()) > 11 {
-		err := InstanceResourceValidationError{
-			field:  "OsID",
-			reason: "value length must be at most 11 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_InstanceResource_OsID_Pattern.MatchString(m.GetOsID()) {
-		err := InstanceResourceValidationError{
-			field:  "OsID",
-			reason: "value does not match regex pattern \"^os-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetLocalAccountID()) > 21 {
-		err := InstanceResourceValidationError{
-			field:  "LocalAccountID",
-			reason: "value length must be at most 21 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_InstanceResource_LocalAccountID_Pattern.MatchString(m.GetLocalAccountID()) {
-		err := InstanceResourceValidationError{
-			field:  "LocalAccountID",
-			reason: "value does not match regex pattern \"^localaccount-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for LocalAccountID
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -1967,18 +1650,6 @@ var _ interface {
 	ErrorName() string
 } = InstanceResourceValidationError{}
 
-var _InstanceResource_ResourceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
-
-var _InstanceResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _InstanceResource_InstanceID_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")
-
-var _InstanceResource_HostID_Pattern = regexp.MustCompile("^host-[0-9a-f]{8}$")
-
-var _InstanceResource_OsID_Pattern = regexp.MustCompile("^os-[0-9a-f]{8}$")
-
-var _InstanceResource_LocalAccountID_Pattern = regexp.MustCompile("^localaccount-[0-9a-f]{8}$")
-
 // Validate checks the field values on WorkloadResource with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -2001,95 +1672,15 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 17 {
-		err := WorkloadResourceValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 17 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadResource_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := WorkloadResourceValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^workload-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for Kind
 
-	if utf8.RuneCountInString(m.GetName()) > 50 {
-		err := WorkloadResourceValidationError{
-			field:  "Name",
-			reason: "value length must be at most 50 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Name
 
-	if !_WorkloadResource_Name_Pattern.MatchString(m.GetName()) {
-		err := WorkloadResourceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ExternalId
 
-	if utf8.RuneCountInString(m.GetExternalId()) > 40 {
-		err := WorkloadResourceValidationError{
-			field:  "ExternalId",
-			reason: "value length must be at most 40 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadResource_ExternalId_Pattern.MatchString(m.GetExternalId()) {
-		err := WorkloadResourceValidationError{
-			field:  "ExternalId",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./: ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetStatus()) > 500 {
-		err := WorkloadResourceValidationError{
-			field:  "Status",
-			reason: "value length must be at most 500 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadResource_Status_Pattern.MatchString(m.GetStatus()) {
-		err := WorkloadResourceValidationError{
-			field:  "Status",
-			reason: "value does not match regex pattern \"^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Status
 
 	for idx, item := range m.GetMembers() {
 		_, _ = idx, item
@@ -2125,27 +1716,7 @@ func (m *WorkloadResource) validate(all bool) error {
 
 	}
 
-	if utf8.RuneCountInString(m.GetWorkloadId()) > 17 {
-		err := WorkloadResourceValidationError{
-			field:  "WorkloadId",
-			reason: "value length must be at most 17 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadResource_WorkloadId_Pattern.MatchString(m.GetWorkloadId()) {
-		err := WorkloadResourceValidationError{
-			field:  "WorkloadId",
-			reason: "value does not match regex pattern \"^workload-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for WorkloadId
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -2254,16 +1825,6 @@ var _ interface {
 	ErrorName() string
 } = WorkloadResourceValidationError{}
 
-var _WorkloadResource_ResourceId_Pattern = regexp.MustCompile("^workload-[0-9a-f]{8}$")
-
-var _WorkloadResource_Name_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _WorkloadResource_ExternalId_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./: ]+$")
-
-var _WorkloadResource_Status_Pattern = regexp.MustCompile("^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$")
-
-var _WorkloadResource_WorkloadId_Pattern = regexp.MustCompile("^workload-[0-9a-f]{8}$")
-
 // Validate checks the field values on WorkloadMember with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -2286,27 +1847,7 @@ func (m *WorkloadMember) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetResourceId()) > 23 {
-		err := WorkloadMemberValidationError{
-			field:  "ResourceId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadMember_ResourceId_Pattern.MatchString(m.GetResourceId()) {
-		err := WorkloadMemberValidationError{
-			field:  "ResourceId",
-			reason: "value does not match regex pattern \"^workloadmember-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ResourceId
 
 	// no validation rules for Kind
 
@@ -2368,27 +1909,7 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetWorkloadMemberId()) > 23 {
-		err := WorkloadMemberValidationError{
-			field:  "WorkloadMemberId",
-			reason: "value length must be at most 23 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadMember_WorkloadMemberId_Pattern.MatchString(m.GetWorkloadMemberId()) {
-		err := WorkloadMemberValidationError{
-			field:  "WorkloadMemberId",
-			reason: "value does not match regex pattern \"^workloadmember-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for WorkloadMemberId
 
 	if all {
 		switch v := interface{}(m.GetMember()).(type) {
@@ -2419,49 +1940,9 @@ func (m *WorkloadMember) validate(all bool) error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetWorkloadId()) > 17 {
-		err := WorkloadMemberValidationError{
-			field:  "WorkloadId",
-			reason: "value length must be at most 17 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for WorkloadId
 
-	if !_WorkloadMember_WorkloadId_Pattern.MatchString(m.GetWorkloadId()) {
-		err := WorkloadMemberValidationError{
-			field:  "WorkloadId",
-			reason: "value does not match regex pattern \"^workload-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetInstanceId()) > 13 {
-		err := WorkloadMemberValidationError{
-			field:  "InstanceId",
-			reason: "value length must be at most 13 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_WorkloadMember_InstanceId_Pattern.MatchString(m.GetInstanceId()) {
-		err := WorkloadMemberValidationError{
-			field:  "InstanceId",
-			reason: "value does not match regex pattern \"^inst-[0-9a-f]{8}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for InstanceId
 
 	if all {
 		switch v := interface{}(m.GetTimestamps()).(type) {
@@ -2569,11 +2050,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkloadMemberValidationError{}
-
-var _WorkloadMember_ResourceId_Pattern = regexp.MustCompile("^workloadmember-[0-9a-f]{8}$")
-
-var _WorkloadMember_WorkloadMemberId_Pattern = regexp.MustCompile("^workloadmember-[0-9a-f]{8}$")
-
-var _WorkloadMember_WorkloadId_Pattern = regexp.MustCompile("^workload-[0-9a-f]{8}$")
-
-var _WorkloadMember_InstanceId_Pattern = regexp.MustCompile("^inst-[0-9a-f]{8}$")

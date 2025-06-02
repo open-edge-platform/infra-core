@@ -7,7 +7,7 @@ package resources.common.v1;
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1;commonv1";
 
@@ -16,7 +16,7 @@ message MetadataItem {
   // The metadata key.
   string key = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$"
       min_len: 0
       max_len: 316
@@ -25,7 +25,7 @@ message MetadataItem {
   // The metadata value.
   string value = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$"
       min_len: 0
       max_len: 63
