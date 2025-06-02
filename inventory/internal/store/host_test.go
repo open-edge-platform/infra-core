@@ -442,7 +442,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
 
-				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISION,
+				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
 
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
@@ -552,7 +552,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				PowerStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				PowerStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 
-				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISION,
+				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISIONED,
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
@@ -995,7 +995,7 @@ func Test_UpdateHost(t *testing.T) {
 				PowerStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				PowerStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 
-				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISION,
+				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISIONED,
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
@@ -1218,7 +1218,7 @@ func Test_Register_Host(t *testing.T) {
 				Name:            "Test Host Register",
 				Uuid:            uuid.New().String(),
 				DesiredState:    computev1.HostState_HOST_STATE_ONBOARDED,
-				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISION,
+				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
 			},
 			clientName: inv_testing.APIClient,
 			valid:      true,
@@ -1677,7 +1677,7 @@ func Test_FilterHosts(t *testing.T) {
 				PowerStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				PowerStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
 
-				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISION,
+				CurrentAmtState:    computev1.AmtState_AMT_STATE_UNPROVISIONED,
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
