@@ -1011,8 +1011,6 @@ message CustomConfigResource {
     ]
   }]; // Update timestamp
 
-  repeated InstanceResource instances = 500 [(ent.edge) = {
-    ref: "custom_config"
-  }]; // back-reference to the Instances associated to this Custom Config, we don't handle setting edges via back-reference and we dont eager load this edge.
+  repeated InstanceResource instances = 500 [(ent.edge) = {ref: "custom_config"}]; // back-reference to the Instances associated to this Custom Config, we don't handle setting edges via back-reference and we dont eager load this edge.
 }
 // ---------------------------------------------------------------------------------------------------------------------

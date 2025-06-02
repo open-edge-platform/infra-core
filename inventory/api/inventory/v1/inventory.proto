@@ -19,7 +19,6 @@ import "schedule/v1/schedule.proto";
 import "telemetry/v1/telemetry.proto";
 import "tenant/v1/tenant.proto";
 
-
 option go_package = "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1;inventoryv1";
 
 // Inventory Service (IS) provides an API for managing resources.
@@ -189,7 +188,6 @@ enum ResourceKind {
 
   RESOURCE_KIND_LOCALACCOUNT = 170;
   RESOURCE_KIND_CUSTOMCONFIG = 171;
-
 }
 
 message Resource {
