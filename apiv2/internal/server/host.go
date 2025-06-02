@@ -41,8 +41,9 @@ var OpenAPIHostToProto = map[string]string{
 }
 
 var (
-	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s = %s OR %s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
-	filterIsFailedHostStatus    = fmt.Sprintf(filterIsFailedHostStatusExp,
+	filterIsFailedHostStatusExp = `%s = %s OR %s = %s OR %s = %s OR %s = %s OR %s = %s OR ` +
+		`%s.%s = %s OR %s.%s = %s OR %s.%s = %s OR %s.%s = %s`
+	filterIsFailedHostStatus = fmt.Sprintf(filterIsFailedHostStatusExp,
 		inv_computev1.HostResourceFieldHostStatusIndicator,
 		api.STATUSINDICATIONERROR,
 		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
