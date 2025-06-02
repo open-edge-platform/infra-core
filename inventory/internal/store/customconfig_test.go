@@ -5,21 +5,14 @@ package store_test
 
 import (
 	"context"
-	//"fmt"
-	//"reflect"
 	"testing"
 	"time"
 
-	//"github.com/google/uuid"
-	//"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	//"github.com/stretchr/testify/suite"
-	//"google.golang.org/protobuf/types/known/fieldmaskpb"
 
-	//"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
+	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
-	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 )
 
 var testCloudInitConfig = `#cloud-config
@@ -43,9 +36,9 @@ func Test_Create_Get_Delete_CustomConfig(t *testing.T) {
 	}{
 		"CreateGoodCustomConfig": {
 			in: &computev1.CustomConfigResource{
-				Name:		"test-custom-config",
+				Name:        "test-custom-config",
 				Description: "Test custom config resource",
-				Config: testCloudInitConfig,
+				Config:      testCloudInitConfig,
 			},
 			valid: true,
 		},

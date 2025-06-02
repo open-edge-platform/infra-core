@@ -12,8 +12,8 @@ import (
 	"github.com/iancoleman/strcase"
 	"google.golang.org/grpc/codes"
 
-	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	internal_ent "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"

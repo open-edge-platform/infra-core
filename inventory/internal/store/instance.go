@@ -130,7 +130,8 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		if err := setEdgeLocalAccountIDForMut(ctx, tx.Client(), mut, in.GetLocalaccount()); err != nil {
 			return nil, err
 		}
-		// Look up the optional CustomConfig IDs for this Instance. CustomConfig is M2M relation, so multiple edges could be provided at once
+		// Look up the optional CustomConfig IDs for this Instance. CustomConfig is M2M relation,
+		// so multiple edges could be provided at once
 		if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
 			return nil, err
 		}
@@ -567,7 +568,6 @@ func setRelationsForInstanceMutIfNeeded(
 		}
 	}
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
-
 		mut.ClearCustomConfig()
 		if err := setEdgeCustomConfigIDsForMut(ctx, client, mut, in.GetCustomConfig()); err != nil {
 			return err

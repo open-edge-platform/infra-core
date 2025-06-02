@@ -6,6 +6,8 @@ package store
 import (
 	"context"
 
+	"google.golang.org/grpc/codes"
+
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 	customconfigs "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	instances "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
@@ -16,7 +18,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
-	"google.golang.org/grpc/codes"
 )
 
 var customConfigResourceCreationValidators = []resourceValidator[*computev1.CustomConfigResource]{
