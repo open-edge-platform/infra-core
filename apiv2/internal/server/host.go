@@ -119,7 +119,7 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
-		DesiredAmtState:    inv_computev1.AmtState_AMT_STATE_PROVISION,
+		DesiredAmtState:    inv_computev1.AmtState_AMT_STATE_PROVISIONED,
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -644,7 +644,7 @@ func (is *InventorygRPCServer) RegisterHost(
 	hostResource := &inv_computev1.HostResource{
 		Name:            req.GetHost().GetName(),
 		DesiredState:    inv_computev1.HostState_HOST_STATE_REGISTERED,
-		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISION,
+		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISIONED,
 	}
 
 	hostUUID := req.GetHost().GetUuid()
@@ -667,7 +667,7 @@ func (is *InventorygRPCServer) RegisterHost(
 	}
 
 	if req.GetHost().GetEnableVpro() {
-		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISION
+		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISIONED
 	}
 
 	invRes := &inventory.Resource{
@@ -737,7 +737,7 @@ func (is *InventorygRPCServer) PatchRegisterHost(
 	hostResource := &inv_computev1.HostResource{
 		Name:            req.GetHost().GetName(),
 		DesiredState:    inv_computev1.HostState_HOST_STATE_REGISTERED,
-		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISION,
+		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISIONED,
 	}
 	fieldList := []string{inv_computev1.HostResourceFieldName, inv_computev1.HostResourceFieldDesiredState}
 
@@ -746,7 +746,7 @@ func (is *InventorygRPCServer) PatchRegisterHost(
 	}
 
 	if req.GetHost().GetEnableVpro() {
-		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISION
+		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISIONED
 	}
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Host{
