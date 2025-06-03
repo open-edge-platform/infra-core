@@ -4156,7 +4156,7 @@ OS Update Policy.
 | CreateOSUpdatePolicy | [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Create an OS Update Policy. |
 | ListOSUpdatePolicy | [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest) | [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse) | Get a list of OS Update Policies. |
 | GetOSUpdatePolicy | [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Get a specific OS Update Policy. |
-| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Delete a OS Update Policy. |
+| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [DeleteOSUpdatePolicyResponse](#services-v1-DeleteOSUpdatePolicyResponse) | Delete a OS Update Policy. |
 
 
 <a name="services-v1-OSUpdateRun"></a>
@@ -4168,7 +4168,7 @@ OS Update Run.
 | ----------- | ------------ | ------------- | ------------|
 | ListOSUpdateRun | [ListOSUpdateRunRequest](#services-v1-ListOSUpdateRunRequest) | [ListOSUpdateRunResponse](#services-v1-ListOSUpdateRunResponse) | Get a list of OS Update Policies. |
 | GetOSUpdateRun | [GetOSUpdateRunRequest](#services-v1-GetOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Get a specific OS Update Run. |
-| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Delete a OS Update Run. |
+| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [DeleteOSUpdateRunResponse](#services-v1-DeleteOSUpdateRunResponse) | Delete a OS Update Run. |
 
 
 <a name="services-v1-OperatingSystemService"></a>
