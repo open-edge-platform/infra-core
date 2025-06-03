@@ -3730,6 +3730,9 @@ components:
   schemas:
     google.protobuf.Timestamp:
       type: string
+      examples:
+        - 1s
+        - 1.000340012s
       format: date-time
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
@@ -4399,6 +4402,15 @@ components:
         - STATUS_INDICATION_IN_PROGRESS
         - STATUS_INDICATION_IDLE
       description: The status indicator.
+    AmtState:
+      type: string
+      title: AmtState
+      enum:
+        - AMT_STATE_UNSPECIFIED
+        - AMT_STATE_PROVISIONED
+        - AMT_STATE_UNPROVISIONED
+        - AMT_STATE_DISCONNECTED
+      description: The state of the AMT (Active Management Technology) component.
     BaremetalControllerKind:
       type: string
       title: BaremetalControllerKind
@@ -4452,14 +4464,24 @@ components:
         - NETWORK_INTERFACE_LINK_STATE_UP
         - NETWORK_INTERFACE_LINK_STATE_DOWN
       description: The state of the network interface.
+    PowerCommandPolicy:
+      type: string
+      title: PowerCommandPolicy
+      enum:
+        - POWER_COMMAND_POLICY_UNSPECIFIED
+        - POWER_COMMAND_POLICY_IMMEDIATE
+        - POWER_COMMAND_POLICY_ORDERED
+      description: The policy for handling power commands.
     PowerState:
       type: string
       title: PowerState
       enum:
         - POWER_STATE_UNSPECIFIED
-        - POWER_STATE_ERROR
         - POWER_STATE_ON
         - POWER_STATE_OFF
+        - POWER_STATE_SLEEP
+        - POWER_STATE_HIBERNATE
+        - POWER_STATE_RESET
       description: The host power state.
     UpdatePolicy:
       type: string
@@ -4623,15 +4645,40 @@ components:
           title: bios_vendor
           description: BIOS Vendor.
           readOnly: true
+        desiredPowerState:
+          title: desired_power_state
+          description: (OPTIONAL) Desired power state of the host
+          $ref: '#/components/schemas/PowerState'
         currentPowerState:
           title: current_power_state
           description: Current power state of the host
           readOnly: true
           $ref: '#/components/schemas/PowerState'
-        desiredPowerState:
-          title: desired_power_state
-          description: (OPTIONAL) Desired power state of the host
-          $ref: '#/components/schemas/PowerState'
+        powerStatus:
+          type: string
+          title: power_status
+          maxLength: 1024
+          description: textual message that describes the runtime status of Host power. Set by DM RM only.
+          readOnly: true
+        powerStatusIndicator:
+          title: power_status_indicator
+          description: Indicates dynamicity of the power_status. Set by DM RM only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        powerStatusTimestamp:
+          type: integer
+          title: power_status_timestamp
+          description: UTC timestamp when power_status was last changed. Set by DM RM only.
+          readOnly: true
+        powerCommandPolicy:
+          title: power_command_policy
+          description: (OPTIONAL) Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED.
+          $ref: '#/components/schemas/PowerCommandPolicy'
+        powerOnTime:
+          type: integer
+          title: power_on_time
+          description: UTC timestamp when the host was powered on. Set by DM RM only.
+          readOnly: true
         hostStatus:
           type: string
           title: host_status
@@ -4713,6 +4760,38 @@ components:
           description: The instance associated with the host.
           readOnly: true
           $ref: '#/components/schemas/InstanceResource'
+        amtSku:
+          type: string
+          title: amt_sku
+          maxLength: 96
+          description: coming from device introspection
+          readOnly: true
+        desiredAmtState:
+          title: desired_amt_state
+          description: Desired AMT/vPRO state of the host
+          readOnly: true
+          $ref: '#/components/schemas/AmtState'
+        currentAmtState:
+          title: current_amt_state
+          description: Current AMT/vPRO state of the host
+          readOnly: true
+          $ref: '#/components/schemas/AmtState'
+        amtStatus:
+          type: string
+          title: amt_status
+          maxLength: 1024
+          description: coming from device introspection. Set only by the DM RM.
+          readOnly: true
+        amtStatusIndicator:
+          title: amt_status_indicator
+          description: Indicates dynamicity of the amt_status. Set by DM and OM RM only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        amtStatusTimestamp:
+          type: integer
+          title: amt_status_timestamp
+          description: UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
+          readOnly: true
         siteId:
           type: string
           title: site_id
@@ -7303,7 +7382,11 @@ components:
         autoOnboard:
           type: boolean
           title: auto_onboard
-          description: Flag ot signal to automatically onboard the host.
+          description: Flag to signal to automatically onboard the host.
+        enableVpro:
+          type: boolean
+          title: enable_vpro
+          description: Flag to signal to enable vPRO on the host.
       title: HostRegister
       additionalProperties: false
       description: Message to register a Host.
