@@ -1206,7 +1206,7 @@ type InstanceResource struct {
 	CustomConfig *[]CustomConfigResource `json:"customConfig,omitempty"`
 
 	// CustomConfigID The list of custom config associated with the instance.
-	CustomConfigID *[]CustomConfigResource `json:"customConfigID,omitempty"`
+	CustomConfigID *[]string `json:"customConfigID,omitempty"`
 
 	// DesiredOs An OS resource.
 	DesiredOs *OperatingSystemResource `json:"desiredOs,omitempty"`

@@ -953,7 +953,7 @@ back-reference to the Workload Members associated to this Instance |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
 | os_update_policyID | [string](#string) |  |  |
-| custom_configID | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | The list of custom config associated with the instance. |
+| custom_configID | [string](#string) | repeated | The list of custom config associated with the instance. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 

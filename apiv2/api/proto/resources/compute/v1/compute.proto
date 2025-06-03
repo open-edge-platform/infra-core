@@ -531,7 +531,7 @@ message InstanceResource {
   ];
 
   // The list of custom config associated with the instance.
-  repeated resources.customconfig.v1.CustomConfigResource custom_configID = 5006 [
+  repeated string custom_configID = 5006 [
     (google.api.field_behavior) = INPUT_ONLY,
     (buf.validate.field).string = {
       pattern: "^customconfig-[0-9a-f]{8}$"

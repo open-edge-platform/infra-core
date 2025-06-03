@@ -5419,7 +5419,10 @@ components:
         customConfigID:
           type: array
           items:
-            $ref: '#/components/schemas/CustomConfigResource'
+            type: string
+            maxLength: 21
+            pattern: ^customconfig-[0-9a-f]{8}$
+            writeOnly: true
           title: custom_configID
           maxLength: 21
           pattern: ^customconfig-[0-9a-f]{8}$

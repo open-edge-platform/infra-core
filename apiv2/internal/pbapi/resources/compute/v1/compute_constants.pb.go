@@ -144,7 +144,7 @@ const (
 	InstanceResourceFieldOsID                              = "osID"
 	InstanceResourceFieldLocalAccountID                    = "local_accountID"
 	InstanceResourceFieldOsUpdatePolicyID                  = "os_update_policyID"
-	InstanceResourceEdgeCustomConfigID                     = "custom_configID"
+	InstanceResourceFieldCustomConfigID                    = "custom_configID"
 	InstanceResourceEdgeTimestamps                         = "timestamps"
 
 	// Fields and Edges constants for "WorkloadResource"
