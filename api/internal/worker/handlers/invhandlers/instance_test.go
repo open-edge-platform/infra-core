@@ -367,9 +367,10 @@ func Test_InstanceHandler_Patch(t *testing.T) {
 		&bodyUpdate,
 		inv_handlers.InstanceURLParams{InstanceID: insResource.ResourceId},
 	)
+	// LocalAccountID cannot be updated if current state is anything other than unspecified
 	r, err = h.Do(job)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, r.Status)
+	require.Error(t, err)
+	assert.Nil(t, r)
 }
 
 func Test_InstanceHandler_Invalidate(t *testing.T) {
