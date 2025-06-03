@@ -227,6 +227,62 @@ func (osrc *OperatingSystemResourceCreate) SetNillableDescription(s *string) *Op
 	return osrc
 }
 
+// SetExistingCvesURL sets the "existing_cves_url" field.
+func (osrc *OperatingSystemResourceCreate) SetExistingCvesURL(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetExistingCvesURL(s)
+	return osrc
+}
+
+// SetNillableExistingCvesURL sets the "existing_cves_url" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableExistingCvesURL(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetExistingCvesURL(*s)
+	}
+	return osrc
+}
+
+// SetExistingCves sets the "existing_cves" field.
+func (osrc *OperatingSystemResourceCreate) SetExistingCves(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetExistingCves(s)
+	return osrc
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableExistingCves(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetExistingCves(*s)
+	}
+	return osrc
+}
+
+// SetFixedCvesURL sets the "fixed_cves_url" field.
+func (osrc *OperatingSystemResourceCreate) SetFixedCvesURL(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetFixedCvesURL(s)
+	return osrc
+}
+
+// SetNillableFixedCvesURL sets the "fixed_cves_url" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableFixedCvesURL(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetFixedCvesURL(*s)
+	}
+	return osrc
+}
+
+// SetFixedCves sets the "fixed_cves" field.
+func (osrc *OperatingSystemResourceCreate) SetFixedCves(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetFixedCves(s)
+	return osrc
+}
+
+// SetNillableFixedCves sets the "fixed_cves" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableFixedCves(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetFixedCves(*s)
+	}
+	return osrc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (osrc *OperatingSystemResourceCreate) SetTenantID(s string) *OperatingSystemResourceCreate {
 	osrc.mutation.SetTenantID(s)
@@ -398,6 +454,22 @@ func (osrc *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResourc
 	if value, ok := osrc.mutation.Description(); ok {
 		_spec.SetField(operatingsystemresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
+	}
+	if value, ok := osrc.mutation.ExistingCvesURL(); ok {
+		_spec.SetField(operatingsystemresource.FieldExistingCvesURL, field.TypeString, value)
+		_node.ExistingCvesURL = value
+	}
+	if value, ok := osrc.mutation.ExistingCves(); ok {
+		_spec.SetField(operatingsystemresource.FieldExistingCves, field.TypeString, value)
+		_node.ExistingCves = value
+	}
+	if value, ok := osrc.mutation.FixedCvesURL(); ok {
+		_spec.SetField(operatingsystemresource.FieldFixedCvesURL, field.TypeString, value)
+		_node.FixedCvesURL = value
+	}
+	if value, ok := osrc.mutation.FixedCves(); ok {
+		_spec.SetField(operatingsystemresource.FieldFixedCves, field.TypeString, value)
+		_node.FixedCves = value
 	}
 	if value, ok := osrc.mutation.TenantID(); ok {
 		_spec.SetField(operatingsystemresource.FieldTenantID, field.TypeString, value)

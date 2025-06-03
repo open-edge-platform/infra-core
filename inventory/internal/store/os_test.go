@@ -48,6 +48,18 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 				PlatformBundle:    "test platform bundle",
 				Description:       "test description",
+				ExistingCvesUrl:   "https://example.com/cves",
+				ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ],
+}]`,
+				FixedCvesUrl: "/files/fixed_cves.json",
+				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
 			},
 			valid: true,
 		},

@@ -123,6 +123,11 @@ func TrustedAttestationStatusTimestamp(v uint64) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTrustedAttestationStatusTimestamp, v))
 }
 
+// ExistingCves applies equality check predicate on the "existing_cves" field. It's identical to ExistingCvesEQ.
+func ExistingCves(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldExistingCves, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTenantID, v))
@@ -1246,6 +1251,81 @@ func TrustedAttestationStatusTimestampIsNil() predicate.InstanceResource {
 // TrustedAttestationStatusTimestampNotNil applies the NotNil predicate on the "trusted_attestation_status_timestamp" field.
 func TrustedAttestationStatusTimestampNotNil() predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldNotNull(FieldTrustedAttestationStatusTimestamp))
+}
+
+// ExistingCvesEQ applies the EQ predicate on the "existing_cves" field.
+func ExistingCvesEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldExistingCves, v))
+}
+
+// ExistingCvesNEQ applies the NEQ predicate on the "existing_cves" field.
+func ExistingCvesNEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNEQ(FieldExistingCves, v))
+}
+
+// ExistingCvesIn applies the In predicate on the "existing_cves" field.
+func ExistingCvesIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIn(FieldExistingCves, vs...))
+}
+
+// ExistingCvesNotIn applies the NotIn predicate on the "existing_cves" field.
+func ExistingCvesNotIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotIn(FieldExistingCves, vs...))
+}
+
+// ExistingCvesGT applies the GT predicate on the "existing_cves" field.
+func ExistingCvesGT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGT(FieldExistingCves, v))
+}
+
+// ExistingCvesGTE applies the GTE predicate on the "existing_cves" field.
+func ExistingCvesGTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGTE(FieldExistingCves, v))
+}
+
+// ExistingCvesLT applies the LT predicate on the "existing_cves" field.
+func ExistingCvesLT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLT(FieldExistingCves, v))
+}
+
+// ExistingCvesLTE applies the LTE predicate on the "existing_cves" field.
+func ExistingCvesLTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLTE(FieldExistingCves, v))
+}
+
+// ExistingCvesContains applies the Contains predicate on the "existing_cves" field.
+func ExistingCvesContains(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContains(FieldExistingCves, v))
+}
+
+// ExistingCvesHasPrefix applies the HasPrefix predicate on the "existing_cves" field.
+func ExistingCvesHasPrefix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasPrefix(FieldExistingCves, v))
+}
+
+// ExistingCvesHasSuffix applies the HasSuffix predicate on the "existing_cves" field.
+func ExistingCvesHasSuffix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasSuffix(FieldExistingCves, v))
+}
+
+// ExistingCvesIsNil applies the IsNil predicate on the "existing_cves" field.
+func ExistingCvesIsNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIsNull(FieldExistingCves))
+}
+
+// ExistingCvesNotNil applies the NotNil predicate on the "existing_cves" field.
+func ExistingCvesNotNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotNull(FieldExistingCves))
+}
+
+// ExistingCvesEqualFold applies the EqualFold predicate on the "existing_cves" field.
+func ExistingCvesEqualFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEqualFold(FieldExistingCves, v))
+}
+
+// ExistingCvesContainsFold applies the ContainsFold predicate on the "existing_cves" field.
+func ExistingCvesContainsFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContainsFold(FieldExistingCves, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.
