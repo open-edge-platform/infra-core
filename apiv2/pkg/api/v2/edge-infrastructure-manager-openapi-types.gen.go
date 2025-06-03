@@ -1975,8 +1975,11 @@ type OSUpdatePolicy struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// TargetOs An OS resource.
-	TargetOs   *OperatingSystemResource `json:"targetOs,omitempty"`
-	Timestamps *Timestamps              `json:"timestamps,omitempty"`
+	TargetOs *OperatingSystemResource `json:"targetOs,omitempty"`
+
+	// TargetOsId The unique identifier of target OS will be associated with the OS Update policy.
+	TargetOsId *string     `json:"targetOsId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// UpdatePolicy States of the host.
 	UpdatePolicy *UpdatePolicy `json:"updatePolicy,omitempty"`
