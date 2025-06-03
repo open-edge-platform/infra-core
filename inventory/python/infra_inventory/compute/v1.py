@@ -28,9 +28,17 @@ class HostState(betterproto.Enum):
 
 class PowerState(betterproto.Enum):
     POWER_STATE_UNSPECIFIED = 0
-    POWER_STATE_ERROR = 1
     POWER_STATE_ON = 2
     POWER_STATE_OFF = 3
+    POWER_STATE_SLEEP = 4
+    POWER_STATE_HIBERNATE = 5
+    POWER_STATE_RESET = 6
+
+
+class PowerCommandPolicy(betterproto.Enum):
+    POWER_COMMAND_POLICY_UNSPECIFIED = 0
+    POWER_COMMAND_POLICY_IMMEDIATE = 1
+    POWER_COMMAND_POLICY_ORDERED = 2
 
 
 class BaremetalControllerKind(betterproto.Enum):
@@ -39,6 +47,13 @@ class BaremetalControllerKind(betterproto.Enum):
     BAREMETAL_CONTROLLER_KIND_IPMI = 2
     BAREMETAL_CONTROLLER_KIND_VPRO = 3
     BAREMETAL_CONTROLLER_KIND_PDU = 4
+
+
+class AmtState(betterproto.Enum):
+    AMT_STATE_UNSPECIFIED = 0
+    AMT_STATE_PROVISIONED = 1
+    AMT_STATE_UNPROVISIONED = 2
+    AMT_STATE_DISCONNECTED = 3
 
 
 class HostComponentState(betterproto.Enum):
@@ -148,8 +163,17 @@ class HostResource(betterproto.Message):
     bios_release_date: str = betterproto.string_field(47)
     bios_vendor: str = betterproto.string_field(48)
     metadata: str = betterproto.string_field(45)
-    current_power_state: "PowerState" = betterproto.enum_field(51)
+    # Power management related fields
     desired_power_state: "PowerState" = betterproto.enum_field(50)
+    current_power_state: "PowerState" = betterproto.enum_field(51)
+    # A group of fields describing the Power status at runtime. The following 3
+    # fields should always be updated in one shot. If power_status is empty
+    # during initialization, it is automatically set to a Unknown value.
+    power_status: str = betterproto.string_field(52)
+    power_status_indicator: v1.StatusIndication = betterproto.enum_field(53)
+    power_status_timestamp: int = betterproto.uint64_field(54)
+    power_command_policy: "PowerCommandPolicy" = betterproto.enum_field(55)
+    power_on_time: int = betterproto.uint64_field(56)
     # A group of fields describing the Host runtime status. host_status,
     # host_status_indicator and host_status_timestamp should always be updated in
     # one shot. If host_status is empty during initialization, it is
@@ -177,6 +201,16 @@ class HostResource(betterproto.Message):
     host_usbs: List["HostusbResource"] = betterproto.message_field(72)
     host_gpus: List["HostgpuResource"] = betterproto.message_field(73)
     instance: "InstanceResource" = betterproto.message_field(90)
+    amt_sku: str = betterproto.string_field(91)
+    desired_amt_state: "AmtState" = betterproto.enum_field(92)
+    current_amt_state: "AmtState" = betterproto.enum_field(93)
+    # A group of fields describing the AMT status. amt_status,
+    # amt_status_indicator and amt_status_timestamp should always be updated in
+    # one shot. If amt_status is empty during initialization, it is automatically
+    # set to a Unknown value.
+    amt_status: str = betterproto.string_field(94)
+    amt_status_indicator: v1.StatusIndication = betterproto.enum_field(95)
+    amt_status_timestamp: int = betterproto.uint64_field(96)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)

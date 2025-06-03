@@ -335,7 +335,7 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 		ProfileName:       &OSProfileName1,
 		KernelCommand:     &OSKernel1,
 		Architecture:      &OSArch1,
-		UpdateSources:     updateSources,
+		UpdateSources:     &updateSources,
 		RepoUrl:           &OSRepo1,
 		Sha256:            randSHA,
 		InstalledPackages: &OSInstalledPackages,

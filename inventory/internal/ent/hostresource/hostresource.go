@@ -72,10 +72,20 @@ const (
 	FieldBiosVendor = "bios_vendor"
 	// FieldMetadata holds the string denoting the metadata field in the database.
 	FieldMetadata = "metadata"
-	// FieldCurrentPowerState holds the string denoting the current_power_state field in the database.
-	FieldCurrentPowerState = "current_power_state"
 	// FieldDesiredPowerState holds the string denoting the desired_power_state field in the database.
 	FieldDesiredPowerState = "desired_power_state"
+	// FieldCurrentPowerState holds the string denoting the current_power_state field in the database.
+	FieldCurrentPowerState = "current_power_state"
+	// FieldPowerStatus holds the string denoting the power_status field in the database.
+	FieldPowerStatus = "power_status"
+	// FieldPowerStatusIndicator holds the string denoting the power_status_indicator field in the database.
+	FieldPowerStatusIndicator = "power_status_indicator"
+	// FieldPowerStatusTimestamp holds the string denoting the power_status_timestamp field in the database.
+	FieldPowerStatusTimestamp = "power_status_timestamp"
+	// FieldPowerCommandPolicy holds the string denoting the power_command_policy field in the database.
+	FieldPowerCommandPolicy = "power_command_policy"
+	// FieldPowerOnTime holds the string denoting the power_on_time field in the database.
+	FieldPowerOnTime = "power_on_time"
 	// FieldHostStatus holds the string denoting the host_status field in the database.
 	FieldHostStatus = "host_status"
 	// FieldHostStatusIndicator holds the string denoting the host_status_indicator field in the database.
@@ -94,6 +104,18 @@ const (
 	FieldRegistrationStatusIndicator = "registration_status_indicator"
 	// FieldRegistrationStatusTimestamp holds the string denoting the registration_status_timestamp field in the database.
 	FieldRegistrationStatusTimestamp = "registration_status_timestamp"
+	// FieldAmtSku holds the string denoting the amt_sku field in the database.
+	FieldAmtSku = "amt_sku"
+	// FieldDesiredAmtState holds the string denoting the desired_amt_state field in the database.
+	FieldDesiredAmtState = "desired_amt_state"
+	// FieldCurrentAmtState holds the string denoting the current_amt_state field in the database.
+	FieldCurrentAmtState = "current_amt_state"
+	// FieldAmtStatus holds the string denoting the amt_status field in the database.
+	FieldAmtStatus = "amt_status"
+	// FieldAmtStatusIndicator holds the string denoting the amt_status_indicator field in the database.
+	FieldAmtStatusIndicator = "amt_status_indicator"
+	// FieldAmtStatusTimestamp holds the string denoting the amt_status_timestamp field in the database.
+	FieldAmtStatusTimestamp = "amt_status_timestamp"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -199,8 +221,13 @@ var Columns = []string{
 	FieldBiosReleaseDate,
 	FieldBiosVendor,
 	FieldMetadata,
-	FieldCurrentPowerState,
 	FieldDesiredPowerState,
+	FieldCurrentPowerState,
+	FieldPowerStatus,
+	FieldPowerStatusIndicator,
+	FieldPowerStatusTimestamp,
+	FieldPowerCommandPolicy,
+	FieldPowerOnTime,
 	FieldHostStatus,
 	FieldHostStatusIndicator,
 	FieldHostStatusTimestamp,
@@ -210,6 +237,12 @@ var Columns = []string{
 	FieldRegistrationStatus,
 	FieldRegistrationStatusIndicator,
 	FieldRegistrationStatusTimestamp,
+	FieldAmtSku,
+	FieldDesiredAmtState,
+	FieldCurrentAmtState,
+	FieldAmtStatus,
+	FieldAmtStatusIndicator,
+	FieldAmtStatusTimestamp,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -316,40 +349,17 @@ func BmcKindValidator(bk BmcKind) error {
 	}
 }
 
-// CurrentPowerState defines the type for the "current_power_state" enum field.
-type CurrentPowerState string
-
-// CurrentPowerState values.
-const (
-	CurrentPowerStatePOWER_STATE_UNSPECIFIED CurrentPowerState = "POWER_STATE_UNSPECIFIED"
-	CurrentPowerStatePOWER_STATE_ERROR       CurrentPowerState = "POWER_STATE_ERROR"
-	CurrentPowerStatePOWER_STATE_ON          CurrentPowerState = "POWER_STATE_ON"
-	CurrentPowerStatePOWER_STATE_OFF         CurrentPowerState = "POWER_STATE_OFF"
-)
-
-func (cps CurrentPowerState) String() string {
-	return string(cps)
-}
-
-// CurrentPowerStateValidator is a validator for the "current_power_state" field enum values. It is called by the builders before save.
-func CurrentPowerStateValidator(cps CurrentPowerState) error {
-	switch cps {
-	case CurrentPowerStatePOWER_STATE_UNSPECIFIED, CurrentPowerStatePOWER_STATE_ERROR, CurrentPowerStatePOWER_STATE_ON, CurrentPowerStatePOWER_STATE_OFF:
-		return nil
-	default:
-		return fmt.Errorf("hostresource: invalid enum value for current_power_state field: %q", cps)
-	}
-}
-
 // DesiredPowerState defines the type for the "desired_power_state" enum field.
 type DesiredPowerState string
 
 // DesiredPowerState values.
 const (
 	DesiredPowerStatePOWER_STATE_UNSPECIFIED DesiredPowerState = "POWER_STATE_UNSPECIFIED"
-	DesiredPowerStatePOWER_STATE_ERROR       DesiredPowerState = "POWER_STATE_ERROR"
 	DesiredPowerStatePOWER_STATE_ON          DesiredPowerState = "POWER_STATE_ON"
 	DesiredPowerStatePOWER_STATE_OFF         DesiredPowerState = "POWER_STATE_OFF"
+	DesiredPowerStatePOWER_STATE_SLEEP       DesiredPowerState = "POWER_STATE_SLEEP"
+	DesiredPowerStatePOWER_STATE_HIBERNATE   DesiredPowerState = "POWER_STATE_HIBERNATE"
+	DesiredPowerStatePOWER_STATE_RESET       DesiredPowerState = "POWER_STATE_RESET"
 )
 
 func (dps DesiredPowerState) String() string {
@@ -359,10 +369,86 @@ func (dps DesiredPowerState) String() string {
 // DesiredPowerStateValidator is a validator for the "desired_power_state" field enum values. It is called by the builders before save.
 func DesiredPowerStateValidator(dps DesiredPowerState) error {
 	switch dps {
-	case DesiredPowerStatePOWER_STATE_UNSPECIFIED, DesiredPowerStatePOWER_STATE_ERROR, DesiredPowerStatePOWER_STATE_ON, DesiredPowerStatePOWER_STATE_OFF:
+	case DesiredPowerStatePOWER_STATE_UNSPECIFIED, DesiredPowerStatePOWER_STATE_ON, DesiredPowerStatePOWER_STATE_OFF, DesiredPowerStatePOWER_STATE_SLEEP, DesiredPowerStatePOWER_STATE_HIBERNATE, DesiredPowerStatePOWER_STATE_RESET:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for desired_power_state field: %q", dps)
+	}
+}
+
+// CurrentPowerState defines the type for the "current_power_state" enum field.
+type CurrentPowerState string
+
+// CurrentPowerState values.
+const (
+	CurrentPowerStatePOWER_STATE_UNSPECIFIED CurrentPowerState = "POWER_STATE_UNSPECIFIED"
+	CurrentPowerStatePOWER_STATE_ON          CurrentPowerState = "POWER_STATE_ON"
+	CurrentPowerStatePOWER_STATE_OFF         CurrentPowerState = "POWER_STATE_OFF"
+	CurrentPowerStatePOWER_STATE_SLEEP       CurrentPowerState = "POWER_STATE_SLEEP"
+	CurrentPowerStatePOWER_STATE_HIBERNATE   CurrentPowerState = "POWER_STATE_HIBERNATE"
+	CurrentPowerStatePOWER_STATE_RESET       CurrentPowerState = "POWER_STATE_RESET"
+)
+
+func (cps CurrentPowerState) String() string {
+	return string(cps)
+}
+
+// CurrentPowerStateValidator is a validator for the "current_power_state" field enum values. It is called by the builders before save.
+func CurrentPowerStateValidator(cps CurrentPowerState) error {
+	switch cps {
+	case CurrentPowerStatePOWER_STATE_UNSPECIFIED, CurrentPowerStatePOWER_STATE_ON, CurrentPowerStatePOWER_STATE_OFF, CurrentPowerStatePOWER_STATE_SLEEP, CurrentPowerStatePOWER_STATE_HIBERNATE, CurrentPowerStatePOWER_STATE_RESET:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for current_power_state field: %q", cps)
+	}
+}
+
+// PowerStatusIndicator defines the type for the "power_status_indicator" enum field.
+type PowerStatusIndicator string
+
+// PowerStatusIndicator values.
+const (
+	PowerStatusIndicatorSTATUS_INDICATION_UNSPECIFIED PowerStatusIndicator = "STATUS_INDICATION_UNSPECIFIED"
+	PowerStatusIndicatorSTATUS_INDICATION_ERROR       PowerStatusIndicator = "STATUS_INDICATION_ERROR"
+	PowerStatusIndicatorSTATUS_INDICATION_IN_PROGRESS PowerStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	PowerStatusIndicatorSTATUS_INDICATION_IDLE        PowerStatusIndicator = "STATUS_INDICATION_IDLE"
+)
+
+func (psi PowerStatusIndicator) String() string {
+	return string(psi)
+}
+
+// PowerStatusIndicatorValidator is a validator for the "power_status_indicator" field enum values. It is called by the builders before save.
+func PowerStatusIndicatorValidator(psi PowerStatusIndicator) error {
+	switch psi {
+	case PowerStatusIndicatorSTATUS_INDICATION_UNSPECIFIED, PowerStatusIndicatorSTATUS_INDICATION_ERROR, PowerStatusIndicatorSTATUS_INDICATION_IN_PROGRESS, PowerStatusIndicatorSTATUS_INDICATION_IDLE:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for power_status_indicator field: %q", psi)
+	}
+}
+
+// PowerCommandPolicy defines the type for the "power_command_policy" enum field.
+type PowerCommandPolicy string
+
+// PowerCommandPolicy values.
+const (
+	PowerCommandPolicyPOWER_COMMAND_POLICY_UNSPECIFIED PowerCommandPolicy = "POWER_COMMAND_POLICY_UNSPECIFIED"
+	PowerCommandPolicyPOWER_COMMAND_POLICY_IMMEDIATE   PowerCommandPolicy = "POWER_COMMAND_POLICY_IMMEDIATE"
+	PowerCommandPolicyPOWER_COMMAND_POLICY_ORDERED     PowerCommandPolicy = "POWER_COMMAND_POLICY_ORDERED"
+)
+
+func (pcp PowerCommandPolicy) String() string {
+	return string(pcp)
+}
+
+// PowerCommandPolicyValidator is a validator for the "power_command_policy" field enum values. It is called by the builders before save.
+func PowerCommandPolicyValidator(pcp PowerCommandPolicy) error {
+	switch pcp {
+	case PowerCommandPolicyPOWER_COMMAND_POLICY_UNSPECIFIED, PowerCommandPolicyPOWER_COMMAND_POLICY_IMMEDIATE, PowerCommandPolicyPOWER_COMMAND_POLICY_ORDERED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for power_command_policy field: %q", pcp)
 	}
 }
 
@@ -438,6 +524,81 @@ func RegistrationStatusIndicatorValidator(rsi RegistrationStatusIndicator) error
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for registration_status_indicator field: %q", rsi)
+	}
+}
+
+// DesiredAmtState defines the type for the "desired_amt_state" enum field.
+type DesiredAmtState string
+
+// DesiredAmtState values.
+const (
+	DesiredAmtStateAMT_STATE_UNSPECIFIED   DesiredAmtState = "AMT_STATE_UNSPECIFIED"
+	DesiredAmtStateAMT_STATE_PROVISIONED   DesiredAmtState = "AMT_STATE_PROVISIONED"
+	DesiredAmtStateAMT_STATE_UNPROVISIONED DesiredAmtState = "AMT_STATE_UNPROVISIONED"
+	DesiredAmtStateAMT_STATE_DISCONNECTED  DesiredAmtState = "AMT_STATE_DISCONNECTED"
+)
+
+func (das DesiredAmtState) String() string {
+	return string(das)
+}
+
+// DesiredAmtStateValidator is a validator for the "desired_amt_state" field enum values. It is called by the builders before save.
+func DesiredAmtStateValidator(das DesiredAmtState) error {
+	switch das {
+	case DesiredAmtStateAMT_STATE_UNSPECIFIED, DesiredAmtStateAMT_STATE_PROVISIONED, DesiredAmtStateAMT_STATE_UNPROVISIONED, DesiredAmtStateAMT_STATE_DISCONNECTED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for desired_amt_state field: %q", das)
+	}
+}
+
+// CurrentAmtState defines the type for the "current_amt_state" enum field.
+type CurrentAmtState string
+
+// CurrentAmtState values.
+const (
+	CurrentAmtStateAMT_STATE_UNSPECIFIED   CurrentAmtState = "AMT_STATE_UNSPECIFIED"
+	CurrentAmtStateAMT_STATE_PROVISIONED   CurrentAmtState = "AMT_STATE_PROVISIONED"
+	CurrentAmtStateAMT_STATE_UNPROVISIONED CurrentAmtState = "AMT_STATE_UNPROVISIONED"
+	CurrentAmtStateAMT_STATE_DISCONNECTED  CurrentAmtState = "AMT_STATE_DISCONNECTED"
+)
+
+func (cas CurrentAmtState) String() string {
+	return string(cas)
+}
+
+// CurrentAmtStateValidator is a validator for the "current_amt_state" field enum values. It is called by the builders before save.
+func CurrentAmtStateValidator(cas CurrentAmtState) error {
+	switch cas {
+	case CurrentAmtStateAMT_STATE_UNSPECIFIED, CurrentAmtStateAMT_STATE_PROVISIONED, CurrentAmtStateAMT_STATE_UNPROVISIONED, CurrentAmtStateAMT_STATE_DISCONNECTED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for current_amt_state field: %q", cas)
+	}
+}
+
+// AmtStatusIndicator defines the type for the "amt_status_indicator" enum field.
+type AmtStatusIndicator string
+
+// AmtStatusIndicator values.
+const (
+	AmtStatusIndicatorSTATUS_INDICATION_UNSPECIFIED AmtStatusIndicator = "STATUS_INDICATION_UNSPECIFIED"
+	AmtStatusIndicatorSTATUS_INDICATION_ERROR       AmtStatusIndicator = "STATUS_INDICATION_ERROR"
+	AmtStatusIndicatorSTATUS_INDICATION_IN_PROGRESS AmtStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	AmtStatusIndicatorSTATUS_INDICATION_IDLE        AmtStatusIndicator = "STATUS_INDICATION_IDLE"
+)
+
+func (asi AmtStatusIndicator) String() string {
+	return string(asi)
+}
+
+// AmtStatusIndicatorValidator is a validator for the "amt_status_indicator" field enum values. It is called by the builders before save.
+func AmtStatusIndicatorValidator(asi AmtStatusIndicator) error {
+	switch asi {
+	case AmtStatusIndicatorSTATUS_INDICATION_UNSPECIFIED, AmtStatusIndicatorSTATUS_INDICATION_ERROR, AmtStatusIndicatorSTATUS_INDICATION_IN_PROGRESS, AmtStatusIndicatorSTATUS_INDICATION_IDLE:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for amt_status_indicator field: %q", asi)
 	}
 }
 
@@ -594,14 +755,39 @@ func ByMetadata(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMetadata, opts...).ToFunc()
 }
 
+// ByDesiredPowerState orders the results by the desired_power_state field.
+func ByDesiredPowerState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredPowerState, opts...).ToFunc()
+}
+
 // ByCurrentPowerState orders the results by the current_power_state field.
 func ByCurrentPowerState(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCurrentPowerState, opts...).ToFunc()
 }
 
-// ByDesiredPowerState orders the results by the desired_power_state field.
-func ByDesiredPowerState(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDesiredPowerState, opts...).ToFunc()
+// ByPowerStatus orders the results by the power_status field.
+func ByPowerStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPowerStatus, opts...).ToFunc()
+}
+
+// ByPowerStatusIndicator orders the results by the power_status_indicator field.
+func ByPowerStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPowerStatusIndicator, opts...).ToFunc()
+}
+
+// ByPowerStatusTimestamp orders the results by the power_status_timestamp field.
+func ByPowerStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPowerStatusTimestamp, opts...).ToFunc()
+}
+
+// ByPowerCommandPolicy orders the results by the power_command_policy field.
+func ByPowerCommandPolicy(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPowerCommandPolicy, opts...).ToFunc()
+}
+
+// ByPowerOnTime orders the results by the power_on_time field.
+func ByPowerOnTime(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPowerOnTime, opts...).ToFunc()
 }
 
 // ByHostStatus orders the results by the host_status field.
@@ -647,6 +833,36 @@ func ByRegistrationStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
 // ByRegistrationStatusTimestamp orders the results by the registration_status_timestamp field.
 func ByRegistrationStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRegistrationStatusTimestamp, opts...).ToFunc()
+}
+
+// ByAmtSku orders the results by the amt_sku field.
+func ByAmtSku(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAmtSku, opts...).ToFunc()
+}
+
+// ByDesiredAmtState orders the results by the desired_amt_state field.
+func ByDesiredAmtState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredAmtState, opts...).ToFunc()
+}
+
+// ByCurrentAmtState orders the results by the current_amt_state field.
+func ByCurrentAmtState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrentAmtState, opts...).ToFunc()
+}
+
+// ByAmtStatus orders the results by the amt_status field.
+func ByAmtStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAmtStatus, opts...).ToFunc()
+}
+
+// ByAmtStatusIndicator orders the results by the amt_status_indicator field.
+func ByAmtStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAmtStatusIndicator, opts...).ToFunc()
+}
+
+// ByAmtStatusTimestamp orders the results by the amt_status_timestamp field.
+func ByAmtStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAmtStatusTimestamp, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

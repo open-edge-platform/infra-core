@@ -819,8 +819,15 @@ type HostResourceMutation struct {
 	bios_release_date                *string
 	bios_vendor                      *string
 	metadata                         *string
-	current_power_state              *hostresource.CurrentPowerState
 	desired_power_state              *hostresource.DesiredPowerState
+	current_power_state              *hostresource.CurrentPowerState
+	power_status                     *string
+	power_status_indicator           *hostresource.PowerStatusIndicator
+	power_status_timestamp           *uint64
+	addpower_status_timestamp        *int64
+	power_command_policy             *hostresource.PowerCommandPolicy
+	power_on_time                    *uint64
+	addpower_on_time                 *int64
 	host_status                      *string
 	host_status_indicator            *hostresource.HostStatusIndicator
 	host_status_timestamp            *uint64
@@ -833,6 +840,13 @@ type HostResourceMutation struct {
 	registration_status_indicator    *hostresource.RegistrationStatusIndicator
 	registration_status_timestamp    *uint64
 	addregistration_status_timestamp *int64
+	amt_sku                          *string
+	desired_amt_state                *hostresource.DesiredAmtState
+	current_amt_state                *hostresource.CurrentAmtState
+	amt_status                       *string
+	amt_status_indicator             *hostresource.AmtStatusIndicator
+	amt_status_timestamp             *uint64
+	addamt_status_timestamp          *int64
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -2450,6 +2464,55 @@ func (m *HostResourceMutation) ResetMetadata() {
 	delete(m.clearedFields, hostresource.FieldMetadata)
 }
 
+// SetDesiredPowerState sets the "desired_power_state" field.
+func (m *HostResourceMutation) SetDesiredPowerState(hps hostresource.DesiredPowerState) {
+	m.desired_power_state = &hps
+}
+
+// DesiredPowerState returns the value of the "desired_power_state" field in the mutation.
+func (m *HostResourceMutation) DesiredPowerState() (r hostresource.DesiredPowerState, exists bool) {
+	v := m.desired_power_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDesiredPowerState returns the old "desired_power_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldDesiredPowerState(ctx context.Context) (v hostresource.DesiredPowerState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDesiredPowerState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDesiredPowerState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDesiredPowerState: %w", err)
+	}
+	return oldValue.DesiredPowerState, nil
+}
+
+// ClearDesiredPowerState clears the value of the "desired_power_state" field.
+func (m *HostResourceMutation) ClearDesiredPowerState() {
+	m.desired_power_state = nil
+	m.clearedFields[hostresource.FieldDesiredPowerState] = struct{}{}
+}
+
+// DesiredPowerStateCleared returns if the "desired_power_state" field was cleared in this mutation.
+func (m *HostResourceMutation) DesiredPowerStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldDesiredPowerState]
+	return ok
+}
+
+// ResetDesiredPowerState resets all changes to the "desired_power_state" field.
+func (m *HostResourceMutation) ResetDesiredPowerState() {
+	m.desired_power_state = nil
+	delete(m.clearedFields, hostresource.FieldDesiredPowerState)
+}
+
 // SetCurrentPowerState sets the "current_power_state" field.
 func (m *HostResourceMutation) SetCurrentPowerState(hps hostresource.CurrentPowerState) {
 	m.current_power_state = &hps
@@ -2499,53 +2562,291 @@ func (m *HostResourceMutation) ResetCurrentPowerState() {
 	delete(m.clearedFields, hostresource.FieldCurrentPowerState)
 }
 
-// SetDesiredPowerState sets the "desired_power_state" field.
-func (m *HostResourceMutation) SetDesiredPowerState(hps hostresource.DesiredPowerState) {
-	m.desired_power_state = &hps
+// SetPowerStatus sets the "power_status" field.
+func (m *HostResourceMutation) SetPowerStatus(s string) {
+	m.power_status = &s
 }
 
-// DesiredPowerState returns the value of the "desired_power_state" field in the mutation.
-func (m *HostResourceMutation) DesiredPowerState() (r hostresource.DesiredPowerState, exists bool) {
-	v := m.desired_power_state
+// PowerStatus returns the value of the "power_status" field in the mutation.
+func (m *HostResourceMutation) PowerStatus() (r string, exists bool) {
+	v := m.power_status
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldDesiredPowerState returns the old "desired_power_state" field's value of the HostResource entity.
+// OldPowerStatus returns the old "power_status" field's value of the HostResource entity.
 // If the HostResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HostResourceMutation) OldDesiredPowerState(ctx context.Context) (v hostresource.DesiredPowerState, err error) {
+func (m *HostResourceMutation) OldPowerStatus(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldDesiredPowerState is only allowed on UpdateOne operations")
+		return v, errors.New("OldPowerStatus is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldDesiredPowerState requires an ID field in the mutation")
+		return v, errors.New("OldPowerStatus requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDesiredPowerState: %w", err)
+		return v, fmt.Errorf("querying old value for OldPowerStatus: %w", err)
 	}
-	return oldValue.DesiredPowerState, nil
+	return oldValue.PowerStatus, nil
 }
 
-// ClearDesiredPowerState clears the value of the "desired_power_state" field.
-func (m *HostResourceMutation) ClearDesiredPowerState() {
-	m.desired_power_state = nil
-	m.clearedFields[hostresource.FieldDesiredPowerState] = struct{}{}
+// ClearPowerStatus clears the value of the "power_status" field.
+func (m *HostResourceMutation) ClearPowerStatus() {
+	m.power_status = nil
+	m.clearedFields[hostresource.FieldPowerStatus] = struct{}{}
 }
 
-// DesiredPowerStateCleared returns if the "desired_power_state" field was cleared in this mutation.
-func (m *HostResourceMutation) DesiredPowerStateCleared() bool {
-	_, ok := m.clearedFields[hostresource.FieldDesiredPowerState]
+// PowerStatusCleared returns if the "power_status" field was cleared in this mutation.
+func (m *HostResourceMutation) PowerStatusCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldPowerStatus]
 	return ok
 }
 
-// ResetDesiredPowerState resets all changes to the "desired_power_state" field.
-func (m *HostResourceMutation) ResetDesiredPowerState() {
-	m.desired_power_state = nil
-	delete(m.clearedFields, hostresource.FieldDesiredPowerState)
+// ResetPowerStatus resets all changes to the "power_status" field.
+func (m *HostResourceMutation) ResetPowerStatus() {
+	m.power_status = nil
+	delete(m.clearedFields, hostresource.FieldPowerStatus)
+}
+
+// SetPowerStatusIndicator sets the "power_status_indicator" field.
+func (m *HostResourceMutation) SetPowerStatusIndicator(hsi hostresource.PowerStatusIndicator) {
+	m.power_status_indicator = &hsi
+}
+
+// PowerStatusIndicator returns the value of the "power_status_indicator" field in the mutation.
+func (m *HostResourceMutation) PowerStatusIndicator() (r hostresource.PowerStatusIndicator, exists bool) {
+	v := m.power_status_indicator
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPowerStatusIndicator returns the old "power_status_indicator" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldPowerStatusIndicator(ctx context.Context) (v hostresource.PowerStatusIndicator, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPowerStatusIndicator is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPowerStatusIndicator requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPowerStatusIndicator: %w", err)
+	}
+	return oldValue.PowerStatusIndicator, nil
+}
+
+// ClearPowerStatusIndicator clears the value of the "power_status_indicator" field.
+func (m *HostResourceMutation) ClearPowerStatusIndicator() {
+	m.power_status_indicator = nil
+	m.clearedFields[hostresource.FieldPowerStatusIndicator] = struct{}{}
+}
+
+// PowerStatusIndicatorCleared returns if the "power_status_indicator" field was cleared in this mutation.
+func (m *HostResourceMutation) PowerStatusIndicatorCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldPowerStatusIndicator]
+	return ok
+}
+
+// ResetPowerStatusIndicator resets all changes to the "power_status_indicator" field.
+func (m *HostResourceMutation) ResetPowerStatusIndicator() {
+	m.power_status_indicator = nil
+	delete(m.clearedFields, hostresource.FieldPowerStatusIndicator)
+}
+
+// SetPowerStatusTimestamp sets the "power_status_timestamp" field.
+func (m *HostResourceMutation) SetPowerStatusTimestamp(u uint64) {
+	m.power_status_timestamp = &u
+	m.addpower_status_timestamp = nil
+}
+
+// PowerStatusTimestamp returns the value of the "power_status_timestamp" field in the mutation.
+func (m *HostResourceMutation) PowerStatusTimestamp() (r uint64, exists bool) {
+	v := m.power_status_timestamp
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPowerStatusTimestamp returns the old "power_status_timestamp" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldPowerStatusTimestamp(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPowerStatusTimestamp is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPowerStatusTimestamp requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPowerStatusTimestamp: %w", err)
+	}
+	return oldValue.PowerStatusTimestamp, nil
+}
+
+// AddPowerStatusTimestamp adds u to the "power_status_timestamp" field.
+func (m *HostResourceMutation) AddPowerStatusTimestamp(u int64) {
+	if m.addpower_status_timestamp != nil {
+		*m.addpower_status_timestamp += u
+	} else {
+		m.addpower_status_timestamp = &u
+	}
+}
+
+// AddedPowerStatusTimestamp returns the value that was added to the "power_status_timestamp" field in this mutation.
+func (m *HostResourceMutation) AddedPowerStatusTimestamp() (r int64, exists bool) {
+	v := m.addpower_status_timestamp
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearPowerStatusTimestamp clears the value of the "power_status_timestamp" field.
+func (m *HostResourceMutation) ClearPowerStatusTimestamp() {
+	m.power_status_timestamp = nil
+	m.addpower_status_timestamp = nil
+	m.clearedFields[hostresource.FieldPowerStatusTimestamp] = struct{}{}
+}
+
+// PowerStatusTimestampCleared returns if the "power_status_timestamp" field was cleared in this mutation.
+func (m *HostResourceMutation) PowerStatusTimestampCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldPowerStatusTimestamp]
+	return ok
+}
+
+// ResetPowerStatusTimestamp resets all changes to the "power_status_timestamp" field.
+func (m *HostResourceMutation) ResetPowerStatusTimestamp() {
+	m.power_status_timestamp = nil
+	m.addpower_status_timestamp = nil
+	delete(m.clearedFields, hostresource.FieldPowerStatusTimestamp)
+}
+
+// SetPowerCommandPolicy sets the "power_command_policy" field.
+func (m *HostResourceMutation) SetPowerCommandPolicy(hcp hostresource.PowerCommandPolicy) {
+	m.power_command_policy = &hcp
+}
+
+// PowerCommandPolicy returns the value of the "power_command_policy" field in the mutation.
+func (m *HostResourceMutation) PowerCommandPolicy() (r hostresource.PowerCommandPolicy, exists bool) {
+	v := m.power_command_policy
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPowerCommandPolicy returns the old "power_command_policy" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldPowerCommandPolicy(ctx context.Context) (v hostresource.PowerCommandPolicy, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPowerCommandPolicy is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPowerCommandPolicy requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPowerCommandPolicy: %w", err)
+	}
+	return oldValue.PowerCommandPolicy, nil
+}
+
+// ClearPowerCommandPolicy clears the value of the "power_command_policy" field.
+func (m *HostResourceMutation) ClearPowerCommandPolicy() {
+	m.power_command_policy = nil
+	m.clearedFields[hostresource.FieldPowerCommandPolicy] = struct{}{}
+}
+
+// PowerCommandPolicyCleared returns if the "power_command_policy" field was cleared in this mutation.
+func (m *HostResourceMutation) PowerCommandPolicyCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldPowerCommandPolicy]
+	return ok
+}
+
+// ResetPowerCommandPolicy resets all changes to the "power_command_policy" field.
+func (m *HostResourceMutation) ResetPowerCommandPolicy() {
+	m.power_command_policy = nil
+	delete(m.clearedFields, hostresource.FieldPowerCommandPolicy)
+}
+
+// SetPowerOnTime sets the "power_on_time" field.
+func (m *HostResourceMutation) SetPowerOnTime(u uint64) {
+	m.power_on_time = &u
+	m.addpower_on_time = nil
+}
+
+// PowerOnTime returns the value of the "power_on_time" field in the mutation.
+func (m *HostResourceMutation) PowerOnTime() (r uint64, exists bool) {
+	v := m.power_on_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPowerOnTime returns the old "power_on_time" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldPowerOnTime(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPowerOnTime is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPowerOnTime requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPowerOnTime: %w", err)
+	}
+	return oldValue.PowerOnTime, nil
+}
+
+// AddPowerOnTime adds u to the "power_on_time" field.
+func (m *HostResourceMutation) AddPowerOnTime(u int64) {
+	if m.addpower_on_time != nil {
+		*m.addpower_on_time += u
+	} else {
+		m.addpower_on_time = &u
+	}
+}
+
+// AddedPowerOnTime returns the value that was added to the "power_on_time" field in this mutation.
+func (m *HostResourceMutation) AddedPowerOnTime() (r int64, exists bool) {
+	v := m.addpower_on_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearPowerOnTime clears the value of the "power_on_time" field.
+func (m *HostResourceMutation) ClearPowerOnTime() {
+	m.power_on_time = nil
+	m.addpower_on_time = nil
+	m.clearedFields[hostresource.FieldPowerOnTime] = struct{}{}
+}
+
+// PowerOnTimeCleared returns if the "power_on_time" field was cleared in this mutation.
+func (m *HostResourceMutation) PowerOnTimeCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldPowerOnTime]
+	return ok
+}
+
+// ResetPowerOnTime resets all changes to the "power_on_time" field.
+func (m *HostResourceMutation) ResetPowerOnTime() {
+	m.power_on_time = nil
+	m.addpower_on_time = nil
+	delete(m.clearedFields, hostresource.FieldPowerOnTime)
 }
 
 // SetHostStatus sets the "host_status" field.
@@ -3052,6 +3353,321 @@ func (m *HostResourceMutation) ResetRegistrationStatusTimestamp() {
 	delete(m.clearedFields, hostresource.FieldRegistrationStatusTimestamp)
 }
 
+// SetAmtSku sets the "amt_sku" field.
+func (m *HostResourceMutation) SetAmtSku(s string) {
+	m.amt_sku = &s
+}
+
+// AmtSku returns the value of the "amt_sku" field in the mutation.
+func (m *HostResourceMutation) AmtSku() (r string, exists bool) {
+	v := m.amt_sku
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtSku returns the old "amt_sku" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtSku(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtSku is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtSku requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtSku: %w", err)
+	}
+	return oldValue.AmtSku, nil
+}
+
+// ClearAmtSku clears the value of the "amt_sku" field.
+func (m *HostResourceMutation) ClearAmtSku() {
+	m.amt_sku = nil
+	m.clearedFields[hostresource.FieldAmtSku] = struct{}{}
+}
+
+// AmtSkuCleared returns if the "amt_sku" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtSkuCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtSku]
+	return ok
+}
+
+// ResetAmtSku resets all changes to the "amt_sku" field.
+func (m *HostResourceMutation) ResetAmtSku() {
+	m.amt_sku = nil
+	delete(m.clearedFields, hostresource.FieldAmtSku)
+}
+
+// SetDesiredAmtState sets the "desired_amt_state" field.
+func (m *HostResourceMutation) SetDesiredAmtState(has hostresource.DesiredAmtState) {
+	m.desired_amt_state = &has
+}
+
+// DesiredAmtState returns the value of the "desired_amt_state" field in the mutation.
+func (m *HostResourceMutation) DesiredAmtState() (r hostresource.DesiredAmtState, exists bool) {
+	v := m.desired_amt_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDesiredAmtState returns the old "desired_amt_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldDesiredAmtState(ctx context.Context) (v hostresource.DesiredAmtState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDesiredAmtState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDesiredAmtState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDesiredAmtState: %w", err)
+	}
+	return oldValue.DesiredAmtState, nil
+}
+
+// ClearDesiredAmtState clears the value of the "desired_amt_state" field.
+func (m *HostResourceMutation) ClearDesiredAmtState() {
+	m.desired_amt_state = nil
+	m.clearedFields[hostresource.FieldDesiredAmtState] = struct{}{}
+}
+
+// DesiredAmtStateCleared returns if the "desired_amt_state" field was cleared in this mutation.
+func (m *HostResourceMutation) DesiredAmtStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldDesiredAmtState]
+	return ok
+}
+
+// ResetDesiredAmtState resets all changes to the "desired_amt_state" field.
+func (m *HostResourceMutation) ResetDesiredAmtState() {
+	m.desired_amt_state = nil
+	delete(m.clearedFields, hostresource.FieldDesiredAmtState)
+}
+
+// SetCurrentAmtState sets the "current_amt_state" field.
+func (m *HostResourceMutation) SetCurrentAmtState(has hostresource.CurrentAmtState) {
+	m.current_amt_state = &has
+}
+
+// CurrentAmtState returns the value of the "current_amt_state" field in the mutation.
+func (m *HostResourceMutation) CurrentAmtState() (r hostresource.CurrentAmtState, exists bool) {
+	v := m.current_amt_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCurrentAmtState returns the old "current_amt_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldCurrentAmtState(ctx context.Context) (v hostresource.CurrentAmtState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCurrentAmtState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCurrentAmtState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCurrentAmtState: %w", err)
+	}
+	return oldValue.CurrentAmtState, nil
+}
+
+// ClearCurrentAmtState clears the value of the "current_amt_state" field.
+func (m *HostResourceMutation) ClearCurrentAmtState() {
+	m.current_amt_state = nil
+	m.clearedFields[hostresource.FieldCurrentAmtState] = struct{}{}
+}
+
+// CurrentAmtStateCleared returns if the "current_amt_state" field was cleared in this mutation.
+func (m *HostResourceMutation) CurrentAmtStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldCurrentAmtState]
+	return ok
+}
+
+// ResetCurrentAmtState resets all changes to the "current_amt_state" field.
+func (m *HostResourceMutation) ResetCurrentAmtState() {
+	m.current_amt_state = nil
+	delete(m.clearedFields, hostresource.FieldCurrentAmtState)
+}
+
+// SetAmtStatus sets the "amt_status" field.
+func (m *HostResourceMutation) SetAmtStatus(s string) {
+	m.amt_status = &s
+}
+
+// AmtStatus returns the value of the "amt_status" field in the mutation.
+func (m *HostResourceMutation) AmtStatus() (r string, exists bool) {
+	v := m.amt_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtStatus returns the old "amt_status" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtStatus: %w", err)
+	}
+	return oldValue.AmtStatus, nil
+}
+
+// ClearAmtStatus clears the value of the "amt_status" field.
+func (m *HostResourceMutation) ClearAmtStatus() {
+	m.amt_status = nil
+	m.clearedFields[hostresource.FieldAmtStatus] = struct{}{}
+}
+
+// AmtStatusCleared returns if the "amt_status" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtStatusCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtStatus]
+	return ok
+}
+
+// ResetAmtStatus resets all changes to the "amt_status" field.
+func (m *HostResourceMutation) ResetAmtStatus() {
+	m.amt_status = nil
+	delete(m.clearedFields, hostresource.FieldAmtStatus)
+}
+
+// SetAmtStatusIndicator sets the "amt_status_indicator" field.
+func (m *HostResourceMutation) SetAmtStatusIndicator(hsi hostresource.AmtStatusIndicator) {
+	m.amt_status_indicator = &hsi
+}
+
+// AmtStatusIndicator returns the value of the "amt_status_indicator" field in the mutation.
+func (m *HostResourceMutation) AmtStatusIndicator() (r hostresource.AmtStatusIndicator, exists bool) {
+	v := m.amt_status_indicator
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtStatusIndicator returns the old "amt_status_indicator" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtStatusIndicator(ctx context.Context) (v hostresource.AmtStatusIndicator, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtStatusIndicator is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtStatusIndicator requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtStatusIndicator: %w", err)
+	}
+	return oldValue.AmtStatusIndicator, nil
+}
+
+// ClearAmtStatusIndicator clears the value of the "amt_status_indicator" field.
+func (m *HostResourceMutation) ClearAmtStatusIndicator() {
+	m.amt_status_indicator = nil
+	m.clearedFields[hostresource.FieldAmtStatusIndicator] = struct{}{}
+}
+
+// AmtStatusIndicatorCleared returns if the "amt_status_indicator" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtStatusIndicatorCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtStatusIndicator]
+	return ok
+}
+
+// ResetAmtStatusIndicator resets all changes to the "amt_status_indicator" field.
+func (m *HostResourceMutation) ResetAmtStatusIndicator() {
+	m.amt_status_indicator = nil
+	delete(m.clearedFields, hostresource.FieldAmtStatusIndicator)
+}
+
+// SetAmtStatusTimestamp sets the "amt_status_timestamp" field.
+func (m *HostResourceMutation) SetAmtStatusTimestamp(u uint64) {
+	m.amt_status_timestamp = &u
+	m.addamt_status_timestamp = nil
+}
+
+// AmtStatusTimestamp returns the value of the "amt_status_timestamp" field in the mutation.
+func (m *HostResourceMutation) AmtStatusTimestamp() (r uint64, exists bool) {
+	v := m.amt_status_timestamp
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtStatusTimestamp returns the old "amt_status_timestamp" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtStatusTimestamp(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtStatusTimestamp is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtStatusTimestamp requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtStatusTimestamp: %w", err)
+	}
+	return oldValue.AmtStatusTimestamp, nil
+}
+
+// AddAmtStatusTimestamp adds u to the "amt_status_timestamp" field.
+func (m *HostResourceMutation) AddAmtStatusTimestamp(u int64) {
+	if m.addamt_status_timestamp != nil {
+		*m.addamt_status_timestamp += u
+	} else {
+		m.addamt_status_timestamp = &u
+	}
+}
+
+// AddedAmtStatusTimestamp returns the value that was added to the "amt_status_timestamp" field in this mutation.
+func (m *HostResourceMutation) AddedAmtStatusTimestamp() (r int64, exists bool) {
+	v := m.addamt_status_timestamp
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearAmtStatusTimestamp clears the value of the "amt_status_timestamp" field.
+func (m *HostResourceMutation) ClearAmtStatusTimestamp() {
+	m.amt_status_timestamp = nil
+	m.addamt_status_timestamp = nil
+	m.clearedFields[hostresource.FieldAmtStatusTimestamp] = struct{}{}
+}
+
+// AmtStatusTimestampCleared returns if the "amt_status_timestamp" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtStatusTimestampCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtStatusTimestamp]
+	return ok
+}
+
+// ResetAmtStatusTimestamp resets all changes to the "amt_status_timestamp" field.
+func (m *HostResourceMutation) ResetAmtStatusTimestamp() {
+	m.amt_status_timestamp = nil
+	m.addamt_status_timestamp = nil
+	delete(m.clearedFields, hostresource.FieldAmtStatusTimestamp)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *HostResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -3527,7 +4143,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 43)
+	fields := make([]string, 0, 54)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -3615,11 +4231,26 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.metadata != nil {
 		fields = append(fields, hostresource.FieldMetadata)
 	}
+	if m.desired_power_state != nil {
+		fields = append(fields, hostresource.FieldDesiredPowerState)
+	}
 	if m.current_power_state != nil {
 		fields = append(fields, hostresource.FieldCurrentPowerState)
 	}
-	if m.desired_power_state != nil {
-		fields = append(fields, hostresource.FieldDesiredPowerState)
+	if m.power_status != nil {
+		fields = append(fields, hostresource.FieldPowerStatus)
+	}
+	if m.power_status_indicator != nil {
+		fields = append(fields, hostresource.FieldPowerStatusIndicator)
+	}
+	if m.power_status_timestamp != nil {
+		fields = append(fields, hostresource.FieldPowerStatusTimestamp)
+	}
+	if m.power_command_policy != nil {
+		fields = append(fields, hostresource.FieldPowerCommandPolicy)
+	}
+	if m.power_on_time != nil {
+		fields = append(fields, hostresource.FieldPowerOnTime)
 	}
 	if m.host_status != nil {
 		fields = append(fields, hostresource.FieldHostStatus)
@@ -3647,6 +4278,24 @@ func (m *HostResourceMutation) Fields() []string {
 	}
 	if m.registration_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldRegistrationStatusTimestamp)
+	}
+	if m.amt_sku != nil {
+		fields = append(fields, hostresource.FieldAmtSku)
+	}
+	if m.desired_amt_state != nil {
+		fields = append(fields, hostresource.FieldDesiredAmtState)
+	}
+	if m.current_amt_state != nil {
+		fields = append(fields, hostresource.FieldCurrentAmtState)
+	}
+	if m.amt_status != nil {
+		fields = append(fields, hostresource.FieldAmtStatus)
+	}
+	if m.amt_status_indicator != nil {
+		fields = append(fields, hostresource.FieldAmtStatusIndicator)
+	}
+	if m.amt_status_timestamp != nil {
+		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, hostresource.FieldTenantID)
@@ -3723,10 +4372,20 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.BiosVendor()
 	case hostresource.FieldMetadata:
 		return m.Metadata()
-	case hostresource.FieldCurrentPowerState:
-		return m.CurrentPowerState()
 	case hostresource.FieldDesiredPowerState:
 		return m.DesiredPowerState()
+	case hostresource.FieldCurrentPowerState:
+		return m.CurrentPowerState()
+	case hostresource.FieldPowerStatus:
+		return m.PowerStatus()
+	case hostresource.FieldPowerStatusIndicator:
+		return m.PowerStatusIndicator()
+	case hostresource.FieldPowerStatusTimestamp:
+		return m.PowerStatusTimestamp()
+	case hostresource.FieldPowerCommandPolicy:
+		return m.PowerCommandPolicy()
+	case hostresource.FieldPowerOnTime:
+		return m.PowerOnTime()
 	case hostresource.FieldHostStatus:
 		return m.HostStatus()
 	case hostresource.FieldHostStatusIndicator:
@@ -3745,6 +4404,18 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.RegistrationStatusIndicator()
 	case hostresource.FieldRegistrationStatusTimestamp:
 		return m.RegistrationStatusTimestamp()
+	case hostresource.FieldAmtSku:
+		return m.AmtSku()
+	case hostresource.FieldDesiredAmtState:
+		return m.DesiredAmtState()
+	case hostresource.FieldCurrentAmtState:
+		return m.CurrentAmtState()
+	case hostresource.FieldAmtStatus:
+		return m.AmtStatus()
+	case hostresource.FieldAmtStatusIndicator:
+		return m.AmtStatusIndicator()
+	case hostresource.FieldAmtStatusTimestamp:
+		return m.AmtStatusTimestamp()
 	case hostresource.FieldTenantID:
 		return m.TenantID()
 	case hostresource.FieldCreatedAt:
@@ -3818,10 +4489,20 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldBiosVendor(ctx)
 	case hostresource.FieldMetadata:
 		return m.OldMetadata(ctx)
-	case hostresource.FieldCurrentPowerState:
-		return m.OldCurrentPowerState(ctx)
 	case hostresource.FieldDesiredPowerState:
 		return m.OldDesiredPowerState(ctx)
+	case hostresource.FieldCurrentPowerState:
+		return m.OldCurrentPowerState(ctx)
+	case hostresource.FieldPowerStatus:
+		return m.OldPowerStatus(ctx)
+	case hostresource.FieldPowerStatusIndicator:
+		return m.OldPowerStatusIndicator(ctx)
+	case hostresource.FieldPowerStatusTimestamp:
+		return m.OldPowerStatusTimestamp(ctx)
+	case hostresource.FieldPowerCommandPolicy:
+		return m.OldPowerCommandPolicy(ctx)
+	case hostresource.FieldPowerOnTime:
+		return m.OldPowerOnTime(ctx)
 	case hostresource.FieldHostStatus:
 		return m.OldHostStatus(ctx)
 	case hostresource.FieldHostStatusIndicator:
@@ -3840,6 +4521,18 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldRegistrationStatusIndicator(ctx)
 	case hostresource.FieldRegistrationStatusTimestamp:
 		return m.OldRegistrationStatusTimestamp(ctx)
+	case hostresource.FieldAmtSku:
+		return m.OldAmtSku(ctx)
+	case hostresource.FieldDesiredAmtState:
+		return m.OldDesiredAmtState(ctx)
+	case hostresource.FieldCurrentAmtState:
+		return m.OldCurrentAmtState(ctx)
+	case hostresource.FieldAmtStatus:
+		return m.OldAmtStatus(ctx)
+	case hostresource.FieldAmtStatusIndicator:
+		return m.OldAmtStatusIndicator(ctx)
+	case hostresource.FieldAmtStatusTimestamp:
+		return m.OldAmtStatusTimestamp(ctx)
 	case hostresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case hostresource.FieldCreatedAt:
@@ -4058,6 +4751,13 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetMetadata(v)
 		return nil
+	case hostresource.FieldDesiredPowerState:
+		v, ok := value.(hostresource.DesiredPowerState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDesiredPowerState(v)
+		return nil
 	case hostresource.FieldCurrentPowerState:
 		v, ok := value.(hostresource.CurrentPowerState)
 		if !ok {
@@ -4065,12 +4765,40 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCurrentPowerState(v)
 		return nil
-	case hostresource.FieldDesiredPowerState:
-		v, ok := value.(hostresource.DesiredPowerState)
+	case hostresource.FieldPowerStatus:
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetDesiredPowerState(v)
+		m.SetPowerStatus(v)
+		return nil
+	case hostresource.FieldPowerStatusIndicator:
+		v, ok := value.(hostresource.PowerStatusIndicator)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPowerStatusIndicator(v)
+		return nil
+	case hostresource.FieldPowerStatusTimestamp:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPowerStatusTimestamp(v)
+		return nil
+	case hostresource.FieldPowerCommandPolicy:
+		v, ok := value.(hostresource.PowerCommandPolicy)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPowerCommandPolicy(v)
+		return nil
+	case hostresource.FieldPowerOnTime:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPowerOnTime(v)
 		return nil
 	case hostresource.FieldHostStatus:
 		v, ok := value.(string)
@@ -4135,6 +4863,48 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetRegistrationStatusTimestamp(v)
 		return nil
+	case hostresource.FieldAmtSku:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtSku(v)
+		return nil
+	case hostresource.FieldDesiredAmtState:
+		v, ok := value.(hostresource.DesiredAmtState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDesiredAmtState(v)
+		return nil
+	case hostresource.FieldCurrentAmtState:
+		v, ok := value.(hostresource.CurrentAmtState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCurrentAmtState(v)
+		return nil
+	case hostresource.FieldAmtStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtStatus(v)
+		return nil
+	case hostresource.FieldAmtStatusIndicator:
+		v, ok := value.(hostresource.AmtStatusIndicator)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtStatusIndicator(v)
+		return nil
+	case hostresource.FieldAmtStatusTimestamp:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtStatusTimestamp(v)
+		return nil
 	case hostresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -4176,6 +4946,12 @@ func (m *HostResourceMutation) AddedFields() []string {
 	if m.addcpu_threads != nil {
 		fields = append(fields, hostresource.FieldCPUThreads)
 	}
+	if m.addpower_status_timestamp != nil {
+		fields = append(fields, hostresource.FieldPowerStatusTimestamp)
+	}
+	if m.addpower_on_time != nil {
+		fields = append(fields, hostresource.FieldPowerOnTime)
+	}
 	if m.addhost_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldHostStatusTimestamp)
 	}
@@ -4184,6 +4960,9 @@ func (m *HostResourceMutation) AddedFields() []string {
 	}
 	if m.addregistration_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldRegistrationStatusTimestamp)
+	}
+	if m.addamt_status_timestamp != nil {
+		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
 	return fields
 }
@@ -4201,12 +4980,18 @@ func (m *HostResourceMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedCPUCores()
 	case hostresource.FieldCPUThreads:
 		return m.AddedCPUThreads()
+	case hostresource.FieldPowerStatusTimestamp:
+		return m.AddedPowerStatusTimestamp()
+	case hostresource.FieldPowerOnTime:
+		return m.AddedPowerOnTime()
 	case hostresource.FieldHostStatusTimestamp:
 		return m.AddedHostStatusTimestamp()
 	case hostresource.FieldOnboardingStatusTimestamp:
 		return m.AddedOnboardingStatusTimestamp()
 	case hostresource.FieldRegistrationStatusTimestamp:
 		return m.AddedRegistrationStatusTimestamp()
+	case hostresource.FieldAmtStatusTimestamp:
+		return m.AddedAmtStatusTimestamp()
 	}
 	return nil, false
 }
@@ -4244,6 +5029,20 @@ func (m *HostResourceMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddCPUThreads(v)
 		return nil
+	case hostresource.FieldPowerStatusTimestamp:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPowerStatusTimestamp(v)
+		return nil
+	case hostresource.FieldPowerOnTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPowerOnTime(v)
+		return nil
 	case hostresource.FieldHostStatusTimestamp:
 		v, ok := value.(int64)
 		if !ok {
@@ -4264,6 +5063,13 @@ func (m *HostResourceMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddRegistrationStatusTimestamp(v)
+		return nil
+	case hostresource.FieldAmtStatusTimestamp:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAmtStatusTimestamp(v)
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource numeric field %s", name)
@@ -4357,11 +5163,26 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(hostresource.FieldMetadata) {
 		fields = append(fields, hostresource.FieldMetadata)
 	}
+	if m.FieldCleared(hostresource.FieldDesiredPowerState) {
+		fields = append(fields, hostresource.FieldDesiredPowerState)
+	}
 	if m.FieldCleared(hostresource.FieldCurrentPowerState) {
 		fields = append(fields, hostresource.FieldCurrentPowerState)
 	}
-	if m.FieldCleared(hostresource.FieldDesiredPowerState) {
-		fields = append(fields, hostresource.FieldDesiredPowerState)
+	if m.FieldCleared(hostresource.FieldPowerStatus) {
+		fields = append(fields, hostresource.FieldPowerStatus)
+	}
+	if m.FieldCleared(hostresource.FieldPowerStatusIndicator) {
+		fields = append(fields, hostresource.FieldPowerStatusIndicator)
+	}
+	if m.FieldCleared(hostresource.FieldPowerStatusTimestamp) {
+		fields = append(fields, hostresource.FieldPowerStatusTimestamp)
+	}
+	if m.FieldCleared(hostresource.FieldPowerCommandPolicy) {
+		fields = append(fields, hostresource.FieldPowerCommandPolicy)
+	}
+	if m.FieldCleared(hostresource.FieldPowerOnTime) {
+		fields = append(fields, hostresource.FieldPowerOnTime)
 	}
 	if m.FieldCleared(hostresource.FieldHostStatus) {
 		fields = append(fields, hostresource.FieldHostStatus)
@@ -4389,6 +5210,24 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(hostresource.FieldRegistrationStatusTimestamp) {
 		fields = append(fields, hostresource.FieldRegistrationStatusTimestamp)
+	}
+	if m.FieldCleared(hostresource.FieldAmtSku) {
+		fields = append(fields, hostresource.FieldAmtSku)
+	}
+	if m.FieldCleared(hostresource.FieldDesiredAmtState) {
+		fields = append(fields, hostresource.FieldDesiredAmtState)
+	}
+	if m.FieldCleared(hostresource.FieldCurrentAmtState) {
+		fields = append(fields, hostresource.FieldCurrentAmtState)
+	}
+	if m.FieldCleared(hostresource.FieldAmtStatus) {
+		fields = append(fields, hostresource.FieldAmtStatus)
+	}
+	if m.FieldCleared(hostresource.FieldAmtStatusIndicator) {
+		fields = append(fields, hostresource.FieldAmtStatusIndicator)
+	}
+	if m.FieldCleared(hostresource.FieldAmtStatusTimestamp) {
+		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
 	return fields
 }
@@ -4488,11 +5327,26 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldMetadata:
 		m.ClearMetadata()
 		return nil
+	case hostresource.FieldDesiredPowerState:
+		m.ClearDesiredPowerState()
+		return nil
 	case hostresource.FieldCurrentPowerState:
 		m.ClearCurrentPowerState()
 		return nil
-	case hostresource.FieldDesiredPowerState:
-		m.ClearDesiredPowerState()
+	case hostresource.FieldPowerStatus:
+		m.ClearPowerStatus()
+		return nil
+	case hostresource.FieldPowerStatusIndicator:
+		m.ClearPowerStatusIndicator()
+		return nil
+	case hostresource.FieldPowerStatusTimestamp:
+		m.ClearPowerStatusTimestamp()
+		return nil
+	case hostresource.FieldPowerCommandPolicy:
+		m.ClearPowerCommandPolicy()
+		return nil
+	case hostresource.FieldPowerOnTime:
+		m.ClearPowerOnTime()
 		return nil
 	case hostresource.FieldHostStatus:
 		m.ClearHostStatus()
@@ -4520,6 +5374,24 @@ func (m *HostResourceMutation) ClearField(name string) error {
 		return nil
 	case hostresource.FieldRegistrationStatusTimestamp:
 		m.ClearRegistrationStatusTimestamp()
+		return nil
+	case hostresource.FieldAmtSku:
+		m.ClearAmtSku()
+		return nil
+	case hostresource.FieldDesiredAmtState:
+		m.ClearDesiredAmtState()
+		return nil
+	case hostresource.FieldCurrentAmtState:
+		m.ClearCurrentAmtState()
+		return nil
+	case hostresource.FieldAmtStatus:
+		m.ClearAmtStatus()
+		return nil
+	case hostresource.FieldAmtStatusIndicator:
+		m.ClearAmtStatusIndicator()
+		return nil
+	case hostresource.FieldAmtStatusTimestamp:
+		m.ClearAmtStatusTimestamp()
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource nullable field %s", name)
@@ -4616,11 +5488,26 @@ func (m *HostResourceMutation) ResetField(name string) error {
 	case hostresource.FieldMetadata:
 		m.ResetMetadata()
 		return nil
+	case hostresource.FieldDesiredPowerState:
+		m.ResetDesiredPowerState()
+		return nil
 	case hostresource.FieldCurrentPowerState:
 		m.ResetCurrentPowerState()
 		return nil
-	case hostresource.FieldDesiredPowerState:
-		m.ResetDesiredPowerState()
+	case hostresource.FieldPowerStatus:
+		m.ResetPowerStatus()
+		return nil
+	case hostresource.FieldPowerStatusIndicator:
+		m.ResetPowerStatusIndicator()
+		return nil
+	case hostresource.FieldPowerStatusTimestamp:
+		m.ResetPowerStatusTimestamp()
+		return nil
+	case hostresource.FieldPowerCommandPolicy:
+		m.ResetPowerCommandPolicy()
+		return nil
+	case hostresource.FieldPowerOnTime:
+		m.ResetPowerOnTime()
 		return nil
 	case hostresource.FieldHostStatus:
 		m.ResetHostStatus()
@@ -4648,6 +5535,24 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldRegistrationStatusTimestamp:
 		m.ResetRegistrationStatusTimestamp()
+		return nil
+	case hostresource.FieldAmtSku:
+		m.ResetAmtSku()
+		return nil
+	case hostresource.FieldDesiredAmtState:
+		m.ResetDesiredAmtState()
+		return nil
+	case hostresource.FieldCurrentAmtState:
+		m.ResetCurrentAmtState()
+		return nil
+	case hostresource.FieldAmtStatus:
+		m.ResetAmtStatus()
+		return nil
+	case hostresource.FieldAmtStatusIndicator:
+		m.ResetAmtStatusIndicator()
+		return nil
+	case hostresource.FieldAmtStatusTimestamp:
+		m.ResetAmtStatusTimestamp()
 		return nil
 	case hostresource.FieldTenantID:
 		m.ResetTenantID()
