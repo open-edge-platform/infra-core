@@ -11,6 +11,14 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for AmtState.
+const (
+	AMTSTATEDISCONNECTED  AmtState = "AMT_STATE_DISCONNECTED"
+	AMTSTATEPROVISIONED   AmtState = "AMT_STATE_PROVISIONED"
+	AMTSTATEUNPROVISIONED AmtState = "AMT_STATE_UNPROVISIONED"
+	AMTSTATEUNSPECIFIED   AmtState = "AMT_STATE_UNSPECIFIED"
+)
+
 // Defines values for BaremetalControllerKind.
 const (
 	BAREMETALCONTROLLERKINDIPMI        BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_IPMI"
@@ -107,11 +115,20 @@ const (
 	OSTYPEUNSPECIFIED OsType = "OS_TYPE_UNSPECIFIED"
 )
 
+// Defines values for PowerCommandPolicy.
+const (
+	POWERCOMMANDPOLICYIMMEDIATE   PowerCommandPolicy = "POWER_COMMAND_POLICY_IMMEDIATE"
+	POWERCOMMANDPOLICYORDERED     PowerCommandPolicy = "POWER_COMMAND_POLICY_ORDERED"
+	POWERCOMMANDPOLICYUNSPECIFIED PowerCommandPolicy = "POWER_COMMAND_POLICY_UNSPECIFIED"
+)
+
 // Defines values for PowerState.
 const (
-	POWERSTATEERROR       PowerState = "POWER_STATE_ERROR"
+	POWERSTATEHIBERNATE   PowerState = "POWER_STATE_HIBERNATE"
 	POWERSTATEOFF         PowerState = "POWER_STATE_OFF"
 	POWERSTATEON          PowerState = "POWER_STATE_ON"
+	POWERSTATERESET       PowerState = "POWER_STATE_RESET"
+	POWERSTATESLEEP       PowerState = "POWER_STATE_SLEEP"
 	POWERSTATEUNSPECIFIED PowerState = "POWER_STATE_UNSPECIFIED"
 )
 
@@ -226,6 +243,9 @@ const (
 	Unimplemented      ConnectErrorCode = "unimplemented"
 	Unknown            ConnectErrorCode = "unknown"
 )
+
+// AmtState The state of the AMT (Active Management Technology) component.
+type AmtState string
 
 // BaremetalControllerKind The type of BMC.
 type BaremetalControllerKind string
@@ -812,8 +832,11 @@ type HostComponentState string
 
 // HostRegister Message to register a Host.
 type HostRegister struct {
-	// AutoOnboard Flag ot signal to automatically onboard the host.
+	// AutoOnboard Flag to signal to automatically onboard the host.
 	AutoOnboard *bool `json:"autoOnboard,omitempty"`
+
+	// EnableVpro Flag to signal to enable vPRO on the host.
+	EnableVpro *bool `json:"enableVpro,omitempty"`
 
 	// Name The host name.
 	Name *string `json:"name,omitempty"`
@@ -827,6 +850,18 @@ type HostRegister struct {
 
 // HostResource A Host resource.
 type HostResource struct {
+	// AmtSku coming from device introspection
+	AmtSku *string `json:"amtSku,omitempty"`
+
+	// AmtStatus coming from device introspection. Set only by the DM RM.
+	AmtStatus *string `json:"amtStatus,omitempty"`
+
+	// AmtStatusIndicator The status indicator.
+	AmtStatusIndicator *StatusIndication `json:"amtStatusIndicator,omitempty"`
+
+	// AmtStatusTimestamp UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
+	AmtStatusTimestamp *int `json:"amtStatusTimestamp,omitempty"`
+
 	// BiosReleaseDate BIOS Release Date.
 	BiosReleaseDate *string `json:"biosReleaseDate,omitempty"`
 
@@ -863,11 +898,17 @@ type HostResource struct {
 	// CpuTopology JSON field storing the CPU topology, refer to HDA/HRM docs for the JSON schema.
 	CpuTopology *string `json:"cpuTopology,omitempty"`
 
+	// CurrentAmtState The state of the AMT (Active Management Technology) component.
+	CurrentAmtState *AmtState `json:"currentAmtState,omitempty"`
+
 	// CurrentPowerState The host power state.
 	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
 
 	// CurrentState States of the host.
 	CurrentState *HostState `json:"currentState,omitempty"`
+
+	// DesiredAmtState The state of the AMT (Active Management Technology) component.
+	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
@@ -926,6 +967,21 @@ type HostResource struct {
 
 	// OnboardingStatusTimestamp UTC timestamp when onboarding_status was last changed. Set by RMs only.
 	OnboardingStatusTimestamp *int `json:"onboardingStatusTimestamp,omitempty"`
+
+	// PowerCommandPolicy The policy for handling power commands.
+	PowerCommandPolicy *PowerCommandPolicy `json:"powerCommandPolicy,omitempty"`
+
+	// PowerOnTime UTC timestamp when the host was powered on. Set by DM RM only.
+	PowerOnTime *int `json:"powerOnTime,omitempty"`
+
+	// PowerStatus textual message that describes the runtime status of Host power. Set by DM RM only.
+	PowerStatus *string `json:"powerStatus,omitempty"`
+
+	// PowerStatusIndicator The status indicator.
+	PowerStatusIndicator *StatusIndication `json:"powerStatusIndicator,omitempty"`
+
+	// PowerStatusTimestamp UTC timestamp when power_status was last changed. Set by DM RM only.
+	PowerStatusTimestamp *int `json:"powerStatusTimestamp,omitempty"`
 
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
@@ -4425,6 +4481,9 @@ type PatchWorkloadRequest struct {
 	// Workload A generic way to group compute resources to obtain a workload.
 	Workload WorkloadResource `json:"workload"`
 }
+
+// PowerCommandPolicy The policy for handling power commands.
+type PowerCommandPolicy string
 
 // PowerState The host power state.
 type PowerState string

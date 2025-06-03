@@ -636,6 +636,26 @@ func (hru *HostResourceUpdate) ClearMetadata() *HostResourceUpdate {
 	return hru
 }
 
+// SetDesiredPowerState sets the "desired_power_state" field.
+func (hru *HostResourceUpdate) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceUpdate {
+	hru.mutation.SetDesiredPowerState(hps)
+	return hru
+}
+
+// SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceUpdate {
+	if hps != nil {
+		hru.SetDesiredPowerState(*hps)
+	}
+	return hru
+}
+
+// ClearDesiredPowerState clears the value of the "desired_power_state" field.
+func (hru *HostResourceUpdate) ClearDesiredPowerState() *HostResourceUpdate {
+	hru.mutation.ClearDesiredPowerState()
+	return hru
+}
+
 // SetCurrentPowerState sets the "current_power_state" field.
 func (hru *HostResourceUpdate) SetCurrentPowerState(hps hostresource.CurrentPowerState) *HostResourceUpdate {
 	hru.mutation.SetCurrentPowerState(hps)
@@ -656,23 +676,117 @@ func (hru *HostResourceUpdate) ClearCurrentPowerState() *HostResourceUpdate {
 	return hru
 }
 
-// SetDesiredPowerState sets the "desired_power_state" field.
-func (hru *HostResourceUpdate) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceUpdate {
-	hru.mutation.SetDesiredPowerState(hps)
+// SetPowerStatus sets the "power_status" field.
+func (hru *HostResourceUpdate) SetPowerStatus(s string) *HostResourceUpdate {
+	hru.mutation.SetPowerStatus(s)
 	return hru
 }
 
-// SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
-func (hru *HostResourceUpdate) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceUpdate {
-	if hps != nil {
-		hru.SetDesiredPowerState(*hps)
+// SetNillablePowerStatus sets the "power_status" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillablePowerStatus(s *string) *HostResourceUpdate {
+	if s != nil {
+		hru.SetPowerStatus(*s)
 	}
 	return hru
 }
 
-// ClearDesiredPowerState clears the value of the "desired_power_state" field.
-func (hru *HostResourceUpdate) ClearDesiredPowerState() *HostResourceUpdate {
-	hru.mutation.ClearDesiredPowerState()
+// ClearPowerStatus clears the value of the "power_status" field.
+func (hru *HostResourceUpdate) ClearPowerStatus() *HostResourceUpdate {
+	hru.mutation.ClearPowerStatus()
+	return hru
+}
+
+// SetPowerStatusIndicator sets the "power_status_indicator" field.
+func (hru *HostResourceUpdate) SetPowerStatusIndicator(hsi hostresource.PowerStatusIndicator) *HostResourceUpdate {
+	hru.mutation.SetPowerStatusIndicator(hsi)
+	return hru
+}
+
+// SetNillablePowerStatusIndicator sets the "power_status_indicator" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillablePowerStatusIndicator(hsi *hostresource.PowerStatusIndicator) *HostResourceUpdate {
+	if hsi != nil {
+		hru.SetPowerStatusIndicator(*hsi)
+	}
+	return hru
+}
+
+// ClearPowerStatusIndicator clears the value of the "power_status_indicator" field.
+func (hru *HostResourceUpdate) ClearPowerStatusIndicator() *HostResourceUpdate {
+	hru.mutation.ClearPowerStatusIndicator()
+	return hru
+}
+
+// SetPowerStatusTimestamp sets the "power_status_timestamp" field.
+func (hru *HostResourceUpdate) SetPowerStatusTimestamp(u uint64) *HostResourceUpdate {
+	hru.mutation.ResetPowerStatusTimestamp()
+	hru.mutation.SetPowerStatusTimestamp(u)
+	return hru
+}
+
+// SetNillablePowerStatusTimestamp sets the "power_status_timestamp" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillablePowerStatusTimestamp(u *uint64) *HostResourceUpdate {
+	if u != nil {
+		hru.SetPowerStatusTimestamp(*u)
+	}
+	return hru
+}
+
+// AddPowerStatusTimestamp adds u to the "power_status_timestamp" field.
+func (hru *HostResourceUpdate) AddPowerStatusTimestamp(u int64) *HostResourceUpdate {
+	hru.mutation.AddPowerStatusTimestamp(u)
+	return hru
+}
+
+// ClearPowerStatusTimestamp clears the value of the "power_status_timestamp" field.
+func (hru *HostResourceUpdate) ClearPowerStatusTimestamp() *HostResourceUpdate {
+	hru.mutation.ClearPowerStatusTimestamp()
+	return hru
+}
+
+// SetPowerCommandPolicy sets the "power_command_policy" field.
+func (hru *HostResourceUpdate) SetPowerCommandPolicy(hcp hostresource.PowerCommandPolicy) *HostResourceUpdate {
+	hru.mutation.SetPowerCommandPolicy(hcp)
+	return hru
+}
+
+// SetNillablePowerCommandPolicy sets the "power_command_policy" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillablePowerCommandPolicy(hcp *hostresource.PowerCommandPolicy) *HostResourceUpdate {
+	if hcp != nil {
+		hru.SetPowerCommandPolicy(*hcp)
+	}
+	return hru
+}
+
+// ClearPowerCommandPolicy clears the value of the "power_command_policy" field.
+func (hru *HostResourceUpdate) ClearPowerCommandPolicy() *HostResourceUpdate {
+	hru.mutation.ClearPowerCommandPolicy()
+	return hru
+}
+
+// SetPowerOnTime sets the "power_on_time" field.
+func (hru *HostResourceUpdate) SetPowerOnTime(u uint64) *HostResourceUpdate {
+	hru.mutation.ResetPowerOnTime()
+	hru.mutation.SetPowerOnTime(u)
+	return hru
+}
+
+// SetNillablePowerOnTime sets the "power_on_time" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillablePowerOnTime(u *uint64) *HostResourceUpdate {
+	if u != nil {
+		hru.SetPowerOnTime(*u)
+	}
+	return hru
+}
+
+// AddPowerOnTime adds u to the "power_on_time" field.
+func (hru *HostResourceUpdate) AddPowerOnTime(u int64) *HostResourceUpdate {
+	hru.mutation.AddPowerOnTime(u)
+	return hru
+}
+
+// ClearPowerOnTime clears the value of the "power_on_time" field.
+func (hru *HostResourceUpdate) ClearPowerOnTime() *HostResourceUpdate {
+	hru.mutation.ClearPowerOnTime()
 	return hru
 }
 
@@ -874,6 +988,133 @@ func (hru *HostResourceUpdate) AddRegistrationStatusTimestamp(u int64) *HostReso
 // ClearRegistrationStatusTimestamp clears the value of the "registration_status_timestamp" field.
 func (hru *HostResourceUpdate) ClearRegistrationStatusTimestamp() *HostResourceUpdate {
 	hru.mutation.ClearRegistrationStatusTimestamp()
+	return hru
+}
+
+// SetAmtSku sets the "amt_sku" field.
+func (hru *HostResourceUpdate) SetAmtSku(s string) *HostResourceUpdate {
+	hru.mutation.SetAmtSku(s)
+	return hru
+}
+
+// SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableAmtSku(s *string) *HostResourceUpdate {
+	if s != nil {
+		hru.SetAmtSku(*s)
+	}
+	return hru
+}
+
+// ClearAmtSku clears the value of the "amt_sku" field.
+func (hru *HostResourceUpdate) ClearAmtSku() *HostResourceUpdate {
+	hru.mutation.ClearAmtSku()
+	return hru
+}
+
+// SetDesiredAmtState sets the "desired_amt_state" field.
+func (hru *HostResourceUpdate) SetDesiredAmtState(has hostresource.DesiredAmtState) *HostResourceUpdate {
+	hru.mutation.SetDesiredAmtState(has)
+	return hru
+}
+
+// SetNillableDesiredAmtState sets the "desired_amt_state" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableDesiredAmtState(has *hostresource.DesiredAmtState) *HostResourceUpdate {
+	if has != nil {
+		hru.SetDesiredAmtState(*has)
+	}
+	return hru
+}
+
+// ClearDesiredAmtState clears the value of the "desired_amt_state" field.
+func (hru *HostResourceUpdate) ClearDesiredAmtState() *HostResourceUpdate {
+	hru.mutation.ClearDesiredAmtState()
+	return hru
+}
+
+// SetCurrentAmtState sets the "current_amt_state" field.
+func (hru *HostResourceUpdate) SetCurrentAmtState(has hostresource.CurrentAmtState) *HostResourceUpdate {
+	hru.mutation.SetCurrentAmtState(has)
+	return hru
+}
+
+// SetNillableCurrentAmtState sets the "current_amt_state" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableCurrentAmtState(has *hostresource.CurrentAmtState) *HostResourceUpdate {
+	if has != nil {
+		hru.SetCurrentAmtState(*has)
+	}
+	return hru
+}
+
+// ClearCurrentAmtState clears the value of the "current_amt_state" field.
+func (hru *HostResourceUpdate) ClearCurrentAmtState() *HostResourceUpdate {
+	hru.mutation.ClearCurrentAmtState()
+	return hru
+}
+
+// SetAmtStatus sets the "amt_status" field.
+func (hru *HostResourceUpdate) SetAmtStatus(s string) *HostResourceUpdate {
+	hru.mutation.SetAmtStatus(s)
+	return hru
+}
+
+// SetNillableAmtStatus sets the "amt_status" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableAmtStatus(s *string) *HostResourceUpdate {
+	if s != nil {
+		hru.SetAmtStatus(*s)
+	}
+	return hru
+}
+
+// ClearAmtStatus clears the value of the "amt_status" field.
+func (hru *HostResourceUpdate) ClearAmtStatus() *HostResourceUpdate {
+	hru.mutation.ClearAmtStatus()
+	return hru
+}
+
+// SetAmtStatusIndicator sets the "amt_status_indicator" field.
+func (hru *HostResourceUpdate) SetAmtStatusIndicator(hsi hostresource.AmtStatusIndicator) *HostResourceUpdate {
+	hru.mutation.SetAmtStatusIndicator(hsi)
+	return hru
+}
+
+// SetNillableAmtStatusIndicator sets the "amt_status_indicator" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableAmtStatusIndicator(hsi *hostresource.AmtStatusIndicator) *HostResourceUpdate {
+	if hsi != nil {
+		hru.SetAmtStatusIndicator(*hsi)
+	}
+	return hru
+}
+
+// ClearAmtStatusIndicator clears the value of the "amt_status_indicator" field.
+func (hru *HostResourceUpdate) ClearAmtStatusIndicator() *HostResourceUpdate {
+	hru.mutation.ClearAmtStatusIndicator()
+	return hru
+}
+
+// SetAmtStatusTimestamp sets the "amt_status_timestamp" field.
+func (hru *HostResourceUpdate) SetAmtStatusTimestamp(u uint64) *HostResourceUpdate {
+	hru.mutation.ResetAmtStatusTimestamp()
+	hru.mutation.SetAmtStatusTimestamp(u)
+	return hru
+}
+
+// SetNillableAmtStatusTimestamp sets the "amt_status_timestamp" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableAmtStatusTimestamp(u *uint64) *HostResourceUpdate {
+	if u != nil {
+		hru.SetAmtStatusTimestamp(*u)
+	}
+	return hru
+}
+
+// AddAmtStatusTimestamp adds u to the "amt_status_timestamp" field.
+func (hru *HostResourceUpdate) AddAmtStatusTimestamp(u int64) *HostResourceUpdate {
+	hru.mutation.AddAmtStatusTimestamp(u)
+	return hru
+}
+
+// ClearAmtStatusTimestamp clears the value of the "amt_status_timestamp" field.
+func (hru *HostResourceUpdate) ClearAmtStatusTimestamp() *HostResourceUpdate {
+	hru.mutation.ClearAmtStatusTimestamp()
 	return hru
 }
 
@@ -1159,14 +1400,24 @@ func (hru *HostResourceUpdate) check() error {
 			return &ValidationError{Name: "bmc_kind", err: fmt.Errorf(`ent: validator failed for field "HostResource.bmc_kind": %w`, err)}
 		}
 	}
+	if v, ok := hru.mutation.DesiredPowerState(); ok {
+		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
+		}
+	}
 	if v, ok := hru.mutation.CurrentPowerState(); ok {
 		if err := hostresource.CurrentPowerStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_power_state": %w`, err)}
 		}
 	}
-	if v, ok := hru.mutation.DesiredPowerState(); ok {
-		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
-			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
+	if v, ok := hru.mutation.PowerStatusIndicator(); ok {
+		if err := hostresource.PowerStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "power_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := hru.mutation.PowerCommandPolicy(); ok {
+		if err := hostresource.PowerCommandPolicyValidator(v); err != nil {
+			return &ValidationError{Name: "power_command_policy", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_command_policy": %w`, err)}
 		}
 	}
 	if v, ok := hru.mutation.HostStatusIndicator(); ok {
@@ -1182,6 +1433,21 @@ func (hru *HostResourceUpdate) check() error {
 	if v, ok := hru.mutation.RegistrationStatusIndicator(); ok {
 		if err := hostresource.RegistrationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := hru.mutation.DesiredAmtState(); ok {
+		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
+		}
+	}
+	if v, ok := hru.mutation.CurrentAmtState(); ok {
+		if err := hostresource.CurrentAmtStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_amt_state": %w`, err)}
+		}
+	}
+	if v, ok := hru.mutation.AmtStatusIndicator(); ok {
+		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
 		}
 	}
 	return nil
@@ -1382,17 +1648,53 @@ func (hru *HostResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if hru.mutation.MetadataCleared() {
 		_spec.ClearField(hostresource.FieldMetadata, field.TypeString)
 	}
+	if value, ok := hru.mutation.DesiredPowerState(); ok {
+		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
+	}
+	if hru.mutation.DesiredPowerStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredPowerState, field.TypeEnum)
+	}
 	if value, ok := hru.mutation.CurrentPowerState(); ok {
 		_spec.SetField(hostresource.FieldCurrentPowerState, field.TypeEnum, value)
 	}
 	if hru.mutation.CurrentPowerStateCleared() {
 		_spec.ClearField(hostresource.FieldCurrentPowerState, field.TypeEnum)
 	}
-	if value, ok := hru.mutation.DesiredPowerState(); ok {
-		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
+	if value, ok := hru.mutation.PowerStatus(); ok {
+		_spec.SetField(hostresource.FieldPowerStatus, field.TypeString, value)
 	}
-	if hru.mutation.DesiredPowerStateCleared() {
-		_spec.ClearField(hostresource.FieldDesiredPowerState, field.TypeEnum)
+	if hru.mutation.PowerStatusCleared() {
+		_spec.ClearField(hostresource.FieldPowerStatus, field.TypeString)
+	}
+	if value, ok := hru.mutation.PowerStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldPowerStatusIndicator, field.TypeEnum, value)
+	}
+	if hru.mutation.PowerStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldPowerStatusIndicator, field.TypeEnum)
+	}
+	if value, ok := hru.mutation.PowerStatusTimestamp(); ok {
+		_spec.SetField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64, value)
+	}
+	if value, ok := hru.mutation.AddedPowerStatusTimestamp(); ok {
+		_spec.AddField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64, value)
+	}
+	if hru.mutation.PowerStatusTimestampCleared() {
+		_spec.ClearField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := hru.mutation.PowerCommandPolicy(); ok {
+		_spec.SetField(hostresource.FieldPowerCommandPolicy, field.TypeEnum, value)
+	}
+	if hru.mutation.PowerCommandPolicyCleared() {
+		_spec.ClearField(hostresource.FieldPowerCommandPolicy, field.TypeEnum)
+	}
+	if value, ok := hru.mutation.PowerOnTime(); ok {
+		_spec.SetField(hostresource.FieldPowerOnTime, field.TypeUint64, value)
+	}
+	if value, ok := hru.mutation.AddedPowerOnTime(); ok {
+		_spec.AddField(hostresource.FieldPowerOnTime, field.TypeUint64, value)
+	}
+	if hru.mutation.PowerOnTimeCleared() {
+		_spec.ClearField(hostresource.FieldPowerOnTime, field.TypeUint64)
 	}
 	if value, ok := hru.mutation.HostStatus(); ok {
 		_spec.SetField(hostresource.FieldHostStatus, field.TypeString, value)
@@ -1456,6 +1758,45 @@ func (hru *HostResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if hru.mutation.RegistrationStatusTimestampCleared() {
 		_spec.ClearField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := hru.mutation.AmtSku(); ok {
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+	}
+	if hru.mutation.AmtSkuCleared() {
+		_spec.ClearField(hostresource.FieldAmtSku, field.TypeString)
+	}
+	if value, ok := hru.mutation.DesiredAmtState(); ok {
+		_spec.SetField(hostresource.FieldDesiredAmtState, field.TypeEnum, value)
+	}
+	if hru.mutation.DesiredAmtStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredAmtState, field.TypeEnum)
+	}
+	if value, ok := hru.mutation.CurrentAmtState(); ok {
+		_spec.SetField(hostresource.FieldCurrentAmtState, field.TypeEnum, value)
+	}
+	if hru.mutation.CurrentAmtStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentAmtState, field.TypeEnum)
+	}
+	if value, ok := hru.mutation.AmtStatus(); ok {
+		_spec.SetField(hostresource.FieldAmtStatus, field.TypeString, value)
+	}
+	if hru.mutation.AmtStatusCleared() {
+		_spec.ClearField(hostresource.FieldAmtStatus, field.TypeString)
+	}
+	if value, ok := hru.mutation.AmtStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldAmtStatusIndicator, field.TypeEnum, value)
+	}
+	if hru.mutation.AmtStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldAmtStatusIndicator, field.TypeEnum)
+	}
+	if value, ok := hru.mutation.AmtStatusTimestamp(); ok {
+		_spec.SetField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
+	}
+	if value, ok := hru.mutation.AddedAmtStatusTimestamp(); ok {
+		_spec.AddField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
+	}
+	if hru.mutation.AmtStatusTimestampCleared() {
+		_spec.ClearField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64)
 	}
 	if value, ok := hru.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
@@ -2349,6 +2690,26 @@ func (hruo *HostResourceUpdateOne) ClearMetadata() *HostResourceUpdateOne {
 	return hruo
 }
 
+// SetDesiredPowerState sets the "desired_power_state" field.
+func (hruo *HostResourceUpdateOne) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceUpdateOne {
+	hruo.mutation.SetDesiredPowerState(hps)
+	return hruo
+}
+
+// SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceUpdateOne {
+	if hps != nil {
+		hruo.SetDesiredPowerState(*hps)
+	}
+	return hruo
+}
+
+// ClearDesiredPowerState clears the value of the "desired_power_state" field.
+func (hruo *HostResourceUpdateOne) ClearDesiredPowerState() *HostResourceUpdateOne {
+	hruo.mutation.ClearDesiredPowerState()
+	return hruo
+}
+
 // SetCurrentPowerState sets the "current_power_state" field.
 func (hruo *HostResourceUpdateOne) SetCurrentPowerState(hps hostresource.CurrentPowerState) *HostResourceUpdateOne {
 	hruo.mutation.SetCurrentPowerState(hps)
@@ -2369,23 +2730,117 @@ func (hruo *HostResourceUpdateOne) ClearCurrentPowerState() *HostResourceUpdateO
 	return hruo
 }
 
-// SetDesiredPowerState sets the "desired_power_state" field.
-func (hruo *HostResourceUpdateOne) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceUpdateOne {
-	hruo.mutation.SetDesiredPowerState(hps)
+// SetPowerStatus sets the "power_status" field.
+func (hruo *HostResourceUpdateOne) SetPowerStatus(s string) *HostResourceUpdateOne {
+	hruo.mutation.SetPowerStatus(s)
 	return hruo
 }
 
-// SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
-func (hruo *HostResourceUpdateOne) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceUpdateOne {
-	if hps != nil {
-		hruo.SetDesiredPowerState(*hps)
+// SetNillablePowerStatus sets the "power_status" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillablePowerStatus(s *string) *HostResourceUpdateOne {
+	if s != nil {
+		hruo.SetPowerStatus(*s)
 	}
 	return hruo
 }
 
-// ClearDesiredPowerState clears the value of the "desired_power_state" field.
-func (hruo *HostResourceUpdateOne) ClearDesiredPowerState() *HostResourceUpdateOne {
-	hruo.mutation.ClearDesiredPowerState()
+// ClearPowerStatus clears the value of the "power_status" field.
+func (hruo *HostResourceUpdateOne) ClearPowerStatus() *HostResourceUpdateOne {
+	hruo.mutation.ClearPowerStatus()
+	return hruo
+}
+
+// SetPowerStatusIndicator sets the "power_status_indicator" field.
+func (hruo *HostResourceUpdateOne) SetPowerStatusIndicator(hsi hostresource.PowerStatusIndicator) *HostResourceUpdateOne {
+	hruo.mutation.SetPowerStatusIndicator(hsi)
+	return hruo
+}
+
+// SetNillablePowerStatusIndicator sets the "power_status_indicator" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillablePowerStatusIndicator(hsi *hostresource.PowerStatusIndicator) *HostResourceUpdateOne {
+	if hsi != nil {
+		hruo.SetPowerStatusIndicator(*hsi)
+	}
+	return hruo
+}
+
+// ClearPowerStatusIndicator clears the value of the "power_status_indicator" field.
+func (hruo *HostResourceUpdateOne) ClearPowerStatusIndicator() *HostResourceUpdateOne {
+	hruo.mutation.ClearPowerStatusIndicator()
+	return hruo
+}
+
+// SetPowerStatusTimestamp sets the "power_status_timestamp" field.
+func (hruo *HostResourceUpdateOne) SetPowerStatusTimestamp(u uint64) *HostResourceUpdateOne {
+	hruo.mutation.ResetPowerStatusTimestamp()
+	hruo.mutation.SetPowerStatusTimestamp(u)
+	return hruo
+}
+
+// SetNillablePowerStatusTimestamp sets the "power_status_timestamp" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillablePowerStatusTimestamp(u *uint64) *HostResourceUpdateOne {
+	if u != nil {
+		hruo.SetPowerStatusTimestamp(*u)
+	}
+	return hruo
+}
+
+// AddPowerStatusTimestamp adds u to the "power_status_timestamp" field.
+func (hruo *HostResourceUpdateOne) AddPowerStatusTimestamp(u int64) *HostResourceUpdateOne {
+	hruo.mutation.AddPowerStatusTimestamp(u)
+	return hruo
+}
+
+// ClearPowerStatusTimestamp clears the value of the "power_status_timestamp" field.
+func (hruo *HostResourceUpdateOne) ClearPowerStatusTimestamp() *HostResourceUpdateOne {
+	hruo.mutation.ClearPowerStatusTimestamp()
+	return hruo
+}
+
+// SetPowerCommandPolicy sets the "power_command_policy" field.
+func (hruo *HostResourceUpdateOne) SetPowerCommandPolicy(hcp hostresource.PowerCommandPolicy) *HostResourceUpdateOne {
+	hruo.mutation.SetPowerCommandPolicy(hcp)
+	return hruo
+}
+
+// SetNillablePowerCommandPolicy sets the "power_command_policy" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillablePowerCommandPolicy(hcp *hostresource.PowerCommandPolicy) *HostResourceUpdateOne {
+	if hcp != nil {
+		hruo.SetPowerCommandPolicy(*hcp)
+	}
+	return hruo
+}
+
+// ClearPowerCommandPolicy clears the value of the "power_command_policy" field.
+func (hruo *HostResourceUpdateOne) ClearPowerCommandPolicy() *HostResourceUpdateOne {
+	hruo.mutation.ClearPowerCommandPolicy()
+	return hruo
+}
+
+// SetPowerOnTime sets the "power_on_time" field.
+func (hruo *HostResourceUpdateOne) SetPowerOnTime(u uint64) *HostResourceUpdateOne {
+	hruo.mutation.ResetPowerOnTime()
+	hruo.mutation.SetPowerOnTime(u)
+	return hruo
+}
+
+// SetNillablePowerOnTime sets the "power_on_time" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillablePowerOnTime(u *uint64) *HostResourceUpdateOne {
+	if u != nil {
+		hruo.SetPowerOnTime(*u)
+	}
+	return hruo
+}
+
+// AddPowerOnTime adds u to the "power_on_time" field.
+func (hruo *HostResourceUpdateOne) AddPowerOnTime(u int64) *HostResourceUpdateOne {
+	hruo.mutation.AddPowerOnTime(u)
+	return hruo
+}
+
+// ClearPowerOnTime clears the value of the "power_on_time" field.
+func (hruo *HostResourceUpdateOne) ClearPowerOnTime() *HostResourceUpdateOne {
+	hruo.mutation.ClearPowerOnTime()
 	return hruo
 }
 
@@ -2587,6 +3042,133 @@ func (hruo *HostResourceUpdateOne) AddRegistrationStatusTimestamp(u int64) *Host
 // ClearRegistrationStatusTimestamp clears the value of the "registration_status_timestamp" field.
 func (hruo *HostResourceUpdateOne) ClearRegistrationStatusTimestamp() *HostResourceUpdateOne {
 	hruo.mutation.ClearRegistrationStatusTimestamp()
+	return hruo
+}
+
+// SetAmtSku sets the "amt_sku" field.
+func (hruo *HostResourceUpdateOne) SetAmtSku(s string) *HostResourceUpdateOne {
+	hruo.mutation.SetAmtSku(s)
+	return hruo
+}
+
+// SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableAmtSku(s *string) *HostResourceUpdateOne {
+	if s != nil {
+		hruo.SetAmtSku(*s)
+	}
+	return hruo
+}
+
+// ClearAmtSku clears the value of the "amt_sku" field.
+func (hruo *HostResourceUpdateOne) ClearAmtSku() *HostResourceUpdateOne {
+	hruo.mutation.ClearAmtSku()
+	return hruo
+}
+
+// SetDesiredAmtState sets the "desired_amt_state" field.
+func (hruo *HostResourceUpdateOne) SetDesiredAmtState(has hostresource.DesiredAmtState) *HostResourceUpdateOne {
+	hruo.mutation.SetDesiredAmtState(has)
+	return hruo
+}
+
+// SetNillableDesiredAmtState sets the "desired_amt_state" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableDesiredAmtState(has *hostresource.DesiredAmtState) *HostResourceUpdateOne {
+	if has != nil {
+		hruo.SetDesiredAmtState(*has)
+	}
+	return hruo
+}
+
+// ClearDesiredAmtState clears the value of the "desired_amt_state" field.
+func (hruo *HostResourceUpdateOne) ClearDesiredAmtState() *HostResourceUpdateOne {
+	hruo.mutation.ClearDesiredAmtState()
+	return hruo
+}
+
+// SetCurrentAmtState sets the "current_amt_state" field.
+func (hruo *HostResourceUpdateOne) SetCurrentAmtState(has hostresource.CurrentAmtState) *HostResourceUpdateOne {
+	hruo.mutation.SetCurrentAmtState(has)
+	return hruo
+}
+
+// SetNillableCurrentAmtState sets the "current_amt_state" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableCurrentAmtState(has *hostresource.CurrentAmtState) *HostResourceUpdateOne {
+	if has != nil {
+		hruo.SetCurrentAmtState(*has)
+	}
+	return hruo
+}
+
+// ClearCurrentAmtState clears the value of the "current_amt_state" field.
+func (hruo *HostResourceUpdateOne) ClearCurrentAmtState() *HostResourceUpdateOne {
+	hruo.mutation.ClearCurrentAmtState()
+	return hruo
+}
+
+// SetAmtStatus sets the "amt_status" field.
+func (hruo *HostResourceUpdateOne) SetAmtStatus(s string) *HostResourceUpdateOne {
+	hruo.mutation.SetAmtStatus(s)
+	return hruo
+}
+
+// SetNillableAmtStatus sets the "amt_status" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableAmtStatus(s *string) *HostResourceUpdateOne {
+	if s != nil {
+		hruo.SetAmtStatus(*s)
+	}
+	return hruo
+}
+
+// ClearAmtStatus clears the value of the "amt_status" field.
+func (hruo *HostResourceUpdateOne) ClearAmtStatus() *HostResourceUpdateOne {
+	hruo.mutation.ClearAmtStatus()
+	return hruo
+}
+
+// SetAmtStatusIndicator sets the "amt_status_indicator" field.
+func (hruo *HostResourceUpdateOne) SetAmtStatusIndicator(hsi hostresource.AmtStatusIndicator) *HostResourceUpdateOne {
+	hruo.mutation.SetAmtStatusIndicator(hsi)
+	return hruo
+}
+
+// SetNillableAmtStatusIndicator sets the "amt_status_indicator" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableAmtStatusIndicator(hsi *hostresource.AmtStatusIndicator) *HostResourceUpdateOne {
+	if hsi != nil {
+		hruo.SetAmtStatusIndicator(*hsi)
+	}
+	return hruo
+}
+
+// ClearAmtStatusIndicator clears the value of the "amt_status_indicator" field.
+func (hruo *HostResourceUpdateOne) ClearAmtStatusIndicator() *HostResourceUpdateOne {
+	hruo.mutation.ClearAmtStatusIndicator()
+	return hruo
+}
+
+// SetAmtStatusTimestamp sets the "amt_status_timestamp" field.
+func (hruo *HostResourceUpdateOne) SetAmtStatusTimestamp(u uint64) *HostResourceUpdateOne {
+	hruo.mutation.ResetAmtStatusTimestamp()
+	hruo.mutation.SetAmtStatusTimestamp(u)
+	return hruo
+}
+
+// SetNillableAmtStatusTimestamp sets the "amt_status_timestamp" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableAmtStatusTimestamp(u *uint64) *HostResourceUpdateOne {
+	if u != nil {
+		hruo.SetAmtStatusTimestamp(*u)
+	}
+	return hruo
+}
+
+// AddAmtStatusTimestamp adds u to the "amt_status_timestamp" field.
+func (hruo *HostResourceUpdateOne) AddAmtStatusTimestamp(u int64) *HostResourceUpdateOne {
+	hruo.mutation.AddAmtStatusTimestamp(u)
+	return hruo
+}
+
+// ClearAmtStatusTimestamp clears the value of the "amt_status_timestamp" field.
+func (hruo *HostResourceUpdateOne) ClearAmtStatusTimestamp() *HostResourceUpdateOne {
+	hruo.mutation.ClearAmtStatusTimestamp()
 	return hruo
 }
 
@@ -2885,14 +3467,24 @@ func (hruo *HostResourceUpdateOne) check() error {
 			return &ValidationError{Name: "bmc_kind", err: fmt.Errorf(`ent: validator failed for field "HostResource.bmc_kind": %w`, err)}
 		}
 	}
+	if v, ok := hruo.mutation.DesiredPowerState(); ok {
+		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
+		}
+	}
 	if v, ok := hruo.mutation.CurrentPowerState(); ok {
 		if err := hostresource.CurrentPowerStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_power_state": %w`, err)}
 		}
 	}
-	if v, ok := hruo.mutation.DesiredPowerState(); ok {
-		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
-			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
+	if v, ok := hruo.mutation.PowerStatusIndicator(); ok {
+		if err := hostresource.PowerStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "power_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := hruo.mutation.PowerCommandPolicy(); ok {
+		if err := hostresource.PowerCommandPolicyValidator(v); err != nil {
+			return &ValidationError{Name: "power_command_policy", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_command_policy": %w`, err)}
 		}
 	}
 	if v, ok := hruo.mutation.HostStatusIndicator(); ok {
@@ -2908,6 +3500,21 @@ func (hruo *HostResourceUpdateOne) check() error {
 	if v, ok := hruo.mutation.RegistrationStatusIndicator(); ok {
 		if err := hostresource.RegistrationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := hruo.mutation.DesiredAmtState(); ok {
+		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
+		}
+	}
+	if v, ok := hruo.mutation.CurrentAmtState(); ok {
+		if err := hostresource.CurrentAmtStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_amt_state": %w`, err)}
+		}
+	}
+	if v, ok := hruo.mutation.AmtStatusIndicator(); ok {
+		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
 		}
 	}
 	return nil
@@ -3125,17 +3732,53 @@ func (hruo *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostReso
 	if hruo.mutation.MetadataCleared() {
 		_spec.ClearField(hostresource.FieldMetadata, field.TypeString)
 	}
+	if value, ok := hruo.mutation.DesiredPowerState(); ok {
+		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
+	}
+	if hruo.mutation.DesiredPowerStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredPowerState, field.TypeEnum)
+	}
 	if value, ok := hruo.mutation.CurrentPowerState(); ok {
 		_spec.SetField(hostresource.FieldCurrentPowerState, field.TypeEnum, value)
 	}
 	if hruo.mutation.CurrentPowerStateCleared() {
 		_spec.ClearField(hostresource.FieldCurrentPowerState, field.TypeEnum)
 	}
-	if value, ok := hruo.mutation.DesiredPowerState(); ok {
-		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
+	if value, ok := hruo.mutation.PowerStatus(); ok {
+		_spec.SetField(hostresource.FieldPowerStatus, field.TypeString, value)
 	}
-	if hruo.mutation.DesiredPowerStateCleared() {
-		_spec.ClearField(hostresource.FieldDesiredPowerState, field.TypeEnum)
+	if hruo.mutation.PowerStatusCleared() {
+		_spec.ClearField(hostresource.FieldPowerStatus, field.TypeString)
+	}
+	if value, ok := hruo.mutation.PowerStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldPowerStatusIndicator, field.TypeEnum, value)
+	}
+	if hruo.mutation.PowerStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldPowerStatusIndicator, field.TypeEnum)
+	}
+	if value, ok := hruo.mutation.PowerStatusTimestamp(); ok {
+		_spec.SetField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64, value)
+	}
+	if value, ok := hruo.mutation.AddedPowerStatusTimestamp(); ok {
+		_spec.AddField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64, value)
+	}
+	if hruo.mutation.PowerStatusTimestampCleared() {
+		_spec.ClearField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := hruo.mutation.PowerCommandPolicy(); ok {
+		_spec.SetField(hostresource.FieldPowerCommandPolicy, field.TypeEnum, value)
+	}
+	if hruo.mutation.PowerCommandPolicyCleared() {
+		_spec.ClearField(hostresource.FieldPowerCommandPolicy, field.TypeEnum)
+	}
+	if value, ok := hruo.mutation.PowerOnTime(); ok {
+		_spec.SetField(hostresource.FieldPowerOnTime, field.TypeUint64, value)
+	}
+	if value, ok := hruo.mutation.AddedPowerOnTime(); ok {
+		_spec.AddField(hostresource.FieldPowerOnTime, field.TypeUint64, value)
+	}
+	if hruo.mutation.PowerOnTimeCleared() {
+		_spec.ClearField(hostresource.FieldPowerOnTime, field.TypeUint64)
 	}
 	if value, ok := hruo.mutation.HostStatus(); ok {
 		_spec.SetField(hostresource.FieldHostStatus, field.TypeString, value)
@@ -3199,6 +3842,45 @@ func (hruo *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostReso
 	}
 	if hruo.mutation.RegistrationStatusTimestampCleared() {
 		_spec.ClearField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := hruo.mutation.AmtSku(); ok {
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+	}
+	if hruo.mutation.AmtSkuCleared() {
+		_spec.ClearField(hostresource.FieldAmtSku, field.TypeString)
+	}
+	if value, ok := hruo.mutation.DesiredAmtState(); ok {
+		_spec.SetField(hostresource.FieldDesiredAmtState, field.TypeEnum, value)
+	}
+	if hruo.mutation.DesiredAmtStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredAmtState, field.TypeEnum)
+	}
+	if value, ok := hruo.mutation.CurrentAmtState(); ok {
+		_spec.SetField(hostresource.FieldCurrentAmtState, field.TypeEnum, value)
+	}
+	if hruo.mutation.CurrentAmtStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentAmtState, field.TypeEnum)
+	}
+	if value, ok := hruo.mutation.AmtStatus(); ok {
+		_spec.SetField(hostresource.FieldAmtStatus, field.TypeString, value)
+	}
+	if hruo.mutation.AmtStatusCleared() {
+		_spec.ClearField(hostresource.FieldAmtStatus, field.TypeString)
+	}
+	if value, ok := hruo.mutation.AmtStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldAmtStatusIndicator, field.TypeEnum, value)
+	}
+	if hruo.mutation.AmtStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldAmtStatusIndicator, field.TypeEnum)
+	}
+	if value, ok := hruo.mutation.AmtStatusTimestamp(); ok {
+		_spec.SetField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
+	}
+	if value, ok := hruo.mutation.AddedAmtStatusTimestamp(); ok {
+		_spec.AddField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
+	}
+	if hruo.mutation.AmtStatusTimestampCleared() {
+		_spec.ClearField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64)
 	}
 	if value, ok := hruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)

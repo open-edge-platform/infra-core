@@ -112,14 +112,14 @@ func request_RegionService_GetRegion_0(ctx context.Context, marshaler runtime.Ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetRegion(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -138,14 +138,14 @@ func local_request_RegionService_GetRegion_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetRegion(ctx, &protoReq)
@@ -172,14 +172,14 @@ func request_RegionService_UpdateRegion_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateRegion(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -206,14 +206,14 @@ func local_request_RegionService_UpdateRegion_0(ctx context.Context, marshaler r
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateRegion(ctx, &protoReq)
@@ -222,7 +222,7 @@ func local_request_RegionService_UpdateRegion_0(ctx context.Context, marshaler r
 }
 
 var (
-	filter_RegionService_PatchRegion_0 = &utilities.DoubleArray{Encoding: map[string]int{"region": 0, "resource_id": 1, "resourceId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+	filter_RegionService_PatchRegion_0 = &utilities.DoubleArray{Encoding: map[string]int{"region": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
 func request_RegionService_PatchRegion_0(ctx context.Context, marshaler runtime.Marshaler, client RegionServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -251,14 +251,14 @@ func request_RegionService_PatchRegion_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -299,14 +299,14 @@ func local_request_RegionService_PatchRegion_0(ctx context.Context, marshaler ru
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -332,14 +332,14 @@ func request_RegionService_DeleteRegion_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteRegion(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -358,14 +358,14 @@ func local_request_RegionService_DeleteRegion_0(ctx context.Context, marshaler r
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteRegion(ctx, &protoReq)
@@ -454,14 +454,14 @@ func request_SiteService_GetSite_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetSite(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -480,14 +480,14 @@ func local_request_SiteService_GetSite_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetSite(ctx, &protoReq)
@@ -514,14 +514,14 @@ func request_SiteService_UpdateSite_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateSite(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -548,14 +548,14 @@ func local_request_SiteService_UpdateSite_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateSite(ctx, &protoReq)
@@ -564,7 +564,7 @@ func local_request_SiteService_UpdateSite_0(ctx context.Context, marshaler runti
 }
 
 var (
-	filter_SiteService_PatchSite_0 = &utilities.DoubleArray{Encoding: map[string]int{"site": 0, "resource_id": 1, "resourceId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+	filter_SiteService_PatchSite_0 = &utilities.DoubleArray{Encoding: map[string]int{"site": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
 func request_SiteService_PatchSite_0(ctx context.Context, marshaler runtime.Marshaler, client SiteServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -593,14 +593,14 @@ func request_SiteService_PatchSite_0(ctx context.Context, marshaler runtime.Mars
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -641,14 +641,14 @@ func local_request_SiteService_PatchSite_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -674,14 +674,14 @@ func request_SiteService_DeleteSite_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteSite(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -700,14 +700,14 @@ func local_request_SiteService_DeleteSite_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteSite(ctx, &protoReq)
@@ -868,14 +868,14 @@ func request_HostService_GetHost_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetHost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -894,14 +894,14 @@ func local_request_HostService_GetHost_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetHost(ctx, &protoReq)
@@ -928,14 +928,14 @@ func request_HostService_UpdateHost_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateHost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -962,14 +962,14 @@ func local_request_HostService_UpdateHost_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateHost(ctx, &protoReq)
@@ -978,7 +978,7 @@ func local_request_HostService_UpdateHost_0(ctx context.Context, marshaler runti
 }
 
 var (
-	filter_HostService_PatchHost_0 = &utilities.DoubleArray{Encoding: map[string]int{"host": 0, "resource_id": 1, "resourceId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+	filter_HostService_PatchHost_0 = &utilities.DoubleArray{Encoding: map[string]int{"host": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
 func request_HostService_PatchHost_0(ctx context.Context, marshaler runtime.Marshaler, client HostServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -1007,14 +1007,14 @@ func request_HostService_PatchHost_0(ctx context.Context, marshaler runtime.Mars
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -1055,14 +1055,14 @@ func local_request_HostService_PatchHost_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -1088,14 +1088,14 @@ func request_HostService_DeleteHost_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteHost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1114,14 +1114,14 @@ func local_request_HostService_DeleteHost_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteHost(ctx, &protoReq)
@@ -1130,7 +1130,7 @@ func local_request_HostService_DeleteHost_0(ctx context.Context, marshaler runti
 }
 
 var (
-	filter_HostService_InvalidateHost_0 = &utilities.DoubleArray{Encoding: map[string]int{"resource_id": 0, "resourceId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+	filter_HostService_InvalidateHost_0 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_HostService_InvalidateHost_0(ctx context.Context, marshaler runtime.Marshaler, client HostServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -1144,14 +1144,14 @@ func request_HostService_InvalidateHost_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -1177,14 +1177,14 @@ func local_request_HostService_InvalidateHost_0(ctx context.Context, marshaler r
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -1270,14 +1270,14 @@ func request_HostService_PatchRegisterHost_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.PatchRegisterHost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1304,14 +1304,14 @@ func local_request_HostService_PatchRegisterHost_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.PatchRegisterHost(ctx, &protoReq)
@@ -1330,14 +1330,14 @@ func request_HostService_OnboardHost_0(ctx context.Context, marshaler runtime.Ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.OnboardHost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1356,14 +1356,14 @@ func local_request_HostService_OnboardHost_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.OnboardHost(ctx, &protoReq)
@@ -1452,14 +1452,14 @@ func request_InstanceService_GetInstance_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1478,14 +1478,14 @@ func local_request_InstanceService_GetInstance_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetInstance(ctx, &protoReq)
@@ -1512,14 +1512,14 @@ func request_InstanceService_UpdateInstance_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1546,14 +1546,14 @@ func local_request_InstanceService_UpdateInstance_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateInstance(ctx, &protoReq)
@@ -1562,7 +1562,7 @@ func local_request_InstanceService_UpdateInstance_0(ctx context.Context, marshal
 }
 
 var (
-	filter_InstanceService_PatchInstance_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance": 0, "resource_id": 1, "resourceId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+	filter_InstanceService_PatchInstance_0 = &utilities.DoubleArray{Encoding: map[string]int{"instance": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
 func request_InstanceService_PatchInstance_0(ctx context.Context, marshaler runtime.Marshaler, client InstanceServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -1591,14 +1591,14 @@ func request_InstanceService_PatchInstance_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -1639,14 +1639,14 @@ func local_request_InstanceService_PatchInstance_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -1672,14 +1672,14 @@ func request_InstanceService_DeleteInstance_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1698,14 +1698,14 @@ func local_request_InstanceService_DeleteInstance_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteInstance(ctx, &protoReq)
@@ -1724,14 +1724,14 @@ func request_InstanceService_InvalidateInstance_0(ctx context.Context, marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.InvalidateInstance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1750,14 +1750,14 @@ func local_request_InstanceService_InvalidateInstance_0(ctx context.Context, mar
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.InvalidateInstance(ctx, &protoReq)
@@ -1846,14 +1846,14 @@ func request_OperatingSystemService_GetOperatingSystem_0(ctx context.Context, ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1872,14 +1872,14 @@ func local_request_OperatingSystemService_GetOperatingSystem_0(ctx context.Conte
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetOperatingSystem(ctx, &protoReq)
@@ -1906,14 +1906,14 @@ func request_OperatingSystemService_UpdateOperatingSystem_0(ctx context.Context,
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1940,14 +1940,14 @@ func local_request_OperatingSystemService_UpdateOperatingSystem_0(ctx context.Co
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateOperatingSystem(ctx, &protoReq)
@@ -1956,7 +1956,7 @@ func local_request_OperatingSystemService_UpdateOperatingSystem_0(ctx context.Co
 }
 
 var (
-	filter_OperatingSystemService_PatchOperatingSystem_0 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "resource_id": 1, "resourceId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+	filter_OperatingSystemService_PatchOperatingSystem_0 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
 func request_OperatingSystemService_PatchOperatingSystem_0(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -1985,14 +1985,14 @@ func request_OperatingSystemService_PatchOperatingSystem_0(ctx context.Context, 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -2033,14 +2033,14 @@ func local_request_OperatingSystemService_PatchOperatingSystem_0(ctx context.Con
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -2066,14 +2066,14 @@ func request_OperatingSystemService_DeleteOperatingSystem_0(ctx context.Context,
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2092,14 +2092,14 @@ func local_request_OperatingSystemService_DeleteOperatingSystem_0(ctx context.Co
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteOperatingSystem(ctx, &protoReq)
@@ -2188,14 +2188,14 @@ func request_ProviderService_GetProvider_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetProvider(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2214,14 +2214,14 @@ func local_request_ProviderService_GetProvider_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetProvider(ctx, &protoReq)
@@ -2240,14 +2240,14 @@ func request_ProviderService_DeleteProvider_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteProvider(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2266,14 +2266,14 @@ func local_request_ProviderService_DeleteProvider_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteProvider(ctx, &protoReq)
@@ -2362,14 +2362,14 @@ func request_WorkloadService_GetWorkload_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetWorkload(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2388,14 +2388,14 @@ func local_request_WorkloadService_GetWorkload_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetWorkload(ctx, &protoReq)
@@ -2422,14 +2422,14 @@ func request_WorkloadService_UpdateWorkload_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateWorkload(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2456,14 +2456,14 @@ func local_request_WorkloadService_UpdateWorkload_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateWorkload(ctx, &protoReq)
@@ -2472,7 +2472,7 @@ func local_request_WorkloadService_UpdateWorkload_0(ctx context.Context, marshal
 }
 
 var (
-	filter_WorkloadService_PatchWorkload_0 = &utilities.DoubleArray{Encoding: map[string]int{"workload": 0, "resource_id": 1, "resourceId": 2}, Base: []int{1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 4}}
+	filter_WorkloadService_PatchWorkload_0 = &utilities.DoubleArray{Encoding: map[string]int{"workload": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
 )
 
 func request_WorkloadService_PatchWorkload_0(ctx context.Context, marshaler runtime.Marshaler, client WorkloadServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -2501,14 +2501,14 @@ func request_WorkloadService_PatchWorkload_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -2549,14 +2549,14 @@ func local_request_WorkloadService_PatchWorkload_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -2582,14 +2582,14 @@ func request_WorkloadService_DeleteWorkload_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteWorkload(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2608,14 +2608,14 @@ func local_request_WorkloadService_DeleteWorkload_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteWorkload(ctx, &protoReq)
@@ -2704,14 +2704,14 @@ func request_WorkloadMemberService_GetWorkloadMember_0(ctx context.Context, mars
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetWorkloadMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2730,14 +2730,14 @@ func local_request_WorkloadMemberService_GetWorkloadMember_0(ctx context.Context
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetWorkloadMember(ctx, &protoReq)
@@ -2756,14 +2756,14 @@ func request_WorkloadMemberService_DeleteWorkloadMember_0(ctx context.Context, m
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteWorkloadMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2782,14 +2782,14 @@ func local_request_WorkloadMemberService_DeleteWorkloadMember_0(ctx context.Cont
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteWorkloadMember(ctx, &protoReq)
@@ -2914,14 +2914,14 @@ func request_ScheduleService_GetSingleSchedule_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -2940,14 +2940,14 @@ func local_request_ScheduleService_GetSingleSchedule_0(ctx context.Context, mars
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetSingleSchedule(ctx, &protoReq)
@@ -2974,14 +2974,14 @@ func request_ScheduleService_UpdateSingleSchedule_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3008,14 +3008,14 @@ func local_request_ScheduleService_UpdateSingleSchedule_0(ctx context.Context, m
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateSingleSchedule(ctx, &protoReq)
@@ -3024,7 +3024,7 @@ func local_request_ScheduleService_UpdateSingleSchedule_0(ctx context.Context, m
 }
 
 var (
-	filter_ScheduleService_PatchSingleSchedule_0 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "resource_id": 2, "resourceId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
+	filter_ScheduleService_PatchSingleSchedule_0 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
 )
 
 func request_ScheduleService_PatchSingleSchedule_0(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -3053,14 +3053,14 @@ func request_ScheduleService_PatchSingleSchedule_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -3101,14 +3101,14 @@ func local_request_ScheduleService_PatchSingleSchedule_0(ctx context.Context, ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -3134,14 +3134,14 @@ func request_ScheduleService_DeleteSingleSchedule_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3160,14 +3160,14 @@ func local_request_ScheduleService_DeleteSingleSchedule_0(ctx context.Context, m
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteSingleSchedule(ctx, &protoReq)
@@ -3256,14 +3256,14 @@ func request_ScheduleService_GetRepeatedSchedule_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3282,14 +3282,14 @@ func local_request_ScheduleService_GetRepeatedSchedule_0(ctx context.Context, ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetRepeatedSchedule(ctx, &protoReq)
@@ -3316,14 +3316,14 @@ func request_ScheduleService_UpdateRepeatedSchedule_0(ctx context.Context, marsh
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3350,14 +3350,14 @@ func local_request_ScheduleService_UpdateRepeatedSchedule_0(ctx context.Context,
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateRepeatedSchedule(ctx, &protoReq)
@@ -3366,7 +3366,7 @@ func local_request_ScheduleService_UpdateRepeatedSchedule_0(ctx context.Context,
 }
 
 var (
-	filter_ScheduleService_PatchRepeatedSchedule_0 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "resource_id": 2, "resourceId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
+	filter_ScheduleService_PatchRepeatedSchedule_0 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
 )
 
 func request_ScheduleService_PatchRepeatedSchedule_0(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -3395,14 +3395,14 @@ func request_ScheduleService_PatchRepeatedSchedule_0(ctx context.Context, marsha
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -3443,14 +3443,14 @@ func local_request_ScheduleService_PatchRepeatedSchedule_0(ctx context.Context, 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -3476,14 +3476,14 @@ func request_ScheduleService_DeleteRepeatedSchedule_0(ctx context.Context, marsh
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3502,14 +3502,14 @@ func local_request_ScheduleService_DeleteRepeatedSchedule_0(ctx context.Context,
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteRepeatedSchedule(ctx, &protoReq)
@@ -3598,14 +3598,14 @@ func request_TelemetryLogsGroupService_GetTelemetryLogsGroup_0(ctx context.Conte
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3624,14 +3624,14 @@ func local_request_TelemetryLogsGroupService_GetTelemetryLogsGroup_0(ctx context
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetTelemetryLogsGroup(ctx, &protoReq)
@@ -3650,14 +3650,14 @@ func request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0(ctx context.Co
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3676,14 +3676,14 @@ func local_request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0(ctx cont
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteTelemetryLogsGroup(ctx, &protoReq)
@@ -3772,14 +3772,14 @@ func request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0(ctx context
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3798,14 +3798,14 @@ func local_request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0(ctx c
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetTelemetryMetricsGroup(ctx, &protoReq)
@@ -3824,14 +3824,14 @@ func request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0(ctx cont
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3850,14 +3850,14 @@ func local_request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0(ct
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteTelemetryMetricsGroup(ctx, &protoReq)
@@ -3946,14 +3946,14 @@ func request_TelemetryLogsProfileService_GetTelemetryLogsProfile_0(ctx context.C
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetTelemetryLogsProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -3972,14 +3972,14 @@ func local_request_TelemetryLogsProfileService_GetTelemetryLogsProfile_0(ctx con
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetTelemetryLogsProfile(ctx, &protoReq)
@@ -4006,14 +4006,14 @@ func request_TelemetryLogsProfileService_UpdateTelemetryLogsProfile_0(ctx contex
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateTelemetryLogsProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4040,14 +4040,14 @@ func local_request_TelemetryLogsProfileService_UpdateTelemetryLogsProfile_0(ctx 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateTelemetryLogsProfile(ctx, &protoReq)
@@ -4056,7 +4056,7 @@ func local_request_TelemetryLogsProfileService_UpdateTelemetryLogsProfile_0(ctx 
 }
 
 var (
-	filter_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_logs_profile": 0, "telemetryLogsProfile": 1, "resource_id": 2, "resourceId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
+	filter_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_logs_profile": 0, "telemetryLogsProfile": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
 )
 
 func request_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsProfileServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -4085,14 +4085,14 @@ func request_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0(ctx context
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -4133,14 +4133,14 @@ func local_request_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0(ctx c
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -4166,14 +4166,14 @@ func request_TelemetryLogsProfileService_DeleteTelemetryLogsProfile_0(ctx contex
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteTelemetryLogsProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4192,14 +4192,14 @@ func local_request_TelemetryLogsProfileService_DeleteTelemetryLogsProfile_0(ctx 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteTelemetryLogsProfile(ctx, &protoReq)
@@ -4288,14 +4288,14 @@ func request_TelemetryMetricsProfileService_GetTelemetryMetricsProfile_0(ctx con
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetTelemetryMetricsProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4314,14 +4314,14 @@ func local_request_TelemetryMetricsProfileService_GetTelemetryMetricsProfile_0(c
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetTelemetryMetricsProfile(ctx, &protoReq)
@@ -4348,14 +4348,14 @@ func request_TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_0(ctx 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.UpdateTelemetryMetricsProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4382,14 +4382,14 @@ func local_request_TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.UpdateTelemetryMetricsProfile(ctx, &protoReq)
@@ -4398,7 +4398,7 @@ func local_request_TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_
 }
 
 var (
-	filter_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_metrics_profile": 0, "telemetryMetricsProfile": 1, "resource_id": 2, "resourceId": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
+	filter_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_metrics_profile": 0, "telemetryMetricsProfile": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
 )
 
 func request_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsProfileServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -4427,14 +4427,14 @@ func request_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0(ctx c
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -4475,14 +4475,14 @@ func local_request_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -4508,14 +4508,14 @@ func request_TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_0(ctx 
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteTelemetryMetricsProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4534,14 +4534,14 @@ func local_request_TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteTelemetryMetricsProfile(ctx, &protoReq)
@@ -4630,14 +4630,14 @@ func request_LocalAccountService_GetLocalAccount_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetLocalAccount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4656,14 +4656,14 @@ func local_request_LocalAccountService_GetLocalAccount_0(ctx context.Context, ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetLocalAccount(ctx, &protoReq)
@@ -4682,14 +4682,14 @@ func request_LocalAccountService_DeleteLocalAccount_0(ctx context.Context, marsh
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteLocalAccount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4708,14 +4708,14 @@ func local_request_LocalAccountService_DeleteLocalAccount_0(ctx context.Context,
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteLocalAccount(ctx, &protoReq)
@@ -4804,14 +4804,14 @@ func request_OSUpdatePolicy_GetOSUpdatePolicy_0(ctx context.Context, marshaler r
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetOSUpdatePolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4830,14 +4830,14 @@ func local_request_OSUpdatePolicy_GetOSUpdatePolicy_0(ctx context.Context, marsh
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetOSUpdatePolicy(ctx, &protoReq)
@@ -4856,14 +4856,14 @@ func request_OSUpdatePolicy_DeleteOSUpdatePolicy_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteOSUpdatePolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4882,14 +4882,14 @@ func local_request_OSUpdatePolicy_DeleteOSUpdatePolicy_0(ctx context.Context, ma
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteOSUpdatePolicy(ctx, &protoReq)
@@ -4944,14 +4944,14 @@ func request_OSUpdateRun_GetOSUpdateRun_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.GetOSUpdateRun(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -4970,14 +4970,14 @@ func local_request_OSUpdateRun_GetOSUpdateRun_0(ctx context.Context, marshaler r
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.GetOSUpdateRun(ctx, &protoReq)
@@ -4996,14 +4996,14 @@ func request_OSUpdateRun_DeleteOSUpdateRun_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := client.DeleteOSUpdateRun(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5022,14 +5022,14 @@ func local_request_OSUpdateRun_DeleteOSUpdateRun_0(ctx context.Context, marshale
 		_   = err
 	)
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["resourceId"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
 	}
 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteOSUpdateRun(ctx, &protoReq)
@@ -5101,7 +5101,7 @@ func RegisterRegionServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/GetRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/GetRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5126,7 +5126,7 @@ func RegisterRegionServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/UpdateRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/UpdateRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5151,7 +5151,7 @@ func RegisterRegionServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/PatchRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/PatchRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5176,7 +5176,7 @@ func RegisterRegionServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/DeleteRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.RegionService/DeleteRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5260,7 +5260,7 @@ func RegisterSiteServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/GetSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/GetSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5285,7 +5285,7 @@ func RegisterSiteServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/UpdateSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/UpdateSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5310,7 +5310,7 @@ func RegisterSiteServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/PatchSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/PatchSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5335,7 +5335,7 @@ func RegisterSiteServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/DeleteSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.SiteService/DeleteSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5478,7 +5478,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5503,7 +5503,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/UpdateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/UpdateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5528,7 +5528,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/PatchHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/PatchHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5553,7 +5553,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/DeleteHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/DeleteHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5578,7 +5578,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/InvalidateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/invalidate"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/InvalidateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5628,7 +5628,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/PatchRegisterHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/register"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/PatchRegisterHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5653,7 +5653,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/OnboardHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/onboard"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/OnboardHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5737,7 +5737,7 @@ func RegisterInstanceServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/GetInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/GetInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5762,7 +5762,7 @@ func RegisterInstanceServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/UpdateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/UpdateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5787,7 +5787,7 @@ func RegisterInstanceServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/PatchInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/PatchInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5812,7 +5812,7 @@ func RegisterInstanceServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/DeleteInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/DeleteInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5837,7 +5837,7 @@ func RegisterInstanceServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/InvalidateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}/invalidate"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.InstanceService/InvalidateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5921,7 +5921,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5946,7 +5946,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5971,7 +5971,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -5996,7 +5996,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6080,7 +6080,7 @@ func RegisterProviderServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ProviderService/GetProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ProviderService/GetProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6105,7 +6105,7 @@ func RegisterProviderServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ProviderService/DeleteProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ProviderService/DeleteProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6189,7 +6189,7 @@ func RegisterWorkloadServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/GetWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/GetWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6214,7 +6214,7 @@ func RegisterWorkloadServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/UpdateWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/UpdateWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6239,7 +6239,7 @@ func RegisterWorkloadServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/PatchWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/PatchWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6264,7 +6264,7 @@ func RegisterWorkloadServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/DeleteWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadService/DeleteWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6348,7 +6348,7 @@ func RegisterWorkloadMemberServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadMemberService/GetWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadMemberService/GetWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6373,7 +6373,7 @@ func RegisterWorkloadMemberServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadMemberService/DeleteWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.WorkloadMemberService/DeleteWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6482,7 +6482,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6507,7 +6507,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6532,7 +6532,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6557,7 +6557,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6632,7 +6632,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6657,7 +6657,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6682,7 +6682,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6707,7 +6707,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6791,7 +6791,7 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6816,7 +6816,7 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6900,7 +6900,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -6925,7 +6925,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7009,7 +7009,7 @@ func RegisterTelemetryLogsProfileServiceHandlerServer(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/GetTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/GetTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7034,7 +7034,7 @@ func RegisterTelemetryLogsProfileServiceHandlerServer(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/UpdateTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/UpdateTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7059,7 +7059,7 @@ func RegisterTelemetryLogsProfileServiceHandlerServer(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/PatchTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/PatchTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7084,7 +7084,7 @@ func RegisterTelemetryLogsProfileServiceHandlerServer(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/DeleteTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/DeleteTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7168,7 +7168,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerServer(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/GetTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/GetTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7193,7 +7193,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerServer(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/UpdateTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/UpdateTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7218,7 +7218,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerServer(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/PatchTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/PatchTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7243,7 +7243,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerServer(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/DeleteTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/DeleteTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7327,7 +7327,7 @@ func RegisterLocalAccountServiceHandlerServer(ctx context.Context, mux *runtime.
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.LocalAccountService/GetLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.LocalAccountService/GetLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7352,7 +7352,7 @@ func RegisterLocalAccountServiceHandlerServer(ctx context.Context, mux *runtime.
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.LocalAccountService/DeleteLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.LocalAccountService/DeleteLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7436,7 +7436,7 @@ func RegisterOSUpdatePolicyHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7461,7 +7461,7 @@ func RegisterOSUpdatePolicyHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7520,7 +7520,7 @@ func RegisterOSUpdateRunHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/GetOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/GetOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7545,7 +7545,7 @@ func RegisterOSUpdateRunHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7653,7 +7653,7 @@ func RegisterRegionServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/GetRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/GetRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7675,7 +7675,7 @@ func RegisterRegionServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/UpdateRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/UpdateRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7697,7 +7697,7 @@ func RegisterRegionServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/PatchRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/PatchRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7719,7 +7719,7 @@ func RegisterRegionServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/DeleteRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.RegionService/DeleteRegion", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/regions/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7743,13 +7743,13 @@ var (
 
 	pattern_RegionService_ListRegions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "regions"}, ""))
 
-	pattern_RegionService_GetRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resource_id"}, ""))
+	pattern_RegionService_GetRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resourceId"}, ""))
 
-	pattern_RegionService_UpdateRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resource_id"}, ""))
+	pattern_RegionService_UpdateRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resourceId"}, ""))
 
-	pattern_RegionService_PatchRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resource_id"}, ""))
+	pattern_RegionService_PatchRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resourceId"}, ""))
 
-	pattern_RegionService_DeleteRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resource_id"}, ""))
+	pattern_RegionService_DeleteRegion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "regions", "resourceId"}, ""))
 )
 
 var (
@@ -7854,7 +7854,7 @@ func RegisterSiteServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/GetSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/GetSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7876,7 +7876,7 @@ func RegisterSiteServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/UpdateSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/UpdateSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7898,7 +7898,7 @@ func RegisterSiteServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/PatchSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/PatchSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7920,7 +7920,7 @@ func RegisterSiteServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/DeleteSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.SiteService/DeleteSite", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/sites/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -7944,13 +7944,13 @@ var (
 
 	pattern_SiteService_ListSites_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "sites"}, ""))
 
-	pattern_SiteService_GetSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resource_id"}, ""))
+	pattern_SiteService_GetSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resourceId"}, ""))
 
-	pattern_SiteService_UpdateSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resource_id"}, ""))
+	pattern_SiteService_UpdateSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resourceId"}, ""))
 
-	pattern_SiteService_PatchSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resource_id"}, ""))
+	pattern_SiteService_PatchSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resourceId"}, ""))
 
-	pattern_SiteService_DeleteSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resource_id"}, ""))
+	pattern_SiteService_DeleteSite_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "sites", "resourceId"}, ""))
 )
 
 var (
@@ -8148,7 +8148,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8170,7 +8170,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/UpdateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/UpdateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8192,7 +8192,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/PatchHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/PatchHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8214,7 +8214,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/DeleteHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/DeleteHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8236,7 +8236,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/InvalidateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/invalidate"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/InvalidateHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8280,7 +8280,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/PatchRegisterHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/register"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/PatchRegisterHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8302,7 +8302,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/OnboardHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resource_id}/onboard"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/OnboardHost", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8328,21 +8328,21 @@ var (
 
 	pattern_HostService_ListHosts_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "hosts"}, ""))
 
-	pattern_HostService_GetHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id"}, ""))
+	pattern_HostService_GetHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId"}, ""))
 
-	pattern_HostService_UpdateHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id"}, ""))
+	pattern_HostService_UpdateHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId"}, ""))
 
-	pattern_HostService_PatchHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id"}, ""))
+	pattern_HostService_PatchHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId"}, ""))
 
-	pattern_HostService_DeleteHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id"}, ""))
+	pattern_HostService_DeleteHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId"}, ""))
 
-	pattern_HostService_InvalidateHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id", "invalidate"}, ""))
+	pattern_HostService_InvalidateHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId", "invalidate"}, ""))
 
 	pattern_HostService_RegisterHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "register"}, ""))
 
-	pattern_HostService_PatchRegisterHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id", "register"}, ""))
+	pattern_HostService_PatchRegisterHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId", "register"}, ""))
 
-	pattern_HostService_OnboardHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resource_id", "onboard"}, ""))
+	pattern_HostService_OnboardHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "hosts", "resourceId", "onboard"}, ""))
 )
 
 var (
@@ -8457,7 +8457,7 @@ func RegisterInstanceServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/GetInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/GetInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8479,7 +8479,7 @@ func RegisterInstanceServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/UpdateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/UpdateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8501,7 +8501,7 @@ func RegisterInstanceServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/PatchInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/PatchInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8523,7 +8523,7 @@ func RegisterInstanceServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/DeleteInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/DeleteInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8545,7 +8545,7 @@ func RegisterInstanceServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/InvalidateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resource_id}/invalidate"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.InstanceService/InvalidateInstance", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8569,15 +8569,15 @@ var (
 
 	pattern_InstanceService_ListInstances_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "instances"}, ""))
 
-	pattern_InstanceService_GetInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resource_id"}, ""))
+	pattern_InstanceService_GetInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resourceId"}, ""))
 
-	pattern_InstanceService_UpdateInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resource_id"}, ""))
+	pattern_InstanceService_UpdateInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resourceId"}, ""))
 
-	pattern_InstanceService_PatchInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resource_id"}, ""))
+	pattern_InstanceService_PatchInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resourceId"}, ""))
 
-	pattern_InstanceService_DeleteInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resource_id"}, ""))
+	pattern_InstanceService_DeleteInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resourceId"}, ""))
 
-	pattern_InstanceService_InvalidateInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resource_id", "invalidate"}, ""))
+	pattern_InstanceService_InvalidateInstance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "instances", "resourceId", "invalidate"}, ""))
 )
 
 var (
@@ -8684,7 +8684,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8706,7 +8706,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8728,7 +8728,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8750,7 +8750,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8774,13 +8774,13 @@ var (
 
 	pattern_OperatingSystemService_ListOperatingSystems_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems"}, ""))
 
-	pattern_OperatingSystemService_GetOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resource_id"}, ""))
+	pattern_OperatingSystemService_GetOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_UpdateOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resource_id"}, ""))
+	pattern_OperatingSystemService_UpdateOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_PatchOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resource_id"}, ""))
+	pattern_OperatingSystemService_PatchOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_DeleteOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resource_id"}, ""))
+	pattern_OperatingSystemService_DeleteOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 )
 
 var (
@@ -8885,7 +8885,7 @@ func RegisterProviderServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ProviderService/GetProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ProviderService/GetProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8907,7 +8907,7 @@ func RegisterProviderServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ProviderService/DeleteProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ProviderService/DeleteProvider", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/providers/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -8931,9 +8931,9 @@ var (
 
 	pattern_ProviderService_ListProviders_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "providers"}, ""))
 
-	pattern_ProviderService_GetProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "providers", "resource_id"}, ""))
+	pattern_ProviderService_GetProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "providers", "resourceId"}, ""))
 
-	pattern_ProviderService_DeleteProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "providers", "resource_id"}, ""))
+	pattern_ProviderService_DeleteProvider_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "providers", "resourceId"}, ""))
 )
 
 var (
@@ -9034,7 +9034,7 @@ func RegisterWorkloadServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/GetWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/GetWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9056,7 +9056,7 @@ func RegisterWorkloadServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/UpdateWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/UpdateWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9078,7 +9078,7 @@ func RegisterWorkloadServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/PatchWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/PatchWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9100,7 +9100,7 @@ func RegisterWorkloadServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/DeleteWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadService/DeleteWorkload", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9124,13 +9124,13 @@ var (
 
 	pattern_WorkloadService_ListWorkloads_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "workloads"}, ""))
 
-	pattern_WorkloadService_GetWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resource_id"}, ""))
+	pattern_WorkloadService_GetWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resourceId"}, ""))
 
-	pattern_WorkloadService_UpdateWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resource_id"}, ""))
+	pattern_WorkloadService_UpdateWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resourceId"}, ""))
 
-	pattern_WorkloadService_PatchWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resource_id"}, ""))
+	pattern_WorkloadService_PatchWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resourceId"}, ""))
 
-	pattern_WorkloadService_DeleteWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resource_id"}, ""))
+	pattern_WorkloadService_DeleteWorkload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workloads", "resourceId"}, ""))
 )
 
 var (
@@ -9235,7 +9235,7 @@ func RegisterWorkloadMemberServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadMemberService/GetWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadMemberService/GetWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9257,7 +9257,7 @@ func RegisterWorkloadMemberServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadMemberService/DeleteWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.WorkloadMemberService/DeleteWorkloadMember", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9281,9 +9281,9 @@ var (
 
 	pattern_WorkloadMemberService_ListWorkloadMembers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "workload_members"}, ""))
 
-	pattern_WorkloadMemberService_GetWorkloadMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workload_members", "resource_id"}, ""))
+	pattern_WorkloadMemberService_GetWorkloadMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workload_members", "resourceId"}, ""))
 
-	pattern_WorkloadMemberService_DeleteWorkloadMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workload_members", "resource_id"}, ""))
+	pattern_WorkloadMemberService_DeleteWorkloadMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "workload_members", "resourceId"}, ""))
 )
 
 var (
@@ -9406,7 +9406,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9428,7 +9428,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9450,7 +9450,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9472,7 +9472,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9538,7 +9538,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9560,7 +9560,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9582,7 +9582,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9604,7 +9604,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9630,25 +9630,25 @@ var (
 
 	pattern_ScheduleService_ListSingleSchedules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single"}, ""))
 
-	pattern_ScheduleService_GetSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resource_id"}, ""))
+	pattern_ScheduleService_GetSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_UpdateSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resource_id"}, ""))
+	pattern_ScheduleService_UpdateSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_PatchSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resource_id"}, ""))
+	pattern_ScheduleService_PatchSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_DeleteSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resource_id"}, ""))
+	pattern_ScheduleService_DeleteSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
 	pattern_ScheduleService_CreateRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated"}, ""))
 
 	pattern_ScheduleService_ListRepeatedSchedules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated"}, ""))
 
-	pattern_ScheduleService_GetRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resource_id"}, ""))
+	pattern_ScheduleService_GetRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_UpdateRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resource_id"}, ""))
+	pattern_ScheduleService_UpdateRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_PatchRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resource_id"}, ""))
+	pattern_ScheduleService_PatchRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_DeleteRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resource_id"}, ""))
+	pattern_ScheduleService_DeleteRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 )
 
 var (
@@ -9767,7 +9767,7 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9789,7 +9789,7 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9813,9 +9813,9 @@ var (
 
 	pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs"}, ""))
 
-	pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resource_id"}, ""))
+	pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resourceId"}, ""))
 
-	pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resource_id"}, ""))
+	pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resourceId"}, ""))
 )
 
 var (
@@ -9916,7 +9916,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9938,7 +9938,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -9962,9 +9962,9 @@ var (
 
 	pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics"}, ""))
 
-	pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resource_id"}, ""))
+	pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resourceId"}, ""))
 
-	pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resource_id"}, ""))
+	pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resourceId"}, ""))
 )
 
 var (
@@ -10065,7 +10065,7 @@ func RegisterTelemetryLogsProfileServiceHandlerClient(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/GetTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/GetTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10087,7 +10087,7 @@ func RegisterTelemetryLogsProfileServiceHandlerClient(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/UpdateTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/UpdateTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10109,7 +10109,7 @@ func RegisterTelemetryLogsProfileServiceHandlerClient(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/PatchTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/PatchTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10131,7 +10131,7 @@ func RegisterTelemetryLogsProfileServiceHandlerClient(ctx context.Context, mux *
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/DeleteTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsProfileService/DeleteTelemetryLogsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10155,13 +10155,13 @@ var (
 
 	pattern_TelemetryLogsProfileService_ListTelemetryLogsProfiles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs"}, ""))
 
-	pattern_TelemetryLogsProfileService_GetTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resource_id"}, ""))
+	pattern_TelemetryLogsProfileService_GetTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resourceId"}, ""))
 
-	pattern_TelemetryLogsProfileService_UpdateTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resource_id"}, ""))
+	pattern_TelemetryLogsProfileService_UpdateTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resourceId"}, ""))
 
-	pattern_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resource_id"}, ""))
+	pattern_TelemetryLogsProfileService_PatchTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resourceId"}, ""))
 
-	pattern_TelemetryLogsProfileService_DeleteTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resource_id"}, ""))
+	pattern_TelemetryLogsProfileService_DeleteTelemetryLogsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "logs", "resourceId"}, ""))
 )
 
 var (
@@ -10266,7 +10266,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerClient(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/GetTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/GetTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10288,7 +10288,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerClient(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/UpdateTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/UpdateTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10310,7 +10310,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerClient(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/PatchTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/PatchTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10332,7 +10332,7 @@ func RegisterTelemetryMetricsProfileServiceHandlerClient(ctx context.Context, mu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/DeleteTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsProfileService/DeleteTelemetryMetricsProfile", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10356,13 +10356,13 @@ var (
 
 	pattern_TelemetryMetricsProfileService_ListTelemetryMetricsProfiles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics"}, ""))
 
-	pattern_TelemetryMetricsProfileService_GetTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resource_id"}, ""))
+	pattern_TelemetryMetricsProfileService_GetTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resourceId"}, ""))
 
-	pattern_TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resource_id"}, ""))
+	pattern_TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resourceId"}, ""))
 
-	pattern_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resource_id"}, ""))
+	pattern_TelemetryMetricsProfileService_PatchTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resourceId"}, ""))
 
-	pattern_TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resource_id"}, ""))
+	pattern_TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "profiles", "metrics", "resourceId"}, ""))
 )
 
 var (
@@ -10467,7 +10467,7 @@ func RegisterLocalAccountServiceHandlerClient(ctx context.Context, mux *runtime.
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.LocalAccountService/GetLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.LocalAccountService/GetLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10489,7 +10489,7 @@ func RegisterLocalAccountServiceHandlerClient(ctx context.Context, mux *runtime.
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.LocalAccountService/DeleteLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.LocalAccountService/DeleteLocalAccount", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10513,9 +10513,9 @@ var (
 
 	pattern_LocalAccountService_ListLocalAccounts_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "localAccounts"}, ""))
 
-	pattern_LocalAccountService_GetLocalAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "localAccounts", "resource_id"}, ""))
+	pattern_LocalAccountService_GetLocalAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "localAccounts", "resourceId"}, ""))
 
-	pattern_LocalAccountService_DeleteLocalAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "localAccounts", "resource_id"}, ""))
+	pattern_LocalAccountService_DeleteLocalAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "localAccounts", "resourceId"}, ""))
 )
 
 var (
@@ -10616,7 +10616,7 @@ func RegisterOSUpdatePolicyHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10638,7 +10638,7 @@ func RegisterOSUpdatePolicyHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10662,9 +10662,9 @@ var (
 
 	pattern_OSUpdatePolicy_ListOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy"}, ""))
 
-	pattern_OSUpdatePolicy_GetOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy", "resource_id"}, ""))
+	pattern_OSUpdatePolicy_GetOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy", "resourceId"}, ""))
 
-	pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy", "resource_id"}, ""))
+	pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy", "resourceId"}, ""))
 )
 
 var (
@@ -10743,7 +10743,7 @@ func RegisterOSUpdateRunHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/GetOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/GetOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10765,7 +10765,7 @@ func RegisterOSUpdateRunHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resource_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -10787,9 +10787,9 @@ func RegisterOSUpdateRunHandlerClient(ctx context.Context, mux *runtime.ServeMux
 var (
 	pattern_OSUpdateRun_ListOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run"}, ""))
 
-	pattern_OSUpdateRun_GetOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run", "resource_id"}, ""))
+	pattern_OSUpdateRun_GetOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run", "resourceId"}, ""))
 
-	pattern_OSUpdateRun_DeleteOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run", "resource_id"}, ""))
+	pattern_OSUpdateRun_DeleteOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run", "resourceId"}, ""))
 )
 
 var (

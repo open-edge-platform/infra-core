@@ -39,12 +39,14 @@
     - [WorkloadMember](#compute-v1-WorkloadMember)
     - [WorkloadResource](#compute-v1-WorkloadResource)
   
+    - [AmtState](#compute-v1-AmtState)
     - [BaremetalControllerKind](#compute-v1-BaremetalControllerKind)
     - [HostComponentState](#compute-v1-HostComponentState)
     - [HostState](#compute-v1-HostState)
     - [InstanceKind](#compute-v1-InstanceKind)
     - [InstanceState](#compute-v1-InstanceState)
     - [NetworkInterfaceLinkState](#compute-v1-NetworkInterfaceLinkState)
+    - [PowerCommandPolicy](#compute-v1-PowerCommandPolicy)
     - [PowerState](#compute-v1-PowerState)
     - [WorkloadKind](#compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#compute-v1-WorkloadMemberKind)
@@ -508,8 +510,17 @@ type such as &#34;XSPgen3&#34;, &#34;XDgen2&#34;, &#34;CI7gen12&#34; |
 | bios_release_date | [string](#string) |  | BIOS Release Date |
 | bios_vendor | [string](#string) |  | BIOS Vendor |
 | metadata | [string](#string) |  | Record metadata with format as json string. Example: [{&#34;key&#34;:&#34;cluster-name&#34;,&#34;value&#34;:&#34;&#34;},{&#34;key&#34;:&#34;app-id&#34;,&#34;value&#34;:&#34;&#34;}] |
+| desired_power_state | [PowerState](#compute-v1-PowerState) |  | Power management related fields
+
+Desired power state of the host |
 | current_power_state | [PowerState](#compute-v1-PowerState) |  | Current power state of the host |
-| desired_power_state | [PowerState](#compute-v1-PowerState) |  | Desired power state of the host |
+| power_status | [string](#string) |  | A group of fields describing the Power status at runtime. The following 3 fields should always be updated in one shot. If power_status is empty during initialization, it is automatically set to a Unknown value.
+
+textual message that describes the runtime status of Host power. Set by DM RM only. |
+| power_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the power_status. Set by DM RM only. |
+| power_status_timestamp | [uint64](#uint64) |  | UTC timestamp when power_status was last changed. Set by DM RM only. |
+| power_command_policy | [PowerCommandPolicy](#compute-v1-PowerCommandPolicy) |  | Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED. |
+| power_on_time | [uint64](#uint64) |  | UTC timestamp when the host was powered on. Set by DM RM only. |
 | host_status | [string](#string) |  | A group of fields describing the Host runtime status. host_status, host_status_indicator and host_status_timestamp should always be updated in one shot. If host_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the runtime status of Host. Set by RMs only. |
@@ -530,6 +541,14 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | host_usbs | [HostusbResource](#compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. This edge is read-only. |
 | host_gpus | [HostgpuResource](#compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. This edge is read-only. |
 | instance | [InstanceResource](#compute-v1-InstanceResource) |  | back-reference to baremetal Instance associated to this host |
+| amt_sku | [string](#string) |  | coming from device introspection |
+| desired_amt_state | [AmtState](#compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
+| current_amt_state | [AmtState](#compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
+| amt_status | [string](#string) |  | A group of fields describing the AMT status. amt_status, amt_status_indicator and amt_status_timestamp should always be updated in one shot. If amt_status is empty during initialization, it is automatically set to a Unknown value.
+
+textual message that describes the AMT status of Host. Set by DM RM only. |
+| amt_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
+| amt_status_timestamp | [uint64](#uint64) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -769,6 +788,20 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
  
 
 
+<a name="compute-v1-AmtState"></a>
+
+### AmtState
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_STATE_UNSPECIFIED | 0 |  |
+| AMT_STATE_PROVISIONED | 1 |  |
+| AMT_STATE_UNPROVISIONED | 2 |  |
+| AMT_STATE_DISCONNECTED | 3 |  |
+
+
+
 <a name="compute-v1-BaremetalControllerKind"></a>
 
 ### BaremetalControllerKind
@@ -853,6 +886,19 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 
 
+<a name="compute-v1-PowerCommandPolicy"></a>
+
+### PowerCommandPolicy
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_COMMAND_POLICY_UNSPECIFIED | 0 |  |
+| POWER_COMMAND_POLICY_IMMEDIATE | 1 |  |
+| POWER_COMMAND_POLICY_ORDERED | 2 |  |
+
+
+
 <a name="compute-v1-PowerState"></a>
 
 ### PowerState
@@ -861,9 +907,11 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | POWER_STATE_UNSPECIFIED | 0 |  |
-| POWER_STATE_ERROR | 1 |  |
 | POWER_STATE_ON | 2 |  |
 | POWER_STATE_OFF | 3 |  |
+| POWER_STATE_SLEEP | 4 |  |
+| POWER_STATE_HIBERNATE | 5 |  |
+| POWER_STATE_RESET | 6 |  |
 
 
 

@@ -42,6 +42,11 @@ func HostEnumStateMap(fname string, eint int32) (ent.Value, error) {
 		hosts.FieldHostStatusIndicator:         hosts.HostStatusIndicator(statusv1.StatusIndication_name[eint]),
 		hosts.FieldRegistrationStatusIndicator: hosts.RegistrationStatusIndicator(statusv1.StatusIndication_name[eint]),
 		hosts.FieldOnboardingStatusIndicator:   hosts.OnboardingStatusIndicator(statusv1.StatusIndication_name[eint]),
+		hosts.FieldPowerCommandPolicy:          hosts.PowerCommandPolicy(computev1.PowerCommandPolicy_name[eint]),
+		hosts.FieldDesiredAmtState:             hosts.DesiredAmtState(computev1.AmtState_name[eint]),
+		hosts.FieldCurrentAmtState:             hosts.CurrentAmtState(computev1.AmtState_name[eint]),
+		hosts.FieldPowerStatusIndicator:        hosts.PowerStatusIndicator(statusv1.StatusIndication_name[eint]),
+		hosts.FieldAmtStatusIndicator:          hosts.AmtStatusIndicator(statusv1.StatusIndication_name[eint]),
 	}
 
 	if v, ok := stateMap[fname]; ok {
@@ -66,6 +71,31 @@ func (is *InvStore) CreateHost(ctx context.Context, in *computev1.HostResource) 
 	return res, nil
 }
 
+func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourceMutation) {
+	// Ensure the host state fields are never set to NULL in the DB.
+	if in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
+		mut.SetCurrentState(hosts.CurrentStateHOST_STATE_UNSPECIFIED)
+	}
+	if in.GetDesiredState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
+		mut.SetDesiredState(hosts.DesiredStateHOST_STATE_UNSPECIFIED)
+	}
+	if in.GetCurrentPowerState() == computev1.PowerState_POWER_STATE_UNSPECIFIED {
+		mut.SetCurrentPowerState(hosts.CurrentPowerStatePOWER_STATE_UNSPECIFIED)
+	}
+	if in.GetDesiredPowerState() == computev1.PowerState_POWER_STATE_UNSPECIFIED {
+		mut.SetDesiredPowerState(hosts.DesiredPowerStatePOWER_STATE_UNSPECIFIED)
+	}
+	if in.GetPowerCommandPolicy() == computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED {
+		mut.SetPowerCommandPolicy(hosts.PowerCommandPolicyPOWER_COMMAND_POLICY_UNSPECIFIED)
+	}
+	if in.GetDesiredAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
+		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
+	}
+	if in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
+		mut.SetCurrentAmtState(hosts.CurrentAmtStateAMT_STATE_UNSPECIFIED)
+	}
+}
+
 func hostResourceCreator(in *computev1.HostResource) func(context.Context, *ent.Tx) (
 	*inv_v1.Resource, error) {
 	return func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
@@ -87,13 +117,9 @@ func hostResourceCreator(in *computev1.HostResource) func(context.Context, *ent.
 		if err := setEdgeProviderIDForMut(ctx, tx.Client(), mut, in.GetProvider()); err != nil {
 			return nil, err
 		}
-		// Ensure the host state fields are never set to NULL in the DB.
-		if in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
-			mut.SetCurrentState(hosts.CurrentStateHOST_STATE_UNSPECIFIED)
-		}
-		if in.GetDesiredState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
-			mut.SetDesiredState(hosts.DesiredStateHOST_STATE_UNSPECIFIED)
-		}
+
+		// Set the host state fields to their default values if not set.
+		setHostStateFieldsOnCreate(in, mut)
 
 		// Set the resource_id field last.
 		if err := mut.SetField(hosts.FieldResourceID, id); err != nil {
@@ -188,7 +214,48 @@ func (is *InvStore) UpdateHost(
 	return res, *hardDelete, err
 }
 
-//nolint:cyclop // high cyclomatic complexity due to host transition validation
+//nolint:cyclop // high cyclomatic complexity due to multiple fieldmask checks and state fields
+func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourceMutation,
+	fieldmask *fieldmaskpb.FieldMask,
+) {
+	// Ensure the host state fields are never set to NULL in the DB.
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentState) &&
+		in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
+		mut.ResetCurrentState()
+		mut.SetCurrentState(hosts.CurrentStateHOST_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredState) &&
+		in.GetDesiredState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
+		mut.ResetDesiredState()
+		mut.SetDesiredState(hosts.DesiredStateHOST_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentPowerState) &&
+		in.GetCurrentPowerState() == computev1.PowerState_POWER_STATE_UNSPECIFIED {
+		mut.ResetCurrentPowerState()
+		mut.SetCurrentPowerState(hosts.CurrentPowerStatePOWER_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredPowerState) &&
+		in.GetDesiredPowerState() == computev1.PowerState_POWER_STATE_UNSPECIFIED {
+		mut.ResetDesiredPowerState()
+		mut.SetDesiredPowerState(hosts.DesiredPowerStatePOWER_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldPowerCommandPolicy) &&
+		in.GetPowerCommandPolicy() == computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED {
+		mut.ResetPowerCommandPolicy()
+		mut.SetPowerCommandPolicy(hosts.PowerCommandPolicyPOWER_COMMAND_POLICY_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentAmtState) &&
+		in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
+		mut.ResetCurrentAmtState()
+		mut.SetCurrentAmtState(hosts.CurrentAmtStateAMT_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredAmtState) &&
+		in.GetDesiredAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
+		mut.ResetDesiredAmtState()
+		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
+	}
+}
+
 func hostResourceUpdater(
 	id string, in *computev1.HostResource, fieldmask *fieldmaskpb.FieldMask, tenantID string,
 ) func(context.Context, *ent.Tx) (*inv_v1.Resource, *bool, error) {
@@ -237,17 +304,8 @@ func hostResourceUpdater(
 				return nil, booleans.Pointer(false), err
 			}
 
-			// Ensure the host state fields are never set to NULL in the DB.
-			if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentState) &&
-				in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
-				mut.ResetCurrentState()
-				mut.SetCurrentState(hosts.CurrentStateHOST_STATE_UNSPECIFIED)
-			}
-			if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredState) &&
-				in.GetDesiredState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
-				mut.ResetDesiredState()
-				mut.SetDesiredState(hosts.DesiredStateHOST_STATE_UNSPECIFIED)
-			}
+			// Set the host state fields to their default values if not set.
+			setHostStateFieldsOnUpdate(in, mut, fieldmask)
 
 			// save the UpdateOne
 			_, err = updateBuilder.Save(ctx)
