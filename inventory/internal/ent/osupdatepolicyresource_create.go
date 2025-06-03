@@ -46,16 +46,16 @@ func (ouprc *OSUpdatePolicyResourceCreate) SetNillableDescription(s *string) *OS
 	return ouprc
 }
 
-// SetInstalledPackages sets the "installed_packages" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetInstalledPackages(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetInstalledPackages(s)
+// SetInstallPackages sets the "install_packages" field.
+func (ouprc *OSUpdatePolicyResourceCreate) SetInstallPackages(s string) *OSUpdatePolicyResourceCreate {
+	ouprc.mutation.SetInstallPackages(s)
 	return ouprc
 }
 
-// SetNillableInstalledPackages sets the "installed_packages" field if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableInstalledPackages(s *string) *OSUpdatePolicyResourceCreate {
+// SetNillableInstallPackages sets the "install_packages" field if the given value is not nil.
+func (ouprc *OSUpdatePolicyResourceCreate) SetNillableInstallPackages(s *string) *OSUpdatePolicyResourceCreate {
 	if s != nil {
-		ouprc.SetInstalledPackages(*s)
+		ouprc.SetInstallPackages(*s)
 	}
 	return ouprc
 }
@@ -231,9 +231,9 @@ func (ouprc *OSUpdatePolicyResourceCreate) createSpec() (*OSUpdatePolicyResource
 		_spec.SetField(osupdatepolicyresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := ouprc.mutation.InstalledPackages(); ok {
-		_spec.SetField(osupdatepolicyresource.FieldInstalledPackages, field.TypeString, value)
-		_node.InstalledPackages = value
+	if value, ok := ouprc.mutation.InstallPackages(); ok {
+		_spec.SetField(osupdatepolicyresource.FieldInstallPackages, field.TypeString, value)
+		_node.InstallPackages = value
 	}
 	if value, ok := ouprc.mutation.UpdateSources(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdateSources, field.TypeString, value)

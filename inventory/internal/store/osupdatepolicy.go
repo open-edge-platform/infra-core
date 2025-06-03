@@ -49,12 +49,12 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// Enforce mutually exclusive fields
 	return (in.GetTargetOs() == nil) ==
-		(in.GetInstalledPackages() == "" && in.GetUpdateSources() == nil && in.GetKernelCommand() == "")
+		(in.GetInstallPackages() == "" && in.GetUpdateSources() == nil && in.GetKernelCommand() == "")
 }
 
 func isValidLatestPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// All fields must be unset
-	return in.GetTargetOs() != nil || in.GetInstalledPackages() != "" ||
+	return in.GetTargetOs() != nil || in.GetInstallPackages() != "" ||
 		in.GetUpdateSources() != nil || in.GetKernelCommand() != ""
 }
 

@@ -68,9 +68,9 @@ func Description(v string) predicate.OSUpdatePolicyResource {
 	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldDescription, v))
 }
 
-// InstalledPackages applies equality check predicate on the "installed_packages" field. It's identical to InstalledPackagesEQ.
-func InstalledPackages(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldInstalledPackages, v))
+// InstallPackages applies equality check predicate on the "install_packages" field. It's identical to InstallPackagesEQ.
+func InstallPackages(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldInstallPackages, v))
 }
 
 // UpdateSources applies equality check predicate on the "update_sources" field. It's identical to UpdateSourcesEQ.
@@ -303,79 +303,79 @@ func DescriptionContainsFold(v string) predicate.OSUpdatePolicyResource {
 	return predicate.OSUpdatePolicyResource(sql.FieldContainsFold(FieldDescription, v))
 }
 
-// InstalledPackagesEQ applies the EQ predicate on the "installed_packages" field.
-func InstalledPackagesEQ(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldInstalledPackages, v))
+// InstallPackagesEQ applies the EQ predicate on the "install_packages" field.
+func InstallPackagesEQ(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldInstallPackages, v))
 }
 
-// InstalledPackagesNEQ applies the NEQ predicate on the "installed_packages" field.
-func InstalledPackagesNEQ(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldNEQ(FieldInstalledPackages, v))
+// InstallPackagesNEQ applies the NEQ predicate on the "install_packages" field.
+func InstallPackagesNEQ(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNEQ(FieldInstallPackages, v))
 }
 
-// InstalledPackagesIn applies the In predicate on the "installed_packages" field.
-func InstalledPackagesIn(vs ...string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldIn(FieldInstalledPackages, vs...))
+// InstallPackagesIn applies the In predicate on the "install_packages" field.
+func InstallPackagesIn(vs ...string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldIn(FieldInstallPackages, vs...))
 }
 
-// InstalledPackagesNotIn applies the NotIn predicate on the "installed_packages" field.
-func InstalledPackagesNotIn(vs ...string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldNotIn(FieldInstalledPackages, vs...))
+// InstallPackagesNotIn applies the NotIn predicate on the "install_packages" field.
+func InstallPackagesNotIn(vs ...string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNotIn(FieldInstallPackages, vs...))
 }
 
-// InstalledPackagesGT applies the GT predicate on the "installed_packages" field.
-func InstalledPackagesGT(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldGT(FieldInstalledPackages, v))
+// InstallPackagesGT applies the GT predicate on the "install_packages" field.
+func InstallPackagesGT(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldGT(FieldInstallPackages, v))
 }
 
-// InstalledPackagesGTE applies the GTE predicate on the "installed_packages" field.
-func InstalledPackagesGTE(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldGTE(FieldInstalledPackages, v))
+// InstallPackagesGTE applies the GTE predicate on the "install_packages" field.
+func InstallPackagesGTE(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldGTE(FieldInstallPackages, v))
 }
 
-// InstalledPackagesLT applies the LT predicate on the "installed_packages" field.
-func InstalledPackagesLT(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldLT(FieldInstalledPackages, v))
+// InstallPackagesLT applies the LT predicate on the "install_packages" field.
+func InstallPackagesLT(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldLT(FieldInstallPackages, v))
 }
 
-// InstalledPackagesLTE applies the LTE predicate on the "installed_packages" field.
-func InstalledPackagesLTE(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldLTE(FieldInstalledPackages, v))
+// InstallPackagesLTE applies the LTE predicate on the "install_packages" field.
+func InstallPackagesLTE(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldLTE(FieldInstallPackages, v))
 }
 
-// InstalledPackagesContains applies the Contains predicate on the "installed_packages" field.
-func InstalledPackagesContains(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldContains(FieldInstalledPackages, v))
+// InstallPackagesContains applies the Contains predicate on the "install_packages" field.
+func InstallPackagesContains(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldContains(FieldInstallPackages, v))
 }
 
-// InstalledPackagesHasPrefix applies the HasPrefix predicate on the "installed_packages" field.
-func InstalledPackagesHasPrefix(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldHasPrefix(FieldInstalledPackages, v))
+// InstallPackagesHasPrefix applies the HasPrefix predicate on the "install_packages" field.
+func InstallPackagesHasPrefix(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldHasPrefix(FieldInstallPackages, v))
 }
 
-// InstalledPackagesHasSuffix applies the HasSuffix predicate on the "installed_packages" field.
-func InstalledPackagesHasSuffix(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldHasSuffix(FieldInstalledPackages, v))
+// InstallPackagesHasSuffix applies the HasSuffix predicate on the "install_packages" field.
+func InstallPackagesHasSuffix(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldHasSuffix(FieldInstallPackages, v))
 }
 
-// InstalledPackagesIsNil applies the IsNil predicate on the "installed_packages" field.
-func InstalledPackagesIsNil() predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldIsNull(FieldInstalledPackages))
+// InstallPackagesIsNil applies the IsNil predicate on the "install_packages" field.
+func InstallPackagesIsNil() predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldIsNull(FieldInstallPackages))
 }
 
-// InstalledPackagesNotNil applies the NotNil predicate on the "installed_packages" field.
-func InstalledPackagesNotNil() predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldNotNull(FieldInstalledPackages))
+// InstallPackagesNotNil applies the NotNil predicate on the "install_packages" field.
+func InstallPackagesNotNil() predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNotNull(FieldInstallPackages))
 }
 
-// InstalledPackagesEqualFold applies the EqualFold predicate on the "installed_packages" field.
-func InstalledPackagesEqualFold(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldEqualFold(FieldInstalledPackages, v))
+// InstallPackagesEqualFold applies the EqualFold predicate on the "install_packages" field.
+func InstallPackagesEqualFold(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEqualFold(FieldInstallPackages, v))
 }
 
-// InstalledPackagesContainsFold applies the ContainsFold predicate on the "installed_packages" field.
-func InstalledPackagesContainsFold(v string) predicate.OSUpdatePolicyResource {
-	return predicate.OSUpdatePolicyResource(sql.FieldContainsFold(FieldInstalledPackages, v))
+// InstallPackagesContainsFold applies the ContainsFold predicate on the "install_packages" field.
+func InstallPackagesContainsFold(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldContainsFold(FieldInstallPackages, v))
 }
 
 // UpdateSourcesEQ applies the EQ predicate on the "update_sources" field.

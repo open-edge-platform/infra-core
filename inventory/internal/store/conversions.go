@@ -839,15 +839,15 @@ func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePo
 	// Convert the fields directly.
 	updatePolicy := computev1.UpdatePolicy_value[osup.UpdatePolicy.String()] // Defaults to 0 if not found
 	protoOsUpdatePolicy := &computev1.OSUpdatePolicyResource{
-		Name:              osup.Name,
-		Description:       osup.Description,
-		ResourceId:        osup.ResourceID,
-		InstalledPackages: osup.InstalledPackages,
-		KernelCommand:     osup.KernelCommand,
-		UpdatePolicy:      computev1.UpdatePolicy(updatePolicy),
-		TenantId:          osup.TenantID,
-		CreatedAt:         osup.CreatedAt,
-		UpdatedAt:         osup.UpdatedAt,
+		Name:            osup.Name,
+		Description:     osup.Description,
+		ResourceId:      osup.ResourceID,
+		InstallPackages: osup.InstallPackages,
+		KernelCommand:   osup.KernelCommand,
+		UpdatePolicy:    computev1.UpdatePolicy(updatePolicy),
+		TenantId:        osup.TenantID,
+		CreatedAt:       osup.CreatedAt,
+		UpdatedAt:       osup.UpdatedAt,
 	}
 	if osup.UpdateSources != "" {
 		protoOsUpdatePolicy.UpdateSources = strings.Split(osup.UpdateSources, "|")

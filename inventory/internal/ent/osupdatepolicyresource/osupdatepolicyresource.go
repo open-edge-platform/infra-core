@@ -20,8 +20,8 @@ const (
 	FieldName = "name"
 	// FieldDescription holds the string denoting the description field in the database.
 	FieldDescription = "description"
-	// FieldInstalledPackages holds the string denoting the installed_packages field in the database.
-	FieldInstalledPackages = "installed_packages"
+	// FieldInstallPackages holds the string denoting the install_packages field in the database.
+	FieldInstallPackages = "install_packages"
 	// FieldUpdateSources holds the string denoting the update_sources field in the database.
 	FieldUpdateSources = "update_sources"
 	// FieldKernelCommand holds the string denoting the kernel_command field in the database.
@@ -53,7 +53,7 @@ var Columns = []string{
 	FieldResourceID,
 	FieldName,
 	FieldDescription,
-	FieldInstalledPackages,
+	FieldInstallPackages,
 	FieldUpdateSources,
 	FieldKernelCommand,
 	FieldUpdatePolicy,
@@ -130,9 +130,9 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDescription, opts...).ToFunc()
 }
 
-// ByInstalledPackages orders the results by the installed_packages field.
-func ByInstalledPackages(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldInstalledPackages, opts...).ToFunc()
+// ByInstallPackages orders the results by the install_packages field.
+func ByInstallPackages(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldInstallPackages, opts...).ToFunc()
 }
 
 // ByUpdateSources orders the results by the update_sources field.

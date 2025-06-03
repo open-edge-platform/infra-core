@@ -23,8 +23,8 @@ type OSUpdatePolicyResource struct {
 	Name string `json:"name,omitempty"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty"`
-	// InstalledPackages holds the value of the "installed_packages" field.
-	InstalledPackages string `json:"installed_packages,omitempty"`
+	// InstallPackages holds the value of the "install_packages" field.
+	InstallPackages string `json:"install_packages,omitempty"`
 	// UpdateSources holds the value of the "update_sources" field.
 	UpdateSources string `json:"update_sources,omitempty"`
 	// KernelCommand holds the value of the "kernel_command" field.
@@ -71,7 +71,7 @@ func (*OSUpdatePolicyResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case osupdatepolicyresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case osupdatepolicyresource.FieldResourceID, osupdatepolicyresource.FieldName, osupdatepolicyresource.FieldDescription, osupdatepolicyresource.FieldInstalledPackages, osupdatepolicyresource.FieldUpdateSources, osupdatepolicyresource.FieldKernelCommand, osupdatepolicyresource.FieldUpdatePolicy, osupdatepolicyresource.FieldTenantID, osupdatepolicyresource.FieldCreatedAt, osupdatepolicyresource.FieldUpdatedAt:
+		case osupdatepolicyresource.FieldResourceID, osupdatepolicyresource.FieldName, osupdatepolicyresource.FieldDescription, osupdatepolicyresource.FieldInstallPackages, osupdatepolicyresource.FieldUpdateSources, osupdatepolicyresource.FieldKernelCommand, osupdatepolicyresource.FieldUpdatePolicy, osupdatepolicyresource.FieldTenantID, osupdatepolicyresource.FieldCreatedAt, osupdatepolicyresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case osupdatepolicyresource.ForeignKeys[0]: // os_update_policy_resource_target_os
 			values[i] = new(sql.NullInt64)
@@ -114,11 +114,11 @@ func (oupr *OSUpdatePolicyResource) assignValues(columns []string, values []any)
 			} else if value.Valid {
 				oupr.Description = value.String
 			}
-		case osupdatepolicyresource.FieldInstalledPackages:
+		case osupdatepolicyresource.FieldInstallPackages:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field installed_packages", values[i])
+				return fmt.Errorf("unexpected type %T for field install_packages", values[i])
 			} else if value.Valid {
-				oupr.InstalledPackages = value.String
+				oupr.InstallPackages = value.String
 			}
 		case osupdatepolicyresource.FieldUpdateSources:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -213,8 +213,8 @@ func (oupr *OSUpdatePolicyResource) String() string {
 	builder.WriteString("description=")
 	builder.WriteString(oupr.Description)
 	builder.WriteString(", ")
-	builder.WriteString("installed_packages=")
-	builder.WriteString(oupr.InstalledPackages)
+	builder.WriteString("install_packages=")
+	builder.WriteString(oupr.InstallPackages)
 	builder.WriteString(", ")
 	builder.WriteString("update_sources=")
 	builder.WriteString(oupr.UpdateSources)

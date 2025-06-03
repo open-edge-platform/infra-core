@@ -168,8 +168,8 @@ func (oupru *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	if oupru.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldDescription, field.TypeString)
 	}
-	if oupru.mutation.InstalledPackagesCleared() {
-		_spec.ClearField(osupdatepolicyresource.FieldInstalledPackages, field.TypeString)
+	if oupru.mutation.InstallPackagesCleared() {
+		_spec.ClearField(osupdatepolicyresource.FieldInstallPackages, field.TypeString)
 	}
 	if oupru.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdateSources, field.TypeString)
@@ -402,8 +402,8 @@ func (oupruo *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	if oupruo.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldDescription, field.TypeString)
 	}
-	if oupruo.mutation.InstalledPackagesCleared() {
-		_spec.ClearField(osupdatepolicyresource.FieldInstalledPackages, field.TypeString)
+	if oupruo.mutation.InstallPackagesCleared() {
+		_spec.ClearField(osupdatepolicyresource.FieldInstallPackages, field.TypeString)
 	}
 	if oupruo.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdateSources, field.TypeString)

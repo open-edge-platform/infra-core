@@ -559,7 +559,7 @@ var (
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString, Nullable: true},
-		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
+		{Name: "install_packages", Type: field.TypeString, Nullable: true},
 		{Name: "update_sources", Type: field.TypeString, Nullable: true},
 		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
 		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},

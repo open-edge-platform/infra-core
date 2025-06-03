@@ -37,12 +37,12 @@ func Test_Create_Get_Delete_Update_OSUpdatePolicy(t *testing.T) {
 	}{
 		"CreateGoodOsUpdatePolicyTargetMut": {
 			in: &computev1.OSUpdatePolicyResource{
-				Name:              "Test OS Update Policy",
-				Description:       "Test Description",
-				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
-				UpdateSources:     []string{"test entry1", "test entry2"},
-				KernelCommand:     "test command",
-				UpdatePolicy:      computev1.UpdatePolicy_UPDATE_POLICY_TARGET,
+				Name:            "Test OS Update Policy",
+				Description:     "Test Description",
+				InstallPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				UpdateSources:   []string{"test entry1", "test entry2"},
+				KernelCommand:   "test command",
+				UpdatePolicy:    computev1.UpdatePolicy_UPDATE_POLICY_TARGET,
 			},
 			valid: true,
 		},
@@ -72,13 +72,13 @@ func Test_Create_Get_Delete_Update_OSUpdatePolicy(t *testing.T) {
 		},
 		"CreateBadOsUpdatePolicyTarget1": {
 			in: &computev1.OSUpdatePolicyResource{
-				Name:              "Test OS Update Policy",
-				Description:       "Test Description",
-				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
-				UpdateSources:     []string{"test entry1", "test entry2"},
-				KernelCommand:     "test command",
-				TargetOs:          os,
-				UpdatePolicy:      computev1.UpdatePolicy_UPDATE_POLICY_TARGET,
+				Name:            "Test OS Update Policy",
+				Description:     "Test Description",
+				InstallPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				UpdateSources:   []string{"test entry1", "test entry2"},
+				KernelCommand:   "test command",
+				TargetOs:        os,
+				UpdatePolicy:    computev1.UpdatePolicy_UPDATE_POLICY_TARGET,
 			},
 			valid: false,
 		},
@@ -101,12 +101,12 @@ func Test_Create_Get_Delete_Update_OSUpdatePolicy(t *testing.T) {
 		},
 		"CreateBadOsUpdatePolicyLatest2": {
 			in: &computev1.OSUpdatePolicyResource{
-				Name:              "Test OS Update Policy",
-				Description:       "Test Description",
-				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
-				UpdateSources:     []string{"test entry1", "test entry2"},
-				KernelCommand:     "test command",
-				UpdatePolicy:      computev1.UpdatePolicy_UPDATE_POLICY_LATEST,
+				Name:            "Test OS Update Policy",
+				Description:     "Test Description",
+				InstallPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				UpdateSources:   []string{"test entry1", "test entry2"},
+				KernelCommand:   "test command",
+				UpdatePolicy:    computev1.UpdatePolicy_UPDATE_POLICY_LATEST,
 			},
 			valid: false,
 		},
@@ -215,7 +215,7 @@ func Test_FilterOSUpdatePolicies(t *testing.T) {
 	osUpPolicy3 := dao.CreateOSUpdatePolicy(t, tenantID,
 		inv_testing.OsUpdatePolicyName("test3"),
 		inv_testing.OSUpdatePolicyTarget(),
-		inv_testing.OSUpdatePolicyInstalledPackages("test package"), inv_testing.OSUpdatePolicyKernelCommand("test command"),
+		inv_testing.OSUpdatePolicyInstallPackages("test package"), inv_testing.OSUpdatePolicyKernelCommand("test command"),
 		inv_testing.OSUpdatePolicyUpdateSources([]string{"test update source"}))
 	osUpPolicy4 := dao.CreateOSUpdatePolicy(t, tenantID,
 		inv_testing.OsUpdatePolicyName("test4"),
@@ -263,7 +263,7 @@ func Test_FilterOSUpdatePolicies(t *testing.T) {
 		},
 		"FilterInstalledPackages": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldInstalledPackages, osUpPolicy3.GetInstalledPackages()),
+				Filter: fmt.Sprintf(`%s = %q`, oup.FieldInstallPackages, osUpPolicy3.GetInstallPackages()),
 			},
 			resources: []*computev1.OSUpdatePolicyResource{osUpPolicy3},
 			valid:     true,
@@ -400,7 +400,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdatePolicy(t *testing.T) {
 	osUpPolicy3 := dao.CreateOSUpdatePolicy(t, tenantID,
 		inv_testing.OsUpdatePolicyName("test3"),
 		inv_testing.OSUpdatePolicyTarget(),
-		inv_testing.OSUpdatePolicyInstalledPackages("test package"), inv_testing.OSUpdatePolicyKernelCommand("test command"),
+		inv_testing.OSUpdatePolicyInstallPackages("test package"), inv_testing.OSUpdatePolicyKernelCommand("test command"),
 		inv_testing.OSUpdatePolicyUpdateSources([]string{"test update source"}))
 
 	testcases := map[string]struct {
@@ -447,10 +447,10 @@ func Test_ImmutableFieldsOnUpdateOsUpdatePolicy(t *testing.T) {
 		},
 		"UpdateImmutableInstalledPackages": {
 			in: &computev1.OSUpdatePolicyResource{
-				InstalledPackages: "test_package",
+				InstallPackages: "test_package",
 			},
 			resourceID:   osUpPolicy3.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldInstalledPackages}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldInstallPackages}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},

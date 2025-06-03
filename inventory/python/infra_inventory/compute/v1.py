@@ -404,7 +404,7 @@ class OSUpdatePolicyResource(betterproto.Message):
     resource_id: str = betterproto.string_field(1)
     name: str = betterproto.string_field(2)
     description: str = betterproto.string_field(3)
-    installed_packages: str = betterproto.string_field(4)
+    install_packages: str = betterproto.string_field(4)
     update_sources: List[str] = betterproto.string_field(5)
     kernel_command: str = betterproto.string_field(6)
     target_os: v1.OperatingSystemResource = betterproto.message_field(50)

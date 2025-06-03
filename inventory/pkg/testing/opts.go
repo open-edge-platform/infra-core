@@ -382,9 +382,9 @@ func OsUpdatePolicyDescription(desc string) Opt[compute_v1.OSUpdatePolicyResourc
 	}
 }
 
-func OSUpdatePolicyInstalledPackages(pkgs string) Opt[compute_v1.OSUpdatePolicyResource] {
+func OSUpdatePolicyInstallPackages(pkgs string) Opt[compute_v1.OSUpdatePolicyResource] {
 	return func(oup *compute_v1.OSUpdatePolicyResource) {
-		oup.InstalledPackages = pkgs
+		oup.InstallPackages = pkgs
 	}
 }
 

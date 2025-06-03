@@ -18408,25 +18408,25 @@ func (m *OSUpdatePolicyMutation) ResetEdge(name string) error {
 // OSUpdatePolicyResourceMutation represents an operation that mutates the OSUpdatePolicyResource nodes in the graph.
 type OSUpdatePolicyResourceMutation struct {
 	config
-	op                 Op
-	typ                string
-	id                 *int
-	resource_id        *string
-	name               *string
-	description        *string
-	installed_packages *string
-	update_sources     *string
-	kernel_command     *string
-	update_policy      *osupdatepolicyresource.UpdatePolicy
-	tenant_id          *string
-	created_at         *string
-	updated_at         *string
-	clearedFields      map[string]struct{}
-	target_os          *int
-	clearedtarget_os   bool
-	done               bool
-	oldValue           func(context.Context) (*OSUpdatePolicyResource, error)
-	predicates         []predicate.OSUpdatePolicyResource
+	op               Op
+	typ              string
+	id               *int
+	resource_id      *string
+	name             *string
+	description      *string
+	install_packages *string
+	update_sources   *string
+	kernel_command   *string
+	update_policy    *osupdatepolicyresource.UpdatePolicy
+	tenant_id        *string
+	created_at       *string
+	updated_at       *string
+	clearedFields    map[string]struct{}
+	target_os        *int
+	clearedtarget_os bool
+	done             bool
+	oldValue         func(context.Context) (*OSUpdatePolicyResource, error)
+	predicates       []predicate.OSUpdatePolicyResource
 }
 
 var _ ent.Mutation = (*OSUpdatePolicyResourceMutation)(nil)
@@ -18648,53 +18648,53 @@ func (m *OSUpdatePolicyResourceMutation) ResetDescription() {
 	delete(m.clearedFields, osupdatepolicyresource.FieldDescription)
 }
 
-// SetInstalledPackages sets the "installed_packages" field.
-func (m *OSUpdatePolicyResourceMutation) SetInstalledPackages(s string) {
-	m.installed_packages = &s
+// SetInstallPackages sets the "install_packages" field.
+func (m *OSUpdatePolicyResourceMutation) SetInstallPackages(s string) {
+	m.install_packages = &s
 }
 
-// InstalledPackages returns the value of the "installed_packages" field in the mutation.
-func (m *OSUpdatePolicyResourceMutation) InstalledPackages() (r string, exists bool) {
-	v := m.installed_packages
+// InstallPackages returns the value of the "install_packages" field in the mutation.
+func (m *OSUpdatePolicyResourceMutation) InstallPackages() (r string, exists bool) {
+	v := m.install_packages
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldInstalledPackages returns the old "installed_packages" field's value of the OSUpdatePolicyResource entity.
+// OldInstallPackages returns the old "install_packages" field's value of the OSUpdatePolicyResource entity.
 // If the OSUpdatePolicyResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyResourceMutation) OldInstalledPackages(ctx context.Context) (v string, err error) {
+func (m *OSUpdatePolicyResourceMutation) OldInstallPackages(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldInstalledPackages is only allowed on UpdateOne operations")
+		return v, errors.New("OldInstallPackages is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldInstalledPackages requires an ID field in the mutation")
+		return v, errors.New("OldInstallPackages requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldInstalledPackages: %w", err)
+		return v, fmt.Errorf("querying old value for OldInstallPackages: %w", err)
 	}
-	return oldValue.InstalledPackages, nil
+	return oldValue.InstallPackages, nil
 }
 
-// ClearInstalledPackages clears the value of the "installed_packages" field.
-func (m *OSUpdatePolicyResourceMutation) ClearInstalledPackages() {
-	m.installed_packages = nil
-	m.clearedFields[osupdatepolicyresource.FieldInstalledPackages] = struct{}{}
+// ClearInstallPackages clears the value of the "install_packages" field.
+func (m *OSUpdatePolicyResourceMutation) ClearInstallPackages() {
+	m.install_packages = nil
+	m.clearedFields[osupdatepolicyresource.FieldInstallPackages] = struct{}{}
 }
 
-// InstalledPackagesCleared returns if the "installed_packages" field was cleared in this mutation.
-func (m *OSUpdatePolicyResourceMutation) InstalledPackagesCleared() bool {
-	_, ok := m.clearedFields[osupdatepolicyresource.FieldInstalledPackages]
+// InstallPackagesCleared returns if the "install_packages" field was cleared in this mutation.
+func (m *OSUpdatePolicyResourceMutation) InstallPackagesCleared() bool {
+	_, ok := m.clearedFields[osupdatepolicyresource.FieldInstallPackages]
 	return ok
 }
 
-// ResetInstalledPackages resets all changes to the "installed_packages" field.
-func (m *OSUpdatePolicyResourceMutation) ResetInstalledPackages() {
-	m.installed_packages = nil
-	delete(m.clearedFields, osupdatepolicyresource.FieldInstalledPackages)
+// ResetInstallPackages resets all changes to the "install_packages" field.
+func (m *OSUpdatePolicyResourceMutation) ResetInstallPackages() {
+	m.install_packages = nil
+	delete(m.clearedFields, osupdatepolicyresource.FieldInstallPackages)
 }
 
 // SetUpdateSources sets the "update_sources" field.
@@ -19035,8 +19035,8 @@ func (m *OSUpdatePolicyResourceMutation) Fields() []string {
 	if m.description != nil {
 		fields = append(fields, osupdatepolicyresource.FieldDescription)
 	}
-	if m.installed_packages != nil {
-		fields = append(fields, osupdatepolicyresource.FieldInstalledPackages)
+	if m.install_packages != nil {
+		fields = append(fields, osupdatepolicyresource.FieldInstallPackages)
 	}
 	if m.update_sources != nil {
 		fields = append(fields, osupdatepolicyresource.FieldUpdateSources)
@@ -19070,8 +19070,8 @@ func (m *OSUpdatePolicyResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case osupdatepolicyresource.FieldDescription:
 		return m.Description()
-	case osupdatepolicyresource.FieldInstalledPackages:
-		return m.InstalledPackages()
+	case osupdatepolicyresource.FieldInstallPackages:
+		return m.InstallPackages()
 	case osupdatepolicyresource.FieldUpdateSources:
 		return m.UpdateSources()
 	case osupdatepolicyresource.FieldKernelCommand:
@@ -19099,8 +19099,8 @@ func (m *OSUpdatePolicyResourceMutation) OldField(ctx context.Context, name stri
 		return m.OldName(ctx)
 	case osupdatepolicyresource.FieldDescription:
 		return m.OldDescription(ctx)
-	case osupdatepolicyresource.FieldInstalledPackages:
-		return m.OldInstalledPackages(ctx)
+	case osupdatepolicyresource.FieldInstallPackages:
+		return m.OldInstallPackages(ctx)
 	case osupdatepolicyresource.FieldUpdateSources:
 		return m.OldUpdateSources(ctx)
 	case osupdatepolicyresource.FieldKernelCommand:
@@ -19143,12 +19143,12 @@ func (m *OSUpdatePolicyResourceMutation) SetField(name string, value ent.Value) 
 		}
 		m.SetDescription(v)
 		return nil
-	case osupdatepolicyresource.FieldInstalledPackages:
+	case osupdatepolicyresource.FieldInstallPackages:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetInstalledPackages(v)
+		m.SetInstallPackages(v)
 		return nil
 	case osupdatepolicyresource.FieldUpdateSources:
 		v, ok := value.(string)
@@ -19225,8 +19225,8 @@ func (m *OSUpdatePolicyResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(osupdatepolicyresource.FieldDescription) {
 		fields = append(fields, osupdatepolicyresource.FieldDescription)
 	}
-	if m.FieldCleared(osupdatepolicyresource.FieldInstalledPackages) {
-		fields = append(fields, osupdatepolicyresource.FieldInstalledPackages)
+	if m.FieldCleared(osupdatepolicyresource.FieldInstallPackages) {
+		fields = append(fields, osupdatepolicyresource.FieldInstallPackages)
 	}
 	if m.FieldCleared(osupdatepolicyresource.FieldUpdateSources) {
 		fields = append(fields, osupdatepolicyresource.FieldUpdateSources)
@@ -19254,8 +19254,8 @@ func (m *OSUpdatePolicyResourceMutation) ClearField(name string) error {
 	case osupdatepolicyresource.FieldDescription:
 		m.ClearDescription()
 		return nil
-	case osupdatepolicyresource.FieldInstalledPackages:
-		m.ClearInstalledPackages()
+	case osupdatepolicyresource.FieldInstallPackages:
+		m.ClearInstallPackages()
 		return nil
 	case osupdatepolicyresource.FieldUpdateSources:
 		m.ClearUpdateSources()
@@ -19283,8 +19283,8 @@ func (m *OSUpdatePolicyResourceMutation) ResetField(name string) error {
 	case osupdatepolicyresource.FieldDescription:
 		m.ResetDescription()
 		return nil
-	case osupdatepolicyresource.FieldInstalledPackages:
-		m.ResetInstalledPackages()
+	case osupdatepolicyresource.FieldInstallPackages:
+		m.ResetInstallPackages()
 		return nil
 	case osupdatepolicyresource.FieldUpdateSources:
 		m.ResetUpdateSources()

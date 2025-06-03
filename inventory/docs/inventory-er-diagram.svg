@@ -1313,7 +1313,7 @@
 <text text-anchor="start" x="1415.17" y="-4103.57" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="996.54,-4022.37 996.54,-4082.37 1671.54,-4082.37 1671.54,-4022.37 996.54,-4022.37"/>
 <polygon fill="none" stroke="#29235c" points="996.54,-4022.37 996.54,-4082.37 1671.54,-4082.37 1671.54,-4022.37 996.54,-4022.37"/>
-<text text-anchor="start" x="1007.54" y="-4042.57" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">installed_packages &#160;&#160;&#160;</text>
+<text text-anchor="start" x="1007.54" y="-4042.57" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">install_packages &#160;&#160;&#160;</text>
 <text text-anchor="start" x="1415.17" y="-4043.57" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="996.54,-3962.37 996.54,-4022.37 1671.54,-4022.37 1671.54,-3962.37 996.54,-3962.37"/>
 <polygon fill="none" stroke="#29235c" points="996.54,-3962.37 996.54,-4022.37 1671.54,-4022.37 1671.54,-3962.37 996.54,-3962.37"/>
