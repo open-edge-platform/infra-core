@@ -174,6 +174,7 @@ const (
 	OSUpdatePolicyFieldUpdateSources   = "update_sources"
 	OSUpdatePolicyFieldKernelCommand   = "kernel_command"
 	OSUpdatePolicyEdgeTargetOs         = "target_os"
+	OSUpdatePolicyFieldTargetOsId      = "target_os_id"
 	OSUpdatePolicyFieldUpdatePolicy    = "update_policy"
 	OSUpdatePolicyEdgeTimestamps       = "timestamps"
 
