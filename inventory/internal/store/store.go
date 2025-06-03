@@ -216,6 +216,26 @@ func setEdgeProviderIDForMut(
 	return nil
 }
 
+func setEdgeOSPolicyUpdateIDForMut(
+	ctx context.Context, client *ent.Client, mut ent.Mutation, opu *computev1.OSUpdatePolicyResource,
+) error {
+	if opu == nil {
+		return nil
+	}
+	oupID, qerr := getOSPolicyUpdateIDFromResourceID(ctx, client, opu)
+	if qerr != nil {
+		return qerr
+	}
+	switch mut := mut.(type) {
+	case *ent.InstanceResourceMutation:
+		mut.SetOsUpdatePolicyID(oupID)
+	default:
+		zlog.InfraSec().InfraError("unknown mutation kind: %T", mut).Msg("")
+		return errors.Errorfc(codes.InvalidArgument, "unknown mutation kind: %T", mut)
+	}
+	return nil
+}
+
 func setEdgeLocalAccountIDForMut(
 	ctx context.Context, client *ent.Client, mut ent.Mutation, localaccountres *localaccountv1.LocalAccountResource,
 ) error {

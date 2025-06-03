@@ -78,6 +78,8 @@ const (
 	EdgeProvider = "provider"
 	// EdgeLocalaccount holds the string denoting the localaccount edge name in mutations.
 	EdgeLocalaccount = "localaccount"
+	// EdgeOsUpdatePolicy holds the string denoting the os_update_policy edge name in mutations.
+	EdgeOsUpdatePolicy = "os_update_policy"
 	// Table holds the table name of the instanceresource in the database.
 	Table = "instance_resources"
 	// HostTable is the table that holds the host relation/edge.
@@ -122,6 +124,13 @@ const (
 	LocalaccountInverseTable = "local_account_resources"
 	// LocalaccountColumn is the table column denoting the localaccount relation/edge.
 	LocalaccountColumn = "instance_resource_localaccount"
+	// OsUpdatePolicyTable is the table that holds the os_update_policy relation/edge.
+	OsUpdatePolicyTable = "instance_resources"
+	// OsUpdatePolicyInverseTable is the table name for the OSUpdatePolicyResource entity.
+	// It exists in this package in order to avoid circular dependency with the "osupdatepolicyresource" package.
+	OsUpdatePolicyInverseTable = "os_update_policy_resources"
+	// OsUpdatePolicyColumn is the table column denoting the os_update_policy relation/edge.
+	OsUpdatePolicyColumn = "instance_resource_os_update_policy"
 )
 
 // Columns holds all SQL columns for instanceresource fields.
@@ -162,6 +171,7 @@ var ForeignKeys = []string{
 	"instance_resource_current_os",
 	"instance_resource_provider",
 	"instance_resource_localaccount",
+	"instance_resource_os_update_policy",
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -563,6 +573,13 @@ func ByLocalaccountField(field string, opts ...sql.OrderTermOption) OrderOption 
 		sqlgraph.OrderByNeighborTerms(s, newLocalaccountStep(), sql.OrderByField(field, opts...))
 	}
 }
+
+// ByOsUpdatePolicyField orders the results by os_update_policy field.
+func ByOsUpdatePolicyField(field string, opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newOsUpdatePolicyStep(), sql.OrderByField(field, opts...))
+	}
+}
 func newHostStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
@@ -603,5 +620,12 @@ func newLocalaccountStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(LocalaccountInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.M2O, false, LocalaccountTable, LocalaccountColumn),
+	)
+}
+func newOsUpdatePolicyStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(OsUpdatePolicyInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.M2O, false, OsUpdatePolicyTable, OsUpdatePolicyColumn),
 	)
 }

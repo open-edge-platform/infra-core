@@ -405,3 +405,11 @@ func OSUpdatePolicyTargetOS(targetOS *osv1.OperatingSystemResource) Opt[compute_
 		oup.TargetOs = targetOS
 	}
 }
+
+func InstanceOsUpdatePolicy(
+	policy *compute_v1.OSUpdatePolicyResource,
+) Opt[compute_v1.InstanceResource] {
+	return func(i *compute_v1.InstanceResource) {
+		i.OsUpdatePolicy = policy
+	}
+}

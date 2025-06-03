@@ -11618,6 +11618,8 @@ type InstanceResourceMutation struct {
 	clearedprovider                         bool
 	localaccount                            *int
 	clearedlocalaccount                     bool
+	os_update_policy                        *int
+	clearedos_update_policy                 bool
 	done                                    bool
 	oldValue                                func(context.Context) (*InstanceResource, error)
 	predicates                              []predicate.InstanceResource
@@ -13339,6 +13341,45 @@ func (m *InstanceResourceMutation) ResetLocalaccount() {
 	m.clearedlocalaccount = false
 }
 
+// SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by id.
+func (m *InstanceResourceMutation) SetOsUpdatePolicyID(id int) {
+	m.os_update_policy = &id
+}
+
+// ClearOsUpdatePolicy clears the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (m *InstanceResourceMutation) ClearOsUpdatePolicy() {
+	m.clearedos_update_policy = true
+}
+
+// OsUpdatePolicyCleared reports if the "os_update_policy" edge to the OSUpdatePolicyResource entity was cleared.
+func (m *InstanceResourceMutation) OsUpdatePolicyCleared() bool {
+	return m.clearedos_update_policy
+}
+
+// OsUpdatePolicyID returns the "os_update_policy" edge ID in the mutation.
+func (m *InstanceResourceMutation) OsUpdatePolicyID() (id int, exists bool) {
+	if m.os_update_policy != nil {
+		return *m.os_update_policy, true
+	}
+	return
+}
+
+// OsUpdatePolicyIDs returns the "os_update_policy" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// OsUpdatePolicyID instead. It exists only for internal usage by the builders.
+func (m *InstanceResourceMutation) OsUpdatePolicyIDs() (ids []int) {
+	if id := m.os_update_policy; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetOsUpdatePolicy resets all changes to the "os_update_policy" edge.
+func (m *InstanceResourceMutation) ResetOsUpdatePolicy() {
+	m.os_update_policy = nil
+	m.clearedos_update_policy = false
+}
+
 // Where appends a list predicates to the InstanceResourceMutation builder.
 func (m *InstanceResourceMutation) Where(ps ...predicate.InstanceResource) {
 	m.predicates = append(m.predicates, ps...)
@@ -14119,7 +14160,7 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *InstanceResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.host != nil {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -14137,6 +14178,9 @@ func (m *InstanceResourceMutation) AddedEdges() []string {
 	}
 	if m.localaccount != nil {
 		edges = append(edges, instanceresource.EdgeLocalaccount)
+	}
+	if m.os_update_policy != nil {
+		edges = append(edges, instanceresource.EdgeOsUpdatePolicy)
 	}
 	return edges
 }
@@ -14171,13 +14215,17 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 		if id := m.localaccount; id != nil {
 			return []ent.Value{*id}
 		}
+	case instanceresource.EdgeOsUpdatePolicy:
+		if id := m.os_update_policy; id != nil {
+			return []ent.Value{*id}
+		}
 	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *InstanceResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
 	}
@@ -14200,7 +14248,7 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *InstanceResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.clearedhost {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -14218,6 +14266,9 @@ func (m *InstanceResourceMutation) ClearedEdges() []string {
 	}
 	if m.clearedlocalaccount {
 		edges = append(edges, instanceresource.EdgeLocalaccount)
+	}
+	if m.clearedos_update_policy {
+		edges = append(edges, instanceresource.EdgeOsUpdatePolicy)
 	}
 	return edges
 }
@@ -14238,6 +14289,8 @@ func (m *InstanceResourceMutation) EdgeCleared(name string) bool {
 		return m.clearedprovider
 	case instanceresource.EdgeLocalaccount:
 		return m.clearedlocalaccount
+	case instanceresource.EdgeOsUpdatePolicy:
+		return m.clearedos_update_policy
 	}
 	return false
 }
@@ -14260,6 +14313,9 @@ func (m *InstanceResourceMutation) ClearEdge(name string) error {
 		return nil
 	case instanceresource.EdgeLocalaccount:
 		m.ClearLocalaccount()
+		return nil
+	case instanceresource.EdgeOsUpdatePolicy:
+		m.ClearOsUpdatePolicy()
 		return nil
 	}
 	return fmt.Errorf("unknown InstanceResource unique edge %s", name)
@@ -14286,6 +14342,9 @@ func (m *InstanceResourceMutation) ResetEdge(name string) error {
 		return nil
 	case instanceresource.EdgeLocalaccount:
 		m.ResetLocalaccount()
+		return nil
+	case instanceresource.EdgeOsUpdatePolicy:
+		m.ResetOsUpdatePolicy()
 		return nil
 	}
 	return fmt.Errorf("unknown InstanceResource edge %s", name)

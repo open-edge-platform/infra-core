@@ -13,6 +13,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/workloadmember"
 )
@@ -458,6 +459,25 @@ func (irc *InstanceResourceCreate) SetLocalaccount(l *LocalAccountResource) *Ins
 	return irc.SetLocalaccountID(l.ID)
 }
 
+// SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID.
+func (irc *InstanceResourceCreate) SetOsUpdatePolicyID(id int) *InstanceResourceCreate {
+	irc.mutation.SetOsUpdatePolicyID(id)
+	return irc
+}
+
+// SetNillableOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceCreate {
+	if id != nil {
+		irc = irc.SetOsUpdatePolicyID(*id)
+	}
+	return irc
+}
+
+// SetOsUpdatePolicy sets the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (irc *InstanceResourceCreate) SetOsUpdatePolicy(o *OSUpdatePolicyResource) *InstanceResourceCreate {
+	return irc.SetOsUpdatePolicyID(o.ID)
+}
+
 // Mutation returns the InstanceResourceMutation object of the builder.
 func (irc *InstanceResourceCreate) Mutation() *InstanceResourceMutation {
 	return irc.mutation
@@ -775,6 +795,23 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.instance_resource_localaccount = &nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := irc.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsUpdatePolicyTable,
+			Columns: []string{instanceresource.OsUpdatePolicyColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_node.instance_resource_os_update_policy = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

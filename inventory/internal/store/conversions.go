@@ -724,6 +724,9 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if localaccount, qerr := ins.Edges.LocalaccountOrErr(); qerr == nil {
 		protoInstance.Localaccount = entLocalAccountResourceToProtoLocalAccountResource(localaccount)
 	}
+	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
+		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
+	}
 
 	return protoInstance
 }

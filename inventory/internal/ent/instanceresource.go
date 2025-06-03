@@ -12,6 +12,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 )
 
@@ -74,12 +75,13 @@ type InstanceResource struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the InstanceResourceQuery when eager-loading is set.
-	Edges                          InstanceResourceEdges `json:"edges"`
-	instance_resource_desired_os   *int
-	instance_resource_current_os   *int
-	instance_resource_provider     *int
-	instance_resource_localaccount *int
-	selectValues                   sql.SelectValues
+	Edges                              InstanceResourceEdges `json:"edges"`
+	instance_resource_desired_os       *int
+	instance_resource_current_os       *int
+	instance_resource_provider         *int
+	instance_resource_localaccount     *int
+	instance_resource_os_update_policy *int
+	selectValues                       sql.SelectValues
 }
 
 // InstanceResourceEdges holds the relations/edges for other nodes in the graph.
@@ -96,9 +98,11 @@ type InstanceResourceEdges struct {
 	Provider *ProviderResource `json:"provider,omitempty"`
 	// Localaccount holds the value of the localaccount edge.
 	Localaccount *LocalAccountResource `json:"localaccount,omitempty"`
+	// OsUpdatePolicy holds the value of the os_update_policy edge.
+	OsUpdatePolicy *OSUpdatePolicyResource `json:"os_update_policy,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [6]bool
+	loadedTypes [7]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -165,6 +169,17 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 	return nil, &NotLoadedError{edge: "localaccount"}
 }
 
+// OsUpdatePolicyOrErr returns the OsUpdatePolicy value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, error) {
+	if e.OsUpdatePolicy != nil {
+		return e.OsUpdatePolicy, nil
+	} else if e.loadedTypes[6] {
+		return nil, &NotFoundError{label: osupdatepolicyresource.Label}
+	}
+	return nil, &NotLoadedError{edge: "os_update_policy"}
+}
+
 // scanValues returns the types for scanning values from sql.Rows.
 func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
@@ -181,6 +196,8 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		case instanceresource.ForeignKeys[2]: // instance_resource_provider
 			values[i] = new(sql.NullInt64)
 		case instanceresource.ForeignKeys[3]: // instance_resource_localaccount
+			values[i] = new(sql.NullInt64)
+		case instanceresource.ForeignKeys[4]: // instance_resource_os_update_policy
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -387,6 +404,13 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 				ir.instance_resource_localaccount = new(int)
 				*ir.instance_resource_localaccount = int(value.Int64)
 			}
+		case instanceresource.ForeignKeys[4]:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os_update_policy", value)
+			} else if value.Valid {
+				ir.instance_resource_os_update_policy = new(int)
+				*ir.instance_resource_os_update_policy = int(value.Int64)
+			}
 		default:
 			ir.selectValues.Set(columns[i], values[i])
 		}
@@ -428,6 +452,11 @@ func (ir *InstanceResource) QueryProvider() *ProviderResourceQuery {
 // QueryLocalaccount queries the "localaccount" edge of the InstanceResource entity.
 func (ir *InstanceResource) QueryLocalaccount() *LocalAccountResourceQuery {
 	return NewInstanceResourceClient(ir.config).QueryLocalaccount(ir)
+}
+
+// QueryOsUpdatePolicy queries the "os_update_policy" edge of the InstanceResource entity.
+func (ir *InstanceResource) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
+	return NewInstanceResourceClient(ir.config).QueryOsUpdatePolicy(ir)
 }
 
 // Update returns a builder for updating this InstanceResource.

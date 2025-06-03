@@ -506,7 +506,18 @@ func Test_ImmutableFieldsOnUpdateOsUpdatePolicy(t *testing.T) {
 	}
 }
 
-// TODO: add strong relations tests when adding link to the Instance
+func Test_StrongRelations_On_Delete_OsUpdatePolicy(t *testing.T) {
+	dao := inv_testing.NewInvResourceDAOOrFail(t)
+	tenantID := uuid.NewString()
+	host := dao.CreateHost(t, tenantID)
+	os := dao.CreateOs(t, tenantID)
+	oupRes := dao.CreateOSUpdatePolicy(t, tenantID,
+		inv_testing.OsUpdatePolicyName("OsPolicy"), inv_testing.OSUpdatePolicyLatest())
+	dao.CreateInstanceWithOpts(t, tenantID, host, os, true, inv_testing.InstanceOsUpdatePolicy(oupRes))
+
+	err := dao.DeleteResourceAndReturnError(t, tenantID, oupRes.GetResourceId())
+	assertStrongRelationError(t, err, "Cannot delete OS Update Policy")
+}
 
 func Test_OsUpdatePolicyEnumStateMap(t *testing.T) {
 	v, err := store.OSUpdatePolicyEnumStateMap("invalid_input", int32(computev1.UpdatePolicy_UPDATE_POLICY_LATEST))

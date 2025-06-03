@@ -158,6 +158,7 @@ const (
 	InstanceResourceEdgeWorkloadMembers                    = "workload_members"
 	InstanceResourceEdgeProvider                           = "provider"
 	InstanceResourceEdgeLocalaccount                       = "localaccount"
+	InstanceResourceEdgeOsUpdatePolicy                     = "os_update_policy"
 	InstanceResourceFieldTenantId                          = "tenant_id"
 	InstanceResourceFieldInstanceStatusDetail              = "instance_status_detail"
 	InstanceResourceFieldCreatedAt                         = "created_at"

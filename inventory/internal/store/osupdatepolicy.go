@@ -12,6 +12,7 @@ import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	oup "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	compute_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
@@ -215,6 +216,17 @@ func (is *InvStore) DeleteOSUpdatePolicy(ctx context.Context, id string) (*inv_v
 
 func deleteOSUpdatePolicy(resourceID string) func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
 	return func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
+		count, err := tx.InstanceResource.Query().
+			Where(instanceresource.HasOsUpdatePolicyWith(oup.ResourceID(resourceID))).
+			Count(ctx)
+		if err != nil {
+			return nil, errors.Wrap(err)
+		}
+		if count > 0 {
+			return nil, errors.Errorfc(codes.FailedPrecondition,
+				"Cannot delete OS Update Policy %s, it is still referenced by %d instances",
+				resourceID, count)
+		}
 		entity, err := tx.OSUpdatePolicyResource.Query().
 			Where(oup.ResourceID(resourceID)).
 			Only(ctx)
@@ -358,4 +370,16 @@ func (is *InvStore) FilterOSUpdatePolicies(ctx context.Context, filter *inv_v1.R
 		})
 
 	return ids, *total, err
+}
+
+func getOSPolicyUpdateIDFromResourceID(
+	ctx context.Context, client *ent.Client, osPolicyUpdate *compute_v1.OSUpdatePolicyResource,
+) (int, error) {
+	oup, qerr := client.OSUpdatePolicyResource.Query().
+		Where(oup.ResourceID(osPolicyUpdate.ResourceId)).
+		Only(ctx)
+	if qerr != nil {
+		return 0, errors.Wrap(qerr)
+	}
+	return oup.ID, nil
 }
