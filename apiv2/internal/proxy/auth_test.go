@@ -38,7 +38,7 @@ var (
 )
 
 // To create a request with an authorization header.
-func createRequestWithAuthHeader(authScheme, authToken string, method string) *http.Request {
+func createRequestWithAuthHeader(authScheme, authToken, method string) *http.Request {
 	req := httptest.NewRequest(method, "/", http.NoBody)
 	req.Header.Set("Authorization", fmt.Sprintf("%s %s", authScheme, authToken))
 	return req
