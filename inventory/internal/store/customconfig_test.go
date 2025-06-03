@@ -20,14 +20,14 @@ package_update: true
 package_upgrade: true
 
 write_files:
-	- path: /etc/environment
-		content: |
-			http_proxy=http://your.proxy.address:port
-			https_proxy=https://your.proxy.address:port
-			no_proxy=localhost,127.0.0.1
+    - path: /etc/environment
+      content: |
+            http_proxy=http://your.proxy.address:port
+            https_proxy=https://your.proxy.address:port
+            no_proxy=localhost,127.0.0.1
 
 runcmd:
-	- source /etc/environment`
+    - source /etc/environment`
 
 func Test_Create_Get_Delete_CustomConfig(t *testing.T) {
 	testcases := map[string]struct {
@@ -43,6 +43,7 @@ func Test_Create_Get_Delete_CustomConfig(t *testing.T) {
 			valid: true,
 		},
 	}
+
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
 			createresreq := &inv_v1.Resource{
