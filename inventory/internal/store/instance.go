@@ -97,6 +97,7 @@ func (is *InvStore) CreateInstance(ctx context.Context, in *computev1.InstanceRe
 	return res, nil
 }
 
+//nolint:cyclop // high cyclomatic complexity due to setting many fields in instance resource.
 func instanceResourceCreator(in *computev1.InstanceResource) func(context.Context, *ent.Tx) (
 	*inv_v1.Resource, error) {
 	return func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
@@ -279,7 +280,6 @@ func (is *InvStore) UpdateInstance(
 			}
 
 			updateBuilder := tx.InstanceResource.UpdateOneID(entity.ID)
-
 			mut := updateBuilder.Mutation()
 
 			// Look up the (new) referenced edges for this Instance.
