@@ -6,15 +6,15 @@ metadata:
   release: 0.0.0-dev
   version: 0.3.0
 spec:
-  name: Edge Microvisor Toolkit 3.0.20250518
+  name: Edge Microvisor Toolkit 3.0.20250526
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-nonrt  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250518.2200.raw.gz
-  osImageVersion: 3.0.20250518.2200
-  osImageSha256: daee43d21c5d448ec9edb1e3da314601daebb79a4147b28e8094b077d345c930
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250518.2200_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250526.2348.raw.gz
+  osImageVersion: 3.0.20250526.2348
+  osImageSha256: dde06cf2ce6249936fffdf1b5537dc4d3a2895382bd25f46c8ee9d7c983458a5
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250526.2348_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit for x86_64 architecture
   platformBundle:
