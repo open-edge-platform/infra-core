@@ -17,6 +17,8 @@ const (
 	DefaultProvisioningStatus       = "Not Provisioned"
 	DefaultUpdateStatus             = "No Current Update"
 	DefaultTrustedAttestationStatus = "Unknown"
+	DefaultPowerStatus              = "Unknown"
+	DefaultAmtStatus                = "Unknown"
 )
 
 type ResourceStatus struct {

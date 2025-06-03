@@ -28,6 +28,8 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
+// handle AMT and Power related fields in the *HostRequest and *RegisterHostRequest
+
 // OpenAPIHostToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs HostTemplate and HostBmManagementInfo defined in
@@ -697,11 +699,11 @@ func (is *InventorygRPCServer) OnboardHost(
 }
 
 // Onboard a host.
-func (is *InventorygRPCServer) RegisterUpdateHost(
+func (is *InventorygRPCServer) PatchRegisterHost(
 	ctx context.Context,
 	req *restv1.RegisterHostRequest,
 ) (*computev1.HostResource, error) {
-	zlog.Debug().Msg("RegisterUpdateHost")
+	zlog.Debug().Msg("PatchRegisterHost")
 	hostResource := &inv_computev1.HostResource{
 		Name:         req.GetHost().GetName(),
 		DesiredState: inv_computev1.HostState_HOST_STATE_REGISTERED,

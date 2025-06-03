@@ -50,12 +50,14 @@
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
+    - [AmtState](#resources-compute-v1-AmtState)
     - [BaremetalControllerKind](#resources-compute-v1-BaremetalControllerKind)
     - [HostComponentState](#resources-compute-v1-HostComponentState)
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
     - [LinkState](#resources-compute-v1-LinkState)
+    - [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy)
     - [PowerState](#resources-compute-v1-PowerState)
     - [UpdatePolicy](#resources-compute-v1-UpdatePolicy)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
@@ -484,6 +486,10 @@ An OS resource.
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. |
+| existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
+| fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |
+| fixed_cves | [string](#string) |  | The CVEs that have been fixed by this OS Resource version, encoded as a JSON list. |
 | os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
 | repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
@@ -727,8 +733,13 @@ A Host resource.
 | bios_version | [string](#string) |  | BIOS Version. |
 | bios_release_date | [string](#string) |  | BIOS Release Date. |
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
-| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
 | desired_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Desired power state of the host |
+| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
+| power_status | [string](#string) |  | textual message that describes the runtime status of Host power. Set by DM RM only. |
+| power_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the power_status. Set by DM RM only. |
+| power_status_timestamp | [uint32](#uint32) |  | UTC timestamp when power_status was last changed. Set by DM RM only. |
+| power_command_policy | [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy) |  | Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED. |
+| power_on_time | [uint32](#uint32) |  | UTC timestamp when the host was powered on. Set by DM RM only. |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
 | host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
@@ -743,6 +754,12 @@ A Host resource.
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
+| amt_sku | [string](#string) |  | coming from device introspection |
+| desired_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
+| current_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
+| amt_status | [string](#string) |  | coming from device introspection. Set only by the DM RM. |
+| amt_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
+| amt_status_timestamp | [uint32](#uint32) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -858,8 +875,8 @@ host or hypervisor.
 | current_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance current state. |
 | host | [HostResource](#resources-compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
-| desired_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
-| current_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
+| desired_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance. |
+| current_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance. |
 | security_feature | [resources.os.v1.SecurityFeature](#resources-os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
@@ -870,7 +887,7 @@ host or hypervisor.
 | update_status | [string](#string) |  | textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [uint32](#uint32) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
-| update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
+| update_status_detail | [string](#string) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
 | trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
 | trusted_attestation_status_timestamp | [uint32](#uint32) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
@@ -880,9 +897,12 @@ back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
 | update_policy | [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | Update Policy of this Instance |
 | instance_status_detail | [string](#string) |  | Textual message that gives detailed status of the instance&#39;s software components. |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
+| runtime_packages | [string](#string) |  | The packages available on the Instance at runtime, represented as a JSON list. |
+| os_update_available | [string](#string) |  | Details about OS Updates available for this Instance. If empty, there are no updates available. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
-| osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
+| osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
 | os_update_policyID | [string](#string) |  |  |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
@@ -1004,6 +1024,20 @@ A generic way to group compute resources to obtain a workload.
  
 
 
+<a name="resources-compute-v1-AmtState"></a>
+
+### AmtState
+The state of the AMT (Active Management Technology) component.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_STATE_UNSPECIFIED | 0 |  |
+| AMT_STATE_PROVISIONED | 1 |  |
+| AMT_STATE_UNPROVISIONED | 2 |  |
+| AMT_STATE_DISCONNECTED | 3 |  |
+
+
+
 <a name="resources-compute-v1-BaremetalControllerKind"></a>
 
 ### BaremetalControllerKind
@@ -1087,6 +1121,19 @@ The state of the network interface.
 
 
 
+<a name="resources-compute-v1-PowerCommandPolicy"></a>
+
+### PowerCommandPolicy
+The policy for handling power commands.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_COMMAND_POLICY_UNSPECIFIED | 0 |  |
+| POWER_COMMAND_POLICY_IMMEDIATE | 1 |  |
+| POWER_COMMAND_POLICY_ORDERED | 2 |  |
+
+
+
 <a name="resources-compute-v1-PowerState"></a>
 
 ### PowerState
@@ -1095,9 +1142,11 @@ The host power state.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | POWER_STATE_UNSPECIFIED | 0 |  |
-| POWER_STATE_ERROR | 1 |  |
 | POWER_STATE_ON | 2 |  |
 | POWER_STATE_OFF | 3 |  |
+| POWER_STATE_SLEEP | 4 |  |
+| POWER_STATE_HIBERNATE | 5 |  |
+| POWER_STATE_RESET | 6 |  |
 
 
 
@@ -1923,7 +1972,7 @@ Request message for DeleteHost.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the host host to be deleted. |
+| resourceId | [string](#string) |  | Name of the host host to be deleted. |
 
 
 
@@ -1948,7 +1997,7 @@ Request message for DeleteInstance.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the instance instance to be deleted. |
+| resourceId | [string](#string) |  | Name of the instance instance to be deleted. |
 
 
 
@@ -1973,7 +2022,7 @@ Request message for DeleteLocalAccount.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the localaccount to be deleted. |
+| resourceId | [string](#string) |  | Name of the localaccount to be deleted. |
 
 
 
@@ -1998,7 +2047,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the OS Update Policy to be deleted. |
+| resourceId | [string](#string) |  | Name of the OS Update Policy to be deleted. |
 
 
 
@@ -2023,7 +2072,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os update run to be deleted. |
+| resourceId | [string](#string) |  | Name of the os update run to be deleted. |
 
 
 
@@ -2048,7 +2097,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os os to be deleted. |
+| resourceId | [string](#string) |  | Name of the os os to be deleted. |
 
 
 
@@ -2073,7 +2122,7 @@ Request message for DeleteProvider.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the provider provider to be deleted. |
+| resourceId | [string](#string) |  | Name of the provider provider to be deleted. |
 
 
 
@@ -2098,7 +2147,7 @@ Request message for DeleteRegion.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the region region to be deleted. |
+| resourceId | [string](#string) |  | Name of the region region to be deleted. |
 
 
 
@@ -2123,7 +2172,7 @@ Request message for DeleteRepeatedSchedule.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be deleted. |
+| resourceId | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be deleted. |
 
 
 
@@ -2148,7 +2197,7 @@ Request message for DeleteSingleSchedule.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the single_schedule single_schedule to be deleted. |
+| resourceId | [string](#string) |  | Name of the single_schedule single_schedule to be deleted. |
 
 
 
@@ -2173,7 +2222,7 @@ Request message for DeleteSite.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the site site to be deleted. |
+| resourceId | [string](#string) |  | Name of the site site to be deleted. |
 
 
 
@@ -2198,7 +2247,7 @@ Request message for DeleteTelemetryLogsGroup.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_logs_group telemetry_logs_group to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_logs_group telemetry_logs_group to be deleted. |
 
 
 
@@ -2223,7 +2272,7 @@ Request message for DeleteTelemetryLogsProfile.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be deleted. |
 
 
 
@@ -2248,7 +2297,7 @@ Request message for DeleteTelemetryMetricsGroup.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_metrics_group telemetry_metrics_group to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_metrics_group telemetry_metrics_group to be deleted. |
 
 
 
@@ -2273,7 +2322,7 @@ Request message for DeleteTelemetryMetricsProfile.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted. |
 
 
 
@@ -2298,7 +2347,7 @@ Request message for DeleteWorkloadMember.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload_member workload_member to be deleted. |
+| resourceId | [string](#string) |  | Name of the workload_member workload_member to be deleted. |
 
 
 
@@ -2323,7 +2372,7 @@ Request message for DeleteWorkload.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload workload to be deleted. |
+| resourceId | [string](#string) |  | Name of the workload workload to be deleted. |
 
 
 
@@ -2348,7 +2397,7 @@ Request message for the GetHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested host. |
+| resourceId | [string](#string) |  | Name of the requested host. |
 
 
 
@@ -2411,7 +2460,7 @@ Request message for the GetInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested instance. |
+| resourceId | [string](#string) |  | Name of the requested instance. |
 
 
 
@@ -2441,7 +2490,7 @@ Request message for the GetLocalAccount method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested localaccount. |
+| resourceId | [string](#string) |  | Name of the requested localaccount. |
 
 
 
@@ -2471,7 +2520,7 @@ Request message for the GetOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested os. |
+| resourceId | [string](#string) |  | Name of the requested os. |
 
 
 
@@ -2501,7 +2550,7 @@ Request message for the GetOSUpdateRun method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested os. |
+| resourceId | [string](#string) |  | Name of the requested os. |
 
 
 
@@ -2531,7 +2580,7 @@ Request message for the GetOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested os. |
+| resourceId | [string](#string) |  | Name of the requested os. |
 
 
 
@@ -2561,7 +2610,7 @@ Request message for the GetProvider method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested provider. |
+| resourceId | [string](#string) |  | Name of the requested provider. |
 
 
 
@@ -2591,7 +2640,7 @@ Request message for the GetRegion method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested region. |
+| resourceId | [string](#string) |  | Name of the requested region. |
 
 
 
@@ -2621,7 +2670,7 @@ Request message for the GetRepeatedSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested repeated_schedule. |
+| resourceId | [string](#string) |  | Name of the requested repeated_schedule. |
 
 
 
@@ -2651,7 +2700,7 @@ Request message for the GetSingleSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested single_schedule. |
+| resourceId | [string](#string) |  | Name of the requested single_schedule. |
 
 
 
@@ -2681,7 +2730,7 @@ Request message for the GetSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested site. |
+| resourceId | [string](#string) |  | Name of the requested site. |
 
 
 
@@ -2711,7 +2760,7 @@ Request message for the GetTelemetryLogsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_logs_group. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_logs_group. |
 
 
 
@@ -2741,7 +2790,7 @@ Request message for the GetTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_logs_profile. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_logs_profile. |
 
 
 
@@ -2771,7 +2820,7 @@ Request message for the GetTelemetryMetricsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_metrics_group. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_metrics_group. |
 
 
 
@@ -2801,7 +2850,7 @@ Request message for the GetTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_metrics_profile. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_metrics_profile. |
 
 
 
@@ -2831,7 +2880,7 @@ Request message for the GetWorkloadMember method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested workload_member. |
+| resourceId | [string](#string) |  | Name of the requested workload_member. |
 
 
 
@@ -2861,7 +2910,7 @@ Request message for the GetWorkload method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested workload. |
+| resourceId | [string](#string) |  | Name of the requested workload. |
 
 
 
@@ -2894,7 +2943,8 @@ Message to register a Host.
 | name | [string](#string) |  | The host name. |
 | serial_number | [string](#string) |  | The host serial number. |
 | uuid | [string](#string) |  | The host UUID. |
-| auto_onboard | [bool](#bool) |  | Flag ot signal to automatically onboard the host. |
+| auto_onboard | [bool](#bool) |  | Flag to signal to automatically onboard the host. |
+| enable_vpro | [bool](#bool) |  | Flag to signal to enable vPRO on the host. |
 
 
 
@@ -2909,7 +2959,7 @@ Request to invalidate/untrust a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Host resource ID |
+| resourceId | [string](#string) |  | Host resource ID |
 | note | [string](#string) |  | user-provided reason for change or a freeform field |
 
 
@@ -2935,7 +2985,7 @@ Request message for Invalidate Instance.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Instance resource ID |
+| resourceId | [string](#string) |  | Instance resource ID |
 
 
 
@@ -3099,7 +3149,7 @@ A node in the location tree.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | The associated node resource ID, generated by inventory on Create. |
+| resourceId | [string](#string) |  | The associated node resource ID, generated by inventory on Create. |
 | parent_id | [string](#string) |  | The associated resource ID, of the parent resource of this Location node. In the case of a region, it could be empty or a regionId. In the case of a site, it could be empty or a regionId. |
 | name | [string](#string) |  | The node human readable name. |
 | type | [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind) |  | The node type |
@@ -3654,7 +3704,7 @@ Request to onboard a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Host resource ID |
+| resourceId | [string](#string) |  | Host resource ID |
 
 
 
@@ -3679,7 +3729,7 @@ Request message for the PatchHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of host. |
 
@@ -3696,7 +3746,7 @@ Request message for the PatchInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
 
@@ -3713,7 +3763,7 @@ Request message for the PatchOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of os. |
 
@@ -3730,7 +3780,7 @@ Request message for the PatchRegion method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of region. |
 
@@ -3747,7 +3797,7 @@ Request message for the PatchRepeatedSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of repeated_schedule. |
 
@@ -3764,7 +3814,7 @@ Request message for the PatchSingleSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of single_schedule. |
 
@@ -3781,7 +3831,7 @@ Request message for the PatchSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
 
@@ -3798,7 +3848,7 @@ Request message for the PatchTelemetryLogs method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_logs_profile. |
 
@@ -3815,7 +3865,7 @@ Request message for the PatchTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_metrics_profile. |
 
@@ -3832,7 +3882,7 @@ Request message for the PatchWorkload method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload. |
 
@@ -3849,7 +3899,7 @@ Request to register a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
+| resourceId | [string](#string) |  |  |
 | host | [HostRegister](#services-v1-HostRegister) |  |  |
 
 
@@ -3865,7 +3915,7 @@ Request message for the UpdateHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the host host to be updated. |
+| resourceId | [string](#string) |  | Name of the host host to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 
 
@@ -3881,7 +3931,7 @@ Request message for the UpdateInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 
 
@@ -3897,7 +3947,7 @@ Request message for the UpdateOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os os to be updated. |
+| resourceId | [string](#string) |  | Name of the os os to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 
 
@@ -3913,7 +3963,7 @@ Request message for the UpdateRegion method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the region region to be updated. |
+| resourceId | [string](#string) |  | Name of the region region to be updated. |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
 
 
@@ -3929,7 +3979,7 @@ Request message for the UpdateRepeatedSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be updated. |
+| resourceId | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be updated. |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
 
 
@@ -3945,7 +3995,7 @@ Request message for the UpdateSingleSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the single_schedule single_schedule to be updated. |
+| resourceId | [string](#string) |  | Name of the single_schedule single_schedule to be updated. |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
 
 
@@ -3961,7 +4011,7 @@ Request message for the UpdateSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the site site to be updated. |
+| resourceId | [string](#string) |  | Name of the site site to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 
 
@@ -3977,7 +4027,7 @@ Request message for the UpdateTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be updated. |
+| resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 
 
@@ -3993,7 +4043,7 @@ Request message for the UpdateTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
+| resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 
 
@@ -4009,7 +4059,7 @@ Request message for the UpdateWorkload method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload workload to be updated. |
+| resourceId | [string](#string) |  | Name of the workload workload to be updated. |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
 
 
@@ -4052,7 +4102,7 @@ Host.
 | DeleteHost | [DeleteHostRequest](#services-v1-DeleteHostRequest) | [DeleteHostResponse](#services-v1-DeleteHostResponse) | Delete a host. |
 | InvalidateHost | [InvalidateHostRequest](#services-v1-InvalidateHostRequest) | [InvalidateHostResponse](#services-v1-InvalidateHostResponse) | Invalidate a host. |
 | RegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Register a host. |
-| RegisterUpdateHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host register. |
+| PatchRegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host registration. |
 | OnboardHost | [OnboardHostRequest](#services-v1-OnboardHostRequest) | [OnboardHostResponse](#services-v1-OnboardHostResponse) | Onboard a host. |
 
 

@@ -11,6 +11,14 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for AmtState.
+const (
+	AMTSTATEDISCONNECTED  AmtState = "AMT_STATE_DISCONNECTED"
+	AMTSTATEPROVISIONED   AmtState = "AMT_STATE_PROVISIONED"
+	AMTSTATEUNPROVISIONED AmtState = "AMT_STATE_UNPROVISIONED"
+	AMTSTATEUNSPECIFIED   AmtState = "AMT_STATE_UNSPECIFIED"
+)
+
 // Defines values for BaremetalControllerKind.
 const (
 	BAREMETALCONTROLLERKINDIPMI        BaremetalControllerKind = "BAREMETAL_CONTROLLER_KIND_IPMI"
@@ -107,11 +115,20 @@ const (
 	OSTYPEUNSPECIFIED OsType = "OS_TYPE_UNSPECIFIED"
 )
 
+// Defines values for PowerCommandPolicy.
+const (
+	POWERCOMMANDPOLICYIMMEDIATE   PowerCommandPolicy = "POWER_COMMAND_POLICY_IMMEDIATE"
+	POWERCOMMANDPOLICYORDERED     PowerCommandPolicy = "POWER_COMMAND_POLICY_ORDERED"
+	POWERCOMMANDPOLICYUNSPECIFIED PowerCommandPolicy = "POWER_COMMAND_POLICY_UNSPECIFIED"
+)
+
 // Defines values for PowerState.
 const (
-	POWERSTATEERROR       PowerState = "POWER_STATE_ERROR"
+	POWERSTATEHIBERNATE   PowerState = "POWER_STATE_HIBERNATE"
 	POWERSTATEOFF         PowerState = "POWER_STATE_OFF"
 	POWERSTATEON          PowerState = "POWER_STATE_ON"
+	POWERSTATERESET       PowerState = "POWER_STATE_RESET"
+	POWERSTATESLEEP       PowerState = "POWER_STATE_SLEEP"
 	POWERSTATEUNSPECIFIED PowerState = "POWER_STATE_UNSPECIFIED"
 )
 
@@ -226,6 +243,9 @@ const (
 	Unimplemented      ConnectErrorCode = "unimplemented"
 	Unknown            ConnectErrorCode = "unknown"
 )
+
+// AmtState The state of the AMT (Active Management Technology) component.
+type AmtState string
 
 // BaremetalControllerKind The type of BMC.
 type BaremetalControllerKind string
@@ -812,8 +832,11 @@ type HostComponentState string
 
 // HostRegister Message to register a Host.
 type HostRegister struct {
-	// AutoOnboard Flag ot signal to automatically onboard the host.
+	// AutoOnboard Flag to signal to automatically onboard the host.
 	AutoOnboard *bool `json:"autoOnboard,omitempty"`
+
+	// EnableVpro Flag to signal to enable vPRO on the host.
+	EnableVpro *bool `json:"enableVpro,omitempty"`
 
 	// Name The host name.
 	Name *string `json:"name,omitempty"`
@@ -827,6 +850,18 @@ type HostRegister struct {
 
 // HostResource A Host resource.
 type HostResource struct {
+	// AmtSku coming from device introspection
+	AmtSku *string `json:"amtSku,omitempty"`
+
+	// AmtStatus coming from device introspection. Set only by the DM RM.
+	AmtStatus *string `json:"amtStatus,omitempty"`
+
+	// AmtStatusIndicator The status indicator.
+	AmtStatusIndicator *StatusIndication `json:"amtStatusIndicator,omitempty"`
+
+	// AmtStatusTimestamp UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
+	AmtStatusTimestamp *int `json:"amtStatusTimestamp,omitempty"`
+
 	// BiosReleaseDate BIOS Release Date.
 	BiosReleaseDate *string `json:"biosReleaseDate,omitempty"`
 
@@ -863,11 +898,17 @@ type HostResource struct {
 	// CpuTopology JSON field storing the CPU topology, refer to HDA/HRM docs for the JSON schema.
 	CpuTopology *string `json:"cpuTopology,omitempty"`
 
+	// CurrentAmtState The state of the AMT (Active Management Technology) component.
+	CurrentAmtState *AmtState `json:"currentAmtState,omitempty"`
+
 	// CurrentPowerState The host power state.
 	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
 
 	// CurrentState States of the host.
 	CurrentState *HostState `json:"currentState,omitempty"`
+
+	// DesiredAmtState The state of the AMT (Active Management Technology) component.
+	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
@@ -926,6 +967,21 @@ type HostResource struct {
 
 	// OnboardingStatusTimestamp UTC timestamp when onboarding_status was last changed. Set by RMs only.
 	OnboardingStatusTimestamp *int `json:"onboardingStatusTimestamp,omitempty"`
+
+	// PowerCommandPolicy The policy for handling power commands.
+	PowerCommandPolicy *PowerCommandPolicy `json:"powerCommandPolicy,omitempty"`
+
+	// PowerOnTime UTC timestamp when the host was powered on. Set by DM RM only.
+	PowerOnTime *int `json:"powerOnTime,omitempty"`
+
+	// PowerStatus textual message that describes the runtime status of Host power. Set by DM RM only.
+	PowerStatus *string `json:"powerStatus,omitempty"`
+
+	// PowerStatusIndicator The status indicator.
+	PowerStatusIndicator *StatusIndication `json:"powerStatusIndicator,omitempty"`
+
+	// PowerStatusTimestamp UTC timestamp when power_status was last changed. Set by DM RM only.
+	PowerStatusTimestamp *int `json:"powerStatusTimestamp,omitempty"`
 
 	// ProductName System Product Name.
 	ProductName *string `json:"productName,omitempty"`
@@ -1106,6 +1162,9 @@ type InstanceResource struct {
 	// DesiredState The Instance States.
 	DesiredState *InstanceState `json:"desiredState,omitempty"`
 
+	// ExistingCves The CVEs that are currently present on the Instance, encoded as a JSON list.
+	ExistingCves *string `json:"existingCves,omitempty"`
+
 	// Host A Host resource.
 	Host *HostResource `json:"host,omitempty"`
 
@@ -1140,9 +1199,12 @@ type InstanceResource struct {
 	// Os An OS resource.
 	Os *OperatingSystemResource `json:"os,omitempty"`
 
-	// OsID The unique identifier of OS resource that must be installed on the instance.
-	OsID             *string `json:"osID,omitempty"`
-	OsUpdatePolicyID *string `json:"osUpdatePolicyID,omitempty"`
+	// OsID The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time.
+	OsID *string `json:"osID,omitempty"`
+
+	// OsUpdateAvailable Details about OS Updates available for this Instance. If empty, there are no updates available.
+	OsUpdateAvailable *string `json:"osUpdateAvailable,omitempty"`
+	OsUpdatePolicyID  *string `json:"osUpdatePolicyID,omitempty"`
 
 	// ProvisioningStatus textual message that describes the provisioning status of Instance. Set by RMs only.
 	ProvisioningStatus *string `json:"provisioningStatus,omitempty"`
@@ -1155,6 +1217,9 @@ type InstanceResource struct {
 
 	// ResourceId Resource ID, generated on Create.
 	ResourceId *string `json:"resourceId,omitempty"`
+
+	// RuntimePackages The packages available on the Instance at runtime, represented as a JSON list.
+	RuntimePackages *string `json:"runtimePackages,omitempty"`
 
 	// SecurityFeature SecurityFeature describes the security capabilities of a resource.
 	SecurityFeature *SecurityFeature `json:"securityFeature,omitempty"`
@@ -1173,7 +1238,7 @@ type InstanceResource struct {
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
 
-	// UpdateStatusDetail JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+	// UpdateStatusDetail Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
 	UpdateStatusDetail *string `json:"updateStatusDetail,omitempty"`
 
 	// UpdateStatusIndicator The status indicator.
@@ -2237,6 +2302,18 @@ type OperatingSystemResource struct {
 	// Architecture The OS resource's CPU architecture.
 	Architecture *string `json:"architecture,omitempty"`
 	Description  *string `json:"description,omitempty"`
+
+	// ExistingCves The CVEs that are currently present on the Operating System, encoded as a JSON list.
+	ExistingCves *string `json:"existingCves,omitempty"`
+
+	// ExistingCvesUrl URL of the file containing information about the existing CVEs on the Operating System.
+	ExistingCvesUrl *string `json:"existingCvesUrl,omitempty"`
+
+	// FixedCves The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
+	FixedCves *string `json:"fixedCves,omitempty"`
+
+	// FixedCvesUrl URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
+	FixedCvesUrl *string `json:"fixedCvesUrl,omitempty"`
 
 	// ImageId A unique identifier of the OS image that can be retrieved from the running OS.
 	ImageId *string `json:"imageId,omitempty"`
@@ -4405,6 +4482,9 @@ type PatchWorkloadRequest struct {
 	Workload WorkloadResource `json:"workload"`
 }
 
+// PowerCommandPolicy The policy for handling power commands.
+type PowerCommandPolicy string
+
 // PowerState The host power state.
 type PowerState string
 
@@ -5839,8 +5919,8 @@ type HostServicePatchHostJSONRequestBody = HostResource
 // HostServiceUpdateHostJSONRequestBody defines body for HostServiceUpdateHost for application/json ContentType.
 type HostServiceUpdateHostJSONRequestBody = HostResource
 
-// HostServiceRegisterUpdateHostJSONRequestBody defines body for HostServiceRegisterUpdateHost for application/json ContentType.
-type HostServiceRegisterUpdateHostJSONRequestBody = HostRegister
+// HostServicePatchRegisterHostJSONRequestBody defines body for HostServicePatchRegisterHost for application/json ContentType.
+type HostServicePatchRegisterHostJSONRequestBody = HostRegister
 
 // InstanceServiceCreateInstanceJSONRequestBody defines body for InstanceServiceCreateInstance for application/json ContentType.
 type InstanceServiceCreateInstanceJSONRequestBody = InstanceResource

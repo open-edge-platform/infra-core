@@ -7,6 +7,7 @@ import (
 	compute_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	network_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
+	osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	ou_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/ou/v1"
 	provider_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 	schedule_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/schedule/v1"
@@ -342,5 +343,17 @@ func NetlinkCurrentStateDeleted() Opt[network_v1.NetlinkResource] {
 func WorkloadKind(wk compute_v1.WorkloadKind) Opt[compute_v1.WorkloadResource] {
 	return func(t *compute_v1.WorkloadResource) {
 		t.Kind = wk
+	}
+}
+
+func InstalledPackages(pkgs string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.InstalledPackages = pkgs
+	}
+}
+
+func Sha256(sha256 string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.Sha256 = sha256
 	}
 }

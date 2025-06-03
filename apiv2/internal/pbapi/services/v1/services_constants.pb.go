@@ -12,7 +12,7 @@ const (
 	CreateRegionResponseEdgeRegion = "region"
 
 	// Fields and Edges constants for "GetRegionRequest"
-	GetRegionRequestFieldResourceId = "resource_id"
+	GetRegionRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetRegionResponse"
 	GetRegionResponseEdgeRegion = "region"
@@ -30,16 +30,16 @@ const (
 	ListRegionsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateRegionRequest"
-	UpdateRegionRequestFieldResourceId = "resource_id"
+	UpdateRegionRequestFieldResourceId = "resourceId"
 	UpdateRegionRequestEdgeRegion      = "region"
 
 	// Fields and Edges constants for "PatchRegionRequest"
-	PatchRegionRequestFieldResourceId = "resource_id"
+	PatchRegionRequestFieldResourceId = "resourceId"
 	PatchRegionRequestEdgeRegion      = "region"
 	PatchRegionRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteRegionRequest"
-	DeleteRegionRequestFieldResourceId = "resource_id"
+	DeleteRegionRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteRegionResponse"
 
@@ -50,7 +50,7 @@ const (
 	CreateSiteResponseEdgeSite = "site"
 
 	// Fields and Edges constants for "GetSiteRequest"
-	GetSiteRequestFieldResourceId = "resource_id"
+	GetSiteRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetSiteResponse"
 	GetSiteResponseEdgeSite = "site"
@@ -67,16 +67,16 @@ const (
 	ListSitesResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateSiteRequest"
-	UpdateSiteRequestFieldResourceId = "resource_id"
+	UpdateSiteRequestFieldResourceId = "resourceId"
 	UpdateSiteRequestEdgeSite        = "site"
 
 	// Fields and Edges constants for "PatchSiteRequest"
-	PatchSiteRequestFieldResourceId = "resource_id"
+	PatchSiteRequestFieldResourceId = "resourceId"
 	PatchSiteRequestEdgeSite        = "site"
 	PatchSiteRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteSiteRequest"
-	DeleteSiteRequestFieldResourceId = "resource_id"
+	DeleteSiteRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteSiteResponse"
 
@@ -106,7 +106,7 @@ const (
 	CreateHostResponseEdgeHost = "host"
 
 	// Fields and Edges constants for "GetHostRequest"
-	GetHostRequestFieldResourceId = "resource_id"
+	GetHostRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetHostResponse"
 	GetHostResponseEdgeHost = "host"
@@ -123,21 +123,21 @@ const (
 	ListHostsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateHostRequest"
-	UpdateHostRequestFieldResourceId = "resource_id"
+	UpdateHostRequestFieldResourceId = "resourceId"
 	UpdateHostRequestEdgeHost        = "host"
 
 	// Fields and Edges constants for "PatchHostRequest"
-	PatchHostRequestFieldResourceId = "resource_id"
+	PatchHostRequestFieldResourceId = "resourceId"
 	PatchHostRequestEdgeHost        = "host"
 	PatchHostRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteHostRequest"
-	DeleteHostRequestFieldResourceId = "resource_id"
+	DeleteHostRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteHostResponse"
 
 	// Fields and Edges constants for "InvalidateHostRequest"
-	InvalidateHostRequestFieldResourceId = "resource_id"
+	InvalidateHostRequestFieldResourceId = "resourceId"
 	InvalidateHostRequestFieldNote       = "note"
 
 	// Fields and Edges constants for "InvalidateHostResponse"
@@ -147,13 +147,14 @@ const (
 	HostRegisterFieldSerialNumber = "serial_number"
 	HostRegisterFieldUuid         = "uuid"
 	HostRegisterFieldAutoOnboard  = "auto_onboard"
+	HostRegisterFieldEnableVpro   = "enable_vpro"
 
 	// Fields and Edges constants for "RegisterHostRequest"
-	RegisterHostRequestFieldResourceId = "resource_id"
+	RegisterHostRequestFieldResourceId = "resourceId"
 	RegisterHostRequestEdgeHost        = "host"
 
 	// Fields and Edges constants for "OnboardHostRequest"
-	OnboardHostRequestFieldResourceId = "resource_id"
+	OnboardHostRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "OnboardHostResponse"
 
@@ -164,7 +165,7 @@ const (
 	CreateInstanceResponseEdgeInstance = "instance"
 
 	// Fields and Edges constants for "GetInstanceRequest"
-	GetInstanceRequestFieldResourceId = "resource_id"
+	GetInstanceRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetInstanceResponse"
 	GetInstanceResponseEdgeInstance = "instance"
@@ -181,21 +182,21 @@ const (
 	ListInstancesResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateInstanceRequest"
-	UpdateInstanceRequestFieldResourceId = "resource_id"
+	UpdateInstanceRequestFieldResourceId = "resourceId"
 	UpdateInstanceRequestEdgeInstance    = "instance"
 
 	// Fields and Edges constants for "PatchInstanceRequest"
-	PatchInstanceRequestFieldResourceId = "resource_id"
+	PatchInstanceRequestFieldResourceId = "resourceId"
 	PatchInstanceRequestEdgeInstance    = "instance"
 	PatchInstanceRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteInstanceRequest"
-	DeleteInstanceRequestFieldResourceId = "resource_id"
+	DeleteInstanceRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteInstanceResponse"
 
 	// Fields and Edges constants for "InvalidateInstanceRequest"
-	InvalidateInstanceRequestFieldResourceId = "resource_id"
+	InvalidateInstanceRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "InvalidateInstanceResponse"
 
@@ -206,7 +207,7 @@ const (
 	CreateOperatingSystemResponseEdgeOs = "os"
 
 	// Fields and Edges constants for "GetOperatingSystemRequest"
-	GetOperatingSystemRequestFieldResourceId = "resource_id"
+	GetOperatingSystemRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetOperatingSystemResponse"
 	GetOperatingSystemResponseEdgeOs = "os"
@@ -223,16 +224,16 @@ const (
 	ListOperatingSystemsResponseFieldHasNext                 = "has_next"
 
 	// Fields and Edges constants for "UpdateOperatingSystemRequest"
-	UpdateOperatingSystemRequestFieldResourceId = "resource_id"
+	UpdateOperatingSystemRequestFieldResourceId = "resourceId"
 	UpdateOperatingSystemRequestEdgeOs          = "os"
 
 	// Fields and Edges constants for "PatchOperatingSystemRequest"
-	PatchOperatingSystemRequestFieldResourceId = "resource_id"
+	PatchOperatingSystemRequestFieldResourceId = "resourceId"
 	PatchOperatingSystemRequestEdgeOs          = "os"
 	PatchOperatingSystemRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteOperatingSystemRequest"
-	DeleteOperatingSystemRequestFieldResourceId = "resource_id"
+	DeleteOperatingSystemRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteOperatingSystemResponse"
 
@@ -243,7 +244,7 @@ const (
 	CreateProviderResponseEdgeProvider = "provider"
 
 	// Fields and Edges constants for "GetProviderRequest"
-	GetProviderRequestFieldResourceId = "resource_id"
+	GetProviderRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetProviderResponse"
 	GetProviderResponseEdgeProvider = "provider"
@@ -260,7 +261,7 @@ const (
 	ListProvidersResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "DeleteProviderRequest"
-	DeleteProviderRequestFieldResourceId = "resource_id"
+	DeleteProviderRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteProviderResponse"
 
@@ -271,7 +272,7 @@ const (
 	CreateWorkloadResponseEdgeWorkload = "workload"
 
 	// Fields and Edges constants for "GetWorkloadRequest"
-	GetWorkloadRequestFieldResourceId = "resource_id"
+	GetWorkloadRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetWorkloadResponse"
 	GetWorkloadResponseEdgeWorkload = "workload"
@@ -288,16 +289,16 @@ const (
 	ListWorkloadsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateWorkloadRequest"
-	UpdateWorkloadRequestFieldResourceId = "resource_id"
+	UpdateWorkloadRequestFieldResourceId = "resourceId"
 	UpdateWorkloadRequestEdgeWorkload    = "workload"
 
 	// Fields and Edges constants for "PatchWorkloadRequest"
-	PatchWorkloadRequestFieldResourceId = "resource_id"
+	PatchWorkloadRequestFieldResourceId = "resourceId"
 	PatchWorkloadRequestEdgeWorkload    = "workload"
 	PatchWorkloadRequestEdgeFieldMask   = "field_mask"
 
 	// Fields and Edges constants for "DeleteWorkloadRequest"
-	DeleteWorkloadRequestFieldResourceId = "resource_id"
+	DeleteWorkloadRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteWorkloadResponse"
 
@@ -308,7 +309,7 @@ const (
 	CreateWorkloadMemberResponseEdgeWorkloadMember = "workload_member"
 
 	// Fields and Edges constants for "GetWorkloadMemberRequest"
-	GetWorkloadMemberRequestFieldResourceId = "resource_id"
+	GetWorkloadMemberRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetWorkloadMemberResponse"
 	GetWorkloadMemberResponseEdgeWorkloadMember = "workload_member"
@@ -325,7 +326,7 @@ const (
 	ListWorkloadMembersResponseFieldHasNext        = "has_next"
 
 	// Fields and Edges constants for "DeleteWorkloadMemberRequest"
-	DeleteWorkloadMemberRequestFieldResourceId = "resource_id"
+	DeleteWorkloadMemberRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteWorkloadMemberResponse"
 
@@ -350,7 +351,7 @@ const (
 	CreateSingleScheduleResponseEdgeSingleSchedule = "single_schedule"
 
 	// Fields and Edges constants for "GetSingleScheduleRequest"
-	GetSingleScheduleRequestFieldResourceId = "resource_id"
+	GetSingleScheduleRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetSingleScheduleResponse"
 	GetSingleScheduleResponseEdgeSingleSchedule = "single_schedule"
@@ -369,16 +370,16 @@ const (
 	ListSingleSchedulesResponseFieldHasNext        = "has_next"
 
 	// Fields and Edges constants for "UpdateSingleScheduleRequest"
-	UpdateSingleScheduleRequestFieldResourceId    = "resource_id"
+	UpdateSingleScheduleRequestFieldResourceId    = "resourceId"
 	UpdateSingleScheduleRequestEdgeSingleSchedule = "single_schedule"
 
 	// Fields and Edges constants for "PatchSingleScheduleRequest"
-	PatchSingleScheduleRequestFieldResourceId    = "resource_id"
+	PatchSingleScheduleRequestFieldResourceId    = "resourceId"
 	PatchSingleScheduleRequestEdgeSingleSchedule = "single_schedule"
 	PatchSingleScheduleRequestEdgeFieldMask      = "field_mask"
 
 	// Fields and Edges constants for "DeleteSingleScheduleRequest"
-	DeleteSingleScheduleRequestFieldResourceId = "resource_id"
+	DeleteSingleScheduleRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteSingleScheduleResponse"
 
@@ -389,7 +390,7 @@ const (
 	CreateRepeatedScheduleResponseEdgeRepeatedSchedule = "repeated_schedule"
 
 	// Fields and Edges constants for "GetRepeatedScheduleRequest"
-	GetRepeatedScheduleRequestFieldResourceId = "resource_id"
+	GetRepeatedScheduleRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetRepeatedScheduleResponse"
 	GetRepeatedScheduleResponseEdgeRepeatedSchedule = "repeated_schedule"
@@ -408,16 +409,16 @@ const (
 	ListRepeatedSchedulesResponseFieldHasNext          = "has_next"
 
 	// Fields and Edges constants for "UpdateRepeatedScheduleRequest"
-	UpdateRepeatedScheduleRequestFieldResourceId      = "resource_id"
+	UpdateRepeatedScheduleRequestFieldResourceId      = "resourceId"
 	UpdateRepeatedScheduleRequestEdgeRepeatedSchedule = "repeated_schedule"
 
 	// Fields and Edges constants for "PatchRepeatedScheduleRequest"
-	PatchRepeatedScheduleRequestFieldResourceId      = "resource_id"
+	PatchRepeatedScheduleRequestFieldResourceId      = "resourceId"
 	PatchRepeatedScheduleRequestEdgeRepeatedSchedule = "repeated_schedule"
 	PatchRepeatedScheduleRequestEdgeFieldMask        = "field_mask"
 
 	// Fields and Edges constants for "DeleteRepeatedScheduleRequest"
-	DeleteRepeatedScheduleRequestFieldResourceId = "resource_id"
+	DeleteRepeatedScheduleRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteRepeatedScheduleResponse"
 
@@ -428,7 +429,7 @@ const (
 	CreateTelemetryLogsGroupResponseEdgeTelemetryLogsGroup = "telemetry_logs_group"
 
 	// Fields and Edges constants for "GetTelemetryLogsGroupRequest"
-	GetTelemetryLogsGroupRequestFieldResourceId = "resource_id"
+	GetTelemetryLogsGroupRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryLogsGroupResponse"
 	GetTelemetryLogsGroupResponseEdgeTelemetryLogsGroup = "telemetry_logs_group"
@@ -444,7 +445,7 @@ const (
 	ListTelemetryLogsGroupsResponseFieldHasNext            = "has_next"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsGroupRequest"
-	DeleteTelemetryLogsGroupRequestFieldResourceId = "resource_id"
+	DeleteTelemetryLogsGroupRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsGroupResponse"
 
@@ -455,7 +456,7 @@ const (
 	CreateTelemetryMetricsGroupResponseEdgeTelemetryMetricsGroup = "telemetry_metrics_group"
 
 	// Fields and Edges constants for "GetTelemetryMetricsGroupRequest"
-	GetTelemetryMetricsGroupRequestFieldResourceId = "resource_id"
+	GetTelemetryMetricsGroupRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryMetricsGroupResponse"
 	GetTelemetryMetricsGroupResponseEdgeTelemetryMetricsGroup = "telemetry_metrics_group"
@@ -471,7 +472,7 @@ const (
 	ListTelemetryMetricsGroupsResponseFieldHasNext               = "has_next"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsGroupRequest"
-	DeleteTelemetryMetricsGroupRequestFieldResourceId = "resource_id"
+	DeleteTelemetryMetricsGroupRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsGroupResponse"
 
@@ -482,7 +483,7 @@ const (
 	CreateTelemetryLogsProfileResponseEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 
 	// Fields and Edges constants for "GetTelemetryLogsProfileRequest"
-	GetTelemetryLogsProfileRequestFieldResourceId = "resource_id"
+	GetTelemetryLogsProfileRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryLogsProfileResponse"
 	GetTelemetryLogsProfileResponseEdgeTelemetryLogsProfile = "telemetry_logs_profile"
@@ -502,16 +503,16 @@ const (
 	ListTelemetryLogsProfilesResponseFieldHasNext              = "has_next"
 
 	// Fields and Edges constants for "UpdateTelemetryLogsProfileRequest"
-	UpdateTelemetryLogsProfileRequestFieldResourceId          = "resource_id"
+	UpdateTelemetryLogsProfileRequestFieldResourceId          = "resourceId"
 	UpdateTelemetryLogsProfileRequestEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 
 	// Fields and Edges constants for "PatchTelemetryLogsProfileRequest"
-	PatchTelemetryLogsProfileRequestFieldResourceId          = "resource_id"
+	PatchTelemetryLogsProfileRequestFieldResourceId          = "resourceId"
 	PatchTelemetryLogsProfileRequestEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 	PatchTelemetryLogsProfileRequestEdgeFieldMask            = "field_mask"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsProfileRequest"
-	DeleteTelemetryLogsProfileRequestFieldResourceId = "resource_id"
+	DeleteTelemetryLogsProfileRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsProfileResponse"
 
@@ -522,7 +523,7 @@ const (
 	CreateTelemetryMetricsProfileResponseEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 
 	// Fields and Edges constants for "GetTelemetryMetricsProfileRequest"
-	GetTelemetryMetricsProfileRequestFieldResourceId = "resource_id"
+	GetTelemetryMetricsProfileRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryMetricsProfileResponse"
 	GetTelemetryMetricsProfileResponseEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
@@ -542,16 +543,16 @@ const (
 	ListTelemetryMetricsProfilesResponseFieldHasNext                 = "has_next"
 
 	// Fields and Edges constants for "UpdateTelemetryMetricsProfileRequest"
-	UpdateTelemetryMetricsProfileRequestFieldResourceId             = "resource_id"
+	UpdateTelemetryMetricsProfileRequestFieldResourceId             = "resourceId"
 	UpdateTelemetryMetricsProfileRequestEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 
 	// Fields and Edges constants for "PatchTelemetryMetricsProfileRequest"
-	PatchTelemetryMetricsProfileRequestFieldResourceId             = "resource_id"
+	PatchTelemetryMetricsProfileRequestFieldResourceId             = "resourceId"
 	PatchTelemetryMetricsProfileRequestEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 	PatchTelemetryMetricsProfileRequestEdgeFieldMask               = "field_mask"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsProfileRequest"
-	DeleteTelemetryMetricsProfileRequestFieldResourceId = "resource_id"
+	DeleteTelemetryMetricsProfileRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsProfileResponse"
 
@@ -562,7 +563,7 @@ const (
 	CreateLocalAccountResponseEdgeLocalAccount = "local_account"
 
 	// Fields and Edges constants for "GetLocalAccountRequest"
-	GetLocalAccountRequestFieldResourceId = "resource_id"
+	GetLocalAccountRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetLocalAccountResponse"
 	GetLocalAccountResponseEdgeLocalAccount = "local_account"
@@ -579,7 +580,7 @@ const (
 	ListLocalAccountsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "DeleteLocalAccountRequest"
-	DeleteLocalAccountRequestFieldResourceId = "resource_id"
+	DeleteLocalAccountRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteLocalAccountResponse"
 
@@ -590,7 +591,7 @@ const (
 	CreateOSUpdatePolicyResponseEdgeOsUpdatePolicy = "os_update_policy"
 
 	// Fields and Edges constants for "GetOSUpdatePolicyRequest"
-	GetOSUpdatePolicyRequestFieldResourceId = "resource_id"
+	GetOSUpdatePolicyRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetOSUpdatePolicyResponse"
 	GetOSUpdatePolicyResponseEdgeOsUpdatePolicy = "os_update_policy"
@@ -607,7 +608,7 @@ const (
 	ListOSUpdatePolicyResponseFieldHasNext         = "has_next"
 
 	// Fields and Edges constants for "DeleteOSUpdatePolicyRequest"
-	DeleteOSUpdatePolicyRequestFieldResourceId = "resource_id"
+	DeleteOSUpdatePolicyRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "DeleteOSUpdatePolicyResponse"
 
@@ -618,7 +619,7 @@ const (
 	CreateOSUpdateRunResponseEdgeOsUpdateRun = "os_update_run"
 
 	// Fields and Edges constants for "GetOSUpdateRunRequest"
-	GetOSUpdateRunRequestFieldResourceId = "resource_id"
+	GetOSUpdateRunRequestFieldResourceId = "resourceId"
 
 	// Fields and Edges constants for "GetOSUpdateRunResponse"
 	GetOSUpdateRunResponseEdgeOsUpdateRun = "os_update_run"
@@ -635,7 +636,7 @@ const (
 	ListOSUpdateRunResponseFieldHasNext         = "has_next"
 
 	// Fields and Edges constants for "DeleteOSUpdateRunRequest"
-	DeleteOSUpdateRunRequestFieldResourceId = "resource_id"
+	DeleteOSUpdateRunRequestFieldResourceId = "resourceId"
 
 // Fields and Edges constants for "DeleteOSUpdateRunResponse"
 

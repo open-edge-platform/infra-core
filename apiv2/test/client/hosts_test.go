@@ -837,7 +837,7 @@ func TestHostRegister(t *testing.T) {
 	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost1.JSON200.DesiredState)
 
 	// change registered host name - via Patch
-	resHostRegisterPatch, err := apiClient.HostServiceRegisterUpdateHostWithResponse(
+	resHostRegisterPatch, err := apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
 		*registeredHost1.JSON200.ResourceId,
 		utils.HostRegisterPatch,
@@ -856,7 +856,7 @@ func TestHostRegister(t *testing.T) {
 	assert.Equal(t, *utils.HostRegisterPatch.Name, resHostGet.JSON200.Name)
 
 	// change name & autoOnboard=true for registered host - via Patch
-	resHostRegisterPatch, err = apiClient.HostServiceRegisterUpdateHostWithResponse(
+	resHostRegisterPatch, err = apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
 		*registeredHost1.JSON200.ResourceId,
 		api.HostRegister{
@@ -880,7 +880,7 @@ func TestHostRegister(t *testing.T) {
 	assert.Equal(t, api.HOSTSTATEONBOARDED, *resHostGet.JSON200.DesiredState)
 
 	// change autoOnboard=false only for registered host - via Patch
-	resHostRegisterPatch, err = apiClient.HostServiceRegisterUpdateHostWithResponse(
+	resHostRegisterPatch, err = apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
 		*registeredHost1.JSON200.ResourceId,
 		api.HostRegister{
@@ -913,7 +913,7 @@ func TestHostRegister(t *testing.T) {
 	assert.Equal(t, api.HOSTSTATEONBOARDED, *registeredHost2.JSON200.DesiredState)
 
 	// change name & autoOnboard=false for registered host - via Patch
-	resHostRegisterPatch, err = apiClient.HostServiceRegisterUpdateHostWithResponse(
+	resHostRegisterPatch, err = apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
 		*registeredHost2.JSON200.ResourceId,
 		api.HostRegister{
