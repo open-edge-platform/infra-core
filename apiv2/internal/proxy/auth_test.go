@@ -5,6 +5,7 @@ package proxy_test
 import (
 	"errors"
 	"fmt"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -28,29 +29,34 @@ const (
 	readRole        = "im-r"
 )
 
-var tenantUUID = uuid.New().String()
+var (
+	allRoles = []string{
+		writeRole,
+		readRole,
+	}
+	tenantUUID = uuid.New().String()
+)
 
 // To create a request with an authorization header.
-func createRequestWithAuthHeader(authScheme, authToken string) *http.Request {
-	req := httptest.NewRequest(http.MethodGet, "/", http.NoBody)
+func createRequestWithAuthHeader(authScheme, authToken string, method string) *http.Request {
+	req := httptest.NewRequest(method, "/", http.NoBody)
 	req.Header.Set("Authorization", fmt.Sprintf("%s %s", authScheme, authToken))
 	return req
 }
 
 // To generates a valid JWT token for testing purposes.
-func generateValidJWT(tb testing.TB, tenantID string) (jwtStr string, err error) {
+func generateValidJWT(tb testing.TB, tenantID string, rolesSuffix []string) (jwtStr string, err error) {
 	tb.Helper()
-	tenantWriteRole := tenantID + "_" + writeRole
-	tenantReadRole := tenantID + "_" + readRole
+	roles := make([]string, len(rolesSuffix))
+	for i, role := range rolesSuffix {
+		roles[i] = tenantID + "_" + role
+	}
 	claims := &jwt.MapClaims{
 		"iss": "https://keycloak.kind.internal/realms/master",
 		"exp": time.Now().Add(time.Hour).Unix(),
 		"typ": "Bearer",
 		"realm_access": map[string]interface{}{
-			"roles": []string{
-				tenantWriteRole,
-				tenantReadRole,
-			},
+			"roles": roles,
 		},
 	}
 	tb.Setenv(SharedSecretKey, secretKey)
@@ -75,20 +81,25 @@ func TestAuthenticationAuthorizationInterceptor(t *testing.T) {
 	t.Setenv(proxy.RbacPolicyEnvVar, testRbacPolicyPath)
 	defer os.Unsetenv(proxy.RbacPolicyEnvVar)
 
-	jwtStrWithoutTenant, err := generateValidJWT(t, "")
+	jwtStrWithoutTenant, err := generateValidJWT(t, "", allRoles)
 	if err != nil {
 		t.Errorf("Error signing token: %v", err)
 	}
-	jwtStrWithTenant, err := generateValidJWT(t, tenantUUID)
+	jwtStrWithTenant, err := generateValidJWT(t, tenantUUID, allRoles)
 	if err != nil {
 		t.Errorf("Error signing token: %v", err)
 	}
-	jwtStrInvalid, err := generateValidJWT(t, "abc")
+	jwtStrInvalid, err := generateValidJWT(t, "abc", allRoles)
 	if err != nil {
 		t.Errorf("Error signing token: %v", err)
 	}
 	// Create an Echo instance for testing.
 	e := echo.New()
+
+	jwtReadOnly, err := generateValidJWT(t, tenantUUID, []string{readRole})
+	require.NoError(t, err, "Error signing token for read-only role")
+	jwtReadWrite, err := generateValidJWT(t, tenantUUID, allRoles)
+	require.NoError(t, err, "Error signing token for all roles")
 
 	tests := []struct {
 		name               string
@@ -106,51 +117,75 @@ func TestAuthenticationAuthorizationInterceptor(t *testing.T) {
 		},
 		{
 			name:               "Invalid Authorization header format",
-			request:            createRequestWithAuthHeader("invalid_format", "token"),
+			request:            createRequestWithAuthHeader("invalid_format", "token", http.MethodGet),
 			expectedStatus:     http.StatusUnauthorized,
 			expectedError:      "wrong Authorization header definition",
 			addTenantToContext: true,
 		},
 		{
 			name:               "Authorization header with Bearer scheme but invalid JWT token",
-			request:            createRequestWithAuthHeader("Bearer", "invalid-token"),
+			request:            createRequestWithAuthHeader("Bearer", "invalid-token", http.MethodGet),
 			expectedStatus:     http.StatusUnauthorized,
 			expectedError:      "JWT token is invalid or expired",
 			addTenantToContext: true,
 		},
 		{
 			name:               "Authorization header with non-Bearer scheme",
-			request:            createRequestWithAuthHeader("Basic", "token"),
+			request:            createRequestWithAuthHeader("Basic", "token", http.MethodGet),
 			expectedStatus:     http.StatusUnauthorized,
 			expectedError:      "Expecting \"Bearer\" Scheme to be sent",
 			addTenantToContext: true,
 		},
 		{
 			name:               "Authorization header with Bearer scheme with valid JWT token and no tenantID",
-			request:            createRequestWithAuthHeader("Bearer", jwtStrWithoutTenant),
+			request:            createRequestWithAuthHeader("Bearer", jwtStrWithoutTenant, http.MethodGet),
 			expectedStatus:     http.StatusUnauthorized,
 			expectedError:      "JWT token is valid, but tenantID was not passed in context",
 			addTenantToContext: false,
 		},
 		{
 			name:               "Authorization header with Bearer scheme with valid JWT token/tenantID but context invalid",
-			request:            createRequestWithAuthHeader("Bearer", jwtStrWithTenant),
+			request:            createRequestWithAuthHeader("Bearer", jwtStrWithTenant, http.MethodGet),
 			expectedStatus:     http.StatusUnauthorized,
 			expectedError:      "JWT token is valid, but tenantID was not passed in context",
 			addTenantToContext: false,
 		},
 		{
 			name:               "Authorization header with Bearer scheme with valid JWT token and tenantID",
-			request:            createRequestWithAuthHeader("Bearer", jwtStrWithTenant),
+			request:            createRequestWithAuthHeader("Bearer", jwtStrWithTenant, http.MethodGet),
 			expectedStatus:     http.StatusOK,
 			expectedError:      "JWT token is valid, proceeding with processing",
 			addTenantToContext: true,
 		},
 		{
 			name:               "Authorization header with Bearer scheme with valid JWT without tenantID",
-			request:            createRequestWithAuthHeader("Bearer", jwtStrInvalid),
+			request:            createRequestWithAuthHeader("Bearer", jwtStrInvalid, http.MethodGet),
 			expectedStatus:     http.StatusForbidden,
 			expectedError:      "JWT token is invalid, no tenantID in JWT roles",
+			addTenantToContext: true,
+		},
+		{
+			name:               "Authorization header with Bearer scheme with valid JWT read only roles",
+			request:            createRequestWithAuthHeader("Bearer", jwtReadOnly, http.MethodGet),
+			expectedStatus:     http.StatusOK,
+			addTenantToContext: true,
+		},
+		{
+			name:               "Authorization header with Bearer scheme with JWT read only roles for write operation",
+			request:            createRequestWithAuthHeader("Bearer", jwtReadOnly, http.MethodPut),
+			expectedStatus:     http.StatusForbidden,
+			addTenantToContext: true,
+		},
+		{
+			name:               "Authorization header with Bearer scheme with JWT read write role",
+			request:            createRequestWithAuthHeader("Bearer", jwtReadWrite, http.MethodGet),
+			expectedStatus:     http.StatusOK,
+			addTenantToContext: true,
+		},
+		{
+			name:               "Authorization header with Bearer scheme with JWT read write role",
+			request:            createRequestWithAuthHeader("Bearer", jwtReadWrite, http.MethodPut),
+			expectedStatus:     http.StatusOK,
 			addTenantToContext: true,
 		},
 	}
