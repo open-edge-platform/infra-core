@@ -5,7 +5,6 @@ package proxy_test
 import (
 	"errors"
 	"fmt"
-	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -16,6 +15,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/proxy"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
