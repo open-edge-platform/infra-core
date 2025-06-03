@@ -546,7 +546,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | current_amt_state | [AmtState](#compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
 | amt_status | [string](#string) |  | A group of fields describing the AMT status. amt_status, amt_status_indicator and amt_status_timestamp should always be updated in one shot. If amt_status is empty during initialization, it is automatically set to a Unknown value.
 
-coming from device introspection |
+textual message that describes the AMT status of Host. Set by DM RM only. |
 | amt_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
 | amt_status_timestamp | [uint64](#uint64) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
@@ -796,9 +796,9 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | AMT_STATE_UNSPECIFIED | 0 |  |
-| AMT_STATE_PROVISION | 1 |  |
-| AMT_STATE_UNPROVISION | 2 |  |
-| AMT_STATE_DISCONNECT | 3 |  |
+| AMT_STATE_PROVISIONED | 1 |  |
+| AMT_STATE_UNPROVISIONED | 2 |  |
+| AMT_STATE_DISCONNECTED | 3 |  |
 
 
 

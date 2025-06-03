@@ -4407,9 +4407,9 @@ components:
       title: AmtState
       enum:
         - AMT_STATE_UNSPECIFIED
-        - AMT_STATE_PROVISION
-        - AMT_STATE_UNPROVISION
-        - AMT_STATE_DISCONNECT
+        - AMT_STATE_PROVISIONED
+        - AMT_STATE_UNPROVISIONED
+        - AMT_STATE_DISCONNECTED
       description: The state of the AMT (Active Management Technology) component.
     BaremetalControllerKind:
       type: string
