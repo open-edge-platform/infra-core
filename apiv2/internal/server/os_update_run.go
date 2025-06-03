@@ -28,7 +28,7 @@ func (is *InventorygRPCServer) GetOSUpdateRun(_ context.Context, _ *restv1.GetOS
 }
 
 func (is *InventorygRPCServer) DeleteOSUpdateRun(_ context.Context, _ *restv1.DeleteOSUpdateRunRequest) (
-	*computev1.OSUpdateRun, error,
+	*restv1.DeleteOSUpdateRunResponse, error,
 ) {
 	// TODO implement me
 	return nil, errors.Errorfc(codes.Unimplemented, "DeleteOSUpdateRun not implemented")
