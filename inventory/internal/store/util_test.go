@@ -8,6 +8,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/store"
 	telemetry_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
@@ -205,4 +206,56 @@ func Test_EmptyEnumStateMap(t *testing.T) {
 		int32(telemetry_v1.TelemetryResourceKind_TELEMETRY_RESOURCE_KIND_METRICS))
 	assert.Error(t, err)
 	assert.Nil(t, v)
+}
+
+func Test_ValidateOSMetadata(t *testing.T) {
+	testcases := map[string]struct {
+		in    string
+		valid bool
+	}{
+		"ValidMetadatakeyAndValue":                         {in: helperMetadataToJSONPlain(t, Metadata1), valid: true},
+		"InValidMetadatakeyWithUppercaseChar":              {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
+		"InValidMetadatakeyNameNoPrefix":                   {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
+		"InValidMetadatakeyWithUppercaseLastChar":          {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
+		"InValidMetadataValueWithUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata5), valid: false},
+		"InValidMetadataValueLength":                       {in: helperMetadataToJSONPlain(t, Metadata6), valid: false},
+		"InValidMetadataKeyNameLength":                     {in: helperMetadataToJSONPlain(t, Metadata7), valid: false},
+		"InValidMetadataKeyPrefixLength":                   {in: helperMetadataToJSONPlain(t, Metadata8), valid: false},
+		"InValidMetadataKeyPrefixUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata9), valid: false},
+		"InValidMetadataKeyNameOtherSymbolLast":            {in: helperMetadataToJSONPlain(t, Metadata10), valid: false},
+		"InValidMetadataKeyNameOtherSymbolBegin":           {in: helperMetadataToJSONPlain(t, Metadata11), valid: false},
+		"InValidMetadataKeyNameOtherSymbolBeginwithPrefix": {in: helperMetadataToJSONPlain(t, Metadata12), valid: false},
+		"InValidMetadataKeyNameOtherSymbolLastwithPrefix":  {in: helperMetadataToJSONPlain(t, Metadata13), valid: false},
+		"InValidMetadataKeyNameUpperCasewithPrefix":        {in: helperMetadataToJSONPlain(t, Metadata14), valid: false},
+		"InvalidMetadataDuplicateKeys": {
+			in:    `{"key1":"value1","key2":"value2","key1":"value3"}`,
+			valid: false,
+		},
+	}
+	for tcname, tc := range testcases {
+		t.Run(tcname, func(t *testing.T) {
+			bytes, err := json.Marshal(tc.in)
+			if err != nil {
+				t.Errorf("Error while marshaling the metadata  %s", err)
+			}
+			_, err = store.ValidateOSMetadata(string(bytes))
+			if err != nil {
+				if !tc.valid {
+					assert.Error(t, err)
+				}
+			}
+		})
+	}
+}
+
+func helperMetadataToJSONPlain(t *testing.T, metadata []Metadata) string {
+	t.Helper()
+
+	result := make(map[string]string)
+	for _, m := range metadata {
+		result[m.Key] = m.Value
+	}
+	val, err := json.Marshal(result)
+	require.NoError(t, err, "Failed to marshal metadata to JSON")
+	return string(val)
 }
