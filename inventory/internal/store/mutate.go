@@ -8,19 +8,21 @@ package store
 
 import (
 	"fmt"
-	compute_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
-	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
-	"golang.org/x/exp/slices"
+	ou_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/ou/v1"
 	"strings"
 
 	entpb "entgo.io/contrib/entproto/cmd/protoc-gen-ent/options/ent"
 	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	compute_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
+	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
+	os_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 )
@@ -176,15 +178,22 @@ func handleStringKind(fd protoreflect.FieldDescriptor, val protoreflect.Value, m
 		fmt.Sprintf("%s.%s", getProtoFullName(&compute_v1.WorkloadResource{}), compute_v1.WorkloadResourceFieldMetadata),
 		fmt.Sprintf("%s.%s", getProtoFullName(&location_v1.SiteResource{}), location_v1.SiteResourceFieldMetadata),
 		fmt.Sprintf("%s.%s", getProtoFullName(&location_v1.RegionResource{}), location_v1.RegionResourceFieldMetadata),
+		fmt.Sprintf("%s.%s", getProtoFullName(&ou_v1.OuResource{}), ou_v1.OuResourceFieldMetadata),
 	}
-	if slices.Contains(resourceWithMetadataToValidate, fullName) {
+	metadataFieldOs := fmt.Sprintf("%s.%s",
+		getProtoFullName(&os_v1.OperatingSystemResource{}), os_v1.OperatingSystemResourceFieldMetadata)
+	switch {
+	case slices.Contains(resourceWithMetadataToValidate, fullName):
 		if stringValue, err = ValidateMetadata(val.String()); err != nil {
 			return err
 		}
-	} else {
+	case fullName == metadataFieldOs:
+		if stringValue, err = ValidateOSMetadata(val.String()); err != nil {
+			return err
+		}
+	default:
 		stringValue = val.String()
 	}
-
 	return errors.Wrap(mut.SetField(fname, stringValue))
 }
 

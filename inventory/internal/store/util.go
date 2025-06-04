@@ -4,6 +4,7 @@
 package store
 
 import (
+	"bytes"
 	"regexp"
 	"strings"
 
@@ -291,4 +292,92 @@ func GetOrderByOptions[T OrderOption](orderBy string, columnValidator func(strin
 		opts = append(opts, op(p))
 	}
 	return opts, nil
+}
+
+// ValidateOSMetadata verifies that the given JSON encoded metadata contains the required fields, otherwise returns an error.
+func ValidateOSMetadata(metadata string) (string, error) {
+	if metadata == "" {
+		return "", nil
+	}
+
+	if err := validateFlatJSONNoDuplicates([]byte(metadata)); err != nil {
+		return "", err
+	}
+	var tmp map[string]string
+	err := json.Unmarshal([]byte(metadata), &tmp)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msgf("Error while un-marshaling the OS metadata")
+		return "", errors.Wrap(err)
+	}
+
+	// From OSMetadata to list of Metadata for easier validation
+	metaList := make([]Metadata, 0, len(tmp))
+	for k, v := range tmp {
+		metaList = append(metaList, Metadata{
+			Key:   k,
+			Value: v,
+		})
+	}
+
+	// validate the actual key and value fields in metadata
+	metaerr := validateKeyValue(metaList)
+	if metaerr != nil {
+		zlog.InfraSec().InfraErr(metaerr).Msgf("Error while validating the OS metadata")
+		return "", errors.Wrap(metaerr)
+	}
+	// Marshal the metadata, so what we store is always the same, not random spaces in between.
+	val, err := json.Marshal(tmp)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msgf("Error while re-marshaling the OS metadata")
+		return "", errors.Wrap(err)
+	}
+	return string(val), nil
+}
+
+func validateFlatJSONNoDuplicates(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+	dec.UseNumber()
+
+	// Expecting top-level object
+	tok, err := dec.Token()
+	if err != nil {
+		return errors.Errorfc(codes.InvalidArgument, "invalid JSON: %v", err)
+	}
+	if delim, ok := tok.(json.Delim); !ok || delim != '{' {
+		return errors.Errorfc(codes.InvalidArgument, "JSON must start with an object")
+	}
+
+	keys := make(map[string]struct{})
+	for dec.More() {
+		keyToken, err := dec.Token()
+		if err != nil {
+			return errors.Errorfc(codes.InvalidArgument, "error reading key: %v", err)
+		}
+		key, ok := keyToken.(string)
+		if !ok {
+			return errors.Errorfc(codes.InvalidArgument, "expected string for key, got %T", keyToken)
+		}
+		if _, exists := keys[key]; exists {
+			return errors.Errorfc(codes.InvalidArgument, "duplicate key found: %s", key)
+		}
+		keys[key] = struct{}{}
+
+		// Skip value (we don't care about contents)
+		if err := skipValue(dec); err != nil {
+			return errors.Errorfc(codes.InvalidArgument, "error reading value for key %s: %v", key, err)
+		}
+	}
+
+	// Consume closing '}'
+	if _, err := dec.Token(); err != nil {
+		return errors.Errorfc(codes.InvalidArgument, "missing closing object brace: %v", err)
+	}
+
+	return nil
+}
+
+func skipValue(dec *json.Decoder) error {
+	// Just decode the next value into empty interface to move the cursor forward
+	var v interface{}
+	return dec.Decode(&v)
 }

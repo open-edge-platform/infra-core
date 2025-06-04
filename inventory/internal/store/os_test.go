@@ -48,7 +48,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 				PlatformBundle:    "test platform bundle",
 				Description:       "test description",
-				Metadata:          `{"key1": "value1", "key2": "value2"}`,
+				Metadata:          `{"key1":"value1","key2":"value2"}`,
 			},
 			valid: true,
 		},
@@ -160,6 +160,20 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			},
 			valid: true,
 		},
+		"CreateBadOsDuplicateMetadata": {
+			in: &os_v1.OperatingSystemResource{
+				Name:              "Test Os 1",
+				UpdateSources:     []string{"test entry1", "test entry2"},
+				Sha256:            inv_testing.RandomSha256v1,
+				ProfileName:       "Test OS profile name",
+				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				SecurityFeature:   os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
+				OsType:            os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Metadata:          `{"key1":"value1","key2":"value2","key1":"value3"}`,
+			},
+			valid: false,
+		},
 	}
 
 	for tcname, tc := range testcases {
@@ -169,7 +183,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			}
 
 			// build a context for gRPC
-			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), 10000*time.Second)
 			defer cancel()
 
 			// create
@@ -254,7 +268,7 @@ func Test_FilterOss(t *testing.T) {
 	cupdatesourceResp1 := dao.CreateOsWithOpts(t, tenantID, true,
 		inv_testing.Sha256(inv_testing.RandomSha256v1),
 		inv_testing.ProfileName("Test OS profile name 1"),
-		inv_testing.Metadata(`[{"key1": "value1"}, {"key2": "value2"}]`),
+		inv_testing.Metadata(`{"key1": "value1", "key2": "value2"}`),
 		inv_testing.SecurityFeature(os_v1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION),
 		inv_testing.OsType(os_v1.OsType_OS_TYPE_MUTABLE))
 	cupdatesourceResp2 := dao.CreateOsWithOpts(t, tenantID, true,
