@@ -8,6 +8,7 @@ package resources.compute.v1;
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "resources/common/v1/common.proto";
+import "resources/customconfig/v1/customconfig.proto";
 import "resources/location/v1/location.proto";
 import "resources/os/v1/os.proto";
 import "resources/localaccount/v1/localaccount.proto";
@@ -482,6 +483,9 @@ message InstanceResource {
     }
   ];
 
+  // The list of custom config associated with the instance.
+  repeated resources.customconfig.v1.CustomConfigResource custom_config = 53 [(google.api.field_behavior) = OUTPUT_ONLY];
+
   // Deprecated, The instance's unique identifier. Alias of resourceID.
   string instanceID = 5001 [
     (google.api.field_behavior) = OUTPUT_ONLY,
@@ -525,6 +529,16 @@ message InstanceResource {
       max_len: 23
     }
   ];
+
+  // The list of custom config associated with the instance.
+  repeated string custom_configID = 5006 [
+    (google.api.field_behavior) = INPUT_ONLY,
+    (buf.validate.field).string = {
+      pattern: "^customconfig-[0-9a-f]{8}$"
+      max_len: 21
+    }
+  ];
+
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
