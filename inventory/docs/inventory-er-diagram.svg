@@ -766,18 +766,18 @@
 <text text-anchor="start" x="2260.49" y="-4843.42" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">bigint</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="1540.95,-4762.22 1540.95,-4822.22 2347.95,-4822.22 2347.95,-4762.22 1540.95,-4762.22"/>
 <polygon fill="none" stroke="#29235c" points="1540.95,-4762.22 1540.95,-4822.22 2347.95,-4822.22 2347.95,-4762.22 1540.95,-4762.22"/>
-<text text-anchor="start" x="1551.95" y="-4782.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">instance_status_detail &#160;&#160;&#160;</text>
+<text text-anchor="start" x="1551.95" y="-4782.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">existing_cves &#160;&#160;&#160;</text>
 <text text-anchor="start" x="2091.58" y="-4783.42" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="1540.95,-4702.22 1540.95,-4762.22 2347.95,-4762.22 2347.95,-4702.22 1540.95,-4702.22"/>
 <polygon fill="none" stroke="#29235c" points="1540.95,-4702.22 1540.95,-4762.22 2347.95,-4762.22 2347.95,-4702.22 1540.95,-4702.22"/>
-<text text-anchor="start" x="1551.95" y="-4722.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">existing_cves &#160;&#160;&#160;</text>
-<text text-anchor="start" x="2091.58" y="-4723.42" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
+<text text-anchor="start" x="1551.95" y="-4722.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">tenant_id &#160;&#160;&#160;</text>
+<text text-anchor="start" x="2052.49" y="-4723.42" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
+<text text-anchor="start" x="2297.86" y="-4723.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c"> </text>
+<text text-anchor="start" x="2306.75" y="-4723.42" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="32.00" fill="#29235c">(!)</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="1540.95,-4642.22 1540.95,-4702.22 2347.95,-4702.22 2347.95,-4642.22 1540.95,-4642.22"/>
 <polygon fill="none" stroke="#29235c" points="1540.95,-4642.22 1540.95,-4702.22 2347.95,-4702.22 2347.95,-4642.22 1540.95,-4642.22"/>
-<text text-anchor="start" x="1551.95" y="-4662.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">tenant_id &#160;&#160;&#160;</text>
-<text text-anchor="start" x="2052.49" y="-4663.42" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
-<text text-anchor="start" x="2297.86" y="-4663.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c"> </text>
-<text text-anchor="start" x="2306.75" y="-4663.42" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="32.00" fill="#29235c">(!)</text>
+<text text-anchor="start" x="1551.95" y="-4662.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">instance_status_detail &#160;&#160;&#160;</text>
+<text text-anchor="start" x="2091.58" y="-4663.42" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="1540.95,-4582.22 1540.95,-4642.22 2347.95,-4642.22 2347.95,-4582.22 1540.95,-4582.22"/>
 <polygon fill="none" stroke="#29235c" points="1540.95,-4582.22 1540.95,-4642.22 2347.95,-4642.22 2347.95,-4582.22 1540.95,-4582.22"/>
 <text text-anchor="start" x="1551.95" y="-4602.42" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">created_at &#160;&#160;&#160;</text>
