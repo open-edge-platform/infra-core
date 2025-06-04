@@ -418,6 +418,182 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 			resourceID: hostID,
 			valid:      true,
 		},
+		"Test_ClientAPI_Create_Host_Fail7": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						SerialNumber:    "12345678",
+						CurrentAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Create_Host_Fail8": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						SerialNumber:    "12345678",
+						DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Create_Host_Success6": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						SerialNumber:    "12345678",
+						DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientRM_Create_Host_Success7": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						SerialNumber:    "12345678",
+						CurrentAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientAPI_Create_Host_Fail9": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Create_Host_Fail10": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Create_Host_Fail11": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Create_Host_Fail12": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Create_Host_Fail13": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Create_Host_Fail14": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Create_Host_Success8": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientRM_Create_Host_Success9": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						SerialNumber:      "12345678",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
 		"Test_ClientAPI_Register_Host_Success1": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
 			resource: &inv_v1.Resource{
@@ -912,6 +1088,172 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 					Host: &computev1.HostResource{
 						Name:         "host",
 						SerialNumber: "12345678",
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientAPI_Update_Host_Fail7": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						SerialNumber:    "12345678",
+						CurrentAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Update_Host_Fail8": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						SerialNumber:    "12345678",
+						DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Update_Host_Success6": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientRM_Update_Host_Success7": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:            "host",
+						CurrentAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientAPI_Update_Host_Fail9": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Update_Host_Fail10": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Update_Host_Fail11": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Update_Host_Fail12": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Update_Host_Fail13": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Update_Host_Fail14": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Update_Host_Success8": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+						DesiredAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientRM_Update_Host_Success9": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:              "host",
+						CurrentPowerState: computev1.PowerState_POWER_STATE_ON,
+						CurrentAmtState:   computev1.AmtState_AMT_STATE_PROVISIONED,
 					},
 				},
 			},

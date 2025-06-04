@@ -15,6 +15,7 @@ allow if {
 	input.DesiredState
 	not input.CurrentState
 	not input.resource.host.currentPowerState
+	not input.resource.host.currentAmtState
 	not input.resource.tenant
 	input.ClientKind == "CLIENT_KIND_API"
 }
@@ -23,6 +24,7 @@ allow if {
 	input.CurrentState
 	not input.DesiredState
 	not input.resource.host.desiredPowerState
+	not input.resource.host.desiredAmtState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
@@ -32,6 +34,8 @@ allow if {
 	not input.CurrentState
 	not input.resource.host.desiredPowerState
 	not input.resource.host.currentPowerState
+    not input.resource.host.desiredAmtState
+    not input.resource.host.currentAmtState
 	input.ClientKind != "CLIENT_KIND_UNSPECIFIED"
 }
 
@@ -41,6 +45,28 @@ allow if {
 	input.resource.host
 	input.resource.host.desiredPowerState
 	not input.resource.host.currentPowerState
+    input.resource.host.desiredAmtState
+    not input.resource.host.currentAmtState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+allow if {
+	not input.CurrentState
+	input.resource.host
+	input.resource.host.desiredPowerState
+	not input.resource.host.currentPowerState
+    not input.resource.host.desiredAmtState
+    not input.resource.host.currentAmtState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+allow if {
+	not input.CurrentState
+	input.resource.host
+	not input.resource.host.desiredPowerState
+	not input.resource.host.currentPowerState
+    input.resource.host.desiredAmtState
+    not input.resource.host.currentAmtState
 	input.ClientKind == "CLIENT_KIND_API"
 }
 
@@ -83,6 +109,28 @@ allow if {
 	input.resource.host
 	input.resource.host.currentPowerState
 	not input.resource.host.desiredPowerState
+    input.resource.host.currentAmtState
+    not input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+allow if {
+	not input.DesiredState
+	input.resource.host
+	input.resource.host.currentPowerState
+	not input.resource.host.desiredPowerState
+    not input.resource.host.currentAmtState
+    not input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+allow if {
+	not input.DesiredState
+	input.resource.host
+	not input.resource.host.currentPowerState
+	not input.resource.host.desiredPowerState
+    input.resource.host.currentAmtState
+    not input.resource.host.desiredAmtState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
