@@ -32,11 +32,12 @@ type InventorygRPCServer struct {
 	InvHCacheClient *schedule_cache.HScheduleCacheClient
 }
 
-// GetOnboardingRoles helper function to get role used during onboarding. It can be used to feed the expected roles of
-// the interceptor in the OM.
+// GetAPIRoles helper function to get role used by API component.
+// It can be used to feed the expected roles of interceptor in APIv2.
 func GetAPIRoles() []string {
 	return []string{
 		"im-rw",
+		"im-r",
 	}
 }
 

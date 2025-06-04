@@ -726,7 +726,17 @@ message OSUpdatePolicy {
 
   // The target OS for the update.
   // Applies only to Immutable OSes for A/B upgrades.
-  resources.os.v1.OperatingSystemResource target_os = 50;
+  resources.os.v1.OperatingSystemResource target_os = 50 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // The unique identifier of target OS will be associated with the OS Update policy.
+  string target_os_id = 5001 [
+    (google.api.field_behavior) = INPUT_ONLY,
+    (buf.validate.field).string = {
+      pattern: "^os-[0-9a-f]{8}$"
+      max_len: 11
+    }
+  ];
+
 
   // Update Policy for the OS update. This field is used to determine the update policy for the OS update.
   // UPDATE_POLICY_LATEST:

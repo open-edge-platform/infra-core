@@ -3754,7 +3754,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OSUpdatePolicy'
+                $ref: '#/components/schemas/DeleteOSUpdatePolicyResponse'
   /edge-infra.orchestrator.apis/v2/os_update_run:
     get:
       tags:
@@ -3879,7 +3879,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OSUpdateRun'
+                $ref: '#/components/schemas/DeleteOSUpdateRunResponse'
 components:
   schemas:
     google.protobuf.Timestamp:
@@ -5502,7 +5502,15 @@ components:
           description: |-
             The target OS for the update.
              Applies only to Immutable OSes for A/B upgrades.
+          readOnly: true
           $ref: '#/components/schemas/OperatingSystemResource'
+        targetOsId:
+          type: string
+          title: target_os_id
+          maxLength: 11
+          pattern: ^os-[0-9a-f]{8}$
+          description: The unique identifier of target OS will be associated with the OS Update policy.
+          writeOnly: true
         updatePolicy:
           title: update_policy
           description: |-

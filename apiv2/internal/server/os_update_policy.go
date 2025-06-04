@@ -35,7 +35,7 @@ func (is *InventorygRPCServer) GetOSUpdatePolicy(_ context.Context, _ *restv1.Ge
 }
 
 func (is *InventorygRPCServer) DeleteOSUpdatePolicy(_ context.Context, _ *restv1.DeleteOSUpdatePolicyRequest) (
-	*computev1.OSUpdatePolicy, error,
+	*restv1.DeleteOSUpdatePolicyResponse, error,
 ) {
 	// TODO implement me
 	return nil, errors.Errorfc(codes.Unimplemented, "DeleteOsUpdatePolicy not implemented")

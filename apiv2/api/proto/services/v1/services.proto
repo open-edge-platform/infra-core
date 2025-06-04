@@ -2402,7 +2402,7 @@ service OSUpdatePolicy {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
   }
   // Delete a OS Update Policy.
-  rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
+  rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (DeleteOSUpdatePolicyResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
   }
 }
@@ -2507,7 +2507,7 @@ service OSUpdateRun {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
   }
   // Delete a OS Update Run.
-  rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
+  rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (DeleteOSUpdateRunResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
   }
 }
