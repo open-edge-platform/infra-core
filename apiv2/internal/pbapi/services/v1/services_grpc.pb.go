@@ -4100,7 +4100,7 @@ type OSUpdatePolicyClient interface {
 	// Get a specific OS Update Policy.
 	GetOSUpdatePolicy(ctx context.Context, in *GetOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
 	// Delete a OS Update Policy.
-	DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
+	DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*DeleteOSUpdatePolicyResponse, error)
 }
 
 type oSUpdatePolicyClient struct {
@@ -4138,8 +4138,8 @@ func (c *oSUpdatePolicyClient) GetOSUpdatePolicy(ctx context.Context, in *GetOSU
 	return out, nil
 }
 
-func (c *oSUpdatePolicyClient) DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error) {
-	out := new(v11.OSUpdatePolicy)
+func (c *oSUpdatePolicyClient) DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*DeleteOSUpdatePolicyResponse, error) {
+	out := new(DeleteOSUpdatePolicyResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -4158,7 +4158,7 @@ type OSUpdatePolicyServer interface {
 	// Get a specific OS Update Policy.
 	GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
 	// Delete a OS Update Policy.
-	DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
+	DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*DeleteOSUpdatePolicyResponse, error)
 }
 
 // UnimplementedOSUpdatePolicyServer should be embedded to have forward compatible implementations.
@@ -4174,7 +4174,7 @@ func (UnimplementedOSUpdatePolicyServer) ListOSUpdatePolicy(context.Context, *Li
 func (UnimplementedOSUpdatePolicyServer) GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdatePolicy not implemented")
 }
-func (UnimplementedOSUpdatePolicyServer) DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
+func (UnimplementedOSUpdatePolicyServer) DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*DeleteOSUpdatePolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdatePolicy not implemented")
 }
 
@@ -4298,7 +4298,7 @@ type OSUpdateRunClient interface {
 	// Get a specific OS Update Run.
 	GetOSUpdateRun(ctx context.Context, in *GetOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
 	// Delete a OS Update Run.
-	DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
+	DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*DeleteOSUpdateRunResponse, error)
 }
 
 type oSUpdateRunClient struct {
@@ -4327,8 +4327,8 @@ func (c *oSUpdateRunClient) GetOSUpdateRun(ctx context.Context, in *GetOSUpdateR
 	return out, nil
 }
 
-func (c *oSUpdateRunClient) DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error) {
-	out := new(v11.OSUpdateRun)
+func (c *oSUpdateRunClient) DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*DeleteOSUpdateRunResponse, error) {
+	out := new(DeleteOSUpdateRunResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -4345,7 +4345,7 @@ type OSUpdateRunServer interface {
 	// Get a specific OS Update Run.
 	GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error)
 	// Delete a OS Update Run.
-	DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*v11.OSUpdateRun, error)
+	DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*DeleteOSUpdateRunResponse, error)
 }
 
 // UnimplementedOSUpdateRunServer should be embedded to have forward compatible implementations.
@@ -4358,7 +4358,7 @@ func (UnimplementedOSUpdateRunServer) ListOSUpdateRun(context.Context, *ListOSUp
 func (UnimplementedOSUpdateRunServer) GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdateRun not implemented")
 }
-func (UnimplementedOSUpdateRunServer) DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
+func (UnimplementedOSUpdateRunServer) DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*DeleteOSUpdateRunResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdateRun not implemented")
 }
 

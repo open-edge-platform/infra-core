@@ -8167,7 +8167,7 @@ func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) StatusCode() int {
 type OSUpdatePolicyDeleteOSUpdatePolicyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *OSUpdatePolicy
+	JSON200      *DeleteOSUpdatePolicyResponse
 	JSONDefault  *ConnectError
 }
 
@@ -8236,7 +8236,7 @@ func (r OSUpdateRunListOSUpdateRunResponse) StatusCode() int {
 type OSUpdateRunDeleteOSUpdateRunResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *OSUpdateRun
+	JSON200      *DeleteOSUpdateRunResponse
 	JSONDefault  *ConnectError
 }
 
@@ -11833,7 +11833,7 @@ func ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp *http.Response) (*OSUpd
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest OSUpdatePolicy
+		var dest DeleteOSUpdatePolicyResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -11932,7 +11932,7 @@ func ParseOSUpdateRunDeleteOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRun
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest OSUpdateRun
+		var dest DeleteOSUpdateRunResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
