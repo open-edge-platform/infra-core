@@ -213,6 +213,7 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 		CreatedAt:         os.CreatedAt,
 		UpdatedAt:         os.UpdatedAt,
 		Description:       os.Description,
+		Metadata:          os.Metadata,
 	}
 	if os.UpdateSources != "" {
 		protoUpdate.UpdateSources = strings.Split(os.UpdateSources, "|")

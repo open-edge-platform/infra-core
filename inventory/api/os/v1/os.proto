@@ -126,6 +126,15 @@ message OperatingSystemResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // user-provided, human-readable description of OS
 
+  string metadata = 18 [
+    (ent.field) = {
+      optional: true
+    },
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-z0-9,.-_:/\"\\\\ \\\\n\\{\\}\\[\\]]+$"
+      max_len: 500
+    }]; // Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true

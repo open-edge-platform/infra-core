@@ -227,6 +227,20 @@ func (osrc *OperatingSystemResourceCreate) SetNillableDescription(s *string) *Op
 	return osrc
 }
 
+// SetMetadata sets the "metadata" field.
+func (osrc *OperatingSystemResourceCreate) SetMetadata(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetMetadata(s)
+	return osrc
+}
+
+// SetNillableMetadata sets the "metadata" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableMetadata(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetMetadata(*s)
+	}
+	return osrc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (osrc *OperatingSystemResourceCreate) SetTenantID(s string) *OperatingSystemResourceCreate {
 	osrc.mutation.SetTenantID(s)
@@ -398,6 +412,10 @@ func (osrc *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResourc
 	if value, ok := osrc.mutation.Description(); ok {
 		_spec.SetField(operatingsystemresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
+	}
+	if value, ok := osrc.mutation.Metadata(); ok {
+		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
+		_node.Metadata = value
 	}
 	if value, ok := osrc.mutation.TenantID(); ok {
 		_spec.SetField(operatingsystemresource.FieldTenantID, field.TypeString, value)

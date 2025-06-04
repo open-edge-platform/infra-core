@@ -17514,6 +17514,7 @@ type OperatingSystemResourceMutation struct {
 	os_provider        *operatingsystemresource.OsProvider
 	platform_bundle    *string
 	description        *string
+	metadata           *string
 	tenant_id          *string
 	created_at         *string
 	updated_at         *string
@@ -18379,6 +18380,55 @@ func (m *OperatingSystemResourceMutation) ResetDescription() {
 	delete(m.clearedFields, operatingsystemresource.FieldDescription)
 }
 
+// SetMetadata sets the "metadata" field.
+func (m *OperatingSystemResourceMutation) SetMetadata(s string) {
+	m.metadata = &s
+}
+
+// Metadata returns the value of the "metadata" field in the mutation.
+func (m *OperatingSystemResourceMutation) Metadata() (r string, exists bool) {
+	v := m.metadata
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMetadata returns the old "metadata" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldMetadata(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMetadata is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMetadata requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMetadata: %w", err)
+	}
+	return oldValue.Metadata, nil
+}
+
+// ClearMetadata clears the value of the "metadata" field.
+func (m *OperatingSystemResourceMutation) ClearMetadata() {
+	m.metadata = nil
+	m.clearedFields[operatingsystemresource.FieldMetadata] = struct{}{}
+}
+
+// MetadataCleared returns if the "metadata" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) MetadataCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldMetadata]
+	return ok
+}
+
+// ResetMetadata resets all changes to the "metadata" field.
+func (m *OperatingSystemResourceMutation) ResetMetadata() {
+	m.metadata = nil
+	delete(m.clearedFields, operatingsystemresource.FieldMetadata)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *OperatingSystemResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -18521,7 +18571,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 19)
+	fields := make([]string, 0, 20)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -18569,6 +18619,9 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.description != nil {
 		fields = append(fields, operatingsystemresource.FieldDescription)
+	}
+	if m.metadata != nil {
+		fields = append(fields, operatingsystemresource.FieldMetadata)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, operatingsystemresource.FieldTenantID)
@@ -18619,6 +18672,8 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.PlatformBundle()
 	case operatingsystemresource.FieldDescription:
 		return m.Description()
+	case operatingsystemresource.FieldMetadata:
+		return m.Metadata()
 	case operatingsystemresource.FieldTenantID:
 		return m.TenantID()
 	case operatingsystemresource.FieldCreatedAt:
@@ -18666,6 +18721,8 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldPlatformBundle(ctx)
 	case operatingsystemresource.FieldDescription:
 		return m.OldDescription(ctx)
+	case operatingsystemresource.FieldMetadata:
+		return m.OldMetadata(ctx)
 	case operatingsystemresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case operatingsystemresource.FieldCreatedAt:
@@ -18793,6 +18850,13 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 		}
 		m.SetDescription(v)
 		return nil
+	case operatingsystemresource.FieldMetadata:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMetadata(v)
+		return nil
 	case operatingsystemresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -18886,6 +18950,9 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldDescription) {
 		fields = append(fields, operatingsystemresource.FieldDescription)
 	}
+	if m.FieldCleared(operatingsystemresource.FieldMetadata) {
+		fields = append(fields, operatingsystemresource.FieldMetadata)
+	}
 	return fields
 }
 
@@ -18942,6 +19009,9 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldDescription:
 		m.ClearDescription()
 		return nil
+	case operatingsystemresource.FieldMetadata:
+		m.ClearMetadata()
+		return nil
 	}
 	return fmt.Errorf("unknown OperatingSystemResource nullable field %s", name)
 }
@@ -18997,6 +19067,9 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldDescription:
 		m.ResetDescription()
+		return nil
+	case operatingsystemresource.FieldMetadata:
+		m.ResetMetadata()
 		return nil
 	case operatingsystemresource.FieldTenantID:
 		m.ResetTenantID()

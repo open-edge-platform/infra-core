@@ -117,6 +117,11 @@ func Description(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldDescription, v))
 }
 
+// Metadata applies equality check predicate on the "metadata" field. It's identical to MetadataEQ.
+func Metadata(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldMetadata, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldTenantID, v))
@@ -1175,6 +1180,81 @@ func DescriptionEqualFold(v string) predicate.OperatingSystemResource {
 // DescriptionContainsFold applies the ContainsFold predicate on the "description" field.
 func DescriptionContainsFold(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldDescription, v))
+}
+
+// MetadataEQ applies the EQ predicate on the "metadata" field.
+func MetadataEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldMetadata, v))
+}
+
+// MetadataNEQ applies the NEQ predicate on the "metadata" field.
+func MetadataNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldMetadata, v))
+}
+
+// MetadataIn applies the In predicate on the "metadata" field.
+func MetadataIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldMetadata, vs...))
+}
+
+// MetadataNotIn applies the NotIn predicate on the "metadata" field.
+func MetadataNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldMetadata, vs...))
+}
+
+// MetadataGT applies the GT predicate on the "metadata" field.
+func MetadataGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldMetadata, v))
+}
+
+// MetadataGTE applies the GTE predicate on the "metadata" field.
+func MetadataGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldMetadata, v))
+}
+
+// MetadataLT applies the LT predicate on the "metadata" field.
+func MetadataLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldMetadata, v))
+}
+
+// MetadataLTE applies the LTE predicate on the "metadata" field.
+func MetadataLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldMetadata, v))
+}
+
+// MetadataContains applies the Contains predicate on the "metadata" field.
+func MetadataContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldMetadata, v))
+}
+
+// MetadataHasPrefix applies the HasPrefix predicate on the "metadata" field.
+func MetadataHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldMetadata, v))
+}
+
+// MetadataHasSuffix applies the HasSuffix predicate on the "metadata" field.
+func MetadataHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldMetadata, v))
+}
+
+// MetadataIsNil applies the IsNil predicate on the "metadata" field.
+func MetadataIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldMetadata))
+}
+
+// MetadataNotNil applies the NotNil predicate on the "metadata" field.
+func MetadataNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldMetadata))
+}
+
+// MetadataEqualFold applies the EqualFold predicate on the "metadata" field.
+func MetadataEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldMetadata, v))
+}
+
+// MetadataContainsFold applies the ContainsFold predicate on the "metadata" field.
+func MetadataContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldMetadata, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.

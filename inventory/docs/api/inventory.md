@@ -372,6 +372,7 @@
 | os_provider | [OsProviderKind](#os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | description | [string](#string) |  | user-provided, human-readable description of OS |
+| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
