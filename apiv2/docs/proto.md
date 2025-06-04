@@ -943,6 +943,7 @@ back-reference to the Workload Members associated to this Instance |
 | update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Applies only to Mutable OSes. |
 | kernel_command | [string](#string) |  | The OS resource&#39;s kernel Command Line Options. Applies only to Mutable OSes. |
 | target_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The target OS for the update. Applies only to Immutable OSes for A/B upgrades. |
+| target_os_id | [string](#string) |  | The unique identifier of target OS will be associated with the OS Update policy. |
 | update_policy | [UpdatePolicy](#resources-compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
@@ -4155,7 +4156,7 @@ OS Update Policy.
 | CreateOSUpdatePolicy | [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Create an OS Update Policy. |
 | ListOSUpdatePolicy | [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest) | [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse) | Get a list of OS Update Policies. |
 | GetOSUpdatePolicy | [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Get a specific OS Update Policy. |
-| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Delete a OS Update Policy. |
+| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [DeleteOSUpdatePolicyResponse](#services-v1-DeleteOSUpdatePolicyResponse) | Delete a OS Update Policy. |
 
 
 <a name="services-v1-OSUpdateRun"></a>
@@ -4167,7 +4168,7 @@ OS Update Run.
 | ----------- | ------------ | ------------- | ------------|
 | ListOSUpdateRun | [ListOSUpdateRunRequest](#services-v1-ListOSUpdateRunRequest) | [ListOSUpdateRunResponse](#services-v1-ListOSUpdateRunResponse) | Get a list of OS Update Policies. |
 | GetOSUpdateRun | [GetOSUpdateRunRequest](#services-v1-GetOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Get a specific OS Update Run. |
-| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Delete a OS Update Run. |
+| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [DeleteOSUpdateRunResponse](#services-v1-DeleteOSUpdateRunResponse) | Delete a OS Update Run. |
 
 
 <a name="services-v1-OperatingSystemService"></a>
