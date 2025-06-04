@@ -3449,6 +3449,160 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteLocalAccountResponse'
+  /edge-infra.orchestrator.apis/v2/customConfigs:
+    get:
+      tags:
+        - CustomConfigService
+      summary: ListCustomConfigs
+      description: Get a list of custom configurations.
+      operationId: CustomConfigService_ListCustomConfigs
+      parameters:
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            format: int32
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            format: int32
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCustomConfigsResponse'
+    post:
+      tags:
+        - CustomConfigService
+      summary: CreateCustomConfig
+      description: Create a custom configuration.
+      operationId: CustomConfigService_CreateCustomConfig
+      requestBody:
+        description: The custom configuration to create.
+        content:
+          application/json:
+            schema:
+              title: custom_config
+              description: The custom configuration to create.
+              $ref: '#/components/schemas/CustomConfigResource'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomConfigResource'
+  /edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}:
+    get:
+      tags:
+        - CustomConfigService
+      summary: GetCustomConfig
+      description: Get a specific custom configuration.
+      operationId: CustomConfigService_GetCustomConfig
+      parameters:
+        - name: resourceId
+          in: path
+          description: Name of the requested custom configuration.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested custom configuration.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomConfigResource'
+    delete:
+      tags:
+        - CustomConfigService
+      summary: DeleteCustomConfig
+      description: Delete a custom configuration.
+      operationId: CustomConfigService_DeleteCustomConfig
+      parameters:
+        - name: resourceId
+          in: path
+          description: Name of the customconfig to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the customconfig to be deleted.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCustomConfigResponse'
   /edge-infra.orchestrator.apis/v2/os_update_policy:
     get:
       tags:
@@ -3856,6 +4010,44 @@ components:
           readOnly: true
           $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: Timestamps
+      additionalProperties: false
+    CustomConfigResource:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          maxLength: 21
+          pattern: ^customconfig-[0-9a-f]{8}$
+          description: resource identifier
+          readOnly: true
+        name:
+          type: string
+          title: name
+          maxLength: 32
+          pattern: ^[a-z][a-z0-9-]{0,31}$
+          description: Config provided by admin
+        description:
+          type: string
+          title: description
+          maxLength: 256
+          minLength: 1
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+          description: (OPTIONAL) Config description
+        configContent:
+          type: string
+          title: config_content
+          maxLength: 16384
+          description: Config content
+        timestamps:
+          title: timestamps
+          description: Timestamps associated to the resource.
+          readOnly: true
+          $ref: '#/components/schemas/Timestamps'
+      title: CustomConfigResource
+      required:
+        - name
+        - configContent
       additionalProperties: false
     ProviderKind:
       type: string
@@ -5183,6 +5375,13 @@ components:
           pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()"\ \n]+$
           description: Details about OS Updates available for this Instance. If empty, there are no updates available.
           readOnly: true
+        customConfig:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomConfigResource'
+          title: custom_config
+          description: The list of custom config associated with the instance.
+          readOnly: true
         instanceID:
           type: string
           title: instanceID
@@ -5216,6 +5415,18 @@ components:
           title: os_update_policyID
           maxLength: 23
           pattern: ^osupdatepolicy-[0-9a-f]{8}$
+          writeOnly: true
+        customConfigID:
+          type: array
+          items:
+            type: string
+            maxLength: 21
+            pattern: ^customconfig-[0-9a-f]{8}$
+            writeOnly: true
+          title: custom_configID
+          maxLength: 21
+          pattern: ^customconfig-[0-9a-f]{8}$
+          description: The list of custom config associated with the instance.
           writeOnly: true
         timestamps:
           title: timestamps
@@ -6219,6 +6430,30 @@ components:
          The implementation of any API method which has a FieldMask type field in the
          request should verify the included field paths, and return an
          `INVALID_ARGUMENT` error if any path is unmappable.
+    CreateCustomConfigRequest:
+      type: object
+      properties:
+        customConfig:
+          title: custom_config
+          description: The custom configuration to create.
+          $ref: '#/components/schemas/CustomConfigResource'
+      title: CreateCustomConfigRequest
+      required:
+        - customConfig
+      additionalProperties: false
+      description: Request message for the CreateCustomConfig method.
+    CreateCustomConfigResponse:
+      type: object
+      properties:
+        customConfig:
+          title: custom_config
+          description: The created custom configuration.
+          $ref: '#/components/schemas/CustomConfigResource'
+      title: CreateCustomConfigResponse
+      required:
+        - customConfig
+      additionalProperties: false
+      description: Response message for the CreateCustomConfig method.
     CreateHostRequest:
       type: object
       properties:
@@ -6627,6 +6862,23 @@ components:
         - workload
       additionalProperties: false
       description: Response message for the CreateWorkload method.
+    DeleteCustomConfigRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the customconfig to be deleted.
+      title: DeleteCustomConfigRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for DeleteCustomConfig.
+    DeleteCustomConfigResponse:
+      type: object
+      title: DeleteCustomConfigResponse
+      additionalProperties: false
+      description: Response message for DeleteCustomConfig.
     DeleteHostRequest:
       type: object
       properties:
@@ -6916,6 +7168,30 @@ components:
       title: DeleteWorkloadResponse
       additionalProperties: false
       description: Response message for DeleteWorkload.
+    GetCustomConfigRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the requested custom configuration.
+      title: GetCustomConfigRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for the GetCustomConfig method.
+    GetCustomConfigResponse:
+      type: object
+      properties:
+        customConfig:
+          title: custom_config
+          description: The requested custom configuration.
+          $ref: '#/components/schemas/CustomConfigResource'
+      title: GetCustomConfigResponse
+      required:
+        - customConfig
+      additionalProperties: false
+      description: Response message for the GetCustomConfig method.
     GetHostRequest:
       type: object
       properties:
@@ -7434,6 +7710,68 @@ components:
       title: InvalidateInstanceResponse
       additionalProperties: false
       description: Response message for Invalidate Instance.
+    ListCustomConfigsRequest:
+      type: object
+      properties:
+        orderBy:
+          type: string
+          title: order_by
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9., ]+$
+          description: |-
+            (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+        filter:
+          type: string
+          title: filter
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+          description: |-
+            (OPTIONAL) Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+        pageSize:
+          type: integer
+          title: page_size
+          maximum: 100
+          minimum: 1
+          format: int32
+          description: |-
+            (OPTIONAL) Defines the amount of items to be contained in a single page.
+             Default of 20.
+        offset:
+          type: integer
+          title: offset
+          maximum: 10000
+          format: int32
+          description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      title: ListCustomConfigsRequest
+      additionalProperties: false
+      description: Request message for the ListCustomConfigs method.
+    ListCustomConfigsResponse:
+      type: object
+      properties:
+        customConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomConfigResource'
+          title: custom_configs
+          description: Sorted and filtered list of customconfigs.
+        totalElements:
+          type: integer
+          title: total_elements
+          format: int32
+          description: Count of items in the entire list, regardless of pagination.
+        hasNext:
+          type: boolean
+          title: has_next
+          description: Inform if there are more elements
+      title: ListCustomConfigsResponse
+      required:
+        - customConfigs
+        - totalElements
+        - hasNext
+      additionalProperties: false
+      description: Response message for the ListCustomConfigs method.
     ListHostsRequest:
       type: object
       properties:
@@ -9164,6 +9502,8 @@ tags:
     description: TelemetryMetricsProfile.
   - name: LocalAccountService
     description: LocalAccount.
+  - name: CustomConfigService
+    description: CustomConfig.
   - name: OSUpdatePolicy
     description: OS Update Policy.
   - name: OSUpdateRun
