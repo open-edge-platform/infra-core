@@ -957,7 +957,6 @@ message CustomConfigResource {
     (buf.validate.field).string = {
       min_len: 1
       max_len: 16384
-      pattern: "^[A-Za-z0-9-/_\\[\\]\\.\\\\]*$"
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
