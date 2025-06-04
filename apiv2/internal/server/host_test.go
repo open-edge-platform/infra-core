@@ -41,24 +41,27 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 	Site: &inv_locationv1.SiteResource{
 		ResourceId: "site-12345678",
 	},
-	Note:            "Example note",
-	SerialNumber:    "SN12345678",
-	Uuid:            "uuid-1234-5678-9012-3456",
-	MemoryBytes:     16384,
-	CpuModel:        "Intel Xeon",
-	CpuSockets:      2,
-	CpuCores:        16,
-	CpuCapabilities: "capability1,capability2",
-	CpuArchitecture: "x86_64",
-	CpuThreads:      32,
-	CpuTopology:     "topology-json",
-	BmcKind:         inv_computev1.BaremetalControllerKind_BAREMETAL_CONTROLLER_KIND_IPMI,
-	BmcIp:           "192.168.0.1",
-	Hostname:        "example-hostname",
-	ProductName:     "Example Product",
-	BiosVersion:     "1.0.0",
-	BiosReleaseDate: "2023-01-01",
-	BiosVendor:      "Example Vendor",
+	Note:               "Example note",
+	SerialNumber:       "SN12345678",
+	Uuid:               "uuid-1234-5678-9012-3456",
+	MemoryBytes:        16384,
+	CpuModel:           "Intel Xeon",
+	CpuSockets:         2,
+	CpuCores:           16,
+	CpuCapabilities:    "capability1,capability2",
+	CpuArchitecture:    "x86_64",
+	CpuThreads:         32,
+	CpuTopology:        "topology-json",
+	BmcKind:            inv_computev1.BaremetalControllerKind_BAREMETAL_CONTROLLER_KIND_IPMI,
+	BmcIp:              "192.168.0.1",
+	Hostname:           "example-hostname",
+	ProductName:        "Example Product",
+	BiosVersion:        "1.0.0",
+	BiosReleaseDate:    "2023-01-01",
+	BiosVendor:         "Example Vendor",
+	PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+	PowerOnTime:        1234567890,
+	AmtSku:             "sku-1234",
 	HostStorages: []*inv_computev1.HoststorageResource{
 		{
 			ResourceId:    "storage-12345678",
@@ -130,6 +133,12 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 	HostStatus:                  "running",
 	HostStatusIndicator:         inv_statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 	HostStatusTimestamp:         1234567890,
+	PowerStatus:                 "on",
+	PowerStatusIndicator:        inv_statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+	PowerStatusTimestamp:        1234567890,
+	AmtStatus:                   "provisioned",
+	AmtStatusIndicator:          inv_statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+	AmtStatusTimestamp:          1234567890,
 }
 
 // Write an example of API resource with a Host resource filled with all fields.
@@ -141,24 +150,27 @@ var exampleAPIHostResource = &computev1.HostResource{
 	Site: &locationv1.SiteResource{
 		ResourceId: "site-12345678",
 	},
-	Note:            "Example note",
-	SerialNumber:    "SN12345678",
-	Uuid:            "uuid-1234-5678-9012-3456",
-	MemoryBytes:     "16384",
-	CpuModel:        "Intel Xeon",
-	CpuSockets:      2,
-	CpuCores:        16,
-	CpuCapabilities: "capability1,capability2",
-	CpuArchitecture: "x86_64",
-	CpuThreads:      32,
-	CpuTopology:     "topology-json",
-	BmcKind:         computev1.BaremetalControllerKind_BAREMETAL_CONTROLLER_KIND_IPMI,
-	BmcIp:           "192.168.0.1",
-	Hostname:        "example-hostname",
-	ProductName:     "Example Product",
-	BiosVersion:     "1.0.0",
-	BiosReleaseDate: "2023-01-01",
-	BiosVendor:      "Example Vendor",
+	Note:               "Example note",
+	SerialNumber:       "SN12345678",
+	Uuid:               "uuid-1234-5678-9012-3456",
+	MemoryBytes:        "16384",
+	CpuModel:           "Intel Xeon",
+	CpuSockets:         2,
+	CpuCores:           16,
+	CpuCapabilities:    "capability1,capability2",
+	CpuArchitecture:    "x86_64",
+	CpuThreads:         32,
+	CpuTopology:        "topology-json",
+	BmcKind:            computev1.BaremetalControllerKind_BAREMETAL_CONTROLLER_KIND_IPMI,
+	BmcIp:              "192.168.0.1",
+	Hostname:           "example-hostname",
+	ProductName:        "Example Product",
+	BiosVersion:        "1.0.0",
+	BiosReleaseDate:    "2023-01-01",
+	BiosVendor:         "Example Vendor",
+	PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+	PowerOnTime:        1234567890,
+	AmtSku:             "sku-1234",
 	HostStorages: []*computev1.HoststorageResource{
 		{
 			Wwid:          "wwid-1234",
@@ -228,6 +240,12 @@ var exampleAPIHostResource = &computev1.HostResource{
 	HostStatus:                  "running",
 	HostStatusIndicator:         statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 	HostStatusTimestamp:         1234567890,
+	PowerStatus:                 "on",
+	PowerStatusIndicator:        statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+	PowerStatusTimestamp:        1234567890,
+	AmtStatus:                   "provisioned",
+	AmtStatusIndicator:          statusv1.StatusIndication_STATUS_INDICATION_IDLE,
+	AmtStatusTimestamp:          1234567890,
 }
 
 //nolint:funlen // Test functions are long but necessary to test all the cases.
@@ -803,6 +821,32 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
 	assert.Equal(t, uint32(7), response.Error, "Should have 7 hosts in error state")
 	assert.Equal(t, uint32(2), response.Running, "Should have 2 hosts running")
+
+	// SCENARIO 9: Verify power error is counted
+	host11 := createTestHost(ctx, t, "Host11-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host11.GetResourceId()) })
+	updateHostPowerStatus(ctx, t, host11.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// VERIFICATION 9: Verify power error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(11), response.Total, "Should have 11 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(8), response.Error, "Should have 8 hosts in error state")
+	assert.Equal(t, uint32(2), response.Running, "Should have 2 hosts running")
+
+	// SCENARIO 10: Verify AMT error is counted
+	host12 := createTestHost(ctx, t, "Host12-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host12.GetResourceId()) })
+	updateHostAmtStatus(ctx, t, host12.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// VERIFICATION 10: Verify AMT error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(12), response.Total, "Should have 10 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(9), response.Error, "Should have 7 hosts in error state")
+	assert.Equal(t, uint32(2), response.Running, "Should have 2 hosts running")
 }
 
 // Helper functions for test.
@@ -890,6 +934,44 @@ func updateHostRegistrationStatus(ctx context.Context, t *testing.T, hostID stri
 
 	fieldMask := &fieldmaskpb.FieldMask{
 		Paths: []string{inv_computev1.HostResourceFieldRegistrationStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateHostPowerStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
+	t.Helper()
+
+	updateHost := &inv_computev1.HostResource{
+		PowerStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.HostResourceFieldPowerStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateHostAmtStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
+	t.Helper()
+
+	updateHost := &inv_computev1.HostResource{
+		AmtStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.HostResourceFieldAmtStatusIndicator},
 	}
 
 	updateRes := &inventory.Resource{
