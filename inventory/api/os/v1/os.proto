@@ -139,9 +139,7 @@ message OperatingSystemResource {
   ]; // URL of the file containing information about the existing CVEs on the Operating System.
 
   string existing_cves = 43 [
-    (ent.field) = {
-      optional: true
-    },
+    (ent.field) = {optional: true},
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
       max_len: 20000
@@ -162,9 +160,7 @@ message OperatingSystemResource {
   ]; // URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
 
   string fixed_cves = 45 [
-    (ent.field) = {
-      optional: true
-    },
+    (ent.field) = {optional: true},
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
       max_len: 20000
