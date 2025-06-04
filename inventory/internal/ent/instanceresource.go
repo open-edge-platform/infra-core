@@ -96,9 +96,11 @@ type InstanceResourceEdges struct {
 	Provider *ProviderResource `json:"provider,omitempty"`
 	// Localaccount holds the value of the localaccount edge.
 	Localaccount *LocalAccountResource `json:"localaccount,omitempty"`
+	// CustomConfig holds the value of the custom_config edge.
+	CustomConfig []*CustomConfigResource `json:"custom_config,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [6]bool
+	loadedTypes [7]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -163,6 +165,15 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 		return nil, &NotFoundError{label: localaccountresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "localaccount"}
+}
+
+// CustomConfigOrErr returns the CustomConfig value or an error if the edge
+// was not loaded in eager-loading.
+func (e InstanceResourceEdges) CustomConfigOrErr() ([]*CustomConfigResource, error) {
+	if e.loadedTypes[6] {
+		return e.CustomConfig, nil
+	}
+	return nil, &NotLoadedError{edge: "custom_config"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -428,6 +439,11 @@ func (ir *InstanceResource) QueryProvider() *ProviderResourceQuery {
 // QueryLocalaccount queries the "localaccount" edge of the InstanceResource entity.
 func (ir *InstanceResource) QueryLocalaccount() *LocalAccountResourceQuery {
 	return NewInstanceResourceClient(ir.config).QueryLocalaccount(ir)
+}
+
+// QueryCustomConfig queries the "custom_config" edge of the InstanceResource entity.
+func (ir *InstanceResource) QueryCustomConfig() *CustomConfigResourceQuery {
+	return NewInstanceResourceClient(ir.config).QueryCustomConfig(ir)
 }
 
 // Update returns a builder for updating this InstanceResource.

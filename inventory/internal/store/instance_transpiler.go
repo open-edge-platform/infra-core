@@ -21,6 +21,11 @@ func (r *registry) RegisterInstanceResource() {
 					inv_v1.ResourceKind_RESOURCE_KIND_OS,
 				},
 
+				instanceresource.EdgeCustomConfig: {
+					func(p sqlPredicate) sqlPredicate { return instanceresource.HasCustomConfigWith(p) },
+					inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
+				},
+
 				instanceresource.EdgeDesiredOs: {
 					func(p sqlPredicate) sqlPredicate { return instanceresource.HasDesiredOsWith(p) },
 					inv_v1.ResourceKind_RESOURCE_KIND_OS,
@@ -48,6 +53,7 @@ func (r *registry) RegisterInstanceResource() {
 			},
 			map[string]sqlPredicate{
 				instanceresource.EdgeCurrentOs:       instanceresource.HasCurrentOs(),
+				instanceresource.EdgeCustomConfig:    instanceresource.HasCustomConfig(),
 				instanceresource.EdgeDesiredOs:       instanceresource.HasDesiredOs(),
 				instanceresource.EdgeHost:            instanceresource.HasHost(),
 				instanceresource.EdgeLocalaccount:    instanceresource.HasLocalaccount(),

@@ -97,6 +97,7 @@ func (is *InvStore) CreateInstance(ctx context.Context, in *computev1.InstanceRe
 	return res, nil
 }
 
+//nolint:cyclop // high cyclomatic complexity due to setting many fields in instance resource.
 func instanceResourceCreator(in *computev1.InstanceResource) func(context.Context, *ent.Tx) (
 	*inv_v1.Resource, error) {
 	return func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
@@ -126,12 +127,15 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		if err := setEdgeProviderIDForMut(ctx, tx.Client(), mut, in.GetProvider()); err != nil {
 			return nil, err
 		}
-
 		// Look up the optional LocalAccount ID for this Instance.
 		if err := setEdgeLocalAccountIDForMut(ctx, tx.Client(), mut, in.GetLocalaccount()); err != nil {
 			return nil, err
 		}
-
+		// Look up the optional CustomConfig IDs for this Instance. CustomConfig is M2M relation,
+		// so multiple edges could be provided at once
+		if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
+			return nil, err
+		}
 		if err := mut.SetField(instanceresource.FieldResourceID, id); err != nil {
 			return nil, errors.Wrap(err)
 		}
@@ -178,7 +182,8 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		WithDesiredOs().
 		WithCurrentOs().
 		WithProvider().
-		WithLocalaccount()
+		WithLocalaccount().
+		WithCustomConfig()
 	if nestedLoad {
 		query.
 			WithHost(func(q *ent.HostResourceQuery) {
@@ -251,6 +256,15 @@ func (is *InvStore) UpdateInstance(
 				return nil, booleans.Pointer(false),
 					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
 						id, in.GetLocalaccount(), entity.CurrentState,
+					)
+			}
+
+			if isNotValidCustomConfigUpdate(fieldmask, entity) {
+				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+					id, entity.CurrentState, in.GetCustomConfig()).Msgf("UpdateInstance")
+				return nil, booleans.Pointer(false),
+					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s CustomConfig is not allowed %s, currentState: %s",
+						id, in.GetCustomConfig(), entity.CurrentState,
 					)
 			}
 
@@ -553,6 +567,13 @@ func setRelationsForInstanceMutIfNeeded(
 			return err
 		}
 	}
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
+		mut.ClearCustomConfig()
+		if err := setEdgeCustomConfigIDsForMut(ctx, client, mut, in.GetCustomConfig()); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -591,4 +612,13 @@ func isNotValidLocalAccountUpdate(
 ) bool {
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
 		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
+}
+
+func isNotValidCustomConfigUpdate(
+	fieldmask *fieldmaskpb.FieldMask,
+	instanceq *ent.InstanceResource,
+) bool {
+	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) &&
+		(instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
+			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED)
 }

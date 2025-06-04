@@ -14,6 +14,8 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
+	// CustomConfigResource is the client for interacting with the CustomConfigResource builders.
+	CustomConfigResource *CustomConfigResourceClient
 	// EndpointResource is the client for interacting with the EndpointResource builders.
 	EndpointResource *EndpointResourceClient
 	// HostResource is the client for interacting with the HostResource builders.
@@ -193,6 +195,7 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
+	tx.CustomConfigResource = NewCustomConfigResourceClient(tx.config)
 	tx.EndpointResource = NewEndpointResourceClient(tx.config)
 	tx.HostResource = NewHostResourceClient(tx.config)
 	tx.HostgpuResource = NewHostgpuResourceClient(tx.config)
@@ -226,7 +229,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: EndpointResource.QueryXXX(), the query will be executed
+// applies a query, for example: CustomConfigResource.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

@@ -10,6 +10,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
@@ -631,6 +632,21 @@ func (iru *InstanceResourceUpdate) SetLocalaccount(l *LocalAccountResource) *Ins
 	return iru.SetLocalaccountID(l.ID)
 }
 
+// AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
+func (iru *InstanceResourceUpdate) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
+	iru.mutation.AddCustomConfigIDs(ids...)
+	return iru
+}
+
+// AddCustomConfig adds the "custom_config" edges to the CustomConfigResource entity.
+func (iru *InstanceResourceUpdate) AddCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdate {
+	ids := make([]int, len(c))
+	for i := range c {
+		ids[i] = c[i].ID
+	}
+	return iru.AddCustomConfigIDs(ids...)
+}
+
 // Mutation returns the InstanceResourceMutation object of the builder.
 func (iru *InstanceResourceUpdate) Mutation() *InstanceResourceMutation {
 	return iru.mutation
@@ -685,6 +701,27 @@ func (iru *InstanceResourceUpdate) ClearProvider() *InstanceResourceUpdate {
 func (iru *InstanceResourceUpdate) ClearLocalaccount() *InstanceResourceUpdate {
 	iru.mutation.ClearLocalaccount()
 	return iru
+}
+
+// ClearCustomConfig clears all "custom_config" edges to the CustomConfigResource entity.
+func (iru *InstanceResourceUpdate) ClearCustomConfig() *InstanceResourceUpdate {
+	iru.mutation.ClearCustomConfig()
+	return iru
+}
+
+// RemoveCustomConfigIDs removes the "custom_config" edge to CustomConfigResource entities by IDs.
+func (iru *InstanceResourceUpdate) RemoveCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
+	iru.mutation.RemoveCustomConfigIDs(ids...)
+	return iru
+}
+
+// RemoveCustomConfig removes "custom_config" edges to CustomConfigResource entities.
+func (iru *InstanceResourceUpdate) RemoveCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdate {
+	ids := make([]int, len(c))
+	for i := range c {
+		ids[i] = c[i].ID
+	}
+	return iru.RemoveCustomConfigIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -1108,6 +1145,51 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if iru.mutation.CustomConfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: instanceresource.CustomConfigPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iru.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !iru.mutation.CustomConfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: instanceresource.CustomConfigPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iru.mutation.CustomConfigIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: instanceresource.CustomConfigPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1734,6 +1816,21 @@ func (iruo *InstanceResourceUpdateOne) SetLocalaccount(l *LocalAccountResource) 
 	return iruo.SetLocalaccountID(l.ID)
 }
 
+// AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
+func (iruo *InstanceResourceUpdateOne) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
+	iruo.mutation.AddCustomConfigIDs(ids...)
+	return iruo
+}
+
+// AddCustomConfig adds the "custom_config" edges to the CustomConfigResource entity.
+func (iruo *InstanceResourceUpdateOne) AddCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdateOne {
+	ids := make([]int, len(c))
+	for i := range c {
+		ids[i] = c[i].ID
+	}
+	return iruo.AddCustomConfigIDs(ids...)
+}
+
 // Mutation returns the InstanceResourceMutation object of the builder.
 func (iruo *InstanceResourceUpdateOne) Mutation() *InstanceResourceMutation {
 	return iruo.mutation
@@ -1788,6 +1885,27 @@ func (iruo *InstanceResourceUpdateOne) ClearProvider() *InstanceResourceUpdateOn
 func (iruo *InstanceResourceUpdateOne) ClearLocalaccount() *InstanceResourceUpdateOne {
 	iruo.mutation.ClearLocalaccount()
 	return iruo
+}
+
+// ClearCustomConfig clears all "custom_config" edges to the CustomConfigResource entity.
+func (iruo *InstanceResourceUpdateOne) ClearCustomConfig() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearCustomConfig()
+	return iruo
+}
+
+// RemoveCustomConfigIDs removes the "custom_config" edge to CustomConfigResource entities by IDs.
+func (iruo *InstanceResourceUpdateOne) RemoveCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
+	iruo.mutation.RemoveCustomConfigIDs(ids...)
+	return iruo
+}
+
+// RemoveCustomConfig removes "custom_config" edges to CustomConfigResource entities.
+func (iruo *InstanceResourceUpdateOne) RemoveCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdateOne {
+	ids := make([]int, len(c))
+	for i := range c {
+		ids[i] = c[i].ID
+	}
+	return iruo.RemoveCustomConfigIDs(ids...)
 }
 
 // Where appends a list predicates to the InstanceResourceUpdate builder.
@@ -2241,6 +2359,51 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if iruo.mutation.CustomConfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: instanceresource.CustomConfigPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iruo.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !iruo.mutation.CustomConfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: instanceresource.CustomConfigPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iruo.mutation.CustomConfigIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   instanceresource.CustomConfigTable,
+			Columns: instanceresource.CustomConfigPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
