@@ -4208,7 +4208,7 @@ components:
           type: string
           title: installed_packages_url
           maxLength: 200
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
+          format: uri-ref
           description: |-
             (IMMUTABLE) The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field
              for the advance use case to allow manual creation of OSProfiles when supported from backend.
@@ -4235,32 +4235,32 @@ components:
           type: string
           title: metadata
           maxLength: 500
-          pattern: ^$|^[a-z0-9.-_:/"\ \n{}]+$
+          pattern: ^$|^[a-z0-9.-_:/"\\ \\n\{\}]+$
           description: Opaque JSON field storing metadata associated to this OS resource.
         existingCvesUrl:
           type: string
           title: existing_cves_url
           maxLength: 500
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
-          description: URL of the file containing information about the existing CVEs on the Operating System.
+          format: uri-ref
+          description: (IMMUTABLE) URL of the file containing information about the existing CVEs on the Operating System.
         existingCves:
           type: string
           title: existing_cves
           maxLength: 20000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \\n\{\}\[\]]+$
           description: The CVEs that are currently present on the Operating System, encoded as a JSON list.
           readOnly: true
         fixedCvesUrl:
           type: string
           title: fixed_cves_url
           maxLength: 500
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()"\ ]+$
-          description: URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
+          format: uri-ref
+          description: (IMMUTABLE) URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
         fixedCves:
           type: string
           title: fixed_cves
           maxLength: 20000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \\n\{\}\[\]]+$
           description: The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
           readOnly: true
         osResourceID:
@@ -5166,21 +5166,21 @@ components:
           type: string
           title: existing_cves
           maxLength: 20000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \\n\{\}\[\]]+$
           description: The CVEs that are currently present on the Instance, encoded as a JSON list.
           readOnly: true
         runtimePackages:
           type: string
           title: runtime_packages
           maxLength: 500000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \\n\{\}\[\]]+$
           description: The packages available on the Instance at runtime, represented as a JSON list.
           readOnly: true
         osUpdateAvailable:
           type: string
           title: os_update_available
           maxLength: 10000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()"\ \n]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()"\\ \\n]+$
           description: Details about OS Updates available for this Instance. If empty, there are no updates available.
           readOnly: true
         instanceID:
