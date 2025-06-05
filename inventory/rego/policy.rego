@@ -11,20 +11,43 @@ default abac := false
 default resourceRule := false
 default deleteRule := false
 
+# allow updates to the DesiredState via northbound API
 allow if {
 	input.DesiredState
-	not input.CurrentState
-	not input.resource.host.currentPowerState
-	not input.resource.host.currentAmtState
-	not input.resource.tenant
 	input.ClientKind == "CLIENT_KIND_API"
 }
 
+# allow updates to the desiredPowerState via northbound API
+allow if {
+	input.resource.host
+	input.resource.host.desiredPowerState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# allow updates to the desiredAmtState via northbound API
+allow if {
+	input.resource.host
+	input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# allow updates to the CurrentState via southbound API
 allow if {
 	input.CurrentState
-	not input.DesiredState
-	not input.resource.host.desiredPowerState
-	not input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+# allow updates to the currentPowerState via southbound API
+allow if {
+	input.resource.host
+	input.resource.host.currentPowerState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+# allow updates to the currentAmtState via southbound API
+allow if {
+	input.resource.host
+	input.resource.host.currentAmtState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
@@ -37,37 +60,6 @@ allow if {
 	not input.resource.host.desiredAmtState
 	not input.resource.host.currentAmtState
 	input.ClientKind != "CLIENT_KIND_UNSPECIFIED"
-}
-
-# Host specific rules
-allow if {
-	not input.CurrentState
-	input.resource.host
-	input.resource.host.desiredPowerState
-	not input.resource.host.currentPowerState
-	input.resource.host.desiredAmtState
-	not input.resource.host.currentAmtState
-	input.ClientKind == "CLIENT_KIND_API"
-}
-
-allow if {
-	not input.CurrentState
-	input.resource.host
-	input.resource.host.desiredPowerState
-	not input.resource.host.currentPowerState
-	not input.resource.host.desiredAmtState
-	not input.resource.host.currentAmtState
-	input.ClientKind == "CLIENT_KIND_API"
-}
-
-allow if {
-	not input.CurrentState
-	input.resource.host
-	not input.resource.host.desiredPowerState
-	not input.resource.host.currentPowerState
-	input.resource.host.desiredAmtState
-	not input.resource.host.currentAmtState
-	input.ClientKind == "CLIENT_KIND_API"
 }
 
 # deny if a host resource is created via northbound API without UUID and SN
@@ -104,33 +96,43 @@ deny if {
 	input.ClientKind == "CLIENT_KIND_API"
 }
 
-allow if {
-	not input.DesiredState
+# deny updates to the CurrentState via northbound API
+deny if {
+	input.CurrentState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the currentPowerState via northbound API
+deny if {
 	input.resource.host
 	input.resource.host.currentPowerState
-	not input.resource.host.desiredPowerState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the currentAmtState via northbound API
+deny if {
+	input.resource.host
 	input.resource.host.currentAmtState
-	not input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the DesiredState via southbound API
+deny if {
+	input.DesiredState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
-allow if {
-	not input.DesiredState
+# deny updates to the desiredPowerState via southbound API
+deny if {
 	input.resource.host
-	input.resource.host.currentPowerState
-	not input.resource.host.desiredPowerState
-	not input.resource.host.currentAmtState
-	not input.resource.host.desiredAmtState
+	input.resource.host.desiredPowerState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
-allow if {
-	not input.DesiredState
+# deny updates to the desiredAmtState via southbound API
+deny if {
 	input.resource.host
-	not input.resource.host.currentPowerState
-	not input.resource.host.desiredPowerState
-	input.resource.host.currentAmtState
-	not input.resource.host.desiredAmtState
+	input.resource.host.desiredAmtState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
