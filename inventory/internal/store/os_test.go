@@ -60,6 +60,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 }]`,
 				FixedCvesUrl: "/files/fixed_cves.json",
 				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
+				Metadata:     `{"key1":"value1","key2":"value2"}`,
 			},
 			valid: true,
 		},
@@ -171,6 +172,34 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			},
 			valid: true,
 		},
+		"CreateBadOsDuplicateMetadata1": {
+			in: &os_v1.OperatingSystemResource{
+				Name:              "Test Os 1",
+				UpdateSources:     []string{"test entry1", "test entry2"},
+				Sha256:            inv_testing.RandomSha256v1,
+				ProfileName:       "Test OS profile name",
+				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				SecurityFeature:   os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
+				OsType:            os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Metadata:          `{"key1":"value1","key2":"value2","key1":"value3"}`,
+			},
+			valid: false,
+		},
+		"CreateBadOsDuplicateMetadata2": {
+			in: &os_v1.OperatingSystemResource{
+				Name:              "Test Os 1",
+				UpdateSources:     []string{"test entry1", "test entry2"},
+				Sha256:            inv_testing.RandomSha256v1,
+				ProfileName:       "Test OS profile name",
+				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				SecurityFeature:   os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
+				OsType:            os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Metadata:          "invalid JSON",
+			},
+			valid: false,
+		},
 	}
 
 	for tcname, tc := range testcases {
@@ -260,10 +289,19 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 }
 
 func Test_FilterOss(t *testing.T) {
-	cupdatesourceResp1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v1, "Test OS profile name 1",
-		os_v1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION, os_v1.OsType_OS_TYPE_MUTABLE)
-	cupdatesourceResp2 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS profile name 2",
-		os_v1.SecurityFeature_SECURITY_FEATURE_NONE, os_v1.OsType_OS_TYPE_MUTABLE)
+	dao := inv_testing.NewInvResourceDAOOrFail(t)
+	tenantID := uuid.NewString()
+	cupdatesourceResp1 := dao.CreateOsWithOpts(t, tenantID, true,
+		inv_testing.Sha256(inv_testing.RandomSha256v1),
+		inv_testing.ProfileName("Test OS profile name 1"),
+		inv_testing.Metadata(`{"key1": "value1", "key2": "value2"}`),
+		inv_testing.SecurityFeature(os_v1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION),
+		inv_testing.OsType(os_v1.OsType_OS_TYPE_MUTABLE))
+	cupdatesourceResp2 := dao.CreateOsWithOpts(t, tenantID, true,
+		inv_testing.Sha256(inv_testing.RandomSha256v2),
+		inv_testing.ProfileName("Test OS profile name 2"),
+		inv_testing.SecurityFeature(os_v1.SecurityFeature_SECURITY_FEATURE_NONE),
+		inv_testing.OsType(os_v1.OsType_OS_TYPE_MUTABLE))
 
 	testcases := map[string]struct {
 		in        *inv_v1.ResourceFilter
@@ -334,6 +372,13 @@ func Test_FilterOss(t *testing.T) {
 			resources: []*os_v1.OperatingSystemResource{},
 			valid:     false,
 		},
+		"FilterByMetadata": {
+			in: &inv_v1.ResourceFilter{
+				Filter: fmt.Sprintf(`%s = %q`, os_v1.OperatingSystemResourceFieldMetadata, `"key1": "value1"`),
+			},
+			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp1},
+			valid:     false,
+		},
 		"FilterLimit": {
 			in: &inv_v1.ResourceFilter{
 				Offset: 0,
@@ -377,8 +422,10 @@ func Test_FilterOss(t *testing.T) {
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			defer cancel()
 
+			invClient := inv_testing.TestClients[inv_testing.APIClient].GetTenantAwareInventoryClient()
+
 			tc.in.Resource = &inv_v1.Resource{Resource: &inv_v1.Resource_Os{}} // Set the resource kind
-			findres, err := inv_testing.TestClients[inv_testing.APIClient].Find(ctx, tc.in)
+			findres, err := invClient.Find(ctx, tc.in)
 
 			if err != nil {
 				if tc.valid {
@@ -409,7 +456,7 @@ func Test_FilterOss(t *testing.T) {
 				}
 			}
 
-			listres, err := inv_testing.TestClients[inv_testing.APIClient].List(ctx, tc.in)
+			listres, err := invClient.List(ctx, tc.in)
 
 			if err != nil {
 				if tc.valid {

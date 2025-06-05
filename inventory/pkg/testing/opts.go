@@ -358,6 +358,30 @@ func Sha256(sha256 string) Opt[osv1.OperatingSystemResource] {
 	}
 }
 
+func ProfileName(profileName string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.ProfileName = profileName
+	}
+}
+
+func Metadata(metadata string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.Metadata = metadata
+	}
+}
+
+func SecurityFeature(secFeature osv1.SecurityFeature) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.SecurityFeature = secFeature
+	}
+}
+
+func OsType(osType osv1.OsType) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.OsType = osType
+	}
+}
+
 func OSUpdatePolicyTarget() Opt[compute_v1.OSUpdatePolicyResource] {
 	return func(oup *compute_v1.OSUpdatePolicyResource) {
 		oup.UpdatePolicy = compute_v1.UpdatePolicy_UPDATE_POLICY_TARGET
