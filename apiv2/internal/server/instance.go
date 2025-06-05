@@ -169,6 +169,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 	}
 	// TODO: fill the runtimePackages and osUpdateAvailable fields.
+	// TODO: fill the CustomConfigID field.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }
