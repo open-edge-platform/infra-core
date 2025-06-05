@@ -153,6 +153,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		Name:               host.GetName(),
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
+		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 	}
 
@@ -643,9 +644,10 @@ func (is *InventorygRPCServer) RegisterHost(
 ) (*computev1.HostResource, error) {
 	zlog.Debug().Msg("RegisterHost")
 	hostResource := &inv_computev1.HostResource{
-		Name:            req.GetHost().GetName(),
-		DesiredState:    inv_computev1.HostState_HOST_STATE_REGISTERED,
-		DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISIONED,
+		Name:              req.GetHost().GetName(),
+		DesiredState:      inv_computev1.HostState_HOST_STATE_REGISTERED,
+		DesiredPowerState: inv_computev1.PowerState_POWER_STATE_ON,
+		DesiredAmtState:   inv_computev1.AmtState_AMT_STATE_UNPROVISIONED,
 	}
 
 	hostUUID := req.GetHost().GetUuid()
