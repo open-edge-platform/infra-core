@@ -64,7 +64,7 @@ message ProviderResource {
       max_items: 100,
       items: {
         string: {
-          pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
+          pattern: '^$|^[a-zA-Z-_0-9.\\/:;=?@!#,<>*(){}\"\\\\ ]+$'
           max_len: 500
         }
       }
@@ -74,7 +74,7 @@ message ProviderResource {
   // Opaque provider configuration.
   string config = 18 [(buf.validate.field).string = {
     max_len: 2000
-    pattern: "^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$" // NEW
+    pattern: "^$|^[a-zA-Z-_0-9.\\/:;=?@!#,<>*(){}\"\\\\ ]+$"
   }];
 
   // Deprecated, The provider resource's unique identifier. Alias of resourceId.

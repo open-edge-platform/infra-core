@@ -692,7 +692,16 @@ message InstanceResource {
   provider.v1.ProviderResource provider = 40 [(ent.edge) = {unique: true}]; // Provider this Instance is provisioned through
   localaccount.v1.LocalAccountResource localaccount = 41 [(ent.edge) = {unique: true}]; // Local Account associated with this Instance
 
-  OSUpdatePolicyResource os_update_policy = 42 [(ent.edge) = {
+  string existing_cves = 42 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
+      max_len: 20000
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // The CVEs that are currently present on the Instance, encoded as a JSON list.
+
+  OSUpdatePolicyResource os_update_policy = 43 [(ent.edge) = {
     unique: true
     required: false
   }]; // OS Update Policy associated with this Instance.
@@ -938,7 +947,7 @@ message OSUpdatePolicyResource {
       optional: false
     },
     (buf.validate.field).string = {
-      max_bytes: 40
+      max_bytes: 50
       pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
     }
   ]; // User-provided, human-readable name of OSUpdatePolicy

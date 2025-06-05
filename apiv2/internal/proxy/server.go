@@ -50,6 +50,7 @@ var servicesClients = []serviceClientsSignature{
 	restv1.RegisterTelemetryMetricsProfileServiceHandlerFromEndpoint,
 	restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
 	restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
+	restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
 }
 
 const (

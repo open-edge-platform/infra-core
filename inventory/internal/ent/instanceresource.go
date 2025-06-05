@@ -65,6 +65,8 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator instanceresource.TrustedAttestationStatusIndicator `json:"trusted_attestation_status_indicator,omitempty"`
 	// TrustedAttestationStatusTimestamp holds the value of the "trusted_attestation_status_timestamp" field.
 	TrustedAttestationStatusTimestamp uint64 `json:"trusted_attestation_status_timestamp,omitempty"`
+	// ExistingCves holds the value of the "existing_cves" field.
+	ExistingCves string `json:"existing_cves,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// InstanceStatusDetail holds the value of the "instance_status_detail" field.
@@ -187,7 +189,7 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case instanceresource.FieldID, instanceresource.FieldVMMemoryBytes, instanceresource.FieldVMCPUCores, instanceresource.FieldVMStorageBytes, instanceresource.FieldInstanceStatusTimestamp, instanceresource.FieldProvisioningStatusTimestamp, instanceresource.FieldUpdateStatusTimestamp, instanceresource.FieldTrustedAttestationStatusTimestamp:
 			values[i] = new(sql.NullInt64)
-		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
+		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case instanceresource.ForeignKeys[0]: // instance_resource_desired_os
 			values[i] = new(sql.NullInt64)
@@ -351,6 +353,12 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field trusted_attestation_status_timestamp", values[i])
 			} else if value.Valid {
 				ir.TrustedAttestationStatusTimestamp = uint64(value.Int64)
+			}
+		case instanceresource.FieldExistingCves:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field existing_cves", values[i])
+			} else if value.Valid {
+				ir.ExistingCves = value.String
 			}
 		case instanceresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -547,6 +555,9 @@ func (ir *InstanceResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("trusted_attestation_status_timestamp=")
 	builder.WriteString(fmt.Sprintf("%v", ir.TrustedAttestationStatusTimestamp))
+	builder.WriteString(", ")
+	builder.WriteString("existing_cves=")
+	builder.WriteString(ir.ExistingCves)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(ir.TenantID)
