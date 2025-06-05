@@ -710,9 +710,15 @@ message OSUpdatePolicy {
   // Should be in 'DEB822 Source Format' for Debian style OSs.
   // Applies only to Mutable OSes.
   repeated string update_sources = 5 [
-    (buf.validate.field).repeated.items.string = {
-      max_bytes: 10000
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\n]+$"
+    (buf.validate.field).repeated = {
+      min_items: 0,
+      max_items: 100,
+      items: {
+          string : {
+          max_bytes: 10000
+          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\n]+$"
+        }
+      }
     }
   ];
 

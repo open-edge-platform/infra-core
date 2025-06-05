@@ -53,11 +53,13 @@ func (is *InventorygRPCServer) ListOSUpdatePolicy(ctx context.Context, req *rest
 	zlog.Debug().Msg("ListOSUpdatePolicy")
 
 	filter := &inventory.ResourceFilter{
-		Resource: &inventory.Resource{Resource: &inventory.Resource_OsUpdatePolicy{OsUpdatePolicy: &inv_computev1.OSUpdatePolicyResource{}}},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
-		OrderBy:  req.GetOrderBy(),
-		Filter:   req.GetFilter(),
+		Resource: &inventory.Resource{
+			Resource: &inventory.Resource_OsUpdatePolicy{OsUpdatePolicy: &inv_computev1.OSUpdatePolicyResource{}},
+		},
+		Offset:  req.GetOffset(),
+		Limit:   req.GetPageSize(),
+		OrderBy: req.GetOrderBy(),
+		Filter:  req.GetFilter(),
 	}
 	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
