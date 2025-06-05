@@ -980,10 +980,10 @@ message OSUpdatePolicyResource {
       optional: true
     },
     (buf.validate.field).repeated = {
-      min_items: 0,
-      max_items: 100,
-      items {
-        string {
+      min_items: 0
+      max_items: 100
+      items: {
+        string: {
           pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
           max_bytes: 10000
         }
