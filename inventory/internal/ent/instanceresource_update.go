@@ -496,6 +496,26 @@ func (iru *InstanceResourceUpdate) ClearTrustedAttestationStatusTimestamp() *Ins
 	return iru
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (iru *InstanceResourceUpdate) SetExistingCves(s string) *InstanceResourceUpdate {
+	iru.mutation.SetExistingCves(s)
+	return iru
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (iru *InstanceResourceUpdate) SetNillableExistingCves(s *string) *InstanceResourceUpdate {
+	if s != nil {
+		iru.SetExistingCves(*s)
+	}
+	return iru
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (iru *InstanceResourceUpdate) ClearExistingCves() *InstanceResourceUpdate {
+	iru.mutation.ClearExistingCves()
+	return iru
+}
+
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
 func (iru *InstanceResourceUpdate) SetInstanceStatusDetail(s string) *InstanceResourceUpdate {
 	iru.mutation.SetInstanceStatusDetail(s)
@@ -941,6 +961,12 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 	}
 	if iru.mutation.TrustedAttestationStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := iru.mutation.ExistingCves(); ok {
+		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
+	}
+	if iru.mutation.ExistingCvesCleared() {
+		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
 	}
 	if value, ok := iru.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
@@ -1653,6 +1679,26 @@ func (iruo *InstanceResourceUpdateOne) ClearTrustedAttestationStatusTimestamp() 
 	return iruo
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (iruo *InstanceResourceUpdateOne) SetExistingCves(s string) *InstanceResourceUpdateOne {
+	iruo.mutation.SetExistingCves(s)
+	return iruo
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (iruo *InstanceResourceUpdateOne) SetNillableExistingCves(s *string) *InstanceResourceUpdateOne {
+	if s != nil {
+		iruo.SetExistingCves(*s)
+	}
+	return iruo
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (iruo *InstanceResourceUpdateOne) ClearExistingCves() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearExistingCves()
+	return iruo
+}
+
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
 func (iruo *InstanceResourceUpdateOne) SetInstanceStatusDetail(s string) *InstanceResourceUpdateOne {
 	iruo.mutation.SetInstanceStatusDetail(s)
@@ -2128,6 +2174,12 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 	}
 	if iruo.mutation.TrustedAttestationStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := iruo.mutation.ExistingCves(); ok {
+		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
+	}
+	if iruo.mutation.ExistingCvesCleared() {
+		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
 	}
 	if value, ok := iruo.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)

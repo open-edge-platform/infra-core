@@ -376,6 +376,7 @@ var (
 		{Name: "trusted_attestation_status", Type: field.TypeString, Nullable: true},
 		{Name: "trusted_attestation_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "trusted_attestation_status_timestamp", Type: field.TypeUint64, Nullable: true},
+		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "instance_status_detail", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -394,25 +395,25 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "instance_resources_operating_system_resources_desired_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[27]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[28]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
 				Symbol:     "instance_resources_operating_system_resources_current_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[28]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[29]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_provider_resources_provider",
-				Columns:    []*schema.Column{InstanceResourcesColumns[29]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_local_account_resources_localaccount",
-				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -427,7 +428,7 @@ var (
 			{
 				Name:    "instanceresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{InstanceResourcesColumns[23]},
+				Columns: []*schema.Column{InstanceResourcesColumns[24]},
 			},
 		},
 	}
@@ -601,6 +602,10 @@ var (
 		{Name: "os_provider", Type: field.TypeEnum, Enums: []string{"OS_PROVIDER_KIND_UNSPECIFIED", "OS_PROVIDER_KIND_INFRA", "OS_PROVIDER_KIND_LENOVO"}},
 		{Name: "platform_bundle", Type: field.TypeString, Nullable: true},
 		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "existing_cves_url", Type: field.TypeString, Nullable: true},
+		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
+		{Name: "fixed_cves_url", Type: field.TypeString, Nullable: true},
+		{Name: "fixed_cves", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -614,7 +619,7 @@ var (
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[17]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[21]},
 			},
 		},
 	}
