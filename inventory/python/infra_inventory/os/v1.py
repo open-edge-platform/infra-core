@@ -57,6 +57,7 @@ class OperatingSystemResource(betterproto.Message):
     os_provider: "OsProviderKind" = betterproto.enum_field(14)
     platform_bundle: str = betterproto.string_field(15)
     description: str = betterproto.string_field(16)
+    metadata: str = betterproto.string_field(18)
     existing_cves_url: str = betterproto.string_field(42)
     existing_cves: str = betterproto.string_field(43)
     fixed_cves_url: str = betterproto.string_field(44)

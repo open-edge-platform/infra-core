@@ -374,6 +374,7 @@
 | os_provider | [OsProviderKind](#os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | description | [string](#string) |  | user-provided, human-readable description of OS |
+| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string. |
 | existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
 | existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
 | fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |

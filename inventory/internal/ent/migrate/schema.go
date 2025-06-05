@@ -602,6 +602,7 @@ var (
 		{Name: "os_provider", Type: field.TypeEnum, Enums: []string{"OS_PROVIDER_KIND_UNSPECIFIED", "OS_PROVIDER_KIND_INFRA", "OS_PROVIDER_KIND_LENOVO"}},
 		{Name: "platform_bundle", Type: field.TypeString, Nullable: true},
 		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "metadata", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves_url", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
 		{Name: "fixed_cves_url", Type: field.TypeString, Nullable: true},
@@ -619,7 +620,7 @@ var (
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[21]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
 			},
 		},
 	}

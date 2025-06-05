@@ -141,6 +141,26 @@ func (osru *OperatingSystemResourceUpdate) ClearInstalledPackages() *OperatingSy
 	return osru
 }
 
+// SetMetadata sets the "metadata" field.
+func (osru *OperatingSystemResourceUpdate) SetMetadata(s string) *OperatingSystemResourceUpdate {
+	osru.mutation.SetMetadata(s)
+	return osru
+}
+
+// SetNillableMetadata sets the "metadata" field if the given value is not nil.
+func (osru *OperatingSystemResourceUpdate) SetNillableMetadata(s *string) *OperatingSystemResourceUpdate {
+	if s != nil {
+		osru.SetMetadata(*s)
+	}
+	return osru
+}
+
+// ClearMetadata clears the value of the "metadata" field.
+func (osru *OperatingSystemResourceUpdate) ClearMetadata() *OperatingSystemResourceUpdate {
+	osru.mutation.ClearMetadata()
+	return osru
+}
+
 // SetExistingCves sets the "existing_cves" field.
 func (osru *OperatingSystemResourceUpdate) SetExistingCves(s string) *OperatingSystemResourceUpdate {
 	osru.mutation.SetExistingCves(s)
@@ -296,6 +316,12 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	if osru.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
 	}
+	if value, ok := osru.mutation.Metadata(); ok {
+		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
+	}
+	if osru.mutation.MetadataCleared() {
+		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
+	}
 	if osru.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
 	}
@@ -448,6 +474,26 @@ func (osruo *OperatingSystemResourceUpdateOne) SetNillableInstalledPackages(s *s
 // ClearInstalledPackages clears the value of the "installed_packages" field.
 func (osruo *OperatingSystemResourceUpdateOne) ClearInstalledPackages() *OperatingSystemResourceUpdateOne {
 	osruo.mutation.ClearInstalledPackages()
+	return osruo
+}
+
+// SetMetadata sets the "metadata" field.
+func (osruo *OperatingSystemResourceUpdateOne) SetMetadata(s string) *OperatingSystemResourceUpdateOne {
+	osruo.mutation.SetMetadata(s)
+	return osruo
+}
+
+// SetNillableMetadata sets the "metadata" field if the given value is not nil.
+func (osruo *OperatingSystemResourceUpdateOne) SetNillableMetadata(s *string) *OperatingSystemResourceUpdateOne {
+	if s != nil {
+		osruo.SetMetadata(*s)
+	}
+	return osruo
+}
+
+// ClearMetadata clears the value of the "metadata" field.
+func (osruo *OperatingSystemResourceUpdateOne) ClearMetadata() *OperatingSystemResourceUpdateOne {
+	osruo.mutation.ClearMetadata()
 	return osruo
 }
 
@@ -635,6 +681,12 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if osruo.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
+	}
+	if value, ok := osruo.mutation.Metadata(); ok {
+		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
+	}
+	if osruo.mutation.MetadataCleared() {
+		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
 	}
 	if osruo.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)

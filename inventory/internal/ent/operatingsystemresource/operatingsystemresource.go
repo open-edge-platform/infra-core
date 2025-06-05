@@ -45,6 +45,8 @@ const (
 	FieldPlatformBundle = "platform_bundle"
 	// FieldDescription holds the string denoting the description field in the database.
 	FieldDescription = "description"
+	// FieldMetadata holds the string denoting the metadata field in the database.
+	FieldMetadata = "metadata"
 	// FieldExistingCvesURL holds the string denoting the existing_cves_url field in the database.
 	FieldExistingCvesURL = "existing_cves_url"
 	// FieldExistingCves holds the string denoting the existing_cves field in the database.
@@ -82,6 +84,7 @@ var Columns = []string{
 	FieldOsProvider,
 	FieldPlatformBundle,
 	FieldDescription,
+	FieldMetadata,
 	FieldExistingCvesURL,
 	FieldExistingCves,
 	FieldFixedCvesURL,
@@ -259,6 +262,11 @@ func ByPlatformBundle(opts ...sql.OrderTermOption) OrderOption {
 // ByDescription orders the results by the description field.
 func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDescription, opts...).ToFunc()
+}
+
+// ByMetadata orders the results by the metadata field.
+func ByMetadata(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMetadata, opts...).ToFunc()
 }
 
 // ByExistingCvesURL orders the results by the existing_cves_url field.
