@@ -48,6 +48,8 @@ type OperatingSystemResource struct {
 	PlatformBundle string `json:"platform_bundle,omitempty"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty"`
+	// Metadata holds the value of the "metadata" field.
+	Metadata string `json:"metadata,omitempty"`
 	// ExistingCvesURL holds the value of the "existing_cves_url" field.
 	ExistingCvesURL string `json:"existing_cves_url,omitempty"`
 	// ExistingCves holds the value of the "existing_cves" field.
@@ -72,7 +74,7 @@ func (*OperatingSystemResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case operatingsystemresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldKernelCommand, operatingsystemresource.FieldUpdateSources, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
+		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldKernelCommand, operatingsystemresource.FieldUpdateSources, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -190,6 +192,12 @@ func (osr *OperatingSystemResource) assignValues(columns []string, values []any)
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
 				osr.Description = value.String
+			}
+		case operatingsystemresource.FieldMetadata:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field metadata", values[i])
+			} else if value.Valid {
+				osr.Metadata = value.String
 			}
 		case operatingsystemresource.FieldExistingCvesURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -316,6 +324,9 @@ func (osr *OperatingSystemResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("description=")
 	builder.WriteString(osr.Description)
+	builder.WriteString(", ")
+	builder.WriteString("metadata=")
+	builder.WriteString(osr.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("existing_cves_url=")
 	builder.WriteString(osr.ExistingCvesURL)
