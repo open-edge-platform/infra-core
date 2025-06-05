@@ -419,7 +419,7 @@ var (
 			},
 			{
 				Symbol:     "instance_resources_os_update_policy_resources_os_update_policy",
-				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[32]},
 				RefColumns: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
