@@ -4099,7 +4099,7 @@ components:
           items:
             type: string
             maxLength: 500
-            pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+            pattern: ^$|^[a-zA-Z-_0-9.\/:;=?@!#,<>*(){}"\\ ]+$
             maxItems: 100
           title: api_credentials
           maxItems: 100
@@ -4108,7 +4108,7 @@ components:
           type: string
           title: config
           maxLength: 2000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
+          pattern: ^$|^[a-zA-Z-_0-9.\/:;=?@!#,<>*(){}"\\ ]+$
           description: Opaque provider configuration.
         providerID:
           type: string
