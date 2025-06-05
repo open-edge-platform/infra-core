@@ -161,6 +161,46 @@ func (osru *OperatingSystemResourceUpdate) ClearMetadata() *OperatingSystemResou
 	return osru
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (osru *OperatingSystemResourceUpdate) SetExistingCves(s string) *OperatingSystemResourceUpdate {
+	osru.mutation.SetExistingCves(s)
+	return osru
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (osru *OperatingSystemResourceUpdate) SetNillableExistingCves(s *string) *OperatingSystemResourceUpdate {
+	if s != nil {
+		osru.SetExistingCves(*s)
+	}
+	return osru
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (osru *OperatingSystemResourceUpdate) ClearExistingCves() *OperatingSystemResourceUpdate {
+	osru.mutation.ClearExistingCves()
+	return osru
+}
+
+// SetFixedCves sets the "fixed_cves" field.
+func (osru *OperatingSystemResourceUpdate) SetFixedCves(s string) *OperatingSystemResourceUpdate {
+	osru.mutation.SetFixedCves(s)
+	return osru
+}
+
+// SetNillableFixedCves sets the "fixed_cves" field if the given value is not nil.
+func (osru *OperatingSystemResourceUpdate) SetNillableFixedCves(s *string) *OperatingSystemResourceUpdate {
+	if s != nil {
+		osru.SetFixedCves(*s)
+	}
+	return osru
+}
+
+// ClearFixedCves clears the value of the "fixed_cves" field.
+func (osru *OperatingSystemResourceUpdate) ClearFixedCves() *OperatingSystemResourceUpdate {
+	osru.mutation.ClearFixedCves()
+	return osru
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (osru *OperatingSystemResourceUpdate) SetUpdatedAt(s string) *OperatingSystemResourceUpdate {
 	osru.mutation.SetUpdatedAt(s)
@@ -281,6 +321,24 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	}
 	if osru.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
+	}
+	if osru.mutation.ExistingCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
+	}
+	if value, ok := osru.mutation.ExistingCves(); ok {
+		_spec.SetField(operatingsystemresource.FieldExistingCves, field.TypeString, value)
+	}
+	if osru.mutation.ExistingCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCves, field.TypeString)
+	}
+	if osru.mutation.FixedCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCvesURL, field.TypeString)
+	}
+	if value, ok := osru.mutation.FixedCves(); ok {
+		_spec.SetField(operatingsystemresource.FieldFixedCves, field.TypeString, value)
+	}
+	if osru.mutation.FixedCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCves, field.TypeString)
 	}
 	if value, ok := osru.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)
@@ -439,6 +497,46 @@ func (osruo *OperatingSystemResourceUpdateOne) ClearMetadata() *OperatingSystemR
 	return osruo
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (osruo *OperatingSystemResourceUpdateOne) SetExistingCves(s string) *OperatingSystemResourceUpdateOne {
+	osruo.mutation.SetExistingCves(s)
+	return osruo
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (osruo *OperatingSystemResourceUpdateOne) SetNillableExistingCves(s *string) *OperatingSystemResourceUpdateOne {
+	if s != nil {
+		osruo.SetExistingCves(*s)
+	}
+	return osruo
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (osruo *OperatingSystemResourceUpdateOne) ClearExistingCves() *OperatingSystemResourceUpdateOne {
+	osruo.mutation.ClearExistingCves()
+	return osruo
+}
+
+// SetFixedCves sets the "fixed_cves" field.
+func (osruo *OperatingSystemResourceUpdateOne) SetFixedCves(s string) *OperatingSystemResourceUpdateOne {
+	osruo.mutation.SetFixedCves(s)
+	return osruo
+}
+
+// SetNillableFixedCves sets the "fixed_cves" field if the given value is not nil.
+func (osruo *OperatingSystemResourceUpdateOne) SetNillableFixedCves(s *string) *OperatingSystemResourceUpdateOne {
+	if s != nil {
+		osruo.SetFixedCves(*s)
+	}
+	return osruo
+}
+
+// ClearFixedCves clears the value of the "fixed_cves" field.
+func (osruo *OperatingSystemResourceUpdateOne) ClearFixedCves() *OperatingSystemResourceUpdateOne {
+	osruo.mutation.ClearFixedCves()
+	return osruo
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (osruo *OperatingSystemResourceUpdateOne) SetUpdatedAt(s string) *OperatingSystemResourceUpdateOne {
 	osruo.mutation.SetUpdatedAt(s)
@@ -589,6 +687,24 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if osruo.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
+	}
+	if osruo.mutation.ExistingCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
+	}
+	if value, ok := osruo.mutation.ExistingCves(); ok {
+		_spec.SetField(operatingsystemresource.FieldExistingCves, field.TypeString, value)
+	}
+	if osruo.mutation.ExistingCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldExistingCves, field.TypeString)
+	}
+	if osruo.mutation.FixedCvesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCvesURL, field.TypeString)
+	}
+	if value, ok := osruo.mutation.FixedCves(); ok {
+		_spec.SetField(operatingsystemresource.FieldFixedCves, field.TypeString, value)
+	}
+	if osruo.mutation.FixedCvesCleared() {
+		_spec.ClearField(operatingsystemresource.FieldFixedCves, field.TypeString)
 	}
 	if value, ok := osruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)

@@ -50,6 +50,14 @@ type OperatingSystemResource struct {
 	Description string `json:"description,omitempty"`
 	// Metadata holds the value of the "metadata" field.
 	Metadata string `json:"metadata,omitempty"`
+	// ExistingCvesURL holds the value of the "existing_cves_url" field.
+	ExistingCvesURL string `json:"existing_cves_url,omitempty"`
+	// ExistingCves holds the value of the "existing_cves" field.
+	ExistingCves string `json:"existing_cves,omitempty"`
+	// FixedCvesURL holds the value of the "fixed_cves_url" field.
+	FixedCvesURL string `json:"fixed_cves_url,omitempty"`
+	// FixedCves holds the value of the "fixed_cves" field.
+	FixedCves string `json:"fixed_cves,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -66,7 +74,7 @@ func (*OperatingSystemResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case operatingsystemresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldKernelCommand, operatingsystemresource.FieldUpdateSources, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
+		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldKernelCommand, operatingsystemresource.FieldUpdateSources, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -191,6 +199,30 @@ func (osr *OperatingSystemResource) assignValues(columns []string, values []any)
 			} else if value.Valid {
 				osr.Metadata = value.String
 			}
+		case operatingsystemresource.FieldExistingCvesURL:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field existing_cves_url", values[i])
+			} else if value.Valid {
+				osr.ExistingCvesURL = value.String
+			}
+		case operatingsystemresource.FieldExistingCves:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field existing_cves", values[i])
+			} else if value.Valid {
+				osr.ExistingCves = value.String
+			}
+		case operatingsystemresource.FieldFixedCvesURL:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field fixed_cves_url", values[i])
+			} else if value.Valid {
+				osr.FixedCvesURL = value.String
+			}
+		case operatingsystemresource.FieldFixedCves:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field fixed_cves", values[i])
+			} else if value.Valid {
+				osr.FixedCves = value.String
+			}
 		case operatingsystemresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
@@ -295,6 +327,18 @@ func (osr *OperatingSystemResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
 	builder.WriteString(osr.Metadata)
+	builder.WriteString(", ")
+	builder.WriteString("existing_cves_url=")
+	builder.WriteString(osr.ExistingCvesURL)
+	builder.WriteString(", ")
+	builder.WriteString("existing_cves=")
+	builder.WriteString(osr.ExistingCves)
+	builder.WriteString(", ")
+	builder.WriteString("fixed_cves_url=")
+	builder.WriteString(osr.FixedCvesURL)
+	builder.WriteString(", ")
+	builder.WriteString("fixed_cves=")
+	builder.WriteString(osr.FixedCves)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(osr.TenantID)
