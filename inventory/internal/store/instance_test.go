@@ -90,6 +90,15 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				Host:         host,
 				DesiredOs:    os,
 				CurrentOs:    os,
+				ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ]
+}]`,
 			},
 			valid: true,
 		},

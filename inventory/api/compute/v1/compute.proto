@@ -692,6 +692,15 @@ message InstanceResource {
   provider.v1.ProviderResource provider = 40 [(ent.edge) = {unique: true}]; // Provider this Instance is provisioned through
   localaccount.v1.LocalAccountResource localaccount = 41 [(ent.edge) = {unique: true}]; // Local Account associated with this Instance
 
+  string existing_cves = 42 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
+      max_len: 20000
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // The CVEs that are currently present on the Instance, encoded as a JSON list.
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
