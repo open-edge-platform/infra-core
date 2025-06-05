@@ -151,6 +151,7 @@ func (is *InventorygRPCServer) Start(
 	restv1.RegisterLocalAccountServiceServer(gsrv, is)
 	restv1.RegisterOSUpdateRunServer(gsrv, is)
 	restv1.RegisterOSUpdatePolicyServer(gsrv, is)
+	restv1.RegisterCustomConfigServiceServer(gsrv, is)
 
 	// enable reflection
 	reflection.Register(gsrv)
