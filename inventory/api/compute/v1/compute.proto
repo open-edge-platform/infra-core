@@ -938,7 +938,7 @@ message OSUpdatePolicyResource {
       optional: false
     },
     (buf.validate.field).string = {
-      max_bytes: 40
+      max_bytes: 50
       pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$'
     }
   ]; // User-provided, human-readable name of OSUpdatePolicy

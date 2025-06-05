@@ -3,7 +3,7 @@
 
 package store
 
-// os.go  store information for OS objects
+// osupdatepolicy.go  store information for OS Update Policy objects
 
 import (
 	"context"
@@ -87,7 +87,7 @@ func osUpdatePolicyResourceCreator(in *compute_v1.OSUpdatePolicyResource) func(c
 	*inv_v1.Resource, error) {
 	return func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
 		id := util.NewInvID(inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY)
-		zlog.Debug().Msgf("CreateOs: %s", id)
+		zlog.Debug().Msgf("CreateOSUpdatePolicy: %s", id)
 
 		newEntity := tx.OSUpdatePolicyResource.Create()
 		mut := newEntity.Mutation()
