@@ -5486,7 +5486,9 @@ components:
           type: array
           items:
             type: string
-            pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \n]+$
+            pattern: |-
+              ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \
+              ]+$
             maxItems: 100
           title: update_sources
           maxItems: 100
