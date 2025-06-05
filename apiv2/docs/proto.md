@@ -7,6 +7,9 @@
     - [MetadataItem](#resources-common-v1-MetadataItem)
     - [Timestamps](#resources-common-v1-Timestamps)
   
+- [resources/customconfig/v1/customconfig.proto](#resources_customconfig_v1_customconfig-proto)
+    - [CustomConfigResource](#resources-customconfig-v1-CustomConfigResource)
+  
 - [resources/provider/v1/provider.proto](#resources_provider_v1_provider-proto)
     - [ProviderResource](#resources-provider-v1-ProviderResource)
   
@@ -81,6 +84,8 @@
     - [TelemetryResourceKind](#resources-telemetry-v1-TelemetryResourceKind)
   
 - [services/v1/services.proto](#services_v1_services-proto)
+    - [CreateCustomConfigRequest](#services-v1-CreateCustomConfigRequest)
+    - [CreateCustomConfigResponse](#services-v1-CreateCustomConfigResponse)
     - [CreateHostRequest](#services-v1-CreateHostRequest)
     - [CreateHostResponse](#services-v1-CreateHostResponse)
     - [CreateInstanceRequest](#services-v1-CreateInstanceRequest)
@@ -115,6 +120,8 @@
     - [CreateWorkloadMemberResponse](#services-v1-CreateWorkloadMemberResponse)
     - [CreateWorkloadRequest](#services-v1-CreateWorkloadRequest)
     - [CreateWorkloadResponse](#services-v1-CreateWorkloadResponse)
+    - [DeleteCustomConfigRequest](#services-v1-DeleteCustomConfigRequest)
+    - [DeleteCustomConfigResponse](#services-v1-DeleteCustomConfigResponse)
     - [DeleteHostRequest](#services-v1-DeleteHostRequest)
     - [DeleteHostResponse](#services-v1-DeleteHostResponse)
     - [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest)
@@ -149,6 +156,8 @@
     - [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse)
     - [DeleteWorkloadRequest](#services-v1-DeleteWorkloadRequest)
     - [DeleteWorkloadResponse](#services-v1-DeleteWorkloadResponse)
+    - [GetCustomConfigRequest](#services-v1-GetCustomConfigRequest)
+    - [GetCustomConfigResponse](#services-v1-GetCustomConfigResponse)
     - [GetHostRequest](#services-v1-GetHostRequest)
     - [GetHostResponse](#services-v1-GetHostResponse)
     - [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest)
@@ -190,6 +199,8 @@
     - [InvalidateHostResponse](#services-v1-InvalidateHostResponse)
     - [InvalidateInstanceRequest](#services-v1-InvalidateInstanceRequest)
     - [InvalidateInstanceResponse](#services-v1-InvalidateInstanceResponse)
+    - [ListCustomConfigsRequest](#services-v1-ListCustomConfigsRequest)
+    - [ListCustomConfigsResponse](#services-v1-ListCustomConfigsResponse)
     - [ListHostsRequest](#services-v1-ListHostsRequest)
     - [ListHostsResponse](#services-v1-ListHostsResponse)
     - [ListInstancesRequest](#services-v1-ListInstancesRequest)
@@ -255,6 +266,7 @@
   
     - [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind)
   
+    - [CustomConfigService](#services-v1-CustomConfigService)
     - [HostService](#services-v1-HostService)
     - [InstanceService](#services-v1-InstanceService)
     - [LocalAccountService](#services-v1-LocalAccountService)
@@ -310,6 +322,41 @@ A metadata item, represented by a key:value pair.
 | ----- | ---- | ----- | ----------- |
 | created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was created. |
 | updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was last updated. |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="resources_customconfig_v1_customconfig-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/customconfig/v1/customconfig.proto
+
+
+
+<a name="resources-customconfig-v1-CustomConfigResource"></a>
+
+### CustomConfigResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| name | [string](#string) |  | Config provided by admin |
+| description | [string](#string) |  | Config description |
+| config_content | [string](#string) |  | Config content |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -900,11 +947,13 @@ back-reference to the Workload Members associated to this Instance |
 | existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
 | runtime_packages | [string](#string) |  | The packages available on the Instance at runtime, represented as a JSON list. |
 | os_update_available | [string](#string) |  | Details about OS Updates available for this Instance. If empty, there are no updates available. |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | The list of custom config associated with the instance. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
 | os_update_policyID | [string](#string) |  |  |
+| custom_configID | [string](#string) | repeated | The list of custom config associated with the instance. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -1455,6 +1504,36 @@ Kind of telemetry collector.
 
 
 
+<a name="services-v1-CreateCustomConfigRequest"></a>
+
+### CreateCustomConfigRequest
+Request message for the CreateCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The custom configuration to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateCustomConfigResponse"></a>
+
+### CreateCustomConfigResponse
+Response message for the CreateCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The created custom configuration. |
+
+
+
+
+
+
 <a name="services-v1-CreateHostRequest"></a>
 
 ### CreateHostRequest
@@ -1965,6 +2044,31 @@ Response message for the CreateWorkload method.
 
 
 
+<a name="services-v1-DeleteCustomConfigRequest"></a>
+
+### DeleteCustomConfigRequest
+Request message for DeleteCustomConfig.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the customconfig to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteCustomConfigResponse"></a>
+
+### DeleteCustomConfigResponse
+Response message for DeleteCustomConfig.
+
+
+
+
+
+
 <a name="services-v1-DeleteHostRequest"></a>
 
 ### DeleteHostRequest
@@ -2384,6 +2488,36 @@ Request message for DeleteWorkload.
 
 ### DeleteWorkloadResponse
 Response message for DeleteWorkload.
+
+
+
+
+
+
+<a name="services-v1-GetCustomConfigRequest"></a>
+
+### GetCustomConfigRequest
+Request message for the GetCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the requested custom configuration. |
+
+
+
+
+
+
+<a name="services-v1-GetCustomConfigResponse"></a>
+
+### GetCustomConfigResponse
+Response message for the GetCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The requested custom configuration. |
 
 
 
@@ -2997,6 +3131,41 @@ Request message for Invalidate Instance.
 
 ### InvalidateInstanceResponse
 Response message for Invalidate Instance.
+
+
+
+
+
+
+<a name="services-v1-ListCustomConfigsRequest"></a>
+
+### ListCustomConfigsRequest
+Request message for the ListCustomConfigs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListCustomConfigsResponse"></a>
+
+### ListCustomConfigsResponse
+Response message for the ListCustomConfigs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_configs | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | Sorted and filtered list of customconfigs. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
 
 
 
@@ -4085,6 +4254,19 @@ Request message for the UpdateWorkload method.
  
 
  
+
+
+<a name="services-v1-CustomConfigService"></a>
+
+### CustomConfigService
+CustomConfig.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateCustomConfig | [CreateCustomConfigRequest](#services-v1-CreateCustomConfigRequest) | [.resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | Create a custom configuration. |
+| ListCustomConfigs | [ListCustomConfigsRequest](#services-v1-ListCustomConfigsRequest) | [ListCustomConfigsResponse](#services-v1-ListCustomConfigsResponse) | Get a list of custom configurations. |
+| GetCustomConfig | [GetCustomConfigRequest](#services-v1-GetCustomConfigRequest) | [.resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | Get a specific custom configuration. |
+| DeleteCustomConfig | [DeleteCustomConfigRequest](#services-v1-DeleteCustomConfigRequest) | [DeleteCustomConfigResponse](#services-v1-DeleteCustomConfigResponse) | Delete a custom configuration. |
 
 
 <a name="services-v1-HostService"></a>
