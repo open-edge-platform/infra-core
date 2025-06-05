@@ -160,7 +160,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			},
 			valid: true,
 		},
-		"CreateBadOsDuplicateMetadata": {
+		"CreateBadOsDuplicateMetadata1": {
 			in: &os_v1.OperatingSystemResource{
 				Name:              "Test Os 1",
 				UpdateSources:     []string{"test entry1", "test entry2"},
@@ -171,6 +171,20 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				OsType:            os_v1.OsType_OS_TYPE_MUTABLE,
 				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 				Metadata:          `{"key1":"value1","key2":"value2","key1":"value3"}`,
+			},
+			valid: false,
+		},
+		"CreateBadOsDuplicateMetadata2": {
+			in: &os_v1.OperatingSystemResource{
+				Name:              "Test Os 1",
+				UpdateSources:     []string{"test entry1", "test entry2"},
+				Sha256:            inv_testing.RandomSha256v1,
+				ProfileName:       "Test OS profile name",
+				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				SecurityFeature:   os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
+				OsType:            os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Metadata:          "invalid JSON",
 			},
 			valid: false,
 		},
