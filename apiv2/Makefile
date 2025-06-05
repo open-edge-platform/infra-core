@@ -60,7 +60,7 @@ OPENAPI_PATH          := api/openapi/openapi.yaml
 YAML_IGNORE := vendor, $(OPENAPI_PATH), .github/workflows, ./$(VENV_NAME)
 
 # Lint variables
-LINT_DIRS := cmd/... pkg/... internal/...
+LINT_DIRS := cmd/... pkg/... internal/... test/...
 
 DIR_TO_CLEAN := $$PWD/internal/pbapi/* pkg/api/*
 
