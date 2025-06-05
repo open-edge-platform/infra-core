@@ -324,6 +324,20 @@ func (irc *InstanceResourceCreate) SetNillableTrustedAttestationStatusTimestamp(
 	return irc
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (irc *InstanceResourceCreate) SetExistingCves(s string) *InstanceResourceCreate {
+	irc.mutation.SetExistingCves(s)
+	return irc
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableExistingCves(s *string) *InstanceResourceCreate {
+	if s != nil {
+		irc.SetExistingCves(*s)
+	}
+	return irc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (irc *InstanceResourceCreate) SetTenantID(s string) *InstanceResourceCreate {
 	irc.mutation.SetTenantID(s)
@@ -660,6 +674,10 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 	if value, ok := irc.mutation.TrustedAttestationStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64, value)
 		_node.TrustedAttestationStatusTimestamp = value
+	}
+	if value, ok := irc.mutation.ExistingCves(); ok {
+		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
+		_node.ExistingCves = value
 	}
 	if value, ok := irc.mutation.TenantID(); ok {
 		_spec.SetField(instanceresource.FieldTenantID, field.TypeString, value)

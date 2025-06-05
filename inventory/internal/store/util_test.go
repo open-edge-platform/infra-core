@@ -69,6 +69,11 @@ var (
 			Value: "123test-other.symbol_123",
 		},
 	}
+	Metadata1JSONPlainObj = `{"":"","0123":"0123","0123.test":"0123456789","123_4-test":"123test-test_123",` +
+		`"123test-123":"123test-other.symbol_123","cluster-id":"clusterid-12345","cluster-id_1-test":"clusterid-test",` +
+		`"cluster.orchestration.io/cluster-id":"clusterid-1234","example.com/":"v",` +
+		`"example.com/2-test_9":"123test-other.symbol_123","example.com/8":"12","example.com/a":"v",` +
+		`"example.com/a9_9":"12","k":"v","test.com/test-123_name.test":"123test-other.symbol_123"}`
 	// invalid metadata key with upper case char.
 	Metadata2 = []Metadata{
 		{
@@ -212,8 +217,11 @@ func Test_ValidateOSMetadata(t *testing.T) {
 	testcases := map[string]struct {
 		in    string
 		valid bool
+		exp   string
 	}{
-		"ValidMetadatakeyAndValue":                         {in: helperMetadataToJSONPlain(t, Metadata1), valid: true},
+		"ValidMetadatakeyAndValue": {
+			in: helperMetadataToJSONPlain(t, Metadata1), valid: true, exp: Metadata1JSONPlainObj,
+		},
 		"InValidMetadatakeyWithUppercaseChar":              {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
 		"InValidMetadatakeyNameNoPrefix":                   {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
 		"InValidMetadatakeyWithUppercaseLastChar":          {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
@@ -228,21 +236,24 @@ func Test_ValidateOSMetadata(t *testing.T) {
 		"InValidMetadataKeyNameOtherSymbolLastwithPrefix":  {in: helperMetadataToJSONPlain(t, Metadata13), valid: false},
 		"InValidMetadataKeyNameUpperCasewithPrefix":        {in: helperMetadataToJSONPlain(t, Metadata14), valid: false},
 		"InvalidMetadataDuplicateKeys": {
-			in:    `{"key1":"value1","key2":"value2","key1":"value3"}`,
-			valid: false,
+			in: `{"key1":"value1","key2":"value2","key1":"value3"}`, valid: false,
 		},
+		"InvalidJSON": {in: `INVALID JSON`, valid: false},
+		"Empty1":      {in: "{}", valid: true, exp: "{}"},
+		"Empty2":      {in: "", valid: true, exp: ""},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
-			bytes, err := json.Marshal(tc.in)
+			_, err := json.Marshal(tc.in)
 			if err != nil {
 				t.Errorf("Error while marshaling the metadata  %s", err)
 			}
-			_, err = store.ValidateOSMetadata(string(bytes))
-			if err != nil {
-				if !tc.valid {
-					assert.Error(t, err)
-				}
+			reParsed, err := store.ValidateOSMetadata(tc.in)
+			if !tc.valid {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, tc.exp, reParsed)
 			}
 		})
 	}

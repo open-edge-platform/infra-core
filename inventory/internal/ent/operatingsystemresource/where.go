@@ -122,6 +122,26 @@ func Metadata(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldMetadata, v))
 }
 
+// ExistingCvesURL applies equality check predicate on the "existing_cves_url" field. It's identical to ExistingCvesURLEQ.
+func ExistingCvesURL(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldExistingCvesURL, v))
+}
+
+// ExistingCves applies equality check predicate on the "existing_cves" field. It's identical to ExistingCvesEQ.
+func ExistingCves(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldExistingCves, v))
+}
+
+// FixedCvesURL applies equality check predicate on the "fixed_cves_url" field. It's identical to FixedCvesURLEQ.
+func FixedCvesURL(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldFixedCvesURL, v))
+}
+
+// FixedCves applies equality check predicate on the "fixed_cves" field. It's identical to FixedCvesEQ.
+func FixedCves(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldFixedCves, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldTenantID, v))
@@ -1255,6 +1275,306 @@ func MetadataEqualFold(v string) predicate.OperatingSystemResource {
 // MetadataContainsFold applies the ContainsFold predicate on the "metadata" field.
 func MetadataContainsFold(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldMetadata, v))
+}
+
+// ExistingCvesURLEQ applies the EQ predicate on the "existing_cves_url" field.
+func ExistingCvesURLEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLNEQ applies the NEQ predicate on the "existing_cves_url" field.
+func ExistingCvesURLNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLIn applies the In predicate on the "existing_cves_url" field.
+func ExistingCvesURLIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldExistingCvesURL, vs...))
+}
+
+// ExistingCvesURLNotIn applies the NotIn predicate on the "existing_cves_url" field.
+func ExistingCvesURLNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldExistingCvesURL, vs...))
+}
+
+// ExistingCvesURLGT applies the GT predicate on the "existing_cves_url" field.
+func ExistingCvesURLGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLGTE applies the GTE predicate on the "existing_cves_url" field.
+func ExistingCvesURLGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLLT applies the LT predicate on the "existing_cves_url" field.
+func ExistingCvesURLLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLLTE applies the LTE predicate on the "existing_cves_url" field.
+func ExistingCvesURLLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLContains applies the Contains predicate on the "existing_cves_url" field.
+func ExistingCvesURLContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLHasPrefix applies the HasPrefix predicate on the "existing_cves_url" field.
+func ExistingCvesURLHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLHasSuffix applies the HasSuffix predicate on the "existing_cves_url" field.
+func ExistingCvesURLHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLIsNil applies the IsNil predicate on the "existing_cves_url" field.
+func ExistingCvesURLIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldExistingCvesURL))
+}
+
+// ExistingCvesURLNotNil applies the NotNil predicate on the "existing_cves_url" field.
+func ExistingCvesURLNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldExistingCvesURL))
+}
+
+// ExistingCvesURLEqualFold applies the EqualFold predicate on the "existing_cves_url" field.
+func ExistingCvesURLEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesURLContainsFold applies the ContainsFold predicate on the "existing_cves_url" field.
+func ExistingCvesURLContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldExistingCvesURL, v))
+}
+
+// ExistingCvesEQ applies the EQ predicate on the "existing_cves" field.
+func ExistingCvesEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldExistingCves, v))
+}
+
+// ExistingCvesNEQ applies the NEQ predicate on the "existing_cves" field.
+func ExistingCvesNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldExistingCves, v))
+}
+
+// ExistingCvesIn applies the In predicate on the "existing_cves" field.
+func ExistingCvesIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldExistingCves, vs...))
+}
+
+// ExistingCvesNotIn applies the NotIn predicate on the "existing_cves" field.
+func ExistingCvesNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldExistingCves, vs...))
+}
+
+// ExistingCvesGT applies the GT predicate on the "existing_cves" field.
+func ExistingCvesGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldExistingCves, v))
+}
+
+// ExistingCvesGTE applies the GTE predicate on the "existing_cves" field.
+func ExistingCvesGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldExistingCves, v))
+}
+
+// ExistingCvesLT applies the LT predicate on the "existing_cves" field.
+func ExistingCvesLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldExistingCves, v))
+}
+
+// ExistingCvesLTE applies the LTE predicate on the "existing_cves" field.
+func ExistingCvesLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldExistingCves, v))
+}
+
+// ExistingCvesContains applies the Contains predicate on the "existing_cves" field.
+func ExistingCvesContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldExistingCves, v))
+}
+
+// ExistingCvesHasPrefix applies the HasPrefix predicate on the "existing_cves" field.
+func ExistingCvesHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldExistingCves, v))
+}
+
+// ExistingCvesHasSuffix applies the HasSuffix predicate on the "existing_cves" field.
+func ExistingCvesHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldExistingCves, v))
+}
+
+// ExistingCvesIsNil applies the IsNil predicate on the "existing_cves" field.
+func ExistingCvesIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldExistingCves))
+}
+
+// ExistingCvesNotNil applies the NotNil predicate on the "existing_cves" field.
+func ExistingCvesNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldExistingCves))
+}
+
+// ExistingCvesEqualFold applies the EqualFold predicate on the "existing_cves" field.
+func ExistingCvesEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldExistingCves, v))
+}
+
+// ExistingCvesContainsFold applies the ContainsFold predicate on the "existing_cves" field.
+func ExistingCvesContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldExistingCves, v))
+}
+
+// FixedCvesURLEQ applies the EQ predicate on the "fixed_cves_url" field.
+func FixedCvesURLEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLNEQ applies the NEQ predicate on the "fixed_cves_url" field.
+func FixedCvesURLNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLIn applies the In predicate on the "fixed_cves_url" field.
+func FixedCvesURLIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldFixedCvesURL, vs...))
+}
+
+// FixedCvesURLNotIn applies the NotIn predicate on the "fixed_cves_url" field.
+func FixedCvesURLNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldFixedCvesURL, vs...))
+}
+
+// FixedCvesURLGT applies the GT predicate on the "fixed_cves_url" field.
+func FixedCvesURLGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLGTE applies the GTE predicate on the "fixed_cves_url" field.
+func FixedCvesURLGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLLT applies the LT predicate on the "fixed_cves_url" field.
+func FixedCvesURLLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLLTE applies the LTE predicate on the "fixed_cves_url" field.
+func FixedCvesURLLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLContains applies the Contains predicate on the "fixed_cves_url" field.
+func FixedCvesURLContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLHasPrefix applies the HasPrefix predicate on the "fixed_cves_url" field.
+func FixedCvesURLHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLHasSuffix applies the HasSuffix predicate on the "fixed_cves_url" field.
+func FixedCvesURLHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLIsNil applies the IsNil predicate on the "fixed_cves_url" field.
+func FixedCvesURLIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldFixedCvesURL))
+}
+
+// FixedCvesURLNotNil applies the NotNil predicate on the "fixed_cves_url" field.
+func FixedCvesURLNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldFixedCvesURL))
+}
+
+// FixedCvesURLEqualFold applies the EqualFold predicate on the "fixed_cves_url" field.
+func FixedCvesURLEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldFixedCvesURL, v))
+}
+
+// FixedCvesURLContainsFold applies the ContainsFold predicate on the "fixed_cves_url" field.
+func FixedCvesURLContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldFixedCvesURL, v))
+}
+
+// FixedCvesEQ applies the EQ predicate on the "fixed_cves" field.
+func FixedCvesEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldFixedCves, v))
+}
+
+// FixedCvesNEQ applies the NEQ predicate on the "fixed_cves" field.
+func FixedCvesNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldFixedCves, v))
+}
+
+// FixedCvesIn applies the In predicate on the "fixed_cves" field.
+func FixedCvesIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldFixedCves, vs...))
+}
+
+// FixedCvesNotIn applies the NotIn predicate on the "fixed_cves" field.
+func FixedCvesNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldFixedCves, vs...))
+}
+
+// FixedCvesGT applies the GT predicate on the "fixed_cves" field.
+func FixedCvesGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldFixedCves, v))
+}
+
+// FixedCvesGTE applies the GTE predicate on the "fixed_cves" field.
+func FixedCvesGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldFixedCves, v))
+}
+
+// FixedCvesLT applies the LT predicate on the "fixed_cves" field.
+func FixedCvesLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldFixedCves, v))
+}
+
+// FixedCvesLTE applies the LTE predicate on the "fixed_cves" field.
+func FixedCvesLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldFixedCves, v))
+}
+
+// FixedCvesContains applies the Contains predicate on the "fixed_cves" field.
+func FixedCvesContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldFixedCves, v))
+}
+
+// FixedCvesHasPrefix applies the HasPrefix predicate on the "fixed_cves" field.
+func FixedCvesHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldFixedCves, v))
+}
+
+// FixedCvesHasSuffix applies the HasSuffix predicate on the "fixed_cves" field.
+func FixedCvesHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldFixedCves, v))
+}
+
+// FixedCvesIsNil applies the IsNil predicate on the "fixed_cves" field.
+func FixedCvesIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldFixedCves))
+}
+
+// FixedCvesNotNil applies the NotNil predicate on the "fixed_cves" field.
+func FixedCvesNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldFixedCves))
+}
+
+// FixedCvesEqualFold applies the EqualFold predicate on the "fixed_cves" field.
+func FixedCvesEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldFixedCves, v))
+}
+
+// FixedCvesContainsFold applies the ContainsFold predicate on the "fixed_cves" field.
+func FixedCvesContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldFixedCves, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.

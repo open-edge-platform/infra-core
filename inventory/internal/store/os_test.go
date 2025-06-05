@@ -48,7 +48,19 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 				PlatformBundle:    "test platform bundle",
 				Description:       "test description",
-				Metadata:          `{"key1":"value1","key2":"value2"}`,
+				ExistingCvesUrl:   "https://example.com/cves",
+				ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ],
+}]`,
+				FixedCvesUrl: "/files/fixed_cves.json",
+				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
+				Metadata:     `{"key1":"value1","key2":"value2"}`,
 			},
 			valid: true,
 		},
@@ -160,7 +172,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			},
 			valid: true,
 		},
-		"CreateBadOsDuplicateMetadata": {
+		"CreateBadOsDuplicateMetadata1": {
 			in: &os_v1.OperatingSystemResource{
 				Name:              "Test Os 1",
 				UpdateSources:     []string{"test entry1", "test entry2"},
@@ -174,6 +186,20 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			},
 			valid: false,
 		},
+		"CreateBadOsDuplicateMetadata2": {
+			in: &os_v1.OperatingSystemResource{
+				Name:              "Test Os 1",
+				UpdateSources:     []string{"test entry1", "test entry2"},
+				Sha256:            inv_testing.RandomSha256v1,
+				ProfileName:       "Test OS profile name",
+				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+				SecurityFeature:   os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
+				OsType:            os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:        os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Metadata:          "invalid JSON",
+			},
+			valid: false,
+		},
 	}
 
 	for tcname, tc := range testcases {
@@ -183,7 +209,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			}
 
 			// build a context for gRPC
-			ctx, cancel := context.WithTimeout(context.Background(), 10000*time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			defer cancel()
 
 			// create

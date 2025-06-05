@@ -47,6 +47,14 @@ const (
 	FieldDescription = "description"
 	// FieldMetadata holds the string denoting the metadata field in the database.
 	FieldMetadata = "metadata"
+	// FieldExistingCvesURL holds the string denoting the existing_cves_url field in the database.
+	FieldExistingCvesURL = "existing_cves_url"
+	// FieldExistingCves holds the string denoting the existing_cves field in the database.
+	FieldExistingCves = "existing_cves"
+	// FieldFixedCvesURL holds the string denoting the fixed_cves_url field in the database.
+	FieldFixedCvesURL = "fixed_cves_url"
+	// FieldFixedCves holds the string denoting the fixed_cves field in the database.
+	FieldFixedCves = "fixed_cves"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -77,6 +85,10 @@ var Columns = []string{
 	FieldPlatformBundle,
 	FieldDescription,
 	FieldMetadata,
+	FieldExistingCvesURL,
+	FieldExistingCves,
+	FieldFixedCvesURL,
+	FieldFixedCves,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -255,6 +267,26 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 // ByMetadata orders the results by the metadata field.
 func ByMetadata(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMetadata, opts...).ToFunc()
+}
+
+// ByExistingCvesURL orders the results by the existing_cves_url field.
+func ByExistingCvesURL(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExistingCvesURL, opts...).ToFunc()
+}
+
+// ByExistingCves orders the results by the existing_cves field.
+func ByExistingCves(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExistingCves, opts...).ToFunc()
+}
+
+// ByFixedCvesURL orders the results by the fixed_cves_url field.
+func ByFixedCvesURL(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFixedCvesURL, opts...).ToFunc()
+}
+
+// ByFixedCves orders the results by the fixed_cves field.
+func ByFixedCves(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFixedCves, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.
