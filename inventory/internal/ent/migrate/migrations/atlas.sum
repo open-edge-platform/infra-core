@@ -1,7 +1,8 @@
-h1:TzYNV9t+m43xbqLHCs5PE93ac/rBnoLRPQp3BNv6xcQ=
+h1:KqIgPXTeBtww4ApwjHqq1U1NSgX/qRZ3g0qPLLr1hBw=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
 20250527203300_amt.sql h1:P8aHFHTRc6RDNjtbc0+veVbDD/+zvAcZ6I9zyPuZjD8=
 20250604095136_add_cvefields.sql h1:LYsTzbwG7fwjlpSurXTJo80lf8XtaEk2aib8nFgWEss=
 20250605145118_add_osmetadata.sql h1:Y6t1wz1AxZD9sskGKmi1YcBh4GTGarWQAsya0vrD7v4=
+20250606135254_instance_update.sql h1:fFVBm1SEdn8LvU0AQofK0PtW+TzK2OmsJvRKeqXwLhQ=

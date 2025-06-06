@@ -126,6 +126,10 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		if err := setEdgeProviderIDForMut(ctx, tx.Client(), mut, in.GetProvider()); err != nil {
 			return nil, err
 		}
+		// Look up the OS ID for this Instance.
+		if err := setEdgeOSIDForMut(ctx, tx.Client(), mut, in.GetCurrentOs()); err != nil {
+			return nil, err
+		}
 
 		// Look up the optional LocalAccount ID for this Instance.
 		if err := setEdgeLocalAccountIDForMut(ctx, tx.Client(), mut, in.GetLocalaccount()); err != nil {
@@ -177,6 +181,7 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		Where(instanceresource.ResourceID(resourceID)).
 		WithDesiredOs().
 		WithCurrentOs().
+		WithOs().
 		WithProvider().
 		WithLocalaccount()
 	if nestedLoad {
@@ -550,6 +555,12 @@ func setRelationsForInstanceMutIfNeeded(
 	mut.ResetLocalaccount()
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) {
 		if err := setEdgeLocalAccountIDForMut(ctx, client, mut, in.GetLocalaccount()); err != nil {
+			return err
+		}
+	}
+	mut.ResetOs()
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeOs) {
+		if err := setEdgeOSIDForMut(ctx, client, mut, in.GetOs()); err != nil {
 			return err
 		}
 	}

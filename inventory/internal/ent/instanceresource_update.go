@@ -515,6 +515,46 @@ func (iru *InstanceResourceUpdate) ClearExistingCves() *InstanceResourceUpdate {
 	return iru
 }
 
+// SetRuntimePackages sets the "runtime_packages" field.
+func (iru *InstanceResourceUpdate) SetRuntimePackages(s string) *InstanceResourceUpdate {
+	iru.mutation.SetRuntimePackages(s)
+	return iru
+}
+
+// SetNillableRuntimePackages sets the "runtime_packages" field if the given value is not nil.
+func (iru *InstanceResourceUpdate) SetNillableRuntimePackages(s *string) *InstanceResourceUpdate {
+	if s != nil {
+		iru.SetRuntimePackages(*s)
+	}
+	return iru
+}
+
+// ClearRuntimePackages clears the value of the "runtime_packages" field.
+func (iru *InstanceResourceUpdate) ClearRuntimePackages() *InstanceResourceUpdate {
+	iru.mutation.ClearRuntimePackages()
+	return iru
+}
+
+// SetOsUpdateAvailable sets the "os_update_available" field.
+func (iru *InstanceResourceUpdate) SetOsUpdateAvailable(s string) *InstanceResourceUpdate {
+	iru.mutation.SetOsUpdateAvailable(s)
+	return iru
+}
+
+// SetNillableOsUpdateAvailable sets the "os_update_available" field if the given value is not nil.
+func (iru *InstanceResourceUpdate) SetNillableOsUpdateAvailable(s *string) *InstanceResourceUpdate {
+	if s != nil {
+		iru.SetOsUpdateAvailable(*s)
+	}
+	return iru
+}
+
+// ClearOsUpdateAvailable clears the value of the "os_update_available" field.
+func (iru *InstanceResourceUpdate) ClearOsUpdateAvailable() *InstanceResourceUpdate {
+	iru.mutation.ClearOsUpdateAvailable()
+	return iru
+}
+
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
 func (iru *InstanceResourceUpdate) SetInstanceStatusDetail(s string) *InstanceResourceUpdate {
 	iru.mutation.SetInstanceStatusDetail(s)
@@ -598,6 +638,25 @@ func (iru *InstanceResourceUpdate) SetCurrentOs(o *OperatingSystemResource) *Ins
 	return iru.SetCurrentOsID(o.ID)
 }
 
+// SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
+func (iru *InstanceResourceUpdate) SetOsID(id int) *InstanceResourceUpdate {
+	iru.mutation.SetOsID(id)
+	return iru
+}
+
+// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
+func (iru *InstanceResourceUpdate) SetNillableOsID(id *int) *InstanceResourceUpdate {
+	if id != nil {
+		iru = iru.SetOsID(*id)
+	}
+	return iru
+}
+
+// SetOs sets the "os" edge to the OperatingSystemResource entity.
+func (iru *InstanceResourceUpdate) SetOs(o *OperatingSystemResource) *InstanceResourceUpdate {
+	return iru.SetOsID(o.ID)
+}
+
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by IDs.
 func (iru *InstanceResourceUpdate) AddWorkloadMemberIDs(ids ...int) *InstanceResourceUpdate {
 	iru.mutation.AddWorkloadMemberIDs(ids...)
@@ -671,6 +730,12 @@ func (iru *InstanceResourceUpdate) ClearDesiredOs() *InstanceResourceUpdate {
 // ClearCurrentOs clears the "current_os" edge to the OperatingSystemResource entity.
 func (iru *InstanceResourceUpdate) ClearCurrentOs() *InstanceResourceUpdate {
 	iru.mutation.ClearCurrentOs()
+	return iru
+}
+
+// ClearOs clears the "os" edge to the OperatingSystemResource entity.
+func (iru *InstanceResourceUpdate) ClearOs() *InstanceResourceUpdate {
+	iru.mutation.ClearOs()
 	return iru
 }
 
@@ -942,6 +1007,18 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if iru.mutation.ExistingCvesCleared() {
 		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
 	}
+	if value, ok := iru.mutation.RuntimePackages(); ok {
+		_spec.SetField(instanceresource.FieldRuntimePackages, field.TypeString, value)
+	}
+	if iru.mutation.RuntimePackagesCleared() {
+		_spec.ClearField(instanceresource.FieldRuntimePackages, field.TypeString)
+	}
+	if value, ok := iru.mutation.OsUpdateAvailable(); ok {
+		_spec.SetField(instanceresource.FieldOsUpdateAvailable, field.TypeString, value)
+	}
+	if iru.mutation.OsUpdateAvailableCleared() {
+		_spec.ClearField(instanceresource.FieldOsUpdateAvailable, field.TypeString)
+	}
 	if value, ok := iru.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 	}
@@ -1028,6 +1105,35 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 			Inverse: false,
 			Table:   instanceresource.CurrentOsTable,
 			Columns: []string{instanceresource.CurrentOsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if iru.mutation.OsCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsTable,
+			Columns: []string{instanceresource.OsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iru.mutation.OsIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsTable,
+			Columns: []string{instanceresource.OsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
@@ -1644,6 +1750,46 @@ func (iruo *InstanceResourceUpdateOne) ClearExistingCves() *InstanceResourceUpda
 	return iruo
 }
 
+// SetRuntimePackages sets the "runtime_packages" field.
+func (iruo *InstanceResourceUpdateOne) SetRuntimePackages(s string) *InstanceResourceUpdateOne {
+	iruo.mutation.SetRuntimePackages(s)
+	return iruo
+}
+
+// SetNillableRuntimePackages sets the "runtime_packages" field if the given value is not nil.
+func (iruo *InstanceResourceUpdateOne) SetNillableRuntimePackages(s *string) *InstanceResourceUpdateOne {
+	if s != nil {
+		iruo.SetRuntimePackages(*s)
+	}
+	return iruo
+}
+
+// ClearRuntimePackages clears the value of the "runtime_packages" field.
+func (iruo *InstanceResourceUpdateOne) ClearRuntimePackages() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearRuntimePackages()
+	return iruo
+}
+
+// SetOsUpdateAvailable sets the "os_update_available" field.
+func (iruo *InstanceResourceUpdateOne) SetOsUpdateAvailable(s string) *InstanceResourceUpdateOne {
+	iruo.mutation.SetOsUpdateAvailable(s)
+	return iruo
+}
+
+// SetNillableOsUpdateAvailable sets the "os_update_available" field if the given value is not nil.
+func (iruo *InstanceResourceUpdateOne) SetNillableOsUpdateAvailable(s *string) *InstanceResourceUpdateOne {
+	if s != nil {
+		iruo.SetOsUpdateAvailable(*s)
+	}
+	return iruo
+}
+
+// ClearOsUpdateAvailable clears the value of the "os_update_available" field.
+func (iruo *InstanceResourceUpdateOne) ClearOsUpdateAvailable() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearOsUpdateAvailable()
+	return iruo
+}
+
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
 func (iruo *InstanceResourceUpdateOne) SetInstanceStatusDetail(s string) *InstanceResourceUpdateOne {
 	iruo.mutation.SetInstanceStatusDetail(s)
@@ -1727,6 +1873,25 @@ func (iruo *InstanceResourceUpdateOne) SetCurrentOs(o *OperatingSystemResource) 
 	return iruo.SetCurrentOsID(o.ID)
 }
 
+// SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
+func (iruo *InstanceResourceUpdateOne) SetOsID(id int) *InstanceResourceUpdateOne {
+	iruo.mutation.SetOsID(id)
+	return iruo
+}
+
+// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
+func (iruo *InstanceResourceUpdateOne) SetNillableOsID(id *int) *InstanceResourceUpdateOne {
+	if id != nil {
+		iruo = iruo.SetOsID(*id)
+	}
+	return iruo
+}
+
+// SetOs sets the "os" edge to the OperatingSystemResource entity.
+func (iruo *InstanceResourceUpdateOne) SetOs(o *OperatingSystemResource) *InstanceResourceUpdateOne {
+	return iruo.SetOsID(o.ID)
+}
+
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by IDs.
 func (iruo *InstanceResourceUpdateOne) AddWorkloadMemberIDs(ids ...int) *InstanceResourceUpdateOne {
 	iruo.mutation.AddWorkloadMemberIDs(ids...)
@@ -1800,6 +1965,12 @@ func (iruo *InstanceResourceUpdateOne) ClearDesiredOs() *InstanceResourceUpdateO
 // ClearCurrentOs clears the "current_os" edge to the OperatingSystemResource entity.
 func (iruo *InstanceResourceUpdateOne) ClearCurrentOs() *InstanceResourceUpdateOne {
 	iruo.mutation.ClearCurrentOs()
+	return iruo
+}
+
+// ClearOs clears the "os" edge to the OperatingSystemResource entity.
+func (iruo *InstanceResourceUpdateOne) ClearOs() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearOs()
 	return iruo
 }
 
@@ -2101,6 +2272,18 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 	if iruo.mutation.ExistingCvesCleared() {
 		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
 	}
+	if value, ok := iruo.mutation.RuntimePackages(); ok {
+		_spec.SetField(instanceresource.FieldRuntimePackages, field.TypeString, value)
+	}
+	if iruo.mutation.RuntimePackagesCleared() {
+		_spec.ClearField(instanceresource.FieldRuntimePackages, field.TypeString)
+	}
+	if value, ok := iruo.mutation.OsUpdateAvailable(); ok {
+		_spec.SetField(instanceresource.FieldOsUpdateAvailable, field.TypeString, value)
+	}
+	if iruo.mutation.OsUpdateAvailableCleared() {
+		_spec.ClearField(instanceresource.FieldOsUpdateAvailable, field.TypeString)
+	}
 	if value, ok := iruo.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 	}
@@ -2187,6 +2370,35 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 			Inverse: false,
 			Table:   instanceresource.CurrentOsTable,
 			Columns: []string{instanceresource.CurrentOsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if iruo.mutation.OsCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsTable,
+			Columns: []string{instanceresource.OsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iruo.mutation.OsIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsTable,
+			Columns: []string{instanceresource.OsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),

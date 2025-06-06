@@ -721,6 +721,8 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 		TrustedAttestationStatusIndicator: statusv1.StatusIndication(trustedAttestationStatusIndicator),
 		TrustedAttestationStatusTimestamp: ins.TrustedAttestationStatusTimestamp,
 		ExistingCves:                      ins.ExistingCves,
+		RuntimePackages:                   ins.RuntimePackages,
+		OsUpdateAvailable:                 ins.OsUpdateAvailable,
 		TenantId:                          ins.TenantID,
 		CreatedAt:                         ins.CreatedAt,
 		UpdatedAt:                         ins.UpdatedAt,
@@ -734,6 +736,9 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	}
 	if os, qerr := ins.Edges.CurrentOsOrErr(); qerr == nil {
 		protoInstance.CurrentOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
+	}
+	if os, qerr := ins.Edges.OsOrErr(); qerr == nil {
+		protoInstance.Os = entOperatingSystemResourceToProtoOperatingSystemResource(os)
 	}
 	if wMembers, qerr := ins.Edges.WorkloadMembersOrErr(); qerr == nil {
 		for _, m := range wMembers {

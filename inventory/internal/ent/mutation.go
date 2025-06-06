@@ -12502,6 +12502,8 @@ type InstanceResourceMutation struct {
 	trusted_attestation_status_timestamp    *uint64
 	addtrusted_attestation_status_timestamp *int64
 	existing_cves                           *string
+	runtime_packages                        *string
+	os_update_available                     *string
 	tenant_id                               *string
 	instance_status_detail                  *string
 	created_at                              *string
@@ -12513,6 +12515,8 @@ type InstanceResourceMutation struct {
 	cleareddesired_os                       bool
 	current_os                              *int
 	clearedcurrent_os                       bool
+	os                                      *int
+	clearedos                               bool
 	workload_members                        map[int]struct{}
 	removedworkload_members                 map[int]struct{}
 	clearedworkload_members                 bool
@@ -13884,6 +13888,104 @@ func (m *InstanceResourceMutation) ResetExistingCves() {
 	delete(m.clearedFields, instanceresource.FieldExistingCves)
 }
 
+// SetRuntimePackages sets the "runtime_packages" field.
+func (m *InstanceResourceMutation) SetRuntimePackages(s string) {
+	m.runtime_packages = &s
+}
+
+// RuntimePackages returns the value of the "runtime_packages" field in the mutation.
+func (m *InstanceResourceMutation) RuntimePackages() (r string, exists bool) {
+	v := m.runtime_packages
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRuntimePackages returns the old "runtime_packages" field's value of the InstanceResource entity.
+// If the InstanceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *InstanceResourceMutation) OldRuntimePackages(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRuntimePackages is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRuntimePackages requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRuntimePackages: %w", err)
+	}
+	return oldValue.RuntimePackages, nil
+}
+
+// ClearRuntimePackages clears the value of the "runtime_packages" field.
+func (m *InstanceResourceMutation) ClearRuntimePackages() {
+	m.runtime_packages = nil
+	m.clearedFields[instanceresource.FieldRuntimePackages] = struct{}{}
+}
+
+// RuntimePackagesCleared returns if the "runtime_packages" field was cleared in this mutation.
+func (m *InstanceResourceMutation) RuntimePackagesCleared() bool {
+	_, ok := m.clearedFields[instanceresource.FieldRuntimePackages]
+	return ok
+}
+
+// ResetRuntimePackages resets all changes to the "runtime_packages" field.
+func (m *InstanceResourceMutation) ResetRuntimePackages() {
+	m.runtime_packages = nil
+	delete(m.clearedFields, instanceresource.FieldRuntimePackages)
+}
+
+// SetOsUpdateAvailable sets the "os_update_available" field.
+func (m *InstanceResourceMutation) SetOsUpdateAvailable(s string) {
+	m.os_update_available = &s
+}
+
+// OsUpdateAvailable returns the value of the "os_update_available" field in the mutation.
+func (m *InstanceResourceMutation) OsUpdateAvailable() (r string, exists bool) {
+	v := m.os_update_available
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldOsUpdateAvailable returns the old "os_update_available" field's value of the InstanceResource entity.
+// If the InstanceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *InstanceResourceMutation) OldOsUpdateAvailable(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldOsUpdateAvailable is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldOsUpdateAvailable requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldOsUpdateAvailable: %w", err)
+	}
+	return oldValue.OsUpdateAvailable, nil
+}
+
+// ClearOsUpdateAvailable clears the value of the "os_update_available" field.
+func (m *InstanceResourceMutation) ClearOsUpdateAvailable() {
+	m.os_update_available = nil
+	m.clearedFields[instanceresource.FieldOsUpdateAvailable] = struct{}{}
+}
+
+// OsUpdateAvailableCleared returns if the "os_update_available" field was cleared in this mutation.
+func (m *InstanceResourceMutation) OsUpdateAvailableCleared() bool {
+	_, ok := m.clearedFields[instanceresource.FieldOsUpdateAvailable]
+	return ok
+}
+
+// ResetOsUpdateAvailable resets all changes to the "os_update_available" field.
+func (m *InstanceResourceMutation) ResetOsUpdateAvailable() {
+	m.os_update_available = nil
+	delete(m.clearedFields, instanceresource.FieldOsUpdateAvailable)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *InstanceResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -14158,6 +14260,45 @@ func (m *InstanceResourceMutation) ResetCurrentOs() {
 	m.clearedcurrent_os = false
 }
 
+// SetOsID sets the "os" edge to the OperatingSystemResource entity by id.
+func (m *InstanceResourceMutation) SetOsID(id int) {
+	m.os = &id
+}
+
+// ClearOs clears the "os" edge to the OperatingSystemResource entity.
+func (m *InstanceResourceMutation) ClearOs() {
+	m.clearedos = true
+}
+
+// OsCleared reports if the "os" edge to the OperatingSystemResource entity was cleared.
+func (m *InstanceResourceMutation) OsCleared() bool {
+	return m.clearedos
+}
+
+// OsID returns the "os" edge ID in the mutation.
+func (m *InstanceResourceMutation) OsID() (id int, exists bool) {
+	if m.os != nil {
+		return *m.os, true
+	}
+	return
+}
+
+// OsIDs returns the "os" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// OsID instead. It exists only for internal usage by the builders.
+func (m *InstanceResourceMutation) OsIDs() (ids []int) {
+	if id := m.os; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetOs resets all changes to the "os" edge.
+func (m *InstanceResourceMutation) ResetOs() {
+	m.os = nil
+	m.clearedos = false
+}
+
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by ids.
 func (m *InstanceResourceMutation) AddWorkloadMemberIDs(ids ...int) {
 	if m.workload_members == nil {
@@ -14324,7 +14465,7 @@ func (m *InstanceResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *InstanceResourceMutation) Fields() []string {
-	fields := make([]string, 0, 27)
+	fields := make([]string, 0, 29)
 	if m.resource_id != nil {
 		fields = append(fields, instanceresource.FieldResourceID)
 	}
@@ -14394,6 +14535,12 @@ func (m *InstanceResourceMutation) Fields() []string {
 	if m.existing_cves != nil {
 		fields = append(fields, instanceresource.FieldExistingCves)
 	}
+	if m.runtime_packages != nil {
+		fields = append(fields, instanceresource.FieldRuntimePackages)
+	}
+	if m.os_update_available != nil {
+		fields = append(fields, instanceresource.FieldOsUpdateAvailable)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, instanceresource.FieldTenantID)
 	}
@@ -14460,6 +14607,10 @@ func (m *InstanceResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.TrustedAttestationStatusTimestamp()
 	case instanceresource.FieldExistingCves:
 		return m.ExistingCves()
+	case instanceresource.FieldRuntimePackages:
+		return m.RuntimePackages()
+	case instanceresource.FieldOsUpdateAvailable:
+		return m.OsUpdateAvailable()
 	case instanceresource.FieldTenantID:
 		return m.TenantID()
 	case instanceresource.FieldInstanceStatusDetail:
@@ -14523,6 +14674,10 @@ func (m *InstanceResourceMutation) OldField(ctx context.Context, name string) (e
 		return m.OldTrustedAttestationStatusTimestamp(ctx)
 	case instanceresource.FieldExistingCves:
 		return m.OldExistingCves(ctx)
+	case instanceresource.FieldRuntimePackages:
+		return m.OldRuntimePackages(ctx)
+	case instanceresource.FieldOsUpdateAvailable:
+		return m.OldOsUpdateAvailable(ctx)
 	case instanceresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case instanceresource.FieldInstanceStatusDetail:
@@ -14700,6 +14855,20 @@ func (m *InstanceResourceMutation) SetField(name string, value ent.Value) error 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetExistingCves(v)
+		return nil
+	case instanceresource.FieldRuntimePackages:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRuntimePackages(v)
+		return nil
+	case instanceresource.FieldOsUpdateAvailable:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetOsUpdateAvailable(v)
 		return nil
 	case instanceresource.FieldTenantID:
 		v, ok := value.(string)
@@ -14912,6 +15081,12 @@ func (m *InstanceResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(instanceresource.FieldExistingCves) {
 		fields = append(fields, instanceresource.FieldExistingCves)
 	}
+	if m.FieldCleared(instanceresource.FieldRuntimePackages) {
+		fields = append(fields, instanceresource.FieldRuntimePackages)
+	}
+	if m.FieldCleared(instanceresource.FieldOsUpdateAvailable) {
+		fields = append(fields, instanceresource.FieldOsUpdateAvailable)
+	}
 	if m.FieldCleared(instanceresource.FieldInstanceStatusDetail) {
 		fields = append(fields, instanceresource.FieldInstanceStatusDetail)
 	}
@@ -14995,6 +15170,12 @@ func (m *InstanceResourceMutation) ClearField(name string) error {
 	case instanceresource.FieldExistingCves:
 		m.ClearExistingCves()
 		return nil
+	case instanceresource.FieldRuntimePackages:
+		m.ClearRuntimePackages()
+		return nil
+	case instanceresource.FieldOsUpdateAvailable:
+		m.ClearOsUpdateAvailable()
+		return nil
 	case instanceresource.FieldInstanceStatusDetail:
 		m.ClearInstanceStatusDetail()
 		return nil
@@ -15075,6 +15256,12 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 	case instanceresource.FieldExistingCves:
 		m.ResetExistingCves()
 		return nil
+	case instanceresource.FieldRuntimePackages:
+		m.ResetRuntimePackages()
+		return nil
+	case instanceresource.FieldOsUpdateAvailable:
+		m.ResetOsUpdateAvailable()
+		return nil
 	case instanceresource.FieldTenantID:
 		m.ResetTenantID()
 		return nil
@@ -15093,7 +15280,7 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *InstanceResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.host != nil {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15102,6 +15289,9 @@ func (m *InstanceResourceMutation) AddedEdges() []string {
 	}
 	if m.current_os != nil {
 		edges = append(edges, instanceresource.EdgeCurrentOs)
+	}
+	if m.os != nil {
+		edges = append(edges, instanceresource.EdgeOs)
 	}
 	if m.workload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
@@ -15131,6 +15321,10 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 		if id := m.current_os; id != nil {
 			return []ent.Value{*id}
 		}
+	case instanceresource.EdgeOs:
+		if id := m.os; id != nil {
+			return []ent.Value{*id}
+		}
 	case instanceresource.EdgeWorkloadMembers:
 		ids := make([]ent.Value, 0, len(m.workload_members))
 		for id := range m.workload_members {
@@ -15151,7 +15345,7 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *InstanceResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
 	}
@@ -15174,7 +15368,7 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *InstanceResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.clearedhost {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15183,6 +15377,9 @@ func (m *InstanceResourceMutation) ClearedEdges() []string {
 	}
 	if m.clearedcurrent_os {
 		edges = append(edges, instanceresource.EdgeCurrentOs)
+	}
+	if m.clearedos {
+		edges = append(edges, instanceresource.EdgeOs)
 	}
 	if m.clearedworkload_members {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
@@ -15206,6 +15403,8 @@ func (m *InstanceResourceMutation) EdgeCleared(name string) bool {
 		return m.cleareddesired_os
 	case instanceresource.EdgeCurrentOs:
 		return m.clearedcurrent_os
+	case instanceresource.EdgeOs:
+		return m.clearedos
 	case instanceresource.EdgeWorkloadMembers:
 		return m.clearedworkload_members
 	case instanceresource.EdgeProvider:
@@ -15229,6 +15428,9 @@ func (m *InstanceResourceMutation) ClearEdge(name string) error {
 	case instanceresource.EdgeCurrentOs:
 		m.ClearCurrentOs()
 		return nil
+	case instanceresource.EdgeOs:
+		m.ClearOs()
+		return nil
 	case instanceresource.EdgeProvider:
 		m.ClearProvider()
 		return nil
@@ -15251,6 +15453,9 @@ func (m *InstanceResourceMutation) ResetEdge(name string) error {
 		return nil
 	case instanceresource.EdgeCurrentOs:
 		m.ResetCurrentOs()
+		return nil
+	case instanceresource.EdgeOs:
+		m.ResetOs()
 		return nil
 	case instanceresource.EdgeWorkloadMembers:
 		m.ResetWorkloadMembers()
