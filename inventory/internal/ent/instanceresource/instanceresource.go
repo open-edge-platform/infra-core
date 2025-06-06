@@ -58,6 +58,8 @@ const (
 	FieldTrustedAttestationStatusIndicator = "trusted_attestation_status_indicator"
 	// FieldTrustedAttestationStatusTimestamp holds the string denoting the trusted_attestation_status_timestamp field in the database.
 	FieldTrustedAttestationStatusTimestamp = "trusted_attestation_status_timestamp"
+	// FieldExistingCves holds the string denoting the existing_cves field in the database.
+	FieldExistingCves = "existing_cves"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldInstanceStatusDetail holds the string denoting the instance_status_detail field in the database.
@@ -149,6 +151,7 @@ var Columns = []string{
 	FieldTrustedAttestationStatus,
 	FieldTrustedAttestationStatusIndicator,
 	FieldTrustedAttestationStatusTimestamp,
+	FieldExistingCves,
 	FieldTenantID,
 	FieldInstanceStatusDetail,
 	FieldCreatedAt,
@@ -493,6 +496,11 @@ func ByTrustedAttestationStatusIndicator(opts ...sql.OrderTermOption) OrderOptio
 // ByTrustedAttestationStatusTimestamp orders the results by the trusted_attestation_status_timestamp field.
 func ByTrustedAttestationStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTrustedAttestationStatusTimestamp, opts...).ToFunc()
+}
+
+// ByExistingCves orders the results by the existing_cves field.
+func ByExistingCves(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExistingCves, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.
