@@ -101,23 +101,26 @@ func (srv *InventorygRPCServer) Authorize(ctx context.Context, request interface
 	return nil
 }
 
+func (srv *InventorygRPCServer) Heartbeat(
+	_ context.Context,
+	in *inv_v1.HeartbeatRequest,
+) (*inv_v1.HeartbeatResponse, error) {
+	// Check if the client is already registered.
+	// if the client is already registered, send an ack.
+	if _, ok := srv.CR.ClientRegistrationMap().Load(in.GetClientUuid()); !ok {
+		err := errors.Errorfr(errors.Reason_UNKNOWN_CLIENT,
+			"client with UUID %s not found", in.GetClientUuid(),
+		)
+		return nil, errors.Wrap(err)
+	}
+	return &inv_v1.HeartbeatResponse{}, nil
+}
+
 func (srv *InventorygRPCServer) SubscribeEvents(
 	in *inv_v1.SubscribeEventsRequest,
 	stream inv_v1.InventoryService_SubscribeEventsServer,
 ) error {
 	zlog.Info().Msgf("SubscribeEvents from client: %v", in)
-
-	// Check if the client is already registered.
-	// if the client is already registered, send the UUID back to the client.
-	// This is a heartbeat message to keep the connection alive.
-	if clientCfg, ok := srv.CR.ClientRegistrationMap().Load(in.GetName()); ok {
-		clientStream := clientCfg.(clientreg.ClientInfo).Stream
-		if err := clientStream.Send(&inv_v1.SubscribeEventsResponse{ClientUuid: in.GetName()}); err != nil {
-			srv.CR.ExitClient(in.GetName())
-			zlog.InfraSec().Info().Msgf("SubscribeEvents stream disconnect client: %v", in.GetName())
-			return errors.Wrap(err)
-		}
-	}
 
 	// Register the new client.
 	clientUUID, err := srv.CR.RegisterClient(clientreg.ClientInfo{
