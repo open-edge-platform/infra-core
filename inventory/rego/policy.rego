@@ -132,12 +132,12 @@ resourceRule if {
 	allowRule
 }
 
-# Allow access when no deny rules apply
+# Allow request when no deny rules apply
 allowRule if {
 	not deny
 }
 
-# Allow access despite deny rules if an exception applies
+# Allow request despite deny rules if an exception applies
 allowRule if {
 	isException
 }
