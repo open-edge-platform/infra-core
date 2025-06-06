@@ -67,6 +67,10 @@ type InstanceResource struct {
 	TrustedAttestationStatusTimestamp uint64 `json:"trusted_attestation_status_timestamp,omitempty"`
 	// ExistingCves holds the value of the "existing_cves" field.
 	ExistingCves string `json:"existing_cves,omitempty"`
+	// RuntimePackages holds the value of the "runtime_packages" field.
+	RuntimePackages string `json:"runtime_packages,omitempty"`
+	// OsUpdateAvailable holds the value of the "os_update_available" field.
+	OsUpdateAvailable string `json:"os_update_available,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// InstanceStatusDetail holds the value of the "instance_status_detail" field.
@@ -80,6 +84,7 @@ type InstanceResource struct {
 	Edges                              InstanceResourceEdges `json:"edges"`
 	instance_resource_desired_os       *int
 	instance_resource_current_os       *int
+	instance_resource_os               *int
 	instance_resource_provider         *int
 	instance_resource_localaccount     *int
 	instance_resource_os_update_policy *int
@@ -94,6 +99,8 @@ type InstanceResourceEdges struct {
 	DesiredOs *OperatingSystemResource `json:"desired_os,omitempty"`
 	// CurrentOs holds the value of the current_os edge.
 	CurrentOs *OperatingSystemResource `json:"current_os,omitempty"`
+	// Os holds the value of the os edge.
+	Os *OperatingSystemResource `json:"os,omitempty"`
 	// WorkloadMembers holds the value of the workload_members edge.
 	WorkloadMembers []*WorkloadMember `json:"workload_members,omitempty"`
 	// Provider holds the value of the provider edge.
@@ -104,7 +111,7 @@ type InstanceResourceEdges struct {
 	OsUpdatePolicy *OSUpdatePolicyResource `json:"os_update_policy,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [7]bool
+	loadedTypes [8]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -140,10 +147,21 @@ func (e InstanceResourceEdges) CurrentOsOrErr() (*OperatingSystemResource, error
 	return nil, &NotLoadedError{edge: "current_os"}
 }
 
+// OsOrErr returns the Os value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e InstanceResourceEdges) OsOrErr() (*OperatingSystemResource, error) {
+	if e.Os != nil {
+		return e.Os, nil
+	} else if e.loadedTypes[3] {
+		return nil, &NotFoundError{label: operatingsystemresource.Label}
+	}
+	return nil, &NotLoadedError{edge: "os"}
+}
+
 // WorkloadMembersOrErr returns the WorkloadMembers value or an error if the edge
 // was not loaded in eager-loading.
 func (e InstanceResourceEdges) WorkloadMembersOrErr() ([]*WorkloadMember, error) {
-	if e.loadedTypes[3] {
+	if e.loadedTypes[4] {
 		return e.WorkloadMembers, nil
 	}
 	return nil, &NotLoadedError{edge: "workload_members"}
@@ -154,7 +172,7 @@ func (e InstanceResourceEdges) WorkloadMembersOrErr() ([]*WorkloadMember, error)
 func (e InstanceResourceEdges) ProviderOrErr() (*ProviderResource, error) {
 	if e.Provider != nil {
 		return e.Provider, nil
-	} else if e.loadedTypes[4] {
+	} else if e.loadedTypes[5] {
 		return nil, &NotFoundError{label: providerresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "provider"}
@@ -165,7 +183,7 @@ func (e InstanceResourceEdges) ProviderOrErr() (*ProviderResource, error) {
 func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error) {
 	if e.Localaccount != nil {
 		return e.Localaccount, nil
-	} else if e.loadedTypes[5] {
+	} else if e.loadedTypes[6] {
 		return nil, &NotFoundError{label: localaccountresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "localaccount"}
@@ -176,7 +194,7 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, error) {
 	if e.OsUpdatePolicy != nil {
 		return e.OsUpdatePolicy, nil
-	} else if e.loadedTypes[6] {
+	} else if e.loadedTypes[7] {
 		return nil, &NotFoundError{label: osupdatepolicyresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "os_update_policy"}
@@ -189,17 +207,19 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case instanceresource.FieldID, instanceresource.FieldVMMemoryBytes, instanceresource.FieldVMCPUCores, instanceresource.FieldVMStorageBytes, instanceresource.FieldInstanceStatusTimestamp, instanceresource.FieldProvisioningStatusTimestamp, instanceresource.FieldUpdateStatusTimestamp, instanceresource.FieldTrustedAttestationStatusTimestamp:
 			values[i] = new(sql.NullInt64)
-		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
+		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldRuntimePackages, instanceresource.FieldOsUpdateAvailable, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case instanceresource.ForeignKeys[0]: // instance_resource_desired_os
 			values[i] = new(sql.NullInt64)
 		case instanceresource.ForeignKeys[1]: // instance_resource_current_os
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[2]: // instance_resource_provider
+		case instanceresource.ForeignKeys[2]: // instance_resource_os
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[3]: // instance_resource_localaccount
+		case instanceresource.ForeignKeys[3]: // instance_resource_provider
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[4]: // instance_resource_os_update_policy
+		case instanceresource.ForeignKeys[4]: // instance_resource_localaccount
+			values[i] = new(sql.NullInt64)
+		case instanceresource.ForeignKeys[5]: // instance_resource_os_update_policy
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -360,6 +380,18 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				ir.ExistingCves = value.String
 			}
+		case instanceresource.FieldRuntimePackages:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field runtime_packages", values[i])
+			} else if value.Valid {
+				ir.RuntimePackages = value.String
+			}
+		case instanceresource.FieldOsUpdateAvailable:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field os_update_available", values[i])
+			} else if value.Valid {
+				ir.OsUpdateAvailable = value.String
+			}
 		case instanceresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
@@ -400,19 +432,26 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 			}
 		case instanceresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os", value)
+			} else if value.Valid {
+				ir.instance_resource_os = new(int)
+				*ir.instance_resource_os = int(value.Int64)
+			}
+		case instanceresource.ForeignKeys[3]:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_provider", value)
 			} else if value.Valid {
 				ir.instance_resource_provider = new(int)
 				*ir.instance_resource_provider = int(value.Int64)
 			}
-		case instanceresource.ForeignKeys[3]:
+		case instanceresource.ForeignKeys[4]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_localaccount", value)
 			} else if value.Valid {
 				ir.instance_resource_localaccount = new(int)
 				*ir.instance_resource_localaccount = int(value.Int64)
 			}
-		case instanceresource.ForeignKeys[4]:
+		case instanceresource.ForeignKeys[5]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os_update_policy", value)
 			} else if value.Valid {
@@ -445,6 +484,11 @@ func (ir *InstanceResource) QueryDesiredOs() *OperatingSystemResourceQuery {
 // QueryCurrentOs queries the "current_os" edge of the InstanceResource entity.
 func (ir *InstanceResource) QueryCurrentOs() *OperatingSystemResourceQuery {
 	return NewInstanceResourceClient(ir.config).QueryCurrentOs(ir)
+}
+
+// QueryOs queries the "os" edge of the InstanceResource entity.
+func (ir *InstanceResource) QueryOs() *OperatingSystemResourceQuery {
+	return NewInstanceResourceClient(ir.config).QueryOs(ir)
 }
 
 // QueryWorkloadMembers queries the "workload_members" edge of the InstanceResource entity.
@@ -558,6 +602,12 @@ func (ir *InstanceResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("existing_cves=")
 	builder.WriteString(ir.ExistingCves)
+	builder.WriteString(", ")
+	builder.WriteString("runtime_packages=")
+	builder.WriteString(ir.RuntimePackages)
+	builder.WriteString(", ")
+	builder.WriteString("os_update_available=")
+	builder.WriteString(ir.OsUpdateAvailable)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(ir.TenantID)

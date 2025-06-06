@@ -1,0 +1,2 @@
+-- Modify "instance_resources" table
+ALTER TABLE "instance_resources" ADD COLUMN "runtime_packages" character varying NULL, ADD COLUMN "os_update_available" character varying NULL, ADD COLUMN "instance_resource_os" bigint NULL, ADD CONSTRAINT "instance_resources_operating_system_resources_os" FOREIGN KEY ("instance_resource_os") REFERENCES "operating_system_resources" ("id") ON UPDATE NO ACTION ON DELETE SET NULL;

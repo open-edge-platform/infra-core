@@ -339,6 +339,34 @@ func (irc *InstanceResourceCreate) SetNillableExistingCves(s *string) *InstanceR
 	return irc
 }
 
+// SetRuntimePackages sets the "runtime_packages" field.
+func (irc *InstanceResourceCreate) SetRuntimePackages(s string) *InstanceResourceCreate {
+	irc.mutation.SetRuntimePackages(s)
+	return irc
+}
+
+// SetNillableRuntimePackages sets the "runtime_packages" field if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableRuntimePackages(s *string) *InstanceResourceCreate {
+	if s != nil {
+		irc.SetRuntimePackages(*s)
+	}
+	return irc
+}
+
+// SetOsUpdateAvailable sets the "os_update_available" field.
+func (irc *InstanceResourceCreate) SetOsUpdateAvailable(s string) *InstanceResourceCreate {
+	irc.mutation.SetOsUpdateAvailable(s)
+	return irc
+}
+
+// SetNillableOsUpdateAvailable sets the "os_update_available" field if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableOsUpdateAvailable(s *string) *InstanceResourceCreate {
+	if s != nil {
+		irc.SetOsUpdateAvailable(*s)
+	}
+	return irc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (irc *InstanceResourceCreate) SetTenantID(s string) *InstanceResourceCreate {
 	irc.mutation.SetTenantID(s)
@@ -418,6 +446,25 @@ func (irc *InstanceResourceCreate) SetNillableCurrentOsID(id *int) *InstanceReso
 // SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
 func (irc *InstanceResourceCreate) SetCurrentOs(o *OperatingSystemResource) *InstanceResourceCreate {
 	return irc.SetCurrentOsID(o.ID)
+}
+
+// SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
+func (irc *InstanceResourceCreate) SetOsID(id int) *InstanceResourceCreate {
+	irc.mutation.SetOsID(id)
+	return irc
+}
+
+// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
+func (irc *InstanceResourceCreate) SetNillableOsID(id *int) *InstanceResourceCreate {
+	if id != nil {
+		irc = irc.SetOsID(*id)
+	}
+	return irc
+}
+
+// SetOs sets the "os" edge to the OperatingSystemResource entity.
+func (irc *InstanceResourceCreate) SetOs(o *OperatingSystemResource) *InstanceResourceCreate {
+	return irc.SetOsID(o.ID)
 }
 
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by IDs.
@@ -699,6 +746,14 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
 		_node.ExistingCves = value
 	}
+	if value, ok := irc.mutation.RuntimePackages(); ok {
+		_spec.SetField(instanceresource.FieldRuntimePackages, field.TypeString, value)
+		_node.RuntimePackages = value
+	}
+	if value, ok := irc.mutation.OsUpdateAvailable(); ok {
+		_spec.SetField(instanceresource.FieldOsUpdateAvailable, field.TypeString, value)
+		_node.OsUpdateAvailable = value
+	}
 	if value, ok := irc.mutation.TenantID(); ok {
 		_spec.SetField(instanceresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
@@ -763,6 +818,23 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.instance_resource_current_os = &nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := irc.mutation.OsIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsTable,
+			Columns: []string{instanceresource.OsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_node.instance_resource_os = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := irc.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
