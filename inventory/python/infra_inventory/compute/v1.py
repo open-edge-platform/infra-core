@@ -34,8 +34,6 @@ class PowerState(betterproto.Enum):
     POWER_STATE_HIBERNATE = 5
     POWER_STATE_RESET = 6
     POWER_STATE_POWER_CYCLE = 7
-    POWER_STATE_SOFT_RESET = 8
-    POWER_STATE_SOFT_OFF = 9
 
 
 class PowerCommandPolicy(betterproto.Enum):

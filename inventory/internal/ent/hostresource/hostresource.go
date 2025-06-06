@@ -361,8 +361,6 @@ const (
 	DesiredPowerStatePOWER_STATE_HIBERNATE   DesiredPowerState = "POWER_STATE_HIBERNATE"
 	DesiredPowerStatePOWER_STATE_RESET       DesiredPowerState = "POWER_STATE_RESET"
 	DesiredPowerStatePOWER_STATE_POWER_CYCLE DesiredPowerState = "POWER_STATE_POWER_CYCLE"
-	DesiredPowerStatePOWER_STATE_SOFT_RESET  DesiredPowerState = "POWER_STATE_SOFT_RESET"
-	DesiredPowerStatePOWER_STATE_SOFT_OFF    DesiredPowerState = "POWER_STATE_SOFT_OFF"
 )
 
 func (dps DesiredPowerState) String() string {
@@ -372,7 +370,7 @@ func (dps DesiredPowerState) String() string {
 // DesiredPowerStateValidator is a validator for the "desired_power_state" field enum values. It is called by the builders before save.
 func DesiredPowerStateValidator(dps DesiredPowerState) error {
 	switch dps {
-	case DesiredPowerStatePOWER_STATE_UNSPECIFIED, DesiredPowerStatePOWER_STATE_ON, DesiredPowerStatePOWER_STATE_OFF, DesiredPowerStatePOWER_STATE_SLEEP, DesiredPowerStatePOWER_STATE_HIBERNATE, DesiredPowerStatePOWER_STATE_RESET, DesiredPowerStatePOWER_STATE_POWER_CYCLE, DesiredPowerStatePOWER_STATE_SOFT_RESET, DesiredPowerStatePOWER_STATE_SOFT_OFF:
+	case DesiredPowerStatePOWER_STATE_UNSPECIFIED, DesiredPowerStatePOWER_STATE_ON, DesiredPowerStatePOWER_STATE_OFF, DesiredPowerStatePOWER_STATE_SLEEP, DesiredPowerStatePOWER_STATE_HIBERNATE, DesiredPowerStatePOWER_STATE_RESET, DesiredPowerStatePOWER_STATE_POWER_CYCLE:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for desired_power_state field: %q", dps)
@@ -391,8 +389,6 @@ const (
 	CurrentPowerStatePOWER_STATE_HIBERNATE   CurrentPowerState = "POWER_STATE_HIBERNATE"
 	CurrentPowerStatePOWER_STATE_RESET       CurrentPowerState = "POWER_STATE_RESET"
 	CurrentPowerStatePOWER_STATE_POWER_CYCLE CurrentPowerState = "POWER_STATE_POWER_CYCLE"
-	CurrentPowerStatePOWER_STATE_SOFT_RESET  CurrentPowerState = "POWER_STATE_SOFT_RESET"
-	CurrentPowerStatePOWER_STATE_SOFT_OFF    CurrentPowerState = "POWER_STATE_SOFT_OFF"
 )
 
 func (cps CurrentPowerState) String() string {
@@ -402,7 +398,7 @@ func (cps CurrentPowerState) String() string {
 // CurrentPowerStateValidator is a validator for the "current_power_state" field enum values. It is called by the builders before save.
 func CurrentPowerStateValidator(cps CurrentPowerState) error {
 	switch cps {
-	case CurrentPowerStatePOWER_STATE_UNSPECIFIED, CurrentPowerStatePOWER_STATE_ON, CurrentPowerStatePOWER_STATE_OFF, CurrentPowerStatePOWER_STATE_SLEEP, CurrentPowerStatePOWER_STATE_HIBERNATE, CurrentPowerStatePOWER_STATE_RESET, CurrentPowerStatePOWER_STATE_POWER_CYCLE, CurrentPowerStatePOWER_STATE_SOFT_RESET, CurrentPowerStatePOWER_STATE_SOFT_OFF:
+	case CurrentPowerStatePOWER_STATE_UNSPECIFIED, CurrentPowerStatePOWER_STATE_ON, CurrentPowerStatePOWER_STATE_OFF, CurrentPowerStatePOWER_STATE_SLEEP, CurrentPowerStatePOWER_STATE_HIBERNATE, CurrentPowerStatePOWER_STATE_RESET, CurrentPowerStatePOWER_STATE_POWER_CYCLE:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for current_power_state field: %q", cps)
