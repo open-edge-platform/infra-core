@@ -126,7 +126,7 @@ message OperatingSystemResource {
   string installed_packages_url = 17 [
     (google.api.field_behavior) = IMMUTABLE,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
+      uri_ref: true
       max_len: 200
   }];
 
@@ -148,14 +148,15 @@ message OperatingSystemResource {
   // Opaque JSON field storing metadata associated to this OS resource.
   string metadata = 18[
     (buf.validate.field).string = {
-      pattern: "^$|^[a-z0-9.-_:/\"\\ \\n{}]+$"
+      pattern: "^$|^[a-z0-9.-_:/\"\\\\ \\\\n\\{\\}]+$"
       max_len: 500
     }];
 
   // URL of the file containing information about the existing CVEs on the Operating System.
   string existing_cves_url = 42 [
+    (google.api.field_behavior) = IMMUTABLE,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
+      uri_ref: true
       max_len: 500
     }
   ];
@@ -164,15 +165,16 @@ message OperatingSystemResource {
   string existing_cves = 43 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 20000
     }
   ];
 
   // URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
   string fixed_cves_url = 44 [
+    (google.api.field_behavior) = IMMUTABLE,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
+      uri_ref: true
       max_len: 500
     }
   ];
@@ -181,7 +183,7 @@ message OperatingSystemResource {
   string fixed_cves = 45 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 20000
     }
   ];

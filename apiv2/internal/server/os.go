@@ -21,8 +21,6 @@ import (
 //  This field is the URL where the Manifest file is stored. The field is immutable.
 //  This is added to allow manual creation of OSProfiles (advanced feature).
 
-// TODO: handle CVEs related fields.
-
 // OpenAPIOSResourceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
@@ -53,6 +51,10 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		OsType:            inv_osv1.OsType(osResource.GetOsType()),
 		OsProvider:        inv_osv1.OsProviderKind(osResource.GetOsProvider()),
 		Description:       osResource.GetDescription(),
+		ExistingCvesUrl:   osResource.GetExistingCvesUrl(),
+		ExistingCves:      osResource.GetExistingCves(),
+		FixedCvesUrl:      osResource.GetFixedCvesUrl(),
+		FixedCves:         osResource.GetFixedCves(),
 	}
 	// TODO: handle the metadata field.
 
@@ -88,6 +90,10 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		Timestamps:        GrpcToOpenAPITimestamps(invOSResource),
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
 		Description:       invOSResource.GetDescription(),
+		ExistingCvesUrl:   invOSResource.GetExistingCvesUrl(),
+		ExistingCves:      invOSResource.GetExistingCves(),
+		FixedCvesUrl:      invOSResource.GetFixedCvesUrl(),
+		FixedCves:         invOSResource.GetFixedCves(),
 	}
 	// TODO: handle the metadata field.
 
