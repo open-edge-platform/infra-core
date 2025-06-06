@@ -659,6 +659,7 @@ func (client *inventoryClient) register() error {
 		if err := client.heartbeat(clientUUID); err != nil {
 			// heartbeat failed, close the stream and connection.
 			client.Close()
+			zlog.Fatal().Msgf("failed to heartbeat client UUID: %s", clientUUID)
 		}
 	}(resp.ClientUuid)
 
