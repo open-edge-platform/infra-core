@@ -37,6 +37,7 @@ var (
 		OsProvider:        osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 		OsResourceID:      "os-12345678", // Alias of ResourceId
 		Description:       "example description",
+		Metadata:          `{"key1": "value1", "key2": "value2"}`,
 	}
 
 	// Example OS resource from the Inventory.
@@ -59,6 +60,7 @@ var (
 		UpdatedAt:         "2025-04-22T10:30:00Z",
 		TenantId:          "tenant-987654",
 		Description:       "example description",
+		Metadata:          `{"key1": "value1", "key2": "value2"}`,
 	}
 )
 
