@@ -3884,6 +3884,9 @@ components:
   schemas:
     google.protobuf.Timestamp:
       type: string
+      examples:
+        - 1s
+        - 1.000340012s
       format: date-time
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
@@ -4958,8 +4961,7 @@ components:
           readOnly: true
         desiredAmtState:
           title: desired_amt_state
-          description: Desired AMT/vPRO state of the host
-          readOnly: true
+          description: (OPTIONAL) Desired AMT/vPRO state of the host
           $ref: '#/components/schemas/AmtState'
         currentAmtState:
           title: current_amt_state
