@@ -190,6 +190,8 @@ enum ResourceKind {
   RESOURCE_KIND_RMT_ACCESS_CONF = 150;
 
   RESOURCE_KIND_LOCALACCOUNT = 170;
+
+  RESOURCE_KIND_OSUPDATEPOLICY = 180;
 }
 
 message Resource {
@@ -229,6 +231,8 @@ message Resource {
 
     remoteaccess.v1.RemoteAccessConfiguration remote_access = 150;
     localaccount.v1.LocalAccountResource local_account = 170;
+
+    compute.v1.OSUpdatePolicyResource os_update_policy = 180;
   }
 }
 

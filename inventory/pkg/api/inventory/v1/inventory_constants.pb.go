@@ -53,6 +53,7 @@ const (
 	ResourceEdgeTenant           = "tenant"
 	ResourceEdgeRemoteAccess     = "remote_access"
 	ResourceEdgeLocalAccount     = "local_account"
+	ResourceEdgeOsUpdatePolicy   = "os_update_policy"
 
 	// Fields and Edges constants for "ResourceFilter"
 	ResourceFilterEdgeResource = "resource"
