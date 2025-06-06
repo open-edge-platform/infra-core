@@ -715,7 +715,7 @@ message OSUpdatePolicy {
       max_items: 100
       items: {
         string: {
-          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
+          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\\n]+$"
           max_bytes: 10000
         }
       }
