@@ -250,6 +250,9 @@ func (srv *InventorygRPCServer) CreateResource(
 	// localaccount.proto
 	case *inv_v1.Resource_LocalAccount:
 		res, err = srv.IS.CreateLocalAccount(ctx, in.GetResource().GetLocalAccount())
+
+	case *inv_v1.Resource_OsUpdatePolicy:
+		res, err = srv.IS.CreateOSUpdatePolicy(ctx, in.GetResource().GetOsUpdatePolicy())
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %T", in.Resource).Msg("create resource error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %T", in.Resource)
@@ -442,6 +445,9 @@ func (srv *InventorygRPCServer) GetResource(
 	// localaccount.proto
 	case inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:
 		gresresp.Resource, err = srv.IS.GetLocalAccount(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
+		gresresp.Resource, err = srv.IS.GetOSUpdatePolicy(ctx, in.ResourceId)
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("get resource parse error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %s", kind)
@@ -528,6 +534,9 @@ func (srv *InventorygRPCServer) doUpdateResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_TENANT:
 		res, hardDelete, err = srv.IS.UpdateTenant(ctx, in.ResourceId, in.GetResource().GetTenant(), in.GetFieldMask())
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
+		res, err = srv.IS.UpdateOSUpdatePolicy(ctx, in.ResourceId, in.GetResource().GetOsUpdatePolicy(), in.GetFieldMask())
 
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("update resource parse error")
@@ -695,6 +704,9 @@ func (srv *InventorygRPCServer) doDeleteResource(
 	// localaccount.proto
 	case inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:
 		res, err = srv.IS.DeleteLocalAccount(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
+		res, err = srv.IS.DeleteOSUpdatePolicy(ctx, in.ResourceId)
 
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("delete resource parse error")
@@ -887,6 +899,7 @@ var deleteResourcesHandlers = map[inv_v1.ResourceKind]deleteResourcesHandlerProv
 	inv_v1.ResourceKind_RESOURCE_KIND_WORKLOAD:          func(is *store.InvStore) deleteResourcesHandler { return is.DeleteWorkloads },
 	inv_v1.ResourceKind_RESOURCE_KIND_WORKLOAD_MEMBER:   func(is *store.InvStore) deleteResourcesHandler { return is.DeleteWorkloadMembers },
 	inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      func(is *store.InvStore) deleteResourcesHandler { return is.DeleteLocalAccounts },
+	inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    func(is *store.InvStore) deleteResourcesHandler { return is.DeleteOSUpdatePolicies },
 }
 
 func (srv *InventorygRPCServer) DeleteAllResources(
