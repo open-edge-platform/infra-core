@@ -101,6 +101,21 @@ func (srv *InventorygRPCServer) Authorize(ctx context.Context, request interface
 	return nil
 }
 
+func (srv *InventorygRPCServer) Heartbeat(
+	_ context.Context,
+	in *inv_v1.HeartbeatRequest,
+) (*inv_v1.HeartbeatResponse, error) {
+	// Check if the client is already registered.
+	// if the client is already registered, send an ack.
+	if _, ok := srv.CR.ClientRegistrationMap().Load(in.GetClientUuid()); !ok {
+		err := errors.Errorfr(errors.Reason_UNKNOWN_CLIENT,
+			"client with UUID %s not found", in.GetClientUuid(),
+		)
+		return nil, errors.Wrap(err)
+	}
+	return &inv_v1.HeartbeatResponse{}, nil
+}
+
 func (srv *InventorygRPCServer) SubscribeEvents(
 	in *inv_v1.SubscribeEventsRequest,
 	stream inv_v1.InventoryService_SubscribeEventsServer,

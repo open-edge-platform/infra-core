@@ -135,6 +135,11 @@ const (
 	DeleteAllResourcesRequestFieldEnforce      = "enforce"
 	DeleteAllResourcesRequestFieldTenantId     = "tenant_id"
 
-// Fields and Edges constants for "DeleteAllResourcesResponse"
+	// Fields and Edges constants for "DeleteAllResourcesResponse"
+
+	// Fields and Edges constants for "HeartbeatRequest"
+	HeartbeatRequestFieldClientUuid = "client_uuid"
+
+// Fields and Edges constants for "HeartbeatResponse"
 
 )

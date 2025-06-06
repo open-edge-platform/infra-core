@@ -74,6 +74,9 @@ service InventoryService {
 
   // Deletes all resources of given kind for tenant.
   rpc DeleteAllResources(DeleteAllResourcesRequest) returns (DeleteAllResourcesResponse) {}
+
+  // Custom RPC to establish clients heartbeat and subscription verification.
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse) {}
 }
 
 enum ClientKind {
@@ -497,3 +500,12 @@ message DeleteAllResourcesRequest {
 }
 
 message DeleteAllResourcesResponse {}
+
+message HeartbeatRequest {
+  // The UUID of the client.
+  string client_uuid = 1 [
+    (buf.validate.field).string = {uuid: true}
+  ];
+}
+
+message HeartbeatResponse {}

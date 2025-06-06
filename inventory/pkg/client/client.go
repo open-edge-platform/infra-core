@@ -576,6 +576,36 @@ func NewTenantAwareInventoryClient(
 	return cl, nil
 }
 
+// Set up the heartbeat ticker to keep the client connection alive.
+func (client *inventoryClient) heartbeat(clientUUID string) error {
+	const (
+		backoffRetries    = 3
+		backoffInterval   = time.Second * 1
+		heartbeatInterval = time.Second * 30
+	)
+	heartbeetReq := &inv_v1.HeartbeatRequest{
+		ClientUuid: clientUUID,
+	}
+
+	ticker := time.NewTicker(heartbeatInterval)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			err := backoff.Retry(func() error {
+				_, errHearbeat := client.invAPI.Heartbeat(client.streamCtx, heartbeetReq)
+				return client.handleInventoryError(errHearbeat)
+			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(backoffInterval), backoffRetries))
+			if err != nil {
+				zlog.InfraErr(err).Msgf("failed to heartbeat client UUID: %s", clientUUID)
+				return err
+			}
+		case <-client.stream.Context().Done():
+			return nil
+		}
+	}
+}
+
 // register registers the inventory client on a name and a list of resource kinds.
 // It is meant to be used by any register retry go routine that can be called
 // once the subscriptions stream context is closed by any unexpected reasons.
@@ -623,6 +653,14 @@ func (client *inventoryClient) register() error {
 	client.clientUUID = resp.ClientUuid
 	zlog.InfraSec().Info().Msgf("Registered inventory client with UUID: %s", resp.ClientUuid)
 	client.uuidMutex.Unlock()
+
+	// Start the heartbeat ticker to keep the client connection alive.
+	go func(clientUUID string) {
+		if err := client.heartbeat(clientUUID); err != nil {
+			// heartbeat failed, close the stream and connection.
+			client.Close()
+		}
+	}(resp.ClientUuid)
 
 	return nil
 }

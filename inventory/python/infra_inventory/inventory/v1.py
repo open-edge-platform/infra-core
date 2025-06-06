@@ -423,6 +423,17 @@ class DeleteAllResourcesResponse(betterproto.Message):
     pass
 
 
+@dataclass
+class HeartbeatRequest(betterproto.Message):
+    # The UUID of the client.
+    client_uuid: str = betterproto.string_field(1)
+
+
+@dataclass
+class HeartbeatResponse(betterproto.Message):
+    pass
+
+
 class InventoryServiceStub(betterproto.ServiceStub):
     """
     Inventory Service (IS) provides an API for managing resources. Selected
@@ -697,4 +708,19 @@ class InventoryServiceStub(betterproto.ServiceStub):
             "/inventory.v1.InventoryService/DeleteAllResources",
             request,
             DeleteAllResourcesResponse,
+        )
+
+    async def heartbeat(self, *, client_uuid: str = "") -> HeartbeatResponse:
+        """
+        Custom RPC to establish clients heartbeat and subscription
+        verification.
+        """
+
+        request = HeartbeatRequest()
+        request.client_uuid = client_uuid
+
+        return await self._unary_unary(
+            "/inventory.v1.InventoryService/Heartbeat",
+            request,
+            HeartbeatResponse,
         )
