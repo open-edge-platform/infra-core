@@ -683,6 +683,7 @@ func entNetlinkResourceToProtoNetlinkResource(netlink *ent.NetlinkResource) *net
 	return protoNetlink
 }
 
+//nolint:cyclop // InstanceResource has many edges that need to be converted.
 func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *computev1.InstanceResource {
 	if ins == nil {
 		return nil
@@ -754,7 +755,6 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
 		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
 	}
-
 	return protoInstance
 }
 

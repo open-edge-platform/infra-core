@@ -15325,7 +15325,7 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *InstanceResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.host != nil {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15397,7 +15397,7 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *InstanceResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
 	}
@@ -15420,7 +15420,7 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *InstanceResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.clearedhost {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
