@@ -11,6 +11,7 @@ import (
 	ou_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/ou/v1"
 	provider_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 	schedule_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/schedule/v1"
+	status_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	telemetry_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 	tenantv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/tenant/v1"
 )
@@ -435,5 +436,65 @@ func InstanceOsUpdatePolicy(
 ) Opt[compute_v1.InstanceResource] {
 	return func(i *compute_v1.InstanceResource) {
 		i.OsUpdatePolicy = policy
+	}
+}
+
+func OsUpdateRunName(name string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.Name = name
+	}
+}
+
+func OsUpdateRunDescription(desc string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.Description = desc
+	}
+}
+
+func OSUpdateRunAppliedPolicy(appliedPolicy *compute_v1.OSUpdatePolicyResource) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.AppliedPolicy = appliedPolicy
+	}
+}
+
+func OSUpdateRunInstance(instance *compute_v1.InstanceResource) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.Instance = instance
+	}
+}
+
+func OSUpdateRunStatusIndicator(statusIndicator status_v1.StatusIndication) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.StatusIndicator = statusIndicator
+	}
+}
+
+func OSUpdateRunStatus(status string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.Status = status
+	}
+}
+
+func OSUpdateRunStatusDetails(statusDetails string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.StatusDetails = statusDetails
+	}
+}
+
+func OSUpdateRunStatusTimestamp(statusTimestamp string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.StatusTimestamp = statusTimestamp
+	}
+}
+
+func OSUpdateRunStartTime(startTime string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.StartTime = startTime
+	}
+}
+
+func OSUpdateRunEndTime(endTime string) Opt[compute_v1.OSUpdateRunResource] {
+	return func(our *compute_v1.OSUpdateRunResource) {
+		our.EndTime = endTime
 	}
 }

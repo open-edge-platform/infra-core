@@ -2079,3 +2079,53 @@ func GetSortedResourceIDSlice[T hasResourceIDAndTenantID](slice []T) []*client.R
 	SortHasResourceIDAndTenantID(resIDs)
 	return resIDs
 }
+func (c *InvResourceDAO) CreateOSUpdateRunNoCleanup(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
+) *computev1.OSUpdateRunResource {
+	tb.Helper()
+
+	our, err := c.createOSUpdateRun(tb, tenantID, opts...)
+	require.NoError(tb, err)
+	return our
+}
+
+func (c *InvResourceDAO) CreateOSUpdateRun(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
+) *computev1.OSUpdateRunResource {
+	tb.Helper()
+
+	our, err := c.createOSUpdateRun(tb, tenantID, opts...)
+	require.NoError(tb, err)
+	tb.Cleanup(func() { c.DeleteResource(tb, tenantID, our.ResourceId) })
+	return our
+}
+
+func (c *InvResourceDAO) createOSUpdateRun(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
+) (*computev1.OSUpdateRunResource, error) {
+	tb.Helper()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	our := &computev1.OSUpdateRunResource{
+		TenantId: tenantID,
+	}
+	collections.ForEach(opts, func(opt Opt[computev1.OSUpdateRunResource]) { opt(our) })
+	resp, err := c.apiClient.Create(
+		ctx,
+		tenantID,
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_OsUpdateRun{OsUpdateRun: our},
+		})
+	if err != nil {
+		return nil, err
+	}
+	ourResp := resp.GetOsUpdateRun()
+	// When this test object is used in protobuf comparisons as part of another
+	// resource, we do not expect further embedded messages. This matches the
+	// structure of objects returned by ent queries, i.e. no two layers of
+	// embedded objects for edges.
+	//ourResp.TargetOs = nil
+
+	return ourResp, nil
+}

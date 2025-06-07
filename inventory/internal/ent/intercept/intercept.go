@@ -22,6 +22,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicy"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/predicate"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
@@ -444,6 +445,33 @@ func (f TraverseOSUpdatePolicyResource) Traverse(ctx context.Context, q ent.Quer
 	return fmt.Errorf("unexpected query type %T. expect *ent.OSUpdatePolicyResourceQuery", q)
 }
 
+// The OSUpdateRunResourceFunc type is an adapter to allow the use of ordinary function as a Querier.
+type OSUpdateRunResourceFunc func(context.Context, *ent.OSUpdateRunResourceQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f OSUpdateRunResourceFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.OSUpdateRunResourceQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.OSUpdateRunResourceQuery", q)
+}
+
+// The TraverseOSUpdateRunResource type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseOSUpdateRunResource func(context.Context, *ent.OSUpdateRunResourceQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseOSUpdateRunResource) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseOSUpdateRunResource) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.OSUpdateRunResourceQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.OSUpdateRunResourceQuery", q)
+}
+
 // The OperatingSystemResourceFunc type is an adapter to allow the use of ordinary function as a Querier.
 type OperatingSystemResourceFunc func(context.Context, *ent.OperatingSystemResourceQuery) (ent.Value, error)
 
@@ -824,6 +852,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.OSUpdatePolicyQuery, predicate.OSUpdatePolicy, osupdatepolicy.OrderOption]{typ: ent.TypeOSUpdatePolicy, tq: q}, nil
 	case *ent.OSUpdatePolicyResourceQuery:
 		return &query[*ent.OSUpdatePolicyResourceQuery, predicate.OSUpdatePolicyResource, osupdatepolicyresource.OrderOption]{typ: ent.TypeOSUpdatePolicyResource, tq: q}, nil
+	case *ent.OSUpdateRunResourceQuery:
+		return &query[*ent.OSUpdateRunResourceQuery, predicate.OSUpdateRunResource, osupdaterunresource.OrderOption]{typ: ent.TypeOSUpdateRunResource, tq: q}, nil
 	case *ent.OperatingSystemResourceQuery:
 		return &query[*ent.OperatingSystemResourceQuery, predicate.OperatingSystemResource, operatingsystemresource.OrderOption]{typ: ent.TypeOperatingSystemResource, tq: q}, nil
 	case *ent.OuResourceQuery:

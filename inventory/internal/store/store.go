@@ -444,6 +444,26 @@ func setEdgeTargetOSIDForMut(
 	return nil
 }
 
+func setEdgeAppliedPolicyIDForMut(
+	ctx context.Context, client *ent.Client, mut ent.Mutation, osuppolicyres *computev1.OSUpdatePolicyResource,
+) error {
+	if osuppolicyres == nil {
+		return nil
+	}
+	osUpdatePolicyID, qerr := getOSPolicyUpdateIDFromResourceID(ctx, client, osuppolicyres)
+	if qerr != nil {
+		return qerr
+	}
+	switch mut := mut.(type) {
+	case *ent.OSUpdateRunResourceMutation:
+		mut.SetAppliedPolicyID(osUpdatePolicyID)
+	default:
+		zlog.InfraSec().InfraError("unknown mutation kind: %T", mut).Msgf("")
+		return errors.Errorfc(codes.InvalidArgument, "unknown mutation kind: %T", mut)
+	}
+	return nil
+}
+
 func isEntLeaf(err error) bool {
 	if ent.IsNotFound(err) || ent.IsNotLoaded(err) {
 		return true // We found a leaf.

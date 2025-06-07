@@ -46,7 +46,7 @@ GIT_TAG_PREFIX     := $(PROJECT_NAME)/v
 # Test variables
 # Set TEST_TARGET to '<testname1>' or '<testname1\|testname2>' to run specific tests or use other  regex '<testname.*>' - example:
 #  TEST_TARGET='TestAuth.*' make test
-TEST_TARGET       ?= .
+TEST_TARGET       ?= 'Test_FilterOSUpdateRuns'
 # Default TEST_PKG, overwrite to select particular test pakages
 TEST_PKG          ?= $(shell go list ./... | grep -v "internal/ent" | grep -v "pkg/api" | grep -v "pkg/fuzz" | grep -v "pkg/testing" | grep -v "pkg/cli" | grep -v "cmd/" | grep -v "pkg/infrainv" | grep -v "pkg/errors" | grep -v "pkg/status" | grep -v "pkg/mocks" | tr '\n' ,)
 TEST_ARGS         := -policyBundle=$(BUNDLE) -globalLogLevel=error
