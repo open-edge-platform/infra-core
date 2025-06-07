@@ -371,17 +371,6 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
 		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
 	} {
-		n.Intercept(interceptors...)
-	}
-}
-
-// Mutate implements the ent.Mutator interface.
-func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
-	switch m := m.(type) {
-	case *CustomConfigResourceMutation:
-		return c.CustomConfigResource.mutate(ctx, m)
-	case *EndpointResourceMutation:
-		return c.EndpointResource.mutate(ctx, m)
 	case *HostResourceMutation:
 		return c.HostResource.mutate(ctx, m)
 	case *HostgpuResourceMutation:
