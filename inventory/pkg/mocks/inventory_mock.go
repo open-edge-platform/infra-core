@@ -196,6 +196,26 @@ func (mr *MockInventoryServiceClientMockRecorder) GetTreeHierarchy(arg0, arg1 in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTreeHierarchy", reflect.TypeOf((*MockInventoryServiceClient)(nil).GetTreeHierarchy), varargs...)
 }
 
+// Heartbeat mocks base method.
+func (m *MockInventoryServiceClient) Heartbeat(arg0 context.Context, arg1 *inventoryv1.HeartbeatRequest, arg2 ...grpc.CallOption) (*inventoryv1.HeartbeatResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Heartbeat", varargs...)
+	ret0, _ := ret[0].(*inventoryv1.HeartbeatResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Heartbeat indicates an expected call of Heartbeat.
+func (mr *MockInventoryServiceClientMockRecorder) Heartbeat(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Heartbeat", reflect.TypeOf((*MockInventoryServiceClient)(nil).Heartbeat), varargs...)
+}
+
 // ListInheritedTelemetryProfiles mocks base method.
 func (m *MockInventoryServiceClient) ListInheritedTelemetryProfiles(arg0 context.Context, arg1 *inventoryv1.ListInheritedTelemetryProfilesRequest, arg2 ...grpc.CallOption) (*inventoryv1.ListInheritedTelemetryProfilesResponse, error) {
 	m.ctrl.T.Helper()
@@ -417,6 +437,21 @@ func (m *MockInventoryServiceServer) GetTreeHierarchy(arg0 context.Context, arg1
 func (mr *MockInventoryServiceServerMockRecorder) GetTreeHierarchy(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTreeHierarchy", reflect.TypeOf((*MockInventoryServiceServer)(nil).GetTreeHierarchy), arg0, arg1)
+}
+
+// Heartbeat mocks base method.
+func (m *MockInventoryServiceServer) Heartbeat(arg0 context.Context, arg1 *inventoryv1.HeartbeatRequest) (*inventoryv1.HeartbeatResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Heartbeat", arg0, arg1)
+	ret0, _ := ret[0].(*inventoryv1.HeartbeatResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Heartbeat indicates an expected call of Heartbeat.
+func (mr *MockInventoryServiceServerMockRecorder) Heartbeat(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Heartbeat", reflect.TypeOf((*MockInventoryServiceServer)(nil).Heartbeat), arg0, arg1)
 }
 
 // ListInheritedTelemetryProfiles mocks base method.
