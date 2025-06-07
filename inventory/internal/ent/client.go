@@ -29,6 +29,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicy"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -76,6 +77,8 @@ type Client struct {
 	OSUpdatePolicy *OSUpdatePolicyClient
 	// OSUpdatePolicyResource is the client for interacting with the OSUpdatePolicyResource builders.
 	OSUpdatePolicyResource *OSUpdatePolicyResourceClient
+	// OSUpdateRunResource is the client for interacting with the OSUpdateRunResource builders.
+	OSUpdateRunResource *OSUpdateRunResourceClient
 	// OperatingSystemResource is the client for interacting with the OperatingSystemResource builders.
 	OperatingSystemResource *OperatingSystemResourceClient
 	// OuResource is the client for interacting with the OuResource builders.
@@ -126,6 +129,7 @@ func (c *Client) init() {
 	c.NetworkSegment = NewNetworkSegmentClient(c.config)
 	c.OSUpdatePolicy = NewOSUpdatePolicyClient(c.config)
 	c.OSUpdatePolicyResource = NewOSUpdatePolicyResourceClient(c.config)
+	c.OSUpdateRunResource = NewOSUpdateRunResourceClient(c.config)
 	c.OperatingSystemResource = NewOperatingSystemResourceClient(c.config)
 	c.OuResource = NewOuResourceClient(c.config)
 	c.ProviderResource = NewProviderResourceClient(c.config)
@@ -244,6 +248,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		NetworkSegment:            NewNetworkSegmentClient(cfg),
 		OSUpdatePolicy:            NewOSUpdatePolicyClient(cfg),
 		OSUpdatePolicyResource:    NewOSUpdatePolicyResourceClient(cfg),
+		OSUpdateRunResource:       NewOSUpdateRunResourceClient(cfg),
 		OperatingSystemResource:   NewOperatingSystemResourceClient(cfg),
 		OuResource:                NewOuResourceClient(cfg),
 		ProviderResource:          NewProviderResourceClient(cfg),
@@ -289,6 +294,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		NetworkSegment:            NewNetworkSegmentClient(cfg),
 		OSUpdatePolicy:            NewOSUpdatePolicyClient(cfg),
 		OSUpdatePolicyResource:    NewOSUpdatePolicyResourceClient(cfg),
+		OSUpdateRunResource:       NewOSUpdateRunResourceClient(cfg),
 		OperatingSystemResource:   NewOperatingSystemResourceClient(cfg),
 		OuResource:                NewOuResourceClient(cfg),
 		ProviderResource:          NewProviderResourceClient(cfg),
@@ -335,10 +341,11 @@ func (c *Client) Use(hooks ...Hook) {
 		c.HoststorageResource, c.HostusbResource, c.IPAddressResource,
 		c.InstanceResource, c.LocalAccountResource, c.NetlinkResource,
 		c.NetworkSegment, c.OSUpdatePolicy, c.OSUpdatePolicyResource,
-		c.OperatingSystemResource, c.OuResource, c.ProviderResource, c.RegionResource,
-		c.RemoteAccessConfiguration, c.RepeatedScheduleResource,
-		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
-		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
+		c.OSUpdateRunResource, c.OperatingSystemResource, c.OuResource,
+		c.ProviderResource, c.RegionResource, c.RemoteAccessConfiguration,
+		c.RepeatedScheduleResource, c.SingleScheduleResource, c.SiteResource,
+		c.TelemetryGroupResource, c.TelemetryProfile, c.Tenant, c.WorkloadMember,
+		c.WorkloadResource,
 	} {
 		n.Use(hooks...)
 	}
@@ -352,10 +359,11 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 		c.HoststorageResource, c.HostusbResource, c.IPAddressResource,
 		c.InstanceResource, c.LocalAccountResource, c.NetlinkResource,
 		c.NetworkSegment, c.OSUpdatePolicy, c.OSUpdatePolicyResource,
-		c.OperatingSystemResource, c.OuResource, c.ProviderResource, c.RegionResource,
-		c.RemoteAccessConfiguration, c.RepeatedScheduleResource,
-		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
-		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
+		c.OSUpdateRunResource, c.OperatingSystemResource, c.OuResource,
+		c.ProviderResource, c.RegionResource, c.RemoteAccessConfiguration,
+		c.RepeatedScheduleResource, c.SingleScheduleResource, c.SiteResource,
+		c.TelemetryGroupResource, c.TelemetryProfile, c.Tenant, c.WorkloadMember,
+		c.WorkloadResource,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -390,6 +398,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.OSUpdatePolicy.mutate(ctx, m)
 	case *OSUpdatePolicyResourceMutation:
 		return c.OSUpdatePolicyResource.mutate(ctx, m)
+	case *OSUpdateRunResourceMutation:
+		return c.OSUpdateRunResource.mutate(ctx, m)
 	case *OperatingSystemResourceMutation:
 		return c.OperatingSystemResource.mutate(ctx, m)
 	case *OuResourceMutation:
@@ -2550,6 +2560,171 @@ func (c *OSUpdatePolicyResourceClient) mutate(ctx context.Context, m *OSUpdatePo
 	}
 }
 
+// OSUpdateRunResourceClient is a client for the OSUpdateRunResource schema.
+type OSUpdateRunResourceClient struct {
+	config
+}
+
+// NewOSUpdateRunResourceClient returns a client for the OSUpdateRunResource from the given config.
+func NewOSUpdateRunResourceClient(c config) *OSUpdateRunResourceClient {
+	return &OSUpdateRunResourceClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `osupdaterunresource.Hooks(f(g(h())))`.
+func (c *OSUpdateRunResourceClient) Use(hooks ...Hook) {
+	c.hooks.OSUpdateRunResource = append(c.hooks.OSUpdateRunResource, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `osupdaterunresource.Intercept(f(g(h())))`.
+func (c *OSUpdateRunResourceClient) Intercept(interceptors ...Interceptor) {
+	c.inters.OSUpdateRunResource = append(c.inters.OSUpdateRunResource, interceptors...)
+}
+
+// Create returns a builder for creating a OSUpdateRunResource entity.
+func (c *OSUpdateRunResourceClient) Create() *OSUpdateRunResourceCreate {
+	mutation := newOSUpdateRunResourceMutation(c.config, OpCreate)
+	return &OSUpdateRunResourceCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of OSUpdateRunResource entities.
+func (c *OSUpdateRunResourceClient) CreateBulk(builders ...*OSUpdateRunResourceCreate) *OSUpdateRunResourceCreateBulk {
+	return &OSUpdateRunResourceCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *OSUpdateRunResourceClient) MapCreateBulk(slice any, setFunc func(*OSUpdateRunResourceCreate, int)) *OSUpdateRunResourceCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &OSUpdateRunResourceCreateBulk{err: fmt.Errorf("calling to OSUpdateRunResourceClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*OSUpdateRunResourceCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &OSUpdateRunResourceCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for OSUpdateRunResource.
+func (c *OSUpdateRunResourceClient) Update() *OSUpdateRunResourceUpdate {
+	mutation := newOSUpdateRunResourceMutation(c.config, OpUpdate)
+	return &OSUpdateRunResourceUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *OSUpdateRunResourceClient) UpdateOne(ourr *OSUpdateRunResource) *OSUpdateRunResourceUpdateOne {
+	mutation := newOSUpdateRunResourceMutation(c.config, OpUpdateOne, withOSUpdateRunResource(ourr))
+	return &OSUpdateRunResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *OSUpdateRunResourceClient) UpdateOneID(id int) *OSUpdateRunResourceUpdateOne {
+	mutation := newOSUpdateRunResourceMutation(c.config, OpUpdateOne, withOSUpdateRunResourceID(id))
+	return &OSUpdateRunResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for OSUpdateRunResource.
+func (c *OSUpdateRunResourceClient) Delete() *OSUpdateRunResourceDelete {
+	mutation := newOSUpdateRunResourceMutation(c.config, OpDelete)
+	return &OSUpdateRunResourceDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *OSUpdateRunResourceClient) DeleteOne(ourr *OSUpdateRunResource) *OSUpdateRunResourceDeleteOne {
+	return c.DeleteOneID(ourr.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *OSUpdateRunResourceClient) DeleteOneID(id int) *OSUpdateRunResourceDeleteOne {
+	builder := c.Delete().Where(osupdaterunresource.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &OSUpdateRunResourceDeleteOne{builder}
+}
+
+// Query returns a query builder for OSUpdateRunResource.
+func (c *OSUpdateRunResourceClient) Query() *OSUpdateRunResourceQuery {
+	return &OSUpdateRunResourceQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeOSUpdateRunResource},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a OSUpdateRunResource entity by its id.
+func (c *OSUpdateRunResourceClient) Get(ctx context.Context, id int) (*OSUpdateRunResource, error) {
+	return c.Query().Where(osupdaterunresource.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *OSUpdateRunResourceClient) GetX(ctx context.Context, id int) *OSUpdateRunResource {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryAppliedPolicy queries the applied_policy edge of a OSUpdateRunResource.
+func (c *OSUpdateRunResourceClient) QueryAppliedPolicy(ourr *OSUpdateRunResource) *OSUpdatePolicyResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := ourr.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(osupdaterunresource.Table, osupdaterunresource.FieldID, id),
+			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, osupdaterunresource.AppliedPolicyTable, osupdaterunresource.AppliedPolicyColumn),
+		)
+		fromV = sqlgraph.Neighbors(ourr.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryInstance queries the instance edge of a OSUpdateRunResource.
+func (c *OSUpdateRunResourceClient) QueryInstance(ourr *OSUpdateRunResource) *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := ourr.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(osupdaterunresource.Table, osupdaterunresource.FieldID, id),
+			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, osupdaterunresource.InstanceTable, osupdaterunresource.InstanceColumn),
+		)
+		fromV = sqlgraph.Neighbors(ourr.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *OSUpdateRunResourceClient) Hooks() []Hook {
+	return c.hooks.OSUpdateRunResource
+}
+
+// Interceptors returns the client interceptors.
+func (c *OSUpdateRunResourceClient) Interceptors() []Interceptor {
+	return c.inters.OSUpdateRunResource
+}
+
+func (c *OSUpdateRunResourceClient) mutate(ctx context.Context, m *OSUpdateRunResourceMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&OSUpdateRunResourceCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&OSUpdateRunResourceUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&OSUpdateRunResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&OSUpdateRunResourceDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown OSUpdateRunResource mutation op: %q", m.Op())
+	}
+}
+
 // OperatingSystemResourceClient is a client for the OperatingSystemResource schema.
 type OperatingSystemResourceClient struct {
 	config
@@ -4669,19 +4844,21 @@ type (
 		EndpointResource, HostResource, HostgpuResource, HostnicResource,
 		HoststorageResource, HostusbResource, IPAddressResource, InstanceResource,
 		LocalAccountResource, NetlinkResource, NetworkSegment, OSUpdatePolicy,
-		OSUpdatePolicyResource, OperatingSystemResource, OuResource, ProviderResource,
-		RegionResource, RemoteAccessConfiguration, RepeatedScheduleResource,
-		SingleScheduleResource, SiteResource, TelemetryGroupResource, TelemetryProfile,
-		Tenant, WorkloadMember, WorkloadResource []ent.Hook
+		OSUpdatePolicyResource, OSUpdateRunResource, OperatingSystemResource,
+		OuResource, ProviderResource, RegionResource, RemoteAccessConfiguration,
+		RepeatedScheduleResource, SingleScheduleResource, SiteResource,
+		TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
+		WorkloadResource []ent.Hook
 	}
 	inters struct {
 		EndpointResource, HostResource, HostgpuResource, HostnicResource,
 		HoststorageResource, HostusbResource, IPAddressResource, InstanceResource,
 		LocalAccountResource, NetlinkResource, NetworkSegment, OSUpdatePolicy,
-		OSUpdatePolicyResource, OperatingSystemResource, OuResource, ProviderResource,
-		RegionResource, RemoteAccessConfiguration, RepeatedScheduleResource,
-		SingleScheduleResource, SiteResource, TelemetryGroupResource, TelemetryProfile,
-		Tenant, WorkloadMember, WorkloadResource []ent.Interceptor
+		OSUpdatePolicyResource, OSUpdateRunResource, OperatingSystemResource,
+		OuResource, ProviderResource, RegionResource, RemoteAccessConfiguration,
+		RepeatedScheduleResource, SingleScheduleResource, SiteResource,
+		TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
+		WorkloadResource []ent.Interceptor
 	}
 )
 
