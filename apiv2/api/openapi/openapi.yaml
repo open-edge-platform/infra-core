@@ -4671,6 +4671,7 @@ components:
         - POWER_STATE_SLEEP
         - POWER_STATE_HIBERNATE
         - POWER_STATE_RESET
+        - POWER_STATE_POWER_CYCLE
       description: The host power state.
     UpdatePolicy:
       type: string
@@ -4957,8 +4958,7 @@ components:
           readOnly: true
         desiredAmtState:
           title: desired_amt_state
-          description: Desired AMT/vPRO state of the host
-          readOnly: true
+          description: (OPTIONAL) Desired AMT/vPRO state of the host
           $ref: '#/components/schemas/AmtState'
         currentAmtState:
           title: current_amt_state

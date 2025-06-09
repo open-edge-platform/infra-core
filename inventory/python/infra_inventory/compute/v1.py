@@ -33,6 +33,7 @@ class PowerState(betterproto.Enum):
     POWER_STATE_SLEEP = 4
     POWER_STATE_HIBERNATE = 5
     POWER_STATE_RESET = 6
+    POWER_STATE_POWER_CYCLE = 7
 
 
 class PowerCommandPolicy(betterproto.Enum):
@@ -114,6 +115,19 @@ class WorkloadMemberKind(betterproto.Enum):
 
     WORKLOAD_MEMBER_KIND_UNSPECIFIED = 0
     WORKLOAD_MEMBER_KIND_CLUSTER_NODE = 1
+
+
+class UpdatePolicy(betterproto.Enum):
+    """
+    UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest
+    version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the
+    install_packages, update_sources, kernel_command - for immutable: install
+    the version referenced by target_os
+    """
+
+    UPDATE_POLICY_UNSPECIFIED = 0
+    UPDATE_POLICY_LATEST = 1
+    UPDATE_POLICY_TARGET = 2
 
 
 @dataclass
@@ -343,6 +357,7 @@ class InstanceResource(betterproto.Message):
     provider: v1.ProviderResource = betterproto.message_field(40)
     localaccount: v1.LocalAccountResource = betterproto.message_field(41)
     existing_cves: str = betterproto.string_field(42)
+    os_update_policy: "OSUpdatePolicyResource" = betterproto.message_field(43)
     tenant_id: str = betterproto.string_field(100)
     instance_status_detail: str = betterproto.string_field(101)
     created_at: str = betterproto.string_field(200)
@@ -381,6 +396,21 @@ class WorkloadMember(betterproto.Message):
     kind: "WorkloadMemberKind" = betterproto.enum_field(2)
     workload: "WorkloadResource" = betterproto.message_field(10)
     instance: "InstanceResource" = betterproto.message_field(11)
+    tenant_id: str = betterproto.string_field(100)
+    created_at: str = betterproto.string_field(200)
+    updated_at: str = betterproto.string_field(201)
+
+
+@dataclass
+class OSUpdatePolicyResource(betterproto.Message):
+    resource_id: str = betterproto.string_field(1)
+    name: str = betterproto.string_field(2)
+    description: str = betterproto.string_field(3)
+    install_packages: str = betterproto.string_field(4)
+    update_sources: List[str] = betterproto.string_field(5)
+    kernel_command: str = betterproto.string_field(6)
+    target_os: v1.OperatingSystemResource = betterproto.message_field(50)
+    update_policy: "UpdatePolicy" = betterproto.enum_field(60)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
