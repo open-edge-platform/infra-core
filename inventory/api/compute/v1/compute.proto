@@ -1143,7 +1143,7 @@ message OSUpdateRunResource {
 
   string end_time = 11 [(ent.field) = {
     immutable: false
-    optional: false
+    optional: true
     schema_type: [
       {
         key: "postgres"
