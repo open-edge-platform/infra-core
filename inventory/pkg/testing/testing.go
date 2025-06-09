@@ -302,6 +302,9 @@ func clearDB(ctx context.Context, dbURL string) error { //nolint:cyclop,funlen /
 	if _, err := c.RemoteAccessConfiguration.Delete().Exec(ctx); err != nil {
 		return err
 	}
+	if _, err := c.OSUpdatePolicyResource.Delete().Exec(ctx); err != nil {
+		return err
+	}
 	if _, err := c.InstanceResource.Delete().Exec(ctx); err != nil {
 		return err
 	}
