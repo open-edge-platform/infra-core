@@ -158,8 +158,6 @@ func toInvOSUpdatePolicy(osUpdatePolicy *computev1.OSUpdatePolicy) (*inv_compute
 		invOSUpdatePolicy.TargetOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: targetOSID,
 		}
-	} else {
-		invOSUpdatePolicy.TargetOs = nil
 	}
 
 	err := validator.ValidateMessage(invOSUpdatePolicy)
