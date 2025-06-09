@@ -1112,7 +1112,7 @@ message OSUpdateRunResource {
   string status_details = 8 [
     (ent.field) = {
       immutable: false
-      optional: false
+      optional: true
     },
     (buf.validate.field).string = {
       max_len: 100000
