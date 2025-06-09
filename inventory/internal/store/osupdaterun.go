@@ -30,31 +30,6 @@ var osUpRunResourceCreationValidators = []resourceValidator[*compute_v1.OSUpdate
 }
 
 func validateOSUpdateRunProto(in *compute_v1.OSUpdateRunResource) error {
-	if in.GetAppliedPolicy() == nil {
-		return errors.Errorfc(codes.InvalidArgument, "Applied Policy cannot be nil")
-	}
-	if in.GetInstance() == nil {
-		return errors.Errorfc(codes.InvalidArgument, "Instance cannot be nil")
-	}
-	if in.GetStatusIndicator() != status_v1.StatusIndication_STATUS_INDICATION_UNSPECIFIED {
-		return errors.Errorfc(codes.InvalidArgument, "OS Update Status Indicator should be unspecified")
-	}
-	if in.GetStatus() != "" {
-		return errors.Errorfc(codes.InvalidArgument, "OS Update Status should be nil")
-	}
-	if in.GetStatusDetails() != "" {
-		return errors.Errorfc(codes.InvalidArgument, "OS Update Status details should be nil")
-	}
-	if in.GetStatusTimestamp() != "" {
-		return errors.Errorfc(codes.InvalidArgument, "OS Update Status timestamp should be nil")
-	}
-	if in.GetStartTime() == "" {
-		return errors.Errorfc(codes.InvalidArgument, "OS Update Start timestamp should not be nil")
-	}
-	if in.GetEndTime() != "" {
-		return errors.Errorfc(codes.InvalidArgument, "OS Update End timestamp should be nil")
-	}
-
 	return nil
 }
 
@@ -216,7 +191,7 @@ func (is *InvStore) UpdateOSUpdateRun(
 }
 
 func (is *InvStore) DeleteOSUpdateRun(ctx context.Context, id string) (*inv_v1.Resource, error) {
-	// this is a "Hard Delete" as os don't have state to reconcile
+	// this is a "Hard Delete" as OSUpdateRun don't have state to reconcile
 	zlog.Debug().Msgf("DeleteOSUpdateRun Hard Delete: %s", id)
 
 	res, err := ExecuteInTxAndReturnSingle[inv_v1.Resource](is)(ctx, deleteOSUpdateRun(id))

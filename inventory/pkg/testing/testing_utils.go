@@ -2125,7 +2125,8 @@ func (c *InvResourceDAO) createOSUpdateRun(
 	// resource, we do not expect further embedded messages. This matches the
 	// structure of objects returned by ent queries, i.e. no two layers of
 	// embedded objects for edges.
-	//ourResp.TargetOs = nil
+	ourResp.AppliedPolicy = nil
+	ourResp.Instance = nil
 
 	return ourResp, nil
 }

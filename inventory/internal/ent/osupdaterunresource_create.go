@@ -33,6 +33,14 @@ func (ourrc *OSUpdateRunResourceCreate) SetName(s string) *OSUpdateRunResourceCr
 	return ourrc
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (ourrc *OSUpdateRunResourceCreate) SetNillableName(s *string) *OSUpdateRunResourceCreate {
+	if s != nil {
+		ourrc.SetName(*s)
+	}
+	return ourrc
+}
+
 // SetDescription sets the "description" field.
 func (ourrc *OSUpdateRunResourceCreate) SetDescription(s string) *OSUpdateRunResourceCreate {
 	ourrc.mutation.SetDescription(s)
@@ -59,9 +67,25 @@ func (ourrc *OSUpdateRunResourceCreate) SetStatus(s string) *OSUpdateRunResource
 	return ourrc
 }
 
+// SetNillableStatus sets the "status" field if the given value is not nil.
+func (ourrc *OSUpdateRunResourceCreate) SetNillableStatus(s *string) *OSUpdateRunResourceCreate {
+	if s != nil {
+		ourrc.SetStatus(*s)
+	}
+	return ourrc
+}
+
 // SetStatusDetails sets the "status_details" field.
 func (ourrc *OSUpdateRunResourceCreate) SetStatusDetails(s string) *OSUpdateRunResourceCreate {
 	ourrc.mutation.SetStatusDetails(s)
+	return ourrc
+}
+
+// SetNillableStatusDetails sets the "status_details" field if the given value is not nil.
+func (ourrc *OSUpdateRunResourceCreate) SetNillableStatusDetails(s *string) *OSUpdateRunResourceCreate {
+	if s != nil {
+		ourrc.SetStatusDetails(*s)
+	}
 	return ourrc
 }
 
@@ -80,6 +104,14 @@ func (ourrc *OSUpdateRunResourceCreate) SetStartTime(s string) *OSUpdateRunResou
 // SetEndTime sets the "end_time" field.
 func (ourrc *OSUpdateRunResourceCreate) SetEndTime(s string) *OSUpdateRunResourceCreate {
 	ourrc.mutation.SetEndTime(s)
+	return ourrc
+}
+
+// SetNillableEndTime sets the "end_time" field if the given value is not nil.
+func (ourrc *OSUpdateRunResourceCreate) SetNillableEndTime(s *string) *OSUpdateRunResourceCreate {
+	if s != nil {
+		ourrc.SetEndTime(*s)
+	}
 	return ourrc
 }
 
@@ -160,9 +192,6 @@ func (ourrc *OSUpdateRunResourceCreate) check() error {
 	if _, ok := ourrc.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "OSUpdateRunResource.resource_id"`)}
 	}
-	if _, ok := ourrc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "OSUpdateRunResource.name"`)}
-	}
 	if _, ok := ourrc.mutation.StatusIndicator(); !ok {
 		return &ValidationError{Name: "status_indicator", err: errors.New(`ent: missing required field "OSUpdateRunResource.status_indicator"`)}
 	}
@@ -171,20 +200,11 @@ func (ourrc *OSUpdateRunResourceCreate) check() error {
 			return &ValidationError{Name: "status_indicator", err: fmt.Errorf(`ent: validator failed for field "OSUpdateRunResource.status_indicator": %w`, err)}
 		}
 	}
-	if _, ok := ourrc.mutation.Status(); !ok {
-		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "OSUpdateRunResource.status"`)}
-	}
-	if _, ok := ourrc.mutation.StatusDetails(); !ok {
-		return &ValidationError{Name: "status_details", err: errors.New(`ent: missing required field "OSUpdateRunResource.status_details"`)}
-	}
 	if _, ok := ourrc.mutation.StatusTimestamp(); !ok {
 		return &ValidationError{Name: "status_timestamp", err: errors.New(`ent: missing required field "OSUpdateRunResource.status_timestamp"`)}
 	}
 	if _, ok := ourrc.mutation.StartTime(); !ok {
 		return &ValidationError{Name: "start_time", err: errors.New(`ent: missing required field "OSUpdateRunResource.start_time"`)}
-	}
-	if _, ok := ourrc.mutation.EndTime(); !ok {
-		return &ValidationError{Name: "end_time", err: errors.New(`ent: missing required field "OSUpdateRunResource.end_time"`)}
 	}
 	if _, ok := ourrc.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "OSUpdateRunResource.tenant_id"`)}

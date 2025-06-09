@@ -228,6 +228,16 @@ func NameHasSuffix(v string) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldName, v))
 }
 
+// NameIsNil applies the IsNil predicate on the "name" field.
+func NameIsNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldIsNull(FieldName))
+}
+
+// NameNotNil applies the NotNil predicate on the "name" field.
+func NameNotNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldNotNull(FieldName))
+}
+
 // NameEqualFold applies the EqualFold predicate on the "name" field.
 func NameEqualFold(v string) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEqualFold(FieldName, v))
@@ -388,6 +398,16 @@ func StatusHasSuffix(v string) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldStatus, v))
 }
 
+// StatusIsNil applies the IsNil predicate on the "status" field.
+func StatusIsNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldIsNull(FieldStatus))
+}
+
+// StatusNotNil applies the NotNil predicate on the "status" field.
+func StatusNotNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldNotNull(FieldStatus))
+}
+
 // StatusEqualFold applies the EqualFold predicate on the "status" field.
 func StatusEqualFold(v string) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEqualFold(FieldStatus, v))
@@ -451,6 +471,16 @@ func StatusDetailsHasPrefix(v string) predicate.OSUpdateRunResource {
 // StatusDetailsHasSuffix applies the HasSuffix predicate on the "status_details" field.
 func StatusDetailsHasSuffix(v string) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldStatusDetails, v))
+}
+
+// StatusDetailsIsNil applies the IsNil predicate on the "status_details" field.
+func StatusDetailsIsNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldIsNull(FieldStatusDetails))
+}
+
+// StatusDetailsNotNil applies the NotNil predicate on the "status_details" field.
+func StatusDetailsNotNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldNotNull(FieldStatusDetails))
 }
 
 // StatusDetailsEqualFold applies the EqualFold predicate on the "status_details" field.
@@ -646,6 +676,16 @@ func EndTimeHasPrefix(v string) predicate.OSUpdateRunResource {
 // EndTimeHasSuffix applies the HasSuffix predicate on the "end_time" field.
 func EndTimeHasSuffix(v string) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldEndTime, v))
+}
+
+// EndTimeIsNil applies the IsNil predicate on the "end_time" field.
+func EndTimeIsNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldIsNull(FieldEndTime))
+}
+
+// EndTimeNotNil applies the NotNil predicate on the "end_time" field.
+func EndTimeNotNil() predicate.OSUpdateRunResource {
+	return predicate.OSUpdateRunResource(sql.FieldNotNull(FieldEndTime))
 }
 
 // EndTimeEqualFold applies the EqualFold predicate on the "end_time" field.

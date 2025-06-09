@@ -1065,7 +1065,7 @@ message OSUpdateRunResource {
   string name = 2 [
     (ent.field) = {
       immutable: true
-      optional: false
+      optional: true
     },
     (buf.validate.field).string = {
       max_bytes: 40

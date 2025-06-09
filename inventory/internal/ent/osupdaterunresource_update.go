@@ -71,6 +71,12 @@ func (ourru *OSUpdateRunResourceUpdate) SetNillableStatus(s *string) *OSUpdateRu
 	return ourru
 }
 
+// ClearStatus clears the value of the "status" field.
+func (ourru *OSUpdateRunResourceUpdate) ClearStatus() *OSUpdateRunResourceUpdate {
+	ourru.mutation.ClearStatus()
+	return ourru
+}
+
 // SetStatusDetails sets the "status_details" field.
 func (ourru *OSUpdateRunResourceUpdate) SetStatusDetails(s string) *OSUpdateRunResourceUpdate {
 	ourru.mutation.SetStatusDetails(s)
@@ -82,6 +88,12 @@ func (ourru *OSUpdateRunResourceUpdate) SetNillableStatusDetails(s *string) *OSU
 	if s != nil {
 		ourru.SetStatusDetails(*s)
 	}
+	return ourru
+}
+
+// ClearStatusDetails clears the value of the "status_details" field.
+func (ourru *OSUpdateRunResourceUpdate) ClearStatusDetails() *OSUpdateRunResourceUpdate {
+	ourru.mutation.ClearStatusDetails()
 	return ourru
 }
 
@@ -110,6 +122,12 @@ func (ourru *OSUpdateRunResourceUpdate) SetNillableEndTime(s *string) *OSUpdateR
 	if s != nil {
 		ourru.SetEndTime(*s)
 	}
+	return ourru
+}
+
+// ClearEndTime clears the value of the "end_time" field.
+func (ourru *OSUpdateRunResourceUpdate) ClearEndTime() *OSUpdateRunResourceUpdate {
+	ourru.mutation.ClearEndTime()
 	return ourru
 }
 
@@ -224,6 +242,9 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if value, ok := ourru.mutation.ResourceID(); ok {
 		_spec.SetField(osupdaterunresource.FieldResourceID, field.TypeString, value)
 	}
+	if ourru.mutation.NameCleared() {
+		_spec.ClearField(osupdaterunresource.FieldName, field.TypeString)
+	}
 	if ourru.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdaterunresource.FieldDescription, field.TypeString)
 	}
@@ -233,14 +254,23 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 	if value, ok := ourru.mutation.Status(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatus, field.TypeString, value)
 	}
+	if ourru.mutation.StatusCleared() {
+		_spec.ClearField(osupdaterunresource.FieldStatus, field.TypeString)
+	}
 	if value, ok := ourru.mutation.StatusDetails(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusDetails, field.TypeString, value)
+	}
+	if ourru.mutation.StatusDetailsCleared() {
+		_spec.ClearField(osupdaterunresource.FieldStatusDetails, field.TypeString)
 	}
 	if value, ok := ourru.mutation.StatusTimestamp(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
 	}
 	if value, ok := ourru.mutation.EndTime(); ok {
 		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+	}
+	if ourru.mutation.EndTimeCleared() {
+		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeString)
 	}
 	if value, ok := ourru.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)
@@ -365,6 +395,12 @@ func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatus(s *string) *OSUpda
 	return ourruo
 }
 
+// ClearStatus clears the value of the "status" field.
+func (ourruo *OSUpdateRunResourceUpdateOne) ClearStatus() *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.ClearStatus()
+	return ourruo
+}
+
 // SetStatusDetails sets the "status_details" field.
 func (ourruo *OSUpdateRunResourceUpdateOne) SetStatusDetails(s string) *OSUpdateRunResourceUpdateOne {
 	ourruo.mutation.SetStatusDetails(s)
@@ -376,6 +412,12 @@ func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatusDetails(s *string) 
 	if s != nil {
 		ourruo.SetStatusDetails(*s)
 	}
+	return ourruo
+}
+
+// ClearStatusDetails clears the value of the "status_details" field.
+func (ourruo *OSUpdateRunResourceUpdateOne) ClearStatusDetails() *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.ClearStatusDetails()
 	return ourruo
 }
 
@@ -404,6 +446,12 @@ func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableEndTime(s *string) *OSUpd
 	if s != nil {
 		ourruo.SetEndTime(*s)
 	}
+	return ourruo
+}
+
+// ClearEndTime clears the value of the "end_time" field.
+func (ourruo *OSUpdateRunResourceUpdateOne) ClearEndTime() *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.ClearEndTime()
 	return ourruo
 }
 
@@ -548,6 +596,9 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if value, ok := ourruo.mutation.ResourceID(); ok {
 		_spec.SetField(osupdaterunresource.FieldResourceID, field.TypeString, value)
 	}
+	if ourruo.mutation.NameCleared() {
+		_spec.ClearField(osupdaterunresource.FieldName, field.TypeString)
+	}
 	if ourruo.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdaterunresource.FieldDescription, field.TypeString)
 	}
@@ -557,14 +608,23 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if value, ok := ourruo.mutation.Status(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatus, field.TypeString, value)
 	}
+	if ourruo.mutation.StatusCleared() {
+		_spec.ClearField(osupdaterunresource.FieldStatus, field.TypeString)
+	}
 	if value, ok := ourruo.mutation.StatusDetails(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusDetails, field.TypeString, value)
+	}
+	if ourruo.mutation.StatusDetailsCleared() {
+		_spec.ClearField(osupdaterunresource.FieldStatusDetails, field.TypeString)
 	}
 	if value, ok := ourruo.mutation.StatusTimestamp(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
 	}
 	if value, ok := ourruo.mutation.EndTime(); ok {
 		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+	}
+	if ourruo.mutation.EndTimeCleared() {
+		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeString)
 	}
 	if value, ok := ourruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)

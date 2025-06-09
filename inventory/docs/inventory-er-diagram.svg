@@ -1564,9 +1564,7 @@
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-921.65 3190.34,-981.65 3938.34,-981.65 3938.34,-921.65 3190.34,-921.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-921.65 3190.34,-981.65 3938.34,-981.65 3938.34,-921.65 3190.34,-921.65"/>
 <text text-anchor="start" x="3201.34" y="-941.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">name &#160;&#160;&#160;</text>
-<text text-anchor="start" x="3642.88" y="-942.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
-<text text-anchor="start" x="3888.25" y="-942.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c"> </text>
-<text text-anchor="start" x="3897.14" y="-942.85" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="32.00" fill="#29235c">(!)</text>
+<text text-anchor="start" x="3681.97" y="-942.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-861.65 3190.34,-921.65 3938.34,-921.65 3938.34,-861.65 3190.34,-861.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-861.65 3190.34,-921.65 3938.34,-921.65 3938.34,-861.65 3190.34,-861.65"/>
 <text text-anchor="start" x="3201.34" y="-881.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">description &#160;&#160;&#160;</text>
@@ -1580,15 +1578,11 @@
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-741.65 3190.34,-801.65 3938.34,-801.65 3938.34,-741.65 3190.34,-741.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-741.65 3190.34,-801.65 3938.34,-801.65 3938.34,-741.65 3190.34,-741.65"/>
 <text text-anchor="start" x="3201.34" y="-761.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">status &#160;&#160;&#160;</text>
-<text text-anchor="start" x="3642.88" y="-762.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
-<text text-anchor="start" x="3888.25" y="-762.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c"> </text>
-<text text-anchor="start" x="3897.14" y="-762.85" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="32.00" fill="#29235c">(!)</text>
+<text text-anchor="start" x="3681.97" y="-762.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-681.65 3190.34,-741.65 3938.34,-741.65 3938.34,-681.65 3190.34,-681.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-681.65 3190.34,-741.65 3938.34,-741.65 3938.34,-681.65 3190.34,-681.65"/>
 <text text-anchor="start" x="3201.34" y="-701.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">status_details &#160;&#160;&#160;</text>
-<text text-anchor="start" x="3642.88" y="-702.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
-<text text-anchor="start" x="3888.25" y="-702.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c"> </text>
-<text text-anchor="start" x="3897.14" y="-702.85" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="32.00" fill="#29235c">(!)</text>
+<text text-anchor="start" x="3681.97" y="-702.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">character varying</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-621.65 3190.34,-681.65 3938.34,-681.65 3938.34,-621.65 3190.34,-621.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-621.65 3190.34,-681.65 3938.34,-681.65 3938.34,-621.65 3190.34,-621.65"/>
 <text text-anchor="start" x="3201.34" y="-641.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">status_timestamp &#160;&#160;&#160;</text>
@@ -1604,9 +1598,7 @@
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-501.65 3190.34,-561.65 3938.34,-561.65 3938.34,-501.65 3190.34,-501.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-501.65 3190.34,-561.65 3938.34,-561.65 3938.34,-501.65 3190.34,-501.65"/>
 <text text-anchor="start" x="3201.34" y="-521.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">end_time &#160;&#160;&#160;</text>
-<text text-anchor="start" x="3740.69" y="-522.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">timestamp</text>
-<text text-anchor="start" x="3888.25" y="-522.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c"> </text>
-<text text-anchor="start" x="3897.14" y="-522.85" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="32.00" fill="#29235c">(!)</text>
+<text text-anchor="start" x="3779.78" y="-522.85" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">timestamp</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="3190.34,-441.65 3190.34,-501.65 3938.34,-501.65 3938.34,-441.65 3190.34,-441.65"/>
 <polygon fill="none" stroke="#29235c" points="3190.34,-441.65 3190.34,-501.65 3938.34,-501.65 3938.34,-441.65 3190.34,-441.65"/>
 <text text-anchor="start" x="3201.34" y="-461.85" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">tenant_id &#160;&#160;&#160;</text>
