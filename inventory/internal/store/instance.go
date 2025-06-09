@@ -161,7 +161,7 @@ func setRelationsForInstanceCreate(ctx context.Context,
 		return err
 	}
 	// Look up the OS ID for this Instance.
-	if err := setEdgeOSIDForMut(ctx, client, mut, in.GetCurrentOs()); err != nil {
+	if err := setEdgeOSIDForMut(ctx, client, mut, in.GetOs()); err != nil {
 		return err
 	}
 	return nil
