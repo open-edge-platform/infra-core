@@ -31,7 +31,7 @@ func GenerateRandomProfileName() string {
 }
 
 func GenerateRandomOsResourceName() string {
-	return fmt.Sprintf("Test OS name #%d", generateRandomInteger(1023)) //nolint:mnd // Teting only
+	return fmt.Sprintf("Test OS name #%d", generateRandomInteger(1023)) //nolint:mnd // Testing only
 }
 
 func GenerateRandInt(minValue, maxValue int) int64 {
