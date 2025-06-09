@@ -87,6 +87,14 @@ deny if {
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
+# deny if TC client tries to create a resource that is not a tenant, provider or telemetryGroup
+deny if {
+    input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
+    not input.resource.tenant
+    not input.resource.provider
+    not input.resource.telemetryGroup
+}
+
 # Exception 1
 # Instance specific rules for supporting ZTP with default OS
 # This rule allows RM to CREATE a new Instance resource with desiredState set to RUNNING
@@ -99,12 +107,6 @@ isException if {
 	input.resource.instance.desiredState == "INSTANCE_STATE_RUNNING"
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
-
-# Exception 2
-#isException if {
-#	input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
-#	with input.resource as {"tenant", "provider", "telemetryGroup"}
-#}
 
 # Output rule: Determines if ABAC applies for CREATE operations
 abac if {

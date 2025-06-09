@@ -24,11 +24,14 @@ import (
 )
 
 var (
-	bundlePath = "out/policy_bundle.tar.gz"
-	regionID   = "region-12345678"
-	siteID     = "site-12345678"
-	hostID     = "host-12345678"
-	ipaddrID   = "ipaddr-12345678"
+	bundlePath       = "out/policy_bundle.tar.gz"
+	regionID         = "region-12345678"
+	siteID           = "site-12345678"
+	hostID           = "host-12345678"
+	ipaddrID         = "ipaddr-12345678"
+	tenantID         = "tenant-12345678"
+	providerID       = "provider-12345678"
+	telemetrygroupID = "telemetrygroup-12345678"
 )
 
 func TestMain(m *testing.M) {
@@ -564,6 +567,56 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 		},
 		"Test_ClientRM_Create_IPAddr_Fail1": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Ipaddress{
+					Ipaddress: &network_v1.IPAddressResource{
+						Address:      "192.168.1.1/24",
+						DesiredState: network_v1.IPAddressState_IP_ADDRESS_STATE_CONFIGURED,
+					},
+				},
+			},
+			resourceID: ipaddrID,
+			valid:      false,
+		},
+		"Test_ClientTC_Create_Tenant_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Tenant{
+					Tenant: &tenantv1.Tenant{
+						DesiredState:     tenantv1.TenantState_TENANT_STATE_CREATED,
+						WatcherOsmanager: true,
+					},
+				},
+			},
+			resourceID: tenantID,
+			valid:      true,
+		},
+		"Test_ClientTC_Create_Provider_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Provider{
+					Provider: &providerv1.ProviderResource{
+						Name: "test-provider-name",
+					},
+				},
+			},
+			resourceID: providerID,
+			valid:      true,
+		},
+		"Test_ClientTC_Create_TelemetryGroup_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_TelemetryGroup{
+					TelemetryGroup: &telemetry_v1.TelemetryGroupResource{
+						Name: "test-tenant-name",
+					},
+				},
+			},
+			resourceID: telemetrygroupID,
+			valid:      true,
+		},
+		"Test_ClientTC_Create_IPAddr_Fail1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
 			resource: &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Ipaddress{
 					Ipaddress: &network_v1.IPAddressResource{
