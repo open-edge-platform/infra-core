@@ -162,7 +162,7 @@ func (is *InvStore) UpdateOSUpdateRun(
 	res, err := ExecuteInTxAndReturnSingle[inv_v1.Resource](is)(ctx,
 		func(ctx context.Context, tx *ent.Tx) (*inv_v1.Resource, error) {
 			entity, err := tx.OSUpdateRunResource.Query().
-				// we need to also retrieve immutable fields to do the check
+				// we need to also retrieve immutable edges to do the check
 				Select(our.FieldID).
 				Where(our.ResourceID(id)).
 				WithAppliedPolicy().
