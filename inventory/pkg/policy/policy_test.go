@@ -604,6 +604,30 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 			resourceID: tenantID,
 			valid:      false,
 		},
+		"Test_ClientAPI_Create_Tenant_Fail2": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Tenant{
+					Tenant: &tenantv1.Tenant{
+						WatcherOsmanager: true,
+					},
+				},
+			},
+			resourceID: tenantID,
+			valid:      false,
+		},
+		"Test_ClientRM_Create_Tenant_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Tenant{
+					Tenant: &tenantv1.Tenant{
+						WatcherOsmanager: true,
+					},
+				},
+			},
+			resourceID: tenantID,
+			valid:      false,
+		},
 		"Test_ClientTC_Create_Tenant_Success1": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
 			resource: &inv_v1.Resource{
@@ -1020,6 +1044,30 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 			},
 			resourceID: tenantID,
 			valid:      false,
+		},
+		"Test_ClientAPI_Update_Tenant_Fail2": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Tenant{
+					Tenant: &tenantv1.Tenant{
+						WatcherOsmanager: true,
+					},
+				},
+			},
+			resourceID: tenantID,
+			valid:      false,
+		},
+		"Test_ClientRM_Update_Tenant_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Tenant{
+					Tenant: &tenantv1.Tenant{
+						WatcherOsmanager: true,
+					},
+				},
+			},
+			resourceID: tenantID,
+			valid:      true,
 		},
 		"Test_ClientAPI_Update_Registered_Host_Success1": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
