@@ -58,6 +58,12 @@ const (
 	FieldTrustedAttestationStatusIndicator = "trusted_attestation_status_indicator"
 	// FieldTrustedAttestationStatusTimestamp holds the string denoting the trusted_attestation_status_timestamp field in the database.
 	FieldTrustedAttestationStatusTimestamp = "trusted_attestation_status_timestamp"
+	// FieldExistingCves holds the string denoting the existing_cves field in the database.
+	FieldExistingCves = "existing_cves"
+	// FieldRuntimePackages holds the string denoting the runtime_packages field in the database.
+	FieldRuntimePackages = "runtime_packages"
+	// FieldOsUpdateAvailable holds the string denoting the os_update_available field in the database.
+	FieldOsUpdateAvailable = "os_update_available"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldInstanceStatusDetail holds the string denoting the instance_status_detail field in the database.
@@ -72,12 +78,16 @@ const (
 	EdgeDesiredOs = "desired_os"
 	// EdgeCurrentOs holds the string denoting the current_os edge name in mutations.
 	EdgeCurrentOs = "current_os"
+	// EdgeOs holds the string denoting the os edge name in mutations.
+	EdgeOs = "os"
 	// EdgeWorkloadMembers holds the string denoting the workload_members edge name in mutations.
 	EdgeWorkloadMembers = "workload_members"
 	// EdgeProvider holds the string denoting the provider edge name in mutations.
 	EdgeProvider = "provider"
 	// EdgeLocalaccount holds the string denoting the localaccount edge name in mutations.
 	EdgeLocalaccount = "localaccount"
+	// EdgeOsUpdatePolicy holds the string denoting the os_update_policy edge name in mutations.
+	EdgeOsUpdatePolicy = "os_update_policy"
 	// Table holds the table name of the instanceresource in the database.
 	Table = "instance_resources"
 	// HostTable is the table that holds the host relation/edge.
@@ -101,6 +111,13 @@ const (
 	CurrentOsInverseTable = "operating_system_resources"
 	// CurrentOsColumn is the table column denoting the current_os relation/edge.
 	CurrentOsColumn = "instance_resource_current_os"
+	// OsTable is the table that holds the os relation/edge.
+	OsTable = "instance_resources"
+	// OsInverseTable is the table name for the OperatingSystemResource entity.
+	// It exists in this package in order to avoid circular dependency with the "operatingsystemresource" package.
+	OsInverseTable = "operating_system_resources"
+	// OsColumn is the table column denoting the os relation/edge.
+	OsColumn = "instance_resource_os"
 	// WorkloadMembersTable is the table that holds the workload_members relation/edge.
 	WorkloadMembersTable = "workload_members"
 	// WorkloadMembersInverseTable is the table name for the WorkloadMember entity.
@@ -122,6 +139,13 @@ const (
 	LocalaccountInverseTable = "local_account_resources"
 	// LocalaccountColumn is the table column denoting the localaccount relation/edge.
 	LocalaccountColumn = "instance_resource_localaccount"
+	// OsUpdatePolicyTable is the table that holds the os_update_policy relation/edge.
+	OsUpdatePolicyTable = "instance_resources"
+	// OsUpdatePolicyInverseTable is the table name for the OSUpdatePolicyResource entity.
+	// It exists in this package in order to avoid circular dependency with the "osupdatepolicyresource" package.
+	OsUpdatePolicyInverseTable = "os_update_policy_resources"
+	// OsUpdatePolicyColumn is the table column denoting the os_update_policy relation/edge.
+	OsUpdatePolicyColumn = "instance_resource_os_update_policy"
 )
 
 // Columns holds all SQL columns for instanceresource fields.
@@ -149,6 +173,9 @@ var Columns = []string{
 	FieldTrustedAttestationStatus,
 	FieldTrustedAttestationStatusIndicator,
 	FieldTrustedAttestationStatusTimestamp,
+	FieldExistingCves,
+	FieldRuntimePackages,
+	FieldOsUpdateAvailable,
 	FieldTenantID,
 	FieldInstanceStatusDetail,
 	FieldCreatedAt,
@@ -160,8 +187,10 @@ var Columns = []string{
 var ForeignKeys = []string{
 	"instance_resource_desired_os",
 	"instance_resource_current_os",
+	"instance_resource_os",
 	"instance_resource_provider",
 	"instance_resource_localaccount",
+	"instance_resource_os_update_policy",
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -495,6 +524,21 @@ func ByTrustedAttestationStatusTimestamp(opts ...sql.OrderTermOption) OrderOptio
 	return sql.OrderByField(FieldTrustedAttestationStatusTimestamp, opts...).ToFunc()
 }
 
+// ByExistingCves orders the results by the existing_cves field.
+func ByExistingCves(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExistingCves, opts...).ToFunc()
+}
+
+// ByRuntimePackages orders the results by the runtime_packages field.
+func ByRuntimePackages(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRuntimePackages, opts...).ToFunc()
+}
+
+// ByOsUpdateAvailable orders the results by the os_update_available field.
+func ByOsUpdateAvailable(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOsUpdateAvailable, opts...).ToFunc()
+}
+
 // ByTenantID orders the results by the tenant_id field.
 func ByTenantID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTenantID, opts...).ToFunc()
@@ -536,6 +580,13 @@ func ByCurrentOsField(field string, opts ...sql.OrderTermOption) OrderOption {
 	}
 }
 
+// ByOsField orders the results by os field.
+func ByOsField(field string, opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newOsStep(), sql.OrderByField(field, opts...))
+	}
+}
+
 // ByWorkloadMembersCount orders the results by workload_members count.
 func ByWorkloadMembersCount(opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
@@ -563,6 +614,13 @@ func ByLocalaccountField(field string, opts ...sql.OrderTermOption) OrderOption 
 		sqlgraph.OrderByNeighborTerms(s, newLocalaccountStep(), sql.OrderByField(field, opts...))
 	}
 }
+
+// ByOsUpdatePolicyField orders the results by os_update_policy field.
+func ByOsUpdatePolicyField(field string, opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newOsUpdatePolicyStep(), sql.OrderByField(field, opts...))
+	}
+}
 func newHostStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
@@ -584,6 +642,13 @@ func newCurrentOsStep() *sqlgraph.Step {
 		sqlgraph.Edge(sqlgraph.M2O, false, CurrentOsTable, CurrentOsColumn),
 	)
 }
+func newOsStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(OsInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.M2O, false, OsTable, OsColumn),
+	)
+}
 func newWorkloadMembersStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
@@ -603,5 +668,12 @@ func newLocalaccountStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(LocalaccountInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.M2O, false, LocalaccountTable, LocalaccountColumn),
+	)
+}
+func newOsUpdatePolicyStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(OsUpdatePolicyInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.M2O, false, OsUpdatePolicyTable, OsUpdatePolicyColumn),
 	)
 }

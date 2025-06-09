@@ -123,6 +123,21 @@ func TrustedAttestationStatusTimestamp(v uint64) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTrustedAttestationStatusTimestamp, v))
 }
 
+// ExistingCves applies equality check predicate on the "existing_cves" field. It's identical to ExistingCvesEQ.
+func ExistingCves(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldExistingCves, v))
+}
+
+// RuntimePackages applies equality check predicate on the "runtime_packages" field. It's identical to RuntimePackagesEQ.
+func RuntimePackages(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldRuntimePackages, v))
+}
+
+// OsUpdateAvailable applies equality check predicate on the "os_update_available" field. It's identical to OsUpdateAvailableEQ.
+func OsUpdateAvailable(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldOsUpdateAvailable, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTenantID, v))
@@ -1248,6 +1263,231 @@ func TrustedAttestationStatusTimestampNotNil() predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldNotNull(FieldTrustedAttestationStatusTimestamp))
 }
 
+// ExistingCvesEQ applies the EQ predicate on the "existing_cves" field.
+func ExistingCvesEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldExistingCves, v))
+}
+
+// ExistingCvesNEQ applies the NEQ predicate on the "existing_cves" field.
+func ExistingCvesNEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNEQ(FieldExistingCves, v))
+}
+
+// ExistingCvesIn applies the In predicate on the "existing_cves" field.
+func ExistingCvesIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIn(FieldExistingCves, vs...))
+}
+
+// ExistingCvesNotIn applies the NotIn predicate on the "existing_cves" field.
+func ExistingCvesNotIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotIn(FieldExistingCves, vs...))
+}
+
+// ExistingCvesGT applies the GT predicate on the "existing_cves" field.
+func ExistingCvesGT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGT(FieldExistingCves, v))
+}
+
+// ExistingCvesGTE applies the GTE predicate on the "existing_cves" field.
+func ExistingCvesGTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGTE(FieldExistingCves, v))
+}
+
+// ExistingCvesLT applies the LT predicate on the "existing_cves" field.
+func ExistingCvesLT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLT(FieldExistingCves, v))
+}
+
+// ExistingCvesLTE applies the LTE predicate on the "existing_cves" field.
+func ExistingCvesLTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLTE(FieldExistingCves, v))
+}
+
+// ExistingCvesContains applies the Contains predicate on the "existing_cves" field.
+func ExistingCvesContains(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContains(FieldExistingCves, v))
+}
+
+// ExistingCvesHasPrefix applies the HasPrefix predicate on the "existing_cves" field.
+func ExistingCvesHasPrefix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasPrefix(FieldExistingCves, v))
+}
+
+// ExistingCvesHasSuffix applies the HasSuffix predicate on the "existing_cves" field.
+func ExistingCvesHasSuffix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasSuffix(FieldExistingCves, v))
+}
+
+// ExistingCvesIsNil applies the IsNil predicate on the "existing_cves" field.
+func ExistingCvesIsNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIsNull(FieldExistingCves))
+}
+
+// ExistingCvesNotNil applies the NotNil predicate on the "existing_cves" field.
+func ExistingCvesNotNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotNull(FieldExistingCves))
+}
+
+// ExistingCvesEqualFold applies the EqualFold predicate on the "existing_cves" field.
+func ExistingCvesEqualFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEqualFold(FieldExistingCves, v))
+}
+
+// ExistingCvesContainsFold applies the ContainsFold predicate on the "existing_cves" field.
+func ExistingCvesContainsFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContainsFold(FieldExistingCves, v))
+}
+
+// RuntimePackagesEQ applies the EQ predicate on the "runtime_packages" field.
+func RuntimePackagesEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesNEQ applies the NEQ predicate on the "runtime_packages" field.
+func RuntimePackagesNEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNEQ(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesIn applies the In predicate on the "runtime_packages" field.
+func RuntimePackagesIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIn(FieldRuntimePackages, vs...))
+}
+
+// RuntimePackagesNotIn applies the NotIn predicate on the "runtime_packages" field.
+func RuntimePackagesNotIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotIn(FieldRuntimePackages, vs...))
+}
+
+// RuntimePackagesGT applies the GT predicate on the "runtime_packages" field.
+func RuntimePackagesGT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGT(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesGTE applies the GTE predicate on the "runtime_packages" field.
+func RuntimePackagesGTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGTE(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesLT applies the LT predicate on the "runtime_packages" field.
+func RuntimePackagesLT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLT(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesLTE applies the LTE predicate on the "runtime_packages" field.
+func RuntimePackagesLTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLTE(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesContains applies the Contains predicate on the "runtime_packages" field.
+func RuntimePackagesContains(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContains(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesHasPrefix applies the HasPrefix predicate on the "runtime_packages" field.
+func RuntimePackagesHasPrefix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasPrefix(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesHasSuffix applies the HasSuffix predicate on the "runtime_packages" field.
+func RuntimePackagesHasSuffix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasSuffix(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesIsNil applies the IsNil predicate on the "runtime_packages" field.
+func RuntimePackagesIsNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIsNull(FieldRuntimePackages))
+}
+
+// RuntimePackagesNotNil applies the NotNil predicate on the "runtime_packages" field.
+func RuntimePackagesNotNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotNull(FieldRuntimePackages))
+}
+
+// RuntimePackagesEqualFold applies the EqualFold predicate on the "runtime_packages" field.
+func RuntimePackagesEqualFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEqualFold(FieldRuntimePackages, v))
+}
+
+// RuntimePackagesContainsFold applies the ContainsFold predicate on the "runtime_packages" field.
+func RuntimePackagesContainsFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContainsFold(FieldRuntimePackages, v))
+}
+
+// OsUpdateAvailableEQ applies the EQ predicate on the "os_update_available" field.
+func OsUpdateAvailableEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEQ(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableNEQ applies the NEQ predicate on the "os_update_available" field.
+func OsUpdateAvailableNEQ(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNEQ(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableIn applies the In predicate on the "os_update_available" field.
+func OsUpdateAvailableIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIn(FieldOsUpdateAvailable, vs...))
+}
+
+// OsUpdateAvailableNotIn applies the NotIn predicate on the "os_update_available" field.
+func OsUpdateAvailableNotIn(vs ...string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotIn(FieldOsUpdateAvailable, vs...))
+}
+
+// OsUpdateAvailableGT applies the GT predicate on the "os_update_available" field.
+func OsUpdateAvailableGT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGT(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableGTE applies the GTE predicate on the "os_update_available" field.
+func OsUpdateAvailableGTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldGTE(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableLT applies the LT predicate on the "os_update_available" field.
+func OsUpdateAvailableLT(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLT(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableLTE applies the LTE predicate on the "os_update_available" field.
+func OsUpdateAvailableLTE(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldLTE(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableContains applies the Contains predicate on the "os_update_available" field.
+func OsUpdateAvailableContains(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContains(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableHasPrefix applies the HasPrefix predicate on the "os_update_available" field.
+func OsUpdateAvailableHasPrefix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasPrefix(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableHasSuffix applies the HasSuffix predicate on the "os_update_available" field.
+func OsUpdateAvailableHasSuffix(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldHasSuffix(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableIsNil applies the IsNil predicate on the "os_update_available" field.
+func OsUpdateAvailableIsNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldIsNull(FieldOsUpdateAvailable))
+}
+
+// OsUpdateAvailableNotNil applies the NotNil predicate on the "os_update_available" field.
+func OsUpdateAvailableNotNil() predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldNotNull(FieldOsUpdateAvailable))
+}
+
+// OsUpdateAvailableEqualFold applies the EqualFold predicate on the "os_update_available" field.
+func OsUpdateAvailableEqualFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldEqualFold(FieldOsUpdateAvailable, v))
+}
+
+// OsUpdateAvailableContainsFold applies the ContainsFold predicate on the "os_update_available" field.
+func OsUpdateAvailableContainsFold(v string) predicate.InstanceResource {
+	return predicate.InstanceResource(sql.FieldContainsFold(FieldOsUpdateAvailable, v))
+}
+
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.
 func TenantIDEQ(v string) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTenantID, v))
@@ -1587,6 +1827,29 @@ func HasCurrentOsWith(preds ...predicate.OperatingSystemResource) predicate.Inst
 	})
 }
 
+// HasOs applies the HasEdge predicate on the "os" edge.
+func HasOs() predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, OsTable, OsColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasOsWith applies the HasEdge predicate on the "os" edge with a given conditions (other predicates).
+func HasOsWith(preds ...predicate.OperatingSystemResource) predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := newOsStep()
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // HasWorkloadMembers applies the HasEdge predicate on the "workload_members" edge.
 func HasWorkloadMembers() predicate.InstanceResource {
 	return predicate.InstanceResource(func(s *sql.Selector) {
@@ -1648,6 +1911,29 @@ func HasLocalaccount() predicate.InstanceResource {
 func HasLocalaccountWith(preds ...predicate.LocalAccountResource) predicate.InstanceResource {
 	return predicate.InstanceResource(func(s *sql.Selector) {
 		step := newLocalaccountStep()
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
+// HasOsUpdatePolicy applies the HasEdge predicate on the "os_update_policy" edge.
+func HasOsUpdatePolicy() predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, OsUpdatePolicyTable, OsUpdatePolicyColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasOsUpdatePolicyWith applies the HasEdge predicate on the "os_update_policy" edge with a given conditions (other predicates).
+func HasOsUpdatePolicyWith(preds ...predicate.OSUpdatePolicyResource) predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := newOsUpdatePolicyStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
 				p(s)

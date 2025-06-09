@@ -6,9 +6,15 @@ package server_test
 import (
 	"context"
 	"errors"
+	"fmt"
 	"testing"
+	"time"
 
+	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
@@ -21,7 +27,10 @@ import (
 	inv_locationv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	inv_networkv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
 	inv_statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
+	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 )
+
+// handle AMT and Power related fields in the *HostRequest and *RegisterHostRequest
 
 // Write an example of inventory resource with a Host resource filled with all fields.
 var exampleInvHostResource = &inv_computev1.HostResource{
@@ -152,7 +161,6 @@ var exampleAPIHostResource = &computev1.HostResource{
 	BiosVendor:      "Example Vendor",
 	HostStorages: []*computev1.HoststorageResource{
 		{
-			ResourceId:    "storage-12345678",
 			Wwid:          "wwid-1234",
 			Serial:        "serial-1234",
 			Vendor:        "vendor-1234",
@@ -163,24 +171,23 @@ var exampleAPIHostResource = &computev1.HostResource{
 	},
 	HostNics: []*computev1.HostnicResource{
 		{
-			ResourceId:    "nic-12345678",
 			DeviceName:    "eth0",
 			PciIdentifier: "pci-1234",
 			MacAddr:       "00:11:22:33:44:55",
 			SriovEnabled:  true,
 			SriovVfsNum:   8,
 			SriovVfsTotal: 16,
-			Features:      "feature1,feature2",
 			Mtu:           1500,
-			LinkState:     computev1.NetworkInterfaceLinkState_NETWORK_INTERFACE_LINK_STATE_UP,
-			BmcInterface:  true,
+			LinkState: &computev1.NetworkInterfaceLinkState{
+				Type: computev1.LinkState_NETWORK_INTERFACE_LINK_STATE_UP,
+			},
+			BmcInterface: true,
 		},
 	},
 	HostUsbs: []*computev1.HostusbResource{
 		{
-			ResourceId: "usb-12345678",
-			Idvendor:   "vendor-1234",
-			Idproduct:  "product-1234",
+			IdVendor:   "vendor-1234",
+			IdProduct:  "product-1234",
 			Bus:        123,
 			Addr:       123,
 			Class:      "class-1234",
@@ -190,13 +197,12 @@ var exampleAPIHostResource = &computev1.HostResource{
 	},
 	HostGpus: []*computev1.HostgpuResource{
 		{
-			ResourceId:  "gpu-12345678",
-			PciId:       "pci-1234",
-			Product:     "product-1234",
-			Vendor:      "vendor-1234",
-			Description: "description-1234",
-			DeviceName:  "gpu0",
-			Features:    "feature1,feature2",
+			PciId:        "pci-1234",
+			Product:      "product-1234",
+			Vendor:       "vendor-1234",
+			Description:  "description-1234",
+			DeviceName:   "gpu0",
+			Capabilities: []string{"feature1", "feature2"},
 		},
 	},
 	Instance: &computev1.InstanceResource{
@@ -654,4 +660,352 @@ func TestHost_Delete(t *testing.T) {
 			}
 		})
 	}
+}
+
+//nolint:funlen // Test functions are long but necessary to test all the cases.
+func TestHost_Summary_Comprehensive(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	t.Cleanup(cancel)
+
+	// Setup base resources
+	region := inv_testing.CreateRegion(t, nil)
+	site1 := inv_testing.CreateSiteWithArgs(t, "SiteA", 100, 100, "", region, nil, nil)
+	site2 := inv_testing.CreateSiteWithArgs(t, "SiteB", 200, 200, "", region, nil, nil)
+	os := inv_testing.CreateOs(t)
+
+	// Create a server for testing
+	server := inv_server.InventorygRPCServer{InvClient: inv_testing.TestClients[inv_testing.APIClient]}
+
+	// SCENARIO 1: Base hosts with different states
+	// Host 1: Normal host with instance, running state
+	host1 := createTestHost(ctx, t, "Host1-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host1.GetResourceId()) })
+	instance1 := inv_testing.CreateInstance(t, host1, os)
+
+	// Update Instance status to Running
+	updateInstanceState(ctx, t, instance1.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+
+	// Host 2: Host with no site allocation
+	host2 := createTestHost(ctx, t, "Host2-Unallocated", nil, inv_computev1.HostState_HOST_STATE_REGISTERED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host2.GetResourceId()) })
+
+	// Host 3: Host with error status
+	host3 := createTestHost(ctx, t, "Host3-Error", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host3.GetResourceId()) })
+	updateHostStatus(ctx, t, host3.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// Host 4: Host with instance but instance has error
+	host4 := createTestHost(ctx, t, "Host4-InstanceError", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host4.GetResourceId()) })
+	instance4 := inv_testing.CreateInstance(t, host4, os)
+	updateInstanceStatusIndicator(ctx, t, instance4.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// VERIFICATION 1: All hosts, no filter
+	response, err := server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(4), response.Total, "Should have 4 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(2), response.Error, "Should have 2 hosts in error state")
+	assert.Equal(t, uint32(1), response.Running, "Should have 1 host running")
+
+	// VERIFICATION 2: Test with filter for specific site
+	siteFilter := fmt.Sprintf("site.resource_id = %q", site1.GetResourceId())
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{Filter: siteFilter})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(2), response.Total, "Should have 2 hosts in site1")
+	assert.Equal(t, uint32(0), response.Unallocated, "Should have 0 unallocated hosts in site1")
+	assert.Equal(t, uint32(1), response.Error, "Should have 1 host in error state in site1")
+	assert.Equal(t, uint32(1), response.Running, "Should have 1 host running in site1")
+
+	// SCENARIO 3: Test onboarding status error
+	host5 := createTestHost(ctx, t, "Host5-OnboardingError", site2, inv_computev1.HostState_HOST_STATE_REGISTERED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host5.GetResourceId()) })
+	updateHostOnboardingStatus(ctx, t, host5.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// VERIFICATION 3: Verify onboarding error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(5), response.Total, "Should have 5 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(3), response.Error, "Should have 3 hosts in error state")
+
+	// SCENARIO 4: Test registration status error
+	host6 := createTestHost(ctx, t, "Host6-RegistrationError", site1, inv_computev1.HostState_HOST_STATE_REGISTERED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host6.GetResourceId()) })
+	updateHostRegistrationStatus(ctx, t, host6.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// VERIFICATION 4: Verify registration error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(6), response.Total, "Should have 6 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(4), response.Error, "Should have 4 hosts in error state")
+
+	// SCENARIO 5: Test instance provisioning status error
+	host7 := createTestHost(ctx, t, "Host7-ProvisioningError", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host7.GetResourceId()) })
+	instance7 := inv_testing.CreateInstance(t, host7, os)
+	updateInstanceProvisioningStatusIndicator(
+		ctx,
+		t,
+		instance7.GetResourceId(),
+		inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+	)
+
+	// VERIFICATION 5: Verify provisioning error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(7), response.Total, "Should have 7 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(5), response.Error, "Should have 5 hosts in error state")
+
+	// SCENARIO 6: Test instance update status error
+	host8 := createTestHost(ctx, t, "Host8-UpdateError", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host8.GetResourceId()) })
+	instance8 := inv_testing.CreateInstance(t, host8, os)
+	updateInstanceUpdateStatusIndicator(ctx, t, instance8.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	// VERIFICATION 6: Verify update error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(8), response.Total, "Should have 8 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(6), response.Error, "Should have 6 hosts in error state")
+
+	// SCENARIO 7: Test instance attestation status error
+	host9 := createTestHost(ctx, t, "Host9-AttestationError", site2, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host9.GetResourceId()) })
+	instance9 := inv_testing.CreateInstance(t, host9, os)
+	updateInstanceAttestationStatusIndicator(
+		ctx,
+		t,
+		instance9.GetResourceId(),
+		inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR,
+	)
+
+	// VERIFICATION 7: Verify attestation error is counted
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(9), response.Total, "Should have 9 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(7), response.Error, "Should have 7 hosts in error state")
+
+	// SCENARIO 8: Test multiple running instances
+	host10 := createTestHost(ctx, t, "Host10-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host10.GetResourceId()) })
+	instance10 := inv_testing.CreateInstance(t, host10, os)
+	updateInstanceState(ctx, t, instance10.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+
+	// VERIFICATION 8: Verify running count increases
+	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	assert.NoError(t, err)
+	assert.Equal(t, uint32(10), response.Total, "Should have 10 hosts in total")
+	assert.Equal(t, uint32(1), response.Unallocated, "Should have 1 unallocated host")
+	assert.Equal(t, uint32(7), response.Error, "Should have 7 hosts in error state")
+	assert.Equal(t, uint32(2), response.Running, "Should have 2 hosts running")
+}
+
+// Helper functions for test.
+func createTestHost(
+	ctx context.Context,
+	t *testing.T,
+	name string,
+	site *inv_locationv1.SiteResource,
+	state inv_computev1.HostState,
+) *inv_computev1.HostResource {
+	t.Helper()
+
+	host := &inv_computev1.HostResource{
+		Name:         name,
+		DesiredState: state,
+		SerialNumber: uuid.NewString(),
+		Uuid:         uuid.NewString(),
+		MemoryBytes:  64 * 1024 * 1024 * 1024, // 64GB
+		CpuModel:     "Test CPU Model",
+		CpuSockets:   1,
+		CpuCores:     8,
+	}
+
+	if site != nil {
+		host.Site = site
+	}
+
+	createReq := &inventory.Resource{
+		Resource: &inventory.Resource_Host{
+			Host: host,
+		},
+	}
+
+	response, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createReq)
+	require.NoError(t, err)
+	require.NotNil(t, response)
+
+	return response.GetHost()
+}
+
+func updateHostStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
+	t.Helper()
+
+	updateHost := &inv_computev1.HostResource{
+		HostStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.HostResourceFieldHostStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateHostOnboardingStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
+	t.Helper()
+
+	updateHost := &inv_computev1.HostResource{
+		OnboardingStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.HostResourceFieldOnboardingStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateHostRegistrationStatus(ctx context.Context, t *testing.T, hostID string, status inv_statusv1.StatusIndication) {
+	t.Helper()
+
+	updateHost := &inv_computev1.HostResource{
+		RegistrationStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.HostResourceFieldRegistrationStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Host{Host: updateHost},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateInstanceState(ctx context.Context, t *testing.T, instanceID string, state inv_computev1.InstanceState) {
+	t.Helper()
+
+	updateInstance := &inv_computev1.InstanceResource{
+		CurrentState: state,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.InstanceResourceFieldCurrentState},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateInstanceStatusIndicator(ctx context.Context, t *testing.T, instanceID string, status inv_statusv1.StatusIndication) {
+	t.Helper()
+
+	updateInstance := &inv_computev1.InstanceResource{
+		InstanceStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.InstanceResourceFieldInstanceStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateInstanceProvisioningStatusIndicator(
+	ctx context.Context,
+	t *testing.T,
+	instanceID string,
+	status inv_statusv1.StatusIndication,
+) {
+	t.Helper()
+
+	updateInstance := &inv_computev1.InstanceResource{
+		ProvisioningStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.InstanceResourceFieldProvisioningStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateInstanceUpdateStatusIndicator(
+	ctx context.Context,
+	t *testing.T,
+	instanceID string,
+	status inv_statusv1.StatusIndication,
+) {
+	t.Helper()
+
+	updateInstance := &inv_computev1.InstanceResource{
+		UpdateStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.InstanceResourceFieldUpdateStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
+	require.NoError(t, err)
+}
+
+func updateInstanceAttestationStatusIndicator(
+	ctx context.Context,
+	t *testing.T,
+	instanceID string,
+	status inv_statusv1.StatusIndication,
+) {
+	t.Helper()
+
+	updateInstance := &inv_computev1.InstanceResource{
+		TrustedAttestationStatusIndicator: status,
+	}
+
+	fieldMask := &fieldmaskpb.FieldMask{
+		Paths: []string{inv_computev1.InstanceResourceFieldTrustedAttestationStatusIndicator},
+	}
+
+	updateRes := &inventory.Resource{
+		Resource: &inventory.Resource_Instance{Instance: updateInstance},
+	}
+
+	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
+	require.NoError(t, err)
 }

@@ -8,10 +8,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func assertSameMemberIDs(t *testing.T, expectedMembers, actualMembers []api.WorkloadMember) {
@@ -44,44 +45,44 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	h1 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
-	h2 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
-	h3 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	h1 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
+	h2 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
+	h3 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = h1.JSON200.ResourceId
-	i1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	i1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 	i1ID := *i1.JSON200.ResourceId
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = h2.JSON200.ResourceId
-	i2 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	i2 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 	i2ID := *i2.JSON200.ResourceId
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = h3.JSON200.ResourceId
-	i3 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	i3 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 	i3ID := *i3.JSON200.ResourceId
 
-	w1 := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	w1 := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 	w1ID := *w1.JSON200.ResourceId
-	w2 := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster2Request)
+	w2 := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster2Request)
 	w2ID := *w2.JSON200.ResourceId
 
 	// Create workload member (associate workload to hosts)
 	wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
-	m1w1 := CreateWorkloadMember(t, ctx, apiClient, api.WorkloadMember{
+	m1w1 := CreateWorkloadMember(ctx, t, apiClient, api.WorkloadMember{
 		InstanceId: &i1ID,
 		WorkloadId: &w1ID,
 		Kind:       wmKind,
 	})
-	m2w1 := CreateWorkloadMember(t, ctx, apiClient, api.WorkloadMember{
+	m2w1 := CreateWorkloadMember(ctx, t, apiClient, api.WorkloadMember{
 		InstanceId: &i2ID,
 		WorkloadId: &w1ID,
 		Kind:       wmKind,
 	})
-	m1w2 := CreateWorkloadMember(t, ctx, apiClient, api.WorkloadMember{
+	m1w2 := CreateWorkloadMember(ctx, t, apiClient, api.WorkloadMember{
 		InstanceId: &i3ID,
 		WorkloadId: &w2ID,
 		Kind:       wmKind,
@@ -156,7 +157,7 @@ func TestWorkload_UpdatePut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	w1 := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	w1 := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 
 	w1Update, err := apiClient.WorkloadServiceUpdateWorkloadWithResponse(
 		ctx,
@@ -276,9 +277,9 @@ func TestWorkloadMember_Errors(t *testing.T) {
 		t.Fatalf("new API client error %s", err.Error())
 	}
 
-	h1 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
+	h1 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
 	h1ID := *h1.JSON200.ResourceId
-	w1 := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	w1 := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 	w1ID := *w1.JSON200.ResourceId
 	wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
 
@@ -371,18 +372,18 @@ func TestWorkloadList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	pageID := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
-		CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster2Request)
+		CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster2Request)
 	}
 
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.WorkloadServiceListWorkloadsWithResponse(
 		ctx,
 		&api.WorkloadServiceListWorkloadsParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -390,7 +391,7 @@ func TestWorkloadList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.Workloads), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.Workloads), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.WorkloadServiceListWorkloadsWithResponse(
@@ -413,21 +414,21 @@ func TestWorkloadMemberList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	pageID := 1
+	pageSize := 4
 
-	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	workload := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	for id := 0; id < totalItems; id++ {
-		host := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
+		host := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
 
 		utils.Instance1Request.OsID = os.JSON200.ResourceId
 		utils.Instance1Request.HostID = host.JSON200.ResourceId
-		instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+		instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 		wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
-		CreateWorkloadMember(t, ctx, apiClient, api.WorkloadMember{
+		CreateWorkloadMember(ctx, t, apiClient, api.WorkloadMember{
 			InstanceId: instance.JSON200.ResourceId,
 			WorkloadId: workload.JSON200.ResourceId,
 			Kind:       wmKind,
@@ -438,7 +439,7 @@ func TestWorkloadMemberList(t *testing.T) {
 	resList, err := apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
 		ctx,
 		&api.WorkloadMemberServiceListWorkloadMembersParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -446,7 +447,7 @@ func TestWorkloadMemberList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.WorkloadMembers), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.WorkloadMembers), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
@@ -506,7 +507,7 @@ func TestWorkload_Patch(t *testing.T) {
 	require.NoError(t, err)
 
 	// Create a Workload
-	workload := CreateWorkload(t, ctx, apiClient, utils.WorkloadCluster1Request)
+	workload := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 	assert.Equal(t, utils.WorkloadName1, *workload.JSON200.Name)
 
 	// Modify fields for patching
@@ -521,7 +522,6 @@ func TestWorkload_Patch(t *testing.T) {
 	updatedWorkload, err := apiClient.WorkloadServicePatchWorkloadWithResponse(
 		ctx,
 		*workload.JSON200.ResourceId,
-		nil,
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

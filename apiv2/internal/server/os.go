@@ -17,16 +17,19 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
+// TODO: installed_packages_source field in OSResource is to be correctly filled when supported by the backend.
+//  This field is the URL where the Manifest file is stored. The field is immutable.
+//  This is added to allow manual creation of OSProfiles (advanced feature).
+
 // OpenAPIOSResourceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIOSResourceToProto = map[string]string{
-	osv1.OperatingSystemResourceFieldName:              inv_osv1.OperatingSystemResourceFieldName,
-	osv1.OperatingSystemResourceFieldArchitecture:      inv_osv1.OperatingSystemResourceFieldArchitecture,
-	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
-	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
-	osv1.OperatingSystemResourceFieldInstalledPackages: inv_osv1.OperatingSystemResourceFieldInstalledPackages,
-	osv1.OperatingSystemResourceFieldDescription:       inv_osv1.OperatingSystemResourceFieldDescription,
+	osv1.OperatingSystemResourceFieldName:          inv_osv1.OperatingSystemResourceFieldName,
+	osv1.OperatingSystemResourceFieldArchitecture:  inv_osv1.OperatingSystemResourceFieldArchitecture,
+	osv1.OperatingSystemResourceFieldKernelCommand: inv_osv1.OperatingSystemResourceFieldKernelCommand,
+	osv1.OperatingSystemResourceFieldUpdateSources: inv_osv1.OperatingSystemResourceFieldUpdateSources,
+	osv1.OperatingSystemResourceFieldMetadata:      inv_osv1.OperatingSystemResourceFieldMetadata,
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {
@@ -48,6 +51,11 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		OsType:            inv_osv1.OsType(osResource.GetOsType()),
 		OsProvider:        inv_osv1.OsProviderKind(osResource.GetOsProvider()),
 		Description:       osResource.GetDescription(),
+		Metadata:          osResource.GetMetadata(),
+		ExistingCvesUrl:   osResource.GetExistingCvesUrl(),
+		ExistingCves:      osResource.GetExistingCves(),
+		FixedCvesUrl:      osResource.GetFixedCvesUrl(),
+		FixedCves:         osResource.GetFixedCves(),
 	}
 
 	err := validator.ValidateMessage(invOSResource)
@@ -82,8 +90,12 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		Timestamps:        GrpcToOpenAPITimestamps(invOSResource),
 		PlatformBundle:    invOSResource.GetPlatformBundle(),
 		Description:       invOSResource.GetDescription(),
+		Metadata:          invOSResource.GetMetadata(),
+		ExistingCvesUrl:   invOSResource.GetExistingCvesUrl(),
+		ExistingCves:      invOSResource.GetExistingCves(),
+		FixedCvesUrl:      invOSResource.GetFixedCvesUrl(),
+		FixedCves:         invOSResource.GetFixedCves(),
 	}
-
 	return osResource
 }
 
@@ -123,19 +135,15 @@ func (is *InventorygRPCServer) ListOperatingSystems(
 	req *restv1.ListOperatingSystemsRequest,
 ) (*restv1.ListOperatingSystemsResponse, error) {
 	zlog.Debug().Msg("ListOSResources")
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
+
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Os{Os: &inv_osv1.OperatingSystemResource{}}},
-		Offset:   offset,
-		Limit:    limit,
+		Offset:   req.GetOffset(),
+		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-	if err = validator.ValidateMessage(filter); err != nil {
+	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}

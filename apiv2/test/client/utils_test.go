@@ -9,17 +9,17 @@ import (
 	"net/http"
 	"testing"
 
-	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	"github.com/stretchr/testify/require"
+
+	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 )
 
 // ListAllInstances retrieves all InstanceResource objects by iterating over paginated responses.
-func ListAllInstances(ctx context.Context, client *api.ClientWithResponses, pageSize int32) ([]api.InstanceResource, error) {
+func ListAllInstances(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.InstanceResource, error) {
 	var allInstances []api.InstanceResource
-	var offset int32 = 0
+	offset := 0
 
 	for {
-
 		// Call the API to get a paginated list of instances
 		response, err := client.InstanceServiceListInstancesWithResponse(ctx, &api.InstanceServiceListInstancesParams{
 			PageSize: &pageSize,
@@ -44,16 +44,16 @@ func ListAllInstances(ctx context.Context, client *api.ClientWithResponses, page
 		}
 
 		// Increment the offset for the next page
-		offset += int32(pageSize)
+		offset += pageSize
 	}
 
 	return allInstances, nil
 }
 
 // ListAllHosts retrieves all HostResource objects by iterating over paginated responses.
-func ListAllHosts(ctx context.Context, client *api.ClientWithResponses, pageSize int32) ([]api.HostResource, error) {
+func ListAllHosts(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.HostResource, error) {
 	var allHosts []api.HostResource
-	var offset int32 = 0
+	offset := 0
 
 	for {
 		// Call the API to get a paginated list of hosts
@@ -87,9 +87,9 @@ func ListAllHosts(ctx context.Context, client *api.ClientWithResponses, pageSize
 }
 
 // ListAllRegions retrieves all RegionResource objects by iterating over paginated responses.
-func ListAllRegions(ctx context.Context, client *api.ClientWithResponses, pageSize int32) ([]api.RegionResource, error) {
+func ListAllRegions(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.RegionResource, error) {
 	var allRegions []api.RegionResource
-	var offset int32 = 0
+	offset := 0
 
 	for {
 		// Call the API to get a paginated list of regions
@@ -123,9 +123,9 @@ func ListAllRegions(ctx context.Context, client *api.ClientWithResponses, pageSi
 }
 
 // ListAllSites retrieves all SiteResource objects by iterating over paginated responses.
-func ListAllSites(ctx context.Context, client *api.ClientWithResponses, pageSize int32) ([]api.SiteResource, error) {
+func ListAllSites(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.SiteResource, error) {
 	var allSites []api.SiteResource
-	var offset int32 = 0
+	offset := 0
 
 	for {
 		// Call the API to get a paginated list of sites
@@ -159,9 +159,9 @@ func ListAllSites(ctx context.Context, client *api.ClientWithResponses, pageSize
 }
 
 // ListAllWorkloads retrieves all WorkloadResource objects by iterating over paginated responses.
-func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, pageSize int32) ([]api.WorkloadResource, error) {
+func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.WorkloadResource, error) {
 	var allWorkloads []api.WorkloadResource
-	var offset int32 = 0
+	offset := 0
 
 	for {
 		// Call the API to get a paginated list of workloads
@@ -194,7 +194,7 @@ func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, page
 	return allWorkloads, nil
 }
 
-// Example test case for ListAllRegions
+// Example test case for ListAllRegions.
 func TestDeleteAllRegions(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -202,7 +202,7 @@ func TestDeleteAllRegions(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pageSize int32 = 10
+	pageSize := 10
 	regions, err := ListAllRegions(ctx, apiClient, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all regions: %v", err)
@@ -211,11 +211,11 @@ func TestDeleteAllRegions(t *testing.T) {
 	t.Logf("Retrieved %d regions", len(regions))
 	for _, region := range regions {
 		t.Logf("Region ID: %s, Name: %s", *region.ResourceId, *region.Name)
-		DeleteRegion(t, ctx, apiClient, *region.ResourceId)
+		DeleteRegion(ctx, t, apiClient, *region.ResourceId)
 	}
 }
 
-// Example test case for ListAllSites
+// Example test case for ListAllSites.
 func TestDeleteAllSites(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -223,7 +223,7 @@ func TestDeleteAllSites(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pageSize int32 = 10
+	pageSize := 10
 	sites, err := ListAllSites(ctx, apiClient, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all sites: %v", err)
@@ -232,11 +232,11 @@ func TestDeleteAllSites(t *testing.T) {
 	t.Logf("Retrieved %d sites", len(sites))
 	for _, site := range sites {
 		t.Logf("Site ID: %s, Name: %s", *site.ResourceId, *site.Name)
-		DeleteSite(t, ctx, apiClient, *site.ResourceId)
+		DeleteSite(ctx, t, apiClient, *site.ResourceId)
 	}
 }
 
-// Example test case for ListAllWorkloads
+// Example test case for ListAllWorkloads.
 func TestDeleteAllWorkloads(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -244,7 +244,7 @@ func TestDeleteAllWorkloads(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pageSize int32 = 10
+	pageSize := 10
 	workloads, err := ListAllWorkloads(ctx, apiClient, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all workloads: %v", err)
@@ -253,11 +253,11 @@ func TestDeleteAllWorkloads(t *testing.T) {
 	t.Logf("Retrieved %d workloads", len(workloads))
 	for _, workload := range workloads {
 		t.Logf("Workload ID: %s, Name: %s", *workload.WorkloadId, *workload.Name)
-		DeleteWorkload(t, ctx, apiClient, *workload.ResourceId)
+		DeleteWorkload(ctx, t, apiClient, *workload.ResourceId)
 	}
 }
 
-// Example test case for ListAllInstances
+// Example test case for ListAllInstances.
 func TestDeleteAllInstances(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -265,7 +265,7 @@ func TestDeleteAllInstances(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pageSize int32 = 10
+	pageSize := 10
 	instances, err := ListAllInstances(ctx, apiClient, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all instances: %v", err)
@@ -274,11 +274,11 @@ func TestDeleteAllInstances(t *testing.T) {
 	t.Logf("Retrieved %d instances", len(instances))
 	for _, instance := range instances {
 		t.Logf("Instance ID: %s, Name: %s", *instance.ResourceId, *instance.Name)
-		DeleteInstance(t, ctx, apiClient, *instance.ResourceId)
+		DeleteInstance(ctx, t, apiClient, *instance.ResourceId)
 	}
 }
 
-// Example test case for ListAllHosts
+// Example test case for ListAllHosts.
 func TestDeleteAllHosts(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -286,7 +286,7 @@ func TestDeleteAllHosts(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pageSize int32 = 10
+	pageSize := 10
 	hosts, err := ListAllHosts(ctx, apiClient, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all hosts: %v", err)
@@ -295,14 +295,16 @@ func TestDeleteAllHosts(t *testing.T) {
 	t.Logf("Retrieved %d hosts", len(hosts))
 	for _, host := range hosts {
 		t.Logf("Host ID: %s, Name: %s", *host.ResourceId, host.Name)
-		SoftDeleteHost(t, ctx, apiClient, &host)
+		SoftDeleteHost(ctx, t, apiClient, &host)
 	}
 }
 
-func ListAllLocalAccounts(t *testing.T, ctx context.Context, apiClient *api.ClientWithResponses) []api.LocalAccountResource {
+func ListAllLocalAccounts(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses) []api.LocalAccountResource {
+	t.Helper()
+
 	var allAccounts []api.LocalAccountResource
-	var offset int32
-	var pageSize int32 = 100 // Adjust page size as needed
+	var offset int
+	pageSize := 100 // Adjust page size as needed
 
 	for {
 		resList, err := apiClient.LocalAccountServiceListLocalAccountsWithResponse(
@@ -334,7 +336,7 @@ func TestDeleteAllLocalAccounts(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	accounts := ListAllLocalAccounts(t, ctx, apiClient)
+	accounts := ListAllLocalAccounts(ctx, t, apiClient)
 
 	for _, account := range accounts {
 		_, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(

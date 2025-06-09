@@ -205,14 +205,19 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 		ProfileName:       os.ProfileName,
 		ProfileVersion:    os.ProfileVersion,
 		InstalledPackages: os.InstalledPackages,
-		TenantId:          os.TenantID,
 		SecurityFeature:   osv1.SecurityFeature(securityFeatures),
 		OsType:            osv1.OsType(osType),
 		OsProvider:        osv1.OsProviderKind(osProvider),
 		PlatformBundle:    os.PlatformBundle,
+		Description:       os.Description,
+		ExistingCvesUrl:   os.ExistingCvesURL,
+		ExistingCves:      os.ExistingCves,
+		FixedCvesUrl:      os.FixedCvesURL,
+		FixedCves:         os.FixedCves,
+		TenantId:          os.TenantID,
 		CreatedAt:         os.CreatedAt,
 		UpdatedAt:         os.UpdatedAt,
-		Description:       os.Description,
+		Metadata:          os.Metadata,
 	}
 	if os.UpdateSources != "" {
 		protoUpdate.UpdateSources = strings.Split(os.UpdateSources, "|")
@@ -363,6 +368,11 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 	hostStatusIndicator := statusv1.StatusIndication_value[host.HostStatusIndicator.String()]
 	onboardingStatusIndicator := statusv1.StatusIndication_value[host.OnboardingStatusIndicator.String()]
 	registrationStatusIndicator := statusv1.StatusIndication_value[host.RegistrationStatusIndicator.String()]
+	powerCommandPolicy := computev1.PowerCommandPolicy_value[host.PowerCommandPolicy.String()]
+	desiredAmtState := computev1.AmtState_value[host.DesiredAmtState.String()]
+	currentAmtState := computev1.AmtState_value[host.CurrentAmtState.String()]
+	powerStatusIndicator := statusv1.StatusIndication_value[host.PowerStatusIndicator.String()]
+	amtStatusIndicator := statusv1.StatusIndication_value[host.AmtStatusIndicator.String()]
 
 	protoHost := &computev1.HostResource{
 		ResourceId:                  host.ResourceID,
@@ -405,6 +415,17 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		Metadata:                    host.Metadata,
 		DesiredPowerState:           computev1.PowerState(desiredPowerState),
 		CurrentPowerState:           computev1.PowerState(currentPowerState),
+		PowerStatus:                 host.PowerStatus,
+		PowerStatusIndicator:        statusv1.StatusIndication(powerStatusIndicator),
+		PowerStatusTimestamp:        host.PowerStatusTimestamp,
+		PowerCommandPolicy:          computev1.PowerCommandPolicy(powerCommandPolicy),
+		PowerOnTime:                 host.PowerOnTime,
+		AmtSku:                      host.AmtSku,
+		DesiredAmtState:             computev1.AmtState(desiredAmtState),
+		CurrentAmtState:             computev1.AmtState(currentAmtState),
+		AmtStatus:                   host.AmtStatus,
+		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
+		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		TenantId:                    host.TenantID,
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,
@@ -662,6 +683,7 @@ func entNetlinkResourceToProtoNetlinkResource(netlink *ent.NetlinkResource) *net
 	return protoNetlink
 }
 
+//nolint:cyclop // InstanceResource has many edges that need to be converted.
 func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *computev1.InstanceResource {
 	if ins == nil {
 		return nil
@@ -699,6 +721,9 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 		TrustedAttestationStatus:          ins.TrustedAttestationStatus,
 		TrustedAttestationStatusIndicator: statusv1.StatusIndication(trustedAttestationStatusIndicator),
 		TrustedAttestationStatusTimestamp: ins.TrustedAttestationStatusTimestamp,
+		ExistingCves:                      ins.ExistingCves,
+		RuntimePackages:                   ins.RuntimePackages,
+		OsUpdateAvailable:                 ins.OsUpdateAvailable,
 		TenantId:                          ins.TenantID,
 		CreatedAt:                         ins.CreatedAt,
 		UpdatedAt:                         ins.UpdatedAt,
@@ -713,6 +738,9 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if os, qerr := ins.Edges.CurrentOsOrErr(); qerr == nil {
 		protoInstance.CurrentOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
 	}
+	if os, qerr := ins.Edges.OsOrErr(); qerr == nil {
+		protoInstance.Os = entOperatingSystemResourceToProtoOperatingSystemResource(os)
+	}
 	if wMembers, qerr := ins.Edges.WorkloadMembersOrErr(); qerr == nil {
 		for _, m := range wMembers {
 			protoInstance.WorkloadMembers = append(protoInstance.WorkloadMembers, entWorkloadMemberToProtoWorkloadMember(m))
@@ -724,7 +752,9 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if localaccount, qerr := ins.Edges.LocalaccountOrErr(); qerr == nil {
 		protoInstance.Localaccount = entLocalAccountResourceToProtoLocalAccountResource(localaccount)
 	}
-
+	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
+		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
+	}
 	return protoInstance
 }
 
@@ -810,4 +840,32 @@ func entIPAddressResourceToProtoIPAddressResource(ipaddress *ent.IPAddressResour
 	}
 
 	return protoIPAddress
+}
+
+func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePolicyResource,
+) *computev1.OSUpdatePolicyResource {
+	if osup == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	updatePolicy := computev1.UpdatePolicy_value[osup.UpdatePolicy.String()] // Defaults to 0 if not found
+	protoOsUpdatePolicy := &computev1.OSUpdatePolicyResource{
+		Name:            osup.Name,
+		Description:     osup.Description,
+		ResourceId:      osup.ResourceID,
+		InstallPackages: osup.InstallPackages,
+		KernelCommand:   osup.KernelCommand,
+		UpdatePolicy:    computev1.UpdatePolicy(updatePolicy),
+		TenantId:        osup.TenantID,
+		CreatedAt:       osup.CreatedAt,
+		UpdatedAt:       osup.UpdatedAt,
+	}
+	if osup.UpdateSources != "" {
+		protoOsUpdatePolicy.UpdateSources = strings.Split(osup.UpdateSources, "|")
+	}
+	// Convert the edges recursively.
+	if os, err := osup.Edges.TargetOsOrErr(); err == nil {
+		protoOsUpdatePolicy.TargetOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
+	}
+	return protoOsUpdatePolicy
 }

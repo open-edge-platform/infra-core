@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func TestLocalAccount_CreateGetDelete(t *testing.T) {
@@ -25,8 +25,8 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 
 	// Create LocalAccounts
-	account1 := CreateLocalAccount(t, ctx, apiClient, utils.LocalAccount1Request)
-	account2 := CreateLocalAccount(t, ctx, apiClient, utils.LocalAccount2Request)
+	account1 := CreateLocalAccount(ctx, t, apiClient, utils.LocalAccount1Request)
+	account2 := CreateLocalAccount(ctx, t, apiClient, utils.LocalAccount2Request)
 
 	// Get LocalAccount 1
 	get1, err := apiClient.LocalAccountServiceGetLocalAccountWithResponse(
@@ -102,14 +102,14 @@ func TestLocalAccountList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 5
-	var offset int32
-	var pageSize int32 = 2
+	var offset int
+	pageSize := 2
 
 	for id := 0; id < totalItems; id++ {
 		// Generate sequential usernames
 		username := fmt.Sprintf("user%d", id)
 		utils.LocalAccount1Request.Username = username
-		CreateLocalAccount(t, ctx, apiClient, utils.LocalAccount1Request)
+		CreateLocalAccount(ctx, t, apiClient, utils.LocalAccount1Request)
 	}
 
 	// Check if list resources return expected number of entries
@@ -124,7 +124,7 @@ func TestLocalAccountList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, int(pageSize), len(resList.JSON200.LocalAccounts))
+	assert.Equal(t, pageSize, len(resList.JSON200.LocalAccounts))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.LocalAccountServiceListLocalAccountsWithResponse(

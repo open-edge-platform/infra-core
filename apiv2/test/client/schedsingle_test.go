@@ -8,10 +8,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 func TestSchedSingle_CreateGetDelete(t *testing.T) {
@@ -22,13 +23,13 @@ func TestSchedSingle_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
-	singleSched1 := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
+	singleSched1 := CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule1Request)
 
 	utils.SingleSchedule2Request.TargetSiteId = siteCreated1.JSON200.ResourceId
-	singleSched2 := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule2Request)
+	singleSched2 := CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule2Request)
 
 	get1, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
@@ -57,10 +58,10 @@ func TestSchedSingle_CreateError(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = siteCreated1.JSON200.ResourceId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
 
 	// Expected BadRequest Error because of target site and host are set in Schedule
 	utils.SingleScheduleError.TargetSiteId = siteCreated1.JSON200.ResourceId
@@ -92,10 +93,10 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
-	singleSched1 := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
+	singleSched1 := CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule1Request)
 
 	SingleSchedule1Get, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
@@ -106,7 +107,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 	assert.Equal(t, http.StatusOK, SingleSchedule1Get.StatusCode())
 	assert.Equal(t, utils.SschedName1, *SingleSchedule1Get.JSON200.Name)
 
-	siteCreated2 := CreateSite(t, ctx, apiClient, utils.SiteListRequest1)
+	siteCreated2 := CreateSite(ctx, t, apiClient, utils.SiteListRequest1)
 
 	utils.SingleSchedule2Request.TargetSiteId = siteCreated2.JSON200.ResourceId
 	singleSched1Update, err := apiClient.ScheduleServiceUpdateSingleScheduleWithResponse(
@@ -178,7 +179,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 		t.Fatalf("new API client error %s", err.Error())
 	}
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
 
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
@@ -253,22 +254,22 @@ func TestSchedSingleList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	pageID := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
-		CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
+		CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule1Request)
 	}
 
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
 		&api.ScheduleServiceListSingleSchedulesParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -283,7 +284,7 @@ func TestSchedSingleList(t *testing.T) {
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
 		&api.ScheduleServiceListSingleSchedulesParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 			SiteId:   siteCreated1.JSON200.ResourceId,
 		},
@@ -292,7 +293,7 @@ func TestSchedSingleList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, int(pageSize), len(resList.JSON200.SingleSchedules))
+	assert.Equal(t, pageSize, len(resList.JSON200.SingleSchedules))
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
@@ -316,17 +317,17 @@ func TestSchedSingleListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	postRespSite1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	postRespSite2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	postRespSite1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
+	postRespSite2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = postRespSite1.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule1Request)
 
 	utils.SingleSchedule2Request.TargetSiteId = postRespSite2.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule2Request)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule2Request)
 
 	utils.SingleSchedule3Request.TargetSiteId = postRespSite2.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule3Request)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule3Request)
 
 	// Checks list of SingleSchedules with noo siteID
 	resList, err := apiClient.ScheduleServiceListSingleSchedulesWithResponse(
@@ -386,58 +387,58 @@ func TestSchedSingleMaintenanceQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	region1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
-	region2 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	region1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
+	region2 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	utils.Site1Request.RegionId = region1.JSON200.ResourceId
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site1Request.RegionId = nil
 
 	utils.Site1Request.RegionId = region2.JSON200.ResourceId
-	site2 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site2 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site1Request.RegionId = nil
 
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
-	host1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	host1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
 	utils.Host1Request.SiteId = nil
 
-	host2 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
-	host3 := CreateHost(t, ctx, apiClient, GetHostRequestWithRandomUUID())
+	host2 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
+	host3 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
 
 	utils.Host2Request.SiteId = site2.JSON200.ResourceId
-	host4 := CreateHost(t, ctx, apiClient, utils.Host2Request)
+	host4 := CreateHost(ctx, t, apiClient, utils.Host2Request)
 	utils.Host2Request.SiteId = nil
 
 	utils.SingleScheduleAlwaysRequest.TargetSiteId = site1.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleScheduleAlwaysRequest)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleScheduleAlwaysRequest)
 	utils.SingleScheduleAlwaysRequest.TargetSiteId = nil
 
 	utils.SingleScheduleAlwaysRequest.TargetHostId = host2.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleScheduleAlwaysRequest)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleScheduleAlwaysRequest)
 	utils.SingleScheduleAlwaysRequest.TargetHostId = nil
 
 	utils.SingleScheduleNever.TargetHostId = host3.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleScheduleNever)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleScheduleNever)
 	utils.SingleScheduleNever.TargetHostId = nil
 
 	utils.SingleScheduleAlwaysRequest.TargetRegionId = region2.JSON200.ResourceId
-	CreateSchedSingle(t, ctx, apiClient, utils.SingleScheduleAlwaysRequest)
+	CreateSchedSingle(ctx, t, apiClient, utils.SingleScheduleAlwaysRequest)
 	utils.SingleScheduleAlwaysRequest.TargetRegionId = nil
 
 	// Host1 should be in maintenance (it's in Site1, and we have maintenance window for it)
-	AssertInMaintenance(t, ctx, apiClient, host1.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 1, true)
-	AssertInMaintenance(t, ctx, apiClient, nil, site1.JSON200.ResourceId, nil, utils.FutureEpoch, 1, true)
+	AssertInMaintenance(ctx, t, apiClient, host1.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 1, true)
+	AssertInMaintenance(ctx, t, apiClient, nil, site1.JSON200.ResourceId, nil, utils.FutureEpoch, 1, true)
 
 	// Host2 should be in maintenance (it's directly in maintenance)
-	AssertInMaintenance(t, ctx, apiClient, host2.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 1, true)
+	AssertInMaintenance(ctx, t, apiClient, host2.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 1, true)
 
 	// Host3 should not be in maintenance
-	AssertInMaintenance(t, ctx, apiClient, host3.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 0, false)
+	AssertInMaintenance(ctx, t, apiClient, host3.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 0, false)
 
 	// Host4 should be in maintenance (it's in Region2, and we have maintenance window for it)
-	AssertInMaintenance(t, ctx, apiClient, host4.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 1, true)
-	AssertInMaintenance(t, ctx, apiClient, nil, site2.JSON200.ResourceId, nil, utils.FutureEpoch, 1, true)
-	AssertInMaintenance(t, ctx, apiClient, nil, nil, region2.JSON200.ResourceId, utils.FutureEpoch, 1, true)
+	AssertInMaintenance(ctx, t, apiClient, host4.JSON200.ResourceId, nil, nil, utils.FutureEpoch, 1, true)
+	AssertInMaintenance(ctx, t, apiClient, nil, site2.JSON200.ResourceId, nil, utils.FutureEpoch, 1, true)
+	AssertInMaintenance(ctx, t, apiClient, nil, nil, region2.JSON200.ResourceId, utils.FutureEpoch, 1, true)
 }
 
 func TestSchedSingleList_ListEmpty(t *testing.T) {
@@ -485,10 +486,10 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.SiteID
-	singleSched1 := CreateSchedSingle(t, ctx, apiClient, utils.SingleSchedule1Request)
+	singleSched1 := CreateSchedSingle(ctx, t, apiClient, utils.SingleSchedule1Request)
 
 	SingleSchedule1Get, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
@@ -500,13 +501,12 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	assert.Equal(t, http.StatusOK, SingleSchedule1Get.StatusCode())
 	assert.Equal(t, utils.SschedName1, *SingleSchedule1Get.JSON200.Name)
 
-	siteCreated2 := CreateSite(t, ctx, apiClient, utils.SiteListRequest1)
+	siteCreated2 := CreateSite(ctx, t, apiClient, utils.SiteListRequest1)
 	utils.SingleSchedule2Request.TargetSiteId = siteCreated2.JSON200.SiteID
 
 	singleSched1Update, err := apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
 		*singleSched1.JSON200.SingleScheduleID,
-		nil,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -537,7 +537,6 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
 		*singleSched1.JSON200.SingleScheduleID,
-		nil,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -568,7 +567,6 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
 		*singleSched1.JSON200.SingleScheduleID,
-		nil,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

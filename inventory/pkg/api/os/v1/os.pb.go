@@ -187,19 +187,24 @@ type OperatingSystemResource struct {
 	ResourceId        string          `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`                                             // Resource ID of this OperatingSystemResource
 	Name              string          `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`                                                                           // user-provided, human-readable name of OS
 	Architecture      string          `protobuf:"bytes,3,opt,name=architecture,proto3" json:"architecture,omitempty"`                                                           // CPU architecture supported
-	KernelCommand     string          `protobuf:"bytes,4,opt,name=kernel_command,json=kernelCommand,proto3" json:"kernel_command,omitempty"`                                    // Kernel Command Line Options
-	UpdateSources     []string        `protobuf:"bytes,5,rep,name=update_sources,json=updateSources,proto3" json:"update_sources,omitempty"`                                    // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs
+	KernelCommand     string          `protobuf:"bytes,4,opt,name=kernel_command,json=kernelCommand,proto3" json:"kernel_command,omitempty"`                                    // Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy.
+	UpdateSources     []string        `protobuf:"bytes,5,rep,name=update_sources,json=updateSources,proto3" json:"update_sources,omitempty"`                                    // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 	ImageUrl          string          `protobuf:"bytes,6,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`                                                   // OS image URL. URL of the original installation source.
 	ImageId           string          `protobuf:"bytes,13,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`                                                     // OS image ID. This must be a unique identifier of OS image that can be retrieved from running OS. Used by IMMUTABLE only.
 	Sha256            string          `protobuf:"bytes,7,opt,name=sha256,proto3" json:"sha256,omitempty"`                                                                       // SHA256 checksum of the OS resource in HEX. It's length is 32 bytes, but string representation of HEX is twice long (64 chars)
 	ProfileName       string          `protobuf:"bytes,8,opt,name=profile_name,json=profileName,proto3" json:"profile_name,omitempty"`                                          // Name of an OS profile that the OS resource belongs to. Uniquely identifies family of OSResources.
 	ProfileVersion    string          `protobuf:"bytes,12,opt,name=profile_version,json=profileVersion,proto3" json:"profile_version,omitempty"`                                // Version of an OS profile that the OS resource belongs to. Along with profile_name uniquely identifies OS resource.
-	InstalledPackages string          `protobuf:"bytes,9,opt,name=installed_packages,json=installedPackages,proto3" json:"installed_packages,omitempty"`                        // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info.
+	InstalledPackages string          `protobuf:"bytes,9,opt,name=installed_packages,json=installedPackages,proto3" json:"installed_packages,omitempty"`                        // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 	SecurityFeature   SecurityFeature `protobuf:"varint,10,opt,name=security_feature,json=securityFeature,proto3,enum=os.v1.SecurityFeature" json:"security_feature,omitempty"` // Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE).
 	OsType            OsType          `protobuf:"varint,11,opt,name=os_type,json=osType,proto3,enum=os.v1.OsType" json:"os_type,omitempty"`                                     // Indicating the type of OS (for example, mutable or immutable).
 	OsProvider        OsProviderKind  `protobuf:"varint,14,opt,name=os_provider,json=osProvider,proto3,enum=os.v1.OsProviderKind" json:"os_provider,omitempty"`                 // Indicating the provider of OS (e.g., Infra or Lenovo).
 	PlatformBundle    string          `protobuf:"bytes,15,opt,name=platform_bundle,json=platformBundle,proto3" json:"platform_bundle,omitempty"`                                // An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used.
 	Description       string          `protobuf:"bytes,16,opt,name=description,proto3" json:"description,omitempty"`                                                            // user-provided, human-readable description of OS
+	Metadata          string          `protobuf:"bytes,18,opt,name=metadata,proto3" json:"metadata,omitempty"`                                                                  // Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
+	ExistingCvesUrl   string          `protobuf:"bytes,42,opt,name=existing_cves_url,json=existingCvesUrl,proto3" json:"existing_cves_url,omitempty"`                           // URL of the file containing information about the existing CVEs on the Operating System.
+	ExistingCves      string          `protobuf:"bytes,43,opt,name=existing_cves,json=existingCves,proto3" json:"existing_cves,omitempty"`                                      // The CVEs that are currently present on the Operating System, encoded as a JSON list.
+	FixedCvesUrl      string          `protobuf:"bytes,44,opt,name=fixed_cves_url,json=fixedCvesUrl,proto3" json:"fixed_cves_url,omitempty"`                                    // URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
+	FixedCves         string          `protobuf:"bytes,45,opt,name=fixed_cves,json=fixedCves,proto3" json:"fixed_cves,omitempty"`                                               // The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
 	TenantId          string          `protobuf:"bytes,100,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`                                                 // Tenant Identifier
 	CreatedAt         string          `protobuf:"bytes,200,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`                                              // Creation timestamp
 	UpdatedAt         string          `protobuf:"bytes,201,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`                                              // Update timestamp
@@ -349,6 +354,41 @@ func (x *OperatingSystemResource) GetDescription() string {
 	return ""
 }
 
+func (x *OperatingSystemResource) GetMetadata() string {
+	if x != nil {
+		return x.Metadata
+	}
+	return ""
+}
+
+func (x *OperatingSystemResource) GetExistingCvesUrl() string {
+	if x != nil {
+		return x.ExistingCvesUrl
+	}
+	return ""
+}
+
+func (x *OperatingSystemResource) GetExistingCves() string {
+	if x != nil {
+		return x.ExistingCves
+	}
+	return ""
+}
+
+func (x *OperatingSystemResource) GetFixedCvesUrl() string {
+	if x != nil {
+		return x.FixedCvesUrl
+	}
+	return ""
+}
+
+func (x *OperatingSystemResource) GetFixedCves() string {
+	if x != nil {
+		return x.FixedCves
+	}
+	return ""
+}
+
 func (x *OperatingSystemResource) GetTenantId() string {
 	if x != nil {
 		return x.TenantId
@@ -394,7 +434,7 @@ var file_os_v1_os_proto_rawDesc = []byte{
 	0xba, 0xa6, 0x49, 0x02, 0x08, 0x01, 0x52, 0x0d, 0x6b, 0x65, 0x72, 0x6e, 0x65, 0x6c, 0x43, 0x6f,
 	0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x12, 0x3a, 0x0a, 0x0e, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f,
 	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x09, 0x42, 0x13, 0xba,
-	0x48, 0x0a, 0x92, 0x01, 0x07, 0x22, 0x05, 0x72, 0x03, 0x28, 0xa0, 0x1f, 0xba, 0xa6, 0x49, 0x02,
+	0x48, 0x0a, 0x92, 0x01, 0x07, 0x22, 0x05, 0x72, 0x03, 0x28, 0x90, 0x4e, 0xba, 0xa6, 0x49, 0x02,
 	0x08, 0x01, 0x52, 0x0d, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x6f, 0x75, 0x72, 0x63, 0x65,
 	0x73, 0x12, 0x25, 0x0a, 0x09, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x06,
 	0x20, 0x01, 0x28, 0x09, 0x42, 0x08, 0xba, 0xa6, 0x49, 0x04, 0x08, 0x01, 0x28, 0x01, 0x52, 0x08,

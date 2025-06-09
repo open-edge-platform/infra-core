@@ -7,6 +7,7 @@ import (
 	compute_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	network_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
+	osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	ou_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/ou/v1"
 	provider_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 	schedule_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/schedule/v1"
@@ -342,5 +343,97 @@ func NetlinkCurrentStateDeleted() Opt[network_v1.NetlinkResource] {
 func WorkloadKind(wk compute_v1.WorkloadKind) Opt[compute_v1.WorkloadResource] {
 	return func(t *compute_v1.WorkloadResource) {
 		t.Kind = wk
+	}
+}
+
+func InstalledPackages(pkgs string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.InstalledPackages = pkgs
+	}
+}
+
+func Sha256(sha256 string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.Sha256 = sha256
+	}
+}
+
+func ProfileName(profileName string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.ProfileName = profileName
+	}
+}
+
+func Metadata(metadata string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.Metadata = metadata
+	}
+}
+
+func SecurityFeature(secFeature osv1.SecurityFeature) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.SecurityFeature = secFeature
+	}
+}
+
+func OsType(osType osv1.OsType) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.OsType = osType
+	}
+}
+
+func OSUpdatePolicyTarget() Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.UpdatePolicy = compute_v1.UpdatePolicy_UPDATE_POLICY_TARGET
+	}
+}
+
+func OSUpdatePolicyLatest() Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.UpdatePolicy = compute_v1.UpdatePolicy_UPDATE_POLICY_LATEST
+	}
+}
+
+func OsUpdatePolicyName(name string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.Name = name
+	}
+}
+
+func OsUpdatePolicyDescription(desc string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.Description = desc
+	}
+}
+
+func OSUpdatePolicyInstallPackages(pkgs string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.InstallPackages = pkgs
+	}
+}
+
+func OSUpdatePolicyUpdateSources(sources []string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.UpdateSources = sources
+	}
+}
+
+func OSUpdatePolicyKernelCommand(cmd string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.KernelCommand = cmd
+	}
+}
+
+func OSUpdatePolicyTargetOS(targetOS *osv1.OperatingSystemResource) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.TargetOs = targetOS
+	}
+}
+
+func InstanceOsUpdatePolicy(
+	policy *compute_v1.OSUpdatePolicyResource,
+) Opt[compute_v1.InstanceResource] {
+	return func(i *compute_v1.InstanceResource) {
+		i.OsUpdatePolicy = policy
 	}
 }

@@ -9,10 +9,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
-	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 var (
@@ -42,53 +43,57 @@ type testCase struct {
 	outputElements int // the expected response value of outputElements
 }
 
+//nolint:gocritic // more than 5 return value to return the whole hierarchy.
 func setupRegionSiteHierarchy(
-	t *testing.T,
 	ctx context.Context,
+	t *testing.T,
 	apiClient *api.ClientWithResponses,
-) (*api.RegionResource, *api.RegionResource, *api.RegionResource, *api.SiteResource, *api.SiteResource, *api.SiteResource) {
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+) (reg1, reg2, reg3 *api.RegionResource, site1, site2, site3 *api.SiteResource) {
+	t.Helper()
+
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	utils.Region2Request.ParentId = r1.JSON200.ResourceId
-	r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 	utils.Region2Request.ParentId = nil
 
 	utils.Region3Request.ParentId = r2.JSON200.ResourceId
-	r3 := CreateRegion(t, ctx, apiClient, utils.Region3Request)
+	r3 := CreateRegion(ctx, t, apiClient, utils.Region3Request)
 	utils.Region3Request.ParentId = nil
 
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	s1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site1Request.RegionId = nil
 
 	utils.Site2Request.RegionId = r2.JSON200.ResourceId
-	s2 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 	utils.Site2Request.Region = nil
 
 	utils.Site2Request.RegionId = r2.JSON200.ResourceId
-	s3 := CreateSite(t, ctx, apiClient, utils.Site3Request)
+	s3 := CreateSite(ctx, t, apiClient, utils.Site3Request)
 	utils.Site2Request.Region = nil
 
 	return r1.JSON200, r2.JSON200, r3.JSON200, s1.JSON200, s2.JSON200, s3.JSON200
 }
 
 func setupRegionSiteLargeHierarchy(
-	t *testing.T,
 	ctx context.Context,
+	t *testing.T,
 	apiClient *api.ClientWithResponses,
 ) {
+	t.Helper()
 	for r := 0; r < maxRegions; r++ {
 		regName := fmt.Sprintf("%s-%d", regionPrefixName, r)
 		utils.Region1Request.Name = &regName
 		utils.Region1Request.ParentId = nil
-		r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+		r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 		utils.Region1Request.Name = &utils.Region1Name
 
 		for sr := 0; sr < maxSubRegions; sr++ {
 			subregName := fmt.Sprintf("%s-%d-%d", subRegionPrefixName, r, sr)
 			utils.Region2Request.Name = &subregName
 			utils.Region2Request.ParentId = r1.JSON200.ResourceId
-			r2 := CreateRegion(t, ctx, apiClient, utils.Region2Request)
+			r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 			utils.Region2Request.ParentId = nil
 			utils.Region2Request.Name = &utils.Region2Name
 
@@ -96,7 +101,7 @@ func setupRegionSiteLargeHierarchy(
 				siteName := fmt.Sprintf("%s-%s-%d", subRegionPrefixName, sitePrefixName, si)
 				utils.Site2Request.Name = &siteName
 				utils.Site2Request.RegionId = r2.JSON200.ResourceId
-				CreateSite(t, ctx, apiClient, utils.Site2Request)
+				CreateSite(ctx, t, apiClient, utils.Site2Request)
 				utils.Site2Request.Region = nil
 				utils.Site2Request.Name = &utils.Site2Name
 			}
@@ -112,7 +117,7 @@ func TestLocation_Hierarchy(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1, r2, r3, s1, s2, s3 := setupRegionSiteHierarchy(t, ctx, apiClient)
+	r1, r2, r3, s1, s2, s3 := setupRegionSiteHierarchy(ctx, t, apiClient)
 
 	testCases := []testCase{
 		{
@@ -343,14 +348,15 @@ func TestLocation_Hierarchy(t *testing.T) {
 
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
-			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
+				ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 
 			require.Equal(t, http.StatusOK, respStatusCode)
 			assert.EqualValues(t, tcase.expected, getlocResponse.JSON200.Nodes)
-			assert.Equal(t, int32(tcase.totalElements), *getlocResponse.JSON200.TotalElements)
-			assert.Equal(t, int32(tcase.outputElements), *getlocResponse.JSON200.OutputElements)
+			assert.Equal(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
+			assert.Equal(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
 		})
 	}
 }
@@ -363,7 +369,7 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	setupRegionSiteLargeHierarchy(t, ctx, apiClient)
+	setupRegionSiteLargeHierarchy(ctx, t, apiClient)
 	testCases := []testCase{
 		{
 			name: "Test root regions",
@@ -413,12 +419,13 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 	}
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
-			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
+				ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 			require.Equal(t, http.StatusOK, respStatusCode)
-			assert.Equal(t, int32(tcase.totalElements), *getlocResponse.JSON200.TotalElements)
-			assert.Equal(t, int32(tcase.outputElements), *getlocResponse.JSON200.OutputElements)
+			assert.Equal(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
+			assert.Equal(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
 			assert.Equal(t, tcase.listedElements, len(getlocResponse.JSON200.Nodes))
 		})
 	}
@@ -432,7 +439,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	var pgSize int32 = 100
+	pgSize := 100
 	regions, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
 		&api.RegionServiceListRegionsParams{
@@ -444,7 +451,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	require.Equal(t, http.StatusOK, regions.StatusCode())
 
 	for _, region := range regions.JSON200.Regions {
-		_, err := apiClient.RegionServiceDeleteRegionWithResponse(
+		_, err = apiClient.RegionServiceDeleteRegionWithResponse(
 			ctx,
 			*region.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,

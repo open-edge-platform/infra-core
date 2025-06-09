@@ -7,16 +7,22 @@ package store
 // turns gRPC values into an ent mutation (used with Create/Update)
 
 import (
+	"fmt"
 	"strings"
 
 	entpb "entgo.io/contrib/entproto/cmd/protoc-gen-ent/options/ent"
 	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	compute_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
+	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
+	os_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
+	ou_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/ou/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 )
@@ -154,6 +160,7 @@ func handleUint32Kind(fd protoreflect.FieldDescriptor, val protoreflect.Value, m
 
 func handleStringKind(fd protoreflect.FieldDescriptor, val protoreflect.Value, mut ent.Mutation) error {
 	fname := fd.TextName()
+	fullName := string(fd.FullName())
 	var stringValue string
 	err := error(nil)
 	if fd.IsList() { // handle lists of strings by combining them with a pipe delimiter
@@ -165,15 +172,33 @@ func handleStringKind(fd protoreflect.FieldDescriptor, val protoreflect.Value, m
 		return errors.Wrap(mut.SetField(fname, strings.Join(strslice, "|")))
 	}
 
-	if fname == "metadata" {
+	// TODO: add further validation for JSON fields.
+	resourceWithMetadataToValidate := []string{
+		fmt.Sprintf("%s.%s", getProtoFullName(&compute_v1.HostResource{}), compute_v1.HostResourceFieldMetadata),
+		fmt.Sprintf("%s.%s", getProtoFullName(&compute_v1.WorkloadResource{}), compute_v1.WorkloadResourceFieldMetadata),
+		fmt.Sprintf("%s.%s", getProtoFullName(&location_v1.SiteResource{}), location_v1.SiteResourceFieldMetadata),
+		fmt.Sprintf("%s.%s", getProtoFullName(&location_v1.RegionResource{}), location_v1.RegionResourceFieldMetadata),
+		fmt.Sprintf("%s.%s", getProtoFullName(&ou_v1.OuResource{}), ou_v1.OuResourceFieldMetadata),
+	}
+	metadataFieldOs := fmt.Sprintf("%s.%s",
+		getProtoFullName(&os_v1.OperatingSystemResource{}), os_v1.OperatingSystemResourceFieldMetadata)
+	switch {
+	case slices.Contains(resourceWithMetadataToValidate, fullName):
 		if stringValue, err = ValidateMetadata(val.String()); err != nil {
 			return err
 		}
-	} else {
+	case fullName == metadataFieldOs:
+		if stringValue, err = ValidateOSMetadata(val.String()); err != nil {
+			return err
+		}
+	default:
 		stringValue = val.String()
 	}
-
 	return errors.Wrap(mut.SetField(fname, stringValue))
+}
+
+func getProtoFullName(msg proto.Message) string {
+	return string(msg.ProtoReflect().Descriptor().FullName())
 }
 
 // fieldIsWhitelistedImmutable contains a list of proto fields that should

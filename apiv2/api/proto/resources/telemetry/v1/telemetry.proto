@@ -7,7 +7,7 @@ package resources.telemetry.v1;
 
 import "google/api/field_behavior.proto";
 import "resources/common/v1/common.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/telemetry/v1;telemetryv1";
 
@@ -43,7 +43,7 @@ message TelemetryLogsGroupResource {
   // Unique ID of the telemetry group.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -52,7 +52,7 @@ message TelemetryLogsGroupResource {
   // Deprecated, Unique ID of the telemetry group. Alias of resource_id.
   string telemetry_logs_group_id = 2 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -61,7 +61,7 @@ message TelemetryLogsGroupResource {
   // Human-readable name for the log group.
   string name = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
       max_len: 50
       min_len: 1
@@ -73,7 +73,16 @@ message TelemetryLogsGroupResource {
   // A list of log groups to collect.
   repeated string groups = 5 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"}
+    (buf.validate.field).repeated = {
+      min_items: 0,
+      max_items: 100,
+      items: {
+        string: {
+          max_len: 1000
+          pattern: "^$|^[a-zA-Z-_0-9.:;=@?!#*()\"\\ ]+$"
+        }
+      }
+    }
   ];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -84,7 +93,7 @@ message TelemetryMetricsGroupResource {
   // Unique ID of the telemetry group.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -93,7 +102,7 @@ message TelemetryMetricsGroupResource {
   // Deprecated, Unique ID of the telemetry group. Alias of resource_id.
   string telemetry_metrics_group_id = 2 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -102,7 +111,7 @@ message TelemetryMetricsGroupResource {
   // Human-readable name for the log group.
   string name = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
       max_len: 50
       min_len: 1
@@ -115,7 +124,15 @@ message TelemetryMetricsGroupResource {
   // A list of log groups to collect.
   repeated string groups = 5 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).repeated.items.string = {pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"}
+    (buf.validate.field).repeated = {
+      max_items: 100,
+      items: {
+        string: {
+          max_len: 1000
+          pattern: "^$|^[a-zA-Z-_0-9.:;=@?!#*()\"\\ ]+$"
+        }
+      }
+    }    
   ];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -126,7 +143,7 @@ message TelemetryLogsProfileResource {
   // The ID of the telemetry profile.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
       max_len: 25
     }
@@ -135,7 +152,7 @@ message TelemetryLogsProfileResource {
   // Deprecated, The ID of the telemetry profile.
   string profile_id = 2 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
       max_len: 25
     }
@@ -143,19 +160,19 @@ message TelemetryLogsProfileResource {
 
   // The ID of the instance that the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
-  string target_instance = 3 [(validate.rules).string = {
+  string target_instance = 3 [(buf.validate.field).string = {
     pattern: "^$|^inst-[0-9a-f]{8}$"
     max_len: 13
   }];
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
-  string target_site = 4 [(validate.rules).string = {
+  string target_site = 4 [(buf.validate.field).string = {
     pattern: "^$|^site-[0-9a-f]{8}$"
     max_len: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
-  string target_region = 5 [(validate.rules).string = {
+  string target_region = 5 [(buf.validate.field).string = {
     pattern: "^$|^region-[0-9a-f]{8}$"
     max_len: 15
   }];
@@ -164,7 +181,7 @@ message TelemetryLogsProfileResource {
   // The unique identifier of the telemetry log group.
   string logs_group_id = 7 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
       max_len: 23
     }
@@ -180,7 +197,7 @@ message TelemetryMetricsProfileResource {
   // The ID of the telemetry profile.
   string resource_id = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
       max_len: 25
     }
@@ -189,7 +206,7 @@ message TelemetryMetricsProfileResource {
   // Deprecated, The ID of the telemetry profile.
   string profile_id = 2 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetryprofile-[0-9a-f]{8}$"
       max_len: 25
     }
@@ -197,20 +214,20 @@ message TelemetryMetricsProfileResource {
 
   // The ID of the instance that the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
-  string target_instance = 3 [(validate.rules).string = {
+  string target_instance = 3 [(buf.validate.field).string = {
     pattern: "^$|^inst-[0-9a-f]{8}$"
     max_len: 13
   }];
 
   // The ID of the site where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
-  string target_site = 4 [(validate.rules).string = {
+  string target_site = 4 [(buf.validate.field).string = {
     pattern: "^$|^site-[0-9a-f]{8}$"
     max_len: 13
   }];
   // The ID of the region where the telemetry profile is assigned to.
   // Can only be one of targetInstance, targetSite, or targetRegion.
-  string target_region = 5 [(validate.rules).string = {
+  string target_region = 5 [(buf.validate.field).string = {
     pattern: "^$|^region-[0-9a-f]{8}$"
     max_len: 15
   }];
@@ -218,12 +235,12 @@ message TelemetryMetricsProfileResource {
   // Metric interval (in seconds) for the telemetry profile.
   // This field must only be defined if the type equals to TELEMETRY_CONFIG_KIND_METRICS.
   int32 metrics_interval = 6 [(google.api.field_behavior) = REQUIRED,
-    (validate.rules).int32 = {gte:1}
+    (buf.validate.field).int32 = {gte:1}
   ];
   // The unique identifier of the telemetry metric group.
   string metrics_group_id = 7 [
     (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string = {
+    (buf.validate.field).string = {
       pattern: "^telemetrygroup-[0-9a-f]{8}$"
       max_len: 23
     }

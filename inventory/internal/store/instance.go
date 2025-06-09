@@ -110,25 +110,7 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 			return nil, err
 		}
 
-		// Look up the optional host ID for this Instance.
-		if err := setEdgeHostIDForMut(ctx, tx.Client(), mut, in.GetHost()); err != nil {
-			return nil, err
-		}
-		// Look up the optional Desired OS ID for this Instance.
-		if err := setEdgeDesiredOSIDForMut(ctx, tx.Client(), mut, in.GetDesiredOs()); err != nil {
-			return nil, err
-		}
-		// Look up the optional Desired OS ID for this Instance.
-		if err := setEdgeCurrentOSIDForMut(ctx, tx.Client(), mut, in.GetCurrentOs()); err != nil {
-			return nil, err
-		}
-		// Look up the optional provider ID for this host.
-		if err := setEdgeProviderIDForMut(ctx, tx.Client(), mut, in.GetProvider()); err != nil {
-			return nil, err
-		}
-
-		// Look up the optional LocalAccount ID for this Instance.
-		if err := setEdgeLocalAccountIDForMut(ctx, tx.Client(), mut, in.GetLocalaccount()); err != nil {
+		if err := setRelationsForInstanceCreate(ctx, tx.Client(), mut, in); err != nil {
 			return nil, err
 		}
 
@@ -147,6 +129,42 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		}
 		return util.WrapResource(entInstanceResourceToProtoInstanceResource(res))
 	}
+}
+
+func setRelationsForInstanceCreate(ctx context.Context,
+	client *ent.Client,
+	mut *ent.InstanceResourceMutation,
+	in *computev1.InstanceResource,
+) error {
+	// Look up the optional host ID for this Instance.
+	if err := setEdgeHostIDForMut(ctx, client, mut, in.GetHost()); err != nil {
+		return err
+	}
+	// Look up the optional Desired OS ID for this Instance.
+	if err := setEdgeDesiredOSIDForMut(ctx, client, mut, in.GetDesiredOs()); err != nil {
+		return err
+	}
+	// Look up the optional Desired OS ID for this Instance.
+	if err := setEdgeCurrentOSIDForMut(ctx, client, mut, in.GetCurrentOs()); err != nil {
+		return err
+	}
+	// Look up the optional provider ID for this Instance.
+	if err := setEdgeProviderIDForMut(ctx, client, mut, in.GetProvider()); err != nil {
+		return err
+	}
+	// Look up the optional LocalAccount ID for this Instance.
+	if err := setEdgeLocalAccountIDForMut(ctx, client, mut, in.GetLocalaccount()); err != nil {
+		return err
+	}
+	// Look up the optional OSPolicyUpdate for this Instance.
+	if err := setEdgeOSPolicyUpdateIDForMut(ctx, client, mut, in.GetOsUpdatePolicy()); err != nil {
+		return err
+	}
+	// Look up the OS ID for this Instance.
+	if err := setEdgeOSIDForMut(ctx, client, mut, in.GetOs()); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (is *InvStore) GetInstance(ctx context.Context, id string) (*inv_v1.Resource, error) {
@@ -177,8 +195,10 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		Where(instanceresource.ResourceID(resourceID)).
 		WithDesiredOs().
 		WithCurrentOs().
+		WithOs().
 		WithProvider().
-		WithLocalaccount()
+		WithLocalaccount().
+		WithOsUpdatePolicy()
 	if nestedLoad {
 		query.
 			WithHost(func(q *ent.HostResourceQuery) {
@@ -244,7 +264,15 @@ func (is *InvStore) UpdateInstance(
 					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
 						id, entity.CurrentState, in.DesiredState)
 			}
-			// fixme ITEP-23276: We should not allow to local account update when instance is not provisioned
+
+			if isNotValidLocalAccountUpdate(fieldmask, entity) {
+				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+					id, entity.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
+				return nil, booleans.Pointer(false),
+					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
+						id, in.GetLocalaccount(), entity.CurrentState,
+					)
+			}
 
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
 			// updating an already set O2O edge, we have to clear it before setting it in the mutation.
@@ -457,8 +485,10 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 		WithWorkloadMembers(func(q *ent.WorkloadMemberQuery) {
 			q.WithWorkload() // Populate the workload of each member
 		}).
+		WithOs().
 		WithProvider().
 		WithLocalaccount().
+		WithOsUpdatePolicy().
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)
@@ -545,6 +575,18 @@ func setRelationsForInstanceMutIfNeeded(
 			return err
 		}
 	}
+	mut.ResetOsUpdatePolicy()
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeOsUpdatePolicy) {
+		if err := setEdgeOSPolicyUpdateIDForMut(ctx, client, mut, in.GetOsUpdatePolicy()); err != nil {
+			return err
+		}
+	}
+	mut.ResetOs()
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeOs) {
+		if err := setEdgeOSIDForMut(ctx, client, mut, in.GetOs()); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -575,4 +617,12 @@ func isNotValidInstanceTransition(
 	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
 		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
 		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
+}
+
+func isNotValidLocalAccountUpdate(
+	fieldmask *fieldmaskpb.FieldMask,
+	instanceq *ent.InstanceResource,
+) bool {
+	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
+		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
 }

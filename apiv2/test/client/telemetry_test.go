@@ -10,7 +10,6 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -18,9 +17,14 @@ import (
 	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
+const (
+	region1Name = "Region 1"
+	region2Name = "Region 2"
+)
+
 var (
-	collectorKindHostLogs    = api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST
-	collectorKindHostMetrics = api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDHOST
+	collectorKindHostLogs    = api.TELEMETRYCOLLECTORKINDHOST
+	collectorKindHostMetrics = api.TELEMETRYCOLLECTORKINDHOST
 )
 
 func clearIDs() {
@@ -45,7 +49,7 @@ func TestTelemetryGroup_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, allLogsGroups.StatusCode())
 	for _, logsGroups := range allLogsGroups.JSON200.TelemetryLogsGroups {
-		DeleteTelemetryLogsGroup(t, context.Background(), apiClient, *logsGroups.TelemetryLogsGroupId)
+		DeleteTelemetryLogsGroup(context.Background(), t, apiClient, *logsGroups.TelemetryLogsGroupId)
 	}
 
 	allMetricsGroups, err := apiClient.TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse(
@@ -56,11 +60,11 @@ func TestTelemetryGroup_CreateGetDelete(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, allMetricsGroups.StatusCode())
 	for _, metricsGroups := range allMetricsGroups.JSON200.TelemetryMetricsGroups {
-		DeleteTelemetryMetricsGroup(t, context.Background(), apiClient, *metricsGroups.TelemetryMetricsGroupId)
+		DeleteTelemetryMetricsGroup(context.Background(), t, apiClient, *metricsGroups.TelemetryMetricsGroupId)
 	}
 
-	res1 := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
-	res2 := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
+	res1 := CreateTelemetryLogsGroup(ctx, t, apiClient, utils.TelemetryLogsGroup1Request)
+	res2 := CreateTelemetryMetricsGroup(ctx, t, apiClient, utils.TelemetryMetricsGroup1Request)
 
 	// Assert presence of telemetry resources
 	allLogsGroups, err = apiClient.TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(
@@ -270,15 +274,15 @@ func TestTelemetryProfile_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	r1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
-	hostCreated1 := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	osCreated1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance1Request.OsID = osCreated1.JSON200.ResourceId
-	inst1 := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	telemetryGroupMetrics1 := utils.TelemetryMetricsGroup1Request
 	telemetryGroupMetrics2 := api.TelemetryMetricsGroupResource{
@@ -289,9 +293,9 @@ func TestTelemetryProfile_CreateGetDelete(t *testing.T) {
 		},
 	}
 
-	logsGroup := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
-	metricsGroup1 := CreateTelemetryMetricsGroup(t, ctx, apiClient, telemetryGroupMetrics1)
-	metricsGroup2 := CreateTelemetryMetricsGroup(t, ctx, apiClient, telemetryGroupMetrics2)
+	logsGroup := CreateTelemetryLogsGroup(ctx, t, apiClient, utils.TelemetryLogsGroup1Request)
+	metricsGroup1 := CreateTelemetryMetricsGroup(ctx, t, apiClient, telemetryGroupMetrics1)
+	metricsGroup2 := CreateTelemetryMetricsGroup(ctx, t, apiClient, telemetryGroupMetrics2)
 
 	TelemetryLogsProfilePerInstance := api.TelemetryLogsProfileResource{
 		LogLevel:       api.SEVERITYLEVELDEBUG,
@@ -309,11 +313,11 @@ func TestTelemetryProfile_CreateGetDelete(t *testing.T) {
 		MetricsGroupId:  *metricsGroup2.JSON200.ResourceId,
 	}
 
-	res1 := CreateTelemetryLogsProfile(t, ctx, apiClient, TelemetryLogsProfilePerInstance)
+	res1 := CreateTelemetryLogsProfile(ctx, t, apiClient, TelemetryLogsProfilePerInstance)
 	res1.JSON200.LogsGroup = logsGroup.JSON200
-	res2 := CreateTelemetryMetricsProfile(t, ctx, apiClient, TelemetryMetricsProfilePerSite)
+	res2 := CreateTelemetryMetricsProfile(ctx, t, apiClient, TelemetryMetricsProfilePerSite)
 	res2.JSON200.MetricsGroup = metricsGroup1.JSON200
-	res3 := CreateTelemetryMetricsProfile(t, ctx, apiClient, TelemetryMetricsProfilePerRegion)
+	res3 := CreateTelemetryMetricsProfile(ctx, t, apiClient, TelemetryMetricsProfilePerRegion)
 	res3.JSON200.MetricsGroup = metricsGroup2.JSON200
 
 	// Assert presence of telemetry resources
@@ -379,8 +383,8 @@ func TestTelemetryLogsProfile_UpdatePUT(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	logsGroup1 := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
-	logsGroup2 := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
+	logsGroup1 := CreateTelemetryLogsGroup(ctx, t, apiClient, utils.TelemetryLogsGroup1Request)
+	logsGroup2 := CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
 		Name:          "Kernel logs",
 		CollectorKind: collectorKindHostLogs,
 		Groups: []string{
@@ -388,16 +392,16 @@ func TestTelemetryLogsProfile_UpdatePUT(t *testing.T) {
 		},
 	})
 
-	regionCreated1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	regionCreated1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = nil
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	TelemetryLogsProfile := api.TelemetryLogsProfileResource{
 		LogLevel:    api.SEVERITYLEVELDEBUG,
 		TargetSite:  siteCreated1.JSON200.ResourceId,
 		LogsGroupId: *logsGroup1.JSON200.ResourceId,
 	}
-	res1 := CreateTelemetryLogsProfile(t, ctx, apiClient, TelemetryLogsProfile)
+	res1 := CreateTelemetryLogsProfile(ctx, t, apiClient, TelemetryLogsProfile)
 	res1.JSON200.LogsGroup = logsGroup1.JSON200
 
 	// Assert presence of the telemetry profile
@@ -490,7 +494,7 @@ func TestTelemetryLogsProfile_UpdatePUT(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, telemetryLogsProfile1Update.StatusCode())
 
 	// update to wrong type of telemetry group (logs profile cannot be associated with metrics group)
-	metricsGroup := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
+	metricsGroup := CreateTelemetryMetricsGroup(ctx, t, apiClient, utils.TelemetryMetricsGroup1Request)
 	TelemetryLogsProfile.TargetRegion = regionCreated1.JSON200.ResourceId
 	TelemetryLogsProfile.LogsGroupId = *metricsGroup.JSON200.ResourceId
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse(
@@ -511,8 +515,8 @@ func TestTelemetryMetricsProfile_UpdatePUT(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	metricsGroup1 := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
-	metricsGroup2 := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
+	metricsGroup1 := CreateTelemetryMetricsGroup(ctx, t, apiClient, utils.TelemetryMetricsGroup1Request)
+	metricsGroup2 := CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
 		Name:          "NW Usage",
 		CollectorKind: collectorKindHostMetrics,
 		Groups: []string{
@@ -520,15 +524,15 @@ func TestTelemetryMetricsProfile_UpdatePUT(t *testing.T) {
 		},
 	})
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	regionCreated1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
+	regionCreated1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	TelemetryMetricsProfile := api.TelemetryMetricsProfileResource{
 		MetricsInterval: 300,
 		TargetSite:      siteCreated1.JSON200.ResourceId,
 		MetricsGroupId:  *metricsGroup1.JSON200.ResourceId,
 	}
-	res1 := CreateTelemetryMetricsProfile(t, ctx, apiClient, TelemetryMetricsProfile)
+	res1 := CreateTelemetryMetricsProfile(ctx, t, apiClient, TelemetryMetricsProfile)
 	res1.JSON200.MetricsGroup = metricsGroup1.JSON200
 
 	// Assert presence of the telemetry profile
@@ -620,7 +624,7 @@ func TestTelemetryMetricsProfile_UpdatePUT(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, telemetryMetricsProfile1Update.StatusCode())
 
 	// update to wrong type of telemetry group (logs profile cannot be associated with metrics group)
-	logsGroup := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
+	logsGroup := CreateTelemetryLogsGroup(ctx, t, apiClient, utils.TelemetryLogsGroup1Request)
 	TelemetryMetricsProfile.TargetRegion = regionCreated1.JSON200.ResourceId
 	TelemetryMetricsProfile.MetricsGroupId = *logsGroup.JSON200.ResourceId
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse(
@@ -697,12 +701,12 @@ func TestTelemetryLogsGroupList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset int32 = 1
-	var pageSize int32 = 4
+	offset := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
-			CollectorKind: api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
+			CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 			Groups:        []string{"test"},
 			Name:          "Test Name",
 		})
@@ -720,7 +724,7 @@ func TestTelemetryLogsGroupList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.TelemetryLogsGroups), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.TelemetryLogsGroups), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(
@@ -743,12 +747,12 @@ func TestTelemetryMetricsGroupList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset int32 = 1
-	var pageSize int32 = 4
+	offset := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
-			CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
+			CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 			Groups:        []string{"test"},
 			Name:          "Test Name",
 		})
@@ -766,7 +770,7 @@ func TestTelemetryMetricsGroupList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.TelemetryMetricsGroups), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.TelemetryMetricsGroups), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse(
@@ -790,26 +794,26 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset int32 = 1
-	var pageSize int32 = 4
+	offset := 1
+	pageSize := 4
 
-	group := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
+	group := CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
 		CollectorKind: collectorKindHostLogs,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	region1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	region1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = region1.JSON200.ResourceId
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
-	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	host := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
-	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId:    *group.JSON200.ResourceId,
 			LogLevel:       api.SEVERITYLEVELWARN,
 			TargetInstance: instance.JSON200.ResourceId,
@@ -817,7 +821,7 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	}
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId: *group.JSON200.ResourceId,
 			LogLevel:    api.SEVERITYLEVELWARN,
 			TargetSite:  site1.JSON200.ResourceId,
@@ -825,7 +829,7 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	}
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId:  *group.JSON200.ResourceId,
 			LogLevel:     api.SEVERITYLEVELWARN,
 			TargetRegion: region1.JSON200.ResourceId,
@@ -844,10 +848,10 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.TelemetryLogsProfiles), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.TelemetryLogsProfiles), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize int32 = 30
+	allPageSize := 30
 	resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -911,33 +915,33 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	require.NoError(t, err)
 
 	totalItems := 10
-	var offset int32 = 1
-	var pageSize int32 = 4
+	offset := 1
+	pageSize := 4
 
-	group := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
+	group := CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
 		CollectorKind: collectorKindHostMetrics,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	region1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	region1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = region1.JSON200.ResourceId
-	site1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = site1.JSON200.ResourceId
 	hostUUID := uuid.New().String()
-	host := CreateHost(t, ctx, apiClient, api.HostResource{
+	host := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name:     utils.Host1Request.Name,
 		Metadata: utils.Host1Request.Metadata,
 		Uuid:     &hostUUID,
 	})
 
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
-	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetInstance:  instance.JSON200.ResourceId,
@@ -945,7 +949,7 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	}
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetSite:      site1.JSON200.ResourceId,
@@ -953,7 +957,7 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	}
 
 	for id := 0; id < totalItems; id++ {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetRegion:    region1.JSON200.ResourceId,
@@ -972,10 +976,10 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.TelemetryMetricsProfiles), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.TelemetryMetricsProfiles), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize int32 = 30
+	allPageSize := 30
 	resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1038,28 +1042,28 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	group := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
+	group := CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
 		CollectorKind: collectorKindHostMetrics,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	region1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+	region1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = region1.JSON200.ResourceId
-	site1Region1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1Region1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site2Request.RegionId = region1.JSON200.ResourceId
-	site2Region1 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	site2Region1 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 	parentRegion2Name := "Parent Region 2"
-	parentRegion2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	parentRegion2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name: &parentRegion2Name,
 	})
-	region2Name := "Region 2"
-	region2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
-		Name:     &region2Name,
+	testRegion2Name := region2Name
+	region2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
+		Name:     &testRegion2Name,
 		ParentId: parentRegion2.JSON200.ResourceId,
 	})
 	site1Region2Name := "Site 1 Region 2"
-	site1Region2 := CreateSite(t, ctx, apiClient, api.SiteResource{
+	site1Region2 := CreateSite(ctx, t, apiClient, api.SiteResource{
 		Name:     &site1Region2Name,
 		RegionId: region2.JSON200.ResourceId,
 	})
@@ -1067,15 +1071,15 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	site1Region1Instances := make([]*api.InstanceResource, 0)
 	kindMetal := api.INSTANCEKINDMETAL
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New().String()
+		hostUUID := uuid.New().String()
 		name := fmt.Sprintf("Host %d S1R1", i)
-		host := CreateHost(t, ctx, apiClient, api.HostResource{
+		host := CreateHost(ctx, t, apiClient, api.HostResource{
 			Name:   name,
 			SiteId: site1Region1.JSON200.ResourceId,
-			Uuid:   &hostUuid,
+			Uuid:   &hostUUID,
 		})
 		instName := fmt.Sprintf("Site 1 Region 1 - Instance %d", i)
-		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
+		inst := CreateInstance(ctx, t, apiClient, api.InstanceResource{
 			HostID: host.JSON200.ResourceId,
 			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
@@ -1087,14 +1091,14 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	// 3 Instances in Site 2 of Region 1
 	site2Region1Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New().String()
-		host := CreateHost(t, ctx, apiClient, api.HostResource{
+		hostUUID := uuid.New().String()
+		host := CreateHost(ctx, t, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S2R1", i),
 			SiteId: site2Region1.JSON200.ResourceId,
-			Uuid:   &hostUuid,
+			Uuid:   &hostUUID,
 		})
 		instName := fmt.Sprintf("Site 2 Region 1 - Instance %d", i)
-		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
+		inst := CreateInstance(ctx, t, apiClient, api.InstanceResource{
 			HostID: host.JSON200.ResourceId,
 			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
@@ -1106,14 +1110,14 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	// 1 Instance in Site 1 of Region 2
 	site1Region2Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 1; i++ {
-		hostUuid := uuid.New().String()
-		host := CreateHost(t, ctx, apiClient, api.HostResource{
+		hostUUID := uuid.New().String()
+		host := CreateHost(ctx, t, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S1R2", i),
 			SiteId: site1Region2.JSON200.ResourceId,
-			Uuid:   &hostUuid,
+			Uuid:   &hostUUID,
 		})
 		instName := fmt.Sprintf("Site 1 Region 2 - Instance %d", i)
-		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
+		inst := CreateInstance(ctx, t, apiClient, api.InstanceResource{
 			HostID: host.JSON200.ResourceId,
 			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
@@ -1124,7 +1128,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 
 	// Region 1 - 3 Telemetry Metrics Profiles
 	for id := 0; id < 3; id++ {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetRegion:    region1.JSON200.ResourceId,
@@ -1132,7 +1136,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	}
 
 	// Region 2 - 1 Telemetry Metrics Profile
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetRegion:    region2.JSON200.ResourceId,
@@ -1140,7 +1144,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 
 	// Parent Region 2 - 2 Telemetry Metrics Profiles
 	for id := 0; id < 2; id++ {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetRegion:    parentRegion2.JSON200.ResourceId,
@@ -1151,7 +1155,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 
 	// Site 2 Region 1 - 2 Telemetry Metrics Profiles
 	for id := 0; id < 2; id++ {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetSite:      site2Region1.JSON200.ResourceId,
@@ -1159,7 +1163,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 	}
 
 	// Site 1 Region 2 - 1 Telemetry Metrics Profile
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetSite:      site1Region2.JSON200.ResourceId,
@@ -1167,7 +1171,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 
 	// Site 1 Region 1 - 1 Telemetry Profile per Instance
 	for _, inst := range site1Region1Instances {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetInstance:  inst.ResourceId,
@@ -1178,15 +1182,15 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 
 	// Site 1 Region 2 - 1 Telemetry Profile per Instance
 	for _, inst := range site1Region2Instances {
-		CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+		CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 			MetricsGroupId:  *group.JSON200.ResourceId,
 			MetricsInterval: 300,
 			TargetInstance:  inst.ResourceId,
 		})
 	}
 
-	var offset int32 = 1
-	var pageSize int32 = 4
+	offset := 1
+	pageSize := 4
 
 	// list all telemetry profiles (no filtering)
 	resList, err := apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
@@ -1200,10 +1204,10 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.TelemetryMetricsProfiles), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.TelemetryMetricsProfiles), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize int32 = 100
+	allPageSize := 100
 	resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1234,7 +1238,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 			len(resList.JSON200.TelemetryMetricsProfiles))
 		assert.Equal(t, false, resList.JSON200.HasNext)
 
-		// no inheritence
+		// no inheritance
 		resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 			ctx,
 			&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1266,7 +1270,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 		assert.Equal(t, expectedItems, len(resList.JSON200.TelemetryMetricsProfiles))
 		assert.Equal(t, false, resList.JSON200.HasNext)
 
-		// no inheritence
+		// no inheritance
 		resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 			ctx,
 			&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1297,7 +1301,7 @@ func TestTelemetryMetricsProfileListInherited(t *testing.T) {
 			len(resList.JSON200.TelemetryMetricsProfiles))
 		assert.Equal(t, false, resList.JSON200.HasNext)
 
-		// no inheritence
+		// no inheritance
 		resList, err = apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 			ctx,
 			&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1396,84 +1400,84 @@ func TestTelemetryMetricsProfileListInheritedNestingLimit(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	group := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
+	group := CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
 		CollectorKind: collectorKindHostMetrics,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	regionLevel5Name := "Region 5"
-	regionLevel5 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel5 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name: &regionLevel5Name,
 	})
 
 	regionLevel4Name := "Region 4"
-	regionLevel4 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel4 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel4Name,
 		ParentId: regionLevel5.JSON200.ResourceId,
 	})
 
 	regionLevel3Name := "Region 3"
-	regionLevel3 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel3 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel3Name,
 		ParentId: regionLevel4.JSON200.ResourceId,
 	})
 
-	regionLevel2Name := "Region 2"
-	regionLevel2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel2Name := region2Name
+	regionLevel2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel2Name,
 		ParentId: regionLevel3.JSON200.ResourceId,
 	})
 
-	regionLevel1Name := "Region 1"
-	regionLevel1 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel1Name := region1Name
+	regionLevel1 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel1Name,
 		ParentId: regionLevel2.JSON200.ResourceId,
 	})
 
 	utils.Site1Request.RegionId = regionLevel1.JSON200.ResourceId
-	site := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = site.JSON200.ResourceId
-	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	host := CreateHost(ctx, t, apiClient, utils.Host1Request)
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
-	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetInstance:  instance.JSON200.ResourceId,
 	})
 	// profile per site
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetSite:      site.JSON200.ResourceId,
 	})
 	// profile per region level 1
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetRegion:    regionLevel1.JSON200.ResourceId,
 	})
 	// profile per region level 3
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetRegion:    regionLevel3.JSON200.ResourceId,
 	})
 	// profile per region level 5
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetRegion:    regionLevel5.JSON200.ResourceId,
 	})
 
-	var allPageSize int32 = 100
+	allPageSize := 100
 	resList, err := apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1553,58 +1557,58 @@ func TestTelemetryMetricsProfileListInheritedNoParents(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	group := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
+	group := CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
 		CollectorKind: collectorKindHostMetrics,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
-	region2Name := "Region 2"
-	region2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
-		Name: &region2Name,
+	testRegion2Name := region2Name
+	region2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
+		Name: &testRegion2Name,
 	})
 
-	region1Name := "Region 1"
-	region1 := CreateRegion(t, ctx, apiClient, api.RegionResource{
-		Name: &region1Name,
+	testRegion1Name := region1Name
+	region1 := CreateRegion(ctx, t, apiClient, api.RegionResource{
+		Name: &testRegion1Name,
 	})
 
 	utils.Site1Request.RegionId = nil
-	site := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = nil
-	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	host := CreateHost(ctx, t, apiClient, utils.Host1Request)
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
-	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetInstance:  instance.JSON200.ResourceId,
 	})
 	// profile per site
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetSite:      site.JSON200.ResourceId,
 	})
 	// profile per region 1
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetRegion:    region1.JSON200.ResourceId,
 	})
 	// profile per region 2
-	CreateTelemetryMetricsProfile(t, ctx, apiClient, api.TelemetryMetricsProfileResource{
+	CreateTelemetryMetricsProfile(ctx, t, apiClient, api.TelemetryMetricsProfileResource{
 		MetricsGroupId:  *group.JSON200.ResourceId,
 		MetricsInterval: 300,
 		TargetRegion:    region2.JSON200.ResourceId,
 	})
 
-	var allPageSize int32 = 100
+	allPageSize := 100
 	resList, err := apiClient.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(
 		ctx,
 		&api.TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams{
@@ -1670,28 +1674,28 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	group := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
+	group := CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
 		CollectorKind: collectorKindHostLogs,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	region1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+	region1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = region1.JSON200.ResourceId
-	site1Region1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site1Region1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site2Request.RegionId = region1.JSON200.ResourceId
-	site2Region1 := CreateSite(t, ctx, apiClient, utils.Site2Request)
+	site2Region1 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 	parentRegion2Name := "Parent Region 2"
-	parentRegion2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	parentRegion2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name: &parentRegion2Name,
 	})
-	region2Name := "Region 2"
-	region2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
-		Name:     &region2Name,
+	testRegion2Name := region2Name
+	region2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
+		Name:     &testRegion2Name,
 		ParentId: parentRegion2.JSON200.ResourceId,
 	})
 	site1Region2Name := "Site 1 Region 2"
-	site1Region2 := CreateSite(t, ctx, apiClient, api.SiteResource{
+	site1Region2 := CreateSite(ctx, t, apiClient, api.SiteResource{
 		Name:     &site1Region2Name,
 		RegionId: region2.JSON200.ResourceId,
 	})
@@ -1699,14 +1703,14 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	site1Region1Instances := make([]*api.InstanceResource, 0)
 	kindMetal := api.INSTANCEKINDMETAL
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New().String()
-		host := CreateHost(t, ctx, apiClient, api.HostResource{
+		hostUUID := uuid.New().String()
+		host := CreateHost(ctx, t, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S1R1", i),
 			SiteId: site1Region1.JSON200.ResourceId,
-			Uuid:   &hostUuid,
+			Uuid:   &hostUUID,
 		})
 		instName := fmt.Sprintf("Site 1 Region 1 - Instance %d", i)
-		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
+		inst := CreateInstance(ctx, t, apiClient, api.InstanceResource{
 			HostID: host.JSON200.ResourceId,
 			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
@@ -1718,14 +1722,14 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	// 3 Instances in Site 2 of Region 1
 	site2Region1Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 3; i++ {
-		hostUuid := uuid.New().String()
-		host := CreateHost(t, ctx, apiClient, api.HostResource{
+		hostUUID := uuid.New().String()
+		host := CreateHost(ctx, t, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S2R1", i),
 			SiteId: site2Region1.JSON200.ResourceId,
-			Uuid:   &hostUuid,
+			Uuid:   &hostUUID,
 		})
 		instName := fmt.Sprintf("Site 2 Region 1 - Instance %d", i)
-		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
+		inst := CreateInstance(ctx, t, apiClient, api.InstanceResource{
 			HostID: host.JSON200.ResourceId,
 			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
@@ -1737,14 +1741,14 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	// 1 Instance in Site 1 of Region 2
 	site1Region2Instances := make([]*api.InstanceResource, 0)
 	for i := 0; i < 1; i++ {
-		hostUuid := uuid.New().String()
-		host := CreateHost(t, ctx, apiClient, api.HostResource{
+		hostUUID := uuid.New().String()
+		host := CreateHost(ctx, t, apiClient, api.HostResource{
 			Name:   fmt.Sprintf("Host %d S1R2", i),
 			SiteId: site1Region2.JSON200.ResourceId,
-			Uuid:   &hostUuid,
+			Uuid:   &hostUUID,
 		})
 		instName := fmt.Sprintf("Site 1 Region 2 - Instance %d", i)
-		inst := CreateInstance(t, ctx, apiClient, api.InstanceResource{
+		inst := CreateInstance(ctx, t, apiClient, api.InstanceResource{
 			HostID: host.JSON200.ResourceId,
 			OsID:   os.JSON200.ResourceId,
 			Kind:   &kindMetal,
@@ -1755,7 +1759,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 
 	// Region 1 - 3 Telemetry Logs Profiles
 	for id := 0; id < 3; id++ {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId:  *group.JSON200.ResourceId,
 			LogLevel:     api.SEVERITYLEVELWARN,
 			TargetRegion: region1.JSON200.ResourceId,
@@ -1763,7 +1767,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	}
 
 	// Region 2 - 1 Telemetry Logs Profile
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:  *group.JSON200.ResourceId,
 		LogLevel:     api.SEVERITYLEVELWARN,
 		TargetRegion: region2.JSON200.ResourceId,
@@ -1771,7 +1775,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 
 	// Parent Region 2 - 2 Telemetry Logs Profiles
 	for id := 0; id < 2; id++ {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId:  *group.JSON200.ResourceId,
 			LogLevel:     api.SEVERITYLEVELWARN,
 			TargetRegion: parentRegion2.JSON200.ResourceId,
@@ -1782,7 +1786,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 
 	// Site 2 Region 1 - 2 Telemetry Logs Profiles
 	for id := 0; id < 2; id++ {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId: *group.JSON200.ResourceId,
 			LogLevel:    api.SEVERITYLEVELWARN,
 			TargetSite:  site2Region1.JSON200.ResourceId,
@@ -1790,7 +1794,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 	}
 
 	// Site 1 Region 2 - 1 Telemetry Logs Profile
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId: *group.JSON200.ResourceId,
 		LogLevel:    api.SEVERITYLEVELWARN,
 		TargetSite:  site1Region2.JSON200.ResourceId,
@@ -1798,7 +1802,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 
 	// Site 1 Region 1 - 1 Telemetry Profile per Instance
 	for _, inst := range site1Region1Instances {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId:    *group.JSON200.ResourceId,
 			LogLevel:       api.SEVERITYLEVELWARN,
 			TargetInstance: inst.ResourceId,
@@ -1809,15 +1813,15 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 
 	// Site 1 Region 2 - 1 Telemetry Profile per Instance
 	for _, inst := range site1Region2Instances {
-		CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+		CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 			LogsGroupId:    *group.JSON200.ResourceId,
 			LogLevel:       api.SEVERITYLEVELWARN,
 			TargetInstance: inst.ResourceId,
 		})
 	}
 
-	var offset int32 = 1
-	var pageSize int32 = 4
+	offset := 1
+	pageSize := 4
 
 	// list all telemetry profiles (no filtering)
 	resList, err := apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
@@ -1831,10 +1835,10 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.TelemetryLogsProfiles), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.TelemetryLogsProfiles), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
-	var allPageSize int32 = 100
+	allPageSize := 100
 	resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -1865,7 +1869,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 			len(resList.JSON200.TelemetryLogsProfiles))
 		assert.Equal(t, false, resList.JSON200.HasNext)
 
-		// no inheritence
+		// no inheritance
 		resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 			ctx,
 			&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -1897,7 +1901,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 		assert.Equal(t, expectedItems, len(resList.JSON200.TelemetryLogsProfiles))
 		assert.Equal(t, false, resList.JSON200.HasNext)
 
-		// no inheritence
+		// no inheritance
 		resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 			ctx,
 			&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -1928,7 +1932,7 @@ func TestTelemetryLogsProfileListInherited(t *testing.T) {
 			len(resList.JSON200.TelemetryLogsProfiles))
 		assert.Equal(t, false, resList.JSON200.HasNext)
 
-		// no inheritence
+		// no inheritance
 		resList, err = apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 			ctx,
 			&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -2027,84 +2031,84 @@ func TestTelemetryMetricsLogsListInheritedNestingLimit(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	group := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
+	group := CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
 		CollectorKind: collectorKindHostLogs,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	regionLevel5Name := "Region 5"
-	regionLevel5 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel5 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name: &regionLevel5Name,
 	})
 
 	regionLevel4Name := "Region 4"
-	regionLevel4 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel4 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel4Name,
 		ParentId: regionLevel5.JSON200.ResourceId,
 	})
 
 	regionLevel3Name := "Region 3"
-	regionLevel3 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel3 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel3Name,
 		ParentId: regionLevel4.JSON200.ResourceId,
 	})
 
-	regionLevel2Name := "Region 2"
-	regionLevel2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel2Name := region2Name
+	regionLevel2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel2Name,
 		ParentId: regionLevel3.JSON200.ResourceId,
 	})
 
-	regionLevel1Name := "Region 1"
-	regionLevel1 := CreateRegion(t, ctx, apiClient, api.RegionResource{
+	regionLevel1Name := region1Name
+	regionLevel1 := CreateRegion(ctx, t, apiClient, api.RegionResource{
 		Name:     &regionLevel1Name,
 		ParentId: regionLevel2.JSON200.ResourceId,
 	})
 
 	utils.Site1Request.RegionId = regionLevel1.JSON200.ResourceId
-	site := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = site.JSON200.ResourceId
-	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	host := CreateHost(ctx, t, apiClient, utils.Host1Request)
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
-	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:    *group.JSON200.ResourceId,
 		LogLevel:       api.SEVERITYLEVELWARN,
 		TargetInstance: instance.JSON200.ResourceId,
 	})
 	// profile per site
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId: *group.JSON200.ResourceId,
 		LogLevel:    api.SEVERITYLEVELWARN,
 		TargetSite:  site.JSON200.ResourceId,
 	})
 	// profile per region level 1
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:  *group.JSON200.ResourceId,
 		LogLevel:     api.SEVERITYLEVELWARN,
 		TargetRegion: regionLevel1.JSON200.ResourceId,
 	})
 	// profile per region level 3
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:  *group.JSON200.ResourceId,
 		LogLevel:     api.SEVERITYLEVELWARN,
 		TargetRegion: regionLevel3.JSON200.ResourceId,
 	})
 	// profile per region level 5
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:  *group.JSON200.ResourceId,
 		LogLevel:     api.SEVERITYLEVELWARN,
 		TargetRegion: regionLevel5.JSON200.ResourceId,
 	})
 
-	var allPageSize int32 = 100
+	allPageSize := 100
 	resList, err := apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -2184,58 +2188,58 @@ func TestTelemetryLogsProfileListInheritedNoParents(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	group := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
+	group := CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
 		CollectorKind: collectorKindHostLogs,
 		Groups:        []string{"test"},
 		Name:          "Test Name",
 	})
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
-	region2Name := "Region 2"
-	region2 := CreateRegion(t, ctx, apiClient, api.RegionResource{
-		Name: &region2Name,
+	testRegion2Name := region2Name
+	region2 := CreateRegion(ctx, t, apiClient, api.RegionResource{
+		Name: &testRegion2Name,
 	})
 
-	region1Name := "Region 1"
-	region1 := CreateRegion(t, ctx, apiClient, api.RegionResource{
-		Name: &region1Name,
+	testRegion1Name := region1Name
+	region1 := CreateRegion(ctx, t, apiClient, api.RegionResource{
+		Name: &testRegion1Name,
 	})
 
 	utils.Site1Request.RegionId = nil
-	site := CreateSite(t, ctx, apiClient, utils.Site1Request)
+	site := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = nil
-	host := CreateHost(t, ctx, apiClient, utils.Host1Request)
+	host := CreateHost(ctx, t, apiClient, utils.Host1Request)
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
-	instance := CreateInstance(t, ctx, apiClient, utils.Instance1Request)
+	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:    *group.JSON200.ResourceId,
 		LogLevel:       api.SEVERITYLEVELWARN,
 		TargetInstance: instance.JSON200.ResourceId,
 	})
 	// profile per site
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId: *group.JSON200.ResourceId,
 		LogLevel:    api.SEVERITYLEVELWARN,
 		TargetSite:  site.JSON200.ResourceId,
 	})
 	// profile per region 1
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:  *group.JSON200.ResourceId,
 		LogLevel:     api.SEVERITYLEVELWARN,
 		TargetRegion: region1.JSON200.ResourceId,
 	})
 	// profile per region 2
-	CreateTelemetryLogsProfile(t, ctx, apiClient, api.TelemetryLogsProfileResource{
+	CreateTelemetryLogsProfile(ctx, t, apiClient, api.TelemetryLogsProfileResource{
 		LogsGroupId:  *group.JSON200.ResourceId,
 		LogLevel:     api.SEVERITYLEVELWARN,
 		TargetRegion: region2.JSON200.ResourceId,
 	})
 
-	var allPageSize int32 = 100
+	allPageSize := 100
 	resList, err := apiClient.TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(
 		ctx,
 		&api.TelemetryLogsProfileServiceListTelemetryLogsProfilesParams{
@@ -2300,17 +2304,17 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	metricsGroup1 := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
-	metricsGroup2 := CreateTelemetryMetricsGroup(t, ctx, apiClient, api.TelemetryMetricsGroupResource{
+	metricsGroup1 := CreateTelemetryMetricsGroup(ctx, t, apiClient, utils.TelemetryMetricsGroup1Request)
+	metricsGroup2 := CreateTelemetryMetricsGroup(ctx, t, apiClient, api.TelemetryMetricsGroupResource{
 		Name:          "NW Usage",
-		CollectorKind: api.TelemetryMetricsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 		Groups: []string{
 			"net",
 		},
 	})
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	regionCreated1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
+	regionCreated1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	defer clearIDs()
 
 	TelemetryMetricsProfile := api.TelemetryMetricsProfileResource{
@@ -2318,7 +2322,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 		TargetSite:      siteCreated1.JSON200.SiteID,
 		MetricsGroupId:  *metricsGroup1.JSON200.TelemetryMetricsGroupId,
 	}
-	res1 := CreateTelemetryMetricsProfile(t, ctx, apiClient, TelemetryMetricsProfile)
+	res1 := CreateTelemetryMetricsProfile(ctx, t, apiClient, TelemetryMetricsProfile)
 	res1.JSON200.MetricsGroup = metricsGroup1.JSON200
 
 	// Assert presence of the telemetry profile
@@ -2338,7 +2342,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err := apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2365,7 +2368,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2389,7 +2391,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2413,7 +2414,6 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2422,13 +2422,12 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, telemetryMetricsProfile1Update.StatusCode())
 
 	// update to wrong type of telemetry group (logs profile cannot be associated with metrics group)
-	logsGroup := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
+	logsGroup := CreateTelemetryLogsGroup(ctx, t, apiClient, utils.TelemetryLogsGroup1Request)
 	TelemetryMetricsProfile.TargetRegion = regionCreated1.JSON200.RegionID
 	TelemetryMetricsProfile.MetricsGroupId = *logsGroup.JSON200.TelemetryLogsGroupId
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2445,24 +2444,24 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	logsGroup1 := CreateTelemetryLogsGroup(t, ctx, apiClient, utils.TelemetryLogsGroup1Request)
-	logsGroup2 := CreateTelemetryLogsGroup(t, ctx, apiClient, api.TelemetryLogsGroupResource{
+	logsGroup1 := CreateTelemetryLogsGroup(ctx, t, apiClient, utils.TelemetryLogsGroup1Request)
+	logsGroup2 := CreateTelemetryLogsGroup(ctx, t, apiClient, api.TelemetryLogsGroupResource{
 		Name:          "Kernel logs",
-		CollectorKind: api.TelemetryLogsGroupResourceCollectorKindTELEMETRYCOLLECTORKINDCLUSTER,
+		CollectorKind: api.TELEMETRYCOLLECTORKINDCLUSTER,
 		Groups: []string{
 			"kern",
 		},
 	})
 
-	siteCreated1 := CreateSite(t, ctx, apiClient, utils.Site1Request)
-	regionCreated1 := CreateRegion(t, ctx, apiClient, utils.Region1Request)
+	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
+	regionCreated1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	TelemetryLogsProfile := api.TelemetryLogsProfileResource{
 		LogLevel:    api.SEVERITYLEVELDEBUG,
 		TargetSite:  siteCreated1.JSON200.SiteID,
 		LogsGroupId: *logsGroup1.JSON200.TelemetryLogsGroupId,
 	}
-	res1 := CreateTelemetryLogsProfile(t, ctx, apiClient, TelemetryLogsProfile)
+	res1 := CreateTelemetryLogsProfile(ctx, t, apiClient, TelemetryLogsProfile)
 	res1.JSON200.LogsGroup = logsGroup1.JSON200
 
 	// Assert presence of the telemetry profile
@@ -2482,7 +2481,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err := apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2509,7 +2507,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2533,7 +2530,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2557,7 +2553,6 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2566,13 +2561,12 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, telemetryLogsProfile1Update.StatusCode())
 
 	// update to wrong type of telemetry group (logs profile cannot be associated with metrics group)
-	metricsGroup := CreateTelemetryMetricsGroup(t, ctx, apiClient, utils.TelemetryMetricsGroup1Request)
+	metricsGroup := CreateTelemetryMetricsGroup(ctx, t, apiClient, utils.TelemetryMetricsGroup1Request)
 	TelemetryLogsProfile.TargetRegion = regionCreated1.JSON200.RegionID
 	TelemetryLogsProfile.LogsGroupId = *metricsGroup.JSON200.TelemetryMetricsGroupId
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
-		nil,
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

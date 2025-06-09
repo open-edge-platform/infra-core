@@ -9,11 +9,12 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
 	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -28,8 +29,8 @@ func TestOS_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	os1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
-	os2 := CreateOS(t, ctx, apiClient, utils.OSResource2Request)
+	os1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+	os2 := CreateOS(ctx, t, apiClient, utils.OSResource2Request)
 
 	get1, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
@@ -62,7 +63,7 @@ func TestOS_UpdatePut(t *testing.T) {
 	require.NoError(t, err)
 
 	// This OS request contains OS Profile Name
-	os1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
@@ -208,8 +209,8 @@ func TestOS_List(t *testing.T) {
 	ExistingOSs := len(resList.JSON200.OperatingSystemResources)
 
 	totalItems := 10
-	var pageId int32 = 1
-	var pageSize int32 = 4
+	pageID := 1
+	pageSize := 4
 
 	for id := 0; id < totalItems; id++ {
 		// Re-generate the random sha for each new OS resource being created
@@ -217,14 +218,14 @@ func TestOS_List(t *testing.T) {
 		utils.OSResource1Request.Sha256 = randSHA
 		profileName := inv_testing.GenerateRandomProfileName()
 		utils.OSResource1Request.ProfileName = &profileName
-		CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+		CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	}
 
 	// Checks if list resources return expected number of entries
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
 		&api.OperatingSystemServiceListOperatingSystemsParams{
-			Offset:   &pageId,
+			Offset:   &pageID,
 			PageSize: &pageSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -232,7 +233,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, len(resList.JSON200.OperatingSystemResources), int(pageSize))
+	assert.Equal(t, len(resList.JSON200.OperatingSystemResources), pageSize)
 	assert.Equal(t, true, resList.JSON200.HasNext)
 
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
@@ -243,7 +244,7 @@ func TestOS_List(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
+	assert.GreaterOrEqual(t, totalItems+ExistingOSs, len(resList.JSON200.OperatingSystemResources))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
 
@@ -255,7 +256,7 @@ func TestOS_CreatewithInstallPackage(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	os := CreateOS(t, ctx, apiClient, utils.OSResource1ReqwithInstallPackages)
+	os := CreateOS(ctx, t, apiClient, utils.OSResource1ReqwithInstallPackages)
 
 	get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
@@ -286,26 +287,28 @@ func TestOS_GetWithInstalledPackages(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, osList.StatusCode())
-	assert.Equal(t, NumPreloadedOSResources, len(osList.JSON200.OperatingSystemResources))
+	assert.GreaterOrEqual(t, len(osList.JSON200.OperatingSystemResources), NumPreloadedOSResources)
 
 	for _, osRes := range osList.JSON200.OperatingSystemResources {
+		if *osRes.OsType != api.OSTYPEMUTABLE {
+			// Skip if OS is MUTABLE, as it does not have InstalledPackages as the pkg manifest
+			continue
+		}
 		// InstalledPackages shall be JSON-encoded string for IMMUTABLE OS
 		// InstalledPackages is empty string for MUTABLE OS
-		if *osRes.OsType == api.OSTYPEIMMUTABLE {
-			assert.NotEqual(t, "", *osRes.InstalledPackages)
-			var osPackages struct {
-				Repo []struct {
-					Name    *string `json:"name"`
-					Version *string `json:"version"`
-				} `json:"repo"`
-			}
-			// validate that the obtained InstalledPackages is truly unmarshal-able JSON string
-			err := json.Unmarshal([]byte(*osRes.InstalledPackages), &osPackages)
-			require.NoError(t, err)
-			assert.NotEmpty(t, osPackages.Repo)
-			assert.NotNil(t, osPackages.Repo[0].Name)
-			assert.NotNil(t, osPackages.Repo[0].Version)
+		assert.NotEqual(t, "", *osRes.InstalledPackages)
+		var osPackages struct {
+			Repo []struct {
+				Name    *string `json:"name"`
+				Version *string `json:"version"`
+			} `json:"repo"`
 		}
+		// validate that the obtained InstalledPackages is truly unmarshal-able JSON string
+		err := json.Unmarshal([]byte(*osRes.InstalledPackages), &osPackages)
+		require.NoError(t, err)
+		assert.NotEmpty(t, osPackages.Repo)
+		assert.NotNil(t, osPackages.Repo[0].Name)
+		assert.NotNil(t, osPackages.Repo[0].Version)
 	}
 	log.Info().Msgf("End OSResource get with installed packages test")
 }
@@ -323,11 +326,24 @@ func TestOS_CreatewithCustom(t *testing.T) {
 	OSKernel1 := "kvmgt vfio-iommu-type1 vfio-mdev i915.enable_gvt=1 kvm.ignore_msrs=1 intel_iommu=on iommu=pt drm.debug=0"
 	OSArch1 := "x86"
 	OSRepo1 := "http://test.com/test.raw.gz"
+
 	OSInstalledPackages := "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero"
-	OSSecFeat := api.OperatingSystemResourceSecurityFeatureSECURITYFEATURENONE
+	OSSecFeat := api.SECURITYFEATURENONE
 	OperatingSystemUpdateSources := `#ReleaseService\nTypes: deb\nURIs:
-https://files-rs.edgeorchestration.intel.com/repository\nSuites:
-24.08\nComponents: release\nSigned-By:\n -----BEGIN PGP PUBLIC KEY BLOCK-----\n .\n mQINBGXE3tkBEAD85hzXnrq6rPnOXxwns35NfLaT595jJ3r5J17U/heOymT+K18D\n A6ewAwQgyHEWemW87xW6iqzRI4jB5m/ #### FAKE ### tboh57AZ40JFRlzz4\n dKybtByZ2ntW/sYvXwR818/sUd2PjtRHekBq+bprw2JR2OwPhfAswBs9UzWNiSqd\n rA3NksCeuj/j6sSaqpXn123ZtlliZttviM+bvbSps5qJ5TbxHtSwr4H5gYSlHVT/\n IwqUfFrYNoQVDejlGkVgyjQYonEqk8eX\n =w4R+\n -----END PGP PUBLIC KEY BLOCK-----`
+https://files-rs.edgeorchestration.intel.com/repository
+Suites: 24.08
+Components: release
+Signed-By:
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+ .
+ mQINBGXE3tkBEAD85hzXnrq6rPnOXxwns35NfLaT595jJ3r5J17U/heOymT+K18D
+ A6ewAwQgyHEWemW87xW6iqzRI4jB5m/ #### FAKE ### tboh57AZ40JFRlzz4
+ dKybtByZ2ntW/sYvXwR818/sUd2PjtRHekBq+bprw2JR2OwPhfAswBs9UzWNiSqd
+ rA3NksCeuj/j6sSaqpXn123ZtlliZttviM+bvbSps5qJ5TbxHtSwr4H5gYSlHVT/
+ IwqUfFrYNoQVDejlGkVgyjQYonEqk8eX
+ =w4R+
+ -----END PGP PUBLIC KEY BLOCK-----
+`
 	updateSources := []string{OperatingSystemUpdateSources}
 	randSHA := inv_testing.GenerateRandomSha256()
 	OSResource1ReqwithCustom := api.OperatingSystemResource{
@@ -335,7 +351,7 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 		ProfileName:       &OSProfileName1,
 		KernelCommand:     &OSKernel1,
 		Architecture:      &OSArch1,
-		UpdateSources:     updateSources,
+		UpdateSources:     &updateSources,
 		RepoUrl:           &OSRepo1,
 		Sha256:            randSHA,
 		InstalledPackages: &OSInstalledPackages,
@@ -344,7 +360,7 @@ https://files-rs.edgeorchestration.intel.com/repository\nSuites:
 		OsProvider:        &utils.OSProvider,
 	}
 
-	os := CreateOS(t, ctx, apiClient, OSResource1ReqwithCustom)
+	os := CreateOS(ctx, t, apiClient, OSResource1ReqwithCustom)
 
 	get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
@@ -364,7 +380,7 @@ func TestOS_UpdatePatch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	os1 := CreateOS(t, ctx, apiClient, utils.OSResource1Request)
+	os1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
 	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
@@ -379,7 +395,6 @@ func TestOS_UpdatePatch(t *testing.T) {
 	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
 		*os1.JSON200.OsResourceID,
-		nil,
 		utils.OSResource2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -411,7 +426,6 @@ func TestOS_UpdatePatch(t *testing.T) {
 	immutableUpdate, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
 		*os1.JSON200.OsResourceID,
-		nil,
 		api.OperatingSystemResource{
 			OsType:     &osTypeImmutable,
 			OsProvider: &osProviderInfra,

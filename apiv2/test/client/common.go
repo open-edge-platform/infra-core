@@ -32,32 +32,30 @@ var (
 )
 
 const (
-	testTimeout              = time.Duration(120) * time.Second
-	jwtToken                 = "JWT_TOKEN"
-	authKey                  = "authorization"
-	projectID                = "PROJECT_ID"
-	projectIDKey             = "ActiveProjectID"
-	userAgent                = "User-Agent"
-	ecmServiceName           = "ecm-api"
-	observabilityServiceName = "common-metric-query-metrics"
+	testTimeout  = time.Duration(120) * time.Second
+	jwtToken     = "JWT_TOKEN"
+	authKey      = "authorization"
+	projectID    = "PROJECT_ID"
+	projectIDKey = "ActiveProjectID"
+	sleepTime    = 2 * time.Second
 )
 
 var (
-	apiUrl = flag.String("apiurl", "http://localhost:8080", "The URL of the REST API")
+	apiURL = flag.String("apiurl", "http://localhost:8080", "The URL of the REST API")
 	caPath = flag.String("caPath", "", "The path to the CA certificate file of the target cluster")
 )
 
 var (
 	FilterUUID                 = `uuid = %q`
-	FilterSiteId               = `site.resource_id = %q`
+	FilterSiteID               = `site.resource_id = %q`
 	FilterNotHasSite           = "NOT has(site)"
 	FilterByMetadata           = `metadata = '%s'`
-	FilterByWorkloadMemberId   = `workload_members.resource_id = %q`
+	FilterByWorkloadMemberID   = `workload_members.resource_id = %q`
 	FilterNotHasWorkloadMember = "NOT has(workload_members)"
 	FilterHasWorkloadMember    = "has(workload_members)"
-	FilterRegionParentId       = `parent_region.resource_id = %q`
+	FilterRegionParentID       = `parent_region.resource_id = %q`
 	FilterRegionNotHasParent   = "NOT has(parent_region)"
-	FilterSiteRegionId         = `region.resource_id = %q`
+	FilterSiteRegionID         = `region.resource_id = %q`
 	FilterSiteNotHasRegion     = "NOT has(region)"
 )
 
@@ -82,6 +80,7 @@ func GetClientWithCA(caPath string) (*http.Client, error) {
 	caCert, err := LoadFile(caPath)
 	if err != nil {
 		log.Warn().Msg("CA cert not provided, using httpclient insecure client")
+		//nolint:nilerr // If CA cert is not provided, we return an insecure http client
 		return &http.Client{}, nil
 	}
 
@@ -91,6 +90,7 @@ func GetClientWithCA(caPath string) (*http.Client, error) {
 		err := fmt.Errorf("failed to parse CA cert into http client")
 		return nil, err
 	}
+	//nolint:gosec // G402: TLS InsecureSkipVerify set to true is not a security issue in tests
 	tlsConfig := &tls.Config{
 		RootCAs:            caCertPool,
 		InsecureSkipVerify: true,
@@ -108,21 +108,11 @@ func GetAPIClient() (*api.ClientWithResponses, error) {
 		return nil, err
 	}
 
-	client, err := api.NewClientWithResponses(*apiUrl, api.WithHTTPClient(httpClient))
+	client, err := api.NewClientWithResponses(*apiURL, api.WithHTTPClient(httpClient))
 	if err != nil {
 		return nil, err
 	}
 	return client, nil
-}
-
-func ListStringContains(s []string, str string) bool {
-	for _, v := range s {
-		if v == str {
-			return true
-		}
-	}
-
-	return false
 }
 
 func ListMetadataContains(lst []api.MetadataItem, key, value string) bool {
@@ -135,7 +125,7 @@ func ListMetadataContains(lst []api.MetadataItem, key, value string) bool {
 	return false
 }
 
-func AddJWTtoTheHeader(ctx context.Context, req *http.Request) error {
+func AddJWTtoTheHeader(_ context.Context, req *http.Request) error {
 	// extract token from the environment variable
 	jwtTokenStr, ok := os.LookupEnv(jwtToken)
 	if !ok {
@@ -147,7 +137,7 @@ func AddJWTtoTheHeader(ctx context.Context, req *http.Request) error {
 	return nil
 }
 
-func AddProjectIDtoTheHeader(ctx context.Context, req *http.Request) error {
+func AddProjectIDtoTheHeader(_ context.Context, req *http.Request) error {
 	// extract MT ProjectID from the environment variable
 	projectIDStr, ok := os.LookupEnv(projectID)
 	if !ok {
@@ -159,7 +149,7 @@ func AddProjectIDtoTheHeader(ctx context.Context, req *http.Request) error {
 	return nil
 }
 
-func hostsContainsId(hosts []api.HostResource, hostID string) bool {
+func hostsContainsID(hosts []api.HostResource, hostID string) bool {
 	for _, h := range hosts {
 		if *h.ResourceId == hostID {
 			return true
@@ -169,180 +159,181 @@ func hostsContainsId(hosts []api.HostResource, hostID string) bool {
 }
 
 func CreateSchedSingle(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	reqSched api.SingleScheduleResource,
 ) *api.ScheduleServiceCreateSingleScheduleResponse {
-	t.Helper()
+	tb.Helper()
 
 	sched, err := apiClient.ScheduleServiceCreateSingleScheduleWithResponse(
 		ctx,
 		reqSched,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, sched.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, sched.StatusCode())
 
-	t.Cleanup(func() { DeleteSchedSingle(t, context.Background(), apiClient, *sched.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteSchedSingle(context.Background(), tb, apiClient, *sched.JSON200.ResourceId) })
 	return sched
 }
 
 func DeleteSchedSingle(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	schedID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	schedDel, err := apiClient.ScheduleServiceDeleteSingleScheduleWithResponse(
 		ctx,
 		schedID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, schedDel.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, schedDel.StatusCode())
 }
 
 func CreateSchedRepeated(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	reqSched api.RepeatedScheduleResource,
 ) *api.ScheduleServiceCreateRepeatedScheduleResponse {
-	t.Helper()
+	tb.Helper()
 
 	sched, err := apiClient.ScheduleServiceCreateRepeatedScheduleWithResponse(
 		ctx,
 		reqSched,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, sched.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, sched.StatusCode())
 
-	t.Cleanup(func() { DeleteSchedRepeated(t, context.Background(), apiClient, *sched.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteSchedRepeated(context.Background(), tb, apiClient, *sched.JSON200.ResourceId) })
 	return sched
 }
 
 func DeleteSchedRepeated(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	schedID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	schedDel, err := apiClient.ScheduleServiceDeleteRepeatedScheduleWithResponse(
 		ctx,
 		schedID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, schedDel.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, schedDel.StatusCode())
 }
 
 func CreateRegion(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	regionRequest api.RegionResource,
 ) *api.RegionServiceCreateRegionResponse {
-	t.Helper()
+	tb.Helper()
 
 	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, region.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, region.StatusCode())
 
-	t.Cleanup(func() { DeleteRegion(t, context.Background(), apiClient, *region.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteRegion(context.Background(), tb, apiClient, *region.JSON200.ResourceId) })
 	return region
 }
 
 func DeleteRegion(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	regionID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	resDelRegion, err := apiClient.RegionServiceDeleteRegionWithResponse(
 		ctx,
 		regionID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resDelRegion.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, resDelRegion.StatusCode())
 }
 
 func CreateSite(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	siteRequest api.SiteResource,
 ) *api.SiteServiceCreateSiteResponse {
-	t.Helper()
+	tb.Helper()
 
 	site, err := apiClient.SiteServiceCreateSiteWithResponse(ctx, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, site.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, site.StatusCode())
 
-	t.Cleanup(func() { DeleteSite(t, context.Background(), apiClient, *site.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteSite(context.Background(), tb, apiClient, *site.JSON200.ResourceId) })
 	return site
 }
 
 func DeleteSite(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	siteID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(ctx, siteID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resDelSite.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, resDelSite.StatusCode())
 }
 
 // CreateHost adds a host via the REST APIs, and setup the soft delete upon test cleanup.
 func CreateHost(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	hostRequest api.HostResource,
 ) *api.HostServiceCreateHostResponse {
-	t.Helper()
+	tb.Helper()
 
 	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, host.StatusCode())
-	t.Cleanup(func() { SoftDeleteHost(t, context.Background(), apiClient, host.JSON200) })
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, host.StatusCode())
+	tb.Cleanup(func() { SoftDeleteHost(context.Background(), tb, apiClient, host.JSON200) })
 	return host
 }
 
-// SoftDeleteHost: unallocate the host if allocated to any site so we free any linked resources (site), and does a soft delete of Host.
+// SoftDeleteHost
+// \unallocate the host if allocated to any site so we free any linked resources (site), and does a soft delete of Host.
 // Eventually Host Resource Manager will do the hard delete.
 func SoftDeleteHost(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	host *api.HostResource,
 ) {
-	t.Helper()
+	tb.Helper()
 
-	UnallocateHostFromSite(t, ctx, apiClient, host)
+	UnallocateHostFromSite(ctx, tb, apiClient, host)
 	resDelHost, err := apiClient.HostServiceDeleteHostWithResponse(
 		ctx,
 		*host.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resDelHost.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, resDelHost.StatusCode())
 }
 
 // UnallocateHostFromSite: unallocate the given hostId from a site.
-func UnallocateHostFromSite(t testing.TB, ctx context.Context, apiClient *api.ClientWithResponses, hostReq *api.HostResource) {
-	t.Helper()
+func UnallocateHostFromSite(ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, hostReq *api.HostResource) {
+	tb.Helper()
 
 	hostUp := api.HostResource{
 		Name:   hostReq.Name,
@@ -354,13 +345,13 @@ func UnallocateHostFromSite(t testing.TB, ctx context.Context, apiClient *api.Cl
 		hostUp,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
 
 func AssertInMaintenance(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	hostID *string,
 	siteID *string,
@@ -369,7 +360,7 @@ func AssertInMaintenance(
 	expectedSchedules int,
 	found bool,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	timestampString := fmt.Sprint(timestamp.UTC().Unix())
 	sReply, err := apiClient.ScheduleServiceListSchedulesWithResponse(
@@ -382,9 +373,9 @@ func AssertInMaintenance(
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
+	require.NoError(tb, err)
 	if found {
-		assert.Equal(t, http.StatusOK, sReply.StatusCode())
+		assert.Equal(tb, http.StatusOK, sReply.StatusCode())
 		length := 0
 		if sReply.JSON200.SingleSchedules != nil {
 			length += len(sReply.JSON200.SingleSchedules)
@@ -392,302 +383,312 @@ func AssertInMaintenance(
 		if sReply.JSON200.RepeatedSchedules != nil {
 			length += len(sReply.JSON200.RepeatedSchedules)
 		}
-		assert.Equal(t, expectedSchedules, length, "Wrong number of schedules")
+		assert.Equal(tb, expectedSchedules, length, "Wrong number of schedules")
 	} else {
-		assert.Equal(t, http.StatusOK, sReply.StatusCode())
+		assert.Equal(tb, http.StatusOK, sReply.StatusCode())
 	}
 }
 
 func CreateOS(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	reqOS api.OperatingSystemResource,
 ) *api.OperatingSystemServiceCreateOperatingSystemResponse {
-	t.Helper()
+	tb.Helper()
 
 	osCreated, err := apiClient.OperatingSystemServiceCreateOperatingSystemWithResponse(
 		ctx,
 		reqOS,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, osCreated.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, osCreated.StatusCode())
 
-	t.Cleanup(func() {
-		time.Sleep(2 * time.Second) // Waits until Instance reconciliation happens
-		DeleteOS(t, context.Background(), apiClient, *osCreated.JSON200.ResourceId)
+	tb.Cleanup(func() {
+		time.Sleep(sleepTime) // Waits until Instance reconciliation happens
+		DeleteOS(context.Background(), tb, apiClient, *osCreated.JSON200.ResourceId)
 	})
 
 	return osCreated
 }
 
 func DeleteOS(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	osID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	osDel, err := apiClient.OperatingSystemServiceDeleteOperatingSystemWithResponse(
 		ctx,
 		osID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, osDel.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, osDel.StatusCode())
 }
 
 func CreateWorkload(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	reqWorkload api.WorkloadResource,
 ) *api.WorkloadServiceCreateWorkloadResponse {
-	t.Helper()
+	tb.Helper()
 
 	wCreated, err := apiClient.WorkloadServiceCreateWorkloadWithResponse(
 		ctx,
 		reqWorkload,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, wCreated.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, wCreated.StatusCode())
 
-	t.Cleanup(func() { DeleteWorkload(t, context.Background(), apiClient, *wCreated.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteWorkload(context.Background(), tb, apiClient, *wCreated.JSON200.ResourceId) })
 	return wCreated
 }
 
 func DeleteWorkload(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	workloadID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	wDel, err := apiClient.WorkloadServiceDeleteWorkloadWithResponse(
 		ctx,
 		workloadID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, wDel.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, wDel.StatusCode())
 }
 
 func CreateWorkloadMember(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	reqMember api.WorkloadMember,
 ) *api.WorkloadMemberServiceCreateWorkloadMemberResponse {
-	t.Helper()
+	tb.Helper()
 
 	mCreated, err := apiClient.WorkloadMemberServiceCreateWorkloadMemberWithResponse(
 		ctx,
 		reqMember,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, mCreated.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, mCreated.StatusCode())
 
-	t.Cleanup(func() { DeleteWorkloadMember(t, context.Background(), apiClient, *mCreated.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteWorkloadMember(context.Background(), tb, apiClient, *mCreated.JSON200.ResourceId) })
 	return mCreated
 }
 
 func DeleteWorkloadMember(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	memberID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	mDel, err := apiClient.WorkloadMemberServiceDeleteWorkloadMemberWithResponse(
 		ctx,
 		memberID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, mDel.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, mDel.StatusCode())
 }
 
 func CreateInstance(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	instRequest api.InstanceResource,
 ) *api.InstanceServiceCreateInstanceResponse {
-	t.Helper()
+	tb.Helper()
 
-	createdInstance, err := apiClient.InstanceServiceCreateInstanceWithResponse(ctx, instRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, createdInstance.StatusCode())
+	createdInstance, err := apiClient.InstanceServiceCreateInstanceWithResponse(
+		ctx, instRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, createdInstance.StatusCode())
 
-	t.Cleanup(func() { DeleteInstance(t, context.Background(), apiClient, *createdInstance.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteInstance(context.Background(), tb, apiClient, *createdInstance.JSON200.ResourceId) })
 	return createdInstance
 }
 
-func DeleteInstance(t testing.TB, ctx context.Context, apiClient *api.ClientWithResponses, instanceID string) {
-	t.Helper()
+func DeleteInstance(ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, instanceID string) {
+	tb.Helper()
 
-	resDelInst, err := apiClient.InstanceServiceDeleteInstanceWithResponse(ctx, instanceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resDelInst.StatusCode())
+	resDelInst, err := apiClient.InstanceServiceDeleteInstanceWithResponse(
+		ctx, instanceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, resDelInst.StatusCode())
 }
 
 func CreateTelemetryLogsGroup(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	request api.TelemetryLogsGroupResource,
 ) *api.TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse {
-	t.Helper()
+	tb.Helper()
 
-	created, err := apiClient.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, created.StatusCode())
+	created, err := apiClient.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(
+		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, created.StatusCode())
 
-	t.Cleanup(func() {
-		DeleteTelemetryLogsGroup(t, context.Background(), apiClient, *created.JSON200.ResourceId)
+	tb.Cleanup(func() {
+		DeleteTelemetryLogsGroup(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
 	})
 	return created
 }
 
 func DeleteTelemetryLogsGroup(
-	t testing.TB, ctx context.Context, apiClient *api.ClientWithResponses, id string,
+	ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, id string,
 ) {
-	t.Helper()
+	tb.Helper()
 
-	res, err := apiClient.TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode())
+	res, err := apiClient.TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(
+		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
 
 func CreateTelemetryMetricsGroup(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	request api.TelemetryMetricsGroupResource,
 ) *api.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse {
-	t.Helper()
+	tb.Helper()
 
-	created, err := apiClient.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, created.StatusCode())
+	created, err := apiClient.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(
+		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, created.StatusCode())
 
-	t.Cleanup(func() {
-		DeleteTelemetryMetricsGroup(t, context.Background(), apiClient, *created.JSON200.ResourceId)
+	tb.Cleanup(func() {
+		DeleteTelemetryMetricsGroup(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
 	})
 	return created
 }
 
 func DeleteTelemetryMetricsGroup(
-	t testing.TB, ctx context.Context, apiClient *api.ClientWithResponses, id string,
+	ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, id string,
 ) {
-	t.Helper()
+	tb.Helper()
 
-	res, err := apiClient.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode())
+	res, err := apiClient.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(
+		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
 
 func CreateTelemetryLogsProfile(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	request api.TelemetryLogsProfileResource,
 ) *api.TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse {
-	t.Helper()
+	tb.Helper()
 
-	created, err := apiClient.TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, created.StatusCode())
+	created, err := apiClient.TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(
+		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, created.StatusCode())
 
-	t.Cleanup(func() {
-		DeleteTelemetryLogsProfile(t, context.Background(), apiClient, *created.JSON200.ResourceId)
+	tb.Cleanup(func() {
+		DeleteTelemetryLogsProfile(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
 	})
 	return created
 }
 
 func DeleteTelemetryLogsProfile(
-	t testing.TB, ctx context.Context, apiClient *api.ClientWithResponses, id string,
+	ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, id string,
 ) {
-	t.Helper()
+	tb.Helper()
 
-	res, err := apiClient.TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode())
+	res, err := apiClient.TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(
+		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
 
 func CreateTelemetryMetricsProfile(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	request api.TelemetryMetricsProfileResource,
 ) *api.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse {
-	t.Helper()
+	tb.Helper()
 
-	created, err := apiClient.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, created.StatusCode())
+	created, err := apiClient.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(
+		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, created.StatusCode())
 
-	t.Cleanup(func() {
-		DeleteTelemetryMetricsProfile(t, context.Background(), apiClient, *created.JSON200.ResourceId)
+	tb.Cleanup(func() {
+		DeleteTelemetryMetricsProfile(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
 	})
 	return created
 }
 
 func DeleteTelemetryMetricsProfile(
-	t testing.TB, ctx context.Context, apiClient *api.ClientWithResponses, id string,
+	ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, id string,
 ) {
-	t.Helper()
+	tb.Helper()
 
-	res, err := apiClient.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode())
+	res, err := apiClient.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(
+		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
 
 func CreateProvider(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	reqProvider api.ProviderResource,
 ) *api.ProviderServiceCreateProviderResponse {
-	t.Helper()
+	tb.Helper()
 
 	providerCreated, err := apiClient.ProviderServiceCreateProviderWithResponse(
 		ctx,
 		reqProvider,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, providerCreated.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, providerCreated.StatusCode())
 
-	t.Cleanup(func() { DeleteProvider(t, context.Background(), apiClient, *providerCreated.JSON200.ResourceId) })
+	tb.Cleanup(func() { DeleteProvider(context.Background(), tb, apiClient, *providerCreated.JSON200.ResourceId) })
 	return providerCreated
 }
 
 func DeleteProvider(
-	t testing.TB,
 	ctx context.Context,
+	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	providerID string,
 ) {
-	t.Helper()
+	tb.Helper()
 
 	providerDel, err := apiClient.ProviderServiceDeleteProviderWithResponse(
 		ctx,
 		providerID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, providerDel.StatusCode())
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, providerDel.StatusCode())
 }
 
 // CreateLocalAccount creates a LocalAccount resource and returns the response.
-func CreateLocalAccount(t *testing.T, ctx context.Context, apiClient *api.ClientWithResponses,
+func CreateLocalAccount(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses,
 	request api.LocalAccountResource,
 ) *api.LocalAccountServiceCreateLocalAccountResponse {
 	t.Helper()
@@ -701,13 +702,13 @@ func CreateLocalAccount(t *testing.T, ctx context.Context, apiClient *api.Client
 	require.Equal(t, http.StatusOK, response.StatusCode())
 
 	t.Cleanup(func() {
-		DeleteOS(t, context.Background(), apiClient, *response.JSON200.ResourceId)
+		DeleteOS(context.Background(), t, apiClient, *response.JSON200.ResourceId)
 	})
 	return response
 }
 
 // DeleteLocalAccount deletes a LocalAccount resource by its ID.
-func DeleteLocalAccount(t *testing.T, ctx context.Context,
+func DeleteLocalAccount(ctx context.Context, t *testing.T,
 	apiClient *api.ClientWithResponses, resourceID string,
 ) {
 	t.Helper()
@@ -723,6 +724,7 @@ func DeleteLocalAccount(t *testing.T, ctx context.Context,
 
 func GetHostRequestWithRandomUUID() api.HostResource {
 	uuidHost := uuid.New().String()
+	//nolint:gosec // Ok to use non-cryptographic random number generator for test purposes
 	randName := fmt.Sprintf("Test Host %d", rand.Uint32())
 	return api.HostResource{
 		Name: randName,

@@ -7,6 +7,9 @@
     - [MetadataItem](#resources-common-v1-MetadataItem)
     - [Timestamps](#resources-common-v1-Timestamps)
   
+- [resources/customconfig/v1/customconfig.proto](#resources_customconfig_v1_customconfig-proto)
+    - [CustomConfigResource](#resources-customconfig-v1-CustomConfigResource)
+  
 - [resources/provider/v1/provider.proto](#resources_provider_v1_provider-proto)
     - [ProviderResource](#resources-provider-v1-ProviderResource)
   
@@ -44,15 +47,22 @@
     - [HoststorageResource](#resources-compute-v1-HoststorageResource)
     - [HostusbResource](#resources-compute-v1-HostusbResource)
     - [InstanceResource](#resources-compute-v1-InstanceResource)
+    - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
+    - [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy)
+    - [OSUpdateRun](#resources-compute-v1-OSUpdateRun)
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
+    - [AmtState](#resources-compute-v1-AmtState)
     - [BaremetalControllerKind](#resources-compute-v1-BaremetalControllerKind)
     - [HostComponentState](#resources-compute-v1-HostComponentState)
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
-    - [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState)
+    - [LinkState](#resources-compute-v1-LinkState)
+    - [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy)
+    - [PowerState](#resources-compute-v1-PowerState)
+    - [UpdatePolicy](#resources-compute-v1-UpdatePolicy)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
     - [WorkloadState](#resources-compute-v1-WorkloadState)
@@ -74,12 +84,18 @@
     - [TelemetryResourceKind](#resources-telemetry-v1-TelemetryResourceKind)
   
 - [services/v1/services.proto](#services_v1_services-proto)
+    - [CreateCustomConfigRequest](#services-v1-CreateCustomConfigRequest)
+    - [CreateCustomConfigResponse](#services-v1-CreateCustomConfigResponse)
     - [CreateHostRequest](#services-v1-CreateHostRequest)
     - [CreateHostResponse](#services-v1-CreateHostResponse)
     - [CreateInstanceRequest](#services-v1-CreateInstanceRequest)
     - [CreateInstanceResponse](#services-v1-CreateInstanceResponse)
     - [CreateLocalAccountRequest](#services-v1-CreateLocalAccountRequest)
     - [CreateLocalAccountResponse](#services-v1-CreateLocalAccountResponse)
+    - [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest)
+    - [CreateOSUpdatePolicyResponse](#services-v1-CreateOSUpdatePolicyResponse)
+    - [CreateOSUpdateRunRequest](#services-v1-CreateOSUpdateRunRequest)
+    - [CreateOSUpdateRunResponse](#services-v1-CreateOSUpdateRunResponse)
     - [CreateOperatingSystemRequest](#services-v1-CreateOperatingSystemRequest)
     - [CreateOperatingSystemResponse](#services-v1-CreateOperatingSystemResponse)
     - [CreateProviderRequest](#services-v1-CreateProviderRequest)
@@ -104,12 +120,18 @@
     - [CreateWorkloadMemberResponse](#services-v1-CreateWorkloadMemberResponse)
     - [CreateWorkloadRequest](#services-v1-CreateWorkloadRequest)
     - [CreateWorkloadResponse](#services-v1-CreateWorkloadResponse)
+    - [DeleteCustomConfigRequest](#services-v1-DeleteCustomConfigRequest)
+    - [DeleteCustomConfigResponse](#services-v1-DeleteCustomConfigResponse)
     - [DeleteHostRequest](#services-v1-DeleteHostRequest)
     - [DeleteHostResponse](#services-v1-DeleteHostResponse)
     - [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest)
     - [DeleteInstanceResponse](#services-v1-DeleteInstanceResponse)
     - [DeleteLocalAccountRequest](#services-v1-DeleteLocalAccountRequest)
     - [DeleteLocalAccountResponse](#services-v1-DeleteLocalAccountResponse)
+    - [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest)
+    - [DeleteOSUpdatePolicyResponse](#services-v1-DeleteOSUpdatePolicyResponse)
+    - [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest)
+    - [DeleteOSUpdateRunResponse](#services-v1-DeleteOSUpdateRunResponse)
     - [DeleteOperatingSystemRequest](#services-v1-DeleteOperatingSystemRequest)
     - [DeleteOperatingSystemResponse](#services-v1-DeleteOperatingSystemResponse)
     - [DeleteProviderRequest](#services-v1-DeleteProviderRequest)
@@ -134,6 +156,8 @@
     - [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse)
     - [DeleteWorkloadRequest](#services-v1-DeleteWorkloadRequest)
     - [DeleteWorkloadResponse](#services-v1-DeleteWorkloadResponse)
+    - [GetCustomConfigRequest](#services-v1-GetCustomConfigRequest)
+    - [GetCustomConfigResponse](#services-v1-GetCustomConfigResponse)
     - [GetHostRequest](#services-v1-GetHostRequest)
     - [GetHostResponse](#services-v1-GetHostResponse)
     - [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest)
@@ -142,6 +166,10 @@
     - [GetInstanceResponse](#services-v1-GetInstanceResponse)
     - [GetLocalAccountRequest](#services-v1-GetLocalAccountRequest)
     - [GetLocalAccountResponse](#services-v1-GetLocalAccountResponse)
+    - [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest)
+    - [GetOSUpdatePolicyResponse](#services-v1-GetOSUpdatePolicyResponse)
+    - [GetOSUpdateRunRequest](#services-v1-GetOSUpdateRunRequest)
+    - [GetOSUpdateRunResponse](#services-v1-GetOSUpdateRunResponse)
     - [GetOperatingSystemRequest](#services-v1-GetOperatingSystemRequest)
     - [GetOperatingSystemResponse](#services-v1-GetOperatingSystemResponse)
     - [GetProviderRequest](#services-v1-GetProviderRequest)
@@ -171,6 +199,8 @@
     - [InvalidateHostResponse](#services-v1-InvalidateHostResponse)
     - [InvalidateInstanceRequest](#services-v1-InvalidateInstanceRequest)
     - [InvalidateInstanceResponse](#services-v1-InvalidateInstanceResponse)
+    - [ListCustomConfigsRequest](#services-v1-ListCustomConfigsRequest)
+    - [ListCustomConfigsResponse](#services-v1-ListCustomConfigsResponse)
     - [ListHostsRequest](#services-v1-ListHostsRequest)
     - [ListHostsResponse](#services-v1-ListHostsResponse)
     - [ListInstancesRequest](#services-v1-ListInstancesRequest)
@@ -180,6 +210,10 @@
     - [ListLocationsRequest](#services-v1-ListLocationsRequest)
     - [ListLocationsResponse](#services-v1-ListLocationsResponse)
     - [ListLocationsResponse.LocationNode](#services-v1-ListLocationsResponse-LocationNode)
+    - [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest)
+    - [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse)
+    - [ListOSUpdateRunRequest](#services-v1-ListOSUpdateRunRequest)
+    - [ListOSUpdateRunResponse](#services-v1-ListOSUpdateRunResponse)
     - [ListOperatingSystemsRequest](#services-v1-ListOperatingSystemsRequest)
     - [ListOperatingSystemsResponse](#services-v1-ListOperatingSystemsResponse)
     - [ListProvidersRequest](#services-v1-ListProvidersRequest)
@@ -232,10 +266,13 @@
   
     - [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind)
   
+    - [CustomConfigService](#services-v1-CustomConfigService)
     - [HostService](#services-v1-HostService)
     - [InstanceService](#services-v1-InstanceService)
     - [LocalAccountService](#services-v1-LocalAccountService)
     - [LocationService](#services-v1-LocationService)
+    - [OSUpdatePolicy](#services-v1-OSUpdatePolicy)
+    - [OSUpdateRun](#services-v1-OSUpdateRun)
     - [OperatingSystemService](#services-v1-OperatingSystemService)
     - [ProviderService](#services-v1-ProviderService)
     - [RegionService](#services-v1-RegionService)
@@ -285,6 +322,41 @@ A metadata item, represented by a key:value pair.
 | ----- | ---- | ----- | ----------- |
 | created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was created. |
 | updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was last updated. |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="resources_customconfig_v1_customconfig-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/customconfig/v1/customconfig.proto
+
+
+
+<a name="resources-customconfig-v1-CustomConfigResource"></a>
+
+### CustomConfigResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| name | [string](#string) |  | Config provided by admin |
+| description | [string](#string) |  | Config description |
+| config_content | [string](#string) |  | Config content |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -446,21 +518,27 @@ An OS resource.
 | resource_id | [string](#string) |  | Resource ID, generated by inventory on Create. |
 | name | [string](#string) |  | The OS resource&#39;s name. |
 | architecture | [string](#string) |  | The OS resource&#39;s CPU architecture. |
-| kernel_command | [string](#string) |  | The OS resource&#39;s kernel Command Line Options. |
-| update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs |
+| kernel_command | [string](#string) |  | Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource&#39;s kernel Command Line Options. |
+| update_sources | [string](#string) | repeated | Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs |
 | image_url | [string](#string) |  | The URL repository of the OS image. |
 | image_id | [string](#string) |  | A unique identifier of the OS image that can be retrieved from the running OS. |
 | description | [string](#string) |  |  |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in hexadecimal representation. |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies a family of OS resources. |
 | profile_version | [string](#string) |  | Version of OS profile that the OS resource belongs to. |
-| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. |
+| installed_packages | [string](#string) |  | List of installed packages, encoded as a JSON list. |
+| installed_packages_url | [string](#string) |  | The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field for the advance use case to allow manual creation of OSProfiles when supported from backend. |
 | security_feature | [SecurityFeature](#resources-os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). Immutable after creation. |
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
+| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string. |
+| existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
+| fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |
+| fixed_cves | [string](#string) |  | The CVEs that have been fixed by this OS Resource version, encoded as a JSON list. |
 | os_resourceID | [string](#string) |  | Deprecated, The OS resource&#39;s unique identifier. Alias of resourceId. |
-| repo_url | [string](#string) |  | OS image URL. URL of the original installation source. |
+| repo_url | [string](#string) |  | Deprecated. OS image URL. URL of the original installation source. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -683,6 +761,7 @@ A Host resource.
 | desired_state | [HostState](#resources-compute-v1-HostState) |  | The desired state of the Host. |
 | current_state | [HostState](#resources-compute-v1-HostState) |  | The current state of the Host. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | The site resource associated with the host. |
+| provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | The provider associated with the host. |
 | note | [string](#string) |  | The note associated with the host. |
 | serial_number | [string](#string) |  | SMBIOS device serial number. |
 | uuid | [string](#string) |  | The host UUID identifier; UUID is unique and immutable. |
@@ -701,6 +780,13 @@ A Host resource.
 | bios_version | [string](#string) |  | BIOS Version. |
 | bios_release_date | [string](#string) |  | BIOS Release Date. |
 | bios_vendor | [string](#string) |  | BIOS Vendor. |
+| desired_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Desired power state of the host |
+| current_power_state | [PowerState](#resources-compute-v1-PowerState) |  | Current power state of the host |
+| power_status | [string](#string) |  | textual message that describes the runtime status of Host power. Set by DM RM only. |
+| power_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the power_status. Set by DM RM only. |
+| power_status_timestamp | [uint32](#uint32) |  | UTC timestamp when power_status was last changed. Set by DM RM only. |
+| power_command_policy | [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy) |  | Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED. |
+| power_on_time | [uint32](#uint32) |  | UTC timestamp when the host was powered on. Set by DM RM only. |
 | host_status | [string](#string) |  | textual message that describes the runtime status of Host. Set by RMs only. |
 | host_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of host_status. Set by RMs only. |
 | host_status_timestamp | [uint32](#uint32) |  | UTC timestamp when host_status was last changed. Set by RMs only. |
@@ -715,6 +801,12 @@ A Host resource.
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
+| amt_sku | [string](#string) |  | coming from device introspection |
+| desired_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
+| current_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
+| amt_status | [string](#string) |  | coming from device introspection. Set only by the DM RM. |
+| amt_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
+| amt_status_timestamp | [uint32](#uint32) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -733,13 +825,12 @@ The set of available host GPU cards.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | pci_id | [string](#string) |  | The GPU device PCI identifier. |
 | product | [string](#string) |  | The GPU device model. |
 | vendor | [string](#string) |  | The GPU device vendor. |
 | description | [string](#string) |  | The human-readable GPU device description. |
 | device_name | [string](#string) |  | GPU name as reported by OS. |
-| features | [string](#string) |  | The features of this GPU device, comma separated. |
+| capabilities | [string](#string) | repeated | The features of this GPU device, comma separated. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -755,18 +846,16 @@ The set of available host interfaces.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | device_name | [string](#string) |  | The device name (OS provided, like eth0, enp1s0, etc.). |
 | pci_identifier | [string](#string) |  | PCI identifier string for this network interface. |
 | mac_addr | [string](#string) |  | The interface MAC address. |
 | sriov_enabled | [bool](#bool) |  | If the interface has SRIOV enabled. |
 | sriov_vfs_num | [uint32](#uint32) |  | The number of VFs currently provisioned on the interface, if SR-IOV is supported. |
 | sriov_vfs_total | [uint32](#uint32) |  | The maximum number of VFs the interface supports, if SR-IOV is supported. |
-| features | [string](#string) |  | The features of this interface, comma separated. |
 | mtu | [uint32](#uint32) |  | Maximum transmission unit of the interface. |
 | link_state | [NetworkInterfaceLinkState](#resources-compute-v1-NetworkInterfaceLinkState) |  | Link state of this interface. |
 | bmc_interface | [bool](#bool) |  | Whether this is a bmc interface or not. |
-| ip_addresses | [resources.network.v1.IPAddressResource](#resources-network-v1-IPAddressResource) | repeated | The interface&#39;s IP address list. |
+| ipaddresses | [resources.network.v1.IPAddressResource](#resources-network-v1-IPAddressResource) | repeated | The interface&#39;s IP address list. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -782,7 +871,6 @@ The set of available host storage capabilities.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
 | wwid | [string](#string) |  | The storage device unique identifier. |
 | serial | [string](#string) |  | The storage device unique serial number. |
 | vendor | [string](#string) |  | The Storage device vendor. |
@@ -804,9 +892,8 @@ The set of host USB resources.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
-| idvendor | [string](#string) |  | Hexadecimal number representing ID of the USB device vendor. |
-| idproduct | [string](#string) |  | Hexadecimal number representing ID of the USB device product. |
+| id_vendor | [string](#string) |  | Hexadecimal number representing ID of the USB device vendor. |
+| id_product | [string](#string) |  | Hexadecimal number representing ID of the USB device product. |
 | bus | [uint32](#uint32) |  | Bus number of device connected with. |
 | addr | [uint32](#uint32) |  | USB Device number assigned by OS. |
 | class | [string](#string) |  | class defined by USB-IF. |
@@ -834,8 +921,9 @@ host or hypervisor.
 | desired_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance desired state. |
 | current_state | [InstanceState](#resources-compute-v1-InstanceState) |  | The Instance current state. |
 | host | [HostResource](#resources-compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
-| desired_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
-| current_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
+| os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
+| desired_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance. |
+| current_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance. |
 | security_feature | [resources.os.v1.SecurityFeature](#resources-os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | textual message that describes the current instance status. Set by RMs only. |
 | instance_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of instance_status. Set by RMs only. |
@@ -846,7 +934,7 @@ host or hypervisor.
 | update_status | [string](#string) |  | textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [uint32](#uint32) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
-| update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
+| update_status_detail | [string](#string) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
 | trusted_attestation_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates interpretation of trusted_attestation_status. Set by RMs only. |
 | trusted_attestation_status_timestamp | [uint32](#uint32) |  | UTC timestamp when trusted_attestation_status was last changed. Set by RMs only. |
@@ -854,10 +942,84 @@ host or hypervisor.
 
 back-reference to the Workload Members associated to this Instance |
 | localaccount | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| update_policy | [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | Update Policy of this Instance |
+| instance_status_detail | [string](#string) |  | Textual message that gives detailed status of the instance&#39;s software components. |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
+| runtime_packages | [string](#string) |  | The packages available on the Instance at runtime, represented as a JSON list. |
+| os_update_available | [string](#string) |  | Details about OS Updates available for this Instance. If empty, there are no updates available. |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | The list of custom config associated with the instance. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
-| osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. |
+| osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
+| os_update_policyID | [string](#string) |  |  |
+| custom_configID | [string](#string) | repeated | The list of custom config associated with the instance. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-NetworkInterfaceLinkState"></a>
+
+### NetworkInterfaceLinkState
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| type | [LinkState](#resources-compute-v1-LinkState) |  | The interface link state. |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-OSUpdatePolicy"></a>
+
+### OSUpdatePolicy
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource ID, generated by the inventory on Create. |
+| name | [string](#string) |  | User-provided, human-readable name. |
+| description | [string](#string) |  | User-provided, human-readable description. |
+| install_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information. Applies only to Mutable OSes. |
+| update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Applies only to Mutable OSes. |
+| kernel_command | [string](#string) |  | The OS resource&#39;s kernel Command Line Options. Applies only to Mutable OSes. |
+| target_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The target OS for the update. Applies only to Immutable OSes for A/B upgrades. |
+| target_os_id | [string](#string) |  | The unique identifier of target OS will be associated with the OS Update policy. |
+| update_policy | [UpdatePolicy](#resources-compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-OSUpdateRun"></a>
+
+### OSUpdateRun
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource ID, generated by the inventory on Create. |
+| name | [string](#string) |  | Human-readable name. |
+| description | [string](#string) |  | Human-readable description. |
+| applied_policy | [OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | Update Policy of this Instance |
+| instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance resource associated with this OS Update. This OS Update Run is executed for this instance. |
+| status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. STATUS_INDICATION_ERROR: Update failed in error Indicator STATUS_INDICATION_IN_PROGRESS: Update in progress Indicator STATUS_INDICATION_IDLE: Update completed successfully Indicator |
+| status | [string](#string) |  | Short message that describes what happened during the OS Update. |
+| status_details | [string](#string) |  | Details about what happened during the OS Update. |
+| status_timestamp | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update status reported. |
+| start_time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update started. |
+| end_time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | UTC timestamp of OS Update ended. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -912,6 +1074,20 @@ A generic way to group compute resources to obtain a workload.
  
 
 
+<a name="resources-compute-v1-AmtState"></a>
+
+### AmtState
+The state of the AMT (Active Management Technology) component.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_STATE_UNSPECIFIED | 0 |  |
+| AMT_STATE_PROVISIONED | 1 |  |
+| AMT_STATE_UNPROVISIONED | 2 |  |
+| AMT_STATE_DISCONNECTED | 3 |  |
+
+
+
 <a name="resources-compute-v1-BaremetalControllerKind"></a>
 
 ### BaremetalControllerKind
@@ -949,7 +1125,6 @@ States of the host.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |
@@ -983,9 +1158,9 @@ The Instance States.
 
 
 
-<a name="resources-compute-v1-NetworkInterfaceLinkState"></a>
+<a name="resources-compute-v1-LinkState"></a>
 
-### NetworkInterfaceLinkState
+### LinkState
 The state of the network interface.
 
 | Name | Number | Description |
@@ -993,6 +1168,49 @@ The state of the network interface.
 | NETWORK_INTERFACE_LINK_STATE_UNSPECIFIED | 0 |  |
 | NETWORK_INTERFACE_LINK_STATE_UP | 1 |  |
 | NETWORK_INTERFACE_LINK_STATE_DOWN | 2 |  |
+
+
+
+<a name="resources-compute-v1-PowerCommandPolicy"></a>
+
+### PowerCommandPolicy
+The policy for handling power commands.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_COMMAND_POLICY_UNSPECIFIED | 0 |  |
+| POWER_COMMAND_POLICY_IMMEDIATE | 1 |  |
+| POWER_COMMAND_POLICY_ORDERED | 2 |  |
+
+
+
+<a name="resources-compute-v1-PowerState"></a>
+
+### PowerState
+The host power state.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_STATE_UNSPECIFIED | 0 |  |
+| POWER_STATE_ON | 2 |  |
+| POWER_STATE_OFF | 3 |  |
+| POWER_STATE_SLEEP | 4 |  |
+| POWER_STATE_HIBERNATE | 5 |  |
+| POWER_STATE_RESET | 6 |  |
+| POWER_STATE_POWER_CYCLE | 7 |  |
+
+
+
+<a name="resources-compute-v1-UpdatePolicy"></a>
+
+### UpdatePolicy
+States of the host.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UPDATE_POLICY_UNSPECIFIED | 0 | Should never be used |
+| UPDATE_POLICY_LATEST | 1 | Upgrade to latest version |
+| UPDATE_POLICY_TARGET | 2 | Upgrade to the target version |
 
 
 
@@ -1287,6 +1505,36 @@ Kind of telemetry collector.
 
 
 
+<a name="services-v1-CreateCustomConfigRequest"></a>
+
+### CreateCustomConfigRequest
+Request message for the CreateCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The custom configuration to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateCustomConfigResponse"></a>
+
+### CreateCustomConfigResponse
+Response message for the CreateCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The created custom configuration. |
+
+
+
+
+
+
 <a name="services-v1-CreateHostRequest"></a>
 
 ### CreateHostRequest
@@ -1371,6 +1619,66 @@ Response message for the CreateLocalAccount method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The created localaccount. |
+
+
+
+
+
+
+<a name="services-v1-CreateOSUpdatePolicyRequest"></a>
+
+### CreateOSUpdatePolicyRequest
+Request message for the CreateOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The OS Update policy to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateOSUpdatePolicyResponse"></a>
+
+### CreateOSUpdatePolicyResponse
+Response message for the CreateOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The created os. |
+
+
+
+
+
+
+<a name="services-v1-CreateOSUpdateRunRequest"></a>
+
+### CreateOSUpdateRunRequest
+Request message for the CreateOSUpdateRun method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_run | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) |  | The os update run to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateOSUpdateRunResponse"></a>
+
+### CreateOSUpdateRunResponse
+Response message for the CreateOSUpdateRun method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_run | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) |  | The created os. |
 
 
 
@@ -1737,6 +2045,31 @@ Response message for the CreateWorkload method.
 
 
 
+<a name="services-v1-DeleteCustomConfigRequest"></a>
+
+### DeleteCustomConfigRequest
+Request message for DeleteCustomConfig.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the customconfig to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteCustomConfigResponse"></a>
+
+### DeleteCustomConfigResponse
+Response message for DeleteCustomConfig.
+
+
+
+
+
+
 <a name="services-v1-DeleteHostRequest"></a>
 
 ### DeleteHostRequest
@@ -1745,7 +2078,7 @@ Request message for DeleteHost.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the host host to be deleted. |
+| resourceId | [string](#string) |  | Name of the host host to be deleted. |
 
 
 
@@ -1770,7 +2103,7 @@ Request message for DeleteInstance.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the instance instance to be deleted. |
+| resourceId | [string](#string) |  | Name of the instance instance to be deleted. |
 
 
 
@@ -1795,7 +2128,7 @@ Request message for DeleteLocalAccount.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the localaccount to be deleted. |
+| resourceId | [string](#string) |  | Name of the localaccount to be deleted. |
 
 
 
@@ -1812,6 +2145,56 @@ Response message for DeleteLocalAccount.
 
 
 
+<a name="services-v1-DeleteOSUpdatePolicyRequest"></a>
+
+### DeleteOSUpdatePolicyRequest
+Request message for DeleteOperatingSystem.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the OS Update Policy to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteOSUpdatePolicyResponse"></a>
+
+### DeleteOSUpdatePolicyResponse
+Response message for DeleteOperatingSystem.
+
+
+
+
+
+
+<a name="services-v1-DeleteOSUpdateRunRequest"></a>
+
+### DeleteOSUpdateRunRequest
+Request message for DeleteOperatingSystem.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the os update run to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteOSUpdateRunResponse"></a>
+
+### DeleteOSUpdateRunResponse
+Response message for DeleteOperatingSystem.
+
+
+
+
+
+
 <a name="services-v1-DeleteOperatingSystemRequest"></a>
 
 ### DeleteOperatingSystemRequest
@@ -1820,7 +2203,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os os to be deleted. |
+| resourceId | [string](#string) |  | Name of the os os to be deleted. |
 
 
 
@@ -1845,7 +2228,7 @@ Request message for DeleteProvider.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the provider provider to be deleted. |
+| resourceId | [string](#string) |  | Name of the provider provider to be deleted. |
 
 
 
@@ -1870,7 +2253,7 @@ Request message for DeleteRegion.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the region region to be deleted. |
+| resourceId | [string](#string) |  | Name of the region region to be deleted. |
 
 
 
@@ -1895,7 +2278,7 @@ Request message for DeleteRepeatedSchedule.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be deleted. |
+| resourceId | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be deleted. |
 
 
 
@@ -1920,7 +2303,7 @@ Request message for DeleteSingleSchedule.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the single_schedule single_schedule to be deleted. |
+| resourceId | [string](#string) |  | Name of the single_schedule single_schedule to be deleted. |
 
 
 
@@ -1945,7 +2328,7 @@ Request message for DeleteSite.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the site site to be deleted. |
+| resourceId | [string](#string) |  | Name of the site site to be deleted. |
 
 
 
@@ -1970,7 +2353,7 @@ Request message for DeleteTelemetryLogsGroup.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_logs_group telemetry_logs_group to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_logs_group telemetry_logs_group to be deleted. |
 
 
 
@@ -1995,7 +2378,7 @@ Request message for DeleteTelemetryLogsProfile.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be deleted. |
 
 
 
@@ -2020,7 +2403,7 @@ Request message for DeleteTelemetryMetricsGroup.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_metrics_group telemetry_metrics_group to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_metrics_group telemetry_metrics_group to be deleted. |
 
 
 
@@ -2045,7 +2428,7 @@ Request message for DeleteTelemetryMetricsProfile.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted. |
+| resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted. |
 
 
 
@@ -2070,7 +2453,7 @@ Request message for DeleteWorkloadMember.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload_member workload_member to be deleted. |
+| resourceId | [string](#string) |  | Name of the workload_member workload_member to be deleted. |
 
 
 
@@ -2095,7 +2478,7 @@ Request message for DeleteWorkload.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload workload to be deleted. |
+| resourceId | [string](#string) |  | Name of the workload workload to be deleted. |
 
 
 
@@ -2112,6 +2495,36 @@ Response message for DeleteWorkload.
 
 
 
+<a name="services-v1-GetCustomConfigRequest"></a>
+
+### GetCustomConfigRequest
+Request message for the GetCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the requested custom configuration. |
+
+
+
+
+
+
+<a name="services-v1-GetCustomConfigResponse"></a>
+
+### GetCustomConfigResponse
+Response message for the GetCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The requested custom configuration. |
+
+
+
+
+
+
 <a name="services-v1-GetHostRequest"></a>
 
 ### GetHostRequest
@@ -2120,7 +2533,7 @@ Request message for the GetHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested host. |
+| resourceId | [string](#string) |  | Name of the requested host. |
 
 
 
@@ -2183,7 +2596,7 @@ Request message for the GetInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested instance. |
+| resourceId | [string](#string) |  | Name of the requested instance. |
 
 
 
@@ -2213,7 +2626,7 @@ Request message for the GetLocalAccount method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested localaccount. |
+| resourceId | [string](#string) |  | Name of the requested localaccount. |
 
 
 
@@ -2235,6 +2648,66 @@ Response message for the GetLocalAccount method.
 
 
 
+<a name="services-v1-GetOSUpdatePolicyRequest"></a>
+
+### GetOSUpdatePolicyRequest
+Request message for the GetOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the requested os. |
+
+
+
+
+
+
+<a name="services-v1-GetOSUpdatePolicyResponse"></a>
+
+### GetOSUpdatePolicyResponse
+Response message for the GetOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The requested os. |
+
+
+
+
+
+
+<a name="services-v1-GetOSUpdateRunRequest"></a>
+
+### GetOSUpdateRunRequest
+Request message for the GetOSUpdateRun method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the requested os. |
+
+
+
+
+
+
+<a name="services-v1-GetOSUpdateRunResponse"></a>
+
+### GetOSUpdateRunResponse
+Response message for the GetOSUpdateRun method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_run | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) |  | The requested os. |
+
+
+
+
+
+
 <a name="services-v1-GetOperatingSystemRequest"></a>
 
 ### GetOperatingSystemRequest
@@ -2243,7 +2716,7 @@ Request message for the GetOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested os. |
+| resourceId | [string](#string) |  | Name of the requested os. |
 
 
 
@@ -2273,7 +2746,7 @@ Request message for the GetProvider method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested provider. |
+| resourceId | [string](#string) |  | Name of the requested provider. |
 
 
 
@@ -2303,7 +2776,7 @@ Request message for the GetRegion method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested region. |
+| resourceId | [string](#string) |  | Name of the requested region. |
 
 
 
@@ -2333,7 +2806,7 @@ Request message for the GetRepeatedSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested repeated_schedule. |
+| resourceId | [string](#string) |  | Name of the requested repeated_schedule. |
 
 
 
@@ -2363,7 +2836,7 @@ Request message for the GetSingleSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested single_schedule. |
+| resourceId | [string](#string) |  | Name of the requested single_schedule. |
 
 
 
@@ -2393,7 +2866,7 @@ Request message for the GetSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested site. |
+| resourceId | [string](#string) |  | Name of the requested site. |
 
 
 
@@ -2423,7 +2896,7 @@ Request message for the GetTelemetryLogsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_logs_group. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_logs_group. |
 
 
 
@@ -2453,7 +2926,7 @@ Request message for the GetTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_logs_profile. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_logs_profile. |
 
 
 
@@ -2483,7 +2956,7 @@ Request message for the GetTelemetryMetricsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_metrics_group. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_metrics_group. |
 
 
 
@@ -2513,7 +2986,7 @@ Request message for the GetTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested telemetry_metrics_profile. |
+| resourceId | [string](#string) |  | Name of the requested telemetry_metrics_profile. |
 
 
 
@@ -2543,7 +3016,7 @@ Request message for the GetWorkloadMember method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested workload_member. |
+| resourceId | [string](#string) |  | Name of the requested workload_member. |
 
 
 
@@ -2573,7 +3046,7 @@ Request message for the GetWorkload method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the requested workload. |
+| resourceId | [string](#string) |  | Name of the requested workload. |
 
 
 
@@ -2606,7 +3079,8 @@ Message to register a Host.
 | name | [string](#string) |  | The host name. |
 | serial_number | [string](#string) |  | The host serial number. |
 | uuid | [string](#string) |  | The host UUID. |
-| auto_onboard | [bool](#bool) |  | Flag ot signal to automatically onboard the host. |
+| auto_onboard | [bool](#bool) |  | Flag to signal to automatically onboard the host. |
+| enable_vpro | [bool](#bool) |  | Flag to signal to enable vPRO on the host. |
 
 
 
@@ -2621,7 +3095,7 @@ Request to invalidate/untrust a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Host resource ID |
+| resourceId | [string](#string) |  | Host resource ID |
 | note | [string](#string) |  | user-provided reason for change or a freeform field |
 
 
@@ -2647,7 +3121,7 @@ Request message for Invalidate Instance.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Instance resource ID |
+| resourceId | [string](#string) |  | Instance resource ID |
 
 
 
@@ -2664,6 +3138,41 @@ Response message for Invalidate Instance.
 
 
 
+<a name="services-v1-ListCustomConfigsRequest"></a>
+
+### ListCustomConfigsRequest
+Request message for the ListCustomConfigs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListCustomConfigsResponse"></a>
+
+### ListCustomConfigsResponse
+Response message for the ListCustomConfigs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_configs | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | Sorted and filtered list of customconfigs. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
+
+
+
+
+
+
 <a name="services-v1-ListHostsRequest"></a>
 
 ### ListHostsRequest
@@ -2674,8 +3183,8 @@ Request message for the ListHosts method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2709,8 +3218,8 @@ Request message for the ListInstances method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2744,8 +3253,8 @@ Request message for the ListLocalAccounts method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2811,10 +3320,80 @@ A node in the location tree.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | The associated node resource ID, generated by inventory on Create. |
+| resourceId | [string](#string) |  | The associated node resource ID, generated by inventory on Create. |
 | parent_id | [string](#string) |  | The associated resource ID, of the parent resource of this Location node. In the case of a region, it could be empty or a regionId. In the case of a site, it could be empty or a regionId. |
 | name | [string](#string) |  | The node human readable name. |
 | type | [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind) |  | The node type |
+
+
+
+
+
+
+<a name="services-v1-ListOSUpdatePolicyRequest"></a>
+
+### ListOSUpdatePolicyRequest
+Request message for the ListOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListOSUpdatePolicyResponse"></a>
+
+### ListOSUpdatePolicyResponse
+Response message for the ListOSUpdatePolicy method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policies | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | repeated | Sorted and filtered list of OS Update Policies. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
+
+
+
+
+
+
+<a name="services-v1-ListOSUpdateRunRequest"></a>
+
+### ListOSUpdateRunRequest
+Request message for the ListOSUpdateRun method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListOSUpdateRunResponse"></a>
+
+### ListOSUpdateRunResponse
+Response message for the ListOSUpdateRun method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| os_update_policies | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | repeated | Sorted and filtered list of os update policies. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
 
 
 
@@ -2831,8 +3410,8 @@ Request message for the ListOperatingSystems method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2866,8 +3445,8 @@ Request message for the ListProviders method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -2901,8 +3480,8 @@ Request message for the ListRegions method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | show_total_sites | [bool](#bool) |  | Flag to signal if the total amount of site in a region should be returned. |
 
 
@@ -2935,8 +3514,8 @@ Request message for the ListRepeatedSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -2972,8 +3551,8 @@ Request message for the ListSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -3010,8 +3589,8 @@ Request message for the ListSingleSchedules method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | host_id | [string](#string) |  | The host ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified host ID applied to them, i.e., target including the inherited ones (parent site if not null). If null, returns all the schedules without a host ID as target. |
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
@@ -3049,8 +3628,8 @@ Request message for the ListSites method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -3082,8 +3661,8 @@ Request message for the ListTelemetryLogsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 
 
@@ -3116,8 +3695,8 @@ Request message for the ListTelemetryLogsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | instance_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given instance identifier. |
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
@@ -3154,8 +3733,8 @@ Request message for the ListTelemetryMetricsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 
 
@@ -3188,8 +3767,8 @@ Request message for the ListTelemetryMetricsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | instance_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given instance identifier. |
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
@@ -3228,8 +3807,8 @@ Request message for the ListWorkloadMembers method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -3263,8 +3842,8 @@ Request message for the ListWorkloads method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 
@@ -3296,7 +3875,7 @@ Request to onboard a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Host resource ID |
+| resourceId | [string](#string) |  | Host resource ID |
 
 
 
@@ -3321,7 +3900,7 @@ Request message for the PatchHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of host. |
 
@@ -3338,7 +3917,7 @@ Request message for the PatchInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
 
@@ -3355,7 +3934,7 @@ Request message for the PatchOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of os. |
 
@@ -3372,7 +3951,7 @@ Request message for the PatchRegion method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of region. |
 
@@ -3389,7 +3968,7 @@ Request message for the PatchRepeatedSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of repeated_schedule. |
 
@@ -3406,7 +3985,7 @@ Request message for the PatchSingleSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of single_schedule. |
 
@@ -3423,7 +4002,7 @@ Request message for the PatchSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
 
@@ -3440,7 +4019,7 @@ Request message for the PatchTelemetryLogs method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_logs_profile. |
 
@@ -3457,7 +4036,7 @@ Request message for the PatchTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_metrics_profile. |
 
@@ -3474,7 +4053,7 @@ Request message for the PatchWorkload method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload. |
 
@@ -3491,7 +4070,7 @@ Request to register a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  |  |
+| resourceId | [string](#string) |  |  |
 | host | [HostRegister](#services-v1-HostRegister) |  |  |
 
 
@@ -3507,7 +4086,7 @@ Request message for the UpdateHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the host host to be updated. |
+| resourceId | [string](#string) |  | Name of the host host to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 
 
@@ -3523,7 +4102,7 @@ Request message for the UpdateInstance method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | ID of the resource to be updated. |
+| resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 
 
@@ -3539,7 +4118,7 @@ Request message for the UpdateOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the os os to be updated. |
+| resourceId | [string](#string) |  | Name of the os os to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 
 
@@ -3555,7 +4134,7 @@ Request message for the UpdateRegion method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the region region to be updated. |
+| resourceId | [string](#string) |  | Name of the region region to be updated. |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
 
 
@@ -3571,7 +4150,7 @@ Request message for the UpdateRepeatedSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be updated. |
+| resourceId | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be updated. |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
 
 
@@ -3587,7 +4166,7 @@ Request message for the UpdateSingleSchedule method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the single_schedule single_schedule to be updated. |
+| resourceId | [string](#string) |  | Name of the single_schedule single_schedule to be updated. |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
 
 
@@ -3603,7 +4182,7 @@ Request message for the UpdateSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the site site to be updated. |
+| resourceId | [string](#string) |  | Name of the site site to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 
 
@@ -3619,7 +4198,7 @@ Request message for the UpdateTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be updated. |
+| resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 
 
@@ -3635,7 +4214,7 @@ Request message for the UpdateTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
+| resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 
 
@@ -3651,7 +4230,7 @@ Request message for the UpdateWorkload method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resource_id | [string](#string) |  | Name of the workload workload to be updated. |
+| resourceId | [string](#string) |  | Name of the workload workload to be updated. |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
 
 
@@ -3678,6 +4257,19 @@ Request message for the UpdateWorkload method.
  
 
 
+<a name="services-v1-CustomConfigService"></a>
+
+### CustomConfigService
+CustomConfig.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateCustomConfig | [CreateCustomConfigRequest](#services-v1-CreateCustomConfigRequest) | [.resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | Create a custom configuration. |
+| ListCustomConfigs | [ListCustomConfigsRequest](#services-v1-ListCustomConfigsRequest) | [ListCustomConfigsResponse](#services-v1-ListCustomConfigsResponse) | Get a list of custom configurations. |
+| GetCustomConfig | [GetCustomConfigRequest](#services-v1-GetCustomConfigRequest) | [.resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | Get a specific custom configuration. |
+| DeleteCustomConfig | [DeleteCustomConfigRequest](#services-v1-DeleteCustomConfigRequest) | [DeleteCustomConfigResponse](#services-v1-DeleteCustomConfigResponse) | Delete a custom configuration. |
+
+
 <a name="services-v1-HostService"></a>
 
 ### HostService
@@ -3694,7 +4286,7 @@ Host.
 | DeleteHost | [DeleteHostRequest](#services-v1-DeleteHostRequest) | [DeleteHostResponse](#services-v1-DeleteHostResponse) | Delete a host. |
 | InvalidateHost | [InvalidateHostRequest](#services-v1-InvalidateHostRequest) | [InvalidateHostResponse](#services-v1-InvalidateHostResponse) | Invalidate a host. |
 | RegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Register a host. |
-| RegisterUpdateHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host register. |
+| PatchRegisterHost | [RegisterHostRequest](#services-v1-RegisterHostRequest) | [.resources.compute.v1.HostResource](#resources-compute-v1-HostResource) | Update a host registration. |
 | OnboardHost | [OnboardHostRequest](#services-v1-OnboardHostRequest) | [OnboardHostResponse](#services-v1-OnboardHostResponse) | Onboard a host. |
 
 
@@ -3735,6 +4327,31 @@ Location.
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | ListLocations | [ListLocationsRequest](#services-v1-ListLocationsRequest) | [ListLocationsResponse](#services-v1-ListLocationsResponse) | Get a list of locations. |
+
+
+<a name="services-v1-OSUpdatePolicy"></a>
+
+### OSUpdatePolicy
+OS Update Policy.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateOSUpdatePolicy | [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Create an OS Update Policy. |
+| ListOSUpdatePolicy | [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest) | [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse) | Get a list of OS Update Policies. |
+| GetOSUpdatePolicy | [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Get a specific OS Update Policy. |
+| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [DeleteOSUpdatePolicyResponse](#services-v1-DeleteOSUpdatePolicyResponse) | Delete a OS Update Policy. |
+
+
+<a name="services-v1-OSUpdateRun"></a>
+
+### OSUpdateRun
+OS Update Run.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| ListOSUpdateRun | [ListOSUpdateRunRequest](#services-v1-ListOSUpdateRunRequest) | [ListOSUpdateRunResponse](#services-v1-ListOSUpdateRunResponse) | Get a list of OS Update Policies. |
+| GetOSUpdateRun | [GetOSUpdateRunRequest](#services-v1-GetOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Get a specific OS Update Run. |
+| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [DeleteOSUpdateRunResponse](#services-v1-DeleteOSUpdateRunResponse) | Delete a OS Update Run. |
 
 
 <a name="services-v1-OperatingSystemService"></a>

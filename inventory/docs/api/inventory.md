@@ -36,16 +36,20 @@
     - [HoststorageResource](#compute-v1-HoststorageResource)
     - [HostusbResource](#compute-v1-HostusbResource)
     - [InstanceResource](#compute-v1-InstanceResource)
+    - [OSUpdatePolicyResource](#compute-v1-OSUpdatePolicyResource)
     - [WorkloadMember](#compute-v1-WorkloadMember)
     - [WorkloadResource](#compute-v1-WorkloadResource)
   
+    - [AmtState](#compute-v1-AmtState)
     - [BaremetalControllerKind](#compute-v1-BaremetalControllerKind)
     - [HostComponentState](#compute-v1-HostComponentState)
     - [HostState](#compute-v1-HostState)
     - [InstanceKind](#compute-v1-InstanceKind)
     - [InstanceState](#compute-v1-InstanceState)
     - [NetworkInterfaceLinkState](#compute-v1-NetworkInterfaceLinkState)
+    - [PowerCommandPolicy](#compute-v1-PowerCommandPolicy)
     - [PowerState](#compute-v1-PowerState)
+    - [UpdatePolicy](#compute-v1-UpdatePolicy)
     - [WorkloadKind](#compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#compute-v1-WorkloadMemberKind)
     - [WorkloadState](#compute-v1-WorkloadState)
@@ -357,19 +361,24 @@
 | resource_id | [string](#string) |  | Resource ID of this OperatingSystemResource |
 | name | [string](#string) |  | user-provided, human-readable name of OS |
 | architecture | [string](#string) |  | CPU architecture supported |
-| kernel_command | [string](#string) |  | Kernel Command Line Options |
-| update_sources | [string](#string) | repeated | OS Update Sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs |
+| kernel_command | [string](#string) |  | Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
+| update_sources | [string](#string) | repeated | OS Update Sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
 | image_url | [string](#string) |  | OS image URL. URL of the original installation source. |
 | image_id | [string](#string) |  | OS image ID. This must be a unique identifier of OS image that can be retrieved from running OS. Used by IMMUTABLE only. |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in HEX. It&#39;s length is 32 bytes, but string representation of HEX is twice long (64 chars) |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies family of OSResources. |
 | profile_version | [string](#string) |  | Version of an OS profile that the OS resource belongs to. Along with profile_name uniquely identifies OS resource. |
-| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. |
+| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
 | security_feature | [SecurityFeature](#os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). |
 | os_type | [OsType](#os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | description | [string](#string) |  | user-provided, human-readable description of OS |
+| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string. |
+| existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
+| fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |
+| fixed_cves | [string](#string) |  | The CVEs that have been fixed by this OS Resource version, encoded as a JSON list. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -508,8 +517,17 @@ type such as &#34;XSPgen3&#34;, &#34;XDgen2&#34;, &#34;CI7gen12&#34; |
 | bios_release_date | [string](#string) |  | BIOS Release Date |
 | bios_vendor | [string](#string) |  | BIOS Vendor |
 | metadata | [string](#string) |  | Record metadata with format as json string. Example: [{&#34;key&#34;:&#34;cluster-name&#34;,&#34;value&#34;:&#34;&#34;},{&#34;key&#34;:&#34;app-id&#34;,&#34;value&#34;:&#34;&#34;}] |
+| desired_power_state | [PowerState](#compute-v1-PowerState) |  | Power management related fields
+
+Desired power state of the host |
 | current_power_state | [PowerState](#compute-v1-PowerState) |  | Current power state of the host |
-| desired_power_state | [PowerState](#compute-v1-PowerState) |  | Desired power state of the host |
+| power_status | [string](#string) |  | A group of fields describing the Power status at runtime. The following 3 fields should always be updated in one shot. If power_status is empty during initialization, it is automatically set to a Unknown value.
+
+textual message that describes the runtime status of Host power. Set by DM RM only. |
+| power_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the power_status. Set by DM RM only. |
+| power_status_timestamp | [uint64](#uint64) |  | UTC timestamp when power_status was last changed. Set by DM RM only. |
+| power_command_policy | [PowerCommandPolicy](#compute-v1-PowerCommandPolicy) |  | Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED. |
+| power_on_time | [uint64](#uint64) |  | UTC timestamp when the host was powered on. Set by DM RM only. |
 | host_status | [string](#string) |  | A group of fields describing the Host runtime status. host_status, host_status_indicator and host_status_timestamp should always be updated in one shot. If host_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the runtime status of Host. Set by RMs only. |
@@ -530,6 +548,14 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | host_usbs | [HostusbResource](#compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. This edge is read-only. |
 | host_gpus | [HostgpuResource](#compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. This edge is read-only. |
 | instance | [InstanceResource](#compute-v1-InstanceResource) |  | back-reference to baremetal Instance associated to this host |
+| amt_sku | [string](#string) |  | coming from device introspection |
+| desired_amt_state | [AmtState](#compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
+| current_amt_state | [AmtState](#compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
+| amt_status | [string](#string) |  | A group of fields describing the AMT status. amt_status, amt_status_indicator and amt_status_timestamp should always be updated in one shot. If amt_status is empty during initialization, it is automatically set to a Unknown value.
+
+textual message that describes the AMT status of Host. Set by DM RM only. |
+| amt_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
+| amt_status_timestamp | [uint64](#uint64) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -683,8 +709,9 @@ host or hypervisor.
 | vm_cpu_cores | [uint32](#uint32) |  | Number of CPU cores. Only applicable to VM instances. |
 | vm_storage_bytes | [uint64](#uint64) |  | Storage quantity (primary), in bytes. Only applicable to VM instances. |
 | host | [HostResource](#compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
-| desired_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
-| current_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
+| desired_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | Deprecated, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance. |
+| current_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | Deprecated, use os field instead. OS resource that is currently installed for this Instance. |
+| os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that is installed for this Instance. |
 | security_feature | [os.v1.SecurityFeature](#os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and instance_status_timestamp should always be updated in one shot. If instance_status is empty during initialization, it is automatically set to a default value.
 
@@ -701,7 +728,7 @@ textual message that describes the provisioning status of Instance. Set by RMs o
 textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [uint64](#uint64) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
-| update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
+| update_status_detail | [string](#string) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | A group of fields describing the Instance trusted_attestation status. trusted_attestation_status, trusted_attestation_status_indicator and trusted_attestation_status_timestamp should always be updated in one shot. If trusted_attestation_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
@@ -710,8 +737,37 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | workload_members | [WorkloadMember](#compute-v1-WorkloadMember) | repeated | back-reference to the Workload Members associated to this Instance |
 | provider | [provider.v1.ProviderResource](#provider-v1-ProviderResource) |  | Provider this Instance is provisioned through |
 | localaccount | [localaccount.v1.LocalAccountResource](#localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
+| os_update_policy | [OSUpdatePolicyResource](#compute-v1-OSUpdatePolicyResource) |  | OS Update Policy associated with this Instance. |
+| runtime_packages | [string](#string) |  | The packages available on the Instance at runtime, represented as a JSON list. |
+| os_update_available | [string](#string) |  | Details about OS Updates available for this Instance. If empty, there are no updates available. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | instance_status_detail | [string](#string) |  | textual message that gives detailed status of the instance&#39;s software components. |
+| created_at | [string](#string) |  | Creation timestamp |
+| updated_at | [string](#string) |  | Update timestamp |
+
+
+
+
+
+
+<a name="compute-v1-OSUpdatePolicyResource"></a>
+
+### OSUpdatePolicyResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource ID, generated by inventory on Create |
+| name | [string](#string) |  | User-provided, human-readable name of OSUpdatePolicy |
+| description | [string](#string) |  |  |
+| install_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes. |
+| update_sources | [string](#string) | repeated | OS Update Sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Applies only to Mutable OSes. |
+| kernel_command | [string](#string) |  | Kernel Command Line Options. Applies only to Mutable OSes. |
+| target_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. Applies only to Immutable OSes for A/B upgrades. The field is immutable. |
+| update_policy | [UpdatePolicy](#compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. |
+| tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
 
@@ -769,6 +825,20 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
  
 
 
+<a name="compute-v1-AmtState"></a>
+
+### AmtState
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_STATE_UNSPECIFIED | 0 |  |
+| AMT_STATE_PROVISIONED | 1 |  |
+| AMT_STATE_UNPROVISIONED | 2 |  |
+| AMT_STATE_DISCONNECTED | 3 |  |
+
+
+
 <a name="compute-v1-BaremetalControllerKind"></a>
 
 ### BaremetalControllerKind
@@ -806,7 +876,6 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | HOST_STATE_UNSPECIFIED | 0 |  |
-| HOST_STATE_DELETING | 1 |  |
 | HOST_STATE_DELETED | 2 |  |
 | HOST_STATE_ONBOARDED | 3 |  |
 | HOST_STATE_UNTRUSTED | 4 |  |
@@ -854,6 +923,19 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 
 
+<a name="compute-v1-PowerCommandPolicy"></a>
+
+### PowerCommandPolicy
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| POWER_COMMAND_POLICY_UNSPECIFIED | 0 |  |
+| POWER_COMMAND_POLICY_IMMEDIATE | 1 |  |
+| POWER_COMMAND_POLICY_ORDERED | 2 |  |
+
+
+
 <a name="compute-v1-PowerState"></a>
 
 ### PowerState
@@ -862,9 +944,30 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | POWER_STATE_UNSPECIFIED | 0 |  |
-| POWER_STATE_ERROR | 1 |  |
 | POWER_STATE_ON | 2 |  |
 | POWER_STATE_OFF | 3 |  |
+| POWER_STATE_SLEEP | 4 |  |
+| POWER_STATE_HIBERNATE | 5 |  |
+| POWER_STATE_RESET | 6 |  |
+| POWER_STATE_POWER_CYCLE | 7 |  |
+
+
+
+<a name="compute-v1-UpdatePolicy"></a>
+
+### UpdatePolicy
+UPDATE_POLICY_LATEST:
+- for mutable: unsupported
+- for immutable: latest version of the OS Resource
+UPDATE_POLICY_TARGET:
+- for mutable: apply the install_packages, update_sources, kernel_command
+- for immutable: install the version referenced by target_os
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UPDATE_POLICY_UNSPECIFIED | 0 | Should never be used |
+| UPDATE_POLICY_LATEST | 1 | Upgrade to latest version |
+| UPDATE_POLICY_TARGET | 2 | Upgrade to the target version |
 
 
 
@@ -1826,6 +1929,7 @@ resource ID, generated by inventory on Create |
 | tenant | [tenant.v1.Tenant](#tenant-v1-Tenant) |  |  |
 | remote_access | [remoteaccess.v1.RemoteAccessConfiguration](#remoteaccess-v1-RemoteAccessConfiguration) |  |  |
 | local_account | [localaccount.v1.LocalAccountResource](#localaccount-v1-LocalAccountResource) |  |  |
+| os_update_policy | [compute.v1.OSUpdatePolicyResource](#compute-v1-OSUpdatePolicyResource) |  |  |
 
 
 
@@ -1955,6 +2059,7 @@ Also, limit and offset parameter are used for pagination.
 | RESOURCE_KIND_TENANT | 130 |  |
 | RESOURCE_KIND_RMT_ACCESS_CONF | 150 |  |
 | RESOURCE_KIND_LOCALACCOUNT | 170 |  |
+| RESOURCE_KIND_OSUPDATEPOLICY | 180 |  |
 
 
 

@@ -18,6 +18,7 @@ import (
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	inv_client "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	ginutils "github.com/open-edge-platform/orch-library/go/pkg/middleware/gin"
 )
@@ -49,6 +50,7 @@ var servicesClients = []serviceClientsSignature{
 	restv1.RegisterTelemetryMetricsProfileServiceHandlerFromEndpoint,
 	restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
 	restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
+	restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
 }
 
 const (
@@ -90,6 +92,8 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 		err := serviceClient(m.ctx, mux, m.cfg.GRPCEndpoint,
 			[]grpc.DialOption{
 				grpc.WithTransportCredentials(insecure.NewCredentials()),
+				// Use Inventory client max message size, to keep Inventory and API consistent.
+				grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(inv_client.MaxMessageSize)),
 			})
 		if err != nil {
 			zlog.InfraErr(err).Msgf("failed to set service client %v", serviceClient)
@@ -114,6 +118,7 @@ func (m *Manager) Start() error {
 			return md
 		}),
 		runtime.WithRoutingErrorHandler(ginutils.HandleRoutingError),
+		runtime.WithErrorHandler(customErrorHandler),
 	)
 
 	err := m.setupClients(mux)

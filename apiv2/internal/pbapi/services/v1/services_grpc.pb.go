@@ -9,6 +9,7 @@ package servicesv1
 import (
 	context "context"
 	v11 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	v17 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/customconfig/v1"
 	v16 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	v1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
 	v12 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
@@ -685,8 +686,8 @@ type HostServiceClient interface {
 	InvalidateHost(ctx context.Context, in *InvalidateHostRequest, opts ...grpc.CallOption) (*InvalidateHostResponse, error)
 	// Register a host.
 	RegisterHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
-	// Update a host register.
-	RegisterUpdateHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
+	// Update a host registration.
+	PatchRegisterHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error)
 	// Onboard a host.
 	OnboardHost(ctx context.Context, in *OnboardHostRequest, opts ...grpc.CallOption) (*OnboardHostResponse, error)
 }
@@ -780,9 +781,9 @@ func (c *hostServiceClient) RegisterHost(ctx context.Context, in *RegisterHostRe
 	return out, nil
 }
 
-func (c *hostServiceClient) RegisterUpdateHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error) {
+func (c *hostServiceClient) PatchRegisterHost(ctx context.Context, in *RegisterHostRequest, opts ...grpc.CallOption) (*v11.HostResource, error) {
 	out := new(v11.HostResource)
-	err := c.cc.Invoke(ctx, "/services.v1.HostService/RegisterUpdateHost", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/services.v1.HostService/PatchRegisterHost", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -820,8 +821,8 @@ type HostServiceServer interface {
 	InvalidateHost(context.Context, *InvalidateHostRequest) (*InvalidateHostResponse, error)
 	// Register a host.
 	RegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error)
-	// Update a host register.
-	RegisterUpdateHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error)
+	// Update a host registration.
+	PatchRegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error)
 	// Onboard a host.
 	OnboardHost(context.Context, *OnboardHostRequest) (*OnboardHostResponse, error)
 }
@@ -857,8 +858,8 @@ func (UnimplementedHostServiceServer) InvalidateHost(context.Context, *Invalidat
 func (UnimplementedHostServiceServer) RegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterHost not implemented")
 }
-func (UnimplementedHostServiceServer) RegisterUpdateHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterUpdateHost not implemented")
+func (UnimplementedHostServiceServer) PatchRegisterHost(context.Context, *RegisterHostRequest) (*v11.HostResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchRegisterHost not implemented")
 }
 func (UnimplementedHostServiceServer) OnboardHost(context.Context, *OnboardHostRequest) (*OnboardHostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OnboardHost not implemented")
@@ -1037,20 +1038,20 @@ func _HostService_RegisterHost_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _HostService_RegisterUpdateHost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _HostService_PatchRegisterHost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegisterHostRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(HostServiceServer).RegisterUpdateHost(ctx, in)
+		return srv.(HostServiceServer).PatchRegisterHost(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.v1.HostService/RegisterUpdateHost",
+		FullMethod: "/services.v1.HostService/PatchRegisterHost",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HostServiceServer).RegisterUpdateHost(ctx, req.(*RegisterHostRequest))
+		return srv.(HostServiceServer).PatchRegisterHost(ctx, req.(*RegisterHostRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1117,8 +1118,8 @@ var HostService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _HostService_RegisterHost_Handler,
 		},
 		{
-			MethodName: "RegisterUpdateHost",
-			Handler:    _HostService_RegisterUpdateHost_Handler,
+			MethodName: "PatchRegisterHost",
+			Handler:    _HostService_PatchRegisterHost_Handler,
 		},
 		{
 			MethodName: "OnboardHost",
@@ -4083,6 +4084,568 @@ var LocalAccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteLocalAccount",
 			Handler:    _LocalAccountService_DeleteLocalAccount_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}
+
+// CustomConfigServiceClient is the client API for CustomConfigService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CustomConfigServiceClient interface {
+	// Create a custom configuration.
+	CreateCustomConfig(ctx context.Context, in *CreateCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error)
+	// Get a list of custom configurations.
+	ListCustomConfigs(ctx context.Context, in *ListCustomConfigsRequest, opts ...grpc.CallOption) (*ListCustomConfigsResponse, error)
+	// Get a specific custom configuration.
+	GetCustomConfig(ctx context.Context, in *GetCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error)
+	// Delete a custom configuration.
+	DeleteCustomConfig(ctx context.Context, in *DeleteCustomConfigRequest, opts ...grpc.CallOption) (*DeleteCustomConfigResponse, error)
+}
+
+type customConfigServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCustomConfigServiceClient(cc grpc.ClientConnInterface) CustomConfigServiceClient {
+	return &customConfigServiceClient{cc}
+}
+
+func (c *customConfigServiceClient) CreateCustomConfig(ctx context.Context, in *CreateCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error) {
+	out := new(v17.CustomConfigResource)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/CreateCustomConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customConfigServiceClient) ListCustomConfigs(ctx context.Context, in *ListCustomConfigsRequest, opts ...grpc.CallOption) (*ListCustomConfigsResponse, error) {
+	out := new(ListCustomConfigsResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/ListCustomConfigs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customConfigServiceClient) GetCustomConfig(ctx context.Context, in *GetCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error) {
+	out := new(v17.CustomConfigResource)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/GetCustomConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customConfigServiceClient) DeleteCustomConfig(ctx context.Context, in *DeleteCustomConfigRequest, opts ...grpc.CallOption) (*DeleteCustomConfigResponse, error) {
+	out := new(DeleteCustomConfigResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/DeleteCustomConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CustomConfigServiceServer is the server API for CustomConfigService service.
+// All implementations should embed UnimplementedCustomConfigServiceServer
+// for forward compatibility
+type CustomConfigServiceServer interface {
+	// Create a custom configuration.
+	CreateCustomConfig(context.Context, *CreateCustomConfigRequest) (*v17.CustomConfigResource, error)
+	// Get a list of custom configurations.
+	ListCustomConfigs(context.Context, *ListCustomConfigsRequest) (*ListCustomConfigsResponse, error)
+	// Get a specific custom configuration.
+	GetCustomConfig(context.Context, *GetCustomConfigRequest) (*v17.CustomConfigResource, error)
+	// Delete a custom configuration.
+	DeleteCustomConfig(context.Context, *DeleteCustomConfigRequest) (*DeleteCustomConfigResponse, error)
+}
+
+// UnimplementedCustomConfigServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedCustomConfigServiceServer struct {
+}
+
+func (UnimplementedCustomConfigServiceServer) CreateCustomConfig(context.Context, *CreateCustomConfigRequest) (*v17.CustomConfigResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCustomConfig not implemented")
+}
+func (UnimplementedCustomConfigServiceServer) ListCustomConfigs(context.Context, *ListCustomConfigsRequest) (*ListCustomConfigsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCustomConfigs not implemented")
+}
+func (UnimplementedCustomConfigServiceServer) GetCustomConfig(context.Context, *GetCustomConfigRequest) (*v17.CustomConfigResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomConfig not implemented")
+}
+func (UnimplementedCustomConfigServiceServer) DeleteCustomConfig(context.Context, *DeleteCustomConfigRequest) (*DeleteCustomConfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCustomConfig not implemented")
+}
+
+// UnsafeCustomConfigServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CustomConfigServiceServer will
+// result in compilation errors.
+type UnsafeCustomConfigServiceServer interface {
+	mustEmbedUnimplementedCustomConfigServiceServer()
+}
+
+func RegisterCustomConfigServiceServer(s grpc.ServiceRegistrar, srv CustomConfigServiceServer) {
+	s.RegisterService(&CustomConfigService_ServiceDesc, srv)
+}
+
+func _CustomConfigService_CreateCustomConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCustomConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).CreateCustomConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/CreateCustomConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).CreateCustomConfig(ctx, req.(*CreateCustomConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomConfigService_ListCustomConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCustomConfigsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).ListCustomConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/ListCustomConfigs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).ListCustomConfigs(ctx, req.(*ListCustomConfigsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomConfigService_GetCustomConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).GetCustomConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/GetCustomConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).GetCustomConfig(ctx, req.(*GetCustomConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomConfigService_DeleteCustomConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCustomConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).DeleteCustomConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/DeleteCustomConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).DeleteCustomConfig(ctx, req.(*DeleteCustomConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// CustomConfigService_ServiceDesc is the grpc.ServiceDesc for CustomConfigService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var CustomConfigService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.CustomConfigService",
+	HandlerType: (*CustomConfigServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateCustomConfig",
+			Handler:    _CustomConfigService_CreateCustomConfig_Handler,
+		},
+		{
+			MethodName: "ListCustomConfigs",
+			Handler:    _CustomConfigService_ListCustomConfigs_Handler,
+		},
+		{
+			MethodName: "GetCustomConfig",
+			Handler:    _CustomConfigService_GetCustomConfig_Handler,
+		},
+		{
+			MethodName: "DeleteCustomConfig",
+			Handler:    _CustomConfigService_DeleteCustomConfig_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}
+
+// OSUpdatePolicyClient is the client API for OSUpdatePolicy service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type OSUpdatePolicyClient interface {
+	// Create an OS Update Policy.
+	CreateOSUpdatePolicy(ctx context.Context, in *CreateOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
+	// Get a list of OS Update Policies.
+	ListOSUpdatePolicy(ctx context.Context, in *ListOSUpdatePolicyRequest, opts ...grpc.CallOption) (*ListOSUpdatePolicyResponse, error)
+	// Get a specific OS Update Policy.
+	GetOSUpdatePolicy(ctx context.Context, in *GetOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
+	// Delete a OS Update Policy.
+	DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*DeleteOSUpdatePolicyResponse, error)
+}
+
+type oSUpdatePolicyClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewOSUpdatePolicyClient(cc grpc.ClientConnInterface) OSUpdatePolicyClient {
+	return &oSUpdatePolicyClient{cc}
+}
+
+func (c *oSUpdatePolicyClient) CreateOSUpdatePolicy(ctx context.Context, in *CreateOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error) {
+	out := new(v11.OSUpdatePolicy)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/CreateOSUpdatePolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdatePolicyClient) ListOSUpdatePolicy(ctx context.Context, in *ListOSUpdatePolicyRequest, opts ...grpc.CallOption) (*ListOSUpdatePolicyResponse, error) {
+	out := new(ListOSUpdatePolicyResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/ListOSUpdatePolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdatePolicyClient) GetOSUpdatePolicy(ctx context.Context, in *GetOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error) {
+	out := new(v11.OSUpdatePolicy)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdatePolicyClient) DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*DeleteOSUpdatePolicyResponse, error) {
+	out := new(DeleteOSUpdatePolicyResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OSUpdatePolicyServer is the server API for OSUpdatePolicy service.
+// All implementations should embed UnimplementedOSUpdatePolicyServer
+// for forward compatibility
+type OSUpdatePolicyServer interface {
+	// Create an OS Update Policy.
+	CreateOSUpdatePolicy(context.Context, *CreateOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
+	// Get a list of OS Update Policies.
+	ListOSUpdatePolicy(context.Context, *ListOSUpdatePolicyRequest) (*ListOSUpdatePolicyResponse, error)
+	// Get a specific OS Update Policy.
+	GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
+	// Delete a OS Update Policy.
+	DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*DeleteOSUpdatePolicyResponse, error)
+}
+
+// UnimplementedOSUpdatePolicyServer should be embedded to have forward compatible implementations.
+type UnimplementedOSUpdatePolicyServer struct {
+}
+
+func (UnimplementedOSUpdatePolicyServer) CreateOSUpdatePolicy(context.Context, *CreateOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOSUpdatePolicy not implemented")
+}
+func (UnimplementedOSUpdatePolicyServer) ListOSUpdatePolicy(context.Context, *ListOSUpdatePolicyRequest) (*ListOSUpdatePolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOSUpdatePolicy not implemented")
+}
+func (UnimplementedOSUpdatePolicyServer) GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdatePolicy not implemented")
+}
+func (UnimplementedOSUpdatePolicyServer) DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*DeleteOSUpdatePolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdatePolicy not implemented")
+}
+
+// UnsafeOSUpdatePolicyServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OSUpdatePolicyServer will
+// result in compilation errors.
+type UnsafeOSUpdatePolicyServer interface {
+	mustEmbedUnimplementedOSUpdatePolicyServer()
+}
+
+func RegisterOSUpdatePolicyServer(s grpc.ServiceRegistrar, srv OSUpdatePolicyServer) {
+	s.RegisterService(&OSUpdatePolicy_ServiceDesc, srv)
+}
+
+func _OSUpdatePolicy_CreateOSUpdatePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOSUpdatePolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdatePolicyServer).CreateOSUpdatePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdatePolicy/CreateOSUpdatePolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdatePolicyServer).CreateOSUpdatePolicy(ctx, req.(*CreateOSUpdatePolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdatePolicy_ListOSUpdatePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOSUpdatePolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdatePolicyServer).ListOSUpdatePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdatePolicy/ListOSUpdatePolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdatePolicyServer).ListOSUpdatePolicy(ctx, req.(*ListOSUpdatePolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdatePolicy_GetOSUpdatePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOSUpdatePolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdatePolicyServer).GetOSUpdatePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdatePolicyServer).GetOSUpdatePolicy(ctx, req.(*GetOSUpdatePolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdatePolicy_DeleteOSUpdatePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOSUpdatePolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdatePolicyServer).DeleteOSUpdatePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdatePolicyServer).DeleteOSUpdatePolicy(ctx, req.(*DeleteOSUpdatePolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// OSUpdatePolicy_ServiceDesc is the grpc.ServiceDesc for OSUpdatePolicy service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var OSUpdatePolicy_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.OSUpdatePolicy",
+	HandlerType: (*OSUpdatePolicyServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateOSUpdatePolicy",
+			Handler:    _OSUpdatePolicy_CreateOSUpdatePolicy_Handler,
+		},
+		{
+			MethodName: "ListOSUpdatePolicy",
+			Handler:    _OSUpdatePolicy_ListOSUpdatePolicy_Handler,
+		},
+		{
+			MethodName: "GetOSUpdatePolicy",
+			Handler:    _OSUpdatePolicy_GetOSUpdatePolicy_Handler,
+		},
+		{
+			MethodName: "DeleteOSUpdatePolicy",
+			Handler:    _OSUpdatePolicy_DeleteOSUpdatePolicy_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}
+
+// OSUpdateRunClient is the client API for OSUpdateRun service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type OSUpdateRunClient interface {
+	// Get a list of OS Update Policies.
+	ListOSUpdateRun(ctx context.Context, in *ListOSUpdateRunRequest, opts ...grpc.CallOption) (*ListOSUpdateRunResponse, error)
+	// Get a specific OS Update Run.
+	GetOSUpdateRun(ctx context.Context, in *GetOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
+	// Delete a OS Update Run.
+	DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*DeleteOSUpdateRunResponse, error)
+}
+
+type oSUpdateRunClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewOSUpdateRunClient(cc grpc.ClientConnInterface) OSUpdateRunClient {
+	return &oSUpdateRunClient{cc}
+}
+
+func (c *oSUpdateRunClient) ListOSUpdateRun(ctx context.Context, in *ListOSUpdateRunRequest, opts ...grpc.CallOption) (*ListOSUpdateRunResponse, error) {
+	out := new(ListOSUpdateRunResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/ListOSUpdateRun", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdateRunClient) GetOSUpdateRun(ctx context.Context, in *GetOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error) {
+	out := new(v11.OSUpdateRun)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/GetOSUpdateRun", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *oSUpdateRunClient) DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*DeleteOSUpdateRunResponse, error) {
+	out := new(DeleteOSUpdateRunResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OSUpdateRunServer is the server API for OSUpdateRun service.
+// All implementations should embed UnimplementedOSUpdateRunServer
+// for forward compatibility
+type OSUpdateRunServer interface {
+	// Get a list of OS Update Policies.
+	ListOSUpdateRun(context.Context, *ListOSUpdateRunRequest) (*ListOSUpdateRunResponse, error)
+	// Get a specific OS Update Run.
+	GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error)
+	// Delete a OS Update Run.
+	DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*DeleteOSUpdateRunResponse, error)
+}
+
+// UnimplementedOSUpdateRunServer should be embedded to have forward compatible implementations.
+type UnimplementedOSUpdateRunServer struct {
+}
+
+func (UnimplementedOSUpdateRunServer) ListOSUpdateRun(context.Context, *ListOSUpdateRunRequest) (*ListOSUpdateRunResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOSUpdateRun not implemented")
+}
+func (UnimplementedOSUpdateRunServer) GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdateRun not implemented")
+}
+func (UnimplementedOSUpdateRunServer) DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*DeleteOSUpdateRunResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdateRun not implemented")
+}
+
+// UnsafeOSUpdateRunServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OSUpdateRunServer will
+// result in compilation errors.
+type UnsafeOSUpdateRunServer interface {
+	mustEmbedUnimplementedOSUpdateRunServer()
+}
+
+func RegisterOSUpdateRunServer(s grpc.ServiceRegistrar, srv OSUpdateRunServer) {
+	s.RegisterService(&OSUpdateRun_ServiceDesc, srv)
+}
+
+func _OSUpdateRun_ListOSUpdateRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOSUpdateRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdateRunServer).ListOSUpdateRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdateRun/ListOSUpdateRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdateRunServer).ListOSUpdateRun(ctx, req.(*ListOSUpdateRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdateRun_GetOSUpdateRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOSUpdateRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdateRunServer).GetOSUpdateRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdateRun/GetOSUpdateRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdateRunServer).GetOSUpdateRun(ctx, req.(*GetOSUpdateRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OSUpdateRun_DeleteOSUpdateRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOSUpdateRunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OSUpdateRunServer).DeleteOSUpdateRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.OSUpdateRun/DeleteOSUpdateRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OSUpdateRunServer).DeleteOSUpdateRun(ctx, req.(*DeleteOSUpdateRunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// OSUpdateRun_ServiceDesc is the grpc.ServiceDesc for OSUpdateRun service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var OSUpdateRun_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.OSUpdateRun",
+	HandlerType: (*OSUpdateRunServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListOSUpdateRun",
+			Handler:    _OSUpdateRun_ListOSUpdateRun_Handler,
+		},
+		{
+			MethodName: "GetOSUpdateRun",
+			Handler:    _OSUpdateRun_GetOSUpdateRun_Handler,
+		},
+		{
+			MethodName: "DeleteOSUpdateRun",
+			Handler:    _OSUpdateRun_DeleteOSUpdateRun_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

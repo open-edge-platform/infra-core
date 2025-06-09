@@ -42,6 +42,7 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		Name:            instance.GetName(),
 		DesiredState:    inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		SecurityFeature: inv_osv1.SecurityFeature(instance.GetSecurityFeature()),
+		ExistingCves:    instance.GetExistingCves(),
 	}
 
 	hostID := instance.GetHostID()
@@ -79,6 +80,7 @@ func fromInvInstanceStatus(
 	instance *computev1.InstanceResource,
 ) {
 	instanceStatus := invInstance.GetInstanceStatus()
+	instanceStatusDetail := invInstance.GetInstanceStatusDetail()
 	instanceStatusIndicator := statusv1.StatusIndication(invInstance.GetInstanceStatusIndicator())
 	instanceStatusTimestamp := TruncateUint64ToUint32(invInstance.GetInstanceStatusTimestamp())
 
@@ -95,6 +97,7 @@ func fromInvInstanceStatus(
 	attestationStatusTimestamp := TruncateUint64ToUint32(invInstance.GetTrustedAttestationStatusTimestamp())
 
 	instance.InstanceStatus = instanceStatus
+	instance.InstanceStatusDetail = instanceStatusDetail
 	instance.InstanceStatusIndicator = instanceStatusIndicator
 	instance.InstanceStatusTimestamp = instanceStatusTimestamp
 	instance.ProvisioningStatus = provisioningStatus
@@ -153,6 +156,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:               host,
 		HostID:             host.GetResourceId(),
+		Os:                 desiredOs,
 		DesiredOs:          desiredOs,
 		CurrentOs:          currentOs,
 		OsID:               currentOs.GetResourceId(),
@@ -162,7 +166,10 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
 		WorkloadMembers:    workloadMembers,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
+		ExistingCves:       invInstance.GetExistingCves(),
 	}
+	// TODO: fill the runtimePackages and osUpdateAvailable fields.
+	// TODO: fill the CustomConfigID field.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }
@@ -207,19 +214,15 @@ func (is *InventorygRPCServer) ListInstances(
 	req *restv1.ListInstancesRequest,
 ) (*restv1.ListInstancesResponse, error) {
 	zlog.Debug().Msg("ListInstances")
-	offset, limit, err := parsePagination(req.GetOffset(), req.GetPageSize())
-	if err != nil {
-		zlog.InfraErr(err).Msgf("failed to parse pagination %d %d", req.GetOffset(), req.GetPageSize())
-		return nil, errors.Wrap(err)
-	}
+
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{Resource: &inventory.Resource_Instance{Instance: &inv_computev1.InstanceResource{}}},
-		Offset:   offset,
-		Limit:    limit,
+		Offset:   req.GetOffset(),
+		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
 		Filter:   req.GetFilter(),
 	}
-	if err = validator.ValidateMessage(filter); err != nil {
+	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
 		return nil, errors.Wrap(err)
 	}

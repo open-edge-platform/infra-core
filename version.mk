@@ -8,7 +8,7 @@ GOLINTVERSION_REQ           := 1.64.5
 GOJUNITREPORTVERSION_HAVE   := $(shell go-junit-report -version | sed s/.*" v"// | sed 's/ .*//')
 GOJUNITREPORTVERSION_REQ    := 2.1.0
 OPAVERSION_HAVE             := $(shell opa version | grep "Version:" | grep -v "Go" | sed 's/.*Version: //')
-OPAVERSION_REQ              := 0.69.0
+OPAVERSION_REQ              := 1.5.0
 GOVERSION_REQ               := 1.24.1
 GOVERSION_HAVE              := $(shell go version | sed 's/.*version go//' | sed 's/ .*//')
 MOCKGENVERSION_HAVE         := $(shell mockgen -version | sed s/.*"v"// | sed 's/ .*//')
@@ -34,6 +34,10 @@ DBMLRENDERER_HAVE           := $(shell dbml-renderer --version)
 DBMLRENDERER_REQ            := 1.0.30
 OASDIFF_HAVE                := $(shell oasdiff --version | sed -n 's/^oasdiff version //p')
 OASDIFF_REQ                 := 1.11.4
+PROTOCGENOAPIVERSION_HAVE   := $(shell protoc-gen-connect-openapi --version | sed s/.*"protoc-gen-connect-openapi "// | sed 's/ .*//')
+PROTOCGENOAPIVERSION_REQ    := 0.17.0
+PROTOCGENGRPCGWVERSION_HAVE := $(shell protoc-gen-grpc-gateway --version | sed s/.*"Version "// | sed 's/ .*//')
+PROTOCGENGRPCGWVERSION_REQ  := 2.26.3
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
@@ -41,7 +45,7 @@ PROTOCGENENTVERSION_REQ     := 0.6.0
 POSTGRES_VERSION            := 16.4
 
 # System dependencies binary SHA
-OPA_SHA						:= "c81aa9c1da779d0a8646c837a96d52e1a7040ff562318d9743b8ef51c93b49d6"
+OPA_SHA						:= "657a8c4c173115f9a9c4a0df8451bc5080b40f50748e6a98a950897057dba0b5"
 ATLAS_SHA					:= "43827e2eaa8d4df1451d2948d87b9d76e892f4d33a0b0d29940c5d92e137df07"
 
 dependency-check: go-dependency-check
@@ -107,6 +111,14 @@ ifeq ($(PROTOCGENGOGRPC), true)
 	@(echo "$(PROTOCGENGOGRPCVERSION_HAVE)" | grep "$(PROTOCGENGOGRPCVERSION_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-go-grpc\nRecommended: $(PROTOCGENGOGRPCVERSION_REQ)\nYours: $(PROTOCGENGOGRPCVERSION_HAVE)\e[1;m" && exit 1)
 endif
+ifeq ($(PROTOCGENOAPI), true)
+	@(echo "$(PROTOCGENOAPIVERSION_HAVE)" | grep "$(PROTOCGENOAPIVERSION_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-connect-openapi\nRecommended: $(PROTOCGENOAPIVERSION_REQ)\nYours: $(PROTOCGENOAPIVERSION_HAVE)\e[1;m")
+endif
+ifeq ($(PROTOCGENGRPCGW), true)
+	@(echo "$(PROTOCGENGRPCGWVERSION_HAVE)" | grep "$(PROTOCGENGRPCGWVERSION_REQ)" > /dev/null) || \
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of protoc-gen-grpc-gateway\nRecommended: $(PROTOCGENGRPCGWVERSION_REQ)\nYours: $(PROTOCGENGRPCGWVERSION_HAVE)\e[1;m")
+endif
 
 go-dependency: ## install go dependency tooling
 ifeq ($(OAPI_CODEGEN), true)
@@ -138,6 +150,12 @@ ifeq ($(PROTOCGENGO), true)
 endif
 ifeq ($(PROTOCGENGOGRPC), true)
 	$(GOCMD) install google.golang.org/protobuf/cmd/protoc-gen-go@v${PROTOCGENGOVERSION_REQ}
+endif
+ifeq ($(PROTOCGENOAPI), true)
+	$(GOCMD) install github.com/sudorandom/protoc-gen-connect-openapi@v${PROTOCGENOAPIVERSION_REQ}
+endif
+ifeq ($(PROTOCGENGRPCGW), true)
+	$(GOCMD) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@v${PROTOCGENGRPCGWVERSION_REQ}
 endif
 ifeq ($(OASDIFF), true)
 	$(GOCMD) install github.com/oasdiff/oasdiff@v${OASDIFF_REQ}
