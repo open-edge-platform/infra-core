@@ -25,6 +25,8 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/netlinkresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/networksegment"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicy"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -109,6 +111,8 @@ func checkColumn(table, column string) error {
 			localaccountresource.Table:      localaccountresource.ValidColumn,
 			netlinkresource.Table:           netlinkresource.ValidColumn,
 			networksegment.Table:            networksegment.ValidColumn,
+			osupdatepolicy.Table:            osupdatepolicy.ValidColumn,
+			osupdatepolicyresource.Table:    osupdatepolicyresource.ValidColumn,
 			operatingsystemresource.Table:   operatingsystemresource.ValidColumn,
 			ouresource.Table:                ouresource.ValidColumn,
 			providerresource.Table:          providerresource.ValidColumn,

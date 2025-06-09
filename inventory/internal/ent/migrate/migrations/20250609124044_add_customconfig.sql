@@ -6,5 +6,7 @@ CREATE UNIQUE INDEX "custom_config_resources_resource_id_key" ON "custom_config_
 CREATE UNIQUE INDEX "customconfigresource_name_tenant_id" ON "custom_config_resources" ("name", "tenant_id");
 -- Create index "customconfigresource_tenant_id" to table: "custom_config_resources"
 CREATE INDEX "customconfigresource_tenant_id" ON "custom_config_resources" ("tenant_id");
+-- Modify "instance_resources" table
+ALTER TABLE "instance_resources" DROP COLUMN "existing_cves", DROP COLUMN "instance_resource_os_update_policy";
 -- Create "instance_resource_custom_config" table
 CREATE TABLE "instance_resource_custom_config" ("instance_resource_id" bigint NOT NULL, "custom_config_resource_id" bigint NOT NULL, PRIMARY KEY ("instance_resource_id", "custom_config_resource_id"), CONSTRAINT "instance_resource_custom_config_custom_config_resource_id" FOREIGN KEY ("custom_config_resource_id") REFERENCES "custom_config_resources" ("id") ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT "instance_resource_custom_config_instance_resource_id" FOREIGN KEY ("instance_resource_id") REFERENCES "instance_resources" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);

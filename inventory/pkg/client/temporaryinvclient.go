@@ -243,6 +243,8 @@ func setTenantID(resource *inv_v1.Resource, tenantID string) error {
 		message = resource.GetRemoteAccess()
 	case *inv_v1.Resource_LocalAccount:
 		message = resource.GetLocalAccount()
+	case *inv_v1.Resource_OsUpdatePolicy:
+		message = resource.GetOsUpdatePolicy()
 	case *inv_v1.Resource_CustomConfig:
 		message = resource.GetCustomConfig()
 	default:

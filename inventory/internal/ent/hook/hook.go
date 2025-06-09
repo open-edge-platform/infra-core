@@ -153,6 +153,30 @@ func (f NetworkSegmentFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Val
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.NetworkSegmentMutation", m)
 }
 
+// The OSUpdatePolicyFunc type is an adapter to allow the use of ordinary
+// function as OSUpdatePolicy mutator.
+type OSUpdatePolicyFunc func(context.Context, *ent.OSUpdatePolicyMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f OSUpdatePolicyFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.OSUpdatePolicyMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OSUpdatePolicyMutation", m)
+}
+
+// The OSUpdatePolicyResourceFunc type is an adapter to allow the use of ordinary
+// function as OSUpdatePolicyResource mutator.
+type OSUpdatePolicyResourceFunc func(context.Context, *ent.OSUpdatePolicyResourceMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f OSUpdatePolicyResourceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.OSUpdatePolicyResourceMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OSUpdatePolicyResourceMutation", m)
+}
+
 // The OperatingSystemResourceFunc type is an adapter to allow the use of ordinary
 // function as OperatingSystemResource mutator.
 type OperatingSystemResourceFunc func(context.Context, *ent.OperatingSystemResourceMutation) (ent.Value, error)

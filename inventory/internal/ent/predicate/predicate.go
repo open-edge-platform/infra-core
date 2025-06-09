@@ -42,6 +42,12 @@ type NetlinkResource func(*sql.Selector)
 // NetworkSegment is the predicate function for networksegment builders.
 type NetworkSegment func(*sql.Selector)
 
+// OSUpdatePolicy is the predicate function for osupdatepolicy builders.
+type OSUpdatePolicy func(*sql.Selector)
+
+// OSUpdatePolicyResource is the predicate function for osupdatepolicyresource builders.
+type OSUpdatePolicyResource func(*sql.Selector)
+
 // OperatingSystemResource is the predicate function for operatingsystemresource builders.
 type OperatingSystemResource func(*sql.Selector)
 

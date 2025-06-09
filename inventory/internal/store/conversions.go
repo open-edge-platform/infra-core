@@ -205,14 +205,19 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 		ProfileName:       os.ProfileName,
 		ProfileVersion:    os.ProfileVersion,
 		InstalledPackages: os.InstalledPackages,
-		TenantId:          os.TenantID,
 		SecurityFeature:   osv1.SecurityFeature(securityFeatures),
 		OsType:            osv1.OsType(osType),
 		OsProvider:        osv1.OsProviderKind(osProvider),
 		PlatformBundle:    os.PlatformBundle,
+		Description:       os.Description,
+		ExistingCvesUrl:   os.ExistingCvesURL,
+		ExistingCves:      os.ExistingCves,
+		FixedCvesUrl:      os.FixedCvesURL,
+		FixedCves:         os.FixedCves,
+		TenantId:          os.TenantID,
 		CreatedAt:         os.CreatedAt,
 		UpdatedAt:         os.UpdatedAt,
-		Description:       os.Description,
+		Metadata:          os.Metadata,
 	}
 	if os.UpdateSources != "" {
 		protoUpdate.UpdateSources = strings.Split(os.UpdateSources, "|")
@@ -715,6 +720,7 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 		TrustedAttestationStatus:          ins.TrustedAttestationStatus,
 		TrustedAttestationStatusIndicator: statusv1.StatusIndication(trustedAttestationStatusIndicator),
 		TrustedAttestationStatusTimestamp: ins.TrustedAttestationStatusTimestamp,
+		ExistingCves:                      ins.ExistingCves,
 		TenantId:                          ins.TenantID,
 		CreatedAt:                         ins.CreatedAt,
 		UpdatedAt:                         ins.UpdatedAt,
@@ -739,6 +745,9 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	}
 	if localaccount, qerr := ins.Edges.LocalaccountOrErr(); qerr == nil {
 		protoInstance.Localaccount = entLocalAccountResourceToProtoLocalAccountResource(localaccount)
+	}
+	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
+		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
 	}
 
 	return protoInstance
@@ -826,6 +835,34 @@ func entIPAddressResourceToProtoIPAddressResource(ipaddress *ent.IPAddressResour
 	}
 
 	return protoIPAddress
+}
+
+func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePolicyResource,
+) *computev1.OSUpdatePolicyResource {
+	if osup == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	updatePolicy := computev1.UpdatePolicy_value[osup.UpdatePolicy.String()] // Defaults to 0 if not found
+	protoOsUpdatePolicy := &computev1.OSUpdatePolicyResource{
+		Name:            osup.Name,
+		Description:     osup.Description,
+		ResourceId:      osup.ResourceID,
+		InstallPackages: osup.InstallPackages,
+		KernelCommand:   osup.KernelCommand,
+		UpdatePolicy:    computev1.UpdatePolicy(updatePolicy),
+		TenantId:        osup.TenantID,
+		CreatedAt:       osup.CreatedAt,
+		UpdatedAt:       osup.UpdatedAt,
+	}
+	if osup.UpdateSources != "" {
+		protoOsUpdatePolicy.UpdateSources = strings.Split(osup.UpdateSources, "|")
+	}
+	// Convert the edges recursively.
+	if os, err := osup.Edges.TargetOsOrErr(); err == nil {
+		protoOsUpdatePolicy.TargetOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
+	}
+	return protoOsUpdatePolicy
 }
 
 func entCustomConfigResourceToProtoCustomConfigResource(
