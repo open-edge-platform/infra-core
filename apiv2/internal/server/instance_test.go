@@ -61,6 +61,9 @@ var (
 		CurrentOs: &inv_osv1.OperatingSystemResource{
 			ResourceId: "os-12345678",
 		},
+		Os: &inv_osv1.OperatingSystemResource{
+			ResourceId: "os-12345678",
+		},
 
 		TenantId:  "tenant-987654",
 		CreatedAt: "2025-04-22T10:00:00Z",

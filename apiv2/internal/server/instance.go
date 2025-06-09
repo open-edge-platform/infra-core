@@ -58,6 +58,9 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
 		}
+		invInstance.Os = &inv_osv1.OperatingSystemResource{
+			ResourceId: osID,
+		}
 	}
 
 	laID := instance.GetLocalAccountID()
@@ -120,6 +123,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var err error
 	var desiredOs *osv1.OperatingSystemResource
 	var currentOs *osv1.OperatingSystemResource
+	var os *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
 	if invInstance.GetDesiredOs() != nil {
@@ -127,6 +131,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	if invInstance.GetCurrentOs() != nil {
 		currentOs = fromInvOSResource(invInstance.GetCurrentOs())
+	}
+	if invInstance.GetOs() != nil {
+		os = fromInvOSResource(invInstance.GetOs())
 	}
 
 	if invInstance.GetHost() != nil {
@@ -157,7 +164,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:               host,
 		HostID:             host.GetResourceId(),
-		Os:                 desiredOs,
+		Os:                 os,
 		DesiredOs:          desiredOs,
 		CurrentOs:          currentOs,
 		OsID:               currentOs.GetResourceId(),
@@ -167,6 +174,8 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
 		WorkloadMembers:    workloadMembers,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
+		RuntimePackages:    invInstance.GetRuntimePackages(),
+		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
 	}
 	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	// TODO: fill the CustomConfigID field.
