@@ -145,10 +145,10 @@ message OperatingSystemResource {
   // If empty, the default OS installation will be used.
   string platform_bundle = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // Opaque JSON field storing metadata associated to this OS resource.
-  string metadata = 18[
+  // Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
+  string metadata = 18 [
     (buf.validate.field).string = {
-      pattern: "^$|^[a-z0-9.-_:/\"\\ \\n{}]+$"
+      pattern: "^$|^[a-z0-9,.-_:/\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 500
     }];
 
