@@ -461,16 +461,17 @@ message InstanceResource {
   string existing_cves = 42 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 20000
-    }
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
   // The packages available on the Instance at runtime, represented as a JSON list.
   string runtime_packages = 51 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 500000
     }
   ];
@@ -479,7 +480,7 @@ message InstanceResource {
   string os_update_available = 52 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\ \\n]+$'
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\\\ \\\\n]+$'
       max_len: 10000
     }
   ];
