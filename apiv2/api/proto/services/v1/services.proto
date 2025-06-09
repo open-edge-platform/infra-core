@@ -17,6 +17,7 @@ import "resources/telemetry/v1/telemetry.proto";
 import "resources/localaccount/v1/localaccount.proto";
 import "buf/validate/validate.proto";
 import "gnostic/openapi/v3/annotations.proto";
+import "resources/customconfig/v1/customconfig.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1;servicesv1";
 
@@ -563,6 +564,28 @@ service LocalAccountService {
   }
 }
 
+// CustomConfig.
+service CustomConfigService {
+  // Create a custom configuration.
+  rpc CreateCustomConfig(CreateCustomConfigRequest) returns (resources.customconfig.v1.CustomConfigResource) {
+    option (google.api.http) = {
+      post: "/edge-infra.orchestrator.apis/v2/customConfigs"
+      body: "custom_config"
+    };
+  }
+  // Get a list of custom configurations.
+  rpc ListCustomConfigs(ListCustomConfigsRequest) returns (ListCustomConfigsResponse) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/customConfigs"};
+  }
+  // Get a specific custom configuration.
+  rpc GetCustomConfig(GetCustomConfigRequest) returns (resources.customconfig.v1.CustomConfigResource) {
+    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}"};
+  }
+  // Delete a custom configuration.
+  rpc DeleteCustomConfig(DeleteCustomConfigRequest) returns (DeleteCustomConfigResponse) {
+    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}"};
+  }
+}
 /*
    ###################
    Region
@@ -2379,7 +2402,7 @@ service OSUpdatePolicy {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
   }
   // Delete a OS Update Policy.
-  rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
+  rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (DeleteOSUpdatePolicyResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
   }
 }
@@ -2484,7 +2507,7 @@ service OSUpdateRun {
     option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
   }
   // Delete a OS Update Run.
-  rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
+  rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (DeleteOSUpdateRunResponse) {
     option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
   }
 }
@@ -2576,3 +2599,93 @@ message DeleteOSUpdateRunRequest {
 
 // Response message for DeleteOperatingSystem.
 message DeleteOSUpdateRunResponse {}
+
+
+
+/*
+   ###################
+   CustomConfig
+   ###################
+*/
+
+// Request message for the CreateCustomConfig method.
+message CreateCustomConfigRequest {
+  // The custom configuration to create.
+  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the CreateCustomConfig method.
+message CreateCustomConfigResponse {
+  // The created custom configuration.
+  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the GetCustomConfig method.
+message GetCustomConfigRequest {
+  // Name of the requested custom configuration.
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for the GetCustomConfig method.
+message GetCustomConfigResponse {
+  // The requested custom configuration.
+  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for the ListCustomConfigs method.
+message ListCustomConfigsRequest {
+  // Optional comma separated list of fields to specify a sorting order.
+  // See https://google.aip.dev/132 for details.
+  string order_by = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9., ]+$"
+    }
+  ];
+  // Optional filter to return only item of interest.
+  // See https://google.aip.dev/160 for details.
+  string filter = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {
+      max_len: 1000
+      pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // Defines the amount of items to be contained in a single page.
+  // Default of 20.
+  int32 page_size = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).int32 = {
+      gte: 1
+      lte: 100
+    }
+  ];
+  // Index of the first item to return. This allows skipping items.
+  int32 offset = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).int32 = {
+      gte: 0
+      lte: 10000
+    }
+  ];
+}
+
+// Response message for the ListCustomConfigs method.
+message ListCustomConfigsResponse {
+  // Sorted and filtered list of customconfigs.
+  repeated resources.customconfig.v1.CustomConfigResource custom_configs = 1 [(google.api.field_behavior) = REQUIRED];
+  // Count of items in the entire list, regardless of pagination.
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  // Inform if there are more elements
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for DeleteCustomConfig.
+message DeleteCustomConfigRequest {
+  // Name of the customconfig to be deleted.
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Response message for DeleteCustomConfig.
+message DeleteCustomConfigResponse {}

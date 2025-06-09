@@ -7,6 +7,9 @@
     - [MetadataItem](#resources-common-v1-MetadataItem)
     - [Timestamps](#resources-common-v1-Timestamps)
   
+- [resources/customconfig/v1/customconfig.proto](#resources_customconfig_v1_customconfig-proto)
+    - [CustomConfigResource](#resources-customconfig-v1-CustomConfigResource)
+  
 - [resources/provider/v1/provider.proto](#resources_provider_v1_provider-proto)
     - [ProviderResource](#resources-provider-v1-ProviderResource)
   
@@ -81,6 +84,8 @@
     - [TelemetryResourceKind](#resources-telemetry-v1-TelemetryResourceKind)
   
 - [services/v1/services.proto](#services_v1_services-proto)
+    - [CreateCustomConfigRequest](#services-v1-CreateCustomConfigRequest)
+    - [CreateCustomConfigResponse](#services-v1-CreateCustomConfigResponse)
     - [CreateHostRequest](#services-v1-CreateHostRequest)
     - [CreateHostResponse](#services-v1-CreateHostResponse)
     - [CreateInstanceRequest](#services-v1-CreateInstanceRequest)
@@ -115,6 +120,8 @@
     - [CreateWorkloadMemberResponse](#services-v1-CreateWorkloadMemberResponse)
     - [CreateWorkloadRequest](#services-v1-CreateWorkloadRequest)
     - [CreateWorkloadResponse](#services-v1-CreateWorkloadResponse)
+    - [DeleteCustomConfigRequest](#services-v1-DeleteCustomConfigRequest)
+    - [DeleteCustomConfigResponse](#services-v1-DeleteCustomConfigResponse)
     - [DeleteHostRequest](#services-v1-DeleteHostRequest)
     - [DeleteHostResponse](#services-v1-DeleteHostResponse)
     - [DeleteInstanceRequest](#services-v1-DeleteInstanceRequest)
@@ -149,6 +156,8 @@
     - [DeleteWorkloadMemberResponse](#services-v1-DeleteWorkloadMemberResponse)
     - [DeleteWorkloadRequest](#services-v1-DeleteWorkloadRequest)
     - [DeleteWorkloadResponse](#services-v1-DeleteWorkloadResponse)
+    - [GetCustomConfigRequest](#services-v1-GetCustomConfigRequest)
+    - [GetCustomConfigResponse](#services-v1-GetCustomConfigResponse)
     - [GetHostRequest](#services-v1-GetHostRequest)
     - [GetHostResponse](#services-v1-GetHostResponse)
     - [GetHostSummaryRequest](#services-v1-GetHostSummaryRequest)
@@ -190,6 +199,8 @@
     - [InvalidateHostResponse](#services-v1-InvalidateHostResponse)
     - [InvalidateInstanceRequest](#services-v1-InvalidateInstanceRequest)
     - [InvalidateInstanceResponse](#services-v1-InvalidateInstanceResponse)
+    - [ListCustomConfigsRequest](#services-v1-ListCustomConfigsRequest)
+    - [ListCustomConfigsResponse](#services-v1-ListCustomConfigsResponse)
     - [ListHostsRequest](#services-v1-ListHostsRequest)
     - [ListHostsResponse](#services-v1-ListHostsResponse)
     - [ListInstancesRequest](#services-v1-ListInstancesRequest)
@@ -255,6 +266,7 @@
   
     - [ListLocationsResponse.ResourceKind](#services-v1-ListLocationsResponse-ResourceKind)
   
+    - [CustomConfigService](#services-v1-CustomConfigService)
     - [HostService](#services-v1-HostService)
     - [InstanceService](#services-v1-InstanceService)
     - [LocalAccountService](#services-v1-LocalAccountService)
@@ -310,6 +322,41 @@ A metadata item, represented by a key:value pair.
 | ----- | ---- | ----- | ----------- |
 | created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was created. |
 | updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | The time when the resource was last updated. |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="resources_customconfig_v1_customconfig-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## resources/customconfig/v1/customconfig.proto
+
+
+
+<a name="resources-customconfig-v1-CustomConfigResource"></a>
+
+### CustomConfigResource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | resource identifier |
+| name | [string](#string) |  | Config provided by admin |
+| description | [string](#string) |  | Config description |
+| config_content | [string](#string) |  | Config content |
+| timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
 
@@ -485,7 +532,7 @@ An OS resource.
 | os_type | [OsType](#resources-os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
 | os_provider | [OsProviderKind](#resources-os-v1-OsProviderKind) |  | Indicating the provider of OS (e.g., Infra or Lenovo). |
 | platform_bundle | [string](#string) |  | Opaque JSON field storing references to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
-| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. |
+| metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string. |
 | existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
 | existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
 | fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |
@@ -900,11 +947,13 @@ back-reference to the Workload Members associated to this Instance |
 | existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
 | runtime_packages | [string](#string) |  | The packages available on the Instance at runtime, represented as a JSON list. |
 | os_update_available | [string](#string) |  | Details about OS Updates available for this Instance. If empty, there are no updates available. |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | The list of custom config associated with the instance. |
 | instanceID | [string](#string) |  | Deprecated, The instance&#39;s unique identifier. Alias of resourceID. |
 | hostID | [string](#string) |  | The host&#39;s unique identifier associated with the instance. |
 | osID | [string](#string) |  | The unique identifier of OS resource that must be installed on the instance. The field is used to drive the day0 operations, and immutable once set the first time. |
 | local_accountID | [string](#string) |  | The unique identifier of local account will be associated with the instance. |
 | os_update_policyID | [string](#string) |  |  |
+| custom_configID | [string](#string) | repeated | The list of custom config associated with the instance. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -943,6 +992,7 @@ back-reference to the Workload Members associated to this Instance |
 | update_sources | [string](#string) | repeated | The list of OS resource update sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Applies only to Mutable OSes. |
 | kernel_command | [string](#string) |  | The OS resource&#39;s kernel Command Line Options. Applies only to Mutable OSes. |
 | target_os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The target OS for the update. Applies only to Immutable OSes for A/B upgrades. |
+| target_os_id | [string](#string) |  | The unique identifier of target OS will be associated with the OS Update policy. |
 | update_policy | [UpdatePolicy](#resources-compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. UPDATE_POLICY_LATEST: - for mutable: unsupported - for immutable: latest version of the OS Resource UPDATE_POLICY_TARGET: - for mutable: apply the install_packages, update_sources, kernel_command - for immutable: install the version referenced by target_os |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
@@ -1147,6 +1197,7 @@ The host power state.
 | POWER_STATE_SLEEP | 4 |  |
 | POWER_STATE_HIBERNATE | 5 |  |
 | POWER_STATE_RESET | 6 |  |
+| POWER_STATE_POWER_CYCLE | 7 |  |
 
 
 
@@ -1451,6 +1502,36 @@ Kind of telemetry collector.
 <p align="right"><a href="#top">Top</a></p>
 
 ## services/v1/services.proto
+
+
+
+<a name="services-v1-CreateCustomConfigRequest"></a>
+
+### CreateCustomConfigRequest
+Request message for the CreateCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The custom configuration to create. |
+
+
+
+
+
+
+<a name="services-v1-CreateCustomConfigResponse"></a>
+
+### CreateCustomConfigResponse
+Response message for the CreateCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The created custom configuration. |
+
+
+
 
 
 
@@ -1964,6 +2045,31 @@ Response message for the CreateWorkload method.
 
 
 
+<a name="services-v1-DeleteCustomConfigRequest"></a>
+
+### DeleteCustomConfigRequest
+Request message for DeleteCustomConfig.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the customconfig to be deleted. |
+
+
+
+
+
+
+<a name="services-v1-DeleteCustomConfigResponse"></a>
+
+### DeleteCustomConfigResponse
+Response message for DeleteCustomConfig.
+
+
+
+
+
+
 <a name="services-v1-DeleteHostRequest"></a>
 
 ### DeleteHostRequest
@@ -2383,6 +2489,36 @@ Request message for DeleteWorkload.
 
 ### DeleteWorkloadResponse
 Response message for DeleteWorkload.
+
+
+
+
+
+
+<a name="services-v1-GetCustomConfigRequest"></a>
+
+### GetCustomConfigRequest
+Request message for the GetCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resourceId | [string](#string) |  | Name of the requested custom configuration. |
+
+
+
+
+
+
+<a name="services-v1-GetCustomConfigResponse"></a>
+
+### GetCustomConfigResponse
+Response message for the GetCustomConfig method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The requested custom configuration. |
 
 
 
@@ -2996,6 +3132,41 @@ Request message for Invalidate Instance.
 
 ### InvalidateInstanceResponse
 Response message for Invalidate Instance.
+
+
+
+
+
+
+<a name="services-v1-ListCustomConfigsRequest"></a>
+
+### ListCustomConfigsRequest
+Request message for the ListCustomConfigs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+
+
+
+
+
+
+<a name="services-v1-ListCustomConfigsResponse"></a>
+
+### ListCustomConfigsResponse
+Response message for the ListCustomConfigs method.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| custom_configs | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | repeated | Sorted and filtered list of customconfigs. |
+| total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
+| has_next | [bool](#bool) |  | Inform if there are more elements |
 
 
 
@@ -4086,6 +4257,19 @@ Request message for the UpdateWorkload method.
  
 
 
+<a name="services-v1-CustomConfigService"></a>
+
+### CustomConfigService
+CustomConfig.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateCustomConfig | [CreateCustomConfigRequest](#services-v1-CreateCustomConfigRequest) | [.resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | Create a custom configuration. |
+| ListCustomConfigs | [ListCustomConfigsRequest](#services-v1-ListCustomConfigsRequest) | [ListCustomConfigsResponse](#services-v1-ListCustomConfigsResponse) | Get a list of custom configurations. |
+| GetCustomConfig | [GetCustomConfigRequest](#services-v1-GetCustomConfigRequest) | [.resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) | Get a specific custom configuration. |
+| DeleteCustomConfig | [DeleteCustomConfigRequest](#services-v1-DeleteCustomConfigRequest) | [DeleteCustomConfigResponse](#services-v1-DeleteCustomConfigResponse) | Delete a custom configuration. |
+
+
 <a name="services-v1-HostService"></a>
 
 ### HostService
@@ -4155,7 +4339,7 @@ OS Update Policy.
 | CreateOSUpdatePolicy | [CreateOSUpdatePolicyRequest](#services-v1-CreateOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Create an OS Update Policy. |
 | ListOSUpdatePolicy | [ListOSUpdatePolicyRequest](#services-v1-ListOSUpdatePolicyRequest) | [ListOSUpdatePolicyResponse](#services-v1-ListOSUpdatePolicyResponse) | Get a list of OS Update Policies. |
 | GetOSUpdatePolicy | [GetOSUpdatePolicyRequest](#services-v1-GetOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Get a specific OS Update Policy. |
-| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [.resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | Delete a OS Update Policy. |
+| DeleteOSUpdatePolicy | [DeleteOSUpdatePolicyRequest](#services-v1-DeleteOSUpdatePolicyRequest) | [DeleteOSUpdatePolicyResponse](#services-v1-DeleteOSUpdatePolicyResponse) | Delete a OS Update Policy. |
 
 
 <a name="services-v1-OSUpdateRun"></a>
@@ -4167,7 +4351,7 @@ OS Update Run.
 | ----------- | ------------ | ------------- | ------------|
 | ListOSUpdateRun | [ListOSUpdateRunRequest](#services-v1-ListOSUpdateRunRequest) | [ListOSUpdateRunResponse](#services-v1-ListOSUpdateRunResponse) | Get a list of OS Update Policies. |
 | GetOSUpdateRun | [GetOSUpdateRunRequest](#services-v1-GetOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Get a specific OS Update Run. |
-| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [.resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | Delete a OS Update Run. |
+| DeleteOSUpdateRun | [DeleteOSUpdateRunRequest](#services-v1-DeleteOSUpdateRunRequest) | [DeleteOSUpdateRunResponse](#services-v1-DeleteOSUpdateRunResponse) | Delete a OS Update Run. |
 
 
 <a name="services-v1-OperatingSystemService"></a>

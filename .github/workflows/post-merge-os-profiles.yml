@@ -28,7 +28,7 @@ jobs:
       run_build: false
       run_docker_build: false
       run_docker_push: false
-      run_artifact: true
+      run_artifact_push: true
       run_version_tag: true
       prefix_tag_separator: "/"
       project_folder: "os-profiles"
@@ -38,3 +38,4 @@ jobs:
       COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
       NO_AUTH_ECR_PUSH_USERNAME: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}
       NO_AUTH_ECR_PUSH_PASSWD: ${{ secrets.NO_AUTH_ECR_PUSH_PASSWD }}
+      MSTEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}

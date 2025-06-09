@@ -138,11 +138,13 @@ const (
 	InstanceResourceFieldExistingCves                      = "existing_cves"
 	InstanceResourceFieldRuntimePackages                   = "runtime_packages"
 	InstanceResourceFieldOsUpdateAvailable                 = "os_update_available"
+	InstanceResourceEdgeCustomConfig                       = "custom_config"
 	InstanceResourceFieldInstanceID                        = "instanceID"
 	InstanceResourceFieldHostID                            = "hostID"
 	InstanceResourceFieldOsID                              = "osID"
 	InstanceResourceFieldLocalAccountID                    = "local_accountID"
 	InstanceResourceFieldOsUpdatePolicyID                  = "os_update_policyID"
+	InstanceResourceFieldCustomConfigID                    = "custom_configID"
 	InstanceResourceEdgeTimestamps                         = "timestamps"
 
 	// Fields and Edges constants for "WorkloadResource"
@@ -174,6 +176,7 @@ const (
 	OSUpdatePolicyFieldUpdateSources   = "update_sources"
 	OSUpdatePolicyFieldKernelCommand   = "kernel_command"
 	OSUpdatePolicyEdgeTargetOs         = "target_os"
+	OSUpdatePolicyFieldTargetOsId      = "target_os_id"
 	OSUpdatePolicyFieldUpdatePolicy    = "update_policy"
 	OSUpdatePolicyEdgeTimestamps       = "timestamps"
 

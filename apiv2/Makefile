@@ -21,6 +21,8 @@ BUF             := true
 PROTOCGENGO     := true
 PROTOCGENGOGRPC := true
 OASDIFF         := true
+PROTOCGENOAPI   := true
+PROTOCGENGRPCGW := true
 
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)
@@ -58,7 +60,7 @@ OPENAPI_PATH          := api/openapi/openapi.yaml
 YAML_IGNORE := vendor, $(OPENAPI_PATH), .github/workflows, ./$(VENV_NAME)
 
 # Lint variables
-LINT_DIRS := cmd/... pkg/... internal/...
+LINT_DIRS := cmd/... pkg/... internal/... test/...
 
 DIR_TO_CLEAN := $$PWD/internal/pbapi/* pkg/api/*
 
@@ -87,7 +89,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint, add `generate and buf-breaking` target
+lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
 test: $(OUT_DIR) go-test ## Run all tests
 

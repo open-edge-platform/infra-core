@@ -14,23 +14,15 @@ import (
 )
 
 var (
-	UserNameOne   = "userone"
-	UserNameTwo   = "usertwo"
-	UserUnexistID = "user-00000000"
-	UserWrongID   = "User-123"
-
-	UserPubKey    = "empty"
-	UserPubKeyTwo = "empty-too"
-
-	Host1Name            = "Host-One"
-	Host2Name            = "Host-Two"
-	Host2bName           = "Host-TwoB"
-	Host3Name            = "Host-Three"
-	Host4Name            = "Host-Four"
-	HostUnexistID        = "host-00000000"
-	HostWrongID          = "HOST-123"
+	Host1Name     = "Host-One"
+	Host2Name     = "Host-Two"
+	Host2bName    = "Host-TwoB"
+	Host3Name     = "Host-Three"
+	Host4Name     = "Host-Four"
+	HostUnexistID = "host-00000000"
+	HostWrongID   = "HOST-123"
+	//nolint:stylecheck // We need non-printable characters in the name to check validation rules.
 	HostNameNonPrintable = "0x73t116 0x74r114 0x67…&#8230 \u2026⟶​9 0x65U+200B&#8203; \u200Bh104"
-	HostGUIDNonPrintable = "\u2026⟶​9 0x65U+200B&#8203; \u200Bh104"
 
 	Region1Name     = "region-12345678"
 	Region2Name     = "region-23456789"
@@ -44,24 +36,17 @@ var (
 	SiteUnexistID = "site-00000000"
 	SiteWrongID   = "SITE-123"
 
-	OU1Name     = "ou-12345678"
-	OU2Name     = "ou-12345679"
-	OU3Name     = "ou-12345670"
-	OUUnexistID = "ou-00000000"
-	OUWrongID   = "OU-1234"
-	EmptyString = ""
-
 	SschedName1 = "singleSched1"
 	SschedName2 = "singleSched3"
 	SschedName3 = "singleSched3"
 
-	now                = int(time.Now().Unix())
-	FutureEpoch        = time.Unix(int64(now), 0).Add(1801 * time.Second)
-	SschedStart1   int = now + 1800
-	SschedStart2   int = now + 1800
-	SschedStart3   int = now + 1800
-	SschedEnd1     int = now + 3600
-	SschedEndError int = now - 1800
+	now            = int(time.Now().Unix())
+	FutureEpoch    = time.Unix(int64(now), 0).Add(1801 * time.Second)
+	SschedStart1   = now + 1800
+	SschedStart2   = now + 1800
+	SschedStart3   = now + 1800
+	SschedEnd1     = now + 3600
+	SschedEndError = now - 1800
 
 	cronDayMonth = "10"
 	CronAny      = "*"
@@ -105,8 +90,6 @@ var (
 	InstanceWrongID     = "inst-XXXXXXXX"
 	Inst1Name           = "inst1Name"
 	Inst2Name           = "inst2Name"
-	inst3Name           = "inst3Name"
-	inst4Name           = "inst4Name"
 	instHostID          = ""
 	instOSID            = ""
 	instKind            = api.INSTANCEKINDMETAL
@@ -115,59 +98,23 @@ var (
 	providerKind1           = api.PROVIDERKINDBAREMETAL
 	providerVendor1         = api.PROVIDERVENDORLENOVOLXCA
 	ProviderName1           = "SC LXCA"
-	providerApiEndpoint1    = "https://192.168.201.3/"
-	providerApiCredentials1 = []string{"v1/lxca/user", "v1/lxca/password"}
+	providerAPIEndpoint1    = "https://192.168.201.3/"
+	providerAPICredentials1 = []string{"v1/lxca/user", "v1/lxca/password"}
 	providerConfig1         = "Some config string"
 
 	providerKind2           = api.PROVIDERKINDBAREMETAL
 	providerVendor2         = api.PROVIDERVENDORLENOVOLOCA
 	ProviderName2           = "SC LOCA"
-	providerApiEndpoint2    = "https://192.168.202.4/"
-	providerApiCredentials2 = []string{"v1/loca/user-admin", "v1/loca/password-pass"}
+	providerAPIEndpoint2    = "https://192.168.202.4/"
+	providerAPICredentials2 = []string{"v1/loca/user-admin", "v1/loca/password-pass"}
 
 	providerKind3        = api.PROVIDERKINDBAREMETAL
 	ProviderName3        = "Intel"
-	providerApiEndpoint3 = "https://192.168.204.4/"
+	providerAPIEndpoint3 = "https://192.168.204.4/"
 
 	ProviderUnexistID         = "provider-00000000"
 	ProviderWrongID           = "proider-12345678"
-	providerBadApiCredentials = []string{"%as", "v1/lxca/password"}
-
-	MetadataOU1 = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "ou1",
-		}, {
-			Key:   "examplekey2",
-			Value: "ou1",
-		},
-	}
-	MetadataOU2 = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "ou2",
-		}, {
-			Key:   "examplekey2",
-			Value: "ou2",
-		},
-	}
-	MetadataOU3 = []api.MetadataItem{
-		{
-			Key:   "examplekey2",
-			Value: "ou3",
-		},
-		{
-			Key:   "examplekey3",
-			Value: "ou3",
-		},
-	}
-
-	MetadataOU3Rendered = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "ou2",
-		},
-	}
+	providerBadAPICredentials = []string{"%as", "v1/lxca/password"}
 
 	MetadataR1 = []api.MetadataItem{
 		{
@@ -245,25 +192,19 @@ var (
 
 	Host1UUID1       = "BFD3B398-9A4B-480D-AB53-4050ED108F5C"
 	Host4UUID1       = "BFD3B398-9A4C-481D-AB53-4050ED108F5D"
-	Host1UUIDPatched = "BFD3B398-9A4B-480D-AB53-4050ED108F5E"
 	HostUUIDUnexists = "BFD3B398-9A4B-480D-AB53-4050ED108F5F"
 	HostUUIDError    = "BFD3B398-9A4B-480D-AB53-4050ED108F5FKK"
 	Host2UUID        = uuid.New().String()
 	Host3UUID        = uuid.New().String()
 	Host5UUID        = uuid.New().String()
 
-	HostSerialNumber1 = "SN001"
 	HostSerialNumber2 = "SN002"
 	HostSerialNumber3 = "SN003"
-
-	DnsServers = []string{"10.10.10.10"}
 
 	Region1Request = api.RegionResource{
 		Name:     &Region1Name,
 		Metadata: &MetadataR1,
 	}
-
-	Region1RequestWrong = api.RegionResource{}
 
 	Region1RequestMetadataOK = api.RegionResource{
 		Name:     &Region1Name,
@@ -350,8 +291,8 @@ var (
 			Value: "filtermetavalue2_mod",
 		},
 	}
-	AutoOnboardTrue  bool = true
-	AutoOnboardFalse bool = false
+	AutoOnboardTrue  = true
+	AutoOnboardFalse = false
 
 	HostRegisterAutoOnboard = api.HostRegister{
 		Name:         &Host2Name,
@@ -697,12 +638,12 @@ var (
 		OsProvider:        &OSProvider,
 	}
 
-	clusterUuid1            = uuid.NewString()
+	clusterUUID1            = uuid.NewString()
 	WorkloadCluster1Request = api.WorkloadResource{
 		Name:       &WorkloadName1,
 		Kind:       api.WORKLOADKINDCLUSTER,
 		Status:     &WorkloadStatus1,
-		ExternalId: &clusterUuid1,
+		ExternalId: &clusterUUID1,
 	}
 	WorkloadCluster2Request = api.WorkloadResource{
 		Name:   &WorkloadName2,
@@ -770,8 +711,8 @@ var (
 		ProviderKind:   providerKind1,
 		ProviderVendor: &providerVendor1,
 		Name:           ProviderName1,
-		ApiEndpoint:    providerApiEndpoint1,
-		ApiCredentials: &providerApiCredentials1,
+		ApiEndpoint:    providerAPIEndpoint1,
+		ApiCredentials: &providerAPICredentials1,
 		Config:         &providerConfig1,
 	}
 
@@ -779,50 +720,50 @@ var (
 		ProviderKind:   providerKind2,
 		ProviderVendor: &providerVendor2,
 		Name:           ProviderName2,
-		ApiEndpoint:    providerApiEndpoint2,
-		ApiCredentials: &providerApiCredentials2,
+		ApiEndpoint:    providerAPIEndpoint2,
+		ApiCredentials: &providerAPICredentials2,
 	}
 
 	Provider3Request = api.ProviderResource{
 		ProviderKind: providerKind3,
 		Name:         ProviderName3,
-		ApiEndpoint:  providerApiEndpoint3,
+		ApiEndpoint:  providerAPIEndpoint3,
 	}
 
 	ProviderNoKind = api.ProviderResource{
 		ProviderVendor: &providerVendor1,
 		Name:           ProviderName1,
-		ApiEndpoint:    providerApiEndpoint1,
-		ApiCredentials: &providerApiCredentials1,
+		ApiEndpoint:    providerAPIEndpoint1,
+		ApiCredentials: &providerAPICredentials1,
 	}
 
 	ProviderNoName = api.ProviderResource{
 		ProviderKind:   providerKind1,
 		ProviderVendor: &providerVendor1,
-		ApiEndpoint:    providerApiEndpoint1,
-		ApiCredentials: &providerApiCredentials1,
+		ApiEndpoint:    providerAPIEndpoint1,
+		ApiCredentials: &providerAPICredentials1,
 	}
 
-	ProviderNoApiEndpoint = api.ProviderResource{
+	ProviderNoAPIEndpoint = api.ProviderResource{
 		ProviderKind:   providerKind1,
 		ProviderVendor: &providerVendor1,
 		Name:           ProviderName1,
-		ApiCredentials: &providerApiCredentials1,
+		ApiCredentials: &providerAPICredentials1,
 	}
 
 	ProviderBadCredentials = api.ProviderResource{
 		ProviderKind:   providerKind1,
 		ProviderVendor: &providerVendor1,
 		Name:           ProviderName1,
-		ApiCredentials: &providerBadApiCredentials,
+		ApiCredentials: &providerBadAPICredentials,
 	}
 
-	// Example LocalAccount resources for testing
+	// Example LocalAccount resources for testing.
 
-	// LocalAccountUnexistID represents a non-existent LocalAccount ID for testing
+	// LocalAccountUnexistID represents a non-existent LocalAccount ID for testing.
 	LocalAccountUnexistID = "nonexistent-id"
 
-	// Example LocalAccount resources for testing
+	// Example LocalAccount resources for testing.
 	LocalAccount1Request = api.LocalAccountResource{
 		LocalAccountID: nil, // This will be populated by the API upon creation
 		ResourceId:     nil, // This will be populated by the API upon creation
@@ -831,7 +772,7 @@ var (
 		Username:       "user1",
 	}
 
-	// LocalAccount2Request represents another valid LocalAccount resource for testing
+	// LocalAccount2Request represents another valid LocalAccount resource for testing.
 	LocalAccount2Request = api.LocalAccountResource{
 		LocalAccountID: nil, // This will be populated by the API upon creation
 		ResourceId:     nil, // This will be populated by the API upon creation
@@ -840,7 +781,7 @@ var (
 		Username:       "user2",
 	}
 
-	// LocalAccountNoName represents an invalid LocalAccount resource with no username
+	// LocalAccountNoName represents an invalid LocalAccount resource with no username.
 	LocalAccountNoName = api.LocalAccountResource{
 		LocalAccountID: nil,
 		ResourceId:     nil,

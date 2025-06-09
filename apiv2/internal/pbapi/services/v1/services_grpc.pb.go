@@ -9,6 +9,7 @@ package servicesv1
 import (
 	context "context"
 	v11 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	v17 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/customconfig/v1"
 	v16 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	v1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/location/v1"
 	v12 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
@@ -4089,6 +4090,206 @@ var LocalAccountService_ServiceDesc = grpc.ServiceDesc{
 	Metadata: "services/v1/services.proto",
 }
 
+// CustomConfigServiceClient is the client API for CustomConfigService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CustomConfigServiceClient interface {
+	// Create a custom configuration.
+	CreateCustomConfig(ctx context.Context, in *CreateCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error)
+	// Get a list of custom configurations.
+	ListCustomConfigs(ctx context.Context, in *ListCustomConfigsRequest, opts ...grpc.CallOption) (*ListCustomConfigsResponse, error)
+	// Get a specific custom configuration.
+	GetCustomConfig(ctx context.Context, in *GetCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error)
+	// Delete a custom configuration.
+	DeleteCustomConfig(ctx context.Context, in *DeleteCustomConfigRequest, opts ...grpc.CallOption) (*DeleteCustomConfigResponse, error)
+}
+
+type customConfigServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCustomConfigServiceClient(cc grpc.ClientConnInterface) CustomConfigServiceClient {
+	return &customConfigServiceClient{cc}
+}
+
+func (c *customConfigServiceClient) CreateCustomConfig(ctx context.Context, in *CreateCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error) {
+	out := new(v17.CustomConfigResource)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/CreateCustomConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customConfigServiceClient) ListCustomConfigs(ctx context.Context, in *ListCustomConfigsRequest, opts ...grpc.CallOption) (*ListCustomConfigsResponse, error) {
+	out := new(ListCustomConfigsResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/ListCustomConfigs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customConfigServiceClient) GetCustomConfig(ctx context.Context, in *GetCustomConfigRequest, opts ...grpc.CallOption) (*v17.CustomConfigResource, error) {
+	out := new(v17.CustomConfigResource)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/GetCustomConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customConfigServiceClient) DeleteCustomConfig(ctx context.Context, in *DeleteCustomConfigRequest, opts ...grpc.CallOption) (*DeleteCustomConfigResponse, error) {
+	out := new(DeleteCustomConfigResponse)
+	err := c.cc.Invoke(ctx, "/services.v1.CustomConfigService/DeleteCustomConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CustomConfigServiceServer is the server API for CustomConfigService service.
+// All implementations should embed UnimplementedCustomConfigServiceServer
+// for forward compatibility
+type CustomConfigServiceServer interface {
+	// Create a custom configuration.
+	CreateCustomConfig(context.Context, *CreateCustomConfigRequest) (*v17.CustomConfigResource, error)
+	// Get a list of custom configurations.
+	ListCustomConfigs(context.Context, *ListCustomConfigsRequest) (*ListCustomConfigsResponse, error)
+	// Get a specific custom configuration.
+	GetCustomConfig(context.Context, *GetCustomConfigRequest) (*v17.CustomConfigResource, error)
+	// Delete a custom configuration.
+	DeleteCustomConfig(context.Context, *DeleteCustomConfigRequest) (*DeleteCustomConfigResponse, error)
+}
+
+// UnimplementedCustomConfigServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedCustomConfigServiceServer struct {
+}
+
+func (UnimplementedCustomConfigServiceServer) CreateCustomConfig(context.Context, *CreateCustomConfigRequest) (*v17.CustomConfigResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCustomConfig not implemented")
+}
+func (UnimplementedCustomConfigServiceServer) ListCustomConfigs(context.Context, *ListCustomConfigsRequest) (*ListCustomConfigsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCustomConfigs not implemented")
+}
+func (UnimplementedCustomConfigServiceServer) GetCustomConfig(context.Context, *GetCustomConfigRequest) (*v17.CustomConfigResource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomConfig not implemented")
+}
+func (UnimplementedCustomConfigServiceServer) DeleteCustomConfig(context.Context, *DeleteCustomConfigRequest) (*DeleteCustomConfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCustomConfig not implemented")
+}
+
+// UnsafeCustomConfigServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CustomConfigServiceServer will
+// result in compilation errors.
+type UnsafeCustomConfigServiceServer interface {
+	mustEmbedUnimplementedCustomConfigServiceServer()
+}
+
+func RegisterCustomConfigServiceServer(s grpc.ServiceRegistrar, srv CustomConfigServiceServer) {
+	s.RegisterService(&CustomConfigService_ServiceDesc, srv)
+}
+
+func _CustomConfigService_CreateCustomConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCustomConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).CreateCustomConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/CreateCustomConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).CreateCustomConfig(ctx, req.(*CreateCustomConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomConfigService_ListCustomConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCustomConfigsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).ListCustomConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/ListCustomConfigs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).ListCustomConfigs(ctx, req.(*ListCustomConfigsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomConfigService_GetCustomConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).GetCustomConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/GetCustomConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).GetCustomConfig(ctx, req.(*GetCustomConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomConfigService_DeleteCustomConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCustomConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomConfigServiceServer).DeleteCustomConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.v1.CustomConfigService/DeleteCustomConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomConfigServiceServer).DeleteCustomConfig(ctx, req.(*DeleteCustomConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// CustomConfigService_ServiceDesc is the grpc.ServiceDesc for CustomConfigService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var CustomConfigService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "services.v1.CustomConfigService",
+	HandlerType: (*CustomConfigServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateCustomConfig",
+			Handler:    _CustomConfigService_CreateCustomConfig_Handler,
+		},
+		{
+			MethodName: "ListCustomConfigs",
+			Handler:    _CustomConfigService_ListCustomConfigs_Handler,
+		},
+		{
+			MethodName: "GetCustomConfig",
+			Handler:    _CustomConfigService_GetCustomConfig_Handler,
+		},
+		{
+			MethodName: "DeleteCustomConfig",
+			Handler:    _CustomConfigService_DeleteCustomConfig_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "services/v1/services.proto",
+}
+
 // OSUpdatePolicyClient is the client API for OSUpdatePolicy service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
@@ -4100,7 +4301,7 @@ type OSUpdatePolicyClient interface {
 	// Get a specific OS Update Policy.
 	GetOSUpdatePolicy(ctx context.Context, in *GetOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
 	// Delete a OS Update Policy.
-	DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error)
+	DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*DeleteOSUpdatePolicyResponse, error)
 }
 
 type oSUpdatePolicyClient struct {
@@ -4138,8 +4339,8 @@ func (c *oSUpdatePolicyClient) GetOSUpdatePolicy(ctx context.Context, in *GetOSU
 	return out, nil
 }
 
-func (c *oSUpdatePolicyClient) DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*v11.OSUpdatePolicy, error) {
-	out := new(v11.OSUpdatePolicy)
+func (c *oSUpdatePolicyClient) DeleteOSUpdatePolicy(ctx context.Context, in *DeleteOSUpdatePolicyRequest, opts ...grpc.CallOption) (*DeleteOSUpdatePolicyResponse, error) {
+	out := new(DeleteOSUpdatePolicyResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -4158,7 +4359,7 @@ type OSUpdatePolicyServer interface {
 	// Get a specific OS Update Policy.
 	GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
 	// Delete a OS Update Policy.
-	DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error)
+	DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*DeleteOSUpdatePolicyResponse, error)
 }
 
 // UnimplementedOSUpdatePolicyServer should be embedded to have forward compatible implementations.
@@ -4174,7 +4375,7 @@ func (UnimplementedOSUpdatePolicyServer) ListOSUpdatePolicy(context.Context, *Li
 func (UnimplementedOSUpdatePolicyServer) GetOSUpdatePolicy(context.Context, *GetOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdatePolicy not implemented")
 }
-func (UnimplementedOSUpdatePolicyServer) DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*v11.OSUpdatePolicy, error) {
+func (UnimplementedOSUpdatePolicyServer) DeleteOSUpdatePolicy(context.Context, *DeleteOSUpdatePolicyRequest) (*DeleteOSUpdatePolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdatePolicy not implemented")
 }
 
@@ -4298,7 +4499,7 @@ type OSUpdateRunClient interface {
 	// Get a specific OS Update Run.
 	GetOSUpdateRun(ctx context.Context, in *GetOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
 	// Delete a OS Update Run.
-	DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error)
+	DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*DeleteOSUpdateRunResponse, error)
 }
 
 type oSUpdateRunClient struct {
@@ -4327,8 +4528,8 @@ func (c *oSUpdateRunClient) GetOSUpdateRun(ctx context.Context, in *GetOSUpdateR
 	return out, nil
 }
 
-func (c *oSUpdateRunClient) DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*v11.OSUpdateRun, error) {
-	out := new(v11.OSUpdateRun)
+func (c *oSUpdateRunClient) DeleteOSUpdateRun(ctx context.Context, in *DeleteOSUpdateRunRequest, opts ...grpc.CallOption) (*DeleteOSUpdateRunResponse, error) {
+	out := new(DeleteOSUpdateRunResponse)
 	err := c.cc.Invoke(ctx, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -4345,7 +4546,7 @@ type OSUpdateRunServer interface {
 	// Get a specific OS Update Run.
 	GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error)
 	// Delete a OS Update Run.
-	DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*v11.OSUpdateRun, error)
+	DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*DeleteOSUpdateRunResponse, error)
 }
 
 // UnimplementedOSUpdateRunServer should be embedded to have forward compatible implementations.
@@ -4358,7 +4559,7 @@ func (UnimplementedOSUpdateRunServer) ListOSUpdateRun(context.Context, *ListOSUp
 func (UnimplementedOSUpdateRunServer) GetOSUpdateRun(context.Context, *GetOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOSUpdateRun not implemented")
 }
-func (UnimplementedOSUpdateRunServer) DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*v11.OSUpdateRun, error) {
+func (UnimplementedOSUpdateRunServer) DeleteOSUpdateRun(context.Context, *DeleteOSUpdateRunRequest) (*DeleteOSUpdateRunResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOSUpdateRun not implemented")
 }
 

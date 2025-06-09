@@ -57,12 +57,12 @@ message OperatingSystemResource {
 
   string name = 2 [(ent.field) = {optional: true}]; // user-provided, human-readable name of OS
   string architecture = 3 [(ent.field) = {optional: true}]; // CPU architecture supported
-  string kernel_command = 4 [(ent.field) = {optional: true}]; // Kernel Command Line Options
+  string kernel_command = 4 [(ent.field) = {optional: true}]; // Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 
   repeated string update_sources = 5 [
     (ent.field) = {optional: true},
     (buf.validate.field).repeated.items.string = {max_bytes: 10000}
-  ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs
+  ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 
   string image_url = 6 [(ent.field) = {
     optional: true
@@ -93,7 +93,7 @@ message OperatingSystemResource {
     optional: true
     immutable: true
   }]; // Version of an OS profile that the OS resource belongs to. Along with profile_name uniquely identifies OS resource.
-  string installed_packages = 9 [(ent.field) = {optional: true}]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info.
+  string installed_packages = 9 [(ent.field) = {optional: true}]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy.
   SecurityFeature security_feature = 10 [(ent.field) = {
     optional: true
     immutable: true
@@ -125,6 +125,56 @@ message OperatingSystemResource {
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // user-provided, human-readable description of OS
+
+  string metadata = 18 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-z0-9,.-_:/\"\\\\ \\\\n\\{\\}\\[\\]]+$"
+      max_len: 500
+    }
+  ]; // Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
+
+  string existing_cves_url = 42 [
+    (ent.field) = {
+      optional: true
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      uri_ref: true
+      max_len: 500
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // URL of the file containing information about the existing CVEs on the Operating System.
+
+  string existing_cves = 43 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
+      max_len: 20000
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // The CVEs that are currently present on the Operating System, encoded as a JSON list.
+
+  string fixed_cves_url = 44 [
+    (ent.field) = {
+      optional: true
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      uri_ref: true
+      max_len: 500
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
+
+  string fixed_cves = 45 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
+      max_len: 20000
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
 
   string tenant_id = 100 [
     (ent.field) = {
