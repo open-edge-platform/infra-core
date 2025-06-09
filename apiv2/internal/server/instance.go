@@ -121,6 +121,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var currentOs *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
+	var oup *computev1.OSUpdatePolicy
 	if invInstance.GetDesiredOs() != nil {
 		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
 	}
@@ -136,6 +137,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	if invInstance.GetLocalaccount() != nil {
 		la = fromInvLocalAccount(invInstance.GetLocalaccount())
+	}
+	if invInstance.GetOsUpdatePolicy() != nil {
+		oup = fromInvOSUpdatePolicy(invInstance.GetOsUpdatePolicy())
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -165,6 +169,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		LocalAccountID:     la.GetResourceId(),
 		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
 		WorkloadMembers:    workloadMembers,
+		UpdatePolicy:       oup,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 		ExistingCves:       invInstance.GetExistingCves(),
 	}
