@@ -638,6 +638,34 @@ const (
 	// Fields and Edges constants for "DeleteOSUpdateRunRequest"
 	DeleteOSUpdateRunRequestFieldResourceId = "resourceId"
 
-// Fields and Edges constants for "DeleteOSUpdateRunResponse"
+	// Fields and Edges constants for "DeleteOSUpdateRunResponse"
+
+	// Fields and Edges constants for "CreateCustomConfigRequest"
+	CreateCustomConfigRequestEdgeCustomConfig = "custom_config"
+
+	// Fields and Edges constants for "CreateCustomConfigResponse"
+	CreateCustomConfigResponseEdgeCustomConfig = "custom_config"
+
+	// Fields and Edges constants for "GetCustomConfigRequest"
+	GetCustomConfigRequestFieldResourceId = "resourceId"
+
+	// Fields and Edges constants for "GetCustomConfigResponse"
+	GetCustomConfigResponseEdgeCustomConfig = "custom_config"
+
+	// Fields and Edges constants for "ListCustomConfigsRequest"
+	ListCustomConfigsRequestFieldOrderBy  = "order_by"
+	ListCustomConfigsRequestFieldFilter   = "filter"
+	ListCustomConfigsRequestFieldPageSize = "page_size"
+	ListCustomConfigsRequestFieldOffset   = "offset"
+
+	// Fields and Edges constants for "ListCustomConfigsResponse"
+	ListCustomConfigsResponseEdgeCustomConfigs  = "custom_configs"
+	ListCustomConfigsResponseFieldTotalElements = "total_elements"
+	ListCustomConfigsResponseFieldHasNext       = "has_next"
+
+	// Fields and Edges constants for "DeleteCustomConfigRequest"
+	DeleteCustomConfigRequestFieldResourceId = "resourceId"
+
+// Fields and Edges constants for "DeleteCustomConfigResponse"
 
 )

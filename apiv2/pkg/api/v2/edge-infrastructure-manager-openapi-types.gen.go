@@ -127,6 +127,7 @@ const (
 	POWERSTATEHIBERNATE   PowerState = "POWER_STATE_HIBERNATE"
 	POWERSTATEOFF         PowerState = "POWER_STATE_OFF"
 	POWERSTATEON          PowerState = "POWER_STATE_ON"
+	POWERSTATEPOWERCYCLE  PowerState = "POWER_STATE_POWER_CYCLE"
 	POWERSTATERESET       PowerState = "POWER_STATE_RESET"
 	POWERSTATESLEEP       PowerState = "POWER_STATE_SLEEP"
 	POWERSTATEUNSPECIFIED PowerState = "POWER_STATE_UNSPECIFIED"
@@ -249,6 +250,16 @@ type AmtState string
 
 // BaremetalControllerKind The type of BMC.
 type BaremetalControllerKind string
+
+// CreateCustomConfigRequest Request message for the CreateCustomConfig method.
+type CreateCustomConfigRequest struct {
+	CustomConfig CustomConfigResource `json:"customConfig"`
+}
+
+// CreateCustomConfigResponse Response message for the CreateCustomConfig method.
+type CreateCustomConfigResponse struct {
+	CustomConfig CustomConfigResource `json:"customConfig"`
+}
 
 // CreateHostRequest Request message for the CreateHost method.
 type CreateHostRequest struct {
@@ -450,6 +461,31 @@ type CreateWorkloadResponse struct {
 	Workload WorkloadResource `json:"workload"`
 }
 
+// CustomConfigResource defines model for CustomConfigResource.
+type CustomConfigResource struct {
+	// ConfigContent Config content
+	ConfigContent string `json:"configContent"`
+
+	// Description (OPTIONAL) Config description
+	Description *string `json:"description,omitempty"`
+
+	// Name Config provided by admin
+	Name string `json:"name"`
+
+	// ResourceId resource identifier
+	ResourceId *string     `json:"resourceId,omitempty"`
+	Timestamps *Timestamps `json:"timestamps,omitempty"`
+}
+
+// DeleteCustomConfigRequest Request message for DeleteCustomConfig.
+type DeleteCustomConfigRequest struct {
+	// ResourceId Name of the customconfig to be deleted.
+	ResourceId string `json:"resourceId"`
+}
+
+// DeleteCustomConfigResponse Response message for DeleteCustomConfig.
+type DeleteCustomConfigResponse = map[string]interface{}
+
 // DeleteHostRequest Request message for DeleteHost.
 type DeleteHostRequest struct {
 	// ResourceId Name of the host host to be deleted.
@@ -602,6 +638,17 @@ type DeleteWorkloadRequest struct {
 
 // DeleteWorkloadResponse Response message for DeleteWorkload.
 type DeleteWorkloadResponse = map[string]interface{}
+
+// GetCustomConfigRequest Request message for the GetCustomConfig method.
+type GetCustomConfigRequest struct {
+	// ResourceId Name of the requested custom configuration.
+	ResourceId string `json:"resourceId"`
+}
+
+// GetCustomConfigResponse Response message for the GetCustomConfig method.
+type GetCustomConfigResponse struct {
+	CustomConfig CustomConfigResource `json:"customConfig"`
+}
 
 // GetHostRequest Request message for the GetHost method.
 type GetHostRequest struct {
@@ -1156,6 +1203,12 @@ type InstanceResource struct {
 	// CurrentState The Instance States.
 	CurrentState *InstanceState `json:"currentState,omitempty"`
 
+	// CustomConfig The list of custom config associated with the instance.
+	CustomConfig *[]CustomConfigResource `json:"customConfig,omitempty"`
+
+	// CustomConfigID The list of custom config associated with the instance.
+	CustomConfigID *[]string `json:"customConfigID,omitempty"`
+
 	// DesiredOs An OS resource.
 	DesiredOs *OperatingSystemResource `json:"desiredOs,omitempty"`
 
@@ -1277,6 +1330,36 @@ type InvalidateInstanceResponse = map[string]interface{}
 
 // LinkState The state of the network interface.
 type LinkState string
+
+// ListCustomConfigsRequest Request message for the ListCustomConfigs method.
+type ListCustomConfigsRequest struct {
+	// Filter (OPTIONAL) Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `json:"filter,omitempty"`
+
+	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
+	Offset *int32 `json:"offset,omitempty"`
+
+	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `json:"orderBy,omitempty"`
+
+	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int32 `json:"pageSize,omitempty"`
+}
+
+// ListCustomConfigsResponse Response message for the ListCustomConfigs method.
+type ListCustomConfigsResponse struct {
+	// CustomConfigs Sorted and filtered list of customconfigs.
+	CustomConfigs []CustomConfigResource `json:"customConfigs"`
+
+	// HasNext Inform if there are more elements
+	HasNext bool `json:"hasNext"`
+
+	// TotalElements Count of items in the entire list, regardless of pagination.
+	TotalElements int32 `json:"totalElements"`
+}
 
 // ListHostsRequest Request message for the ListHosts method.
 type ListHostsRequest struct {
@@ -2334,7 +2417,7 @@ type OperatingSystemResource struct {
 	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
 
-	// Metadata Opaque JSON field storing metadata associated to this OS resource.
+	// Metadata Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
 	Metadata *string `json:"metadata,omitempty"`
 
 	// Name The OS resource's name.
@@ -5502,6 +5585,24 @@ type GoogleProtobufFieldMask = string
 //	) to obtain a formatter capable of generating timestamps in this format.
 type GoogleProtobufTimestamp = time.Time
 
+// CustomConfigServiceListCustomConfigsParams defines parameters for CustomConfigServiceListCustomConfigs.
+type CustomConfigServiceListCustomConfigsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5909,6 +6010,9 @@ type WorkloadServiceListWorkloadsParams struct {
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
+
+// CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
+type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource

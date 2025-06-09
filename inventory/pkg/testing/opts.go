@@ -357,3 +357,83 @@ func Sha256(sha256 string) Opt[osv1.OperatingSystemResource] {
 		t.Sha256 = sha256
 	}
 }
+
+func ProfileName(profileName string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.ProfileName = profileName
+	}
+}
+
+func Metadata(metadata string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.Metadata = metadata
+	}
+}
+
+func SecurityFeature(secFeature osv1.SecurityFeature) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.SecurityFeature = secFeature
+	}
+}
+
+func OsType(osType osv1.OsType) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.OsType = osType
+	}
+}
+
+func OSUpdatePolicyTarget() Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.UpdatePolicy = compute_v1.UpdatePolicy_UPDATE_POLICY_TARGET
+	}
+}
+
+func OSUpdatePolicyLatest() Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.UpdatePolicy = compute_v1.UpdatePolicy_UPDATE_POLICY_LATEST
+	}
+}
+
+func OsUpdatePolicyName(name string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.Name = name
+	}
+}
+
+func OsUpdatePolicyDescription(desc string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.Description = desc
+	}
+}
+
+func OSUpdatePolicyInstallPackages(pkgs string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.InstallPackages = pkgs
+	}
+}
+
+func OSUpdatePolicyUpdateSources(sources []string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.UpdateSources = sources
+	}
+}
+
+func OSUpdatePolicyKernelCommand(cmd string) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.KernelCommand = cmd
+	}
+}
+
+func OSUpdatePolicyTargetOS(targetOS *osv1.OperatingSystemResource) Opt[compute_v1.OSUpdatePolicyResource] {
+	return func(oup *compute_v1.OSUpdatePolicyResource) {
+		oup.TargetOs = targetOS
+	}
+}
+
+func InstanceOsUpdatePolicy(
+	policy *compute_v1.OSUpdatePolicyResource,
+) Opt[compute_v1.InstanceResource] {
+	return func(i *compute_v1.InstanceResource) {
+		i.OsUpdatePolicy = policy
+	}
+}
