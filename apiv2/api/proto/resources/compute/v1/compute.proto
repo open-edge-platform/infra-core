@@ -46,6 +46,7 @@ enum PowerState {
   POWER_STATE_SLEEP = 4;
   POWER_STATE_HIBERNATE = 5;
   POWER_STATE_RESET = 6;
+  POWER_STATE_POWER_CYCLE = 7;
 }
 
 // The policy for handling power commands.
@@ -208,7 +209,7 @@ message HostResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {max_len: 96}
   ]; // coming from device introspection
-  AmtState desired_amt_state = 92 [(google.api.field_behavior) = OUTPUT_ONLY]; // Desired AMT/vPRO state of the host
+  AmtState desired_amt_state = 92 [(google.api.field_behavior) = OPTIONAL]; // Desired AMT/vPRO state of the host
   AmtState current_amt_state = 93 [(google.api.field_behavior) = OUTPUT_ONLY]; // Current AMT/vPRO state of the host
   string amt_status = 94 [
     (google.api.field_behavior) = OUTPUT_ONLY,
