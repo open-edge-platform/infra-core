@@ -1736,6 +1736,29 @@ func HasLocalaccountWith(preds ...predicate.LocalAccountResource) predicate.Inst
 	})
 }
 
+// HasOsUpdatePolicy applies the HasEdge predicate on the "os_update_policy" edge.
+func HasOsUpdatePolicy() predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, OsUpdatePolicyTable, OsUpdatePolicyColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasOsUpdatePolicyWith applies the HasEdge predicate on the "os_update_policy" edge with a given conditions (other predicates).
+func HasOsUpdatePolicyWith(preds ...predicate.OSUpdatePolicyResource) predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := newOsUpdatePolicyStep()
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.InstanceResource) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.AndPredicates(predicates...))
