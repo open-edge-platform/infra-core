@@ -1197,6 +1197,7 @@ The host power state.
 | POWER_STATE_SLEEP | 4 |  |
 | POWER_STATE_HIBERNATE | 5 |  |
 | POWER_STATE_RESET | 6 |  |
+| POWER_STATE_POWER_CYCLE | 7 |  |
 
 
 
