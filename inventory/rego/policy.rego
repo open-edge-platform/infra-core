@@ -47,18 +47,10 @@ deny if {
 	input.ClientKind == "CLIENT_KIND_API"
 }
 
-# deny if a tenant resource is created via northbound API
+# deny if a tenant resource is created/updated by other than TC client
 deny if {
-	input.Method == "CREATE"
 	input.resource.tenant
-	input.ClientKind == "CLIENT_KIND_API"
-}
-
-# deny if a tenant resource is created via southbound API
-deny if {
-	input.Method == "CREATE"
-	input.resource.tenant
-	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+	not input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
 }
 
 # deny updates to the CurrentState via northbound API
@@ -89,10 +81,10 @@ deny if {
 
 # deny if TC client tries to create a resource that is not a tenant, provider or telemetryGroup
 deny if {
-    input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
     not input.resource.tenant
     not input.resource.provider
     not input.resource.telemetryGroup
+    input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
 }
 
 # Exception 1
