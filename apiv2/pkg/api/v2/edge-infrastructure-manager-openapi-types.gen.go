@@ -2392,13 +2392,13 @@ type OperatingSystemResource struct {
 	// ExistingCves The CVEs that are currently present on the Operating System, encoded as a JSON list.
 	ExistingCves *string `json:"existingCves,omitempty"`
 
-	// ExistingCvesUrl URL of the file containing information about the existing CVEs on the Operating System.
+	// ExistingCvesUrl (IMMUTABLE) URL of the file containing information about the existing CVEs on the Operating System.
 	ExistingCvesUrl *string `json:"existingCvesUrl,omitempty"`
 
 	// FixedCves The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
 	FixedCves *string `json:"fixedCves,omitempty"`
 
-	// FixedCvesUrl URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
+	// FixedCvesUrl (IMMUTABLE) URL of the file containing information about the CVEs that have been fixed by this OS Resource version.
 	FixedCvesUrl *string `json:"fixedCvesUrl,omitempty"`
 
 	// ImageId A unique identifier of the OS image that can be retrieved from the running OS.
