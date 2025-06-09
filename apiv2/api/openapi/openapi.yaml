@@ -4427,8 +4427,8 @@ components:
           type: string
           title: metadata
           maxLength: 500
-          pattern: ^$|^[a-z0-9.-_:/"\\ \\n\{\}]+$
-          description: Opaque JSON field storing metadata associated to this OS resource.
+          pattern: ^$|^[a-z0-9,.-_:/"\\ \\n\{\}\[\]]+$
+          description: Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
         existingCvesUrl:
           type: string
           title: existing_cves_url
