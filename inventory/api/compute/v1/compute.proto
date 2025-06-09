@@ -692,7 +692,22 @@ message InstanceResource {
   repeated WorkloadMember workload_members = 30 [(ent.edge) = {ref: "instance"}]; // back-reference to the Workload Members associated to this Instance
   provider.v1.ProviderResource provider = 40 [(ent.edge) = {unique: true}]; // Provider this Instance is provisioned through
   localaccount.v1.LocalAccountResource localaccount = 41 [(ent.edge) = {unique: true}]; // Local Account associated with this Instance
-  repeated CustomConfigResource custom_config = 42 [(ent.edge) = {
+
+  string existing_cves = 42 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
+      max_len: 20000
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // The CVEs that are currently present on the Instance, encoded as a JSON list.
+
+  OSUpdatePolicyResource os_update_policy = 43 [(ent.edge) = {
+    unique: true
+    required: false
+  }]; // OS Update Policy associated with this Instance.
+
+  repeated CustomConfigResource custom_config = 44 [(ent.edge) = {
     //ref: "instances"
   }]; // List of Custom Config associated with this Instance
 

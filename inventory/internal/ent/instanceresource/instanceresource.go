@@ -58,6 +58,8 @@ const (
 	FieldTrustedAttestationStatusIndicator = "trusted_attestation_status_indicator"
 	// FieldTrustedAttestationStatusTimestamp holds the string denoting the trusted_attestation_status_timestamp field in the database.
 	FieldTrustedAttestationStatusTimestamp = "trusted_attestation_status_timestamp"
+	// FieldExistingCves holds the string denoting the existing_cves field in the database.
+	FieldExistingCves = "existing_cves"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldInstanceStatusDetail holds the string denoting the instance_status_detail field in the database.
@@ -78,6 +80,8 @@ const (
 	EdgeProvider = "provider"
 	// EdgeLocalaccount holds the string denoting the localaccount edge name in mutations.
 	EdgeLocalaccount = "localaccount"
+	// EdgeOsUpdatePolicy holds the string denoting the os_update_policy edge name in mutations.
+	EdgeOsUpdatePolicy = "os_update_policy"
 	// EdgeCustomConfig holds the string denoting the custom_config edge name in mutations.
 	EdgeCustomConfig = "custom_config"
 	// Table holds the table name of the instanceresource in the database.
@@ -124,6 +128,13 @@ const (
 	LocalaccountInverseTable = "local_account_resources"
 	// LocalaccountColumn is the table column denoting the localaccount relation/edge.
 	LocalaccountColumn = "instance_resource_localaccount"
+	// OsUpdatePolicyTable is the table that holds the os_update_policy relation/edge.
+	OsUpdatePolicyTable = "instance_resources"
+	// OsUpdatePolicyInverseTable is the table name for the OSUpdatePolicyResource entity.
+	// It exists in this package in order to avoid circular dependency with the "osupdatepolicyresource" package.
+	OsUpdatePolicyInverseTable = "os_update_policy_resources"
+	// OsUpdatePolicyColumn is the table column denoting the os_update_policy relation/edge.
+	OsUpdatePolicyColumn = "instance_resource_os_update_policy"
 	// CustomConfigTable is the table that holds the custom_config relation/edge. The primary key declared below.
 	CustomConfigTable = "instance_resource_custom_config"
 	// CustomConfigInverseTable is the table name for the CustomConfigResource entity.
@@ -156,6 +167,7 @@ var Columns = []string{
 	FieldTrustedAttestationStatus,
 	FieldTrustedAttestationStatusIndicator,
 	FieldTrustedAttestationStatusTimestamp,
+	FieldExistingCves,
 	FieldTenantID,
 	FieldInstanceStatusDetail,
 	FieldCreatedAt,
@@ -169,6 +181,7 @@ var ForeignKeys = []string{
 	"instance_resource_current_os",
 	"instance_resource_provider",
 	"instance_resource_localaccount",
+	"instance_resource_os_update_policy",
 }
 
 var (
@@ -508,6 +521,11 @@ func ByTrustedAttestationStatusTimestamp(opts ...sql.OrderTermOption) OrderOptio
 	return sql.OrderByField(FieldTrustedAttestationStatusTimestamp, opts...).ToFunc()
 }
 
+// ByExistingCves orders the results by the existing_cves field.
+func ByExistingCves(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExistingCves, opts...).ToFunc()
+}
+
 // ByTenantID orders the results by the tenant_id field.
 func ByTenantID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTenantID, opts...).ToFunc()
@@ -577,6 +595,13 @@ func ByLocalaccountField(field string, opts ...sql.OrderTermOption) OrderOption 
 	}
 }
 
+// ByOsUpdatePolicyField orders the results by os_update_policy field.
+func ByOsUpdatePolicyField(field string, opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newOsUpdatePolicyStep(), sql.OrderByField(field, opts...))
+	}
+}
+
 // ByCustomConfigCount orders the results by custom_config count.
 func ByCustomConfigCount(opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
@@ -630,6 +655,13 @@ func newLocalaccountStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(LocalaccountInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.M2O, false, LocalaccountTable, LocalaccountColumn),
+	)
+}
+func newOsUpdatePolicyStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(OsUpdatePolicyInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.M2O, false, OsUpdatePolicyTable, OsUpdatePolicyColumn),
 	)
 }
 func newCustomConfigStep() *sqlgraph.Step {

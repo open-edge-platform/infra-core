@@ -17,6 +17,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/predicate"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/workloadmember"
@@ -35,6 +36,7 @@ type InstanceResourceQuery struct {
 	withWorkloadMembers *WorkloadMemberQuery
 	withProvider        *ProviderResourceQuery
 	withLocalaccount    *LocalAccountResourceQuery
+	withOsUpdatePolicy  *OSUpdatePolicyResourceQuery
 	withCustomConfig    *CustomConfigResourceQuery
 	withFKs             bool
 	// intermediate query (i.e. traversal path).
@@ -198,6 +200,28 @@ func (irq *InstanceResourceQuery) QueryLocalaccount() *LocalAccountResourceQuery
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
 			sqlgraph.To(localaccountresource.Table, localaccountresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.LocalaccountTable, instanceresource.LocalaccountColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryOsUpdatePolicy chains the current query on the "os_update_policy" edge.
+func (irq *InstanceResourceQuery) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: irq.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := irq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := irq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
+			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsUpdatePolicyTable, instanceresource.OsUpdatePolicyColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
 		return fromU, nil
@@ -425,6 +449,7 @@ func (irq *InstanceResourceQuery) Clone() *InstanceResourceQuery {
 		withWorkloadMembers: irq.withWorkloadMembers.Clone(),
 		withProvider:        irq.withProvider.Clone(),
 		withLocalaccount:    irq.withLocalaccount.Clone(),
+		withOsUpdatePolicy:  irq.withOsUpdatePolicy.Clone(),
 		withCustomConfig:    irq.withCustomConfig.Clone(),
 		// clone intermediate query.
 		sql:  irq.sql.Clone(),
@@ -495,6 +520,17 @@ func (irq *InstanceResourceQuery) WithLocalaccount(opts ...func(*LocalAccountRes
 		opt(query)
 	}
 	irq.withLocalaccount = query
+	return irq
+}
+
+// WithOsUpdatePolicy tells the query-builder to eager-load the nodes that are connected to
+// the "os_update_policy" edge. The optional arguments are used to configure the query builder of the edge.
+func (irq *InstanceResourceQuery) WithOsUpdatePolicy(opts ...func(*OSUpdatePolicyResourceQuery)) *InstanceResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: irq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	irq.withOsUpdatePolicy = query
 	return irq
 }
 
@@ -588,17 +624,18 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		nodes       = []*InstanceResource{}
 		withFKs     = irq.withFKs
 		_spec       = irq.querySpec()
-		loadedTypes = [7]bool{
+		loadedTypes = [8]bool{
 			irq.withHost != nil,
 			irq.withDesiredOs != nil,
 			irq.withCurrentOs != nil,
 			irq.withWorkloadMembers != nil,
 			irq.withProvider != nil,
 			irq.withLocalaccount != nil,
+			irq.withOsUpdatePolicy != nil,
 			irq.withCustomConfig != nil,
 		}
 	)
-	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil {
+	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withOsUpdatePolicy != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -658,6 +695,12 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	if query := irq.withLocalaccount; query != nil {
 		if err := irq.loadLocalaccount(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *LocalAccountResource) { n.Edges.Localaccount = e }); err != nil {
+			return nil, err
+		}
+	}
+	if query := irq.withOsUpdatePolicy; query != nil {
+		if err := irq.loadOsUpdatePolicy(ctx, query, nodes, nil,
+			func(n *InstanceResource, e *OSUpdatePolicyResource) { n.Edges.OsUpdatePolicy = e }); err != nil {
 			return nil, err
 		}
 	}
@@ -853,6 +896,38 @@ func (irq *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *L
 		nodes, ok := nodeids[n.ID]
 		if !ok {
 			return fmt.Errorf(`unexpected foreign-key "instance_resource_localaccount" returned %v`, n.ID)
+		}
+		for i := range nodes {
+			assign(nodes[i], n)
+		}
+	}
+	return nil
+}
+func (irq *InstanceResourceQuery) loadOsUpdatePolicy(ctx context.Context, query *OSUpdatePolicyResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OSUpdatePolicyResource)) error {
+	ids := make([]int, 0, len(nodes))
+	nodeids := make(map[int][]*InstanceResource)
+	for i := range nodes {
+		if nodes[i].instance_resource_os_update_policy == nil {
+			continue
+		}
+		fk := *nodes[i].instance_resource_os_update_policy
+		if _, ok := nodeids[fk]; !ok {
+			ids = append(ids, fk)
+		}
+		nodeids[fk] = append(nodeids[fk], nodes[i])
+	}
+	if len(ids) == 0 {
+		return nil
+	}
+	query.Where(osupdatepolicyresource.IDIn(ids...))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		nodes, ok := nodeids[n.ID]
+		if !ok {
+			return fmt.Errorf(`unexpected foreign-key "instance_resource_os_update_policy" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)

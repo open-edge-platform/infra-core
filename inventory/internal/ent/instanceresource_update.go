@@ -15,6 +15,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/predicate"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/workloadmember"
@@ -496,6 +497,26 @@ func (iru *InstanceResourceUpdate) ClearTrustedAttestationStatusTimestamp() *Ins
 	return iru
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (iru *InstanceResourceUpdate) SetExistingCves(s string) *InstanceResourceUpdate {
+	iru.mutation.SetExistingCves(s)
+	return iru
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (iru *InstanceResourceUpdate) SetNillableExistingCves(s *string) *InstanceResourceUpdate {
+	if s != nil {
+		iru.SetExistingCves(*s)
+	}
+	return iru
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (iru *InstanceResourceUpdate) ClearExistingCves() *InstanceResourceUpdate {
+	iru.mutation.ClearExistingCves()
+	return iru
+}
+
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
 func (iru *InstanceResourceUpdate) SetInstanceStatusDetail(s string) *InstanceResourceUpdate {
 	iru.mutation.SetInstanceStatusDetail(s)
@@ -632,6 +653,25 @@ func (iru *InstanceResourceUpdate) SetLocalaccount(l *LocalAccountResource) *Ins
 	return iru.SetLocalaccountID(l.ID)
 }
 
+// SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID.
+func (iru *InstanceResourceUpdate) SetOsUpdatePolicyID(id int) *InstanceResourceUpdate {
+	iru.mutation.SetOsUpdatePolicyID(id)
+	return iru
+}
+
+// SetNillableOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
+func (iru *InstanceResourceUpdate) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceUpdate {
+	if id != nil {
+		iru = iru.SetOsUpdatePolicyID(*id)
+	}
+	return iru
+}
+
+// SetOsUpdatePolicy sets the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (iru *InstanceResourceUpdate) SetOsUpdatePolicy(o *OSUpdatePolicyResource) *InstanceResourceUpdate {
+	return iru.SetOsUpdatePolicyID(o.ID)
+}
+
 // AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
 func (iru *InstanceResourceUpdate) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
 	iru.mutation.AddCustomConfigIDs(ids...)
@@ -700,6 +740,12 @@ func (iru *InstanceResourceUpdate) ClearProvider() *InstanceResourceUpdate {
 // ClearLocalaccount clears the "localaccount" edge to the LocalAccountResource entity.
 func (iru *InstanceResourceUpdate) ClearLocalaccount() *InstanceResourceUpdate {
 	iru.mutation.ClearLocalaccount()
+	return iru
+}
+
+// ClearOsUpdatePolicy clears the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (iru *InstanceResourceUpdate) ClearOsUpdatePolicy() *InstanceResourceUpdate {
+	iru.mutation.ClearOsUpdatePolicy()
 	return iru
 }
 
@@ -953,6 +999,12 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if iru.mutation.TrustedAttestationStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64)
 	}
+	if value, ok := iru.mutation.ExistingCves(); ok {
+		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
+	}
+	if iru.mutation.ExistingCvesCleared() {
+		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
+	}
 	if value, ok := iru.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 	}
@@ -1145,6 +1197,35 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if iru.mutation.OsUpdatePolicyCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsUpdatePolicyTable,
+			Columns: []string{instanceresource.OsUpdatePolicyColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iru.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsUpdatePolicyTable,
+			Columns: []string{instanceresource.OsUpdatePolicyColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1680,6 +1761,26 @@ func (iruo *InstanceResourceUpdateOne) ClearTrustedAttestationStatusTimestamp() 
 	return iruo
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (iruo *InstanceResourceUpdateOne) SetExistingCves(s string) *InstanceResourceUpdateOne {
+	iruo.mutation.SetExistingCves(s)
+	return iruo
+}
+
+// SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
+func (iruo *InstanceResourceUpdateOne) SetNillableExistingCves(s *string) *InstanceResourceUpdateOne {
+	if s != nil {
+		iruo.SetExistingCves(*s)
+	}
+	return iruo
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (iruo *InstanceResourceUpdateOne) ClearExistingCves() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearExistingCves()
+	return iruo
+}
+
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
 func (iruo *InstanceResourceUpdateOne) SetInstanceStatusDetail(s string) *InstanceResourceUpdateOne {
 	iruo.mutation.SetInstanceStatusDetail(s)
@@ -1816,6 +1917,25 @@ func (iruo *InstanceResourceUpdateOne) SetLocalaccount(l *LocalAccountResource) 
 	return iruo.SetLocalaccountID(l.ID)
 }
 
+// SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID.
+func (iruo *InstanceResourceUpdateOne) SetOsUpdatePolicyID(id int) *InstanceResourceUpdateOne {
+	iruo.mutation.SetOsUpdatePolicyID(id)
+	return iruo
+}
+
+// SetNillableOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
+func (iruo *InstanceResourceUpdateOne) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceUpdateOne {
+	if id != nil {
+		iruo = iruo.SetOsUpdatePolicyID(*id)
+	}
+	return iruo
+}
+
+// SetOsUpdatePolicy sets the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (iruo *InstanceResourceUpdateOne) SetOsUpdatePolicy(o *OSUpdatePolicyResource) *InstanceResourceUpdateOne {
+	return iruo.SetOsUpdatePolicyID(o.ID)
+}
+
 // AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
 func (iruo *InstanceResourceUpdateOne) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
 	iruo.mutation.AddCustomConfigIDs(ids...)
@@ -1884,6 +2004,12 @@ func (iruo *InstanceResourceUpdateOne) ClearProvider() *InstanceResourceUpdateOn
 // ClearLocalaccount clears the "localaccount" edge to the LocalAccountResource entity.
 func (iruo *InstanceResourceUpdateOne) ClearLocalaccount() *InstanceResourceUpdateOne {
 	iruo.mutation.ClearLocalaccount()
+	return iruo
+}
+
+// ClearOsUpdatePolicy clears the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (iruo *InstanceResourceUpdateOne) ClearOsUpdatePolicy() *InstanceResourceUpdateOne {
+	iruo.mutation.ClearOsUpdatePolicy()
 	return iruo
 }
 
@@ -2167,6 +2293,12 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 	if iruo.mutation.TrustedAttestationStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64)
 	}
+	if value, ok := iruo.mutation.ExistingCves(); ok {
+		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
+	}
+	if iruo.mutation.ExistingCvesCleared() {
+		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
+	}
 	if value, ok := iruo.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 	}
@@ -2359,6 +2491,35 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if iruo.mutation.OsUpdatePolicyCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsUpdatePolicyTable,
+			Columns: []string{instanceresource.OsUpdatePolicyColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := iruo.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   instanceresource.OsUpdatePolicyTable,
+			Columns: []string{instanceresource.OsUpdatePolicyColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

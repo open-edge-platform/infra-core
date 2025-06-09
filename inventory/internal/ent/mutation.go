@@ -13272,6 +13272,7 @@ type InstanceResourceMutation struct {
 	trusted_attestation_status_indicator    *instanceresource.TrustedAttestationStatusIndicator
 	trusted_attestation_status_timestamp    *uint64
 	addtrusted_attestation_status_timestamp *int64
+	existing_cves                           *string
 	tenant_id                               *string
 	instance_status_detail                  *string
 	created_at                              *string
@@ -13290,6 +13291,8 @@ type InstanceResourceMutation struct {
 	clearedprovider                         bool
 	localaccount                            *int
 	clearedlocalaccount                     bool
+	os_update_policy                        *int
+	clearedos_update_policy                 bool
 	custom_config                           map[int]struct{}
 	removedcustom_config                    map[int]struct{}
 	clearedcustom_config                    bool
@@ -14608,6 +14611,55 @@ func (m *InstanceResourceMutation) ResetTrustedAttestationStatusTimestamp() {
 	delete(m.clearedFields, instanceresource.FieldTrustedAttestationStatusTimestamp)
 }
 
+// SetExistingCves sets the "existing_cves" field.
+func (m *InstanceResourceMutation) SetExistingCves(s string) {
+	m.existing_cves = &s
+}
+
+// ExistingCves returns the value of the "existing_cves" field in the mutation.
+func (m *InstanceResourceMutation) ExistingCves() (r string, exists bool) {
+	v := m.existing_cves
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExistingCves returns the old "existing_cves" field's value of the InstanceResource entity.
+// If the InstanceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *InstanceResourceMutation) OldExistingCves(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExistingCves is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExistingCves requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExistingCves: %w", err)
+	}
+	return oldValue.ExistingCves, nil
+}
+
+// ClearExistingCves clears the value of the "existing_cves" field.
+func (m *InstanceResourceMutation) ClearExistingCves() {
+	m.existing_cves = nil
+	m.clearedFields[instanceresource.FieldExistingCves] = struct{}{}
+}
+
+// ExistingCvesCleared returns if the "existing_cves" field was cleared in this mutation.
+func (m *InstanceResourceMutation) ExistingCvesCleared() bool {
+	_, ok := m.clearedFields[instanceresource.FieldExistingCves]
+	return ok
+}
+
+// ResetExistingCves resets all changes to the "existing_cves" field.
+func (m *InstanceResourceMutation) ResetExistingCves() {
+	m.existing_cves = nil
+	delete(m.clearedFields, instanceresource.FieldExistingCves)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *InstanceResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -15014,6 +15066,45 @@ func (m *InstanceResourceMutation) ResetLocalaccount() {
 	m.clearedlocalaccount = false
 }
 
+// SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by id.
+func (m *InstanceResourceMutation) SetOsUpdatePolicyID(id int) {
+	m.os_update_policy = &id
+}
+
+// ClearOsUpdatePolicy clears the "os_update_policy" edge to the OSUpdatePolicyResource entity.
+func (m *InstanceResourceMutation) ClearOsUpdatePolicy() {
+	m.clearedos_update_policy = true
+}
+
+// OsUpdatePolicyCleared reports if the "os_update_policy" edge to the OSUpdatePolicyResource entity was cleared.
+func (m *InstanceResourceMutation) OsUpdatePolicyCleared() bool {
+	return m.clearedos_update_policy
+}
+
+// OsUpdatePolicyID returns the "os_update_policy" edge ID in the mutation.
+func (m *InstanceResourceMutation) OsUpdatePolicyID() (id int, exists bool) {
+	if m.os_update_policy != nil {
+		return *m.os_update_policy, true
+	}
+	return
+}
+
+// OsUpdatePolicyIDs returns the "os_update_policy" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// OsUpdatePolicyID instead. It exists only for internal usage by the builders.
+func (m *InstanceResourceMutation) OsUpdatePolicyIDs() (ids []int) {
+	if id := m.os_update_policy; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetOsUpdatePolicy resets all changes to the "os_update_policy" edge.
+func (m *InstanceResourceMutation) ResetOsUpdatePolicy() {
+	m.os_update_policy = nil
+	m.clearedos_update_policy = false
+}
+
 // AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by ids.
 func (m *InstanceResourceMutation) AddCustomConfigIDs(ids ...int) {
 	if m.custom_config == nil {
@@ -15102,7 +15193,7 @@ func (m *InstanceResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *InstanceResourceMutation) Fields() []string {
-	fields := make([]string, 0, 26)
+	fields := make([]string, 0, 27)
 	if m.resource_id != nil {
 		fields = append(fields, instanceresource.FieldResourceID)
 	}
@@ -15169,6 +15260,9 @@ func (m *InstanceResourceMutation) Fields() []string {
 	if m.trusted_attestation_status_timestamp != nil {
 		fields = append(fields, instanceresource.FieldTrustedAttestationStatusTimestamp)
 	}
+	if m.existing_cves != nil {
+		fields = append(fields, instanceresource.FieldExistingCves)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, instanceresource.FieldTenantID)
 	}
@@ -15233,6 +15327,8 @@ func (m *InstanceResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.TrustedAttestationStatusIndicator()
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		return m.TrustedAttestationStatusTimestamp()
+	case instanceresource.FieldExistingCves:
+		return m.ExistingCves()
 	case instanceresource.FieldTenantID:
 		return m.TenantID()
 	case instanceresource.FieldInstanceStatusDetail:
@@ -15294,6 +15390,8 @@ func (m *InstanceResourceMutation) OldField(ctx context.Context, name string) (e
 		return m.OldTrustedAttestationStatusIndicator(ctx)
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		return m.OldTrustedAttestationStatusTimestamp(ctx)
+	case instanceresource.FieldExistingCves:
+		return m.OldExistingCves(ctx)
 	case instanceresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case instanceresource.FieldInstanceStatusDetail:
@@ -15464,6 +15562,13 @@ func (m *InstanceResourceMutation) SetField(name string, value ent.Value) error 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTrustedAttestationStatusTimestamp(v)
+		return nil
+	case instanceresource.FieldExistingCves:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExistingCves(v)
 		return nil
 	case instanceresource.FieldTenantID:
 		v, ok := value.(string)
@@ -15673,6 +15778,9 @@ func (m *InstanceResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(instanceresource.FieldTrustedAttestationStatusTimestamp) {
 		fields = append(fields, instanceresource.FieldTrustedAttestationStatusTimestamp)
 	}
+	if m.FieldCleared(instanceresource.FieldExistingCves) {
+		fields = append(fields, instanceresource.FieldExistingCves)
+	}
 	if m.FieldCleared(instanceresource.FieldInstanceStatusDetail) {
 		fields = append(fields, instanceresource.FieldInstanceStatusDetail)
 	}
@@ -15753,6 +15861,9 @@ func (m *InstanceResourceMutation) ClearField(name string) error {
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		m.ClearTrustedAttestationStatusTimestamp()
 		return nil
+	case instanceresource.FieldExistingCves:
+		m.ClearExistingCves()
+		return nil
 	case instanceresource.FieldInstanceStatusDetail:
 		m.ClearInstanceStatusDetail()
 		return nil
@@ -15830,6 +15941,9 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 	case instanceresource.FieldTrustedAttestationStatusTimestamp:
 		m.ResetTrustedAttestationStatusTimestamp()
 		return nil
+	case instanceresource.FieldExistingCves:
+		m.ResetExistingCves()
+		return nil
 	case instanceresource.FieldTenantID:
 		m.ResetTenantID()
 		return nil
@@ -15848,7 +15962,7 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *InstanceResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.host != nil {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15866,6 +15980,9 @@ func (m *InstanceResourceMutation) AddedEdges() []string {
 	}
 	if m.localaccount != nil {
 		edges = append(edges, instanceresource.EdgeLocalaccount)
+	}
+	if m.os_update_policy != nil {
+		edges = append(edges, instanceresource.EdgeOsUpdatePolicy)
 	}
 	if m.custom_config != nil {
 		edges = append(edges, instanceresource.EdgeCustomConfig)
@@ -15903,6 +16020,10 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 		if id := m.localaccount; id != nil {
 			return []ent.Value{*id}
 		}
+	case instanceresource.EdgeOsUpdatePolicy:
+		if id := m.os_update_policy; id != nil {
+			return []ent.Value{*id}
+		}
 	case instanceresource.EdgeCustomConfig:
 		ids := make([]ent.Value, 0, len(m.custom_config))
 		for id := range m.custom_config {
@@ -15915,7 +16036,7 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *InstanceResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
 	}
@@ -15947,7 +16068,7 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *InstanceResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.clearedhost {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15965,6 +16086,9 @@ func (m *InstanceResourceMutation) ClearedEdges() []string {
 	}
 	if m.clearedlocalaccount {
 		edges = append(edges, instanceresource.EdgeLocalaccount)
+	}
+	if m.clearedos_update_policy {
+		edges = append(edges, instanceresource.EdgeOsUpdatePolicy)
 	}
 	if m.clearedcustom_config {
 		edges = append(edges, instanceresource.EdgeCustomConfig)
@@ -15988,6 +16112,8 @@ func (m *InstanceResourceMutation) EdgeCleared(name string) bool {
 		return m.clearedprovider
 	case instanceresource.EdgeLocalaccount:
 		return m.clearedlocalaccount
+	case instanceresource.EdgeOsUpdatePolicy:
+		return m.clearedos_update_policy
 	case instanceresource.EdgeCustomConfig:
 		return m.clearedcustom_config
 	}
@@ -16012,6 +16138,9 @@ func (m *InstanceResourceMutation) ClearEdge(name string) error {
 		return nil
 	case instanceresource.EdgeLocalaccount:
 		m.ClearLocalaccount()
+		return nil
+	case instanceresource.EdgeOsUpdatePolicy:
+		m.ClearOsUpdatePolicy()
 		return nil
 	}
 	return fmt.Errorf("unknown InstanceResource unique edge %s", name)
@@ -16038,6 +16167,9 @@ func (m *InstanceResourceMutation) ResetEdge(name string) error {
 		return nil
 	case instanceresource.EdgeLocalaccount:
 		m.ResetLocalaccount()
+		return nil
+	case instanceresource.EdgeOsUpdatePolicy:
+		m.ResetOsUpdatePolicy()
 		return nil
 	case instanceresource.EdgeCustomConfig:
 		m.ResetCustomConfig()

@@ -1923,6 +1923,22 @@ func (c *InstanceResourceClient) QueryLocalaccount(ir *InstanceResource) *LocalA
 	return query
 }
 
+// QueryOsUpdatePolicy queries the os_update_policy edge of a InstanceResource.
+func (c *InstanceResourceClient) QueryOsUpdatePolicy(ir *InstanceResource) *OSUpdatePolicyResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := ir.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
+			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsUpdatePolicyTable, instanceresource.OsUpdatePolicyColumn),
+		)
+		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
 // QueryCustomConfig queries the custom_config edge of a InstanceResource.
 func (c *InstanceResourceClient) QueryCustomConfig(ir *InstanceResource) *CustomConfigResourceQuery {
 	query := (&CustomConfigResourceClient{config: c.config}).Query()

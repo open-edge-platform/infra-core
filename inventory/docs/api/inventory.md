@@ -760,6 +760,8 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | workload_members | [WorkloadMember](#compute-v1-WorkloadMember) | repeated | back-reference to the Workload Members associated to this Instance |
 | provider | [provider.v1.ProviderResource](#provider-v1-ProviderResource) |  | Provider this Instance is provisioned through |
 | localaccount | [localaccount.v1.LocalAccountResource](#localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
+| existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
+| os_update_policy | [OSUpdatePolicyResource](#compute-v1-OSUpdatePolicyResource) |  | OS Update Policy associated with this Instance. |
 | custom_config | [CustomConfigResource](#compute-v1-CustomConfigResource) | repeated | List of Custom Config associated with this Instance |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | instance_status_detail | [string](#string) |  | textual message that gives detailed status of the instance&#39;s software components. |

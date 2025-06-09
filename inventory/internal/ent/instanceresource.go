@@ -12,6 +12,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 )
 
@@ -64,6 +65,8 @@ type InstanceResource struct {
 	TrustedAttestationStatusIndicator instanceresource.TrustedAttestationStatusIndicator `json:"trusted_attestation_status_indicator,omitempty"`
 	// TrustedAttestationStatusTimestamp holds the value of the "trusted_attestation_status_timestamp" field.
 	TrustedAttestationStatusTimestamp uint64 `json:"trusted_attestation_status_timestamp,omitempty"`
+	// ExistingCves holds the value of the "existing_cves" field.
+	ExistingCves string `json:"existing_cves,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// InstanceStatusDetail holds the value of the "instance_status_detail" field.
@@ -74,12 +77,13 @@ type InstanceResource struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the InstanceResourceQuery when eager-loading is set.
-	Edges                          InstanceResourceEdges `json:"edges"`
-	instance_resource_desired_os   *int
-	instance_resource_current_os   *int
-	instance_resource_provider     *int
-	instance_resource_localaccount *int
-	selectValues                   sql.SelectValues
+	Edges                              InstanceResourceEdges `json:"edges"`
+	instance_resource_desired_os       *int
+	instance_resource_current_os       *int
+	instance_resource_provider         *int
+	instance_resource_localaccount     *int
+	instance_resource_os_update_policy *int
+	selectValues                       sql.SelectValues
 }
 
 // InstanceResourceEdges holds the relations/edges for other nodes in the graph.
@@ -96,11 +100,13 @@ type InstanceResourceEdges struct {
 	Provider *ProviderResource `json:"provider,omitempty"`
 	// Localaccount holds the value of the localaccount edge.
 	Localaccount *LocalAccountResource `json:"localaccount,omitempty"`
+	// OsUpdatePolicy holds the value of the os_update_policy edge.
+	OsUpdatePolicy *OSUpdatePolicyResource `json:"os_update_policy,omitempty"`
 	// CustomConfig holds the value of the custom_config edge.
 	CustomConfig []*CustomConfigResource `json:"custom_config,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [7]bool
+	loadedTypes [8]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -167,10 +173,21 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 	return nil, &NotLoadedError{edge: "localaccount"}
 }
 
+// OsUpdatePolicyOrErr returns the OsUpdatePolicy value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, error) {
+	if e.OsUpdatePolicy != nil {
+		return e.OsUpdatePolicy, nil
+	} else if e.loadedTypes[6] {
+		return nil, &NotFoundError{label: osupdatepolicyresource.Label}
+	}
+	return nil, &NotLoadedError{edge: "os_update_policy"}
+}
+
 // CustomConfigOrErr returns the CustomConfig value or an error if the edge
 // was not loaded in eager-loading.
 func (e InstanceResourceEdges) CustomConfigOrErr() ([]*CustomConfigResource, error) {
-	if e.loadedTypes[6] {
+	if e.loadedTypes[7] {
 		return e.CustomConfig, nil
 	}
 	return nil, &NotLoadedError{edge: "custom_config"}
@@ -183,7 +200,7 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case instanceresource.FieldID, instanceresource.FieldVMMemoryBytes, instanceresource.FieldVMCPUCores, instanceresource.FieldVMStorageBytes, instanceresource.FieldInstanceStatusTimestamp, instanceresource.FieldProvisioningStatusTimestamp, instanceresource.FieldUpdateStatusTimestamp, instanceresource.FieldTrustedAttestationStatusTimestamp:
 			values[i] = new(sql.NullInt64)
-		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
+		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case instanceresource.ForeignKeys[0]: // instance_resource_desired_os
 			values[i] = new(sql.NullInt64)
@@ -192,6 +209,8 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		case instanceresource.ForeignKeys[2]: // instance_resource_provider
 			values[i] = new(sql.NullInt64)
 		case instanceresource.ForeignKeys[3]: // instance_resource_localaccount
+			values[i] = new(sql.NullInt64)
+		case instanceresource.ForeignKeys[4]: // instance_resource_os_update_policy
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -346,6 +365,12 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				ir.TrustedAttestationStatusTimestamp = uint64(value.Int64)
 			}
+		case instanceresource.FieldExistingCves:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field existing_cves", values[i])
+			} else if value.Valid {
+				ir.ExistingCves = value.String
+			}
 		case instanceresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
@@ -398,6 +423,13 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 				ir.instance_resource_localaccount = new(int)
 				*ir.instance_resource_localaccount = int(value.Int64)
 			}
+		case instanceresource.ForeignKeys[4]:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os_update_policy", value)
+			} else if value.Valid {
+				ir.instance_resource_os_update_policy = new(int)
+				*ir.instance_resource_os_update_policy = int(value.Int64)
+			}
 		default:
 			ir.selectValues.Set(columns[i], values[i])
 		}
@@ -439,6 +471,11 @@ func (ir *InstanceResource) QueryProvider() *ProviderResourceQuery {
 // QueryLocalaccount queries the "localaccount" edge of the InstanceResource entity.
 func (ir *InstanceResource) QueryLocalaccount() *LocalAccountResourceQuery {
 	return NewInstanceResourceClient(ir.config).QueryLocalaccount(ir)
+}
+
+// QueryOsUpdatePolicy queries the "os_update_policy" edge of the InstanceResource entity.
+func (ir *InstanceResource) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
+	return NewInstanceResourceClient(ir.config).QueryOsUpdatePolicy(ir)
 }
 
 // QueryCustomConfig queries the "custom_config" edge of the InstanceResource entity.
@@ -534,6 +571,9 @@ func (ir *InstanceResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("trusted_attestation_status_timestamp=")
 	builder.WriteString(fmt.Sprintf("%v", ir.TrustedAttestationStatusTimestamp))
+	builder.WriteString(", ")
+	builder.WriteString("existing_cves=")
+	builder.WriteString(ir.ExistingCves)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(ir.TenantID)
