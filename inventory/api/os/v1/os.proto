@@ -47,7 +47,7 @@ message OperatingSystemResource {
         ]
       },
       {
-        unique: false
+        unique: true
         fields: ["tenant_id"]
       }
     ]

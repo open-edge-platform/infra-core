@@ -544,7 +544,7 @@ var (
 			},
 			{
 				Name:    "operatingsystemresource_tenant_id",
-				Unique:  false,
+				Unique:  true,
 				Columns: []*schema.Column{OperatingSystemResourcesColumns[17]},
 			},
 		},

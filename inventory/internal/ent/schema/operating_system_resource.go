@@ -23,5 +23,5 @@ func (OperatingSystemResource) Annotations() []schema.Annotation {
 	return nil
 }
 func (OperatingSystemResource) Indexes() []ent.Index {
-	return []ent.Index{index.Fields("name", "tenant_id").Unique(), index.Fields("tenant_id")}
+	return []ent.Index{index.Fields("name", "tenant_id").Unique(), index.Fields("tenant_id").Unique()}
 }
