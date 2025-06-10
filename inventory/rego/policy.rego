@@ -89,7 +89,7 @@ deny if {
 
 # Exception 1
 # Instance specific rules for supporting ZTP with default OS
-# This rule allows RM to CREATE a new Instance resource with desiredState set to RUNNING
+# This rule allows southbound API to CREATE a new Instance resource with desiredState set to RUNNING
 # and of kind METAL. All other options for the mentioned fields are not supported
 isException if {
 	input.Method == "CREATE"
@@ -101,12 +101,11 @@ isException if {
 }
 
 # Exception 2
-# This rule allows RM to UPDATE only the watcherOsmanager field in the Tenant resource
+# This rule allows southbound API to UPDATE only the watcherOsmanager field in the Tenant resource
 isException if {
 	input.Method == "UPDATE"
 	input.resource.tenant
 	input.resource.tenant.watcherOsmanager
-	not input.tenantId
 	not input.resource.tenant.desiredState
 	not input.resource.tenant.currentState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
