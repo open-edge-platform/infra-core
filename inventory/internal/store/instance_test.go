@@ -374,10 +374,6 @@ func Test_UpdateInstance(t *testing.T) {
 		"test-user",
 		"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ test-user1@example.com")
 
-	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
-
-	_ = customconfig
-
 	// create Instance to update
 	createresreq := &inv_v1.Resource{
 		Resource: &inv_v1.Resource_Instance{
@@ -783,11 +779,16 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	host1 := inv_testing.CreateHost(t, nil, nil)
 	os1 := inv_testing.CreateOs(t)
 	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
-	instance1 := inv_testing.CreateInstanceWithCustomConfig(t, host1, os1, customconfig)
+	//customconfig2 := inv_testing.CreateCustomConfig(t, "test-custom-config2", "Test custom config resource", testCloudInitCfg)
+	// Create slice of custom config
+	customconfigSlice := []*computev1.CustomConfigResource{customconfig}
+
+	instance1 := inv_testing.CreateInstanceWithCustomConfig(t, host1, os1, customconfigSlice)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
+	//sdfsf
 	// make progress on the instance
 	upRes, err := inv_testing.GetClient(t, inv_testing.RMClient).Update(
 		ctx,
@@ -803,6 +804,8 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	)
 	require.NoError(t, err, "UpdateInstance() failed")
 	assert.Equal(t, computev1.InstanceState_INSTANCE_STATE_RUNNING, upRes.GetInstance().GetCurrentState())
+
+	require.NotNil(t, upRes.GetInstance().GetCustomConfig())
 
 	// After the instance is no longer in the initial state, we cannot touch anymore
 	// custom config.
@@ -822,6 +825,7 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	assert.Nil(t, upRes)
 	assert.Equal(t, codes.InvalidArgument, status.Code(err))
 
+	// Nilling the custom config should also fail
 	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
 		ctx,
 		instance1.ResourceId,
@@ -832,7 +836,7 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 			},
 		},
 	)
-	require.NoError(t, err, "GetInstance() with CustomConfig should not fail")
+	require.Error(t, err, "UpdateInstance() with CustomConfig should fail")
 	assert.Nil(t, upRes)
 	assert.Equal(t, codes.InvalidArgument, status.Code(err))
 

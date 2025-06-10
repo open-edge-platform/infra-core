@@ -749,6 +749,11 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
 		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
 	}
+	if customConfig, qerr := ins.Edges.CustomConfigOrErr(); qerr == nil {
+		for _, m := range customConfig {
+			protoInstance.CustomConfig = append(protoInstance.CustomConfig, entCustomConfigResourceToProtoCustomConfigResource(m))
+		}
+	}
 
 	return protoInstance
 }

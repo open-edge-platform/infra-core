@@ -1033,7 +1033,7 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 ) *computev1.InstanceResource {
 	tb.Helper()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1000)
 	defer cancel()
 
 	// a default Instance resource, can be overwritten by opts
@@ -1169,7 +1169,7 @@ func (c *InvResourceDAO) CreateInstanceWithCustomConfig(
 	tenantID string,
 	hostRes *computev1.HostResource,
 	osRes *osv1.OperatingSystemResource,
-	customConfig *computev1.CustomConfigResource,
+	customConfig []*computev1.CustomConfigResource,
 ) (ins *computev1.InstanceResource) {
 	tb.Helper()
 
@@ -1180,7 +1180,7 @@ func (c *InvResourceDAO) CreateInstanceWithCustomConfig(
 		osRes,
 		true,
 		func(inst *computev1.InstanceResource) {
-			inst.CustomConfig = []*computev1.CustomConfigResource{customConfig} // Assigning from slice
+			inst.CustomConfig = customConfig // Assigning from slice
 		})
 }
 

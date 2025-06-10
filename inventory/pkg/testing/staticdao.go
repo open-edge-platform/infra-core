@@ -411,7 +411,7 @@ func CreateInstanceWithProvider(
 
 func CreateInstanceWithCustomConfig(
 	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource,
-	customConfig *computev1.CustomConfigResource,
+	customConfig []*computev1.CustomConfigResource,
 ) *computev1.InstanceResource {
 	tb.Helper()
 	return getInvResourceDAO().CreateInstanceWithCustomConfig(tb, client.FakeTenantID, host, os, customConfig)
