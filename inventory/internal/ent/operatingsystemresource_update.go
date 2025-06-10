@@ -41,26 +41,6 @@ func (osru *OperatingSystemResourceUpdate) SetNillableResourceID(s *string) *Ope
 	return osru
 }
 
-// SetName sets the "name" field.
-func (osru *OperatingSystemResourceUpdate) SetName(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetName(s)
-	return osru
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableName(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetName(*s)
-	}
-	return osru
-}
-
-// ClearName clears the value of the "name" field.
-func (osru *OperatingSystemResourceUpdate) ClearName() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearName()
-	return osru
-}
-
 // SetArchitecture sets the "architecture" field.
 func (osru *OperatingSystemResourceUpdate) SetArchitecture(s string) *OperatingSystemResourceUpdate {
 	osru.mutation.SetArchitecture(s)
@@ -259,9 +239,6 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	if value, ok := osru.mutation.ResourceID(); ok {
 		_spec.SetField(operatingsystemresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := osru.mutation.Name(); ok {
-		_spec.SetField(operatingsystemresource.FieldName, field.TypeString, value)
-	}
 	if osru.mutation.NameCleared() {
 		_spec.ClearField(operatingsystemresource.FieldName, field.TypeString)
 	}
@@ -374,26 +351,6 @@ func (osruo *OperatingSystemResourceUpdateOne) SetNillableResourceID(s *string) 
 	if s != nil {
 		osruo.SetResourceID(*s)
 	}
-	return osruo
-}
-
-// SetName sets the "name" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetName(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetName(s)
-	return osruo
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableName(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetName(*s)
-	}
-	return osruo
-}
-
-// ClearName clears the value of the "name" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearName() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearName()
 	return osruo
 }
 
@@ -624,9 +581,6 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if value, ok := osruo.mutation.ResourceID(); ok {
 		_spec.SetField(operatingsystemresource.FieldResourceID, field.TypeString, value)
-	}
-	if value, ok := osruo.mutation.Name(); ok {
-		_spec.SetField(operatingsystemresource.FieldName, field.TypeString, value)
 	}
 	if osruo.mutation.NameCleared() {
 		_spec.ClearField(operatingsystemresource.FieldName, field.TypeString)
