@@ -3,8 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 appVersion: apps/v1
 metadata:
-  release: 0.0.0-dev
-  version: 0.1.0
+  # left blank for future use
 spec:
   name: Ubuntu 24.04.2 LTS - BETA
   type: OS_TYPE_MUTABLE
