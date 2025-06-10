@@ -5,44 +5,13 @@ package abac
 
 import rego.v1
 
-default allow := false
 default deny := false
+default isException := false
 default abac := false
 default resourceRule := false
+default allowRule := false
 default deleteRule := false
 
-allow if {
-	input.DesiredState
-	not input.CurrentState
-	not input.resource.host.currentPowerState
-	not input.resource.tenant
-	input.ClientKind == "CLIENT_KIND_API"
-}
-
-allow if {
-	input.CurrentState
-	not input.DesiredState
-	not input.resource.host.desiredPowerState
-	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
-}
-
-# Allow the update of the other resources not reconciled
-allow if {
-	not input.DesiredState
-	not input.CurrentState
-	not input.resource.host.desiredPowerState
-	not input.resource.host.currentPowerState
-	input.ClientKind != "CLIENT_KIND_UNSPECIFIED"
-}
-
-# Host specific rules
-allow if {
-	not input.CurrentState
-	input.resource.host
-	input.resource.host.desiredPowerState
-	not input.resource.host.currentPowerState
-	input.ClientKind == "CLIENT_KIND_API"
-}
 
 # deny if a host resource is created via northbound API without UUID and SN
 deny if {
@@ -78,18 +47,51 @@ deny if {
 	input.ClientKind == "CLIENT_KIND_API"
 }
 
-allow if {
-	not input.DesiredState
-	input.resource.host
-	input.resource.host.currentPowerState
-	not input.resource.host.desiredPowerState
+# deny if a tenant resource is created/updated by other than TC client
+deny if {
+	input.resource.tenant
+	not input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
+}
+
+# deny updates to the CurrentState via northbound API
+deny if {
+	input.CurrentState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the DesiredState via southbound API
+deny if {
+	input.DesiredState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
+# deny updates to the currentPowerState via northbound API
+deny if {
+	input.resource.host
+	input.resource.host.currentPowerState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the desiredPowerState via southbound API
+deny if {
+	input.resource.host
+	input.resource.host.desiredPowerState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+# deny if TC client tries to create a resource that is not a tenant, provider or telemetryGroup
+deny if {
+    not input.resource.tenant
+    not input.resource.provider
+    not input.resource.telemetryGroup
+    input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
+}
+
+# Exception 1
 # Instance specific rules for supporting ZTP with default OS
-# This rule allows RM to CREATE a new Instance resource with desiredState set to RUNNING
+# This rule allows southbound API to CREATE a new Instance resource with desiredState set to RUNNING
 # and of kind METAL. All other options for the mentioned fields are not supported
-allow if {
+isException if {
 	input.Method == "CREATE"
 	input.DesiredState
 	input.resource.instance
@@ -98,49 +100,51 @@ allow if {
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
-# What should we do here? Do we want to really enforce control on hostStatus ?
-#allow if {
-#	not input.DesiredState
-#	input.resource.host
-#	input.resource.host.hostStatus
-#	not input.resource.host.desiredPowerState
-#	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
-#}
-
-allow if {
-	input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
-	with input.resource as {"tenant", "provider", "telemetryGroup"}
+# Exception 2
+# This rule allows southbound API to UPDATE only the watcherOsmanager field in the Tenant resource
+isException if {
+	input.Method == "UPDATE"
+	input.resource.tenant
+	input.resource.tenant.watcherOsmanager
+	not input.resource.tenant.desiredState
+	not input.resource.tenant.currentState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
-deleteRule if {
-	input.Method == "DELETE"
-	not input.resource
-	input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
-	startswith(input.resourceId, "tenant")
-}
-
+# Output rule: Determines if ABAC applies for CREATE operations
 abac if {
 	input.Method == "CREATE"
 	resourceRule
 }
 
+# Output rule: Determines if ABAC applies for UPDATE operations
 abac if {
 	input.resourceId
 	input.Method == "UPDATE"
 	resourceRule
 }
 
-resourceRule if {
-	input.resource # this is to make sure that the Resource field is not empty.
-	count(input.resource) != 0 # handling the case when Resource field is initialized as an empty structure, which is being converted into an empty map in JSON
-	allow
-	not deny
-}
-
+# Output rule: Determines if ABAC applies for DELETE operations
 abac if {
 	input.Method == "DELETE"
 	not input.resource # in Delete message Resource field is not initialized (at all) an thus treated as a simple type
 	deleteRule
+}
+
+resourceRule if {
+	input.resource # this is to make sure that the Resource field is not empty.
+	count(input.resource) != 0 # handling the case when Resource field is initialized as an empty structure, which is being converted into an empty map in JSON
+	allowRule
+}
+
+# Allow request when no deny rules apply
+allowRule if {
+	not deny
+}
+
+# Allow request despite deny rules if an exception applies
+allowRule if {
+	isException
 }
 
 deleteRule if {
@@ -152,4 +156,9 @@ deleteRule if {
 	input.tenantId
 	input.resourceKind
 	input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
+}
+
+deleteRule if {
+	input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
+	startswith(input.resourceId, "tenant")
 }
