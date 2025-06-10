@@ -318,6 +318,7 @@ class InstanceResource(betterproto.Message):
     host: "HostResource" = betterproto.message_field(9)
     desired_os: v1.OperatingSystemResource = betterproto.message_field(11)
     current_os: v1.OperatingSystemResource = betterproto.message_field(25)
+    os: v1.OperatingSystemResource = betterproto.message_field(12)
     security_feature: v1.SecurityFeature = betterproto.enum_field(14)
     # A group of fields describing the Instance runtime status. instance_status,
     # instance_status_indicator and instance_status_timestamp should always be
@@ -358,7 +359,9 @@ class InstanceResource(betterproto.Message):
     localaccount: v1.LocalAccountResource = betterproto.message_field(41)
     existing_cves: str = betterproto.string_field(42)
     os_update_policy: "OSUpdatePolicyResource" = betterproto.message_field(43)
-    custom_config: List["CustomConfigResource"] = betterproto.message_field(44)
+    runtime_packages: str = betterproto.string_field(51)
+    os_update_available: str = betterproto.string_field(52)
+    custom_config: List["CustomConfigResource"] = betterproto.message_field(53)
     tenant_id: str = betterproto.string_field(100)
     instance_status_detail: str = betterproto.string_field(101)
     created_at: str = betterproto.string_field(200)

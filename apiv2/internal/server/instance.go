@@ -22,8 +22,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-// TODO: handle CVEs related field.
-
 // OpenAPIInstanceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
@@ -44,6 +42,7 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		Name:            instance.GetName(),
 		DesiredState:    inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		SecurityFeature: inv_osv1.SecurityFeature(instance.GetSecurityFeature()),
+		ExistingCves:    instance.GetExistingCves(),
 	}
 
 	hostID := instance.GetHostID()
@@ -56,6 +55,9 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 	osID := instance.GetOsID()
 	if isSet(&osID) {
 		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
+			ResourceId: osID,
+		}
+		invInstance.Os = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
 		}
 	}
@@ -112,6 +114,7 @@ func fromInvInstanceStatus(
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
 }
 
+//nolint:cyclop // it is a conversion function
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
@@ -120,13 +123,18 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var err error
 	var desiredOs *osv1.OperatingSystemResource
 	var currentOs *osv1.OperatingSystemResource
+	var os *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
+	var oup *computev1.OSUpdatePolicy
 	if invInstance.GetDesiredOs() != nil {
 		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
 	}
 	if invInstance.GetCurrentOs() != nil {
 		currentOs = fromInvOSResource(invInstance.GetCurrentOs())
+	}
+	if invInstance.GetOs() != nil {
+		os = fromInvOSResource(invInstance.GetOs())
 	}
 
 	if invInstance.GetHost() != nil {
@@ -137,6 +145,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	if invInstance.GetLocalaccount() != nil {
 		la = fromInvLocalAccount(invInstance.GetLocalaccount())
+	}
+	if invInstance.GetOsUpdatePolicy() != nil {
+		oup = fromInvOSUpdatePolicy(invInstance.GetOsUpdatePolicy())
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -157,7 +168,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:               host,
 		HostID:             host.GetResourceId(),
-		Os:                 desiredOs,
+		Os:                 os,
 		DesiredOs:          desiredOs,
 		CurrentOs:          currentOs,
 		OsID:               currentOs.GetResourceId(),
@@ -166,9 +177,12 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		LocalAccountID:     la.GetResourceId(),
 		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
 		WorkloadMembers:    workloadMembers,
+		UpdatePolicy:       oup,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
+		ExistingCves:       invInstance.GetExistingCves(),
+		RuntimePackages:    invInstance.GetRuntimePackages(),
+		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
 	}
-	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	// TODO: fill the CustomConfigID field.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil

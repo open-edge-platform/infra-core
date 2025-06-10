@@ -406,12 +406,15 @@ var (
 		{Name: "trusted_attestation_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "trusted_attestation_status_timestamp", Type: field.TypeUint64, Nullable: true},
 		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
+		{Name: "runtime_packages", Type: field.TypeString, Nullable: true},
+		{Name: "os_update_available", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "instance_status_detail", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "instance_resource_desired_os", Type: field.TypeInt},
 		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_os", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_os_update_policy", Type: field.TypeInt, Nullable: true},
@@ -424,31 +427,37 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "instance_resources_operating_system_resources_desired_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[28]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
 				Symbol:     "instance_resources_operating_system_resources_current_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[29]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "instance_resources_operating_system_resources_os",
+				Columns:    []*schema.Column{InstanceResourcesColumns[32]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_provider_resources_provider",
-				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[33]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_local_account_resources_localaccount",
-				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[34]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_os_update_policy_resources_os_update_policy",
-				Columns:    []*schema.Column{InstanceResourcesColumns[32]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[35]},
 				RefColumns: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -457,7 +466,7 @@ var (
 			{
 				Name:    "instanceresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{InstanceResourcesColumns[24]},
+				Columns: []*schema.Column{InstanceResourcesColumns[26]},
 			},
 		},
 	}
@@ -1196,9 +1205,10 @@ func init() {
 	IPAddressResourcesTable.ForeignKeys[0].RefTable = HostnicResourcesTable
 	InstanceResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
-	InstanceResourcesTable.ForeignKeys[2].RefTable = ProviderResourcesTable
-	InstanceResourcesTable.ForeignKeys[3].RefTable = LocalAccountResourcesTable
-	InstanceResourcesTable.ForeignKeys[4].RefTable = OsUpdatePolicyResourcesTable
+	InstanceResourcesTable.ForeignKeys[2].RefTable = OperatingSystemResourcesTable
+	InstanceResourcesTable.ForeignKeys[3].RefTable = ProviderResourcesTable
+	InstanceResourcesTable.ForeignKeys[4].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[5].RefTable = OsUpdatePolicyResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable

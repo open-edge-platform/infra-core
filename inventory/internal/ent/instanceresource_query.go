@@ -33,6 +33,7 @@ type InstanceResourceQuery struct {
 	withHost            *HostResourceQuery
 	withDesiredOs       *OperatingSystemResourceQuery
 	withCurrentOs       *OperatingSystemResourceQuery
+	withOs              *OperatingSystemResourceQuery
 	withWorkloadMembers *WorkloadMemberQuery
 	withProvider        *ProviderResourceQuery
 	withLocalaccount    *LocalAccountResourceQuery
@@ -134,6 +135,28 @@ func (irq *InstanceResourceQuery) QueryCurrentOs() *OperatingSystemResourceQuery
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CurrentOsTable, instanceresource.CurrentOsColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryOs chains the current query on the "os" edge.
+func (irq *InstanceResourceQuery) QueryOs() *OperatingSystemResourceQuery {
+	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := irq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := irq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
+			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsTable, instanceresource.OsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
 		return fromU, nil
@@ -446,6 +469,7 @@ func (irq *InstanceResourceQuery) Clone() *InstanceResourceQuery {
 		withHost:            irq.withHost.Clone(),
 		withDesiredOs:       irq.withDesiredOs.Clone(),
 		withCurrentOs:       irq.withCurrentOs.Clone(),
+		withOs:              irq.withOs.Clone(),
 		withWorkloadMembers: irq.withWorkloadMembers.Clone(),
 		withProvider:        irq.withProvider.Clone(),
 		withLocalaccount:    irq.withLocalaccount.Clone(),
@@ -487,6 +511,17 @@ func (irq *InstanceResourceQuery) WithCurrentOs(opts ...func(*OperatingSystemRes
 		opt(query)
 	}
 	irq.withCurrentOs = query
+	return irq
+}
+
+// WithOs tells the query-builder to eager-load the nodes that are connected to
+// the "os" edge. The optional arguments are used to configure the query builder of the edge.
+func (irq *InstanceResourceQuery) WithOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
+	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	irq.withOs = query
 	return irq
 }
 
@@ -624,10 +659,11 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		nodes       = []*InstanceResource{}
 		withFKs     = irq.withFKs
 		_spec       = irq.querySpec()
-		loadedTypes = [8]bool{
+		loadedTypes = [9]bool{
 			irq.withHost != nil,
 			irq.withDesiredOs != nil,
 			irq.withCurrentOs != nil,
+			irq.withOs != nil,
 			irq.withWorkloadMembers != nil,
 			irq.withProvider != nil,
 			irq.withLocalaccount != nil,
@@ -635,7 +671,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 			irq.withCustomConfig != nil,
 		}
 	)
-	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withOsUpdatePolicy != nil {
+	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withOsUpdatePolicy != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -674,6 +710,12 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	if query := irq.withCurrentOs; query != nil {
 		if err := irq.loadCurrentOs(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *OperatingSystemResource) { n.Edges.CurrentOs = e }); err != nil {
+			return nil, err
+		}
+	}
+	if query := irq.withOs; query != nil {
+		if err := irq.loadOs(ctx, query, nodes, nil,
+			func(n *InstanceResource, e *OperatingSystemResource) { n.Edges.Os = e }); err != nil {
 			return nil, err
 		}
 	}
@@ -801,6 +843,38 @@ func (irq *InstanceResourceQuery) loadCurrentOs(ctx context.Context, query *Oper
 		nodes, ok := nodeids[n.ID]
 		if !ok {
 			return fmt.Errorf(`unexpected foreign-key "instance_resource_current_os" returned %v`, n.ID)
+		}
+		for i := range nodes {
+			assign(nodes[i], n)
+		}
+	}
+	return nil
+}
+func (irq *InstanceResourceQuery) loadOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
+	ids := make([]int, 0, len(nodes))
+	nodeids := make(map[int][]*InstanceResource)
+	for i := range nodes {
+		if nodes[i].instance_resource_os == nil {
+			continue
+		}
+		fk := *nodes[i].instance_resource_os
+		if _, ok := nodeids[fk]; !ok {
+			ids = append(ids, fk)
+		}
+		nodeids[fk] = append(nodeids[fk], nodes[i])
+	}
+	if len(ids) == 0 {
+		return nil
+	}
+	query.Where(operatingsystemresource.IDIn(ids...))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		nodes, ok := nodeids[n.ID]
+		if !ok {
+			return fmt.Errorf(`unexpected foreign-key "instance_resource_os" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)

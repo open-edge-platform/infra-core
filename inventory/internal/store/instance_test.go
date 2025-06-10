@@ -111,6 +111,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				Host:         host,
 				DesiredOs:    os,
 				CurrentOs:    os,
+				Os:           os,
 				ExistingCves: `[
 {
   "cve_id": "CVE-000-000",
@@ -120,6 +121,19 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
     "test-2\test3"
   ]
 }]`,
+				RuntimePackages: `{
+ "Repo": [
+  {
+   "Name": "openssl",
+   "Version": "3.3.3-1",
+   "Architecture": "x86_64",
+   "Distribution": "emt3",
+   "URL": "http://www.openssl.org/",
+   "License": "Apache-2.0\"
+  }
+]
+}`,
+				OsUpdateAvailable: "Update to version 1.2.3 available!",
 			},
 			valid: true,
 		},
@@ -227,6 +241,14 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				DesiredState:  computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:          host,
 				VmMemoryBytes: 2 * util.Gigabyte,
+			},
+			valid: false,
+		},
+		"CreateBadInstanceInvalidExistingCVEs": {
+			in: &computev1.InstanceResource{
+				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
+				Host:      host,
+				DesiredOs: os,
 			},
 			valid: false,
 		},

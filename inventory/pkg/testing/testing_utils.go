@@ -200,7 +200,7 @@ func (c *InvResourceDAO) HardDeleteTenantAndReturnError(tb testing.TB, tenantID,
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	c.DeleteResource(tb, tenantID, resourceID)
-	_, err := c.rmClient.Update(
+	_, err := c.tcClient.Update(
 		ctx,
 		tenantID,
 		resourceID,
