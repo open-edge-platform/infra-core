@@ -616,7 +616,7 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 			resourceID: tenantID,
 			valid:      false,
 		},
-		"Test_ClientRM_Create_Tenant_Success1": {
+		"Test_ClientRM_Create_Tenant_Fail2": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
 			resource: &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Tenant{

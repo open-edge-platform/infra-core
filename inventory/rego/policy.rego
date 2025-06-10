@@ -159,8 +159,6 @@ deleteRule if {
 }
 
 deleteRule if {
-	input.Method == "DELETE"
-	not input.resource
 	input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
 	startswith(input.resourceId, "tenant")
 }
