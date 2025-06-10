@@ -1164,6 +1164,7 @@ func (c *InvResourceDAO) CreateInstanceWithProvider(
 			inst.Provider = proRes
 		})
 }
+
 func (c *InvResourceDAO) CreateInstanceWithCustomConfig(
 	tb testing.TB,
 	tenantID string,
@@ -1471,7 +1472,7 @@ func (c *InvResourceDAO) createProvider(tb testing.TB,
 	return providerResp
 }
 
-// Create CustomConfig
+// Create CustomConfig.
 func (c *InvResourceDAO) createCustomConfig(
 	tb testing.TB, tenantID, name, description, config string, doCleanup bool,
 ) (cconfig *computev1.CustomConfigResource) {

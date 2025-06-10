@@ -801,7 +801,6 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	host1 := inv_testing.CreateHost(t, nil, nil)
 	os1 := inv_testing.CreateOs(t)
 	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
-	//customconfig2 := inv_testing.CreateCustomConfig(t, "test-custom-config2", "Test custom config resource", testCloudInitCfg)
 	// Create slice of custom config
 	customconfigSlice := []*computev1.CustomConfigResource{customconfig}
 
@@ -810,7 +809,6 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	//sdfsf
 	// make progress on the instance
 	upRes, err := inv_testing.GetClient(t, inv_testing.RMClient).Update(
 		ctx,
@@ -886,7 +884,6 @@ func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	require.NoError(t, err, "UpdateInstance() with CustomConfig should not fail")
 	assert.NotNil(t, upRes)
 	assert.NotNil(t, upRes.GetInstance().GetCustomConfig())
-
 }
 
 func Test_InstanceLocalAccountUpdate(t *testing.T) {
