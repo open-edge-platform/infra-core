@@ -3806,32 +3806,33 @@ var file_compute_v1_compute_proto_depIdxs = []int32{
 	13, // 28: compute.v1.InstanceResource.host:type_name -> compute.v1.HostResource
 	26, // 29: compute.v1.InstanceResource.desired_os:type_name -> os.v1.OperatingSystemResource
 	26, // 30: compute.v1.InstanceResource.current_os:type_name -> os.v1.OperatingSystemResource
-	27, // 31: compute.v1.InstanceResource.security_feature:type_name -> os.v1.SecurityFeature
-	25, // 32: compute.v1.InstanceResource.instance_status_indicator:type_name -> status.v1.StatusIndication
-	25, // 33: compute.v1.InstanceResource.provisioning_status_indicator:type_name -> status.v1.StatusIndication
-	25, // 34: compute.v1.InstanceResource.update_status_indicator:type_name -> status.v1.StatusIndication
-	25, // 35: compute.v1.InstanceResource.trusted_attestation_status_indicator:type_name -> status.v1.StatusIndication
-	20, // 36: compute.v1.InstanceResource.workload_members:type_name -> compute.v1.WorkloadMember
-	24, // 37: compute.v1.InstanceResource.provider:type_name -> provider.v1.ProviderResource
-	28, // 38: compute.v1.InstanceResource.localaccount:type_name -> localaccount.v1.LocalAccountResource
-	21, // 39: compute.v1.InstanceResource.os_update_policy:type_name -> compute.v1.OSUpdatePolicyResource
-	10, // 40: compute.v1.WorkloadResource.kind:type_name -> compute.v1.WorkloadKind
-	9,  // 41: compute.v1.WorkloadResource.desired_state:type_name -> compute.v1.WorkloadState
-	9,  // 42: compute.v1.WorkloadResource.current_state:type_name -> compute.v1.WorkloadState
-	20, // 43: compute.v1.WorkloadResource.members:type_name -> compute.v1.WorkloadMember
-	11, // 44: compute.v1.WorkloadMember.kind:type_name -> compute.v1.WorkloadMemberKind
-	19, // 45: compute.v1.WorkloadMember.workload:type_name -> compute.v1.WorkloadResource
-	18, // 46: compute.v1.WorkloadMember.instance:type_name -> compute.v1.InstanceResource
-	26, // 47: compute.v1.OSUpdatePolicyResource.target_os:type_name -> os.v1.OperatingSystemResource
-	12, // 48: compute.v1.OSUpdatePolicyResource.update_policy:type_name -> compute.v1.UpdatePolicy
-	21, // 49: compute.v1.OSUpdateRunResource.applied_policy:type_name -> compute.v1.OSUpdatePolicyResource
-	18, // 50: compute.v1.OSUpdateRunResource.instance:type_name -> compute.v1.InstanceResource
-	25, // 51: compute.v1.OSUpdateRunResource.status_indicator:type_name -> status.v1.StatusIndication
-	52, // [52:52] is the sub-list for method output_type
-	52, // [52:52] is the sub-list for method input_type
-	52, // [52:52] is the sub-list for extension type_name
-	52, // [52:52] is the sub-list for extension extendee
-	0,  // [0:52] is the sub-list for field type_name
+	26, // 31: compute.v1.InstanceResource.os:type_name -> os.v1.OperatingSystemResource
+	27, // 32: compute.v1.InstanceResource.security_feature:type_name -> os.v1.SecurityFeature
+	25, // 33: compute.v1.InstanceResource.instance_status_indicator:type_name -> status.v1.StatusIndication
+	25, // 34: compute.v1.InstanceResource.provisioning_status_indicator:type_name -> status.v1.StatusIndication
+	25, // 35: compute.v1.InstanceResource.update_status_indicator:type_name -> status.v1.StatusIndication
+	25, // 36: compute.v1.InstanceResource.trusted_attestation_status_indicator:type_name -> status.v1.StatusIndication
+	20, // 37: compute.v1.InstanceResource.workload_members:type_name -> compute.v1.WorkloadMember
+	24, // 38: compute.v1.InstanceResource.provider:type_name -> provider.v1.ProviderResource
+	28, // 39: compute.v1.InstanceResource.localaccount:type_name -> localaccount.v1.LocalAccountResource
+	21, // 40: compute.v1.InstanceResource.os_update_policy:type_name -> compute.v1.OSUpdatePolicyResource
+	10, // 41: compute.v1.WorkloadResource.kind:type_name -> compute.v1.WorkloadKind
+	9,  // 42: compute.v1.WorkloadResource.desired_state:type_name -> compute.v1.WorkloadState
+	9,  // 43: compute.v1.WorkloadResource.current_state:type_name -> compute.v1.WorkloadState
+	20, // 44: compute.v1.WorkloadResource.members:type_name -> compute.v1.WorkloadMember
+	11, // 45: compute.v1.WorkloadMember.kind:type_name -> compute.v1.WorkloadMemberKind
+	19, // 46: compute.v1.WorkloadMember.workload:type_name -> compute.v1.WorkloadResource
+	18, // 47: compute.v1.WorkloadMember.instance:type_name -> compute.v1.InstanceResource
+	26, // 48: compute.v1.OSUpdatePolicyResource.target_os:type_name -> os.v1.OperatingSystemResource
+	12, // 49: compute.v1.OSUpdatePolicyResource.update_policy:type_name -> compute.v1.UpdatePolicy
+	21, // 50: compute.v1.OSUpdateRunResource.applied_policy:type_name -> compute.v1.OSUpdatePolicyResource
+	18, // 51: compute.v1.OSUpdateRunResource.instance:type_name -> compute.v1.InstanceResource
+	25, // 52: compute.v1.OSUpdateRunResource.status_indicator:type_name -> status.v1.StatusIndication
+	53, // [53:53] is the sub-list for method output_type
+	53, // [53:53] is the sub-list for method input_type
+	53, // [53:53] is the sub-list for extension type_name
+	53, // [53:53] is the sub-list for extension extendee
+	0,  // [0:53] is the sub-list for field type_name
 }
 
 func init() { file_compute_v1_compute_proto_init() }
