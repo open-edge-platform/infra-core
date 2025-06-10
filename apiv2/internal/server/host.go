@@ -32,11 +32,14 @@ import (
 // The key is derived from the json property respectively of the
 // structs HostTemplate and HostBmManagementInfo defined in
 // edge-infra-manager-openapi-types.gen.go.
-// Here we should have only fields that are writable from the API.
+// It handles naming mismatches between API and inventory,
+// and includes only mutable fields used in UPDATE/PATCH requests.
 var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldName:               inv_computev1.HostResourceFieldName,
 	computev1.HostResourceFieldSiteId:             inv_computev1.HostResourceEdgeSite,
 	computev1.HostResourceEdgeMetadata:            inv_computev1.HostResourceFieldMetadata,
+	computev1.HostResourceFieldDesiredPowerState:  inv_computev1.HostResourceFieldDesiredPowerState,
+	computev1.HostResourceFieldDesiredAmtState:    inv_computev1.HostResourceFieldDesiredAmtState,
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 }
 
@@ -118,9 +121,9 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		SerialNumber:       host.GetSerialNumber(),
 		DesiredState:       inv_computev1.HostState_HOST_STATE_ONBOARDED,
 		Metadata:           metadata,
-		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
-		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+		DesiredPowerState:  inv_computev1.PowerState_POWER_STATE_ON,
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
+		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 	}
 
 	hostSiteID := host.GetSiteId()
