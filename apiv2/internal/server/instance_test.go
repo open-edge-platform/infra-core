@@ -31,6 +31,15 @@ var (
 		CurrentState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		HostID:          "host-87654321",
 		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
+		ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ]
+}]`,
 		// Optional fields
 		OsID:       "os-12345678",
 		InstanceID: "inst-12345678", // Alias of ResourceId
@@ -61,7 +70,18 @@ var (
 		CurrentOs: &inv_osv1.OperatingSystemResource{
 			ResourceId: "os-12345678",
 		},
-
+		Os: &inv_osv1.OperatingSystemResource{
+			ResourceId: "os-12345678",
+		},
+		ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ]
+}]`,
 		TenantId:  "tenant-987654",
 		CreatedAt: "2025-04-22T10:00:00Z",
 		UpdatedAt: "2025-04-22T10:30:00Z",

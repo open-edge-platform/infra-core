@@ -461,16 +461,17 @@ message InstanceResource {
   string existing_cves = 42 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 20000
-    }
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
   // The packages available on the Instance at runtime, represented as a JSON list.
   string runtime_packages = 51 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 500000
     }
   ];
@@ -479,7 +480,7 @@ message InstanceResource {
   string os_update_available = 52 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\ \\n]+$'
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\\\ \\\\n]+$'
       max_len: 10000
     }
   ];
@@ -711,9 +712,15 @@ message OSUpdatePolicy {
   // Should be in 'DEB822 Source Format' for Debian style OSs.
   // Applies only to Mutable OSes.
   repeated string update_sources = 5 [
-    (buf.validate.field).repeated.items.string = {
-      max_bytes: 10000
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\n]+$"
+    (buf.validate.field).repeated = {
+      min_items: 0
+      max_items: 100
+      items: {
+        string: {
+          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\\n]+$"
+          max_bytes: 10000
+        }
+      }
     }
   ];
 
