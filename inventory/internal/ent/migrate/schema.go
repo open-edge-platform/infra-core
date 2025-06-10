@@ -73,8 +73,8 @@ var (
 		{Name: "bios_release_date", Type: field.TypeString, Nullable: true},
 		{Name: "bios_vendor", Type: field.TypeString, Nullable: true},
 		{Name: "metadata", Type: field.TypeString, Nullable: true},
-		{Name: "desired_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET"}},
-		{Name: "current_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET"}},
+		{Name: "desired_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE"}},
+		{Name: "current_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE"}},
 		{Name: "power_status", Type: field.TypeString, Nullable: true},
 		{Name: "power_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "power_status_timestamp", Type: field.TypeUint64, Nullable: true},
@@ -377,14 +377,18 @@ var (
 		{Name: "trusted_attestation_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "trusted_attestation_status_timestamp", Type: field.TypeUint64, Nullable: true},
 		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
+		{Name: "runtime_packages", Type: field.TypeString, Nullable: true},
+		{Name: "os_update_available", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "instance_status_detail", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "instance_resource_desired_os", Type: field.TypeInt},
 		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_os", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_os_update_policy", Type: field.TypeInt, Nullable: true},
 	}
 	// InstanceResourcesTable holds the schema information for the "instance_resources" table.
 	InstanceResourcesTable = &schema.Table{
@@ -394,26 +398,38 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "instance_resources_operating_system_resources_desired_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[28]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
 				Symbol:     "instance_resources_operating_system_resources_current_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[29]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "instance_resources_operating_system_resources_os",
+				Columns:    []*schema.Column{InstanceResourcesColumns[32]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_provider_resources_provider",
-				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[33]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_local_account_resources_localaccount",
-				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[34]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "instance_resources_os_update_policy_resources_os_update_policy",
+				Columns:    []*schema.Column{InstanceResourcesColumns[35]},
+				RefColumns: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -421,7 +437,7 @@ var (
 			{
 				Name:    "instanceresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{InstanceResourcesColumns[24]},
+				Columns: []*schema.Column{InstanceResourcesColumns[26]},
 			},
 		},
 	}
@@ -517,6 +533,62 @@ var (
 				Columns:    []*schema.Column{NetworkSegmentsColumns[7]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.NoAction,
+			},
+		},
+	}
+	// OsUpdatePoliciesColumns holds the columns for the "os_update_policies" table.
+	OsUpdatePoliciesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
+		{Name: "update_sources", Type: field.TypeString, Nullable: true},
+		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
+		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "os_update_policy_target_os", Type: field.TypeInt, Nullable: true},
+	}
+	// OsUpdatePoliciesTable holds the schema information for the "os_update_policies" table.
+	OsUpdatePoliciesTable = &schema.Table{
+		Name:       "os_update_policies",
+		Columns:    OsUpdatePoliciesColumns,
+		PrimaryKey: []*schema.Column{OsUpdatePoliciesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "os_update_policies_operating_system_resources_target_os",
+				Columns:    []*schema.Column{OsUpdatePoliciesColumns[9]},
+				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
+	// OsUpdatePolicyResourcesColumns holds the columns for the "os_update_policy_resources" table.
+	OsUpdatePolicyResourcesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "install_packages", Type: field.TypeString, Nullable: true},
+		{Name: "update_sources", Type: field.TypeString, Nullable: true},
+		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
+		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "os_update_policy_resource_target_os", Type: field.TypeInt, Nullable: true},
+	}
+	// OsUpdatePolicyResourcesTable holds the schema information for the "os_update_policy_resources" table.
+	OsUpdatePolicyResourcesTable = &schema.Table{
+		Name:       "os_update_policy_resources",
+		Columns:    OsUpdatePolicyResourcesColumns,
+		PrimaryKey: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "os_update_policy_resources_operating_system_resources_target_os",
+				Columns:    []*schema.Column{OsUpdatePolicyResourcesColumns[11]},
+				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
 			},
 		},
 	}
@@ -1047,6 +1119,8 @@ var (
 		LocalAccountResourcesTable,
 		NetlinkResourcesTable,
 		NetworkSegmentsTable,
+		OsUpdatePoliciesTable,
+		OsUpdatePolicyResourcesTable,
 		OperatingSystemResourcesTable,
 		OuResourcesTable,
 		ProviderResourcesTable,
@@ -1075,11 +1149,15 @@ func init() {
 	IPAddressResourcesTable.ForeignKeys[0].RefTable = HostnicResourcesTable
 	InstanceResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
-	InstanceResourcesTable.ForeignKeys[2].RefTable = ProviderResourcesTable
-	InstanceResourcesTable.ForeignKeys[3].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[2].RefTable = OperatingSystemResourcesTable
+	InstanceResourcesTable.ForeignKeys[3].RefTable = ProviderResourcesTable
+	InstanceResourcesTable.ForeignKeys[4].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[5].RefTable = OsUpdatePolicyResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable
+	OsUpdatePoliciesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
+	OsUpdatePolicyResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	OuResourcesTable.ForeignKeys[0].RefTable = OuResourcesTable
 	RegionResourcesTable.ForeignKeys[0].RefTable = RegionResourcesTable
 	RemoteAccessConfigurationsTable.ForeignKeys[0].RefTable = InstanceResourcesTable

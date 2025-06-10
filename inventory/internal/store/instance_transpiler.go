@@ -36,6 +36,16 @@ func (r *registry) RegisterInstanceResource() {
 					inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT,
 				},
 
+				instanceresource.EdgeOs: {
+					func(p sqlPredicate) sqlPredicate { return instanceresource.HasOsWith(p) },
+					inv_v1.ResourceKind_RESOURCE_KIND_OS,
+				},
+
+				instanceresource.EdgeOsUpdatePolicy: {
+					func(p sqlPredicate) sqlPredicate { return instanceresource.HasOsUpdatePolicyWith(p) },
+					inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY,
+				},
+
 				instanceresource.EdgeProvider: {
 					func(p sqlPredicate) sqlPredicate { return instanceresource.HasProviderWith(p) },
 					inv_v1.ResourceKind_RESOURCE_KIND_PROVIDER,
@@ -51,6 +61,8 @@ func (r *registry) RegisterInstanceResource() {
 				instanceresource.EdgeDesiredOs:       instanceresource.HasDesiredOs(),
 				instanceresource.EdgeHost:            instanceresource.HasHost(),
 				instanceresource.EdgeLocalaccount:    instanceresource.HasLocalaccount(),
+				instanceresource.EdgeOs:              instanceresource.HasOs(),
+				instanceresource.EdgeOsUpdatePolicy:  instanceresource.HasOsUpdatePolicy(),
 				instanceresource.EdgeProvider:        instanceresource.HasProvider(),
 				instanceresource.EdgeWorkloadMembers: instanceresource.HasWorkloadMembers(),
 			},

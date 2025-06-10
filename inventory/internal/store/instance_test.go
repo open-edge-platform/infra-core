@@ -58,13 +58,18 @@ func Test_StrongRelations_On_Delete_Instance(t *testing.T) {
 }
 
 func Test_Create_Get_Delete_Instance(t *testing.T) {
-	host := inv_testing.CreateHost(t, nil, nil)
-	os := inv_testing.CreateOs(t)
-	provider := inv_testing.CreateProvider(t, "Test Provider1")
-	localaccount := inv_testing.CreateLocalAccount(t,
+	dao := inv_testing.NewInvResourceDAOOrFail(t)
+	tenantID := uuid.NewString()
+	host := dao.CreateHost(t, tenantID)
+	os := dao.CreateOs(t, tenantID)
+	provider := dao.CreateProvider(t, tenantID,
+		"Test Provider1", inv_testing.ProviderKind(providerv1.ProviderKind_PROVIDER_KIND_BAREMETAL))
+	localaccount := dao.CreateLocalAccount(t, tenantID,
 		"test-user",
 		"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ "+
 			"test-user@example.com")
+	oup := dao.CreateOSUpdatePolicy(t, tenantID,
+		inv_testing.OsUpdatePolicyName("OsUpdatePolicy"), inv_testing.OSUpdatePolicyLatest())
 
 	testcases := map[string]struct {
 		in    *computev1.InstanceResource
@@ -72,6 +77,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 	}{
 		"CreateGoodVmInstance": {
 			in: &computev1.InstanceResource{
+				TenantId:        tenantID,
 				Kind:            computev1.InstanceKind_INSTANCE_KIND_VM,
 				DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				DesiredOs:       os,
@@ -85,11 +91,13 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateGoodMetalInstance": {
 			in: &computev1.InstanceResource{
+				TenantId:     tenantID,
 				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:         host,
 				DesiredOs:    os,
 				CurrentOs:    os,
+				Os:           os,
 				ExistingCves: `[
 {
   "cve_id": "CVE-000-000",
@@ -99,11 +107,25 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
     "test-2\test3"
   ]
 }]`,
+				RuntimePackages: `{
+ "Repo": [
+  {
+   "Name": "openssl",
+   "Version": "3.3.3-1",
+   "Architecture": "x86_64",
+   "Distribution": "emt3",
+   "URL": "http://www.openssl.org/",
+   "License": "Apache-2.0\"
+  }
+]
+}`,
+				OsUpdateAvailable: "Update to version 1.2.3 available!",
 			},
 			valid: true,
 		},
 		"CreateDiscoveredInstance": {
 			in: &computev1.InstanceResource{
+				TenantId:  tenantID,
 				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
 				Host:      host,
 				DesiredOs: os,
@@ -112,6 +134,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateDiscoveredInstanceWithProvider": {
 			in: &computev1.InstanceResource{
+				TenantId:  tenantID,
 				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
 				Host:      host,
 				Provider:  provider,
@@ -121,6 +144,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateGoodMetalInstanceWithLocalAccount": {
 			in: &computev1.InstanceResource{
+				TenantId:     tenantID,
 				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:         host,
@@ -130,10 +154,23 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			},
 			valid: true,
 		},
+		"CreateInstanceWithOsUpdatePolicy": {
+			in: &computev1.InstanceResource{
+				TenantId:       tenantID,
+				Kind:           computev1.InstanceKind_INSTANCE_KIND_METAL,
+				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Host:           host,
+				DesiredOs:      os,
+				CurrentOs:      os,
+				OsUpdatePolicy: oup,
+			},
+			valid: true,
+		},
 		"CreateBadInstanceWithInvalidResourceIdSet": {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &computev1.InstanceResource{
+				TenantId:       tenantID,
 				ResourceId:     "instance-12345678",
 				Kind:           computev1.InstanceKind_INSTANCE_KIND_VM,
 				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
@@ -149,6 +186,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &computev1.InstanceResource{
+				TenantId:       tenantID,
 				ResourceId:     "inst-12345678",
 				Kind:           computev1.InstanceKind_INSTANCE_KIND_VM,
 				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
@@ -162,6 +200,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateBadInstanceWithoutOs": {
 			in: &computev1.InstanceResource{
+				TenantId:       tenantID,
 				Kind:           computev1.InstanceKind_INSTANCE_KIND_VM,
 				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:           host,
@@ -173,6 +212,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateBadMetalInstanceWithVmFields": {
 			in: &computev1.InstanceResource{
+				TenantId:      tenantID,
 				Kind:          computev1.InstanceKind_INSTANCE_KIND_METAL,
 				DesiredState:  computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:          host,
@@ -182,10 +222,19 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateBadVMInstanceWithHost": {
 			in: &computev1.InstanceResource{
+				TenantId:      tenantID,
 				Kind:          computev1.InstanceKind_INSTANCE_KIND_VM,
 				DesiredState:  computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:          host,
 				VmMemoryBytes: 2 * util.Gigabyte,
+			},
+			valid: false,
+		},
+		"CreateBadInstanceInvalidExistingCVEs": {
+			in: &computev1.InstanceResource{
+				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
+				Host:      host,
+				DesiredOs: os,
 			},
 			valid: false,
 		},
@@ -196,13 +245,14 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			createresreq := &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Instance{Instance: tc.in},
 			}
+			invClient := inv_testing.TestClients[inv_testing.APIClient].GetTenantAwareInventoryClient()
 
 			// build a context for gRPC
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			defer cancel()
 
 			// create instance
-			cInstResp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createresreq)
+			cInstResp, err := invClient.Create(ctx, tenantID, createresreq)
 			instanceResID := cInstResp.GetInstance().GetResourceId()
 
 			if err != nil {
@@ -226,11 +276,11 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			// only get/delete if valid test and hasn't failed otherwise may segfault
 			if !t.Failed() && tc.valid {
 				// get non-existent first
-				_, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, "inst-12345678")
+				_, err := invClient.Get(ctx, tenantID, "inst-12345678")
 				require.Error(t, err)
 
 				// get instance
-				getresp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, instanceResID)
+				getresp, err := invClient.Get(ctx, tenantID, instanceResID)
 				require.NoError(t, err, "GetInstance() failed")
 
 				// verify data
@@ -239,14 +289,14 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				}
 
 				// delete non-existent first
-				err = inv_testing.DeleteResourceAndReturnError(t, "inst-12345678")
+				err = dao.DeleteResourceAndReturnError(t, tenantID, "inst-12345678")
 				require.Error(t, err)
 
 				// Remove instance.
-				inv_testing.HardDeleteInstance(t, instanceResID)
+				dao.HardDeleteInstance(t, tenantID, instanceResID)
 
 				// get after complete Delete of instance, should fail as Instance is 2-phase deleted
-				_, err = inv_testing.TestClients[inv_testing.RMClient].Get(ctx, instanceResID)
+				_, err = invClient.Get(ctx, tenantID, instanceResID)
 				require.Error(t, err, "Failure - Instance was not deleted, but should be deleted")
 			}
 		})

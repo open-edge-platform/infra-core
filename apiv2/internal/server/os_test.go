@@ -37,6 +37,19 @@ var (
 		OsProvider:        osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 		OsResourceID:      "os-12345678", // Alias of ResourceId
 		Description:       "example description",
+		Metadata:          `{"key1": "value1", "key2": "value2"}`,
+		ExistingCvesUrl:   "https://example.com/cves",
+		ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ],
+}]`,
+		FixedCvesUrl: "/files/fixed_cves.json",
+		FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
 	}
 
 	// Example OS resource from the Inventory.
@@ -59,6 +72,19 @@ var (
 		UpdatedAt:         "2025-04-22T10:30:00Z",
 		TenantId:          "tenant-987654",
 		Description:       "example description",
+		Metadata:          `{"key1": "value1", "key2": "value2"}`,
+		ExistingCvesUrl:   "https://example.com/cves",
+		ExistingCves: `[
+{
+  "cve_id": "CVE-000-000",
+  "priority": "critical",
+  "affected_packages": [
+    "test-package-0.0.0",
+    "test-2\test3"
+  ],
+}]`,
+		FixedCvesUrl: "/files/fixed_cves.json",
+		FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
 	}
 )
 
