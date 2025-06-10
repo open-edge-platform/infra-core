@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 appVersion: apps/v1
 metadata:
-  # left blank for future use
+# left blank for future use
 spec:
   name: Edge Microvisor Toolkit 3.0.20250605
   type: OS_TYPE_IMMUTABLE

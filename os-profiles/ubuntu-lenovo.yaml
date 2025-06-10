@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 appVersion: apps/v1
 metadata:
-  # left blank for future use
+# left blank for future use
 spec:
   name: Ubuntu 22.04.3
   type: OS_TYPE_MUTABLE
