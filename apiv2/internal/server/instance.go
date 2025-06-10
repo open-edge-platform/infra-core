@@ -114,6 +114,7 @@ func fromInvInstanceStatus(
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
 }
 
+//nolint:cyclop // it is a conversion function
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
@@ -182,7 +183,6 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		RuntimePackages:    invInstance.GetRuntimePackages(),
 		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
 	}
-	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	// TODO: fill the CustomConfigID field.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
