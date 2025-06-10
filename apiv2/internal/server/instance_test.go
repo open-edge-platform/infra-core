@@ -70,6 +70,9 @@ var (
 		CurrentOs: &inv_osv1.OperatingSystemResource{
 			ResourceId: "os-12345678",
 		},
+		Os: &inv_osv1.OperatingSystemResource{
+			ResourceId: "os-12345678",
+		},
 		ExistingCves: `[
 {
   "cve_id": "CVE-000-000",
