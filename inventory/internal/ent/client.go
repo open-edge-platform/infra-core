@@ -1726,6 +1726,22 @@ func (c *InstanceResourceClient) QueryCurrentOs(ir *InstanceResource) *Operating
 	return query
 }
 
+// QueryOs queries the os edge of a InstanceResource.
+func (c *InstanceResourceClient) QueryOs(ir *InstanceResource) *OperatingSystemResourceQuery {
+	query := (&OperatingSystemResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := ir.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
+			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsTable, instanceresource.OsColumn),
+		)
+		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
 // QueryWorkloadMembers queries the workload_members edge of a InstanceResource.
 func (c *InstanceResourceClient) QueryWorkloadMembers(ir *InstanceResource) *WorkloadMemberQuery {
 	query := (&WorkloadMemberClient{config: c.config}).Query()

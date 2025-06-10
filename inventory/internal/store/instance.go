@@ -160,6 +160,10 @@ func setRelationsForInstanceCreate(ctx context.Context,
 	if err := setEdgeOSPolicyUpdateIDForMut(ctx, client, mut, in.GetOsUpdatePolicy()); err != nil {
 		return err
 	}
+	// Look up the OS ID for this Instance.
+	if err := setEdgeOSIDForMut(ctx, client, mut, in.GetOs()); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -191,6 +195,7 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		Where(instanceresource.ResourceID(resourceID)).
 		WithDesiredOs().
 		WithCurrentOs().
+		WithOs().
 		WithProvider().
 		WithLocalaccount().
 		WithOsUpdatePolicy()
@@ -480,6 +485,7 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 		WithWorkloadMembers(func(q *ent.WorkloadMemberQuery) {
 			q.WithWorkload() // Populate the workload of each member
 		}).
+		WithOs().
 		WithProvider().
 		WithLocalaccount().
 		WithOsUpdatePolicy().
@@ -572,6 +578,12 @@ func setRelationsForInstanceMutIfNeeded(
 	mut.ResetOsUpdatePolicy()
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeOsUpdatePolicy) {
 		if err := setEdgeOSPolicyUpdateIDForMut(ctx, client, mut, in.GetOsUpdatePolicy()); err != nil {
+			return err
+		}
+	}
+	mut.ResetOs()
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeOs) {
+		if err := setEdgeOSIDForMut(ctx, client, mut, in.GetOs()); err != nil {
 			return err
 		}
 	}

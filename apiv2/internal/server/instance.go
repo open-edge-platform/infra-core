@@ -22,8 +22,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-// TODO: handle CVEs related field.
-
 // OpenAPIInstanceToProto maps OpenAPI fields name to Proto fields name.
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
@@ -44,6 +42,7 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		Name:            instance.GetName(),
 		DesiredState:    inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		SecurityFeature: inv_osv1.SecurityFeature(instance.GetSecurityFeature()),
+		ExistingCves:    instance.GetExistingCves(),
 	}
 
 	hostID := instance.GetHostID()
@@ -122,6 +121,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var currentOs *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
+	var oup *computev1.OSUpdatePolicy
 	if invInstance.GetDesiredOs() != nil {
 		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
 	}
@@ -137,6 +137,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	if invInstance.GetLocalaccount() != nil {
 		la = fromInvLocalAccount(invInstance.GetLocalaccount())
+	}
+	if invInstance.GetOsUpdatePolicy() != nil {
+		oup = fromInvOSUpdatePolicy(invInstance.GetOsUpdatePolicy())
 	}
 
 	workloadMembers := []*computev1.WorkloadMember{}
@@ -166,7 +169,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		LocalAccountID:     la.GetResourceId(),
 		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
 		WorkloadMembers:    workloadMembers,
+		UpdatePolicy:       oup,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
+		ExistingCves:       invInstance.GetExistingCves(),
 	}
 	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	// TODO: fill the CustomConfigID field.
