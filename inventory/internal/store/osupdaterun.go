@@ -25,12 +25,7 @@ import (
 
 var osUpRunResourceCreationValidators = []resourceValidator[*compute_v1.OSUpdateRunResource]{
 	protoValidator[*compute_v1.OSUpdateRunResource],
-	validateOSUpdateRunProto,
 	doNotAcceptResourceID[*compute_v1.OSUpdateRunResource],
-}
-
-func validateOSUpdateRunProto(in *compute_v1.OSUpdateRunResource) error {
-	return nil
 }
 
 // OSUpdateRunEnumStateMap maps proto enum fields to their Ent equivalents.
@@ -178,9 +173,6 @@ func (is *InvStore) UpdateOSUpdateRun(
 			}
 
 			protoRes := entOSUpdateRunResourceToProtoOSUpdateRunResource(res)
-			if err := validateOSUpdateRunProto(protoRes); err != nil {
-				return nil, err
-			}
 			return util.WrapResource(protoRes)
 		})
 	if err != nil {

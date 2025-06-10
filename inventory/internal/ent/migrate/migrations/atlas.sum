@@ -1,4 +1,4 @@
-h1:LThYRH8Xcgf7+Tc+ot4JPfTpHh2ubYeLFN8c2UJWOHs=
+h1:wqQOZi/wdn4gNpWL8FSCmXCPAUc/5/9LLG6z2+XT5PU=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
@@ -6,5 +6,4 @@ h1:LThYRH8Xcgf7+Tc+ot4JPfTpHh2ubYeLFN8c2UJWOHs=
 20250604095136_add_cvefields.sql h1:LYsTzbwG7fwjlpSurXTJo80lf8XtaEk2aib8nFgWEss=
 20250605145118_add_osmetadata.sql h1:Y6t1wz1AxZD9sskGKmi1YcBh4GTGarWQAsya0vrD7v4=
 20250605155657_add_osupdatepolicy.sql h1:Q1CJe+b8PV6k7icmIDaBMbfVn7rZLwhuZTeeFmSegCU=
-20250607062629_add_OSUpdateRun.sql h1:/ZfEXesLHpMQ+fajeVSGkEURK+cqyTs0uDIsfihSW5U=
-20250609123133_add_OSUpdateRun.sql h1:QgWRByNUS4e191XogMvd9ETmz1Bh4UN6WplgraucP2I=
+20250610080510_add_OSUpdateRun.sql h1:PmPcqCgl9Fk4L44XR/27fIpdf5MTLiD7W77/AnLdYjk=
