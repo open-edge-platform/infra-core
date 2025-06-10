@@ -57,6 +57,9 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
 		}
+		invInstance.Os = &inv_osv1.OperatingSystemResource{
+			ResourceId: osID,
+		}
 	}
 
 	laID := instance.GetLocalAccountID()
@@ -111,6 +114,7 @@ func fromInvInstanceStatus(
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
 }
 
+//nolint:cyclop // it is a conversion function
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
@@ -119,6 +123,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	var err error
 	var desiredOs *osv1.OperatingSystemResource
 	var currentOs *osv1.OperatingSystemResource
+	var os *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
 	var oup *computev1.OSUpdatePolicy
@@ -127,6 +132,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 	if invInstance.GetCurrentOs() != nil {
 		currentOs = fromInvOSResource(invInstance.GetCurrentOs())
+	}
+	if invInstance.GetOs() != nil {
+		os = fromInvOSResource(invInstance.GetOs())
 	}
 
 	if invInstance.GetHost() != nil {
@@ -160,7 +168,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
 		Host:               host,
 		HostID:             host.GetResourceId(),
-		Os:                 desiredOs,
+		Os:                 os,
 		DesiredOs:          desiredOs,
 		CurrentOs:          currentOs,
 		OsID:               currentOs.GetResourceId(),
@@ -172,8 +180,9 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		UpdatePolicy:       oup,
 		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
 		ExistingCves:       invInstance.GetExistingCves(),
+		RuntimePackages:    invInstance.GetRuntimePackages(),
+		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
 	}
-	// TODO: fill the runtimePackages and osUpdateAvailable fields.
 	// TODO: fill the CustomConfigID field.
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
