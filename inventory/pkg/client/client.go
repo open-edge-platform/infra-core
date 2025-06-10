@@ -594,7 +594,7 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 		case <-ticker.C:
 			err := backoff.Retry(func() error {
 				_, errHearbeat := client.invAPI.Heartbeat(client.streamCtx, heartbeetReq)
-				return client.handleInventoryError(errHearbeat)
+				return errHearbeat
 			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(backoffInterval), backoffRetries))
 			if err != nil {
 				zlog.InfraErr(err).Msgf("failed to heartbeat client UUID: %s", clientUUID)
