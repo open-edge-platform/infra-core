@@ -3391,7 +3391,7 @@ Response message for the ListOSUpdateRun method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| os_update_policies | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | repeated | Sorted and filtered list of os update policies. |
+| os_update_runs | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) | repeated | Sorted and filtered list of os update runs. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
 

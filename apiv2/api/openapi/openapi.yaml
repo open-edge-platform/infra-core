@@ -8124,12 +8124,12 @@ components:
     ListOSUpdateRunResponse:
       type: object
       properties:
-        osUpdatePolicies:
+        osUpdateRuns:
           type: array
           items:
             $ref: '#/components/schemas/OSUpdateRun'
-          title: os_update_policies
-          description: Sorted and filtered list of os update policies.
+          title: os_update_runs
+          description: Sorted and filtered list of os update runs.
         totalElements:
           type: integer
           title: total_elements
@@ -8141,7 +8141,7 @@ components:
           description: Inform if there are more elements
       title: ListOSUpdateRunResponse
       required:
-        - osUpdatePolicies
+        - osUpdateRuns
         - totalElements
         - hasNext
       additionalProperties: false

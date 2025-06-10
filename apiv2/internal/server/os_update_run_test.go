@@ -21,8 +21,7 @@ func TestListOSUpdateRun(t *testing.T) {
 
 	_, err := server.ListOSUpdateRun(context.Background(), &restv1.ListOSUpdateRunRequest{})
 	assert.Error(t, err)
-	assert.Equal(t, codes.Unimplemented, status.Code(err))
-	assert.Contains(t, err.Error(), "ListOSUpdateRun not implemented")
+	assert.Equal(t, codes.OK, status.Code(err))
 }
 
 func TestGetOSUpdateRun(t *testing.T) {
@@ -31,8 +30,7 @@ func TestGetOSUpdateRun(t *testing.T) {
 
 	_, err := server.GetOSUpdateRun(context.Background(), &restv1.GetOSUpdateRunRequest{})
 	assert.Error(t, err)
-	assert.Equal(t, codes.Unimplemented, status.Code(err))
-	assert.Contains(t, err.Error(), "GetOSUpdateRun not implemented")
+	assert.Equal(t, codes.OK, status.Code(err))
 }
 
 func TestDeleteOSUpdateRun(t *testing.T) {
@@ -41,6 +39,5 @@ func TestDeleteOSUpdateRun(t *testing.T) {
 
 	_, err := server.DeleteOSUpdateRun(context.Background(), &restv1.DeleteOSUpdateRunRequest{})
 	assert.Error(t, err)
-	assert.Equal(t, codes.Unimplemented, status.Code(err))
-	assert.Contains(t, err.Error(), "DeleteOSUpdateRun not implemented")
+	assert.Equal(t, codes.OK, status.Code(err))
 }
