@@ -409,6 +409,14 @@ func CreateInstanceWithProvider(
 	return getInvResourceDAO().CreateInstanceWithProvider(tb, client.FakeTenantID, host, os, provider)
 }
 
+func CreateInstanceWithCustomConfig(
+	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource,
+	customConfig *computev1.CustomConfigResource,
+) *computev1.InstanceResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateInstanceWithCustomConfig(tb, client.FakeTenantID, host, os, customConfig)
+}
+
 func CreateInstanceWithLocalAccount(
 	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource, account *localaccount_v1.LocalAccountResource,
 ) *computev1.InstanceResource {
@@ -448,6 +456,19 @@ func CreateHostusb(tb testing.TB, host *computev1.HostResource) *computev1.Hostu
 func CreateHostusbNoCleanup(tb testing.TB, host *computev1.HostResource) *computev1.HostusbResource {
 	tb.Helper()
 	return getInvResourceDAO().CreateHostUsbNoCleanup(tb, client.FakeTenantID, host)
+}
+
+// CreateCustomConfig - creates custom config. Note this helper is not really meant to be used for the
+// test of CustomConfigResource, but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by the eager loading.
+func CreateCustomConfig(tb testing.TB, name, description, config string) *computev1.CustomConfigResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateCustomConfig(tb, client.FakeTenantID, name, description, config)
+}
+
+func CreateCustomConfigNoCleanup(tb testing.TB, name, description, config string) *computev1.CustomConfigResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateCustomConfigNoCleanup(tb, client.FakeTenantID, name, description, config)
 }
 
 // CreateLocalAccount - creates local account. Note this helper is not really meant to be used for the

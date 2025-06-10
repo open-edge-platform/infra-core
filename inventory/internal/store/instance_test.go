@@ -38,6 +38,20 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/filters"
 )
 
+var testCloudInitCfg = `#cloud-config
+package_update: true
+package_upgrade: true
+
+write_files:
+    - path: /etc/environment
+      content: |
+            http_proxy=http://your.proxy.address:port
+            https_proxy=https://your.proxy.address:port
+            no_proxy=localhost,127.0.0.1
+
+runcmd:
+    - source /etc/environment`
+
 func Test_StrongRelations_On_Delete_Instance(t *testing.T) {
 	t.Run("Instance_WorkloadMember", func(t *testing.T) {
 		os := inv_testing.CreateOs(t)
@@ -359,6 +373,10 @@ func Test_UpdateInstance(t *testing.T) {
 	localaccount := inv_testing.CreateLocalAccount(t,
 		"test-user",
 		"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ test-user1@example.com")
+
+	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
+
+	_ = customconfig
 
 	// create Instance to update
 	createresreq := &inv_v1.Resource{
@@ -756,6 +774,93 @@ func Test_InstanceStateTransitionFromUntrusted(t *testing.T) {
 	)
 	require.NoError(t, err, "UpdateInstance() to DELETED should not fail")
 	assert.Equal(t, computev1.InstanceState_INSTANCE_STATE_DELETED, upRes.GetInstance().GetDesiredState())
+}
+
+// Test_InstanceCustomConfigUpdate tests that the custom config can be updated
+// for an instance, and that it is not allowed to update the custom config
+// for an instance that is not in the initial state.
+func Test_InstanceCustomConfigUpdate(t *testing.T) {
+	host1 := inv_testing.CreateHost(t, nil, nil)
+	os1 := inv_testing.CreateOs(t)
+	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
+	instance1 := inv_testing.CreateInstanceWithCustomConfig(t, host1, os1, customconfig)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	// make progress on the instance
+	upRes, err := inv_testing.GetClient(t, inv_testing.RMClient).Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{instanceresource.FieldCurrentState}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{
+					CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				},
+			},
+		},
+	)
+	require.NoError(t, err, "UpdateInstance() failed")
+	assert.Equal(t, computev1.InstanceState_INSTANCE_STATE_RUNNING, upRes.GetInstance().GetCurrentState())
+
+	// After the instance is no longer in the initial state, we cannot touch anymore
+	// custom config.
+	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{instanceresource.EdgeCustomConfig}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{
+					CustomConfig: []*computev1.CustomConfigResource{customconfig},
+				},
+			},
+		},
+	)
+	require.Error(t, err, "UpdateInstance() with CustomConfig should fail")
+	assert.Nil(t, upRes)
+	assert.Equal(t, codes.InvalidArgument, status.Code(err))
+
+	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{instanceresource.EdgeCustomConfig}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{},
+			},
+		},
+	)
+	require.NoError(t, err, "GetInstance() with CustomConfig should not fail")
+	assert.Nil(t, upRes)
+	assert.Equal(t, codes.InvalidArgument, status.Code(err))
+
+	curRes, err := inv_testing.TestClients[inv_testing.APIClient].Get(
+		ctx,
+		instance1.ResourceId,
+	)
+	require.NoError(t, err, "GetInstance() with CustomConfig should not fail")
+	assert.NotNil(t, curRes)
+	require.NotNil(t, curRes.GetResource().GetInstance().GetCustomConfig())
+
+	// Should not fail and should not take effect
+	upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(
+		ctx,
+		instance1.ResourceId,
+		&fieldmaskpb.FieldMask{Paths: []string{}},
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_Instance{
+				Instance: &computev1.InstanceResource{
+					CustomConfig: []*computev1.CustomConfigResource{customconfig},
+				},
+			},
+		},
+	)
+	require.NoError(t, err, "UpdateInstance() with CustomConfig should not fail")
+	assert.NotNil(t, upRes)
+	assert.NotNil(t, upRes.GetInstance().GetCustomConfig())
+
 }
 
 func Test_InstanceLocalAccountUpdate(t *testing.T) {
