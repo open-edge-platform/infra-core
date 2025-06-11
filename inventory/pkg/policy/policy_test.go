@@ -16,6 +16,7 @@ import (
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	network_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/network/v1"
+	osv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	providerv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 	telemetry_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 	tenantv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/tenant/v1"
@@ -32,6 +33,7 @@ var (
 	tenantID         = "tenant-12345678"
 	providerID       = "provider-12345678"
 	telemetrygroupID = "telemetrygroup-12345678"
+	osID             = "os-12345678"
 )
 
 func TestMain(m *testing.M) {
@@ -1034,6 +1036,48 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 			resourceID: ipaddrID,
 			valid:      false,
 		},
+		"Test_ClientAPI_Create_OS_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Os{
+					Os: &osv1.OperatingSystemResource{
+						Name:           "test-os-name",
+						OsType:         osv1.OsType_OS_TYPE_IMMUTABLE,
+						ProfileVersion: "test-version",
+					},
+				},
+			},
+			resourceID: osID,
+			valid:      true,
+		},
+		"Test_ClientRM_Create_OS_Success2": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Os{
+					Os: &osv1.OperatingSystemResource{
+						Name:           "test-os-name",
+						OsType:         osv1.OsType_OS_TYPE_IMMUTABLE,
+						ProfileVersion: "test-version",
+					},
+				},
+			},
+			resourceID: osID,
+			valid:      true,
+		},
+		"Test_ClientTC_Create_OS_Fail1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Os{
+					Os: &osv1.OperatingSystemResource{
+						Name:           "test-os-name",
+						OsType:         osv1.OsType_OS_TYPE_IMMUTABLE,
+						ProfileVersion: "test-version",
+					},
+				},
+			},
+			resourceID: osID,
+			valid:      false,
+		},
 	}
 
 	pol, err := loadPolicyBundle(bundlePath)
@@ -1664,7 +1708,7 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 			resource: &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Tenant{
 					Tenant: &tenantv1.Tenant{
-						WatcherOsmanager: true,
+						WatcherOsmanager: false,
 					},
 				},
 			},
@@ -1827,6 +1871,48 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 				},
 			},
 			resourceID: ipaddrID,
+			valid:      false,
+		},
+		"Test_ClientAPI_Update_OS_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Os{
+					Os: &osv1.OperatingSystemResource{
+						Name:           "test-os-name",
+						OsType:         osv1.OsType_OS_TYPE_MUTABLE,
+						ProfileVersion: "test-version",
+					},
+				},
+			},
+			resourceID: osID,
+			valid:      true,
+		},
+		"Test_ClientRM_Update_OS_Success1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Os{
+					Os: &osv1.OperatingSystemResource{
+						Name:           "test-os-name",
+						OsType:         osv1.OsType_OS_TYPE_MUTABLE,
+						ProfileVersion: "test-version",
+					},
+				},
+			},
+			resourceID: osID,
+			valid:      true,
+		},
+		"Test_ClientTC_Update_OS_Fail1": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_TENANT_CONTROLLER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Os{
+					Os: &osv1.OperatingSystemResource{
+						Name:           "test-os-name",
+						OsType:         osv1.OsType_OS_TYPE_IMMUTABLE,
+						ProfileVersion: "test-version",
+					},
+				},
+			},
+			resourceID: osID,
 			valid:      false,
 		},
 	}
