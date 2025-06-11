@@ -361,6 +361,7 @@ class InstanceResource(betterproto.Message):
     os_update_policy: "OSUpdatePolicyResource" = betterproto.message_field(43)
     runtime_packages: str = betterproto.string_field(51)
     os_update_available: str = betterproto.string_field(52)
+    custom_config: List["CustomConfigResource"] = betterproto.message_field(53)
     tenant_id: str = betterproto.string_field(100)
     instance_status_detail: str = betterproto.string_field(101)
     created_at: str = betterproto.string_field(200)
@@ -420,6 +421,30 @@ class OSUpdatePolicyResource(betterproto.Message):
 
 
 @dataclass
+class CustomConfigResource(betterproto.Message):
+    """
+    ---------------------------------------------------------------------------
+    ------------------------------------------
+    --------------------------------------------- Custom Config Resources
+    -----------------------------------------------
+    """
+
+    # resource identifier
+    resource_id: str = betterproto.string_field(1)
+    # Unique name provided by admin
+    name: str = betterproto.string_field(2)
+    # Configuration file.
+    config: str = betterproto.string_field(3)
+    # Config Description
+    description: str = betterproto.string_field(4)
+    # Tenant Identifier.
+    tenant_id: str = betterproto.string_field(100)
+    # Creation timestamp
+    created_at: str = betterproto.string_field(200)
+    updated_at: str = betterproto.string_field(201)
+    instances: List["InstanceResource"] = betterproto.message_field(500)
+      
+
 class OSUpdateRunResource(betterproto.Message):
     resource_id: str = betterproto.string_field(1)
     name: str = betterproto.string_field(2)
@@ -435,3 +460,4 @@ class OSUpdateRunResource(betterproto.Message):
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
+

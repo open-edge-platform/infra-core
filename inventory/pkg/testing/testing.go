@@ -321,6 +321,9 @@ func clearDB(ctx context.Context, dbURL string) error { //nolint:cyclop,funlen /
 	if _, err := c.LocalAccountResource.Delete().Exec(ctx); err != nil {
 		return err
 	}
+	if _, err := c.CustomConfigResource.Delete().Exec(ctx); err != nil {
+		return err
+	}
 	// Clear host after host components and instance
 	if _, err := c.HostResource.Delete().Exec(ctx); err != nil {
 		return err

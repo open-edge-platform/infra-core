@@ -54,7 +54,8 @@ const (
 	ResourceEdgeRemoteAccess     = "remote_access"
 	ResourceEdgeLocalAccount     = "local_account"
 	ResourceEdgeOsUpdatePolicy   = "os_update_policy"
-	ResourceEdgeOsUpdateRun      = "os_update_run"
+	ResourceEdgeCustomConfig     = "custom_config"
+  ResourceEdgeOsUpdateRun      = "os_update_run"
 
 	// Fields and Edges constants for "ResourceFilter"
 	ResourceFilterEdgeResource = "resource"

@@ -10,6 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
@@ -49,6 +50,7 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
+	TypeCustomConfigResource      = "CustomConfigResource"
 	TypeEndpointResource          = "EndpointResource"
 	TypeHostResource              = "HostResource"
 	TypeHostgpuResource           = "HostgpuResource"
@@ -77,6 +79,771 @@ const (
 	TypeWorkloadMember            = "WorkloadMember"
 	TypeWorkloadResource          = "WorkloadResource"
 )
+
+// CustomConfigResourceMutation represents an operation that mutates the CustomConfigResource nodes in the graph.
+type CustomConfigResourceMutation struct {
+	config
+	op               Op
+	typ              string
+	id               *int
+	resource_id      *string
+	name             *string
+	_config          *string
+	description      *string
+	tenant_id        *string
+	created_at       *string
+	updated_at       *string
+	clearedFields    map[string]struct{}
+	instances        map[int]struct{}
+	removedinstances map[int]struct{}
+	clearedinstances bool
+	done             bool
+	oldValue         func(context.Context) (*CustomConfigResource, error)
+	predicates       []predicate.CustomConfigResource
+}
+
+var _ ent.Mutation = (*CustomConfigResourceMutation)(nil)
+
+// customconfigresourceOption allows management of the mutation configuration using functional options.
+type customconfigresourceOption func(*CustomConfigResourceMutation)
+
+// newCustomConfigResourceMutation creates new mutation for the CustomConfigResource entity.
+func newCustomConfigResourceMutation(c config, op Op, opts ...customconfigresourceOption) *CustomConfigResourceMutation {
+	m := &CustomConfigResourceMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeCustomConfigResource,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withCustomConfigResourceID sets the ID field of the mutation.
+func withCustomConfigResourceID(id int) customconfigresourceOption {
+	return func(m *CustomConfigResourceMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *CustomConfigResource
+		)
+		m.oldValue = func(ctx context.Context) (*CustomConfigResource, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().CustomConfigResource.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withCustomConfigResource sets the old CustomConfigResource of the mutation.
+func withCustomConfigResource(node *CustomConfigResource) customconfigresourceOption {
+	return func(m *CustomConfigResourceMutation) {
+		m.oldValue = func(context.Context) (*CustomConfigResource, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m CustomConfigResourceMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m CustomConfigResourceMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *CustomConfigResourceMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *CustomConfigResourceMutation) IDs(ctx context.Context) ([]int, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []int{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().CustomConfigResource.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetResourceID sets the "resource_id" field.
+func (m *CustomConfigResourceMutation) SetResourceID(s string) {
+	m.resource_id = &s
+}
+
+// ResourceID returns the value of the "resource_id" field in the mutation.
+func (m *CustomConfigResourceMutation) ResourceID() (r string, exists bool) {
+	v := m.resource_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldResourceID returns the old "resource_id" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldResourceID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldResourceID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldResourceID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldResourceID: %w", err)
+	}
+	return oldValue.ResourceID, nil
+}
+
+// ResetResourceID resets all changes to the "resource_id" field.
+func (m *CustomConfigResourceMutation) ResetResourceID() {
+	m.resource_id = nil
+}
+
+// SetName sets the "name" field.
+func (m *CustomConfigResourceMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *CustomConfigResourceMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *CustomConfigResourceMutation) ResetName() {
+	m.name = nil
+}
+
+// SetConfig sets the "config" field.
+func (m *CustomConfigResourceMutation) SetConfig(s string) {
+	m._config = &s
+}
+
+// Config returns the value of the "config" field in the mutation.
+func (m *CustomConfigResourceMutation) Config() (r string, exists bool) {
+	v := m._config
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldConfig returns the old "config" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldConfig(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldConfig is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldConfig requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldConfig: %w", err)
+	}
+	return oldValue.Config, nil
+}
+
+// ResetConfig resets all changes to the "config" field.
+func (m *CustomConfigResourceMutation) ResetConfig() {
+	m._config = nil
+}
+
+// SetDescription sets the "description" field.
+func (m *CustomConfigResourceMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *CustomConfigResourceMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ClearDescription clears the value of the "description" field.
+func (m *CustomConfigResourceMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[customconfigresource.FieldDescription] = struct{}{}
+}
+
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *CustomConfigResourceMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[customconfigresource.FieldDescription]
+	return ok
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *CustomConfigResourceMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, customconfigresource.FieldDescription)
+}
+
+// SetTenantID sets the "tenant_id" field.
+func (m *CustomConfigResourceMutation) SetTenantID(s string) {
+	m.tenant_id = &s
+}
+
+// TenantID returns the value of the "tenant_id" field in the mutation.
+func (m *CustomConfigResourceMutation) TenantID() (r string, exists bool) {
+	v := m.tenant_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantID returns the old "tenant_id" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldTenantID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTenantID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTenantID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantID: %w", err)
+	}
+	return oldValue.TenantID, nil
+}
+
+// ResetTenantID resets all changes to the "tenant_id" field.
+func (m *CustomConfigResourceMutation) ResetTenantID() {
+	m.tenant_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *CustomConfigResourceMutation) SetCreatedAt(s string) {
+	m.created_at = &s
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *CustomConfigResourceMutation) CreatedAt() (r string, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldCreatedAt(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *CustomConfigResourceMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *CustomConfigResourceMutation) SetUpdatedAt(s string) {
+	m.updated_at = &s
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *CustomConfigResourceMutation) UpdatedAt() (r string, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the CustomConfigResource entity.
+// If the CustomConfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomConfigResourceMutation) OldUpdatedAt(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *CustomConfigResourceMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// AddInstanceIDs adds the "instances" edge to the InstanceResource entity by ids.
+func (m *CustomConfigResourceMutation) AddInstanceIDs(ids ...int) {
+	if m.instances == nil {
+		m.instances = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.instances[ids[i]] = struct{}{}
+	}
+}
+
+// ClearInstances clears the "instances" edge to the InstanceResource entity.
+func (m *CustomConfigResourceMutation) ClearInstances() {
+	m.clearedinstances = true
+}
+
+// InstancesCleared reports if the "instances" edge to the InstanceResource entity was cleared.
+func (m *CustomConfigResourceMutation) InstancesCleared() bool {
+	return m.clearedinstances
+}
+
+// RemoveInstanceIDs removes the "instances" edge to the InstanceResource entity by IDs.
+func (m *CustomConfigResourceMutation) RemoveInstanceIDs(ids ...int) {
+	if m.removedinstances == nil {
+		m.removedinstances = make(map[int]struct{})
+	}
+	for i := range ids {
+		delete(m.instances, ids[i])
+		m.removedinstances[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedInstances returns the removed IDs of the "instances" edge to the InstanceResource entity.
+func (m *CustomConfigResourceMutation) RemovedInstancesIDs() (ids []int) {
+	for id := range m.removedinstances {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// InstancesIDs returns the "instances" edge IDs in the mutation.
+func (m *CustomConfigResourceMutation) InstancesIDs() (ids []int) {
+	for id := range m.instances {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetInstances resets all changes to the "instances" edge.
+func (m *CustomConfigResourceMutation) ResetInstances() {
+	m.instances = nil
+	m.clearedinstances = false
+	m.removedinstances = nil
+}
+
+// Where appends a list predicates to the CustomConfigResourceMutation builder.
+func (m *CustomConfigResourceMutation) Where(ps ...predicate.CustomConfigResource) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the CustomConfigResourceMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *CustomConfigResourceMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.CustomConfigResource, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *CustomConfigResourceMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *CustomConfigResourceMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (CustomConfigResource).
+func (m *CustomConfigResourceMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *CustomConfigResourceMutation) Fields() []string {
+	fields := make([]string, 0, 7)
+	if m.resource_id != nil {
+		fields = append(fields, customconfigresource.FieldResourceID)
+	}
+	if m.name != nil {
+		fields = append(fields, customconfigresource.FieldName)
+	}
+	if m._config != nil {
+		fields = append(fields, customconfigresource.FieldConfig)
+	}
+	if m.description != nil {
+		fields = append(fields, customconfigresource.FieldDescription)
+	}
+	if m.tenant_id != nil {
+		fields = append(fields, customconfigresource.FieldTenantID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, customconfigresource.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, customconfigresource.FieldUpdatedAt)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *CustomConfigResourceMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case customconfigresource.FieldResourceID:
+		return m.ResourceID()
+	case customconfigresource.FieldName:
+		return m.Name()
+	case customconfigresource.FieldConfig:
+		return m.Config()
+	case customconfigresource.FieldDescription:
+		return m.Description()
+	case customconfigresource.FieldTenantID:
+		return m.TenantID()
+	case customconfigresource.FieldCreatedAt:
+		return m.CreatedAt()
+	case customconfigresource.FieldUpdatedAt:
+		return m.UpdatedAt()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *CustomConfigResourceMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case customconfigresource.FieldResourceID:
+		return m.OldResourceID(ctx)
+	case customconfigresource.FieldName:
+		return m.OldName(ctx)
+	case customconfigresource.FieldConfig:
+		return m.OldConfig(ctx)
+	case customconfigresource.FieldDescription:
+		return m.OldDescription(ctx)
+	case customconfigresource.FieldTenantID:
+		return m.OldTenantID(ctx)
+	case customconfigresource.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case customconfigresource.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown CustomConfigResource field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *CustomConfigResourceMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case customconfigresource.FieldResourceID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetResourceID(v)
+		return nil
+	case customconfigresource.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case customconfigresource.FieldConfig:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetConfig(v)
+		return nil
+	case customconfigresource.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
+		return nil
+	case customconfigresource.FieldTenantID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantID(v)
+		return nil
+	case customconfigresource.FieldCreatedAt:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case customconfigresource.FieldUpdatedAt:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown CustomConfigResource field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *CustomConfigResourceMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *CustomConfigResourceMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *CustomConfigResourceMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown CustomConfigResource numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *CustomConfigResourceMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(customconfigresource.FieldDescription) {
+		fields = append(fields, customconfigresource.FieldDescription)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *CustomConfigResourceMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *CustomConfigResourceMutation) ClearField(name string) error {
+	switch name {
+	case customconfigresource.FieldDescription:
+		m.ClearDescription()
+		return nil
+	}
+	return fmt.Errorf("unknown CustomConfigResource nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *CustomConfigResourceMutation) ResetField(name string) error {
+	switch name {
+	case customconfigresource.FieldResourceID:
+		m.ResetResourceID()
+		return nil
+	case customconfigresource.FieldName:
+		m.ResetName()
+		return nil
+	case customconfigresource.FieldConfig:
+		m.ResetConfig()
+		return nil
+	case customconfigresource.FieldDescription:
+		m.ResetDescription()
+		return nil
+	case customconfigresource.FieldTenantID:
+		m.ResetTenantID()
+		return nil
+	case customconfigresource.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case customconfigresource.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	}
+	return fmt.Errorf("unknown CustomConfigResource field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *CustomConfigResourceMutation) AddedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.instances != nil {
+		edges = append(edges, customconfigresource.EdgeInstances)
+	}
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *CustomConfigResourceMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		ids := make([]ent.Value, 0, len(m.instances))
+		for id := range m.instances {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *CustomConfigResourceMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.removedinstances != nil {
+		edges = append(edges, customconfigresource.EdgeInstances)
+	}
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *CustomConfigResourceMutation) RemovedIDs(name string) []ent.Value {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		ids := make([]ent.Value, 0, len(m.removedinstances))
+		for id := range m.removedinstances {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *CustomConfigResourceMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.clearedinstances {
+		edges = append(edges, customconfigresource.EdgeInstances)
+	}
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *CustomConfigResourceMutation) EdgeCleared(name string) bool {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		return m.clearedinstances
+	}
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *CustomConfigResourceMutation) ClearEdge(name string) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown CustomConfigResource unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *CustomConfigResourceMutation) ResetEdge(name string) error {
+	switch name {
+	case customconfigresource.EdgeInstances:
+		m.ResetInstances()
+		return nil
+	}
+	return fmt.Errorf("unknown CustomConfigResource edge %s", name)
+}
 
 // EndpointResourceMutation represents an operation that mutates the EndpointResource nodes in the graph.
 type EndpointResourceMutation struct {
@@ -12532,6 +13299,9 @@ type InstanceResourceMutation struct {
 	clearedlocalaccount                     bool
 	os_update_policy                        *int
 	clearedos_update_policy                 bool
+	custom_config                           map[int]struct{}
+	removedcustom_config                    map[int]struct{}
+	clearedcustom_config                    bool
 	done                                    bool
 	oldValue                                func(context.Context) (*InstanceResource, error)
 	predicates                              []predicate.InstanceResource
@@ -14478,6 +15248,60 @@ func (m *InstanceResourceMutation) ResetOsUpdatePolicy() {
 	m.clearedos_update_policy = false
 }
 
+// AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by ids.
+func (m *InstanceResourceMutation) AddCustomConfigIDs(ids ...int) {
+	if m.custom_config == nil {
+		m.custom_config = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.custom_config[ids[i]] = struct{}{}
+	}
+}
+
+// ClearCustomConfig clears the "custom_config" edge to the CustomConfigResource entity.
+func (m *InstanceResourceMutation) ClearCustomConfig() {
+	m.clearedcustom_config = true
+}
+
+// CustomConfigCleared reports if the "custom_config" edge to the CustomConfigResource entity was cleared.
+func (m *InstanceResourceMutation) CustomConfigCleared() bool {
+	return m.clearedcustom_config
+}
+
+// RemoveCustomConfigIDs removes the "custom_config" edge to the CustomConfigResource entity by IDs.
+func (m *InstanceResourceMutation) RemoveCustomConfigIDs(ids ...int) {
+	if m.removedcustom_config == nil {
+		m.removedcustom_config = make(map[int]struct{})
+	}
+	for i := range ids {
+		delete(m.custom_config, ids[i])
+		m.removedcustom_config[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedCustomConfig returns the removed IDs of the "custom_config" edge to the CustomConfigResource entity.
+func (m *InstanceResourceMutation) RemovedCustomConfigIDs() (ids []int) {
+	for id := range m.removedcustom_config {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// CustomConfigIDs returns the "custom_config" edge IDs in the mutation.
+func (m *InstanceResourceMutation) CustomConfigIDs() (ids []int) {
+	for id := range m.custom_config {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetCustomConfig resets all changes to the "custom_config" edge.
+func (m *InstanceResourceMutation) ResetCustomConfig() {
+	m.custom_config = nil
+	m.clearedcustom_config = false
+	m.removedcustom_config = nil
+}
+
 // Where appends a list predicates to the InstanceResourceMutation builder.
 func (m *InstanceResourceMutation) Where(ps ...predicate.InstanceResource) {
 	m.predicates = append(m.predicates, ps...)
@@ -15327,7 +16151,7 @@ func (m *InstanceResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *InstanceResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 8)
+	edges := make([]string, 0, 9)
 	if m.host != nil {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15351,6 +16175,9 @@ func (m *InstanceResourceMutation) AddedEdges() []string {
 	}
 	if m.os_update_policy != nil {
 		edges = append(edges, instanceresource.EdgeOsUpdatePolicy)
+	}
+	if m.custom_config != nil {
+		edges = append(edges, instanceresource.EdgeCustomConfig)
 	}
 	return edges
 }
@@ -15393,15 +16220,24 @@ func (m *InstanceResourceMutation) AddedIDs(name string) []ent.Value {
 		if id := m.os_update_policy; id != nil {
 			return []ent.Value{*id}
 		}
+	case instanceresource.EdgeCustomConfig:
+		ids := make([]ent.Value, 0, len(m.custom_config))
+		for id := range m.custom_config {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *InstanceResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 8)
+	edges := make([]string, 0, 9)
 	if m.removedworkload_members != nil {
 		edges = append(edges, instanceresource.EdgeWorkloadMembers)
+	}
+	if m.removedcustom_config != nil {
+		edges = append(edges, instanceresource.EdgeCustomConfig)
 	}
 	return edges
 }
@@ -15416,13 +16252,19 @@ func (m *InstanceResourceMutation) RemovedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case instanceresource.EdgeCustomConfig:
+		ids := make([]ent.Value, 0, len(m.removedcustom_config))
+		for id := range m.removedcustom_config {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *InstanceResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 8)
+	edges := make([]string, 0, 9)
 	if m.clearedhost {
 		edges = append(edges, instanceresource.EdgeHost)
 	}
@@ -15447,6 +16289,9 @@ func (m *InstanceResourceMutation) ClearedEdges() []string {
 	if m.clearedos_update_policy {
 		edges = append(edges, instanceresource.EdgeOsUpdatePolicy)
 	}
+	if m.clearedcustom_config {
+		edges = append(edges, instanceresource.EdgeCustomConfig)
+	}
 	return edges
 }
 
@@ -15470,6 +16315,8 @@ func (m *InstanceResourceMutation) EdgeCleared(name string) bool {
 		return m.clearedlocalaccount
 	case instanceresource.EdgeOsUpdatePolicy:
 		return m.clearedos_update_policy
+	case instanceresource.EdgeCustomConfig:
+		return m.clearedcustom_config
 	}
 	return false
 }
@@ -15530,6 +16377,9 @@ func (m *InstanceResourceMutation) ResetEdge(name string) error {
 		return nil
 	case instanceresource.EdgeOsUpdatePolicy:
 		m.ResetOsUpdatePolicy()
+		return nil
+	case instanceresource.EdgeCustomConfig:
+		m.ResetCustomConfig()
 		return nil
 	}
 	return fmt.Errorf("unknown InstanceResource edge %s", name)
