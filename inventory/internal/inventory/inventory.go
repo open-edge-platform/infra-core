@@ -145,9 +145,9 @@ func (srv *InventorygRPCServer) ChangeSubscribeEvents(
 	return &inv_v1.ChangeSubscribeEventsResponse{}, nil
 }
 
-// CRUD functions
-
-//nolint:cyclop // Due to large resource list
+// CreateResource This function is the main entry point for creating resources in the inventory
+//
+//nolint:gocyclo // high cyclomatic complexity due to the switch and length
 func (srv *InventorygRPCServer) CreateResource(
 	ctx context.Context,
 	in *inv_v1.CreateResourceRequest,
@@ -254,6 +254,7 @@ func (srv *InventorygRPCServer) CreateResource(
 
 	case *inv_v1.Resource_OsUpdatePolicy:
 		res, err = srv.IS.CreateOSUpdatePolicy(ctx, in.GetResource().GetOsUpdatePolicy())
+	// custom config
 	case *inv_v1.Resource_CustomConfig:
 		res, err = srv.IS.CreateCustomConfig(ctx, in.GetResource().GetCustomConfig())
 	default:
