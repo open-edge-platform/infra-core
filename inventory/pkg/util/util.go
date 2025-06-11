@@ -80,7 +80,7 @@ const (
 	ResourcePrefixTenant           ResourcePrefix = "tenant"
 	ResourcePrefixOsUpdatePolicy   ResourcePrefix = "osupdatepolicy"
 	ResourcePrefixCustomConfig     ResourcePrefix = "customconfig"
-  ResourcePrefixOsUpdateRun      ResourcePrefix = "osupdaterun"
+	ResourcePrefixOsUpdateRun      ResourcePrefix = "osupdaterun"
 )
 
 func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
@@ -111,7 +111,7 @@ func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      ResourcePrefixLocalAccount,
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    ResourcePrefixOsUpdatePolicy,
 		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      ResourcePrefixCustomConfig,
-    inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:       ResourcePrefixOsUpdateRun,
+		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:       ResourcePrefixOsUpdateRun,
 	}
 
 	prefix, ok := mapResourceKindToPrefix[kind]
@@ -214,7 +214,7 @@ func PrefixToResourceKind(prefix ResourcePrefix) inv_v1.ResourceKind {
 		ResourcePrefixOsUpdatePolicy:   inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY,
 		ResourcePrefixTenant:           inv_v1.ResourceKind_RESOURCE_KIND_TENANT,
 		ResourcePrefixCustomConfig:     inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
-    ResourcePrefixOsUpdateRun:      inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN,
+		ResourcePrefixOsUpdateRun:      inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN,
 	}
 
 	resourceKind, ok := mapPrefixToResourceKind[prefix]
@@ -256,7 +256,7 @@ func stringToPrefix(s string) (ResourcePrefix, error) {
 		string(ResourcePrefixTenant):           ResourcePrefixTenant,
 		string(ResourcePrefixOsUpdatePolicy):   ResourcePrefixOsUpdatePolicy,
 		string(ResourcePrefixCustomConfig):     ResourcePrefixCustomConfig,
-    string(ResourcePrefixOsUpdateRun):      ResourcePrefixOsUpdateRun,
+		string(ResourcePrefixOsUpdateRun):      ResourcePrefixOsUpdateRun,
 	}
 
 	prefix, ok := mapStringToPrefix[s]
@@ -849,7 +849,7 @@ func GetResourceFromKind(resourceType inv_v1.ResourceKind) (*inv_v1.Resource, er
 
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY: {Resource: &inv_v1.Resource_OsUpdatePolicy{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:   {Resource: &inv_v1.Resource_CustomConfig{}},
-    inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:    {Resource: &inv_v1.Resource_OsUpdateRun{}},
+		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:    {Resource: &inv_v1.Resource_OsUpdateRun{}},
 	}
 	if res, ok := invResMap[resourceType]; ok {
 		return res, nil
@@ -941,10 +941,10 @@ func GetSetResource(resource *inv_v1.Resource) (proto.Message, error) {
 		},
 		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG: func(r *inv_v1.Resource) proto.Message {
 			return r.GetCustomConfig()
-    },
+		},
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN: func(r *inv_v1.Resource) proto.Message {
-			return r.GetOsUpdatePolicy()
-		}
+			return r.GetOsUpdateRun()
+		},
 	}
 	convert, ok := kindToResource[kind]
 	if !ok {

@@ -225,7 +225,7 @@ const (
 	CustomConfigResourceFieldCreatedAt   = "created_at"
 	CustomConfigResourceFieldUpdatedAt   = "updated_at"
 	CustomConfigResourceEdgeInstances    = "instances"
-  
+
 	// Fields and Edges constants for "OSUpdateRunResource"
 	OSUpdateRunResourceFieldResourceId      = "resource_id"
 	OSUpdateRunResourceFieldName            = "name"

@@ -443,8 +443,9 @@ class CustomConfigResource(betterproto.Message):
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
     instances: List["InstanceResource"] = betterproto.message_field(500)
-      
 
+
+@dataclass
 class OSUpdateRunResource(betterproto.Message):
     resource_id: str = betterproto.string_field(1)
     name: str = betterproto.string_field(2)
@@ -460,4 +461,3 @@ class OSUpdateRunResource(betterproto.Message):
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
-

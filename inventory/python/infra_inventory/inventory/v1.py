@@ -167,7 +167,7 @@ class Resource(betterproto.Message):
         190, group="resource"
     )
     os_update_run: v1.OSUpdateRunResource = betterproto.message_field(
-        190, group="resource"
+        200, group="resource"
     )
 
 
