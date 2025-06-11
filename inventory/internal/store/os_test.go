@@ -60,7 +60,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 }]`,
 				FixedCvesUrl: "/files/fixed_cves.json",
 				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
-				Metadata:     `{"key1":"value1","key2":"value2"}`,
+				Metadata:     `{"release":"0.0.0-dev","version":"0.0.3"}`,
 			},
 			valid: true,
 		},

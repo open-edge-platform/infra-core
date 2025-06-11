@@ -37,6 +37,7 @@ enum PowerState {
   POWER_STATE_SLEEP = 4;
   POWER_STATE_HIBERNATE = 5;
   POWER_STATE_RESET = 6;
+  POWER_STATE_POWER_CYCLE = 7;
 }
 
 enum PowerCommandPolicy {
@@ -626,12 +627,17 @@ message InstanceResource {
   os.v1.OperatingSystemResource desired_os = 11 [(ent.edge) = {
     unique: true
     required: true
-  }]; // OS resource that should be installed to this Instance.
+  }]; // Deprecated, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
 
   os.v1.OperatingSystemResource current_os = 25 [(ent.edge) = {
     unique: true
     required: false
-  }]; // OS resource that is currently installed for this Instance.
+  }]; // Deprecated, use os field instead. OS resource that is currently installed for this Instance.
+
+  os.v1.OperatingSystemResource os = 12 [(ent.edge) = {
+    unique: true
+    required: false
+  }]; // OS resource that is installed for this Instance.
 
   os.v1.SecurityFeature security_feature = 14 [(ent.field) = {
     optional: true
@@ -674,7 +680,7 @@ message InstanceResource {
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 100000},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ]; // JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
+  ]; // Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
 
   // A group of fields describing the Instance trusted_attestation status.
   // trusted_attestation_status, trusted_attestation_status_indicator and
@@ -695,7 +701,7 @@ message InstanceResource {
   string existing_cves = 42 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\n{}\\[\\]]+$"
       max_len: 20000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
@@ -705,6 +711,22 @@ message InstanceResource {
     unique: true
     required: false
   }]; // OS Update Policy associated with this Instance.
+
+  string runtime_packages = 51 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\n{}\\[\\]]+$"
+      max_len: 500000
+    }
+  ]; // The packages available on the Instance at runtime, represented as a JSON list.
+
+  string os_update_available = 52 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\\\ \\n]+$'
+      max_len: 10000
+    }
+  ]; // Details about OS Updates available for this Instance. If empty, there are no updates available.
 
   string tenant_id = 100 [
     (ent.field) = {

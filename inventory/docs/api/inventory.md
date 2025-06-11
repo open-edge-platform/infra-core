@@ -711,8 +711,9 @@ host or hypervisor.
 | vm_cpu_cores | [uint32](#uint32) |  | Number of CPU cores. Only applicable to VM instances. |
 | vm_storage_bytes | [uint64](#uint64) |  | Storage quantity (primary), in bytes. Only applicable to VM instances. |
 | host | [HostResource](#compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
-| desired_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. |
-| current_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that is currently installed for this Instance. |
+| desired_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | Deprecated, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance. |
+| current_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | Deprecated, use os field instead. OS resource that is currently installed for this Instance. |
+| os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that is installed for this Instance. |
 | security_feature | [os.v1.SecurityFeature](#os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and instance_status_timestamp should always be updated in one shot. If instance_status is empty during initialization, it is automatically set to a default value.
 
@@ -729,7 +730,7 @@ textual message that describes the provisioning status of Instance. Set by RMs o
 textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [uint64](#uint64) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
-| update_status_detail | [string](#string) |  | JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
+| update_status_detail | [string](#string) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | A group of fields describing the Instance trusted_attestation status. trusted_attestation_status, trusted_attestation_status_indicator and trusted_attestation_status_timestamp should always be updated in one shot. If trusted_attestation_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
@@ -740,6 +741,8 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | localaccount | [localaccount.v1.LocalAccountResource](#localaccount-v1-LocalAccountResource) |  | Local Account associated with this Instance |
 | existing_cves | [string](#string) |  | The CVEs that are currently present on the Instance, encoded as a JSON list. |
 | os_update_policy | [OSUpdatePolicyResource](#compute-v1-OSUpdatePolicyResource) |  | OS Update Policy associated with this Instance. |
+| runtime_packages | [string](#string) |  | The packages available on the Instance at runtime, represented as a JSON list. |
+| os_update_available | [string](#string) |  | Details about OS Updates available for this Instance. If empty, there are no updates available. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | instance_status_detail | [string](#string) |  | textual message that gives detailed status of the instance&#39;s software components. |
 | created_at | [string](#string) |  | Creation timestamp |
@@ -948,6 +951,7 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | POWER_STATE_SLEEP | 4 |  |
 | POWER_STATE_HIBERNATE | 5 |  |
 | POWER_STATE_RESET | 6 |  |
+| POWER_STATE_POWER_CYCLE | 7 |  |
 
 
 
