@@ -588,12 +588,14 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 		ClientUuid: clientUUID,
 	}
 
-	clientCtx := tenant.AddTenantIDToContext(client.streamCtx, clientUUID)
 	ticker := time.NewTicker(heartbeatInterval)
 	defer ticker.Stop()
 	for {
 		select {
 		case <-ticker.C:
+			clientCtxDeadline, cancel := context.WithDeadline(client.streamCtx, time.Now().Add(backoffInterval))
+			clientCtx := tenant.AddTenantIDToContext(clientCtxDeadline, clientUUID)
+
 			err := backoff.Retry(func() error {
 				zlog.Debug().Msgf("Heartbeat client UUID: %s", clientUUID)
 				_, errHearbeat := client.invAPI.Heartbeat(clientCtx, heartbeetReq)
@@ -601,8 +603,10 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(backoffInterval), backoffRetries))
 			if err != nil {
 				zlog.InfraErr(err).Msgf("failed to heartbeat client UUID: %s", clientUUID)
+				cancel() // cancel the context to avoid leaking resources
 				return err
 			}
+			cancel() // cancel the context to avoid leaking resources
 		case <-client.stream.Context().Done():
 			zlog.InfraSec().Info().Msgf("finished to heartbeat client UUID: %s", clientUUID)
 			return nil
