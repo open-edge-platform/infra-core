@@ -304,6 +304,9 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 	if osru.mutation.InstalledPackagesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldInstalledPackages, field.TypeString)
 	}
+	if osru.mutation.InstalledPackagesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldInstalledPackagesURL, field.TypeString)
+	}
 	if osru.mutation.SecurityFeatureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldSecurityFeature, field.TypeEnum)
 	}
@@ -669,6 +672,9 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if osruo.mutation.InstalledPackagesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldInstalledPackages, field.TypeString)
+	}
+	if osruo.mutation.InstalledPackagesURLCleared() {
+		_spec.ClearField(operatingsystemresource.FieldInstalledPackagesURL, field.TypeString)
 	}
 	if osruo.mutation.SecurityFeatureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldSecurityFeature, field.TypeEnum)

@@ -606,6 +606,7 @@ var (
 		{Name: "profile_name", Type: field.TypeString, Nullable: true},
 		{Name: "profile_version", Type: field.TypeString, Nullable: true},
 		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
+		{Name: "installed_packages_url", Type: field.TypeString, Nullable: true},
 		{Name: "security_feature", Type: field.TypeEnum, Nullable: true, Enums: []string{"SECURITY_FEATURE_UNSPECIFIED", "SECURITY_FEATURE_NONE", "SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION"}},
 		{Name: "os_type", Type: field.TypeEnum, Nullable: true, Enums: []string{"OS_TYPE_UNSPECIFIED", "OS_TYPE_MUTABLE", "OS_TYPE_IMMUTABLE"}},
 		{Name: "os_provider", Type: field.TypeEnum, Enums: []string{"OS_PROVIDER_KIND_UNSPECIFIED", "OS_PROVIDER_KIND_INFRA", "OS_PROVIDER_KIND_LENOVO"}},
@@ -629,7 +630,7 @@ var (
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[23]},
 			},
 		},
 	}
