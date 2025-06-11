@@ -595,6 +595,7 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 		select {
 		case <-ticker.C:
 			err := backoff.Retry(func() error {
+				zlog.Debug().Msgf("Heartbeat client UUID: %s", clientUUID)
 				_, errHearbeat := client.invAPI.Heartbeat(clientCtx, heartbeetReq)
 				return errHearbeat
 			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(backoffInterval), backoffRetries))
@@ -603,6 +604,7 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 				return err
 			}
 		case <-client.stream.Context().Done():
+			zlog.InfraSec().Info().Msgf("finished to heartbeat client UUID: %s", clientUUID)
 			return nil
 		}
 	}
@@ -660,6 +662,7 @@ func (client *inventoryClient) register() error {
 	go func(clientUUID string) {
 		if err := client.heartbeat(clientUUID); err != nil {
 			// heartbeat failed, close the stream and connection.
+			zlog.InfraSec().Info().Msgf("heartbeat stopped for client UUID: %s", clientUUID)
 			client.Close()
 			zlog.Fatal().Msgf("failed to heartbeat client UUID: %s", clientUUID)
 		}
