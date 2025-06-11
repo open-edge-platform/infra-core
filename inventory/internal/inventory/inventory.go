@@ -147,6 +147,7 @@ func (srv *InventorygRPCServer) ChangeSubscribeEvents(
 
 // CRUD functions
 
+//nolint:cyclop // Due to large resource list
 func (srv *InventorygRPCServer) CreateResource(
 	ctx context.Context,
 	in *inv_v1.CreateResourceRequest,
