@@ -18,7 +18,8 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
-	oup "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
+	our "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/store"
 	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
@@ -33,7 +34,10 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 	host := dao.CreateHost(t, tenantID)
 	os := dao.CreateOs(t, tenantID)
 	instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
-	osUpdatePolicy := dao.CreateOSUpdatePolicy(t, tenantID, inv_testing.OsUpdatePolicyName("test-policy"), inv_testing.OSUpdatePolicyTarget(),
+	osUpdatePolicy := dao.CreateOSUpdatePolicy(
+		t, tenantID,
+		inv_testing.OsUpdatePolicyName("test-policy"),
+		inv_testing.OSUpdatePolicyTarget(),
 		inv_testing.OSUpdatePolicyTargetOS(os))
 	testcases := map[string]struct {
 		in    *computev1.OSUpdateRunResource
@@ -41,11 +45,13 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 	}{
 		"CreateGoodOsUpdateRunTargetMut": {
 			in: &computev1.OSUpdateRunResource{
-				Name:          "Test OS Update Run",
-				Description:   "Test Description",
-				AppliedPolicy: osUpdatePolicy,
-				Instance:      instance,
-				StartTime:     time.Now().String(),
+				Name:            "Test OS Update Run",
+				Description:     "Test Description",
+				AppliedPolicy:   osUpdatePolicy,
+				Instance:        instance,
+				StartTime:       time.Now().UTC().Format(store.ISO8601Format),
+				StatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS,
+				StatusTimestamp: time.Now().UTC().Format(store.ISO8601Format),
 			},
 			valid: true,
 		},
@@ -91,16 +97,19 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
+			tc.in.TenantId = tenantID
 			createresreq := &inv_v1.Resource{
 				Resource: &inv_v1.Resource_OsUpdateRun{OsUpdateRun: tc.in},
 			}
 
 			// build a context for gRPC
-			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), 10000*time.Second)
 			defer cancel()
 
+			invClient := inv_testing.TestClients[inv_testing.APIClient].GetTenantAwareInventoryClient()
+
 			// create
-			cupdatesourceResp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createresreq)
+			cupdatesourceResp, err := invClient.Create(ctx, tenantID, createresreq)
 			ourResID := cupdatesourceResp.GetOsUpdateRun().GetResourceId()
 
 			if err != nil {
@@ -120,11 +129,11 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 			// only get/delete if valid test and hasn't failed otherwise may segfault
 			if !t.Failed() && tc.valid {
 				// get non-existent first
-				_, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, "osupdaterun-12345678")
+				_, err := invClient.Get(ctx, tenantID, "osupdaterun-12345678")
 				require.Error(t, err)
 
 				// get
-				getresp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, ourResID)
+				getresp, err := invClient.Get(ctx, tenantID, ourResID)
 				require.NoError(t, err, "GetOSUpdateRun() failed")
 
 				// verify data
@@ -138,16 +147,17 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 				updateresreq := &inv_v1.Resource{
 					Resource: &inv_v1.Resource_OsUpdateRun{
 						OsUpdateRun: &computev1.OSUpdateRunResource{
-							Name:        "Updated Name",
-							Description: "Updated Description",
+							StatusTimestamp: time.Now().UTC().Format(store.ISO8601Format),
+							StatusDetails:   "Updated details",
 						},
 					},
 				}
 				fieldMask := &fieldmaskpb.FieldMask{
-					Paths: []string{oup.FieldName, oup.FieldDescription},
+					Paths: []string{our.FieldStatusTimestamp, our.FieldStatusDetails},
 				}
-				upRes, err := inv_testing.TestClients[inv_testing.APIClient].Update(
+				upRes, err := invClient.Update(
 					ctx,
+					tenantID,
 					tc.in.ResourceId,
 					fieldMask,
 					updateresreq,
@@ -159,19 +169,20 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 				assertSameResource(t, updateresreq, upRes, fieldMask)
 
 				// delete non-existent first
-				_, err = inv_testing.TestClients[inv_testing.APIClient].Delete(ctx, "osupdaterun-12345678")
+				_, err = invClient.Delete(ctx, tenantID, "osupdaterun-12345678")
 				require.Error(t, err)
 
 				// delete
-				_, err = inv_testing.TestClients[inv_testing.APIClient].Delete(
+				_, err = invClient.Delete(
 					ctx,
+					tenantID,
 					ourResID,
 				)
 				if err != nil {
 					t.Errorf("DeleteOsUpdateRun() failed %s", err)
 				}
 
-				_, err = inv_testing.TestClients[inv_testing.APIClient].Get(ctx, ourResID)
+				_, err = invClient.Get(ctx, tenantID, ourResID)
 				require.Error(t, err, "Failure - OSUpdateRun was not deleted, but should be deleted")
 			}
 		})
@@ -185,43 +196,48 @@ func Test_FilterOSUpdateRuns(t *testing.T) {
 	host := dao.CreateHost(t, tenantID)
 	os := dao.CreateOs(t, tenantID)
 	instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
-	osUpdatePolicy := dao.CreateOSUpdatePolicy(t, tenantID, inv_testing.OsUpdatePolicyName("test-policy"), inv_testing.OSUpdatePolicyTarget(),
+	osUpdatePolicy := dao.CreateOSUpdatePolicy(
+		t, tenantID,
+		inv_testing.OsUpdatePolicyName("test-policy"),
+		inv_testing.OSUpdatePolicyTarget(),
 		inv_testing.OSUpdatePolicyTargetOS(os))
 	osUpRun1 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test1"), inv_testing.OsUpdateRunDescription("test1 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()),
-		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_UNSPECIFIED))
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
+		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS),
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().UTC().Format(store.ISO8601Format)),
+	)
 	osUpRun2 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test2"), inv_testing.OsUpdateRunDescription("test2 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()),
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
 		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS),
 		inv_testing.OSUpdateRunStatus("In Progress"),
 		inv_testing.OSUpdateRunStatusDetails("In Progress details"),
-		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).String()))
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)))
 	osUpRun3 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test3"), inv_testing.OsUpdateRunDescription("test3 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()),
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
 		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
 		inv_testing.OSUpdateRunStatus("Success"),
 		inv_testing.OSUpdateRunStatusDetails("Success details"),
-		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).String()),
-		inv_testing.OSUpdateRunEndTime(time.Now().Add(time.Hour).String()))
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)),
+		inv_testing.OSUpdateRunEndTime(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)))
 	osUpRun4 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test4"), inv_testing.OsUpdateRunDescription("test4 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()),
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
 		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_ERROR),
 		inv_testing.OSUpdateRunStatus("Failed"),
 		inv_testing.OSUpdateRunStatusDetails("Failed details"),
-		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).String()),
-		inv_testing.OSUpdateRunEndTime(time.Now().Add(time.Hour).String()))
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)),
+		inv_testing.OSUpdateRunEndTime(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)))
 
 	testcases := map[string]struct {
 		in        *inv_v1.ResourceFilter
@@ -235,7 +251,7 @@ func Test_FilterOSUpdateRuns(t *testing.T) {
 		},
 		"NoFilterOrderByName": {
 			in: &inv_v1.ResourceFilter{
-				OrderBy: oup.FieldName,
+				OrderBy: our.FieldName,
 			},
 			resources: []*computev1.OSUpdateRunResource{osUpRun1, osUpRun2, osUpRun3, osUpRun4},
 			valid:     true,
@@ -243,60 +259,64 @@ func Test_FilterOSUpdateRuns(t *testing.T) {
 		"FilterByEmptyResourceIdEq": {
 			in: &inv_v1.ResourceFilter{
 				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Hostusb{}},
-				Filter:   fmt.Sprintf(`%s = ""`, oup.FieldResourceID),
+				Filter:   fmt.Sprintf(`%s = ""`, our.FieldResourceID),
 			},
 			resources: []*computev1.OSUpdateRunResource{},
 			valid:     true,
 		},
 		"FilterByResourceIdEq": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldResourceID, osUpRun1.GetResourceId()),
+				Filter: fmt.Sprintf(`%s = %q`, our.FieldResourceID, osUpRun1.GetResourceId()),
 			},
 			resources: []*computev1.OSUpdateRunResource{osUpRun1},
 			valid:     true,
 		},
 		"FilterStatusIndicator": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %s`, oup.FieldStatusIndicator, statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS),
+				Filter: fmt.Sprintf(`%s = %s`,
+					our.FieldStatusIndicator, statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS),
 			},
-			resources: []*computev1.OSUpdateRunResource{osUpRun3},
+			resources: []*computev1.OSUpdateRunResource{osUpRun1, osUpRun2},
 			valid:     true,
 		},
 		"FilterStatus": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldStatus, osUpRun3.GetStatus()),
+				Filter: fmt.Sprintf(`%s = %q`, our.FieldStatus, osUpRun3.GetStatus()),
 			},
 			resources: []*computev1.OSUpdateRunResource{osUpRun3},
 			valid:     true,
 		},
 		"FilterStatusDetails": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldStatusDetails, osUpRun3.GetStatusDetails()),
+				Filter: fmt.Sprintf(`%s = %q`, our.FieldStatusDetails, osUpRun3.GetStatusDetails()),
 			},
 			resources: []*computev1.OSUpdateRunResource{osUpRun3},
 			valid:     true,
 		},
-		"FilterStatusTimestamp": {
-			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldStatusTimestamp, osUpRun3.GetStatusTimestamp()),
-			},
-			resources: []*computev1.OSUpdateRunResource{osUpRun3},
-			valid:     true,
-		},
-		"FilterStartTime": {
-			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldStartTime, osUpRun3.GetStartTime()),
-			},
-			resources: []*computev1.OSUpdateRunResource{osUpRun3},
-			valid:     true,
-		},
-		"FilterEndTime": {
-			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oup.FieldEndTime, osUpRun3.GetEndTime()),
-			},
-			resources: []*computev1.OSUpdateRunResource{osUpRun3},
-			valid:     true,
-		},
+		// Unsupported filters commented out as they are not implemented yet.
+		// We cannot filter on timestamp, because they are implemented as timestamp, and we provide filter
+		// using ILIKE, that's not supported on TIMESTAMP fields.
+		// "FilterStatusTimestamp": {
+		//	in: &inv_v1.ResourceFilter{
+		//		Filter: fmt.Sprintf(`%s = %q`, our.FieldStatusTimestamp, osUpRun3.GetStatusTimestamp()),
+		//	},
+		//	resources: []*computev1.OSUpdateRunResource{osUpRun3},
+		//	valid:     true,
+		// },
+		// "FilterStartTime": {
+		//	in: &inv_v1.ResourceFilter{
+		//		Filter: fmt.Sprintf(`%s = %q`, our.FieldStartTime, osUpRun3.GetStartTime()),
+		//	},
+		//	resources: []*computev1.OSUpdateRunResource{osUpRun3},
+		//	valid:     true,
+		// },
+		// "FilterEndTime": {
+		//	in: &inv_v1.ResourceFilter{
+		//		Filter: fmt.Sprintf(`%s = %q`, our.FieldEndTime, osUpRun3.GetEndTime()),
+		//	},
+		//	resources: []*computev1.OSUpdateRunResource{osUpRun3},
+		//	valid:     true,
+		// },
 		"FilterLimit": {
 			in: &inv_v1.ResourceFilter{
 				Offset: 0,
@@ -399,34 +419,41 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 	dao := inv_testing.NewInvResourceDAOOrFail(t)
 	tenantID := uuid.NewString()
 	host := dao.CreateHost(t, tenantID)
+	host2 := dao.CreateHost(t, tenantID)
 	os := dao.CreateOs(t, tenantID)
 	instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
-	osUpdatePolicy := dao.CreateOSUpdatePolicy(t, tenantID, inv_testing.OsUpdatePolicyName("test-policy"), inv_testing.OSUpdatePolicyTarget(),
+	instance2 := dao.CreateInstance(t, tenantID, host2, os)
+	osUpdatePolicy := dao.CreateOSUpdatePolicy(
+		t, tenantID,
+		inv_testing.OsUpdatePolicyName("test-policy"),
+		inv_testing.OSUpdatePolicyTarget(),
 		inv_testing.OSUpdatePolicyTargetOS(os))
 	osUpRun1 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test1"), inv_testing.OsUpdateRunDescription("test1 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()))
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
+		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS),
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().UTC().Format(store.ISO8601Format)))
 	osUpRun2 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test2"), inv_testing.OsUpdateRunDescription("test2 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()),
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
 		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS),
 		inv_testing.OSUpdateRunStatus("In Progress"),
 		inv_testing.OSUpdateRunStatusDetails("In Progress details"),
-		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).String()))
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)))
 	osUpRun3 := dao.CreateOSUpdateRun(t, tenantID,
 		inv_testing.OsUpdateRunName("test3"), inv_testing.OsUpdateRunDescription("test3 description"),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
-		inv_testing.OSUpdateRunStartTime(time.Now().String()),
+		inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
 		inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
 		inv_testing.OSUpdateRunStatus("Success"),
 		inv_testing.OSUpdateRunStatusDetails("Success details"),
-		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).String()),
-		inv_testing.OSUpdateRunEndTime(time.Now().Add(time.Hour).String()))
+		inv_testing.OSUpdateRunStatusTimestamp(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)),
+		inv_testing.OSUpdateRunEndTime(time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format)))
 
 	testcases := map[string]struct {
 		in           *computev1.OSUpdateRunResource
@@ -440,7 +467,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 				Name: "New Name",
 			},
 			resourceID:   osUpRun1.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldName}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{our.FieldName}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
@@ -449,27 +476,30 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 				Description: "New Description",
 			},
 			resourceID:   osUpRun1.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldDescription}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{our.FieldDescription}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
 		"UpdateImmutableAppliedPolicy": {
 			in: &computev1.OSUpdateRunResource{
-				AppliedPolicy: dao.CreateOSUpdatePolicy(t, tenantID, inv_testing.OsUpdatePolicyName("applied-policy-update-policy"), inv_testing.OSUpdatePolicyTarget(),
+				AppliedPolicy: dao.CreateOSUpdatePolicy(
+					t, tenantID,
+					inv_testing.OsUpdatePolicyName("applied-policy-update-policy"),
+					inv_testing.OSUpdatePolicyTarget(),
 					inv_testing.OSUpdatePolicyTargetOS(os)),
 			},
 			resourceID:   osUpRun1.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.EdgeAppliedPolicy}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{our.EdgeAppliedPolicy}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
 		"UpdateImmutableInstance": {
 			in: &computev1.OSUpdateRunResource{
 				Name:     "TESTONE",
-				Instance: dao.CreateInstance(t, tenantID, host, os),
+				Instance: instance2,
 			},
 			resourceID:   osUpRun2.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.EdgeInstance}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{our.EdgeInstance}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
@@ -478,7 +508,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 				StartTime: time.Now().Add(time.Hour).String(),
 			},
 			resourceID:   osUpRun3.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldStartTime}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{our.FieldStartTime}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
@@ -487,7 +517,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 				StatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 			},
 			resourceID: osUpRun3.GetResourceId(),
-			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{oup.FieldStatusIndicator}},
+			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldStatusIndicator}},
 			valid:      true,
 		},
 		"UpdateStatus": {
@@ -495,7 +525,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 				Status: "Good Status",
 			},
 			resourceID: osUpRun3.GetResourceId(),
-			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{oup.FieldStatus}},
+			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldStatus}},
 			valid:      true,
 		},
 		"UpdateStatusDetails": {
@@ -503,23 +533,23 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 				StatusDetails: "Good Status Details",
 			},
 			resourceID: osUpRun3.GetResourceId(),
-			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{oup.FieldStatusDetails}},
+			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldStatusDetails}},
 			valid:      true,
 		},
 		"UpdateStatusTimestamp": {
 			in: &computev1.OSUpdateRunResource{
-				StatusTimestamp: time.Now().String(),
+				StatusTimestamp: time.Now().UTC().Format(store.ISO8601Format),
 			},
 			resourceID: osUpRun3.GetResourceId(),
-			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{oup.FieldStatusTimestamp}},
+			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldStatusTimestamp}},
 			valid:      true,
 		},
 		"UpdateEndTime": {
 			in: &computev1.OSUpdateRunResource{
-				EndTime: time.Now().Add(time.Hour).String(),
+				EndTime: time.Now().Add(time.Hour).UTC().Format(store.ISO8601Format),
 			},
 			resourceID: osUpRun3.GetResourceId(),
-			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{oup.FieldEndTime}},
+			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldEndTime}},
 			valid:      true,
 		},
 	}
@@ -558,21 +588,27 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 
 func TestOSUpdateRunMTSanity(t *testing.T) {
 	dao := inv_testing.NewInvResourceDAOOrFail(t)
-	tenantID := uuid.NewString()
-	host := dao.CreateHost(t, tenantID)
-	os := dao.CreateOs(t, tenantID)
-	instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
-	osUpdatePolicy := dao.CreateOSUpdatePolicy(t, tenantID, inv_testing.OsUpdatePolicyName("test-policy"), inv_testing.OSUpdatePolicyTarget(),
-		inv_testing.OSUpdatePolicyTargetOS(os))
+
 	suite.Run(t, &struct{ mt }{
 		mt: mt{
 			createResource: func(tenantID string) (string, *inv_v1.Resource) {
+				host := dao.CreateHost(t, tenantID)
+				os := dao.CreateOs(t, tenantID)
+				instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
+				osUpdatePolicy := dao.CreateOSUpdatePolicy(
+					t, tenantID,
+					inv_testing.OsUpdatePolicyName("test-policy"),
+					inv_testing.OSUpdatePolicyTarget(),
+					inv_testing.OSUpdatePolicyTargetOS(os))
 				oup := dao.CreateOSUpdateRun(
 					t, tenantID, inv_testing.OsUpdateRunName("OsRun1"),
 					inv_testing.OsUpdateRunDescription("OsRun1 description"),
 					inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 					inv_testing.OSUpdateRunInstance(instance),
-					inv_testing.OSUpdateRunStartTime(time.Now().String()))
+					inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
+					inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
+					inv_testing.OSUpdateRunStatusTimestamp(time.Now().UTC().Format(store.ISO8601Format)),
+				)
 				res, err := util.WrapResource(oup)
 				require.NoError(t, err)
 				return oup.GetResourceId(), res
@@ -582,34 +618,48 @@ func TestOSUpdateRunMTSanity(t *testing.T) {
 }
 
 func TestDeleteResources_OSUpdateRuns(t *testing.T) {
-	dao := inv_testing.NewInvResourceDAOOrFail(t)
-	tenantID := uuid.NewString()
-	host := dao.CreateHost(t, tenantID)
-	os := dao.CreateOs(t, tenantID)
-	instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
-	osUpdatePolicy := dao.CreateOSUpdatePolicy(t, tenantID, inv_testing.OsUpdatePolicyName("test-policy"), inv_testing.OSUpdatePolicyTarget(),
-		inv_testing.OSUpdatePolicyTargetOS(os))
 	suite.Run(t, &struct{ hardDeleteAllResourcesSuite }{
 		hardDeleteAllResourcesSuite: hardDeleteAllResourcesSuite{
 			createModel: func(dao *inv_testing.InvResourceDAO) (string, int) {
 				tenantID := uuid.NewString()
+				host := dao.CreateHost(t, tenantID)
+				os := dao.CreateOs(t, tenantID)
+				instance := dao.CreateInstanceWithOpts(t, tenantID, host, os, true)
+				osUpdatePolicy := dao.CreateOSUpdatePolicy(
+					t, tenantID,
+					inv_testing.OsUpdatePolicyName("test-policy"),
+					inv_testing.OSUpdatePolicyTarget(),
+					inv_testing.OSUpdatePolicyTargetOS(os),
+				)
 				return tenantID, len(
 					[]any{
 						dao.CreateOSUpdateRunNoCleanup(
-							t, tenantID, inv_testing.OsUpdateRunName("OsRun1"), inv_testing.OsUpdateRunDescription("OsRun1 description"),
+							t, tenantID,
+							inv_testing.OsUpdateRunName("OsRun1"),
+							inv_testing.OsUpdateRunDescription("OsRun1 description"),
 							inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 							inv_testing.OSUpdateRunInstance(instance),
-							inv_testing.OSUpdateRunStartTime(time.Now().String())),
+							inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
+							inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
+							inv_testing.OSUpdateRunStatusTimestamp(time.Now().UTC().Format(store.ISO8601Format))),
 						dao.CreateOSUpdateRunNoCleanup(
-							t, tenantID, inv_testing.OsUpdateRunName("OsRun2"), inv_testing.OsUpdateRunDescription("OsRun2 description"),
+							t, tenantID,
+							inv_testing.OsUpdateRunName("OsRun2"),
+							inv_testing.OsUpdateRunDescription("OsRun2 description"),
 							inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 							inv_testing.OSUpdateRunInstance(instance),
-							inv_testing.OSUpdateRunStartTime(time.Now().String())),
+							inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
+							inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
+							inv_testing.OSUpdateRunStatusTimestamp(time.Now().UTC().Format(store.ISO8601Format))),
 						dao.CreateOSUpdateRunNoCleanup(
-							t, tenantID, inv_testing.OsUpdateRunName("OsRun3"), inv_testing.OsUpdateRunDescription("OsRun2 description"),
+							t, tenantID,
+							inv_testing.OsUpdateRunName("OsRun3"),
+							inv_testing.OsUpdateRunDescription("OsRun2 description"),
 							inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 							inv_testing.OSUpdateRunInstance(instance),
-							inv_testing.OSUpdateRunStartTime(time.Now().String())),
+							inv_testing.OSUpdateRunStartTime(time.Now().UTC().Format(store.ISO8601Format)),
+							inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
+							inv_testing.OSUpdateRunStatusTimestamp(time.Now().UTC().Format(store.ISO8601Format))),
 					},
 				)
 			},

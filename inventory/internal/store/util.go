@@ -262,7 +262,7 @@ type OrderOption interface {
 		localaccountresource.OrderOption |
 		osupdatepolicyresource.OrderOption |
 		customconfigresource.OrderOption |
-    osupdaterunresource.OrderOption
+		osupdaterunresource.OrderOption
 }
 
 // GetOrderByOptions takes an AIP-132 compliant orderBy string and returns the

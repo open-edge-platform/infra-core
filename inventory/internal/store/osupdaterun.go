@@ -337,15 +337,3 @@ func (is *InvStore) FilterOSUpdateRuns(ctx context.Context, filter *inv_v1.Resou
 
 	return ids, *total, err
 }
-
-func getOSRunUpdateIDFromResourceID(
-	ctx context.Context, client *ent.Client, osRunUpdate *compute_v1.OSUpdateRunResource,
-) (int, error) {
-	our, qerr := client.OSUpdateRunResource.Query().
-		Where(our.ResourceID(osRunUpdate.ResourceId)).
-		Only(ctx)
-	if qerr != nil {
-		return 0, errors.Wrap(qerr)
-	}
-	return our.ID, nil
-}

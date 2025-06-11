@@ -258,7 +258,7 @@ func (srv *InventorygRPCServer) CreateResource(
 	// custom config
 	case *inv_v1.Resource_CustomConfig:
 		res, err = srv.IS.CreateCustomConfig(ctx, in.GetResource().GetCustomConfig())
-    
+
 	case *inv_v1.Resource_OsUpdateRun:
 		res, err = srv.IS.CreateOSUpdateRun(ctx, in.GetResource().GetOsUpdateRun())
 
@@ -460,11 +460,11 @@ func (srv *InventorygRPCServer) GetResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:
 		gresresp.Resource, err = srv.IS.GetCustomConfig(ctx, in.ResourceId)
-    
+
 	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
 		gresresp.Resource, err = srv.IS.GetOSUpdateRun(ctx, in.ResourceId)
 
-  default:
+	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("get resource parse error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %s", kind)
 	}
@@ -729,7 +729,7 @@ func (srv *InventorygRPCServer) doDeleteResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:
 		res, err = srv.IS.DeleteCustomConfig(ctx, in.ResourceId)
-    
+
 	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
 		res, err = srv.IS.DeleteOSUpdateRun(ctx, in.ResourceId)
 
