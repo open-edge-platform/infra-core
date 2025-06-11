@@ -755,6 +755,11 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
 		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
 	}
+	if customConfig, qerr := ins.Edges.CustomConfigOrErr(); qerr == nil {
+		for _, m := range customConfig {
+			protoInstance.CustomConfig = append(protoInstance.CustomConfig, entCustomConfigResourceToProtoCustomConfigResource(m))
+		}
+	}
 	return protoInstance
 }
 
@@ -868,4 +873,21 @@ func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePo
 		protoOsUpdatePolicy.TargetOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
 	}
 	return protoOsUpdatePolicy
+}
+
+func entCustomConfigResourceToProtoCustomConfigResource(
+	customconfig *ent.CustomConfigResource,
+) *computev1.CustomConfigResource {
+	if customconfig == nil {
+		return nil
+	}
+	protoLocalAccount := &computev1.CustomConfigResource{
+		ResourceId:  customconfig.ResourceID,
+		Name:        customconfig.Name,
+		Description: customconfig.Description,
+		Config:      customconfig.Config,
+		TenantId:    customconfig.TenantID,
+		CreatedAt:   customconfig.CreatedAt,
+	}
+	return protoLocalAccount
 }

@@ -259,6 +259,22 @@ func setEdgeLocalAccountIDForMut(
 	return nil
 }
 
+func setEdgeCustomConfigIDsForMut(
+	ctx context.Context,
+	client *ent.Client,
+	mut *ent.InstanceResourceMutation,
+	customConfigs []*computev1.CustomConfigResource,
+) error {
+	for _, cc := range customConfigs {
+		ccID, err := getCustomConfigIDFromResourceID(ctx, client, cc)
+		if err != nil {
+			return errors.Wrap(err)
+		}
+		mut.AddCustomConfigIDs(ccID)
+	}
+	return nil
+}
+
 func setEdgeHostIDForMut(ctx context.Context, client *ent.Client, mut ent.Mutation, hostres *computev1.HostResource) error {
 	if hostres == nil {
 		return nil
