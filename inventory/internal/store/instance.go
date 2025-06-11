@@ -262,7 +262,8 @@ func (is *InvStore) UpdateInstance(
 				return wrapped, booleans.Pointer(true), nil
 			}
 
-			if isNotValidInstanceTransition(fieldmask, entity, in, id) != nil {
+			err = isNotValidInstanceTransition(fieldmask, entity, in, id)
+			if err != nil {
 				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
 					id, entity.CurrentState, in.DesiredState).Msgf("UpdateInstance")
 				return nil, booleans.Pointer(false), err
