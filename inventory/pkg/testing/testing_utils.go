@@ -1033,7 +1033,7 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 ) *computev1.InstanceResource {
 	tb.Helper()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1000)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
 	// a default Instance resource, can be overwritten by opts
