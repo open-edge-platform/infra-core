@@ -88,6 +88,8 @@ const (
 	EdgeLocalaccount = "localaccount"
 	// EdgeOsUpdatePolicy holds the string denoting the os_update_policy edge name in mutations.
 	EdgeOsUpdatePolicy = "os_update_policy"
+	// EdgeCustomConfig holds the string denoting the custom_config edge name in mutations.
+	EdgeCustomConfig = "custom_config"
 	// Table holds the table name of the instanceresource in the database.
 	Table = "instance_resources"
 	// HostTable is the table that holds the host relation/edge.
@@ -146,6 +148,11 @@ const (
 	OsUpdatePolicyInverseTable = "os_update_policy_resources"
 	// OsUpdatePolicyColumn is the table column denoting the os_update_policy relation/edge.
 	OsUpdatePolicyColumn = "instance_resource_os_update_policy"
+	// CustomConfigTable is the table that holds the custom_config relation/edge. The primary key declared below.
+	CustomConfigTable = "instance_resource_custom_config"
+	// CustomConfigInverseTable is the table name for the CustomConfigResource entity.
+	// It exists in this package in order to avoid circular dependency with the "customconfigresource" package.
+	CustomConfigInverseTable = "custom_config_resources"
 )
 
 // Columns holds all SQL columns for instanceresource fields.
@@ -192,6 +199,12 @@ var ForeignKeys = []string{
 	"instance_resource_localaccount",
 	"instance_resource_os_update_policy",
 }
+
+var (
+	// CustomConfigPrimaryKey and CustomConfigColumn2 are the table columns denoting the
+	// primary key for the custom_config relation (M2M).
+	CustomConfigPrimaryKey = []string{"instance_resource_id", "custom_config_resource_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {
@@ -621,6 +634,20 @@ func ByOsUpdatePolicyField(field string, opts ...sql.OrderTermOption) OrderOptio
 		sqlgraph.OrderByNeighborTerms(s, newOsUpdatePolicyStep(), sql.OrderByField(field, opts...))
 	}
 }
+
+// ByCustomConfigCount orders the results by custom_config count.
+func ByCustomConfigCount(opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborsCount(s, newCustomConfigStep(), opts...)
+	}
+}
+
+// ByCustomConfig orders the results by custom_config terms.
+func ByCustomConfig(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newCustomConfigStep(), append([]sql.OrderTerm{term}, terms...)...)
+	}
+}
 func newHostStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
@@ -675,5 +702,12 @@ func newOsUpdatePolicyStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(OsUpdatePolicyInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.M2O, false, OsUpdatePolicyTable, OsUpdatePolicyColumn),
+	)
+}
+func newCustomConfigStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(CustomConfigInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.M2M, false, CustomConfigTable, CustomConfigPrimaryKey...),
 	)
 }
