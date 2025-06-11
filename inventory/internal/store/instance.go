@@ -262,30 +262,10 @@ func (is *InvStore) UpdateInstance(
 				return wrapped, booleans.Pointer(true), nil
 			}
 
-			if isNotValidInstanceTransition(fieldmask, entity, in) {
+			if isNotValidInstanceTransition(fieldmask, entity, in, id) != nil {
 				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
 					id, entity.CurrentState, in.DesiredState).Msgf("UpdateInstance")
-				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
-						id, entity.CurrentState, in.DesiredState)
-			}
-
-			if isNotValidLocalAccountUpdate(fieldmask, entity) {
-				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
-					id, entity.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
-				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
-						id, in.GetLocalaccount(), entity.CurrentState,
-					)
-			}
-
-			if isNotValidCustomConfigUpdate(fieldmask, entity) {
-				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
-					id, entity.CurrentState, in.GetCustomConfig()).Msgf("UpdateInstance")
-				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s CustomConfig is not allowed %s, currentState: %s",
-						id, in.GetCustomConfig(), entity.CurrentState,
-					)
+				return nil, booleans.Pointer(false), err
 			}
 
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
@@ -633,26 +613,34 @@ func isNotValidInstanceTransition(
 	fieldmask *fieldmaskpb.FieldMask,
 	instanceq *ent.InstanceResource,
 	in *computev1.InstanceResource,
-) bool {
-	// transition from Untrusted to any other state than DELETED is not allowed
-	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
-		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
-		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
-}
+	id string,
+) error {
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) {
+		if instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
+			in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED {
+			zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+				id, instanceq.CurrentState, in.DesiredState).Msgf("UpdateInstance")
+			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
+				id, instanceq.CurrentState, in.DesiredState)
+		}
+	}
 
-func isNotValidLocalAccountUpdate(
-	fieldmask *fieldmaskpb.FieldMask,
-	instanceq *ent.InstanceResource,
-) bool {
-	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
-		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
-}
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) {
+		if instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+			zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+				id, instanceq.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
+			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
+				id, in.GetLocalaccount(), instanceq.CurrentState)
+		}
+	}
 
-func isNotValidCustomConfigUpdate(
-	fieldmask *fieldmaskpb.FieldMask,
-	instanceq *ent.InstanceResource,
-) bool {
-	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) &&
-		(instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
-			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED)
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
+		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
+			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s CustomConfig is not allowed %s, currentState: %s",
+				id, in.GetCustomConfig(), instanceq.CurrentState)
+		}
+	}
+
+	return nil
 }
