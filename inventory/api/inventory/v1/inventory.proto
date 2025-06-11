@@ -507,9 +507,7 @@ message DeleteAllResourcesResponse {}
 
 message HeartbeatRequest {
   // The UUID of the client.
-  string client_uuid = 1 [
-    (buf.validate.field).string = {uuid: true}
-  ];
+  string client_uuid = 1 [(buf.validate.field).string = {uuid: true}];
 }
 
 message HeartbeatResponse {}
