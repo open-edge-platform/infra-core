@@ -1073,6 +1073,7 @@ message OSUpdatePolicyResource {
     ]
   }]; // Update timestamp
 }
+
 // ---------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------- Custom Config Resources -----------------------------------------------
 message CustomConfigResource {
@@ -1108,9 +1109,7 @@ message CustomConfigResource {
       optional: false
       immutable: true
     },
-    (buf.validate.field).string = {
-      max_bytes: 40
-    },
+    (buf.validate.field).string = {max_bytes: 40},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
