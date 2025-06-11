@@ -79,6 +79,34 @@ deny if {
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
+# deny updates to the currentAmtState via northbound API
+deny if {
+	input.resource.host
+	input.resource.host.currentAmtState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the desiredAmtState via southbound API
+deny if {
+	input.resource.host
+	input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+# deny if a amtSku is created/updated via northbound API
+deny if {
+	input.resource.host
+	input.resource.host.amtSku
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny if a powerCommandPolicy is created/updated via southbound API
+deny if {
+	input.resource.host
+	input.resource.host.powerCommandPolicy
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
 # deny if TC client tries to create a resource that is not a tenant, provider or telemetryGroup
 deny if {
     not input.resource.tenant
