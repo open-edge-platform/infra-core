@@ -116,9 +116,10 @@ func (mts *mt) TestUpdateResourceOwnedByOtherTenant() {
 	anyResource := mts.resources[0]
 
 	if host, ok := anyResource.resource.Resource.(*inv_v1.Resource_Host); ok {
-		// Host Update with UUID & SN fields is not allowed - remove fields from Host resource
+		// Host Update with UUID & SN & AmtSku fields is not allowed - remove fields from Host resource
 		host.Host.Uuid = ""
 		host.Host.SerialNumber = ""
+		host.Host.AmtSku = ""
 		anyResource.resource = &inv_v1.Resource{Resource: host}
 	}
 
