@@ -135,11 +135,10 @@ isException if {
 }
 
 # Exception 2
-# This rule allows southbound API to UPDATE only the watcherOsmanager field in the Tenant resource
+# This rule allows southbound API to UPDATE the watcherOsmanager field in the Tenant resource
 isException if {
 	input.Method == "UPDATE"
 	input.resource.tenant
-	input.resource.tenant.watcherOsmanager
 	not input.resource.tenant.desiredState
 	not input.resource.tenant.currentState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"

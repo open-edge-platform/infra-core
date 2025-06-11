@@ -1708,7 +1708,7 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 			resource: &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Tenant{
 					Tenant: &tenantv1.Tenant{
-						WatcherOsmanager: true,
+						WatcherOsmanager: false,
 					},
 				},
 			},
