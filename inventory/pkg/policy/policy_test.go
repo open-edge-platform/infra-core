@@ -721,6 +721,62 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 			resourceID: hostID,
 			valid:      false,
 		},
+		"Test_ClientAPI_Create_Host_Fail14": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:         "host",
+						SerialNumber: "12345678",
+						AmtSku:       "vPRO Corporate 16.5.2",
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Create_Host_Success13": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:         "host",
+						SerialNumber: "12345678",
+						AmtSku:       "vPRO Corporate 16.5.2",
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientAPI_Create_Host_Success14": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:               "host",
+						SerialNumber:       "12345678",
+						PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientRM_Create_Host_Fail15": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:               "host",
+						SerialNumber:       "12345678",
+						PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
 		"Test_ClientAPI_Register_Host_Success1": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
 			resource: &inv_v1.Resource{
@@ -1514,6 +1570,58 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 			},
 			resourceID: hostID,
 			valid:      true,
+		},
+		"Test_ClientAPI_Update_Host_Fail15": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:   "host",
+						AmtSku: "vPRO Corporate 16.5.2",
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
+		},
+		"Test_ClientRM_Update_Host_Success12": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:   "host",
+						AmtSku: "vPRO Corporate 16.5.2",
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientAPI_Update_Host_Success13": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:               "host",
+						PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      true,
+		},
+		"Test_ClientRM_Update_Host_Fail16": {
+			cliendKind: inv_v1.ClientKind_CLIENT_KIND_RESOURCE_MANAGER,
+			resource: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:               "host",
+						PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+					},
+				},
+			},
+			resourceID: hostID,
+			valid:      false,
 		},
 		"Test_ClientAPI_Update_Tenant_Fail1": {
 			cliendKind: inv_v1.ClientKind_CLIENT_KIND_API,
