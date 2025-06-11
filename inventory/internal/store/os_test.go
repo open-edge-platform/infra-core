@@ -254,7 +254,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 					},
 				}
 				fieldMask := &fieldmaskpb.FieldMask{
-					Paths: []string{oss.FieldName, oss.FieldInstalledPackages},
+					Paths: []string{oss.FieldUpdateSources, oss.FieldInstalledPackages},
 				}
 				upRes, err := inv_testing.TestClients[inv_testing.APIClient].Update(
 					ctx,
@@ -512,28 +512,16 @@ func Test_UpdateOs(t *testing.T) {
 		valid        bool
 		expErrorCode codes.Code
 	}{
-		"UpdateName": {
-			in: &os_v1.OperatingSystemResource{
-				Name:        "Updated Name",
-				Sha256:      inv_testing.RandomSha256v3,
-				ProfileName: "Test OS profile name 3",
-			},
-			resourceID: osResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{oss.FieldName},
-			},
-			valid: true,
-		},
 		"UpdateMultipleFields": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Updated Name 2",
+				Name:          "Updated Name",
 				KernelCommand: "linux",
 				UpdateSources: []string{"update 2"},
 			},
 			resourceID: osResID,
 			fieldMask: &fieldmaskpb.FieldMask{
 				Paths: []string{
-					oss.FieldKernelCommand, oss.FieldName, oss.FieldUpdateSources,
+					oss.FieldKernelCommand, oss.FieldUpdateSources,
 				},
 			},
 			valid: true,
@@ -546,6 +534,19 @@ func Test_UpdateOs(t *testing.T) {
 			fieldMask: &fieldmaskpb.FieldMask{
 				Paths: []string{
 					oss.FieldSecurityFeature,
+				},
+			},
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
+		"UpdateImmutableNameFail": {
+			in: &os_v1.OperatingSystemResource{
+				Name: "Updated Name",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					oss.FieldName,
 				},
 			},
 			valid:        false,
@@ -963,14 +964,13 @@ func Test_Create_Get_Delete_Update_Os_Install_Packages(t *testing.T) {
 				updateresreq := &inv_v1.Resource{
 					Resource: &inv_v1.Resource_Os{
 						Os: &os_v1.OperatingSystemResource{
-							Name:              "Updated Name",
 							InstalledPackages: "intel-opencl-icd-updated\nintel-level-zero-gpu-updated\nlevel-zero-updated",
 						},
 					},
 				}
 
 				fieldMask := &fieldmaskpb.FieldMask{
-					Paths: []string{oss.FieldName, oss.FieldInstalledPackages},
+					Paths: []string{oss.FieldInstalledPackages},
 				}
 
 				upRes, err := inv_testing.TestClients[inv_testing.APIClient].Update(
