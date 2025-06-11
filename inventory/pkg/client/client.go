@@ -28,6 +28,7 @@ import (
 	inv_errors "github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/filters"
@@ -587,13 +588,14 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 		ClientUuid: clientUUID,
 	}
 
+	clientCtx := tenant.AddTenantIDToContext(client.streamCtx, clientUUID)
 	ticker := time.NewTicker(heartbeatInterval)
 	defer ticker.Stop()
 	for {
 		select {
 		case <-ticker.C:
 			err := backoff.Retry(func() error {
-				_, errHearbeat := client.invAPI.Heartbeat(client.streamCtx, heartbeetReq)
+				_, errHearbeat := client.invAPI.Heartbeat(clientCtx, heartbeetReq)
 				return errHearbeat
 			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(backoffInterval), backoffRetries))
 			if err != nil {
