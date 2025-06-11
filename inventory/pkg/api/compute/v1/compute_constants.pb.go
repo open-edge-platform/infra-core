@@ -174,6 +174,7 @@ const (
 	InstanceResourceEdgeOsUpdatePolicy                     = "os_update_policy"
 	InstanceResourceFieldRuntimePackages                   = "runtime_packages"
 	InstanceResourceFieldOsUpdateAvailable                 = "os_update_available"
+	InstanceResourceEdgeCustomConfig                       = "custom_config"
 	InstanceResourceFieldTenantId                          = "tenant_id"
 	InstanceResourceFieldInstanceStatusDetail              = "instance_status_detail"
 	InstanceResourceFieldCreatedAt                         = "created_at"
@@ -214,4 +215,14 @@ const (
 	OSUpdatePolicyResourceFieldTenantId        = "tenant_id"
 	OSUpdatePolicyResourceFieldCreatedAt       = "created_at"
 	OSUpdatePolicyResourceFieldUpdatedAt       = "updated_at"
+
+	// Fields and Edges constants for "CustomConfigResource"
+	CustomConfigResourceFieldResourceId  = "resource_id"
+	CustomConfigResourceFieldName        = "name"
+	CustomConfigResourceFieldConfig      = "config"
+	CustomConfigResourceFieldDescription = "description"
+	CustomConfigResourceFieldTenantId    = "tenant_id"
+	CustomConfigResourceFieldCreatedAt   = "created_at"
+	CustomConfigResourceFieldUpdatedAt   = "updated_at"
+	CustomConfigResourceEdgeInstances    = "instances"
 )

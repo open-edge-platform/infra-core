@@ -728,6 +728,10 @@ message InstanceResource {
     }
   ]; // Details about OS Updates available for this Instance. If empty, there are no updates available.
 
+  repeated CustomConfigResource custom_config = 53 [(ent.edge) = {
+    //ref: "instances"
+  }]; // List of Custom Config associated with this Instance
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
@@ -1069,4 +1073,107 @@ message OSUpdatePolicyResource {
     ]
   }]; // Update timestamp
 }
+
 // ---------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------- Custom Config Resources -----------------------------------------------
+message CustomConfigResource {
+  option (ent.schema) = {gen: true};
+  option (infrainv.schemaExtension) = {
+    indexes: [
+      {
+        fields: [
+          "name",
+          "tenant_id"
+        ]
+        unique: true
+      },
+      {
+        unique: false
+        fields: ["tenant_id"]
+      }
+    ]
+  };
+  // resource identifier
+  string resource_id = 1 [
+    (ent.field) = {unique: true},
+    (buf.validate.field).string = {
+      pattern: "^customconfig-[0-9a-f]{8}$"
+      max_bytes: 21
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Unique name provided by admin
+  string name = 2 [
+    (ent.field) = {
+      optional: false
+      immutable: true
+    },
+    (buf.validate.field).string = {max_bytes: 40},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Configuration file.
+  string config = 3 [
+    (ent.field) = {
+      optional: false
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 16384
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Config Description
+  string description = 4 [
+    (ent.field) = {
+      optional: true
+      immutable: false
+    },
+    (buf.validate.field).string = {
+      min_len: 0
+      max_len: 256
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Tenant Identifier.
+  string tenant_id = 100 [
+    (ent.field) = {
+      immutable: true
+      optional: false
+    },
+    (buf.validate.field).string = {
+      uuid: true
+      max_bytes: 36
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Creation timestamp
+  string created_at = 200 [(ent.field) = {
+    immutable: true
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }];
+  string updated_at = 201 [(ent.field) = {
+    // The field immutable from API perspective, will be changed internally in the hooks.
+    immutable: false
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }]; // Update timestamp
+
+  repeated InstanceResource instances = 500 [(ent.edge) = {ref: "custom_config"}]; // back-reference to the Instances associated to this Custom Config, we don't handle setting edges via back-reference and we dont eager load this edge.
+}
