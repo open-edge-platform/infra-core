@@ -1125,9 +1125,7 @@ message OSUpdateRunResource {
       immutable: false
       optional: true
     },
-    (buf.validate.field).string = {
-      max_len: 1024
-    }
+    (buf.validate.field).string = {max_len: 1024}
   ]; // Short message that describes what happened during the OS Update.
 
   string status_details = 8 [
@@ -1135,9 +1133,7 @@ message OSUpdateRunResource {
       immutable: false
       optional: true
     },
-    (buf.validate.field).string = {
-      max_len: 100000
-    }
+    (buf.validate.field).string = {max_len: 100000}
   ]; // Details about what happened during the OS Update.
 
   string status_timestamp = 9 [(ent.field) = {
