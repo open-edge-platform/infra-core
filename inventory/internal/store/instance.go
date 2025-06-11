@@ -616,6 +616,7 @@ func isNotValidInstanceTransition(
 	in *computev1.InstanceResource,
 	id string,
 ) error {
+	// Un-Trusted -> Deleted is the only allowed transition
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) {
 		if instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
 			in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED {
@@ -625,7 +626,7 @@ func isNotValidInstanceTransition(
 				id, instanceq.CurrentState, in.DesiredState)
 		}
 	}
-
+	// LocalAccount cannot be updated once the provisioning is started
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) {
 		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
 			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
@@ -635,7 +636,7 @@ func isNotValidInstanceTransition(
 				id, in.GetLocalaccount(), instanceq.CurrentState)
 		}
 	}
-
+	// CustomConfig cannot be updated once the provisioning is started
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
 		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
 			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
