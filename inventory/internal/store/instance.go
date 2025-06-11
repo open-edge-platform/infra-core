@@ -629,7 +629,7 @@ func isNotValidInstanceTransition(
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) {
 		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
 			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
-			zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+			zlog.InfraSec().InfraError("Update of %s in %s with %s is not allowed",
 				id, instanceq.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
 			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
 				id, in.GetLocalaccount(), instanceq.CurrentState)
@@ -639,6 +639,8 @@ func isNotValidInstanceTransition(
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
 		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
 			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+			zlog.InfraSec().InfraError("Update of %s in %s with %s is not allowed",
+				id, instanceq.CurrentState, in.GetCustomConfig()).Msgf("UpdateInstance")
 			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s CustomConfig is not allowed %s, currentState: %s",
 				id, in.GetCustomConfig(), instanceq.CurrentState)
 		}
