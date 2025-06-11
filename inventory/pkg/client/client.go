@@ -610,6 +610,11 @@ func (client *inventoryClient) heartbeat(clientUUID string) error {
 			err := backoff.Retry(func() error {
 				zlog.Debug().Msgf("Heartbeat client UUID: %s", clientUUID)
 				_, errHearbeat := client.invAPI.Heartbeat(clientCtx, heartbeetReq)
+				// If the error is an unknown client, we return a permanent error
+				// to stop the heartbeat retry loop.
+				if errHearbeat != nil && inv_errors.IsUnKnownClient(errHearbeat) {
+					return backoff.Permanent(errHearbeat)
+				}
 				return errHearbeat
 			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(*heatbeatBackoffInterval), *heatbeatBackoffRetries))
 			if err != nil {
@@ -677,7 +682,7 @@ func (client *inventoryClient) register() error {
 	go func(clientUUID string) {
 		if err := client.heartbeat(clientUUID); err != nil {
 			// heartbeat failed, close the stream and connection.
-			zlog.InfraSec().Info().Msgf("heartbeat stopped for client UUID: %s", clientUUID)
+			zlog.InfraSec().InfraErr(err).Msgf("heartbeat stopped for client UUID: %s", clientUUID)
 			client.Close()
 			zlog.Fatal().Msgf("failed to heartbeat client UUID: %s", clientUUID)
 		}
