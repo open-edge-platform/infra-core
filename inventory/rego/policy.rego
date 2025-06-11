@@ -53,7 +53,7 @@ deny if {
 	not input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
 }
 
-# deny if an os is created/updated by other than northbound and southbound API
+# deny if the OS resource is created/updated by other than northbound and southbound API
 deny if {
 	input.resource.os
 	not input.ClientKind in {"CLIENT_KIND_API", "CLIENT_KIND_RESOURCE_MANAGER"}
