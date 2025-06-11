@@ -6,6 +6,7 @@ package client
 import (
 	"context"
 	"errors"
+	"flag"
 	"io"
 	"sync"
 	"time"
@@ -62,6 +63,21 @@ const (
 	InvCacheStaleTimeoutOffset            = "invCacheStaleTimeoutOffset"
 	InvCacheStaleTimeoutOffsetDefault     = 15
 	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset percentage for the Inventory UUID cache"
+)
+
+const (
+	defaultHeatbeatBackoffRetries  = 3
+	defaultHeatbeatBackoffInterval = time.Second * 1
+	defaultHeartbeatInterval       = time.Second * 30
+)
+
+var (
+	heatbeatBackoffRetries = flag.Uint64(
+		"heatbeatBackoffRetries", defaultHeatbeatBackoffRetries, "The number of retries the heartbeat backoff will attempt")
+	heatbeatBackoffInterval = flag.Duration(
+		"heatbeatBackoffInterval", defaultHeatbeatBackoffInterval, "The interval between heartbeat backoff retries")
+	heartbeatInterval = flag.Duration(
+		"heartbeatInterval", defaultHeartbeatInterval, "The interval between heartbeats")
 )
 
 type WatchEvents struct {
@@ -579,28 +595,23 @@ func NewTenantAwareInventoryClient(
 
 // Set up the heartbeat ticker to keep the client connection alive.
 func (client *inventoryClient) heartbeat(clientUUID string) error {
-	const (
-		backoffRetries    = 3
-		backoffInterval   = time.Second * 1
-		heartbeatInterval = time.Second * 30
-	)
 	heartbeetReq := &inv_v1.HeartbeatRequest{
 		ClientUuid: clientUUID,
 	}
 
-	ticker := time.NewTicker(heartbeatInterval)
+	ticker := time.NewTicker(*heartbeatInterval)
 	defer ticker.Stop()
 	for {
 		select {
 		case <-ticker.C:
-			clientCtxDeadline, cancel := context.WithDeadline(client.streamCtx, time.Now().Add(backoffInterval))
+			clientCtxDeadline, cancel := context.WithDeadline(client.streamCtx, time.Now().Add(*heatbeatBackoffInterval))
 			clientCtx := tenant.AddTenantIDToContext(clientCtxDeadline, clientUUID)
 
 			err := backoff.Retry(func() error {
 				zlog.Debug().Msgf("Heartbeat client UUID: %s", clientUUID)
 				_, errHearbeat := client.invAPI.Heartbeat(clientCtx, heartbeetReq)
 				return errHearbeat
-			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(backoffInterval), backoffRetries))
+			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(*heatbeatBackoffInterval), *heatbeatBackoffRetries))
 			if err != nil {
 				zlog.InfraErr(err).Msgf("failed to heartbeat client UUID: %s", clientUUID)
 				cancel() // cancel the context to avoid leaking resources
