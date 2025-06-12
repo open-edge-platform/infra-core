@@ -463,8 +463,8 @@ type CreateWorkloadResponse struct {
 
 // CustomConfigResource defines model for CustomConfigResource.
 type CustomConfigResource struct {
-	// ConfigContent Config content
-	ConfigContent string `json:"configContent"`
+	// Config Config content
+	Config string `json:"config"`
 
 	// Description (OPTIONAL) Config description
 	Description *string `json:"description,omitempty"`

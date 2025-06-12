@@ -355,7 +355,7 @@ A metadata item, represented by a key:value pair.
 | resource_id | [string](#string) |  | resource identifier |
 | name | [string](#string) |  | Config provided by admin |
 | description | [string](#string) |  | Config description |
-| config_content | [string](#string) |  | Config content |
+| config | [string](#string) |  | Config content |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
