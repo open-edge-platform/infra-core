@@ -190,6 +190,7 @@ enum ResourceKind {
   RESOURCE_KIND_OSUPDATEPOLICY = 180;
 
   RESOURCE_KIND_CUSTOMCONFIG = 190;
+  RESOURCE_KIND_OSUPDATERUN = 200;
 }
 
 message Resource {
@@ -232,6 +233,7 @@ message Resource {
     compute.v1.OSUpdatePolicyResource os_update_policy = 180;
 
     compute.v1.CustomConfigResource custom_config = 190;
+    compute.v1.OSUpdateRunResource os_update_run = 200;
   }
 }
 

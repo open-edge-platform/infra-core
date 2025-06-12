@@ -621,6 +621,44 @@ var (
 			},
 		},
 	}
+	// OsUpdateRunResourcesColumns holds the columns for the "os_update_run_resources" table.
+	OsUpdateRunResourcesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "status_indicator", Type: field.TypeEnum, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
+		{Name: "status", Type: field.TypeString, Nullable: true},
+		{Name: "status_details", Type: field.TypeString, Nullable: true},
+		{Name: "status_timestamp", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "start_time", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "end_time", Type: field.TypeString, Nullable: true, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "os_update_run_resource_applied_policy", Type: field.TypeInt},
+		{Name: "os_update_run_resource_instance", Type: field.TypeInt},
+	}
+	// OsUpdateRunResourcesTable holds the schema information for the "os_update_run_resources" table.
+	OsUpdateRunResourcesTable = &schema.Table{
+		Name:       "os_update_run_resources",
+		Columns:    OsUpdateRunResourcesColumns,
+		PrimaryKey: []*schema.Column{OsUpdateRunResourcesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "os_update_run_resources_os_update_policy_resources_applied_policy",
+				Columns:    []*schema.Column{OsUpdateRunResourcesColumns[13]},
+				RefColumns: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+			{
+				Symbol:     "os_update_run_resources_instance_resources_instance",
+				Columns:    []*schema.Column{OsUpdateRunResourcesColumns[14]},
+				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+		},
+	}
 	// OperatingSystemResourcesColumns holds the columns for the "operating_system_resources" table.
 	OperatingSystemResourcesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -635,6 +673,7 @@ var (
 		{Name: "profile_name", Type: field.TypeString, Nullable: true},
 		{Name: "profile_version", Type: field.TypeString, Nullable: true},
 		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
+		{Name: "installed_packages_url", Type: field.TypeString, Nullable: true},
 		{Name: "security_feature", Type: field.TypeEnum, Nullable: true, Enums: []string{"SECURITY_FEATURE_UNSPECIFIED", "SECURITY_FEATURE_NONE", "SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION"}},
 		{Name: "os_type", Type: field.TypeEnum, Nullable: true, Enums: []string{"OS_TYPE_UNSPECIFIED", "OS_TYPE_MUTABLE", "OS_TYPE_IMMUTABLE"}},
 		{Name: "os_provider", Type: field.TypeEnum, Enums: []string{"OS_PROVIDER_KIND_UNSPECIFIED", "OS_PROVIDER_KIND_INFRA", "OS_PROVIDER_KIND_LENOVO"}},
@@ -658,12 +697,12 @@ var (
 			{
 				Name:    "operatingsystemresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[22]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[23]},
 			},
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[23]},
 			},
 		},
 	}
@@ -1181,6 +1220,7 @@ var (
 		NetworkSegmentsTable,
 		OsUpdatePoliciesTable,
 		OsUpdatePolicyResourcesTable,
+		OsUpdateRunResourcesTable,
 		OperatingSystemResourcesTable,
 		OuResourcesTable,
 		ProviderResourcesTable,
@@ -1219,6 +1259,8 @@ func init() {
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable
 	OsUpdatePoliciesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	OsUpdatePolicyResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
+	OsUpdateRunResourcesTable.ForeignKeys[0].RefTable = OsUpdatePolicyResourcesTable
+	OsUpdateRunResourcesTable.ForeignKeys[1].RefTable = InstanceResourcesTable
 	OuResourcesTable.ForeignKeys[0].RefTable = OuResourcesTable
 	RegionResourcesTable.ForeignKeys[0].RefTable = RegionResourcesTable
 	RemoteAccessConfigurationsTable.ForeignKeys[0].RefTable = InstanceResourcesTable
