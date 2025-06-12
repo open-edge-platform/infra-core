@@ -42,6 +42,93 @@ func Test_Create_Get_Delete_CustomConfig(t *testing.T) {
 			},
 			valid: true,
 		},
+		"CreateBadCustomConfigWithResourceIdSet": {
+			in: &computev1.CustomConfigResource{
+				ResourceId:  "customconfig-12345678",
+				Name:        "test-custom-config",
+				Description: "Test invalid custom config resource",
+				Config:      testCloudInitConfig,
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithInvalidResourceIdSet": {
+			in: &computev1.CustomConfigResource{
+				ResourceId:  "customconfig-test-12345678",
+				Name:        "test-custom-config",
+				Description: "Test invalid custom config resource",
+				Config:      testCloudInitConfig,
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithLongName": {
+			in: &computev1.CustomConfigResource{
+				Name:        inv_testing.RandomString(2001),
+				Description: "Test custom config resource",
+				Config:      testCloudInitConfig,
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithLongDescription": {
+			in: &computev1.CustomConfigResource{
+				Name:        "test-custom-config",
+				Description: inv_testing.RandomString(257),
+				Config:      testCloudInitConfig,
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithLongConfig": {
+			in: &computev1.CustomConfigResource{
+				Name:        "test-custom-config",
+				Description: "Test custom config resource",
+				Config:      inv_testing.RandomString(16385),
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithNoName": {
+			in: &computev1.CustomConfigResource{
+				Name:        "",
+				Description: "Test custom config resource",
+				Config:      testCloudInitConfig,
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithNoDescription": {
+			in: &computev1.CustomConfigResource{
+				Name:        "test-custom-config",
+				Description: "",
+				Config:      testCloudInitConfig,
+			},
+			valid: true,
+		},
+		"CreateBadCustomConfigWithNoConfig": {
+			in: &computev1.CustomConfigResource{
+				Name:        "test-custom-config",
+				Description: "Test custom config resource",
+				Config:      "",
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithMissingName": {
+			in: &computev1.CustomConfigResource{
+				Description: "Test custom config resource",
+				Config:      testCloudInitConfig,
+			},
+			valid: false,
+		},
+		"CreateBadCustomConfigWithMissingDescription": {
+			in: &computev1.CustomConfigResource{
+				Name:   "test-custom-config",
+				Config: testCloudInitConfig,
+			},
+			valid: true,
+		},
+		"CreateBadCustomConfigWithMissingConfig": {
+			in: &computev1.CustomConfigResource{
+				Name:        "test-custom-config",
+				Description: "Test custom config resource",
+			},
+			valid: false,
+		},
 	}
 
 	for tcname, tc := range testcases {
