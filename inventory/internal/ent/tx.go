@@ -42,6 +42,8 @@ type Tx struct {
 	OSUpdatePolicy *OSUpdatePolicyClient
 	// OSUpdatePolicyResource is the client for interacting with the OSUpdatePolicyResource builders.
 	OSUpdatePolicyResource *OSUpdatePolicyResourceClient
+	// OSUpdateRunResource is the client for interacting with the OSUpdateRunResource builders.
+	OSUpdateRunResource *OSUpdateRunResourceClient
 	// OperatingSystemResource is the client for interacting with the OperatingSystemResource builders.
 	OperatingSystemResource *OperatingSystemResourceClient
 	// OuResource is the client for interacting with the OuResource builders.
@@ -213,6 +215,7 @@ func (tx *Tx) init() {
 	tx.NetworkSegment = NewNetworkSegmentClient(tx.config)
 	tx.OSUpdatePolicy = NewOSUpdatePolicyClient(tx.config)
 	tx.OSUpdatePolicyResource = NewOSUpdatePolicyResourceClient(tx.config)
+	tx.OSUpdateRunResource = NewOSUpdateRunResourceClient(tx.config)
 	tx.OperatingSystemResource = NewOperatingSystemResourceClient(tx.config)
 	tx.OuResource = NewOuResourceClient(tx.config)
 	tx.ProviderResource = NewProviderResourceClient(tx.config)
