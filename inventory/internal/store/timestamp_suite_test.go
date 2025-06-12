@@ -112,6 +112,8 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 		// Other special cases are handled via the updateResource func.
 		case "HostgpuResource", "HostnicResource", "HoststorageResource", "HostusbResource":
 			fieldName = "device_name"
+		case "OperatingSystemResource":
+			fieldName = "kernel_command"
 		default:
 			fieldName = "name"
 		}

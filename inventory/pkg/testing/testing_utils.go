@@ -886,7 +886,7 @@ func (c *InvResourceDAO) createOsWithOpts(
 // Deprecated: Use CreateOsWithOpts instead.
 func (c *InvResourceDAO) CreateOsWithArgs(
 	tb testing.TB,
-	tenantID, sha256Hex, profileName string,
+	tenantID, sha256Hex, name, profileName string,
 	feature osv1.SecurityFeature, osType osv1.OsType,
 ) *osv1.OperatingSystemResource {
 	tb.Helper()
@@ -894,6 +894,7 @@ func (c *InvResourceDAO) CreateOsWithArgs(
 	return c.createOsWithOpts(tb, tenantID, true, func(osr *osv1.OperatingSystemResource) {
 		osr.Sha256 = sha256Hex
 		osr.ProfileName = profileName
+		osr.Name = name
 		osr.SecurityFeature = feature
 		osr.OsType = osType
 	})
@@ -920,6 +921,7 @@ func (c *InvResourceDAO) CreateOs(tb testing.TB, tenantID string) *osv1.Operatin
 		func(osr *osv1.OperatingSystemResource) {
 			osr.Sha256 = GenerateRandomSha256()
 			osr.ProfileName = GenerateRandomProfileName()
+			osr.Name = GenerateRandomOsResourceName()
 			osr.SecurityFeature = osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED
 			osr.OsType = osv1.OsType_OS_TYPE_MUTABLE
 		},
@@ -938,6 +940,7 @@ func (c *InvResourceDAO) CreateOsNoCleanup(tb testing.TB, tenantID string) *osv1
 		func(osr *osv1.OperatingSystemResource) {
 			osr.Sha256 = GenerateRandomSha256()
 			osr.ProfileName = GenerateRandomProfileName()
+			osr.Name = GenerateRandomOsResourceName()
 			osr.SecurityFeature = osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED
 			osr.OsType = osv1.OsType_OS_TYPE_MUTABLE
 		},
@@ -1073,6 +1076,7 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 	instResp.WorkloadMembers = nil
 	instResp.Provider = nil
 	instResp.Localaccount = nil
+	instResp.CustomConfig = nil
 
 	return instResp
 }
@@ -1161,6 +1165,26 @@ func (c *InvResourceDAO) CreateInstanceWithProvider(
 		true,
 		func(inst *computev1.InstanceResource) {
 			inst.Provider = proRes
+		})
+}
+
+func (c *InvResourceDAO) CreateInstanceWithCustomConfig(
+	tb testing.TB,
+	tenantID string,
+	hostRes *computev1.HostResource,
+	osRes *osv1.OperatingSystemResource,
+	customConfig []*computev1.CustomConfigResource,
+) (ins *computev1.InstanceResource) {
+	tb.Helper()
+
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		true,
+		func(inst *computev1.InstanceResource) {
+			inst.CustomConfig = customConfig // Assigning from slice
 		})
 }
 
@@ -1326,6 +1350,26 @@ func (c *InvResourceDAO) CreateHostUsbNoCleanup(
 	return c.createHostusb(tb, tenantID, host, false)
 }
 
+// Create CustomConfig. Note this helper is not really meant to be used for the
+// test of CustomConfigResource but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by
+// the eager loading.
+func (c *InvResourceDAO) CreateCustomConfig(
+	tb testing.TB, tenantID, name, description, config string,
+) (cconfig *computev1.CustomConfigResource) {
+	tb.Helper()
+
+	return c.createCustomConfig(tb, tenantID, name, description, config, true)
+}
+
+func (c *InvResourceDAO) CreateCustomConfigNoCleanup(
+	tb testing.TB, tenantID, name, description, config string,
+) (cconfig *computev1.CustomConfigResource) {
+	tb.Helper()
+
+	return c.createCustomConfig(tb, tenantID, name, description, config, false)
+}
+
 // Create local account. Note this helper is not really meant to be used for the
 // test of LocalAccountResource but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by
@@ -1429,6 +1473,35 @@ func (c *InvResourceDAO) createProvider(tb testing.TB,
 	}
 
 	return providerResp
+}
+
+// Create CustomConfig.
+func (c *InvResourceDAO) createCustomConfig(
+	tb testing.TB, tenantID, name, description, config string, doCleanup bool,
+) (cconfig *computev1.CustomConfigResource) {
+	tb.Helper()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	cconfig = &computev1.CustomConfigResource{
+		Name:        name,
+		Description: description,
+		Config:      config,
+		TenantId:    tenantID,
+	}
+
+	resp, err := c.apiClient.Create(
+		ctx,
+		tenantID,
+		&inv_v1.Resource{Resource: &inv_v1.Resource_CustomConfig{CustomConfig: cconfig}},
+	)
+	require.NoError(tb, err)
+	cconfigResp := resp.GetCustomConfig()
+	if doCleanup {
+		tb.Cleanup(func() { c.DeleteResource(tb, tenantID, cconfigResp.ResourceId) })
+	}
+
+	return cconfigResp
 }
 
 // Create LocalAccount.

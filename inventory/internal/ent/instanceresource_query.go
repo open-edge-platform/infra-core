@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
@@ -37,6 +38,7 @@ type InstanceResourceQuery struct {
 	withProvider        *ProviderResourceQuery
 	withLocalaccount    *LocalAccountResourceQuery
 	withOsUpdatePolicy  *OSUpdatePolicyResourceQuery
+	withCustomConfig    *CustomConfigResourceQuery
 	withFKs             bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -250,6 +252,28 @@ func (irq *InstanceResourceQuery) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQ
 	return query
 }
 
+// QueryCustomConfig chains the current query on the "custom_config" edge.
+func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery {
+	query := (&CustomConfigResourceClient{config: irq.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := irq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := irq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, selector),
+			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
+		)
+		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
 // First returns the first InstanceResource entity from the query.
 // Returns a *NotFoundError when no InstanceResource was found.
 func (irq *InstanceResourceQuery) First(ctx context.Context) (*InstanceResource, error) {
@@ -450,6 +474,7 @@ func (irq *InstanceResourceQuery) Clone() *InstanceResourceQuery {
 		withProvider:        irq.withProvider.Clone(),
 		withLocalaccount:    irq.withLocalaccount.Clone(),
 		withOsUpdatePolicy:  irq.withOsUpdatePolicy.Clone(),
+		withCustomConfig:    irq.withCustomConfig.Clone(),
 		// clone intermediate query.
 		sql:  irq.sql.Clone(),
 		path: irq.path,
@@ -544,6 +569,17 @@ func (irq *InstanceResourceQuery) WithOsUpdatePolicy(opts ...func(*OSUpdatePolic
 	return irq
 }
 
+// WithCustomConfig tells the query-builder to eager-load the nodes that are connected to
+// the "custom_config" edge. The optional arguments are used to configure the query builder of the edge.
+func (irq *InstanceResourceQuery) WithCustomConfig(opts ...func(*CustomConfigResourceQuery)) *InstanceResourceQuery {
+	query := (&CustomConfigResourceClient{config: irq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	irq.withCustomConfig = query
+	return irq
+}
+
 // GroupBy is used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
 //
@@ -623,7 +659,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		nodes       = []*InstanceResource{}
 		withFKs     = irq.withFKs
 		_spec       = irq.querySpec()
-		loadedTypes = [8]bool{
+		loadedTypes = [9]bool{
 			irq.withHost != nil,
 			irq.withDesiredOs != nil,
 			irq.withCurrentOs != nil,
@@ -632,6 +668,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 			irq.withProvider != nil,
 			irq.withLocalaccount != nil,
 			irq.withOsUpdatePolicy != nil,
+			irq.withCustomConfig != nil,
 		}
 	)
 	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withOsUpdatePolicy != nil {
@@ -706,6 +743,15 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	if query := irq.withOsUpdatePolicy; query != nil {
 		if err := irq.loadOsUpdatePolicy(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *OSUpdatePolicyResource) { n.Edges.OsUpdatePolicy = e }); err != nil {
+			return nil, err
+		}
+	}
+	if query := irq.withCustomConfig; query != nil {
+		if err := irq.loadCustomConfig(ctx, query, nodes,
+			func(n *InstanceResource) { n.Edges.CustomConfig = []*CustomConfigResource{} },
+			func(n *InstanceResource, e *CustomConfigResource) {
+				n.Edges.CustomConfig = append(n.Edges.CustomConfig, e)
+			}); err != nil {
 			return nil, err
 		}
 	}
@@ -959,6 +1005,67 @@ func (irq *InstanceResourceQuery) loadOsUpdatePolicy(ctx context.Context, query 
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
+		}
+	}
+	return nil
+}
+func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *CustomConfigResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *CustomConfigResource)) error {
+	edgeIDs := make([]driver.Value, len(nodes))
+	byID := make(map[int]*InstanceResource)
+	nids := make(map[int]map[*InstanceResource]struct{})
+	for i, node := range nodes {
+		edgeIDs[i] = node.ID
+		byID[node.ID] = node
+		if init != nil {
+			init(node)
+		}
+	}
+	query.Where(func(s *sql.Selector) {
+		joinT := sql.Table(instanceresource.CustomConfigTable)
+		s.Join(joinT).On(s.C(customconfigresource.FieldID), joinT.C(instanceresource.CustomConfigPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(instanceresource.CustomConfigPrimaryKey[0]), edgeIDs...))
+		columns := s.SelectedColumns()
+		s.Select(joinT.C(instanceresource.CustomConfigPrimaryKey[0]))
+		s.AppendSelect(columns...)
+		s.SetDistinct(false)
+	})
+	if err := query.prepareQuery(ctx); err != nil {
+		return err
+	}
+	qr := QuerierFunc(func(ctx context.Context, q Query) (Value, error) {
+		return query.sqlAll(ctx, func(_ context.Context, spec *sqlgraph.QuerySpec) {
+			assign := spec.Assign
+			values := spec.ScanValues
+			spec.ScanValues = func(columns []string) ([]any, error) {
+				values, err := values(columns[1:])
+				if err != nil {
+					return nil, err
+				}
+				return append([]any{new(sql.NullInt64)}, values...), nil
+			}
+			spec.Assign = func(columns []string, values []any) error {
+				outValue := int(values[0].(*sql.NullInt64).Int64)
+				inValue := int(values[1].(*sql.NullInt64).Int64)
+				if nids[inValue] == nil {
+					nids[inValue] = map[*InstanceResource]struct{}{byID[outValue]: {}}
+					return assign(columns[1:], values[1:])
+				}
+				nids[inValue][byID[outValue]] = struct{}{}
+				return nil
+			}
+		})
+	})
+	neighbors, err := withInterceptors[[]*CustomConfigResource](ctx, query, qr, query.inters)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		nodes, ok := nids[n.ID]
+		if !ok {
+			return fmt.Errorf(`unexpected "custom_config" node returned %v`, n.ID)
+		}
+		for kn := range nodes {
+			assign(kn, n)
 		}
 	}
 	return nil

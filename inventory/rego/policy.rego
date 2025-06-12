@@ -53,6 +53,12 @@ deny if {
 	not input.ClientKind == "CLIENT_KIND_TENANT_CONTROLLER"
 }
 
+# deny if the OS resource is created/updated by other than northbound and southbound API
+deny if {
+	input.resource.os
+	not input.ClientKind in {"CLIENT_KIND_API", "CLIENT_KIND_RESOURCE_MANAGER"}
+}
+
 # deny updates to the CurrentState via northbound API
 deny if {
 	input.CurrentState
@@ -79,6 +85,34 @@ deny if {
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
 }
 
+# deny updates to the currentAmtState via northbound API
+deny if {
+	input.resource.host
+	input.resource.host.currentAmtState
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny updates to the desiredAmtState via southbound API
+deny if {
+	input.resource.host
+	input.resource.host.desiredAmtState
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
+# deny if a amtSku is created/updated via northbound API
+deny if {
+	input.resource.host
+	input.resource.host.amtSku
+	input.ClientKind == "CLIENT_KIND_API"
+}
+
+# deny if a powerCommandPolicy is created/updated via southbound API
+deny if {
+	input.resource.host
+	input.resource.host.powerCommandPolicy
+	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
+}
+
 # deny if TC client tries to create a resource that is not a tenant, provider or telemetryGroup
 deny if {
     not input.resource.tenant
@@ -101,11 +135,10 @@ isException if {
 }
 
 # Exception 2
-# This rule allows southbound API to UPDATE only the watcherOsmanager field in the Tenant resource
+# This rule allows southbound API to UPDATE the watcherOsmanager field in the Tenant resource
 isException if {
 	input.Method == "UPDATE"
 	input.resource.tenant
-	input.resource.tenant.watcherOsmanager
 	not input.resource.tenant.desiredState
 	not input.resource.tenant.currentState
 	input.ClientKind == "CLIENT_KIND_RESOURCE_MANAGER"
