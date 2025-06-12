@@ -1,4 +1,4 @@
-h1:fSJ0DVpwDS17zeNpjvYaD4QBrJjQahJjzJ6JxkiY30o=
+h1:U6kyz83w4QvPhr7OA+v6ojgiFXq95nXpbxKRUyghisM=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
@@ -9,3 +9,4 @@ h1:fSJ0DVpwDS17zeNpjvYaD4QBrJjQahJjzJ6JxkiY30o=
 20250606153212_instance_update.sql h1:xmZLkFyu8Kaumkj9W10czTP+54Fb3sqF7RB90O7dtzE=
 20250610080510_add_OSUpdateRun.sql h1:pC+Gi9GzXfKe1/Dk+wjFtIw6BO6uo5JXhGcaClsYvV0=
 20250610144827_add_customconfig.sql h1:nBtEorn4hy7QJtMW23QjFZAea3aqtnBnmD1nr4Hpgcs=
+20250611162552_modify_OSResource_name_tenantId_uniqueness.sql h1:7e6BF9LndQwazgb8Kpzf+q6TEBaVSh3xSa92iL8mebU=
