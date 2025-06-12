@@ -48,6 +48,9 @@ type OSUpdatePolicy func(*sql.Selector)
 // OSUpdatePolicyResource is the predicate function for osupdatepolicyresource builders.
 type OSUpdatePolicyResource func(*sql.Selector)
 
+// OSUpdateRunResource is the predicate function for osupdaterunresource builders.
+type OSUpdateRunResource func(*sql.Selector)
+
 // OperatingSystemResource is the predicate function for operatingsystemresource builders.
 type OperatingSystemResource func(*sql.Selector)
 
