@@ -55,6 +55,7 @@ const (
 	ResourceEdgeLocalAccount     = "local_account"
 	ResourceEdgeOsUpdatePolicy   = "os_update_policy"
 	ResourceEdgeCustomConfig     = "custom_config"
+	ResourceEdgeOsUpdateRun      = "os_update_run"
 
 	// Fields and Edges constants for "ResourceFilter"
 	ResourceFilterEdgeResource = "resource"
@@ -137,6 +138,11 @@ const (
 	DeleteAllResourcesRequestFieldEnforce      = "enforce"
 	DeleteAllResourcesRequestFieldTenantId     = "tenant_id"
 
-// Fields and Edges constants for "DeleteAllResourcesResponse"
+	// Fields and Edges constants for "DeleteAllResourcesResponse"
+
+	// Fields and Edges constants for "HeartbeatRequest"
+	HeartbeatRequestFieldClientUuid = "client_uuid"
+
+// Fields and Edges constants for "HeartbeatResponse"
 
 )

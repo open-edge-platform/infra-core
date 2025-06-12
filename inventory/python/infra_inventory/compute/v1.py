@@ -443,3 +443,21 @@ class CustomConfigResource(betterproto.Message):
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
     instances: List["InstanceResource"] = betterproto.message_field(500)
+
+
+@dataclass
+class OSUpdateRunResource(betterproto.Message):
+    resource_id: str = betterproto.string_field(1)
+    name: str = betterproto.string_field(2)
+    description: str = betterproto.string_field(3)
+    applied_policy: "OSUpdatePolicyResource" = betterproto.message_field(4)
+    instance: "InstanceResource" = betterproto.message_field(5)
+    status_indicator: v1.StatusIndication = betterproto.enum_field(6)
+    status: str = betterproto.string_field(7)
+    status_details: str = betterproto.string_field(8)
+    status_timestamp: str = betterproto.string_field(9)
+    start_time: str = betterproto.string_field(10)
+    end_time: str = betterproto.string_field(11)
+    tenant_id: str = betterproto.string_field(100)
+    created_at: str = betterproto.string_field(200)
+    updated_at: str = betterproto.string_field(201)

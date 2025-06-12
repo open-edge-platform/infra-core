@@ -195,29 +195,30 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 	osType := osv1.OsType_value[os.OsType.String()]                             // Defaults to 0 if not found
 	osProvider := osv1.OsProviderKind_value[os.OsProvider.String()]             // Defaults to 0 if not found
 	protoUpdate := &osv1.OperatingSystemResource{
-		ResourceId:        os.ResourceID,
-		Name:              os.Name,
-		Architecture:      os.Architecture,
-		KernelCommand:     os.KernelCommand,
-		ImageUrl:          os.ImageURL,
-		ImageId:           os.ImageID,
-		Sha256:            os.Sha256,
-		ProfileName:       os.ProfileName,
-		ProfileVersion:    os.ProfileVersion,
-		InstalledPackages: os.InstalledPackages,
-		SecurityFeature:   osv1.SecurityFeature(securityFeatures),
-		OsType:            osv1.OsType(osType),
-		OsProvider:        osv1.OsProviderKind(osProvider),
-		PlatformBundle:    os.PlatformBundle,
-		Description:       os.Description,
-		ExistingCvesUrl:   os.ExistingCvesURL,
-		ExistingCves:      os.ExistingCves,
-		FixedCvesUrl:      os.FixedCvesURL,
-		FixedCves:         os.FixedCves,
-		TenantId:          os.TenantID,
-		CreatedAt:         os.CreatedAt,
-		UpdatedAt:         os.UpdatedAt,
-		Metadata:          os.Metadata,
+		ResourceId:           os.ResourceID,
+		Name:                 os.Name,
+		Architecture:         os.Architecture,
+		KernelCommand:        os.KernelCommand,
+		ImageUrl:             os.ImageURL,
+		ImageId:              os.ImageID,
+		Sha256:               os.Sha256,
+		ProfileName:          os.ProfileName,
+		ProfileVersion:       os.ProfileVersion,
+		InstalledPackages:    os.InstalledPackages,
+		InstalledPackagesUrl: os.InstalledPackagesURL,
+		SecurityFeature:      osv1.SecurityFeature(securityFeatures),
+		OsType:               osv1.OsType(osType),
+		OsProvider:           osv1.OsProviderKind(osProvider),
+		PlatformBundle:       os.PlatformBundle,
+		Description:          os.Description,
+		ExistingCvesUrl:      os.ExistingCvesURL,
+		ExistingCves:         os.ExistingCves,
+		FixedCvesUrl:         os.FixedCvesURL,
+		FixedCves:            os.FixedCves,
+		TenantId:             os.TenantID,
+		CreatedAt:            os.CreatedAt,
+		UpdatedAt:            os.UpdatedAt,
+		Metadata:             os.Metadata,
 	}
 	if os.UpdateSources != "" {
 		protoUpdate.UpdateSources = strings.Split(os.UpdateSources, "|")
@@ -890,4 +891,34 @@ func entCustomConfigResourceToProtoCustomConfigResource(
 		CreatedAt:   customconfig.CreatedAt,
 	}
 	return protoLocalAccount
+}
+
+func entOSUpdateRunResourceToProtoOSUpdateRunResource(osrun *ent.OSUpdateRunResource) *computev1.OSUpdateRunResource {
+	if osrun == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	statusIndicator := statusv1.StatusIndication_value[osrun.StatusIndicator.String()] // Defaults to 0 if not found
+	protoOsUpdateRun := &computev1.OSUpdateRunResource{
+		Name:            osrun.Name,
+		Description:     osrun.Description,
+		ResourceId:      osrun.ResourceID,
+		Status:          osrun.Status,
+		StatusDetails:   osrun.StatusDetails,
+		StatusTimestamp: osrun.StatusTimestamp,
+		StartTime:       osrun.StartTime,
+		EndTime:         osrun.EndTime,
+		StatusIndicator: statusv1.StatusIndication(statusIndicator),
+		TenantId:        osrun.TenantID,
+		CreatedAt:       osrun.CreatedAt,
+		UpdatedAt:       osrun.UpdatedAt,
+	}
+	// Convert the edges recursively.
+	if osPolicy, err := osrun.Edges.AppliedPolicyOrErr(); err == nil {
+		protoOsUpdateRun.AppliedPolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osPolicy)
+	}
+	if instance, err := osrun.Edges.InstanceOrErr(); err == nil {
+		protoOsUpdateRun.Instance = entInstanceResourceToProtoInstanceResource(instance)
+	}
+	return protoOsUpdateRun
 }
