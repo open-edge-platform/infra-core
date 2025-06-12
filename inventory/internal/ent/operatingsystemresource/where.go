@@ -107,6 +107,11 @@ func InstalledPackages(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldInstalledPackages, v))
 }
 
+// InstalledPackagesURL applies equality check predicate on the "installed_packages_url" field. It's identical to InstalledPackagesURLEQ.
+func InstalledPackagesURL(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldInstalledPackagesURL, v))
+}
+
 // PlatformBundle applies equality check predicate on the "platform_bundle" field. It's identical to PlatformBundleEQ.
 func PlatformBundle(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldPlatformBundle, v))
@@ -970,6 +975,81 @@ func InstalledPackagesEqualFold(v string) predicate.OperatingSystemResource {
 // InstalledPackagesContainsFold applies the ContainsFold predicate on the "installed_packages" field.
 func InstalledPackagesContainsFold(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldInstalledPackages, v))
+}
+
+// InstalledPackagesURLEQ applies the EQ predicate on the "installed_packages_url" field.
+func InstalledPackagesURLEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLNEQ applies the NEQ predicate on the "installed_packages_url" field.
+func InstalledPackagesURLNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLIn applies the In predicate on the "installed_packages_url" field.
+func InstalledPackagesURLIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldInstalledPackagesURL, vs...))
+}
+
+// InstalledPackagesURLNotIn applies the NotIn predicate on the "installed_packages_url" field.
+func InstalledPackagesURLNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldInstalledPackagesURL, vs...))
+}
+
+// InstalledPackagesURLGT applies the GT predicate on the "installed_packages_url" field.
+func InstalledPackagesURLGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLGTE applies the GTE predicate on the "installed_packages_url" field.
+func InstalledPackagesURLGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLLT applies the LT predicate on the "installed_packages_url" field.
+func InstalledPackagesURLLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLLTE applies the LTE predicate on the "installed_packages_url" field.
+func InstalledPackagesURLLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLContains applies the Contains predicate on the "installed_packages_url" field.
+func InstalledPackagesURLContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLHasPrefix applies the HasPrefix predicate on the "installed_packages_url" field.
+func InstalledPackagesURLHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLHasSuffix applies the HasSuffix predicate on the "installed_packages_url" field.
+func InstalledPackagesURLHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLIsNil applies the IsNil predicate on the "installed_packages_url" field.
+func InstalledPackagesURLIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldInstalledPackagesURL))
+}
+
+// InstalledPackagesURLNotNil applies the NotNil predicate on the "installed_packages_url" field.
+func InstalledPackagesURLNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldInstalledPackagesURL))
+}
+
+// InstalledPackagesURLEqualFold applies the EqualFold predicate on the "installed_packages_url" field.
+func InstalledPackagesURLEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldInstalledPackagesURL, v))
+}
+
+// InstalledPackagesURLContainsFold applies the ContainsFold predicate on the "installed_packages_url" field.
+func InstalledPackagesURLContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldInstalledPackagesURL, v))
 }
 
 // SecurityFeatureEQ applies the EQ predicate on the "security_feature" field.

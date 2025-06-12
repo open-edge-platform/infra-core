@@ -2656,7 +2656,7 @@ message ListCustomConfigsRequest {
   // Default of 20.
   uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
@@ -2664,7 +2664,7 @@ message ListCustomConfigsRequest {
   // Index of the first item to return. This allows skipping items.
   uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
