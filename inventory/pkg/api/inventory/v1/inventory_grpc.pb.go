@@ -56,6 +56,8 @@ type InventoryServiceClient interface {
 	GetSitesPerRegion(ctx context.Context, in *GetSitesPerRegionRequest, opts ...grpc.CallOption) (*GetSitesPerRegionResponse, error)
 	// Deletes all resources of given kind for tenant.
 	DeleteAllResources(ctx context.Context, in *DeleteAllResourcesRequest, opts ...grpc.CallOption) (*DeleteAllResourcesResponse, error)
+	// Custom RPC to establish clients heartbeat and subscription verification.
+	Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error)
 }
 
 type inventoryServiceClient struct {
@@ -197,6 +199,15 @@ func (c *inventoryServiceClient) DeleteAllResources(ctx context.Context, in *Del
 	return out, nil
 }
 
+func (c *inventoryServiceClient) Heartbeat(ctx context.Context, in *HeartbeatRequest, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+	out := new(HeartbeatResponse)
+	err := c.cc.Invoke(ctx, "/inventory.v1.InventoryService/Heartbeat", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InventoryServiceServer is the server API for InventoryService service.
 // All implementations should embed UnimplementedInventoryServiceServer
 // for forward compatibility
@@ -235,6 +246,8 @@ type InventoryServiceServer interface {
 	GetSitesPerRegion(context.Context, *GetSitesPerRegionRequest) (*GetSitesPerRegionResponse, error)
 	// Deletes all resources of given kind for tenant.
 	DeleteAllResources(context.Context, *DeleteAllResourcesRequest) (*DeleteAllResourcesResponse, error)
+	// Custom RPC to establish clients heartbeat and subscription verification.
+	Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error)
 }
 
 // UnimplementedInventoryServiceServer should be embedded to have forward compatible implementations.
@@ -276,6 +289,9 @@ func (UnimplementedInventoryServiceServer) GetSitesPerRegion(context.Context, *G
 }
 func (UnimplementedInventoryServiceServer) DeleteAllResources(context.Context, *DeleteAllResourcesRequest) (*DeleteAllResourcesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAllResources not implemented")
+}
+func (UnimplementedInventoryServiceServer) Heartbeat(context.Context, *HeartbeatRequest) (*HeartbeatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Heartbeat not implemented")
 }
 
 // UnsafeInventoryServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -508,6 +524,24 @@ func _InventoryService_DeleteAllResources_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InventoryService_Heartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HeartbeatRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InventoryServiceServer).Heartbeat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/inventory.v1.InventoryService/Heartbeat",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InventoryServiceServer).Heartbeat(ctx, req.(*HeartbeatRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InventoryService_ServiceDesc is the grpc.ServiceDesc for InventoryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -558,6 +592,10 @@ var InventoryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAllResources",
 			Handler:    _InventoryService_DeleteAllResources_Handler,
+		},
+		{
+			MethodName: "Heartbeat",
+			Handler:    _InventoryService_Heartbeat_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
