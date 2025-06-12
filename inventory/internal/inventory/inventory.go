@@ -254,9 +254,14 @@ func (srv *InventorygRPCServer) CreateResource(
 
 	case *inv_v1.Resource_OsUpdatePolicy:
 		res, err = srv.IS.CreateOSUpdatePolicy(ctx, in.GetResource().GetOsUpdatePolicy())
+
 	// custom config
 	case *inv_v1.Resource_CustomConfig:
 		res, err = srv.IS.CreateCustomConfig(ctx, in.GetResource().GetCustomConfig())
+
+	case *inv_v1.Resource_OsUpdateRun:
+		res, err = srv.IS.CreateOSUpdateRun(ctx, in.GetResource().GetOsUpdateRun())
+
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %T", in.Resource).Msg("create resource error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %T", in.Resource)
@@ -456,6 +461,9 @@ func (srv *InventorygRPCServer) GetResource(
 	case inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:
 		gresresp.Resource, err = srv.IS.GetCustomConfig(ctx, in.ResourceId)
 
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
+		gresresp.Resource, err = srv.IS.GetOSUpdateRun(ctx, in.ResourceId)
+
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("get resource parse error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %s", kind)
@@ -545,6 +553,9 @@ func (srv *InventorygRPCServer) doUpdateResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
 		res, err = srv.IS.UpdateOSUpdatePolicy(ctx, in.ResourceId, in.GetResource().GetOsUpdatePolicy(), in.GetFieldMask())
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
+		res, err = srv.IS.UpdateOSUpdateRun(ctx, in.ResourceId, in.GetResource().GetOsUpdateRun(), in.GetFieldMask())
 
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("update resource parse error")
@@ -718,6 +729,9 @@ func (srv *InventorygRPCServer) doDeleteResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:
 		res, err = srv.IS.DeleteCustomConfig(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
+		res, err = srv.IS.DeleteOSUpdateRun(ctx, in.ResourceId)
 
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("delete resource parse error")
@@ -912,6 +926,7 @@ var deleteResourcesHandlers = map[inv_v1.ResourceKind]deleteResourcesHandlerProv
 	inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      func(is *store.InvStore) deleteResourcesHandler { return is.DeleteLocalAccounts },
 	inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    func(is *store.InvStore) deleteResourcesHandler { return is.DeleteOSUpdatePolicies },
 	inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      func(is *store.InvStore) deleteResourcesHandler { return is.DeleteCustomConfigs },
+	inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:       func(is *store.InvStore) deleteResourcesHandler { return is.DeleteOSUpdateRuns },
 }
 
 func (srv *InventorygRPCServer) DeleteAllResources(

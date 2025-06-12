@@ -56,6 +56,7 @@ class ResourceKind(betterproto.Enum):
     RESOURCE_KIND_LOCALACCOUNT = 170
     RESOURCE_KIND_OSUPDATEPOLICY = 180
     RESOURCE_KIND_CUSTOMCONFIG = 190
+    RESOURCE_KIND_OSUPDATERUN = 200
 
 
 class SubscribeEventsResponseEventKind(betterproto.Enum):
@@ -164,6 +165,9 @@ class Resource(betterproto.Message):
     )
     custom_config: v1.CustomConfigResource = betterproto.message_field(
         190, group="resource"
+    )
+    os_update_run: v1.OSUpdateRunResource = betterproto.message_field(
+        200, group="resource"
     )
 
 
