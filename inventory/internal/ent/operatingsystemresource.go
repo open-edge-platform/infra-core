@@ -38,6 +38,8 @@ type OperatingSystemResource struct {
 	ProfileVersion string `json:"profile_version,omitempty"`
 	// InstalledPackages holds the value of the "installed_packages" field.
 	InstalledPackages string `json:"installed_packages,omitempty"`
+	// InstalledPackagesURL holds the value of the "installed_packages_url" field.
+	InstalledPackagesURL string `json:"installed_packages_url,omitempty"`
 	// SecurityFeature holds the value of the "security_feature" field.
 	SecurityFeature operatingsystemresource.SecurityFeature `json:"security_feature,omitempty"`
 	// OsType holds the value of the "os_type" field.
@@ -74,7 +76,7 @@ func (*OperatingSystemResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case operatingsystemresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldKernelCommand, operatingsystemresource.FieldUpdateSources, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
+		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldKernelCommand, operatingsystemresource.FieldUpdateSources, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldInstalledPackagesURL, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -162,6 +164,12 @@ func (osr *OperatingSystemResource) assignValues(columns []string, values []any)
 				return fmt.Errorf("unexpected type %T for field installed_packages", values[i])
 			} else if value.Valid {
 				osr.InstalledPackages = value.String
+			}
+		case operatingsystemresource.FieldInstalledPackagesURL:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field installed_packages_url", values[i])
+			} else if value.Valid {
+				osr.InstalledPackagesURL = value.String
 			}
 		case operatingsystemresource.FieldSecurityFeature:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -309,6 +317,9 @@ func (osr *OperatingSystemResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("installed_packages=")
 	builder.WriteString(osr.InstalledPackages)
+	builder.WriteString(", ")
+	builder.WriteString("installed_packages_url=")
+	builder.WriteString(osr.InstalledPackagesURL)
 	builder.WriteString(", ")
 	builder.WriteString("security_feature=")
 	builder.WriteString(fmt.Sprintf("%v", osr.SecurityFeature))

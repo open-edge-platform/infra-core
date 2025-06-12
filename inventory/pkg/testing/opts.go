@@ -353,6 +353,12 @@ func InstalledPackages(pkgs string) Opt[osv1.OperatingSystemResource] {
 	}
 }
 
+func InstalledPackagesURL(url string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.InstalledPackagesUrl = url
+	}
+}
+
 func Sha256(sha256 string) Opt[osv1.OperatingSystemResource] {
 	return func(t *osv1.OperatingSystemResource) {
 		t.Sha256 = sha256
