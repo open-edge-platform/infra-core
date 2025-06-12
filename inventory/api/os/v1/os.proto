@@ -103,7 +103,25 @@ message OperatingSystemResource {
     optional: true
     immutable: true
   }]; // Version of an OS profile that the OS resource belongs to. Along with profile_name uniquely identifies OS resource.
-  string installed_packages = 9 [(ent.field) = {optional: true}]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy.
+
+  string installed_packages = 9 [(ent.field) = {
+    optional: true
+    immutable: false
+  }]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy.
+
+  // The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field
+  // for the advance use case to allow manual creation of OSProfiles when supported from backend.
+  string installed_packages_url = 17 [
+    (ent.field) = {
+      optional: true
+      immutable: true
+    },
+    (buf.validate.field).string = {
+      uri_ref: true
+      max_len: 200
+    }
+  ];
+
   SecurityFeature security_feature = 10 [(ent.field) = {
     optional: true
     immutable: true
