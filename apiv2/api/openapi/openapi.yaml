@@ -3493,7 +3493,6 @@ paths:
             title: page_size
             maximum: 100
             minimum: 1
-            format: int32
             description: |-
               (OPTIONAL) Defines the amount of items to be contained in a single page.
                Default of 20.
@@ -3504,7 +3503,6 @@ paths:
             type: integer
             title: offset
             maximum: 10000
-            format: int32
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
       responses:
         default:
@@ -4024,15 +4022,13 @@ components:
         name:
           type: string
           title: name
-          maxLength: 32
-          pattern: ^[a-z][a-z0-9-]{0,31}$
+          maxLength: 40
           description: Config provided by admin
         description:
           type: string
           title: description
           maxLength: 256
           minLength: 1
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
           description: (OPTIONAL) Config description
         configContent:
           type: string
@@ -7736,7 +7732,6 @@ components:
           title: page_size
           maximum: 100
           minimum: 1
-          format: int32
           description: |-
             (OPTIONAL) Defines the amount of items to be contained in a single page.
              Default of 20.
@@ -7744,7 +7739,6 @@ components:
           type: integer
           title: offset
           maximum: 10000
-          format: int32
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
       title: ListCustomConfigsRequest
       additionalProperties: false

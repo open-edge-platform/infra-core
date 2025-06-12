@@ -1338,7 +1338,7 @@ type ListCustomConfigsRequest struct {
 	Filter *string `json:"filter,omitempty"`
 
 	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
-	Offset *int32 `json:"offset,omitempty"`
+	Offset *int `json:"offset,omitempty"`
 
 	// OrderBy (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -1346,7 +1346,7 @@ type ListCustomConfigsRequest struct {
 
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `json:"pageSize,omitempty"`
+	PageSize *int `json:"pageSize,omitempty"`
 }
 
 // ListCustomConfigsResponse Response message for the ListCustomConfigs method.
@@ -5597,10 +5597,10 @@ type CustomConfigServiceListCustomConfigsParams struct {
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
-	PageSize *int32 `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
 
 	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int32 `form:"offset,omitempty" json:"offset,omitempty"`
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
