@@ -24,8 +24,7 @@ message CustomConfigResource {
   // Config provided by admin
   string name = 2 [
     (buf.validate.field).string = {
-      pattern: "^[a-z][a-z0-9-]{0,31}$"
-      max_len: 32
+      max_len: 40
     },
     (google.api.field_behavior) = REQUIRED
   ];
@@ -33,7 +32,6 @@ message CustomConfigResource {
     // Config description
   string description = 3 [
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
       min_len: 1
       max_len: 256
     },
