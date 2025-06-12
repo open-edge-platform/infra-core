@@ -8,6 +8,7 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
@@ -91,6 +92,33 @@ func (f TraverseFunc) Traverse(ctx context.Context, q ent.Query) error {
 		return err
 	}
 	return f(ctx, query)
+}
+
+// The CustomConfigResourceFunc type is an adapter to allow the use of ordinary function as a Querier.
+type CustomConfigResourceFunc func(context.Context, *ent.CustomConfigResourceQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f CustomConfigResourceFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.CustomConfigResourceQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CustomConfigResourceQuery", q)
+}
+
+// The TraverseCustomConfigResource type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseCustomConfigResource func(context.Context, *ent.CustomConfigResourceQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseCustomConfigResource) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseCustomConfigResource) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CustomConfigResourceQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.CustomConfigResourceQuery", q)
 }
 
 // The EndpointResourceFunc type is an adapter to allow the use of ordinary function as a Querier.
@@ -798,6 +826,8 @@ func (f TraverseWorkloadResource) Traverse(ctx context.Context, q ent.Query) err
 // NewQuery returns the generic Query interface for the given typed query.
 func NewQuery(q ent.Query) (Query, error) {
 	switch q := q.(type) {
+	case *ent.CustomConfigResourceQuery:
+		return &query[*ent.CustomConfigResourceQuery, predicate.CustomConfigResource, customconfigresource.OrderOption]{typ: ent.TypeCustomConfigResource, tq: q}, nil
 	case *ent.EndpointResourceQuery:
 		return &query[*ent.EndpointResourceQuery, predicate.EndpointResource, endpointresource.OrderOption]{typ: ent.TypeEndpointResource, tq: q}, nil
 	case *ent.HostResourceQuery:

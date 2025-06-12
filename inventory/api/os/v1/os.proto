@@ -40,6 +40,13 @@ message OperatingSystemResource {
   option (infrainv.schemaExtension) = {
     indexes: [
       {
+        unique: true
+        fields: [
+          "name",
+          "tenant_id"
+        ]
+      },
+      {
         unique: false
         fields: ["tenant_id"]
       }
@@ -55,7 +62,10 @@ message OperatingSystemResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // Resource ID of this OperatingSystemResource
 
-  string name = 2 [(ent.field) = {optional: true}]; // user-provided, human-readable name of OS
+  string name = 2 [(ent.field) = {
+    optional: true
+    immutable: true
+  }]; // user-provided, human-readable name of OS
   string architecture = 3 [(ent.field) = {optional: true}]; // CPU architecture supported
   string kernel_command = 4 [(ent.field) = {optional: true}]; // Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 
