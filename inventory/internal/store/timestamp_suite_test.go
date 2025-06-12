@@ -40,12 +40,14 @@ type tsSuiteTestRes interface {
 
 func CreateTimestampSuite(
 	t *testing.T,
+	clientType inv_testing.ClientType,
 	createRes func(*inv_testing.InvResourceDAO) (resource tsSuiteTestRes),
 	emptyRes func() proto.Message,
 	updateRes func() (proto.Message, []string),
 ) *TimestampTestSuite {
 	t.Helper()
 	return &TimestampTestSuite{
+		clientType:     clientType,
 		createResource: createRes,
 		emptyResource:  emptyRes,
 		updateResource: updateRes,
@@ -54,7 +56,8 @@ func CreateTimestampSuite(
 
 type TimestampTestSuite struct {
 	suite.Suite
-	apiClient         client.TenantAwareInventoryClient
+	clientType        inv_testing.ClientType
+	client            client.TenantAwareInventoryClient
 	createResource    func(*inv_testing.InvResourceDAO) (resource tsSuiteTestRes)
 	emptyResource     func() proto.Message
 	updateResource    func() (proto.Message, []string)
@@ -68,7 +71,7 @@ type TimestampTestSuite struct {
 
 func (tts *TimestampTestSuite) SetupSuite() {
 	tts.dao = inv_testing.NewInvResourceDAOOrFail(tts.T())
-	tts.apiClient = inv_testing.GetClient(tts.T(), inv_testing.APIClient).GetTenantAwareInventoryClient()
+	tts.client = inv_testing.GetClient(tts.T(), tts.clientType).GetTenantAwareInventoryClient()
 
 	// Create resource in setup, to have resource during update test.
 	tts.creationTime = time.Now()
@@ -109,6 +112,8 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 		// Other special cases are handled via the updateResource func.
 		case "HostgpuResource", "HostnicResource", "HoststorageResource", "HostusbResource":
 			fieldName = "device_name"
+		case "OperatingSystemResource":
+			fieldName = "kernel_command"
 		default:
 			fieldName = "name"
 		}
@@ -122,7 +127,7 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 	updateRes, err := util.WrapResource(upRes)
 	tts.Require().NoError(err)
 
-	updatedResource, err := tts.apiClient.Update(
+	updatedResource, err := tts.client.Update(
 		context.TODO(),
 		tts.tenantID,
 		tts.resourceID,
@@ -171,7 +176,7 @@ func (tts *TimestampTestSuite) TestFailUpdateUpdatedAtTimestamp() {
 	wrappedUpRes, err := util.WrapResource(upRes)
 	tts.Require().NoError(err)
 
-	_, err = tts.apiClient.Update(
+	_, err = tts.client.Update(
 		context.TODO(),
 		tts.tenantID,
 		tts.resourceID,
@@ -183,7 +188,7 @@ func (tts *TimestampTestSuite) TestFailUpdateUpdatedAtTimestamp() {
 		"invalidArgument error is expected whilst returned is: %v", err)
 	tts.Require().ErrorContains(err, "field created_at is immutable")
 
-	_, err = tts.apiClient.Update(
+	_, err = tts.client.Update(
 		context.TODO(),
 		tts.tenantID,
 		tts.resourceID,
@@ -202,12 +207,14 @@ func (tts *TimestampTestSuite) TestFailUpdateUpdatedAtTimestamp() {
 func TestTimestamp(t *testing.T) {
 	resourceTests := []struct {
 		name       string
+		clientType inv_testing.ClientType
 		createFunc func(*inv_testing.InvResourceDAO) tsSuiteTestRes
 		emptyFunc  func() proto.Message
 		updateFunc func() (proto.Message, []string)
 	}{
 		{
-			name: "Host",
+			name:       "Host",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateHost(t, tenantIDOne)
 			},
@@ -216,7 +223,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "HostGPU",
+			name:       "HostGPU",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateHostGPU(t, tenantIDOne, dao.CreateHost(t, tenantIDOne))
 			},
@@ -225,7 +233,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "HostNic",
+			name:       "HostNic",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateHostNic(t, tenantIDOne, dao.CreateHost(t, tenantIDOne))
 			},
@@ -234,7 +243,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "HostStorage",
+			name:       "HostStorage",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateHostStorage(t, tenantIDOne, dao.CreateHost(t, tenantIDOne))
 			},
@@ -243,7 +253,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "HostUSB",
+			name:       "HostUSB",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateHostUsb(t, tenantIDOne, dao.CreateHost(t, tenantIDOne))
 			},
@@ -252,7 +263,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Instance",
+			name:       "Instance",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateInstance(t, tenantIDOne, nil, dao.CreateOs(t, tenantIDOne))
 			},
@@ -261,7 +273,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Workload",
+			name:       "Workload",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateWorkload(t, tenantIDOne)
 			},
@@ -270,7 +283,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Region",
+			name:       "Region",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateRegion(t, tenantIDOne)
 			},
@@ -279,7 +293,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Site",
+			name:       "Site",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateSite(t, tenantIDOne)
 			},
@@ -288,7 +303,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Endpoint",
+			name:       "Endpoint",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateEndpoint(t, tenantIDOne, nil)
 			},
@@ -297,7 +313,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Netlink",
+			name:       "Netlink",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateNetLink(t, tenantIDOne, true)
 			},
@@ -306,7 +323,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "NetworkSegment",
+			name:       "NetworkSegment",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateNetworkSegment(t, tenantIDOne, "", dao.CreateSite(t, tenantIDOne), 12, true)
 			},
@@ -315,7 +333,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "IPAddress",
+			name:       "IPAddress",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				host := dao.CreateHost(t, tenantIDOne)
 				hostNic := dao.CreateHostNic(t, tenantIDOne, host)
@@ -332,7 +351,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Os",
+			name:       "Os",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateOs(t, tenantIDOne)
 			},
@@ -341,7 +361,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Ou",
+			name:       "Ou",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateOu(t, tenantIDOne)
 			},
@@ -350,7 +371,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Provider",
+			name:       "Provider",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateProvider(t, tenantIDOne, "providerTest",
 					inv_testing.ProviderKind(provider_v1.ProviderKind_PROVIDER_KIND_BAREMETAL))
@@ -360,7 +382,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "RemoteAccessConfiguration",
+			name:       "RemoteAccessConfiguration",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateRemoteAccessConfiguration(t, tenantIDOne)
 			},
@@ -375,7 +398,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "SingleSchedule",
+			name:       "SingleSchedule",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateSingleSchedule(t, tenantIDOne)
 			},
@@ -384,7 +408,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "RepeatedSchedule",
+			name:       "RepeatedSchedule",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateRepeatedSchedule(t, tenantIDOne)
 			},
@@ -409,7 +434,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "TelemetryGroup",
+			name:       "TelemetryGroup",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateTelemetryGroupLogs(t, tenantIDOne, true)
 			},
@@ -418,7 +444,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "TelemetryProfile",
+			name:       "TelemetryProfile",
+			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				site := dao.CreateSite(t, tenantIDOne)
 				tpGroup := dao.CreateTelemetryGroupLogs(t, tenantIDOne, true)
@@ -435,7 +462,8 @@ func TestTimestamp(t *testing.T) {
 			},
 		},
 		{
-			name: "Tenant",
+			name:       "Tenant",
+			clientType: inv_testing.RMClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateTenantWithOpts(t, tenantIDOne, true,
 					inv_testing.TenantDesiredState(tenantv1.TenantState_TENANT_STATE_CREATED))
@@ -454,7 +482,7 @@ func TestTimestamp(t *testing.T) {
 
 	for _, rt := range resourceTests {
 		t.Run(rt.name, func(t *testing.T) {
-			suite.Run(t, CreateTimestampSuite(t, rt.createFunc, rt.emptyFunc, rt.updateFunc))
+			suite.Run(t, CreateTimestampSuite(t, rt.clientType, rt.createFunc, rt.emptyFunc, rt.updateFunc))
 		})
 	}
 
@@ -463,6 +491,7 @@ func TestTimestamp(t *testing.T) {
 		instance1 := dao.CreateInstance(t, tenantIDOne, nil, dao.CreateOs(t, tenantIDOne))
 		instance2 := dao.CreateInstance(t, tenantIDOne, nil, dao.CreateOs(t, tenantIDOne))
 		suite.Run(t, CreateTimestampSuite(t,
+			inv_testing.APIClient,
 			func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateWorkloadMember(t, tenantIDOne, dao.CreateWorkload(t, tenantIDOne), instance1)
 			},

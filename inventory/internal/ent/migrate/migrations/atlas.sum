@@ -1,4 +1,4 @@
-h1:gE6JlOb8voNpn9e9zhg1HkWLQ9NtaXlJdkDK8xsXIiA=
+h1:a5HDjFIJ4BJB95O+4ETJe7vuvtWXXuAgeR1n1VD2IC8=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
@@ -7,4 +7,6 @@ h1:gE6JlOb8voNpn9e9zhg1HkWLQ9NtaXlJdkDK8xsXIiA=
 20250605145118_add_osmetadata.sql h1:Y6t1wz1AxZD9sskGKmi1YcBh4GTGarWQAsya0vrD7v4=
 20250605155657_add_osupdatepolicy.sql h1:Q1CJe+b8PV6k7icmIDaBMbfVn7rZLwhuZTeeFmSegCU=
 20250606153212_instance_update.sql h1:xmZLkFyu8Kaumkj9W10czTP+54Fb3sqF7RB90O7dtzE=
-20250610153212_datamigration_day2.sql h1:8nN7XAKAsxGIqypuRYU5qrIhtLQyRpB0kWVP7snlX50=
+20250610144827_add_customconfig.sql h1:AEZjZR5G0WSxeuyVDuc7LzIYHDnSX7ALaMGaQIRZYeo=
+20250611162552_modify_OSResource_name_tenantId_uniqueness.sql h1:EbpWIWxka0/ozWlnfWiEKvpM7o88+uyYOxGYq/Uwhf0=
+20250612153212_datamigration_day2.sql h1:AaY4skPacT//N/uiBW9neyW93KlMmBiNYNYgLHKVIF0=

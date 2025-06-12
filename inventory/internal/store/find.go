@@ -52,6 +52,7 @@ func (is *InvStore) ListResources(ctx context.Context, filter *inv_v1.ResourceFi
 		inv_v1.ResourceKind_RESOURCE_KIND_TENANT:            is.ListTenants,
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      is.ListLocalAccounts,
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    is.ListOSUpdatePolicies,
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      is.ListCustomConfigs,
 	}
 
 	filterFunc, ok := mapFindResources[resKind]
@@ -98,6 +99,7 @@ func (is *InvStore) FindResources(ctx context.Context, filter *inv_v1.ResourceFi
 		inv_v1.ResourceKind_RESOURCE_KIND_TENANT:            is.FilterTenants,
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      is.FilterLocalAccounts,
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    is.FilterOSUpdatePolicies,
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      is.FilterCustomConfigs,
 	}
 
 	filterFunc, ok := mapFindResources[resKind]

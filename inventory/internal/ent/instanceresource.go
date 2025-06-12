@@ -109,9 +109,11 @@ type InstanceResourceEdges struct {
 	Localaccount *LocalAccountResource `json:"localaccount,omitempty"`
 	// OsUpdatePolicy holds the value of the os_update_policy edge.
 	OsUpdatePolicy *OSUpdatePolicyResource `json:"os_update_policy,omitempty"`
+	// CustomConfig holds the value of the custom_config edge.
+	CustomConfig []*CustomConfigResource `json:"custom_config,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [8]bool
+	loadedTypes [9]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -198,6 +200,15 @@ func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, e
 		return nil, &NotFoundError{label: osupdatepolicyresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "os_update_policy"}
+}
+
+// CustomConfigOrErr returns the CustomConfig value or an error if the edge
+// was not loaded in eager-loading.
+func (e InstanceResourceEdges) CustomConfigOrErr() ([]*CustomConfigResource, error) {
+	if e.loadedTypes[8] {
+		return e.CustomConfig, nil
+	}
+	return nil, &NotLoadedError{edge: "custom_config"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -509,6 +520,11 @@ func (ir *InstanceResource) QueryLocalaccount() *LocalAccountResourceQuery {
 // QueryOsUpdatePolicy queries the "os_update_policy" edge of the InstanceResource entity.
 func (ir *InstanceResource) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
 	return NewInstanceResourceClient(ir.config).QueryOsUpdatePolicy(ir)
+}
+
+// QueryCustomConfig queries the "custom_config" edge of the InstanceResource entity.
+func (ir *InstanceResource) QueryCustomConfig() *CustomConfigResourceQuery {
+	return NewInstanceResourceClient(ir.config).QueryCustomConfig(ir)
 }
 
 // Update returns a builder for updating this InstanceResource.
