@@ -694,6 +694,11 @@ var (
 		PrimaryKey: []*schema.Column{OperatingSystemResourcesColumns[0]},
 		Indexes: []*schema.Index{
 			{
+				Name:    "operatingsystemresource_name_tenant_id",
+				Unique:  true,
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[22]},
+			},
+			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
 				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
