@@ -4032,9 +4032,9 @@ components:
           minLength: 1
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
           description: (OPTIONAL) Config description
-        configContent:
+        config:
           type: string
-          title: config_content
+          title: config
           maxLength: 16384
           description: Config content
         timestamps:
@@ -4045,7 +4045,7 @@ components:
       title: CustomConfigResource
       required:
         - name
-        - configContent
+        - config
       additionalProperties: false
     ProviderKind:
       type: string
