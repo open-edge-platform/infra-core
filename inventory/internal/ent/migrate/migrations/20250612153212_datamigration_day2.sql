@@ -22,7 +22,7 @@ SELECT
     'osupdatepolicy-' || split_part(os.resource_id, '-', 2) AS resource_id,
     '"' || os.name || '" Update Policy' AS name,
     'Migrated from OS "' || os.resource_id || '"' AS description,
-    os.installed_packages,
+    os.insta:lled_packages,
     os.update_sources,
     os.kernel_command,
     'UPDATE_POLICY_TARGET' AS update_policy,
