@@ -28,10 +28,10 @@ var exampleInvCustomConfig = &inv_computev1.CustomConfigResource{
 }
 
 var exampleAPICustomConfig = &customconfigv1.CustomConfigResource{
-	ResourceId:    "customconfig-1234",
-	Name:          "example-config",
-	Description:   "Example description",
-	ConfigContent: "config-content",
+	ResourceId:  "customconfig-1234",
+	Name:        "example-config",
+	Description: "Example description",
+	Config:      "config-content",
 }
 
 func TestCustomConfig_Create(t *testing.T) {

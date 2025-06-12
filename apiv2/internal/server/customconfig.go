@@ -22,7 +22,7 @@ func toInvCustomConfig(customConfig *customconfigv1.CustomConfigResource) (*inv_
 	invCustomConfig := &inv_computev1.CustomConfigResource{
 		Name:        customConfig.GetName(),
 		Description: customConfig.GetDescription(),
-		Config:      customConfig.GetConfigContent(),
+		Config:      customConfig.GetConfig(),
 	}
 
 	err := validator.ValidateMessage(invCustomConfig)
@@ -40,11 +40,11 @@ func fromInvCustomConfig(invCustomConfig *inv_computev1.CustomConfigResource) *c
 	}
 
 	return &customconfigv1.CustomConfigResource{
-		ResourceId:    invCustomConfig.GetResourceId(),
-		Name:          invCustomConfig.GetName(),
-		Description:   invCustomConfig.GetDescription(),
-		ConfigContent: invCustomConfig.GetConfig(),
-		Timestamps:    GrpcToOpenAPITimestamps(invCustomConfig),
+		ResourceId:  invCustomConfig.GetResourceId(),
+		Name:        invCustomConfig.GetName(),
+		Description: invCustomConfig.GetDescription(),
+		Config:      invCustomConfig.GetConfig(),
+		Timestamps:  GrpcToOpenAPITimestamps(invCustomConfig),
 	}
 }
 
