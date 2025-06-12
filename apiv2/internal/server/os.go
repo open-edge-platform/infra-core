@@ -46,7 +46,6 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		Sha256:               osResource.GetSha256(),
 		ProfileName:          osResource.GetProfileName(),
 		ProfileVersion:       osResource.GetProfileVersion(),
-		InstalledPackages:    osResource.GetInstalledPackages(),
 		InstalledPackagesUrl: osResource.GetInstalledPackagesUrl(),
 		SecurityFeature:      inv_osv1.SecurityFeature(osResource.GetSecurityFeature()),
 		OsType:               inv_osv1.OsType(osResource.GetOsType()),
