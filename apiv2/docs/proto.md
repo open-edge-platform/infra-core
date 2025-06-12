@@ -355,7 +355,7 @@ A metadata item, represented by a key:value pair.
 | resource_id | [string](#string) |  | resource identifier |
 | name | [string](#string) |  | Config provided by admin |
 | description | [string](#string) |  | Config description |
-| config_content | [string](#string) |  | Config content |
+| config | [string](#string) |  | Config content |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
 
 
@@ -3148,8 +3148,8 @@ Request message for the ListCustomConfigs method.
 | ----- | ---- | ----- | ----------- |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
-| page_size | [int32](#int32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
-| offset | [int32](#int32) |  | Index of the first item to return. This allows skipping items. |
+| page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
+| offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 
 
 

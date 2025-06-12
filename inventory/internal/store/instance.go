@@ -113,7 +113,11 @@ func instanceResourceCreator(in *computev1.InstanceResource) func(context.Contex
 		if err := setRelationsForInstanceCreate(ctx, tx.Client(), mut, in); err != nil {
 			return nil, err
 		}
-
+		// Look up the optional CustomConfig IDs for this Instance. CustomConfig is M2M relation,
+		// so multiple edges could be provided at once
+		if err := setEdgeCustomConfigIDsForMut(ctx, tx.Client(), mut, in.GetCustomConfig()); err != nil {
+			return nil, err
+		}
 		if err := mut.SetField(instanceresource.FieldResourceID, id); err != nil {
 			return nil, errors.Wrap(err)
 		}
@@ -198,7 +202,8 @@ func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nested
 		WithOs().
 		WithProvider().
 		WithLocalaccount().
-		WithOsUpdatePolicy()
+		WithOsUpdatePolicy().
+		WithCustomConfig()
 	if nestedLoad {
 		query.
 			WithHost(func(q *ent.HostResourceQuery) {
@@ -257,21 +262,11 @@ func (is *InvStore) UpdateInstance(
 				return wrapped, booleans.Pointer(true), nil
 			}
 
-			if isNotValidInstanceTransition(fieldmask, entity, in) {
+			err = isNotValidInstanceTransition(fieldmask, entity, in, id)
+			if err != nil {
 				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
 					id, entity.CurrentState, in.DesiredState).Msgf("UpdateInstance")
-				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
-						id, entity.CurrentState, in.DesiredState)
-			}
-
-			if isNotValidLocalAccountUpdate(fieldmask, entity) {
-				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
-					id, entity.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
-				return nil, booleans.Pointer(false),
-					errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
-						id, in.GetLocalaccount(), entity.CurrentState,
-					)
+				return nil, booleans.Pointer(false), err
 			}
 
 			// Because the instance-to-host edge is O2O and Ent has a limitation that does not allow
@@ -587,6 +582,13 @@ func setRelationsForInstanceMutIfNeeded(
 			return err
 		}
 	}
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
+		mut.ClearCustomConfig()
+		if err := setEdgeCustomConfigIDsForMut(ctx, client, mut, in.GetCustomConfig()); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -612,17 +614,38 @@ func isNotValidInstanceTransition(
 	fieldmask *fieldmaskpb.FieldMask,
 	instanceq *ent.InstanceResource,
 	in *computev1.InstanceResource,
-) bool {
-	// transition from Untrusted to any other state than DELETED is not allowed
-	return slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) &&
-		instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
-		in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED
-}
+	id string,
+) error {
+	// Un-Trusted -> Deleted is the only allowed transition
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.FieldDesiredState) {
+		if instanceq.CurrentState == instanceresource.CurrentStateINSTANCE_STATE_UNTRUSTED &&
+			in.DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED {
+			zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
+				id, instanceq.CurrentState, in.DesiredState).Msgf("UpdateInstance")
+			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s from %s to %s is not allowed",
+				id, instanceq.CurrentState, in.DesiredState)
+		}
+	}
+	// LocalAccount cannot be updated once the provisioning is started
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) {
+		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
+			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+			zlog.InfraSec().InfraError("Update of %s in %s with %s is not allowed",
+				id, instanceq.CurrentState, in.GetLocalaccount()).Msgf("UpdateInstance")
+			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s LocalAccount is not allowed %s, currentState: %s",
+				id, in.GetLocalaccount(), instanceq.CurrentState)
+		}
+	}
+	// CustomConfig cannot be updated once the provisioning is started
+	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCustomConfig) {
+		if instanceq.InstanceStatusIndicator != instanceresource.InstanceStatusIndicatorSTATUS_INDICATION_UNSPECIFIED ||
+			instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED {
+			zlog.InfraSec().InfraError("Update of %s in %s with %s is not allowed",
+				id, instanceq.CurrentState, in.GetCustomConfig()).Msgf("UpdateInstance")
+			return errors.Errorfc(codes.InvalidArgument, "UpdateInstance %s CustomConfig is not allowed %s, currentState: %s",
+				id, in.GetCustomConfig(), instanceq.CurrentState)
+		}
+	}
 
-func isNotValidLocalAccountUpdate(
-	fieldmask *fieldmaskpb.FieldMask,
-	instanceq *ent.InstanceResource,
-) bool {
-	return slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeLocalaccount) &&
-		instanceq.CurrentState != instanceresource.CurrentStateINSTANCE_STATE_UNSPECIFIED
+	return nil
 }

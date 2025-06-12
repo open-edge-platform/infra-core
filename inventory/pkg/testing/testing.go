@@ -253,6 +253,9 @@ func clearDB(ctx context.Context, dbURL string) error { //nolint:cyclop,funlen /
 	c := store.ConnectEntDB(dbURL, "")
 	defer c.Close()
 
+	if _, err := c.OSUpdateRunResource.Delete().Exec(ctx); err != nil {
+		return err
+	}
 	if _, err := c.WorkloadMember.Delete().Exec(ctx); err != nil {
 		return err
 	}
@@ -316,6 +319,9 @@ func clearDB(ctx context.Context, dbURL string) error { //nolint:cyclop,funlen /
 		return err
 	}
 	if _, err := c.LocalAccountResource.Delete().Exec(ctx); err != nil {
+		return err
+	}
+	if _, err := c.CustomConfigResource.Delete().Exec(ctx); err != nil {
 		return err
 	}
 	// Clear host after host components and instance

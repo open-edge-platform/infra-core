@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
@@ -26,6 +27,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicy"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -98,6 +100,7 @@ var (
 func checkColumn(table, column string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
+			customconfigresource.Table:      customconfigresource.ValidColumn,
 			endpointresource.Table:          endpointresource.ValidColumn,
 			hostresource.Table:              hostresource.ValidColumn,
 			hostgpuresource.Table:           hostgpuresource.ValidColumn,
@@ -111,6 +114,7 @@ func checkColumn(table, column string) error {
 			networksegment.Table:            networksegment.ValidColumn,
 			osupdatepolicy.Table:            osupdatepolicy.ValidColumn,
 			osupdatepolicyresource.Table:    osupdatepolicyresource.ValidColumn,
+			osupdaterunresource.Table:       osupdaterunresource.ValidColumn,
 			operatingsystemresource.Table:   operatingsystemresource.ValidColumn,
 			ouresource.Table:                ouresource.ValidColumn,
 			providerresource.Table:          providerresource.ValidColumn,

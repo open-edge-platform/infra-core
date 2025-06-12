@@ -756,6 +756,11 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	if osUpdatePolicy, qerr := ins.Edges.OsUpdatePolicyOrErr(); qerr == nil {
 		protoInstance.OsUpdatePolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osUpdatePolicy)
 	}
+	if customConfig, qerr := ins.Edges.CustomConfigOrErr(); qerr == nil {
+		for _, m := range customConfig {
+			protoInstance.CustomConfig = append(protoInstance.CustomConfig, entCustomConfigResourceToProtoCustomConfigResource(m))
+		}
+	}
 	return protoInstance
 }
 
@@ -869,4 +874,51 @@ func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePo
 		protoOsUpdatePolicy.TargetOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
 	}
 	return protoOsUpdatePolicy
+}
+
+func entCustomConfigResourceToProtoCustomConfigResource(
+	customconfig *ent.CustomConfigResource,
+) *computev1.CustomConfigResource {
+	if customconfig == nil {
+		return nil
+	}
+	protoLocalAccount := &computev1.CustomConfigResource{
+		ResourceId:  customconfig.ResourceID,
+		Name:        customconfig.Name,
+		Description: customconfig.Description,
+		Config:      customconfig.Config,
+		TenantId:    customconfig.TenantID,
+		CreatedAt:   customconfig.CreatedAt,
+	}
+	return protoLocalAccount
+}
+
+func entOSUpdateRunResourceToProtoOSUpdateRunResource(osrun *ent.OSUpdateRunResource) *computev1.OSUpdateRunResource {
+	if osrun == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	statusIndicator := statusv1.StatusIndication_value[osrun.StatusIndicator.String()] // Defaults to 0 if not found
+	protoOsUpdateRun := &computev1.OSUpdateRunResource{
+		Name:            osrun.Name,
+		Description:     osrun.Description,
+		ResourceId:      osrun.ResourceID,
+		Status:          osrun.Status,
+		StatusDetails:   osrun.StatusDetails,
+		StatusTimestamp: osrun.StatusTimestamp,
+		StartTime:       osrun.StartTime,
+		EndTime:         osrun.EndTime,
+		StatusIndicator: statusv1.StatusIndication(statusIndicator),
+		TenantId:        osrun.TenantID,
+		CreatedAt:       osrun.CreatedAt,
+		UpdatedAt:       osrun.UpdatedAt,
+	}
+	// Convert the edges recursively.
+	if osPolicy, err := osrun.Edges.AppliedPolicyOrErr(); err == nil {
+		protoOsUpdateRun.AppliedPolicy = entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osPolicy)
+	}
+	if instance, err := osrun.Edges.InstanceOrErr(); err == nil {
+		protoOsUpdateRun.Instance = entInstanceResourceToProtoInstanceResource(instance)
+	}
+	return protoOsUpdateRun
 }

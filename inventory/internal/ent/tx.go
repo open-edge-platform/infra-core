@@ -14,6 +14,8 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
+	// CustomConfigResource is the client for interacting with the CustomConfigResource builders.
+	CustomConfigResource *CustomConfigResourceClient
 	// EndpointResource is the client for interacting with the EndpointResource builders.
 	EndpointResource *EndpointResourceClient
 	// HostResource is the client for interacting with the HostResource builders.
@@ -40,6 +42,8 @@ type Tx struct {
 	OSUpdatePolicy *OSUpdatePolicyClient
 	// OSUpdatePolicyResource is the client for interacting with the OSUpdatePolicyResource builders.
 	OSUpdatePolicyResource *OSUpdatePolicyResourceClient
+	// OSUpdateRunResource is the client for interacting with the OSUpdateRunResource builders.
+	OSUpdateRunResource *OSUpdateRunResourceClient
 	// OperatingSystemResource is the client for interacting with the OperatingSystemResource builders.
 	OperatingSystemResource *OperatingSystemResourceClient
 	// OuResource is the client for interacting with the OuResource builders.
@@ -197,6 +201,7 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
+	tx.CustomConfigResource = NewCustomConfigResourceClient(tx.config)
 	tx.EndpointResource = NewEndpointResourceClient(tx.config)
 	tx.HostResource = NewHostResourceClient(tx.config)
 	tx.HostgpuResource = NewHostgpuResourceClient(tx.config)
@@ -210,6 +215,7 @@ func (tx *Tx) init() {
 	tx.NetworkSegment = NewNetworkSegmentClient(tx.config)
 	tx.OSUpdatePolicy = NewOSUpdatePolicyClient(tx.config)
 	tx.OSUpdatePolicyResource = NewOSUpdatePolicyResourceClient(tx.config)
+	tx.OSUpdateRunResource = NewOSUpdateRunResourceClient(tx.config)
 	tx.OperatingSystemResource = NewOperatingSystemResourceClient(tx.config)
 	tx.OuResource = NewOuResourceClient(tx.config)
 	tx.ProviderResource = NewProviderResourceClient(tx.config)
@@ -232,7 +238,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: EndpointResource.QueryXXX(), the query will be executed
+// applies a query, for example: CustomConfigResource.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

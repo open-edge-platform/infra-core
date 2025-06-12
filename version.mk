@@ -88,9 +88,9 @@ ifeq ($(OPA), true)
 	@(echo "$(OPAVERSION_HAVE)" | grep "$(OPAVERSION_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of opan\nRecommended: $(OPAVERSION_REQ)\nYours: $(OPAVERSION_HAVE)\e[1;m" && exit 1)
 endif
-ifeq ($(MOCKGENGEN), true)
+ifeq ($(MOCKGEN), true)
 	@(echo "$(MOCKGENVERSION_HAVE)" | grep "$(MOCKGENVERSION_REQ)" > /dev/null) || \
-	(echo  "\e[1;31mWARNING: You are not using the recommended version of mockgen\nRecommended:: $(MOCKGENVERSION_REQ)"\nYours: $(MOCKGENVERSION_HAVE)\e[1;m" && exit 1)
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of mockgen\nRecommended: $(MOCKGENVERSION_REQ)\nYours: $(MOCKGENVERSION_HAVE)\e[1;m" && exit 1)
 endif
 ifeq ($(ATLAS), true)
 	@(if ! [ $(ATLAS_REQ) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"atlas\" installed\e[1;m" && exit 1 ; fi)
