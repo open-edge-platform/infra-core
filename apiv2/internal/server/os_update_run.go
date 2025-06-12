@@ -18,22 +18,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-func ConvertFromInvOSUpdatePolicy(policy *inv_computev1.OSUpdatePolicyResource) *computev1.OSUpdatePolicy {
-	if policy == nil {
-		return nil
-	}
-	return &computev1.OSUpdatePolicy{
-		ResourceId:      policy.GetResourceId(),
-		Name:            policy.GetName(),
-		Description:     policy.GetDescription(),
-		InstallPackages: policy.GetInstallPackages(),
-		UpdateSources:   policy.GetUpdateSources(),
-		KernelCommand:   policy.GetKernelCommand(),
-		TargetOs:        fromInvOSResource(policy.GetTargetOs()),
-		Timestamps:      GrpcToOpenAPITimestamps(policy),
-	}
-}
-
 func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) *computev1.OSUpdateRun {
 
 	parseTimestamp := func(ts string) *timestamppb.Timestamp {
@@ -48,12 +32,17 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 	if invOSUpdateRunResource == nil {
 		return &computev1.OSUpdateRun{}
 	}
-	instance, _ := fromInvInstance(invOSUpdateRunResource.GetInstance())
+	instance, err := fromInvInstance(invOSUpdateRunResource.GetInstance())
+	if err != nil {
+		zlog.Warn().Err(err).Msgf("Failed to get the inventory instance edge from OS Update Run resource")
+		return nil
+	}
+
 	osUpdateRunResource := &computev1.OSUpdateRun{
 		ResourceId:      invOSUpdateRunResource.GetResourceId(),
 		Name:            invOSUpdateRunResource.GetName(),
 		Description:     invOSUpdateRunResource.GetDescription(),
-		AppliedPolicy:   ConvertFromInvOSUpdatePolicy(invOSUpdateRunResource.GetAppliedPolicy()),
+		AppliedPolicy:   fromInvOSUpdatePolicy(invOSUpdateRunResource.GetAppliedPolicy()),
 		Instance:        instance,
 		StatusIndicator: statusv1.StatusIndication(invOSUpdateRunResource.GetStatusIndicator()),
 		Status:          invOSUpdateRunResource.GetStatus(),

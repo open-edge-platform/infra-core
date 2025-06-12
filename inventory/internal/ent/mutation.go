@@ -20839,7 +20839,6 @@ func (m *OSUpdateRunResourceMutation) OldStatus(ctx context.Context) (v string, 
 	return oldValue.Status, nil
 }
 
-<<<<<<< HEAD
 // ClearStatus clears the value of the "status" field.
 func (m *OSUpdateRunResourceMutation) ClearStatus() {
 	m.status = nil
@@ -20856,11 +20855,6 @@ func (m *OSUpdateRunResourceMutation) StatusCleared() bool {
 func (m *OSUpdateRunResourceMutation) ResetStatus() {
 	m.status = nil
 	delete(m.clearedFields, osupdaterunresource.FieldStatus)
-=======
-// ResetStatus resets all changes to the "status" field.
-func (m *OSUpdateRunResourceMutation) ResetStatus() {
-	m.status = nil
->>>>>>> fd4bbaa (Changes for adding OSUpdateRun resource in inventory)
 }
 
 // SetStatusDetails sets the "status_details" field.
@@ -20894,7 +20888,6 @@ func (m *OSUpdateRunResourceMutation) OldStatusDetails(ctx context.Context) (v s
 	return oldValue.StatusDetails, nil
 }
 
-<<<<<<< HEAD
 // ClearStatusDetails clears the value of the "status_details" field.
 func (m *OSUpdateRunResourceMutation) ClearStatusDetails() {
 	m.status_details = nil
@@ -20911,11 +20904,6 @@ func (m *OSUpdateRunResourceMutation) StatusDetailsCleared() bool {
 func (m *OSUpdateRunResourceMutation) ResetStatusDetails() {
 	m.status_details = nil
 	delete(m.clearedFields, osupdaterunresource.FieldStatusDetails)
-=======
-// ResetStatusDetails resets all changes to the "status_details" field.
-func (m *OSUpdateRunResourceMutation) ResetStatusDetails() {
-	m.status_details = nil
->>>>>>> fd4bbaa (Changes for adding OSUpdateRun resource in inventory)
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
@@ -21021,7 +21009,6 @@ func (m *OSUpdateRunResourceMutation) OldEndTime(ctx context.Context) (v string,
 	return oldValue.EndTime, nil
 }
 
-<<<<<<< HEAD
 // ClearEndTime clears the value of the "end_time" field.
 func (m *OSUpdateRunResourceMutation) ClearEndTime() {
 	m.end_time = nil
@@ -21038,11 +21025,6 @@ func (m *OSUpdateRunResourceMutation) EndTimeCleared() bool {
 func (m *OSUpdateRunResourceMutation) ResetEndTime() {
 	m.end_time = nil
 	delete(m.clearedFields, osupdaterunresource.FieldEndTime)
-=======
-// ResetEndTime resets all changes to the "end_time" field.
-func (m *OSUpdateRunResourceMutation) ResetEndTime() {
-	m.end_time = nil
->>>>>>> fd4bbaa (Changes for adding OSUpdateRun resource in inventory)
 }
 
 // SetTenantID sets the "tenant_id" field.
@@ -21490,7 +21472,6 @@ func (m *OSUpdateRunResourceMutation) AddField(name string, value ent.Value) err
 // mutation.
 func (m *OSUpdateRunResourceMutation) ClearedFields() []string {
 	var fields []string
-<<<<<<< HEAD
 	if m.FieldCleared(osupdaterunresource.FieldName) {
 		fields = append(fields, osupdaterunresource.FieldName)
 	}
@@ -21506,11 +21487,6 @@ func (m *OSUpdateRunResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(osupdaterunresource.FieldEndTime) {
 		fields = append(fields, osupdaterunresource.FieldEndTime)
 	}
-=======
-	if m.FieldCleared(osupdaterunresource.FieldDescription) {
-		fields = append(fields, osupdaterunresource.FieldDescription)
-	}
->>>>>>> fd4bbaa (Changes for adding OSUpdateRun resource in inventory)
 	return fields
 }
 
@@ -21525,7 +21501,6 @@ func (m *OSUpdateRunResourceMutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *OSUpdateRunResourceMutation) ClearField(name string) error {
 	switch name {
-<<<<<<< HEAD
 	case osupdaterunresource.FieldName:
 		m.ClearName()
 		return nil
@@ -21541,11 +21516,6 @@ func (m *OSUpdateRunResourceMutation) ClearField(name string) error {
 	case osupdaterunresource.FieldEndTime:
 		m.ClearEndTime()
 		return nil
-=======
-	case osupdaterunresource.FieldDescription:
-		m.ClearDescription()
-		return nil
->>>>>>> fd4bbaa (Changes for adding OSUpdateRun resource in inventory)
 	}
 	return fmt.Errorf("unknown OSUpdateRunResource nullable field %s", name)
 }
