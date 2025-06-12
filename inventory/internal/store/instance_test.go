@@ -1417,8 +1417,7 @@ func Test_NestedFilterInstances(t *testing.T) {
 					instanceresource.EdgeDesiredOs, operatingsystemresource.FieldName, os1.GetName()),
 			},
 			resources: []*computev1.InstanceResource{
-				instance1, instance2, instance3, instance4,
-				instanceWithProvider, instanceWithLocalAccount,
+				instance1, instance2,
 			},
 			valid: true,
 		},

@@ -247,6 +247,8 @@ func setTenantID(resource *inv_v1.Resource, tenantID string) error {
 		message = resource.GetOsUpdatePolicy()
 	case *inv_v1.Resource_CustomConfig:
 		message = resource.GetCustomConfig()
+	case *inv_v1.Resource_OsUpdateRun:
+		message = resource.GetOsUpdateRun()
 	default:
 		return fmt.Errorf("unknown resource type: %v", resource.GetResource())
 	}

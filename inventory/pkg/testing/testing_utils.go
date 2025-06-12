@@ -850,18 +850,19 @@ func (c *InvResourceDAO) createOsWithOpts(
 
 	// a default OS resource, can be overwritten by opts
 	osCreateReq := &osv1.OperatingSystemResource{
-		Name:              "for unit testing purposes",
-		UpdateSources:     []string{"test entries"},
-		ImageUrl:          "Repo URL Test",
-		ImageId:           "some image ID",
-		ProfileName:       "test profile name",
-		ProfileVersion:    "1.0.0",
-		Sha256:            "test sha256",
-		InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
-		SecurityFeature:   osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
-		OsType:            osv1.OsType_OS_TYPE_MUTABLE,
-		OsProvider:        osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-		TenantId:          tenantID,
+		Name:                 "for unit testing purposes",
+		UpdateSources:        []string{"test entries"},
+		ImageUrl:             "Repo URL Test",
+		ImageId:              "some image ID",
+		ProfileName:          "test profile name",
+		ProfileVersion:       "1.0.0",
+		Sha256:               "test sha256",
+		InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+		InstalledPackagesUrl: "https://manifest-url.example.com/installed-packages.txt",
+		SecurityFeature:      osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
+		OsType:               osv1.OsType_OS_TYPE_MUTABLE,
+		OsProvider:           osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+		TenantId:             tenantID,
 	}
 
 	for _, opt := range opts {
@@ -886,7 +887,7 @@ func (c *InvResourceDAO) createOsWithOpts(
 // Deprecated: Use CreateOsWithOpts instead.
 func (c *InvResourceDAO) CreateOsWithArgs(
 	tb testing.TB,
-	tenantID, sha256Hex, profileName string,
+	tenantID, sha256Hex, name, profileName string,
 	feature osv1.SecurityFeature, osType osv1.OsType,
 ) *osv1.OperatingSystemResource {
 	tb.Helper()
@@ -894,6 +895,7 @@ func (c *InvResourceDAO) CreateOsWithArgs(
 	return c.createOsWithOpts(tb, tenantID, true, func(osr *osv1.OperatingSystemResource) {
 		osr.Sha256 = sha256Hex
 		osr.ProfileName = profileName
+		osr.Name = name
 		osr.SecurityFeature = feature
 		osr.OsType = osType
 	})
@@ -920,6 +922,7 @@ func (c *InvResourceDAO) CreateOs(tb testing.TB, tenantID string) *osv1.Operatin
 		func(osr *osv1.OperatingSystemResource) {
 			osr.Sha256 = GenerateRandomSha256()
 			osr.ProfileName = GenerateRandomProfileName()
+			osr.Name = GenerateRandomOsResourceName()
 			osr.SecurityFeature = osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED
 			osr.OsType = osv1.OsType_OS_TYPE_MUTABLE
 		},
@@ -938,6 +941,7 @@ func (c *InvResourceDAO) CreateOsNoCleanup(tb testing.TB, tenantID string) *osv1
 		func(osr *osv1.OperatingSystemResource) {
 			osr.Sha256 = GenerateRandomSha256()
 			osr.ProfileName = GenerateRandomProfileName()
+			osr.Name = GenerateRandomOsResourceName()
 			osr.SecurityFeature = osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED
 			osr.OsType = osv1.OsType_OS_TYPE_MUTABLE
 		},
@@ -2148,4 +2152,56 @@ func GetSortedResourceIDSlice[T hasResourceIDAndTenantID](slice []T) []*client.R
 	}
 	SortHasResourceIDAndTenantID(resIDs)
 	return resIDs
+}
+
+func (c *InvResourceDAO) CreateOSUpdateRunNoCleanup(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
+) *computev1.OSUpdateRunResource {
+	tb.Helper()
+
+	our, err := c.createOSUpdateRun(tb, tenantID, opts...)
+	require.NoError(tb, err)
+	return our
+}
+
+func (c *InvResourceDAO) CreateOSUpdateRun(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
+) *computev1.OSUpdateRunResource {
+	tb.Helper()
+
+	our, err := c.createOSUpdateRun(tb, tenantID, opts...)
+	require.NoError(tb, err)
+	tb.Cleanup(func() { c.DeleteResource(tb, tenantID, our.ResourceId) })
+	return our
+}
+
+func (c *InvResourceDAO) createOSUpdateRun(
+	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
+) (*computev1.OSUpdateRunResource, error) {
+	tb.Helper()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	our := &computev1.OSUpdateRunResource{
+		TenantId: tenantID,
+	}
+	collections.ForEach(opts, func(opt Opt[computev1.OSUpdateRunResource]) { opt(our) })
+	resp, err := c.apiClient.Create(
+		ctx,
+		tenantID,
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_OsUpdateRun{OsUpdateRun: our},
+		})
+	if err != nil {
+		return nil, err
+	}
+	ourResp := resp.GetOsUpdateRun()
+	// When this test object is used in protobuf comparisons as part of another
+	// resource, we do not expect further embedded messages. This matches the
+	// structure of objects returned by ent queries, i.e. no two layers of
+	// embedded objects for edges.
+	ourResp.AppliedPolicy = nil
+	ourResp.Instance = nil
+
+	return ourResp, nil
 }
