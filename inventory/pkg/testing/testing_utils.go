@@ -2153,6 +2153,7 @@ func GetSortedResourceIDSlice[T hasResourceIDAndTenantID](slice []T) []*client.R
 	SortHasResourceIDAndTenantID(resIDs)
 	return resIDs
 }
+
 func (c *InvResourceDAO) CreateOSUpdateRunNoCleanup(
 	tb testing.TB, tenantID string, opts ...Opt[computev1.OSUpdateRunResource],
 ) *computev1.OSUpdateRunResource {
