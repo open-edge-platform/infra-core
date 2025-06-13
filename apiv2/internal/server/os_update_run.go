@@ -23,7 +23,9 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 	parseTimestamp := func(ts string) (*timestamppb.Timestamp, error) {
 		if ts == "" {
 			zlog.Warn().Msgf("timestamp is empty")
-			return nil, nil
+			return nil, errors.Errorfc(
+				codes.InvalidArgument, "timestamp is empty",
+			)
 		}
 		parsedTime, err := time.Parse(ISO8601TimeFormat, ts)
 		if err != nil {
@@ -42,7 +44,7 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 		return nil, err
 	}
 	invStatusTimestamp, err := parseTimestamp(invOSUpdateRunResource.GetStatusTimestamp())
-	if err != nil {
+	if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
 		zlog.Warn().Msgf("Status timestamp parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
 		return nil, errors.Errorfc(
 			codes.InvalidArgument, "status timestamp parsing failed for OS Update Run resource: %s",
@@ -50,7 +52,7 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 		)
 	}
 	invStartTime, err := parseTimestamp(invOSUpdateRunResource.GetStartTime())
-	if err != nil {
+	if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
 		zlog.Warn().Msgf("Start time parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
 		return nil, errors.Errorfc(
 			codes.InvalidArgument, "start time parsing failed for OS Update Run resource: %s",
@@ -58,7 +60,7 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 		)
 	}
 	invEndTime, err := parseTimestamp(invOSUpdateRunResource.GetEndTime())
-	if err != nil {
+	if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
 		zlog.Warn().Msgf("End time parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
 		return nil, errors.Errorfc(
 			codes.InvalidArgument, "end time parsing failed for OS Update Run resource: %s",
@@ -113,7 +115,8 @@ func (is *InventorygRPCServer) ListOSUpdateRun(ctx context.Context, req *restv1.
 	for _, invRes := range invResp.GetResources() {
 		osUpdateRunResource, err := fromInvOSUpdateRunResource(invRes.GetResource().GetOsUpdateRun())
 		if err != nil {
-			zlog.InfraErr(err).Msgf("Failed to convert inventory OS Update Run resource %s", invRes.GetResource().GetOsUpdateRun().GetResourceId())
+			zlog.InfraErr(err).Msgf("Failed to convert inventory OS Update Run resource %s",
+				invRes.GetResource().GetOsUpdateRun().GetResourceId())
 			return nil, errors.Wrap(err)
 		}
 		osUpdateRunResources = append(osUpdateRunResources, osUpdateRunResource)
