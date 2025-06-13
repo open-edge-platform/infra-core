@@ -10,6 +10,7 @@ import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
+	customconfigv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/customconfig/v1"
 	localaccountv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/localaccount/v1"
 	osv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/os/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
@@ -159,6 +160,13 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		workloadMembers = append(workloadMembers, workloadMember)
 	}
 
+	customConfigs := []*customconfigv1.CustomConfigResource{}
+	customConfigIDs := []string{}
+	for _, cc := range invInstance.GetCustomConfig() {
+		customConfigs = append(customConfigs, fromInvCustomConfig(cc))
+		customConfigIDs = append(customConfigIDs, cc.GetResourceId())
+	}
+
 	instance := &computev1.InstanceResource{
 		ResourceId:         invInstance.GetResourceId(),
 		InstanceID:         invInstance.GetResourceId(),
@@ -182,8 +190,10 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		ExistingCves:       invInstance.GetExistingCves(),
 		RuntimePackages:    invInstance.GetRuntimePackages(),
 		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
+		CustomConfig:       customConfigs,
+		CustomConfigID:     customConfigIDs,
 	}
-	// TODO: fill the CustomConfigID field.
+
 	fromInvInstanceStatus(invInstance, instance)
 	return instance, nil
 }
