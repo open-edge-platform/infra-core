@@ -70,6 +70,12 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 		}
 	}
 
+	ccIDs := instance.GetCustomConfigID()
+	for _, ccID := range ccIDs {
+		invInstance.CustomConfig = append(invInstance.CustomConfig,
+			&inv_computev1.CustomConfigResource{ResourceId: ccID})
+	}
+
 	err := validator.ValidateMessage(invInstance)
 	if err != nil {
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
