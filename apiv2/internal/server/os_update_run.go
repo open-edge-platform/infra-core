@@ -62,13 +62,13 @@ func (is *InventorygRPCServer) ListOSUpdateRun(ctx context.Context, req *restv1.
 	filter := &inventory.ResourceFilter{
 		Resource: &inventory.Resource{
 			Resource: &inventory.Resource_OsUpdateRun{
-				OsUpdateRun: &inv_computev1.OSUpdateRunResource{}
-			}
+				OsUpdateRun: &inv_computev1.OSUpdateRunResource{},
+			},
 		},
-		Offset:   req.GetOffset(),
-		Limit:    req.GetPageSize(),
-		OrderBy:  req.GetOrderBy(),
-		Filter:   req.GetFilter(),
+		Offset:  req.GetOffset(),
+		Limit:   req.GetPageSize(),
+		OrderBy: req.GetOrderBy(),
+		Filter:  req.GetFilter(),
 	}
 	if err := validator.ValidateMessage(filter); err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("failed to validate query params")
