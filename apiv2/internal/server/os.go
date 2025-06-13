@@ -53,9 +53,7 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		Description:          osResource.GetDescription(),
 		Metadata:             osResource.GetMetadata(),
 		ExistingCvesUrl:      osResource.GetExistingCvesUrl(),
-		ExistingCves:         osResource.GetExistingCves(),
 		FixedCvesUrl:         osResource.GetFixedCvesUrl(),
-		FixedCves:            osResource.GetFixedCves(),
 	}
 
 	err := validator.ValidateMessage(invOSResource)

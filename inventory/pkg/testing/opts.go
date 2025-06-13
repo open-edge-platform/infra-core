@@ -353,7 +353,7 @@ func InstalledPackages(pkgs string) Opt[osv1.OperatingSystemResource] {
 	}
 }
 
-func InstalledPackagesUrl(url string) Opt[osv1.OperatingSystemResource] {
+func InstalledPackagesURL(url string) Opt[osv1.OperatingSystemResource] {
 	return func(t *osv1.OperatingSystemResource) {
 		t.InstalledPackagesUrl = url
 	}
