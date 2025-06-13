@@ -21,7 +21,7 @@ import (
 func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) *computev1.OSUpdateRun {
 
 	parseTimestamp := func(ts string) *timestamppb.Timestamp {
-		parsedTime, err := time.Parse(time.RFC3339, ts)
+		parsedTime, err := time.Parse(ISO8601TimeFormat, ts)
 		if err != nil {
 			zlog.Warn().Err(err).Msgf("Failed to parse timestamp: %s", ts)
 			return nil
