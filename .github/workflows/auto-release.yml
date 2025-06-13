@@ -8,7 +8,7 @@ name: "Release subfolder-specific notes via GitHub API"
 on:
   push:
     tags:
-      - '*/*'   # matches tags containing '/', e.g. "component/v1.2.3"
+      - '*/*'   # matches tags containing '/', e.g. "component/v1.2.3" or "component/1.2.3"
 
 permissions:
   contents: write  # needed to create/update releases
@@ -34,8 +34,8 @@ jobs:
           SUBFOLDER="${TAG_FULL%%/*}"
           VERSION_PART="${TAG_FULL#*/}"
           # Validate version starts with 'v' followed by digit
-          if [[ ! "$VERSION_PART" =~ ^v[0-9] ]]; then
-            echo "ERROR: Version '$VERSION_PART' does not start with 'v' and digit(s) (e.g. v1.2.3)."
+          if [[ ! "$VERSION_PART" =~ ^(v)?[0-9] ]]; then
+            echo "ERROR: Version '$VERSION_PART' must start with an optional v followed by digits (e.g. v1.2.3 or 1.2.3)."
             exit 1
           fi
           echo "subfolder=$SUBFOLDER"
