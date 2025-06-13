@@ -463,8 +463,8 @@ type CreateWorkloadResponse struct {
 
 // CustomConfigResource defines model for CustomConfigResource.
 type CustomConfigResource struct {
-	// ConfigContent Config content
-	ConfigContent string `json:"configContent"`
+	// Config Config content
+	Config string `json:"config"`
 
 	// Description (OPTIONAL) Config description
 	Description *string `json:"description,omitempty"`
@@ -1546,8 +1546,8 @@ type ListOSUpdateRunResponse struct {
 	// HasNext Inform if there are more elements
 	HasNext bool `json:"hasNext"`
 
-	// OsUpdatePolicies Sorted and filtered list of os update policies.
-	OsUpdatePolicies []OSUpdateRun `json:"osUpdatePolicies"`
+	// OsUpdateRuns Sorted and filtered list of os update runs.
+	OsUpdateRuns []OSUpdateRun `json:"osUpdateRuns"`
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
