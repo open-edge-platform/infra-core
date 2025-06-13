@@ -35,7 +35,6 @@ func parseTimestamp(ts string) (*timestamppb.Timestamp, error) {
 }
 
 func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) (*computev1.OSUpdateRun, error) {
-
 	if invOSUpdateRunResource == nil {
 		return &computev1.OSUpdateRun{}, nil
 	}
