@@ -41,8 +41,9 @@ var (
   ]
 }]`,
 		// Optional fields
-		OsID:       "os-12345678",
-		InstanceID: "inst-12345678", // Alias of ResourceId
+		OsID:           "os-12345678",
+		InstanceID:     "inst-12345678", // Alias of ResourceId
+		CustomConfigID: []string{"customconfig-12345678", "customconfig-87654321"},
 	}
 
 	// Example instance resource from the Inventory.
@@ -82,6 +83,10 @@ var (
     "test-2\test3"
   ]
 }]`,
+		CustomConfig: []*inv_computev1.CustomConfigResource{
+			{ResourceId: "customconfig-12345678"},
+			{ResourceId: "customconfig-87654321"},
+		},
 		TenantId:  "tenant-987654",
 		CreatedAt: "2025-04-22T10:00:00Z",
 		UpdatedAt: "2025-04-22T10:30:00Z",
@@ -118,6 +123,34 @@ func TestInstance_Create(t *testing.T) {
 			req: &restv1.CreateInstanceRequest{
 				Instance: &computev1.InstanceResource{
 					Name: "example-instance",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Create Instance with CustomConfig",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					mockedClient.On("Create", mock.Anything, mock.Anything).
+						Return(&inventory.Resource{
+							Resource: &inventory.Resource_Instance{
+								Instance: &inv_computev1.InstanceResource{
+									ResourceId: "instance-12345678",
+									Name:       "example-instance",
+									CustomConfig: []*inv_computev1.CustomConfigResource{
+										{ResourceId: "customconfig-12345678"},
+										{ResourceId: "customconfig-87654321"},
+									},
+								},
+							},
+						}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.CreateInstanceRequest{
+				Instance: &computev1.InstanceResource{
+					Name:           "example-instance",
+					CustomConfigID: []string{"customconfig-12345678", "customconfig-87654321"},
 				},
 			},
 			wantErr: false,
