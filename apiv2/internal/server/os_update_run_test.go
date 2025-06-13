@@ -7,6 +7,7 @@ import (
 	"context"
 	"errors"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/mock"
 
@@ -25,9 +26,12 @@ var (
 		Description: "An example OS update run",
 	}
 	exampleInvOSUpdateRunResource = &inv_computev1.OSUpdateRunResource{
-		ResourceId:  "osupdaterun-12345678",
-		Name:        "example-run",
-		Description: "An example OS update run",
+		ResourceId:      "osupdaterun-12345678",
+		Name:            "example-run",
+		Description:     "An example OS update run",
+		StartTime:       time.Now().UTC().Format(invserver.ISO8601TimeFormat),
+		StatusTimestamp: time.Now().UTC().Format(invserver.ISO8601TimeFormat),
+		EndTime:         time.Now().UTC().Format(invserver.ISO8601TimeFormat),
 	}
 )
 
