@@ -4,6 +4,7 @@
 -- with the one coming from the OSprofile and linking it to the related Instances.
 
 -- First, insert new OS update policies for mutable operating system resources
+-- temporary using os_update_policy_resource_target_os for storing target OS during migration, but this is removed right after.
 INSERT INTO os_update_policy_resources (
     resource_id,
     name,
@@ -12,7 +13,6 @@ INSERT INTO os_update_policy_resources (
     update_sources,
     kernel_command,
     update_policy,
--- temporary using os_update_policy_resource_target_os for storing target OS during migration, but this is removed right after.
     os_update_policy_resource_target_os,
     tenant_id,
     created_at,
@@ -22,7 +22,7 @@ SELECT
     'osupdatepolicy-' || split_part(os.resource_id, '-', 2) AS resource_id,
     '"' || os.name || '" Update Policy' AS name,
     'Migrated from OS "' || os.resource_id || '"' AS description,
-    os.insta:lled_packages,
+    os.installed_packages,
     os.update_sources,
     os.kernel_command,
     'UPDATE_POLICY_TARGET' AS update_policy,
