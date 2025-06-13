@@ -6,6 +6,7 @@ package client
 import (
 	"context"
 	"errors"
+	"flag"
 	"io"
 	"sync"
 	"time"
@@ -28,6 +29,7 @@ import (
 	inv_errors "github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/filters"
@@ -61,6 +63,21 @@ const (
 	InvCacheStaleTimeoutOffset            = "invCacheStaleTimeoutOffset"
 	InvCacheStaleTimeoutOffsetDefault     = 15
 	InvCacheStaleTimeoutOffsetDescription = "Parameter to set the timeout offset percentage for the Inventory UUID cache"
+)
+
+const (
+	defaultHeatbeatBackoffRetries  = 3
+	defaultHeatbeatBackoffInterval = time.Second * 1
+	defaultHeartbeatInterval       = time.Second * 30
+)
+
+var (
+	heatbeatBackoffRetries = flag.Uint64(
+		"heatbeatBackoffRetries", defaultHeatbeatBackoffRetries, "The number of retries the heartbeat backoff will attempt")
+	heatbeatBackoffInterval = flag.Duration(
+		"heatbeatBackoffInterval", defaultHeatbeatBackoffInterval, "The interval between heartbeat backoff retries")
+	heartbeatInterval = flag.Duration(
+		"heartbeatInterval", defaultHeartbeatInterval, "The interval between heartbeats")
 )
 
 type WatchEvents struct {
@@ -576,6 +593,43 @@ func NewTenantAwareInventoryClient(
 	return cl, nil
 }
 
+// Set up the heartbeat ticker to keep the client connection alive.
+func (client *inventoryClient) heartbeat(clientUUID string) error {
+	heartbeetReq := &inv_v1.HeartbeatRequest{
+		ClientUuid: clientUUID,
+	}
+
+	ticker := time.NewTicker(*heartbeatInterval)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			clientCtxDeadline, cancel := context.WithDeadline(client.streamCtx, time.Now().Add(*heatbeatBackoffInterval))
+			clientCtx := tenant.AddTenantIDToContext(clientCtxDeadline, clientUUID)
+
+			err := backoff.Retry(func() error {
+				zlog.Debug().Msgf("Heartbeat client UUID: %s", clientUUID)
+				_, errHearbeat := client.invAPI.Heartbeat(clientCtx, heartbeetReq)
+				// If the error is an unknown client, we return a permanent error
+				// to stop the heartbeat retry loop.
+				if errHearbeat != nil && inv_errors.IsUnKnownClient(errHearbeat) {
+					return backoff.Permanent(errHearbeat)
+				}
+				return errHearbeat
+			}, backoff.WithMaxRetries(backoff.NewConstantBackOff(*heatbeatBackoffInterval), *heatbeatBackoffRetries))
+			if err != nil {
+				zlog.InfraErr(err).Msgf("failed to heartbeat client UUID: %s", clientUUID)
+				cancel() // cancel the context to avoid leaking resources
+				return err
+			}
+			cancel() // cancel the context to avoid leaking resources
+		case <-client.stream.Context().Done():
+			zlog.InfraSec().Info().Msgf("finished to heartbeat client UUID: %s", clientUUID)
+			return nil
+		}
+	}
+}
+
 // register registers the inventory client on a name and a list of resource kinds.
 // It is meant to be used by any register retry go routine that can be called
 // once the subscriptions stream context is closed by any unexpected reasons.
@@ -623,6 +677,16 @@ func (client *inventoryClient) register() error {
 	client.clientUUID = resp.ClientUuid
 	zlog.InfraSec().Info().Msgf("Registered inventory client with UUID: %s", resp.ClientUuid)
 	client.uuidMutex.Unlock()
+
+	// Start the heartbeat ticker to keep the client connection alive.
+	go func(clientUUID string) {
+		if err := client.heartbeat(clientUUID); err != nil {
+			// heartbeat failed, close the stream and connection.
+			zlog.InfraSec().InfraErr(err).Msgf("heartbeat stopped for client UUID: %s", clientUUID)
+			client.Close()
+			zlog.Fatal().Msgf("failed to heartbeat client UUID: %s", clientUUID)
+		}
+	}(resp.ClientUuid)
 
 	return nil
 }

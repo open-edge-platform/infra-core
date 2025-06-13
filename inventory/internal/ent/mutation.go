@@ -21659,37 +21659,38 @@ func (m *OSUpdateRunResourceMutation) ResetEdge(name string) error {
 // OperatingSystemResourceMutation represents an operation that mutates the OperatingSystemResource nodes in the graph.
 type OperatingSystemResourceMutation struct {
 	config
-	op                 Op
-	typ                string
-	id                 *int
-	resource_id        *string
-	name               *string
-	architecture       *string
-	kernel_command     *string
-	update_sources     *string
-	image_url          *string
-	image_id           *string
-	sha256             *string
-	profile_name       *string
-	profile_version    *string
-	installed_packages *string
-	security_feature   *operatingsystemresource.SecurityFeature
-	os_type            *operatingsystemresource.OsType
-	os_provider        *operatingsystemresource.OsProvider
-	platform_bundle    *string
-	description        *string
-	metadata           *string
-	existing_cves_url  *string
-	existing_cves      *string
-	fixed_cves_url     *string
-	fixed_cves         *string
-	tenant_id          *string
-	created_at         *string
-	updated_at         *string
-	clearedFields      map[string]struct{}
-	done               bool
-	oldValue           func(context.Context) (*OperatingSystemResource, error)
-	predicates         []predicate.OperatingSystemResource
+	op                     Op
+	typ                    string
+	id                     *int
+	resource_id            *string
+	name                   *string
+	architecture           *string
+	kernel_command         *string
+	update_sources         *string
+	image_url              *string
+	image_id               *string
+	sha256                 *string
+	profile_name           *string
+	profile_version        *string
+	installed_packages     *string
+	installed_packages_url *string
+	security_feature       *operatingsystemresource.SecurityFeature
+	os_type                *operatingsystemresource.OsType
+	os_provider            *operatingsystemresource.OsProvider
+	platform_bundle        *string
+	description            *string
+	metadata               *string
+	existing_cves_url      *string
+	existing_cves          *string
+	fixed_cves_url         *string
+	fixed_cves             *string
+	tenant_id              *string
+	created_at             *string
+	updated_at             *string
+	clearedFields          map[string]struct{}
+	done                   bool
+	oldValue               func(context.Context) (*OperatingSystemResource, error)
+	predicates             []predicate.OperatingSystemResource
 }
 
 var _ ent.Mutation = (*OperatingSystemResourceMutation)(nil)
@@ -22316,6 +22317,55 @@ func (m *OperatingSystemResourceMutation) ResetInstalledPackages() {
 	delete(m.clearedFields, operatingsystemresource.FieldInstalledPackages)
 }
 
+// SetInstalledPackagesURL sets the "installed_packages_url" field.
+func (m *OperatingSystemResourceMutation) SetInstalledPackagesURL(s string) {
+	m.installed_packages_url = &s
+}
+
+// InstalledPackagesURL returns the value of the "installed_packages_url" field in the mutation.
+func (m *OperatingSystemResourceMutation) InstalledPackagesURL() (r string, exists bool) {
+	v := m.installed_packages_url
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldInstalledPackagesURL returns the old "installed_packages_url" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldInstalledPackagesURL(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldInstalledPackagesURL is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldInstalledPackagesURL requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldInstalledPackagesURL: %w", err)
+	}
+	return oldValue.InstalledPackagesURL, nil
+}
+
+// ClearInstalledPackagesURL clears the value of the "installed_packages_url" field.
+func (m *OperatingSystemResourceMutation) ClearInstalledPackagesURL() {
+	m.installed_packages_url = nil
+	m.clearedFields[operatingsystemresource.FieldInstalledPackagesURL] = struct{}{}
+}
+
+// InstalledPackagesURLCleared returns if the "installed_packages_url" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) InstalledPackagesURLCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldInstalledPackagesURL]
+	return ok
+}
+
+// ResetInstalledPackagesURL resets all changes to the "installed_packages_url" field.
+func (m *OperatingSystemResourceMutation) ResetInstalledPackagesURL() {
+	m.installed_packages_url = nil
+	delete(m.clearedFields, operatingsystemresource.FieldInstalledPackagesURL)
+}
+
 // SetSecurityFeature sets the "security_feature" field.
 func (m *OperatingSystemResourceMutation) SetSecurityFeature(of operatingsystemresource.SecurityFeature) {
 	m.security_feature = &of
@@ -22935,7 +22985,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 24)
+	fields := make([]string, 0, 25)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -22968,6 +23018,9 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.installed_packages != nil {
 		fields = append(fields, operatingsystemresource.FieldInstalledPackages)
+	}
+	if m.installed_packages_url != nil {
+		fields = append(fields, operatingsystemresource.FieldInstalledPackagesURL)
 	}
 	if m.security_feature != nil {
 		fields = append(fields, operatingsystemresource.FieldSecurityFeature)
@@ -23038,6 +23091,8 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.ProfileVersion()
 	case operatingsystemresource.FieldInstalledPackages:
 		return m.InstalledPackages()
+	case operatingsystemresource.FieldInstalledPackagesURL:
+		return m.InstalledPackagesURL()
 	case operatingsystemresource.FieldSecurityFeature:
 		return m.SecurityFeature()
 	case operatingsystemresource.FieldOsType:
@@ -23095,6 +23150,8 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldProfileVersion(ctx)
 	case operatingsystemresource.FieldInstalledPackages:
 		return m.OldInstalledPackages(ctx)
+	case operatingsystemresource.FieldInstalledPackagesURL:
+		return m.OldInstalledPackagesURL(ctx)
 	case operatingsystemresource.FieldSecurityFeature:
 		return m.OldSecurityFeature(ctx)
 	case operatingsystemresource.FieldOsType:
@@ -23206,6 +23263,13 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInstalledPackages(v)
+		return nil
+	case operatingsystemresource.FieldInstalledPackagesURL:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetInstalledPackagesURL(v)
 		return nil
 	case operatingsystemresource.FieldSecurityFeature:
 		v, ok := value.(operatingsystemresource.SecurityFeature)
@@ -23358,6 +23422,9 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldInstalledPackages) {
 		fields = append(fields, operatingsystemresource.FieldInstalledPackages)
 	}
+	if m.FieldCleared(operatingsystemresource.FieldInstalledPackagesURL) {
+		fields = append(fields, operatingsystemresource.FieldInstalledPackagesURL)
+	}
 	if m.FieldCleared(operatingsystemresource.FieldSecurityFeature) {
 		fields = append(fields, operatingsystemresource.FieldSecurityFeature)
 	}
@@ -23429,6 +23496,9 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldInstalledPackages:
 		m.ClearInstalledPackages()
 		return nil
+	case operatingsystemresource.FieldInstalledPackagesURL:
+		m.ClearInstalledPackagesURL()
+		return nil
 	case operatingsystemresource.FieldSecurityFeature:
 		m.ClearSecurityFeature()
 		return nil
@@ -23496,6 +23566,9 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldInstalledPackages:
 		m.ResetInstalledPackages()
+		return nil
+	case operatingsystemresource.FieldInstalledPackagesURL:
+		m.ResetInstalledPackagesURL()
 		return nil
 	case operatingsystemresource.FieldSecurityFeature:
 		m.ResetSecurityFeature()
