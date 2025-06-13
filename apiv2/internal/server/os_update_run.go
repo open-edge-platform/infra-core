@@ -19,7 +19,6 @@ import (
 )
 
 func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) *computev1.OSUpdateRun {
-
 	parseTimestamp := func(ts string) *timestamppb.Timestamp {
 		parsedTime, err := time.Parse(ISO8601TimeFormat, ts)
 		if err != nil {
@@ -61,7 +60,11 @@ func (is *InventorygRPCServer) ListOSUpdateRun(ctx context.Context, req *restv1.
 	zlog.Debug().Msg("ListOSUpdateRunResources")
 
 	filter := &inventory.ResourceFilter{
-		Resource: &inventory.Resource{Resource: &inventory.Resource_OsUpdateRun{OsUpdateRun: &inv_computev1.OSUpdateRunResource{}}},
+		Resource: &inventory.Resource{
+			Resource: &inventory.Resource_OsUpdateRun{
+				OsUpdateRun: &inv_computev1.OSUpdateRunResource{}
+			}
+		},
 		Offset:   req.GetOffset(),
 		Limit:    req.GetPageSize(),
 		OrderBy:  req.GetOrderBy(),
