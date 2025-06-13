@@ -4022,7 +4022,7 @@ components:
         name:
           type: string
           title: name
-          maxLength: 32
+          maxLength: 40
           pattern: ^[a-z][a-z0-9-]{0,31}$
           description: Config provided by admin
         description:
@@ -4032,9 +4032,9 @@ components:
           minLength: 1
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
           description: (OPTIONAL) Config description
-        configContent:
+        config:
           type: string
-          title: config_content
+          title: config
           maxLength: 16384
           description: Config content
         timestamps:
@@ -4045,7 +4045,7 @@ components:
       title: CustomConfigResource
       required:
         - name
-        - configContent
+        - config
       additionalProperties: false
     ProviderKind:
       type: string
@@ -8122,12 +8122,12 @@ components:
     ListOSUpdateRunResponse:
       type: object
       properties:
-        osUpdatePolicies:
+        osUpdateRuns:
           type: array
           items:
             $ref: '#/components/schemas/OSUpdateRun'
-          title: os_update_policies
-          description: Sorted and filtered list of os update policies.
+          title: os_update_runs
+          description: Sorted and filtered list of os update runs.
         totalElements:
           type: integer
           title: total_elements
@@ -8139,7 +8139,7 @@ components:
           description: Inform if there are more elements
       title: ListOSUpdateRunResponse
       required:
-        - osUpdatePolicies
+        - osUpdateRuns
         - totalElements
         - hasNext
       additionalProperties: false

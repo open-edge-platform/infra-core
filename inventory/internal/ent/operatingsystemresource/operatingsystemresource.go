@@ -35,6 +35,8 @@ const (
 	FieldProfileVersion = "profile_version"
 	// FieldInstalledPackages holds the string denoting the installed_packages field in the database.
 	FieldInstalledPackages = "installed_packages"
+	// FieldInstalledPackagesURL holds the string denoting the installed_packages_url field in the database.
+	FieldInstalledPackagesURL = "installed_packages_url"
 	// FieldSecurityFeature holds the string denoting the security_feature field in the database.
 	FieldSecurityFeature = "security_feature"
 	// FieldOsType holds the string denoting the os_type field in the database.
@@ -79,6 +81,7 @@ var Columns = []string{
 	FieldProfileName,
 	FieldProfileVersion,
 	FieldInstalledPackages,
+	FieldInstalledPackagesURL,
 	FieldSecurityFeature,
 	FieldOsType,
 	FieldOsProvider,
@@ -237,6 +240,11 @@ func ByProfileVersion(opts ...sql.OrderTermOption) OrderOption {
 // ByInstalledPackages orders the results by the installed_packages field.
 func ByInstalledPackages(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldInstalledPackages, opts...).ToFunc()
+}
+
+// ByInstalledPackagesURL orders the results by the installed_packages_url field.
+func ByInstalledPackagesURL(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldInstalledPackagesURL, opts...).ToFunc()
 }
 
 // BySecurityFeature orders the results by the security_feature field.

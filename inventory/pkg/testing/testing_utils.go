@@ -850,18 +850,19 @@ func (c *InvResourceDAO) createOsWithOpts(
 
 	// a default OS resource, can be overwritten by opts
 	osCreateReq := &osv1.OperatingSystemResource{
-		Name:              "for unit testing purposes",
-		UpdateSources:     []string{"test entries"},
-		ImageUrl:          "Repo URL Test",
-		ImageId:           "some image ID",
-		ProfileName:       "test profile name",
-		ProfileVersion:    "1.0.0",
-		Sha256:            "test sha256",
-		InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
-		SecurityFeature:   osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
-		OsType:            osv1.OsType_OS_TYPE_MUTABLE,
-		OsProvider:        osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-		TenantId:          tenantID,
+		Name:                 "for unit testing purposes",
+		UpdateSources:        []string{"test entries"},
+		ImageUrl:             "Repo URL Test",
+		ImageId:              "some image ID",
+		ProfileName:          "test profile name",
+		ProfileVersion:       "1.0.0",
+		Sha256:               "test sha256",
+		InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
+		InstalledPackagesUrl: "https://manifest-url.example.com/installed-packages.txt",
+		SecurityFeature:      osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
+		OsType:               osv1.OsType_OS_TYPE_MUTABLE,
+		OsProvider:           osv1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+		TenantId:             tenantID,
 	}
 
 	for _, opt := range opts {
