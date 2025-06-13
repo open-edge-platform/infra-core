@@ -631,9 +631,9 @@ const (
 	ListOSUpdateRunRequestFieldOffset   = "offset"
 
 	// Fields and Edges constants for "ListOSUpdateRunResponse"
-	ListOSUpdateRunResponseEdgeOsUpdatePolicies = "os_update_policies"
-	ListOSUpdateRunResponseFieldTotalElements   = "total_elements"
-	ListOSUpdateRunResponseFieldHasNext         = "has_next"
+	ListOSUpdateRunResponseEdgeOsUpdateRuns   = "os_update_runs"
+	ListOSUpdateRunResponseFieldTotalElements = "total_elements"
+	ListOSUpdateRunResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "DeleteOSUpdateRunRequest"
 	DeleteOSUpdateRunRequestFieldResourceId = "resourceId"

@@ -1,0 +1,205 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+---
+
+name: "Release subfolder-specific notes via GitHub API"
+
+on:
+  push:
+    tags:
+      - '*/*'   # matches tags containing '/', e.g. "component/v1.2.3" or "component/1.2.3"
+
+permissions:
+  contents: write  # needed to create/update releases
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0  # full history & tags
+
+      - name: Determine tag and subfolder
+        id: parse
+        run: |
+          TAG_FULL="${GITHUB_REF##refs/tags/}"   # e.g. "project-a/v1.2.3"
+          echo "Tag full: $TAG_FULL"
+          if [[ "$TAG_FULL" != */* ]]; then
+            echo "ERROR: Tag '$TAG_FULL' does not contain '/'. Expected format 'folder/v<semver>'."
+            exit 1
+          fi
+          SUBFOLDER="${TAG_FULL%%/*}"
+          VERSION_PART="${TAG_FULL#*/}"
+          # Validate version starts with 'v' followed by digit
+          if [[ ! "$VERSION_PART" =~ ^(v)?[0-9] ]]; then
+            echo "ERROR: Version '$VERSION_PART' must start with an optional v followed by digits (e.g. v1.2.3 or 1.2.3)."
+            exit 1
+          fi
+          echo "subfolder=$SUBFOLDER"
+          echo "tag_full=$TAG_FULL"
+          echo "version_part=$VERSION_PART"
+          echo "subfolder=$SUBFOLDER" >> "$GITHUB_OUTPUT"
+          echo "tag_full=$TAG_FULL" >> "$GITHUB_OUTPUT"
+          echo "version_part=$VERSION_PART" >> "$GITHUB_OUTPUT"
+
+      - name: Find previous tag for this subfolder
+        id: find_prev
+        run: |
+          TAG="${{ steps.parse.outputs.tag_full }}"
+          SUBFOLDER="${{ steps.parse.outputs.subfolder }}"
+          TAG_PATTERN="${SUBFOLDER}/v*"
+          echo "Listing tags matching: $TAG_PATTERN"
+          ALL_TAGS=$(git tag --list "$TAG_PATTERN")
+          if [ -z "$ALL_TAGS" ]; then
+            echo "No prior tags for $SUBFOLDER; first release"
+            echo "prev_tag=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Semver-like sort; sort -V handles v-prefix:
+          SORTED=$(echo "$ALL_TAGS" | sort -V)
+          echo "All sorted tags for $SUBFOLDER:"
+          echo "$SORTED"
+          PREV_TAG=""
+          for t in $SORTED; do
+            if [ "$t" = "$TAG" ]; then
+              break
+            fi
+            PREV_TAG="$t"
+          done
+          if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "$TAG" ]; then
+            echo "No previous tag before $TAG"; echo "prev_tag=" >> "$GITHUB_OUTPUT"
+          else
+            echo "Previous tag: $PREV_TAG"
+            echo "prev_tag=$PREV_TAG" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate release notes body
+        id: gen_notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.parse.outputs.tag_full }}"
+          SUBFOLDER="${{ steps.parse.outputs.subfolder }}"
+          PREV_TAG="${{ steps.find_prev.outputs.prev_tag }}"
+          if [ -z "$PREV_TAG" ]; then
+            # First release: from root commit
+            ROOT=$(git rev-list --max-parents=0 HEAD)
+            RANGE="$ROOT..$TAG"
+          else
+            RANGE="$PREV_TAG..$TAG"
+          fi
+          echo "Computing git log for $SUBFOLDER/ in range $RANGE"
+          # Format commits; customize as needed
+          LOG=""
+          # Process commits in current range
+          for COMMIT in $(git log $RANGE --pretty=format:"%H" -- "$SUBFOLDER/"); do
+            # Get commit metadata from Git first (as fallback)
+            SHORT_SHA=$(echo "$COMMIT" | cut -c1-7)
+            GIT_MESSAGE=$(git log -1 --pretty=format:"%s" "$COMMIT")
+            GIT_AUTHOR=$(git log -1 --pretty=format:"%an" "$COMMIT")
+            GIT_EMAIL=$(git log -1 --pretty=format:"%ae" "$COMMIT")
+          
+            # Collect contributor info
+            CONTRIBUTORS+=("$GIT_AUTHOR<$GIT_EMAIL>")
+          
+            # Try to get enhanced metadata from GitHub API
+            COMMIT_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${COMMIT}")
+          
+            # Check if the API response is valid JSON
+            if echo "$COMMIT_DATA" | jq empty 2>/dev/null; then
+              # Extract message (first line only) and escape problematic characters
+              MESSAGE=$(echo "$COMMIT_DATA" | jq -r '.commit.message // empty' | head -n 1 | sed 's/"/\\"/g')
+          
+              # If empty message from API, fall back to git
+              if [ -z "$MESSAGE" ]; then
+                MESSAGE="$GIT_MESSAGE"
+              fi
+          
+              # Extract GitHub username (if linked)
+              AUTHOR_LOGIN=$(echo "$COMMIT_DATA" | jq -r '.author.login // empty')
+          
+              if [ -z "$AUTHOR_LOGIN" ] || [ "$AUTHOR_LOGIN" = "null" ]; then
+                AUTHOR_INFO="($GIT_AUTHOR)"
+              else
+                AUTHOR_INFO="(@$AUTHOR_LOGIN)"
+              fi
+            else
+              # API failed, use git info
+              MESSAGE="$GIT_MESSAGE"
+              AUTHOR_INFO="($GIT_AUTHOR)"
+            fi
+          
+            # Append to changelog
+            LOG+="- \`$SHORT_SHA\` $MESSAGE $AUTHOR_INFO"$'\n'
+          done
+
+          if [ -z "$LOG" ]; then
+            BODY="No changes in \`$SUBFOLDER/\` since last release."
+          else
+            PREV_LABEL=${PREV_TAG:-"beginning"}
+          
+            # Create comparison URL for full changelog
+            if [ -n "$PREV_TAG" ]; then
+              COMPARE_URL="https://github.com/${GITHUB_REPOSITORY}/compare/${PREV_TAG}...${TAG}"
+              CHANGELOG_LINK="**Full Changelog**: ${COMPARE_URL}"
+            else
+              CHANGELOG_LINK=""
+            fi
+          
+            # Add changelog link to the body if available
+            if [ -n "$CHANGELOG_LINK" ]; then
+              BODY="## Changes in \`$SUBFOLDER\` since \`${PREV_LABEL}\` to \`${TAG}\`:\n\n${LOG}\n\n${CHANGELOG_LINK}"
+            else
+              BODY="## Changes in \`$SUBFOLDER\` since \`${PREV_LABEL}\` to \`${TAG}\`:\n\n${LOG}"
+            fi
+          fi
+          # Expose multi-line
+          echo -e "body<<EOF\n$BODY\nEOF"
+          echo -e "body<<EOF\n$BODY\nEOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update release via REST API
+        id: api_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          OWNER_REPO="${GITHUB_REPOSITORY}"   # e.g. "owner/repo"
+          TAG="${{ steps.parse.outputs.tag_full }}"
+          BODY='${{ steps.gen_notes.outputs.body }}'
+          echo "$OWNER_REPO"
+          echo "$TAG"
+          echo "$BODY"
+          # 1. Try to get existing release by tag
+          echo "Checking for existing release for tag $TAG..."
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${OWNER_REPO}/releases/tags/${TAG}")
+          if [ "$RESPONSE" = "200" ]; then
+            # Release exists; parse its id and update
+            RELEASE_ID=$(jq -r .id response.json)
+            echo "Found existing release with ID $RELEASE_ID; updating body..."
+            # PATCH to update
+            curl -s -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${OWNER_REPO}/releases/${RELEASE_ID}" \
+              -d "$(jq -n --arg body "$BODY" --arg name "$TAG" '{body: $body, name: $name}')"
+            echo "Release updated."
+          elif [ "$RESPONSE" = "404" ]; then
+            # No existing release; create new
+            echo "No existing release; creating new release for tag $TAG..."
+            curl -s -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${OWNER_REPO}/releases" \
+              -d "$(jq -n --arg tag_name "$TAG" --arg name "$TAG" --arg body "$BODY" '{tag_name: $tag_name, name: $name, body: $body, draft: false, prerelease: false}')"
+            echo "Release created."
+          else
+            echo "Unexpected response when checking release: HTTP $RESPONSE"
+            cat response.json
+            exit 1
+          fi
