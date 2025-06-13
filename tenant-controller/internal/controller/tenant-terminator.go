@@ -44,6 +44,7 @@ var (
 		// {resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_RMT_ACCESS_CONF, terminationType: RESOURCE_SOFT_DELETION}, // not used
 		{resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_OU, terminationFunc: hardDeletion},
 		{resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT, terminationFunc: hardDeletion},
+		{resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG, terminationFunc: hardDeletion},
 		{resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_TENANT, terminationFunc: tenantHardDeletion},
 	}
 
