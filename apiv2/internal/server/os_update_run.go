@@ -19,21 +19,22 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) (*computev1.OSUpdateRun, error) {
-	parseTimestamp := func(ts string) (*timestamppb.Timestamp, error) {
-		if ts == "" {
-			zlog.Warn().Msgf("timestamp is empty")
-			return nil, errors.Errorfc(
-				codes.InvalidArgument, "timestamp is empty",
-			)
-		}
-		parsedTime, err := time.Parse(ISO8601TimeFormat, ts)
-		if err != nil {
-			zlog.Warn().Err(err).Msgf("Failed to parse timestamp: %s", ts)
-			return nil, err
-		}
-		return timestamppb.New(parsedTime), nil
+func parseTimestamp(ts string) (*timestamppb.Timestamp, error) {
+	if ts == "" {
+		zlog.Warn().Msgf("timestamp is empty")
+		return nil, errors.Errorfc(
+			codes.InvalidArgument, "timestamp is empty",
+		)
 	}
+	parsedTime, err := time.Parse(ISO8601TimeFormat, ts)
+	if err != nil {
+		zlog.Warn().Err(err).Msgf("Failed to parse timestamp: %s", ts)
+		return nil, err
+	}
+	return timestamppb.New(parsedTime), nil
+}
+
+func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) (*computev1.OSUpdateRun, error) {
 
 	if invOSUpdateRunResource == nil {
 		return &computev1.OSUpdateRun{}, nil
