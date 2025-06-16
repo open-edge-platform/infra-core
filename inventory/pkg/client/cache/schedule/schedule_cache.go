@@ -5,9 +5,10 @@ package schedule
 
 import (
 	"context"
-	"flag"
 	"fmt"
+	"os"
 	"sort"
+	"strconv"
 	"sync"
 	"time"
 
@@ -26,33 +27,63 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/paginator"
 )
 
-// This is a special inventory client, that subscribed to schedulesByCacheKey changes, caches the schedule resources locally,
-// and exposes internal Go API to other components in order to fetch schedulesByCacheKey given some primitive filters
-
-var (
-	logC = logging.GetLogger("ScheduleCache")
-
-	PeriodicCacheRefresh = flag.Duration(
-		"schedCachePeriodicRefresh", defaultPeriodicRefresh, "Periodic refresh timeout of the schedule cache")
-	inventoryTimeout = flag.Duration(
-		"schedCacheInvTimeout", defaultInventoryTimeout, "Schedule cache inventory API calls timeout")
-	listAllInventoryTimeout = flag.Duration(
-		"schedCacheListAllTimeout",
-		defaultListAllTimeout,
-		"Timeout used when listing all schedule resources in the schedule cache from Inventory",
-	)
-)
+var logC = logging.GetLogger("ScheduleCache")
 
 const (
-	BatchSize               = 500
-	defaultPeriodicRefresh  = 5 * time.Minute
-	defaultInventoryTimeout = 5 * time.Second
-	defaultListAllTimeout   = time.Minute
+	BatchSize = 500
+
+	// Default values for schedule cache timeouts.
+	defaultPeriodicRefreshDuration  = 5 * time.Minute
+	defaultInventoryTimeoutDuration = 5 * time.Second
+	defaultListAllTimeoutDuration   = time.Minute
 
 	defaultRegisterMaxElapsedTime = 30 * time.Second
 
 	// eventsWatcherBufSize is the buffer size for the events channel.
 	eventsWatcherBufSize = 10
+
+	// Environment variable names for schedule cache timeouts.
+	EnvSchedCachePeriodicRefresh = "SCHED_CACHE_PERIODIC_REFRESH"
+	EnvSchedCacheInvTimeout      = "SCHED_CACHE_INV_TIMEOUT"
+	EnvSchedCacheListAllTimeout  = "SCHED_CACHE_LIST_ALL_TIMEOUT"
+)
+
+// Helper to parse duration from env as Go duration string (e.g. "5m", "10s"), fallback to seconds if parse fails.
+func getEnvGoDurationOrDefault(envVar string, defaultVal time.Duration) time.Duration {
+	valStr := os.Getenv(envVar)
+	if valStr == "" {
+		logC.Warn().Msgf("%s env variable is not set, using default value", envVar)
+		return defaultVal
+	}
+	val, err := time.ParseDuration(valStr)
+	if err != nil {
+		// fallback: try parsing as seconds
+		valInt, err2 := strconv.Atoi(valStr)
+		if err2 == nil {
+			return time.Duration(valInt) * time.Second
+		}
+		logC.Warn().Msgf("Invalid value for %s env variable: %s, using default value %v",
+			envVar, valStr, defaultVal,
+		)
+		return defaultVal
+	}
+	return val
+}
+
+// Use environment variables for timeouts, fallback to defaults.
+var (
+	PeriodicCacheRefresh = func() *time.Duration {
+		d := getEnvGoDurationOrDefault(EnvSchedCachePeriodicRefresh, defaultPeriodicRefreshDuration)
+		return &d
+	}()
+	inventoryTimeout = func() *time.Duration {
+		d := getEnvGoDurationOrDefault(EnvSchedCacheInvTimeout, defaultInventoryTimeoutDuration)
+		return &d
+	}()
+	listAllInventoryTimeout = func() *time.Duration {
+		d := getEnvGoDurationOrDefault(EnvSchedCacheListAllTimeout, defaultListAllTimeoutDuration)
+		return &d
+	}()
 )
 
 type cacheKey struct {
