@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/tenant-controller
 
-go 1.24.1
+go 1.24.4
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
