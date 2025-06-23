@@ -9,8 +9,6 @@ import (
 	"math"
 	"math/big"
 	"os"
-	"sort"
-	"strconv"
 	"strings"
 
 	"github.com/google/uuid"
@@ -1072,34 +1070,6 @@ func ConvertRawUUIDToInventoryUUID(rawUUID string) (string, error) {
 // removing all hyphens and putting all characters in the uppercase.
 func ConvertInventoryUUIDToLenovoUUID(uuidStr string) string {
 	return strings.ToUpper(strings.ReplaceAll(uuidStr, "-", ""))
-}
-
-// ConcatMapValuesSorted takes a map of string keys and values, sorts the keys alphabetically,
-// concatenates the corresponding non-empty values using the specified delimiter, and returns
-// the resulting string wrapped in double quotes. If the map is empty or all values are empty,
-// it returns an empty string.
-func ConcatMapValuesSorted(m map[string]string, delimiter string) string {
-	if len(m) == 0 {
-		return ""
-	}
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	// Sort keys alphabetically
-	sort.Strings(keys)
-	values := make([]string, 0, len(keys))
-	for _, k := range keys {
-		if m[k] != "" {
-			values = append(values, m[k])
-		}
-	}
-
-	if len(values) == 0 {
-		return ""
-	}
-
-	return strconv.Quote(strings.Join(values, delimiter))
 }
 
 type resourceKeyCarrier interface {
