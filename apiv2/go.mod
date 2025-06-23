@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/apiv2/v2
 
-go 1.24.1
+go 1.24.4
 
 replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
 
