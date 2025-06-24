@@ -1324,6 +1324,7 @@ func Test_NestedFilterInstances(t *testing.T) {
 	instance1.Host = host1
 	instance1.DesiredOs = os1
 	instance1.CurrentOs = os1
+	instance1.Os = os1
 
 	instance2 := inv_testing.CreateInstance(t, host2, os1)
 	workload2 := inv_testing.CreateWorkload(t)
@@ -1336,21 +1337,25 @@ func Test_NestedFilterInstances(t *testing.T) {
 	instance4.Host = host5
 	instance4.DesiredOs = os2
 	instance4.CurrentOs = os2
+	instance4.Os = os2
 	instance2.WorkloadMembers = append(instance2.WorkloadMembers, workloadMember2)
 	instance2.Host = host2
 	instance2.DesiredOs = os1
 	instance2.CurrentOs = os1
+	instance2.Os = os1
 
 	instance3 := inv_testing.CreateInstance(t, host3, os2)
 	instance3.Host = host3
 	instance3.DesiredOs = os2
 	instance3.CurrentOs = os2
+	instance3.Os = os2
 
 	provider := inv_testing.CreateProvider(t, "Test Provider1")
 	instanceWithProvider := inv_testing.CreateInstanceWithProvider(t, host4, os2, provider)
 	instanceWithProvider.Host = host4
 	instanceWithProvider.DesiredOs = os2
 	instanceWithProvider.CurrentOs = os2
+	instanceWithProvider.Os = os2
 	instanceWithProvider.Provider = provider
 
 	localaccount := inv_testing.CreateLocalAccount(t,
@@ -1361,6 +1366,7 @@ func Test_NestedFilterInstances(t *testing.T) {
 	instanceWithLocalAccount.Host = host6
 	instanceWithLocalAccount.DesiredOs = os2
 	instanceWithLocalAccount.CurrentOs = os2
+	instanceWithLocalAccount.Os = os2
 	instanceWithLocalAccount.Localaccount = localaccount
 
 	testcases := map[string]struct {

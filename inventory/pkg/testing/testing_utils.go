@@ -1047,6 +1047,7 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 		DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		DesiredOs:       osRes,
 		CurrentOs:       osRes, // always create with desired OS == current OS for testing
+		Os:              osRes,
 		Host:            hostRes,
 		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
 		TenantId:        tenantID,
@@ -1073,6 +1074,7 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 	// embedded objects for edges.
 	instResp.DesiredOs = nil
 	instResp.CurrentOs = nil
+	instResp.Os = nil
 	instResp.Host = nil
 	instResp.WorkloadMembers = nil
 	instResp.Provider = nil
