@@ -1,10 +1,12 @@
 // SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
-package collections
+package collections_test
 
 import (
 	"testing"
+
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 )
 
 func TestConcatMapValuesSorted(t *testing.T) {
@@ -66,7 +68,7 @@ func TestConcatMapValuesSorted(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := ConcatMapValuesSorted(tt.input, "\x1f")
+			got := collections.ConcatMapValuesSorted(tt.input, "\x1f")
 			if got != tt.expected {
 				t.Errorf("ConcatMapValuesSorted() = %q, want %q", got, tt.expected)
 			}
