@@ -5,7 +5,6 @@ package collections
 
 import (
 	"sort"
-	"strconv"
 	"strings"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/function"
@@ -50,8 +49,7 @@ func ForEach[T any](c []T, f func(T)) {
 
 // ConcatMapValuesSorted takes a map of string keys and values, sorts the keys alphabetically,
 // concatenates the corresponding non-empty values using the specified delimiter, and returns
-// the resulting string wrapped in double quotes. If the map is empty or all values are empty,
-// it returns an empty string.
+// the resulting string. If the map is empty or all values are empty, it returns an empty string.
 func ConcatMapValuesSorted(m map[string]string, delimiter string) string {
 	if len(m) == 0 {
 		return ""
@@ -73,5 +71,5 @@ func ConcatMapValuesSorted(m map[string]string, delimiter string) string {
 		return ""
 	}
 
-	return strconv.Quote(strings.Join(values, delimiter))
+	return strings.Join(values, delimiter)
 }

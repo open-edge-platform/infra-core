@@ -25,7 +25,7 @@ func TestConcatMapValuesSorted(t *testing.T) {
 			input: map[string]string{
 				"a": "foo",
 			},
-			expected: "\"foo\"",
+			expected: "foo",
 		},
 		{
 			name: "SingleKeyEmptyValue",
@@ -41,7 +41,7 @@ func TestConcatMapValuesSorted(t *testing.T) {
 				"a": "foo",
 				"c": "baz",
 			},
-			expected: "\"foo\\x1fbar\\x1fbaz\"",
+			expected: "foo\x1fbar\x1fbaz",
 		},
 		{
 			name: "KeysWithEmptyValue",
@@ -49,7 +49,7 @@ func TestConcatMapValuesSorted(t *testing.T) {
 				"a": "",
 				"b": "bar",
 			},
-			expected: "\"bar\"",
+			expected: "bar",
 		},
 		{
 			name: "KeysWithInterspersedEmptyValue",
@@ -58,7 +58,7 @@ func TestConcatMapValuesSorted(t *testing.T) {
 				"b": "",
 				"c": "baz",
 			},
-			expected: "\"foo\\x1fbaz\"",
+			expected: "foo\x1fbaz",
 		},
 	}
 	for _, tt := range tests {
