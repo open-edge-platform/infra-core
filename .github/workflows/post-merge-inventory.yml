@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - release-*
+      - rranjan3-dev-pr
     paths:
       - 'inventory/**'
 
@@ -22,12 +23,7 @@ jobs:
       id-token: write
     uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@main
     with:
-      run_version_check: true
-      run_dep_version_check: true
-      run_build: true
-      run_docker_build: true
-      run_docker_push: true
-      run_version_tag: true
+      run_version_dev: true
       prefix_tag_separator: "/"
       project_folder: "inventory"
     secrets:
