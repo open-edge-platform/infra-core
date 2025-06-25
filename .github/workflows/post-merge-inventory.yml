@@ -10,8 +10,6 @@ on:
       - main
       - release-*
       - rranjan3-dev-pr
-    paths:
-      - 'inventory/**'
 
 permissions: {}
 
