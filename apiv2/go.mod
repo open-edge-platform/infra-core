@@ -5,6 +5,9 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.4
 
+// Revert when needed
+//replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1
 	github.com/getkin/kin-openapi v0.132.0
@@ -16,7 +19,7 @@ require (
 	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/oapi-codegen/runtime v1.1.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.27.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.28.0
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/prometheus/client_golang v1.22.0
 	github.com/stretchr/testify v1.10.0
