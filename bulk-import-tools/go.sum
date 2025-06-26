@@ -52,8 +52,8 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/oklog/ulid v1.3.1 h1:EGfNDEx6MqHz8B3uNV6QAib1UR2Lm97sHi3ocA6ESJ4=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
-github.com/open-edge-platform/infra-core/api v1.34.0 h1:PanQlaf76okMB7eYKu7Zup3PoTm+LqwKnOUEnajsG1Q=
-github.com/open-edge-platform/infra-core/api v1.34.0/go.mod h1:z4+WL+szey+GeLZRa3EupXhaeDzj4VAmvrskdZ4Wzik=
+github.com/open-edge-platform/infra-core/api v1.35.0 h1:D1z34x2JPl4wHQLjXQNssFY6quAvYUtCAXfRrfu7wuY=
+github.com/open-edge-platform/infra-core/api v1.35.0/go.mod h1:pG+Say4zLPBauJv+LxAerUMOx8hK21YfRNhLRXzNMUE=
 github.com/perimeterx/marshmallow v1.1.5 h1:a2LALqQ1BlHM8PZblsDdidgv1mWi1DgC2UmX50IvK2s=
 github.com/perimeterx/marshmallow v1.1.5/go.mod h1:dsXbUu8CRzfYP5a87xpp0xq9S3u0Vchtcl8we9tYaXw=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
