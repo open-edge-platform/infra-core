@@ -9,7 +9,7 @@ GOJUNITREPORTVERSION_HAVE   := $(shell go-junit-report -version | sed s/.*" v"//
 GOJUNITREPORTVERSION_REQ    := 2.1.0
 OPAVERSION_HAVE             := $(shell opa version | grep "Version:" | grep -v "Go" | sed 's/.*Version: //')
 OPAVERSION_REQ              := 1.5.0
-GOVERSION_REQ               := 1.24.1
+GOVERSION_REQ               := 1.24.4
 GOVERSION_HAVE              := $(shell go version | sed 's/.*version go//' | sed 's/ .*//')
 MOCKGENVERSION_HAVE         := $(shell mockgen -version | sed s/.*"v"// | sed 's/ .*//')
 MOCKGENVERSION_REQ          := 1.6.0
@@ -88,9 +88,9 @@ ifeq ($(OPA), true)
 	@(echo "$(OPAVERSION_HAVE)" | grep "$(OPAVERSION_REQ)" > /dev/null) || \
 	(echo  "\e[1;31mWARNING: You are not using the recommended version of opan\nRecommended: $(OPAVERSION_REQ)\nYours: $(OPAVERSION_HAVE)\e[1;m" && exit 1)
 endif
-ifeq ($(MOCKGENGEN), true)
+ifeq ($(MOCKGEN), true)
 	@(echo "$(MOCKGENVERSION_HAVE)" | grep "$(MOCKGENVERSION_REQ)" > /dev/null) || \
-	(echo  "\e[1;31mWARNING: You are not using the recommended version of mockgen\nRecommended:: $(MOCKGENVERSION_REQ)"\nYours: $(MOCKGENVERSION_HAVE)\e[1;m" && exit 1)
+	(echo  "\e[1;31mWARNING: You are not using the recommended version of mockgen\nRecommended: $(MOCKGENVERSION_REQ)\nYours: $(MOCKGENVERSION_HAVE)\e[1;m" && exit 1)
 endif
 ifeq ($(ATLAS), true)
 	@(if ! [ $(ATLAS_REQ) > /dev/null 2>&1 ]; then echo "\e[1;31mWARNING: You seem not having \"atlas\" installed\e[1;m" && exit 1 ; fi)

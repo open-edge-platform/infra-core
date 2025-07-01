@@ -79,6 +79,8 @@ const (
 	ResourcePrefixLocalAccount     ResourcePrefix = "localaccount"
 	ResourcePrefixTenant           ResourcePrefix = "tenant"
 	ResourcePrefixOsUpdatePolicy   ResourcePrefix = "osupdatepolicy"
+	ResourcePrefixCustomConfig     ResourcePrefix = "customconfig"
+	ResourcePrefixOsUpdateRun      ResourcePrefix = "osupdaterun"
 )
 
 func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
@@ -108,6 +110,8 @@ func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
 		inv_v1.ResourceKind_RESOURCE_KIND_TENANT:            ResourcePrefixTenant,
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      ResourcePrefixLocalAccount,
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    ResourcePrefixOsUpdatePolicy,
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      ResourcePrefixCustomConfig,
+		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:       ResourcePrefixOsUpdateRun,
 	}
 
 	prefix, ok := mapResourceKindToPrefix[kind]
@@ -173,6 +177,10 @@ func GetResourceKindFromResource(resource *inv_v1.Resource) inv_v1.ResourceKind 
 		return inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT
 	case *inv_v1.Resource_OsUpdatePolicy:
 		return inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY
+	case *inv_v1.Resource_CustomConfig:
+		return inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG
+	case *inv_v1.Resource_OsUpdateRun:
+		return inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN
 	}
 	zlog.InfraSec().InfraError("Unable to map resource to its prefix: %s", resource).Msg("")
 	return inv_v1.ResourceKind_RESOURCE_KIND_UNSPECIFIED
@@ -205,6 +213,8 @@ func PrefixToResourceKind(prefix ResourcePrefix) inv_v1.ResourceKind {
 		ResourcePrefixLocalAccount:     inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT,
 		ResourcePrefixOsUpdatePolicy:   inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY,
 		ResourcePrefixTenant:           inv_v1.ResourceKind_RESOURCE_KIND_TENANT,
+		ResourcePrefixCustomConfig:     inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
+		ResourcePrefixOsUpdateRun:      inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN,
 	}
 
 	resourceKind, ok := mapPrefixToResourceKind[prefix]
@@ -245,6 +255,8 @@ func stringToPrefix(s string) (ResourcePrefix, error) {
 		string(ResourcePrefixLocalAccount):     ResourcePrefixLocalAccount,
 		string(ResourcePrefixTenant):           ResourcePrefixTenant,
 		string(ResourcePrefixOsUpdatePolicy):   ResourcePrefixOsUpdatePolicy,
+		string(ResourcePrefixCustomConfig):     ResourcePrefixCustomConfig,
+		string(ResourcePrefixOsUpdateRun):      ResourcePrefixOsUpdateRun,
 	}
 
 	prefix, ok := mapStringToPrefix[s]
@@ -329,6 +341,10 @@ func GetResourceIDFromResource(resource *inv_v1.Resource) (string, error) {
 		return resource.GetLocalAccount().GetResourceId(), nil
 	case *inv_v1.Resource_OsUpdatePolicy:
 		return resource.GetOsUpdatePolicy().GetResourceId(), nil
+	case *inv_v1.Resource_CustomConfig:
+		return resource.GetCustomConfig().GetResourceId(), nil
+	case *inv_v1.Resource_OsUpdateRun:
+		return resource.GetOsUpdateRun().GetResourceId(), nil
 	default:
 		zlog.InfraSec().InfraError("unknown Resource type: %T", resource.GetResource()).Msg("")
 		return "", errors.Errorfc(codes.InvalidArgument, "unknown Resource type: %T", resource.GetResource())
@@ -397,6 +413,12 @@ func WrapResource(resource proto.Message) (*inv_v1.Resource, error) {
 		}
 	case *compute_v1.OSUpdatePolicyResource:
 		wrap.Resource = &inv_v1.Resource_OsUpdatePolicy{OsUpdatePolicy: r}
+	case *compute_v1.CustomConfigResource:
+		wrap.Resource = &inv_v1.Resource_CustomConfig{
+			CustomConfig: r,
+		}
+	case *compute_v1.OSUpdateRunResource:
+		wrap.Resource = &inv_v1.Resource_OsUpdateRun{OsUpdateRun: r}
 	default:
 		zlog.InfraSec().InfraError("unknown Resource type: %T", resource).Msg("")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource type: %T", resource)
@@ -452,8 +474,10 @@ func GetResourceKindFromMessage(message proto.Message) (inv_v1.ResourceKind, err
 		"IPAddressResource":        inv_v1.ResourceKind_RESOURCE_KIND_IPADDRESS,
 		"RemoteAccessConfResource": inv_v1.ResourceKind_RESOURCE_KIND_RMT_ACCESS_CONF,
 		"LocalAccountResource":     inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT,
+		"CustomConfigResource":     inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG,
 		string(proto.MessageName(&tenantv1.Tenant{}).Name()):                   inv_v1.ResourceKind_RESOURCE_KIND_TENANT,
 		string(proto.MessageName(&compute_v1.OSUpdatePolicyResource{}).Name()): inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY,
+		string(proto.MessageName(&compute_v1.OSUpdateRunResource{}).Name()):    inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN,
 	}
 	resname := string(proto.MessageName(message).Name())
 	kind, ok := mapStringToPrefix[resname]
@@ -824,6 +848,8 @@ func GetResourceFromKind(resourceType inv_v1.ResourceKind) (*inv_v1.Resource, er
 		inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:    {Resource: &inv_v1.Resource_LocalAccount{}},
 
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY: {Resource: &inv_v1.Resource_OsUpdatePolicy{}},
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:   {Resource: &inv_v1.Resource_CustomConfig{}},
+		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:    {Resource: &inv_v1.Resource_OsUpdateRun{}},
 	}
 	if res, ok := invResMap[resourceType]; ok {
 		return res, nil
@@ -913,6 +939,12 @@ func GetSetResource(resource *inv_v1.Resource) (proto.Message, error) {
 		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY: func(r *inv_v1.Resource) proto.Message {
 			return r.GetOsUpdatePolicy()
 		},
+		inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG: func(r *inv_v1.Resource) proto.Message {
+			return r.GetCustomConfig()
+		},
+		inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN: func(r *inv_v1.Resource) proto.Message {
+			return r.GetOsUpdateRun()
+		},
 	}
 	convert, ok := kindToResource[kind]
 	if !ok {
@@ -981,6 +1013,10 @@ func getResourceProtoMessage(resource *inv_v1.Resource) (proto.Message, error) {
 		message = resource.GetLocalAccount()
 	case *inv_v1.Resource_OsUpdatePolicy:
 		message = resource.GetOsUpdatePolicy()
+	case *inv_v1.Resource_CustomConfig:
+		message = resource.GetCustomConfig()
+	case *inv_v1.Resource_OsUpdateRun:
+		message = resource.GetOsUpdateRun()
 	default:
 		zlog.InfraSec().InfraError("unknown Resource type: %T", resource.GetResource()).Msg("")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource type: %T", resource.GetResource())

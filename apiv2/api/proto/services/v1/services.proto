@@ -2583,8 +2583,8 @@ message ListOSUpdateRunRequest {
 
 // Response message for the ListOSUpdateRun method.
 message ListOSUpdateRunResponse {
-  // Sorted and filtered list of os update policies.
-  repeated resources.compute.v1.OSUpdateRun os_update_policies = 1 [(google.api.field_behavior) = REQUIRED];
+  // Sorted and filtered list of os update runs.
+  repeated resources.compute.v1.OSUpdateRun os_update_runs = 1 [(google.api.field_behavior) = REQUIRED];
   // Count of items in the entire list, regardless of pagination.
   int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
   // Inform if there are more elements
@@ -2654,17 +2654,17 @@ message ListCustomConfigsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  int32 page_size = 3 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 1
       lte: 100
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  int32 offset = 4 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
+    (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }

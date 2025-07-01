@@ -14,6 +14,7 @@ import (
 	"google.golang.org/grpc/codes"
 
 	internal_ent "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
@@ -27,6 +28,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/networksegment"
 	oss "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -258,7 +260,9 @@ type OrderOption interface {
 		remoteaccessconfiguration.OrderOption |
 		tenant.OrderOption |
 		localaccountresource.OrderOption |
-		osupdatepolicyresource.OrderOption
+		osupdatepolicyresource.OrderOption |
+		customconfigresource.OrderOption |
+		osupdaterunresource.OrderOption
 }
 
 // GetOrderByOptions takes an AIP-132 compliant orderBy string and returns the

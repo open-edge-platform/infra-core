@@ -55,6 +55,8 @@ class ResourceKind(betterproto.Enum):
     RESOURCE_KIND_RMT_ACCESS_CONF = 150
     RESOURCE_KIND_LOCALACCOUNT = 170
     RESOURCE_KIND_OSUPDATEPOLICY = 180
+    RESOURCE_KIND_CUSTOMCONFIG = 190
+    RESOURCE_KIND_OSUPDATERUN = 200
 
 
 class SubscribeEventsResponseEventKind(betterproto.Enum):
@@ -160,6 +162,12 @@ class Resource(betterproto.Message):
     )
     os_update_policy: v1.OSUpdatePolicyResource = betterproto.message_field(
         180, group="resource"
+    )
+    custom_config: v1.CustomConfigResource = betterproto.message_field(
+        190, group="resource"
+    )
+    os_update_run: v1.OSUpdateRunResource = betterproto.message_field(
+        200, group="resource"
     )
 
 
@@ -424,6 +432,17 @@ class DeleteAllResourcesRequest(betterproto.Message):
 
 @dataclass
 class DeleteAllResourcesResponse(betterproto.Message):
+    pass
+
+
+@dataclass
+class HeartbeatRequest(betterproto.Message):
+    # The UUID of the client.
+    client_uuid: str = betterproto.string_field(1)
+
+
+@dataclass
+class HeartbeatResponse(betterproto.Message):
     pass
 
 
@@ -701,4 +720,19 @@ class InventoryServiceStub(betterproto.ServiceStub):
             "/inventory.v1.InventoryService/DeleteAllResources",
             request,
             DeleteAllResourcesResponse,
+        )
+
+    async def heartbeat(self, *, client_uuid: str = "") -> HeartbeatResponse:
+        """
+        Custom RPC to establish clients heartbeat and subscription
+        verification.
+        """
+
+        request = HeartbeatRequest()
+        request.client_uuid = client_uuid
+
+        return await self._unary_unary(
+            "/inventory.v1.InventoryService/Heartbeat",
+            request,
+            HeartbeatResponse,
         )

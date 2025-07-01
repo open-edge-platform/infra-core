@@ -101,6 +101,21 @@ func (srv *InventorygRPCServer) Authorize(ctx context.Context, request interface
 	return nil
 }
 
+func (srv *InventorygRPCServer) Heartbeat(
+	_ context.Context,
+	in *inv_v1.HeartbeatRequest,
+) (*inv_v1.HeartbeatResponse, error) {
+	// Check if the client is already registered.
+	// if the client is already registered, send an ack.
+	if _, ok := srv.CR.ClientRegistrationMap().Load(in.GetClientUuid()); !ok {
+		err := errors.Errorfr(errors.Reason_UNKNOWN_CLIENT,
+			"client with UUID %s not found", in.GetClientUuid(),
+		)
+		return nil, errors.Wrap(err)
+	}
+	return &inv_v1.HeartbeatResponse{}, nil
+}
+
 func (srv *InventorygRPCServer) SubscribeEvents(
 	in *inv_v1.SubscribeEventsRequest,
 	stream inv_v1.InventoryService_SubscribeEventsServer,
@@ -145,8 +160,9 @@ func (srv *InventorygRPCServer) ChangeSubscribeEvents(
 	return &inv_v1.ChangeSubscribeEventsResponse{}, nil
 }
 
-// CRUD functions
-
+// CreateResource This function is the main entry point for creating resources in the inventory
+//
+//nolint:gocyclo // high cyclomatic complexity due to the switch and length
 func (srv *InventorygRPCServer) CreateResource(
 	ctx context.Context,
 	in *inv_v1.CreateResourceRequest,
@@ -253,6 +269,14 @@ func (srv *InventorygRPCServer) CreateResource(
 
 	case *inv_v1.Resource_OsUpdatePolicy:
 		res, err = srv.IS.CreateOSUpdatePolicy(ctx, in.GetResource().GetOsUpdatePolicy())
+
+	// custom config
+	case *inv_v1.Resource_CustomConfig:
+		res, err = srv.IS.CreateCustomConfig(ctx, in.GetResource().GetCustomConfig())
+
+	case *inv_v1.Resource_OsUpdateRun:
+		res, err = srv.IS.CreateOSUpdateRun(ctx, in.GetResource().GetOsUpdateRun())
+
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %T", in.Resource).Msg("create resource error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %T", in.Resource)
@@ -448,6 +472,13 @@ func (srv *InventorygRPCServer) GetResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
 		gresresp.Resource, err = srv.IS.GetOSUpdatePolicy(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:
+		gresresp.Resource, err = srv.IS.GetCustomConfig(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
+		gresresp.Resource, err = srv.IS.GetOSUpdateRun(ctx, in.ResourceId)
+
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("get resource parse error")
 		return nil, errors.Errorfc(codes.InvalidArgument, "unknown Resource Kind: %s", kind)
@@ -537,6 +568,9 @@ func (srv *InventorygRPCServer) doUpdateResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
 		res, err = srv.IS.UpdateOSUpdatePolicy(ctx, in.ResourceId, in.GetResource().GetOsUpdatePolicy(), in.GetFieldMask())
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
+		res, err = srv.IS.UpdateOSUpdateRun(ctx, in.ResourceId, in.GetResource().GetOsUpdateRun(), in.GetFieldMask())
 
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("update resource parse error")
@@ -707,6 +741,12 @@ func (srv *InventorygRPCServer) doDeleteResource(
 
 	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:
 		res, err = srv.IS.DeleteOSUpdatePolicy(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:
+		res, err = srv.IS.DeleteCustomConfig(ctx, in.ResourceId)
+
+	case inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:
+		res, err = srv.IS.DeleteOSUpdateRun(ctx, in.ResourceId)
 
 	default:
 		zlog.InfraSec().InfraError("unknown Resource Kind: %s", kind).Msg("delete resource parse error")
@@ -900,6 +940,8 @@ var deleteResourcesHandlers = map[inv_v1.ResourceKind]deleteResourcesHandlerProv
 	inv_v1.ResourceKind_RESOURCE_KIND_WORKLOAD_MEMBER:   func(is *store.InvStore) deleteResourcesHandler { return is.DeleteWorkloadMembers },
 	inv_v1.ResourceKind_RESOURCE_KIND_LOCALACCOUNT:      func(is *store.InvStore) deleteResourcesHandler { return is.DeleteLocalAccounts },
 	inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATEPOLICY:    func(is *store.InvStore) deleteResourcesHandler { return is.DeleteOSUpdatePolicies },
+	inv_v1.ResourceKind_RESOURCE_KIND_CUSTOMCONFIG:      func(is *store.InvStore) deleteResourcesHandler { return is.DeleteCustomConfigs },
+	inv_v1.ResourceKind_RESOURCE_KIND_OSUPDATERUN:       func(is *store.InvStore) deleteResourcesHandler { return is.DeleteOSUpdateRuns },
 }
 
 func (srv *InventorygRPCServer) DeleteAllResources(

@@ -74,6 +74,9 @@ service InventoryService {
 
   // Deletes all resources of given kind for tenant.
   rpc DeleteAllResources(DeleteAllResourcesRequest) returns (DeleteAllResourcesResponse) {}
+
+  // Custom RPC to establish clients heartbeat and subscription verification.
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse) {}
 }
 
 enum ClientKind {
@@ -187,8 +190,10 @@ enum ResourceKind {
   RESOURCE_KIND_RMT_ACCESS_CONF = 150;
 
   RESOURCE_KIND_LOCALACCOUNT = 170;
-
   RESOURCE_KIND_OSUPDATEPOLICY = 180;
+
+  RESOURCE_KIND_CUSTOMCONFIG = 190;
+  RESOURCE_KIND_OSUPDATERUN = 200;
 }
 
 message Resource {
@@ -228,8 +233,10 @@ message Resource {
 
     remoteaccess.v1.RemoteAccessConfiguration remote_access = 150;
     localaccount.v1.LocalAccountResource local_account = 170;
-
     compute.v1.OSUpdatePolicyResource os_update_policy = 180;
+
+    compute.v1.CustomConfigResource custom_config = 190;
+    compute.v1.OSUpdateRunResource os_update_run = 200;
   }
 }
 
@@ -501,3 +508,10 @@ message DeleteAllResourcesRequest {
 }
 
 message DeleteAllResourcesResponse {}
+
+message HeartbeatRequest {
+  // The UUID of the client.
+  string client_uuid = 1 [(buf.validate.field).string = {uuid: true}];
+}
+
+message HeartbeatResponse {}

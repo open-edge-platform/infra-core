@@ -41,7 +41,7 @@ license: $(VENV_DIR) ## Check licensing with the reuse tool
 build: ## build in all subprojects
 	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir build; done
 
-DOCKER_PROJECTS := api exporters-inventory inventory tenant-controller
+DOCKER_PROJECTS := api apiv2 exporters-inventory inventory tenant-controller
 docker-build: ## build all docker containers
 	for dir in $(DOCKER_PROJECTS); do $(MAKE) -C $$dir $@; done
 

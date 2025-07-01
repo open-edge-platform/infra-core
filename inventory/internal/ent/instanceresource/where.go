@@ -1942,6 +1942,29 @@ func HasOsUpdatePolicyWith(preds ...predicate.OSUpdatePolicyResource) predicate.
 	})
 }
 
+// HasCustomConfig applies the HasEdge predicate on the "custom_config" edge.
+func HasCustomConfig() predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, CustomConfigTable, CustomConfigPrimaryKey...),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasCustomConfigWith applies the HasEdge predicate on the "custom_config" edge with a given conditions (other predicates).
+func HasCustomConfigWith(preds ...predicate.CustomConfigResource) predicate.InstanceResource {
+	return predicate.InstanceResource(func(s *sql.Selector) {
+		step := newCustomConfigStep()
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.InstanceResource) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.AndPredicates(predicates...))

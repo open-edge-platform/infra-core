@@ -361,6 +361,7 @@ class InstanceResource(betterproto.Message):
     os_update_policy: "OSUpdatePolicyResource" = betterproto.message_field(43)
     runtime_packages: str = betterproto.string_field(51)
     os_update_available: str = betterproto.string_field(52)
+    custom_config: List["CustomConfigResource"] = betterproto.message_field(53)
     tenant_id: str = betterproto.string_field(100)
     instance_status_detail: str = betterproto.string_field(101)
     created_at: str = betterproto.string_field(200)
@@ -414,6 +415,49 @@ class OSUpdatePolicyResource(betterproto.Message):
     kernel_command: str = betterproto.string_field(6)
     target_os: v1.OperatingSystemResource = betterproto.message_field(50)
     update_policy: "UpdatePolicy" = betterproto.enum_field(60)
+    tenant_id: str = betterproto.string_field(100)
+    created_at: str = betterproto.string_field(200)
+    updated_at: str = betterproto.string_field(201)
+
+
+@dataclass
+class CustomConfigResource(betterproto.Message):
+    """
+    ---------------------------------------------------------------------------
+    ------------------------------------------
+    --------------------------------------------- Custom Config Resources
+    -----------------------------------------------
+    """
+
+    # resource identifier
+    resource_id: str = betterproto.string_field(1)
+    # Unique name provided by admin
+    name: str = betterproto.string_field(2)
+    # Configuration file.
+    config: str = betterproto.string_field(3)
+    # Config Description
+    description: str = betterproto.string_field(4)
+    # Tenant Identifier.
+    tenant_id: str = betterproto.string_field(100)
+    # Creation timestamp
+    created_at: str = betterproto.string_field(200)
+    updated_at: str = betterproto.string_field(201)
+    instances: List["InstanceResource"] = betterproto.message_field(500)
+
+
+@dataclass
+class OSUpdateRunResource(betterproto.Message):
+    resource_id: str = betterproto.string_field(1)
+    name: str = betterproto.string_field(2)
+    description: str = betterproto.string_field(3)
+    applied_policy: "OSUpdatePolicyResource" = betterproto.message_field(4)
+    instance: "InstanceResource" = betterproto.message_field(5)
+    status_indicator: v1.StatusIndication = betterproto.enum_field(6)
+    status: str = betterproto.string_field(7)
+    status_details: str = betterproto.string_field(8)
+    status_timestamp: str = betterproto.string_field(9)
+    start_time: str = betterproto.string_field(10)
+    end_time: str = betterproto.string_field(11)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
