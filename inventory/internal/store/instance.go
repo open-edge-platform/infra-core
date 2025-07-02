@@ -484,6 +484,7 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 		WithProvider().
 		WithLocalaccount().
 		WithOsUpdatePolicy().
+		WithCustomConfig().
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)

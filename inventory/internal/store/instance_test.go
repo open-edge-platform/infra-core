@@ -6,6 +6,7 @@ package store_test
 import (
 	"context"
 	"fmt"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"reflect"
 	"testing"
 	"time"
@@ -84,6 +85,8 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			"test-user@example.com")
 	oup := dao.CreateOSUpdatePolicy(t, tenantID,
 		inv_testing.OsUpdatePolicyName("OsUpdatePolicy"), inv_testing.OSUpdatePolicyLatest())
+
+	cc := dao.CreateCustomConfig(t, tenantID, "test-config", "", "test config")
 
 	testcases := map[string]struct {
 		in    *computev1.InstanceResource
@@ -179,6 +182,19 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				OsUpdatePolicy: oup,
 			},
 			valid: true,
+		},
+		"CreateInstanceWithCustomConfig": {
+			in: &computev1.InstanceResource{
+				TenantId:     tenantID,
+				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
+				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Host:         host,
+				DesiredOs:    os,
+				CurrentOs:    os,
+				CustomConfig: []*computev1.CustomConfigResource{
+					cc,
+				},
+			},
 		},
 		"CreateBadInstanceWithInvalidResourceIdSet": {
 			// This tests case verifies that create requests with a resource ID
@@ -975,6 +991,8 @@ func Test_InstanceLocalAccountUpdate(t *testing.T) {
 
 func Test_FilterInstances(t *testing.T) {
 	provider := inv_testing.CreateProvider(t, "Test Provider1")
+	customConfig1 := inv_testing.CreateCustomConfig(t, "config1", "", "test config")
+	customConfig2 := inv_testing.CreateCustomConfig(t, "config2", "", "test config")
 	host1 := inv_testing.CreateHost(t, nil, provider)
 	host2 := inv_testing.CreateHost(t, nil, provider)
 	os1 := inv_testing.CreateOs(t)
@@ -1021,7 +1039,21 @@ func Test_FilterInstances(t *testing.T) {
 		},
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	createrestReqWithCustomConfig := &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Instance{
+			Instance: &computev1.InstanceResource{
+				VmCpuCores:   4,
+				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				DesiredOs:    os3,
+				CustomConfig: []*computev1.CustomConfigResource{
+					customConfig1,
+					customConfig2,
+				},
+			},
+		},
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	cInstResp1, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createresreq1)
@@ -1033,9 +1065,13 @@ func Test_FilterInstances(t *testing.T) {
 	cInstRespEmpty, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createresreqEmpty)
 	require.NoError(t, err)
 	instanceEmptyResID := inv_testing.GetResourceIDOrFail(t, cInstRespEmpty)
+	cInstRespCC, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, createrestReqWithCustomConfig)
+	require.NoError(t, err)
+	instanceCCResID := inv_testing.GetResourceIDOrFail(t, cInstRespCC)
 	t.Cleanup(func() { inv_testing.HardDeleteInstance(t, instance1ResID) })
 	t.Cleanup(func() { inv_testing.HardDeleteInstance(t, instance2ResID) })
 	t.Cleanup(func() { inv_testing.HardDeleteInstance(t, instanceEmptyResID) })
+	t.Cleanup(func() { inv_testing.HardDeleteInstance(t, instanceCCResID) })
 
 	instExp1 := cInstResp1.GetInstance()
 	instExp1.ResourceId = instance1ResID
@@ -1050,6 +1086,8 @@ func Test_FilterInstances(t *testing.T) {
 	instExpEmpty := cInstRespEmpty.GetInstance()
 	instExpEmpty.ResourceId = instanceEmptyResID
 
+	instExpWithCC := cInstRespCC.GetInstance()
+
 	testcases := map[string]struct {
 		in        *inv_v1.ResourceFilter
 		resources []*computev1.InstanceResource
@@ -1057,14 +1095,14 @@ func Test_FilterInstances(t *testing.T) {
 	}{
 		"NoFilter": {
 			in:        &inv_v1.ResourceFilter{},
-			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty},
+			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty, instExpWithCC},
 			valid:     true,
 		},
 		"NoFilterOrderByResourceID": {
 			in: &inv_v1.ResourceFilter{
 				OrderBy: instanceresource.FieldResourceID,
 			},
-			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty},
+			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty, instExpWithCC},
 			valid:     true,
 		},
 		"FilterByEmptyResourceIdEq": {
@@ -1101,6 +1139,14 @@ func Test_FilterInstances(t *testing.T) {
 					instExpEmpty.GetProvider().GetResourceId()),
 			},
 			resources: []*computev1.InstanceResource{instExpEmpty},
+			valid:     true,
+		},
+		"FilterByCustomConfigID": {
+			in: &inv_v1.ResourceFilter{
+				Filter: fmt.Sprintf(`%s.%s = %q`, instanceresource.EdgeCustomConfig, customconfigresource.FieldResourceID,
+					instExpWithCC.GetCustomConfig()[0].GetResourceId()),
+			},
+			resources: []*computev1.InstanceResource{instExpWithCC},
 			valid:     true,
 		},
 		"FilterByWorkloadMemberID": {
@@ -1175,7 +1221,7 @@ func Test_FilterInstances(t *testing.T) {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`NOT has(%s)`, instanceresource.EdgeProvider),
 			},
-			resources: []*computev1.InstanceResource{instExp1, instExp2},
+			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpWithCC},
 			valid:     true,
 		},
 		"FilterLimit": {
@@ -1301,6 +1347,17 @@ func instanceEdgesOnlyResourceID(expected *computev1.InstanceResource) {
 	}
 	if expected.CurrentOs != nil {
 		expected.CurrentOs = &osv1.OperatingSystemResource{ResourceId: expected.CurrentOs.ResourceId}
+	}
+	if expected.Provider != nil {
+		expected.Provider = &providerv1.ProviderResource{ResourceId: expected.Provider.ResourceId}
+	}
+	if expected.CustomConfig != nil {
+		expected.CustomConfig = make([]*computev1.CustomConfigResource, 0)
+		for _, ccID := range expected.CustomConfig {
+			expected.CustomConfig = append(expected.CustomConfig, &computev1.CustomConfigResource{
+				ResourceId: ccID.ResourceId,
+			})
+		}
 	}
 }
 
