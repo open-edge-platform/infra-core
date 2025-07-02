@@ -195,6 +195,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 					cc,
 				},
 			},
+			valid: true,
 		},
 		"CreateBadInstanceWithInvalidResourceIdSet": {
 			// This tests case verifies that create requests with a resource ID
@@ -1042,6 +1043,7 @@ func Test_FilterInstances(t *testing.T) {
 	createrestReqWithCustomConfig := &inv_v1.Resource{
 		Resource: &inv_v1.Resource_Instance{
 			Instance: &computev1.InstanceResource{
+				Host:         host1,
 				VmCpuCores:   4,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				DesiredOs:    os3,
@@ -1207,7 +1209,7 @@ func Test_FilterInstances(t *testing.T) {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`NOT has(%s)`, instanceresource.EdgeWorkloadMembers),
 			},
-			resources: []*computev1.InstanceResource{instExp2, instExpEmpty},
+			resources: []*computev1.InstanceResource{instExp2, instExpEmpty, instExpWithCC},
 			valid:     true,
 		},
 		"FilterProvider": {
@@ -1244,7 +1246,7 @@ func Test_FilterInstances(t *testing.T) {
 				Offset: 0,
 				Limit:  5,
 			},
-			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty},
+			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty, instExpWithCC},
 			valid:     true,
 		},
 		"FilterInvalidEdge": {
