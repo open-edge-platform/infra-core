@@ -165,6 +165,20 @@ func (osrc *OperatingSystemResourceCreate) SetNillableInstalledPackages(s *strin
 	return osrc
 }
 
+// SetInstalledPackagesURL sets the "installed_packages_url" field.
+func (osrc *OperatingSystemResourceCreate) SetInstalledPackagesURL(s string) *OperatingSystemResourceCreate {
+	osrc.mutation.SetInstalledPackagesURL(s)
+	return osrc
+}
+
+// SetNillableInstalledPackagesURL sets the "installed_packages_url" field if the given value is not nil.
+func (osrc *OperatingSystemResourceCreate) SetNillableInstalledPackagesURL(s *string) *OperatingSystemResourceCreate {
+	if s != nil {
+		osrc.SetInstalledPackagesURL(*s)
+	}
+	return osrc
+}
+
 // SetSecurityFeature sets the "security_feature" field.
 func (osrc *OperatingSystemResourceCreate) SetSecurityFeature(of operatingsystemresource.SecurityFeature) *OperatingSystemResourceCreate {
 	osrc.mutation.SetSecurityFeature(of)
@@ -448,6 +462,10 @@ func (osrc *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResourc
 	if value, ok := osrc.mutation.InstalledPackages(); ok {
 		_spec.SetField(operatingsystemresource.FieldInstalledPackages, field.TypeString, value)
 		_node.InstalledPackages = value
+	}
+	if value, ok := osrc.mutation.InstalledPackagesURL(); ok {
+		_spec.SetField(operatingsystemresource.FieldInstalledPackagesURL, field.TypeString, value)
+		_node.InstalledPackagesURL = value
 	}
 	if value, ok := osrc.mutation.SecurityFeature(); ok {
 		_spec.SetField(operatingsystemresource.FieldSecurityFeature, field.TypeEnum, value)

@@ -377,6 +377,7 @@ func Test_Host_BackReferences_Read(t *testing.T) {
 	instance := inv_testing.CreateInstance(t, host, os)
 	instance.DesiredOs = os
 	instance.CurrentOs = os
+	instance.Os = os
 	host.Instance = instance
 	gpu := inv_testing.CreatHostGPU(t, host)
 	host.HostStorages = append(host.HostStorages, storage)
@@ -1725,6 +1726,7 @@ func Test_FilterHosts(t *testing.T) {
 	instance1 := inv_testing.CreateInstance(t, &expHost1, os1)
 	instance1.DesiredOs = os1
 	instance1.CurrentOs = os1
+	instance1.Os = os1
 	expHost1.Instance = instance1
 
 	hostStorage1 := inv_testing.CreateHostStorage(t, &expHost1)
@@ -2629,6 +2631,7 @@ func Test_NestedFilterHost(t *testing.T) {
 
 	instance.DesiredOs = os
 	instance.CurrentOs = os
+	instance.Os = os
 
 	hostGpu1 := inv_testing.CreatHostGPU(t, host1)
 	host1.Site = site1
@@ -2677,6 +2680,14 @@ func Test_NestedFilterHost(t *testing.T) {
 		"FilterByOsID": {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`%s.%s.%s = %q`, hostresource.EdgeInstance, instanceresource.EdgeDesiredOs,
+					operatingsystemresource.FieldResourceID, os.GetResourceId()),
+			},
+			resources: []*computev1.HostResource{host1},
+			valid:     true,
+		},
+		"FilterByOsID2": {
+			in: &inv_v1.ResourceFilter{
+				Filter: fmt.Sprintf(`%s.%s.%s = %q`, hostresource.EdgeInstance, instanceresource.EdgeOs,
 					operatingsystemresource.FieldResourceID, os.GetResourceId()),
 			},
 			resources: []*computev1.HostResource{host1},

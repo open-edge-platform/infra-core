@@ -52,6 +52,10 @@ class OperatingSystemResource(betterproto.Message):
     profile_name: str = betterproto.string_field(8)
     profile_version: str = betterproto.string_field(12)
     installed_packages: str = betterproto.string_field(9)
+    # The URL of the OS manifest which contains install packages details. This
+    # will be used to fill the installed_packages field for the advance use case
+    # to allow manual creation of OSProfiles when supported from backend.
+    installed_packages_url: str = betterproto.string_field(17)
     security_feature: "SecurityFeature" = betterproto.enum_field(10)
     os_type: "OsType" = betterproto.enum_field(11)
     os_provider: "OsProviderKind" = betterproto.enum_field(14)
