@@ -6,7 +6,6 @@ package store_test
 import (
 	"context"
 	"fmt"
-	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"reflect"
 	"testing"
 	"time"
@@ -19,6 +18,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
