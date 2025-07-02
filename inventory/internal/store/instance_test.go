@@ -1043,7 +1043,6 @@ func Test_FilterInstances(t *testing.T) {
 	createrestReqWithCustomConfig := &inv_v1.Resource{
 		Resource: &inv_v1.Resource_Instance{
 			Instance: &computev1.InstanceResource{
-				Host:         host1,
 				VmCpuCores:   4,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				DesiredOs:    os3,
@@ -1180,7 +1179,7 @@ func Test_FilterInstances(t *testing.T) {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`NOT has(%s)`, instanceresource.EdgeHost),
 			},
-			resources: []*computev1.InstanceResource{instExpEmpty},
+			resources: []*computev1.InstanceResource{instExpEmpty, instExpWithCC},
 			valid:     true,
 		},
 		"FilterDesiredOSEmpty": {
