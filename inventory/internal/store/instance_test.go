@@ -1087,6 +1087,7 @@ func Test_FilterInstances(t *testing.T) {
 	instExpEmpty.ResourceId = instanceEmptyResID
 
 	instExpWithCC := cInstRespCC.GetInstance()
+	instExpWithCC.ResourceId = instanceCCResID
 
 	testcases := map[string]struct {
 		in        *inv_v1.ResourceFilter
