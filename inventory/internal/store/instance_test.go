@@ -1228,9 +1228,9 @@ func Test_FilterInstances(t *testing.T) {
 		},
 		"FilterLimit": {
 			in: &inv_v1.ResourceFilter{
-				Limit: 3,
+				Limit: 4,
 			},
-			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty},
+			resources: []*computev1.InstanceResource{instExp1, instExp2, instExpEmpty, instExpWithCC},
 			valid:     true,
 		},
 		"FilterWithOffsetLimit1": {
