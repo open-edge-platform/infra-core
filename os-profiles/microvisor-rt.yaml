@@ -4,7 +4,7 @@
 appVersion: apps/v1
 metadata:
   release: 0.0.0-dev
-  version: 0.3.0
+  kubernetesVersion: 1.32.4
 spec:
   name: Edge Microvisor Toolkit Real Time 3.0.20250624
   type: OS_TYPE_IMMUTABLE
