@@ -364,6 +364,30 @@ func TestDeleteResources_CustomConfig(t *testing.T) {
 	})
 }
 
+func Test_StrongRelations_On_Delete_CustomConfig(t *testing.T) {
+	t.Run("CustomConfig_Instance", func(t *testing.T) {
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+
+		os := inv_testing.CreateOs(t)
+		host := inv_testing.CreateHost(t, nil, nil)
+		customConfig := inv_testing.CreateCustomConfig(t,
+			"test-custom-config",
+			"Test custom config resource",
+			testCloudInitConfig,
+		)
+
+		// Create slice of custom config
+		customconfigSlice := []*computev1.CustomConfigResource{customConfig}
+
+		_ = inv_testing.CreateInstanceWithCustomConfig(t, host, os, customconfigSlice)
+
+		_, err := inv_testing.TestClients[inv_testing.APIClient].Delete(ctx, customConfig.ResourceId)
+
+		require.Error(t, err, "DeleteCustomConfig() should fail")
+	})
+}
+
 func Test_Unique_CustomConfig_On_Create(t *testing.T) {
 	t.Run("CustomConfig_Instance", func(t *testing.T) {
 		createresreq := &inv_v1.Resource{
@@ -459,28 +483,4 @@ func Test_UpdateCustomConfig(t *testing.T) {
 			assert.NotNil(t, upRes)
 		})
 	}
-}
-
-func Test_StrongRelations_On_Delete_CustomConfig(t *testing.T) {
-	t.Run("CustomConfig_Instance", func(t *testing.T) {
-		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-		defer cancel()
-
-		os := inv_testing.CreateOs(t)
-		host := inv_testing.CreateHost(t, nil, nil)
-		customConfig := inv_testing.CreateCustomConfig(t,
-			"test-custom-config",
-			"Test custom config resource",
-			testCloudInitConfig,
-		)
-
-		// Create slice of custom config
-		customconfigSlice := []*computev1.CustomConfigResource{customConfig}
-
-		_ = inv_testing.CreateInstanceWithCustomConfig(t, host, os, customconfigSlice)
-
-		_, err := inv_testing.TestClients[inv_testing.APIClient].Delete(ctx, customConfig.ResourceId)
-
-		require.Error(t, err, "DeleteCustomConfig() should fail")
-	})
 }
