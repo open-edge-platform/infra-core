@@ -11,14 +11,15 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
-	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
-	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
-	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
+
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
+	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
+	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 )
 
 var testCloudInitConfig = `#cloud-config
@@ -35,6 +36,7 @@ write_files:
 runcmd:
     - source /etc/environment`
 
+//nolint:funlen // length due to test cases
 func Test_Create_Get_Delete_CustomConfig(t *testing.T) {
 	testcases := map[string]struct {
 		in    *computev1.CustomConfigResource
@@ -199,7 +201,6 @@ func Test_Create_Get_Delete_CustomConfig(t *testing.T) {
 
 //nolint:cyclop,funlen // length due to test cases
 func Test_FilterCustomConfig(t *testing.T) {
-
 	customConfig1 := inv_testing.CreateCustomConfig(t,
 		"test-custom-config-1",
 		"Test custom config resource 1",
@@ -457,4 +458,27 @@ func Test_UpdateCustomConfig(t *testing.T) {
 			assert.NotNil(t, upRes)
 		})
 	}
+}
+func Test_StrongRelations_On_Delete_CustomConfig(t *testing.T) {
+	t.Run("CustomConfig_Instance", func(t *testing.T) {
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+
+		os := inv_testing.CreateOs(t)
+		host := inv_testing.CreateHost(t, nil, nil)
+		customConfig := inv_testing.CreateCustomConfig(t,
+			"test-custom-config",
+			"Test custom config resource",
+			testCloudInitConfig,
+		)
+
+		// Create slice of custom config
+		customconfigSlice := []*computev1.CustomConfigResource{customConfig}
+
+		_ = inv_testing.CreateInstanceWithCustomConfig(t, host, os, customconfigSlice)
+
+		_, err := inv_testing.TestClients[inv_testing.APIClient].Delete(ctx, customConfig.ResourceId)
+
+		require.Error(t, err, "DeleteCustomConfig() should fail")
+	})
 }
