@@ -363,6 +363,7 @@ func TestDeleteResources_CustomConfig(t *testing.T) {
 		},
 	})
 }
+
 func Test_Unique_CustomConfig_On_Create(t *testing.T) {
 	t.Run("CustomConfig_Instance", func(t *testing.T) {
 		createresreq := &inv_v1.Resource{
@@ -459,6 +460,7 @@ func Test_UpdateCustomConfig(t *testing.T) {
 		})
 	}
 }
+
 func Test_StrongRelations_On_Delete_CustomConfig(t *testing.T) {
 	t.Run("CustomConfig_Instance", func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
