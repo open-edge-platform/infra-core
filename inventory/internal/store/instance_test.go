@@ -800,7 +800,7 @@ func Test_InstanceStateTransitionFromUntrusted(t *testing.T) {
 func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	host1 := inv_testing.CreateHost(t, nil, nil)
 	os1 := inv_testing.CreateOs(t)
-	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
+	customconfig := inv_testing.CreateCustomConfig(t, "custom-config1", "Test custom config resource", testCloudInitCfg)
 	// Create slice of custom config
 	customconfigSlice := []*computev1.CustomConfigResource{customconfig}
 
