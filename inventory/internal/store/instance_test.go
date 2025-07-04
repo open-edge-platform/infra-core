@@ -85,6 +85,8 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 	oup := dao.CreateOSUpdatePolicy(t, tenantID,
 		inv_testing.OsUpdatePolicyName("OsUpdatePolicy"), inv_testing.OSUpdatePolicyLatest())
 
+	cc := dao.CreateCustomConfig(t, tenantID, "custom-config1", "Test custom config resource", testCloudInitCfg)
+
 	testcases := map[string]struct {
 		in    *computev1.InstanceResource
 		valid bool
@@ -165,6 +167,18 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				DesiredOs:    os,
 				CurrentOs:    os,
 				Localaccount: localaccount,
+			},
+			valid: true,
+		},
+		"CreateGoodMetalInstanceWithCustomConfig": {
+			in: &computev1.InstanceResource{
+				TenantId:     tenantID,
+				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
+				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Host:         host,
+				DesiredOs:    os,
+				CurrentOs:    os,
+				CustomConfig: []*computev1.CustomConfigResource{cc},
 			},
 			valid: true,
 		},
@@ -395,6 +409,8 @@ func Test_UpdateInstance(t *testing.T) {
 	localaccount := inv_testing.CreateLocalAccount(t,
 		"test-user",
 		"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtu+7Pdtj6ihyFynecnd+155AdxqvHhMRxvxdcQ8/D/ test-user1@example.com")
+
+	cc := inv_testing.CreateCustomConfig(t, "custom-config1", "Test custom config resource", testCloudInitCfg)
 
 	// create Instance to update
 	createresreq := &inv_v1.Resource{
@@ -668,6 +684,21 @@ func Test_UpdateInstance(t *testing.T) {
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
+		"UpdateInstanceCustomConfigFail": {
+			in: &computev1.InstanceResource{
+				CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				CustomConfig: []*computev1.CustomConfigResource{cc},
+			},
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{
+					instanceresource.FieldCurrentState,
+					instanceresource.EdgeCustomConfig,
+				},
+			},
+			resourceID:   instanceResID,
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
 		"UpdateInstanceDetailStatus": {
 			in: &computev1.InstanceResource{
 				InstanceStatusDetail: "2 of 5 components Running",
@@ -800,7 +831,7 @@ func Test_InstanceStateTransitionFromUntrusted(t *testing.T) {
 func Test_InstanceCustomConfigUpdate(t *testing.T) {
 	host1 := inv_testing.CreateHost(t, nil, nil)
 	os1 := inv_testing.CreateOs(t)
-	customconfig := inv_testing.CreateCustomConfig(t, "test-custom-config", "Test custom config resource", testCloudInitCfg)
+	customconfig := inv_testing.CreateCustomConfig(t, "custom-config1", "Test custom config resource", testCloudInitCfg)
 	// Create slice of custom config
 	customconfigSlice := []*computev1.CustomConfigResource{customconfig}
 
