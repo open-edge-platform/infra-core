@@ -1,0 +1,19 @@
+---
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+appVersion: apps/v1
+metadata:
+  version: 0.1.0
+spec:
+  name: Edge Microvisor Toolkit IDV 3.0.20250709
+  type: OS_TYPE_IMMUTABLE
+  provider: OS_PROVIDER_KIND_INFRA
+  architecture: x86_64
+  profileName: microvisor-idv  # Name has to be identical to this file's name
+  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250709.2000.raw.gz
+  osImageVersion: 3.0.20250709.2000
+  osImageSha256: 306022e9d0fe7aa7f3b8d4165e4e6a4e28399d27ce65cb844aec420cbf2bc3ba
+  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250709.2000_pkg_manifest.json
+  securityFeature: SECURITY_FEATURE_NONE
+  description: Edge Microvisor Toolkit with Desktop Virtualization for x86_64 architecture
+  platformBundle:
