@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 appVersion: apps/v1
 metadata:
+  standalone-node: true
   version: 0.1.0
 spec:
   name: Edge Microvisor Toolkit IDV 3.0.20250709
