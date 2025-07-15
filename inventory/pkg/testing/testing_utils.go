@@ -1566,7 +1566,8 @@ func (c *InvResourceDAO) createOSUpdatePolicy(
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	oup := &computev1.OSUpdatePolicyResource{
-		TenantId: tenantID,
+		TenantId:     tenantID,
+		UpdatePolicy: computev1.UpdatePolicy_UPDATE_POLICY_LATEST,
 	}
 	collections.ForEach(opts, func(opt Opt[computev1.OSUpdatePolicyResource]) { opt(oup) })
 	resp, err := c.apiClient.Create(
