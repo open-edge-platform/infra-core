@@ -475,7 +475,8 @@ func filterHosts(ctx context.Context, client *ent.Client, filter *inv_v1.Resourc
 		WithInstance(func(query *ent.InstanceResourceQuery) {
 			query.WithDesiredOs().
 				WithCurrentOs().
-				WithOs()
+				WithOs().
+				WithOsUpdatePolicy()
 		}).
 		Where(pred).
 		Order(orderOpts...)

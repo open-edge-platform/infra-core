@@ -424,6 +424,13 @@ func CreateInstanceWithLocalAccount(
 	return getInvResourceDAO().CreateInstanceWithLocalAccount(tb, client.FakeTenantID, host, os, account)
 }
 
+func CreateInstanceWithOsUpdatePolicy(
+	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource, oup *computev1.OSUpdatePolicyResource,
+) *computev1.InstanceResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateInstanceWithOsUpdatePolicy(tb, client.FakeTenantID, host, os, oup)
+}
+
 func CreateInstanceWithProviderNoCleanup(
 	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource, provider *provider_v1.ProviderResource,
 ) *computev1.InstanceResource {

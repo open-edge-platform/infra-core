@@ -1211,6 +1211,26 @@ func (c *InvResourceDAO) CreateInstanceWithLocalAccount(
 		})
 }
 
+func (c *InvResourceDAO) CreateInstanceWithOsUpdatePolicy(
+	tb testing.TB,
+	tenantID string,
+	hostRes *computev1.HostResource,
+	osRes *osv1.OperatingSystemResource,
+	oup *computev1.OSUpdatePolicyResource,
+) (ins *computev1.InstanceResource) {
+	tb.Helper()
+
+	return c.createInstanceWithOpts(
+		tb,
+		tenantID,
+		hostRes,
+		osRes,
+		true,
+		func(inst *computev1.InstanceResource) {
+			inst.OsUpdatePolicy = oup
+		})
+}
+
 func (c *InvResourceDAO) CreateInstanceWithProviderNoCleanup(
 	tb testing.TB,
 	tenantID string,
