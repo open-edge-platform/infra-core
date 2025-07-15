@@ -29,6 +29,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -374,10 +375,12 @@ func Test_Host_BackReferences_Read(t *testing.T) {
 	nic := inv_testing.CreateHostNic(t, host)
 	usb := inv_testing.CreateHostusb(t, host)
 	os := inv_testing.CreateOs(t)
+	policy := inv_testing.CreateOsUpdatePolicy(t)
 	instance := inv_testing.CreateInstance(t, host, os)
 	instance.DesiredOs = os
 	instance.CurrentOs = os
 	instance.Os = os
+	instance.OsUpdatePolicy = policy
 	host.Instance = instance
 	gpu := inv_testing.CreatHostGPU(t, host)
 	host.HostStorages = append(host.HostStorages, storage)
@@ -1727,6 +1730,8 @@ func Test_FilterHosts(t *testing.T) {
 	instance1.DesiredOs = os1
 	instance1.CurrentOs = os1
 	instance1.Os = os1
+	policy := inv_testing.CreateOsUpdatePolicy(t)
+	instance1.OsUpdatePolicy = policy
 	expHost1.Instance = instance1
 
 	hostStorage1 := inv_testing.CreateHostStorage(t, &expHost1)
@@ -2633,6 +2638,9 @@ func Test_NestedFilterHost(t *testing.T) {
 	instance.CurrentOs = os
 	instance.Os = os
 
+	policy := inv_testing.CreateOsUpdatePolicy(t)
+	instance.OsUpdatePolicy = policy
+
 	hostGpu1 := inv_testing.CreatHostGPU(t, host1)
 	host1.Site = site1
 	host1.Instance = instance
@@ -2807,6 +2815,14 @@ func Test_NestedFilterHost(t *testing.T) {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`%s.%s.%s = %q`, hostresource.EdgeInstance, instanceresource.EdgeLocalaccount,
 					localaccountresource.FieldUsername, localaccount.GetUsername()),
+			},
+			resources: []*computev1.HostResource{host1},
+			valid:     true,
+		},
+		"FilterByOsPolicyID": {
+			in: &inv_v1.ResourceFilter{
+				Filter: fmt.Sprintf(`%s.%s.%s = %q`, hostresource.EdgeInstance, instanceresource.EdgeOsUpdatePolicy,
+					osupdatepolicyresource.FieldResourceID, policy.GetResourceId()),
 			},
 			resources: []*computev1.HostResource{host1},
 			valid:     true,

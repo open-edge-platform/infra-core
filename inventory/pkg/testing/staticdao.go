@@ -680,3 +680,9 @@ func CreateTenantNoCleanup(t *testing.T, opts ...Opt[tenantv1.Tenant]) *tenantv1
 	t.Helper()
 	return getInvResourceDAO().CreateTenantWithOpts(t, client.FakeTenantID, false, opts...)
 }
+
+// CreateOsUpdatePolicy creates OS UpdatePolicy.
+func CreateOsUpdatePolicy(tb testing.TB) *computev1.OSUpdatePolicyResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateOSUpdatePolicy(tb, client.FakeTenantID)
+}
