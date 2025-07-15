@@ -1567,6 +1567,7 @@ func (c *InvResourceDAO) createOSUpdatePolicy(
 	defer cancel()
 	oup := &computev1.OSUpdatePolicyResource{
 		TenantId:     tenantID,
+		Name:         GenerateRandomOsUpdatePolicyName(),
 		UpdatePolicy: computev1.UpdatePolicy_UPDATE_POLICY_LATEST,
 	}
 	collections.ForEach(opts, func(opt Opt[computev1.OSUpdatePolicyResource]) { opt(oup) })
