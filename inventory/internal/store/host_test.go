@@ -2900,7 +2900,6 @@ func Test_NestedFilterHostByOsUpdatePolicyID(t *testing.T) {
 		valid             bool
 		expectedCodeError codes.Code
 	}{
-
 		"FilterByOsPolicyID": {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`%s.%s.%s = %q`, hostresource.EdgeInstance, instanceresource.EdgeOsUpdatePolicy,
