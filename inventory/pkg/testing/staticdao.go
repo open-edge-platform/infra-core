@@ -424,6 +424,13 @@ func CreateInstanceWithLocalAccount(
 	return getInvResourceDAO().CreateInstanceWithLocalAccount(tb, client.FakeTenantID, host, os, account)
 }
 
+func CreateInstanceWithOsUpdatePolicy(
+	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource, oup *computev1.OSUpdatePolicyResource,
+) *computev1.InstanceResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateInstanceWithOsUpdatePolicy(tb, client.FakeTenantID, host, os, oup)
+}
+
 func CreateInstanceWithProviderNoCleanup(
 	tb testing.TB, host *computev1.HostResource, os *osv1.OperatingSystemResource, provider *provider_v1.ProviderResource,
 ) *computev1.InstanceResource {
@@ -679,4 +686,10 @@ func CreateTenant(t *testing.T, opts ...Opt[tenantv1.Tenant]) *tenantv1.Tenant {
 func CreateTenantNoCleanup(t *testing.T, opts ...Opt[tenantv1.Tenant]) *tenantv1.Tenant {
 	t.Helper()
 	return getInvResourceDAO().CreateTenantWithOpts(t, client.FakeTenantID, false, opts...)
+}
+
+// CreateOsUpdatePolicy creates OS UpdatePolicy.
+func CreateOsUpdatePolicy(tb testing.TB) *computev1.OSUpdatePolicyResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateOSUpdatePolicy(tb, client.FakeTenantID)
 }
