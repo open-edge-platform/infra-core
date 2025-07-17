@@ -161,7 +161,9 @@ jobs:
             curl -sfL "$full_url" -o "$manifest_file" || { echo "❌ Failed to download $full_url"; exit 1; }
             k3s_version=$(jq -r '.Repo[] | select(.Name=="k3s") | .Version' "$manifest_file" | cut -d'-' -f1)
             [[ -z "$k3s_version" ]] && { echo "❌ k3s not found in $manifest_file"; exit 1; }
-            sed -i "s/^  version:.*$/  kubernetesVersion: v$k3s_version/" "$yaml"
+            sed -i \
+              -e 's/^  version:.*$/  kubernetesVersion: v'"$k3s_version"'/' \
+              -e 's/^  kubernetes-version:.*$/  kubernetesVersion: v'"$k3s_version"'/' "$yaml"
           done
           cat VERSION; cat os-profiles/microvisor-rt.yaml; cat os-profiles/microvisor-nonrt.yaml
       - name: "Run validate OS profile"
