@@ -149,7 +149,7 @@ jobs:
           aws-access-key-id: ${{ secrets.NO_AUTH_S3_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_S3_PUSH_PASSWD }}
           aws-region: us-west-2
-      - name: "Run validate OS profile"
+      - name: "Curate OS profile"
         run: |
           sed -i 's/-dev//g' VERSION
           for yaml in os-profiles/microvisor-rt.yaml os-profiles/microvisor-nonrt.yaml; do
@@ -164,6 +164,8 @@ jobs:
             sed -i "s/^  version:.*$/  kubernetesVersion: v$k3s_version/" "$yaml"
           done
           cat VERSION; cat os-profiles/microvisor-rt.yaml; cat os-profiles/microvisor-nonrt.yaml
+      - name: "Run validate OS profile"
+        run: |
           cd .github/workflows/scripts && ./validate_os_profiles.sh ${{ secrets.S3_NAME }}
       # TODO: generalize this part of the CI for all subcomponents
       - name: "Get PR Description"
