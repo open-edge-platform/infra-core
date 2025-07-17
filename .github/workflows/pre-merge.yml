@@ -153,10 +153,15 @@ jobs:
         run: |
           sed -i 's/-dev//g' VERSION
           for yaml in os-profiles/microvisor-rt.yaml os-profiles/microvisor-nonrt.yaml; do
+            echo "Processing YAML: $yaml"
             manifest_url=$(sed -n 's/^[[:space:]]*osPackageManifestURL:[[:space:]]*\(.*\)$/\1/p' "$yaml")
-             manifest_file="${manifest_url##*/}"
-             k3s_version=$(jq -r '.[] | select(.Name=="k3s") | .Version' "$manifest_file" | cut -d'-' -f1)
-             sed -i "s/^  version:.*$/  kubernetesVersion: v$k3s_version/" "$yaml"
+            full_url="https://files-rs.edgeorchestration.intel.com/${manifest_url}"
+            manifest_file="${manifest_url##*/}"
+            echo "Downloading manifest from ${full_url}..."
+            curl -sfL "$full_url" -o "$manifest_file" || { echo "❌ Failed to download $full_url"; exit 1; }
+            k3s_version=$(jq -r '.Repo[] | select(.Name=="k3s") | .Version' "$manifest_file" | cut -d'-' -f1)
+            [[ -z "$k3s_version" ]] && { echo "❌ k3s not found in $manifest_file"; exit 1; }
+            sed -i "s/^  version:.*$/  kubernetesVersion: v$k3s_version/" "$yaml"
           done
           cat VERSION; cat os-profiles/microvisor-rt.yaml; cat os-profiles/microvisor-nonrt.yaml
           cd .github/workflows/scripts && ./validate_os_profiles.sh ${{ secrets.S3_NAME }}
