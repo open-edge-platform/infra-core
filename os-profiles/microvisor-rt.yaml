@@ -6,15 +6,15 @@ metadata:
   release: 0.0.0-dev
   kubernetes-version: v1.32.4+k3s1
 spec:
-  name: Edge Microvisor Toolkit Real Time 3.0.20250711
+  name: Edge Microvisor Toolkit Real Time 3.0.20250715
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-rt  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250711.0415.raw.gz
-  osImageVersion: 3.0.20250711.0415
-  osImageSha256: 84c784590c1e6647af9c71352064f082554cdcd72d38c44c35363d3d129e5303
-  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250711.0415_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250715.2057.raw.gz
+  osImageVersion: 3.0.20250715.2057
+  osImageSha256: b878ce54a732e6906bbd264f6dbb55fe5bc301ff0a0a604292c0ddec37e18e35
+  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250715.2057_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit Real Time for x86_64 architecture
   platformBundle:
