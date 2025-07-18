@@ -29,6 +29,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/localaccountresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
@@ -2820,6 +2821,92 @@ func Test_NestedFilterHost(t *testing.T) {
 			},
 			valid:             false,
 			expectedCodeError: codes.InvalidArgument,
+		},
+	}
+	for tcname, tc := range testcases {
+		t.Run(tcname, func(t *testing.T) {
+			// build a context for gRPC
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+
+			tc.in.Resource = &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}} // Set the resource kind
+
+			// Test FIND
+			findres, err := inv_testing.TestClients[inv_testing.APIClient].Find(ctx, tc.in)
+			if !tc.valid {
+				require.Error(t, err)
+				assert.Equal(t, tc.expectedCodeError, status.Code(err))
+			} else {
+				require.NoError(t, err)
+
+				resIDs := inv_testing.GetSortedResourceIDSlice(tc.resources)
+				inv_testing.SortHasResourceIDAndTenantID(findres.Resources)
+
+				if !reflect.DeepEqual(resIDs, findres.Resources) {
+					t.Errorf(
+						"FilterInstances() failed - want: %s, got: %s",
+						resIDs,
+						findres.Resources,
+					)
+				}
+			}
+
+			// Test LIST
+			listres, err := inv_testing.TestClients[inv_testing.APIClient].List(ctx, tc.in)
+			if !tc.valid {
+				require.Error(t, err)
+				assert.Equal(t, tc.expectedCodeError, status.Code(err))
+			} else {
+				require.NoError(t, err)
+				require.Len(t, listres.Resources, len(tc.resources))
+
+				resources := make([]*computev1.HostResource, 0, len(listres.Resources))
+				for _, r := range listres.Resources {
+					resources = append(resources, r.GetResource().GetHost())
+				}
+				inv_testing.OrderByResourceID(resources)
+				inv_testing.OrderByResourceID(tc.resources)
+				for i, expected := range tc.resources {
+					if eq, diff := inv_testing.ProtoEqualOrDiff(expected, resources[i]); !eq {
+						t.Errorf("ListInstances() data not equal: %v", diff)
+					}
+				}
+			}
+		})
+	}
+}
+
+func Test_NestedFilterHostByOsUpdatePolicyID(t *testing.T) {
+	region1 := inv_testing.CreateRegion(t, nil)
+	region2 := inv_testing.CreateRegion(t, region1)
+	site1 := inv_testing.CreateSite(t, region2, nil)
+
+	host1 := inv_testing.CreateHost(t, site1, nil)
+	os := inv_testing.CreateOs(t)
+
+	policy := inv_testing.CreateOsUpdatePolicy(t)
+	instance := inv_testing.CreateInstanceWithOsUpdatePolicy(t, host1, os, policy)
+
+	instance.DesiredOs = os
+	instance.CurrentOs = os
+	instance.Os = os
+
+	host1.Site = site1
+	host1.Instance = instance
+
+	testcases := map[string]struct {
+		in                *inv_v1.ResourceFilter
+		resources         []*computev1.HostResource
+		valid             bool
+		expectedCodeError codes.Code
+	}{
+		"FilterByOsPolicyID": {
+			in: &inv_v1.ResourceFilter{
+				Filter: fmt.Sprintf(`%s.%s.%s = %q`, hostresource.EdgeInstance, instanceresource.EdgeOsUpdatePolicy,
+					osupdatepolicyresource.FieldResourceID, policy.GetResourceId()),
+			},
+			resources: []*computev1.HostResource{host1},
+			valid:     true,
 		},
 	}
 	for tcname, tc := range testcases {
