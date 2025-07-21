@@ -6,15 +6,15 @@ metadata:
   standalone-node: true
   version: 0.1.0
 spec:
-  name: Edge Microvisor Toolkit IDV 3.0.20250716
+  name: Edge Microvisor Toolkit IDV 3.0.20250720
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-idv  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250716.2000.raw.gz
-  osImageVersion: 3.0.20250709.2000
-  osImageSha256: 7ebcdf778afcd22778b1017e7a43b9486b473c7ea6f76c18e2bb43f0b8075b81
-  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250716.2000_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250720.2000.raw.gz
+  osImageVersion: 3.0.20250720.2000
+  osImageSha256: 21314f671dfca50e8b3052de40747ad430b6cb0fbcad5e726110f0b0c8a603ee
+  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20250720.2000_pkg_manifest.json
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit with Desktop Virtualization for x86_64 architecture
   platformBundle:
