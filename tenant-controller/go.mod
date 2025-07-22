@@ -11,9 +11,9 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/uuid v1.6.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.28.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.28.1
 	github.com/open-edge-platform/orch-library/go v0.6.1
-	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.1.5
+	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.2.0
 	github.com/prometheus/client_golang v1.22.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394
