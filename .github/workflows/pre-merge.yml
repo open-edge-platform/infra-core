@@ -158,9 +158,17 @@ jobs:
             full_url="https://files-rs.edgeorchestration.intel.com/${manifest_url}"
             manifest_file="${manifest_url##*/}"
             echo "Downloading manifest from ${full_url}..."
-            curl -sfL "$full_url" -o "$manifest_file" || { echo "❌ Failed to download $full_url"; exit 1; }
+            if ! curl -sfL "$full_url" -o "$manifest_file"; then
+              echo "❌ Failed to download $full_url — skipping $yaml"
+              continue
+            fi
+
             k3s_version=$(jq -r '.Repo[] | select(.Name=="k3s") | .Version' "$manifest_file" | cut -d'-' -f1)
-            [[ -z "$k3s_version" ]] && { echo "❌ k3s not found in $manifest_file"; exit 1; }
+            if [[ -z "$k3s_version" ]]; then
+              echo "⚠️ k3s not found in $manifest_file — skipping $yaml"
+              continue
+            fi
+
             sed -i \
               -e 's/^  version:.*$/  kubernetesVersion: v'"$k3s_version"'/' \
               -e 's/^  kubernetes-version:.*$/  kubernetesVersion: v'"$k3s_version"'/' "$yaml"
