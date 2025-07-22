@@ -15,6 +15,8 @@ spec:
   osImageVersion: 3.0.20250720.2000
   osImageSha256: 21314f671dfca50e8b3052de40747ad430b6cb0fbcad5e726110f0b0c8a603ee
   osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20250720.2000_pkg_manifest.json
+  osExistingCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250720.2000.json
+  osFixedCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250720.2000_fixed_cves.json
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit with Desktop Virtualization for x86_64 architecture
   platformBundle:
