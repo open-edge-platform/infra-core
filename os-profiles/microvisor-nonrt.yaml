@@ -6,17 +6,17 @@ metadata:
   release: 0.0.0-dev
   kubernetes-version: v1.32.4+k3s1
 spec:
-  name: Edge Microvisor Toolkit 3.0.20250711
+  name: Edge Microvisor Toolkit 3.0.20250717
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-nonrt  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250711.0415.raw.gz
-  osImageVersion: 3.0.20250711.0415
-  osImageSha256: 0f0daa949a5c8e1d837f679d199fdcd15fe37d0aab02fb2a182da9d50e3f1b81
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250711.0415_pkg_manifest.json
-  osExistingCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250711.0415.json
-  osFixedCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250711.0415_fixed_cves.json
+  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250717.0734.raw.gz
+  osImageVersion: 3.0.20250717.0734
+  osImageSha256: 61bb53db38df5560ced2fbf125ad4f4cc9791bf94f3c52a5f9c843dd63601725
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250717.0734_pkg_manifest.json
+  osExistingCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250717.0734.json
+  osFixedCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250717.0734_fixed_cves.json
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit for x86_64 architecture
   platformBundle:
