@@ -10,10 +10,10 @@ spec:
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-standalone  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250717.0734.raw.gz
-  osImageVersion: 3.0.20250717.0734
-  osImageSha256: 61bb53db38df5560ced2fbf125ad4f4cc9791bf94f3c52a5f9c843dd63601725
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250717.0734_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250722.2057.raw.gz
+  osImageVersion: 3.0.20250722.2057
+  osImageSha256: d3b70d92a8da7208ebba2eccdce132aa1267b021ff79f7de69d4dcc84567c9b7
+  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20250722.2057_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250717.0734.json
   osFixedCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250717.0734_fixed_cves.json
   securityFeature: SECURITY_FEATURE_NONE
