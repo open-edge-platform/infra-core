@@ -78,9 +78,7 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 	}
 
 	oupID := instance.GetOsUpdatePolicyID()
-	//zlog.Debug().Msgf("toInvInstance oupID: %s", oupID)
 	if isSet(&oupID) {
-		zlog.Debug().Msgf("toInvInstance oupID is set: %s", oupID)
 		invInstance.OsUpdatePolicy = &inv_computev1.OSUpdatePolicyResource{
 			ResourceId: oupID,
 		}
