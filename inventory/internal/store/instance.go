@@ -288,8 +288,8 @@ func (is *InvStore) UpdateInstance(
 			if err != nil {
 				return nil, booleans.Pointer(false), err
 			}
-			err = buildEntMutate(in, mut, InstanceEnumStateMap, fieldmask.GetPaths())
 
+			err = buildEntMutate(in, mut, InstanceEnumStateMap, fieldmask.GetPaths())
 			if err != nil {
 				return nil, booleans.Pointer(false), err
 			}
