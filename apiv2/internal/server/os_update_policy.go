@@ -43,7 +43,6 @@ func (is *InventorygRPCServer) CreateOSUpdatePolicy(ctx context.Context, req *re
 
 	osPolicyCreated := fromInvOSUpdatePolicy(invResp.GetOsUpdatePolicy())
 	zlog.Debug().Msgf("Created OSUpdatePolicy: %+v", osPolicyCreated)
-	
 	return osPolicyCreated, nil
 }
 
@@ -125,7 +124,6 @@ func fromInvOSUpdatePolicy(invOSUpdatePolicy *inv_computev1.OSUpdatePolicyResour
 	if invOSUpdatePolicy.GetTargetOs() != nil {
 		targetOs = fromInvOSResource(invOSUpdatePolicy.GetTargetOs())
 	}
-
 	osUpdatePolicy := &computev1.OSUpdatePolicy{
 		ResourceId:      invOSUpdatePolicy.GetResourceId(),
 		Name:            invOSUpdatePolicy.GetName(),
@@ -155,7 +153,6 @@ func toInvOSUpdatePolicy(osUpdatePolicy *computev1.OSUpdatePolicy) (*inv_compute
 	}
 
 	targetOSID := osUpdatePolicy.GetTargetOsId()
-
 	if isSet(&targetOSID) {
 		invOSUpdatePolicy.TargetOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: targetOSID,
