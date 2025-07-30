@@ -261,6 +261,7 @@ func (is *InvStore) UpdateInstance(
 				}
 				return wrapped, booleans.Pointer(true), nil
 			}
+
 			err = isNotValidInstanceTransition(fieldmask, entity, in, id)
 			if err != nil {
 				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
@@ -288,6 +289,7 @@ func (is *InvStore) UpdateInstance(
 				return nil, booleans.Pointer(false), err
 			}
 			err = buildEntMutate(in, mut, InstanceEnumStateMap, fieldmask.GetPaths())
+
 			if err != nil {
 				return nil, booleans.Pointer(false), err
 			}
