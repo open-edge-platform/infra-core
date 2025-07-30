@@ -289,6 +289,7 @@ func filterOSUpdatePolicies(ctx context.Context, client *ent.Client, filter *inv
 
 	// perform query - And together all the predicates
 	query := client.OSUpdatePolicyResource.Query().
+		WithTargetOs().
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)
