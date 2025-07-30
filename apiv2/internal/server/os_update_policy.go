@@ -43,11 +43,7 @@ func (is *InventorygRPCServer) CreateOSUpdatePolicy(ctx context.Context, req *re
 
 	osPolicyCreated := fromInvOSUpdatePolicy(invResp.GetOsUpdatePolicy())
 	zlog.Debug().Msgf("Created OSUpdatePolicy: %+v", osPolicyCreated)
-	if osPolicyCreated.TargetOs != nil {
-		zlog.Debug().Msgf("Created TargetOs: %+v", osPolicyCreated.TargetOs)
-	} else {
-		zlog.Debug().Msg("Created TargetOs is nil")
-	}
+	
 	return osPolicyCreated, nil
 }
 
@@ -85,14 +81,6 @@ func (is *InventorygRPCServer) ListOSUpdatePolicy(ctx context.Context, req *rest
 		TotalElements:    invResp.GetTotalElements(),
 		HasNext:          invResp.GetHasNext(),
 	}
-	for i, pol := range osUpdatePolicies {
-		zlog.Debug().Msgf("List[%d] OSUpdatePolicy: %+v", i, pol)
-		if pol.TargetOs != nil {
-			zlog.Debug().Msgf("List[%d] TargetOs: %+v", i, pol.TargetOs)
-		} else {
-			zlog.Debug().Msgf("List[%d] TargetOs is nil", i)
-		}
-	}
 	zlog.Debug().Msgf("Listed %s", resp)
 	return resp, nil
 }
@@ -109,14 +97,8 @@ func (is *InventorygRPCServer) GetOSUpdatePolicy(ctx context.Context, req *restv
 	}
 
 	invOSUpdatePolicy := invResp.GetResource().GetOsUpdatePolicy()
-	zlog.Debug().Msgf("Got Inventory OSUpdatePolicy: %+v", invOSUpdatePolicy)
 	osUpPolicy := fromInvOSUpdatePolicy(invOSUpdatePolicy)
-	zlog.Debug().Msgf("Got OSUpdatePolicy: %+v", osUpPolicy)
-	if osUpPolicy.TargetOs != nil {
-		zlog.Debug().Msgf("Got TargetOs: %+v", osUpPolicy.TargetOs)
-	} else {
-		zlog.Debug().Msg("Got TargetOs is nil")
-	}
+	zlog.Debug().Msgf("Got %s", osUpPolicy)
 	return osUpPolicy, nil
 }
 
@@ -141,11 +123,9 @@ func fromInvOSUpdatePolicy(invOSUpdatePolicy *inv_computev1.OSUpdatePolicyResour
 	var targetOs *osv1.OperatingSystemResource
 
 	if invOSUpdatePolicy.GetTargetOs() != nil {
-		zlog.Debug().Msg("TargetOs is nil")
 		targetOs = fromInvOSResource(invOSUpdatePolicy.GetTargetOs())
 	}
 
-	zlog.Debug().Msgf("TargetOS: %v", targetOs)
 	osUpdatePolicy := &computev1.OSUpdatePolicy{
 		ResourceId:      invOSUpdatePolicy.GetResourceId(),
 		Name:            invOSUpdatePolicy.GetName(),
@@ -176,17 +156,11 @@ func toInvOSUpdatePolicy(osUpdatePolicy *computev1.OSUpdatePolicy) (*inv_compute
 
 	targetOSID := osUpdatePolicy.GetTargetOsId()
 
-	zlog.Info().Msgf("!!!TargetOsId: %s", targetOSID)
-	zlog.Debug().Msgf("!!!TargetOsId: %s", targetOSID)
 	if isSet(&targetOSID) {
 		invOSUpdatePolicy.TargetOs = &inv_osv1.OperatingSystemResource{
 			ResourceId: targetOSID,
 		}
-
-		zlog.Info().Msgf("!!!!!!TargetOsId Found and set: %s", targetOSID)
 	}
-
-	zlog.Info().Msgf("!!!!!!TargetOs Found and set: %s", invOSUpdatePolicy.TargetOs.GetResourceId())
 
 	err := validator.ValidateMessage(invOSUpdatePolicy)
 	if err != nil {
