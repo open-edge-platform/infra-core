@@ -261,7 +261,7 @@ func (is *InvStore) UpdateInstance(
 				}
 				return wrapped, booleans.Pointer(true), nil
 			}
-
+			zlog.Debug().Msg("UpdateInstance 2")
 			err = isNotValidInstanceTransition(fieldmask, entity, in, id)
 			if err != nil {
 				zlog.InfraSec().InfraError("%s from %s to %s is not allowed",
@@ -288,7 +288,7 @@ func (is *InvStore) UpdateInstance(
 			if err != nil {
 				return nil, booleans.Pointer(false), err
 			}
-
+			zlog.Debug().Msg("UpdateInstance 3")
 			err = buildEntMutate(in, mut, InstanceEnumStateMap, fieldmask.GetPaths())
 			if err != nil {
 				return nil, booleans.Pointer(false), err
@@ -304,6 +304,7 @@ func (is *InvStore) UpdateInstance(
 			if err != nil {
 				return nil, booleans.Pointer(false), err
 			}
+			zlog.Debug().Msgf("UpdateInstance 4, res: %v", res)
 			toBeReturned, err := util.WrapResource(entInstanceResourceToProtoInstanceResource(res))
 			return toBeReturned, booleans.Pointer(false), err
 		},
@@ -483,7 +484,9 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 		WithOs().
 		WithProvider().
 		WithLocalaccount().
-		WithOsUpdatePolicy().
+		WithOsUpdatePolicy(func(q *ent.OSUpdatePolicyResourceQuery) {
+			q.WithTargetOs() // Populate the target OS of the OS Update Policy
+		}).
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)
@@ -540,6 +543,8 @@ func setRelationsForInstanceMutIfNeeded(
 	in *computev1.InstanceResource,
 	fieldmask *fieldmaskpb.FieldMask,
 ) error {
+	zlog.Debug().Msgf("setRelationsForInstanceMutIfNeeded OSUpdatePolicy: %v,", in.GetOsUpdatePolicy())
+
 	mut.ResetHost()
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeHost) {
 		if err := setEdgeHostIDForMut(ctx, client, mut, in.GetHost()); err != nil {

@@ -872,6 +872,8 @@ func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePo
 	// Convert the edges recursively.
 	if os, err := osup.Edges.TargetOsOrErr(); err == nil {
 		protoOsUpdatePolicy.TargetOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
+		zlog.Debug().Msgf("entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource TargetOS: %v", protoOsUpdatePolicy.TargetOs)
+
 	}
 	return protoOsUpdatePolicy
 }
