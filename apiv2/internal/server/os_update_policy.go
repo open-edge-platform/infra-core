@@ -43,6 +43,7 @@ func (is *InventorygRPCServer) CreateOSUpdatePolicy(ctx context.Context, req *re
 
 	osPolicyCreated := fromInvOSUpdatePolicy(invResp.GetOsUpdatePolicy())
 	zlog.Debug().Msgf("Created OSUpdatePolicy: %+v", osPolicyCreated)
+
 	return osPolicyCreated, nil
 }
 
