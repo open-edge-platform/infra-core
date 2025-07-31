@@ -1,6 +1,7 @@
 ---
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
+
 appVersion: apps/v1
 metadata:
   release: 0.0.0-dev
