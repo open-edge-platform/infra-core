@@ -79,17 +79,17 @@ func StatusDetails(v string) predicate.OSUpdateRunResource {
 }
 
 // StatusTimestamp applies equality check predicate on the "status_timestamp" field. It's identical to StatusTimestampEQ.
-func StatusTimestamp(v string) predicate.OSUpdateRunResource {
+func StatusTimestamp(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEQ(FieldStatusTimestamp, v))
 }
 
 // StartTime applies equality check predicate on the "start_time" field. It's identical to StartTimeEQ.
-func StartTime(v string) predicate.OSUpdateRunResource {
+func StartTime(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEQ(FieldStartTime, v))
 }
 
 // EndTime applies equality check predicate on the "end_time" field. It's identical to EndTimeEQ.
-func EndTime(v string) predicate.OSUpdateRunResource {
+func EndTime(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEQ(FieldEndTime, v))
 }
 
@@ -494,188 +494,123 @@ func StatusDetailsContainsFold(v string) predicate.OSUpdateRunResource {
 }
 
 // StatusTimestampEQ applies the EQ predicate on the "status_timestamp" field.
-func StatusTimestampEQ(v string) predicate.OSUpdateRunResource {
+func StatusTimestampEQ(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEQ(FieldStatusTimestamp, v))
 }
 
 // StatusTimestampNEQ applies the NEQ predicate on the "status_timestamp" field.
-func StatusTimestampNEQ(v string) predicate.OSUpdateRunResource {
+func StatusTimestampNEQ(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNEQ(FieldStatusTimestamp, v))
 }
 
 // StatusTimestampIn applies the In predicate on the "status_timestamp" field.
-func StatusTimestampIn(vs ...string) predicate.OSUpdateRunResource {
+func StatusTimestampIn(vs ...uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldIn(FieldStatusTimestamp, vs...))
 }
 
 // StatusTimestampNotIn applies the NotIn predicate on the "status_timestamp" field.
-func StatusTimestampNotIn(vs ...string) predicate.OSUpdateRunResource {
+func StatusTimestampNotIn(vs ...uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNotIn(FieldStatusTimestamp, vs...))
 }
 
 // StatusTimestampGT applies the GT predicate on the "status_timestamp" field.
-func StatusTimestampGT(v string) predicate.OSUpdateRunResource {
+func StatusTimestampGT(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldGT(FieldStatusTimestamp, v))
 }
 
 // StatusTimestampGTE applies the GTE predicate on the "status_timestamp" field.
-func StatusTimestampGTE(v string) predicate.OSUpdateRunResource {
+func StatusTimestampGTE(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldGTE(FieldStatusTimestamp, v))
 }
 
 // StatusTimestampLT applies the LT predicate on the "status_timestamp" field.
-func StatusTimestampLT(v string) predicate.OSUpdateRunResource {
+func StatusTimestampLT(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldLT(FieldStatusTimestamp, v))
 }
 
 // StatusTimestampLTE applies the LTE predicate on the "status_timestamp" field.
-func StatusTimestampLTE(v string) predicate.OSUpdateRunResource {
+func StatusTimestampLTE(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldLTE(FieldStatusTimestamp, v))
 }
 
-// StatusTimestampContains applies the Contains predicate on the "status_timestamp" field.
-func StatusTimestampContains(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldContains(FieldStatusTimestamp, v))
-}
-
-// StatusTimestampHasPrefix applies the HasPrefix predicate on the "status_timestamp" field.
-func StatusTimestampHasPrefix(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldHasPrefix(FieldStatusTimestamp, v))
-}
-
-// StatusTimestampHasSuffix applies the HasSuffix predicate on the "status_timestamp" field.
-func StatusTimestampHasSuffix(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldStatusTimestamp, v))
-}
-
-// StatusTimestampEqualFold applies the EqualFold predicate on the "status_timestamp" field.
-func StatusTimestampEqualFold(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldEqualFold(FieldStatusTimestamp, v))
-}
-
-// StatusTimestampContainsFold applies the ContainsFold predicate on the "status_timestamp" field.
-func StatusTimestampContainsFold(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldContainsFold(FieldStatusTimestamp, v))
-}
-
 // StartTimeEQ applies the EQ predicate on the "start_time" field.
-func StartTimeEQ(v string) predicate.OSUpdateRunResource {
+func StartTimeEQ(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEQ(FieldStartTime, v))
 }
 
 // StartTimeNEQ applies the NEQ predicate on the "start_time" field.
-func StartTimeNEQ(v string) predicate.OSUpdateRunResource {
+func StartTimeNEQ(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNEQ(FieldStartTime, v))
 }
 
 // StartTimeIn applies the In predicate on the "start_time" field.
-func StartTimeIn(vs ...string) predicate.OSUpdateRunResource {
+func StartTimeIn(vs ...uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldIn(FieldStartTime, vs...))
 }
 
 // StartTimeNotIn applies the NotIn predicate on the "start_time" field.
-func StartTimeNotIn(vs ...string) predicate.OSUpdateRunResource {
+func StartTimeNotIn(vs ...uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNotIn(FieldStartTime, vs...))
 }
 
 // StartTimeGT applies the GT predicate on the "start_time" field.
-func StartTimeGT(v string) predicate.OSUpdateRunResource {
+func StartTimeGT(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldGT(FieldStartTime, v))
 }
 
 // StartTimeGTE applies the GTE predicate on the "start_time" field.
-func StartTimeGTE(v string) predicate.OSUpdateRunResource {
+func StartTimeGTE(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldGTE(FieldStartTime, v))
 }
 
 // StartTimeLT applies the LT predicate on the "start_time" field.
-func StartTimeLT(v string) predicate.OSUpdateRunResource {
+func StartTimeLT(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldLT(FieldStartTime, v))
 }
 
 // StartTimeLTE applies the LTE predicate on the "start_time" field.
-func StartTimeLTE(v string) predicate.OSUpdateRunResource {
+func StartTimeLTE(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldLTE(FieldStartTime, v))
 }
 
-// StartTimeContains applies the Contains predicate on the "start_time" field.
-func StartTimeContains(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldContains(FieldStartTime, v))
-}
-
-// StartTimeHasPrefix applies the HasPrefix predicate on the "start_time" field.
-func StartTimeHasPrefix(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldHasPrefix(FieldStartTime, v))
-}
-
-// StartTimeHasSuffix applies the HasSuffix predicate on the "start_time" field.
-func StartTimeHasSuffix(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldStartTime, v))
-}
-
-// StartTimeEqualFold applies the EqualFold predicate on the "start_time" field.
-func StartTimeEqualFold(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldEqualFold(FieldStartTime, v))
-}
-
-// StartTimeContainsFold applies the ContainsFold predicate on the "start_time" field.
-func StartTimeContainsFold(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldContainsFold(FieldStartTime, v))
-}
-
 // EndTimeEQ applies the EQ predicate on the "end_time" field.
-func EndTimeEQ(v string) predicate.OSUpdateRunResource {
+func EndTimeEQ(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldEQ(FieldEndTime, v))
 }
 
 // EndTimeNEQ applies the NEQ predicate on the "end_time" field.
-func EndTimeNEQ(v string) predicate.OSUpdateRunResource {
+func EndTimeNEQ(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNEQ(FieldEndTime, v))
 }
 
 // EndTimeIn applies the In predicate on the "end_time" field.
-func EndTimeIn(vs ...string) predicate.OSUpdateRunResource {
+func EndTimeIn(vs ...uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldIn(FieldEndTime, vs...))
 }
 
 // EndTimeNotIn applies the NotIn predicate on the "end_time" field.
-func EndTimeNotIn(vs ...string) predicate.OSUpdateRunResource {
+func EndTimeNotIn(vs ...uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNotIn(FieldEndTime, vs...))
 }
 
 // EndTimeGT applies the GT predicate on the "end_time" field.
-func EndTimeGT(v string) predicate.OSUpdateRunResource {
+func EndTimeGT(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldGT(FieldEndTime, v))
 }
 
 // EndTimeGTE applies the GTE predicate on the "end_time" field.
-func EndTimeGTE(v string) predicate.OSUpdateRunResource {
+func EndTimeGTE(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldGTE(FieldEndTime, v))
 }
 
 // EndTimeLT applies the LT predicate on the "end_time" field.
-func EndTimeLT(v string) predicate.OSUpdateRunResource {
+func EndTimeLT(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldLT(FieldEndTime, v))
 }
 
 // EndTimeLTE applies the LTE predicate on the "end_time" field.
-func EndTimeLTE(v string) predicate.OSUpdateRunResource {
+func EndTimeLTE(v uint64) predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldLTE(FieldEndTime, v))
-}
-
-// EndTimeContains applies the Contains predicate on the "end_time" field.
-func EndTimeContains(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldContains(FieldEndTime, v))
-}
-
-// EndTimeHasPrefix applies the HasPrefix predicate on the "end_time" field.
-func EndTimeHasPrefix(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldHasPrefix(FieldEndTime, v))
-}
-
-// EndTimeHasSuffix applies the HasSuffix predicate on the "end_time" field.
-func EndTimeHasSuffix(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldHasSuffix(FieldEndTime, v))
 }
 
 // EndTimeIsNil applies the IsNil predicate on the "end_time" field.
@@ -686,16 +621,6 @@ func EndTimeIsNil() predicate.OSUpdateRunResource {
 // EndTimeNotNil applies the NotNil predicate on the "end_time" field.
 func EndTimeNotNil() predicate.OSUpdateRunResource {
 	return predicate.OSUpdateRunResource(sql.FieldNotNull(FieldEndTime))
-}
-
-// EndTimeEqualFold applies the EqualFold predicate on the "end_time" field.
-func EndTimeEqualFold(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldEqualFold(FieldEndTime, v))
-}
-
-// EndTimeContainsFold applies the ContainsFold predicate on the "end_time" field.
-func EndTimeContainsFold(v string) predicate.OSUpdateRunResource {
-	return predicate.OSUpdateRunResource(sql.FieldContainsFold(FieldEndTime, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.
