@@ -483,9 +483,7 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 		WithOs().
 		WithProvider().
 		WithLocalaccount().
-		WithOsUpdatePolicy(func(q *ent.OSUpdatePolicyResourceQuery) {
-			q.WithTargetOs() // Populate the target OS of the OS Update Policy
-		}).
+		WithOsUpdatePolicy().
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)
