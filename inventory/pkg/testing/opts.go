@@ -487,19 +487,19 @@ func OSUpdateRunStatusDetails(statusDetails string) Opt[compute_v1.OSUpdateRunRe
 	}
 }
 
-func OSUpdateRunStatusTimestamp(statusTimestamp string) Opt[compute_v1.OSUpdateRunResource] {
+func OSUpdateRunStatusTimestamp(statusTimestamp uint64) Opt[compute_v1.OSUpdateRunResource] {
 	return func(our *compute_v1.OSUpdateRunResource) {
 		our.StatusTimestamp = statusTimestamp
 	}
 }
 
-func OSUpdateRunStartTime(startTime string) Opt[compute_v1.OSUpdateRunResource] {
+func OSUpdateRunStartTime(startTime uint64) Opt[compute_v1.OSUpdateRunResource] {
 	return func(our *compute_v1.OSUpdateRunResource) {
 		our.StartTime = startTime
 	}
 }
 
-func OSUpdateRunEndTime(endTime string) Opt[compute_v1.OSUpdateRunResource] {
+func OSUpdateRunEndTime(endTime uint64) Opt[compute_v1.OSUpdateRunResource] {
 	return func(our *compute_v1.OSUpdateRunResource) {
 		our.EndTime = endTime
 	}
