@@ -48,7 +48,7 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 				Description:     "Test Description",
 				AppliedPolicy:   osUpdatePolicy,
 				Instance:        instance,
-				StartTime:       uint64(time.Now().Unix()), //nolint:gosec // This is a test
+				StartTime:      
 				StatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IN_PROGRESS,
 				StatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 			},
