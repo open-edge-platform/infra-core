@@ -5,10 +5,6 @@ package server
 
 import (
 	"context"
-	"time"
-
-	"google.golang.org/grpc/codes"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	computev1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/compute/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/status/v1"
@@ -19,7 +15,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-func parseTimestamp(ts string) (*timestamppb.Timestamp, error) {
+/*func parseTimestamp(ts string) (uint64, error) {
 	if ts == "" {
 		zlog.Warn().Msgf("timestamp is empty")
 		return nil, errors.Errorfc(
@@ -32,7 +28,7 @@ func parseTimestamp(ts string) (*timestamppb.Timestamp, error) {
 		return nil, err
 	}
 	return timestamppb.New(parsedTime), nil
-}
+}*/
 
 func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) (*computev1.OSUpdateRun, error) {
 	if invOSUpdateRunResource == nil {
@@ -43,30 +39,30 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 		zlog.Warn().Err(err).Msgf("Failed to get the inventory instance edge from OS Update Run resource")
 		return nil, err
 	}
-	invStatusTimestamp, err := parseTimestamp(invOSUpdateRunResource.GetStatusTimestamp())
-	if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
+	invStatusTimestamp := uint32(invOSUpdateRunResource.GetStatusTimestamp())
+	/*if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
 		zlog.Warn().Msgf("Status timestamp parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
 		return nil, errors.Errorfc(
 			codes.InvalidArgument, "status timestamp parsing failed for OS Update Run resource: %s",
 			invOSUpdateRunResource.GetResourceId(),
 		)
-	}
-	invStartTime, err := parseTimestamp(invOSUpdateRunResource.GetStartTime())
-	if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
+	}*/
+	invStartTime := uint32(invOSUpdateRunResource.GetStartTime())
+	/*if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
 		zlog.Warn().Msgf("Start time parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
 		return nil, errors.Errorfc(
 			codes.InvalidArgument, "start time parsing failed for OS Update Run resource: %s",
 			invOSUpdateRunResource.GetResourceId(),
 		)
-	}
-	invEndTime, err := parseTimestamp(invOSUpdateRunResource.GetEndTime())
-	if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
+	}*/
+	invEndTime := uint32(invOSUpdateRunResource.GetEndTime())
+	/*if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
 		zlog.Warn().Msgf("End time parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
 		return nil, errors.Errorfc(
 			codes.InvalidArgument, "end time parsing failed for OS Update Run resource: %s",
 			invOSUpdateRunResource.GetResourceId(),
 		)
-	}
+	}*/
 
 	osUpdateRunResource := &computev1.OSUpdateRun{
 		ResourceId:      invOSUpdateRunResource.GetResourceId(),
