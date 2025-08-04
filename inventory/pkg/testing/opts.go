@@ -371,6 +371,12 @@ func ProfileName(profileName string) Opt[osv1.OperatingSystemResource] {
 	}
 }
 
+func ImageID(imageID string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.ImageId = imageID
+	}
+}
+
 func Metadata(metadata string) Opt[osv1.OperatingSystemResource] {
 	return func(t *osv1.OperatingSystemResource) {
 		t.Metadata = metadata
