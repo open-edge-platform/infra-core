@@ -821,9 +821,9 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Status Indicator for the OS update run. This field is used to determine the status type for the OS update Run. |
 | status | [string](#string) |  | Short message that describes what happened during the OS Update. |
 | status_details | [string](#string) |  | Details about what happened during the OS Update. |
-| status_timestamp | [string](#string) |  | UTC timestamp of OS Update status reported. |
-| start_time | [string](#string) |  | UTC timestamp of OS Update started. |
-| end_time | [string](#string) |  | UTC timestamp of OS Update ended. |
+| status_timestamp | [uint64](#uint64) |  | UTC timestamp of OS Update status reported. |
+| start_time | [uint64](#uint64) |  | UTC timestamp of OS Update started. This field is set by the RM when the OS Update Run is started. |
+| end_time | [uint64](#uint64) |  | UTC timestamp of OS Update ended. This field is set by the RM when the OS Update Run is finished. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |

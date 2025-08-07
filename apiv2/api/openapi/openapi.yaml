@@ -5589,20 +5589,20 @@ components:
           description: Details about what happened during the OS Update.
           readOnly: true
         statusTimestamp:
+          type: integer
           title: status_timestamp
           description: UTC timestamp of OS Update status reported.
           readOnly: true
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         startTime:
+          type: integer
           title: start_time
           description: UTC timestamp of OS Update started.
           readOnly: true
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         endTime:
+          type: integer
           title: end_time
           description: UTC timestamp of OS Update ended.
           readOnly: true
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestamps:
           title: timestamps
           description: Timestamps associated to the resource.

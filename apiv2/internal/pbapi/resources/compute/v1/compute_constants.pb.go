@@ -189,8 +189,8 @@ const (
 	OSUpdateRunFieldStatusIndicator = "status_indicator"
 	OSUpdateRunFieldStatus          = "status"
 	OSUpdateRunFieldStatusDetails   = "status_details"
-	OSUpdateRunEdgeStatusTimestamp  = "status_timestamp"
-	OSUpdateRunEdgeStartTime        = "start_time"
-	OSUpdateRunEdgeEndTime          = "end_time"
+	OSUpdateRunFieldStatusTimestamp = "status_timestamp"
+	OSUpdateRunFieldStartTime       = "start_time"
+	OSUpdateRunFieldEndTime         = "end_time"
 	OSUpdateRunEdgeTimestamps       = "timestamps"
 )
