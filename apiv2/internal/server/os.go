@@ -25,11 +25,12 @@ import (
 // The key is derived from the json property respectively of the
 // structs OSResource defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIOSResourceToProto = map[string]string{
-	osv1.OperatingSystemResourceFieldName:          inv_osv1.OperatingSystemResourceFieldName,
-	osv1.OperatingSystemResourceFieldArchitecture:  inv_osv1.OperatingSystemResourceFieldArchitecture,
-	osv1.OperatingSystemResourceFieldKernelCommand: inv_osv1.OperatingSystemResourceFieldKernelCommand,
-	osv1.OperatingSystemResourceFieldUpdateSources: inv_osv1.OperatingSystemResourceFieldUpdateSources,
-	osv1.OperatingSystemResourceFieldMetadata:      inv_osv1.OperatingSystemResourceFieldMetadata,
+	osv1.OperatingSystemResourceFieldName:              inv_osv1.OperatingSystemResourceFieldName,
+	osv1.OperatingSystemResourceFieldArchitecture:      inv_osv1.OperatingSystemResourceFieldArchitecture,
+	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
+	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
+	osv1.OperatingSystemResourceFieldInstalledPackages: inv_osv1.OperatingSystemResourceFieldInstalledPackages,
+	osv1.OperatingSystemResourceFieldMetadata:          inv_osv1.OperatingSystemResourceFieldMetadata,
 }
 
 func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.OperatingSystemResource, error) {
