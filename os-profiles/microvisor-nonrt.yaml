@@ -12,10 +12,9 @@ spec:
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-nonrt  # Name has to be identical to this file's name
-  osImageUrl: https://af01p-png.devtools.intel.com/artifactory/tiberos-png-local/developer-builds\
-              /3.0-dev/20250808.1037/edge-readonly-dev-3.0.20250808.1038.raw.gz
-  osImageVersion: 3.0.20250808.1037
-  osImageSha256: b16ecb5601115df814475788da026205cb0fa94fbf00b14a477453705a8a9ad0
+  osImageUrl: files-edge-orch/repository/microvisor/dev/non_rt/edge-non-prod-3.0.20250808.1533.raw.gz
+  osImageVersion: 3.0.20250808.1533
+  osImageSha256: 914f54a666aad0f48c6a2b56a916292ebb700bf9707554314bccbba84d213a5c
   osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250729.2157_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_fixed-cve.json
