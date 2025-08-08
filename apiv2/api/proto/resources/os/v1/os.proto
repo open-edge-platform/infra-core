@@ -115,8 +115,7 @@ message OperatingSystemResource {
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // List of installed packages, encoded as a JSON list.
-  string installed_packages = 9 [(google.api.field_behavior) = OUTPUT_ONLY,
-    (buf.validate.field).string = {
+  string installed_packages = 9 [(buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
       max_len: 500000
   }];
