@@ -7,14 +7,14 @@ metadata:
   release: 0.0.0-dev
   kubernetes-version: v1.32.4+k3s1
 spec:
-  name: Edge Microvisor Toolkit 3.0.20250807
+  name: Edge Microvisor Toolkit 3.0.20250808
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-nonrt  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/dev/non_rt/edge-non-prod-3.0.20250807.1914.raw.gz
-  osImageVersion: 3.0.20250807.1914
-  osImageSha256: f92f8e9b765305d541d7cea9712b968cfff03aa7d6a47a86d994b5a79502f518
+  osImageUrl: https://af01p-png.devtools.intel.com/artifactory/tiberos-png-local/developer-builds/pma_activation_state/20250808.0840/edge-readonly-dev-3.0.20250808.0840.raw.gz
+  osImageVersion: 3.0.20250808.0840
+  osImageSha256: 87a31ba940b5cbdd2f4fec391d1ed8ef33dd645670a2b7238c917e409c5d67c3
   osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250729.2157_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_fixed-cve.json
