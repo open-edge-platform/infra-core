@@ -272,10 +272,9 @@ func stringToPrefix(s string) (ResourcePrefix, error) {
 
 // GetResourceKindFromResourceID extracts the resource kind from a resource ID.
 func GetResourceKindFromResourceID(resID string) (inv_v1.ResourceKind, error) {
-
 	prefix, _, found := strings.Cut(resID, "-")
 	if !found {
-		zlog.InfraSec().InfraError("invalid ResourceID %s", resID).Msg("")
+		zlog.InfraSec().InfraError("invalid ResourceID").Msg("")
 		return inv_v1.ResourceKind_RESOURCE_KIND_UNSPECIFIED,
 			errors.Errorfc(codes.InvalidArgument, "invalid ResourceID")
 	}
