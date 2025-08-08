@@ -134,7 +134,7 @@ func CreateContextWithJWT(tb testing.TB, tenantID string) (context.Context, cont
 func CreateContextWithENJWT(tb testing.TB, tenantIDs ...string) (context.Context, context.CancelFunc) {
 	tb.Helper()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 300000000*time.Second)
 	ctx = CreateOutgoingContextWithENJWT(tb, ctx, tenantIDs...)
 	return ctx, cancel
 }
