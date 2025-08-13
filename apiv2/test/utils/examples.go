@@ -116,6 +116,16 @@ var (
 	ProviderWrongID           = "proider-12345678"
 	providerBadAPICredentials = []string{"%as", "v1/lxca/password"}
 
+	OsUpdatePolicyName1        = "test-policy"
+	OsUpdatePolicyName2        = "test-policy"
+	osUpdatePolicyDescription1 = "Test OS Update Policy"
+	osUpdatePolicyDescription2 = "Test OS Update Policy 2"
+
+	osUpdatePolicyInstallPackages = "pkg1\npkg2"
+	osUpdatePolicyUpdateSources   = []string{"deb http://repo1", "deb http://repo2"}
+	osUpdatePolicyKernelCommand   = "quiet splash"
+	updatePolicyLatest            = api.UPDATEPOLICYLATEST
+
 	MetadataR1 = []api.MetadataItem{
 		{
 			Key:   "examplekey",
@@ -788,5 +798,17 @@ var (
 		SshKey:         "ssh-ed25519 AAAAB3NzaC1yc2EAAAABIwAAAQEArandomkey3",
 		Timestamps:     nil,
 		Username:       "",
+	}
+
+	OsUpdatePolicyRequest1 = api.OSUpdatePolicy{
+		Name:         OsUpdatePolicyName1,
+		Description:  &osUpdatePolicyDescription2,
+		UpdatePolicy: &updatePolicyLatest,
+	}
+
+	OsUpdatePolicyRequest2 = api.OSUpdatePolicy{
+		Name:         OsUpdatePolicyName2,
+		Description:  &osUpdatePolicyDescription2,
+		UpdatePolicy: &updatePolicyLatest,
 	}
 )
