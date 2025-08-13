@@ -731,3 +731,39 @@ func GetHostRequestWithRandomUUID() api.HostResource {
 		Uuid: &uuidHost,
 	}
 }
+
+func CreateOsUpdatePolicy(
+	ctx context.Context,
+	tb testing.TB,
+	apiClient *api.ClientWithResponses,
+	reqPolicy api.OSUpdatePolicy,
+) *api.OSUpdatePolicyCreateOSUpdatePolicyResponse {
+	tb.Helper()
+
+	policyCreated, err := apiClient.OSUpdatePolicyCreateOSUpdatePolicyWithResponse(
+		ctx,
+		reqPolicy,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, policyCreated.StatusCode())
+
+	tb.Cleanup(func() {
+		//time.Sleep(sleepTime) // Waits until Instance reconciliation happens
+		DeleteOSUpdatePolicy(context.Background(), tb, apiClient, *policyCreated.JSON200.ResourceId)
+	})
+
+	return policyCreated
+}
+
+func DeleteOSUpdatePolicy(ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, policyID string) {
+	tb.Helper()
+
+	policyDel, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
+		ctx,
+		policyID,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(tb, err)
+	assert.Equal(tb, http.StatusOK, policyDel.StatusCode())
+}
