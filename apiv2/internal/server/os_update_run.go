@@ -15,21 +15,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
 )
 
-/*func parseTimestamp(ts string) (uint64, error) {
-	if ts == "" {
-		zlog.Warn().Msgf("timestamp is empty")
-		return nil, errors.Errorfc(
-			codes.InvalidArgument, "timestamp is empty",
-		)
-	}
-	parsedTime, err := time.Parse(ISO8601TimeFormat, ts)
-	if err != nil {
-		zlog.Warn().Err(err).Msgf("Failed to parse timestamp: %s", ts)
-		return nil, err
-	}
-	return timestamppb.New(parsedTime), nil
-}*/
-
 func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRunResource) (*computev1.OSUpdateRun, error) {
 	if invOSUpdateRunResource == nil {
 		return &computev1.OSUpdateRun{}, nil
@@ -40,29 +25,10 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 		return nil, err
 	}
 	invStatusTimestamp := uint32(invOSUpdateRunResource.GetStatusTimestamp())
-	/*if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
-		zlog.Warn().Msgf("Status timestamp parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
-		return nil, errors.Errorfc(
-			codes.InvalidArgument, "status timestamp parsing failed for OS Update Run resource: %s",
-			invOSUpdateRunResource.GetResourceId(),
-		)
-	}*/
+
 	invStartTime := uint32(invOSUpdateRunResource.GetStartTime())
-	/*if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
-		zlog.Warn().Msgf("Start time parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
-		return nil, errors.Errorfc(
-			codes.InvalidArgument, "start time parsing failed for OS Update Run resource: %s",
-			invOSUpdateRunResource.GetResourceId(),
-		)
-	}*/
+
 	invEndTime := uint32(invOSUpdateRunResource.GetEndTime())
-	/*if err != nil && err.Error() != errors.Errorfc(codes.InvalidArgument, "timestamp is empty").Error() {
-		zlog.Warn().Msgf("End time parsing failed for OS Update Run resource: %s", invOSUpdateRunResource.GetResourceId())
-		return nil, errors.Errorfc(
-			codes.InvalidArgument, "end time parsing failed for OS Update Run resource: %s",
-			invOSUpdateRunResource.GetResourceId(),
-		)
-	}*/
 
 	osUpdateRunResource := &computev1.OSUpdateRun{
 		ResourceId:      invOSUpdateRunResource.GetResourceId(),
