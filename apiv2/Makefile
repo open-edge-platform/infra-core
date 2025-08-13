@@ -224,7 +224,7 @@ int-test-oup: ## Runs OS Update Policy integration tests from test/client
 	@if [ -z $(PROJECT_ID) ]; then echo "Error: PROJECT_ID is not defined" >&2; false; fi
 	$(GOCMD_TESTCLIENTJWT_TOKEN) -run TestOSUpdatePolicy
 
-int-test-our: ## Runs OS Update Policy integration tests from test/client
+int-test-our: ## Runs OS Update Run integration tests from test/client
 	@echo "!!!!! Follow instruction in test/client/README.md !!!!!"
 	@if [ -z $(JWT_TOKEN) ]; then echo "Error: JWT_TOKEN is not defined" >&2; false; fi
 	@if [ -z $(PROJECT_ID) ]; then echo "Error: PROJECT_ID is not defined" >&2; false; fi
