@@ -24,11 +24,11 @@ func fromInvOSUpdateRunResource(invOSUpdateRunResource *inv_computev1.OSUpdateRu
 		zlog.Warn().Err(err).Msgf("Failed to get the inventory instance edge from OS Update Run resource")
 		return nil, err
 	}
-	invStatusTimestamp := uint32(invOSUpdateRunResource.GetStatusTimestamp())
+	invStatusTimestamp := TruncateUint64ToUint32(invOSUpdateRunResource.GetStatusTimestamp())
 
-	invStartTime := uint32(invOSUpdateRunResource.GetStartTime())
+	invStartTime := TruncateUint64ToUint32(invOSUpdateRunResource.GetStartTime())
 
-	invEndTime := uint32(invOSUpdateRunResource.GetEndTime())
+	invEndTime := TruncateUint64ToUint32(invOSUpdateRunResource.GetEndTime())
 
 	osUpdateRunResource := &computev1.OSUpdateRun{
 		ResourceId:      invOSUpdateRunResource.GetResourceId(),
