@@ -6,15 +6,15 @@ metadata:
   standalone-node: true
   version: 0.1.0
 spec:
-  name: Edge Microvisor Toolkit IDV 3.0.20250720
+  name: Edge Microvisor Toolkit IDV 3.0.20250717
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-idv  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250720.2000.raw.gz
-  osImageVersion: 3.0.20250720.2000
-  osImageSha256: 268d4b44b7b6e6975174f6f099d300e53bfa3bb60b1365971718ba48dc304c1e
-  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20250720.2000_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250717.0840-prod-signed.raw.gz
+  osImageVersion: 3.0.20250717.0840
+  osImageSha256: dd17c5945c8c8ef5d09616fe01508e46915b574a22d1ac50584565644acc3a1a
+  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20250717.0840_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_fixed-cve.json
   securityFeature: SECURITY_FEATURE_NONE
