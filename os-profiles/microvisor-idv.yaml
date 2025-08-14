@@ -14,9 +14,9 @@ spec:
   osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20250717.0840-prod-signed.raw.gz
   osImageVersion: 3.0.20250717.0840
   osImageSha256: dd17c5945c8c8ef5d09616fe01508e46915b574a22d1ac50584565644acc3a1a
-  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20250717.0840_pkg_manifest.json
+  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20250717.1425_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_cve.json
-  osFixedCvesURL:
+  osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_fixed-cve.json
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit with Desktop Virtualization for x86_64 architecture
   platformBundle:
