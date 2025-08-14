@@ -1242,11 +1242,20 @@ message OSUpdateRunResource {
     (buf.validate.field).string = {max_len: 100000}
   ]; // Details about what happened during the OS Update.
 
-  uint64 status_timestamp = 9 [(ent.field) = {immutable: false, optional: false}]; // UTC timestamp of OS Update status reported.
+  uint64 status_timestamp = 9 [(ent.field) = {
+    immutable: false,
+    optional: false
+  }]; // UTC timestamp of OS Update status reported.
 
-  uint64 start_time = 10 [(ent.field) = {immutable: true, optional: false}]; // UTC timestamp of OS Update started. This field is set by the RM when the OS Update Run is started.
+  uint64 start_time = 10 [(ent.field) = {
+    immutable: true,
+    optional: false
+  }]; // UTC timestamp of OS Update started. This field is set by the RM when the OS Update Run is started.
 
-  uint64 end_time = 11 [(ent.field) = {immutable: false, optional: true}]; // UTC timestamp of OS Update ended. This field is set by the RM when the OS Update Run is finished.
+  uint64 end_time = 11 [(ent.field) = {
+    immutable: false,
+    optional: true
+  }]; // UTC timestamp of OS Update ended. This field is set by the RM when the OS Update Run is finished.
 
   string tenant_id = 100 [
     (ent.field) = {
