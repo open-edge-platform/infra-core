@@ -1,6 +1,7 @@
 ---
 # SPDX-FileCopyrightText: (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
+
 appVersion: apps/v1
 metadata:
   release: 0.0.0-dev
@@ -19,5 +20,5 @@ spec:
   securityFeature: SECURITY_FEATURE_NONE
   description: Ubuntu 22.04.5 LTS with Intel out-of-tree GPU drivers for x86_64 architecture
   platformBundle:
-    installerScript: edge-orch/en/files/platformbundle/ubuntu-22.04-lts-generic-ext:1.1.2
-    cloudInitScript: edge-orch/en/files/platformbundle/cloudinit:1.1.2
+    installerScript: edge-orch/en/files/platformbundle/ubuntu-22.04-lts-generic-ext:1.1.3
+    cloudInitScript: edge-orch/en/files/platformbundle/cloudinit:1.1.3

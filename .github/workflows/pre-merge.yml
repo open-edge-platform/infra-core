@@ -32,10 +32,10 @@ jobs:
         with:
           persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@65fc743e0c69b8529188b89dede3acfe2897b2e0  # 0.1.33
+        uses: open-edge-platform/orch-ci/verify-branch-name@14aa8ce3d0a5455574fc7fce7d90b2d18636c68e  # 0.1.40
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@65fc743e0c69b8529188b89dede3acfe2897b2e0  # 0.1.33
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@14aa8ce3d0a5455574fc7fce7d90b2d18636c68e  # 0.1.40
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         env:
@@ -140,7 +140,7 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@65fc743e0c69b8529188b89dede3acfe2897b2e0  # 0.1.33
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@14aa8ce3d0a5455574fc7fce7d90b2d18636c68e  # 0.1.40
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
@@ -149,6 +149,31 @@ jobs:
           aws-access-key-id: ${{ secrets.NO_AUTH_S3_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_S3_PUSH_PASSWD }}
           aws-region: us-west-2
+      - name: "Curate OS profile"
+        run: |
+          sed -i 's/-dev//g' VERSION
+          for yaml in os-profiles/microvisor-rt.yaml os-profiles/microvisor-nonrt.yaml; do
+            echo "Processing YAML: $yaml"
+            manifest_url=$(sed -n 's/^[[:space:]]*osPackageManifestURL:[[:space:]]*\(.*\)$/\1/p' "$yaml")
+            full_url="https://files-rs.edgeorchestration.intel.com/${manifest_url}"
+            manifest_file="${manifest_url##*/}"
+            echo "Downloading manifest from ${full_url}..."
+            if ! curl -sfL "$full_url" -o "$manifest_file"; then
+              echo "❌ Failed to download $full_url — skipping $yaml"
+              continue
+            fi
+
+            k3s_version=$(jq -r '.Repo[] | select(.Name=="k3s") | .Version' "$manifest_file" | cut -d'-' -f1)
+            if [[ -z "$k3s_version" ]]; then
+              echo "⚠️ k3s not found in $manifest_file — skipping $yaml"
+              continue
+            fi
+
+            sed -i \
+              -e 's/^  version:.*$/  kubernetesVersion: v'"$k3s_version"'/' \
+              -e 's/^  kubernetes-version:.*$/  kubernetesVersion: v'"$k3s_version"'/' "$yaml"
+          done
+          cat VERSION; cat os-profiles/microvisor-rt.yaml; cat os-profiles/microvisor-nonrt.yaml
       - name: "Run validate OS profile"
         run: |
           cd .github/workflows/scripts && ./validate_os_profiles.sh ${{ secrets.S3_NAME }}
