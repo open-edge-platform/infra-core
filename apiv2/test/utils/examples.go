@@ -120,10 +120,6 @@ var (
 	OsUpdatePolicyName2        = "test-policy"
 	osUpdatePolicyDescription1 = "Test OS Update Policy"
 	osUpdatePolicyDescription2 = "Test OS Update Policy 2"
-
-	osUpdatePolicyInstallPackages = "pkg1\npkg2"
-	osUpdatePolicyUpdateSources   = []string{"deb http://repo1", "deb http://repo2"}
-	osUpdatePolicyKernelCommand   = "quiet splash"
 	updatePolicyLatest            = api.UPDATEPOLICYLATEST
 
 	MetadataR1 = []api.MetadataItem{
@@ -802,7 +798,7 @@ var (
 
 	OsUpdatePolicyRequest1 = api.OSUpdatePolicy{
 		Name:         OsUpdatePolicyName1,
-		Description:  &osUpdatePolicyDescription2,
+		Description:  &osUpdatePolicyDescription1,
 		UpdatePolicy: &updatePolicyLatest,
 	}
 

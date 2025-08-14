@@ -21,11 +21,11 @@ func TestOSUpdateRun_GetListNotFound(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	osUpdateRunNonexistResourceId := "osupdaterun-111111"
+	osUpdateRunNonexistResourceID := "osupdaterun-111111"
 
 	// Get OSUpdateRun
 	getResp, err := apiClient.OSUpdateRunGetOSUpdateRunWithResponse(
-		ctx, osUpdateRunNonexistResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusNotFound, getResp.StatusCode())
 
