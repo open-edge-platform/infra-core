@@ -29,7 +29,7 @@ var (
 		ResourceId:  "osupdaterun-12345678",
 		Name:        "example-run",
 		Description: "An example OS update run",
-		StartTime:   uint64(time.Now().Unix()), //nolint:gosec // This is a test
+		StartTime:   uint64(time.Now().Unix()),
 	}
 )
 
