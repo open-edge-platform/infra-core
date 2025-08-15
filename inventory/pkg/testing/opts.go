@@ -371,6 +371,18 @@ func ProfileName(profileName string) Opt[osv1.OperatingSystemResource] {
 	}
 }
 
+func ImageID(imageID string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.ImageId = imageID
+	}
+}
+
+func OsName(name string) Opt[osv1.OperatingSystemResource] {
+	return func(t *osv1.OperatingSystemResource) {
+		t.Name = name
+	}
+}
+
 func Metadata(metadata string) Opt[osv1.OperatingSystemResource] {
 	return func(t *osv1.OperatingSystemResource) {
 		t.Metadata = metadata
@@ -487,19 +499,19 @@ func OSUpdateRunStatusDetails(statusDetails string) Opt[compute_v1.OSUpdateRunRe
 	}
 }
 
-func OSUpdateRunStatusTimestamp(statusTimestamp string) Opt[compute_v1.OSUpdateRunResource] {
+func OSUpdateRunStatusTimestamp(statusTimestamp uint64) Opt[compute_v1.OSUpdateRunResource] {
 	return func(our *compute_v1.OSUpdateRunResource) {
 		our.StatusTimestamp = statusTimestamp
 	}
 }
 
-func OSUpdateRunStartTime(startTime string) Opt[compute_v1.OSUpdateRunResource] {
+func OSUpdateRunStartTime(startTime uint64) Opt[compute_v1.OSUpdateRunResource] {
 	return func(our *compute_v1.OSUpdateRunResource) {
 		our.StartTime = startTime
 	}
 }
 
-func OSUpdateRunEndTime(endTime string) Opt[compute_v1.OSUpdateRunResource] {
+func OSUpdateRunEndTime(endTime uint64) Opt[compute_v1.OSUpdateRunResource] {
 	return func(our *compute_v1.OSUpdateRunResource) {
 		our.EndTime = endTime
 	}
