@@ -120,7 +120,7 @@ var (
 	OsUpdatePolicyName2        = "test-policy"
 	osUpdatePolicyDescription1 = "Test OS Update Policy"
 	osUpdatePolicyDescription2 = "Test OS Update Policy 2"
-	updatePolicyLatest            = api.UPDATEPOLICYLATEST
+	updatePolicyLatest         = api.UPDATEPOLICYLATEST
 
 	MetadataR1 = []api.MetadataItem{
 		{
