@@ -537,7 +537,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 		},
 		"UpdateStatusTimestamp": {
 			in: &computev1.OSUpdateRunResource{
-				StatusTimestamp: uint64(time.Now().Unix()),
+				StatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 			},
 			resourceID: osUpRun3.GetResourceId(),
 			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldStatusTimestamp}},
@@ -545,7 +545,7 @@ func Test_ImmutableFieldsOnUpdateOsUpdateRun(t *testing.T) {
 		},
 		"UpdateEndTime": {
 			in: &computev1.OSUpdateRunResource{
-				EndTime: uint64(time.Now().Unix()),
+				EndTime: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 			},
 			resourceID: osUpRun3.GetResourceId(),
 			fieldMask:  &fieldmaskpb.FieldMask{Paths: []string{our.FieldEndTime}},
@@ -604,7 +604,7 @@ func TestOSUpdateRunMTSanity(t *testing.T) {
 					inv_testing.OsUpdateRunDescription("OsRun1 description"),
 					inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 					inv_testing.OSUpdateRunInstance(instance),
-					inv_testing.OSUpdateRunStartTime(uint64(time.Now().Unix())), //nolint:gosec // This is a test,
+					inv_testing.OSUpdateRunStartTime(uint64(time.Now().Unix())), //nolint:gosec // This is a test
 					inv_testing.OSUpdateRunStatusIndicator(statusv1.StatusIndication_STATUS_INDICATION_IDLE),
 					inv_testing.OSUpdateRunStatusTimestamp(uint64(time.Now().Unix())), //nolint:gosec // This is a test
 				)
