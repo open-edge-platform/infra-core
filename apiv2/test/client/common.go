@@ -749,7 +749,6 @@ func CreateOsUpdatePolicy(
 	assert.Equal(tb, http.StatusOK, policyCreated.StatusCode())
 
 	tb.Cleanup(func() {
-		// time.Sleep(sleepTime) // Waits until Instance reconciliation happens
 		DeleteOSUpdatePolicy(context.Background(), tb, apiClient, *policyCreated.JSON200.ResourceId)
 	})
 
