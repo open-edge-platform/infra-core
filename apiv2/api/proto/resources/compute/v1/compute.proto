@@ -821,13 +821,13 @@ message OSUpdateRun {
   ];
 
   // UTC timestamp of OS Update status reported.
-  google.protobuf.Timestamp status_timestamp = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 status_timestamp = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // UTC timestamp of OS Update started.
-  google.protobuf.Timestamp start_time = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 start_time = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // UTC timestamp of OS Update ended.
-  google.protobuf.Timestamp end_time = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+  uint32 end_time = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];

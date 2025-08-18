@@ -98,30 +98,44 @@ func (ourru *OSUpdateRunResourceUpdate) ClearStatusDetails() *OSUpdateRunResourc
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (ourru *OSUpdateRunResourceUpdate) SetStatusTimestamp(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetStatusTimestamp(s)
+func (ourru *OSUpdateRunResourceUpdate) SetStatusTimestamp(u uint64) *OSUpdateRunResourceUpdate {
+	ourru.mutation.ResetStatusTimestamp()
+	ourru.mutation.SetStatusTimestamp(u)
 	return ourru
 }
 
 // SetNillableStatusTimestamp sets the "status_timestamp" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableStatusTimestamp(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetStatusTimestamp(*s)
+func (ourru *OSUpdateRunResourceUpdate) SetNillableStatusTimestamp(u *uint64) *OSUpdateRunResourceUpdate {
+	if u != nil {
+		ourru.SetStatusTimestamp(*u)
 	}
+	return ourru
+}
+
+// AddStatusTimestamp adds u to the "status_timestamp" field.
+func (ourru *OSUpdateRunResourceUpdate) AddStatusTimestamp(u int64) *OSUpdateRunResourceUpdate {
+	ourru.mutation.AddStatusTimestamp(u)
 	return ourru
 }
 
 // SetEndTime sets the "end_time" field.
-func (ourru *OSUpdateRunResourceUpdate) SetEndTime(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetEndTime(s)
+func (ourru *OSUpdateRunResourceUpdate) SetEndTime(u uint64) *OSUpdateRunResourceUpdate {
+	ourru.mutation.ResetEndTime()
+	ourru.mutation.SetEndTime(u)
 	return ourru
 }
 
 // SetNillableEndTime sets the "end_time" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableEndTime(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetEndTime(*s)
+func (ourru *OSUpdateRunResourceUpdate) SetNillableEndTime(u *uint64) *OSUpdateRunResourceUpdate {
+	if u != nil {
+		ourru.SetEndTime(*u)
 	}
+	return ourru
+}
+
+// AddEndTime adds u to the "end_time" field.
+func (ourru *OSUpdateRunResourceUpdate) AddEndTime(u int64) *OSUpdateRunResourceUpdate {
+	ourru.mutation.AddEndTime(u)
 	return ourru
 }
 
@@ -264,13 +278,19 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		_spec.ClearField(osupdaterunresource.FieldStatusDetails, field.TypeString)
 	}
 	if value, ok := ourru.mutation.StatusTimestamp(); ok {
-		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
+	}
+	if value, ok := ourru.mutation.AddedStatusTimestamp(); ok {
+		_spec.AddField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 	}
 	if value, ok := ourru.mutation.EndTime(); ok {
-		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
+	}
+	if value, ok := ourru.mutation.AddedEndTime(); ok {
+		_spec.AddField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
 	}
 	if ourru.mutation.EndTimeCleared() {
-		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeString)
+		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeUint64)
 	}
 	if value, ok := ourru.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)
@@ -422,30 +442,44 @@ func (ourruo *OSUpdateRunResourceUpdateOne) ClearStatusDetails() *OSUpdateRunRes
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetStatusTimestamp(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetStatusTimestamp(s)
+func (ourruo *OSUpdateRunResourceUpdateOne) SetStatusTimestamp(u uint64) *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.ResetStatusTimestamp()
+	ourruo.mutation.SetStatusTimestamp(u)
 	return ourruo
 }
 
 // SetNillableStatusTimestamp sets the "status_timestamp" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatusTimestamp(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetStatusTimestamp(*s)
+func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatusTimestamp(u *uint64) *OSUpdateRunResourceUpdateOne {
+	if u != nil {
+		ourruo.SetStatusTimestamp(*u)
 	}
+	return ourruo
+}
+
+// AddStatusTimestamp adds u to the "status_timestamp" field.
+func (ourruo *OSUpdateRunResourceUpdateOne) AddStatusTimestamp(u int64) *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.AddStatusTimestamp(u)
 	return ourruo
 }
 
 // SetEndTime sets the "end_time" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetEndTime(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetEndTime(s)
+func (ourruo *OSUpdateRunResourceUpdateOne) SetEndTime(u uint64) *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.ResetEndTime()
+	ourruo.mutation.SetEndTime(u)
 	return ourruo
 }
 
 // SetNillableEndTime sets the "end_time" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableEndTime(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetEndTime(*s)
+func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableEndTime(u *uint64) *OSUpdateRunResourceUpdateOne {
+	if u != nil {
+		ourruo.SetEndTime(*u)
 	}
+	return ourruo
+}
+
+// AddEndTime adds u to the "end_time" field.
+func (ourruo *OSUpdateRunResourceUpdateOne) AddEndTime(u int64) *OSUpdateRunResourceUpdateOne {
+	ourruo.mutation.AddEndTime(u)
 	return ourruo
 }
 
@@ -618,13 +652,19 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		_spec.ClearField(osupdaterunresource.FieldStatusDetails, field.TypeString)
 	}
 	if value, ok := ourruo.mutation.StatusTimestamp(); ok {
-		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
+	}
+	if value, ok := ourruo.mutation.AddedStatusTimestamp(); ok {
+		_spec.AddField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 	}
 	if value, ok := ourruo.mutation.EndTime(); ok {
-		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
+	}
+	if value, ok := ourruo.mutation.AddedEndTime(); ok {
+		_spec.AddField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
 	}
 	if ourruo.mutation.EndTimeCleared() {
-		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeString)
+		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeUint64)
 	}
 	if value, ok := ourruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)
