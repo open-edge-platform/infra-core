@@ -9,7 +9,7 @@ require (
 	ariga.io/atlas v0.36.1
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1
 	entgo.io/contrib v0.7.0
-	entgo.io/ent v0.14.5
+	entgo.io/ent v0.14.4
 	github.com/Nerzal/gocloak/v13 v13.9.0
 	github.com/adhocore/gronx v1.19.6
 	github.com/bufbuild/protovalidate-go v0.10.1
