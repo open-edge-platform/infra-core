@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/api
 
-go 1.24.4
+go 1.24.6
 
 require (
 	github.com/getkin/kin-openapi v0.132.0
