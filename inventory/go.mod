@@ -7,12 +7,12 @@ go 1.24.6
 
 require (
 	ariga.io/atlas v0.36.1
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1
 	entgo.io/contrib v0.7.0
 	entgo.io/ent v0.14.5
 	github.com/Nerzal/gocloak/v13 v13.9.0
 	github.com/adhocore/gronx v1.19.6
-	github.com/bufbuild/protovalidate-go v0.10.0
+	github.com/bufbuild/protovalidate-go v0.10.1
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/eko/gocache/lib/v4 v4.2.0
 	github.com/eko/gocache/store/go_cache/v4 v4.2.2
