@@ -7,7 +7,7 @@ go 1.24.6
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/open-edge-platform/infra-core/api v1.34.0
+	github.com/open-edge-platform/infra-core/api v1.35.0
 	github.com/stretchr/testify v1.10.0
 )
 
