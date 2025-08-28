@@ -702,8 +702,6 @@ func grpcHostPowerStateToOpenAPIPowerState(s computev1.PowerState) api.HostPower
 	switch s {
 	case computev1.PowerState_POWER_STATE_UNSPECIFIED:
 		return api.POWERSTATEUNSPECIFIED
-	case computev1.PowerState_POWER_STATE_ERROR:
-		return api.POWERSTATEERROR
 	case computev1.PowerState_POWER_STATE_ON:
 		return api.POWERSTATEON
 	case computev1.PowerState_POWER_STATE_OFF:
@@ -736,8 +734,6 @@ func OpenAPIPowerStateTogrpcHostPowerState(s *api.HostPowerState) computev1.Powe
 		switch *s {
 		case api.POWERSTATEUNSPECIFIED:
 			return computev1.PowerState_POWER_STATE_ON
-		case api.POWERSTATEERROR:
-			return computev1.PowerState_POWER_STATE_ERROR
 		case api.POWERSTATEON:
 			return computev1.PowerState_POWER_STATE_ON
 		case api.POWERSTATEOFF:
