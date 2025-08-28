@@ -267,7 +267,6 @@ func Test_OSHandler_Put(t *testing.T) {
 	osType := api.OPERATINGSYSTEMTYPEUNSPECIFIED
 
 	bodyUpdate := api.OperatingSystemResource{
-		Name:              &osResName,
 		UpdateSources:     osUpdateSource,
 		KernelCommand:     &osKernel,
 		Architecture:      &osArch,
@@ -296,7 +295,6 @@ func Test_OSHandler_Put(t *testing.T) {
 	gotRes, ok := r.Payload.Data.(*api.OperatingSystemResource)
 	require.True(t, ok)
 	assert.NotNil(t, gotRes)
-	assert.Equal(t, osResName, *gotRes.Name)
 
 	// Update error - wrong body format
 	job = types.NewJob(
@@ -404,7 +402,6 @@ func Test_OSHandler_Patch(t *testing.T) {
 	osUpdateSource := osResource.GetUpdateSources()
 
 	bodyUpdate := api.OperatingSystemResource{
-		Name:          &osResName,
 		RepoUrl:       &osImageURL,
 		UpdateSources: osUpdateSource,
 	}
@@ -431,11 +428,10 @@ func Test_OSHandler_Patch(t *testing.T) {
 	gotRes, ok := r.Payload.Data.(*api.OperatingSystemResource)
 	require.True(t, ok)
 	assert.NotNil(t, gotRes)
-	assert.Equal(t, osResName, *gotRes.Name)
+	assert.Equal(t, osResource.GetName(), *gotRes.Name)
 
 	// Patch ok - immutable field are discarded
 	bodyUpdate = api.OperatingSystemResource{
-		Name:    &osResName,
 		RepoUrl: &ImageURL,
 		Sha256:  Sha256, // This field is changing
 	}
@@ -452,7 +448,6 @@ func Test_OSHandler_Patch(t *testing.T) {
 	assert.Equal(t, http.StatusOK, r.Status)
 
 	bodyUpdate = api.OperatingSystemResource{
-		Name:            &osResName,
 		RepoUrl:         &ImageURL,
 		SecurityFeature: &SecurityFeature, // This field is changing
 	}
@@ -469,7 +464,6 @@ func Test_OSHandler_Patch(t *testing.T) {
 	assert.Equal(t, http.StatusOK, r.Status)
 
 	bodyUpdate = api.OperatingSystemResource{
-		Name:        &osResName,
 		RepoUrl:     &ImageURL,
 		ProfileName: &ProfileName, // This field is changing
 	}
