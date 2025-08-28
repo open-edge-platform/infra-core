@@ -23,6 +23,7 @@ import (
 	"github.com/open-edge-platform/infra-core/api/test/utils"
 	computev1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/compute/v1"
 	inventory "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
+	os_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/os/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
@@ -304,8 +305,10 @@ func Test_InstanceHandler_Patch(t *testing.T) {
 	client := &clients.InventoryClientHandler{
 		InvClient: inv_testing.TestClients[inv_testing.APIClient],
 	}
-	osResource1 := inv_testing.CreateOs(t)
-	osResource2 := inv_testing.CreateOs(t)
+	osResource1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v1, "Test OS 1 for Instance Patch", "Test Profile 1",
+		os_v1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED, os_v1.OsType_OS_TYPE_MUTABLE)
+	osResource2 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS 2 for Instance Patch", "Test Profile 2",
+		os_v1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED, os_v1.OsType_OS_TYPE_MUTABLE)
 	localaccount := inv_testing.CreateLocalAccount(t, Username, SSHKey)
 	insResource := inv_testing.CreateInstance(t, nil, osResource1)
 	ctx := context.TODO()
