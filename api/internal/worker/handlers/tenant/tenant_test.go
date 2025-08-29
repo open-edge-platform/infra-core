@@ -133,7 +133,6 @@ func Test_OSHandler_CRUD_Tenant_OK(t *testing.T) {
 
 	// Validate Put
 	bodyUpdate := api.OperatingSystemResource{
-		Name:              &osResName,
 		UpdateSources:     UpdateSources,
 		KernelCommand:     &KernelCommand,
 		Architecture:      &Arch,
@@ -153,7 +152,6 @@ func Test_OSHandler_CRUD_Tenant_OK(t *testing.T) {
 
 	// Validate Patch
 	bodyUpdate = api.OperatingSystemResource{
-		Name:          &osResName,
 		RepoUrl:       &ImageURL,
 		UpdateSources: UpdateSources,
 	}
