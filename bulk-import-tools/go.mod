@@ -7,7 +7,7 @@ go 1.24.6
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/open-edge-platform/infra-core/api v1.35.0
+	github.com/open-edge-platform/infra-core/api v1.35.1
 	github.com/stretchr/testify v1.11.0
 )
 
@@ -38,9 +38,9 @@ require (
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/woodsbury/decimal128 v1.3.0 // indirect
 	go.mongodb.org/mongo-driver v1.17.3 // indirect
-	golang.org/x/crypto v0.38.0 // indirect
-	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/crypto v0.40.0 // indirect
+	golang.org/x/net v0.42.0 // indirect
+	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/text v0.27.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
