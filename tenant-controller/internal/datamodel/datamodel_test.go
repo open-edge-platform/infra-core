@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -119,8 +118,11 @@ func TestDataModelSanity(t *testing.T) {
 		t.Run("tenant exists and has desired_state eq CREATED", func(t *testing.T) {
 			require.Eventuallyf(t, func() bool {
 				tenant, e := ic.GetTenantResourceInstance(ctx, projectInfo.B)
+				if e != nil {
+					return false
+				}
 				expected := tenantv1.TenantState_TENANT_STATE_CREATED
-				return e == nil && expected == tenant.GetDesiredState()
+				return expected == tenant.GetDesiredState()
 			}, eventuallyTimeout, eventuallyInterval,
 				"EXPECTED: tenant[%s] with current_state == created was expected", projectInfo.B)
 		})
@@ -135,8 +137,10 @@ func TestDataModelSanity(t *testing.T) {
 			require.Eventuallyf(t,
 				func() bool {
 					aw, e := getActiveWatcher(ctx, nxc, projectInfo.A)
-					return e == nil &&
-						assert.Equal(t, baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle, aw.Spec.StatusIndicator)
+					if e != nil {
+						return false
+					}
+					return aw.Spec.StatusIndicator == baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
 				},
 				eventuallyTimeout,
 				eventuallyInterval,
@@ -391,7 +395,7 @@ func assertActiveWatcherDoesNotExist(t *testing.T, nxc *nexus.Client, projectNam
 		},
 		eventuallyTimeout,
 		eventuallyInterval,
-		"EXPECTED: ACTIVEWATCHER[%s] shall not exists",
+		"EXPECTED: ACTIVEWATCHER[%s] shall not exist",
 		configuration.AppName,
 	)
 }
@@ -401,8 +405,11 @@ func assertActiveWatcherInProgress(t *testing.T, nxc *nexus.Client, projectName 
 	ctx := context.TODO()
 	require.Eventuallyf(t, func() bool {
 		aw, e := getActiveWatcher(ctx, nxc, projectName)
+		if e != nil {
+			return false
+		}
 		expected := baseprojectactivewatcherinfrahostcomv1.StatusIndicationInProgress
-		return e == nil && aw.Spec.StatusIndicator == expected
+		return aw.Spec.StatusIndicator == expected
 	},
 		eventuallyTimeout,
 		eventuallyInterval,
@@ -415,12 +422,15 @@ func assertActiveWatcherIdle(t *testing.T, nxc *nexus.Client, projectName string
 	t.Helper()
 	require.Eventuallyf(t, func() bool {
 		aw, e := getActiveWatcher(context.TODO(), nxc, projectName)
+		if e != nil {
+			return false
+		}
 		expected := baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
-		return e == nil && aw.Spec.StatusIndicator == expected
+		return aw.Spec.StatusIndicator == expected
 	},
 		eventuallyTimeout,
 		eventuallyInterval,
-		"EXPECTED: ACTIVEWATCHER[%s] statusIndicator == IN_PROGRESS",
+		"EXPECTED: ACTIVEWATCHER[%s] statusIndicator == IDLE",
 		configuration.AppName,
 	)
 }
@@ -429,10 +439,15 @@ func assertTenantExistsCurrentStateCreated(t *testing.T, ic *invclient.TCInvento
 	t.Helper()
 	require.Eventuallyf(t, func() bool {
 		tid, rid, err := ic.GetTenantResource(context.TODO(), projectID)
-		assert.NoError(t, err)
+		if err != nil {
+			return false
+		}
 		rsp, e := ic.Get(context.TODO(), tid, rid)
+		if e != nil {
+			return false
+		}
 		expected := tenantv1.TenantState_TENANT_STATE_CREATED
-		return e == nil && expected == rsp.GetResource().GetTenant().GetCurrentState()
+		return expected == rsp.GetResource().GetTenant().GetCurrentState()
 	}, eventuallyTimeout, eventuallyInterval, "EXPECTED: tenant[%s] with current_state == created was expected", projectID)
 }
 
@@ -440,8 +455,11 @@ func assertTenantExistsDesiredStateCreated(t *testing.T, ic *invclient.TCInvento
 	t.Helper()
 	require.Eventuallyf(t, func() bool {
 		tenant, e := ic.GetTenantResourceInstance(context.TODO(), projectID)
+		if e != nil {
+			return false
+		}
 		expected := tenantv1.TenantState_TENANT_STATE_CREATED
-		return e == nil && expected == tenant.GetDesiredState()
+		return expected == tenant.GetDesiredState()
 	}, eventuallyTimeout, eventuallyInterval,
 		"EXPECTED: tenant[%s] with current_state == created was expected", projectID)
 }
@@ -474,7 +492,9 @@ func assertHostDesiredStateEqDeleted(t *testing.T, ic *invclient.TCInventoryClie
 			Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
 			Filter:   filters.NewBuilderWith(filters.ValEq("tenant_id", projectID)).Build(),
 		})
-		require.NoError(t, err)
+		if err != nil {
+			return false
+		}
 		for _, instance := range all {
 			if instance.GetHost().DesiredState != computev1.HostState_HOST_STATE_DELETED {
 				return false
@@ -491,7 +511,9 @@ func assertInstancesDesiredStateEqDeleted(t *testing.T, ic *invclient.TCInventor
 			Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Instance{}},
 			Filter:   filters.NewBuilderWith(filters.ValEq("tenant_id", projectID)).Build(),
 		})
-		require.NoError(t, err)
+		if err != nil {
+			return false
+		}
 		for _, instance := range all {
 			if instance.GetInstance().DesiredState != computev1.InstanceState_INSTANCE_STATE_DELETED {
 				return false
