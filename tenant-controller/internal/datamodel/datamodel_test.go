@@ -140,7 +140,11 @@ func TestDataModelSanity(t *testing.T) {
 					if e != nil {
 						return false
 					}
-					return aw.Spec.StatusIndicator == baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
+					if aw == nil {
+						return false
+					}
+					statusIndicator := aw.Spec.StatusIndicator
+					return statusIndicator == baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
 				},
 				eventuallyTimeout,
 				eventuallyInterval,
@@ -408,8 +412,12 @@ func assertActiveWatcherInProgress(t *testing.T, nxc *nexus.Client, projectName 
 		if e != nil {
 			return false
 		}
+		if aw == nil {
+			return false
+		}
+		statusIndicator := aw.Spec.StatusIndicator
 		expected := baseprojectactivewatcherinfrahostcomv1.StatusIndicationInProgress
-		return aw.Spec.StatusIndicator == expected
+		return statusIndicator == expected
 	},
 		eventuallyTimeout,
 		eventuallyInterval,
@@ -425,8 +433,12 @@ func assertActiveWatcherIdle(t *testing.T, nxc *nexus.Client, projectName string
 		if e != nil {
 			return false
 		}
+		if aw == nil {
+			return false
+		}
+		statusIndicator := aw.Spec.StatusIndicator
 		expected := baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
-		return aw.Spec.StatusIndicator == expected
+		return statusIndicator == expected
 	},
 		eventuallyTimeout,
 		eventuallyInterval,
