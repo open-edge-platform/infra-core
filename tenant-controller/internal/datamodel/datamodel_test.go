@@ -121,8 +121,7 @@ func TestDataModelSanity(t *testing.T) {
 				if e != nil {
 					return false
 				}
-				expected := tenantv1.TenantState_TENANT_STATE_CREATED
-				return expected == tenant.GetDesiredState()
+				return tenantv1.TenantState_TENANT_STATE_CREATED == tenant.GetDesiredState()
 			}, eventuallyTimeout, eventuallyInterval,
 				"EXPECTED: tenant[%s] with current_state == created was expected", projectInfo.B)
 		})
@@ -137,14 +136,10 @@ func TestDataModelSanity(t *testing.T) {
 			require.Eventuallyf(t,
 				func() bool {
 					aw, e := getActiveWatcher(ctx, nxc, projectInfo.A)
-					if e != nil {
+					if e != nil || aw == nil {
 						return false
 					}
-					if aw == nil {
-						return false
-					}
-					statusIndicator := aw.Spec.StatusIndicator
-					return statusIndicator == baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
+					return aw.Spec.StatusIndicator == baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
 				},
 				eventuallyTimeout,
 				eventuallyInterval,
@@ -409,15 +404,10 @@ func assertActiveWatcherInProgress(t *testing.T, nxc *nexus.Client, projectName 
 	ctx := context.TODO()
 	require.Eventuallyf(t, func() bool {
 		aw, e := getActiveWatcher(ctx, nxc, projectName)
-		if e != nil {
+		if e != nil || aw == nil {
 			return false
 		}
-		if aw == nil {
-			return false
-		}
-		statusIndicator := aw.Spec.StatusIndicator
-		expected := baseprojectactivewatcherinfrahostcomv1.StatusIndicationInProgress
-		return statusIndicator == expected
+		return baseprojectactivewatcherinfrahostcomv1.StatusIndicationInProgress == aw.Spec.StatusIndicator
 	},
 		eventuallyTimeout,
 		eventuallyInterval,
@@ -430,15 +420,10 @@ func assertActiveWatcherIdle(t *testing.T, nxc *nexus.Client, projectName string
 	t.Helper()
 	require.Eventuallyf(t, func() bool {
 		aw, e := getActiveWatcher(context.TODO(), nxc, projectName)
-		if e != nil {
+		if e != nil || aw == nil {
 			return false
 		}
-		if aw == nil {
-			return false
-		}
-		statusIndicator := aw.Spec.StatusIndicator
-		expected := baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle
-		return statusIndicator == expected
+		return baseprojectactivewatcherinfrahostcomv1.StatusIndicationIdle == aw.Spec.StatusIndicator
 	},
 		eventuallyTimeout,
 		eventuallyInterval,
@@ -458,8 +443,7 @@ func assertTenantExistsCurrentStateCreated(t *testing.T, ic *invclient.TCInvento
 		if e != nil {
 			return false
 		}
-		expected := tenantv1.TenantState_TENANT_STATE_CREATED
-		return expected == rsp.GetResource().GetTenant().GetCurrentState()
+		return tenantv1.TenantState_TENANT_STATE_CREATED == rsp.GetResource().GetTenant().GetCurrentState()
 	}, eventuallyTimeout, eventuallyInterval, "EXPECTED: tenant[%s] with current_state == created was expected", projectID)
 }
 
@@ -470,8 +454,7 @@ func assertTenantExistsDesiredStateCreated(t *testing.T, ic *invclient.TCInvento
 		if e != nil {
 			return false
 		}
-		expected := tenantv1.TenantState_TENANT_STATE_CREATED
-		return expected == tenant.GetDesiredState()
+		return tenantv1.TenantState_TENANT_STATE_CREATED == tenant.GetDesiredState()
 	}, eventuallyTimeout, eventuallyInterval,
 		"EXPECTED: tenant[%s] with current_state == created was expected", projectID)
 }
