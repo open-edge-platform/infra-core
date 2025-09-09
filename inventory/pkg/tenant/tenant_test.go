@@ -44,6 +44,7 @@ func TestMain(m *testing.M) {
 	os.Exit(run)
 }
 
+//nolint:funlen // Test function with many test cases
 func TestExtractTenantIDInterceptorEnforced(t *testing.T) {
 	interceptorWithEnforcement := tenant.GetExtractTenantIDInterceptor(expRoles)
 
