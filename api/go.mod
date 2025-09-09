@@ -15,7 +15,7 @@ require (
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/modern-go/reflect2 v1.0.2
 	github.com/oapi-codegen/runtime v1.1.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.1
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/prometheus/client_golang v1.23.0
 	github.com/stretchr/testify v1.11.0
