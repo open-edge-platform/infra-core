@@ -10,6 +10,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
@@ -59,6 +60,17 @@ func GetExtractTenantIDInterceptor(expectedRoles []string) grpc.UnaryServerInter
 }
 
 func extractProjectIDFromJWTRoles(ctx context.Context, expectedRoles []string) (string, error) {
+	// First try to get activeprojectid from gRPC metadata (set by proxy server)
+	if md, ok := metadata.FromIncomingContext(ctx); ok {
+		if projectIDValues := md.Get("activeprojectid"); len(projectIDValues) > 0 {
+			projectID := projectIDValues[0]
+			if projectID != "" && isValidUUID(projectID) {
+				return projectID, nil
+			}
+		}
+	}
+
+	// Fallback to extracting tenant ID from JWT roles
 	md, err := rbac.ExtractClaimsFromContext(ctx, false)
 	if err != nil {
 		return "", err
