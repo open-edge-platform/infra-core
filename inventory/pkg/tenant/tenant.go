@@ -40,18 +40,34 @@ func GetExtractTenantIDInterceptor(expectedRoles []string) grpc.UnaryServerInter
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (
 		interface{}, error,
 	) {
-		tenantID, err := extractProjectIDFromJWTRoles(ctx, expectedRoles)
-		switch {
-		case err != nil:
-			return nil, err
-		case tenantID == "":
-			err = errors.Errorfc(
-				codes.Unauthenticated,
-				"Rejected because missing projectID in JWT roles: rejected=%s",
-				info.FullMethod,
-			)
-			zlog.InfraSec().Err(err).Send()
-			return nil, err
+		var tenantID string
+
+		// First try to get activeprojectid from gRPC metadata (set by proxy server)
+		if md, ok := metadata.FromIncomingContext(ctx); ok {
+			if projectIDValues := md.Get("activeprojectid"); len(projectIDValues) > 0 {
+				projectID := projectIDValues[0]
+				if projectID != "" && isValidUUID(projectID) {
+					tenantID = projectID
+				}
+			}
+		}
+
+		// Fallback to extracting tenant ID from JWT roles if not found in metadata
+		if tenantID == "" {
+			var err error
+			tenantID, err = extractProjectIDFromJWTRoles(ctx, expectedRoles)
+			switch {
+			case err != nil:
+				return nil, err
+			case tenantID == "":
+				err = errors.Errorfc(
+					codes.Unauthenticated,
+					"Rejected because missing projectID in JWT roles: rejected=%s",
+					info.FullMethod,
+				)
+				zlog.InfraSec().Err(err).Send()
+				return nil, err
+			}
 		}
 		// Add tenant ID to the context only if there is any in the JWT.
 		ctx = AddTenantIDToContext(ctx, tenantID)
@@ -60,17 +76,6 @@ func GetExtractTenantIDInterceptor(expectedRoles []string) grpc.UnaryServerInter
 }
 
 func extractProjectIDFromJWTRoles(ctx context.Context, expectedRoles []string) (string, error) {
-	// First try to get activeprojectid from gRPC metadata (set by proxy server)
-	if md, ok := metadata.FromIncomingContext(ctx); ok {
-		if projectIDValues := md.Get("activeprojectid"); len(projectIDValues) > 0 {
-			projectID := projectIDValues[0]
-			if projectID != "" && isValidUUID(projectID) {
-				return projectID, nil
-			}
-		}
-	}
-
-	// Fallback to extracting tenant ID from JWT roles
 	md, err := rbac.ExtractClaimsFromContext(ctx, false)
 	if err != nil {
 		return "", err
