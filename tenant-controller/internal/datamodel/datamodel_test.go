@@ -130,6 +130,8 @@ func TestDataModelSanity(t *testing.T) {
 			tenant, err := ic.GetTenantResourceInstance(ctx, projectInfo.B)
 			require.NoError(t, err)
 			emulateOSRMReportingTenantWatcherEq(t, tenant.GetTenantId(), tenant.GetResourceId(), true)
+			// Give the TenantInitializationController time to process the event
+			time.Sleep(100 * time.Millisecond)
 		})
 
 		t.Run("ActiveWatcher's state shall be IDLE", func(t *testing.T) {
@@ -321,6 +323,10 @@ func verifyIntegrationWithDataModel(
 		tenant, err := ic.GetTenantResourceInstance(ctx, projectInfo.B)
 		require.NoError(t, err)
 		emulateOSRMReportingTenantWatcherEq(t, tenant.GetTenantId(), tenant.GetResourceId(), true)
+
+		// Allow background controller to process the event before checking state
+		// This prevents race condition with testify 1.11.0 which checks conditions immediately
+		time.Sleep(100 * time.Millisecond)
 	})
 
 	t.Run("tenant current_state eq CREATED", func(t *testing.T) {
@@ -386,6 +392,11 @@ func emulateOSRMReportingTenantWatcherEq(t *testing.T, tid, rid string, watcher 
 
 func assertActiveWatcherDoesNotExist(t *testing.T, nxc *nexus.Client, projectName string) {
 	t.Helper()
+
+	// Wait a bit to allow any in-flight controller operations to complete
+	// This helps reduce race conditions between background controllers and test assertions
+	time.Sleep(50 * time.Millisecond)
+
 	ctx := context.TODO()
 	require.Eventuallyf(t,
 		func() bool {
@@ -401,6 +412,11 @@ func assertActiveWatcherDoesNotExist(t *testing.T, nxc *nexus.Client, projectNam
 
 func assertActiveWatcherInProgress(t *testing.T, nxc *nexus.Client, projectName string) {
 	t.Helper()
+
+	// Wait a bit to allow any in-flight controller operations to complete
+	// This helps reduce race conditions between background controllers and test assertions
+	time.Sleep(50 * time.Millisecond)
+
 	ctx := context.TODO()
 	require.Eventuallyf(t, func() bool {
 		aw, e := getActiveWatcher(ctx, nxc, projectName)
@@ -418,6 +434,11 @@ func assertActiveWatcherInProgress(t *testing.T, nxc *nexus.Client, projectName 
 
 func assertActiveWatcherIdle(t *testing.T, nxc *nexus.Client, projectName string) {
 	t.Helper()
+
+	// Wait a bit to allow any in-flight controller operations to complete
+	// This helps reduce race conditions between background controllers and test assertions
+	time.Sleep(50 * time.Millisecond)
+
 	require.Eventuallyf(t, func() bool {
 		aw, e := getActiveWatcher(context.TODO(), nxc, projectName)
 		if e != nil || aw == nil {
