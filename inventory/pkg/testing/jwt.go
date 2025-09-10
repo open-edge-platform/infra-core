@@ -21,7 +21,6 @@ const (
 	readWriteRole   = "im-rw"
 	readRole        = "im-r"
 	enReadWriteRole = "en-agent-rw"
-	//tempTimeoutToBeRemoved = 30000000
 )
 
 // CreateJWT returns random signing key and JWT token (HS256 encoded) in a string with both roles, read and write.
@@ -135,7 +134,7 @@ func CreateContextWithJWT(tb testing.TB, tenantID string) (context.Context, cont
 func CreateContextWithENJWT(tb testing.TB, tenantIDs ...string) (context.Context, context.CancelFunc) {
 	tb.Helper()
 
-	ctx, cancel := context.WithTimeout(context.Background() /*tempTimeoutToBeRemoved**/, time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	ctx = CreateOutgoingContextWithENJWT(tb, ctx, tenantIDs...)
 	return ctx, cancel
 }
