@@ -430,6 +430,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		TenantId:                    host.TenantID,
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,
+		LvmSize:                     host.LvmSize,
 	}
 	// Convert the edges recursively.
 	if site, qerr := host.Edges.SiteOrErr(); qerr == nil {

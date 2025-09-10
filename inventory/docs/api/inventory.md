@@ -584,6 +584,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 textual message that describes the AMT status of Host. Set by DM RM only. |
 | amt_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
 | amt_status_timestamp | [uint64](#uint64) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
+| lvm_size | [string](#string) |  | LVM size |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |

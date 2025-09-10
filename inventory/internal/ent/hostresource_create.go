@@ -732,6 +732,20 @@ func (hrc *HostResourceCreate) SetNillableAmtStatusTimestamp(u *uint64) *HostRes
 	return hrc
 }
 
+// SetLvmSize sets the "lvm_size" field.
+func (hrc *HostResourceCreate) SetLvmSize(s string) *HostResourceCreate {
+	hrc.mutation.SetLvmSize(s)
+	return hrc
+}
+
+// SetNillableLvmSize sets the "lvm_size" field if the given value is not nil.
+func (hrc *HostResourceCreate) SetNillableLvmSize(s *string) *HostResourceCreate {
+	if s != nil {
+		hrc.SetLvmSize(*s)
+	}
+	return hrc
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (hrc *HostResourceCreate) SetTenantID(s string) *HostResourceCreate {
 	hrc.mutation.SetTenantID(s)
@@ -1207,6 +1221,10 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 	if value, ok := hrc.mutation.AmtStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
 		_node.AmtStatusTimestamp = value
+	}
+	if value, ok := hrc.mutation.LvmSize(); ok {
+		_spec.SetField(hostresource.FieldLvmSize, field.TypeString, value)
+		_node.LvmSize = value
 	}
 	if value, ok := hrc.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)
