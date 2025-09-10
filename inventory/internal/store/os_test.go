@@ -294,8 +294,13 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 }
 
 func Test_FilterOss(t *testing.T) {
-	cupdatesourceResp1 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v1, "Test OS 1", "Test OS profile name 1",
-		os_v1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION, os_v1.OsType_OS_TYPE_MUTABLE)
+	dao := inv_testing.NewInvResourceDAOOrFail(t)
+	cupdatesourceResp1 := dao.CreateOsWithOpts(t, tenantIDZero, true,
+		inv_testing.Sha256(inv_testing.RandomSha256v1),
+		inv_testing.ProfileName("Test OS profile name 3"),
+		inv_testing.Metadata(`{"key1": "value1", "key2": "value2"}`),
+		inv_testing.SecurityFeature(os_v1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION),
+		inv_testing.OsType(os_v1.OsType_OS_TYPE_MUTABLE))
 	cupdatesourceResp2 := inv_testing.CreateOsWithArgs(t, inv_testing.RandomSha256v2, "Test OS 2", "Test OS profile name 2",
 		os_v1.SecurityFeature_SECURITY_FEATURE_NONE, os_v1.OsType_OS_TYPE_MUTABLE)
 
@@ -370,10 +375,17 @@ func Test_FilterOss(t *testing.T) {
 		},
 		"FilterByMetadata": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, os_v1.OperatingSystemResourceFieldMetadata, `"key1": "value1"`),
+				Filter: fmt.Sprintf(`%s = %q`, os_v1.OperatingSystemResourceFieldMetadata, ""),
+			},
+			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp2},
+			valid:     true,
+		},
+		"FilterByMetadataValid": {
+			in: &inv_v1.ResourceFilter{
+				Filter: fmt.Sprintf(`%s = %q`, os_v1.OperatingSystemResourceFieldMetadata, `{"key1":"value1","key2":"value2"}`),
 			},
 			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp1},
-			valid:     false,
+			valid:     true,
 		},
 		"FilterLimit": {
 			in: &inv_v1.ResourceFilter{
