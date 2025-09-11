@@ -427,10 +427,10 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		AmtStatus:                   host.AmtStatus,
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
 		AmtStatusTimestamp:          host.AmtStatusTimestamp,
+		LvmSize:                     host.LvmSize,
 		TenantId:                    host.TenantID,
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,
-		LvmSize:                     host.LvmSize,
 	}
 	// Convert the edges recursively.
 	if site, qerr := host.Edges.SiteOrErr(); qerr == nil {
@@ -463,7 +463,6 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 			protoHost.HostGpus = append(protoHost.HostGpus, entHostgpuResourceToProtoHostgpuResource(i))
 		}
 	}
-
 	return protoHost
 }
 
