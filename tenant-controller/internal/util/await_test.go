@@ -9,7 +9,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/util"
@@ -27,7 +26,7 @@ func TestCancel(t *testing.T) {
 	})
 
 	promise.Cancel()
-	require.Eventually(t, func() bool { return assert.True(t, canceled.Load()) },
+	require.Eventually(t, func() bool { return canceled.Load() },
 		time.Second, 100*time.Millisecond, "running task shall be canceled")
 }
 
