@@ -446,7 +446,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 
 				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
 
-				LvmSize: "80",
+				LvmSize: 80,
 
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
@@ -491,7 +491,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
 
-				LvmSize: "80",
+				LvmSize: 80,
 
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
@@ -563,7 +563,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
-				LvmSize:            "80",
+				LvmSize:            80,
 			},
 			clientName: inv_testing.RMClient,
 			valid:      true,
@@ -694,7 +694,7 @@ func Test_UpdateHost(t *testing.T) {
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
 
-				LvmSize: "80",
+				LvmSize: 80,
 			},
 		},
 	}
@@ -732,7 +732,7 @@ func Test_UpdateHost(t *testing.T) {
 		Hostname:                    "TEST",
 		Metadata:                    metaHost1,
 		DesiredPowerState:           computev1.PowerState_POWER_STATE_OFF,
-		LvmSize:                     "10",
+		LvmSize:                     10,
 		// CurrentPowerState: should be provided by SB
 	}
 
@@ -1010,7 +1010,7 @@ func Test_UpdateHost(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
-				LvmSize:            "80",
+				LvmSize:            80,
 			},
 			resourceID: hostResID,
 			clientName: inv_testing.RMClient,
@@ -1693,7 +1693,7 @@ func Test_FilterHosts(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
-				LvmSize:            "80",
+				LvmSize:            80,
 			},
 		},
 	}
