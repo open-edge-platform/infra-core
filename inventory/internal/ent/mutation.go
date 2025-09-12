@@ -1616,7 +1616,8 @@ type HostResourceMutation struct {
 	amt_status_indicator             *hostresource.AmtStatusIndicator
 	amt_status_timestamp             *uint64
 	addamt_status_timestamp          *int64
-	lvm_size                         *string
+	lvm_size                         *uint32
+	addlvm_size                      *int32
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -4439,12 +4440,13 @@ func (m *HostResourceMutation) ResetAmtStatusTimestamp() {
 }
 
 // SetLvmSize sets the "lvm_size" field.
-func (m *HostResourceMutation) SetLvmSize(s string) {
-	m.lvm_size = &s
+func (m *HostResourceMutation) SetLvmSize(u uint32) {
+	m.lvm_size = &u
+	m.addlvm_size = nil
 }
 
 // LvmSize returns the value of the "lvm_size" field in the mutation.
-func (m *HostResourceMutation) LvmSize() (r string, exists bool) {
+func (m *HostResourceMutation) LvmSize() (r uint32, exists bool) {
 	v := m.lvm_size
 	if v == nil {
 		return
@@ -4455,7 +4457,7 @@ func (m *HostResourceMutation) LvmSize() (r string, exists bool) {
 // OldLvmSize returns the old "lvm_size" field's value of the HostResource entity.
 // If the HostResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HostResourceMutation) OldLvmSize(ctx context.Context) (v string, err error) {
+func (m *HostResourceMutation) OldLvmSize(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldLvmSize is only allowed on UpdateOne operations")
 	}
@@ -4469,9 +4471,28 @@ func (m *HostResourceMutation) OldLvmSize(ctx context.Context) (v string, err er
 	return oldValue.LvmSize, nil
 }
 
+// AddLvmSize adds u to the "lvm_size" field.
+func (m *HostResourceMutation) AddLvmSize(u int32) {
+	if m.addlvm_size != nil {
+		*m.addlvm_size += u
+	} else {
+		m.addlvm_size = &u
+	}
+}
+
+// AddedLvmSize returns the value that was added to the "lvm_size" field in this mutation.
+func (m *HostResourceMutation) AddedLvmSize() (r int32, exists bool) {
+	v := m.addlvm_size
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ClearLvmSize clears the value of the "lvm_size" field.
 func (m *HostResourceMutation) ClearLvmSize() {
 	m.lvm_size = nil
+	m.addlvm_size = nil
 	m.clearedFields[hostresource.FieldLvmSize] = struct{}{}
 }
 
@@ -4484,6 +4505,7 @@ func (m *HostResourceMutation) LvmSizeCleared() bool {
 // ResetLvmSize resets all changes to the "lvm_size" field.
 func (m *HostResourceMutation) ResetLvmSize() {
 	m.lvm_size = nil
+	m.addlvm_size = nil
 	delete(m.clearedFields, hostresource.FieldLvmSize)
 }
 
@@ -5732,7 +5754,7 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		m.SetAmtStatusTimestamp(v)
 		return nil
 	case hostresource.FieldLvmSize:
-		v, ok := value.(string)
+		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -5797,6 +5819,9 @@ func (m *HostResourceMutation) AddedFields() []string {
 	if m.addamt_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
+	if m.addlvm_size != nil {
+		fields = append(fields, hostresource.FieldLvmSize)
+	}
 	return fields
 }
 
@@ -5825,6 +5850,8 @@ func (m *HostResourceMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedRegistrationStatusTimestamp()
 	case hostresource.FieldAmtStatusTimestamp:
 		return m.AddedAmtStatusTimestamp()
+	case hostresource.FieldLvmSize:
+		return m.AddedLvmSize()
 	}
 	return nil, false
 }
@@ -5903,6 +5930,13 @@ func (m *HostResourceMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddAmtStatusTimestamp(v)
+		return nil
+	case hostresource.FieldLvmSize:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLvmSize(v)
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource numeric field %s", name)
