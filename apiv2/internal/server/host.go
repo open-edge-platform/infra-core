@@ -679,9 +679,7 @@ func (is *InventorygRPCServer) RegisterHost(
 	}
 
 	hostLvmSize := req.GetHost().GetLvmSize()
-	if isSet(&hostLvmSize) {
-		hostResource.LvmSize = hostLvmSize
-	}
+	hostResource.LvmSize = hostLvmSize
 
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Host{

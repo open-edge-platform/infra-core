@@ -820,7 +820,7 @@ type HostResource struct {
 	AmtStatus          string               `protobuf:"bytes,94,opt,name=amt_status,json=amtStatus,proto3" json:"amt_status,omitempty"`                                                                         // coming from device introspection. Set only by the DM RM.
 	AmtStatusIndicator v12.StatusIndication `protobuf:"varint,95,opt,name=amt_status_indicator,json=amtStatusIndicator,proto3,enum=resources.status.v1.StatusIndication" json:"amt_status_indicator,omitempty"` // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
 	AmtStatusTimestamp uint32               `protobuf:"varint,96,opt,name=amt_status_timestamp,json=amtStatusTimestamp,proto3" json:"amt_status_timestamp,omitempty"`                                           // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
-	LvmSize            string               `protobuf:"bytes,97,opt,name=lvm_size,json=lvmSize,proto3" json:"lvm_size,omitempty"`                                                                               // LVM size in GB
+	LvmSize            uint32               `protobuf:"varint,97,opt,name=lvm_size,json=lvmSize,proto3" json:"lvm_size,omitempty"`                                                                              // LVM size in GB
 	// The site where the host is located.
 	SiteId string `protobuf:"bytes,5001,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
 	// The metadata associated with the host, represented by a list of key:value pairs.
@@ -1220,11 +1220,11 @@ func (x *HostResource) GetAmtStatusTimestamp() uint32 {
 	return 0
 }
 
-func (x *HostResource) GetLvmSize() string {
+func (x *HostResource) GetLvmSize() uint32 {
 	if x != nil {
 		return x.LvmSize
 	}
-	return ""
+	return 0
 }
 
 func (x *HostResource) GetSiteId() string {
@@ -2909,7 +2909,7 @@ var file_resources_compute_v1_compute_proto_rawDesc = []byte{
 	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x60, 0x20, 0x01, 0x28, 0x0d, 0x42, 0x03, 0xe0, 0x41,
 	0x03, 0x52, 0x12, 0x61, 0x6d, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x54, 0x69, 0x6d, 0x65,
 	0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x1e, 0x0a, 0x08, 0x6c, 0x76, 0x6d, 0x5f, 0x73, 0x69, 0x7a,
-	0x65, 0x18, 0x61, 0x20, 0x01, 0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x03, 0x52, 0x07, 0x6c, 0x76,
+	0x65, 0x18, 0x61, 0x20, 0x01, 0x28, 0x0d, 0x42, 0x03, 0xe0, 0x41, 0x03, 0x52, 0x07, 0x6c, 0x76,
 	0x6d, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x3b, 0x0a, 0x07, 0x73, 0x69, 0x74, 0x65, 0x5f, 0x69, 0x64,
 	0x18, 0x89, 0x27, 0x20, 0x01, 0x28, 0x09, 0x42, 0x21, 0xe0, 0x41, 0x04, 0xba, 0x48, 0x1b, 0x72,
 	0x19, 0x18, 0x0d, 0x32, 0x15, 0x5e, 0x24, 0x7c, 0x5e, 0x73, 0x69, 0x74, 0x65, 0x2d, 0x5b, 0x30,

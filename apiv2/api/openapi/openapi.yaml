@@ -4072,7 +4072,7 @@ components:
           description: UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
           readOnly: true
         lvmSize:
-          type: string
+          type: integer
           title: lvm_size
           description: LVM size in GB
           readOnly: true
@@ -7229,7 +7229,7 @@ components:
           title: enable_vpro
           description: Flag to signal to enable vPRO on the host.
         lvmSize:
-          type: string
+          type: integer
           title: lvm_size
           description: LVM size in GB
       title: HostRegister

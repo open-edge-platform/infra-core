@@ -857,7 +857,7 @@ type HostRegister struct {
 	EnableVpro *bool `json:"enableVpro,omitempty"`
 
 	// LvmSize LVM size in GB
-	LvmSize *string `json:"lvmSize,omitempty"`
+	LvmSize *int `json:"lvmSize,omitempty"`
 
 	// Name The host name.
 	Name *string `json:"name,omitempty"`
@@ -969,7 +969,7 @@ type HostResource struct {
 	Instance *InstanceResource `json:"instance,omitempty"`
 
 	// LvmSize LVM size in GB
-	LvmSize *string `json:"lvmSize,omitempty"`
+	LvmSize *int `json:"lvmSize,omitempty"`
 
 	// MemoryBytes Quantity of memory (RAM) in the system in bytes.
 	MemoryBytes *string `json:"memoryBytes,omitempty"`
