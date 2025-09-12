@@ -1616,6 +1616,8 @@ type HostResourceMutation struct {
 	amt_status_indicator             *hostresource.AmtStatusIndicator
 	amt_status_timestamp             *uint64
 	addamt_status_timestamp          *int64
+	lvm_size                         *uint32
+	addlvm_size                      *int32
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -4437,6 +4439,76 @@ func (m *HostResourceMutation) ResetAmtStatusTimestamp() {
 	delete(m.clearedFields, hostresource.FieldAmtStatusTimestamp)
 }
 
+// SetLvmSize sets the "lvm_size" field.
+func (m *HostResourceMutation) SetLvmSize(u uint32) {
+	m.lvm_size = &u
+	m.addlvm_size = nil
+}
+
+// LvmSize returns the value of the "lvm_size" field in the mutation.
+func (m *HostResourceMutation) LvmSize() (r uint32, exists bool) {
+	v := m.lvm_size
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLvmSize returns the old "lvm_size" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldLvmSize(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLvmSize is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLvmSize requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLvmSize: %w", err)
+	}
+	return oldValue.LvmSize, nil
+}
+
+// AddLvmSize adds u to the "lvm_size" field.
+func (m *HostResourceMutation) AddLvmSize(u int32) {
+	if m.addlvm_size != nil {
+		*m.addlvm_size += u
+	} else {
+		m.addlvm_size = &u
+	}
+}
+
+// AddedLvmSize returns the value that was added to the "lvm_size" field in this mutation.
+func (m *HostResourceMutation) AddedLvmSize() (r int32, exists bool) {
+	v := m.addlvm_size
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearLvmSize clears the value of the "lvm_size" field.
+func (m *HostResourceMutation) ClearLvmSize() {
+	m.lvm_size = nil
+	m.addlvm_size = nil
+	m.clearedFields[hostresource.FieldLvmSize] = struct{}{}
+}
+
+// LvmSizeCleared returns if the "lvm_size" field was cleared in this mutation.
+func (m *HostResourceMutation) LvmSizeCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldLvmSize]
+	return ok
+}
+
+// ResetLvmSize resets all changes to the "lvm_size" field.
+func (m *HostResourceMutation) ResetLvmSize() {
+	m.lvm_size = nil
+	m.addlvm_size = nil
+	delete(m.clearedFields, hostresource.FieldLvmSize)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *HostResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -4912,7 +4984,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 54)
+	fields := make([]string, 0, 55)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5066,6 +5138,9 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.amt_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
+	if m.lvm_size != nil {
+		fields = append(fields, hostresource.FieldLvmSize)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, hostresource.FieldTenantID)
 	}
@@ -5185,6 +5260,8 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.AmtStatusIndicator()
 	case hostresource.FieldAmtStatusTimestamp:
 		return m.AmtStatusTimestamp()
+	case hostresource.FieldLvmSize:
+		return m.LvmSize()
 	case hostresource.FieldTenantID:
 		return m.TenantID()
 	case hostresource.FieldCreatedAt:
@@ -5302,6 +5379,8 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldAmtStatusIndicator(ctx)
 	case hostresource.FieldAmtStatusTimestamp:
 		return m.OldAmtStatusTimestamp(ctx)
+	case hostresource.FieldLvmSize:
+		return m.OldLvmSize(ctx)
 	case hostresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case hostresource.FieldCreatedAt:
@@ -5674,6 +5753,13 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetAmtStatusTimestamp(v)
 		return nil
+	case hostresource.FieldLvmSize:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLvmSize(v)
+		return nil
 	case hostresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -5733,6 +5819,9 @@ func (m *HostResourceMutation) AddedFields() []string {
 	if m.addamt_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
+	if m.addlvm_size != nil {
+		fields = append(fields, hostresource.FieldLvmSize)
+	}
 	return fields
 }
 
@@ -5761,6 +5850,8 @@ func (m *HostResourceMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedRegistrationStatusTimestamp()
 	case hostresource.FieldAmtStatusTimestamp:
 		return m.AddedAmtStatusTimestamp()
+	case hostresource.FieldLvmSize:
+		return m.AddedLvmSize()
 	}
 	return nil, false
 }
@@ -5839,6 +5930,13 @@ func (m *HostResourceMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddAmtStatusTimestamp(v)
+		return nil
+	case hostresource.FieldLvmSize:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLvmSize(v)
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource numeric field %s", name)
@@ -5997,6 +6095,9 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(hostresource.FieldAmtStatusTimestamp) {
 		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
+	}
+	if m.FieldCleared(hostresource.FieldLvmSize) {
+		fields = append(fields, hostresource.FieldLvmSize)
 	}
 	return fields
 }
@@ -6162,6 +6263,9 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldAmtStatusTimestamp:
 		m.ClearAmtStatusTimestamp()
 		return nil
+	case hostresource.FieldLvmSize:
+		m.ClearLvmSize()
+		return nil
 	}
 	return fmt.Errorf("unknown HostResource nullable field %s", name)
 }
@@ -6322,6 +6426,9 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldAmtStatusTimestamp:
 		m.ResetAmtStatusTimestamp()
+		return nil
+	case hostresource.FieldLvmSize:
+		m.ResetLvmSize()
 		return nil
 	case hostresource.FieldTenantID:
 		m.ResetTenantID()

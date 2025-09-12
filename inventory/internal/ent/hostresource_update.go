@@ -1118,6 +1118,33 @@ func (hru *HostResourceUpdate) ClearAmtStatusTimestamp() *HostResourceUpdate {
 	return hru
 }
 
+// SetLvmSize sets the "lvm_size" field.
+func (hru *HostResourceUpdate) SetLvmSize(u uint32) *HostResourceUpdate {
+	hru.mutation.ResetLvmSize()
+	hru.mutation.SetLvmSize(u)
+	return hru
+}
+
+// SetNillableLvmSize sets the "lvm_size" field if the given value is not nil.
+func (hru *HostResourceUpdate) SetNillableLvmSize(u *uint32) *HostResourceUpdate {
+	if u != nil {
+		hru.SetLvmSize(*u)
+	}
+	return hru
+}
+
+// AddLvmSize adds u to the "lvm_size" field.
+func (hru *HostResourceUpdate) AddLvmSize(u int32) *HostResourceUpdate {
+	hru.mutation.AddLvmSize(u)
+	return hru
+}
+
+// ClearLvmSize clears the value of the "lvm_size" field.
+func (hru *HostResourceUpdate) ClearLvmSize() *HostResourceUpdate {
+	hru.mutation.ClearLvmSize()
+	return hru
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (hru *HostResourceUpdate) SetUpdatedAt(s string) *HostResourceUpdate {
 	hru.mutation.SetUpdatedAt(s)
@@ -1797,6 +1824,15 @@ func (hru *HostResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if hru.mutation.AmtStatusTimestampCleared() {
 		_spec.ClearField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := hru.mutation.LvmSize(); ok {
+		_spec.SetField(hostresource.FieldLvmSize, field.TypeUint32, value)
+	}
+	if value, ok := hru.mutation.AddedLvmSize(); ok {
+		_spec.AddField(hostresource.FieldLvmSize, field.TypeUint32, value)
+	}
+	if hru.mutation.LvmSizeCleared() {
+		_spec.ClearField(hostresource.FieldLvmSize, field.TypeUint32)
 	}
 	if value, ok := hru.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
@@ -3172,6 +3208,33 @@ func (hruo *HostResourceUpdateOne) ClearAmtStatusTimestamp() *HostResourceUpdate
 	return hruo
 }
 
+// SetLvmSize sets the "lvm_size" field.
+func (hruo *HostResourceUpdateOne) SetLvmSize(u uint32) *HostResourceUpdateOne {
+	hruo.mutation.ResetLvmSize()
+	hruo.mutation.SetLvmSize(u)
+	return hruo
+}
+
+// SetNillableLvmSize sets the "lvm_size" field if the given value is not nil.
+func (hruo *HostResourceUpdateOne) SetNillableLvmSize(u *uint32) *HostResourceUpdateOne {
+	if u != nil {
+		hruo.SetLvmSize(*u)
+	}
+	return hruo
+}
+
+// AddLvmSize adds u to the "lvm_size" field.
+func (hruo *HostResourceUpdateOne) AddLvmSize(u int32) *HostResourceUpdateOne {
+	hruo.mutation.AddLvmSize(u)
+	return hruo
+}
+
+// ClearLvmSize clears the value of the "lvm_size" field.
+func (hruo *HostResourceUpdateOne) ClearLvmSize() *HostResourceUpdateOne {
+	hruo.mutation.ClearLvmSize()
+	return hruo
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (hruo *HostResourceUpdateOne) SetUpdatedAt(s string) *HostResourceUpdateOne {
 	hruo.mutation.SetUpdatedAt(s)
@@ -3881,6 +3944,15 @@ func (hruo *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostReso
 	}
 	if hruo.mutation.AmtStatusTimestampCleared() {
 		_spec.ClearField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := hruo.mutation.LvmSize(); ok {
+		_spec.SetField(hostresource.FieldLvmSize, field.TypeUint32, value)
+	}
+	if value, ok := hruo.mutation.AddedLvmSize(); ok {
+		_spec.AddField(hostresource.FieldLvmSize, field.TypeUint32, value)
+	}
+	if hruo.mutation.LvmSizeCleared() {
+		_spec.ClearField(hostresource.FieldLvmSize, field.TypeUint32)
 	}
 	if value, ok := hruo.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
