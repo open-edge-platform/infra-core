@@ -4074,7 +4074,7 @@ components:
         lvmSize:
           type: integer
           title: lvm_size
-          description: LVM size in GB
+          description: LVM size in GB.
           readOnly: true
         siteId:
           type: string

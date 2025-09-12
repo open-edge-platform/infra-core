@@ -968,7 +968,7 @@ type HostResource struct {
 	//  host or hypervisor.
 	Instance *InstanceResource `json:"instance,omitempty"`
 
-	// LvmSize LVM size in GB
+	// LvmSize LVM size in GB.
 	LvmSize *int `json:"lvmSize,omitempty"`
 
 	// MemoryBytes Quantity of memory (RAM) in the system in bytes.

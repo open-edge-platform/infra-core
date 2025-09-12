@@ -820,7 +820,7 @@ type HostResource struct {
 	AmtStatus          string               `protobuf:"bytes,94,opt,name=amt_status,json=amtStatus,proto3" json:"amt_status,omitempty"`                                                                         // coming from device introspection. Set only by the DM RM.
 	AmtStatusIndicator v12.StatusIndication `protobuf:"varint,95,opt,name=amt_status_indicator,json=amtStatusIndicator,proto3,enum=resources.status.v1.StatusIndication" json:"amt_status_indicator,omitempty"` // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
 	AmtStatusTimestamp uint32               `protobuf:"varint,96,opt,name=amt_status_timestamp,json=amtStatusTimestamp,proto3" json:"amt_status_timestamp,omitempty"`                                           // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
-	LvmSize            uint32               `protobuf:"varint,97,opt,name=lvm_size,json=lvmSize,proto3" json:"lvm_size,omitempty"`                                                                              // LVM size in GB
+	LvmSize            uint32               `protobuf:"varint,97,opt,name=lvm_size,json=lvmSize,proto3" json:"lvm_size,omitempty"`                                                                              // LVM size in GB.
 	// The site where the host is located.
 	SiteId string `protobuf:"bytes,5001,opt,name=site_id,json=siteId,proto3" json:"site_id,omitempty"`
 	// The metadata associated with the host, represented by a list of key:value pairs.
