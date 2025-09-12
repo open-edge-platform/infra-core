@@ -223,7 +223,13 @@ message HostResource {
   ]; // textual message that describes the AMT status of Host. Set by DM RM only.
   status.v1.StatusIndication amt_status_indicator = 95 [(ent.field) = {optional: true}]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
   uint64 amt_status_timestamp = 96 [(ent.field) = {optional: true}]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
-  string lvm_size = 97 [(ent.field) = {optional: true}]; // LVM size
+  // LVM size in GB. Must be greater than 0.
+  uint32 lvm_size = 97 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).uint32 = {
+      gt: 0
+    }
+  ];
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true

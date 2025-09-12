@@ -122,7 +122,7 @@ type HostResource struct {
 	// AmtStatusTimestamp holds the value of the "amt_status_timestamp" field.
 	AmtStatusTimestamp uint64 `json:"amt_status_timestamp,omitempty"`
 	// LvmSize holds the value of the "lvm_size" field.
-	LvmSize string `json:"lvm_size,omitempty"`
+	LvmSize uint32 `json:"lvm_size,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -233,9 +233,9 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp:
+		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp, hostresource.FieldLvmSize:
 			values[i] = new(sql.NullInt64)
-		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldLvmSize, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
+		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case hostresource.ForeignKeys[0]: // host_resource_site
 			values[i] = new(sql.NullInt64)
@@ -571,10 +571,10 @@ func (hr *HostResource) assignValues(columns []string, values []any) error {
 				hr.AmtStatusTimestamp = uint64(value.Int64)
 			}
 		case hostresource.FieldLvmSize:
-			if value, ok := values[i].(*sql.NullString); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field lvm_size", values[i])
 			} else if value.Valid {
-				hr.LvmSize = value.String
+				hr.LvmSize = uint32(value.Int64)
 			}
 		case hostresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -840,7 +840,7 @@ func (hr *HostResource) String() string {
 	builder.WriteString(fmt.Sprintf("%v", hr.AmtStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("lvm_size=")
-	builder.WriteString(hr.LvmSize)
+	builder.WriteString(fmt.Sprintf("%v", hr.LvmSize))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(hr.TenantID)
