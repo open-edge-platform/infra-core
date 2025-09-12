@@ -57,6 +57,7 @@ const (
 	HostResourceFieldAmtStatus                   = "amt_status"
 	HostResourceFieldAmtStatusIndicator          = "amt_status_indicator"
 	HostResourceFieldAmtStatusTimestamp          = "amt_status_timestamp"
+	HostResourceFieldLvmSize                     = "lvm_size"
 	HostResourceFieldSiteId                      = "site_id"
 	HostResourceEdgeMetadata                     = "metadata"
 	HostResourceEdgeInheritedMetadata            = "inherited_metadata"
