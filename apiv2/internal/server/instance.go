@@ -5,6 +5,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
@@ -313,7 +314,7 @@ func (is *InventorygRPCServer) GetInstance(
 	return instance, nil
 }
 
-// Update a instance. (PUT).
+// Update an instance. (PUT).
 func (is *InventorygRPCServer) UpdateInstance(
 	ctx context.Context,
 	req *restv1.UpdateInstanceRequest,
@@ -353,7 +354,7 @@ func (is *InventorygRPCServer) UpdateInstance(
 	return invUpRes, nil
 }
 
-// Update a instance. (PATCH).
+// Update an instance. (PATCH).
 func (is *InventorygRPCServer) PatchInstance(
 	ctx context.Context,
 	req *restv1.PatchInstanceRequest,
@@ -391,23 +392,7 @@ func (is *InventorygRPCServer) PatchInstance(
 	return invUpRes, nil
 }
 
-// Delete a instance.
-func (is *InventorygRPCServer) DeleteInstance(
-	ctx context.Context,
-	req *restv1.DeleteInstanceRequest,
-) (*restv1.DeleteInstanceResponse, error) {
-	zlog.Debug().Msg("DeleteInstance")
-
-	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
-		return nil, errors.Wrap(err)
-	}
-	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
-	return &restv1.DeleteInstanceResponse{}, nil
-}
-
-// Invalidate a instance.
+// Invalidate an instance.
 func (is *InventorygRPCServer) InvalidateInstance(
 	ctx context.Context,
 	req *restv1.InvalidateInstanceRequest,
@@ -434,4 +419,76 @@ func (is *InventorygRPCServer) InvalidateInstance(
 	}
 	zlog.Debug().Msgf("Invalidated %s", req.GetResourceId())
 	return &restv1.InvalidateInstanceResponse{}, nil
+}
+
+// deleteOSUpdateRunsForInstance deletes all OSUpdateRun resources linked to the given instance ID.
+func (is *InventorygRPCServer) deleteOSUpdateRunsForInstance(ctx context.Context, instanceID string) error {
+	zlog.Debug().Msgf("Deleting OSUpdateRuns for instance %s", instanceID)
+
+	// List all OSUpdateRuns that reference this instance
+	filter := &inventory.ResourceFilter{
+		Resource: &inventory.Resource{
+			Resource: &inventory.Resource_OsUpdateRun{
+				OsUpdateRun: &inv_computev1.OSUpdateRunResource{},
+			},
+		},
+		Filter: fmt.Sprintf("%s.%s = %q",
+			inv_computev1.OSUpdateRunResourceEdgeInstance,
+			inv_computev1.InstanceResourceFieldResourceId,
+			instanceID),
+	}
+
+	if err := validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate OSUpdateRun filter")
+		return errors.Wrap(err)
+	}
+
+	invResp, err := is.InvClient.List(ctx, filter)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("Failed to list OSUpdateRuns for instance %s", instanceID)
+		return errors.Wrap(err)
+	}
+
+	// Delete each OSUpdateRun
+	for _, invRes := range invResp.GetResources() {
+		osUpdateRun := invRes.GetResource().GetOsUpdateRun()
+		if osUpdateRun != nil {
+			runID := osUpdateRun.GetResourceId()
+			zlog.Debug().Msgf("Deleting OSUpdateRun %s for instance %s", runID, instanceID)
+
+			_, err := is.InvClient.Delete(ctx, runID)
+			if err != nil {
+				zlog.InfraErr(err).Msgf("Failed to delete OSUpdateRun %s for instance %s", runID, instanceID)
+				return errors.Wrap(err)
+			}
+		}
+	}
+
+	zlog.Debug().Msgf("Successfully deleted %d OSUpdateRuns for instance %s", len(invResp.GetResources()), instanceID)
+	return nil
+}
+
+// Delete an instance.
+func (is *InventorygRPCServer) DeleteInstance(
+	ctx context.Context,
+	req *restv1.DeleteInstanceRequest,
+) (*restv1.DeleteInstanceResponse, error) {
+	zlog.Debug().Msg("DeleteInstance")
+
+	instanceID := req.GetResourceId()
+
+	// First, delete all OSUpdateRuns linked to this instance
+	if err := is.deleteOSUpdateRunsForInstance(ctx, instanceID); err != nil {
+		zlog.InfraErr(err).Msgf("Failed to delete OSUpdateRuns for instance %s", instanceID)
+		return nil, errors.Wrap(err)
+	}
+
+	// Then delete the instance itself
+	_, err := is.InvClient.Delete(ctx, instanceID)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
+		return nil, errors.Wrap(err)
+	}
+	zlog.Debug().Msgf("Deleted instance %s and its associated OSUpdateRuns", instanceID)
+	return &restv1.DeleteInstanceResponse{}, nil
 }

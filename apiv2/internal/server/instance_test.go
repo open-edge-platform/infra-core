@@ -485,3 +485,187 @@ func TestInstance_Delete(t *testing.T) {
 		})
 	}
 }
+
+func TestInstance_DeleteWithOSUpdateRuns(t *testing.T) {
+	mockedClient := newMockedInventoryTestClient()
+	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
+
+	cases := []struct {
+		name    string
+		mocks   func() []*mock.Call
+		ctx     context.Context
+		req     *restv1.DeleteInstanceRequest
+		wantErr bool
+	}{
+		{
+			name: "Delete Instance with OSUpdateRuns - success",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					// Mock List call to find OSUpdateRuns linked to the instance
+					mockedClient.On("List", mock.Anything, mock.MatchedBy(func(filter *inventory.ResourceFilter) bool {
+						return filter.GetResource().GetOsUpdateRun() != nil
+					})).Return(&inventory.ListResourcesResponse{
+						Resources: []*inventory.GetResourceResponse{
+							{
+								Resource: &inventory.Resource{
+									Resource: &inventory.Resource_OsUpdateRun{
+										OsUpdateRun: &inv_computev1.OSUpdateRunResource{
+											ResourceId: "osrun-12345678",
+											Instance: &inv_computev1.InstanceResource{
+												ResourceId: "instance-12345678",
+											},
+										},
+									},
+								},
+							},
+							{
+								Resource: &inventory.Resource{
+									Resource: &inventory.Resource_OsUpdateRun{
+										OsUpdateRun: &inv_computev1.OSUpdateRunResource{
+											ResourceId: "osrun-87654321",
+											Instance: &inv_computev1.InstanceResource{
+												ResourceId: "instance-12345678",
+											},
+										},
+									},
+								},
+							},
+						},
+					}, nil).Once(),
+					// Mock Delete calls for each OSUpdateRun
+					mockedClient.On("Delete", mock.Anything, "osrun-12345678").
+						Return(&inventory.DeleteResourceResponse{}, nil).Once(),
+					mockedClient.On("Delete", mock.Anything, "osrun-87654321").
+						Return(&inventory.DeleteResourceResponse{}, nil).Once(),
+					// Mock Delete call for the instance itself
+					mockedClient.On("Delete", mock.Anything, "instance-12345678").
+						Return(&inventory.DeleteResourceResponse{}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.DeleteInstanceRequest{
+				ResourceId: "instance-12345678",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Delete Instance with no OSUpdateRuns - success",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					// Mock List call returns empty result
+					mockedClient.On("List", mock.Anything, mock.MatchedBy(func(filter *inventory.ResourceFilter) bool {
+						return filter.GetResource().GetOsUpdateRun() != nil
+					})).Return(&inventory.ListResourcesResponse{
+						Resources: []*inventory.GetResourceResponse{},
+					}, nil).Once(),
+					// Mock Delete call for the instance itself
+					mockedClient.On("Delete", mock.Anything, "instance-12345678").
+						Return(&inventory.DeleteResourceResponse{}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.DeleteInstanceRequest{
+				ResourceId: "instance-12345678",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Delete Instance - error listing OSUpdateRuns",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					// Mock List call returns error
+					mockedClient.On("List", mock.Anything, mock.MatchedBy(func(filter *inventory.ResourceFilter) bool {
+						return filter.GetResource().GetOsUpdateRun() != nil
+					})).Return(nil, errors.New("list error")).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.DeleteInstanceRequest{
+				ResourceId: "instance-12345678",
+			},
+			wantErr: true,
+		},
+		{
+			name: "Delete Instance - error deleting OSUpdateRun",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					// Mock List call to find OSUpdateRuns
+					mockedClient.On("List", mock.Anything, mock.MatchedBy(func(filter *inventory.ResourceFilter) bool {
+						return filter.GetResource().GetOsUpdateRun() != nil
+					})).Return(&inventory.ListResourcesResponse{
+						Resources: []*inventory.GetResourceResponse{
+							{
+								Resource: &inventory.Resource{
+									Resource: &inventory.Resource_OsUpdateRun{
+										OsUpdateRun: &inv_computev1.OSUpdateRunResource{
+											ResourceId: "osrun-12345678",
+											Instance: &inv_computev1.InstanceResource{
+												ResourceId: "instance-12345678",
+											},
+										},
+									},
+								},
+							},
+						},
+					}, nil).Once(),
+					// Mock Delete call for OSUpdateRun returns error
+					mockedClient.On("Delete", mock.Anything, "osrun-12345678").
+						Return(nil, errors.New("delete osrun error")).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.DeleteInstanceRequest{
+				ResourceId: "instance-12345678",
+			},
+			wantErr: true,
+		},
+		{
+			name: "Delete Instance - error deleting instance after OSUpdateRun cleanup",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					// Mock List call returns empty result
+					mockedClient.On("List", mock.Anything, mock.MatchedBy(func(filter *inventory.ResourceFilter) bool {
+						return filter.GetResource().GetOsUpdateRun() != nil
+					})).Return(&inventory.ListResourcesResponse{
+						Resources: []*inventory.GetResourceResponse{},
+					}, nil).Once(),
+					// Mock Delete call for the instance returns error
+					mockedClient.On("Delete", mock.Anything, "instance-12345678").
+						Return(nil, errors.New("delete instance error")).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.DeleteInstanceRequest{
+				ResourceId: "instance-12345678",
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.mocks != nil {
+				tc.mocks()
+			}
+
+			reply, err := server.DeleteInstance(tc.ctx, tc.req)
+			if tc.wantErr {
+				if err == nil {
+					t.Errorf("DeleteInstance() got err = nil, want err")
+				}
+				return
+			}
+			if err != nil {
+				t.Errorf("DeleteInstance() got err = %v, want nil", err)
+				return
+			}
+			if reply == nil {
+				t.Errorf("DeleteInstance() got reply = nil, want non-nil")
+				return
+			}
+
+			// Verify all expected calls were made
+			mockedClient.AssertExpectations(t)
+		})
+	}
+}
