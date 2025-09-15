@@ -6,7 +6,7 @@ appVersion: apps/v1
 metadata:
   standalone-node: true
 spec:
-  name: Edge Microvisor Toolkit Standalone 3.0.20250902
+  name: Edge Microvisor Toolkit Standalone 3.0.20250909
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
