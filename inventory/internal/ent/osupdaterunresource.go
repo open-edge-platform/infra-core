@@ -31,11 +31,11 @@ type OSUpdateRunResource struct {
 	// StatusDetails holds the value of the "status_details" field.
 	StatusDetails string `json:"status_details,omitempty"`
 	// StatusTimestamp holds the value of the "status_timestamp" field.
-	StatusTimestamp string `json:"status_timestamp,omitempty"`
+	StatusTimestamp uint64 `json:"status_timestamp,omitempty"`
 	// StartTime holds the value of the "start_time" field.
-	StartTime string `json:"start_time,omitempty"`
+	StartTime uint64 `json:"start_time,omitempty"`
 	// EndTime holds the value of the "end_time" field.
-	EndTime string `json:"end_time,omitempty"`
+	EndTime uint64 `json:"end_time,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -88,9 +88,9 @@ func (*OSUpdateRunResource) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case osupdaterunresource.FieldID:
+		case osupdaterunresource.FieldID, osupdaterunresource.FieldStatusTimestamp, osupdaterunresource.FieldStartTime, osupdaterunresource.FieldEndTime:
 			values[i] = new(sql.NullInt64)
-		case osupdaterunresource.FieldResourceID, osupdaterunresource.FieldName, osupdaterunresource.FieldDescription, osupdaterunresource.FieldStatusIndicator, osupdaterunresource.FieldStatus, osupdaterunresource.FieldStatusDetails, osupdaterunresource.FieldStatusTimestamp, osupdaterunresource.FieldStartTime, osupdaterunresource.FieldEndTime, osupdaterunresource.FieldTenantID, osupdaterunresource.FieldCreatedAt, osupdaterunresource.FieldUpdatedAt:
+		case osupdaterunresource.FieldResourceID, osupdaterunresource.FieldName, osupdaterunresource.FieldDescription, osupdaterunresource.FieldStatusIndicator, osupdaterunresource.FieldStatus, osupdaterunresource.FieldStatusDetails, osupdaterunresource.FieldTenantID, osupdaterunresource.FieldCreatedAt, osupdaterunresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case osupdaterunresource.ForeignKeys[0]: // os_update_run_resource_applied_policy
 			values[i] = new(sql.NullInt64)
@@ -154,22 +154,22 @@ func (ourr *OSUpdateRunResource) assignValues(columns []string, values []any) er
 				ourr.StatusDetails = value.String
 			}
 		case osupdaterunresource.FieldStatusTimestamp:
-			if value, ok := values[i].(*sql.NullString); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status_timestamp", values[i])
 			} else if value.Valid {
-				ourr.StatusTimestamp = value.String
+				ourr.StatusTimestamp = uint64(value.Int64)
 			}
 		case osupdaterunresource.FieldStartTime:
-			if value, ok := values[i].(*sql.NullString); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field start_time", values[i])
 			} else if value.Valid {
-				ourr.StartTime = value.String
+				ourr.StartTime = uint64(value.Int64)
 			}
 		case osupdaterunresource.FieldEndTime:
-			if value, ok := values[i].(*sql.NullString); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field end_time", values[i])
 			} else if value.Valid {
-				ourr.EndTime = value.String
+				ourr.EndTime = uint64(value.Int64)
 			}
 		case osupdaterunresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -268,13 +268,13 @@ func (ourr *OSUpdateRunResource) String() string {
 	builder.WriteString(ourr.StatusDetails)
 	builder.WriteString(", ")
 	builder.WriteString("status_timestamp=")
-	builder.WriteString(ourr.StatusTimestamp)
+	builder.WriteString(fmt.Sprintf("%v", ourr.StatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("start_time=")
-	builder.WriteString(ourr.StartTime)
+	builder.WriteString(fmt.Sprintf("%v", ourr.StartTime))
 	builder.WriteString(", ")
 	builder.WriteString("end_time=")
-	builder.WriteString(ourr.EndTime)
+	builder.WriteString(fmt.Sprintf("%v", ourr.EndTime))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(ourr.TenantID)

@@ -13,6 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
@@ -43,6 +44,7 @@ func TestMain(m *testing.M) {
 	os.Exit(run)
 }
 
+//nolint:funlen // Test function with many test cases
 func TestExtractTenantIDInterceptorEnforced(t *testing.T) {
 	interceptorWithEnforcement := tenant.GetExtractTenantIDInterceptor(expRoles)
 
@@ -98,6 +100,102 @@ func TestExtractTenantIDInterceptorEnforced(t *testing.T) {
 		_, err := interceptorWithEnforcement(context.Background(), nil, testInfo, testHandler)
 		require.Error(t, err)
 		assert.Equal(t, codes.Unauthenticated, status.Code(err))
+	})
+
+	t.Run("WithTenantIDFromMetadata", func(t *testing.T) {
+		// Create context with metadata containing activeprojectid
+		md := metadata.New(map[string]string{
+			"activeprojectid": testTenantID1,
+		})
+		ctx := metadata.NewIncomingContext(context.Background(), md)
+
+		testHandler := func(ctx context.Context, _ interface{}) (interface{}, error) {
+			// Verify that tenantID was extracted from metadata
+			assert.Equal(t, testTenantID1, ctx.Value(tenant.CtxTenantIDKey))
+			return "", nil
+		}
+
+		_, err := interceptorWithEnforcement(ctx, nil, nil, testHandler)
+		require.NoError(t, err)
+	})
+
+	t.Run("WithInvalidTenantIDFromMetadata", func(t *testing.T) {
+		// Create context with metadata containing invalid UUID
+		md := metadata.New(map[string]string{
+			"activeprojectid": "invalid-uuid",
+		})
+		ctx := metadata.NewIncomingContext(context.Background(), md)
+
+		testHandler := func(_ context.Context, _ interface{}) (interface{}, error) {
+			t.Errorf("Interceptor should block the request with invalid UUID")
+			return "", nil
+		}
+		testInfo := &grpc.UnaryServerInfo{
+			FullMethod: "example",
+		}
+
+		_, err := interceptorWithEnforcement(ctx, nil, testInfo, testHandler)
+		require.Error(t, err)
+		assert.Equal(t, codes.Unauthenticated, status.Code(err))
+	})
+
+	t.Run("WithEmptyMetadataFallbackToJWT", func(t *testing.T) {
+		// Create context with empty metadata but valid JWT
+		md := metadata.New(map[string]string{
+			"activeprojectid": "", // Empty metadata
+		})
+		ctx := metadata.NewIncomingContext(context.Background(), md)
+		// Add JWT context
+		ctx = inv_testing.CreateIncomingContextWithENJWT(t, ctx, testTenantID2)
+
+		testHandler := func(ctx context.Context, _ interface{}) (interface{}, error) {
+			// Verify that tenantID was extracted from JWT (fallback)
+			assert.Equal(t, testTenantID2, ctx.Value(tenant.CtxTenantIDKey))
+			return "", nil
+		}
+
+		_, err := interceptorWithEnforcement(ctx, nil, nil, testHandler)
+		require.NoError(t, err)
+	})
+
+	t.Run("WithNoMetadataFallbackToJWT", func(t *testing.T) {
+		// Create context without metadata but with valid JWT
+		ctx := inv_testing.CreateIncomingContextWithENJWT(t, context.Background(), testTenantID2)
+
+		testHandler := func(ctx context.Context, _ interface{}) (interface{}, error) {
+			// Verify that tenantID was extracted from JWT (fallback)
+			assert.Equal(t, testTenantID2, ctx.Value(tenant.CtxTenantIDKey))
+			return "", nil
+		}
+
+		_, err := interceptorWithEnforcement(ctx, nil, nil, testHandler)
+		require.NoError(t, err)
+	})
+
+	t.Run("MetadataTakesPrecedenceOverJWT", func(t *testing.T) {
+		// Create context with both metadata and JWT, metadata should take precedence
+		md := metadata.New(map[string]string{
+			"activeprojectid": testTenantID1, // metadata has testTenantID1
+		})
+		ctx := metadata.NewIncomingContext(context.Background(), md)
+
+		// Create JWT token manually and add it to the existing context without overriding metadata
+		_, jwtToken, err := inv_testing.CreateENJWT(t, testTenantID2)
+		require.NoError(t, err)
+
+		// Extract existing metadata and add JWT to it
+		existingMD, _ := metadata.FromIncomingContext(ctx)
+		newMD := metadata.Join(existingMD, metadata.Pairs("authorization", "Bearer "+jwtToken))
+		ctx = metadata.NewIncomingContext(context.Background(), newMD)
+
+		testHandler := func(ctx context.Context, _ interface{}) (interface{}, error) {
+			// Verify that tenantID from metadata takes precedence over JWT
+			assert.Equal(t, testTenantID1, ctx.Value(tenant.CtxTenantIDKey))
+			return "", nil
+		}
+
+		_, err = interceptorWithEnforcement(ctx, nil, nil, testHandler)
+		require.NoError(t, err)
 	})
 }
 

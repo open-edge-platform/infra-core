@@ -27,10 +27,11 @@ import (
 // The key is derived from the json property respectively of the
 // structs Instance defined in edge-infra-manager-openapi-types.gen.go.
 var OpenAPIInstanceToProto = map[string]string{
-	computev1.InstanceResourceFieldName:   inv_computev1.InstanceResourceFieldName,
-	computev1.InstanceResourceFieldKind:   inv_computev1.InstanceResourceFieldKind,
-	computev1.InstanceResourceFieldOsID:   inv_computev1.InstanceResourceEdgeDesiredOs,
-	computev1.InstanceResourceFieldHostID: inv_computev1.InstanceResourceEdgeHost,
+	computev1.InstanceResourceFieldName:             inv_computev1.InstanceResourceFieldName,
+	computev1.InstanceResourceFieldKind:             inv_computev1.InstanceResourceFieldKind,
+	computev1.InstanceResourceFieldOsID:             inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldHostID:           inv_computev1.InstanceResourceEdgeHost,
+	computev1.InstanceResourceFieldOsUpdatePolicyID: inv_computev1.InstanceResourceEdgeOsUpdatePolicy,
 }
 
 func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.InstanceResource, error) {
@@ -74,6 +75,13 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 	for _, ccID := range ccIDs {
 		invInstance.CustomConfig = append(invInstance.CustomConfig,
 			&inv_computev1.CustomConfigResource{ResourceId: ccID})
+	}
+
+	oupID := instance.GetOsUpdatePolicyID()
+	if isSet(&oupID) {
+		invInstance.OsUpdatePolicy = &inv_computev1.OSUpdatePolicyResource{
+			ResourceId: oupID,
+		}
 	}
 
 	err := validator.ValidateMessage(invInstance)
