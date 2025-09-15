@@ -90,27 +90,27 @@ func (ourrc *OSUpdateRunResourceCreate) SetNillableStatusDetails(s *string) *OSU
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStatusTimestamp(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStatusTimestamp(s)
+func (ourrc *OSUpdateRunResourceCreate) SetStatusTimestamp(u uint64) *OSUpdateRunResourceCreate {
+	ourrc.mutation.SetStatusTimestamp(u)
 	return ourrc
 }
 
 // SetStartTime sets the "start_time" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStartTime(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStartTime(s)
+func (ourrc *OSUpdateRunResourceCreate) SetStartTime(u uint64) *OSUpdateRunResourceCreate {
+	ourrc.mutation.SetStartTime(u)
 	return ourrc
 }
 
 // SetEndTime sets the "end_time" field.
-func (ourrc *OSUpdateRunResourceCreate) SetEndTime(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetEndTime(s)
+func (ourrc *OSUpdateRunResourceCreate) SetEndTime(u uint64) *OSUpdateRunResourceCreate {
+	ourrc.mutation.SetEndTime(u)
 	return ourrc
 }
 
 // SetNillableEndTime sets the "end_time" field if the given value is not nil.
-func (ourrc *OSUpdateRunResourceCreate) SetNillableEndTime(s *string) *OSUpdateRunResourceCreate {
-	if s != nil {
-		ourrc.SetEndTime(*s)
+func (ourrc *OSUpdateRunResourceCreate) SetNillableEndTime(u *uint64) *OSUpdateRunResourceCreate {
+	if u != nil {
+		ourrc.SetEndTime(*u)
 	}
 	return ourrc
 }
@@ -272,15 +272,15 @@ func (ourrc *OSUpdateRunResourceCreate) createSpec() (*OSUpdateRunResource, *sql
 		_node.StatusDetails = value
 	}
 	if value, ok := ourrc.mutation.StatusTimestamp(); ok {
-		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 		_node.StatusTimestamp = value
 	}
 	if value, ok := ourrc.mutation.StartTime(); ok {
-		_spec.SetField(osupdaterunresource.FieldStartTime, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldStartTime, field.TypeUint64, value)
 		_node.StartTime = value
 	}
 	if value, ok := ourrc.mutation.EndTime(); ok {
-		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
 		_node.EndTime = value
 	}
 	if value, ok := ourrc.mutation.TenantID(); ok {

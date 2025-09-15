@@ -20524,9 +20524,12 @@ type OSUpdateRunResourceMutation struct {
 	status_indicator      *osupdaterunresource.StatusIndicator
 	status                *string
 	status_details        *string
-	status_timestamp      *string
-	start_time            *string
-	end_time              *string
+	status_timestamp      *uint64
+	addstatus_timestamp   *int64
+	start_time            *uint64
+	addstart_time         *int64
+	end_time              *uint64
+	addend_time           *int64
 	tenant_id             *string
 	created_at            *string
 	updated_at            *string
@@ -20907,12 +20910,13 @@ func (m *OSUpdateRunResourceMutation) ResetStatusDetails() {
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (m *OSUpdateRunResourceMutation) SetStatusTimestamp(s string) {
-	m.status_timestamp = &s
+func (m *OSUpdateRunResourceMutation) SetStatusTimestamp(u uint64) {
+	m.status_timestamp = &u
+	m.addstatus_timestamp = nil
 }
 
 // StatusTimestamp returns the value of the "status_timestamp" field in the mutation.
-func (m *OSUpdateRunResourceMutation) StatusTimestamp() (r string, exists bool) {
+func (m *OSUpdateRunResourceMutation) StatusTimestamp() (r uint64, exists bool) {
 	v := m.status_timestamp
 	if v == nil {
 		return
@@ -20923,7 +20927,7 @@ func (m *OSUpdateRunResourceMutation) StatusTimestamp() (r string, exists bool) 
 // OldStatusTimestamp returns the old "status_timestamp" field's value of the OSUpdateRunResource entity.
 // If the OSUpdateRunResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdateRunResourceMutation) OldStatusTimestamp(ctx context.Context) (v string, err error) {
+func (m *OSUpdateRunResourceMutation) OldStatusTimestamp(ctx context.Context) (v uint64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStatusTimestamp is only allowed on UpdateOne operations")
 	}
@@ -20937,18 +20941,38 @@ func (m *OSUpdateRunResourceMutation) OldStatusTimestamp(ctx context.Context) (v
 	return oldValue.StatusTimestamp, nil
 }
 
+// AddStatusTimestamp adds u to the "status_timestamp" field.
+func (m *OSUpdateRunResourceMutation) AddStatusTimestamp(u int64) {
+	if m.addstatus_timestamp != nil {
+		*m.addstatus_timestamp += u
+	} else {
+		m.addstatus_timestamp = &u
+	}
+}
+
+// AddedStatusTimestamp returns the value that was added to the "status_timestamp" field in this mutation.
+func (m *OSUpdateRunResourceMutation) AddedStatusTimestamp() (r int64, exists bool) {
+	v := m.addstatus_timestamp
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetStatusTimestamp resets all changes to the "status_timestamp" field.
 func (m *OSUpdateRunResourceMutation) ResetStatusTimestamp() {
 	m.status_timestamp = nil
+	m.addstatus_timestamp = nil
 }
 
 // SetStartTime sets the "start_time" field.
-func (m *OSUpdateRunResourceMutation) SetStartTime(s string) {
-	m.start_time = &s
+func (m *OSUpdateRunResourceMutation) SetStartTime(u uint64) {
+	m.start_time = &u
+	m.addstart_time = nil
 }
 
 // StartTime returns the value of the "start_time" field in the mutation.
-func (m *OSUpdateRunResourceMutation) StartTime() (r string, exists bool) {
+func (m *OSUpdateRunResourceMutation) StartTime() (r uint64, exists bool) {
 	v := m.start_time
 	if v == nil {
 		return
@@ -20959,7 +20983,7 @@ func (m *OSUpdateRunResourceMutation) StartTime() (r string, exists bool) {
 // OldStartTime returns the old "start_time" field's value of the OSUpdateRunResource entity.
 // If the OSUpdateRunResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdateRunResourceMutation) OldStartTime(ctx context.Context) (v string, err error) {
+func (m *OSUpdateRunResourceMutation) OldStartTime(ctx context.Context) (v uint64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStartTime is only allowed on UpdateOne operations")
 	}
@@ -20973,18 +20997,38 @@ func (m *OSUpdateRunResourceMutation) OldStartTime(ctx context.Context) (v strin
 	return oldValue.StartTime, nil
 }
 
+// AddStartTime adds u to the "start_time" field.
+func (m *OSUpdateRunResourceMutation) AddStartTime(u int64) {
+	if m.addstart_time != nil {
+		*m.addstart_time += u
+	} else {
+		m.addstart_time = &u
+	}
+}
+
+// AddedStartTime returns the value that was added to the "start_time" field in this mutation.
+func (m *OSUpdateRunResourceMutation) AddedStartTime() (r int64, exists bool) {
+	v := m.addstart_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetStartTime resets all changes to the "start_time" field.
 func (m *OSUpdateRunResourceMutation) ResetStartTime() {
 	m.start_time = nil
+	m.addstart_time = nil
 }
 
 // SetEndTime sets the "end_time" field.
-func (m *OSUpdateRunResourceMutation) SetEndTime(s string) {
-	m.end_time = &s
+func (m *OSUpdateRunResourceMutation) SetEndTime(u uint64) {
+	m.end_time = &u
+	m.addend_time = nil
 }
 
 // EndTime returns the value of the "end_time" field in the mutation.
-func (m *OSUpdateRunResourceMutation) EndTime() (r string, exists bool) {
+func (m *OSUpdateRunResourceMutation) EndTime() (r uint64, exists bool) {
 	v := m.end_time
 	if v == nil {
 		return
@@ -20995,7 +21039,7 @@ func (m *OSUpdateRunResourceMutation) EndTime() (r string, exists bool) {
 // OldEndTime returns the old "end_time" field's value of the OSUpdateRunResource entity.
 // If the OSUpdateRunResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdateRunResourceMutation) OldEndTime(ctx context.Context) (v string, err error) {
+func (m *OSUpdateRunResourceMutation) OldEndTime(ctx context.Context) (v uint64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldEndTime is only allowed on UpdateOne operations")
 	}
@@ -21009,9 +21053,28 @@ func (m *OSUpdateRunResourceMutation) OldEndTime(ctx context.Context) (v string,
 	return oldValue.EndTime, nil
 }
 
+// AddEndTime adds u to the "end_time" field.
+func (m *OSUpdateRunResourceMutation) AddEndTime(u int64) {
+	if m.addend_time != nil {
+		*m.addend_time += u
+	} else {
+		m.addend_time = &u
+	}
+}
+
+// AddedEndTime returns the value that was added to the "end_time" field in this mutation.
+func (m *OSUpdateRunResourceMutation) AddedEndTime() (r int64, exists bool) {
+	v := m.addend_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ClearEndTime clears the value of the "end_time" field.
 func (m *OSUpdateRunResourceMutation) ClearEndTime() {
 	m.end_time = nil
+	m.addend_time = nil
 	m.clearedFields[osupdaterunresource.FieldEndTime] = struct{}{}
 }
 
@@ -21024,6 +21087,7 @@ func (m *OSUpdateRunResourceMutation) EndTimeCleared() bool {
 // ResetEndTime resets all changes to the "end_time" field.
 func (m *OSUpdateRunResourceMutation) ResetEndTime() {
 	m.end_time = nil
+	m.addend_time = nil
 	delete(m.clearedFields, osupdaterunresource.FieldEndTime)
 }
 
@@ -21401,21 +21465,21 @@ func (m *OSUpdateRunResourceMutation) SetField(name string, value ent.Value) err
 		m.SetStatusDetails(v)
 		return nil
 	case osupdaterunresource.FieldStatusTimestamp:
-		v, ok := value.(string)
+		v, ok := value.(uint64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStatusTimestamp(v)
 		return nil
 	case osupdaterunresource.FieldStartTime:
-		v, ok := value.(string)
+		v, ok := value.(uint64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStartTime(v)
 		return nil
 	case osupdaterunresource.FieldEndTime:
-		v, ok := value.(string)
+		v, ok := value.(uint64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -21449,13 +21513,31 @@ func (m *OSUpdateRunResourceMutation) SetField(name string, value ent.Value) err
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *OSUpdateRunResourceMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addstatus_timestamp != nil {
+		fields = append(fields, osupdaterunresource.FieldStatusTimestamp)
+	}
+	if m.addstart_time != nil {
+		fields = append(fields, osupdaterunresource.FieldStartTime)
+	}
+	if m.addend_time != nil {
+		fields = append(fields, osupdaterunresource.FieldEndTime)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *OSUpdateRunResourceMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case osupdaterunresource.FieldStatusTimestamp:
+		return m.AddedStatusTimestamp()
+	case osupdaterunresource.FieldStartTime:
+		return m.AddedStartTime()
+	case osupdaterunresource.FieldEndTime:
+		return m.AddedEndTime()
+	}
 	return nil, false
 }
 
@@ -21464,6 +21546,27 @@ func (m *OSUpdateRunResourceMutation) AddedField(name string) (ent.Value, bool) 
 // type.
 func (m *OSUpdateRunResourceMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case osupdaterunresource.FieldStatusTimestamp:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatusTimestamp(v)
+		return nil
+	case osupdaterunresource.FieldStartTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStartTime(v)
+		return nil
+	case osupdaterunresource.FieldEndTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddEndTime(v)
+		return nil
 	}
 	return fmt.Errorf("unknown OSUpdateRunResource numeric field %s", name)
 }
