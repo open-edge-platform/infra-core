@@ -421,6 +421,7 @@ func TestInstance_Update(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Test functions are long but necessary to test all the cases.
 func TestInstance_Delete(t *testing.T) {
 	mockedClient := newMockedInventoryTestClient()
 	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
