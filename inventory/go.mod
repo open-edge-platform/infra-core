@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/inventory/v2
 
-go 1.25
+go 1.24.6
 
 require (
 	ariga.io/atlas v0.36.1
@@ -14,7 +14,7 @@ require (
 	github.com/Nerzal/gocloak/v13 v13.9.0
 	github.com/adhocore/gronx v1.19.6
 	github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/eko/gocache/lib/v4 v4.2.1
+	github.com/eko/gocache/lib/v4 v4.2.0
 	github.com/eko/gocache/store/go_cache/v4 v4.2.2
 	github.com/goccy/go-json v0.10.5
 	github.com/golang-jwt/jwt/v5 v5.3.0
