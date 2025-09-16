@@ -23,144 +23,144 @@ type TelemetryGroupResourceUpdate struct {
 }
 
 // Where appends a list predicates to the TelemetryGroupResourceUpdate builder.
-func (tgru *TelemetryGroupResourceUpdate) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceUpdate {
-	tgru.mutation.Where(ps...)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tgru *TelemetryGroupResourceUpdate) SetResourceID(s string) *TelemetryGroupResourceUpdate {
-	tgru.mutation.SetResourceID(s)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) SetResourceID(v string) *TelemetryGroupResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (tgru *TelemetryGroupResourceUpdate) SetNillableResourceID(s *string) *TelemetryGroupResourceUpdate {
-	if s != nil {
-		tgru.SetResourceID(*s)
+func (_u *TelemetryGroupResourceUpdate) SetNillableResourceID(v *string) *TelemetryGroupResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return tgru
+	return _u
 }
 
 // SetName sets the "name" field.
-func (tgru *TelemetryGroupResourceUpdate) SetName(s string) *TelemetryGroupResourceUpdate {
-	tgru.mutation.SetName(s)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) SetName(v string) *TelemetryGroupResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (tgru *TelemetryGroupResourceUpdate) SetNillableName(s *string) *TelemetryGroupResourceUpdate {
-	if s != nil {
-		tgru.SetName(*s)
+func (_u *TelemetryGroupResourceUpdate) SetNillableName(v *string) *TelemetryGroupResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return tgru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (tgru *TelemetryGroupResourceUpdate) SetKind(t telemetrygroupresource.Kind) *TelemetryGroupResourceUpdate {
-	tgru.mutation.SetKind(t)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) SetKind(v telemetrygroupresource.Kind) *TelemetryGroupResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (tgru *TelemetryGroupResourceUpdate) SetNillableKind(t *telemetrygroupresource.Kind) *TelemetryGroupResourceUpdate {
-	if t != nil {
-		tgru.SetKind(*t)
+func (_u *TelemetryGroupResourceUpdate) SetNillableKind(v *telemetrygroupresource.Kind) *TelemetryGroupResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return tgru
+	return _u
 }
 
 // SetCollectorKind sets the "collector_kind" field.
-func (tgru *TelemetryGroupResourceUpdate) SetCollectorKind(tk telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdate {
-	tgru.mutation.SetCollectorKind(tk)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) SetCollectorKind(v telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdate {
+	_u.mutation.SetCollectorKind(v)
+	return _u
 }
 
 // SetNillableCollectorKind sets the "collector_kind" field if the given value is not nil.
-func (tgru *TelemetryGroupResourceUpdate) SetNillableCollectorKind(tk *telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdate {
-	if tk != nil {
-		tgru.SetCollectorKind(*tk)
+func (_u *TelemetryGroupResourceUpdate) SetNillableCollectorKind(v *telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdate {
+	if v != nil {
+		_u.SetCollectorKind(*v)
 	}
-	return tgru
+	return _u
 }
 
 // SetGroups sets the "groups" field.
-func (tgru *TelemetryGroupResourceUpdate) SetGroups(s string) *TelemetryGroupResourceUpdate {
-	tgru.mutation.SetGroups(s)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) SetGroups(v string) *TelemetryGroupResourceUpdate {
+	_u.mutation.SetGroups(v)
+	return _u
 }
 
 // SetNillableGroups sets the "groups" field if the given value is not nil.
-func (tgru *TelemetryGroupResourceUpdate) SetNillableGroups(s *string) *TelemetryGroupResourceUpdate {
-	if s != nil {
-		tgru.SetGroups(*s)
+func (_u *TelemetryGroupResourceUpdate) SetNillableGroups(v *string) *TelemetryGroupResourceUpdate {
+	if v != nil {
+		_u.SetGroups(*v)
 	}
-	return tgru
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tgru *TelemetryGroupResourceUpdate) SetUpdatedAt(s string) *TelemetryGroupResourceUpdate {
-	tgru.mutation.SetUpdatedAt(s)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) SetUpdatedAt(v string) *TelemetryGroupResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (tgru *TelemetryGroupResourceUpdate) SetNillableUpdatedAt(s *string) *TelemetryGroupResourceUpdate {
-	if s != nil {
-		tgru.SetUpdatedAt(*s)
+func (_u *TelemetryGroupResourceUpdate) SetNillableUpdatedAt(v *string) *TelemetryGroupResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return tgru
+	return _u
 }
 
 // AddProfileIDs adds the "profiles" edge to the TelemetryProfile entity by IDs.
-func (tgru *TelemetryGroupResourceUpdate) AddProfileIDs(ids ...int) *TelemetryGroupResourceUpdate {
-	tgru.mutation.AddProfileIDs(ids...)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) AddProfileIDs(ids ...int) *TelemetryGroupResourceUpdate {
+	_u.mutation.AddProfileIDs(ids...)
+	return _u
 }
 
 // AddProfiles adds the "profiles" edges to the TelemetryProfile entity.
-func (tgru *TelemetryGroupResourceUpdate) AddProfiles(t ...*TelemetryProfile) *TelemetryGroupResourceUpdate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *TelemetryGroupResourceUpdate) AddProfiles(v ...*TelemetryProfile) *TelemetryGroupResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tgru.AddProfileIDs(ids...)
+	return _u.AddProfileIDs(ids...)
 }
 
 // Mutation returns the TelemetryGroupResourceMutation object of the builder.
-func (tgru *TelemetryGroupResourceUpdate) Mutation() *TelemetryGroupResourceMutation {
-	return tgru.mutation
+func (_u *TelemetryGroupResourceUpdate) Mutation() *TelemetryGroupResourceMutation {
+	return _u.mutation
 }
 
 // ClearProfiles clears all "profiles" edges to the TelemetryProfile entity.
-func (tgru *TelemetryGroupResourceUpdate) ClearProfiles() *TelemetryGroupResourceUpdate {
-	tgru.mutation.ClearProfiles()
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) ClearProfiles() *TelemetryGroupResourceUpdate {
+	_u.mutation.ClearProfiles()
+	return _u
 }
 
 // RemoveProfileIDs removes the "profiles" edge to TelemetryProfile entities by IDs.
-func (tgru *TelemetryGroupResourceUpdate) RemoveProfileIDs(ids ...int) *TelemetryGroupResourceUpdate {
-	tgru.mutation.RemoveProfileIDs(ids...)
-	return tgru
+func (_u *TelemetryGroupResourceUpdate) RemoveProfileIDs(ids ...int) *TelemetryGroupResourceUpdate {
+	_u.mutation.RemoveProfileIDs(ids...)
+	return _u
 }
 
 // RemoveProfiles removes "profiles" edges to TelemetryProfile entities.
-func (tgru *TelemetryGroupResourceUpdate) RemoveProfiles(t ...*TelemetryProfile) *TelemetryGroupResourceUpdate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *TelemetryGroupResourceUpdate) RemoveProfiles(v ...*TelemetryProfile) *TelemetryGroupResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tgru.RemoveProfileIDs(ids...)
+	return _u.RemoveProfileIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (tgru *TelemetryGroupResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, tgru.sqlSave, tgru.mutation, tgru.hooks)
+func (_u *TelemetryGroupResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tgru *TelemetryGroupResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := tgru.Save(ctx)
+func (_u *TelemetryGroupResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -168,26 +168,26 @@ func (tgru *TelemetryGroupResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (tgru *TelemetryGroupResourceUpdate) Exec(ctx context.Context) error {
-	_, err := tgru.Save(ctx)
+func (_u *TelemetryGroupResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tgru *TelemetryGroupResourceUpdate) ExecX(ctx context.Context) {
-	if err := tgru.Exec(ctx); err != nil {
+func (_u *TelemetryGroupResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tgru *TelemetryGroupResourceUpdate) check() error {
-	if v, ok := tgru.mutation.Kind(); ok {
+func (_u *TelemetryGroupResourceUpdate) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := telemetrygroupresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryGroupResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := tgru.mutation.CollectorKind(); ok {
+	if v, ok := _u.mutation.CollectorKind(); ok {
 		if err := telemetrygroupresource.CollectorKindValidator(v); err != nil {
 			return &ValidationError{Name: "collector_kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryGroupResource.collector_kind": %w`, err)}
 		}
@@ -195,37 +195,37 @@ func (tgru *TelemetryGroupResourceUpdate) check() error {
 	return nil
 }
 
-func (tgru *TelemetryGroupResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := tgru.check(); err != nil {
-		return n, err
+func (_u *TelemetryGroupResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(telemetrygroupresource.Table, telemetrygroupresource.Columns, sqlgraph.NewFieldSpec(telemetrygroupresource.FieldID, field.TypeInt))
-	if ps := tgru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tgru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(telemetrygroupresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := tgru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(telemetrygroupresource.FieldName, field.TypeString, value)
 	}
-	if value, ok := tgru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(telemetrygroupresource.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := tgru.mutation.CollectorKind(); ok {
+	if value, ok := _u.mutation.CollectorKind(); ok {
 		_spec.SetField(telemetrygroupresource.FieldCollectorKind, field.TypeEnum, value)
 	}
-	if value, ok := tgru.mutation.Groups(); ok {
+	if value, ok := _u.mutation.Groups(); ok {
 		_spec.SetField(telemetrygroupresource.FieldGroups, field.TypeString, value)
 	}
-	if value, ok := tgru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(telemetrygroupresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if tgru.mutation.ProfilesCleared() {
+	if _u.mutation.ProfilesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -238,7 +238,7 @@ func (tgru *TelemetryGroupResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tgru.mutation.RemovedProfilesIDs(); len(nodes) > 0 && !tgru.mutation.ProfilesCleared() {
+	if nodes := _u.mutation.RemovedProfilesIDs(); len(nodes) > 0 && !_u.mutation.ProfilesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -254,7 +254,7 @@ func (tgru *TelemetryGroupResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tgru.mutation.ProfilesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProfilesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -270,7 +270,7 @@ func (tgru *TelemetryGroupResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, tgru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{telemetrygroupresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -278,8 +278,8 @@ func (tgru *TelemetryGroupResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		return 0, err
 	}
-	tgru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // TelemetryGroupResourceUpdateOne is the builder for updating a single TelemetryGroupResource entity.
@@ -291,151 +291,151 @@ type TelemetryGroupResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetResourceID(s string) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.SetResourceID(s)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) SetResourceID(v string) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetNillableResourceID(s *string) *TelemetryGroupResourceUpdateOne {
-	if s != nil {
-		tgruo.SetResourceID(*s)
+func (_u *TelemetryGroupResourceUpdateOne) SetNillableResourceID(v *string) *TelemetryGroupResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return tgruo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetName(s string) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.SetName(s)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) SetName(v string) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetNillableName(s *string) *TelemetryGroupResourceUpdateOne {
-	if s != nil {
-		tgruo.SetName(*s)
+func (_u *TelemetryGroupResourceUpdateOne) SetNillableName(v *string) *TelemetryGroupResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return tgruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetKind(t telemetrygroupresource.Kind) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.SetKind(t)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) SetKind(v telemetrygroupresource.Kind) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetNillableKind(t *telemetrygroupresource.Kind) *TelemetryGroupResourceUpdateOne {
-	if t != nil {
-		tgruo.SetKind(*t)
+func (_u *TelemetryGroupResourceUpdateOne) SetNillableKind(v *telemetrygroupresource.Kind) *TelemetryGroupResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return tgruo
+	return _u
 }
 
 // SetCollectorKind sets the "collector_kind" field.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetCollectorKind(tk telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.SetCollectorKind(tk)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) SetCollectorKind(v telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.SetCollectorKind(v)
+	return _u
 }
 
 // SetNillableCollectorKind sets the "collector_kind" field if the given value is not nil.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetNillableCollectorKind(tk *telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdateOne {
-	if tk != nil {
-		tgruo.SetCollectorKind(*tk)
+func (_u *TelemetryGroupResourceUpdateOne) SetNillableCollectorKind(v *telemetrygroupresource.CollectorKind) *TelemetryGroupResourceUpdateOne {
+	if v != nil {
+		_u.SetCollectorKind(*v)
 	}
-	return tgruo
+	return _u
 }
 
 // SetGroups sets the "groups" field.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetGroups(s string) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.SetGroups(s)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) SetGroups(v string) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.SetGroups(v)
+	return _u
 }
 
 // SetNillableGroups sets the "groups" field if the given value is not nil.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetNillableGroups(s *string) *TelemetryGroupResourceUpdateOne {
-	if s != nil {
-		tgruo.SetGroups(*s)
+func (_u *TelemetryGroupResourceUpdateOne) SetNillableGroups(v *string) *TelemetryGroupResourceUpdateOne {
+	if v != nil {
+		_u.SetGroups(*v)
 	}
-	return tgruo
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetUpdatedAt(s string) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.SetUpdatedAt(s)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) SetUpdatedAt(v string) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (tgruo *TelemetryGroupResourceUpdateOne) SetNillableUpdatedAt(s *string) *TelemetryGroupResourceUpdateOne {
-	if s != nil {
-		tgruo.SetUpdatedAt(*s)
+func (_u *TelemetryGroupResourceUpdateOne) SetNillableUpdatedAt(v *string) *TelemetryGroupResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return tgruo
+	return _u
 }
 
 // AddProfileIDs adds the "profiles" edge to the TelemetryProfile entity by IDs.
-func (tgruo *TelemetryGroupResourceUpdateOne) AddProfileIDs(ids ...int) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.AddProfileIDs(ids...)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) AddProfileIDs(ids ...int) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.AddProfileIDs(ids...)
+	return _u
 }
 
 // AddProfiles adds the "profiles" edges to the TelemetryProfile entity.
-func (tgruo *TelemetryGroupResourceUpdateOne) AddProfiles(t ...*TelemetryProfile) *TelemetryGroupResourceUpdateOne {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *TelemetryGroupResourceUpdateOne) AddProfiles(v ...*TelemetryProfile) *TelemetryGroupResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tgruo.AddProfileIDs(ids...)
+	return _u.AddProfileIDs(ids...)
 }
 
 // Mutation returns the TelemetryGroupResourceMutation object of the builder.
-func (tgruo *TelemetryGroupResourceUpdateOne) Mutation() *TelemetryGroupResourceMutation {
-	return tgruo.mutation
+func (_u *TelemetryGroupResourceUpdateOne) Mutation() *TelemetryGroupResourceMutation {
+	return _u.mutation
 }
 
 // ClearProfiles clears all "profiles" edges to the TelemetryProfile entity.
-func (tgruo *TelemetryGroupResourceUpdateOne) ClearProfiles() *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.ClearProfiles()
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) ClearProfiles() *TelemetryGroupResourceUpdateOne {
+	_u.mutation.ClearProfiles()
+	return _u
 }
 
 // RemoveProfileIDs removes the "profiles" edge to TelemetryProfile entities by IDs.
-func (tgruo *TelemetryGroupResourceUpdateOne) RemoveProfileIDs(ids ...int) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.RemoveProfileIDs(ids...)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) RemoveProfileIDs(ids ...int) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.RemoveProfileIDs(ids...)
+	return _u
 }
 
 // RemoveProfiles removes "profiles" edges to TelemetryProfile entities.
-func (tgruo *TelemetryGroupResourceUpdateOne) RemoveProfiles(t ...*TelemetryProfile) *TelemetryGroupResourceUpdateOne {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *TelemetryGroupResourceUpdateOne) RemoveProfiles(v ...*TelemetryProfile) *TelemetryGroupResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tgruo.RemoveProfileIDs(ids...)
+	return _u.RemoveProfileIDs(ids...)
 }
 
 // Where appends a list predicates to the TelemetryGroupResourceUpdate builder.
-func (tgruo *TelemetryGroupResourceUpdateOne) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceUpdateOne {
-	tgruo.mutation.Where(ps...)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (tgruo *TelemetryGroupResourceUpdateOne) Select(field string, fields ...string) *TelemetryGroupResourceUpdateOne {
-	tgruo.fields = append([]string{field}, fields...)
-	return tgruo
+func (_u *TelemetryGroupResourceUpdateOne) Select(field string, fields ...string) *TelemetryGroupResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated TelemetryGroupResource entity.
-func (tgruo *TelemetryGroupResourceUpdateOne) Save(ctx context.Context) (*TelemetryGroupResource, error) {
-	return withHooks(ctx, tgruo.sqlSave, tgruo.mutation, tgruo.hooks)
+func (_u *TelemetryGroupResourceUpdateOne) Save(ctx context.Context) (*TelemetryGroupResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tgruo *TelemetryGroupResourceUpdateOne) SaveX(ctx context.Context) *TelemetryGroupResource {
-	node, err := tgruo.Save(ctx)
+func (_u *TelemetryGroupResourceUpdateOne) SaveX(ctx context.Context) *TelemetryGroupResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -443,26 +443,26 @@ func (tgruo *TelemetryGroupResourceUpdateOne) SaveX(ctx context.Context) *Teleme
 }
 
 // Exec executes the query on the entity.
-func (tgruo *TelemetryGroupResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := tgruo.Save(ctx)
+func (_u *TelemetryGroupResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tgruo *TelemetryGroupResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := tgruo.Exec(ctx); err != nil {
+func (_u *TelemetryGroupResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tgruo *TelemetryGroupResourceUpdateOne) check() error {
-	if v, ok := tgruo.mutation.Kind(); ok {
+func (_u *TelemetryGroupResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := telemetrygroupresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryGroupResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := tgruo.mutation.CollectorKind(); ok {
+	if v, ok := _u.mutation.CollectorKind(); ok {
 		if err := telemetrygroupresource.CollectorKindValidator(v); err != nil {
 			return &ValidationError{Name: "collector_kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryGroupResource.collector_kind": %w`, err)}
 		}
@@ -470,17 +470,17 @@ func (tgruo *TelemetryGroupResourceUpdateOne) check() error {
 	return nil
 }
 
-func (tgruo *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_node *TelemetryGroupResource, err error) {
-	if err := tgruo.check(); err != nil {
+func (_u *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_node *TelemetryGroupResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(telemetrygroupresource.Table, telemetrygroupresource.Columns, sqlgraph.NewFieldSpec(telemetrygroupresource.FieldID, field.TypeInt))
-	id, ok := tgruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "TelemetryGroupResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := tgruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, telemetrygroupresource.FieldID)
 		for _, f := range fields {
@@ -492,32 +492,32 @@ func (tgruo *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 			}
 		}
 	}
-	if ps := tgruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tgruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(telemetrygroupresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := tgruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(telemetrygroupresource.FieldName, field.TypeString, value)
 	}
-	if value, ok := tgruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(telemetrygroupresource.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := tgruo.mutation.CollectorKind(); ok {
+	if value, ok := _u.mutation.CollectorKind(); ok {
 		_spec.SetField(telemetrygroupresource.FieldCollectorKind, field.TypeEnum, value)
 	}
-	if value, ok := tgruo.mutation.Groups(); ok {
+	if value, ok := _u.mutation.Groups(); ok {
 		_spec.SetField(telemetrygroupresource.FieldGroups, field.TypeString, value)
 	}
-	if value, ok := tgruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(telemetrygroupresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if tgruo.mutation.ProfilesCleared() {
+	if _u.mutation.ProfilesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -530,7 +530,7 @@ func (tgruo *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tgruo.mutation.RemovedProfilesIDs(); len(nodes) > 0 && !tgruo.mutation.ProfilesCleared() {
+	if nodes := _u.mutation.RemovedProfilesIDs(); len(nodes) > 0 && !_u.mutation.ProfilesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -546,7 +546,7 @@ func (tgruo *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tgruo.mutation.ProfilesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProfilesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -562,10 +562,10 @@ func (tgruo *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &TelemetryGroupResource{config: tgruo.config}
+	_node = &TelemetryGroupResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, tgruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{telemetrygroupresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -573,6 +573,6 @@ func (tgruo *TelemetryGroupResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		return nil, err
 	}
-	tgruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

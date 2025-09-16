@@ -20,56 +20,56 @@ type ProviderResourceDelete struct {
 }
 
 // Where appends a list predicates to the ProviderResourceDelete builder.
-func (prd *ProviderResourceDelete) Where(ps ...predicate.ProviderResource) *ProviderResourceDelete {
-	prd.mutation.Where(ps...)
-	return prd
+func (_d *ProviderResourceDelete) Where(ps ...predicate.ProviderResource) *ProviderResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (prd *ProviderResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, prd.sqlExec, prd.mutation, prd.hooks)
+func (_d *ProviderResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (prd *ProviderResourceDelete) ExecX(ctx context.Context) int {
-	n, err := prd.Exec(ctx)
+func (_d *ProviderResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (prd *ProviderResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *ProviderResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(providerresource.Table, sqlgraph.NewFieldSpec(providerresource.FieldID, field.TypeInt))
-	if ps := prd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, prd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	prd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // ProviderResourceDeleteOne is the builder for deleting a single ProviderResource entity.
 type ProviderResourceDeleteOne struct {
-	prd *ProviderResourceDelete
+	_d *ProviderResourceDelete
 }
 
 // Where appends a list predicates to the ProviderResourceDelete builder.
-func (prdo *ProviderResourceDeleteOne) Where(ps ...predicate.ProviderResource) *ProviderResourceDeleteOne {
-	prdo.prd.mutation.Where(ps...)
-	return prdo
+func (_d *ProviderResourceDeleteOne) Where(ps ...predicate.ProviderResource) *ProviderResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (prdo *ProviderResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := prdo.prd.Exec(ctx)
+func (_d *ProviderResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (prdo *ProviderResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (prdo *ProviderResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := prdo.Exec(ctx); err != nil {
+func (_d *ProviderResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

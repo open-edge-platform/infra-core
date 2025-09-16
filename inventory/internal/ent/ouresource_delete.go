@@ -20,56 +20,56 @@ type OuResourceDelete struct {
 }
 
 // Where appends a list predicates to the OuResourceDelete builder.
-func (ord *OuResourceDelete) Where(ps ...predicate.OuResource) *OuResourceDelete {
-	ord.mutation.Where(ps...)
-	return ord
+func (_d *OuResourceDelete) Where(ps ...predicate.OuResource) *OuResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (ord *OuResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, ord.sqlExec, ord.mutation, ord.hooks)
+func (_d *OuResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ord *OuResourceDelete) ExecX(ctx context.Context) int {
-	n, err := ord.Exec(ctx)
+func (_d *OuResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (ord *OuResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *OuResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(ouresource.Table, sqlgraph.NewFieldSpec(ouresource.FieldID, field.TypeInt))
-	if ps := ord.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, ord.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	ord.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // OuResourceDeleteOne is the builder for deleting a single OuResource entity.
 type OuResourceDeleteOne struct {
-	ord *OuResourceDelete
+	_d *OuResourceDelete
 }
 
 // Where appends a list predicates to the OuResourceDelete builder.
-func (ordo *OuResourceDeleteOne) Where(ps ...predicate.OuResource) *OuResourceDeleteOne {
-	ordo.ord.mutation.Where(ps...)
-	return ordo
+func (_d *OuResourceDeleteOne) Where(ps ...predicate.OuResource) *OuResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (ordo *OuResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := ordo.ord.Exec(ctx)
+func (_d *OuResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (ordo *OuResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ordo *OuResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := ordo.Exec(ctx); err != nil {
+func (_d *OuResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

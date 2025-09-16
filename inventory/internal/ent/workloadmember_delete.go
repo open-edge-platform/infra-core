@@ -20,56 +20,56 @@ type WorkloadMemberDelete struct {
 }
 
 // Where appends a list predicates to the WorkloadMemberDelete builder.
-func (wmd *WorkloadMemberDelete) Where(ps ...predicate.WorkloadMember) *WorkloadMemberDelete {
-	wmd.mutation.Where(ps...)
-	return wmd
+func (_d *WorkloadMemberDelete) Where(ps ...predicate.WorkloadMember) *WorkloadMemberDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (wmd *WorkloadMemberDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, wmd.sqlExec, wmd.mutation, wmd.hooks)
+func (_d *WorkloadMemberDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wmd *WorkloadMemberDelete) ExecX(ctx context.Context) int {
-	n, err := wmd.Exec(ctx)
+func (_d *WorkloadMemberDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (wmd *WorkloadMemberDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *WorkloadMemberDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(workloadmember.Table, sqlgraph.NewFieldSpec(workloadmember.FieldID, field.TypeInt))
-	if ps := wmd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, wmd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	wmd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // WorkloadMemberDeleteOne is the builder for deleting a single WorkloadMember entity.
 type WorkloadMemberDeleteOne struct {
-	wmd *WorkloadMemberDelete
+	_d *WorkloadMemberDelete
 }
 
 // Where appends a list predicates to the WorkloadMemberDelete builder.
-func (wmdo *WorkloadMemberDeleteOne) Where(ps ...predicate.WorkloadMember) *WorkloadMemberDeleteOne {
-	wmdo.wmd.mutation.Where(ps...)
-	return wmdo
+func (_d *WorkloadMemberDeleteOne) Where(ps ...predicate.WorkloadMember) *WorkloadMemberDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (wmdo *WorkloadMemberDeleteOne) Exec(ctx context.Context) error {
-	n, err := wmdo.wmd.Exec(ctx)
+func (_d *WorkloadMemberDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (wmdo *WorkloadMemberDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wmdo *WorkloadMemberDeleteOne) ExecX(ctx context.Context) {
-	if err := wmdo.Exec(ctx); err != nil {
+func (_d *WorkloadMemberDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

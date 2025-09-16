@@ -23,108 +23,108 @@ type CustomConfigResourceUpdate struct {
 }
 
 // Where appends a list predicates to the CustomConfigResourceUpdate builder.
-func (ccru *CustomConfigResourceUpdate) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceUpdate {
-	ccru.mutation.Where(ps...)
-	return ccru
+func (_u *CustomConfigResourceUpdate) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ccru *CustomConfigResourceUpdate) SetResourceID(s string) *CustomConfigResourceUpdate {
-	ccru.mutation.SetResourceID(s)
-	return ccru
+func (_u *CustomConfigResourceUpdate) SetResourceID(v string) *CustomConfigResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (ccru *CustomConfigResourceUpdate) SetNillableResourceID(s *string) *CustomConfigResourceUpdate {
-	if s != nil {
-		ccru.SetResourceID(*s)
+func (_u *CustomConfigResourceUpdate) SetNillableResourceID(v *string) *CustomConfigResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return ccru
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (ccru *CustomConfigResourceUpdate) SetDescription(s string) *CustomConfigResourceUpdate {
-	ccru.mutation.SetDescription(s)
-	return ccru
+func (_u *CustomConfigResourceUpdate) SetDescription(v string) *CustomConfigResourceUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ccru *CustomConfigResourceUpdate) SetNillableDescription(s *string) *CustomConfigResourceUpdate {
-	if s != nil {
-		ccru.SetDescription(*s)
+func (_u *CustomConfigResourceUpdate) SetNillableDescription(v *string) *CustomConfigResourceUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return ccru
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (ccru *CustomConfigResourceUpdate) ClearDescription() *CustomConfigResourceUpdate {
-	ccru.mutation.ClearDescription()
-	return ccru
+func (_u *CustomConfigResourceUpdate) ClearDescription() *CustomConfigResourceUpdate {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ccru *CustomConfigResourceUpdate) SetUpdatedAt(s string) *CustomConfigResourceUpdate {
-	ccru.mutation.SetUpdatedAt(s)
-	return ccru
+func (_u *CustomConfigResourceUpdate) SetUpdatedAt(v string) *CustomConfigResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ccru *CustomConfigResourceUpdate) SetNillableUpdatedAt(s *string) *CustomConfigResourceUpdate {
-	if s != nil {
-		ccru.SetUpdatedAt(*s)
+func (_u *CustomConfigResourceUpdate) SetNillableUpdatedAt(v *string) *CustomConfigResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return ccru
+	return _u
 }
 
 // AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
-func (ccru *CustomConfigResourceUpdate) AddInstanceIDs(ids ...int) *CustomConfigResourceUpdate {
-	ccru.mutation.AddInstanceIDs(ids...)
-	return ccru
+func (_u *CustomConfigResourceUpdate) AddInstanceIDs(ids ...int) *CustomConfigResourceUpdate {
+	_u.mutation.AddInstanceIDs(ids...)
+	return _u
 }
 
 // AddInstances adds the "instances" edges to the InstanceResource entity.
-func (ccru *CustomConfigResourceUpdate) AddInstances(i ...*InstanceResource) *CustomConfigResourceUpdate {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
+func (_u *CustomConfigResourceUpdate) AddInstances(v ...*InstanceResource) *CustomConfigResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ccru.AddInstanceIDs(ids...)
+	return _u.AddInstanceIDs(ids...)
 }
 
 // Mutation returns the CustomConfigResourceMutation object of the builder.
-func (ccru *CustomConfigResourceUpdate) Mutation() *CustomConfigResourceMutation {
-	return ccru.mutation
+func (_u *CustomConfigResourceUpdate) Mutation() *CustomConfigResourceMutation {
+	return _u.mutation
 }
 
 // ClearInstances clears all "instances" edges to the InstanceResource entity.
-func (ccru *CustomConfigResourceUpdate) ClearInstances() *CustomConfigResourceUpdate {
-	ccru.mutation.ClearInstances()
-	return ccru
+func (_u *CustomConfigResourceUpdate) ClearInstances() *CustomConfigResourceUpdate {
+	_u.mutation.ClearInstances()
+	return _u
 }
 
 // RemoveInstanceIDs removes the "instances" edge to InstanceResource entities by IDs.
-func (ccru *CustomConfigResourceUpdate) RemoveInstanceIDs(ids ...int) *CustomConfigResourceUpdate {
-	ccru.mutation.RemoveInstanceIDs(ids...)
-	return ccru
+func (_u *CustomConfigResourceUpdate) RemoveInstanceIDs(ids ...int) *CustomConfigResourceUpdate {
+	_u.mutation.RemoveInstanceIDs(ids...)
+	return _u
 }
 
 // RemoveInstances removes "instances" edges to InstanceResource entities.
-func (ccru *CustomConfigResourceUpdate) RemoveInstances(i ...*InstanceResource) *CustomConfigResourceUpdate {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
+func (_u *CustomConfigResourceUpdate) RemoveInstances(v ...*InstanceResource) *CustomConfigResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ccru.RemoveInstanceIDs(ids...)
+	return _u.RemoveInstanceIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (ccru *CustomConfigResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, ccru.sqlSave, ccru.mutation, ccru.hooks)
+func (_u *CustomConfigResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ccru *CustomConfigResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := ccru.Save(ctx)
+func (_u *CustomConfigResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -132,40 +132,40 @@ func (ccru *CustomConfigResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (ccru *CustomConfigResourceUpdate) Exec(ctx context.Context) error {
-	_, err := ccru.Save(ctx)
+func (_u *CustomConfigResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccru *CustomConfigResourceUpdate) ExecX(ctx context.Context) {
-	if err := ccru.Exec(ctx); err != nil {
+func (_u *CustomConfigResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(customconfigresource.Table, customconfigresource.Columns, sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt))
-	if ps := ccru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ccru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := ccru.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
 	}
-	if ccru.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(customconfigresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := ccru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if ccru.mutation.InstancesCleared() {
+	if _u.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -178,7 +178,7 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ccru.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !ccru.mutation.InstancesCleared() {
+	if nodes := _u.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !_u.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -194,7 +194,7 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ccru.mutation.InstancesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstancesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -210,7 +210,7 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, ccru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{customconfigresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -218,8 +218,8 @@ func (ccru *CustomConfigResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		return 0, err
 	}
-	ccru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // CustomConfigResourceUpdateOne is the builder for updating a single CustomConfigResource entity.
@@ -231,115 +231,115 @@ type CustomConfigResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ccruo *CustomConfigResourceUpdateOne) SetResourceID(s string) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.SetResourceID(s)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) SetResourceID(v string) *CustomConfigResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (ccruo *CustomConfigResourceUpdateOne) SetNillableResourceID(s *string) *CustomConfigResourceUpdateOne {
-	if s != nil {
-		ccruo.SetResourceID(*s)
+func (_u *CustomConfigResourceUpdateOne) SetNillableResourceID(v *string) *CustomConfigResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return ccruo
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (ccruo *CustomConfigResourceUpdateOne) SetDescription(s string) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.SetDescription(s)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) SetDescription(v string) *CustomConfigResourceUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ccruo *CustomConfigResourceUpdateOne) SetNillableDescription(s *string) *CustomConfigResourceUpdateOne {
-	if s != nil {
-		ccruo.SetDescription(*s)
+func (_u *CustomConfigResourceUpdateOne) SetNillableDescription(v *string) *CustomConfigResourceUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return ccruo
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (ccruo *CustomConfigResourceUpdateOne) ClearDescription() *CustomConfigResourceUpdateOne {
-	ccruo.mutation.ClearDescription()
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) ClearDescription() *CustomConfigResourceUpdateOne {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ccruo *CustomConfigResourceUpdateOne) SetUpdatedAt(s string) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.SetUpdatedAt(s)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) SetUpdatedAt(v string) *CustomConfigResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ccruo *CustomConfigResourceUpdateOne) SetNillableUpdatedAt(s *string) *CustomConfigResourceUpdateOne {
-	if s != nil {
-		ccruo.SetUpdatedAt(*s)
+func (_u *CustomConfigResourceUpdateOne) SetNillableUpdatedAt(v *string) *CustomConfigResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return ccruo
+	return _u
 }
 
 // AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
-func (ccruo *CustomConfigResourceUpdateOne) AddInstanceIDs(ids ...int) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.AddInstanceIDs(ids...)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) AddInstanceIDs(ids ...int) *CustomConfigResourceUpdateOne {
+	_u.mutation.AddInstanceIDs(ids...)
+	return _u
 }
 
 // AddInstances adds the "instances" edges to the InstanceResource entity.
-func (ccruo *CustomConfigResourceUpdateOne) AddInstances(i ...*InstanceResource) *CustomConfigResourceUpdateOne {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
+func (_u *CustomConfigResourceUpdateOne) AddInstances(v ...*InstanceResource) *CustomConfigResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ccruo.AddInstanceIDs(ids...)
+	return _u.AddInstanceIDs(ids...)
 }
 
 // Mutation returns the CustomConfigResourceMutation object of the builder.
-func (ccruo *CustomConfigResourceUpdateOne) Mutation() *CustomConfigResourceMutation {
-	return ccruo.mutation
+func (_u *CustomConfigResourceUpdateOne) Mutation() *CustomConfigResourceMutation {
+	return _u.mutation
 }
 
 // ClearInstances clears all "instances" edges to the InstanceResource entity.
-func (ccruo *CustomConfigResourceUpdateOne) ClearInstances() *CustomConfigResourceUpdateOne {
-	ccruo.mutation.ClearInstances()
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) ClearInstances() *CustomConfigResourceUpdateOne {
+	_u.mutation.ClearInstances()
+	return _u
 }
 
 // RemoveInstanceIDs removes the "instances" edge to InstanceResource entities by IDs.
-func (ccruo *CustomConfigResourceUpdateOne) RemoveInstanceIDs(ids ...int) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.RemoveInstanceIDs(ids...)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) RemoveInstanceIDs(ids ...int) *CustomConfigResourceUpdateOne {
+	_u.mutation.RemoveInstanceIDs(ids...)
+	return _u
 }
 
 // RemoveInstances removes "instances" edges to InstanceResource entities.
-func (ccruo *CustomConfigResourceUpdateOne) RemoveInstances(i ...*InstanceResource) *CustomConfigResourceUpdateOne {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
+func (_u *CustomConfigResourceUpdateOne) RemoveInstances(v ...*InstanceResource) *CustomConfigResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ccruo.RemoveInstanceIDs(ids...)
+	return _u.RemoveInstanceIDs(ids...)
 }
 
 // Where appends a list predicates to the CustomConfigResourceUpdate builder.
-func (ccruo *CustomConfigResourceUpdateOne) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceUpdateOne {
-	ccruo.mutation.Where(ps...)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (ccruo *CustomConfigResourceUpdateOne) Select(field string, fields ...string) *CustomConfigResourceUpdateOne {
-	ccruo.fields = append([]string{field}, fields...)
-	return ccruo
+func (_u *CustomConfigResourceUpdateOne) Select(field string, fields ...string) *CustomConfigResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated CustomConfigResource entity.
-func (ccruo *CustomConfigResourceUpdateOne) Save(ctx context.Context) (*CustomConfigResource, error) {
-	return withHooks(ctx, ccruo.sqlSave, ccruo.mutation, ccruo.hooks)
+func (_u *CustomConfigResourceUpdateOne) Save(ctx context.Context) (*CustomConfigResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ccruo *CustomConfigResourceUpdateOne) SaveX(ctx context.Context) *CustomConfigResource {
-	node, err := ccruo.Save(ctx)
+func (_u *CustomConfigResourceUpdateOne) SaveX(ctx context.Context) *CustomConfigResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -347,26 +347,26 @@ func (ccruo *CustomConfigResourceUpdateOne) SaveX(ctx context.Context) *CustomCo
 }
 
 // Exec executes the query on the entity.
-func (ccruo *CustomConfigResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := ccruo.Save(ctx)
+func (_u *CustomConfigResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccruo *CustomConfigResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := ccruo.Exec(ctx); err != nil {
+func (_u *CustomConfigResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node *CustomConfigResource, err error) {
+func (_u *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node *CustomConfigResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(customconfigresource.Table, customconfigresource.Columns, sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt))
-	id, ok := ccruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "CustomConfigResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := ccruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, customconfigresource.FieldID)
 		for _, f := range fields {
@@ -378,26 +378,26 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 			}
 		}
 	}
-	if ps := ccruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ccruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := ccruo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
 	}
-	if ccruo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(customconfigresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := ccruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if ccruo.mutation.InstancesCleared() {
+	if _u.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -410,7 +410,7 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ccruo.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !ccruo.mutation.InstancesCleared() {
+	if nodes := _u.mutation.RemovedInstancesIDs(); len(nodes) > 0 && !_u.mutation.InstancesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -426,7 +426,7 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ccruo.mutation.InstancesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstancesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -442,10 +442,10 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &CustomConfigResource{config: ccruo.config}
+	_node = &CustomConfigResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, ccruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{customconfigresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -453,6 +453,6 @@ func (ccruo *CustomConfigResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		return nil, err
 	}
-	ccruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

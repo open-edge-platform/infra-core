@@ -74,7 +74,7 @@ func (*TelemetryGroupResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the TelemetryGroupResource fields.
-func (tgr *TelemetryGroupResource) assignValues(columns []string, values []any) error {
+func (_m *TelemetryGroupResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -85,57 +85,57 @@ func (tgr *TelemetryGroupResource) assignValues(columns []string, values []any) 
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			tgr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case telemetrygroupresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				tgr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case telemetrygroupresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				tgr.Name = value.String
+				_m.Name = value.String
 			}
 		case telemetrygroupresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				tgr.Kind = telemetrygroupresource.Kind(value.String)
+				_m.Kind = telemetrygroupresource.Kind(value.String)
 			}
 		case telemetrygroupresource.FieldCollectorKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field collector_kind", values[i])
 			} else if value.Valid {
-				tgr.CollectorKind = telemetrygroupresource.CollectorKind(value.String)
+				_m.CollectorKind = telemetrygroupresource.CollectorKind(value.String)
 			}
 		case telemetrygroupresource.FieldGroups:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field groups", values[i])
 			} else if value.Valid {
-				tgr.Groups = value.String
+				_m.Groups = value.String
 			}
 		case telemetrygroupresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				tgr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case telemetrygroupresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				tgr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case telemetrygroupresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				tgr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		default:
-			tgr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -143,61 +143,61 @@ func (tgr *TelemetryGroupResource) assignValues(columns []string, values []any) 
 
 // Value returns the ent.Value that was dynamically selected and assigned to the TelemetryGroupResource.
 // This includes values selected through modifiers, order, etc.
-func (tgr *TelemetryGroupResource) Value(name string) (ent.Value, error) {
-	return tgr.selectValues.Get(name)
+func (_m *TelemetryGroupResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryProfiles queries the "profiles" edge of the TelemetryGroupResource entity.
-func (tgr *TelemetryGroupResource) QueryProfiles() *TelemetryProfileQuery {
-	return NewTelemetryGroupResourceClient(tgr.config).QueryProfiles(tgr)
+func (_m *TelemetryGroupResource) QueryProfiles() *TelemetryProfileQuery {
+	return NewTelemetryGroupResourceClient(_m.config).QueryProfiles(_m)
 }
 
 // Update returns a builder for updating this TelemetryGroupResource.
 // Note that you need to call TelemetryGroupResource.Unwrap() before calling this method if this TelemetryGroupResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (tgr *TelemetryGroupResource) Update() *TelemetryGroupResourceUpdateOne {
-	return NewTelemetryGroupResourceClient(tgr.config).UpdateOne(tgr)
+func (_m *TelemetryGroupResource) Update() *TelemetryGroupResourceUpdateOne {
+	return NewTelemetryGroupResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the TelemetryGroupResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (tgr *TelemetryGroupResource) Unwrap() *TelemetryGroupResource {
-	_tx, ok := tgr.config.driver.(*txDriver)
+func (_m *TelemetryGroupResource) Unwrap() *TelemetryGroupResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: TelemetryGroupResource is not a transactional entity")
 	}
-	tgr.config.driver = _tx.drv
-	return tgr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (tgr *TelemetryGroupResource) String() string {
+func (_m *TelemetryGroupResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("TelemetryGroupResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", tgr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(tgr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(tgr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(fmt.Sprintf("%v", tgr.Kind))
+	builder.WriteString(fmt.Sprintf("%v", _m.Kind))
 	builder.WriteString(", ")
 	builder.WriteString("collector_kind=")
-	builder.WriteString(fmt.Sprintf("%v", tgr.CollectorKind))
+	builder.WriteString(fmt.Sprintf("%v", _m.CollectorKind))
 	builder.WriteString(", ")
 	builder.WriteString("groups=")
-	builder.WriteString(tgr.Groups)
+	builder.WriteString(_m.Groups)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(tgr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(tgr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(tgr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

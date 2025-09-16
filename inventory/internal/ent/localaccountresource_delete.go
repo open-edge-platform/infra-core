@@ -20,56 +20,56 @@ type LocalAccountResourceDelete struct {
 }
 
 // Where appends a list predicates to the LocalAccountResourceDelete builder.
-func (lard *LocalAccountResourceDelete) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceDelete {
-	lard.mutation.Where(ps...)
-	return lard
+func (_d *LocalAccountResourceDelete) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (lard *LocalAccountResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, lard.sqlExec, lard.mutation, lard.hooks)
+func (_d *LocalAccountResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (lard *LocalAccountResourceDelete) ExecX(ctx context.Context) int {
-	n, err := lard.Exec(ctx)
+func (_d *LocalAccountResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (lard *LocalAccountResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *LocalAccountResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(localaccountresource.Table, sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt))
-	if ps := lard.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, lard.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	lard.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // LocalAccountResourceDeleteOne is the builder for deleting a single LocalAccountResource entity.
 type LocalAccountResourceDeleteOne struct {
-	lard *LocalAccountResourceDelete
+	_d *LocalAccountResourceDelete
 }
 
 // Where appends a list predicates to the LocalAccountResourceDelete builder.
-func (lardo *LocalAccountResourceDeleteOne) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceDeleteOne {
-	lardo.lard.mutation.Where(ps...)
-	return lardo
+func (_d *LocalAccountResourceDeleteOne) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (lardo *LocalAccountResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := lardo.lard.Exec(ctx)
+func (_d *LocalAccountResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (lardo *LocalAccountResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (lardo *LocalAccountResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := lardo.Exec(ctx); err != nil {
+func (_d *LocalAccountResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

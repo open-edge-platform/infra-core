@@ -33,44 +33,44 @@ type OSUpdateRunResourceQuery struct {
 }
 
 // Where adds a new predicate for the OSUpdateRunResourceQuery builder.
-func (ourrq *OSUpdateRunResourceQuery) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceQuery {
-	ourrq.predicates = append(ourrq.predicates, ps...)
-	return ourrq
+func (_q *OSUpdateRunResourceQuery) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (ourrq *OSUpdateRunResourceQuery) Limit(limit int) *OSUpdateRunResourceQuery {
-	ourrq.ctx.Limit = &limit
-	return ourrq
+func (_q *OSUpdateRunResourceQuery) Limit(limit int) *OSUpdateRunResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (ourrq *OSUpdateRunResourceQuery) Offset(offset int) *OSUpdateRunResourceQuery {
-	ourrq.ctx.Offset = &offset
-	return ourrq
+func (_q *OSUpdateRunResourceQuery) Offset(offset int) *OSUpdateRunResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (ourrq *OSUpdateRunResourceQuery) Unique(unique bool) *OSUpdateRunResourceQuery {
-	ourrq.ctx.Unique = &unique
-	return ourrq
+func (_q *OSUpdateRunResourceQuery) Unique(unique bool) *OSUpdateRunResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (ourrq *OSUpdateRunResourceQuery) Order(o ...osupdaterunresource.OrderOption) *OSUpdateRunResourceQuery {
-	ourrq.order = append(ourrq.order, o...)
-	return ourrq
+func (_q *OSUpdateRunResourceQuery) Order(o ...osupdaterunresource.OrderOption) *OSUpdateRunResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryAppliedPolicy chains the current query on the "applied_policy" edge.
-func (ourrq *OSUpdateRunResourceQuery) QueryAppliedPolicy() *OSUpdatePolicyResourceQuery {
-	query := (&OSUpdatePolicyResourceClient{config: ourrq.config}).Query()
+func (_q *OSUpdateRunResourceQuery) QueryAppliedPolicy() *OSUpdatePolicyResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ourrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ourrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -79,20 +79,20 @@ func (ourrq *OSUpdateRunResourceQuery) QueryAppliedPolicy() *OSUpdatePolicyResou
 			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdaterunresource.AppliedPolicyTable, osupdaterunresource.AppliedPolicyColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(ourrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryInstance chains the current query on the "instance" edge.
-func (ourrq *OSUpdateRunResourceQuery) QueryInstance() *InstanceResourceQuery {
-	query := (&InstanceResourceClient{config: ourrq.config}).Query()
+func (_q *OSUpdateRunResourceQuery) QueryInstance() *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ourrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ourrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -101,7 +101,7 @@ func (ourrq *OSUpdateRunResourceQuery) QueryInstance() *InstanceResourceQuery {
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdaterunresource.InstanceTable, osupdaterunresource.InstanceColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(ourrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -109,8 +109,8 @@ func (ourrq *OSUpdateRunResourceQuery) QueryInstance() *InstanceResourceQuery {
 
 // First returns the first OSUpdateRunResource entity from the query.
 // Returns a *NotFoundError when no OSUpdateRunResource was found.
-func (ourrq *OSUpdateRunResourceQuery) First(ctx context.Context) (*OSUpdateRunResource, error) {
-	nodes, err := ourrq.Limit(1).All(setContextOp(ctx, ourrq.ctx, ent.OpQueryFirst))
+func (_q *OSUpdateRunResourceQuery) First(ctx context.Context) (*OSUpdateRunResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -121,8 +121,8 @@ func (ourrq *OSUpdateRunResourceQuery) First(ctx context.Context) (*OSUpdateRunR
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) FirstX(ctx context.Context) *OSUpdateRunResource {
-	node, err := ourrq.First(ctx)
+func (_q *OSUpdateRunResourceQuery) FirstX(ctx context.Context) *OSUpdateRunResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,9 +131,9 @@ func (ourrq *OSUpdateRunResourceQuery) FirstX(ctx context.Context) *OSUpdateRunR
 
 // FirstID returns the first OSUpdateRunResource ID from the query.
 // Returns a *NotFoundError when no OSUpdateRunResource ID was found.
-func (ourrq *OSUpdateRunResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *OSUpdateRunResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ourrq.Limit(1).IDs(setContextOp(ctx, ourrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -144,8 +144,8 @@ func (ourrq *OSUpdateRunResourceQuery) FirstID(ctx context.Context) (id int, err
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := ourrq.FirstID(ctx)
+func (_q *OSUpdateRunResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -155,8 +155,8 @@ func (ourrq *OSUpdateRunResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single OSUpdateRunResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one OSUpdateRunResource entity is found.
 // Returns a *NotFoundError when no OSUpdateRunResource entities are found.
-func (ourrq *OSUpdateRunResourceQuery) Only(ctx context.Context) (*OSUpdateRunResource, error) {
-	nodes, err := ourrq.Limit(2).All(setContextOp(ctx, ourrq.ctx, ent.OpQueryOnly))
+func (_q *OSUpdateRunResourceQuery) Only(ctx context.Context) (*OSUpdateRunResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -171,8 +171,8 @@ func (ourrq *OSUpdateRunResourceQuery) Only(ctx context.Context) (*OSUpdateRunRe
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) OnlyX(ctx context.Context) *OSUpdateRunResource {
-	node, err := ourrq.Only(ctx)
+func (_q *OSUpdateRunResourceQuery) OnlyX(ctx context.Context) *OSUpdateRunResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -182,9 +182,9 @@ func (ourrq *OSUpdateRunResourceQuery) OnlyX(ctx context.Context) *OSUpdateRunRe
 // OnlyID is like Only, but returns the only OSUpdateRunResource ID in the query.
 // Returns a *NotSingularError when more than one OSUpdateRunResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (ourrq *OSUpdateRunResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *OSUpdateRunResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ourrq.Limit(2).IDs(setContextOp(ctx, ourrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -199,8 +199,8 @@ func (ourrq *OSUpdateRunResourceQuery) OnlyID(ctx context.Context) (id int, err 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := ourrq.OnlyID(ctx)
+func (_q *OSUpdateRunResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -208,18 +208,18 @@ func (ourrq *OSUpdateRunResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of OSUpdateRunResources.
-func (ourrq *OSUpdateRunResourceQuery) All(ctx context.Context) ([]*OSUpdateRunResource, error) {
-	ctx = setContextOp(ctx, ourrq.ctx, ent.OpQueryAll)
-	if err := ourrq.prepareQuery(ctx); err != nil {
+func (_q *OSUpdateRunResourceQuery) All(ctx context.Context) ([]*OSUpdateRunResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*OSUpdateRunResource, *OSUpdateRunResourceQuery]()
-	return withInterceptors[[]*OSUpdateRunResource](ctx, ourrq, qr, ourrq.inters)
+	return withInterceptors[[]*OSUpdateRunResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) AllX(ctx context.Context) []*OSUpdateRunResource {
-	nodes, err := ourrq.All(ctx)
+func (_q *OSUpdateRunResourceQuery) AllX(ctx context.Context) []*OSUpdateRunResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -227,20 +227,20 @@ func (ourrq *OSUpdateRunResourceQuery) AllX(ctx context.Context) []*OSUpdateRunR
 }
 
 // IDs executes the query and returns a list of OSUpdateRunResource IDs.
-func (ourrq *OSUpdateRunResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if ourrq.ctx.Unique == nil && ourrq.path != nil {
-		ourrq.Unique(true)
+func (_q *OSUpdateRunResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, ourrq.ctx, ent.OpQueryIDs)
-	if err = ourrq.Select(osupdaterunresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(osupdaterunresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := ourrq.IDs(ctx)
+func (_q *OSUpdateRunResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -248,17 +248,17 @@ func (ourrq *OSUpdateRunResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (ourrq *OSUpdateRunResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, ourrq.ctx, ent.OpQueryCount)
-	if err := ourrq.prepareQuery(ctx); err != nil {
+func (_q *OSUpdateRunResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, ourrq, querierCount[*OSUpdateRunResourceQuery](), ourrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*OSUpdateRunResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) CountX(ctx context.Context) int {
-	count, err := ourrq.Count(ctx)
+func (_q *OSUpdateRunResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -266,9 +266,9 @@ func (ourrq *OSUpdateRunResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (ourrq *OSUpdateRunResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, ourrq.ctx, ent.OpQueryExist)
-	switch _, err := ourrq.FirstID(ctx); {
+func (_q *OSUpdateRunResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -279,8 +279,8 @@ func (ourrq *OSUpdateRunResourceQuery) Exist(ctx context.Context) (bool, error) 
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (ourrq *OSUpdateRunResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := ourrq.Exist(ctx)
+func (_q *OSUpdateRunResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -289,44 +289,44 @@ func (ourrq *OSUpdateRunResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the OSUpdateRunResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (ourrq *OSUpdateRunResourceQuery) Clone() *OSUpdateRunResourceQuery {
-	if ourrq == nil {
+func (_q *OSUpdateRunResourceQuery) Clone() *OSUpdateRunResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &OSUpdateRunResourceQuery{
-		config:            ourrq.config,
-		ctx:               ourrq.ctx.Clone(),
-		order:             append([]osupdaterunresource.OrderOption{}, ourrq.order...),
-		inters:            append([]Interceptor{}, ourrq.inters...),
-		predicates:        append([]predicate.OSUpdateRunResource{}, ourrq.predicates...),
-		withAppliedPolicy: ourrq.withAppliedPolicy.Clone(),
-		withInstance:      ourrq.withInstance.Clone(),
+		config:            _q.config,
+		ctx:               _q.ctx.Clone(),
+		order:             append([]osupdaterunresource.OrderOption{}, _q.order...),
+		inters:            append([]Interceptor{}, _q.inters...),
+		predicates:        append([]predicate.OSUpdateRunResource{}, _q.predicates...),
+		withAppliedPolicy: _q.withAppliedPolicy.Clone(),
+		withInstance:      _q.withInstance.Clone(),
 		// clone intermediate query.
-		sql:  ourrq.sql.Clone(),
-		path: ourrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithAppliedPolicy tells the query-builder to eager-load the nodes that are connected to
 // the "applied_policy" edge. The optional arguments are used to configure the query builder of the edge.
-func (ourrq *OSUpdateRunResourceQuery) WithAppliedPolicy(opts ...func(*OSUpdatePolicyResourceQuery)) *OSUpdateRunResourceQuery {
-	query := (&OSUpdatePolicyResourceClient{config: ourrq.config}).Query()
+func (_q *OSUpdateRunResourceQuery) WithAppliedPolicy(opts ...func(*OSUpdatePolicyResourceQuery)) *OSUpdateRunResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ourrq.withAppliedPolicy = query
-	return ourrq
+	_q.withAppliedPolicy = query
+	return _q
 }
 
 // WithInstance tells the query-builder to eager-load the nodes that are connected to
 // the "instance" edge. The optional arguments are used to configure the query builder of the edge.
-func (ourrq *OSUpdateRunResourceQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *OSUpdateRunResourceQuery {
-	query := (&InstanceResourceClient{config: ourrq.config}).Query()
+func (_q *OSUpdateRunResourceQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *OSUpdateRunResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ourrq.withInstance = query
-	return ourrq
+	_q.withInstance = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -343,10 +343,10 @@ func (ourrq *OSUpdateRunResourceQuery) WithInstance(opts ...func(*InstanceResour
 //		GroupBy(osupdaterunresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (ourrq *OSUpdateRunResourceQuery) GroupBy(field string, fields ...string) *OSUpdateRunResourceGroupBy {
-	ourrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &OSUpdateRunResourceGroupBy{build: ourrq}
-	grbuild.flds = &ourrq.ctx.Fields
+func (_q *OSUpdateRunResourceQuery) GroupBy(field string, fields ...string) *OSUpdateRunResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &OSUpdateRunResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = osupdaterunresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -364,56 +364,56 @@ func (ourrq *OSUpdateRunResourceQuery) GroupBy(field string, fields ...string) *
 //	client.OSUpdateRunResource.Query().
 //		Select(osupdaterunresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (ourrq *OSUpdateRunResourceQuery) Select(fields ...string) *OSUpdateRunResourceSelect {
-	ourrq.ctx.Fields = append(ourrq.ctx.Fields, fields...)
-	sbuild := &OSUpdateRunResourceSelect{OSUpdateRunResourceQuery: ourrq}
+func (_q *OSUpdateRunResourceQuery) Select(fields ...string) *OSUpdateRunResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &OSUpdateRunResourceSelect{OSUpdateRunResourceQuery: _q}
 	sbuild.label = osupdaterunresource.Label
-	sbuild.flds, sbuild.scan = &ourrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a OSUpdateRunResourceSelect configured with the given aggregations.
-func (ourrq *OSUpdateRunResourceQuery) Aggregate(fns ...AggregateFunc) *OSUpdateRunResourceSelect {
-	return ourrq.Select().Aggregate(fns...)
+func (_q *OSUpdateRunResourceQuery) Aggregate(fns ...AggregateFunc) *OSUpdateRunResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (ourrq *OSUpdateRunResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range ourrq.inters {
+func (_q *OSUpdateRunResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, ourrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range ourrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !osupdaterunresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if ourrq.path != nil {
-		prev, err := ourrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		ourrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (ourrq *OSUpdateRunResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*OSUpdateRunResource, error) {
+func (_q *OSUpdateRunResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*OSUpdateRunResource, error) {
 	var (
 		nodes       = []*OSUpdateRunResource{}
-		withFKs     = ourrq.withFKs
-		_spec       = ourrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [2]bool{
-			ourrq.withAppliedPolicy != nil,
-			ourrq.withInstance != nil,
+			_q.withAppliedPolicy != nil,
+			_q.withInstance != nil,
 		}
 	)
-	if ourrq.withAppliedPolicy != nil || ourrq.withInstance != nil {
+	if _q.withAppliedPolicy != nil || _q.withInstance != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -423,7 +423,7 @@ func (ourrq *OSUpdateRunResourceQuery) sqlAll(ctx context.Context, hooks ...quer
 		return (*OSUpdateRunResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &OSUpdateRunResource{config: ourrq.config}
+		node := &OSUpdateRunResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -431,20 +431,20 @@ func (ourrq *OSUpdateRunResourceQuery) sqlAll(ctx context.Context, hooks ...quer
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, ourrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := ourrq.withAppliedPolicy; query != nil {
-		if err := ourrq.loadAppliedPolicy(ctx, query, nodes, nil,
+	if query := _q.withAppliedPolicy; query != nil {
+		if err := _q.loadAppliedPolicy(ctx, query, nodes, nil,
 			func(n *OSUpdateRunResource, e *OSUpdatePolicyResource) { n.Edges.AppliedPolicy = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := ourrq.withInstance; query != nil {
-		if err := ourrq.loadInstance(ctx, query, nodes, nil,
+	if query := _q.withInstance; query != nil {
+		if err := _q.loadInstance(ctx, query, nodes, nil,
 			func(n *OSUpdateRunResource, e *InstanceResource) { n.Edges.Instance = e }); err != nil {
 			return nil, err
 		}
@@ -452,7 +452,7 @@ func (ourrq *OSUpdateRunResourceQuery) sqlAll(ctx context.Context, hooks ...quer
 	return nodes, nil
 }
 
-func (ourrq *OSUpdateRunResourceQuery) loadAppliedPolicy(ctx context.Context, query *OSUpdatePolicyResourceQuery, nodes []*OSUpdateRunResource, init func(*OSUpdateRunResource), assign func(*OSUpdateRunResource, *OSUpdatePolicyResource)) error {
+func (_q *OSUpdateRunResourceQuery) loadAppliedPolicy(ctx context.Context, query *OSUpdatePolicyResourceQuery, nodes []*OSUpdateRunResource, init func(*OSUpdateRunResource), assign func(*OSUpdateRunResource, *OSUpdatePolicyResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*OSUpdateRunResource)
 	for i := range nodes {
@@ -484,7 +484,7 @@ func (ourrq *OSUpdateRunResourceQuery) loadAppliedPolicy(ctx context.Context, qu
 	}
 	return nil
 }
-func (ourrq *OSUpdateRunResourceQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*OSUpdateRunResource, init func(*OSUpdateRunResource), assign func(*OSUpdateRunResource, *InstanceResource)) error {
+func (_q *OSUpdateRunResourceQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*OSUpdateRunResource, init func(*OSUpdateRunResource), assign func(*OSUpdateRunResource, *InstanceResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*OSUpdateRunResource)
 	for i := range nodes {
@@ -517,24 +517,24 @@ func (ourrq *OSUpdateRunResourceQuery) loadInstance(ctx context.Context, query *
 	return nil
 }
 
-func (ourrq *OSUpdateRunResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := ourrq.querySpec()
-	_spec.Node.Columns = ourrq.ctx.Fields
-	if len(ourrq.ctx.Fields) > 0 {
-		_spec.Unique = ourrq.ctx.Unique != nil && *ourrq.ctx.Unique
+func (_q *OSUpdateRunResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, ourrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (ourrq *OSUpdateRunResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *OSUpdateRunResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(osupdaterunresource.Table, osupdaterunresource.Columns, sqlgraph.NewFieldSpec(osupdaterunresource.FieldID, field.TypeInt))
-	_spec.From = ourrq.sql
-	if unique := ourrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if ourrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := ourrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, osupdaterunresource.FieldID)
 		for i := range fields {
@@ -543,20 +543,20 @@ func (ourrq *OSUpdateRunResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := ourrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := ourrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := ourrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := ourrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -566,33 +566,33 @@ func (ourrq *OSUpdateRunResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (ourrq *OSUpdateRunResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(ourrq.driver.Dialect())
+func (_q *OSUpdateRunResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(osupdaterunresource.Table)
-	columns := ourrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = osupdaterunresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if ourrq.sql != nil {
-		selector = ourrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if ourrq.ctx.Unique != nil && *ourrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range ourrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range ourrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := ourrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := ourrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -605,41 +605,41 @@ type OSUpdateRunResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (ourrgb *OSUpdateRunResourceGroupBy) Aggregate(fns ...AggregateFunc) *OSUpdateRunResourceGroupBy {
-	ourrgb.fns = append(ourrgb.fns, fns...)
-	return ourrgb
+func (_g *OSUpdateRunResourceGroupBy) Aggregate(fns ...AggregateFunc) *OSUpdateRunResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ourrgb *OSUpdateRunResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ourrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := ourrgb.build.prepareQuery(ctx); err != nil {
+func (_g *OSUpdateRunResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*OSUpdateRunResourceQuery, *OSUpdateRunResourceGroupBy](ctx, ourrgb.build, ourrgb, ourrgb.build.inters, v)
+	return scanWithInterceptors[*OSUpdateRunResourceQuery, *OSUpdateRunResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (ourrgb *OSUpdateRunResourceGroupBy) sqlScan(ctx context.Context, root *OSUpdateRunResourceQuery, v any) error {
+func (_g *OSUpdateRunResourceGroupBy) sqlScan(ctx context.Context, root *OSUpdateRunResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(ourrgb.fns))
-	for _, fn := range ourrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*ourrgb.flds)+len(ourrgb.fns))
-		for _, f := range *ourrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*ourrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ourrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -653,27 +653,27 @@ type OSUpdateRunResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (ourrs *OSUpdateRunResourceSelect) Aggregate(fns ...AggregateFunc) *OSUpdateRunResourceSelect {
-	ourrs.fns = append(ourrs.fns, fns...)
-	return ourrs
+func (_s *OSUpdateRunResourceSelect) Aggregate(fns ...AggregateFunc) *OSUpdateRunResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ourrs *OSUpdateRunResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ourrs.ctx, ent.OpQuerySelect)
-	if err := ourrs.prepareQuery(ctx); err != nil {
+func (_s *OSUpdateRunResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*OSUpdateRunResourceQuery, *OSUpdateRunResourceSelect](ctx, ourrs.OSUpdateRunResourceQuery, ourrs, ourrs.inters, v)
+	return scanWithInterceptors[*OSUpdateRunResourceQuery, *OSUpdateRunResourceSelect](ctx, _s.OSUpdateRunResourceQuery, _s, _s.inters, v)
 }
 
-func (ourrs *OSUpdateRunResourceSelect) sqlScan(ctx context.Context, root *OSUpdateRunResourceQuery, v any) error {
+func (_s *OSUpdateRunResourceSelect) sqlScan(ctx context.Context, root *OSUpdateRunResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(ourrs.fns))
-	for _, fn := range ourrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*ourrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -681,7 +681,7 @@ func (ourrs *OSUpdateRunResourceSelect) sqlScan(ctx context.Context, root *OSUpd
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ourrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

@@ -22,173 +22,173 @@ type RegionResourceUpdate struct {
 }
 
 // Where appends a list predicates to the RegionResourceUpdate builder.
-func (rru *RegionResourceUpdate) Where(ps ...predicate.RegionResource) *RegionResourceUpdate {
-	rru.mutation.Where(ps...)
-	return rru
+func (_u *RegionResourceUpdate) Where(ps ...predicate.RegionResource) *RegionResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (rru *RegionResourceUpdate) SetResourceID(s string) *RegionResourceUpdate {
-	rru.mutation.SetResourceID(s)
-	return rru
+func (_u *RegionResourceUpdate) SetResourceID(v string) *RegionResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (rru *RegionResourceUpdate) SetNillableResourceID(s *string) *RegionResourceUpdate {
-	if s != nil {
-		rru.SetResourceID(*s)
+func (_u *RegionResourceUpdate) SetNillableResourceID(v *string) *RegionResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return rru
+	return _u
 }
 
 // SetName sets the "name" field.
-func (rru *RegionResourceUpdate) SetName(s string) *RegionResourceUpdate {
-	rru.mutation.SetName(s)
-	return rru
+func (_u *RegionResourceUpdate) SetName(v string) *RegionResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (rru *RegionResourceUpdate) SetNillableName(s *string) *RegionResourceUpdate {
-	if s != nil {
-		rru.SetName(*s)
+func (_u *RegionResourceUpdate) SetNillableName(v *string) *RegionResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return rru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (rru *RegionResourceUpdate) ClearName() *RegionResourceUpdate {
-	rru.mutation.ClearName()
-	return rru
+func (_u *RegionResourceUpdate) ClearName() *RegionResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetRegionKind sets the "region_kind" field.
-func (rru *RegionResourceUpdate) SetRegionKind(s string) *RegionResourceUpdate {
-	rru.mutation.SetRegionKind(s)
-	return rru
+func (_u *RegionResourceUpdate) SetRegionKind(v string) *RegionResourceUpdate {
+	_u.mutation.SetRegionKind(v)
+	return _u
 }
 
 // SetNillableRegionKind sets the "region_kind" field if the given value is not nil.
-func (rru *RegionResourceUpdate) SetNillableRegionKind(s *string) *RegionResourceUpdate {
-	if s != nil {
-		rru.SetRegionKind(*s)
+func (_u *RegionResourceUpdate) SetNillableRegionKind(v *string) *RegionResourceUpdate {
+	if v != nil {
+		_u.SetRegionKind(*v)
 	}
-	return rru
+	return _u
 }
 
 // ClearRegionKind clears the value of the "region_kind" field.
-func (rru *RegionResourceUpdate) ClearRegionKind() *RegionResourceUpdate {
-	rru.mutation.ClearRegionKind()
-	return rru
+func (_u *RegionResourceUpdate) ClearRegionKind() *RegionResourceUpdate {
+	_u.mutation.ClearRegionKind()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (rru *RegionResourceUpdate) SetMetadata(s string) *RegionResourceUpdate {
-	rru.mutation.SetMetadata(s)
-	return rru
+func (_u *RegionResourceUpdate) SetMetadata(v string) *RegionResourceUpdate {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (rru *RegionResourceUpdate) SetNillableMetadata(s *string) *RegionResourceUpdate {
-	if s != nil {
-		rru.SetMetadata(*s)
+func (_u *RegionResourceUpdate) SetNillableMetadata(v *string) *RegionResourceUpdate {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return rru
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (rru *RegionResourceUpdate) ClearMetadata() *RegionResourceUpdate {
-	rru.mutation.ClearMetadata()
-	return rru
+func (_u *RegionResourceUpdate) ClearMetadata() *RegionResourceUpdate {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (rru *RegionResourceUpdate) SetUpdatedAt(s string) *RegionResourceUpdate {
-	rru.mutation.SetUpdatedAt(s)
-	return rru
+func (_u *RegionResourceUpdate) SetUpdatedAt(v string) *RegionResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (rru *RegionResourceUpdate) SetNillableUpdatedAt(s *string) *RegionResourceUpdate {
-	if s != nil {
-		rru.SetUpdatedAt(*s)
+func (_u *RegionResourceUpdate) SetNillableUpdatedAt(v *string) *RegionResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return rru
+	return _u
 }
 
 // SetParentRegionID sets the "parent_region" edge to the RegionResource entity by ID.
-func (rru *RegionResourceUpdate) SetParentRegionID(id int) *RegionResourceUpdate {
-	rru.mutation.SetParentRegionID(id)
-	return rru
+func (_u *RegionResourceUpdate) SetParentRegionID(id int) *RegionResourceUpdate {
+	_u.mutation.SetParentRegionID(id)
+	return _u
 }
 
 // SetNillableParentRegionID sets the "parent_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (rru *RegionResourceUpdate) SetNillableParentRegionID(id *int) *RegionResourceUpdate {
+func (_u *RegionResourceUpdate) SetNillableParentRegionID(id *int) *RegionResourceUpdate {
 	if id != nil {
-		rru = rru.SetParentRegionID(*id)
+		_u = _u.SetParentRegionID(*id)
 	}
-	return rru
+	return _u
 }
 
 // SetParentRegion sets the "parent_region" edge to the RegionResource entity.
-func (rru *RegionResourceUpdate) SetParentRegion(r *RegionResource) *RegionResourceUpdate {
-	return rru.SetParentRegionID(r.ID)
+func (_u *RegionResourceUpdate) SetParentRegion(v *RegionResource) *RegionResourceUpdate {
+	return _u.SetParentRegionID(v.ID)
 }
 
 // AddChildIDs adds the "children" edge to the RegionResource entity by IDs.
-func (rru *RegionResourceUpdate) AddChildIDs(ids ...int) *RegionResourceUpdate {
-	rru.mutation.AddChildIDs(ids...)
-	return rru
+func (_u *RegionResourceUpdate) AddChildIDs(ids ...int) *RegionResourceUpdate {
+	_u.mutation.AddChildIDs(ids...)
+	return _u
 }
 
 // AddChildren adds the "children" edges to the RegionResource entity.
-func (rru *RegionResourceUpdate) AddChildren(r ...*RegionResource) *RegionResourceUpdate {
-	ids := make([]int, len(r))
-	for i := range r {
-		ids[i] = r[i].ID
+func (_u *RegionResourceUpdate) AddChildren(v ...*RegionResource) *RegionResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return rru.AddChildIDs(ids...)
+	return _u.AddChildIDs(ids...)
 }
 
 // Mutation returns the RegionResourceMutation object of the builder.
-func (rru *RegionResourceUpdate) Mutation() *RegionResourceMutation {
-	return rru.mutation
+func (_u *RegionResourceUpdate) Mutation() *RegionResourceMutation {
+	return _u.mutation
 }
 
 // ClearParentRegion clears the "parent_region" edge to the RegionResource entity.
-func (rru *RegionResourceUpdate) ClearParentRegion() *RegionResourceUpdate {
-	rru.mutation.ClearParentRegion()
-	return rru
+func (_u *RegionResourceUpdate) ClearParentRegion() *RegionResourceUpdate {
+	_u.mutation.ClearParentRegion()
+	return _u
 }
 
 // ClearChildren clears all "children" edges to the RegionResource entity.
-func (rru *RegionResourceUpdate) ClearChildren() *RegionResourceUpdate {
-	rru.mutation.ClearChildren()
-	return rru
+func (_u *RegionResourceUpdate) ClearChildren() *RegionResourceUpdate {
+	_u.mutation.ClearChildren()
+	return _u
 }
 
 // RemoveChildIDs removes the "children" edge to RegionResource entities by IDs.
-func (rru *RegionResourceUpdate) RemoveChildIDs(ids ...int) *RegionResourceUpdate {
-	rru.mutation.RemoveChildIDs(ids...)
-	return rru
+func (_u *RegionResourceUpdate) RemoveChildIDs(ids ...int) *RegionResourceUpdate {
+	_u.mutation.RemoveChildIDs(ids...)
+	return _u
 }
 
 // RemoveChildren removes "children" edges to RegionResource entities.
-func (rru *RegionResourceUpdate) RemoveChildren(r ...*RegionResource) *RegionResourceUpdate {
-	ids := make([]int, len(r))
-	for i := range r {
-		ids[i] = r[i].ID
+func (_u *RegionResourceUpdate) RemoveChildren(v ...*RegionResource) *RegionResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return rru.RemoveChildIDs(ids...)
+	return _u.RemoveChildIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (rru *RegionResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, rru.sqlSave, rru.mutation, rru.hooks)
+func (_u *RegionResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (rru *RegionResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := rru.Save(ctx)
+func (_u *RegionResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -196,52 +196,52 @@ func (rru *RegionResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (rru *RegionResourceUpdate) Exec(ctx context.Context) error {
-	_, err := rru.Save(ctx)
+func (_u *RegionResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rru *RegionResourceUpdate) ExecX(ctx context.Context) {
-	if err := rru.Exec(ctx); err != nil {
+func (_u *RegionResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *RegionResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(regionresource.Table, regionresource.Columns, sqlgraph.NewFieldSpec(regionresource.FieldID, field.TypeInt))
-	if ps := rru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := rru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(regionresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := rru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(regionresource.FieldName, field.TypeString, value)
 	}
-	if rru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(regionresource.FieldName, field.TypeString)
 	}
-	if value, ok := rru.mutation.RegionKind(); ok {
+	if value, ok := _u.mutation.RegionKind(); ok {
 		_spec.SetField(regionresource.FieldRegionKind, field.TypeString, value)
 	}
-	if rru.mutation.RegionKindCleared() {
+	if _u.mutation.RegionKindCleared() {
 		_spec.ClearField(regionresource.FieldRegionKind, field.TypeString)
 	}
-	if value, ok := rru.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(regionresource.FieldMetadata, field.TypeString, value)
 	}
-	if rru.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(regionresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := rru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(regionresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if rru.mutation.ParentRegionCleared() {
+	if _u.mutation.ParentRegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -254,7 +254,7 @@ func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rru.mutation.ParentRegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -270,7 +270,7 @@ func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rru.mutation.ChildrenCleared() {
+	if _u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -283,7 +283,7 @@ func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rru.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !rru.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -299,7 +299,7 @@ func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rru.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -315,7 +315,7 @@ func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, rru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{regionresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -323,8 +323,8 @@ func (rru *RegionResourceUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		return 0, err
 	}
-	rru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // RegionResourceUpdateOne is the builder for updating a single RegionResource entity.
@@ -336,180 +336,180 @@ type RegionResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (rruo *RegionResourceUpdateOne) SetResourceID(s string) *RegionResourceUpdateOne {
-	rruo.mutation.SetResourceID(s)
-	return rruo
+func (_u *RegionResourceUpdateOne) SetResourceID(v string) *RegionResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (rruo *RegionResourceUpdateOne) SetNillableResourceID(s *string) *RegionResourceUpdateOne {
-	if s != nil {
-		rruo.SetResourceID(*s)
+func (_u *RegionResourceUpdateOne) SetNillableResourceID(v *string) *RegionResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return rruo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (rruo *RegionResourceUpdateOne) SetName(s string) *RegionResourceUpdateOne {
-	rruo.mutation.SetName(s)
-	return rruo
+func (_u *RegionResourceUpdateOne) SetName(v string) *RegionResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (rruo *RegionResourceUpdateOne) SetNillableName(s *string) *RegionResourceUpdateOne {
-	if s != nil {
-		rruo.SetName(*s)
+func (_u *RegionResourceUpdateOne) SetNillableName(v *string) *RegionResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return rruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (rruo *RegionResourceUpdateOne) ClearName() *RegionResourceUpdateOne {
-	rruo.mutation.ClearName()
-	return rruo
+func (_u *RegionResourceUpdateOne) ClearName() *RegionResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetRegionKind sets the "region_kind" field.
-func (rruo *RegionResourceUpdateOne) SetRegionKind(s string) *RegionResourceUpdateOne {
-	rruo.mutation.SetRegionKind(s)
-	return rruo
+func (_u *RegionResourceUpdateOne) SetRegionKind(v string) *RegionResourceUpdateOne {
+	_u.mutation.SetRegionKind(v)
+	return _u
 }
 
 // SetNillableRegionKind sets the "region_kind" field if the given value is not nil.
-func (rruo *RegionResourceUpdateOne) SetNillableRegionKind(s *string) *RegionResourceUpdateOne {
-	if s != nil {
-		rruo.SetRegionKind(*s)
+func (_u *RegionResourceUpdateOne) SetNillableRegionKind(v *string) *RegionResourceUpdateOne {
+	if v != nil {
+		_u.SetRegionKind(*v)
 	}
-	return rruo
+	return _u
 }
 
 // ClearRegionKind clears the value of the "region_kind" field.
-func (rruo *RegionResourceUpdateOne) ClearRegionKind() *RegionResourceUpdateOne {
-	rruo.mutation.ClearRegionKind()
-	return rruo
+func (_u *RegionResourceUpdateOne) ClearRegionKind() *RegionResourceUpdateOne {
+	_u.mutation.ClearRegionKind()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (rruo *RegionResourceUpdateOne) SetMetadata(s string) *RegionResourceUpdateOne {
-	rruo.mutation.SetMetadata(s)
-	return rruo
+func (_u *RegionResourceUpdateOne) SetMetadata(v string) *RegionResourceUpdateOne {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (rruo *RegionResourceUpdateOne) SetNillableMetadata(s *string) *RegionResourceUpdateOne {
-	if s != nil {
-		rruo.SetMetadata(*s)
+func (_u *RegionResourceUpdateOne) SetNillableMetadata(v *string) *RegionResourceUpdateOne {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return rruo
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (rruo *RegionResourceUpdateOne) ClearMetadata() *RegionResourceUpdateOne {
-	rruo.mutation.ClearMetadata()
-	return rruo
+func (_u *RegionResourceUpdateOne) ClearMetadata() *RegionResourceUpdateOne {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (rruo *RegionResourceUpdateOne) SetUpdatedAt(s string) *RegionResourceUpdateOne {
-	rruo.mutation.SetUpdatedAt(s)
-	return rruo
+func (_u *RegionResourceUpdateOne) SetUpdatedAt(v string) *RegionResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (rruo *RegionResourceUpdateOne) SetNillableUpdatedAt(s *string) *RegionResourceUpdateOne {
-	if s != nil {
-		rruo.SetUpdatedAt(*s)
+func (_u *RegionResourceUpdateOne) SetNillableUpdatedAt(v *string) *RegionResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return rruo
+	return _u
 }
 
 // SetParentRegionID sets the "parent_region" edge to the RegionResource entity by ID.
-func (rruo *RegionResourceUpdateOne) SetParentRegionID(id int) *RegionResourceUpdateOne {
-	rruo.mutation.SetParentRegionID(id)
-	return rruo
+func (_u *RegionResourceUpdateOne) SetParentRegionID(id int) *RegionResourceUpdateOne {
+	_u.mutation.SetParentRegionID(id)
+	return _u
 }
 
 // SetNillableParentRegionID sets the "parent_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (rruo *RegionResourceUpdateOne) SetNillableParentRegionID(id *int) *RegionResourceUpdateOne {
+func (_u *RegionResourceUpdateOne) SetNillableParentRegionID(id *int) *RegionResourceUpdateOne {
 	if id != nil {
-		rruo = rruo.SetParentRegionID(*id)
+		_u = _u.SetParentRegionID(*id)
 	}
-	return rruo
+	return _u
 }
 
 // SetParentRegion sets the "parent_region" edge to the RegionResource entity.
-func (rruo *RegionResourceUpdateOne) SetParentRegion(r *RegionResource) *RegionResourceUpdateOne {
-	return rruo.SetParentRegionID(r.ID)
+func (_u *RegionResourceUpdateOne) SetParentRegion(v *RegionResource) *RegionResourceUpdateOne {
+	return _u.SetParentRegionID(v.ID)
 }
 
 // AddChildIDs adds the "children" edge to the RegionResource entity by IDs.
-func (rruo *RegionResourceUpdateOne) AddChildIDs(ids ...int) *RegionResourceUpdateOne {
-	rruo.mutation.AddChildIDs(ids...)
-	return rruo
+func (_u *RegionResourceUpdateOne) AddChildIDs(ids ...int) *RegionResourceUpdateOne {
+	_u.mutation.AddChildIDs(ids...)
+	return _u
 }
 
 // AddChildren adds the "children" edges to the RegionResource entity.
-func (rruo *RegionResourceUpdateOne) AddChildren(r ...*RegionResource) *RegionResourceUpdateOne {
-	ids := make([]int, len(r))
-	for i := range r {
-		ids[i] = r[i].ID
+func (_u *RegionResourceUpdateOne) AddChildren(v ...*RegionResource) *RegionResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return rruo.AddChildIDs(ids...)
+	return _u.AddChildIDs(ids...)
 }
 
 // Mutation returns the RegionResourceMutation object of the builder.
-func (rruo *RegionResourceUpdateOne) Mutation() *RegionResourceMutation {
-	return rruo.mutation
+func (_u *RegionResourceUpdateOne) Mutation() *RegionResourceMutation {
+	return _u.mutation
 }
 
 // ClearParentRegion clears the "parent_region" edge to the RegionResource entity.
-func (rruo *RegionResourceUpdateOne) ClearParentRegion() *RegionResourceUpdateOne {
-	rruo.mutation.ClearParentRegion()
-	return rruo
+func (_u *RegionResourceUpdateOne) ClearParentRegion() *RegionResourceUpdateOne {
+	_u.mutation.ClearParentRegion()
+	return _u
 }
 
 // ClearChildren clears all "children" edges to the RegionResource entity.
-func (rruo *RegionResourceUpdateOne) ClearChildren() *RegionResourceUpdateOne {
-	rruo.mutation.ClearChildren()
-	return rruo
+func (_u *RegionResourceUpdateOne) ClearChildren() *RegionResourceUpdateOne {
+	_u.mutation.ClearChildren()
+	return _u
 }
 
 // RemoveChildIDs removes the "children" edge to RegionResource entities by IDs.
-func (rruo *RegionResourceUpdateOne) RemoveChildIDs(ids ...int) *RegionResourceUpdateOne {
-	rruo.mutation.RemoveChildIDs(ids...)
-	return rruo
+func (_u *RegionResourceUpdateOne) RemoveChildIDs(ids ...int) *RegionResourceUpdateOne {
+	_u.mutation.RemoveChildIDs(ids...)
+	return _u
 }
 
 // RemoveChildren removes "children" edges to RegionResource entities.
-func (rruo *RegionResourceUpdateOne) RemoveChildren(r ...*RegionResource) *RegionResourceUpdateOne {
-	ids := make([]int, len(r))
-	for i := range r {
-		ids[i] = r[i].ID
+func (_u *RegionResourceUpdateOne) RemoveChildren(v ...*RegionResource) *RegionResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return rruo.RemoveChildIDs(ids...)
+	return _u.RemoveChildIDs(ids...)
 }
 
 // Where appends a list predicates to the RegionResourceUpdate builder.
-func (rruo *RegionResourceUpdateOne) Where(ps ...predicate.RegionResource) *RegionResourceUpdateOne {
-	rruo.mutation.Where(ps...)
-	return rruo
+func (_u *RegionResourceUpdateOne) Where(ps ...predicate.RegionResource) *RegionResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (rruo *RegionResourceUpdateOne) Select(field string, fields ...string) *RegionResourceUpdateOne {
-	rruo.fields = append([]string{field}, fields...)
-	return rruo
+func (_u *RegionResourceUpdateOne) Select(field string, fields ...string) *RegionResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated RegionResource entity.
-func (rruo *RegionResourceUpdateOne) Save(ctx context.Context) (*RegionResource, error) {
-	return withHooks(ctx, rruo.sqlSave, rruo.mutation, rruo.hooks)
+func (_u *RegionResourceUpdateOne) Save(ctx context.Context) (*RegionResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (rruo *RegionResourceUpdateOne) SaveX(ctx context.Context) *RegionResource {
-	node, err := rruo.Save(ctx)
+func (_u *RegionResourceUpdateOne) SaveX(ctx context.Context) *RegionResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -517,26 +517,26 @@ func (rruo *RegionResourceUpdateOne) SaveX(ctx context.Context) *RegionResource 
 }
 
 // Exec executes the query on the entity.
-func (rruo *RegionResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := rruo.Save(ctx)
+func (_u *RegionResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rruo *RegionResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := rruo.Exec(ctx); err != nil {
+func (_u *RegionResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *RegionResource, err error) {
+func (_u *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *RegionResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(regionresource.Table, regionresource.Columns, sqlgraph.NewFieldSpec(regionresource.FieldID, field.TypeInt))
-	id, ok := rruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "RegionResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := rruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, regionresource.FieldID)
 		for _, f := range fields {
@@ -548,38 +548,38 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 			}
 		}
 	}
-	if ps := rruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := rruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(regionresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := rruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(regionresource.FieldName, field.TypeString, value)
 	}
-	if rruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(regionresource.FieldName, field.TypeString)
 	}
-	if value, ok := rruo.mutation.RegionKind(); ok {
+	if value, ok := _u.mutation.RegionKind(); ok {
 		_spec.SetField(regionresource.FieldRegionKind, field.TypeString, value)
 	}
-	if rruo.mutation.RegionKindCleared() {
+	if _u.mutation.RegionKindCleared() {
 		_spec.ClearField(regionresource.FieldRegionKind, field.TypeString)
 	}
-	if value, ok := rruo.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(regionresource.FieldMetadata, field.TypeString, value)
 	}
-	if rruo.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(regionresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := rruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(regionresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if rruo.mutation.ParentRegionCleared() {
+	if _u.mutation.ParentRegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -592,7 +592,7 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rruo.mutation.ParentRegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -608,7 +608,7 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rruo.mutation.ChildrenCleared() {
+	if _u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -621,7 +621,7 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rruo.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !rruo.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -637,7 +637,7 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rruo.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -653,10 +653,10 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &RegionResource{config: rruo.config}
+	_node = &RegionResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, rruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{regionresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -664,6 +664,6 @@ func (rruo *RegionResourceUpdateOne) sqlSave(ctx context.Context) (_node *Region
 		}
 		return nil, err
 	}
-	rruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

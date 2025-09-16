@@ -21,179 +21,179 @@ type HostusbResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hrc *HostusbResourceCreate) SetResourceID(s string) *HostusbResourceCreate {
-	hrc.mutation.SetResourceID(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetResourceID(v string) *HostusbResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (hrc *HostusbResourceCreate) SetKind(s string) *HostusbResourceCreate {
-	hrc.mutation.SetKind(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetKind(v string) *HostusbResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableKind(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetKind(*s)
+func (_c *HostusbResourceCreate) SetNillableKind(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetOwnerID sets the "owner_id" field.
-func (hrc *HostusbResourceCreate) SetOwnerID(s string) *HostusbResourceCreate {
-	hrc.mutation.SetOwnerID(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetOwnerID(v string) *HostusbResourceCreate {
+	_c.mutation.SetOwnerID(v)
+	return _c
 }
 
 // SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableOwnerID(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetOwnerID(*s)
+func (_c *HostusbResourceCreate) SetNillableOwnerID(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetOwnerID(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetIdvendor sets the "idvendor" field.
-func (hrc *HostusbResourceCreate) SetIdvendor(s string) *HostusbResourceCreate {
-	hrc.mutation.SetIdvendor(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetIdvendor(v string) *HostusbResourceCreate {
+	_c.mutation.SetIdvendor(v)
+	return _c
 }
 
 // SetNillableIdvendor sets the "idvendor" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableIdvendor(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetIdvendor(*s)
+func (_c *HostusbResourceCreate) SetNillableIdvendor(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetIdvendor(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetIdproduct sets the "idproduct" field.
-func (hrc *HostusbResourceCreate) SetIdproduct(s string) *HostusbResourceCreate {
-	hrc.mutation.SetIdproduct(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetIdproduct(v string) *HostusbResourceCreate {
+	_c.mutation.SetIdproduct(v)
+	return _c
 }
 
 // SetNillableIdproduct sets the "idproduct" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableIdproduct(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetIdproduct(*s)
+func (_c *HostusbResourceCreate) SetNillableIdproduct(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetIdproduct(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBus sets the "bus" field.
-func (hrc *HostusbResourceCreate) SetBus(u uint32) *HostusbResourceCreate {
-	hrc.mutation.SetBus(u)
-	return hrc
+func (_c *HostusbResourceCreate) SetBus(v uint32) *HostusbResourceCreate {
+	_c.mutation.SetBus(v)
+	return _c
 }
 
 // SetNillableBus sets the "bus" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableBus(u *uint32) *HostusbResourceCreate {
-	if u != nil {
-		hrc.SetBus(*u)
+func (_c *HostusbResourceCreate) SetNillableBus(v *uint32) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetBus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetAddr sets the "addr" field.
-func (hrc *HostusbResourceCreate) SetAddr(u uint32) *HostusbResourceCreate {
-	hrc.mutation.SetAddr(u)
-	return hrc
+func (_c *HostusbResourceCreate) SetAddr(v uint32) *HostusbResourceCreate {
+	_c.mutation.SetAddr(v)
+	return _c
 }
 
 // SetNillableAddr sets the "addr" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableAddr(u *uint32) *HostusbResourceCreate {
-	if u != nil {
-		hrc.SetAddr(*u)
+func (_c *HostusbResourceCreate) SetNillableAddr(v *uint32) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetAddr(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetClass sets the "class" field.
-func (hrc *HostusbResourceCreate) SetClass(s string) *HostusbResourceCreate {
-	hrc.mutation.SetClass(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetClass(v string) *HostusbResourceCreate {
+	_c.mutation.SetClass(v)
+	return _c
 }
 
 // SetNillableClass sets the "class" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableClass(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetClass(*s)
+func (_c *HostusbResourceCreate) SetNillableClass(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetClass(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSerial sets the "serial" field.
-func (hrc *HostusbResourceCreate) SetSerial(s string) *HostusbResourceCreate {
-	hrc.mutation.SetSerial(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetSerial(v string) *HostusbResourceCreate {
+	_c.mutation.SetSerial(v)
+	return _c
 }
 
 // SetNillableSerial sets the "serial" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableSerial(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetSerial(*s)
+func (_c *HostusbResourceCreate) SetNillableSerial(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetSerial(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hrc *HostusbResourceCreate) SetDeviceName(s string) *HostusbResourceCreate {
-	hrc.mutation.SetDeviceName(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetDeviceName(v string) *HostusbResourceCreate {
+	_c.mutation.SetDeviceName(v)
+	return _c
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hrc *HostusbResourceCreate) SetNillableDeviceName(s *string) *HostusbResourceCreate {
-	if s != nil {
-		hrc.SetDeviceName(*s)
+func (_c *HostusbResourceCreate) SetNillableDeviceName(v *string) *HostusbResourceCreate {
+	if v != nil {
+		_c.SetDeviceName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (hrc *HostusbResourceCreate) SetTenantID(s string) *HostusbResourceCreate {
-	hrc.mutation.SetTenantID(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetTenantID(v string) *HostusbResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (hrc *HostusbResourceCreate) SetCreatedAt(s string) *HostusbResourceCreate {
-	hrc.mutation.SetCreatedAt(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetCreatedAt(v string) *HostusbResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hrc *HostusbResourceCreate) SetUpdatedAt(s string) *HostusbResourceCreate {
-	hrc.mutation.SetUpdatedAt(s)
-	return hrc
+func (_c *HostusbResourceCreate) SetUpdatedAt(v string) *HostusbResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hrc *HostusbResourceCreate) SetHostID(id int) *HostusbResourceCreate {
-	hrc.mutation.SetHostID(id)
-	return hrc
+func (_c *HostusbResourceCreate) SetHostID(id int) *HostusbResourceCreate {
+	_c.mutation.SetHostID(id)
+	return _c
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hrc *HostusbResourceCreate) SetHost(h *HostResource) *HostusbResourceCreate {
-	return hrc.SetHostID(h.ID)
+func (_c *HostusbResourceCreate) SetHost(v *HostResource) *HostusbResourceCreate {
+	return _c.SetHostID(v.ID)
 }
 
 // Mutation returns the HostusbResourceMutation object of the builder.
-func (hrc *HostusbResourceCreate) Mutation() *HostusbResourceMutation {
-	return hrc.mutation
+func (_c *HostusbResourceCreate) Mutation() *HostusbResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the HostusbResource in the database.
-func (hrc *HostusbResourceCreate) Save(ctx context.Context) (*HostusbResource, error) {
-	return withHooks(ctx, hrc.sqlSave, hrc.mutation, hrc.hooks)
+func (_c *HostusbResourceCreate) Save(ctx context.Context) (*HostusbResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (hrc *HostusbResourceCreate) SaveX(ctx context.Context) *HostusbResource {
-	v, err := hrc.Save(ctx)
+func (_c *HostusbResourceCreate) SaveX(ctx context.Context) *HostusbResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -201,44 +201,44 @@ func (hrc *HostusbResourceCreate) SaveX(ctx context.Context) *HostusbResource {
 }
 
 // Exec executes the query.
-func (hrc *HostusbResourceCreate) Exec(ctx context.Context) error {
-	_, err := hrc.Save(ctx)
+func (_c *HostusbResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrc *HostusbResourceCreate) ExecX(ctx context.Context) {
-	if err := hrc.Exec(ctx); err != nil {
+func (_c *HostusbResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hrc *HostusbResourceCreate) check() error {
-	if _, ok := hrc.mutation.ResourceID(); !ok {
+func (_c *HostusbResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "HostusbResource.resource_id"`)}
 	}
-	if _, ok := hrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "HostusbResource.tenant_id"`)}
 	}
-	if _, ok := hrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "HostusbResource.created_at"`)}
 	}
-	if _, ok := hrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "HostusbResource.updated_at"`)}
 	}
-	if len(hrc.mutation.HostIDs()) == 0 {
+	if len(_c.mutation.HostIDs()) == 0 {
 		return &ValidationError{Name: "host", err: errors.New(`ent: missing required edge "HostusbResource.host"`)}
 	}
 	return nil
 }
 
-func (hrc *HostusbResourceCreate) sqlSave(ctx context.Context) (*HostusbResource, error) {
-	if err := hrc.check(); err != nil {
+func (_c *HostusbResourceCreate) sqlSave(ctx context.Context) (*HostusbResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := hrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, hrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -246,69 +246,69 @@ func (hrc *HostusbResourceCreate) sqlSave(ctx context.Context) (*HostusbResource
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	hrc.mutation.id = &_node.ID
-	hrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (hrc *HostusbResourceCreate) createSpec() (*HostusbResource, *sqlgraph.CreateSpec) {
+func (_c *HostusbResourceCreate) createSpec() (*HostusbResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &HostusbResource{config: hrc.config}
+		_node = &HostusbResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(hostusbresource.Table, sqlgraph.NewFieldSpec(hostusbresource.FieldID, field.TypeInt))
 	)
-	if value, ok := hrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(hostusbresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := hrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(hostusbresource.FieldKind, field.TypeString, value)
 		_node.Kind = value
 	}
-	if value, ok := hrc.mutation.OwnerID(); ok {
+	if value, ok := _c.mutation.OwnerID(); ok {
 		_spec.SetField(hostusbresource.FieldOwnerID, field.TypeString, value)
 		_node.OwnerID = value
 	}
-	if value, ok := hrc.mutation.Idvendor(); ok {
+	if value, ok := _c.mutation.Idvendor(); ok {
 		_spec.SetField(hostusbresource.FieldIdvendor, field.TypeString, value)
 		_node.Idvendor = value
 	}
-	if value, ok := hrc.mutation.Idproduct(); ok {
+	if value, ok := _c.mutation.Idproduct(); ok {
 		_spec.SetField(hostusbresource.FieldIdproduct, field.TypeString, value)
 		_node.Idproduct = value
 	}
-	if value, ok := hrc.mutation.Bus(); ok {
+	if value, ok := _c.mutation.Bus(); ok {
 		_spec.SetField(hostusbresource.FieldBus, field.TypeUint32, value)
 		_node.Bus = value
 	}
-	if value, ok := hrc.mutation.Addr(); ok {
+	if value, ok := _c.mutation.Addr(); ok {
 		_spec.SetField(hostusbresource.FieldAddr, field.TypeUint32, value)
 		_node.Addr = value
 	}
-	if value, ok := hrc.mutation.Class(); ok {
+	if value, ok := _c.mutation.Class(); ok {
 		_spec.SetField(hostusbresource.FieldClass, field.TypeString, value)
 		_node.Class = value
 	}
-	if value, ok := hrc.mutation.Serial(); ok {
+	if value, ok := _c.mutation.Serial(); ok {
 		_spec.SetField(hostusbresource.FieldSerial, field.TypeString, value)
 		_node.Serial = value
 	}
-	if value, ok := hrc.mutation.DeviceName(); ok {
+	if value, ok := _c.mutation.DeviceName(); ok {
 		_spec.SetField(hostusbresource.FieldDeviceName, field.TypeString, value)
 		_node.DeviceName = value
 	}
-	if value, ok := hrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostusbresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := hrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(hostusbresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := hrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostusbresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := hrc.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -336,16 +336,16 @@ type HostusbResourceCreateBulk struct {
 }
 
 // Save creates the HostusbResource entities in the database.
-func (hrcb *HostusbResourceCreateBulk) Save(ctx context.Context) ([]*HostusbResource, error) {
-	if hrcb.err != nil {
-		return nil, hrcb.err
+func (_c *HostusbResourceCreateBulk) Save(ctx context.Context) ([]*HostusbResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(hrcb.builders))
-	nodes := make([]*HostusbResource, len(hrcb.builders))
-	mutators := make([]Mutator, len(hrcb.builders))
-	for i := range hrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*HostusbResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := hrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*HostusbResourceMutation)
 				if !ok {
@@ -358,11 +358,11 @@ func (hrcb *HostusbResourceCreateBulk) Save(ctx context.Context) ([]*HostusbReso
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, hrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, hrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -386,7 +386,7 @@ func (hrcb *HostusbResourceCreateBulk) Save(ctx context.Context) ([]*HostusbReso
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, hrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -394,8 +394,8 @@ func (hrcb *HostusbResourceCreateBulk) Save(ctx context.Context) ([]*HostusbReso
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hrcb *HostusbResourceCreateBulk) SaveX(ctx context.Context) []*HostusbResource {
-	v, err := hrcb.Save(ctx)
+func (_c *HostusbResourceCreateBulk) SaveX(ctx context.Context) []*HostusbResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -403,14 +403,14 @@ func (hrcb *HostusbResourceCreateBulk) SaveX(ctx context.Context) []*HostusbReso
 }
 
 // Exec executes the query.
-func (hrcb *HostusbResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := hrcb.Save(ctx)
+func (_c *HostusbResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrcb *HostusbResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := hrcb.Exec(ctx); err != nil {
+func (_c *HostusbResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

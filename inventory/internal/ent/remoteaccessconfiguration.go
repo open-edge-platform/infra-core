@@ -88,7 +88,7 @@ func (*RemoteAccessConfiguration) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the RemoteAccessConfiguration fields.
-func (rac *RemoteAccessConfiguration) assignValues(columns []string, values []any) error {
+func (_m *RemoteAccessConfiguration) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -99,88 +99,88 @@ func (rac *RemoteAccessConfiguration) assignValues(columns []string, values []an
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			rac.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case remoteaccessconfiguration.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				rac.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case remoteaccessconfiguration.FieldExpirationTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field expiration_timestamp", values[i])
 			} else if value.Valid {
-				rac.ExpirationTimestamp = uint64(value.Int64)
+				_m.ExpirationTimestamp = uint64(value.Int64)
 			}
 		case remoteaccessconfiguration.FieldLocalPort:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field local_port", values[i])
 			} else if value.Valid {
-				rac.LocalPort = uint32(value.Int64)
+				_m.LocalPort = uint32(value.Int64)
 			}
 		case remoteaccessconfiguration.FieldUser:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field user", values[i])
 			} else if value.Valid {
-				rac.User = value.String
+				_m.User = value.String
 			}
 		case remoteaccessconfiguration.FieldCurrentState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_state", values[i])
 			} else if value.Valid {
-				rac.CurrentState = remoteaccessconfiguration.CurrentState(value.String)
+				_m.CurrentState = remoteaccessconfiguration.CurrentState(value.String)
 			}
 		case remoteaccessconfiguration.FieldDesiredState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_state", values[i])
 			} else if value.Valid {
-				rac.DesiredState = remoteaccessconfiguration.DesiredState(value.String)
+				_m.DesiredState = remoteaccessconfiguration.DesiredState(value.String)
 			}
 		case remoteaccessconfiguration.FieldConfigurationStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field configuration_status", values[i])
 			} else if value.Valid {
-				rac.ConfigurationStatus = value.String
+				_m.ConfigurationStatus = value.String
 			}
 		case remoteaccessconfiguration.FieldConfigurationStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field configuration_status_indicator", values[i])
 			} else if value.Valid {
-				rac.ConfigurationStatusIndicator = remoteaccessconfiguration.ConfigurationStatusIndicator(value.String)
+				_m.ConfigurationStatusIndicator = remoteaccessconfiguration.ConfigurationStatusIndicator(value.String)
 			}
 		case remoteaccessconfiguration.FieldConfigurationStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field configuration_status_timestamp", values[i])
 			} else if value.Valid {
-				rac.ConfigurationStatusTimestamp = uint64(value.Int64)
+				_m.ConfigurationStatusTimestamp = uint64(value.Int64)
 			}
 		case remoteaccessconfiguration.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				rac.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case remoteaccessconfiguration.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				rac.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case remoteaccessconfiguration.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				rac.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case remoteaccessconfiguration.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field remote_access_configuration_instance", value)
 			} else if value.Valid {
-				rac.remote_access_configuration_instance = new(int)
-				*rac.remote_access_configuration_instance = int(value.Int64)
+				_m.remote_access_configuration_instance = new(int)
+				*_m.remote_access_configuration_instance = int(value.Int64)
 			}
 		default:
-			rac.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -188,73 +188,73 @@ func (rac *RemoteAccessConfiguration) assignValues(columns []string, values []an
 
 // Value returns the ent.Value that was dynamically selected and assigned to the RemoteAccessConfiguration.
 // This includes values selected through modifiers, order, etc.
-func (rac *RemoteAccessConfiguration) Value(name string) (ent.Value, error) {
-	return rac.selectValues.Get(name)
+func (_m *RemoteAccessConfiguration) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryInstance queries the "instance" edge of the RemoteAccessConfiguration entity.
-func (rac *RemoteAccessConfiguration) QueryInstance() *InstanceResourceQuery {
-	return NewRemoteAccessConfigurationClient(rac.config).QueryInstance(rac)
+func (_m *RemoteAccessConfiguration) QueryInstance() *InstanceResourceQuery {
+	return NewRemoteAccessConfigurationClient(_m.config).QueryInstance(_m)
 }
 
 // Update returns a builder for updating this RemoteAccessConfiguration.
 // Note that you need to call RemoteAccessConfiguration.Unwrap() before calling this method if this RemoteAccessConfiguration
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (rac *RemoteAccessConfiguration) Update() *RemoteAccessConfigurationUpdateOne {
-	return NewRemoteAccessConfigurationClient(rac.config).UpdateOne(rac)
+func (_m *RemoteAccessConfiguration) Update() *RemoteAccessConfigurationUpdateOne {
+	return NewRemoteAccessConfigurationClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the RemoteAccessConfiguration entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (rac *RemoteAccessConfiguration) Unwrap() *RemoteAccessConfiguration {
-	_tx, ok := rac.config.driver.(*txDriver)
+func (_m *RemoteAccessConfiguration) Unwrap() *RemoteAccessConfiguration {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: RemoteAccessConfiguration is not a transactional entity")
 	}
-	rac.config.driver = _tx.drv
-	return rac
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (rac *RemoteAccessConfiguration) String() string {
+func (_m *RemoteAccessConfiguration) String() string {
 	var builder strings.Builder
 	builder.WriteString("RemoteAccessConfiguration(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", rac.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(rac.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("expiration_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", rac.ExpirationTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.ExpirationTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("local_port=")
-	builder.WriteString(fmt.Sprintf("%v", rac.LocalPort))
+	builder.WriteString(fmt.Sprintf("%v", _m.LocalPort))
 	builder.WriteString(", ")
 	builder.WriteString("user=")
-	builder.WriteString(rac.User)
+	builder.WriteString(_m.User)
 	builder.WriteString(", ")
 	builder.WriteString("current_state=")
-	builder.WriteString(fmt.Sprintf("%v", rac.CurrentState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentState))
 	builder.WriteString(", ")
 	builder.WriteString("desired_state=")
-	builder.WriteString(fmt.Sprintf("%v", rac.DesiredState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredState))
 	builder.WriteString(", ")
 	builder.WriteString("configuration_status=")
-	builder.WriteString(rac.ConfigurationStatus)
+	builder.WriteString(_m.ConfigurationStatus)
 	builder.WriteString(", ")
 	builder.WriteString("configuration_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", rac.ConfigurationStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.ConfigurationStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("configuration_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", rac.ConfigurationStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.ConfigurationStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(rac.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(rac.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(rac.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

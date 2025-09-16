@@ -21,137 +21,137 @@ type IPAddressResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (iarc *IPAddressResourceCreate) SetResourceID(s string) *IPAddressResourceCreate {
-	iarc.mutation.SetResourceID(s)
-	return iarc
+func (_c *IPAddressResourceCreate) SetResourceID(v string) *IPAddressResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetAddress sets the "address" field.
-func (iarc *IPAddressResourceCreate) SetAddress(s string) *IPAddressResourceCreate {
-	iarc.mutation.SetAddress(s)
-	return iarc
+func (_c *IPAddressResourceCreate) SetAddress(v string) *IPAddressResourceCreate {
+	_c.mutation.SetAddress(v)
+	return _c
 }
 
 // SetNillableAddress sets the "address" field if the given value is not nil.
-func (iarc *IPAddressResourceCreate) SetNillableAddress(s *string) *IPAddressResourceCreate {
-	if s != nil {
-		iarc.SetAddress(*s)
+func (_c *IPAddressResourceCreate) SetNillableAddress(v *string) *IPAddressResourceCreate {
+	if v != nil {
+		_c.SetAddress(*v)
 	}
-	return iarc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (iarc *IPAddressResourceCreate) SetDesiredState(is ipaddressresource.DesiredState) *IPAddressResourceCreate {
-	iarc.mutation.SetDesiredState(is)
-	return iarc
+func (_c *IPAddressResourceCreate) SetDesiredState(v ipaddressresource.DesiredState) *IPAddressResourceCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (iarc *IPAddressResourceCreate) SetNillableDesiredState(is *ipaddressresource.DesiredState) *IPAddressResourceCreate {
-	if is != nil {
-		iarc.SetDesiredState(*is)
+func (_c *IPAddressResourceCreate) SetNillableDesiredState(v *ipaddressresource.DesiredState) *IPAddressResourceCreate {
+	if v != nil {
+		_c.SetDesiredState(*v)
 	}
-	return iarc
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (iarc *IPAddressResourceCreate) SetCurrentState(is ipaddressresource.CurrentState) *IPAddressResourceCreate {
-	iarc.mutation.SetCurrentState(is)
-	return iarc
+func (_c *IPAddressResourceCreate) SetCurrentState(v ipaddressresource.CurrentState) *IPAddressResourceCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (iarc *IPAddressResourceCreate) SetNillableCurrentState(is *ipaddressresource.CurrentState) *IPAddressResourceCreate {
-	if is != nil {
-		iarc.SetCurrentState(*is)
+func (_c *IPAddressResourceCreate) SetNillableCurrentState(v *ipaddressresource.CurrentState) *IPAddressResourceCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return iarc
+	return _c
 }
 
 // SetStatus sets the "status" field.
-func (iarc *IPAddressResourceCreate) SetStatus(i ipaddressresource.Status) *IPAddressResourceCreate {
-	iarc.mutation.SetStatus(i)
-	return iarc
+func (_c *IPAddressResourceCreate) SetStatus(v ipaddressresource.Status) *IPAddressResourceCreate {
+	_c.mutation.SetStatus(v)
+	return _c
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (iarc *IPAddressResourceCreate) SetNillableStatus(i *ipaddressresource.Status) *IPAddressResourceCreate {
-	if i != nil {
-		iarc.SetStatus(*i)
+func (_c *IPAddressResourceCreate) SetNillableStatus(v *ipaddressresource.Status) *IPAddressResourceCreate {
+	if v != nil {
+		_c.SetStatus(*v)
 	}
-	return iarc
+	return _c
 }
 
 // SetStatusDetail sets the "status_detail" field.
-func (iarc *IPAddressResourceCreate) SetStatusDetail(s string) *IPAddressResourceCreate {
-	iarc.mutation.SetStatusDetail(s)
-	return iarc
+func (_c *IPAddressResourceCreate) SetStatusDetail(v string) *IPAddressResourceCreate {
+	_c.mutation.SetStatusDetail(v)
+	return _c
 }
 
 // SetNillableStatusDetail sets the "status_detail" field if the given value is not nil.
-func (iarc *IPAddressResourceCreate) SetNillableStatusDetail(s *string) *IPAddressResourceCreate {
-	if s != nil {
-		iarc.SetStatusDetail(*s)
+func (_c *IPAddressResourceCreate) SetNillableStatusDetail(v *string) *IPAddressResourceCreate {
+	if v != nil {
+		_c.SetStatusDetail(*v)
 	}
-	return iarc
+	return _c
 }
 
 // SetConfigMethod sets the "config_method" field.
-func (iarc *IPAddressResourceCreate) SetConfigMethod(im ipaddressresource.ConfigMethod) *IPAddressResourceCreate {
-	iarc.mutation.SetConfigMethod(im)
-	return iarc
+func (_c *IPAddressResourceCreate) SetConfigMethod(v ipaddressresource.ConfigMethod) *IPAddressResourceCreate {
+	_c.mutation.SetConfigMethod(v)
+	return _c
 }
 
 // SetNillableConfigMethod sets the "config_method" field if the given value is not nil.
-func (iarc *IPAddressResourceCreate) SetNillableConfigMethod(im *ipaddressresource.ConfigMethod) *IPAddressResourceCreate {
-	if im != nil {
-		iarc.SetConfigMethod(*im)
+func (_c *IPAddressResourceCreate) SetNillableConfigMethod(v *ipaddressresource.ConfigMethod) *IPAddressResourceCreate {
+	if v != nil {
+		_c.SetConfigMethod(*v)
 	}
-	return iarc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (iarc *IPAddressResourceCreate) SetTenantID(s string) *IPAddressResourceCreate {
-	iarc.mutation.SetTenantID(s)
-	return iarc
+func (_c *IPAddressResourceCreate) SetTenantID(v string) *IPAddressResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (iarc *IPAddressResourceCreate) SetCreatedAt(s string) *IPAddressResourceCreate {
-	iarc.mutation.SetCreatedAt(s)
-	return iarc
+func (_c *IPAddressResourceCreate) SetCreatedAt(v string) *IPAddressResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (iarc *IPAddressResourceCreate) SetUpdatedAt(s string) *IPAddressResourceCreate {
-	iarc.mutation.SetUpdatedAt(s)
-	return iarc
+func (_c *IPAddressResourceCreate) SetUpdatedAt(v string) *IPAddressResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetNicID sets the "nic" edge to the HostnicResource entity by ID.
-func (iarc *IPAddressResourceCreate) SetNicID(id int) *IPAddressResourceCreate {
-	iarc.mutation.SetNicID(id)
-	return iarc
+func (_c *IPAddressResourceCreate) SetNicID(id int) *IPAddressResourceCreate {
+	_c.mutation.SetNicID(id)
+	return _c
 }
 
 // SetNic sets the "nic" edge to the HostnicResource entity.
-func (iarc *IPAddressResourceCreate) SetNic(h *HostnicResource) *IPAddressResourceCreate {
-	return iarc.SetNicID(h.ID)
+func (_c *IPAddressResourceCreate) SetNic(v *HostnicResource) *IPAddressResourceCreate {
+	return _c.SetNicID(v.ID)
 }
 
 // Mutation returns the IPAddressResourceMutation object of the builder.
-func (iarc *IPAddressResourceCreate) Mutation() *IPAddressResourceMutation {
-	return iarc.mutation
+func (_c *IPAddressResourceCreate) Mutation() *IPAddressResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the IPAddressResource in the database.
-func (iarc *IPAddressResourceCreate) Save(ctx context.Context) (*IPAddressResource, error) {
-	return withHooks(ctx, iarc.sqlSave, iarc.mutation, iarc.hooks)
+func (_c *IPAddressResourceCreate) Save(ctx context.Context) (*IPAddressResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (iarc *IPAddressResourceCreate) SaveX(ctx context.Context) *IPAddressResource {
-	v, err := iarc.Save(ctx)
+func (_c *IPAddressResourceCreate) SaveX(ctx context.Context) *IPAddressResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,64 +159,64 @@ func (iarc *IPAddressResourceCreate) SaveX(ctx context.Context) *IPAddressResour
 }
 
 // Exec executes the query.
-func (iarc *IPAddressResourceCreate) Exec(ctx context.Context) error {
-	_, err := iarc.Save(ctx)
+func (_c *IPAddressResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iarc *IPAddressResourceCreate) ExecX(ctx context.Context) {
-	if err := iarc.Exec(ctx); err != nil {
+func (_c *IPAddressResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (iarc *IPAddressResourceCreate) check() error {
-	if _, ok := iarc.mutation.ResourceID(); !ok {
+func (_c *IPAddressResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "IPAddressResource.resource_id"`)}
 	}
-	if v, ok := iarc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := ipaddressresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := iarc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := ipaddressresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := iarc.mutation.Status(); ok {
+	if v, ok := _c.mutation.Status(); ok {
 		if err := ipaddressresource.StatusValidator(v); err != nil {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.status": %w`, err)}
 		}
 	}
-	if v, ok := iarc.mutation.ConfigMethod(); ok {
+	if v, ok := _c.mutation.ConfigMethod(); ok {
 		if err := ipaddressresource.ConfigMethodValidator(v); err != nil {
 			return &ValidationError{Name: "config_method", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.config_method": %w`, err)}
 		}
 	}
-	if _, ok := iarc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "IPAddressResource.tenant_id"`)}
 	}
-	if _, ok := iarc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "IPAddressResource.created_at"`)}
 	}
-	if _, ok := iarc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "IPAddressResource.updated_at"`)}
 	}
-	if len(iarc.mutation.NicIDs()) == 0 {
+	if len(_c.mutation.NicIDs()) == 0 {
 		return &ValidationError{Name: "nic", err: errors.New(`ent: missing required edge "IPAddressResource.nic"`)}
 	}
 	return nil
 }
 
-func (iarc *IPAddressResourceCreate) sqlSave(ctx context.Context) (*IPAddressResource, error) {
-	if err := iarc.check(); err != nil {
+func (_c *IPAddressResourceCreate) sqlSave(ctx context.Context) (*IPAddressResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := iarc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, iarc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -224,57 +224,57 @@ func (iarc *IPAddressResourceCreate) sqlSave(ctx context.Context) (*IPAddressRes
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	iarc.mutation.id = &_node.ID
-	iarc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (iarc *IPAddressResourceCreate) createSpec() (*IPAddressResource, *sqlgraph.CreateSpec) {
+func (_c *IPAddressResourceCreate) createSpec() (*IPAddressResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &IPAddressResource{config: iarc.config}
+		_node = &IPAddressResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(ipaddressresource.Table, sqlgraph.NewFieldSpec(ipaddressresource.FieldID, field.TypeInt))
 	)
-	if value, ok := iarc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(ipaddressresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := iarc.mutation.Address(); ok {
+	if value, ok := _c.mutation.Address(); ok {
 		_spec.SetField(ipaddressresource.FieldAddress, field.TypeString, value)
 		_node.Address = value
 	}
-	if value, ok := iarc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(ipaddressresource.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := iarc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(ipaddressresource.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := iarc.mutation.Status(); ok {
+	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(ipaddressresource.FieldStatus, field.TypeEnum, value)
 		_node.Status = value
 	}
-	if value, ok := iarc.mutation.StatusDetail(); ok {
+	if value, ok := _c.mutation.StatusDetail(); ok {
 		_spec.SetField(ipaddressresource.FieldStatusDetail, field.TypeString, value)
 		_node.StatusDetail = value
 	}
-	if value, ok := iarc.mutation.ConfigMethod(); ok {
+	if value, ok := _c.mutation.ConfigMethod(); ok {
 		_spec.SetField(ipaddressresource.FieldConfigMethod, field.TypeEnum, value)
 		_node.ConfigMethod = value
 	}
-	if value, ok := iarc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(ipaddressresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := iarc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(ipaddressresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := iarc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(ipaddressresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := iarc.mutation.NicIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.NicIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -302,16 +302,16 @@ type IPAddressResourceCreateBulk struct {
 }
 
 // Save creates the IPAddressResource entities in the database.
-func (iarcb *IPAddressResourceCreateBulk) Save(ctx context.Context) ([]*IPAddressResource, error) {
-	if iarcb.err != nil {
-		return nil, iarcb.err
+func (_c *IPAddressResourceCreateBulk) Save(ctx context.Context) ([]*IPAddressResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(iarcb.builders))
-	nodes := make([]*IPAddressResource, len(iarcb.builders))
-	mutators := make([]Mutator, len(iarcb.builders))
-	for i := range iarcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*IPAddressResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := iarcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*IPAddressResourceMutation)
 				if !ok {
@@ -324,11 +324,11 @@ func (iarcb *IPAddressResourceCreateBulk) Save(ctx context.Context) ([]*IPAddres
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, iarcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, iarcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -352,7 +352,7 @@ func (iarcb *IPAddressResourceCreateBulk) Save(ctx context.Context) ([]*IPAddres
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, iarcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -360,8 +360,8 @@ func (iarcb *IPAddressResourceCreateBulk) Save(ctx context.Context) ([]*IPAddres
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iarcb *IPAddressResourceCreateBulk) SaveX(ctx context.Context) []*IPAddressResource {
-	v, err := iarcb.Save(ctx)
+func (_c *IPAddressResourceCreateBulk) SaveX(ctx context.Context) []*IPAddressResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -369,14 +369,14 @@ func (iarcb *IPAddressResourceCreateBulk) SaveX(ctx context.Context) []*IPAddres
 }
 
 // Exec executes the query.
-func (iarcb *IPAddressResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := iarcb.Save(ctx)
+func (_c *IPAddressResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iarcb *IPAddressResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := iarcb.Exec(ctx); err != nil {
+func (_c *IPAddressResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

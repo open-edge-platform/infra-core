@@ -20,56 +20,56 @@ type CustomConfigResourceDelete struct {
 }
 
 // Where appends a list predicates to the CustomConfigResourceDelete builder.
-func (ccrd *CustomConfigResourceDelete) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceDelete {
-	ccrd.mutation.Where(ps...)
-	return ccrd
+func (_d *CustomConfigResourceDelete) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (ccrd *CustomConfigResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, ccrd.sqlExec, ccrd.mutation, ccrd.hooks)
+func (_d *CustomConfigResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccrd *CustomConfigResourceDelete) ExecX(ctx context.Context) int {
-	n, err := ccrd.Exec(ctx)
+func (_d *CustomConfigResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (ccrd *CustomConfigResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *CustomConfigResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(customconfigresource.Table, sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt))
-	if ps := ccrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, ccrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	ccrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // CustomConfigResourceDeleteOne is the builder for deleting a single CustomConfigResource entity.
 type CustomConfigResourceDeleteOne struct {
-	ccrd *CustomConfigResourceDelete
+	_d *CustomConfigResourceDelete
 }
 
 // Where appends a list predicates to the CustomConfigResourceDelete builder.
-func (ccrdo *CustomConfigResourceDeleteOne) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceDeleteOne {
-	ccrdo.ccrd.mutation.Where(ps...)
-	return ccrdo
+func (_d *CustomConfigResourceDeleteOne) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (ccrdo *CustomConfigResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := ccrdo.ccrd.Exec(ctx)
+func (_d *CustomConfigResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (ccrdo *CustomConfigResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccrdo *CustomConfigResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := ccrdo.Exec(ctx); err != nil {
+func (_d *CustomConfigResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

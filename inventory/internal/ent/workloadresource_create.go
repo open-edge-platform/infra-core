@@ -21,139 +21,139 @@ type WorkloadResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (wrc *WorkloadResourceCreate) SetResourceID(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetResourceID(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetResourceID(v string) *WorkloadResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (wrc *WorkloadResourceCreate) SetKind(w workloadresource.Kind) *WorkloadResourceCreate {
-	wrc.mutation.SetKind(w)
-	return wrc
+func (_c *WorkloadResourceCreate) SetKind(v workloadresource.Kind) *WorkloadResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (wrc *WorkloadResourceCreate) SetName(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetName(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetName(v string) *WorkloadResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (wrc *WorkloadResourceCreate) SetNillableName(s *string) *WorkloadResourceCreate {
-	if s != nil {
-		wrc.SetName(*s)
+func (_c *WorkloadResourceCreate) SetNillableName(v *string) *WorkloadResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return wrc
+	return _c
 }
 
 // SetExternalID sets the "external_id" field.
-func (wrc *WorkloadResourceCreate) SetExternalID(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetExternalID(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetExternalID(v string) *WorkloadResourceCreate {
+	_c.mutation.SetExternalID(v)
+	return _c
 }
 
 // SetNillableExternalID sets the "external_id" field if the given value is not nil.
-func (wrc *WorkloadResourceCreate) SetNillableExternalID(s *string) *WorkloadResourceCreate {
-	if s != nil {
-		wrc.SetExternalID(*s)
+func (_c *WorkloadResourceCreate) SetNillableExternalID(v *string) *WorkloadResourceCreate {
+	if v != nil {
+		_c.SetExternalID(*v)
 	}
-	return wrc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (wrc *WorkloadResourceCreate) SetDesiredState(ws workloadresource.DesiredState) *WorkloadResourceCreate {
-	wrc.mutation.SetDesiredState(ws)
-	return wrc
+func (_c *WorkloadResourceCreate) SetDesiredState(v workloadresource.DesiredState) *WorkloadResourceCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (wrc *WorkloadResourceCreate) SetCurrentState(ws workloadresource.CurrentState) *WorkloadResourceCreate {
-	wrc.mutation.SetCurrentState(ws)
-	return wrc
+func (_c *WorkloadResourceCreate) SetCurrentState(v workloadresource.CurrentState) *WorkloadResourceCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (wrc *WorkloadResourceCreate) SetNillableCurrentState(ws *workloadresource.CurrentState) *WorkloadResourceCreate {
-	if ws != nil {
-		wrc.SetCurrentState(*ws)
+func (_c *WorkloadResourceCreate) SetNillableCurrentState(v *workloadresource.CurrentState) *WorkloadResourceCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return wrc
+	return _c
 }
 
 // SetStatus sets the "status" field.
-func (wrc *WorkloadResourceCreate) SetStatus(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetStatus(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetStatus(v string) *WorkloadResourceCreate {
+	_c.mutation.SetStatus(v)
+	return _c
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (wrc *WorkloadResourceCreate) SetNillableStatus(s *string) *WorkloadResourceCreate {
-	if s != nil {
-		wrc.SetStatus(*s)
+func (_c *WorkloadResourceCreate) SetNillableStatus(v *string) *WorkloadResourceCreate {
+	if v != nil {
+		_c.SetStatus(*v)
 	}
-	return wrc
+	return _c
 }
 
 // SetMetadata sets the "metadata" field.
-func (wrc *WorkloadResourceCreate) SetMetadata(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetMetadata(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetMetadata(v string) *WorkloadResourceCreate {
+	_c.mutation.SetMetadata(v)
+	return _c
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (wrc *WorkloadResourceCreate) SetNillableMetadata(s *string) *WorkloadResourceCreate {
-	if s != nil {
-		wrc.SetMetadata(*s)
+func (_c *WorkloadResourceCreate) SetNillableMetadata(v *string) *WorkloadResourceCreate {
+	if v != nil {
+		_c.SetMetadata(*v)
 	}
-	return wrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (wrc *WorkloadResourceCreate) SetTenantID(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetTenantID(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetTenantID(v string) *WorkloadResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (wrc *WorkloadResourceCreate) SetCreatedAt(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetCreatedAt(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetCreatedAt(v string) *WorkloadResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (wrc *WorkloadResourceCreate) SetUpdatedAt(s string) *WorkloadResourceCreate {
-	wrc.mutation.SetUpdatedAt(s)
-	return wrc
+func (_c *WorkloadResourceCreate) SetUpdatedAt(v string) *WorkloadResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // AddMemberIDs adds the "members" edge to the WorkloadMember entity by IDs.
-func (wrc *WorkloadResourceCreate) AddMemberIDs(ids ...int) *WorkloadResourceCreate {
-	wrc.mutation.AddMemberIDs(ids...)
-	return wrc
+func (_c *WorkloadResourceCreate) AddMemberIDs(ids ...int) *WorkloadResourceCreate {
+	_c.mutation.AddMemberIDs(ids...)
+	return _c
 }
 
 // AddMembers adds the "members" edges to the WorkloadMember entity.
-func (wrc *WorkloadResourceCreate) AddMembers(w ...*WorkloadMember) *WorkloadResourceCreate {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_c *WorkloadResourceCreate) AddMembers(v ...*WorkloadMember) *WorkloadResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return wrc.AddMemberIDs(ids...)
+	return _c.AddMemberIDs(ids...)
 }
 
 // Mutation returns the WorkloadResourceMutation object of the builder.
-func (wrc *WorkloadResourceCreate) Mutation() *WorkloadResourceMutation {
-	return wrc.mutation
+func (_c *WorkloadResourceCreate) Mutation() *WorkloadResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the WorkloadResource in the database.
-func (wrc *WorkloadResourceCreate) Save(ctx context.Context) (*WorkloadResource, error) {
-	return withHooks(ctx, wrc.sqlSave, wrc.mutation, wrc.hooks)
+func (_c *WorkloadResourceCreate) Save(ctx context.Context) (*WorkloadResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (wrc *WorkloadResourceCreate) SaveX(ctx context.Context) *WorkloadResource {
-	v, err := wrc.Save(ctx)
+func (_c *WorkloadResourceCreate) SaveX(ctx context.Context) *WorkloadResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -161,62 +161,62 @@ func (wrc *WorkloadResourceCreate) SaveX(ctx context.Context) *WorkloadResource 
 }
 
 // Exec executes the query.
-func (wrc *WorkloadResourceCreate) Exec(ctx context.Context) error {
-	_, err := wrc.Save(ctx)
+func (_c *WorkloadResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wrc *WorkloadResourceCreate) ExecX(ctx context.Context) {
-	if err := wrc.Exec(ctx); err != nil {
+func (_c *WorkloadResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (wrc *WorkloadResourceCreate) check() error {
-	if _, ok := wrc.mutation.ResourceID(); !ok {
+func (_c *WorkloadResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "WorkloadResource.resource_id"`)}
 	}
-	if _, ok := wrc.mutation.Kind(); !ok {
+	if _, ok := _c.mutation.Kind(); !ok {
 		return &ValidationError{Name: "kind", err: errors.New(`ent: missing required field "WorkloadResource.kind"`)}
 	}
-	if v, ok := wrc.mutation.Kind(); ok {
+	if v, ok := _c.mutation.Kind(); ok {
 		if err := workloadresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.kind": %w`, err)}
 		}
 	}
-	if _, ok := wrc.mutation.DesiredState(); !ok {
+	if _, ok := _c.mutation.DesiredState(); !ok {
 		return &ValidationError{Name: "desired_state", err: errors.New(`ent: missing required field "WorkloadResource.desired_state"`)}
 	}
-	if v, ok := wrc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := workloadresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := wrc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := workloadresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.current_state": %w`, err)}
 		}
 	}
-	if _, ok := wrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "WorkloadResource.tenant_id"`)}
 	}
-	if _, ok := wrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "WorkloadResource.created_at"`)}
 	}
-	if _, ok := wrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "WorkloadResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (wrc *WorkloadResourceCreate) sqlSave(ctx context.Context) (*WorkloadResource, error) {
-	if err := wrc.check(); err != nil {
+func (_c *WorkloadResourceCreate) sqlSave(ctx context.Context) (*WorkloadResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := wrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, wrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -224,61 +224,61 @@ func (wrc *WorkloadResourceCreate) sqlSave(ctx context.Context) (*WorkloadResour
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	wrc.mutation.id = &_node.ID
-	wrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (wrc *WorkloadResourceCreate) createSpec() (*WorkloadResource, *sqlgraph.CreateSpec) {
+func (_c *WorkloadResourceCreate) createSpec() (*WorkloadResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &WorkloadResource{config: wrc.config}
+		_node = &WorkloadResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(workloadresource.Table, sqlgraph.NewFieldSpec(workloadresource.FieldID, field.TypeInt))
 	)
-	if value, ok := wrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(workloadresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := wrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(workloadresource.FieldKind, field.TypeEnum, value)
 		_node.Kind = value
 	}
-	if value, ok := wrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(workloadresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := wrc.mutation.ExternalID(); ok {
+	if value, ok := _c.mutation.ExternalID(); ok {
 		_spec.SetField(workloadresource.FieldExternalID, field.TypeString, value)
 		_node.ExternalID = value
 	}
-	if value, ok := wrc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(workloadresource.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := wrc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(workloadresource.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := wrc.mutation.Status(); ok {
+	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(workloadresource.FieldStatus, field.TypeString, value)
 		_node.Status = value
 	}
-	if value, ok := wrc.mutation.Metadata(); ok {
+	if value, ok := _c.mutation.Metadata(); ok {
 		_spec.SetField(workloadresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
 	}
-	if value, ok := wrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(workloadresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := wrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(workloadresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := wrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(workloadresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := wrc.mutation.MembersIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.MembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -305,16 +305,16 @@ type WorkloadResourceCreateBulk struct {
 }
 
 // Save creates the WorkloadResource entities in the database.
-func (wrcb *WorkloadResourceCreateBulk) Save(ctx context.Context) ([]*WorkloadResource, error) {
-	if wrcb.err != nil {
-		return nil, wrcb.err
+func (_c *WorkloadResourceCreateBulk) Save(ctx context.Context) ([]*WorkloadResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(wrcb.builders))
-	nodes := make([]*WorkloadResource, len(wrcb.builders))
-	mutators := make([]Mutator, len(wrcb.builders))
-	for i := range wrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*WorkloadResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := wrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*WorkloadResourceMutation)
 				if !ok {
@@ -327,11 +327,11 @@ func (wrcb *WorkloadResourceCreateBulk) Save(ctx context.Context) ([]*WorkloadRe
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, wrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, wrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -355,7 +355,7 @@ func (wrcb *WorkloadResourceCreateBulk) Save(ctx context.Context) ([]*WorkloadRe
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, wrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -363,8 +363,8 @@ func (wrcb *WorkloadResourceCreateBulk) Save(ctx context.Context) ([]*WorkloadRe
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (wrcb *WorkloadResourceCreateBulk) SaveX(ctx context.Context) []*WorkloadResource {
-	v, err := wrcb.Save(ctx)
+func (_c *WorkloadResourceCreateBulk) SaveX(ctx context.Context) []*WorkloadResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -372,14 +372,14 @@ func (wrcb *WorkloadResourceCreateBulk) SaveX(ctx context.Context) []*WorkloadRe
 }
 
 // Exec executes the query.
-func (wrcb *WorkloadResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := wrcb.Save(ctx)
+func (_c *WorkloadResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wrcb *WorkloadResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := wrcb.Exec(ctx); err != nil {
+func (_c *WorkloadResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

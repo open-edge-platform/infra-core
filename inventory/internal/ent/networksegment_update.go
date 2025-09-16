@@ -23,116 +23,116 @@ type NetworkSegmentUpdate struct {
 }
 
 // Where appends a list predicates to the NetworkSegmentUpdate builder.
-func (nsu *NetworkSegmentUpdate) Where(ps ...predicate.NetworkSegment) *NetworkSegmentUpdate {
-	nsu.mutation.Where(ps...)
-	return nsu
+func (_u *NetworkSegmentUpdate) Where(ps ...predicate.NetworkSegment) *NetworkSegmentUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (nsu *NetworkSegmentUpdate) SetResourceID(s string) *NetworkSegmentUpdate {
-	nsu.mutation.SetResourceID(s)
-	return nsu
+func (_u *NetworkSegmentUpdate) SetResourceID(v string) *NetworkSegmentUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (nsu *NetworkSegmentUpdate) SetNillableResourceID(s *string) *NetworkSegmentUpdate {
-	if s != nil {
-		nsu.SetResourceID(*s)
+func (_u *NetworkSegmentUpdate) SetNillableResourceID(v *string) *NetworkSegmentUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return nsu
+	return _u
 }
 
 // SetName sets the "name" field.
-func (nsu *NetworkSegmentUpdate) SetName(s string) *NetworkSegmentUpdate {
-	nsu.mutation.SetName(s)
-	return nsu
+func (_u *NetworkSegmentUpdate) SetName(v string) *NetworkSegmentUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (nsu *NetworkSegmentUpdate) SetNillableName(s *string) *NetworkSegmentUpdate {
-	if s != nil {
-		nsu.SetName(*s)
+func (_u *NetworkSegmentUpdate) SetNillableName(v *string) *NetworkSegmentUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return nsu
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (nsu *NetworkSegmentUpdate) ClearName() *NetworkSegmentUpdate {
-	nsu.mutation.ClearName()
-	return nsu
+func (_u *NetworkSegmentUpdate) ClearName() *NetworkSegmentUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetVlanID sets the "vlan_id" field.
-func (nsu *NetworkSegmentUpdate) SetVlanID(i int32) *NetworkSegmentUpdate {
-	nsu.mutation.ResetVlanID()
-	nsu.mutation.SetVlanID(i)
-	return nsu
+func (_u *NetworkSegmentUpdate) SetVlanID(v int32) *NetworkSegmentUpdate {
+	_u.mutation.ResetVlanID()
+	_u.mutation.SetVlanID(v)
+	return _u
 }
 
 // SetNillableVlanID sets the "vlan_id" field if the given value is not nil.
-func (nsu *NetworkSegmentUpdate) SetNillableVlanID(i *int32) *NetworkSegmentUpdate {
-	if i != nil {
-		nsu.SetVlanID(*i)
+func (_u *NetworkSegmentUpdate) SetNillableVlanID(v *int32) *NetworkSegmentUpdate {
+	if v != nil {
+		_u.SetVlanID(*v)
 	}
-	return nsu
+	return _u
 }
 
-// AddVlanID adds i to the "vlan_id" field.
-func (nsu *NetworkSegmentUpdate) AddVlanID(i int32) *NetworkSegmentUpdate {
-	nsu.mutation.AddVlanID(i)
-	return nsu
+// AddVlanID adds value to the "vlan_id" field.
+func (_u *NetworkSegmentUpdate) AddVlanID(v int32) *NetworkSegmentUpdate {
+	_u.mutation.AddVlanID(v)
+	return _u
 }
 
 // ClearVlanID clears the value of the "vlan_id" field.
-func (nsu *NetworkSegmentUpdate) ClearVlanID() *NetworkSegmentUpdate {
-	nsu.mutation.ClearVlanID()
-	return nsu
+func (_u *NetworkSegmentUpdate) ClearVlanID() *NetworkSegmentUpdate {
+	_u.mutation.ClearVlanID()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (nsu *NetworkSegmentUpdate) SetUpdatedAt(s string) *NetworkSegmentUpdate {
-	nsu.mutation.SetUpdatedAt(s)
-	return nsu
+func (_u *NetworkSegmentUpdate) SetUpdatedAt(v string) *NetworkSegmentUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (nsu *NetworkSegmentUpdate) SetNillableUpdatedAt(s *string) *NetworkSegmentUpdate {
-	if s != nil {
-		nsu.SetUpdatedAt(*s)
+func (_u *NetworkSegmentUpdate) SetNillableUpdatedAt(v *string) *NetworkSegmentUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return nsu
+	return _u
 }
 
 // SetSiteID sets the "site" edge to the SiteResource entity by ID.
-func (nsu *NetworkSegmentUpdate) SetSiteID(id int) *NetworkSegmentUpdate {
-	nsu.mutation.SetSiteID(id)
-	return nsu
+func (_u *NetworkSegmentUpdate) SetSiteID(id int) *NetworkSegmentUpdate {
+	_u.mutation.SetSiteID(id)
+	return _u
 }
 
 // SetSite sets the "site" edge to the SiteResource entity.
-func (nsu *NetworkSegmentUpdate) SetSite(s *SiteResource) *NetworkSegmentUpdate {
-	return nsu.SetSiteID(s.ID)
+func (_u *NetworkSegmentUpdate) SetSite(v *SiteResource) *NetworkSegmentUpdate {
+	return _u.SetSiteID(v.ID)
 }
 
 // Mutation returns the NetworkSegmentMutation object of the builder.
-func (nsu *NetworkSegmentUpdate) Mutation() *NetworkSegmentMutation {
-	return nsu.mutation
+func (_u *NetworkSegmentUpdate) Mutation() *NetworkSegmentMutation {
+	return _u.mutation
 }
 
 // ClearSite clears the "site" edge to the SiteResource entity.
-func (nsu *NetworkSegmentUpdate) ClearSite() *NetworkSegmentUpdate {
-	nsu.mutation.ClearSite()
-	return nsu
+func (_u *NetworkSegmentUpdate) ClearSite() *NetworkSegmentUpdate {
+	_u.mutation.ClearSite()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (nsu *NetworkSegmentUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, nsu.sqlSave, nsu.mutation, nsu.hooks)
+func (_u *NetworkSegmentUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nsu *NetworkSegmentUpdate) SaveX(ctx context.Context) int {
-	affected, err := nsu.Save(ctx)
+func (_u *NetworkSegmentUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -140,60 +140,60 @@ func (nsu *NetworkSegmentUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (nsu *NetworkSegmentUpdate) Exec(ctx context.Context) error {
-	_, err := nsu.Save(ctx)
+func (_u *NetworkSegmentUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nsu *NetworkSegmentUpdate) ExecX(ctx context.Context) {
-	if err := nsu.Exec(ctx); err != nil {
+func (_u *NetworkSegmentUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (nsu *NetworkSegmentUpdate) check() error {
-	if nsu.mutation.SiteCleared() && len(nsu.mutation.SiteIDs()) > 0 {
+func (_u *NetworkSegmentUpdate) check() error {
+	if _u.mutation.SiteCleared() && len(_u.mutation.SiteIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "NetworkSegment.site"`)
 	}
 	return nil
 }
 
-func (nsu *NetworkSegmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := nsu.check(); err != nil {
-		return n, err
+func (_u *NetworkSegmentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(networksegment.Table, networksegment.Columns, sqlgraph.NewFieldSpec(networksegment.FieldID, field.TypeInt))
-	if ps := nsu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := nsu.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(networksegment.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := nsu.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(networksegment.FieldName, field.TypeString, value)
 	}
-	if nsu.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(networksegment.FieldName, field.TypeString)
 	}
-	if value, ok := nsu.mutation.VlanID(); ok {
+	if value, ok := _u.mutation.VlanID(); ok {
 		_spec.SetField(networksegment.FieldVlanID, field.TypeInt32, value)
 	}
-	if value, ok := nsu.mutation.AddedVlanID(); ok {
+	if value, ok := _u.mutation.AddedVlanID(); ok {
 		_spec.AddField(networksegment.FieldVlanID, field.TypeInt32, value)
 	}
-	if nsu.mutation.VlanIDCleared() {
+	if _u.mutation.VlanIDCleared() {
 		_spec.ClearField(networksegment.FieldVlanID, field.TypeInt32)
 	}
-	if value, ok := nsu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(networksegment.FieldUpdatedAt, field.TypeString, value)
 	}
-	if nsu.mutation.SiteCleared() {
+	if _u.mutation.SiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -206,7 +206,7 @@ func (nsu *NetworkSegmentUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nsu.mutation.SiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -222,7 +222,7 @@ func (nsu *NetworkSegmentUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, nsu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{networksegment.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -230,8 +230,8 @@ func (nsu *NetworkSegmentUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		return 0, err
 	}
-	nsu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // NetworkSegmentUpdateOne is the builder for updating a single NetworkSegment entity.
@@ -243,123 +243,123 @@ type NetworkSegmentUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (nsuo *NetworkSegmentUpdateOne) SetResourceID(s string) *NetworkSegmentUpdateOne {
-	nsuo.mutation.SetResourceID(s)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) SetResourceID(v string) *NetworkSegmentUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (nsuo *NetworkSegmentUpdateOne) SetNillableResourceID(s *string) *NetworkSegmentUpdateOne {
-	if s != nil {
-		nsuo.SetResourceID(*s)
+func (_u *NetworkSegmentUpdateOne) SetNillableResourceID(v *string) *NetworkSegmentUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return nsuo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (nsuo *NetworkSegmentUpdateOne) SetName(s string) *NetworkSegmentUpdateOne {
-	nsuo.mutation.SetName(s)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) SetName(v string) *NetworkSegmentUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (nsuo *NetworkSegmentUpdateOne) SetNillableName(s *string) *NetworkSegmentUpdateOne {
-	if s != nil {
-		nsuo.SetName(*s)
+func (_u *NetworkSegmentUpdateOne) SetNillableName(v *string) *NetworkSegmentUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return nsuo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (nsuo *NetworkSegmentUpdateOne) ClearName() *NetworkSegmentUpdateOne {
-	nsuo.mutation.ClearName()
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) ClearName() *NetworkSegmentUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetVlanID sets the "vlan_id" field.
-func (nsuo *NetworkSegmentUpdateOne) SetVlanID(i int32) *NetworkSegmentUpdateOne {
-	nsuo.mutation.ResetVlanID()
-	nsuo.mutation.SetVlanID(i)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) SetVlanID(v int32) *NetworkSegmentUpdateOne {
+	_u.mutation.ResetVlanID()
+	_u.mutation.SetVlanID(v)
+	return _u
 }
 
 // SetNillableVlanID sets the "vlan_id" field if the given value is not nil.
-func (nsuo *NetworkSegmentUpdateOne) SetNillableVlanID(i *int32) *NetworkSegmentUpdateOne {
-	if i != nil {
-		nsuo.SetVlanID(*i)
+func (_u *NetworkSegmentUpdateOne) SetNillableVlanID(v *int32) *NetworkSegmentUpdateOne {
+	if v != nil {
+		_u.SetVlanID(*v)
 	}
-	return nsuo
+	return _u
 }
 
-// AddVlanID adds i to the "vlan_id" field.
-func (nsuo *NetworkSegmentUpdateOne) AddVlanID(i int32) *NetworkSegmentUpdateOne {
-	nsuo.mutation.AddVlanID(i)
-	return nsuo
+// AddVlanID adds value to the "vlan_id" field.
+func (_u *NetworkSegmentUpdateOne) AddVlanID(v int32) *NetworkSegmentUpdateOne {
+	_u.mutation.AddVlanID(v)
+	return _u
 }
 
 // ClearVlanID clears the value of the "vlan_id" field.
-func (nsuo *NetworkSegmentUpdateOne) ClearVlanID() *NetworkSegmentUpdateOne {
-	nsuo.mutation.ClearVlanID()
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) ClearVlanID() *NetworkSegmentUpdateOne {
+	_u.mutation.ClearVlanID()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (nsuo *NetworkSegmentUpdateOne) SetUpdatedAt(s string) *NetworkSegmentUpdateOne {
-	nsuo.mutation.SetUpdatedAt(s)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) SetUpdatedAt(v string) *NetworkSegmentUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (nsuo *NetworkSegmentUpdateOne) SetNillableUpdatedAt(s *string) *NetworkSegmentUpdateOne {
-	if s != nil {
-		nsuo.SetUpdatedAt(*s)
+func (_u *NetworkSegmentUpdateOne) SetNillableUpdatedAt(v *string) *NetworkSegmentUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return nsuo
+	return _u
 }
 
 // SetSiteID sets the "site" edge to the SiteResource entity by ID.
-func (nsuo *NetworkSegmentUpdateOne) SetSiteID(id int) *NetworkSegmentUpdateOne {
-	nsuo.mutation.SetSiteID(id)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) SetSiteID(id int) *NetworkSegmentUpdateOne {
+	_u.mutation.SetSiteID(id)
+	return _u
 }
 
 // SetSite sets the "site" edge to the SiteResource entity.
-func (nsuo *NetworkSegmentUpdateOne) SetSite(s *SiteResource) *NetworkSegmentUpdateOne {
-	return nsuo.SetSiteID(s.ID)
+func (_u *NetworkSegmentUpdateOne) SetSite(v *SiteResource) *NetworkSegmentUpdateOne {
+	return _u.SetSiteID(v.ID)
 }
 
 // Mutation returns the NetworkSegmentMutation object of the builder.
-func (nsuo *NetworkSegmentUpdateOne) Mutation() *NetworkSegmentMutation {
-	return nsuo.mutation
+func (_u *NetworkSegmentUpdateOne) Mutation() *NetworkSegmentMutation {
+	return _u.mutation
 }
 
 // ClearSite clears the "site" edge to the SiteResource entity.
-func (nsuo *NetworkSegmentUpdateOne) ClearSite() *NetworkSegmentUpdateOne {
-	nsuo.mutation.ClearSite()
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) ClearSite() *NetworkSegmentUpdateOne {
+	_u.mutation.ClearSite()
+	return _u
 }
 
 // Where appends a list predicates to the NetworkSegmentUpdate builder.
-func (nsuo *NetworkSegmentUpdateOne) Where(ps ...predicate.NetworkSegment) *NetworkSegmentUpdateOne {
-	nsuo.mutation.Where(ps...)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) Where(ps ...predicate.NetworkSegment) *NetworkSegmentUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (nsuo *NetworkSegmentUpdateOne) Select(field string, fields ...string) *NetworkSegmentUpdateOne {
-	nsuo.fields = append([]string{field}, fields...)
-	return nsuo
+func (_u *NetworkSegmentUpdateOne) Select(field string, fields ...string) *NetworkSegmentUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated NetworkSegment entity.
-func (nsuo *NetworkSegmentUpdateOne) Save(ctx context.Context) (*NetworkSegment, error) {
-	return withHooks(ctx, nsuo.sqlSave, nsuo.mutation, nsuo.hooks)
+func (_u *NetworkSegmentUpdateOne) Save(ctx context.Context) (*NetworkSegment, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nsuo *NetworkSegmentUpdateOne) SaveX(ctx context.Context) *NetworkSegment {
-	node, err := nsuo.Save(ctx)
+func (_u *NetworkSegmentUpdateOne) SaveX(ctx context.Context) *NetworkSegment {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -367,37 +367,37 @@ func (nsuo *NetworkSegmentUpdateOne) SaveX(ctx context.Context) *NetworkSegment 
 }
 
 // Exec executes the query on the entity.
-func (nsuo *NetworkSegmentUpdateOne) Exec(ctx context.Context) error {
-	_, err := nsuo.Save(ctx)
+func (_u *NetworkSegmentUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nsuo *NetworkSegmentUpdateOne) ExecX(ctx context.Context) {
-	if err := nsuo.Exec(ctx); err != nil {
+func (_u *NetworkSegmentUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (nsuo *NetworkSegmentUpdateOne) check() error {
-	if nsuo.mutation.SiteCleared() && len(nsuo.mutation.SiteIDs()) > 0 {
+func (_u *NetworkSegmentUpdateOne) check() error {
+	if _u.mutation.SiteCleared() && len(_u.mutation.SiteIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "NetworkSegment.site"`)
 	}
 	return nil
 }
 
-func (nsuo *NetworkSegmentUpdateOne) sqlSave(ctx context.Context) (_node *NetworkSegment, err error) {
-	if err := nsuo.check(); err != nil {
+func (_u *NetworkSegmentUpdateOne) sqlSave(ctx context.Context) (_node *NetworkSegment, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(networksegment.Table, networksegment.Columns, sqlgraph.NewFieldSpec(networksegment.FieldID, field.TypeInt))
-	id, ok := nsuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "NetworkSegment.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := nsuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, networksegment.FieldID)
 		for _, f := range fields {
@@ -409,35 +409,35 @@ func (nsuo *NetworkSegmentUpdateOne) sqlSave(ctx context.Context) (_node *Networ
 			}
 		}
 	}
-	if ps := nsuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := nsuo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(networksegment.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := nsuo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(networksegment.FieldName, field.TypeString, value)
 	}
-	if nsuo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(networksegment.FieldName, field.TypeString)
 	}
-	if value, ok := nsuo.mutation.VlanID(); ok {
+	if value, ok := _u.mutation.VlanID(); ok {
 		_spec.SetField(networksegment.FieldVlanID, field.TypeInt32, value)
 	}
-	if value, ok := nsuo.mutation.AddedVlanID(); ok {
+	if value, ok := _u.mutation.AddedVlanID(); ok {
 		_spec.AddField(networksegment.FieldVlanID, field.TypeInt32, value)
 	}
-	if nsuo.mutation.VlanIDCleared() {
+	if _u.mutation.VlanIDCleared() {
 		_spec.ClearField(networksegment.FieldVlanID, field.TypeInt32)
 	}
-	if value, ok := nsuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(networksegment.FieldUpdatedAt, field.TypeString, value)
 	}
-	if nsuo.mutation.SiteCleared() {
+	if _u.mutation.SiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -450,7 +450,7 @@ func (nsuo *NetworkSegmentUpdateOne) sqlSave(ctx context.Context) (_node *Networ
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nsuo.mutation.SiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -466,10 +466,10 @@ func (nsuo *NetworkSegmentUpdateOne) sqlSave(ctx context.Context) (_node *Networ
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &NetworkSegment{config: nsuo.config}
+	_node = &NetworkSegment{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, nsuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{networksegment.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -477,6 +477,6 @@ func (nsuo *NetworkSegmentUpdateOne) sqlSave(ctx context.Context) (_node *Networ
 		}
 		return nil, err
 	}
-	nsuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

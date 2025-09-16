@@ -29,820 +29,820 @@ type InstanceResourceUpdate struct {
 }
 
 // Where appends a list predicates to the InstanceResourceUpdate builder.
-func (iru *InstanceResourceUpdate) Where(ps ...predicate.InstanceResource) *InstanceResourceUpdate {
-	iru.mutation.Where(ps...)
-	return iru
+func (_u *InstanceResourceUpdate) Where(ps ...predicate.InstanceResource) *InstanceResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (iru *InstanceResourceUpdate) SetResourceID(s string) *InstanceResourceUpdate {
-	iru.mutation.SetResourceID(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetResourceID(v string) *InstanceResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableResourceID(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetResourceID(*s)
+func (_u *InstanceResourceUpdate) SetNillableResourceID(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return iru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (iru *InstanceResourceUpdate) SetKind(i instanceresource.Kind) *InstanceResourceUpdate {
-	iru.mutation.SetKind(i)
-	return iru
+func (_u *InstanceResourceUpdate) SetKind(v instanceresource.Kind) *InstanceResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableKind(i *instanceresource.Kind) *InstanceResourceUpdate {
-	if i != nil {
-		iru.SetKind(*i)
+func (_u *InstanceResourceUpdate) SetNillableKind(v *instanceresource.Kind) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (iru *InstanceResourceUpdate) ClearKind() *InstanceResourceUpdate {
-	iru.mutation.ClearKind()
-	return iru
+func (_u *InstanceResourceUpdate) ClearKind() *InstanceResourceUpdate {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (iru *InstanceResourceUpdate) SetName(s string) *InstanceResourceUpdate {
-	iru.mutation.SetName(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetName(v string) *InstanceResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableName(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetName(*s)
+func (_u *InstanceResourceUpdate) SetNillableName(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (iru *InstanceResourceUpdate) ClearName() *InstanceResourceUpdate {
-	iru.mutation.ClearName()
-	return iru
+func (_u *InstanceResourceUpdate) ClearName() *InstanceResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (iru *InstanceResourceUpdate) SetDesiredState(is instanceresource.DesiredState) *InstanceResourceUpdate {
-	iru.mutation.SetDesiredState(is)
-	return iru
+func (_u *InstanceResourceUpdate) SetDesiredState(v instanceresource.DesiredState) *InstanceResourceUpdate {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableDesiredState(is *instanceresource.DesiredState) *InstanceResourceUpdate {
-	if is != nil {
-		iru.SetDesiredState(*is)
+func (_u *InstanceResourceUpdate) SetNillableDesiredState(v *instanceresource.DesiredState) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearDesiredState clears the value of the "desired_state" field.
-func (iru *InstanceResourceUpdate) ClearDesiredState() *InstanceResourceUpdate {
-	iru.mutation.ClearDesiredState()
-	return iru
+func (_u *InstanceResourceUpdate) ClearDesiredState() *InstanceResourceUpdate {
+	_u.mutation.ClearDesiredState()
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (iru *InstanceResourceUpdate) SetCurrentState(is instanceresource.CurrentState) *InstanceResourceUpdate {
-	iru.mutation.SetCurrentState(is)
-	return iru
+func (_u *InstanceResourceUpdate) SetCurrentState(v instanceresource.CurrentState) *InstanceResourceUpdate {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableCurrentState(is *instanceresource.CurrentState) *InstanceResourceUpdate {
-	if is != nil {
-		iru.SetCurrentState(*is)
+func (_u *InstanceResourceUpdate) SetNillableCurrentState(v *instanceresource.CurrentState) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (iru *InstanceResourceUpdate) ClearCurrentState() *InstanceResourceUpdate {
-	iru.mutation.ClearCurrentState()
-	return iru
+func (_u *InstanceResourceUpdate) ClearCurrentState() *InstanceResourceUpdate {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetVMMemoryBytes sets the "vm_memory_bytes" field.
-func (iru *InstanceResourceUpdate) SetVMMemoryBytes(u uint64) *InstanceResourceUpdate {
-	iru.mutation.ResetVMMemoryBytes()
-	iru.mutation.SetVMMemoryBytes(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetVMMemoryBytes(v uint64) *InstanceResourceUpdate {
+	_u.mutation.ResetVMMemoryBytes()
+	_u.mutation.SetVMMemoryBytes(v)
+	return _u
 }
 
 // SetNillableVMMemoryBytes sets the "vm_memory_bytes" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableVMMemoryBytes(u *uint64) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetVMMemoryBytes(*u)
+func (_u *InstanceResourceUpdate) SetNillableVMMemoryBytes(v *uint64) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetVMMemoryBytes(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddVMMemoryBytes adds u to the "vm_memory_bytes" field.
-func (iru *InstanceResourceUpdate) AddVMMemoryBytes(u int64) *InstanceResourceUpdate {
-	iru.mutation.AddVMMemoryBytes(u)
-	return iru
+// AddVMMemoryBytes adds value to the "vm_memory_bytes" field.
+func (_u *InstanceResourceUpdate) AddVMMemoryBytes(v int64) *InstanceResourceUpdate {
+	_u.mutation.AddVMMemoryBytes(v)
+	return _u
 }
 
 // ClearVMMemoryBytes clears the value of the "vm_memory_bytes" field.
-func (iru *InstanceResourceUpdate) ClearVMMemoryBytes() *InstanceResourceUpdate {
-	iru.mutation.ClearVMMemoryBytes()
-	return iru
+func (_u *InstanceResourceUpdate) ClearVMMemoryBytes() *InstanceResourceUpdate {
+	_u.mutation.ClearVMMemoryBytes()
+	return _u
 }
 
 // SetVMCPUCores sets the "vm_cpu_cores" field.
-func (iru *InstanceResourceUpdate) SetVMCPUCores(u uint32) *InstanceResourceUpdate {
-	iru.mutation.ResetVMCPUCores()
-	iru.mutation.SetVMCPUCores(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetVMCPUCores(v uint32) *InstanceResourceUpdate {
+	_u.mutation.ResetVMCPUCores()
+	_u.mutation.SetVMCPUCores(v)
+	return _u
 }
 
 // SetNillableVMCPUCores sets the "vm_cpu_cores" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableVMCPUCores(u *uint32) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetVMCPUCores(*u)
+func (_u *InstanceResourceUpdate) SetNillableVMCPUCores(v *uint32) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetVMCPUCores(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddVMCPUCores adds u to the "vm_cpu_cores" field.
-func (iru *InstanceResourceUpdate) AddVMCPUCores(u int32) *InstanceResourceUpdate {
-	iru.mutation.AddVMCPUCores(u)
-	return iru
+// AddVMCPUCores adds value to the "vm_cpu_cores" field.
+func (_u *InstanceResourceUpdate) AddVMCPUCores(v int32) *InstanceResourceUpdate {
+	_u.mutation.AddVMCPUCores(v)
+	return _u
 }
 
 // ClearVMCPUCores clears the value of the "vm_cpu_cores" field.
-func (iru *InstanceResourceUpdate) ClearVMCPUCores() *InstanceResourceUpdate {
-	iru.mutation.ClearVMCPUCores()
-	return iru
+func (_u *InstanceResourceUpdate) ClearVMCPUCores() *InstanceResourceUpdate {
+	_u.mutation.ClearVMCPUCores()
+	return _u
 }
 
 // SetVMStorageBytes sets the "vm_storage_bytes" field.
-func (iru *InstanceResourceUpdate) SetVMStorageBytes(u uint64) *InstanceResourceUpdate {
-	iru.mutation.ResetVMStorageBytes()
-	iru.mutation.SetVMStorageBytes(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetVMStorageBytes(v uint64) *InstanceResourceUpdate {
+	_u.mutation.ResetVMStorageBytes()
+	_u.mutation.SetVMStorageBytes(v)
+	return _u
 }
 
 // SetNillableVMStorageBytes sets the "vm_storage_bytes" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableVMStorageBytes(u *uint64) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetVMStorageBytes(*u)
+func (_u *InstanceResourceUpdate) SetNillableVMStorageBytes(v *uint64) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetVMStorageBytes(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddVMStorageBytes adds u to the "vm_storage_bytes" field.
-func (iru *InstanceResourceUpdate) AddVMStorageBytes(u int64) *InstanceResourceUpdate {
-	iru.mutation.AddVMStorageBytes(u)
-	return iru
+// AddVMStorageBytes adds value to the "vm_storage_bytes" field.
+func (_u *InstanceResourceUpdate) AddVMStorageBytes(v int64) *InstanceResourceUpdate {
+	_u.mutation.AddVMStorageBytes(v)
+	return _u
 }
 
 // ClearVMStorageBytes clears the value of the "vm_storage_bytes" field.
-func (iru *InstanceResourceUpdate) ClearVMStorageBytes() *InstanceResourceUpdate {
-	iru.mutation.ClearVMStorageBytes()
-	return iru
+func (_u *InstanceResourceUpdate) ClearVMStorageBytes() *InstanceResourceUpdate {
+	_u.mutation.ClearVMStorageBytes()
+	return _u
 }
 
 // SetInstanceStatus sets the "instance_status" field.
-func (iru *InstanceResourceUpdate) SetInstanceStatus(s string) *InstanceResourceUpdate {
-	iru.mutation.SetInstanceStatus(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetInstanceStatus(v string) *InstanceResourceUpdate {
+	_u.mutation.SetInstanceStatus(v)
+	return _u
 }
 
 // SetNillableInstanceStatus sets the "instance_status" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableInstanceStatus(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetInstanceStatus(*s)
+func (_u *InstanceResourceUpdate) SetNillableInstanceStatus(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetInstanceStatus(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearInstanceStatus clears the value of the "instance_status" field.
-func (iru *InstanceResourceUpdate) ClearInstanceStatus() *InstanceResourceUpdate {
-	iru.mutation.ClearInstanceStatus()
-	return iru
+func (_u *InstanceResourceUpdate) ClearInstanceStatus() *InstanceResourceUpdate {
+	_u.mutation.ClearInstanceStatus()
+	return _u
 }
 
 // SetInstanceStatusIndicator sets the "instance_status_indicator" field.
-func (iru *InstanceResourceUpdate) SetInstanceStatusIndicator(isi instanceresource.InstanceStatusIndicator) *InstanceResourceUpdate {
-	iru.mutation.SetInstanceStatusIndicator(isi)
-	return iru
+func (_u *InstanceResourceUpdate) SetInstanceStatusIndicator(v instanceresource.InstanceStatusIndicator) *InstanceResourceUpdate {
+	_u.mutation.SetInstanceStatusIndicator(v)
+	return _u
 }
 
 // SetNillableInstanceStatusIndicator sets the "instance_status_indicator" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableInstanceStatusIndicator(isi *instanceresource.InstanceStatusIndicator) *InstanceResourceUpdate {
-	if isi != nil {
-		iru.SetInstanceStatusIndicator(*isi)
+func (_u *InstanceResourceUpdate) SetNillableInstanceStatusIndicator(v *instanceresource.InstanceStatusIndicator) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetInstanceStatusIndicator(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearInstanceStatusIndicator clears the value of the "instance_status_indicator" field.
-func (iru *InstanceResourceUpdate) ClearInstanceStatusIndicator() *InstanceResourceUpdate {
-	iru.mutation.ClearInstanceStatusIndicator()
-	return iru
+func (_u *InstanceResourceUpdate) ClearInstanceStatusIndicator() *InstanceResourceUpdate {
+	_u.mutation.ClearInstanceStatusIndicator()
+	return _u
 }
 
 // SetInstanceStatusTimestamp sets the "instance_status_timestamp" field.
-func (iru *InstanceResourceUpdate) SetInstanceStatusTimestamp(u uint64) *InstanceResourceUpdate {
-	iru.mutation.ResetInstanceStatusTimestamp()
-	iru.mutation.SetInstanceStatusTimestamp(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetInstanceStatusTimestamp(v uint64) *InstanceResourceUpdate {
+	_u.mutation.ResetInstanceStatusTimestamp()
+	_u.mutation.SetInstanceStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableInstanceStatusTimestamp sets the "instance_status_timestamp" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableInstanceStatusTimestamp(u *uint64) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetInstanceStatusTimestamp(*u)
+func (_u *InstanceResourceUpdate) SetNillableInstanceStatusTimestamp(v *uint64) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetInstanceStatusTimestamp(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddInstanceStatusTimestamp adds u to the "instance_status_timestamp" field.
-func (iru *InstanceResourceUpdate) AddInstanceStatusTimestamp(u int64) *InstanceResourceUpdate {
-	iru.mutation.AddInstanceStatusTimestamp(u)
-	return iru
+// AddInstanceStatusTimestamp adds value to the "instance_status_timestamp" field.
+func (_u *InstanceResourceUpdate) AddInstanceStatusTimestamp(v int64) *InstanceResourceUpdate {
+	_u.mutation.AddInstanceStatusTimestamp(v)
+	return _u
 }
 
 // ClearInstanceStatusTimestamp clears the value of the "instance_status_timestamp" field.
-func (iru *InstanceResourceUpdate) ClearInstanceStatusTimestamp() *InstanceResourceUpdate {
-	iru.mutation.ClearInstanceStatusTimestamp()
-	return iru
+func (_u *InstanceResourceUpdate) ClearInstanceStatusTimestamp() *InstanceResourceUpdate {
+	_u.mutation.ClearInstanceStatusTimestamp()
+	return _u
 }
 
 // SetProvisioningStatus sets the "provisioning_status" field.
-func (iru *InstanceResourceUpdate) SetProvisioningStatus(s string) *InstanceResourceUpdate {
-	iru.mutation.SetProvisioningStatus(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetProvisioningStatus(v string) *InstanceResourceUpdate {
+	_u.mutation.SetProvisioningStatus(v)
+	return _u
 }
 
 // SetNillableProvisioningStatus sets the "provisioning_status" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableProvisioningStatus(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetProvisioningStatus(*s)
+func (_u *InstanceResourceUpdate) SetNillableProvisioningStatus(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetProvisioningStatus(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearProvisioningStatus clears the value of the "provisioning_status" field.
-func (iru *InstanceResourceUpdate) ClearProvisioningStatus() *InstanceResourceUpdate {
-	iru.mutation.ClearProvisioningStatus()
-	return iru
+func (_u *InstanceResourceUpdate) ClearProvisioningStatus() *InstanceResourceUpdate {
+	_u.mutation.ClearProvisioningStatus()
+	return _u
 }
 
 // SetProvisioningStatusIndicator sets the "provisioning_status_indicator" field.
-func (iru *InstanceResourceUpdate) SetProvisioningStatusIndicator(isi instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdate {
-	iru.mutation.SetProvisioningStatusIndicator(isi)
-	return iru
+func (_u *InstanceResourceUpdate) SetProvisioningStatusIndicator(v instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdate {
+	_u.mutation.SetProvisioningStatusIndicator(v)
+	return _u
 }
 
 // SetNillableProvisioningStatusIndicator sets the "provisioning_status_indicator" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableProvisioningStatusIndicator(isi *instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdate {
-	if isi != nil {
-		iru.SetProvisioningStatusIndicator(*isi)
+func (_u *InstanceResourceUpdate) SetNillableProvisioningStatusIndicator(v *instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetProvisioningStatusIndicator(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearProvisioningStatusIndicator clears the value of the "provisioning_status_indicator" field.
-func (iru *InstanceResourceUpdate) ClearProvisioningStatusIndicator() *InstanceResourceUpdate {
-	iru.mutation.ClearProvisioningStatusIndicator()
-	return iru
+func (_u *InstanceResourceUpdate) ClearProvisioningStatusIndicator() *InstanceResourceUpdate {
+	_u.mutation.ClearProvisioningStatusIndicator()
+	return _u
 }
 
 // SetProvisioningStatusTimestamp sets the "provisioning_status_timestamp" field.
-func (iru *InstanceResourceUpdate) SetProvisioningStatusTimestamp(u uint64) *InstanceResourceUpdate {
-	iru.mutation.ResetProvisioningStatusTimestamp()
-	iru.mutation.SetProvisioningStatusTimestamp(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetProvisioningStatusTimestamp(v uint64) *InstanceResourceUpdate {
+	_u.mutation.ResetProvisioningStatusTimestamp()
+	_u.mutation.SetProvisioningStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableProvisioningStatusTimestamp sets the "provisioning_status_timestamp" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableProvisioningStatusTimestamp(u *uint64) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetProvisioningStatusTimestamp(*u)
+func (_u *InstanceResourceUpdate) SetNillableProvisioningStatusTimestamp(v *uint64) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetProvisioningStatusTimestamp(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddProvisioningStatusTimestamp adds u to the "provisioning_status_timestamp" field.
-func (iru *InstanceResourceUpdate) AddProvisioningStatusTimestamp(u int64) *InstanceResourceUpdate {
-	iru.mutation.AddProvisioningStatusTimestamp(u)
-	return iru
+// AddProvisioningStatusTimestamp adds value to the "provisioning_status_timestamp" field.
+func (_u *InstanceResourceUpdate) AddProvisioningStatusTimestamp(v int64) *InstanceResourceUpdate {
+	_u.mutation.AddProvisioningStatusTimestamp(v)
+	return _u
 }
 
 // ClearProvisioningStatusTimestamp clears the value of the "provisioning_status_timestamp" field.
-func (iru *InstanceResourceUpdate) ClearProvisioningStatusTimestamp() *InstanceResourceUpdate {
-	iru.mutation.ClearProvisioningStatusTimestamp()
-	return iru
+func (_u *InstanceResourceUpdate) ClearProvisioningStatusTimestamp() *InstanceResourceUpdate {
+	_u.mutation.ClearProvisioningStatusTimestamp()
+	return _u
 }
 
 // SetUpdateStatus sets the "update_status" field.
-func (iru *InstanceResourceUpdate) SetUpdateStatus(s string) *InstanceResourceUpdate {
-	iru.mutation.SetUpdateStatus(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetUpdateStatus(v string) *InstanceResourceUpdate {
+	_u.mutation.SetUpdateStatus(v)
+	return _u
 }
 
 // SetNillableUpdateStatus sets the "update_status" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableUpdateStatus(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetUpdateStatus(*s)
+func (_u *InstanceResourceUpdate) SetNillableUpdateStatus(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetUpdateStatus(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearUpdateStatus clears the value of the "update_status" field.
-func (iru *InstanceResourceUpdate) ClearUpdateStatus() *InstanceResourceUpdate {
-	iru.mutation.ClearUpdateStatus()
-	return iru
+func (_u *InstanceResourceUpdate) ClearUpdateStatus() *InstanceResourceUpdate {
+	_u.mutation.ClearUpdateStatus()
+	return _u
 }
 
 // SetUpdateStatusIndicator sets the "update_status_indicator" field.
-func (iru *InstanceResourceUpdate) SetUpdateStatusIndicator(isi instanceresource.UpdateStatusIndicator) *InstanceResourceUpdate {
-	iru.mutation.SetUpdateStatusIndicator(isi)
-	return iru
+func (_u *InstanceResourceUpdate) SetUpdateStatusIndicator(v instanceresource.UpdateStatusIndicator) *InstanceResourceUpdate {
+	_u.mutation.SetUpdateStatusIndicator(v)
+	return _u
 }
 
 // SetNillableUpdateStatusIndicator sets the "update_status_indicator" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableUpdateStatusIndicator(isi *instanceresource.UpdateStatusIndicator) *InstanceResourceUpdate {
-	if isi != nil {
-		iru.SetUpdateStatusIndicator(*isi)
+func (_u *InstanceResourceUpdate) SetNillableUpdateStatusIndicator(v *instanceresource.UpdateStatusIndicator) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetUpdateStatusIndicator(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearUpdateStatusIndicator clears the value of the "update_status_indicator" field.
-func (iru *InstanceResourceUpdate) ClearUpdateStatusIndicator() *InstanceResourceUpdate {
-	iru.mutation.ClearUpdateStatusIndicator()
-	return iru
+func (_u *InstanceResourceUpdate) ClearUpdateStatusIndicator() *InstanceResourceUpdate {
+	_u.mutation.ClearUpdateStatusIndicator()
+	return _u
 }
 
 // SetUpdateStatusTimestamp sets the "update_status_timestamp" field.
-func (iru *InstanceResourceUpdate) SetUpdateStatusTimestamp(u uint64) *InstanceResourceUpdate {
-	iru.mutation.ResetUpdateStatusTimestamp()
-	iru.mutation.SetUpdateStatusTimestamp(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetUpdateStatusTimestamp(v uint64) *InstanceResourceUpdate {
+	_u.mutation.ResetUpdateStatusTimestamp()
+	_u.mutation.SetUpdateStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableUpdateStatusTimestamp sets the "update_status_timestamp" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableUpdateStatusTimestamp(u *uint64) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetUpdateStatusTimestamp(*u)
+func (_u *InstanceResourceUpdate) SetNillableUpdateStatusTimestamp(v *uint64) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetUpdateStatusTimestamp(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddUpdateStatusTimestamp adds u to the "update_status_timestamp" field.
-func (iru *InstanceResourceUpdate) AddUpdateStatusTimestamp(u int64) *InstanceResourceUpdate {
-	iru.mutation.AddUpdateStatusTimestamp(u)
-	return iru
+// AddUpdateStatusTimestamp adds value to the "update_status_timestamp" field.
+func (_u *InstanceResourceUpdate) AddUpdateStatusTimestamp(v int64) *InstanceResourceUpdate {
+	_u.mutation.AddUpdateStatusTimestamp(v)
+	return _u
 }
 
 // ClearUpdateStatusTimestamp clears the value of the "update_status_timestamp" field.
-func (iru *InstanceResourceUpdate) ClearUpdateStatusTimestamp() *InstanceResourceUpdate {
-	iru.mutation.ClearUpdateStatusTimestamp()
-	return iru
+func (_u *InstanceResourceUpdate) ClearUpdateStatusTimestamp() *InstanceResourceUpdate {
+	_u.mutation.ClearUpdateStatusTimestamp()
+	return _u
 }
 
 // SetUpdateStatusDetail sets the "update_status_detail" field.
-func (iru *InstanceResourceUpdate) SetUpdateStatusDetail(s string) *InstanceResourceUpdate {
-	iru.mutation.SetUpdateStatusDetail(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetUpdateStatusDetail(v string) *InstanceResourceUpdate {
+	_u.mutation.SetUpdateStatusDetail(v)
+	return _u
 }
 
 // SetNillableUpdateStatusDetail sets the "update_status_detail" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableUpdateStatusDetail(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetUpdateStatusDetail(*s)
+func (_u *InstanceResourceUpdate) SetNillableUpdateStatusDetail(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetUpdateStatusDetail(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearUpdateStatusDetail clears the value of the "update_status_detail" field.
-func (iru *InstanceResourceUpdate) ClearUpdateStatusDetail() *InstanceResourceUpdate {
-	iru.mutation.ClearUpdateStatusDetail()
-	return iru
+func (_u *InstanceResourceUpdate) ClearUpdateStatusDetail() *InstanceResourceUpdate {
+	_u.mutation.ClearUpdateStatusDetail()
+	return _u
 }
 
 // SetTrustedAttestationStatus sets the "trusted_attestation_status" field.
-func (iru *InstanceResourceUpdate) SetTrustedAttestationStatus(s string) *InstanceResourceUpdate {
-	iru.mutation.SetTrustedAttestationStatus(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetTrustedAttestationStatus(v string) *InstanceResourceUpdate {
+	_u.mutation.SetTrustedAttestationStatus(v)
+	return _u
 }
 
 // SetNillableTrustedAttestationStatus sets the "trusted_attestation_status" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableTrustedAttestationStatus(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetTrustedAttestationStatus(*s)
+func (_u *InstanceResourceUpdate) SetNillableTrustedAttestationStatus(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetTrustedAttestationStatus(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearTrustedAttestationStatus clears the value of the "trusted_attestation_status" field.
-func (iru *InstanceResourceUpdate) ClearTrustedAttestationStatus() *InstanceResourceUpdate {
-	iru.mutation.ClearTrustedAttestationStatus()
-	return iru
+func (_u *InstanceResourceUpdate) ClearTrustedAttestationStatus() *InstanceResourceUpdate {
+	_u.mutation.ClearTrustedAttestationStatus()
+	return _u
 }
 
 // SetTrustedAttestationStatusIndicator sets the "trusted_attestation_status_indicator" field.
-func (iru *InstanceResourceUpdate) SetTrustedAttestationStatusIndicator(iasi instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdate {
-	iru.mutation.SetTrustedAttestationStatusIndicator(iasi)
-	return iru
+func (_u *InstanceResourceUpdate) SetTrustedAttestationStatusIndicator(v instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdate {
+	_u.mutation.SetTrustedAttestationStatusIndicator(v)
+	return _u
 }
 
 // SetNillableTrustedAttestationStatusIndicator sets the "trusted_attestation_status_indicator" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableTrustedAttestationStatusIndicator(iasi *instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdate {
-	if iasi != nil {
-		iru.SetTrustedAttestationStatusIndicator(*iasi)
+func (_u *InstanceResourceUpdate) SetNillableTrustedAttestationStatusIndicator(v *instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetTrustedAttestationStatusIndicator(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearTrustedAttestationStatusIndicator clears the value of the "trusted_attestation_status_indicator" field.
-func (iru *InstanceResourceUpdate) ClearTrustedAttestationStatusIndicator() *InstanceResourceUpdate {
-	iru.mutation.ClearTrustedAttestationStatusIndicator()
-	return iru
+func (_u *InstanceResourceUpdate) ClearTrustedAttestationStatusIndicator() *InstanceResourceUpdate {
+	_u.mutation.ClearTrustedAttestationStatusIndicator()
+	return _u
 }
 
 // SetTrustedAttestationStatusTimestamp sets the "trusted_attestation_status_timestamp" field.
-func (iru *InstanceResourceUpdate) SetTrustedAttestationStatusTimestamp(u uint64) *InstanceResourceUpdate {
-	iru.mutation.ResetTrustedAttestationStatusTimestamp()
-	iru.mutation.SetTrustedAttestationStatusTimestamp(u)
-	return iru
+func (_u *InstanceResourceUpdate) SetTrustedAttestationStatusTimestamp(v uint64) *InstanceResourceUpdate {
+	_u.mutation.ResetTrustedAttestationStatusTimestamp()
+	_u.mutation.SetTrustedAttestationStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableTrustedAttestationStatusTimestamp sets the "trusted_attestation_status_timestamp" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableTrustedAttestationStatusTimestamp(u *uint64) *InstanceResourceUpdate {
-	if u != nil {
-		iru.SetTrustedAttestationStatusTimestamp(*u)
+func (_u *InstanceResourceUpdate) SetNillableTrustedAttestationStatusTimestamp(v *uint64) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetTrustedAttestationStatusTimestamp(*v)
 	}
-	return iru
+	return _u
 }
 
-// AddTrustedAttestationStatusTimestamp adds u to the "trusted_attestation_status_timestamp" field.
-func (iru *InstanceResourceUpdate) AddTrustedAttestationStatusTimestamp(u int64) *InstanceResourceUpdate {
-	iru.mutation.AddTrustedAttestationStatusTimestamp(u)
-	return iru
+// AddTrustedAttestationStatusTimestamp adds value to the "trusted_attestation_status_timestamp" field.
+func (_u *InstanceResourceUpdate) AddTrustedAttestationStatusTimestamp(v int64) *InstanceResourceUpdate {
+	_u.mutation.AddTrustedAttestationStatusTimestamp(v)
+	return _u
 }
 
 // ClearTrustedAttestationStatusTimestamp clears the value of the "trusted_attestation_status_timestamp" field.
-func (iru *InstanceResourceUpdate) ClearTrustedAttestationStatusTimestamp() *InstanceResourceUpdate {
-	iru.mutation.ClearTrustedAttestationStatusTimestamp()
-	return iru
+func (_u *InstanceResourceUpdate) ClearTrustedAttestationStatusTimestamp() *InstanceResourceUpdate {
+	_u.mutation.ClearTrustedAttestationStatusTimestamp()
+	return _u
 }
 
 // SetExistingCves sets the "existing_cves" field.
-func (iru *InstanceResourceUpdate) SetExistingCves(s string) *InstanceResourceUpdate {
-	iru.mutation.SetExistingCves(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetExistingCves(v string) *InstanceResourceUpdate {
+	_u.mutation.SetExistingCves(v)
+	return _u
 }
 
 // SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableExistingCves(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetExistingCves(*s)
+func (_u *InstanceResourceUpdate) SetNillableExistingCves(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetExistingCves(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearExistingCves clears the value of the "existing_cves" field.
-func (iru *InstanceResourceUpdate) ClearExistingCves() *InstanceResourceUpdate {
-	iru.mutation.ClearExistingCves()
-	return iru
+func (_u *InstanceResourceUpdate) ClearExistingCves() *InstanceResourceUpdate {
+	_u.mutation.ClearExistingCves()
+	return _u
 }
 
 // SetRuntimePackages sets the "runtime_packages" field.
-func (iru *InstanceResourceUpdate) SetRuntimePackages(s string) *InstanceResourceUpdate {
-	iru.mutation.SetRuntimePackages(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetRuntimePackages(v string) *InstanceResourceUpdate {
+	_u.mutation.SetRuntimePackages(v)
+	return _u
 }
 
 // SetNillableRuntimePackages sets the "runtime_packages" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableRuntimePackages(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetRuntimePackages(*s)
+func (_u *InstanceResourceUpdate) SetNillableRuntimePackages(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetRuntimePackages(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearRuntimePackages clears the value of the "runtime_packages" field.
-func (iru *InstanceResourceUpdate) ClearRuntimePackages() *InstanceResourceUpdate {
-	iru.mutation.ClearRuntimePackages()
-	return iru
+func (_u *InstanceResourceUpdate) ClearRuntimePackages() *InstanceResourceUpdate {
+	_u.mutation.ClearRuntimePackages()
+	return _u
 }
 
 // SetOsUpdateAvailable sets the "os_update_available" field.
-func (iru *InstanceResourceUpdate) SetOsUpdateAvailable(s string) *InstanceResourceUpdate {
-	iru.mutation.SetOsUpdateAvailable(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetOsUpdateAvailable(v string) *InstanceResourceUpdate {
+	_u.mutation.SetOsUpdateAvailable(v)
+	return _u
 }
 
 // SetNillableOsUpdateAvailable sets the "os_update_available" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableOsUpdateAvailable(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetOsUpdateAvailable(*s)
+func (_u *InstanceResourceUpdate) SetNillableOsUpdateAvailable(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetOsUpdateAvailable(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearOsUpdateAvailable clears the value of the "os_update_available" field.
-func (iru *InstanceResourceUpdate) ClearOsUpdateAvailable() *InstanceResourceUpdate {
-	iru.mutation.ClearOsUpdateAvailable()
-	return iru
+func (_u *InstanceResourceUpdate) ClearOsUpdateAvailable() *InstanceResourceUpdate {
+	_u.mutation.ClearOsUpdateAvailable()
+	return _u
 }
 
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
-func (iru *InstanceResourceUpdate) SetInstanceStatusDetail(s string) *InstanceResourceUpdate {
-	iru.mutation.SetInstanceStatusDetail(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetInstanceStatusDetail(v string) *InstanceResourceUpdate {
+	_u.mutation.SetInstanceStatusDetail(v)
+	return _u
 }
 
 // SetNillableInstanceStatusDetail sets the "instance_status_detail" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableInstanceStatusDetail(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetInstanceStatusDetail(*s)
+func (_u *InstanceResourceUpdate) SetNillableInstanceStatusDetail(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetInstanceStatusDetail(*v)
 	}
-	return iru
+	return _u
 }
 
 // ClearInstanceStatusDetail clears the value of the "instance_status_detail" field.
-func (iru *InstanceResourceUpdate) ClearInstanceStatusDetail() *InstanceResourceUpdate {
-	iru.mutation.ClearInstanceStatusDetail()
-	return iru
+func (_u *InstanceResourceUpdate) ClearInstanceStatusDetail() *InstanceResourceUpdate {
+	_u.mutation.ClearInstanceStatusDetail()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (iru *InstanceResourceUpdate) SetUpdatedAt(s string) *InstanceResourceUpdate {
-	iru.mutation.SetUpdatedAt(s)
-	return iru
+func (_u *InstanceResourceUpdate) SetUpdatedAt(v string) *InstanceResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableUpdatedAt(s *string) *InstanceResourceUpdate {
-	if s != nil {
-		iru.SetUpdatedAt(*s)
+func (_u *InstanceResourceUpdate) SetNillableUpdatedAt(v *string) *InstanceResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return iru
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (iru *InstanceResourceUpdate) SetHostID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetHostID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetHostID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetNillableHostID sets the "host" edge to the HostResource entity by ID if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableHostID(id *int) *InstanceResourceUpdate {
+func (_u *InstanceResourceUpdate) SetNillableHostID(id *int) *InstanceResourceUpdate {
 	if id != nil {
-		iru = iru.SetHostID(*id)
+		_u = _u.SetHostID(*id)
 	}
-	return iru
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (iru *InstanceResourceUpdate) SetHost(h *HostResource) *InstanceResourceUpdate {
-	return iru.SetHostID(h.ID)
+func (_u *InstanceResourceUpdate) SetHost(v *HostResource) *InstanceResourceUpdate {
+	return _u.SetHostID(v.ID)
 }
 
 // SetDesiredOsID sets the "desired_os" edge to the OperatingSystemResource entity by ID.
-func (iru *InstanceResourceUpdate) SetDesiredOsID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetDesiredOsID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetDesiredOsID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetDesiredOsID(id)
+	return _u
 }
 
 // SetDesiredOs sets the "desired_os" edge to the OperatingSystemResource entity.
-func (iru *InstanceResourceUpdate) SetDesiredOs(o *OperatingSystemResource) *InstanceResourceUpdate {
-	return iru.SetDesiredOsID(o.ID)
+func (_u *InstanceResourceUpdate) SetDesiredOs(v *OperatingSystemResource) *InstanceResourceUpdate {
+	return _u.SetDesiredOsID(v.ID)
 }
 
 // SetCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID.
-func (iru *InstanceResourceUpdate) SetCurrentOsID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetCurrentOsID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetCurrentOsID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetCurrentOsID(id)
+	return _u
 }
 
 // SetNillableCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableCurrentOsID(id *int) *InstanceResourceUpdate {
+func (_u *InstanceResourceUpdate) SetNillableCurrentOsID(id *int) *InstanceResourceUpdate {
 	if id != nil {
-		iru = iru.SetCurrentOsID(*id)
+		_u = _u.SetCurrentOsID(*id)
 	}
-	return iru
+	return _u
 }
 
 // SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
-func (iru *InstanceResourceUpdate) SetCurrentOs(o *OperatingSystemResource) *InstanceResourceUpdate {
-	return iru.SetCurrentOsID(o.ID)
+func (_u *InstanceResourceUpdate) SetCurrentOs(v *OperatingSystemResource) *InstanceResourceUpdate {
+	return _u.SetCurrentOsID(v.ID)
 }
 
 // SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
-func (iru *InstanceResourceUpdate) SetOsID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetOsID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetOsID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetOsID(id)
+	return _u
 }
 
 // SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableOsID(id *int) *InstanceResourceUpdate {
+func (_u *InstanceResourceUpdate) SetNillableOsID(id *int) *InstanceResourceUpdate {
 	if id != nil {
-		iru = iru.SetOsID(*id)
+		_u = _u.SetOsID(*id)
 	}
-	return iru
+	return _u
 }
 
 // SetOs sets the "os" edge to the OperatingSystemResource entity.
-func (iru *InstanceResourceUpdate) SetOs(o *OperatingSystemResource) *InstanceResourceUpdate {
-	return iru.SetOsID(o.ID)
+func (_u *InstanceResourceUpdate) SetOs(v *OperatingSystemResource) *InstanceResourceUpdate {
+	return _u.SetOsID(v.ID)
 }
 
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by IDs.
-func (iru *InstanceResourceUpdate) AddWorkloadMemberIDs(ids ...int) *InstanceResourceUpdate {
-	iru.mutation.AddWorkloadMemberIDs(ids...)
-	return iru
+func (_u *InstanceResourceUpdate) AddWorkloadMemberIDs(ids ...int) *InstanceResourceUpdate {
+	_u.mutation.AddWorkloadMemberIDs(ids...)
+	return _u
 }
 
 // AddWorkloadMembers adds the "workload_members" edges to the WorkloadMember entity.
-func (iru *InstanceResourceUpdate) AddWorkloadMembers(w ...*WorkloadMember) *InstanceResourceUpdate {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *InstanceResourceUpdate) AddWorkloadMembers(v ...*WorkloadMember) *InstanceResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iru.AddWorkloadMemberIDs(ids...)
+	return _u.AddWorkloadMemberIDs(ids...)
 }
 
 // SetProviderID sets the "provider" edge to the ProviderResource entity by ID.
-func (iru *InstanceResourceUpdate) SetProviderID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetProviderID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetProviderID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetProviderID(id)
+	return _u
 }
 
 // SetNillableProviderID sets the "provider" edge to the ProviderResource entity by ID if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableProviderID(id *int) *InstanceResourceUpdate {
+func (_u *InstanceResourceUpdate) SetNillableProviderID(id *int) *InstanceResourceUpdate {
 	if id != nil {
-		iru = iru.SetProviderID(*id)
+		_u = _u.SetProviderID(*id)
 	}
-	return iru
+	return _u
 }
 
 // SetProvider sets the "provider" edge to the ProviderResource entity.
-func (iru *InstanceResourceUpdate) SetProvider(p *ProviderResource) *InstanceResourceUpdate {
-	return iru.SetProviderID(p.ID)
+func (_u *InstanceResourceUpdate) SetProvider(v *ProviderResource) *InstanceResourceUpdate {
+	return _u.SetProviderID(v.ID)
 }
 
 // SetLocalaccountID sets the "localaccount" edge to the LocalAccountResource entity by ID.
-func (iru *InstanceResourceUpdate) SetLocalaccountID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetLocalaccountID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetLocalaccountID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetLocalaccountID(id)
+	return _u
 }
 
 // SetNillableLocalaccountID sets the "localaccount" edge to the LocalAccountResource entity by ID if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableLocalaccountID(id *int) *InstanceResourceUpdate {
+func (_u *InstanceResourceUpdate) SetNillableLocalaccountID(id *int) *InstanceResourceUpdate {
 	if id != nil {
-		iru = iru.SetLocalaccountID(*id)
+		_u = _u.SetLocalaccountID(*id)
 	}
-	return iru
+	return _u
 }
 
 // SetLocalaccount sets the "localaccount" edge to the LocalAccountResource entity.
-func (iru *InstanceResourceUpdate) SetLocalaccount(l *LocalAccountResource) *InstanceResourceUpdate {
-	return iru.SetLocalaccountID(l.ID)
+func (_u *InstanceResourceUpdate) SetLocalaccount(v *LocalAccountResource) *InstanceResourceUpdate {
+	return _u.SetLocalaccountID(v.ID)
 }
 
 // SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID.
-func (iru *InstanceResourceUpdate) SetOsUpdatePolicyID(id int) *InstanceResourceUpdate {
-	iru.mutation.SetOsUpdatePolicyID(id)
-	return iru
+func (_u *InstanceResourceUpdate) SetOsUpdatePolicyID(id int) *InstanceResourceUpdate {
+	_u.mutation.SetOsUpdatePolicyID(id)
+	return _u
 }
 
 // SetNillableOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
-func (iru *InstanceResourceUpdate) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceUpdate {
+func (_u *InstanceResourceUpdate) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceUpdate {
 	if id != nil {
-		iru = iru.SetOsUpdatePolicyID(*id)
+		_u = _u.SetOsUpdatePolicyID(*id)
 	}
-	return iru
+	return _u
 }
 
 // SetOsUpdatePolicy sets the "os_update_policy" edge to the OSUpdatePolicyResource entity.
-func (iru *InstanceResourceUpdate) SetOsUpdatePolicy(o *OSUpdatePolicyResource) *InstanceResourceUpdate {
-	return iru.SetOsUpdatePolicyID(o.ID)
+func (_u *InstanceResourceUpdate) SetOsUpdatePolicy(v *OSUpdatePolicyResource) *InstanceResourceUpdate {
+	return _u.SetOsUpdatePolicyID(v.ID)
 }
 
 // AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
-func (iru *InstanceResourceUpdate) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
-	iru.mutation.AddCustomConfigIDs(ids...)
-	return iru
+func (_u *InstanceResourceUpdate) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
+	_u.mutation.AddCustomConfigIDs(ids...)
+	return _u
 }
 
 // AddCustomConfig adds the "custom_config" edges to the CustomConfigResource entity.
-func (iru *InstanceResourceUpdate) AddCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdate {
-	ids := make([]int, len(c))
-	for i := range c {
-		ids[i] = c[i].ID
+func (_u *InstanceResourceUpdate) AddCustomConfig(v ...*CustomConfigResource) *InstanceResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iru.AddCustomConfigIDs(ids...)
+	return _u.AddCustomConfigIDs(ids...)
 }
 
 // Mutation returns the InstanceResourceMutation object of the builder.
-func (iru *InstanceResourceUpdate) Mutation() *InstanceResourceMutation {
-	return iru.mutation
+func (_u *InstanceResourceUpdate) Mutation() *InstanceResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (iru *InstanceResourceUpdate) ClearHost() *InstanceResourceUpdate {
-	iru.mutation.ClearHost()
-	return iru
+func (_u *InstanceResourceUpdate) ClearHost() *InstanceResourceUpdate {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // ClearDesiredOs clears the "desired_os" edge to the OperatingSystemResource entity.
-func (iru *InstanceResourceUpdate) ClearDesiredOs() *InstanceResourceUpdate {
-	iru.mutation.ClearDesiredOs()
-	return iru
+func (_u *InstanceResourceUpdate) ClearDesiredOs() *InstanceResourceUpdate {
+	_u.mutation.ClearDesiredOs()
+	return _u
 }
 
 // ClearCurrentOs clears the "current_os" edge to the OperatingSystemResource entity.
-func (iru *InstanceResourceUpdate) ClearCurrentOs() *InstanceResourceUpdate {
-	iru.mutation.ClearCurrentOs()
-	return iru
+func (_u *InstanceResourceUpdate) ClearCurrentOs() *InstanceResourceUpdate {
+	_u.mutation.ClearCurrentOs()
+	return _u
 }
 
 // ClearOs clears the "os" edge to the OperatingSystemResource entity.
-func (iru *InstanceResourceUpdate) ClearOs() *InstanceResourceUpdate {
-	iru.mutation.ClearOs()
-	return iru
+func (_u *InstanceResourceUpdate) ClearOs() *InstanceResourceUpdate {
+	_u.mutation.ClearOs()
+	return _u
 }
 
 // ClearWorkloadMembers clears all "workload_members" edges to the WorkloadMember entity.
-func (iru *InstanceResourceUpdate) ClearWorkloadMembers() *InstanceResourceUpdate {
-	iru.mutation.ClearWorkloadMembers()
-	return iru
+func (_u *InstanceResourceUpdate) ClearWorkloadMembers() *InstanceResourceUpdate {
+	_u.mutation.ClearWorkloadMembers()
+	return _u
 }
 
 // RemoveWorkloadMemberIDs removes the "workload_members" edge to WorkloadMember entities by IDs.
-func (iru *InstanceResourceUpdate) RemoveWorkloadMemberIDs(ids ...int) *InstanceResourceUpdate {
-	iru.mutation.RemoveWorkloadMemberIDs(ids...)
-	return iru
+func (_u *InstanceResourceUpdate) RemoveWorkloadMemberIDs(ids ...int) *InstanceResourceUpdate {
+	_u.mutation.RemoveWorkloadMemberIDs(ids...)
+	return _u
 }
 
 // RemoveWorkloadMembers removes "workload_members" edges to WorkloadMember entities.
-func (iru *InstanceResourceUpdate) RemoveWorkloadMembers(w ...*WorkloadMember) *InstanceResourceUpdate {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *InstanceResourceUpdate) RemoveWorkloadMembers(v ...*WorkloadMember) *InstanceResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iru.RemoveWorkloadMemberIDs(ids...)
+	return _u.RemoveWorkloadMemberIDs(ids...)
 }
 
 // ClearProvider clears the "provider" edge to the ProviderResource entity.
-func (iru *InstanceResourceUpdate) ClearProvider() *InstanceResourceUpdate {
-	iru.mutation.ClearProvider()
-	return iru
+func (_u *InstanceResourceUpdate) ClearProvider() *InstanceResourceUpdate {
+	_u.mutation.ClearProvider()
+	return _u
 }
 
 // ClearLocalaccount clears the "localaccount" edge to the LocalAccountResource entity.
-func (iru *InstanceResourceUpdate) ClearLocalaccount() *InstanceResourceUpdate {
-	iru.mutation.ClearLocalaccount()
-	return iru
+func (_u *InstanceResourceUpdate) ClearLocalaccount() *InstanceResourceUpdate {
+	_u.mutation.ClearLocalaccount()
+	return _u
 }
 
 // ClearOsUpdatePolicy clears the "os_update_policy" edge to the OSUpdatePolicyResource entity.
-func (iru *InstanceResourceUpdate) ClearOsUpdatePolicy() *InstanceResourceUpdate {
-	iru.mutation.ClearOsUpdatePolicy()
-	return iru
+func (_u *InstanceResourceUpdate) ClearOsUpdatePolicy() *InstanceResourceUpdate {
+	_u.mutation.ClearOsUpdatePolicy()
+	return _u
 }
 
 // ClearCustomConfig clears all "custom_config" edges to the CustomConfigResource entity.
-func (iru *InstanceResourceUpdate) ClearCustomConfig() *InstanceResourceUpdate {
-	iru.mutation.ClearCustomConfig()
-	return iru
+func (_u *InstanceResourceUpdate) ClearCustomConfig() *InstanceResourceUpdate {
+	_u.mutation.ClearCustomConfig()
+	return _u
 }
 
 // RemoveCustomConfigIDs removes the "custom_config" edge to CustomConfigResource entities by IDs.
-func (iru *InstanceResourceUpdate) RemoveCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
-	iru.mutation.RemoveCustomConfigIDs(ids...)
-	return iru
+func (_u *InstanceResourceUpdate) RemoveCustomConfigIDs(ids ...int) *InstanceResourceUpdate {
+	_u.mutation.RemoveCustomConfigIDs(ids...)
+	return _u
 }
 
 // RemoveCustomConfig removes "custom_config" edges to CustomConfigResource entities.
-func (iru *InstanceResourceUpdate) RemoveCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdate {
-	ids := make([]int, len(c))
-	for i := range c {
-		ids[i] = c[i].ID
+func (_u *InstanceResourceUpdate) RemoveCustomConfig(v ...*CustomConfigResource) *InstanceResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iru.RemoveCustomConfigIDs(ids...)
+	return _u.RemoveCustomConfigIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (iru *InstanceResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, iru.sqlSave, iru.mutation, iru.hooks)
+func (_u *InstanceResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iru *InstanceResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := iru.Save(ctx)
+func (_u *InstanceResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -850,248 +850,248 @@ func (iru *InstanceResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (iru *InstanceResourceUpdate) Exec(ctx context.Context) error {
-	_, err := iru.Save(ctx)
+func (_u *InstanceResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iru *InstanceResourceUpdate) ExecX(ctx context.Context) {
-	if err := iru.Exec(ctx); err != nil {
+func (_u *InstanceResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (iru *InstanceResourceUpdate) check() error {
-	if v, ok := iru.mutation.Kind(); ok {
+func (_u *InstanceResourceUpdate) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := instanceresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := iru.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := instanceresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := iru.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := instanceresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := iru.mutation.InstanceStatusIndicator(); ok {
+	if v, ok := _u.mutation.InstanceStatusIndicator(); ok {
 		if err := instanceresource.InstanceStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "instance_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.instance_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := iru.mutation.ProvisioningStatusIndicator(); ok {
+	if v, ok := _u.mutation.ProvisioningStatusIndicator(); ok {
 		if err := instanceresource.ProvisioningStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "provisioning_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.provisioning_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := iru.mutation.UpdateStatusIndicator(); ok {
+	if v, ok := _u.mutation.UpdateStatusIndicator(); ok {
 		if err := instanceresource.UpdateStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "update_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.update_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := iru.mutation.TrustedAttestationStatusIndicator(); ok {
+	if v, ok := _u.mutation.TrustedAttestationStatusIndicator(); ok {
 		if err := instanceresource.TrustedAttestationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
 	}
-	if iru.mutation.DesiredOsCleared() && len(iru.mutation.DesiredOsIDs()) > 0 {
+	if _u.mutation.DesiredOsCleared() && len(_u.mutation.DesiredOsIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "InstanceResource.desired_os"`)
 	}
 	return nil
 }
 
-func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := iru.check(); err != nil {
-		return n, err
+func (_u *InstanceResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(instanceresource.Table, instanceresource.Columns, sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt))
-	if ps := iru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := iru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(instanceresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := iru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(instanceresource.FieldKind, field.TypeEnum, value)
 	}
-	if iru.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(instanceresource.FieldKind, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(instanceresource.FieldName, field.TypeString, value)
 	}
-	if iru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(instanceresource.FieldName, field.TypeString)
 	}
-	if value, ok := iru.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(instanceresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if iru.mutation.DesiredStateCleared() {
+	if _u.mutation.DesiredStateCleared() {
 		_spec.ClearField(instanceresource.FieldDesiredState, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(instanceresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if iru.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(instanceresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.VMMemoryBytes(); ok {
+	if value, ok := _u.mutation.VMMemoryBytes(); ok {
 		_spec.SetField(instanceresource.FieldVMMemoryBytes, field.TypeUint64, value)
 	}
-	if value, ok := iru.mutation.AddedVMMemoryBytes(); ok {
+	if value, ok := _u.mutation.AddedVMMemoryBytes(); ok {
 		_spec.AddField(instanceresource.FieldVMMemoryBytes, field.TypeUint64, value)
 	}
-	if iru.mutation.VMMemoryBytesCleared() {
+	if _u.mutation.VMMemoryBytesCleared() {
 		_spec.ClearField(instanceresource.FieldVMMemoryBytes, field.TypeUint64)
 	}
-	if value, ok := iru.mutation.VMCPUCores(); ok {
+	if value, ok := _u.mutation.VMCPUCores(); ok {
 		_spec.SetField(instanceresource.FieldVMCPUCores, field.TypeUint32, value)
 	}
-	if value, ok := iru.mutation.AddedVMCPUCores(); ok {
+	if value, ok := _u.mutation.AddedVMCPUCores(); ok {
 		_spec.AddField(instanceresource.FieldVMCPUCores, field.TypeUint32, value)
 	}
-	if iru.mutation.VMCPUCoresCleared() {
+	if _u.mutation.VMCPUCoresCleared() {
 		_spec.ClearField(instanceresource.FieldVMCPUCores, field.TypeUint32)
 	}
-	if value, ok := iru.mutation.VMStorageBytes(); ok {
+	if value, ok := _u.mutation.VMStorageBytes(); ok {
 		_spec.SetField(instanceresource.FieldVMStorageBytes, field.TypeUint64, value)
 	}
-	if value, ok := iru.mutation.AddedVMStorageBytes(); ok {
+	if value, ok := _u.mutation.AddedVMStorageBytes(); ok {
 		_spec.AddField(instanceresource.FieldVMStorageBytes, field.TypeUint64, value)
 	}
-	if iru.mutation.VMStorageBytesCleared() {
+	if _u.mutation.VMStorageBytesCleared() {
 		_spec.ClearField(instanceresource.FieldVMStorageBytes, field.TypeUint64)
 	}
-	if iru.mutation.SecurityFeatureCleared() {
+	if _u.mutation.SecurityFeatureCleared() {
 		_spec.ClearField(instanceresource.FieldSecurityFeature, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.InstanceStatus(); ok {
+	if value, ok := _u.mutation.InstanceStatus(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatus, field.TypeString, value)
 	}
-	if iru.mutation.InstanceStatusCleared() {
+	if _u.mutation.InstanceStatusCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatus, field.TypeString)
 	}
-	if value, ok := iru.mutation.InstanceStatusIndicator(); ok {
+	if value, ok := _u.mutation.InstanceStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusIndicator, field.TypeEnum, value)
 	}
-	if iru.mutation.InstanceStatusIndicatorCleared() {
+	if _u.mutation.InstanceStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.InstanceStatusTimestamp(); ok {
+	if value, ok := _u.mutation.InstanceStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iru.mutation.AddedInstanceStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedInstanceStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64, value)
 	}
-	if iru.mutation.InstanceStatusTimestampCleared() {
+	if _u.mutation.InstanceStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iru.mutation.ProvisioningStatus(); ok {
+	if value, ok := _u.mutation.ProvisioningStatus(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatus, field.TypeString, value)
 	}
-	if iru.mutation.ProvisioningStatusCleared() {
+	if _u.mutation.ProvisioningStatusCleared() {
 		_spec.ClearField(instanceresource.FieldProvisioningStatus, field.TypeString)
 	}
-	if value, ok := iru.mutation.ProvisioningStatusIndicator(); ok {
+	if value, ok := _u.mutation.ProvisioningStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatusIndicator, field.TypeEnum, value)
 	}
-	if iru.mutation.ProvisioningStatusIndicatorCleared() {
+	if _u.mutation.ProvisioningStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldProvisioningStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.ProvisioningStatusTimestamp(); ok {
+	if value, ok := _u.mutation.ProvisioningStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iru.mutation.AddedProvisioningStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedProvisioningStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64, value)
 	}
-	if iru.mutation.ProvisioningStatusTimestampCleared() {
+	if _u.mutation.ProvisioningStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iru.mutation.UpdateStatus(); ok {
+	if value, ok := _u.mutation.UpdateStatus(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatus, field.TypeString, value)
 	}
-	if iru.mutation.UpdateStatusCleared() {
+	if _u.mutation.UpdateStatusCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatus, field.TypeString)
 	}
-	if value, ok := iru.mutation.UpdateStatusIndicator(); ok {
+	if value, ok := _u.mutation.UpdateStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusIndicator, field.TypeEnum, value)
 	}
-	if iru.mutation.UpdateStatusIndicatorCleared() {
+	if _u.mutation.UpdateStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.UpdateStatusTimestamp(); ok {
+	if value, ok := _u.mutation.UpdateStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iru.mutation.AddedUpdateStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedUpdateStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64, value)
 	}
-	if iru.mutation.UpdateStatusTimestampCleared() {
+	if _u.mutation.UpdateStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iru.mutation.UpdateStatusDetail(); ok {
+	if value, ok := _u.mutation.UpdateStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusDetail, field.TypeString, value)
 	}
-	if iru.mutation.UpdateStatusDetailCleared() {
+	if _u.mutation.UpdateStatusDetailCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusDetail, field.TypeString)
 	}
-	if value, ok := iru.mutation.TrustedAttestationStatus(); ok {
+	if value, ok := _u.mutation.TrustedAttestationStatus(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatus, field.TypeString, value)
 	}
-	if iru.mutation.TrustedAttestationStatusCleared() {
+	if _u.mutation.TrustedAttestationStatusCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatus, field.TypeString)
 	}
-	if value, ok := iru.mutation.TrustedAttestationStatusIndicator(); ok {
+	if value, ok := _u.mutation.TrustedAttestationStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusIndicator, field.TypeEnum, value)
 	}
-	if iru.mutation.TrustedAttestationStatusIndicatorCleared() {
+	if _u.mutation.TrustedAttestationStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iru.mutation.TrustedAttestationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.TrustedAttestationStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iru.mutation.AddedTrustedAttestationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedTrustedAttestationStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64, value)
 	}
-	if iru.mutation.TrustedAttestationStatusTimestampCleared() {
+	if _u.mutation.TrustedAttestationStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iru.mutation.ExistingCves(); ok {
+	if value, ok := _u.mutation.ExistingCves(); ok {
 		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
 	}
-	if iru.mutation.ExistingCvesCleared() {
+	if _u.mutation.ExistingCvesCleared() {
 		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
 	}
-	if value, ok := iru.mutation.RuntimePackages(); ok {
+	if value, ok := _u.mutation.RuntimePackages(); ok {
 		_spec.SetField(instanceresource.FieldRuntimePackages, field.TypeString, value)
 	}
-	if iru.mutation.RuntimePackagesCleared() {
+	if _u.mutation.RuntimePackagesCleared() {
 		_spec.ClearField(instanceresource.FieldRuntimePackages, field.TypeString)
 	}
-	if value, ok := iru.mutation.OsUpdateAvailable(); ok {
+	if value, ok := _u.mutation.OsUpdateAvailable(); ok {
 		_spec.SetField(instanceresource.FieldOsUpdateAvailable, field.TypeString, value)
 	}
-	if iru.mutation.OsUpdateAvailableCleared() {
+	if _u.mutation.OsUpdateAvailableCleared() {
 		_spec.ClearField(instanceresource.FieldOsUpdateAvailable, field.TypeString)
 	}
-	if value, ok := iru.mutation.InstanceStatusDetail(); ok {
+	if value, ok := _u.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 	}
-	if iru.mutation.InstanceStatusDetailCleared() {
+	if _u.mutation.InstanceStatusDetailCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatusDetail, field.TypeString)
 	}
-	if value, ok := iru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(instanceresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if iru.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -1104,7 +1104,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -1120,7 +1120,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.DesiredOsCleared() {
+	if _u.mutation.DesiredOsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1133,7 +1133,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.DesiredOsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DesiredOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1149,7 +1149,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.CurrentOsCleared() {
+	if _u.mutation.CurrentOsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1162,7 +1162,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.CurrentOsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CurrentOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1178,7 +1178,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.OsCleared() {
+	if _u.mutation.OsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1191,7 +1191,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.OsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1207,7 +1207,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.WorkloadMembersCleared() {
+	if _u.mutation.WorkloadMembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1220,7 +1220,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.RemovedWorkloadMembersIDs(); len(nodes) > 0 && !iru.mutation.WorkloadMembersCleared() {
+	if nodes := _u.mutation.RemovedWorkloadMembersIDs(); len(nodes) > 0 && !_u.mutation.WorkloadMembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1236,7 +1236,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1252,7 +1252,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.ProviderCleared() {
+	if _u.mutation.ProviderCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1265,7 +1265,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.ProviderIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProviderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1281,7 +1281,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.LocalaccountCleared() {
+	if _u.mutation.LocalaccountCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1294,7 +1294,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.LocalaccountIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.LocalaccountIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1310,7 +1310,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.OsUpdatePolicyCleared() {
+	if _u.mutation.OsUpdatePolicyCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1323,7 +1323,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1339,7 +1339,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iru.mutation.CustomConfigCleared() {
+	if _u.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -1352,7 +1352,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !iru.mutation.CustomConfigCleared() {
+	if nodes := _u.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !_u.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -1368,7 +1368,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iru.mutation.CustomConfigIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -1384,7 +1384,7 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, iru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{instanceresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -1392,8 +1392,8 @@ func (iru *InstanceResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		return 0, err
 	}
-	iru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // InstanceResourceUpdateOne is the builder for updating a single InstanceResource entity.
@@ -1405,827 +1405,827 @@ type InstanceResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (iruo *InstanceResourceUpdateOne) SetResourceID(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetResourceID(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetResourceID(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableResourceID(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetResourceID(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableResourceID(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return iruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (iruo *InstanceResourceUpdateOne) SetKind(i instanceresource.Kind) *InstanceResourceUpdateOne {
-	iruo.mutation.SetKind(i)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetKind(v instanceresource.Kind) *InstanceResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableKind(i *instanceresource.Kind) *InstanceResourceUpdateOne {
-	if i != nil {
-		iruo.SetKind(*i)
+func (_u *InstanceResourceUpdateOne) SetNillableKind(v *instanceresource.Kind) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (iruo *InstanceResourceUpdateOne) ClearKind() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearKind()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearKind() *InstanceResourceUpdateOne {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (iruo *InstanceResourceUpdateOne) SetName(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetName(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetName(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableName(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetName(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableName(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (iruo *InstanceResourceUpdateOne) ClearName() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearName()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearName() *InstanceResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (iruo *InstanceResourceUpdateOne) SetDesiredState(is instanceresource.DesiredState) *InstanceResourceUpdateOne {
-	iruo.mutation.SetDesiredState(is)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetDesiredState(v instanceresource.DesiredState) *InstanceResourceUpdateOne {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableDesiredState(is *instanceresource.DesiredState) *InstanceResourceUpdateOne {
-	if is != nil {
-		iruo.SetDesiredState(*is)
+func (_u *InstanceResourceUpdateOne) SetNillableDesiredState(v *instanceresource.DesiredState) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearDesiredState clears the value of the "desired_state" field.
-func (iruo *InstanceResourceUpdateOne) ClearDesiredState() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearDesiredState()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearDesiredState() *InstanceResourceUpdateOne {
+	_u.mutation.ClearDesiredState()
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (iruo *InstanceResourceUpdateOne) SetCurrentState(is instanceresource.CurrentState) *InstanceResourceUpdateOne {
-	iruo.mutation.SetCurrentState(is)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetCurrentState(v instanceresource.CurrentState) *InstanceResourceUpdateOne {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableCurrentState(is *instanceresource.CurrentState) *InstanceResourceUpdateOne {
-	if is != nil {
-		iruo.SetCurrentState(*is)
+func (_u *InstanceResourceUpdateOne) SetNillableCurrentState(v *instanceresource.CurrentState) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (iruo *InstanceResourceUpdateOne) ClearCurrentState() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearCurrentState()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearCurrentState() *InstanceResourceUpdateOne {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetVMMemoryBytes sets the "vm_memory_bytes" field.
-func (iruo *InstanceResourceUpdateOne) SetVMMemoryBytes(u uint64) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetVMMemoryBytes()
-	iruo.mutation.SetVMMemoryBytes(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetVMMemoryBytes(v uint64) *InstanceResourceUpdateOne {
+	_u.mutation.ResetVMMemoryBytes()
+	_u.mutation.SetVMMemoryBytes(v)
+	return _u
 }
 
 // SetNillableVMMemoryBytes sets the "vm_memory_bytes" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableVMMemoryBytes(u *uint64) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetVMMemoryBytes(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableVMMemoryBytes(v *uint64) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetVMMemoryBytes(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddVMMemoryBytes adds u to the "vm_memory_bytes" field.
-func (iruo *InstanceResourceUpdateOne) AddVMMemoryBytes(u int64) *InstanceResourceUpdateOne {
-	iruo.mutation.AddVMMemoryBytes(u)
-	return iruo
+// AddVMMemoryBytes adds value to the "vm_memory_bytes" field.
+func (_u *InstanceResourceUpdateOne) AddVMMemoryBytes(v int64) *InstanceResourceUpdateOne {
+	_u.mutation.AddVMMemoryBytes(v)
+	return _u
 }
 
 // ClearVMMemoryBytes clears the value of the "vm_memory_bytes" field.
-func (iruo *InstanceResourceUpdateOne) ClearVMMemoryBytes() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearVMMemoryBytes()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearVMMemoryBytes() *InstanceResourceUpdateOne {
+	_u.mutation.ClearVMMemoryBytes()
+	return _u
 }
 
 // SetVMCPUCores sets the "vm_cpu_cores" field.
-func (iruo *InstanceResourceUpdateOne) SetVMCPUCores(u uint32) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetVMCPUCores()
-	iruo.mutation.SetVMCPUCores(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetVMCPUCores(v uint32) *InstanceResourceUpdateOne {
+	_u.mutation.ResetVMCPUCores()
+	_u.mutation.SetVMCPUCores(v)
+	return _u
 }
 
 // SetNillableVMCPUCores sets the "vm_cpu_cores" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableVMCPUCores(u *uint32) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetVMCPUCores(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableVMCPUCores(v *uint32) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetVMCPUCores(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddVMCPUCores adds u to the "vm_cpu_cores" field.
-func (iruo *InstanceResourceUpdateOne) AddVMCPUCores(u int32) *InstanceResourceUpdateOne {
-	iruo.mutation.AddVMCPUCores(u)
-	return iruo
+// AddVMCPUCores adds value to the "vm_cpu_cores" field.
+func (_u *InstanceResourceUpdateOne) AddVMCPUCores(v int32) *InstanceResourceUpdateOne {
+	_u.mutation.AddVMCPUCores(v)
+	return _u
 }
 
 // ClearVMCPUCores clears the value of the "vm_cpu_cores" field.
-func (iruo *InstanceResourceUpdateOne) ClearVMCPUCores() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearVMCPUCores()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearVMCPUCores() *InstanceResourceUpdateOne {
+	_u.mutation.ClearVMCPUCores()
+	return _u
 }
 
 // SetVMStorageBytes sets the "vm_storage_bytes" field.
-func (iruo *InstanceResourceUpdateOne) SetVMStorageBytes(u uint64) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetVMStorageBytes()
-	iruo.mutation.SetVMStorageBytes(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetVMStorageBytes(v uint64) *InstanceResourceUpdateOne {
+	_u.mutation.ResetVMStorageBytes()
+	_u.mutation.SetVMStorageBytes(v)
+	return _u
 }
 
 // SetNillableVMStorageBytes sets the "vm_storage_bytes" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableVMStorageBytes(u *uint64) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetVMStorageBytes(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableVMStorageBytes(v *uint64) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetVMStorageBytes(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddVMStorageBytes adds u to the "vm_storage_bytes" field.
-func (iruo *InstanceResourceUpdateOne) AddVMStorageBytes(u int64) *InstanceResourceUpdateOne {
-	iruo.mutation.AddVMStorageBytes(u)
-	return iruo
+// AddVMStorageBytes adds value to the "vm_storage_bytes" field.
+func (_u *InstanceResourceUpdateOne) AddVMStorageBytes(v int64) *InstanceResourceUpdateOne {
+	_u.mutation.AddVMStorageBytes(v)
+	return _u
 }
 
 // ClearVMStorageBytes clears the value of the "vm_storage_bytes" field.
-func (iruo *InstanceResourceUpdateOne) ClearVMStorageBytes() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearVMStorageBytes()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearVMStorageBytes() *InstanceResourceUpdateOne {
+	_u.mutation.ClearVMStorageBytes()
+	return _u
 }
 
 // SetInstanceStatus sets the "instance_status" field.
-func (iruo *InstanceResourceUpdateOne) SetInstanceStatus(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetInstanceStatus(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetInstanceStatus(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetInstanceStatus(v)
+	return _u
 }
 
 // SetNillableInstanceStatus sets the "instance_status" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableInstanceStatus(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetInstanceStatus(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableInstanceStatus(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetInstanceStatus(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearInstanceStatus clears the value of the "instance_status" field.
-func (iruo *InstanceResourceUpdateOne) ClearInstanceStatus() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearInstanceStatus()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearInstanceStatus() *InstanceResourceUpdateOne {
+	_u.mutation.ClearInstanceStatus()
+	return _u
 }
 
 // SetInstanceStatusIndicator sets the "instance_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) SetInstanceStatusIndicator(isi instanceresource.InstanceStatusIndicator) *InstanceResourceUpdateOne {
-	iruo.mutation.SetInstanceStatusIndicator(isi)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetInstanceStatusIndicator(v instanceresource.InstanceStatusIndicator) *InstanceResourceUpdateOne {
+	_u.mutation.SetInstanceStatusIndicator(v)
+	return _u
 }
 
 // SetNillableInstanceStatusIndicator sets the "instance_status_indicator" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableInstanceStatusIndicator(isi *instanceresource.InstanceStatusIndicator) *InstanceResourceUpdateOne {
-	if isi != nil {
-		iruo.SetInstanceStatusIndicator(*isi)
+func (_u *InstanceResourceUpdateOne) SetNillableInstanceStatusIndicator(v *instanceresource.InstanceStatusIndicator) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetInstanceStatusIndicator(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearInstanceStatusIndicator clears the value of the "instance_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) ClearInstanceStatusIndicator() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearInstanceStatusIndicator()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearInstanceStatusIndicator() *InstanceResourceUpdateOne {
+	_u.mutation.ClearInstanceStatusIndicator()
+	return _u
 }
 
 // SetInstanceStatusTimestamp sets the "instance_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) SetInstanceStatusTimestamp(u uint64) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetInstanceStatusTimestamp()
-	iruo.mutation.SetInstanceStatusTimestamp(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetInstanceStatusTimestamp(v uint64) *InstanceResourceUpdateOne {
+	_u.mutation.ResetInstanceStatusTimestamp()
+	_u.mutation.SetInstanceStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableInstanceStatusTimestamp sets the "instance_status_timestamp" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableInstanceStatusTimestamp(u *uint64) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetInstanceStatusTimestamp(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableInstanceStatusTimestamp(v *uint64) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetInstanceStatusTimestamp(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddInstanceStatusTimestamp adds u to the "instance_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) AddInstanceStatusTimestamp(u int64) *InstanceResourceUpdateOne {
-	iruo.mutation.AddInstanceStatusTimestamp(u)
-	return iruo
+// AddInstanceStatusTimestamp adds value to the "instance_status_timestamp" field.
+func (_u *InstanceResourceUpdateOne) AddInstanceStatusTimestamp(v int64) *InstanceResourceUpdateOne {
+	_u.mutation.AddInstanceStatusTimestamp(v)
+	return _u
 }
 
 // ClearInstanceStatusTimestamp clears the value of the "instance_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) ClearInstanceStatusTimestamp() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearInstanceStatusTimestamp()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearInstanceStatusTimestamp() *InstanceResourceUpdateOne {
+	_u.mutation.ClearInstanceStatusTimestamp()
+	return _u
 }
 
 // SetProvisioningStatus sets the "provisioning_status" field.
-func (iruo *InstanceResourceUpdateOne) SetProvisioningStatus(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetProvisioningStatus(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetProvisioningStatus(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetProvisioningStatus(v)
+	return _u
 }
 
 // SetNillableProvisioningStatus sets the "provisioning_status" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableProvisioningStatus(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetProvisioningStatus(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableProvisioningStatus(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetProvisioningStatus(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearProvisioningStatus clears the value of the "provisioning_status" field.
-func (iruo *InstanceResourceUpdateOne) ClearProvisioningStatus() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearProvisioningStatus()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearProvisioningStatus() *InstanceResourceUpdateOne {
+	_u.mutation.ClearProvisioningStatus()
+	return _u
 }
 
 // SetProvisioningStatusIndicator sets the "provisioning_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) SetProvisioningStatusIndicator(isi instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdateOne {
-	iruo.mutation.SetProvisioningStatusIndicator(isi)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetProvisioningStatusIndicator(v instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdateOne {
+	_u.mutation.SetProvisioningStatusIndicator(v)
+	return _u
 }
 
 // SetNillableProvisioningStatusIndicator sets the "provisioning_status_indicator" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableProvisioningStatusIndicator(isi *instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdateOne {
-	if isi != nil {
-		iruo.SetProvisioningStatusIndicator(*isi)
+func (_u *InstanceResourceUpdateOne) SetNillableProvisioningStatusIndicator(v *instanceresource.ProvisioningStatusIndicator) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetProvisioningStatusIndicator(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearProvisioningStatusIndicator clears the value of the "provisioning_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) ClearProvisioningStatusIndicator() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearProvisioningStatusIndicator()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearProvisioningStatusIndicator() *InstanceResourceUpdateOne {
+	_u.mutation.ClearProvisioningStatusIndicator()
+	return _u
 }
 
 // SetProvisioningStatusTimestamp sets the "provisioning_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) SetProvisioningStatusTimestamp(u uint64) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetProvisioningStatusTimestamp()
-	iruo.mutation.SetProvisioningStatusTimestamp(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetProvisioningStatusTimestamp(v uint64) *InstanceResourceUpdateOne {
+	_u.mutation.ResetProvisioningStatusTimestamp()
+	_u.mutation.SetProvisioningStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableProvisioningStatusTimestamp sets the "provisioning_status_timestamp" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableProvisioningStatusTimestamp(u *uint64) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetProvisioningStatusTimestamp(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableProvisioningStatusTimestamp(v *uint64) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetProvisioningStatusTimestamp(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddProvisioningStatusTimestamp adds u to the "provisioning_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) AddProvisioningStatusTimestamp(u int64) *InstanceResourceUpdateOne {
-	iruo.mutation.AddProvisioningStatusTimestamp(u)
-	return iruo
+// AddProvisioningStatusTimestamp adds value to the "provisioning_status_timestamp" field.
+func (_u *InstanceResourceUpdateOne) AddProvisioningStatusTimestamp(v int64) *InstanceResourceUpdateOne {
+	_u.mutation.AddProvisioningStatusTimestamp(v)
+	return _u
 }
 
 // ClearProvisioningStatusTimestamp clears the value of the "provisioning_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) ClearProvisioningStatusTimestamp() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearProvisioningStatusTimestamp()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearProvisioningStatusTimestamp() *InstanceResourceUpdateOne {
+	_u.mutation.ClearProvisioningStatusTimestamp()
+	return _u
 }
 
 // SetUpdateStatus sets the "update_status" field.
-func (iruo *InstanceResourceUpdateOne) SetUpdateStatus(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetUpdateStatus(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetUpdateStatus(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetUpdateStatus(v)
+	return _u
 }
 
 // SetNillableUpdateStatus sets the "update_status" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableUpdateStatus(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetUpdateStatus(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableUpdateStatus(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdateStatus(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearUpdateStatus clears the value of the "update_status" field.
-func (iruo *InstanceResourceUpdateOne) ClearUpdateStatus() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearUpdateStatus()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearUpdateStatus() *InstanceResourceUpdateOne {
+	_u.mutation.ClearUpdateStatus()
+	return _u
 }
 
 // SetUpdateStatusIndicator sets the "update_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) SetUpdateStatusIndicator(isi instanceresource.UpdateStatusIndicator) *InstanceResourceUpdateOne {
-	iruo.mutation.SetUpdateStatusIndicator(isi)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetUpdateStatusIndicator(v instanceresource.UpdateStatusIndicator) *InstanceResourceUpdateOne {
+	_u.mutation.SetUpdateStatusIndicator(v)
+	return _u
 }
 
 // SetNillableUpdateStatusIndicator sets the "update_status_indicator" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableUpdateStatusIndicator(isi *instanceresource.UpdateStatusIndicator) *InstanceResourceUpdateOne {
-	if isi != nil {
-		iruo.SetUpdateStatusIndicator(*isi)
+func (_u *InstanceResourceUpdateOne) SetNillableUpdateStatusIndicator(v *instanceresource.UpdateStatusIndicator) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdateStatusIndicator(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearUpdateStatusIndicator clears the value of the "update_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) ClearUpdateStatusIndicator() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearUpdateStatusIndicator()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearUpdateStatusIndicator() *InstanceResourceUpdateOne {
+	_u.mutation.ClearUpdateStatusIndicator()
+	return _u
 }
 
 // SetUpdateStatusTimestamp sets the "update_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) SetUpdateStatusTimestamp(u uint64) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetUpdateStatusTimestamp()
-	iruo.mutation.SetUpdateStatusTimestamp(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetUpdateStatusTimestamp(v uint64) *InstanceResourceUpdateOne {
+	_u.mutation.ResetUpdateStatusTimestamp()
+	_u.mutation.SetUpdateStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableUpdateStatusTimestamp sets the "update_status_timestamp" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableUpdateStatusTimestamp(u *uint64) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetUpdateStatusTimestamp(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableUpdateStatusTimestamp(v *uint64) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdateStatusTimestamp(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddUpdateStatusTimestamp adds u to the "update_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) AddUpdateStatusTimestamp(u int64) *InstanceResourceUpdateOne {
-	iruo.mutation.AddUpdateStatusTimestamp(u)
-	return iruo
+// AddUpdateStatusTimestamp adds value to the "update_status_timestamp" field.
+func (_u *InstanceResourceUpdateOne) AddUpdateStatusTimestamp(v int64) *InstanceResourceUpdateOne {
+	_u.mutation.AddUpdateStatusTimestamp(v)
+	return _u
 }
 
 // ClearUpdateStatusTimestamp clears the value of the "update_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) ClearUpdateStatusTimestamp() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearUpdateStatusTimestamp()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearUpdateStatusTimestamp() *InstanceResourceUpdateOne {
+	_u.mutation.ClearUpdateStatusTimestamp()
+	return _u
 }
 
 // SetUpdateStatusDetail sets the "update_status_detail" field.
-func (iruo *InstanceResourceUpdateOne) SetUpdateStatusDetail(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetUpdateStatusDetail(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetUpdateStatusDetail(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetUpdateStatusDetail(v)
+	return _u
 }
 
 // SetNillableUpdateStatusDetail sets the "update_status_detail" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableUpdateStatusDetail(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetUpdateStatusDetail(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableUpdateStatusDetail(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdateStatusDetail(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearUpdateStatusDetail clears the value of the "update_status_detail" field.
-func (iruo *InstanceResourceUpdateOne) ClearUpdateStatusDetail() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearUpdateStatusDetail()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearUpdateStatusDetail() *InstanceResourceUpdateOne {
+	_u.mutation.ClearUpdateStatusDetail()
+	return _u
 }
 
 // SetTrustedAttestationStatus sets the "trusted_attestation_status" field.
-func (iruo *InstanceResourceUpdateOne) SetTrustedAttestationStatus(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetTrustedAttestationStatus(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetTrustedAttestationStatus(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetTrustedAttestationStatus(v)
+	return _u
 }
 
 // SetNillableTrustedAttestationStatus sets the "trusted_attestation_status" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableTrustedAttestationStatus(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetTrustedAttestationStatus(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableTrustedAttestationStatus(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetTrustedAttestationStatus(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearTrustedAttestationStatus clears the value of the "trusted_attestation_status" field.
-func (iruo *InstanceResourceUpdateOne) ClearTrustedAttestationStatus() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearTrustedAttestationStatus()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearTrustedAttestationStatus() *InstanceResourceUpdateOne {
+	_u.mutation.ClearTrustedAttestationStatus()
+	return _u
 }
 
 // SetTrustedAttestationStatusIndicator sets the "trusted_attestation_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) SetTrustedAttestationStatusIndicator(iasi instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdateOne {
-	iruo.mutation.SetTrustedAttestationStatusIndicator(iasi)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetTrustedAttestationStatusIndicator(v instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdateOne {
+	_u.mutation.SetTrustedAttestationStatusIndicator(v)
+	return _u
 }
 
 // SetNillableTrustedAttestationStatusIndicator sets the "trusted_attestation_status_indicator" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableTrustedAttestationStatusIndicator(iasi *instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdateOne {
-	if iasi != nil {
-		iruo.SetTrustedAttestationStatusIndicator(*iasi)
+func (_u *InstanceResourceUpdateOne) SetNillableTrustedAttestationStatusIndicator(v *instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetTrustedAttestationStatusIndicator(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearTrustedAttestationStatusIndicator clears the value of the "trusted_attestation_status_indicator" field.
-func (iruo *InstanceResourceUpdateOne) ClearTrustedAttestationStatusIndicator() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearTrustedAttestationStatusIndicator()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearTrustedAttestationStatusIndicator() *InstanceResourceUpdateOne {
+	_u.mutation.ClearTrustedAttestationStatusIndicator()
+	return _u
 }
 
 // SetTrustedAttestationStatusTimestamp sets the "trusted_attestation_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) SetTrustedAttestationStatusTimestamp(u uint64) *InstanceResourceUpdateOne {
-	iruo.mutation.ResetTrustedAttestationStatusTimestamp()
-	iruo.mutation.SetTrustedAttestationStatusTimestamp(u)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetTrustedAttestationStatusTimestamp(v uint64) *InstanceResourceUpdateOne {
+	_u.mutation.ResetTrustedAttestationStatusTimestamp()
+	_u.mutation.SetTrustedAttestationStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableTrustedAttestationStatusTimestamp sets the "trusted_attestation_status_timestamp" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableTrustedAttestationStatusTimestamp(u *uint64) *InstanceResourceUpdateOne {
-	if u != nil {
-		iruo.SetTrustedAttestationStatusTimestamp(*u)
+func (_u *InstanceResourceUpdateOne) SetNillableTrustedAttestationStatusTimestamp(v *uint64) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetTrustedAttestationStatusTimestamp(*v)
 	}
-	return iruo
+	return _u
 }
 
-// AddTrustedAttestationStatusTimestamp adds u to the "trusted_attestation_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) AddTrustedAttestationStatusTimestamp(u int64) *InstanceResourceUpdateOne {
-	iruo.mutation.AddTrustedAttestationStatusTimestamp(u)
-	return iruo
+// AddTrustedAttestationStatusTimestamp adds value to the "trusted_attestation_status_timestamp" field.
+func (_u *InstanceResourceUpdateOne) AddTrustedAttestationStatusTimestamp(v int64) *InstanceResourceUpdateOne {
+	_u.mutation.AddTrustedAttestationStatusTimestamp(v)
+	return _u
 }
 
 // ClearTrustedAttestationStatusTimestamp clears the value of the "trusted_attestation_status_timestamp" field.
-func (iruo *InstanceResourceUpdateOne) ClearTrustedAttestationStatusTimestamp() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearTrustedAttestationStatusTimestamp()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearTrustedAttestationStatusTimestamp() *InstanceResourceUpdateOne {
+	_u.mutation.ClearTrustedAttestationStatusTimestamp()
+	return _u
 }
 
 // SetExistingCves sets the "existing_cves" field.
-func (iruo *InstanceResourceUpdateOne) SetExistingCves(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetExistingCves(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetExistingCves(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetExistingCves(v)
+	return _u
 }
 
 // SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableExistingCves(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetExistingCves(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableExistingCves(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetExistingCves(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearExistingCves clears the value of the "existing_cves" field.
-func (iruo *InstanceResourceUpdateOne) ClearExistingCves() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearExistingCves()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearExistingCves() *InstanceResourceUpdateOne {
+	_u.mutation.ClearExistingCves()
+	return _u
 }
 
 // SetRuntimePackages sets the "runtime_packages" field.
-func (iruo *InstanceResourceUpdateOne) SetRuntimePackages(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetRuntimePackages(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetRuntimePackages(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetRuntimePackages(v)
+	return _u
 }
 
 // SetNillableRuntimePackages sets the "runtime_packages" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableRuntimePackages(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetRuntimePackages(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableRuntimePackages(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetRuntimePackages(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearRuntimePackages clears the value of the "runtime_packages" field.
-func (iruo *InstanceResourceUpdateOne) ClearRuntimePackages() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearRuntimePackages()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearRuntimePackages() *InstanceResourceUpdateOne {
+	_u.mutation.ClearRuntimePackages()
+	return _u
 }
 
 // SetOsUpdateAvailable sets the "os_update_available" field.
-func (iruo *InstanceResourceUpdateOne) SetOsUpdateAvailable(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetOsUpdateAvailable(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetOsUpdateAvailable(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetOsUpdateAvailable(v)
+	return _u
 }
 
 // SetNillableOsUpdateAvailable sets the "os_update_available" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableOsUpdateAvailable(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetOsUpdateAvailable(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableOsUpdateAvailable(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetOsUpdateAvailable(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearOsUpdateAvailable clears the value of the "os_update_available" field.
-func (iruo *InstanceResourceUpdateOne) ClearOsUpdateAvailable() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearOsUpdateAvailable()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearOsUpdateAvailable() *InstanceResourceUpdateOne {
+	_u.mutation.ClearOsUpdateAvailable()
+	return _u
 }
 
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
-func (iruo *InstanceResourceUpdateOne) SetInstanceStatusDetail(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetInstanceStatusDetail(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetInstanceStatusDetail(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetInstanceStatusDetail(v)
+	return _u
 }
 
 // SetNillableInstanceStatusDetail sets the "instance_status_detail" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableInstanceStatusDetail(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetInstanceStatusDetail(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableInstanceStatusDetail(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetInstanceStatusDetail(*v)
 	}
-	return iruo
+	return _u
 }
 
 // ClearInstanceStatusDetail clears the value of the "instance_status_detail" field.
-func (iruo *InstanceResourceUpdateOne) ClearInstanceStatusDetail() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearInstanceStatusDetail()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearInstanceStatusDetail() *InstanceResourceUpdateOne {
+	_u.mutation.ClearInstanceStatusDetail()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (iruo *InstanceResourceUpdateOne) SetUpdatedAt(s string) *InstanceResourceUpdateOne {
-	iruo.mutation.SetUpdatedAt(s)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetUpdatedAt(v string) *InstanceResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableUpdatedAt(s *string) *InstanceResourceUpdateOne {
-	if s != nil {
-		iruo.SetUpdatedAt(*s)
+func (_u *InstanceResourceUpdateOne) SetNillableUpdatedAt(v *string) *InstanceResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return iruo
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetHostID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetHostID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetHostID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetNillableHostID sets the "host" edge to the HostResource entity by ID if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableHostID(id *int) *InstanceResourceUpdateOne {
+func (_u *InstanceResourceUpdateOne) SetNillableHostID(id *int) *InstanceResourceUpdateOne {
 	if id != nil {
-		iruo = iruo.SetHostID(*id)
+		_u = _u.SetHostID(*id)
 	}
-	return iruo
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (iruo *InstanceResourceUpdateOne) SetHost(h *HostResource) *InstanceResourceUpdateOne {
-	return iruo.SetHostID(h.ID)
+func (_u *InstanceResourceUpdateOne) SetHost(v *HostResource) *InstanceResourceUpdateOne {
+	return _u.SetHostID(v.ID)
 }
 
 // SetDesiredOsID sets the "desired_os" edge to the OperatingSystemResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetDesiredOsID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetDesiredOsID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetDesiredOsID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetDesiredOsID(id)
+	return _u
 }
 
 // SetDesiredOs sets the "desired_os" edge to the OperatingSystemResource entity.
-func (iruo *InstanceResourceUpdateOne) SetDesiredOs(o *OperatingSystemResource) *InstanceResourceUpdateOne {
-	return iruo.SetDesiredOsID(o.ID)
+func (_u *InstanceResourceUpdateOne) SetDesiredOs(v *OperatingSystemResource) *InstanceResourceUpdateOne {
+	return _u.SetDesiredOsID(v.ID)
 }
 
 // SetCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetCurrentOsID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetCurrentOsID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetCurrentOsID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetCurrentOsID(id)
+	return _u
 }
 
 // SetNillableCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableCurrentOsID(id *int) *InstanceResourceUpdateOne {
+func (_u *InstanceResourceUpdateOne) SetNillableCurrentOsID(id *int) *InstanceResourceUpdateOne {
 	if id != nil {
-		iruo = iruo.SetCurrentOsID(*id)
+		_u = _u.SetCurrentOsID(*id)
 	}
-	return iruo
+	return _u
 }
 
 // SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
-func (iruo *InstanceResourceUpdateOne) SetCurrentOs(o *OperatingSystemResource) *InstanceResourceUpdateOne {
-	return iruo.SetCurrentOsID(o.ID)
+func (_u *InstanceResourceUpdateOne) SetCurrentOs(v *OperatingSystemResource) *InstanceResourceUpdateOne {
+	return _u.SetCurrentOsID(v.ID)
 }
 
 // SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetOsID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetOsID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetOsID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetOsID(id)
+	return _u
 }
 
 // SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableOsID(id *int) *InstanceResourceUpdateOne {
+func (_u *InstanceResourceUpdateOne) SetNillableOsID(id *int) *InstanceResourceUpdateOne {
 	if id != nil {
-		iruo = iruo.SetOsID(*id)
+		_u = _u.SetOsID(*id)
 	}
-	return iruo
+	return _u
 }
 
 // SetOs sets the "os" edge to the OperatingSystemResource entity.
-func (iruo *InstanceResourceUpdateOne) SetOs(o *OperatingSystemResource) *InstanceResourceUpdateOne {
-	return iruo.SetOsID(o.ID)
+func (_u *InstanceResourceUpdateOne) SetOs(v *OperatingSystemResource) *InstanceResourceUpdateOne {
+	return _u.SetOsID(v.ID)
 }
 
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by IDs.
-func (iruo *InstanceResourceUpdateOne) AddWorkloadMemberIDs(ids ...int) *InstanceResourceUpdateOne {
-	iruo.mutation.AddWorkloadMemberIDs(ids...)
-	return iruo
+func (_u *InstanceResourceUpdateOne) AddWorkloadMemberIDs(ids ...int) *InstanceResourceUpdateOne {
+	_u.mutation.AddWorkloadMemberIDs(ids...)
+	return _u
 }
 
 // AddWorkloadMembers adds the "workload_members" edges to the WorkloadMember entity.
-func (iruo *InstanceResourceUpdateOne) AddWorkloadMembers(w ...*WorkloadMember) *InstanceResourceUpdateOne {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *InstanceResourceUpdateOne) AddWorkloadMembers(v ...*WorkloadMember) *InstanceResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iruo.AddWorkloadMemberIDs(ids...)
+	return _u.AddWorkloadMemberIDs(ids...)
 }
 
 // SetProviderID sets the "provider" edge to the ProviderResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetProviderID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetProviderID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetProviderID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetProviderID(id)
+	return _u
 }
 
 // SetNillableProviderID sets the "provider" edge to the ProviderResource entity by ID if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableProviderID(id *int) *InstanceResourceUpdateOne {
+func (_u *InstanceResourceUpdateOne) SetNillableProviderID(id *int) *InstanceResourceUpdateOne {
 	if id != nil {
-		iruo = iruo.SetProviderID(*id)
+		_u = _u.SetProviderID(*id)
 	}
-	return iruo
+	return _u
 }
 
 // SetProvider sets the "provider" edge to the ProviderResource entity.
-func (iruo *InstanceResourceUpdateOne) SetProvider(p *ProviderResource) *InstanceResourceUpdateOne {
-	return iruo.SetProviderID(p.ID)
+func (_u *InstanceResourceUpdateOne) SetProvider(v *ProviderResource) *InstanceResourceUpdateOne {
+	return _u.SetProviderID(v.ID)
 }
 
 // SetLocalaccountID sets the "localaccount" edge to the LocalAccountResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetLocalaccountID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetLocalaccountID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetLocalaccountID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetLocalaccountID(id)
+	return _u
 }
 
 // SetNillableLocalaccountID sets the "localaccount" edge to the LocalAccountResource entity by ID if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableLocalaccountID(id *int) *InstanceResourceUpdateOne {
+func (_u *InstanceResourceUpdateOne) SetNillableLocalaccountID(id *int) *InstanceResourceUpdateOne {
 	if id != nil {
-		iruo = iruo.SetLocalaccountID(*id)
+		_u = _u.SetLocalaccountID(*id)
 	}
-	return iruo
+	return _u
 }
 
 // SetLocalaccount sets the "localaccount" edge to the LocalAccountResource entity.
-func (iruo *InstanceResourceUpdateOne) SetLocalaccount(l *LocalAccountResource) *InstanceResourceUpdateOne {
-	return iruo.SetLocalaccountID(l.ID)
+func (_u *InstanceResourceUpdateOne) SetLocalaccount(v *LocalAccountResource) *InstanceResourceUpdateOne {
+	return _u.SetLocalaccountID(v.ID)
 }
 
 // SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID.
-func (iruo *InstanceResourceUpdateOne) SetOsUpdatePolicyID(id int) *InstanceResourceUpdateOne {
-	iruo.mutation.SetOsUpdatePolicyID(id)
-	return iruo
+func (_u *InstanceResourceUpdateOne) SetOsUpdatePolicyID(id int) *InstanceResourceUpdateOne {
+	_u.mutation.SetOsUpdatePolicyID(id)
+	return _u
 }
 
 // SetNillableOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
-func (iruo *InstanceResourceUpdateOne) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceUpdateOne {
+func (_u *InstanceResourceUpdateOne) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceUpdateOne {
 	if id != nil {
-		iruo = iruo.SetOsUpdatePolicyID(*id)
+		_u = _u.SetOsUpdatePolicyID(*id)
 	}
-	return iruo
+	return _u
 }
 
 // SetOsUpdatePolicy sets the "os_update_policy" edge to the OSUpdatePolicyResource entity.
-func (iruo *InstanceResourceUpdateOne) SetOsUpdatePolicy(o *OSUpdatePolicyResource) *InstanceResourceUpdateOne {
-	return iruo.SetOsUpdatePolicyID(o.ID)
+func (_u *InstanceResourceUpdateOne) SetOsUpdatePolicy(v *OSUpdatePolicyResource) *InstanceResourceUpdateOne {
+	return _u.SetOsUpdatePolicyID(v.ID)
 }
 
 // AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
-func (iruo *InstanceResourceUpdateOne) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
-	iruo.mutation.AddCustomConfigIDs(ids...)
-	return iruo
+func (_u *InstanceResourceUpdateOne) AddCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
+	_u.mutation.AddCustomConfigIDs(ids...)
+	return _u
 }
 
 // AddCustomConfig adds the "custom_config" edges to the CustomConfigResource entity.
-func (iruo *InstanceResourceUpdateOne) AddCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdateOne {
-	ids := make([]int, len(c))
-	for i := range c {
-		ids[i] = c[i].ID
+func (_u *InstanceResourceUpdateOne) AddCustomConfig(v ...*CustomConfigResource) *InstanceResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iruo.AddCustomConfigIDs(ids...)
+	return _u.AddCustomConfigIDs(ids...)
 }
 
 // Mutation returns the InstanceResourceMutation object of the builder.
-func (iruo *InstanceResourceUpdateOne) Mutation() *InstanceResourceMutation {
-	return iruo.mutation
+func (_u *InstanceResourceUpdateOne) Mutation() *InstanceResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearHost() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearHost()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearHost() *InstanceResourceUpdateOne {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // ClearDesiredOs clears the "desired_os" edge to the OperatingSystemResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearDesiredOs() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearDesiredOs()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearDesiredOs() *InstanceResourceUpdateOne {
+	_u.mutation.ClearDesiredOs()
+	return _u
 }
 
 // ClearCurrentOs clears the "current_os" edge to the OperatingSystemResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearCurrentOs() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearCurrentOs()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearCurrentOs() *InstanceResourceUpdateOne {
+	_u.mutation.ClearCurrentOs()
+	return _u
 }
 
 // ClearOs clears the "os" edge to the OperatingSystemResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearOs() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearOs()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearOs() *InstanceResourceUpdateOne {
+	_u.mutation.ClearOs()
+	return _u
 }
 
 // ClearWorkloadMembers clears all "workload_members" edges to the WorkloadMember entity.
-func (iruo *InstanceResourceUpdateOne) ClearWorkloadMembers() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearWorkloadMembers()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearWorkloadMembers() *InstanceResourceUpdateOne {
+	_u.mutation.ClearWorkloadMembers()
+	return _u
 }
 
 // RemoveWorkloadMemberIDs removes the "workload_members" edge to WorkloadMember entities by IDs.
-func (iruo *InstanceResourceUpdateOne) RemoveWorkloadMemberIDs(ids ...int) *InstanceResourceUpdateOne {
-	iruo.mutation.RemoveWorkloadMemberIDs(ids...)
-	return iruo
+func (_u *InstanceResourceUpdateOne) RemoveWorkloadMemberIDs(ids ...int) *InstanceResourceUpdateOne {
+	_u.mutation.RemoveWorkloadMemberIDs(ids...)
+	return _u
 }
 
 // RemoveWorkloadMembers removes "workload_members" edges to WorkloadMember entities.
-func (iruo *InstanceResourceUpdateOne) RemoveWorkloadMembers(w ...*WorkloadMember) *InstanceResourceUpdateOne {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *InstanceResourceUpdateOne) RemoveWorkloadMembers(v ...*WorkloadMember) *InstanceResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iruo.RemoveWorkloadMemberIDs(ids...)
+	return _u.RemoveWorkloadMemberIDs(ids...)
 }
 
 // ClearProvider clears the "provider" edge to the ProviderResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearProvider() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearProvider()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearProvider() *InstanceResourceUpdateOne {
+	_u.mutation.ClearProvider()
+	return _u
 }
 
 // ClearLocalaccount clears the "localaccount" edge to the LocalAccountResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearLocalaccount() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearLocalaccount()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearLocalaccount() *InstanceResourceUpdateOne {
+	_u.mutation.ClearLocalaccount()
+	return _u
 }
 
 // ClearOsUpdatePolicy clears the "os_update_policy" edge to the OSUpdatePolicyResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearOsUpdatePolicy() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearOsUpdatePolicy()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearOsUpdatePolicy() *InstanceResourceUpdateOne {
+	_u.mutation.ClearOsUpdatePolicy()
+	return _u
 }
 
 // ClearCustomConfig clears all "custom_config" edges to the CustomConfigResource entity.
-func (iruo *InstanceResourceUpdateOne) ClearCustomConfig() *InstanceResourceUpdateOne {
-	iruo.mutation.ClearCustomConfig()
-	return iruo
+func (_u *InstanceResourceUpdateOne) ClearCustomConfig() *InstanceResourceUpdateOne {
+	_u.mutation.ClearCustomConfig()
+	return _u
 }
 
 // RemoveCustomConfigIDs removes the "custom_config" edge to CustomConfigResource entities by IDs.
-func (iruo *InstanceResourceUpdateOne) RemoveCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
-	iruo.mutation.RemoveCustomConfigIDs(ids...)
-	return iruo
+func (_u *InstanceResourceUpdateOne) RemoveCustomConfigIDs(ids ...int) *InstanceResourceUpdateOne {
+	_u.mutation.RemoveCustomConfigIDs(ids...)
+	return _u
 }
 
 // RemoveCustomConfig removes "custom_config" edges to CustomConfigResource entities.
-func (iruo *InstanceResourceUpdateOne) RemoveCustomConfig(c ...*CustomConfigResource) *InstanceResourceUpdateOne {
-	ids := make([]int, len(c))
-	for i := range c {
-		ids[i] = c[i].ID
+func (_u *InstanceResourceUpdateOne) RemoveCustomConfig(v ...*CustomConfigResource) *InstanceResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return iruo.RemoveCustomConfigIDs(ids...)
+	return _u.RemoveCustomConfigIDs(ids...)
 }
 
 // Where appends a list predicates to the InstanceResourceUpdate builder.
-func (iruo *InstanceResourceUpdateOne) Where(ps ...predicate.InstanceResource) *InstanceResourceUpdateOne {
-	iruo.mutation.Where(ps...)
-	return iruo
+func (_u *InstanceResourceUpdateOne) Where(ps ...predicate.InstanceResource) *InstanceResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (iruo *InstanceResourceUpdateOne) Select(field string, fields ...string) *InstanceResourceUpdateOne {
-	iruo.fields = append([]string{field}, fields...)
-	return iruo
+func (_u *InstanceResourceUpdateOne) Select(field string, fields ...string) *InstanceResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated InstanceResource entity.
-func (iruo *InstanceResourceUpdateOne) Save(ctx context.Context) (*InstanceResource, error) {
-	return withHooks(ctx, iruo.sqlSave, iruo.mutation, iruo.hooks)
+func (_u *InstanceResourceUpdateOne) Save(ctx context.Context) (*InstanceResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iruo *InstanceResourceUpdateOne) SaveX(ctx context.Context) *InstanceResource {
-	node, err := iruo.Save(ctx)
+func (_u *InstanceResourceUpdateOne) SaveX(ctx context.Context) *InstanceResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -2233,72 +2233,72 @@ func (iruo *InstanceResourceUpdateOne) SaveX(ctx context.Context) *InstanceResou
 }
 
 // Exec executes the query on the entity.
-func (iruo *InstanceResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := iruo.Save(ctx)
+func (_u *InstanceResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iruo *InstanceResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := iruo.Exec(ctx); err != nil {
+func (_u *InstanceResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (iruo *InstanceResourceUpdateOne) check() error {
-	if v, ok := iruo.mutation.Kind(); ok {
+func (_u *InstanceResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := instanceresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := iruo.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := instanceresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := iruo.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := instanceresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := iruo.mutation.InstanceStatusIndicator(); ok {
+	if v, ok := _u.mutation.InstanceStatusIndicator(); ok {
 		if err := instanceresource.InstanceStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "instance_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.instance_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := iruo.mutation.ProvisioningStatusIndicator(); ok {
+	if v, ok := _u.mutation.ProvisioningStatusIndicator(); ok {
 		if err := instanceresource.ProvisioningStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "provisioning_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.provisioning_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := iruo.mutation.UpdateStatusIndicator(); ok {
+	if v, ok := _u.mutation.UpdateStatusIndicator(); ok {
 		if err := instanceresource.UpdateStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "update_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.update_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := iruo.mutation.TrustedAttestationStatusIndicator(); ok {
+	if v, ok := _u.mutation.TrustedAttestationStatusIndicator(); ok {
 		if err := instanceresource.TrustedAttestationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
 	}
-	if iruo.mutation.DesiredOsCleared() && len(iruo.mutation.DesiredOsIDs()) > 0 {
+	if _u.mutation.DesiredOsCleared() && len(_u.mutation.DesiredOsIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "InstanceResource.desired_os"`)
 	}
 	return nil
 }
 
-func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *InstanceResource, err error) {
-	if err := iruo.check(); err != nil {
+func (_u *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *InstanceResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(instanceresource.Table, instanceresource.Columns, sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt))
-	id, ok := iruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "InstanceResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := iruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, instanceresource.FieldID)
 		for _, f := range fields {
@@ -2310,188 +2310,188 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 			}
 		}
 	}
-	if ps := iruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := iruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(instanceresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := iruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(instanceresource.FieldKind, field.TypeEnum, value)
 	}
-	if iruo.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(instanceresource.FieldKind, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(instanceresource.FieldName, field.TypeString, value)
 	}
-	if iruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(instanceresource.FieldName, field.TypeString)
 	}
-	if value, ok := iruo.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(instanceresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if iruo.mutation.DesiredStateCleared() {
+	if _u.mutation.DesiredStateCleared() {
 		_spec.ClearField(instanceresource.FieldDesiredState, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(instanceresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if iruo.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(instanceresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.VMMemoryBytes(); ok {
+	if value, ok := _u.mutation.VMMemoryBytes(); ok {
 		_spec.SetField(instanceresource.FieldVMMemoryBytes, field.TypeUint64, value)
 	}
-	if value, ok := iruo.mutation.AddedVMMemoryBytes(); ok {
+	if value, ok := _u.mutation.AddedVMMemoryBytes(); ok {
 		_spec.AddField(instanceresource.FieldVMMemoryBytes, field.TypeUint64, value)
 	}
-	if iruo.mutation.VMMemoryBytesCleared() {
+	if _u.mutation.VMMemoryBytesCleared() {
 		_spec.ClearField(instanceresource.FieldVMMemoryBytes, field.TypeUint64)
 	}
-	if value, ok := iruo.mutation.VMCPUCores(); ok {
+	if value, ok := _u.mutation.VMCPUCores(); ok {
 		_spec.SetField(instanceresource.FieldVMCPUCores, field.TypeUint32, value)
 	}
-	if value, ok := iruo.mutation.AddedVMCPUCores(); ok {
+	if value, ok := _u.mutation.AddedVMCPUCores(); ok {
 		_spec.AddField(instanceresource.FieldVMCPUCores, field.TypeUint32, value)
 	}
-	if iruo.mutation.VMCPUCoresCleared() {
+	if _u.mutation.VMCPUCoresCleared() {
 		_spec.ClearField(instanceresource.FieldVMCPUCores, field.TypeUint32)
 	}
-	if value, ok := iruo.mutation.VMStorageBytes(); ok {
+	if value, ok := _u.mutation.VMStorageBytes(); ok {
 		_spec.SetField(instanceresource.FieldVMStorageBytes, field.TypeUint64, value)
 	}
-	if value, ok := iruo.mutation.AddedVMStorageBytes(); ok {
+	if value, ok := _u.mutation.AddedVMStorageBytes(); ok {
 		_spec.AddField(instanceresource.FieldVMStorageBytes, field.TypeUint64, value)
 	}
-	if iruo.mutation.VMStorageBytesCleared() {
+	if _u.mutation.VMStorageBytesCleared() {
 		_spec.ClearField(instanceresource.FieldVMStorageBytes, field.TypeUint64)
 	}
-	if iruo.mutation.SecurityFeatureCleared() {
+	if _u.mutation.SecurityFeatureCleared() {
 		_spec.ClearField(instanceresource.FieldSecurityFeature, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.InstanceStatus(); ok {
+	if value, ok := _u.mutation.InstanceStatus(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatus, field.TypeString, value)
 	}
-	if iruo.mutation.InstanceStatusCleared() {
+	if _u.mutation.InstanceStatusCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatus, field.TypeString)
 	}
-	if value, ok := iruo.mutation.InstanceStatusIndicator(); ok {
+	if value, ok := _u.mutation.InstanceStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusIndicator, field.TypeEnum, value)
 	}
-	if iruo.mutation.InstanceStatusIndicatorCleared() {
+	if _u.mutation.InstanceStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.InstanceStatusTimestamp(); ok {
+	if value, ok := _u.mutation.InstanceStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iruo.mutation.AddedInstanceStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedInstanceStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64, value)
 	}
-	if iruo.mutation.InstanceStatusTimestampCleared() {
+	if _u.mutation.InstanceStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iruo.mutation.ProvisioningStatus(); ok {
+	if value, ok := _u.mutation.ProvisioningStatus(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatus, field.TypeString, value)
 	}
-	if iruo.mutation.ProvisioningStatusCleared() {
+	if _u.mutation.ProvisioningStatusCleared() {
 		_spec.ClearField(instanceresource.FieldProvisioningStatus, field.TypeString)
 	}
-	if value, ok := iruo.mutation.ProvisioningStatusIndicator(); ok {
+	if value, ok := _u.mutation.ProvisioningStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatusIndicator, field.TypeEnum, value)
 	}
-	if iruo.mutation.ProvisioningStatusIndicatorCleared() {
+	if _u.mutation.ProvisioningStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldProvisioningStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.ProvisioningStatusTimestamp(); ok {
+	if value, ok := _u.mutation.ProvisioningStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iruo.mutation.AddedProvisioningStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedProvisioningStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64, value)
 	}
-	if iruo.mutation.ProvisioningStatusTimestampCleared() {
+	if _u.mutation.ProvisioningStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iruo.mutation.UpdateStatus(); ok {
+	if value, ok := _u.mutation.UpdateStatus(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatus, field.TypeString, value)
 	}
-	if iruo.mutation.UpdateStatusCleared() {
+	if _u.mutation.UpdateStatusCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatus, field.TypeString)
 	}
-	if value, ok := iruo.mutation.UpdateStatusIndicator(); ok {
+	if value, ok := _u.mutation.UpdateStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusIndicator, field.TypeEnum, value)
 	}
-	if iruo.mutation.UpdateStatusIndicatorCleared() {
+	if _u.mutation.UpdateStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.UpdateStatusTimestamp(); ok {
+	if value, ok := _u.mutation.UpdateStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iruo.mutation.AddedUpdateStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedUpdateStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64, value)
 	}
-	if iruo.mutation.UpdateStatusTimestampCleared() {
+	if _u.mutation.UpdateStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iruo.mutation.UpdateStatusDetail(); ok {
+	if value, ok := _u.mutation.UpdateStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusDetail, field.TypeString, value)
 	}
-	if iruo.mutation.UpdateStatusDetailCleared() {
+	if _u.mutation.UpdateStatusDetailCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusDetail, field.TypeString)
 	}
-	if value, ok := iruo.mutation.TrustedAttestationStatus(); ok {
+	if value, ok := _u.mutation.TrustedAttestationStatus(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatus, field.TypeString, value)
 	}
-	if iruo.mutation.TrustedAttestationStatusCleared() {
+	if _u.mutation.TrustedAttestationStatusCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatus, field.TypeString)
 	}
-	if value, ok := iruo.mutation.TrustedAttestationStatusIndicator(); ok {
+	if value, ok := _u.mutation.TrustedAttestationStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusIndicator, field.TypeEnum, value)
 	}
-	if iruo.mutation.TrustedAttestationStatusIndicatorCleared() {
+	if _u.mutation.TrustedAttestationStatusIndicatorCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := iruo.mutation.TrustedAttestationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.TrustedAttestationStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := iruo.mutation.AddedTrustedAttestationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedTrustedAttestationStatusTimestamp(); ok {
 		_spec.AddField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64, value)
 	}
-	if iruo.mutation.TrustedAttestationStatusTimestampCleared() {
+	if _u.mutation.TrustedAttestationStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := iruo.mutation.ExistingCves(); ok {
+	if value, ok := _u.mutation.ExistingCves(); ok {
 		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
 	}
-	if iruo.mutation.ExistingCvesCleared() {
+	if _u.mutation.ExistingCvesCleared() {
 		_spec.ClearField(instanceresource.FieldExistingCves, field.TypeString)
 	}
-	if value, ok := iruo.mutation.RuntimePackages(); ok {
+	if value, ok := _u.mutation.RuntimePackages(); ok {
 		_spec.SetField(instanceresource.FieldRuntimePackages, field.TypeString, value)
 	}
-	if iruo.mutation.RuntimePackagesCleared() {
+	if _u.mutation.RuntimePackagesCleared() {
 		_spec.ClearField(instanceresource.FieldRuntimePackages, field.TypeString)
 	}
-	if value, ok := iruo.mutation.OsUpdateAvailable(); ok {
+	if value, ok := _u.mutation.OsUpdateAvailable(); ok {
 		_spec.SetField(instanceresource.FieldOsUpdateAvailable, field.TypeString, value)
 	}
-	if iruo.mutation.OsUpdateAvailableCleared() {
+	if _u.mutation.OsUpdateAvailableCleared() {
 		_spec.ClearField(instanceresource.FieldOsUpdateAvailable, field.TypeString)
 	}
-	if value, ok := iruo.mutation.InstanceStatusDetail(); ok {
+	if value, ok := _u.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 	}
-	if iruo.mutation.InstanceStatusDetailCleared() {
+	if _u.mutation.InstanceStatusDetailCleared() {
 		_spec.ClearField(instanceresource.FieldInstanceStatusDetail, field.TypeString)
 	}
-	if value, ok := iruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(instanceresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if iruo.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -2504,7 +2504,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -2520,7 +2520,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.DesiredOsCleared() {
+	if _u.mutation.DesiredOsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2533,7 +2533,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.DesiredOsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DesiredOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2549,7 +2549,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.CurrentOsCleared() {
+	if _u.mutation.CurrentOsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2562,7 +2562,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.CurrentOsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CurrentOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2578,7 +2578,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.OsCleared() {
+	if _u.mutation.OsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2591,7 +2591,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.OsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2607,7 +2607,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.WorkloadMembersCleared() {
+	if _u.mutation.WorkloadMembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -2620,7 +2620,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.RemovedWorkloadMembersIDs(); len(nodes) > 0 && !iruo.mutation.WorkloadMembersCleared() {
+	if nodes := _u.mutation.RemovedWorkloadMembersIDs(); len(nodes) > 0 && !_u.mutation.WorkloadMembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -2636,7 +2636,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -2652,7 +2652,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.ProviderCleared() {
+	if _u.mutation.ProviderCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2665,7 +2665,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.ProviderIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProviderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2681,7 +2681,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.LocalaccountCleared() {
+	if _u.mutation.LocalaccountCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2694,7 +2694,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.LocalaccountIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.LocalaccountIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2710,7 +2710,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.OsUpdatePolicyCleared() {
+	if _u.mutation.OsUpdatePolicyCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2723,7 +2723,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -2739,7 +2739,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if iruo.mutation.CustomConfigCleared() {
+	if _u.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -2752,7 +2752,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !iruo.mutation.CustomConfigCleared() {
+	if nodes := _u.mutation.RemovedCustomConfigIDs(); len(nodes) > 0 && !_u.mutation.CustomConfigCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -2768,7 +2768,7 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iruo.mutation.CustomConfigIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -2784,10 +2784,10 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &InstanceResource{config: iruo.config}
+	_node = &InstanceResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, iruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{instanceresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -2795,6 +2795,6 @@ func (iruo *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Inst
 		}
 		return nil, err
 	}
-	iruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

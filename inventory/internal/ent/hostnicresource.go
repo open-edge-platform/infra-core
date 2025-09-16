@@ -116,7 +116,7 @@ func (*HostnicResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the HostnicResource fields.
-func (hr *HostnicResource) assignValues(columns []string, values []any) error {
+func (_m *HostnicResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -127,166 +127,166 @@ func (hr *HostnicResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			hr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case hostnicresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				hr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case hostnicresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				hr.Kind = value.String
+				_m.Kind = value.String
 			}
 		case hostnicresource.FieldProviderStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provider_status", values[i])
 			} else if value.Valid {
-				hr.ProviderStatus = value.String
+				_m.ProviderStatus = value.String
 			}
 		case hostnicresource.FieldDeviceName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field device_name", values[i])
 			} else if value.Valid {
-				hr.DeviceName = value.String
+				_m.DeviceName = value.String
 			}
 		case hostnicresource.FieldPciIdentifier:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field pci_identifier", values[i])
 			} else if value.Valid {
-				hr.PciIdentifier = value.String
+				_m.PciIdentifier = value.String
 			}
 		case hostnicresource.FieldMACAddr:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field mac_addr", values[i])
 			} else if value.Valid {
-				hr.MACAddr = value.String
+				_m.MACAddr = value.String
 			}
 		case hostnicresource.FieldSriovEnabled:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field sriov_enabled", values[i])
 			} else if value.Valid {
-				hr.SriovEnabled = value.Bool
+				_m.SriovEnabled = value.Bool
 			}
 		case hostnicresource.FieldSriovVfsNum:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field sriov_vfs_num", values[i])
 			} else if value.Valid {
-				hr.SriovVfsNum = uint32(value.Int64)
+				_m.SriovVfsNum = uint32(value.Int64)
 			}
 		case hostnicresource.FieldSriovVfsTotal:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field sriov_vfs_total", values[i])
 			} else if value.Valid {
-				hr.SriovVfsTotal = uint32(value.Int64)
+				_m.SriovVfsTotal = uint32(value.Int64)
 			}
 		case hostnicresource.FieldPeerName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field peer_name", values[i])
 			} else if value.Valid {
-				hr.PeerName = value.String
+				_m.PeerName = value.String
 			}
 		case hostnicresource.FieldPeerDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field peer_description", values[i])
 			} else if value.Valid {
-				hr.PeerDescription = value.String
+				_m.PeerDescription = value.String
 			}
 		case hostnicresource.FieldPeerMAC:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field peer_mac", values[i])
 			} else if value.Valid {
-				hr.PeerMAC = value.String
+				_m.PeerMAC = value.String
 			}
 		case hostnicresource.FieldPeerMgmtIP:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field peer_mgmt_ip", values[i])
 			} else if value.Valid {
-				hr.PeerMgmtIP = value.String
+				_m.PeerMgmtIP = value.String
 			}
 		case hostnicresource.FieldPeerPort:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field peer_port", values[i])
 			} else if value.Valid {
-				hr.PeerPort = value.String
+				_m.PeerPort = value.String
 			}
 		case hostnicresource.FieldSupportedLinkMode:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field supported_link_mode", values[i])
 			} else if value.Valid {
-				hr.SupportedLinkMode = value.String
+				_m.SupportedLinkMode = value.String
 			}
 		case hostnicresource.FieldAdvertisingLinkMode:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field advertising_link_mode", values[i])
 			} else if value.Valid {
-				hr.AdvertisingLinkMode = value.String
+				_m.AdvertisingLinkMode = value.String
 			}
 		case hostnicresource.FieldCurrentSpeedBps:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field current_speed_bps", values[i])
 			} else if value.Valid {
-				hr.CurrentSpeedBps = uint64(value.Int64)
+				_m.CurrentSpeedBps = uint64(value.Int64)
 			}
 		case hostnicresource.FieldCurrentDuplex:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_duplex", values[i])
 			} else if value.Valid {
-				hr.CurrentDuplex = value.String
+				_m.CurrentDuplex = value.String
 			}
 		case hostnicresource.FieldFeatures:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field features", values[i])
 			} else if value.Valid {
-				hr.Features = value.String
+				_m.Features = value.String
 			}
 		case hostnicresource.FieldMtu:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field mtu", values[i])
 			} else if value.Valid {
-				hr.Mtu = uint32(value.Int64)
+				_m.Mtu = uint32(value.Int64)
 			}
 		case hostnicresource.FieldLinkState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field link_state", values[i])
 			} else if value.Valid {
-				hr.LinkState = hostnicresource.LinkState(value.String)
+				_m.LinkState = hostnicresource.LinkState(value.String)
 			}
 		case hostnicresource.FieldBmcInterface:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field bmc_interface", values[i])
 			} else if value.Valid {
-				hr.BmcInterface = value.Bool
+				_m.BmcInterface = value.Bool
 			}
 		case hostnicresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				hr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case hostnicresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				hr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case hostnicresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				hr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case hostnicresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field hostnic_resource_host", value)
 			} else if value.Valid {
-				hr.hostnic_resource_host = new(int)
-				*hr.hostnic_resource_host = int(value.Int64)
+				_m.hostnic_resource_host = new(int)
+				*_m.hostnic_resource_host = int(value.Int64)
 			}
 		default:
-			hr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -294,112 +294,112 @@ func (hr *HostnicResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the HostnicResource.
 // This includes values selected through modifiers, order, etc.
-func (hr *HostnicResource) Value(name string) (ent.Value, error) {
-	return hr.selectValues.Get(name)
+func (_m *HostnicResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryHost queries the "host" edge of the HostnicResource entity.
-func (hr *HostnicResource) QueryHost() *HostResourceQuery {
-	return NewHostnicResourceClient(hr.config).QueryHost(hr)
+func (_m *HostnicResource) QueryHost() *HostResourceQuery {
+	return NewHostnicResourceClient(_m.config).QueryHost(_m)
 }
 
 // Update returns a builder for updating this HostnicResource.
 // Note that you need to call HostnicResource.Unwrap() before calling this method if this HostnicResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (hr *HostnicResource) Update() *HostnicResourceUpdateOne {
-	return NewHostnicResourceClient(hr.config).UpdateOne(hr)
+func (_m *HostnicResource) Update() *HostnicResourceUpdateOne {
+	return NewHostnicResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the HostnicResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (hr *HostnicResource) Unwrap() *HostnicResource {
-	_tx, ok := hr.config.driver.(*txDriver)
+func (_m *HostnicResource) Unwrap() *HostnicResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: HostnicResource is not a transactional entity")
 	}
-	hr.config.driver = _tx.drv
-	return hr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (hr *HostnicResource) String() string {
+func (_m *HostnicResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("HostnicResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", hr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(hr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(hr.Kind)
+	builder.WriteString(_m.Kind)
 	builder.WriteString(", ")
 	builder.WriteString("provider_status=")
-	builder.WriteString(hr.ProviderStatus)
+	builder.WriteString(_m.ProviderStatus)
 	builder.WriteString(", ")
 	builder.WriteString("device_name=")
-	builder.WriteString(hr.DeviceName)
+	builder.WriteString(_m.DeviceName)
 	builder.WriteString(", ")
 	builder.WriteString("pci_identifier=")
-	builder.WriteString(hr.PciIdentifier)
+	builder.WriteString(_m.PciIdentifier)
 	builder.WriteString(", ")
 	builder.WriteString("mac_addr=")
-	builder.WriteString(hr.MACAddr)
+	builder.WriteString(_m.MACAddr)
 	builder.WriteString(", ")
 	builder.WriteString("sriov_enabled=")
-	builder.WriteString(fmt.Sprintf("%v", hr.SriovEnabled))
+	builder.WriteString(fmt.Sprintf("%v", _m.SriovEnabled))
 	builder.WriteString(", ")
 	builder.WriteString("sriov_vfs_num=")
-	builder.WriteString(fmt.Sprintf("%v", hr.SriovVfsNum))
+	builder.WriteString(fmt.Sprintf("%v", _m.SriovVfsNum))
 	builder.WriteString(", ")
 	builder.WriteString("sriov_vfs_total=")
-	builder.WriteString(fmt.Sprintf("%v", hr.SriovVfsTotal))
+	builder.WriteString(fmt.Sprintf("%v", _m.SriovVfsTotal))
 	builder.WriteString(", ")
 	builder.WriteString("peer_name=")
-	builder.WriteString(hr.PeerName)
+	builder.WriteString(_m.PeerName)
 	builder.WriteString(", ")
 	builder.WriteString("peer_description=")
-	builder.WriteString(hr.PeerDescription)
+	builder.WriteString(_m.PeerDescription)
 	builder.WriteString(", ")
 	builder.WriteString("peer_mac=")
-	builder.WriteString(hr.PeerMAC)
+	builder.WriteString(_m.PeerMAC)
 	builder.WriteString(", ")
 	builder.WriteString("peer_mgmt_ip=")
-	builder.WriteString(hr.PeerMgmtIP)
+	builder.WriteString(_m.PeerMgmtIP)
 	builder.WriteString(", ")
 	builder.WriteString("peer_port=")
-	builder.WriteString(hr.PeerPort)
+	builder.WriteString(_m.PeerPort)
 	builder.WriteString(", ")
 	builder.WriteString("supported_link_mode=")
-	builder.WriteString(hr.SupportedLinkMode)
+	builder.WriteString(_m.SupportedLinkMode)
 	builder.WriteString(", ")
 	builder.WriteString("advertising_link_mode=")
-	builder.WriteString(hr.AdvertisingLinkMode)
+	builder.WriteString(_m.AdvertisingLinkMode)
 	builder.WriteString(", ")
 	builder.WriteString("current_speed_bps=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CurrentSpeedBps))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentSpeedBps))
 	builder.WriteString(", ")
 	builder.WriteString("current_duplex=")
-	builder.WriteString(hr.CurrentDuplex)
+	builder.WriteString(_m.CurrentDuplex)
 	builder.WriteString(", ")
 	builder.WriteString("features=")
-	builder.WriteString(hr.Features)
+	builder.WriteString(_m.Features)
 	builder.WriteString(", ")
 	builder.WriteString("mtu=")
-	builder.WriteString(fmt.Sprintf("%v", hr.Mtu))
+	builder.WriteString(fmt.Sprintf("%v", _m.Mtu))
 	builder.WriteString(", ")
 	builder.WriteString("link_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.LinkState))
+	builder.WriteString(fmt.Sprintf("%v", _m.LinkState))
 	builder.WriteString(", ")
 	builder.WriteString("bmc_interface=")
-	builder.WriteString(fmt.Sprintf("%v", hr.BmcInterface))
+	builder.WriteString(fmt.Sprintf("%v", _m.BmcInterface))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(hr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(hr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(hr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }
