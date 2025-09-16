@@ -15,13 +15,13 @@ require (
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/modern-go/reflect2 v1.0.2
 	github.com/oapi-codegen/runtime v1.1.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.2
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.3
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
 	github.com/viant/xunsafe v0.10.3
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
-	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394
+	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b
 	google.golang.org/grpc v1.75.1
 	google.golang.org/protobuf v1.36.9
 )
@@ -29,6 +29,7 @@ require (
 require (
 	ariga.io/atlas v0.36.1 // indirect
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.9-20250912141014-52f32327d4b0.1 // indirect
+	buf.build/go/protovalidate v1.0.0 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	entgo.io/contrib v0.7.0 // indirect
 	entgo.io/ent v0.14.5 // indirect
@@ -41,7 +42,6 @@ require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
-	github.com/bufbuild/protovalidate-go v0.10.1 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
@@ -60,7 +60,7 @@ require (
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
-	github.com/google/cel-go v0.25.0 // indirect
+	github.com/google/cel-go v0.26.1 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
