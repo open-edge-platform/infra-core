@@ -11,21 +11,22 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/uuid v1.6.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.2
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.3
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.2.2
 	github.com/prometheus/client_golang v1.23.0
-	github.com/stretchr/testify v1.11.0
-	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394
+	github.com/stretchr/testify v1.11.1
+	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b
 	google.golang.org/grpc v1.75.0
-	google.golang.org/protobuf v1.36.8
+	google.golang.org/protobuf v1.36.9
 	k8s.io/apimachinery v0.33.4
 	k8s.io/client-go v0.33.4
 )
 
 require (
 	ariga.io/atlas v0.36.1 // indirect
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.9-20250912141014-52f32327d4b0.1 // indirect
+	buf.build/go/protovalidate v1.0.0 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	cloud.google.com/go/compute/metadata v0.7.0 // indirect
 	entgo.io/contrib v0.7.0 // indirect
@@ -37,7 +38,6 @@ require (
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
-	github.com/bufbuild/protovalidate-go v0.10.1 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cenkalti/backoff/v5 v5.0.2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -59,7 +59,7 @@ require (
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
-	github.com/google/cel-go v0.25.0 // indirect
+	github.com/google/cel-go v0.26.1 // indirect
 	github.com/google/gnostic-models v0.6.9 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
