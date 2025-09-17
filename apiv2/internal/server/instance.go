@@ -489,6 +489,6 @@ func (is *InventorygRPCServer) DeleteInstance(
 		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
 		return nil, errors.Wrap(err)
 	}
-	zlog.Debug().Msgf("Deleted instance %s and its associated OSUpdateRuns", instanceID)
+	zlog.Debug().Msgf("Deleted instance %s", instanceID)
 	return &restv1.DeleteInstanceResponse{}, nil
 }
