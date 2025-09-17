@@ -213,12 +213,6 @@ issues:
     - "pkg/api/"
     - "internal/ent"
 
-  exclude-rules:
-    # Exclude gofumpt from generated ent code
-    - path: internal/ent/.*
-      linters:
-        - gofumpt
-
   # When set to `true` linter will analyze only new code which are
   # not committed or after some specific revision. This is a cool
   # feature when you're going to introduce linter into a big project.
@@ -447,6 +441,10 @@ issues:
       linters:
         - funlen
         - gosec
+    # Exclude gofumpt from generated ent code
+    - path: internal/ent/.*
+      linters:
+        - gofumpt
 
 output:
   # Format:
