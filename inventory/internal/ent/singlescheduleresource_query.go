@@ -37,44 +37,44 @@ type SingleScheduleResourceQuery struct {
 }
 
 // Where adds a new predicate for the SingleScheduleResourceQuery builder.
-func (ssrq *SingleScheduleResourceQuery) Where(ps ...predicate.SingleScheduleResource) *SingleScheduleResourceQuery {
-	ssrq.predicates = append(ssrq.predicates, ps...)
-	return ssrq
+func (_q *SingleScheduleResourceQuery) Where(ps ...predicate.SingleScheduleResource) *SingleScheduleResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (ssrq *SingleScheduleResourceQuery) Limit(limit int) *SingleScheduleResourceQuery {
-	ssrq.ctx.Limit = &limit
-	return ssrq
+func (_q *SingleScheduleResourceQuery) Limit(limit int) *SingleScheduleResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (ssrq *SingleScheduleResourceQuery) Offset(offset int) *SingleScheduleResourceQuery {
-	ssrq.ctx.Offset = &offset
-	return ssrq
+func (_q *SingleScheduleResourceQuery) Offset(offset int) *SingleScheduleResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (ssrq *SingleScheduleResourceQuery) Unique(unique bool) *SingleScheduleResourceQuery {
-	ssrq.ctx.Unique = &unique
-	return ssrq
+func (_q *SingleScheduleResourceQuery) Unique(unique bool) *SingleScheduleResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (ssrq *SingleScheduleResourceQuery) Order(o ...singlescheduleresource.OrderOption) *SingleScheduleResourceQuery {
-	ssrq.order = append(ssrq.order, o...)
-	return ssrq
+func (_q *SingleScheduleResourceQuery) Order(o ...singlescheduleresource.OrderOption) *SingleScheduleResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryTargetSite chains the current query on the "target_site" edge.
-func (ssrq *SingleScheduleResourceQuery) QueryTargetSite() *SiteResourceQuery {
-	query := (&SiteResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) QueryTargetSite() *SiteResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ssrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ssrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -83,20 +83,20 @@ func (ssrq *SingleScheduleResourceQuery) QueryTargetSite() *SiteResourceQuery {
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetSiteTable, singlescheduleresource.TargetSiteColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(ssrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryTargetHost chains the current query on the "target_host" edge.
-func (ssrq *SingleScheduleResourceQuery) QueryTargetHost() *HostResourceQuery {
-	query := (&HostResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) QueryTargetHost() *HostResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ssrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ssrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -105,20 +105,20 @@ func (ssrq *SingleScheduleResourceQuery) QueryTargetHost() *HostResourceQuery {
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetHostTable, singlescheduleresource.TargetHostColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(ssrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryTargetWorkload chains the current query on the "target_workload" edge.
-func (ssrq *SingleScheduleResourceQuery) QueryTargetWorkload() *WorkloadResourceQuery {
-	query := (&WorkloadResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) QueryTargetWorkload() *WorkloadResourceQuery {
+	query := (&WorkloadResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ssrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ssrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -127,20 +127,20 @@ func (ssrq *SingleScheduleResourceQuery) QueryTargetWorkload() *WorkloadResource
 			sqlgraph.To(workloadresource.Table, workloadresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetWorkloadTable, singlescheduleresource.TargetWorkloadColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(ssrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryTargetRegion chains the current query on the "target_region" edge.
-func (ssrq *SingleScheduleResourceQuery) QueryTargetRegion() *RegionResourceQuery {
-	query := (&RegionResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) QueryTargetRegion() *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ssrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ssrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -149,7 +149,7 @@ func (ssrq *SingleScheduleResourceQuery) QueryTargetRegion() *RegionResourceQuer
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetRegionTable, singlescheduleresource.TargetRegionColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(ssrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -157,8 +157,8 @@ func (ssrq *SingleScheduleResourceQuery) QueryTargetRegion() *RegionResourceQuer
 
 // First returns the first SingleScheduleResource entity from the query.
 // Returns a *NotFoundError when no SingleScheduleResource was found.
-func (ssrq *SingleScheduleResourceQuery) First(ctx context.Context) (*SingleScheduleResource, error) {
-	nodes, err := ssrq.Limit(1).All(setContextOp(ctx, ssrq.ctx, ent.OpQueryFirst))
+func (_q *SingleScheduleResourceQuery) First(ctx context.Context) (*SingleScheduleResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -169,8 +169,8 @@ func (ssrq *SingleScheduleResourceQuery) First(ctx context.Context) (*SingleSche
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) FirstX(ctx context.Context) *SingleScheduleResource {
-	node, err := ssrq.First(ctx)
+func (_q *SingleScheduleResourceQuery) FirstX(ctx context.Context) *SingleScheduleResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -179,9 +179,9 @@ func (ssrq *SingleScheduleResourceQuery) FirstX(ctx context.Context) *SingleSche
 
 // FirstID returns the first SingleScheduleResource ID from the query.
 // Returns a *NotFoundError when no SingleScheduleResource ID was found.
-func (ssrq *SingleScheduleResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *SingleScheduleResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ssrq.Limit(1).IDs(setContextOp(ctx, ssrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -192,8 +192,8 @@ func (ssrq *SingleScheduleResourceQuery) FirstID(ctx context.Context) (id int, e
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := ssrq.FirstID(ctx)
+func (_q *SingleScheduleResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -203,8 +203,8 @@ func (ssrq *SingleScheduleResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single SingleScheduleResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one SingleScheduleResource entity is found.
 // Returns a *NotFoundError when no SingleScheduleResource entities are found.
-func (ssrq *SingleScheduleResourceQuery) Only(ctx context.Context) (*SingleScheduleResource, error) {
-	nodes, err := ssrq.Limit(2).All(setContextOp(ctx, ssrq.ctx, ent.OpQueryOnly))
+func (_q *SingleScheduleResourceQuery) Only(ctx context.Context) (*SingleScheduleResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -219,8 +219,8 @@ func (ssrq *SingleScheduleResourceQuery) Only(ctx context.Context) (*SingleSched
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) OnlyX(ctx context.Context) *SingleScheduleResource {
-	node, err := ssrq.Only(ctx)
+func (_q *SingleScheduleResourceQuery) OnlyX(ctx context.Context) *SingleScheduleResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -230,9 +230,9 @@ func (ssrq *SingleScheduleResourceQuery) OnlyX(ctx context.Context) *SingleSched
 // OnlyID is like Only, but returns the only SingleScheduleResource ID in the query.
 // Returns a *NotSingularError when more than one SingleScheduleResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (ssrq *SingleScheduleResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *SingleScheduleResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ssrq.Limit(2).IDs(setContextOp(ctx, ssrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -247,8 +247,8 @@ func (ssrq *SingleScheduleResourceQuery) OnlyID(ctx context.Context) (id int, er
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := ssrq.OnlyID(ctx)
+func (_q *SingleScheduleResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -256,18 +256,18 @@ func (ssrq *SingleScheduleResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of SingleScheduleResources.
-func (ssrq *SingleScheduleResourceQuery) All(ctx context.Context) ([]*SingleScheduleResource, error) {
-	ctx = setContextOp(ctx, ssrq.ctx, ent.OpQueryAll)
-	if err := ssrq.prepareQuery(ctx); err != nil {
+func (_q *SingleScheduleResourceQuery) All(ctx context.Context) ([]*SingleScheduleResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*SingleScheduleResource, *SingleScheduleResourceQuery]()
-	return withInterceptors[[]*SingleScheduleResource](ctx, ssrq, qr, ssrq.inters)
+	return withInterceptors[[]*SingleScheduleResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) AllX(ctx context.Context) []*SingleScheduleResource {
-	nodes, err := ssrq.All(ctx)
+func (_q *SingleScheduleResourceQuery) AllX(ctx context.Context) []*SingleScheduleResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -275,20 +275,20 @@ func (ssrq *SingleScheduleResourceQuery) AllX(ctx context.Context) []*SingleSche
 }
 
 // IDs executes the query and returns a list of SingleScheduleResource IDs.
-func (ssrq *SingleScheduleResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if ssrq.ctx.Unique == nil && ssrq.path != nil {
-		ssrq.Unique(true)
+func (_q *SingleScheduleResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, ssrq.ctx, ent.OpQueryIDs)
-	if err = ssrq.Select(singlescheduleresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(singlescheduleresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := ssrq.IDs(ctx)
+func (_q *SingleScheduleResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -296,17 +296,17 @@ func (ssrq *SingleScheduleResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (ssrq *SingleScheduleResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, ssrq.ctx, ent.OpQueryCount)
-	if err := ssrq.prepareQuery(ctx); err != nil {
+func (_q *SingleScheduleResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, ssrq, querierCount[*SingleScheduleResourceQuery](), ssrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*SingleScheduleResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) CountX(ctx context.Context) int {
-	count, err := ssrq.Count(ctx)
+func (_q *SingleScheduleResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -314,9 +314,9 @@ func (ssrq *SingleScheduleResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (ssrq *SingleScheduleResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, ssrq.ctx, ent.OpQueryExist)
-	switch _, err := ssrq.FirstID(ctx); {
+func (_q *SingleScheduleResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -327,8 +327,8 @@ func (ssrq *SingleScheduleResourceQuery) Exist(ctx context.Context) (bool, error
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (ssrq *SingleScheduleResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := ssrq.Exist(ctx)
+func (_q *SingleScheduleResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -337,68 +337,68 @@ func (ssrq *SingleScheduleResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the SingleScheduleResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (ssrq *SingleScheduleResourceQuery) Clone() *SingleScheduleResourceQuery {
-	if ssrq == nil {
+func (_q *SingleScheduleResourceQuery) Clone() *SingleScheduleResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &SingleScheduleResourceQuery{
-		config:             ssrq.config,
-		ctx:                ssrq.ctx.Clone(),
-		order:              append([]singlescheduleresource.OrderOption{}, ssrq.order...),
-		inters:             append([]Interceptor{}, ssrq.inters...),
-		predicates:         append([]predicate.SingleScheduleResource{}, ssrq.predicates...),
-		withTargetSite:     ssrq.withTargetSite.Clone(),
-		withTargetHost:     ssrq.withTargetHost.Clone(),
-		withTargetWorkload: ssrq.withTargetWorkload.Clone(),
-		withTargetRegion:   ssrq.withTargetRegion.Clone(),
+		config:             _q.config,
+		ctx:                _q.ctx.Clone(),
+		order:              append([]singlescheduleresource.OrderOption{}, _q.order...),
+		inters:             append([]Interceptor{}, _q.inters...),
+		predicates:         append([]predicate.SingleScheduleResource{}, _q.predicates...),
+		withTargetSite:     _q.withTargetSite.Clone(),
+		withTargetHost:     _q.withTargetHost.Clone(),
+		withTargetWorkload: _q.withTargetWorkload.Clone(),
+		withTargetRegion:   _q.withTargetRegion.Clone(),
 		// clone intermediate query.
-		sql:  ssrq.sql.Clone(),
-		path: ssrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithTargetSite tells the query-builder to eager-load the nodes that are connected to
 // the "target_site" edge. The optional arguments are used to configure the query builder of the edge.
-func (ssrq *SingleScheduleResourceQuery) WithTargetSite(opts ...func(*SiteResourceQuery)) *SingleScheduleResourceQuery {
-	query := (&SiteResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) WithTargetSite(opts ...func(*SiteResourceQuery)) *SingleScheduleResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ssrq.withTargetSite = query
-	return ssrq
+	_q.withTargetSite = query
+	return _q
 }
 
 // WithTargetHost tells the query-builder to eager-load the nodes that are connected to
 // the "target_host" edge. The optional arguments are used to configure the query builder of the edge.
-func (ssrq *SingleScheduleResourceQuery) WithTargetHost(opts ...func(*HostResourceQuery)) *SingleScheduleResourceQuery {
-	query := (&HostResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) WithTargetHost(opts ...func(*HostResourceQuery)) *SingleScheduleResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ssrq.withTargetHost = query
-	return ssrq
+	_q.withTargetHost = query
+	return _q
 }
 
 // WithTargetWorkload tells the query-builder to eager-load the nodes that are connected to
 // the "target_workload" edge. The optional arguments are used to configure the query builder of the edge.
-func (ssrq *SingleScheduleResourceQuery) WithTargetWorkload(opts ...func(*WorkloadResourceQuery)) *SingleScheduleResourceQuery {
-	query := (&WorkloadResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) WithTargetWorkload(opts ...func(*WorkloadResourceQuery)) *SingleScheduleResourceQuery {
+	query := (&WorkloadResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ssrq.withTargetWorkload = query
-	return ssrq
+	_q.withTargetWorkload = query
+	return _q
 }
 
 // WithTargetRegion tells the query-builder to eager-load the nodes that are connected to
 // the "target_region" edge. The optional arguments are used to configure the query builder of the edge.
-func (ssrq *SingleScheduleResourceQuery) WithTargetRegion(opts ...func(*RegionResourceQuery)) *SingleScheduleResourceQuery {
-	query := (&RegionResourceClient{config: ssrq.config}).Query()
+func (_q *SingleScheduleResourceQuery) WithTargetRegion(opts ...func(*RegionResourceQuery)) *SingleScheduleResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ssrq.withTargetRegion = query
-	return ssrq
+	_q.withTargetRegion = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -415,10 +415,10 @@ func (ssrq *SingleScheduleResourceQuery) WithTargetRegion(opts ...func(*RegionRe
 //		GroupBy(singlescheduleresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (ssrq *SingleScheduleResourceQuery) GroupBy(field string, fields ...string) *SingleScheduleResourceGroupBy {
-	ssrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &SingleScheduleResourceGroupBy{build: ssrq}
-	grbuild.flds = &ssrq.ctx.Fields
+func (_q *SingleScheduleResourceQuery) GroupBy(field string, fields ...string) *SingleScheduleResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &SingleScheduleResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = singlescheduleresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -436,58 +436,58 @@ func (ssrq *SingleScheduleResourceQuery) GroupBy(field string, fields ...string)
 //	client.SingleScheduleResource.Query().
 //		Select(singlescheduleresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (ssrq *SingleScheduleResourceQuery) Select(fields ...string) *SingleScheduleResourceSelect {
-	ssrq.ctx.Fields = append(ssrq.ctx.Fields, fields...)
-	sbuild := &SingleScheduleResourceSelect{SingleScheduleResourceQuery: ssrq}
+func (_q *SingleScheduleResourceQuery) Select(fields ...string) *SingleScheduleResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &SingleScheduleResourceSelect{SingleScheduleResourceQuery: _q}
 	sbuild.label = singlescheduleresource.Label
-	sbuild.flds, sbuild.scan = &ssrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a SingleScheduleResourceSelect configured with the given aggregations.
-func (ssrq *SingleScheduleResourceQuery) Aggregate(fns ...AggregateFunc) *SingleScheduleResourceSelect {
-	return ssrq.Select().Aggregate(fns...)
+func (_q *SingleScheduleResourceQuery) Aggregate(fns ...AggregateFunc) *SingleScheduleResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (ssrq *SingleScheduleResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range ssrq.inters {
+func (_q *SingleScheduleResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, ssrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range ssrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !singlescheduleresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if ssrq.path != nil {
-		prev, err := ssrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		ssrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (ssrq *SingleScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*SingleScheduleResource, error) {
+func (_q *SingleScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*SingleScheduleResource, error) {
 	var (
 		nodes       = []*SingleScheduleResource{}
-		withFKs     = ssrq.withFKs
-		_spec       = ssrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [4]bool{
-			ssrq.withTargetSite != nil,
-			ssrq.withTargetHost != nil,
-			ssrq.withTargetWorkload != nil,
-			ssrq.withTargetRegion != nil,
+			_q.withTargetSite != nil,
+			_q.withTargetHost != nil,
+			_q.withTargetWorkload != nil,
+			_q.withTargetRegion != nil,
 		}
 	)
-	if ssrq.withTargetSite != nil || ssrq.withTargetHost != nil || ssrq.withTargetWorkload != nil || ssrq.withTargetRegion != nil {
+	if _q.withTargetSite != nil || _q.withTargetHost != nil || _q.withTargetWorkload != nil || _q.withTargetRegion != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -497,7 +497,7 @@ func (ssrq *SingleScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...qu
 		return (*SingleScheduleResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &SingleScheduleResource{config: ssrq.config}
+		node := &SingleScheduleResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -505,32 +505,32 @@ func (ssrq *SingleScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...qu
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, ssrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := ssrq.withTargetSite; query != nil {
-		if err := ssrq.loadTargetSite(ctx, query, nodes, nil,
+	if query := _q.withTargetSite; query != nil {
+		if err := _q.loadTargetSite(ctx, query, nodes, nil,
 			func(n *SingleScheduleResource, e *SiteResource) { n.Edges.TargetSite = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := ssrq.withTargetHost; query != nil {
-		if err := ssrq.loadTargetHost(ctx, query, nodes, nil,
+	if query := _q.withTargetHost; query != nil {
+		if err := _q.loadTargetHost(ctx, query, nodes, nil,
 			func(n *SingleScheduleResource, e *HostResource) { n.Edges.TargetHost = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := ssrq.withTargetWorkload; query != nil {
-		if err := ssrq.loadTargetWorkload(ctx, query, nodes, nil,
+	if query := _q.withTargetWorkload; query != nil {
+		if err := _q.loadTargetWorkload(ctx, query, nodes, nil,
 			func(n *SingleScheduleResource, e *WorkloadResource) { n.Edges.TargetWorkload = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := ssrq.withTargetRegion; query != nil {
-		if err := ssrq.loadTargetRegion(ctx, query, nodes, nil,
+	if query := _q.withTargetRegion; query != nil {
+		if err := _q.loadTargetRegion(ctx, query, nodes, nil,
 			func(n *SingleScheduleResource, e *RegionResource) { n.Edges.TargetRegion = e }); err != nil {
 			return nil, err
 		}
@@ -538,7 +538,7 @@ func (ssrq *SingleScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...qu
 	return nodes, nil
 }
 
-func (ssrq *SingleScheduleResourceQuery) loadTargetSite(ctx context.Context, query *SiteResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *SiteResource)) error {
+func (_q *SingleScheduleResourceQuery) loadTargetSite(ctx context.Context, query *SiteResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *SiteResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*SingleScheduleResource)
 	for i := range nodes {
@@ -570,7 +570,7 @@ func (ssrq *SingleScheduleResourceQuery) loadTargetSite(ctx context.Context, que
 	}
 	return nil
 }
-func (ssrq *SingleScheduleResourceQuery) loadTargetHost(ctx context.Context, query *HostResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *HostResource)) error {
+func (_q *SingleScheduleResourceQuery) loadTargetHost(ctx context.Context, query *HostResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *HostResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*SingleScheduleResource)
 	for i := range nodes {
@@ -602,7 +602,7 @@ func (ssrq *SingleScheduleResourceQuery) loadTargetHost(ctx context.Context, que
 	}
 	return nil
 }
-func (ssrq *SingleScheduleResourceQuery) loadTargetWorkload(ctx context.Context, query *WorkloadResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *WorkloadResource)) error {
+func (_q *SingleScheduleResourceQuery) loadTargetWorkload(ctx context.Context, query *WorkloadResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *WorkloadResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*SingleScheduleResource)
 	for i := range nodes {
@@ -634,7 +634,7 @@ func (ssrq *SingleScheduleResourceQuery) loadTargetWorkload(ctx context.Context,
 	}
 	return nil
 }
-func (ssrq *SingleScheduleResourceQuery) loadTargetRegion(ctx context.Context, query *RegionResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *RegionResource)) error {
+func (_q *SingleScheduleResourceQuery) loadTargetRegion(ctx context.Context, query *RegionResourceQuery, nodes []*SingleScheduleResource, init func(*SingleScheduleResource), assign func(*SingleScheduleResource, *RegionResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*SingleScheduleResource)
 	for i := range nodes {
@@ -667,24 +667,24 @@ func (ssrq *SingleScheduleResourceQuery) loadTargetRegion(ctx context.Context, q
 	return nil
 }
 
-func (ssrq *SingleScheduleResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := ssrq.querySpec()
-	_spec.Node.Columns = ssrq.ctx.Fields
-	if len(ssrq.ctx.Fields) > 0 {
-		_spec.Unique = ssrq.ctx.Unique != nil && *ssrq.ctx.Unique
+func (_q *SingleScheduleResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, ssrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (ssrq *SingleScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *SingleScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(singlescheduleresource.Table, singlescheduleresource.Columns, sqlgraph.NewFieldSpec(singlescheduleresource.FieldID, field.TypeInt))
-	_spec.From = ssrq.sql
-	if unique := ssrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if ssrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := ssrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, singlescheduleresource.FieldID)
 		for i := range fields {
@@ -693,20 +693,20 @@ func (ssrq *SingleScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := ssrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := ssrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := ssrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := ssrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -716,33 +716,33 @@ func (ssrq *SingleScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (ssrq *SingleScheduleResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(ssrq.driver.Dialect())
+func (_q *SingleScheduleResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(singlescheduleresource.Table)
-	columns := ssrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = singlescheduleresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if ssrq.sql != nil {
-		selector = ssrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if ssrq.ctx.Unique != nil && *ssrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range ssrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range ssrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := ssrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := ssrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -755,41 +755,41 @@ type SingleScheduleResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (ssrgb *SingleScheduleResourceGroupBy) Aggregate(fns ...AggregateFunc) *SingleScheduleResourceGroupBy {
-	ssrgb.fns = append(ssrgb.fns, fns...)
-	return ssrgb
+func (_g *SingleScheduleResourceGroupBy) Aggregate(fns ...AggregateFunc) *SingleScheduleResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ssrgb *SingleScheduleResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ssrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := ssrgb.build.prepareQuery(ctx); err != nil {
+func (_g *SingleScheduleResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*SingleScheduleResourceQuery, *SingleScheduleResourceGroupBy](ctx, ssrgb.build, ssrgb, ssrgb.build.inters, v)
+	return scanWithInterceptors[*SingleScheduleResourceQuery, *SingleScheduleResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (ssrgb *SingleScheduleResourceGroupBy) sqlScan(ctx context.Context, root *SingleScheduleResourceQuery, v any) error {
+func (_g *SingleScheduleResourceGroupBy) sqlScan(ctx context.Context, root *SingleScheduleResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(ssrgb.fns))
-	for _, fn := range ssrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*ssrgb.flds)+len(ssrgb.fns))
-		for _, f := range *ssrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*ssrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ssrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -803,27 +803,27 @@ type SingleScheduleResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (ssrs *SingleScheduleResourceSelect) Aggregate(fns ...AggregateFunc) *SingleScheduleResourceSelect {
-	ssrs.fns = append(ssrs.fns, fns...)
-	return ssrs
+func (_s *SingleScheduleResourceSelect) Aggregate(fns ...AggregateFunc) *SingleScheduleResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ssrs *SingleScheduleResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ssrs.ctx, ent.OpQuerySelect)
-	if err := ssrs.prepareQuery(ctx); err != nil {
+func (_s *SingleScheduleResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*SingleScheduleResourceQuery, *SingleScheduleResourceSelect](ctx, ssrs.SingleScheduleResourceQuery, ssrs, ssrs.inters, v)
+	return scanWithInterceptors[*SingleScheduleResourceQuery, *SingleScheduleResourceSelect](ctx, _s.SingleScheduleResourceQuery, _s, _s.inters, v)
 }
 
-func (ssrs *SingleScheduleResourceSelect) sqlScan(ctx context.Context, root *SingleScheduleResourceQuery, v any) error {
+func (_s *SingleScheduleResourceSelect) sqlScan(ctx context.Context, root *SingleScheduleResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(ssrs.fns))
-	for _, fn := range ssrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*ssrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -831,7 +831,7 @@ func (ssrs *SingleScheduleResourceSelect) sqlScan(ctx context.Context, root *Sin
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ssrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

@@ -88,7 +88,7 @@ func (*RegionResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the RegionResource fields.
-func (rr *RegionResource) assignValues(columns []string, values []any) error {
+func (_m *RegionResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -99,58 +99,58 @@ func (rr *RegionResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			rr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case regionresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				rr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case regionresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				rr.Name = value.String
+				_m.Name = value.String
 			}
 		case regionresource.FieldRegionKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field region_kind", values[i])
 			} else if value.Valid {
-				rr.RegionKind = value.String
+				_m.RegionKind = value.String
 			}
 		case regionresource.FieldMetadata:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
-				rr.Metadata = value.String
+				_m.Metadata = value.String
 			}
 		case regionresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				rr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case regionresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				rr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case regionresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				rr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case regionresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field region_resource_parent_region", value)
 			} else if value.Valid {
-				rr.region_resource_parent_region = new(int)
-				*rr.region_resource_parent_region = int(value.Int64)
+				_m.region_resource_parent_region = new(int)
+				*_m.region_resource_parent_region = int(value.Int64)
 			}
 		default:
-			rr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -158,63 +158,63 @@ func (rr *RegionResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the RegionResource.
 // This includes values selected through modifiers, order, etc.
-func (rr *RegionResource) Value(name string) (ent.Value, error) {
-	return rr.selectValues.Get(name)
+func (_m *RegionResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryParentRegion queries the "parent_region" edge of the RegionResource entity.
-func (rr *RegionResource) QueryParentRegion() *RegionResourceQuery {
-	return NewRegionResourceClient(rr.config).QueryParentRegion(rr)
+func (_m *RegionResource) QueryParentRegion() *RegionResourceQuery {
+	return NewRegionResourceClient(_m.config).QueryParentRegion(_m)
 }
 
 // QueryChildren queries the "children" edge of the RegionResource entity.
-func (rr *RegionResource) QueryChildren() *RegionResourceQuery {
-	return NewRegionResourceClient(rr.config).QueryChildren(rr)
+func (_m *RegionResource) QueryChildren() *RegionResourceQuery {
+	return NewRegionResourceClient(_m.config).QueryChildren(_m)
 }
 
 // Update returns a builder for updating this RegionResource.
 // Note that you need to call RegionResource.Unwrap() before calling this method if this RegionResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (rr *RegionResource) Update() *RegionResourceUpdateOne {
-	return NewRegionResourceClient(rr.config).UpdateOne(rr)
+func (_m *RegionResource) Update() *RegionResourceUpdateOne {
+	return NewRegionResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the RegionResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (rr *RegionResource) Unwrap() *RegionResource {
-	_tx, ok := rr.config.driver.(*txDriver)
+func (_m *RegionResource) Unwrap() *RegionResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: RegionResource is not a transactional entity")
 	}
-	rr.config.driver = _tx.drv
-	return rr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (rr *RegionResource) String() string {
+func (_m *RegionResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("RegionResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", rr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(rr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(rr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("region_kind=")
-	builder.WriteString(rr.RegionKind)
+	builder.WriteString(_m.RegionKind)
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
-	builder.WriteString(rr.Metadata)
+	builder.WriteString(_m.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(rr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(rr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(rr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

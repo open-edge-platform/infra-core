@@ -21,165 +21,165 @@ type HoststorageResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hrc *HoststorageResourceCreate) SetResourceID(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetResourceID(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetResourceID(v string) *HoststorageResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (hrc *HoststorageResourceCreate) SetKind(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetKind(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetKind(v string) *HoststorageResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableKind(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetKind(*s)
+func (_c *HoststorageResourceCreate) SetNillableKind(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (hrc *HoststorageResourceCreate) SetProviderStatus(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetProviderStatus(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetProviderStatus(v string) *HoststorageResourceCreate {
+	_c.mutation.SetProviderStatus(v)
+	return _c
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableProviderStatus(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetProviderStatus(*s)
+func (_c *HoststorageResourceCreate) SetNillableProviderStatus(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetProviderStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetWwid sets the "wwid" field.
-func (hrc *HoststorageResourceCreate) SetWwid(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetWwid(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetWwid(v string) *HoststorageResourceCreate {
+	_c.mutation.SetWwid(v)
+	return _c
 }
 
 // SetNillableWwid sets the "wwid" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableWwid(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetWwid(*s)
+func (_c *HoststorageResourceCreate) SetNillableWwid(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetWwid(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSerial sets the "serial" field.
-func (hrc *HoststorageResourceCreate) SetSerial(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetSerial(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetSerial(v string) *HoststorageResourceCreate {
+	_c.mutation.SetSerial(v)
+	return _c
 }
 
 // SetNillableSerial sets the "serial" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableSerial(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetSerial(*s)
+func (_c *HoststorageResourceCreate) SetNillableSerial(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetSerial(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetVendor sets the "vendor" field.
-func (hrc *HoststorageResourceCreate) SetVendor(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetVendor(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetVendor(v string) *HoststorageResourceCreate {
+	_c.mutation.SetVendor(v)
+	return _c
 }
 
 // SetNillableVendor sets the "vendor" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableVendor(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetVendor(*s)
+func (_c *HoststorageResourceCreate) SetNillableVendor(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetVendor(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetModel sets the "model" field.
-func (hrc *HoststorageResourceCreate) SetModel(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetModel(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetModel(v string) *HoststorageResourceCreate {
+	_c.mutation.SetModel(v)
+	return _c
 }
 
 // SetNillableModel sets the "model" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableModel(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetModel(*s)
+func (_c *HoststorageResourceCreate) SetNillableModel(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetModel(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCapacityBytes sets the "capacity_bytes" field.
-func (hrc *HoststorageResourceCreate) SetCapacityBytes(u uint64) *HoststorageResourceCreate {
-	hrc.mutation.SetCapacityBytes(u)
-	return hrc
+func (_c *HoststorageResourceCreate) SetCapacityBytes(v uint64) *HoststorageResourceCreate {
+	_c.mutation.SetCapacityBytes(v)
+	return _c
 }
 
 // SetNillableCapacityBytes sets the "capacity_bytes" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableCapacityBytes(u *uint64) *HoststorageResourceCreate {
-	if u != nil {
-		hrc.SetCapacityBytes(*u)
+func (_c *HoststorageResourceCreate) SetNillableCapacityBytes(v *uint64) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetCapacityBytes(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hrc *HoststorageResourceCreate) SetDeviceName(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetDeviceName(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetDeviceName(v string) *HoststorageResourceCreate {
+	_c.mutation.SetDeviceName(v)
+	return _c
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hrc *HoststorageResourceCreate) SetNillableDeviceName(s *string) *HoststorageResourceCreate {
-	if s != nil {
-		hrc.SetDeviceName(*s)
+func (_c *HoststorageResourceCreate) SetNillableDeviceName(v *string) *HoststorageResourceCreate {
+	if v != nil {
+		_c.SetDeviceName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (hrc *HoststorageResourceCreate) SetTenantID(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetTenantID(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetTenantID(v string) *HoststorageResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (hrc *HoststorageResourceCreate) SetCreatedAt(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetCreatedAt(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetCreatedAt(v string) *HoststorageResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hrc *HoststorageResourceCreate) SetUpdatedAt(s string) *HoststorageResourceCreate {
-	hrc.mutation.SetUpdatedAt(s)
-	return hrc
+func (_c *HoststorageResourceCreate) SetUpdatedAt(v string) *HoststorageResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hrc *HoststorageResourceCreate) SetHostID(id int) *HoststorageResourceCreate {
-	hrc.mutation.SetHostID(id)
-	return hrc
+func (_c *HoststorageResourceCreate) SetHostID(id int) *HoststorageResourceCreate {
+	_c.mutation.SetHostID(id)
+	return _c
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hrc *HoststorageResourceCreate) SetHost(h *HostResource) *HoststorageResourceCreate {
-	return hrc.SetHostID(h.ID)
+func (_c *HoststorageResourceCreate) SetHost(v *HostResource) *HoststorageResourceCreate {
+	return _c.SetHostID(v.ID)
 }
 
 // Mutation returns the HoststorageResourceMutation object of the builder.
-func (hrc *HoststorageResourceCreate) Mutation() *HoststorageResourceMutation {
-	return hrc.mutation
+func (_c *HoststorageResourceCreate) Mutation() *HoststorageResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the HoststorageResource in the database.
-func (hrc *HoststorageResourceCreate) Save(ctx context.Context) (*HoststorageResource, error) {
-	return withHooks(ctx, hrc.sqlSave, hrc.mutation, hrc.hooks)
+func (_c *HoststorageResourceCreate) Save(ctx context.Context) (*HoststorageResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (hrc *HoststorageResourceCreate) SaveX(ctx context.Context) *HoststorageResource {
-	v, err := hrc.Save(ctx)
+func (_c *HoststorageResourceCreate) SaveX(ctx context.Context) *HoststorageResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -187,44 +187,44 @@ func (hrc *HoststorageResourceCreate) SaveX(ctx context.Context) *HoststorageRes
 }
 
 // Exec executes the query.
-func (hrc *HoststorageResourceCreate) Exec(ctx context.Context) error {
-	_, err := hrc.Save(ctx)
+func (_c *HoststorageResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrc *HoststorageResourceCreate) ExecX(ctx context.Context) {
-	if err := hrc.Exec(ctx); err != nil {
+func (_c *HoststorageResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hrc *HoststorageResourceCreate) check() error {
-	if _, ok := hrc.mutation.ResourceID(); !ok {
+func (_c *HoststorageResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "HoststorageResource.resource_id"`)}
 	}
-	if _, ok := hrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "HoststorageResource.tenant_id"`)}
 	}
-	if _, ok := hrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "HoststorageResource.created_at"`)}
 	}
-	if _, ok := hrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "HoststorageResource.updated_at"`)}
 	}
-	if len(hrc.mutation.HostIDs()) == 0 {
+	if len(_c.mutation.HostIDs()) == 0 {
 		return &ValidationError{Name: "host", err: errors.New(`ent: missing required edge "HoststorageResource.host"`)}
 	}
 	return nil
 }
 
-func (hrc *HoststorageResourceCreate) sqlSave(ctx context.Context) (*HoststorageResource, error) {
-	if err := hrc.check(); err != nil {
+func (_c *HoststorageResourceCreate) sqlSave(ctx context.Context) (*HoststorageResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := hrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, hrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -232,65 +232,65 @@ func (hrc *HoststorageResourceCreate) sqlSave(ctx context.Context) (*Hoststorage
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	hrc.mutation.id = &_node.ID
-	hrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (hrc *HoststorageResourceCreate) createSpec() (*HoststorageResource, *sqlgraph.CreateSpec) {
+func (_c *HoststorageResourceCreate) createSpec() (*HoststorageResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &HoststorageResource{config: hrc.config}
+		_node = &HoststorageResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(hoststorageresource.Table, sqlgraph.NewFieldSpec(hoststorageresource.FieldID, field.TypeInt))
 	)
-	if value, ok := hrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(hoststorageresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := hrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(hoststorageresource.FieldKind, field.TypeString, value)
 		_node.Kind = value
 	}
-	if value, ok := hrc.mutation.ProviderStatus(); ok {
+	if value, ok := _c.mutation.ProviderStatus(); ok {
 		_spec.SetField(hoststorageresource.FieldProviderStatus, field.TypeString, value)
 		_node.ProviderStatus = value
 	}
-	if value, ok := hrc.mutation.Wwid(); ok {
+	if value, ok := _c.mutation.Wwid(); ok {
 		_spec.SetField(hoststorageresource.FieldWwid, field.TypeString, value)
 		_node.Wwid = value
 	}
-	if value, ok := hrc.mutation.Serial(); ok {
+	if value, ok := _c.mutation.Serial(); ok {
 		_spec.SetField(hoststorageresource.FieldSerial, field.TypeString, value)
 		_node.Serial = value
 	}
-	if value, ok := hrc.mutation.Vendor(); ok {
+	if value, ok := _c.mutation.Vendor(); ok {
 		_spec.SetField(hoststorageresource.FieldVendor, field.TypeString, value)
 		_node.Vendor = value
 	}
-	if value, ok := hrc.mutation.Model(); ok {
+	if value, ok := _c.mutation.Model(); ok {
 		_spec.SetField(hoststorageresource.FieldModel, field.TypeString, value)
 		_node.Model = value
 	}
-	if value, ok := hrc.mutation.CapacityBytes(); ok {
+	if value, ok := _c.mutation.CapacityBytes(); ok {
 		_spec.SetField(hoststorageresource.FieldCapacityBytes, field.TypeUint64, value)
 		_node.CapacityBytes = value
 	}
-	if value, ok := hrc.mutation.DeviceName(); ok {
+	if value, ok := _c.mutation.DeviceName(); ok {
 		_spec.SetField(hoststorageresource.FieldDeviceName, field.TypeString, value)
 		_node.DeviceName = value
 	}
-	if value, ok := hrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hoststorageresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := hrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(hoststorageresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := hrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(hoststorageresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := hrc.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -318,16 +318,16 @@ type HoststorageResourceCreateBulk struct {
 }
 
 // Save creates the HoststorageResource entities in the database.
-func (hrcb *HoststorageResourceCreateBulk) Save(ctx context.Context) ([]*HoststorageResource, error) {
-	if hrcb.err != nil {
-		return nil, hrcb.err
+func (_c *HoststorageResourceCreateBulk) Save(ctx context.Context) ([]*HoststorageResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(hrcb.builders))
-	nodes := make([]*HoststorageResource, len(hrcb.builders))
-	mutators := make([]Mutator, len(hrcb.builders))
-	for i := range hrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*HoststorageResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := hrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*HoststorageResourceMutation)
 				if !ok {
@@ -340,11 +340,11 @@ func (hrcb *HoststorageResourceCreateBulk) Save(ctx context.Context) ([]*Hoststo
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, hrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, hrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -368,7 +368,7 @@ func (hrcb *HoststorageResourceCreateBulk) Save(ctx context.Context) ([]*Hoststo
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, hrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -376,8 +376,8 @@ func (hrcb *HoststorageResourceCreateBulk) Save(ctx context.Context) ([]*Hoststo
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hrcb *HoststorageResourceCreateBulk) SaveX(ctx context.Context) []*HoststorageResource {
-	v, err := hrcb.Save(ctx)
+func (_c *HoststorageResourceCreateBulk) SaveX(ctx context.Context) []*HoststorageResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -385,14 +385,14 @@ func (hrcb *HoststorageResourceCreateBulk) SaveX(ctx context.Context) []*Hoststo
 }
 
 // Exec executes the query.
-func (hrcb *HoststorageResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := hrcb.Save(ctx)
+func (_c *HoststorageResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrcb *HoststorageResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := hrcb.Exec(ctx); err != nil {
+func (_c *HoststorageResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

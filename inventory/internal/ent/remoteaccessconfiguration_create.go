@@ -21,149 +21,149 @@ type RemoteAccessConfigurationCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (racc *RemoteAccessConfigurationCreate) SetResourceID(s string) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetResourceID(s)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetResourceID(v string) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetExpirationTimestamp sets the "expiration_timestamp" field.
-func (racc *RemoteAccessConfigurationCreate) SetExpirationTimestamp(u uint64) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetExpirationTimestamp(u)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetExpirationTimestamp(v uint64) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetExpirationTimestamp(v)
+	return _c
 }
 
 // SetLocalPort sets the "local_port" field.
-func (racc *RemoteAccessConfigurationCreate) SetLocalPort(u uint32) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetLocalPort(u)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetLocalPort(v uint32) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetLocalPort(v)
+	return _c
 }
 
 // SetNillableLocalPort sets the "local_port" field if the given value is not nil.
-func (racc *RemoteAccessConfigurationCreate) SetNillableLocalPort(u *uint32) *RemoteAccessConfigurationCreate {
-	if u != nil {
-		racc.SetLocalPort(*u)
+func (_c *RemoteAccessConfigurationCreate) SetNillableLocalPort(v *uint32) *RemoteAccessConfigurationCreate {
+	if v != nil {
+		_c.SetLocalPort(*v)
 	}
-	return racc
+	return _c
 }
 
 // SetUser sets the "user" field.
-func (racc *RemoteAccessConfigurationCreate) SetUser(s string) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetUser(s)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetUser(v string) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetUser(v)
+	return _c
 }
 
 // SetNillableUser sets the "user" field if the given value is not nil.
-func (racc *RemoteAccessConfigurationCreate) SetNillableUser(s *string) *RemoteAccessConfigurationCreate {
-	if s != nil {
-		racc.SetUser(*s)
+func (_c *RemoteAccessConfigurationCreate) SetNillableUser(v *string) *RemoteAccessConfigurationCreate {
+	if v != nil {
+		_c.SetUser(*v)
 	}
-	return racc
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (racc *RemoteAccessConfigurationCreate) SetCurrentState(rs remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetCurrentState(rs)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetCurrentState(v remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (racc *RemoteAccessConfigurationCreate) SetNillableCurrentState(rs *remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationCreate {
-	if rs != nil {
-		racc.SetCurrentState(*rs)
+func (_c *RemoteAccessConfigurationCreate) SetNillableCurrentState(v *remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return racc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (racc *RemoteAccessConfigurationCreate) SetDesiredState(rs remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetDesiredState(rs)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetDesiredState(v remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetConfigurationStatus sets the "configuration_status" field.
-func (racc *RemoteAccessConfigurationCreate) SetConfigurationStatus(s string) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetConfigurationStatus(s)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetConfigurationStatus(v string) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetConfigurationStatus(v)
+	return _c
 }
 
 // SetNillableConfigurationStatus sets the "configuration_status" field if the given value is not nil.
-func (racc *RemoteAccessConfigurationCreate) SetNillableConfigurationStatus(s *string) *RemoteAccessConfigurationCreate {
-	if s != nil {
-		racc.SetConfigurationStatus(*s)
+func (_c *RemoteAccessConfigurationCreate) SetNillableConfigurationStatus(v *string) *RemoteAccessConfigurationCreate {
+	if v != nil {
+		_c.SetConfigurationStatus(*v)
 	}
-	return racc
+	return _c
 }
 
 // SetConfigurationStatusIndicator sets the "configuration_status_indicator" field.
-func (racc *RemoteAccessConfigurationCreate) SetConfigurationStatusIndicator(rsi remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetConfigurationStatusIndicator(rsi)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetConfigurationStatusIndicator(v remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetConfigurationStatusIndicator(v)
+	return _c
 }
 
 // SetNillableConfigurationStatusIndicator sets the "configuration_status_indicator" field if the given value is not nil.
-func (racc *RemoteAccessConfigurationCreate) SetNillableConfigurationStatusIndicator(rsi *remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationCreate {
-	if rsi != nil {
-		racc.SetConfigurationStatusIndicator(*rsi)
+func (_c *RemoteAccessConfigurationCreate) SetNillableConfigurationStatusIndicator(v *remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationCreate {
+	if v != nil {
+		_c.SetConfigurationStatusIndicator(*v)
 	}
-	return racc
+	return _c
 }
 
 // SetConfigurationStatusTimestamp sets the "configuration_status_timestamp" field.
-func (racc *RemoteAccessConfigurationCreate) SetConfigurationStatusTimestamp(u uint64) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetConfigurationStatusTimestamp(u)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetConfigurationStatusTimestamp(v uint64) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetConfigurationStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableConfigurationStatusTimestamp sets the "configuration_status_timestamp" field if the given value is not nil.
-func (racc *RemoteAccessConfigurationCreate) SetNillableConfigurationStatusTimestamp(u *uint64) *RemoteAccessConfigurationCreate {
-	if u != nil {
-		racc.SetConfigurationStatusTimestamp(*u)
+func (_c *RemoteAccessConfigurationCreate) SetNillableConfigurationStatusTimestamp(v *uint64) *RemoteAccessConfigurationCreate {
+	if v != nil {
+		_c.SetConfigurationStatusTimestamp(*v)
 	}
-	return racc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (racc *RemoteAccessConfigurationCreate) SetTenantID(s string) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetTenantID(s)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetTenantID(v string) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (racc *RemoteAccessConfigurationCreate) SetCreatedAt(s string) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetCreatedAt(s)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetCreatedAt(v string) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (racc *RemoteAccessConfigurationCreate) SetUpdatedAt(s string) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetUpdatedAt(s)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetUpdatedAt(v string) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (racc *RemoteAccessConfigurationCreate) SetInstanceID(id int) *RemoteAccessConfigurationCreate {
-	racc.mutation.SetInstanceID(id)
-	return racc
+func (_c *RemoteAccessConfigurationCreate) SetInstanceID(id int) *RemoteAccessConfigurationCreate {
+	_c.mutation.SetInstanceID(id)
+	return _c
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (racc *RemoteAccessConfigurationCreate) SetInstance(i *InstanceResource) *RemoteAccessConfigurationCreate {
-	return racc.SetInstanceID(i.ID)
+func (_c *RemoteAccessConfigurationCreate) SetInstance(v *InstanceResource) *RemoteAccessConfigurationCreate {
+	return _c.SetInstanceID(v.ID)
 }
 
 // Mutation returns the RemoteAccessConfigurationMutation object of the builder.
-func (racc *RemoteAccessConfigurationCreate) Mutation() *RemoteAccessConfigurationMutation {
-	return racc.mutation
+func (_c *RemoteAccessConfigurationCreate) Mutation() *RemoteAccessConfigurationMutation {
+	return _c.mutation
 }
 
 // Save creates the RemoteAccessConfiguration in the database.
-func (racc *RemoteAccessConfigurationCreate) Save(ctx context.Context) (*RemoteAccessConfiguration, error) {
-	return withHooks(ctx, racc.sqlSave, racc.mutation, racc.hooks)
+func (_c *RemoteAccessConfigurationCreate) Save(ctx context.Context) (*RemoteAccessConfiguration, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (racc *RemoteAccessConfigurationCreate) SaveX(ctx context.Context) *RemoteAccessConfiguration {
-	v, err := racc.Save(ctx)
+func (_c *RemoteAccessConfigurationCreate) SaveX(ctx context.Context) *RemoteAccessConfiguration {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -171,65 +171,65 @@ func (racc *RemoteAccessConfigurationCreate) SaveX(ctx context.Context) *RemoteA
 }
 
 // Exec executes the query.
-func (racc *RemoteAccessConfigurationCreate) Exec(ctx context.Context) error {
-	_, err := racc.Save(ctx)
+func (_c *RemoteAccessConfigurationCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (racc *RemoteAccessConfigurationCreate) ExecX(ctx context.Context) {
-	if err := racc.Exec(ctx); err != nil {
+func (_c *RemoteAccessConfigurationCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (racc *RemoteAccessConfigurationCreate) check() error {
-	if _, ok := racc.mutation.ResourceID(); !ok {
+func (_c *RemoteAccessConfigurationCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "RemoteAccessConfiguration.resource_id"`)}
 	}
-	if _, ok := racc.mutation.ExpirationTimestamp(); !ok {
+	if _, ok := _c.mutation.ExpirationTimestamp(); !ok {
 		return &ValidationError{Name: "expiration_timestamp", err: errors.New(`ent: missing required field "RemoteAccessConfiguration.expiration_timestamp"`)}
 	}
-	if v, ok := racc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := remoteaccessconfiguration.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.current_state": %w`, err)}
 		}
 	}
-	if _, ok := racc.mutation.DesiredState(); !ok {
+	if _, ok := _c.mutation.DesiredState(); !ok {
 		return &ValidationError{Name: "desired_state", err: errors.New(`ent: missing required field "RemoteAccessConfiguration.desired_state"`)}
 	}
-	if v, ok := racc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := remoteaccessconfiguration.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := racc.mutation.ConfigurationStatusIndicator(); ok {
+	if v, ok := _c.mutation.ConfigurationStatusIndicator(); ok {
 		if err := remoteaccessconfiguration.ConfigurationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "configuration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.configuration_status_indicator": %w`, err)}
 		}
 	}
-	if _, ok := racc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "RemoteAccessConfiguration.tenant_id"`)}
 	}
-	if _, ok := racc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "RemoteAccessConfiguration.created_at"`)}
 	}
-	if _, ok := racc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "RemoteAccessConfiguration.updated_at"`)}
 	}
-	if len(racc.mutation.InstanceIDs()) == 0 {
+	if len(_c.mutation.InstanceIDs()) == 0 {
 		return &ValidationError{Name: "instance", err: errors.New(`ent: missing required edge "RemoteAccessConfiguration.instance"`)}
 	}
 	return nil
 }
 
-func (racc *RemoteAccessConfigurationCreate) sqlSave(ctx context.Context) (*RemoteAccessConfiguration, error) {
-	if err := racc.check(); err != nil {
+func (_c *RemoteAccessConfigurationCreate) sqlSave(ctx context.Context) (*RemoteAccessConfiguration, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := racc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, racc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -237,65 +237,65 @@ func (racc *RemoteAccessConfigurationCreate) sqlSave(ctx context.Context) (*Remo
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	racc.mutation.id = &_node.ID
-	racc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (racc *RemoteAccessConfigurationCreate) createSpec() (*RemoteAccessConfiguration, *sqlgraph.CreateSpec) {
+func (_c *RemoteAccessConfigurationCreate) createSpec() (*RemoteAccessConfiguration, *sqlgraph.CreateSpec) {
 	var (
-		_node = &RemoteAccessConfiguration{config: racc.config}
+		_node = &RemoteAccessConfiguration{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(remoteaccessconfiguration.Table, sqlgraph.NewFieldSpec(remoteaccessconfiguration.FieldID, field.TypeInt))
 	)
-	if value, ok := racc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := racc.mutation.ExpirationTimestamp(); ok {
+	if value, ok := _c.mutation.ExpirationTimestamp(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldExpirationTimestamp, field.TypeUint64, value)
 		_node.ExpirationTimestamp = value
 	}
-	if value, ok := racc.mutation.LocalPort(); ok {
+	if value, ok := _c.mutation.LocalPort(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32, value)
 		_node.LocalPort = value
 	}
-	if value, ok := racc.mutation.User(); ok {
+	if value, ok := _c.mutation.User(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldUser, field.TypeString, value)
 		_node.User = value
 	}
-	if value, ok := racc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := racc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := racc.mutation.ConfigurationStatus(); ok {
+	if value, ok := _c.mutation.ConfigurationStatus(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatus, field.TypeString, value)
 		_node.ConfigurationStatus = value
 	}
-	if value, ok := racc.mutation.ConfigurationStatusIndicator(); ok {
+	if value, ok := _c.mutation.ConfigurationStatusIndicator(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatusIndicator, field.TypeEnum, value)
 		_node.ConfigurationStatusIndicator = value
 	}
-	if value, ok := racc.mutation.ConfigurationStatusTimestamp(); ok {
+	if value, ok := _c.mutation.ConfigurationStatusTimestamp(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64, value)
 		_node.ConfigurationStatusTimestamp = value
 	}
-	if value, ok := racc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := racc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := racc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := racc.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -323,16 +323,16 @@ type RemoteAccessConfigurationCreateBulk struct {
 }
 
 // Save creates the RemoteAccessConfiguration entities in the database.
-func (raccb *RemoteAccessConfigurationCreateBulk) Save(ctx context.Context) ([]*RemoteAccessConfiguration, error) {
-	if raccb.err != nil {
-		return nil, raccb.err
+func (_c *RemoteAccessConfigurationCreateBulk) Save(ctx context.Context) ([]*RemoteAccessConfiguration, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(raccb.builders))
-	nodes := make([]*RemoteAccessConfiguration, len(raccb.builders))
-	mutators := make([]Mutator, len(raccb.builders))
-	for i := range raccb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*RemoteAccessConfiguration, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := raccb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*RemoteAccessConfigurationMutation)
 				if !ok {
@@ -345,11 +345,11 @@ func (raccb *RemoteAccessConfigurationCreateBulk) Save(ctx context.Context) ([]*
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, raccb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, raccb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -373,7 +373,7 @@ func (raccb *RemoteAccessConfigurationCreateBulk) Save(ctx context.Context) ([]*
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, raccb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -381,8 +381,8 @@ func (raccb *RemoteAccessConfigurationCreateBulk) Save(ctx context.Context) ([]*
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (raccb *RemoteAccessConfigurationCreateBulk) SaveX(ctx context.Context) []*RemoteAccessConfiguration {
-	v, err := raccb.Save(ctx)
+func (_c *RemoteAccessConfigurationCreateBulk) SaveX(ctx context.Context) []*RemoteAccessConfiguration {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -390,14 +390,14 @@ func (raccb *RemoteAccessConfigurationCreateBulk) SaveX(ctx context.Context) []*
 }
 
 // Exec executes the query.
-func (raccb *RemoteAccessConfigurationCreateBulk) Exec(ctx context.Context) error {
-	_, err := raccb.Save(ctx)
+func (_c *RemoteAccessConfigurationCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (raccb *RemoteAccessConfigurationCreateBulk) ExecX(ctx context.Context) {
-	if err := raccb.Exec(ctx); err != nil {
+func (_c *RemoteAccessConfigurationCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

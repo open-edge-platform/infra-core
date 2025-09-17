@@ -20,328 +20,328 @@ type OperatingSystemResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (osrc *OperatingSystemResourceCreate) SetResourceID(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetResourceID(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetResourceID(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (osrc *OperatingSystemResourceCreate) SetName(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetName(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetName(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableName(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetName(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableName(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetArchitecture sets the "architecture" field.
-func (osrc *OperatingSystemResourceCreate) SetArchitecture(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetArchitecture(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetArchitecture(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetArchitecture(v)
+	return _c
 }
 
 // SetNillableArchitecture sets the "architecture" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableArchitecture(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetArchitecture(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableArchitecture(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetArchitecture(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetKernelCommand sets the "kernel_command" field.
-func (osrc *OperatingSystemResourceCreate) SetKernelCommand(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetKernelCommand(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetKernelCommand(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetKernelCommand(v)
+	return _c
 }
 
 // SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableKernelCommand(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetKernelCommand(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableKernelCommand(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetKernelCommand(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetUpdateSources sets the "update_sources" field.
-func (osrc *OperatingSystemResourceCreate) SetUpdateSources(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetUpdateSources(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetUpdateSources(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetUpdateSources(v)
+	return _c
 }
 
 // SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableUpdateSources(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetUpdateSources(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableUpdateSources(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetUpdateSources(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetImageURL sets the "image_url" field.
-func (osrc *OperatingSystemResourceCreate) SetImageURL(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetImageURL(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetImageURL(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetImageURL(v)
+	return _c
 }
 
 // SetNillableImageURL sets the "image_url" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableImageURL(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetImageURL(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableImageURL(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetImageURL(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetImageID sets the "image_id" field.
-func (osrc *OperatingSystemResourceCreate) SetImageID(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetImageID(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetImageID(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetImageID(v)
+	return _c
 }
 
 // SetNillableImageID sets the "image_id" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableImageID(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetImageID(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableImageID(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetImageID(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetSha256 sets the "sha256" field.
-func (osrc *OperatingSystemResourceCreate) SetSha256(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetSha256(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetSha256(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetSha256(v)
+	return _c
 }
 
 // SetNillableSha256 sets the "sha256" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableSha256(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetSha256(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableSha256(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetSha256(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetProfileName sets the "profile_name" field.
-func (osrc *OperatingSystemResourceCreate) SetProfileName(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetProfileName(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetProfileName(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetProfileName(v)
+	return _c
 }
 
 // SetNillableProfileName sets the "profile_name" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableProfileName(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetProfileName(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableProfileName(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetProfileName(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetProfileVersion sets the "profile_version" field.
-func (osrc *OperatingSystemResourceCreate) SetProfileVersion(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetProfileVersion(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetProfileVersion(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetProfileVersion(v)
+	return _c
 }
 
 // SetNillableProfileVersion sets the "profile_version" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableProfileVersion(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetProfileVersion(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableProfileVersion(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetProfileVersion(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetInstalledPackages sets the "installed_packages" field.
-func (osrc *OperatingSystemResourceCreate) SetInstalledPackages(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetInstalledPackages(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetInstalledPackages(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetInstalledPackages(v)
+	return _c
 }
 
 // SetNillableInstalledPackages sets the "installed_packages" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableInstalledPackages(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetInstalledPackages(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableInstalledPackages(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetInstalledPackages(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetInstalledPackagesURL sets the "installed_packages_url" field.
-func (osrc *OperatingSystemResourceCreate) SetInstalledPackagesURL(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetInstalledPackagesURL(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetInstalledPackagesURL(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetInstalledPackagesURL(v)
+	return _c
 }
 
 // SetNillableInstalledPackagesURL sets the "installed_packages_url" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableInstalledPackagesURL(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetInstalledPackagesURL(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableInstalledPackagesURL(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetInstalledPackagesURL(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetSecurityFeature sets the "security_feature" field.
-func (osrc *OperatingSystemResourceCreate) SetSecurityFeature(of operatingsystemresource.SecurityFeature) *OperatingSystemResourceCreate {
-	osrc.mutation.SetSecurityFeature(of)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetSecurityFeature(v operatingsystemresource.SecurityFeature) *OperatingSystemResourceCreate {
+	_c.mutation.SetSecurityFeature(v)
+	return _c
 }
 
 // SetNillableSecurityFeature sets the "security_feature" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableSecurityFeature(of *operatingsystemresource.SecurityFeature) *OperatingSystemResourceCreate {
-	if of != nil {
-		osrc.SetSecurityFeature(*of)
+func (_c *OperatingSystemResourceCreate) SetNillableSecurityFeature(v *operatingsystemresource.SecurityFeature) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetSecurityFeature(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetOsType sets the "os_type" field.
-func (osrc *OperatingSystemResourceCreate) SetOsType(ot operatingsystemresource.OsType) *OperatingSystemResourceCreate {
-	osrc.mutation.SetOsType(ot)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetOsType(v operatingsystemresource.OsType) *OperatingSystemResourceCreate {
+	_c.mutation.SetOsType(v)
+	return _c
 }
 
 // SetNillableOsType sets the "os_type" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableOsType(ot *operatingsystemresource.OsType) *OperatingSystemResourceCreate {
-	if ot != nil {
-		osrc.SetOsType(*ot)
+func (_c *OperatingSystemResourceCreate) SetNillableOsType(v *operatingsystemresource.OsType) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetOsType(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetOsProvider sets the "os_provider" field.
-func (osrc *OperatingSystemResourceCreate) SetOsProvider(op operatingsystemresource.OsProvider) *OperatingSystemResourceCreate {
-	osrc.mutation.SetOsProvider(op)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetOsProvider(v operatingsystemresource.OsProvider) *OperatingSystemResourceCreate {
+	_c.mutation.SetOsProvider(v)
+	return _c
 }
 
 // SetPlatformBundle sets the "platform_bundle" field.
-func (osrc *OperatingSystemResourceCreate) SetPlatformBundle(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetPlatformBundle(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetPlatformBundle(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetPlatformBundle(v)
+	return _c
 }
 
 // SetNillablePlatformBundle sets the "platform_bundle" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillablePlatformBundle(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetPlatformBundle(*s)
+func (_c *OperatingSystemResourceCreate) SetNillablePlatformBundle(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetPlatformBundle(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (osrc *OperatingSystemResourceCreate) SetDescription(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetDescription(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetDescription(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableDescription(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetDescription(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableDescription(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetMetadata sets the "metadata" field.
-func (osrc *OperatingSystemResourceCreate) SetMetadata(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetMetadata(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetMetadata(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetMetadata(v)
+	return _c
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableMetadata(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetMetadata(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableMetadata(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetMetadata(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetExistingCvesURL sets the "existing_cves_url" field.
-func (osrc *OperatingSystemResourceCreate) SetExistingCvesURL(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetExistingCvesURL(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetExistingCvesURL(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetExistingCvesURL(v)
+	return _c
 }
 
 // SetNillableExistingCvesURL sets the "existing_cves_url" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableExistingCvesURL(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetExistingCvesURL(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableExistingCvesURL(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetExistingCvesURL(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetExistingCves sets the "existing_cves" field.
-func (osrc *OperatingSystemResourceCreate) SetExistingCves(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetExistingCves(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetExistingCves(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetExistingCves(v)
+	return _c
 }
 
 // SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableExistingCves(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetExistingCves(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableExistingCves(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetExistingCves(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetFixedCvesURL sets the "fixed_cves_url" field.
-func (osrc *OperatingSystemResourceCreate) SetFixedCvesURL(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetFixedCvesURL(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetFixedCvesURL(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetFixedCvesURL(v)
+	return _c
 }
 
 // SetNillableFixedCvesURL sets the "fixed_cves_url" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableFixedCvesURL(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetFixedCvesURL(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableFixedCvesURL(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetFixedCvesURL(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetFixedCves sets the "fixed_cves" field.
-func (osrc *OperatingSystemResourceCreate) SetFixedCves(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetFixedCves(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetFixedCves(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetFixedCves(v)
+	return _c
 }
 
 // SetNillableFixedCves sets the "fixed_cves" field if the given value is not nil.
-func (osrc *OperatingSystemResourceCreate) SetNillableFixedCves(s *string) *OperatingSystemResourceCreate {
-	if s != nil {
-		osrc.SetFixedCves(*s)
+func (_c *OperatingSystemResourceCreate) SetNillableFixedCves(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetFixedCves(*v)
 	}
-	return osrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (osrc *OperatingSystemResourceCreate) SetTenantID(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetTenantID(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetTenantID(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (osrc *OperatingSystemResourceCreate) SetCreatedAt(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetCreatedAt(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetCreatedAt(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (osrc *OperatingSystemResourceCreate) SetUpdatedAt(s string) *OperatingSystemResourceCreate {
-	osrc.mutation.SetUpdatedAt(s)
-	return osrc
+func (_c *OperatingSystemResourceCreate) SetUpdatedAt(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // Mutation returns the OperatingSystemResourceMutation object of the builder.
-func (osrc *OperatingSystemResourceCreate) Mutation() *OperatingSystemResourceMutation {
-	return osrc.mutation
+func (_c *OperatingSystemResourceCreate) Mutation() *OperatingSystemResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the OperatingSystemResource in the database.
-func (osrc *OperatingSystemResourceCreate) Save(ctx context.Context) (*OperatingSystemResource, error) {
-	return withHooks(ctx, osrc.sqlSave, osrc.mutation, osrc.hooks)
+func (_c *OperatingSystemResourceCreate) Save(ctx context.Context) (*OperatingSystemResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (osrc *OperatingSystemResourceCreate) SaveX(ctx context.Context) *OperatingSystemResource {
-	v, err := osrc.Save(ctx)
+func (_c *OperatingSystemResourceCreate) SaveX(ctx context.Context) *OperatingSystemResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -349,59 +349,59 @@ func (osrc *OperatingSystemResourceCreate) SaveX(ctx context.Context) *Operating
 }
 
 // Exec executes the query.
-func (osrc *OperatingSystemResourceCreate) Exec(ctx context.Context) error {
-	_, err := osrc.Save(ctx)
+func (_c *OperatingSystemResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (osrc *OperatingSystemResourceCreate) ExecX(ctx context.Context) {
-	if err := osrc.Exec(ctx); err != nil {
+func (_c *OperatingSystemResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (osrc *OperatingSystemResourceCreate) check() error {
-	if _, ok := osrc.mutation.ResourceID(); !ok {
+func (_c *OperatingSystemResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "OperatingSystemResource.resource_id"`)}
 	}
-	if v, ok := osrc.mutation.SecurityFeature(); ok {
+	if v, ok := _c.mutation.SecurityFeature(); ok {
 		if err := operatingsystemresource.SecurityFeatureValidator(v); err != nil {
 			return &ValidationError{Name: "security_feature", err: fmt.Errorf(`ent: validator failed for field "OperatingSystemResource.security_feature": %w`, err)}
 		}
 	}
-	if v, ok := osrc.mutation.OsType(); ok {
+	if v, ok := _c.mutation.OsType(); ok {
 		if err := operatingsystemresource.OsTypeValidator(v); err != nil {
 			return &ValidationError{Name: "os_type", err: fmt.Errorf(`ent: validator failed for field "OperatingSystemResource.os_type": %w`, err)}
 		}
 	}
-	if _, ok := osrc.mutation.OsProvider(); !ok {
+	if _, ok := _c.mutation.OsProvider(); !ok {
 		return &ValidationError{Name: "os_provider", err: errors.New(`ent: missing required field "OperatingSystemResource.os_provider"`)}
 	}
-	if v, ok := osrc.mutation.OsProvider(); ok {
+	if v, ok := _c.mutation.OsProvider(); ok {
 		if err := operatingsystemresource.OsProviderValidator(v); err != nil {
 			return &ValidationError{Name: "os_provider", err: fmt.Errorf(`ent: validator failed for field "OperatingSystemResource.os_provider": %w`, err)}
 		}
 	}
-	if _, ok := osrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "OperatingSystemResource.tenant_id"`)}
 	}
-	if _, ok := osrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "OperatingSystemResource.created_at"`)}
 	}
-	if _, ok := osrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "OperatingSystemResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (osrc *OperatingSystemResourceCreate) sqlSave(ctx context.Context) (*OperatingSystemResource, error) {
-	if err := osrc.check(); err != nil {
+func (_c *OperatingSystemResourceCreate) sqlSave(ctx context.Context) (*OperatingSystemResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := osrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, osrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -409,113 +409,113 @@ func (osrc *OperatingSystemResourceCreate) sqlSave(ctx context.Context) (*Operat
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	osrc.mutation.id = &_node.ID
-	osrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (osrc *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResource, *sqlgraph.CreateSpec) {
+func (_c *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &OperatingSystemResource{config: osrc.config}
+		_node = &OperatingSystemResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(operatingsystemresource.Table, sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt))
 	)
-	if value, ok := osrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(operatingsystemresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := osrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(operatingsystemresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := osrc.mutation.Architecture(); ok {
+	if value, ok := _c.mutation.Architecture(); ok {
 		_spec.SetField(operatingsystemresource.FieldArchitecture, field.TypeString, value)
 		_node.Architecture = value
 	}
-	if value, ok := osrc.mutation.KernelCommand(); ok {
+	if value, ok := _c.mutation.KernelCommand(); ok {
 		_spec.SetField(operatingsystemresource.FieldKernelCommand, field.TypeString, value)
 		_node.KernelCommand = value
 	}
-	if value, ok := osrc.mutation.UpdateSources(); ok {
+	if value, ok := _c.mutation.UpdateSources(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdateSources, field.TypeString, value)
 		_node.UpdateSources = value
 	}
-	if value, ok := osrc.mutation.ImageURL(); ok {
+	if value, ok := _c.mutation.ImageURL(); ok {
 		_spec.SetField(operatingsystemresource.FieldImageURL, field.TypeString, value)
 		_node.ImageURL = value
 	}
-	if value, ok := osrc.mutation.ImageID(); ok {
+	if value, ok := _c.mutation.ImageID(); ok {
 		_spec.SetField(operatingsystemresource.FieldImageID, field.TypeString, value)
 		_node.ImageID = value
 	}
-	if value, ok := osrc.mutation.Sha256(); ok {
+	if value, ok := _c.mutation.Sha256(); ok {
 		_spec.SetField(operatingsystemresource.FieldSha256, field.TypeString, value)
 		_node.Sha256 = value
 	}
-	if value, ok := osrc.mutation.ProfileName(); ok {
+	if value, ok := _c.mutation.ProfileName(); ok {
 		_spec.SetField(operatingsystemresource.FieldProfileName, field.TypeString, value)
 		_node.ProfileName = value
 	}
-	if value, ok := osrc.mutation.ProfileVersion(); ok {
+	if value, ok := _c.mutation.ProfileVersion(); ok {
 		_spec.SetField(operatingsystemresource.FieldProfileVersion, field.TypeString, value)
 		_node.ProfileVersion = value
 	}
-	if value, ok := osrc.mutation.InstalledPackages(); ok {
+	if value, ok := _c.mutation.InstalledPackages(); ok {
 		_spec.SetField(operatingsystemresource.FieldInstalledPackages, field.TypeString, value)
 		_node.InstalledPackages = value
 	}
-	if value, ok := osrc.mutation.InstalledPackagesURL(); ok {
+	if value, ok := _c.mutation.InstalledPackagesURL(); ok {
 		_spec.SetField(operatingsystemresource.FieldInstalledPackagesURL, field.TypeString, value)
 		_node.InstalledPackagesURL = value
 	}
-	if value, ok := osrc.mutation.SecurityFeature(); ok {
+	if value, ok := _c.mutation.SecurityFeature(); ok {
 		_spec.SetField(operatingsystemresource.FieldSecurityFeature, field.TypeEnum, value)
 		_node.SecurityFeature = value
 	}
-	if value, ok := osrc.mutation.OsType(); ok {
+	if value, ok := _c.mutation.OsType(); ok {
 		_spec.SetField(operatingsystemresource.FieldOsType, field.TypeEnum, value)
 		_node.OsType = value
 	}
-	if value, ok := osrc.mutation.OsProvider(); ok {
+	if value, ok := _c.mutation.OsProvider(); ok {
 		_spec.SetField(operatingsystemresource.FieldOsProvider, field.TypeEnum, value)
 		_node.OsProvider = value
 	}
-	if value, ok := osrc.mutation.PlatformBundle(); ok {
+	if value, ok := _c.mutation.PlatformBundle(); ok {
 		_spec.SetField(operatingsystemresource.FieldPlatformBundle, field.TypeString, value)
 		_node.PlatformBundle = value
 	}
-	if value, ok := osrc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(operatingsystemresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := osrc.mutation.Metadata(); ok {
+	if value, ok := _c.mutation.Metadata(); ok {
 		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
 	}
-	if value, ok := osrc.mutation.ExistingCvesURL(); ok {
+	if value, ok := _c.mutation.ExistingCvesURL(); ok {
 		_spec.SetField(operatingsystemresource.FieldExistingCvesURL, field.TypeString, value)
 		_node.ExistingCvesURL = value
 	}
-	if value, ok := osrc.mutation.ExistingCves(); ok {
+	if value, ok := _c.mutation.ExistingCves(); ok {
 		_spec.SetField(operatingsystemresource.FieldExistingCves, field.TypeString, value)
 		_node.ExistingCves = value
 	}
-	if value, ok := osrc.mutation.FixedCvesURL(); ok {
+	if value, ok := _c.mutation.FixedCvesURL(); ok {
 		_spec.SetField(operatingsystemresource.FieldFixedCvesURL, field.TypeString, value)
 		_node.FixedCvesURL = value
 	}
-	if value, ok := osrc.mutation.FixedCves(); ok {
+	if value, ok := _c.mutation.FixedCves(); ok {
 		_spec.SetField(operatingsystemresource.FieldFixedCves, field.TypeString, value)
 		_node.FixedCves = value
 	}
-	if value, ok := osrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(operatingsystemresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := osrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := osrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
@@ -530,16 +530,16 @@ type OperatingSystemResourceCreateBulk struct {
 }
 
 // Save creates the OperatingSystemResource entities in the database.
-func (osrcb *OperatingSystemResourceCreateBulk) Save(ctx context.Context) ([]*OperatingSystemResource, error) {
-	if osrcb.err != nil {
-		return nil, osrcb.err
+func (_c *OperatingSystemResourceCreateBulk) Save(ctx context.Context) ([]*OperatingSystemResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(osrcb.builders))
-	nodes := make([]*OperatingSystemResource, len(osrcb.builders))
-	mutators := make([]Mutator, len(osrcb.builders))
-	for i := range osrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*OperatingSystemResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := osrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*OperatingSystemResourceMutation)
 				if !ok {
@@ -552,11 +552,11 @@ func (osrcb *OperatingSystemResourceCreateBulk) Save(ctx context.Context) ([]*Op
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, osrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, osrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -580,7 +580,7 @@ func (osrcb *OperatingSystemResourceCreateBulk) Save(ctx context.Context) ([]*Op
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, osrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -588,8 +588,8 @@ func (osrcb *OperatingSystemResourceCreateBulk) Save(ctx context.Context) ([]*Op
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (osrcb *OperatingSystemResourceCreateBulk) SaveX(ctx context.Context) []*OperatingSystemResource {
-	v, err := osrcb.Save(ctx)
+func (_c *OperatingSystemResourceCreateBulk) SaveX(ctx context.Context) []*OperatingSystemResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -597,14 +597,14 @@ func (osrcb *OperatingSystemResourceCreateBulk) SaveX(ctx context.Context) []*Op
 }
 
 // Exec executes the query.
-func (osrcb *OperatingSystemResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := osrcb.Save(ctx)
+func (_c *OperatingSystemResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (osrcb *OperatingSystemResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := osrcb.Exec(ctx); err != nil {
+func (_c *OperatingSystemResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

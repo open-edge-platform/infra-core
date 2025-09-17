@@ -129,7 +129,7 @@ func (*TelemetryProfile) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the TelemetryProfile fields.
-func (tp *TelemetryProfile) assignValues(columns []string, values []any) error {
+func (_m *TelemetryProfile) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -140,79 +140,79 @@ func (tp *TelemetryProfile) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			tp.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case telemetryprofile.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				tp.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case telemetryprofile.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				tp.Kind = telemetryprofile.Kind(value.String)
+				_m.Kind = telemetryprofile.Kind(value.String)
 			}
 		case telemetryprofile.FieldMetricsInterval:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field metrics_interval", values[i])
 			} else if value.Valid {
-				tp.MetricsInterval = uint32(value.Int64)
+				_m.MetricsInterval = uint32(value.Int64)
 			}
 		case telemetryprofile.FieldLogLevel:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field log_level", values[i])
 			} else if value.Valid {
-				tp.LogLevel = telemetryprofile.LogLevel(value.String)
+				_m.LogLevel = telemetryprofile.LogLevel(value.String)
 			}
 		case telemetryprofile.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				tp.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case telemetryprofile.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				tp.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case telemetryprofile.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				tp.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case telemetryprofile.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field telemetry_profile_region", value)
 			} else if value.Valid {
-				tp.telemetry_profile_region = new(int)
-				*tp.telemetry_profile_region = int(value.Int64)
+				_m.telemetry_profile_region = new(int)
+				*_m.telemetry_profile_region = int(value.Int64)
 			}
 		case telemetryprofile.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field telemetry_profile_site", value)
 			} else if value.Valid {
-				tp.telemetry_profile_site = new(int)
-				*tp.telemetry_profile_site = int(value.Int64)
+				_m.telemetry_profile_site = new(int)
+				*_m.telemetry_profile_site = int(value.Int64)
 			}
 		case telemetryprofile.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field telemetry_profile_instance", value)
 			} else if value.Valid {
-				tp.telemetry_profile_instance = new(int)
-				*tp.telemetry_profile_instance = int(value.Int64)
+				_m.telemetry_profile_instance = new(int)
+				*_m.telemetry_profile_instance = int(value.Int64)
 			}
 		case telemetryprofile.ForeignKeys[3]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field telemetry_profile_group", value)
 			} else if value.Valid {
-				tp.telemetry_profile_group = new(int)
-				*tp.telemetry_profile_group = int(value.Int64)
+				_m.telemetry_profile_group = new(int)
+				*_m.telemetry_profile_group = int(value.Int64)
 			}
 		default:
-			tp.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -220,73 +220,73 @@ func (tp *TelemetryProfile) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the TelemetryProfile.
 // This includes values selected through modifiers, order, etc.
-func (tp *TelemetryProfile) Value(name string) (ent.Value, error) {
-	return tp.selectValues.Get(name)
+func (_m *TelemetryProfile) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryRegion queries the "region" edge of the TelemetryProfile entity.
-func (tp *TelemetryProfile) QueryRegion() *RegionResourceQuery {
-	return NewTelemetryProfileClient(tp.config).QueryRegion(tp)
+func (_m *TelemetryProfile) QueryRegion() *RegionResourceQuery {
+	return NewTelemetryProfileClient(_m.config).QueryRegion(_m)
 }
 
 // QuerySite queries the "site" edge of the TelemetryProfile entity.
-func (tp *TelemetryProfile) QuerySite() *SiteResourceQuery {
-	return NewTelemetryProfileClient(tp.config).QuerySite(tp)
+func (_m *TelemetryProfile) QuerySite() *SiteResourceQuery {
+	return NewTelemetryProfileClient(_m.config).QuerySite(_m)
 }
 
 // QueryInstance queries the "instance" edge of the TelemetryProfile entity.
-func (tp *TelemetryProfile) QueryInstance() *InstanceResourceQuery {
-	return NewTelemetryProfileClient(tp.config).QueryInstance(tp)
+func (_m *TelemetryProfile) QueryInstance() *InstanceResourceQuery {
+	return NewTelemetryProfileClient(_m.config).QueryInstance(_m)
 }
 
 // QueryGroup queries the "group" edge of the TelemetryProfile entity.
-func (tp *TelemetryProfile) QueryGroup() *TelemetryGroupResourceQuery {
-	return NewTelemetryProfileClient(tp.config).QueryGroup(tp)
+func (_m *TelemetryProfile) QueryGroup() *TelemetryGroupResourceQuery {
+	return NewTelemetryProfileClient(_m.config).QueryGroup(_m)
 }
 
 // Update returns a builder for updating this TelemetryProfile.
 // Note that you need to call TelemetryProfile.Unwrap() before calling this method if this TelemetryProfile
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (tp *TelemetryProfile) Update() *TelemetryProfileUpdateOne {
-	return NewTelemetryProfileClient(tp.config).UpdateOne(tp)
+func (_m *TelemetryProfile) Update() *TelemetryProfileUpdateOne {
+	return NewTelemetryProfileClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the TelemetryProfile entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (tp *TelemetryProfile) Unwrap() *TelemetryProfile {
-	_tx, ok := tp.config.driver.(*txDriver)
+func (_m *TelemetryProfile) Unwrap() *TelemetryProfile {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: TelemetryProfile is not a transactional entity")
 	}
-	tp.config.driver = _tx.drv
-	return tp
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (tp *TelemetryProfile) String() string {
+func (_m *TelemetryProfile) String() string {
 	var builder strings.Builder
 	builder.WriteString("TelemetryProfile(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", tp.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(tp.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(fmt.Sprintf("%v", tp.Kind))
+	builder.WriteString(fmt.Sprintf("%v", _m.Kind))
 	builder.WriteString(", ")
 	builder.WriteString("metrics_interval=")
-	builder.WriteString(fmt.Sprintf("%v", tp.MetricsInterval))
+	builder.WriteString(fmt.Sprintf("%v", _m.MetricsInterval))
 	builder.WriteString(", ")
 	builder.WriteString("log_level=")
-	builder.WriteString(fmt.Sprintf("%v", tp.LogLevel))
+	builder.WriteString(fmt.Sprintf("%v", _m.LogLevel))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(tp.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(tp.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(tp.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

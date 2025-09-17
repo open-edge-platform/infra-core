@@ -22,152 +22,152 @@ type OSUpdateRunResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ourrc *OSUpdateRunResourceCreate) SetResourceID(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetResourceID(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetResourceID(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (ourrc *OSUpdateRunResourceCreate) SetName(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetName(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetName(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (ourrc *OSUpdateRunResourceCreate) SetNillableName(s *string) *OSUpdateRunResourceCreate {
-	if s != nil {
-		ourrc.SetName(*s)
+func (_c *OSUpdateRunResourceCreate) SetNillableName(v *string) *OSUpdateRunResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return ourrc
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (ourrc *OSUpdateRunResourceCreate) SetDescription(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetDescription(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetDescription(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ourrc *OSUpdateRunResourceCreate) SetNillableDescription(s *string) *OSUpdateRunResourceCreate {
-	if s != nil {
-		ourrc.SetDescription(*s)
+func (_c *OSUpdateRunResourceCreate) SetNillableDescription(v *string) *OSUpdateRunResourceCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return ourrc
+	return _c
 }
 
 // SetStatusIndicator sets the "status_indicator" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStatusIndicator(oi osupdaterunresource.StatusIndicator) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStatusIndicator(oi)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetStatusIndicator(v osupdaterunresource.StatusIndicator) *OSUpdateRunResourceCreate {
+	_c.mutation.SetStatusIndicator(v)
+	return _c
 }
 
 // SetStatus sets the "status" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStatus(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStatus(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetStatus(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetStatus(v)
+	return _c
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ourrc *OSUpdateRunResourceCreate) SetNillableStatus(s *string) *OSUpdateRunResourceCreate {
-	if s != nil {
-		ourrc.SetStatus(*s)
+func (_c *OSUpdateRunResourceCreate) SetNillableStatus(v *string) *OSUpdateRunResourceCreate {
+	if v != nil {
+		_c.SetStatus(*v)
 	}
-	return ourrc
+	return _c
 }
 
 // SetStatusDetails sets the "status_details" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStatusDetails(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStatusDetails(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetStatusDetails(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetStatusDetails(v)
+	return _c
 }
 
 // SetNillableStatusDetails sets the "status_details" field if the given value is not nil.
-func (ourrc *OSUpdateRunResourceCreate) SetNillableStatusDetails(s *string) *OSUpdateRunResourceCreate {
-	if s != nil {
-		ourrc.SetStatusDetails(*s)
+func (_c *OSUpdateRunResourceCreate) SetNillableStatusDetails(v *string) *OSUpdateRunResourceCreate {
+	if v != nil {
+		_c.SetStatusDetails(*v)
 	}
-	return ourrc
+	return _c
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStatusTimestamp(u uint64) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStatusTimestamp(u)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetStatusTimestamp(v uint64) *OSUpdateRunResourceCreate {
+	_c.mutation.SetStatusTimestamp(v)
+	return _c
 }
 
 // SetStartTime sets the "start_time" field.
-func (ourrc *OSUpdateRunResourceCreate) SetStartTime(u uint64) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetStartTime(u)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetStartTime(v uint64) *OSUpdateRunResourceCreate {
+	_c.mutation.SetStartTime(v)
+	return _c
 }
 
 // SetEndTime sets the "end_time" field.
-func (ourrc *OSUpdateRunResourceCreate) SetEndTime(u uint64) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetEndTime(u)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetEndTime(v uint64) *OSUpdateRunResourceCreate {
+	_c.mutation.SetEndTime(v)
+	return _c
 }
 
 // SetNillableEndTime sets the "end_time" field if the given value is not nil.
-func (ourrc *OSUpdateRunResourceCreate) SetNillableEndTime(u *uint64) *OSUpdateRunResourceCreate {
-	if u != nil {
-		ourrc.SetEndTime(*u)
+func (_c *OSUpdateRunResourceCreate) SetNillableEndTime(v *uint64) *OSUpdateRunResourceCreate {
+	if v != nil {
+		_c.SetEndTime(*v)
 	}
-	return ourrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (ourrc *OSUpdateRunResourceCreate) SetTenantID(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetTenantID(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetTenantID(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (ourrc *OSUpdateRunResourceCreate) SetCreatedAt(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetCreatedAt(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetCreatedAt(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ourrc *OSUpdateRunResourceCreate) SetUpdatedAt(s string) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetUpdatedAt(s)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetUpdatedAt(v string) *OSUpdateRunResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetAppliedPolicyID sets the "applied_policy" edge to the OSUpdatePolicyResource entity by ID.
-func (ourrc *OSUpdateRunResourceCreate) SetAppliedPolicyID(id int) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetAppliedPolicyID(id)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetAppliedPolicyID(id int) *OSUpdateRunResourceCreate {
+	_c.mutation.SetAppliedPolicyID(id)
+	return _c
 }
 
 // SetAppliedPolicy sets the "applied_policy" edge to the OSUpdatePolicyResource entity.
-func (ourrc *OSUpdateRunResourceCreate) SetAppliedPolicy(o *OSUpdatePolicyResource) *OSUpdateRunResourceCreate {
-	return ourrc.SetAppliedPolicyID(o.ID)
+func (_c *OSUpdateRunResourceCreate) SetAppliedPolicy(v *OSUpdatePolicyResource) *OSUpdateRunResourceCreate {
+	return _c.SetAppliedPolicyID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (ourrc *OSUpdateRunResourceCreate) SetInstanceID(id int) *OSUpdateRunResourceCreate {
-	ourrc.mutation.SetInstanceID(id)
-	return ourrc
+func (_c *OSUpdateRunResourceCreate) SetInstanceID(id int) *OSUpdateRunResourceCreate {
+	_c.mutation.SetInstanceID(id)
+	return _c
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (ourrc *OSUpdateRunResourceCreate) SetInstance(i *InstanceResource) *OSUpdateRunResourceCreate {
-	return ourrc.SetInstanceID(i.ID)
+func (_c *OSUpdateRunResourceCreate) SetInstance(v *InstanceResource) *OSUpdateRunResourceCreate {
+	return _c.SetInstanceID(v.ID)
 }
 
 // Mutation returns the OSUpdateRunResourceMutation object of the builder.
-func (ourrc *OSUpdateRunResourceCreate) Mutation() *OSUpdateRunResourceMutation {
-	return ourrc.mutation
+func (_c *OSUpdateRunResourceCreate) Mutation() *OSUpdateRunResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the OSUpdateRunResource in the database.
-func (ourrc *OSUpdateRunResourceCreate) Save(ctx context.Context) (*OSUpdateRunResource, error) {
-	return withHooks(ctx, ourrc.sqlSave, ourrc.mutation, ourrc.hooks)
+func (_c *OSUpdateRunResourceCreate) Save(ctx context.Context) (*OSUpdateRunResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (ourrc *OSUpdateRunResourceCreate) SaveX(ctx context.Context) *OSUpdateRunResource {
-	v, err := ourrc.Save(ctx)
+func (_c *OSUpdateRunResourceCreate) SaveX(ctx context.Context) *OSUpdateRunResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -175,61 +175,61 @@ func (ourrc *OSUpdateRunResourceCreate) SaveX(ctx context.Context) *OSUpdateRunR
 }
 
 // Exec executes the query.
-func (ourrc *OSUpdateRunResourceCreate) Exec(ctx context.Context) error {
-	_, err := ourrc.Save(ctx)
+func (_c *OSUpdateRunResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ourrc *OSUpdateRunResourceCreate) ExecX(ctx context.Context) {
-	if err := ourrc.Exec(ctx); err != nil {
+func (_c *OSUpdateRunResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ourrc *OSUpdateRunResourceCreate) check() error {
-	if _, ok := ourrc.mutation.ResourceID(); !ok {
+func (_c *OSUpdateRunResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "OSUpdateRunResource.resource_id"`)}
 	}
-	if _, ok := ourrc.mutation.StatusIndicator(); !ok {
+	if _, ok := _c.mutation.StatusIndicator(); !ok {
 		return &ValidationError{Name: "status_indicator", err: errors.New(`ent: missing required field "OSUpdateRunResource.status_indicator"`)}
 	}
-	if v, ok := ourrc.mutation.StatusIndicator(); ok {
+	if v, ok := _c.mutation.StatusIndicator(); ok {
 		if err := osupdaterunresource.StatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "status_indicator", err: fmt.Errorf(`ent: validator failed for field "OSUpdateRunResource.status_indicator": %w`, err)}
 		}
 	}
-	if _, ok := ourrc.mutation.StatusTimestamp(); !ok {
+	if _, ok := _c.mutation.StatusTimestamp(); !ok {
 		return &ValidationError{Name: "status_timestamp", err: errors.New(`ent: missing required field "OSUpdateRunResource.status_timestamp"`)}
 	}
-	if _, ok := ourrc.mutation.StartTime(); !ok {
+	if _, ok := _c.mutation.StartTime(); !ok {
 		return &ValidationError{Name: "start_time", err: errors.New(`ent: missing required field "OSUpdateRunResource.start_time"`)}
 	}
-	if _, ok := ourrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "OSUpdateRunResource.tenant_id"`)}
 	}
-	if _, ok := ourrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "OSUpdateRunResource.created_at"`)}
 	}
-	if _, ok := ourrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "OSUpdateRunResource.updated_at"`)}
 	}
-	if len(ourrc.mutation.AppliedPolicyIDs()) == 0 {
+	if len(_c.mutation.AppliedPolicyIDs()) == 0 {
 		return &ValidationError{Name: "applied_policy", err: errors.New(`ent: missing required edge "OSUpdateRunResource.applied_policy"`)}
 	}
-	if len(ourrc.mutation.InstanceIDs()) == 0 {
+	if len(_c.mutation.InstanceIDs()) == 0 {
 		return &ValidationError{Name: "instance", err: errors.New(`ent: missing required edge "OSUpdateRunResource.instance"`)}
 	}
 	return nil
 }
 
-func (ourrc *OSUpdateRunResourceCreate) sqlSave(ctx context.Context) (*OSUpdateRunResource, error) {
-	if err := ourrc.check(); err != nil {
+func (_c *OSUpdateRunResourceCreate) sqlSave(ctx context.Context) (*OSUpdateRunResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := ourrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, ourrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -237,65 +237,65 @@ func (ourrc *OSUpdateRunResourceCreate) sqlSave(ctx context.Context) (*OSUpdateR
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	ourrc.mutation.id = &_node.ID
-	ourrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (ourrc *OSUpdateRunResourceCreate) createSpec() (*OSUpdateRunResource, *sqlgraph.CreateSpec) {
+func (_c *OSUpdateRunResourceCreate) createSpec() (*OSUpdateRunResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &OSUpdateRunResource{config: ourrc.config}
+		_node = &OSUpdateRunResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(osupdaterunresource.Table, sqlgraph.NewFieldSpec(osupdaterunresource.FieldID, field.TypeInt))
 	)
-	if value, ok := ourrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(osupdaterunresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := ourrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(osupdaterunresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := ourrc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(osupdaterunresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := ourrc.mutation.StatusIndicator(); ok {
+	if value, ok := _c.mutation.StatusIndicator(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusIndicator, field.TypeEnum, value)
 		_node.StatusIndicator = value
 	}
-	if value, ok := ourrc.mutation.Status(); ok {
+	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatus, field.TypeString, value)
 		_node.Status = value
 	}
-	if value, ok := ourrc.mutation.StatusDetails(); ok {
+	if value, ok := _c.mutation.StatusDetails(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusDetails, field.TypeString, value)
 		_node.StatusDetails = value
 	}
-	if value, ok := ourrc.mutation.StatusTimestamp(); ok {
+	if value, ok := _c.mutation.StatusTimestamp(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 		_node.StatusTimestamp = value
 	}
-	if value, ok := ourrc.mutation.StartTime(); ok {
+	if value, ok := _c.mutation.StartTime(); ok {
 		_spec.SetField(osupdaterunresource.FieldStartTime, field.TypeUint64, value)
 		_node.StartTime = value
 	}
-	if value, ok := ourrc.mutation.EndTime(); ok {
+	if value, ok := _c.mutation.EndTime(); ok {
 		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
 		_node.EndTime = value
 	}
-	if value, ok := ourrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(osupdaterunresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := ourrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := ourrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := ourrc.mutation.AppliedPolicyIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.AppliedPolicyIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -312,7 +312,7 @@ func (ourrc *OSUpdateRunResourceCreate) createSpec() (*OSUpdateRunResource, *sql
 		_node.os_update_run_resource_applied_policy = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := ourrc.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -340,16 +340,16 @@ type OSUpdateRunResourceCreateBulk struct {
 }
 
 // Save creates the OSUpdateRunResource entities in the database.
-func (ourrcb *OSUpdateRunResourceCreateBulk) Save(ctx context.Context) ([]*OSUpdateRunResource, error) {
-	if ourrcb.err != nil {
-		return nil, ourrcb.err
+func (_c *OSUpdateRunResourceCreateBulk) Save(ctx context.Context) ([]*OSUpdateRunResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(ourrcb.builders))
-	nodes := make([]*OSUpdateRunResource, len(ourrcb.builders))
-	mutators := make([]Mutator, len(ourrcb.builders))
-	for i := range ourrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*OSUpdateRunResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := ourrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*OSUpdateRunResourceMutation)
 				if !ok {
@@ -362,11 +362,11 @@ func (ourrcb *OSUpdateRunResourceCreateBulk) Save(ctx context.Context) ([]*OSUpd
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, ourrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, ourrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -390,7 +390,7 @@ func (ourrcb *OSUpdateRunResourceCreateBulk) Save(ctx context.Context) ([]*OSUpd
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, ourrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -398,8 +398,8 @@ func (ourrcb *OSUpdateRunResourceCreateBulk) Save(ctx context.Context) ([]*OSUpd
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ourrcb *OSUpdateRunResourceCreateBulk) SaveX(ctx context.Context) []*OSUpdateRunResource {
-	v, err := ourrcb.Save(ctx)
+func (_c *OSUpdateRunResourceCreateBulk) SaveX(ctx context.Context) []*OSUpdateRunResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -407,14 +407,14 @@ func (ourrcb *OSUpdateRunResourceCreateBulk) SaveX(ctx context.Context) []*OSUpd
 }
 
 // Exec executes the query.
-func (ourrcb *OSUpdateRunResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := ourrcb.Save(ctx)
+func (_c *OSUpdateRunResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ourrcb *OSUpdateRunResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := ourrcb.Exec(ctx); err != nil {
+func (_c *OSUpdateRunResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

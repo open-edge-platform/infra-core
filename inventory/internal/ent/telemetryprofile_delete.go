@@ -20,56 +20,56 @@ type TelemetryProfileDelete struct {
 }
 
 // Where appends a list predicates to the TelemetryProfileDelete builder.
-func (tpd *TelemetryProfileDelete) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileDelete {
-	tpd.mutation.Where(ps...)
-	return tpd
+func (_d *TelemetryProfileDelete) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (tpd *TelemetryProfileDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, tpd.sqlExec, tpd.mutation, tpd.hooks)
+func (_d *TelemetryProfileDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tpd *TelemetryProfileDelete) ExecX(ctx context.Context) int {
-	n, err := tpd.Exec(ctx)
+func (_d *TelemetryProfileDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (tpd *TelemetryProfileDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *TelemetryProfileDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(telemetryprofile.Table, sqlgraph.NewFieldSpec(telemetryprofile.FieldID, field.TypeInt))
-	if ps := tpd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, tpd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	tpd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // TelemetryProfileDeleteOne is the builder for deleting a single TelemetryProfile entity.
 type TelemetryProfileDeleteOne struct {
-	tpd *TelemetryProfileDelete
+	_d *TelemetryProfileDelete
 }
 
 // Where appends a list predicates to the TelemetryProfileDelete builder.
-func (tpdo *TelemetryProfileDeleteOne) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileDeleteOne {
-	tpdo.tpd.mutation.Where(ps...)
-	return tpdo
+func (_d *TelemetryProfileDeleteOne) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (tpdo *TelemetryProfileDeleteOne) Exec(ctx context.Context) error {
-	n, err := tpdo.tpd.Exec(ctx)
+func (_d *TelemetryProfileDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (tpdo *TelemetryProfileDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tpdo *TelemetryProfileDeleteOne) ExecX(ctx context.Context) {
-	if err := tpdo.Exec(ctx); err != nil {
+func (_d *TelemetryProfileDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

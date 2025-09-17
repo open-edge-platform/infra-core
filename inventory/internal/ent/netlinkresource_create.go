@@ -21,142 +21,142 @@ type NetlinkResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (nrc *NetlinkResourceCreate) SetResourceID(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetResourceID(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetResourceID(v string) *NetlinkResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (nrc *NetlinkResourceCreate) SetKind(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetKind(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetKind(v string) *NetlinkResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (nrc *NetlinkResourceCreate) SetNillableKind(s *string) *NetlinkResourceCreate {
-	if s != nil {
-		nrc.SetKind(*s)
+func (_c *NetlinkResourceCreate) SetNillableKind(v *string) *NetlinkResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return nrc
+	return _c
 }
 
 // SetName sets the "name" field.
-func (nrc *NetlinkResourceCreate) SetName(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetName(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetName(v string) *NetlinkResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (nrc *NetlinkResourceCreate) SetNillableName(s *string) *NetlinkResourceCreate {
-	if s != nil {
-		nrc.SetName(*s)
+func (_c *NetlinkResourceCreate) SetNillableName(v *string) *NetlinkResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return nrc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (nrc *NetlinkResourceCreate) SetDesiredState(ns netlinkresource.DesiredState) *NetlinkResourceCreate {
-	nrc.mutation.SetDesiredState(ns)
-	return nrc
+func (_c *NetlinkResourceCreate) SetDesiredState(v netlinkresource.DesiredState) *NetlinkResourceCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (nrc *NetlinkResourceCreate) SetCurrentState(ns netlinkresource.CurrentState) *NetlinkResourceCreate {
-	nrc.mutation.SetCurrentState(ns)
-	return nrc
+func (_c *NetlinkResourceCreate) SetCurrentState(v netlinkresource.CurrentState) *NetlinkResourceCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (nrc *NetlinkResourceCreate) SetNillableCurrentState(ns *netlinkresource.CurrentState) *NetlinkResourceCreate {
-	if ns != nil {
-		nrc.SetCurrentState(*ns)
+func (_c *NetlinkResourceCreate) SetNillableCurrentState(v *netlinkresource.CurrentState) *NetlinkResourceCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return nrc
+	return _c
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (nrc *NetlinkResourceCreate) SetProviderStatus(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetProviderStatus(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetProviderStatus(v string) *NetlinkResourceCreate {
+	_c.mutation.SetProviderStatus(v)
+	return _c
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (nrc *NetlinkResourceCreate) SetNillableProviderStatus(s *string) *NetlinkResourceCreate {
-	if s != nil {
-		nrc.SetProviderStatus(*s)
+func (_c *NetlinkResourceCreate) SetNillableProviderStatus(v *string) *NetlinkResourceCreate {
+	if v != nil {
+		_c.SetProviderStatus(*v)
 	}
-	return nrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (nrc *NetlinkResourceCreate) SetTenantID(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetTenantID(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetTenantID(v string) *NetlinkResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (nrc *NetlinkResourceCreate) SetCreatedAt(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetCreatedAt(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetCreatedAt(v string) *NetlinkResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (nrc *NetlinkResourceCreate) SetUpdatedAt(s string) *NetlinkResourceCreate {
-	nrc.mutation.SetUpdatedAt(s)
-	return nrc
+func (_c *NetlinkResourceCreate) SetUpdatedAt(v string) *NetlinkResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetSrcID sets the "src" edge to the EndpointResource entity by ID.
-func (nrc *NetlinkResourceCreate) SetSrcID(id int) *NetlinkResourceCreate {
-	nrc.mutation.SetSrcID(id)
-	return nrc
+func (_c *NetlinkResourceCreate) SetSrcID(id int) *NetlinkResourceCreate {
+	_c.mutation.SetSrcID(id)
+	return _c
 }
 
 // SetNillableSrcID sets the "src" edge to the EndpointResource entity by ID if the given value is not nil.
-func (nrc *NetlinkResourceCreate) SetNillableSrcID(id *int) *NetlinkResourceCreate {
+func (_c *NetlinkResourceCreate) SetNillableSrcID(id *int) *NetlinkResourceCreate {
 	if id != nil {
-		nrc = nrc.SetSrcID(*id)
+		_c = _c.SetSrcID(*id)
 	}
-	return nrc
+	return _c
 }
 
 // SetSrc sets the "src" edge to the EndpointResource entity.
-func (nrc *NetlinkResourceCreate) SetSrc(e *EndpointResource) *NetlinkResourceCreate {
-	return nrc.SetSrcID(e.ID)
+func (_c *NetlinkResourceCreate) SetSrc(v *EndpointResource) *NetlinkResourceCreate {
+	return _c.SetSrcID(v.ID)
 }
 
 // SetDstID sets the "dst" edge to the EndpointResource entity by ID.
-func (nrc *NetlinkResourceCreate) SetDstID(id int) *NetlinkResourceCreate {
-	nrc.mutation.SetDstID(id)
-	return nrc
+func (_c *NetlinkResourceCreate) SetDstID(id int) *NetlinkResourceCreate {
+	_c.mutation.SetDstID(id)
+	return _c
 }
 
 // SetNillableDstID sets the "dst" edge to the EndpointResource entity by ID if the given value is not nil.
-func (nrc *NetlinkResourceCreate) SetNillableDstID(id *int) *NetlinkResourceCreate {
+func (_c *NetlinkResourceCreate) SetNillableDstID(id *int) *NetlinkResourceCreate {
 	if id != nil {
-		nrc = nrc.SetDstID(*id)
+		_c = _c.SetDstID(*id)
 	}
-	return nrc
+	return _c
 }
 
 // SetDst sets the "dst" edge to the EndpointResource entity.
-func (nrc *NetlinkResourceCreate) SetDst(e *EndpointResource) *NetlinkResourceCreate {
-	return nrc.SetDstID(e.ID)
+func (_c *NetlinkResourceCreate) SetDst(v *EndpointResource) *NetlinkResourceCreate {
+	return _c.SetDstID(v.ID)
 }
 
 // Mutation returns the NetlinkResourceMutation object of the builder.
-func (nrc *NetlinkResourceCreate) Mutation() *NetlinkResourceMutation {
-	return nrc.mutation
+func (_c *NetlinkResourceCreate) Mutation() *NetlinkResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the NetlinkResource in the database.
-func (nrc *NetlinkResourceCreate) Save(ctx context.Context) (*NetlinkResource, error) {
-	return withHooks(ctx, nrc.sqlSave, nrc.mutation, nrc.hooks)
+func (_c *NetlinkResourceCreate) Save(ctx context.Context) (*NetlinkResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (nrc *NetlinkResourceCreate) SaveX(ctx context.Context) *NetlinkResource {
-	v, err := nrc.Save(ctx)
+func (_c *NetlinkResourceCreate) SaveX(ctx context.Context) *NetlinkResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -164,54 +164,54 @@ func (nrc *NetlinkResourceCreate) SaveX(ctx context.Context) *NetlinkResource {
 }
 
 // Exec executes the query.
-func (nrc *NetlinkResourceCreate) Exec(ctx context.Context) error {
-	_, err := nrc.Save(ctx)
+func (_c *NetlinkResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nrc *NetlinkResourceCreate) ExecX(ctx context.Context) {
-	if err := nrc.Exec(ctx); err != nil {
+func (_c *NetlinkResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (nrc *NetlinkResourceCreate) check() error {
-	if _, ok := nrc.mutation.ResourceID(); !ok {
+func (_c *NetlinkResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "NetlinkResource.resource_id"`)}
 	}
-	if _, ok := nrc.mutation.DesiredState(); !ok {
+	if _, ok := _c.mutation.DesiredState(); !ok {
 		return &ValidationError{Name: "desired_state", err: errors.New(`ent: missing required field "NetlinkResource.desired_state"`)}
 	}
-	if v, ok := nrc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := netlinkresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "NetlinkResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := nrc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := netlinkresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "NetlinkResource.current_state": %w`, err)}
 		}
 	}
-	if _, ok := nrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "NetlinkResource.tenant_id"`)}
 	}
-	if _, ok := nrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "NetlinkResource.created_at"`)}
 	}
-	if _, ok := nrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "NetlinkResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (nrc *NetlinkResourceCreate) sqlSave(ctx context.Context) (*NetlinkResource, error) {
-	if err := nrc.check(); err != nil {
+func (_c *NetlinkResourceCreate) sqlSave(ctx context.Context) (*NetlinkResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := nrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, nrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -219,53 +219,53 @@ func (nrc *NetlinkResourceCreate) sqlSave(ctx context.Context) (*NetlinkResource
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	nrc.mutation.id = &_node.ID
-	nrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (nrc *NetlinkResourceCreate) createSpec() (*NetlinkResource, *sqlgraph.CreateSpec) {
+func (_c *NetlinkResourceCreate) createSpec() (*NetlinkResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &NetlinkResource{config: nrc.config}
+		_node = &NetlinkResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(netlinkresource.Table, sqlgraph.NewFieldSpec(netlinkresource.FieldID, field.TypeInt))
 	)
-	if value, ok := nrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(netlinkresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := nrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(netlinkresource.FieldKind, field.TypeString, value)
 		_node.Kind = value
 	}
-	if value, ok := nrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(netlinkresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := nrc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(netlinkresource.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := nrc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(netlinkresource.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := nrc.mutation.ProviderStatus(); ok {
+	if value, ok := _c.mutation.ProviderStatus(); ok {
 		_spec.SetField(netlinkresource.FieldProviderStatus, field.TypeString, value)
 		_node.ProviderStatus = value
 	}
-	if value, ok := nrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(netlinkresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := nrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(netlinkresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := nrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(netlinkresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := nrc.mutation.SrcIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SrcIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -282,7 +282,7 @@ func (nrc *NetlinkResourceCreate) createSpec() (*NetlinkResource, *sqlgraph.Crea
 		_node.netlink_resource_src = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := nrc.mutation.DstIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.DstIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -310,16 +310,16 @@ type NetlinkResourceCreateBulk struct {
 }
 
 // Save creates the NetlinkResource entities in the database.
-func (nrcb *NetlinkResourceCreateBulk) Save(ctx context.Context) ([]*NetlinkResource, error) {
-	if nrcb.err != nil {
-		return nil, nrcb.err
+func (_c *NetlinkResourceCreateBulk) Save(ctx context.Context) ([]*NetlinkResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(nrcb.builders))
-	nodes := make([]*NetlinkResource, len(nrcb.builders))
-	mutators := make([]Mutator, len(nrcb.builders))
-	for i := range nrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*NetlinkResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := nrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*NetlinkResourceMutation)
 				if !ok {
@@ -332,11 +332,11 @@ func (nrcb *NetlinkResourceCreateBulk) Save(ctx context.Context) ([]*NetlinkReso
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, nrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, nrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -360,7 +360,7 @@ func (nrcb *NetlinkResourceCreateBulk) Save(ctx context.Context) ([]*NetlinkReso
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, nrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -368,8 +368,8 @@ func (nrcb *NetlinkResourceCreateBulk) Save(ctx context.Context) ([]*NetlinkReso
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nrcb *NetlinkResourceCreateBulk) SaveX(ctx context.Context) []*NetlinkResource {
-	v, err := nrcb.Save(ctx)
+func (_c *NetlinkResourceCreateBulk) SaveX(ctx context.Context) []*NetlinkResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -377,14 +377,14 @@ func (nrcb *NetlinkResourceCreateBulk) SaveX(ctx context.Context) []*NetlinkReso
 }
 
 // Exec executes the query.
-func (nrcb *NetlinkResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := nrcb.Save(ctx)
+func (_c *NetlinkResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nrcb *NetlinkResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := nrcb.Exec(ctx); err != nil {
+func (_c *NetlinkResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

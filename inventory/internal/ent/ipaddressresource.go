@@ -84,7 +84,7 @@ func (*IPAddressResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the IPAddressResource fields.
-func (iar *IPAddressResource) assignValues(columns []string, values []any) error {
+func (_m *IPAddressResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -95,76 +95,76 @@ func (iar *IPAddressResource) assignValues(columns []string, values []any) error
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			iar.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case ipaddressresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				iar.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case ipaddressresource.FieldAddress:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field address", values[i])
 			} else if value.Valid {
-				iar.Address = value.String
+				_m.Address = value.String
 			}
 		case ipaddressresource.FieldDesiredState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_state", values[i])
 			} else if value.Valid {
-				iar.DesiredState = ipaddressresource.DesiredState(value.String)
+				_m.DesiredState = ipaddressresource.DesiredState(value.String)
 			}
 		case ipaddressresource.FieldCurrentState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_state", values[i])
 			} else if value.Valid {
-				iar.CurrentState = ipaddressresource.CurrentState(value.String)
+				_m.CurrentState = ipaddressresource.CurrentState(value.String)
 			}
 		case ipaddressresource.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
 			} else if value.Valid {
-				iar.Status = ipaddressresource.Status(value.String)
+				_m.Status = ipaddressresource.Status(value.String)
 			}
 		case ipaddressresource.FieldStatusDetail:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status_detail", values[i])
 			} else if value.Valid {
-				iar.StatusDetail = value.String
+				_m.StatusDetail = value.String
 			}
 		case ipaddressresource.FieldConfigMethod:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field config_method", values[i])
 			} else if value.Valid {
-				iar.ConfigMethod = ipaddressresource.ConfigMethod(value.String)
+				_m.ConfigMethod = ipaddressresource.ConfigMethod(value.String)
 			}
 		case ipaddressresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				iar.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case ipaddressresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				iar.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case ipaddressresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				iar.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case ipaddressresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field ip_address_resource_nic", value)
 			} else if value.Valid {
-				iar.ip_address_resource_nic = new(int)
-				*iar.ip_address_resource_nic = int(value.Int64)
+				_m.ip_address_resource_nic = new(int)
+				*_m.ip_address_resource_nic = int(value.Int64)
 			}
 		default:
-			iar.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -172,67 +172,67 @@ func (iar *IPAddressResource) assignValues(columns []string, values []any) error
 
 // Value returns the ent.Value that was dynamically selected and assigned to the IPAddressResource.
 // This includes values selected through modifiers, order, etc.
-func (iar *IPAddressResource) Value(name string) (ent.Value, error) {
-	return iar.selectValues.Get(name)
+func (_m *IPAddressResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryNic queries the "nic" edge of the IPAddressResource entity.
-func (iar *IPAddressResource) QueryNic() *HostnicResourceQuery {
-	return NewIPAddressResourceClient(iar.config).QueryNic(iar)
+func (_m *IPAddressResource) QueryNic() *HostnicResourceQuery {
+	return NewIPAddressResourceClient(_m.config).QueryNic(_m)
 }
 
 // Update returns a builder for updating this IPAddressResource.
 // Note that you need to call IPAddressResource.Unwrap() before calling this method if this IPAddressResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (iar *IPAddressResource) Update() *IPAddressResourceUpdateOne {
-	return NewIPAddressResourceClient(iar.config).UpdateOne(iar)
+func (_m *IPAddressResource) Update() *IPAddressResourceUpdateOne {
+	return NewIPAddressResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the IPAddressResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (iar *IPAddressResource) Unwrap() *IPAddressResource {
-	_tx, ok := iar.config.driver.(*txDriver)
+func (_m *IPAddressResource) Unwrap() *IPAddressResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: IPAddressResource is not a transactional entity")
 	}
-	iar.config.driver = _tx.drv
-	return iar
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (iar *IPAddressResource) String() string {
+func (_m *IPAddressResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("IPAddressResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", iar.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(iar.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("address=")
-	builder.WriteString(iar.Address)
+	builder.WriteString(_m.Address)
 	builder.WriteString(", ")
 	builder.WriteString("desired_state=")
-	builder.WriteString(fmt.Sprintf("%v", iar.DesiredState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredState))
 	builder.WriteString(", ")
 	builder.WriteString("current_state=")
-	builder.WriteString(fmt.Sprintf("%v", iar.CurrentState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentState))
 	builder.WriteString(", ")
 	builder.WriteString("status=")
-	builder.WriteString(fmt.Sprintf("%v", iar.Status))
+	builder.WriteString(fmt.Sprintf("%v", _m.Status))
 	builder.WriteString(", ")
 	builder.WriteString("status_detail=")
-	builder.WriteString(iar.StatusDetail)
+	builder.WriteString(_m.StatusDetail)
 	builder.WriteString(", ")
 	builder.WriteString("config_method=")
-	builder.WriteString(fmt.Sprintf("%v", iar.ConfigMethod))
+	builder.WriteString(fmt.Sprintf("%v", _m.ConfigMethod))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(iar.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(iar.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(iar.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

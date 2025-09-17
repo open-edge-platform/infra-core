@@ -21,81 +21,81 @@ type NetworkSegmentCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (nsc *NetworkSegmentCreate) SetResourceID(s string) *NetworkSegmentCreate {
-	nsc.mutation.SetResourceID(s)
-	return nsc
+func (_c *NetworkSegmentCreate) SetResourceID(v string) *NetworkSegmentCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (nsc *NetworkSegmentCreate) SetName(s string) *NetworkSegmentCreate {
-	nsc.mutation.SetName(s)
-	return nsc
+func (_c *NetworkSegmentCreate) SetName(v string) *NetworkSegmentCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (nsc *NetworkSegmentCreate) SetNillableName(s *string) *NetworkSegmentCreate {
-	if s != nil {
-		nsc.SetName(*s)
+func (_c *NetworkSegmentCreate) SetNillableName(v *string) *NetworkSegmentCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return nsc
+	return _c
 }
 
 // SetVlanID sets the "vlan_id" field.
-func (nsc *NetworkSegmentCreate) SetVlanID(i int32) *NetworkSegmentCreate {
-	nsc.mutation.SetVlanID(i)
-	return nsc
+func (_c *NetworkSegmentCreate) SetVlanID(v int32) *NetworkSegmentCreate {
+	_c.mutation.SetVlanID(v)
+	return _c
 }
 
 // SetNillableVlanID sets the "vlan_id" field if the given value is not nil.
-func (nsc *NetworkSegmentCreate) SetNillableVlanID(i *int32) *NetworkSegmentCreate {
-	if i != nil {
-		nsc.SetVlanID(*i)
+func (_c *NetworkSegmentCreate) SetNillableVlanID(v *int32) *NetworkSegmentCreate {
+	if v != nil {
+		_c.SetVlanID(*v)
 	}
-	return nsc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (nsc *NetworkSegmentCreate) SetTenantID(s string) *NetworkSegmentCreate {
-	nsc.mutation.SetTenantID(s)
-	return nsc
+func (_c *NetworkSegmentCreate) SetTenantID(v string) *NetworkSegmentCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (nsc *NetworkSegmentCreate) SetCreatedAt(s string) *NetworkSegmentCreate {
-	nsc.mutation.SetCreatedAt(s)
-	return nsc
+func (_c *NetworkSegmentCreate) SetCreatedAt(v string) *NetworkSegmentCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (nsc *NetworkSegmentCreate) SetUpdatedAt(s string) *NetworkSegmentCreate {
-	nsc.mutation.SetUpdatedAt(s)
-	return nsc
+func (_c *NetworkSegmentCreate) SetUpdatedAt(v string) *NetworkSegmentCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetSiteID sets the "site" edge to the SiteResource entity by ID.
-func (nsc *NetworkSegmentCreate) SetSiteID(id int) *NetworkSegmentCreate {
-	nsc.mutation.SetSiteID(id)
-	return nsc
+func (_c *NetworkSegmentCreate) SetSiteID(id int) *NetworkSegmentCreate {
+	_c.mutation.SetSiteID(id)
+	return _c
 }
 
 // SetSite sets the "site" edge to the SiteResource entity.
-func (nsc *NetworkSegmentCreate) SetSite(s *SiteResource) *NetworkSegmentCreate {
-	return nsc.SetSiteID(s.ID)
+func (_c *NetworkSegmentCreate) SetSite(v *SiteResource) *NetworkSegmentCreate {
+	return _c.SetSiteID(v.ID)
 }
 
 // Mutation returns the NetworkSegmentMutation object of the builder.
-func (nsc *NetworkSegmentCreate) Mutation() *NetworkSegmentMutation {
-	return nsc.mutation
+func (_c *NetworkSegmentCreate) Mutation() *NetworkSegmentMutation {
+	return _c.mutation
 }
 
 // Save creates the NetworkSegment in the database.
-func (nsc *NetworkSegmentCreate) Save(ctx context.Context) (*NetworkSegment, error) {
-	return withHooks(ctx, nsc.sqlSave, nsc.mutation, nsc.hooks)
+func (_c *NetworkSegmentCreate) Save(ctx context.Context) (*NetworkSegment, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (nsc *NetworkSegmentCreate) SaveX(ctx context.Context) *NetworkSegment {
-	v, err := nsc.Save(ctx)
+func (_c *NetworkSegmentCreate) SaveX(ctx context.Context) *NetworkSegment {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -103,44 +103,44 @@ func (nsc *NetworkSegmentCreate) SaveX(ctx context.Context) *NetworkSegment {
 }
 
 // Exec executes the query.
-func (nsc *NetworkSegmentCreate) Exec(ctx context.Context) error {
-	_, err := nsc.Save(ctx)
+func (_c *NetworkSegmentCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nsc *NetworkSegmentCreate) ExecX(ctx context.Context) {
-	if err := nsc.Exec(ctx); err != nil {
+func (_c *NetworkSegmentCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (nsc *NetworkSegmentCreate) check() error {
-	if _, ok := nsc.mutation.ResourceID(); !ok {
+func (_c *NetworkSegmentCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "NetworkSegment.resource_id"`)}
 	}
-	if _, ok := nsc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "NetworkSegment.tenant_id"`)}
 	}
-	if _, ok := nsc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "NetworkSegment.created_at"`)}
 	}
-	if _, ok := nsc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "NetworkSegment.updated_at"`)}
 	}
-	if len(nsc.mutation.SiteIDs()) == 0 {
+	if len(_c.mutation.SiteIDs()) == 0 {
 		return &ValidationError{Name: "site", err: errors.New(`ent: missing required edge "NetworkSegment.site"`)}
 	}
 	return nil
 }
 
-func (nsc *NetworkSegmentCreate) sqlSave(ctx context.Context) (*NetworkSegment, error) {
-	if err := nsc.check(); err != nil {
+func (_c *NetworkSegmentCreate) sqlSave(ctx context.Context) (*NetworkSegment, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := nsc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, nsc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -148,41 +148,41 @@ func (nsc *NetworkSegmentCreate) sqlSave(ctx context.Context) (*NetworkSegment, 
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	nsc.mutation.id = &_node.ID
-	nsc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (nsc *NetworkSegmentCreate) createSpec() (*NetworkSegment, *sqlgraph.CreateSpec) {
+func (_c *NetworkSegmentCreate) createSpec() (*NetworkSegment, *sqlgraph.CreateSpec) {
 	var (
-		_node = &NetworkSegment{config: nsc.config}
+		_node = &NetworkSegment{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(networksegment.Table, sqlgraph.NewFieldSpec(networksegment.FieldID, field.TypeInt))
 	)
-	if value, ok := nsc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(networksegment.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := nsc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(networksegment.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := nsc.mutation.VlanID(); ok {
+	if value, ok := _c.mutation.VlanID(); ok {
 		_spec.SetField(networksegment.FieldVlanID, field.TypeInt32, value)
 		_node.VlanID = value
 	}
-	if value, ok := nsc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(networksegment.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := nsc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(networksegment.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := nsc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(networksegment.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := nsc.mutation.SiteIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -210,16 +210,16 @@ type NetworkSegmentCreateBulk struct {
 }
 
 // Save creates the NetworkSegment entities in the database.
-func (nscb *NetworkSegmentCreateBulk) Save(ctx context.Context) ([]*NetworkSegment, error) {
-	if nscb.err != nil {
-		return nil, nscb.err
+func (_c *NetworkSegmentCreateBulk) Save(ctx context.Context) ([]*NetworkSegment, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(nscb.builders))
-	nodes := make([]*NetworkSegment, len(nscb.builders))
-	mutators := make([]Mutator, len(nscb.builders))
-	for i := range nscb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*NetworkSegment, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := nscb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*NetworkSegmentMutation)
 				if !ok {
@@ -232,11 +232,11 @@ func (nscb *NetworkSegmentCreateBulk) Save(ctx context.Context) ([]*NetworkSegme
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, nscb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, nscb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -260,7 +260,7 @@ func (nscb *NetworkSegmentCreateBulk) Save(ctx context.Context) ([]*NetworkSegme
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, nscb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -268,8 +268,8 @@ func (nscb *NetworkSegmentCreateBulk) Save(ctx context.Context) ([]*NetworkSegme
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nscb *NetworkSegmentCreateBulk) SaveX(ctx context.Context) []*NetworkSegment {
-	v, err := nscb.Save(ctx)
+func (_c *NetworkSegmentCreateBulk) SaveX(ctx context.Context) []*NetworkSegment {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -277,14 +277,14 @@ func (nscb *NetworkSegmentCreateBulk) SaveX(ctx context.Context) []*NetworkSegme
 }
 
 // Exec executes the query.
-func (nscb *NetworkSegmentCreateBulk) Exec(ctx context.Context) error {
-	_, err := nscb.Save(ctx)
+func (_c *NetworkSegmentCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nscb *NetworkSegmentCreateBulk) ExecX(ctx context.Context) {
-	if err := nscb.Exec(ctx); err != nil {
+func (_c *NetworkSegmentCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

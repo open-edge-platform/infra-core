@@ -88,7 +88,7 @@ func (*OuResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the OuResource fields.
-func (or *OuResource) assignValues(columns []string, values []any) error {
+func (_m *OuResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -99,58 +99,58 @@ func (or *OuResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			or.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case ouresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				or.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case ouresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				or.Name = value.String
+				_m.Name = value.String
 			}
 		case ouresource.FieldOuKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field ou_kind", values[i])
 			} else if value.Valid {
-				or.OuKind = value.String
+				_m.OuKind = value.String
 			}
 		case ouresource.FieldMetadata:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
-				or.Metadata = value.String
+				_m.Metadata = value.String
 			}
 		case ouresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				or.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case ouresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				or.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case ouresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				or.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case ouresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field ou_resource_parent_ou", value)
 			} else if value.Valid {
-				or.ou_resource_parent_ou = new(int)
-				*or.ou_resource_parent_ou = int(value.Int64)
+				_m.ou_resource_parent_ou = new(int)
+				*_m.ou_resource_parent_ou = int(value.Int64)
 			}
 		default:
-			or.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -158,63 +158,63 @@ func (or *OuResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the OuResource.
 // This includes values selected through modifiers, order, etc.
-func (or *OuResource) Value(name string) (ent.Value, error) {
-	return or.selectValues.Get(name)
+func (_m *OuResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryParentOu queries the "parent_ou" edge of the OuResource entity.
-func (or *OuResource) QueryParentOu() *OuResourceQuery {
-	return NewOuResourceClient(or.config).QueryParentOu(or)
+func (_m *OuResource) QueryParentOu() *OuResourceQuery {
+	return NewOuResourceClient(_m.config).QueryParentOu(_m)
 }
 
 // QueryChildren queries the "children" edge of the OuResource entity.
-func (or *OuResource) QueryChildren() *OuResourceQuery {
-	return NewOuResourceClient(or.config).QueryChildren(or)
+func (_m *OuResource) QueryChildren() *OuResourceQuery {
+	return NewOuResourceClient(_m.config).QueryChildren(_m)
 }
 
 // Update returns a builder for updating this OuResource.
 // Note that you need to call OuResource.Unwrap() before calling this method if this OuResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (or *OuResource) Update() *OuResourceUpdateOne {
-	return NewOuResourceClient(or.config).UpdateOne(or)
+func (_m *OuResource) Update() *OuResourceUpdateOne {
+	return NewOuResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the OuResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (or *OuResource) Unwrap() *OuResource {
-	_tx, ok := or.config.driver.(*txDriver)
+func (_m *OuResource) Unwrap() *OuResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: OuResource is not a transactional entity")
 	}
-	or.config.driver = _tx.drv
-	return or
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (or *OuResource) String() string {
+func (_m *OuResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("OuResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", or.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(or.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(or.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("ou_kind=")
-	builder.WriteString(or.OuKind)
+	builder.WriteString(_m.OuKind)
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
-	builder.WriteString(or.Metadata)
+	builder.WriteString(_m.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(or.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(or.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(or.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

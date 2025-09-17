@@ -80,7 +80,7 @@ func (*WorkloadResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the WorkloadResource fields.
-func (wr *WorkloadResource) assignValues(columns []string, values []any) error {
+func (_m *WorkloadResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -91,75 +91,75 @@ func (wr *WorkloadResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			wr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case workloadresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				wr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case workloadresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				wr.Kind = workloadresource.Kind(value.String)
+				_m.Kind = workloadresource.Kind(value.String)
 			}
 		case workloadresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				wr.Name = value.String
+				_m.Name = value.String
 			}
 		case workloadresource.FieldExternalID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field external_id", values[i])
 			} else if value.Valid {
-				wr.ExternalID = value.String
+				_m.ExternalID = value.String
 			}
 		case workloadresource.FieldDesiredState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_state", values[i])
 			} else if value.Valid {
-				wr.DesiredState = workloadresource.DesiredState(value.String)
+				_m.DesiredState = workloadresource.DesiredState(value.String)
 			}
 		case workloadresource.FieldCurrentState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_state", values[i])
 			} else if value.Valid {
-				wr.CurrentState = workloadresource.CurrentState(value.String)
+				_m.CurrentState = workloadresource.CurrentState(value.String)
 			}
 		case workloadresource.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
 			} else if value.Valid {
-				wr.Status = value.String
+				_m.Status = value.String
 			}
 		case workloadresource.FieldMetadata:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
-				wr.Metadata = value.String
+				_m.Metadata = value.String
 			}
 		case workloadresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				wr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case workloadresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				wr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case workloadresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				wr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		default:
-			wr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -167,70 +167,70 @@ func (wr *WorkloadResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the WorkloadResource.
 // This includes values selected through modifiers, order, etc.
-func (wr *WorkloadResource) Value(name string) (ent.Value, error) {
-	return wr.selectValues.Get(name)
+func (_m *WorkloadResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryMembers queries the "members" edge of the WorkloadResource entity.
-func (wr *WorkloadResource) QueryMembers() *WorkloadMemberQuery {
-	return NewWorkloadResourceClient(wr.config).QueryMembers(wr)
+func (_m *WorkloadResource) QueryMembers() *WorkloadMemberQuery {
+	return NewWorkloadResourceClient(_m.config).QueryMembers(_m)
 }
 
 // Update returns a builder for updating this WorkloadResource.
 // Note that you need to call WorkloadResource.Unwrap() before calling this method if this WorkloadResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (wr *WorkloadResource) Update() *WorkloadResourceUpdateOne {
-	return NewWorkloadResourceClient(wr.config).UpdateOne(wr)
+func (_m *WorkloadResource) Update() *WorkloadResourceUpdateOne {
+	return NewWorkloadResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the WorkloadResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (wr *WorkloadResource) Unwrap() *WorkloadResource {
-	_tx, ok := wr.config.driver.(*txDriver)
+func (_m *WorkloadResource) Unwrap() *WorkloadResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: WorkloadResource is not a transactional entity")
 	}
-	wr.config.driver = _tx.drv
-	return wr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (wr *WorkloadResource) String() string {
+func (_m *WorkloadResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("WorkloadResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", wr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(wr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(fmt.Sprintf("%v", wr.Kind))
+	builder.WriteString(fmt.Sprintf("%v", _m.Kind))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(wr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("external_id=")
-	builder.WriteString(wr.ExternalID)
+	builder.WriteString(_m.ExternalID)
 	builder.WriteString(", ")
 	builder.WriteString("desired_state=")
-	builder.WriteString(fmt.Sprintf("%v", wr.DesiredState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredState))
 	builder.WriteString(", ")
 	builder.WriteString("current_state=")
-	builder.WriteString(fmt.Sprintf("%v", wr.CurrentState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentState))
 	builder.WriteString(", ")
 	builder.WriteString("status=")
-	builder.WriteString(wr.Status)
+	builder.WriteString(_m.Status)
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
-	builder.WriteString(wr.Metadata)
+	builder.WriteString(_m.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(wr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(wr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(wr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

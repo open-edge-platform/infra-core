@@ -26,205 +26,205 @@ type TelemetryProfileUpdate struct {
 }
 
 // Where appends a list predicates to the TelemetryProfileUpdate builder.
-func (tpu *TelemetryProfileUpdate) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileUpdate {
-	tpu.mutation.Where(ps...)
-	return tpu
+func (_u *TelemetryProfileUpdate) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tpu *TelemetryProfileUpdate) SetResourceID(s string) *TelemetryProfileUpdate {
-	tpu.mutation.SetResourceID(s)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetResourceID(v string) *TelemetryProfileUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableResourceID(s *string) *TelemetryProfileUpdate {
-	if s != nil {
-		tpu.SetResourceID(*s)
+func (_u *TelemetryProfileUpdate) SetNillableResourceID(v *string) *TelemetryProfileUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return tpu
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (tpu *TelemetryProfileUpdate) SetKind(t telemetryprofile.Kind) *TelemetryProfileUpdate {
-	tpu.mutation.SetKind(t)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetKind(v telemetryprofile.Kind) *TelemetryProfileUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableKind(t *telemetryprofile.Kind) *TelemetryProfileUpdate {
-	if t != nil {
-		tpu.SetKind(*t)
+func (_u *TelemetryProfileUpdate) SetNillableKind(v *telemetryprofile.Kind) *TelemetryProfileUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return tpu
+	return _u
 }
 
 // SetMetricsInterval sets the "metrics_interval" field.
-func (tpu *TelemetryProfileUpdate) SetMetricsInterval(u uint32) *TelemetryProfileUpdate {
-	tpu.mutation.ResetMetricsInterval()
-	tpu.mutation.SetMetricsInterval(u)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetMetricsInterval(v uint32) *TelemetryProfileUpdate {
+	_u.mutation.ResetMetricsInterval()
+	_u.mutation.SetMetricsInterval(v)
+	return _u
 }
 
 // SetNillableMetricsInterval sets the "metrics_interval" field if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableMetricsInterval(u *uint32) *TelemetryProfileUpdate {
-	if u != nil {
-		tpu.SetMetricsInterval(*u)
+func (_u *TelemetryProfileUpdate) SetNillableMetricsInterval(v *uint32) *TelemetryProfileUpdate {
+	if v != nil {
+		_u.SetMetricsInterval(*v)
 	}
-	return tpu
+	return _u
 }
 
-// AddMetricsInterval adds u to the "metrics_interval" field.
-func (tpu *TelemetryProfileUpdate) AddMetricsInterval(u int32) *TelemetryProfileUpdate {
-	tpu.mutation.AddMetricsInterval(u)
-	return tpu
+// AddMetricsInterval adds value to the "metrics_interval" field.
+func (_u *TelemetryProfileUpdate) AddMetricsInterval(v int32) *TelemetryProfileUpdate {
+	_u.mutation.AddMetricsInterval(v)
+	return _u
 }
 
 // ClearMetricsInterval clears the value of the "metrics_interval" field.
-func (tpu *TelemetryProfileUpdate) ClearMetricsInterval() *TelemetryProfileUpdate {
-	tpu.mutation.ClearMetricsInterval()
-	return tpu
+func (_u *TelemetryProfileUpdate) ClearMetricsInterval() *TelemetryProfileUpdate {
+	_u.mutation.ClearMetricsInterval()
+	return _u
 }
 
 // SetLogLevel sets the "log_level" field.
-func (tpu *TelemetryProfileUpdate) SetLogLevel(tl telemetryprofile.LogLevel) *TelemetryProfileUpdate {
-	tpu.mutation.SetLogLevel(tl)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetLogLevel(v telemetryprofile.LogLevel) *TelemetryProfileUpdate {
+	_u.mutation.SetLogLevel(v)
+	return _u
 }
 
 // SetNillableLogLevel sets the "log_level" field if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableLogLevel(tl *telemetryprofile.LogLevel) *TelemetryProfileUpdate {
-	if tl != nil {
-		tpu.SetLogLevel(*tl)
+func (_u *TelemetryProfileUpdate) SetNillableLogLevel(v *telemetryprofile.LogLevel) *TelemetryProfileUpdate {
+	if v != nil {
+		_u.SetLogLevel(*v)
 	}
-	return tpu
+	return _u
 }
 
 // ClearLogLevel clears the value of the "log_level" field.
-func (tpu *TelemetryProfileUpdate) ClearLogLevel() *TelemetryProfileUpdate {
-	tpu.mutation.ClearLogLevel()
-	return tpu
+func (_u *TelemetryProfileUpdate) ClearLogLevel() *TelemetryProfileUpdate {
+	_u.mutation.ClearLogLevel()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tpu *TelemetryProfileUpdate) SetUpdatedAt(s string) *TelemetryProfileUpdate {
-	tpu.mutation.SetUpdatedAt(s)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetUpdatedAt(v string) *TelemetryProfileUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableUpdatedAt(s *string) *TelemetryProfileUpdate {
-	if s != nil {
-		tpu.SetUpdatedAt(*s)
+func (_u *TelemetryProfileUpdate) SetNillableUpdatedAt(v *string) *TelemetryProfileUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return tpu
+	return _u
 }
 
 // SetRegionID sets the "region" edge to the RegionResource entity by ID.
-func (tpu *TelemetryProfileUpdate) SetRegionID(id int) *TelemetryProfileUpdate {
-	tpu.mutation.SetRegionID(id)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetRegionID(id int) *TelemetryProfileUpdate {
+	_u.mutation.SetRegionID(id)
+	return _u
 }
 
 // SetNillableRegionID sets the "region" edge to the RegionResource entity by ID if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableRegionID(id *int) *TelemetryProfileUpdate {
+func (_u *TelemetryProfileUpdate) SetNillableRegionID(id *int) *TelemetryProfileUpdate {
 	if id != nil {
-		tpu = tpu.SetRegionID(*id)
+		_u = _u.SetRegionID(*id)
 	}
-	return tpu
+	return _u
 }
 
 // SetRegion sets the "region" edge to the RegionResource entity.
-func (tpu *TelemetryProfileUpdate) SetRegion(r *RegionResource) *TelemetryProfileUpdate {
-	return tpu.SetRegionID(r.ID)
+func (_u *TelemetryProfileUpdate) SetRegion(v *RegionResource) *TelemetryProfileUpdate {
+	return _u.SetRegionID(v.ID)
 }
 
 // SetSiteID sets the "site" edge to the SiteResource entity by ID.
-func (tpu *TelemetryProfileUpdate) SetSiteID(id int) *TelemetryProfileUpdate {
-	tpu.mutation.SetSiteID(id)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetSiteID(id int) *TelemetryProfileUpdate {
+	_u.mutation.SetSiteID(id)
+	return _u
 }
 
 // SetNillableSiteID sets the "site" edge to the SiteResource entity by ID if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableSiteID(id *int) *TelemetryProfileUpdate {
+func (_u *TelemetryProfileUpdate) SetNillableSiteID(id *int) *TelemetryProfileUpdate {
 	if id != nil {
-		tpu = tpu.SetSiteID(*id)
+		_u = _u.SetSiteID(*id)
 	}
-	return tpu
+	return _u
 }
 
 // SetSite sets the "site" edge to the SiteResource entity.
-func (tpu *TelemetryProfileUpdate) SetSite(s *SiteResource) *TelemetryProfileUpdate {
-	return tpu.SetSiteID(s.ID)
+func (_u *TelemetryProfileUpdate) SetSite(v *SiteResource) *TelemetryProfileUpdate {
+	return _u.SetSiteID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (tpu *TelemetryProfileUpdate) SetInstanceID(id int) *TelemetryProfileUpdate {
-	tpu.mutation.SetInstanceID(id)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetInstanceID(id int) *TelemetryProfileUpdate {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetNillableInstanceID sets the "instance" edge to the InstanceResource entity by ID if the given value is not nil.
-func (tpu *TelemetryProfileUpdate) SetNillableInstanceID(id *int) *TelemetryProfileUpdate {
+func (_u *TelemetryProfileUpdate) SetNillableInstanceID(id *int) *TelemetryProfileUpdate {
 	if id != nil {
-		tpu = tpu.SetInstanceID(*id)
+		_u = _u.SetInstanceID(*id)
 	}
-	return tpu
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (tpu *TelemetryProfileUpdate) SetInstance(i *InstanceResource) *TelemetryProfileUpdate {
-	return tpu.SetInstanceID(i.ID)
+func (_u *TelemetryProfileUpdate) SetInstance(v *InstanceResource) *TelemetryProfileUpdate {
+	return _u.SetInstanceID(v.ID)
 }
 
 // SetGroupID sets the "group" edge to the TelemetryGroupResource entity by ID.
-func (tpu *TelemetryProfileUpdate) SetGroupID(id int) *TelemetryProfileUpdate {
-	tpu.mutation.SetGroupID(id)
-	return tpu
+func (_u *TelemetryProfileUpdate) SetGroupID(id int) *TelemetryProfileUpdate {
+	_u.mutation.SetGroupID(id)
+	return _u
 }
 
 // SetGroup sets the "group" edge to the TelemetryGroupResource entity.
-func (tpu *TelemetryProfileUpdate) SetGroup(t *TelemetryGroupResource) *TelemetryProfileUpdate {
-	return tpu.SetGroupID(t.ID)
+func (_u *TelemetryProfileUpdate) SetGroup(v *TelemetryGroupResource) *TelemetryProfileUpdate {
+	return _u.SetGroupID(v.ID)
 }
 
 // Mutation returns the TelemetryProfileMutation object of the builder.
-func (tpu *TelemetryProfileUpdate) Mutation() *TelemetryProfileMutation {
-	return tpu.mutation
+func (_u *TelemetryProfileUpdate) Mutation() *TelemetryProfileMutation {
+	return _u.mutation
 }
 
 // ClearRegion clears the "region" edge to the RegionResource entity.
-func (tpu *TelemetryProfileUpdate) ClearRegion() *TelemetryProfileUpdate {
-	tpu.mutation.ClearRegion()
-	return tpu
+func (_u *TelemetryProfileUpdate) ClearRegion() *TelemetryProfileUpdate {
+	_u.mutation.ClearRegion()
+	return _u
 }
 
 // ClearSite clears the "site" edge to the SiteResource entity.
-func (tpu *TelemetryProfileUpdate) ClearSite() *TelemetryProfileUpdate {
-	tpu.mutation.ClearSite()
-	return tpu
+func (_u *TelemetryProfileUpdate) ClearSite() *TelemetryProfileUpdate {
+	_u.mutation.ClearSite()
+	return _u
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (tpu *TelemetryProfileUpdate) ClearInstance() *TelemetryProfileUpdate {
-	tpu.mutation.ClearInstance()
-	return tpu
+func (_u *TelemetryProfileUpdate) ClearInstance() *TelemetryProfileUpdate {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // ClearGroup clears the "group" edge to the TelemetryGroupResource entity.
-func (tpu *TelemetryProfileUpdate) ClearGroup() *TelemetryProfileUpdate {
-	tpu.mutation.ClearGroup()
-	return tpu
+func (_u *TelemetryProfileUpdate) ClearGroup() *TelemetryProfileUpdate {
+	_u.mutation.ClearGroup()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (tpu *TelemetryProfileUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, tpu.sqlSave, tpu.mutation, tpu.hooks)
+func (_u *TelemetryProfileUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tpu *TelemetryProfileUpdate) SaveX(ctx context.Context) int {
-	affected, err := tpu.Save(ctx)
+func (_u *TelemetryProfileUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -232,73 +232,73 @@ func (tpu *TelemetryProfileUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (tpu *TelemetryProfileUpdate) Exec(ctx context.Context) error {
-	_, err := tpu.Save(ctx)
+func (_u *TelemetryProfileUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tpu *TelemetryProfileUpdate) ExecX(ctx context.Context) {
-	if err := tpu.Exec(ctx); err != nil {
+func (_u *TelemetryProfileUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tpu *TelemetryProfileUpdate) check() error {
-	if v, ok := tpu.mutation.Kind(); ok {
+func (_u *TelemetryProfileUpdate) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := telemetryprofile.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryProfile.kind": %w`, err)}
 		}
 	}
-	if v, ok := tpu.mutation.LogLevel(); ok {
+	if v, ok := _u.mutation.LogLevel(); ok {
 		if err := telemetryprofile.LogLevelValidator(v); err != nil {
 			return &ValidationError{Name: "log_level", err: fmt.Errorf(`ent: validator failed for field "TelemetryProfile.log_level": %w`, err)}
 		}
 	}
-	if tpu.mutation.GroupCleared() && len(tpu.mutation.GroupIDs()) > 0 {
+	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "TelemetryProfile.group"`)
 	}
 	return nil
 }
 
-func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := tpu.check(); err != nil {
-		return n, err
+func (_u *TelemetryProfileUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(telemetryprofile.Table, telemetryprofile.Columns, sqlgraph.NewFieldSpec(telemetryprofile.FieldID, field.TypeInt))
-	if ps := tpu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tpu.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(telemetryprofile.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := tpu.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(telemetryprofile.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := tpu.mutation.MetricsInterval(); ok {
+	if value, ok := _u.mutation.MetricsInterval(); ok {
 		_spec.SetField(telemetryprofile.FieldMetricsInterval, field.TypeUint32, value)
 	}
-	if value, ok := tpu.mutation.AddedMetricsInterval(); ok {
+	if value, ok := _u.mutation.AddedMetricsInterval(); ok {
 		_spec.AddField(telemetryprofile.FieldMetricsInterval, field.TypeUint32, value)
 	}
-	if tpu.mutation.MetricsIntervalCleared() {
+	if _u.mutation.MetricsIntervalCleared() {
 		_spec.ClearField(telemetryprofile.FieldMetricsInterval, field.TypeUint32)
 	}
-	if value, ok := tpu.mutation.LogLevel(); ok {
+	if value, ok := _u.mutation.LogLevel(); ok {
 		_spec.SetField(telemetryprofile.FieldLogLevel, field.TypeEnum, value)
 	}
-	if tpu.mutation.LogLevelCleared() {
+	if _u.mutation.LogLevelCleared() {
 		_spec.ClearField(telemetryprofile.FieldLogLevel, field.TypeEnum)
 	}
-	if value, ok := tpu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(telemetryprofile.FieldUpdatedAt, field.TypeString, value)
 	}
-	if tpu.mutation.RegionCleared() {
+	if _u.mutation.RegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -311,7 +311,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpu.mutation.RegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -327,7 +327,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tpu.mutation.SiteCleared() {
+	if _u.mutation.SiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -340,7 +340,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpu.mutation.SiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -356,7 +356,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tpu.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -369,7 +369,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpu.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -385,7 +385,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tpu.mutation.GroupCleared() {
+	if _u.mutation.GroupCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -398,7 +398,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpu.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.GroupIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -414,7 +414,7 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, tpu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{telemetryprofile.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -422,8 +422,8 @@ func (tpu *TelemetryProfileUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		return 0, err
 	}
-	tpu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // TelemetryProfileUpdateOne is the builder for updating a single TelemetryProfile entity.
@@ -435,212 +435,212 @@ type TelemetryProfileUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tpuo *TelemetryProfileUpdateOne) SetResourceID(s string) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetResourceID(s)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetResourceID(v string) *TelemetryProfileUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableResourceID(s *string) *TelemetryProfileUpdateOne {
-	if s != nil {
-		tpuo.SetResourceID(*s)
+func (_u *TelemetryProfileUpdateOne) SetNillableResourceID(v *string) *TelemetryProfileUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return tpuo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (tpuo *TelemetryProfileUpdateOne) SetKind(t telemetryprofile.Kind) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetKind(t)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetKind(v telemetryprofile.Kind) *TelemetryProfileUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableKind(t *telemetryprofile.Kind) *TelemetryProfileUpdateOne {
-	if t != nil {
-		tpuo.SetKind(*t)
+func (_u *TelemetryProfileUpdateOne) SetNillableKind(v *telemetryprofile.Kind) *TelemetryProfileUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return tpuo
+	return _u
 }
 
 // SetMetricsInterval sets the "metrics_interval" field.
-func (tpuo *TelemetryProfileUpdateOne) SetMetricsInterval(u uint32) *TelemetryProfileUpdateOne {
-	tpuo.mutation.ResetMetricsInterval()
-	tpuo.mutation.SetMetricsInterval(u)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetMetricsInterval(v uint32) *TelemetryProfileUpdateOne {
+	_u.mutation.ResetMetricsInterval()
+	_u.mutation.SetMetricsInterval(v)
+	return _u
 }
 
 // SetNillableMetricsInterval sets the "metrics_interval" field if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableMetricsInterval(u *uint32) *TelemetryProfileUpdateOne {
-	if u != nil {
-		tpuo.SetMetricsInterval(*u)
+func (_u *TelemetryProfileUpdateOne) SetNillableMetricsInterval(v *uint32) *TelemetryProfileUpdateOne {
+	if v != nil {
+		_u.SetMetricsInterval(*v)
 	}
-	return tpuo
+	return _u
 }
 
-// AddMetricsInterval adds u to the "metrics_interval" field.
-func (tpuo *TelemetryProfileUpdateOne) AddMetricsInterval(u int32) *TelemetryProfileUpdateOne {
-	tpuo.mutation.AddMetricsInterval(u)
-	return tpuo
+// AddMetricsInterval adds value to the "metrics_interval" field.
+func (_u *TelemetryProfileUpdateOne) AddMetricsInterval(v int32) *TelemetryProfileUpdateOne {
+	_u.mutation.AddMetricsInterval(v)
+	return _u
 }
 
 // ClearMetricsInterval clears the value of the "metrics_interval" field.
-func (tpuo *TelemetryProfileUpdateOne) ClearMetricsInterval() *TelemetryProfileUpdateOne {
-	tpuo.mutation.ClearMetricsInterval()
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) ClearMetricsInterval() *TelemetryProfileUpdateOne {
+	_u.mutation.ClearMetricsInterval()
+	return _u
 }
 
 // SetLogLevel sets the "log_level" field.
-func (tpuo *TelemetryProfileUpdateOne) SetLogLevel(tl telemetryprofile.LogLevel) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetLogLevel(tl)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetLogLevel(v telemetryprofile.LogLevel) *TelemetryProfileUpdateOne {
+	_u.mutation.SetLogLevel(v)
+	return _u
 }
 
 // SetNillableLogLevel sets the "log_level" field if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableLogLevel(tl *telemetryprofile.LogLevel) *TelemetryProfileUpdateOne {
-	if tl != nil {
-		tpuo.SetLogLevel(*tl)
+func (_u *TelemetryProfileUpdateOne) SetNillableLogLevel(v *telemetryprofile.LogLevel) *TelemetryProfileUpdateOne {
+	if v != nil {
+		_u.SetLogLevel(*v)
 	}
-	return tpuo
+	return _u
 }
 
 // ClearLogLevel clears the value of the "log_level" field.
-func (tpuo *TelemetryProfileUpdateOne) ClearLogLevel() *TelemetryProfileUpdateOne {
-	tpuo.mutation.ClearLogLevel()
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) ClearLogLevel() *TelemetryProfileUpdateOne {
+	_u.mutation.ClearLogLevel()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tpuo *TelemetryProfileUpdateOne) SetUpdatedAt(s string) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetUpdatedAt(s)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetUpdatedAt(v string) *TelemetryProfileUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableUpdatedAt(s *string) *TelemetryProfileUpdateOne {
-	if s != nil {
-		tpuo.SetUpdatedAt(*s)
+func (_u *TelemetryProfileUpdateOne) SetNillableUpdatedAt(v *string) *TelemetryProfileUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return tpuo
+	return _u
 }
 
 // SetRegionID sets the "region" edge to the RegionResource entity by ID.
-func (tpuo *TelemetryProfileUpdateOne) SetRegionID(id int) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetRegionID(id)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetRegionID(id int) *TelemetryProfileUpdateOne {
+	_u.mutation.SetRegionID(id)
+	return _u
 }
 
 // SetNillableRegionID sets the "region" edge to the RegionResource entity by ID if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableRegionID(id *int) *TelemetryProfileUpdateOne {
+func (_u *TelemetryProfileUpdateOne) SetNillableRegionID(id *int) *TelemetryProfileUpdateOne {
 	if id != nil {
-		tpuo = tpuo.SetRegionID(*id)
+		_u = _u.SetRegionID(*id)
 	}
-	return tpuo
+	return _u
 }
 
 // SetRegion sets the "region" edge to the RegionResource entity.
-func (tpuo *TelemetryProfileUpdateOne) SetRegion(r *RegionResource) *TelemetryProfileUpdateOne {
-	return tpuo.SetRegionID(r.ID)
+func (_u *TelemetryProfileUpdateOne) SetRegion(v *RegionResource) *TelemetryProfileUpdateOne {
+	return _u.SetRegionID(v.ID)
 }
 
 // SetSiteID sets the "site" edge to the SiteResource entity by ID.
-func (tpuo *TelemetryProfileUpdateOne) SetSiteID(id int) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetSiteID(id)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetSiteID(id int) *TelemetryProfileUpdateOne {
+	_u.mutation.SetSiteID(id)
+	return _u
 }
 
 // SetNillableSiteID sets the "site" edge to the SiteResource entity by ID if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableSiteID(id *int) *TelemetryProfileUpdateOne {
+func (_u *TelemetryProfileUpdateOne) SetNillableSiteID(id *int) *TelemetryProfileUpdateOne {
 	if id != nil {
-		tpuo = tpuo.SetSiteID(*id)
+		_u = _u.SetSiteID(*id)
 	}
-	return tpuo
+	return _u
 }
 
 // SetSite sets the "site" edge to the SiteResource entity.
-func (tpuo *TelemetryProfileUpdateOne) SetSite(s *SiteResource) *TelemetryProfileUpdateOne {
-	return tpuo.SetSiteID(s.ID)
+func (_u *TelemetryProfileUpdateOne) SetSite(v *SiteResource) *TelemetryProfileUpdateOne {
+	return _u.SetSiteID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (tpuo *TelemetryProfileUpdateOne) SetInstanceID(id int) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetInstanceID(id)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetInstanceID(id int) *TelemetryProfileUpdateOne {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetNillableInstanceID sets the "instance" edge to the InstanceResource entity by ID if the given value is not nil.
-func (tpuo *TelemetryProfileUpdateOne) SetNillableInstanceID(id *int) *TelemetryProfileUpdateOne {
+func (_u *TelemetryProfileUpdateOne) SetNillableInstanceID(id *int) *TelemetryProfileUpdateOne {
 	if id != nil {
-		tpuo = tpuo.SetInstanceID(*id)
+		_u = _u.SetInstanceID(*id)
 	}
-	return tpuo
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (tpuo *TelemetryProfileUpdateOne) SetInstance(i *InstanceResource) *TelemetryProfileUpdateOne {
-	return tpuo.SetInstanceID(i.ID)
+func (_u *TelemetryProfileUpdateOne) SetInstance(v *InstanceResource) *TelemetryProfileUpdateOne {
+	return _u.SetInstanceID(v.ID)
 }
 
 // SetGroupID sets the "group" edge to the TelemetryGroupResource entity by ID.
-func (tpuo *TelemetryProfileUpdateOne) SetGroupID(id int) *TelemetryProfileUpdateOne {
-	tpuo.mutation.SetGroupID(id)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) SetGroupID(id int) *TelemetryProfileUpdateOne {
+	_u.mutation.SetGroupID(id)
+	return _u
 }
 
 // SetGroup sets the "group" edge to the TelemetryGroupResource entity.
-func (tpuo *TelemetryProfileUpdateOne) SetGroup(t *TelemetryGroupResource) *TelemetryProfileUpdateOne {
-	return tpuo.SetGroupID(t.ID)
+func (_u *TelemetryProfileUpdateOne) SetGroup(v *TelemetryGroupResource) *TelemetryProfileUpdateOne {
+	return _u.SetGroupID(v.ID)
 }
 
 // Mutation returns the TelemetryProfileMutation object of the builder.
-func (tpuo *TelemetryProfileUpdateOne) Mutation() *TelemetryProfileMutation {
-	return tpuo.mutation
+func (_u *TelemetryProfileUpdateOne) Mutation() *TelemetryProfileMutation {
+	return _u.mutation
 }
 
 // ClearRegion clears the "region" edge to the RegionResource entity.
-func (tpuo *TelemetryProfileUpdateOne) ClearRegion() *TelemetryProfileUpdateOne {
-	tpuo.mutation.ClearRegion()
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) ClearRegion() *TelemetryProfileUpdateOne {
+	_u.mutation.ClearRegion()
+	return _u
 }
 
 // ClearSite clears the "site" edge to the SiteResource entity.
-func (tpuo *TelemetryProfileUpdateOne) ClearSite() *TelemetryProfileUpdateOne {
-	tpuo.mutation.ClearSite()
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) ClearSite() *TelemetryProfileUpdateOne {
+	_u.mutation.ClearSite()
+	return _u
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (tpuo *TelemetryProfileUpdateOne) ClearInstance() *TelemetryProfileUpdateOne {
-	tpuo.mutation.ClearInstance()
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) ClearInstance() *TelemetryProfileUpdateOne {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // ClearGroup clears the "group" edge to the TelemetryGroupResource entity.
-func (tpuo *TelemetryProfileUpdateOne) ClearGroup() *TelemetryProfileUpdateOne {
-	tpuo.mutation.ClearGroup()
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) ClearGroup() *TelemetryProfileUpdateOne {
+	_u.mutation.ClearGroup()
+	return _u
 }
 
 // Where appends a list predicates to the TelemetryProfileUpdate builder.
-func (tpuo *TelemetryProfileUpdateOne) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileUpdateOne {
-	tpuo.mutation.Where(ps...)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (tpuo *TelemetryProfileUpdateOne) Select(field string, fields ...string) *TelemetryProfileUpdateOne {
-	tpuo.fields = append([]string{field}, fields...)
-	return tpuo
+func (_u *TelemetryProfileUpdateOne) Select(field string, fields ...string) *TelemetryProfileUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated TelemetryProfile entity.
-func (tpuo *TelemetryProfileUpdateOne) Save(ctx context.Context) (*TelemetryProfile, error) {
-	return withHooks(ctx, tpuo.sqlSave, tpuo.mutation, tpuo.hooks)
+func (_u *TelemetryProfileUpdateOne) Save(ctx context.Context) (*TelemetryProfile, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tpuo *TelemetryProfileUpdateOne) SaveX(ctx context.Context) *TelemetryProfile {
-	node, err := tpuo.Save(ctx)
+func (_u *TelemetryProfileUpdateOne) SaveX(ctx context.Context) *TelemetryProfile {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -648,47 +648,47 @@ func (tpuo *TelemetryProfileUpdateOne) SaveX(ctx context.Context) *TelemetryProf
 }
 
 // Exec executes the query on the entity.
-func (tpuo *TelemetryProfileUpdateOne) Exec(ctx context.Context) error {
-	_, err := tpuo.Save(ctx)
+func (_u *TelemetryProfileUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tpuo *TelemetryProfileUpdateOne) ExecX(ctx context.Context) {
-	if err := tpuo.Exec(ctx); err != nil {
+func (_u *TelemetryProfileUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tpuo *TelemetryProfileUpdateOne) check() error {
-	if v, ok := tpuo.mutation.Kind(); ok {
+func (_u *TelemetryProfileUpdateOne) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := telemetryprofile.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryProfile.kind": %w`, err)}
 		}
 	}
-	if v, ok := tpuo.mutation.LogLevel(); ok {
+	if v, ok := _u.mutation.LogLevel(); ok {
 		if err := telemetryprofile.LogLevelValidator(v); err != nil {
 			return &ValidationError{Name: "log_level", err: fmt.Errorf(`ent: validator failed for field "TelemetryProfile.log_level": %w`, err)}
 		}
 	}
-	if tpuo.mutation.GroupCleared() && len(tpuo.mutation.GroupIDs()) > 0 {
+	if _u.mutation.GroupCleared() && len(_u.mutation.GroupIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "TelemetryProfile.group"`)
 	}
 	return nil
 }
 
-func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *TelemetryProfile, err error) {
-	if err := tpuo.check(); err != nil {
+func (_u *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *TelemetryProfile, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(telemetryprofile.Table, telemetryprofile.Columns, sqlgraph.NewFieldSpec(telemetryprofile.FieldID, field.TypeInt))
-	id, ok := tpuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "TelemetryProfile.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := tpuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, telemetryprofile.FieldID)
 		for _, f := range fields {
@@ -700,38 +700,38 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 			}
 		}
 	}
-	if ps := tpuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tpuo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(telemetryprofile.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := tpuo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(telemetryprofile.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := tpuo.mutation.MetricsInterval(); ok {
+	if value, ok := _u.mutation.MetricsInterval(); ok {
 		_spec.SetField(telemetryprofile.FieldMetricsInterval, field.TypeUint32, value)
 	}
-	if value, ok := tpuo.mutation.AddedMetricsInterval(); ok {
+	if value, ok := _u.mutation.AddedMetricsInterval(); ok {
 		_spec.AddField(telemetryprofile.FieldMetricsInterval, field.TypeUint32, value)
 	}
-	if tpuo.mutation.MetricsIntervalCleared() {
+	if _u.mutation.MetricsIntervalCleared() {
 		_spec.ClearField(telemetryprofile.FieldMetricsInterval, field.TypeUint32)
 	}
-	if value, ok := tpuo.mutation.LogLevel(); ok {
+	if value, ok := _u.mutation.LogLevel(); ok {
 		_spec.SetField(telemetryprofile.FieldLogLevel, field.TypeEnum, value)
 	}
-	if tpuo.mutation.LogLevelCleared() {
+	if _u.mutation.LogLevelCleared() {
 		_spec.ClearField(telemetryprofile.FieldLogLevel, field.TypeEnum)
 	}
-	if value, ok := tpuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(telemetryprofile.FieldUpdatedAt, field.TypeString, value)
 	}
-	if tpuo.mutation.RegionCleared() {
+	if _u.mutation.RegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -744,7 +744,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpuo.mutation.RegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -760,7 +760,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tpuo.mutation.SiteCleared() {
+	if _u.mutation.SiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -773,7 +773,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpuo.mutation.SiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -789,7 +789,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tpuo.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -802,7 +802,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpuo.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -818,7 +818,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tpuo.mutation.GroupCleared() {
+	if _u.mutation.GroupCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -831,7 +831,7 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tpuo.mutation.GroupIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.GroupIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -847,10 +847,10 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &TelemetryProfile{config: tpuo.config}
+	_node = &TelemetryProfile{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, tpuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{telemetryprofile.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -858,6 +858,6 @@ func (tpuo *TelemetryProfileUpdateOne) sqlSave(ctx context.Context) (_node *Tele
 		}
 		return nil, err
 	}
-	tpuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

@@ -23,111 +23,111 @@ type OSUpdatePolicyResourceUpdate struct {
 }
 
 // Where appends a list predicates to the OSUpdatePolicyResourceUpdate builder.
-func (oupru *OSUpdatePolicyResourceUpdate) Where(ps ...predicate.OSUpdatePolicyResource) *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.Where(ps...)
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) Where(ps ...predicate.OSUpdatePolicyResource) *OSUpdatePolicyResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (oupru *OSUpdatePolicyResourceUpdate) SetResourceID(s string) *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.SetResourceID(s)
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) SetResourceID(v string) *OSUpdatePolicyResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (oupru *OSUpdatePolicyResourceUpdate) SetNillableResourceID(s *string) *OSUpdatePolicyResourceUpdate {
-	if s != nil {
-		oupru.SetResourceID(*s)
+func (_u *OSUpdatePolicyResourceUpdate) SetNillableResourceID(v *string) *OSUpdatePolicyResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return oupru
+	return _u
 }
 
 // SetName sets the "name" field.
-func (oupru *OSUpdatePolicyResourceUpdate) SetName(s string) *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.SetName(s)
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) SetName(v string) *OSUpdatePolicyResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (oupru *OSUpdatePolicyResourceUpdate) SetNillableName(s *string) *OSUpdatePolicyResourceUpdate {
-	if s != nil {
-		oupru.SetName(*s)
+func (_u *OSUpdatePolicyResourceUpdate) SetNillableName(v *string) *OSUpdatePolicyResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return oupru
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (oupru *OSUpdatePolicyResourceUpdate) SetDescription(s string) *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.SetDescription(s)
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) SetDescription(v string) *OSUpdatePolicyResourceUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (oupru *OSUpdatePolicyResourceUpdate) SetNillableDescription(s *string) *OSUpdatePolicyResourceUpdate {
-	if s != nil {
-		oupru.SetDescription(*s)
+func (_u *OSUpdatePolicyResourceUpdate) SetNillableDescription(v *string) *OSUpdatePolicyResourceUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return oupru
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (oupru *OSUpdatePolicyResourceUpdate) ClearDescription() *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.ClearDescription()
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) ClearDescription() *OSUpdatePolicyResourceUpdate {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (oupru *OSUpdatePolicyResourceUpdate) SetUpdatedAt(s string) *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.SetUpdatedAt(s)
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) SetUpdatedAt(v string) *OSUpdatePolicyResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (oupru *OSUpdatePolicyResourceUpdate) SetNillableUpdatedAt(s *string) *OSUpdatePolicyResourceUpdate {
-	if s != nil {
-		oupru.SetUpdatedAt(*s)
+func (_u *OSUpdatePolicyResourceUpdate) SetNillableUpdatedAt(v *string) *OSUpdatePolicyResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return oupru
+	return _u
 }
 
 // SetTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by ID.
-func (oupru *OSUpdatePolicyResourceUpdate) SetTargetOsID(id int) *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.SetTargetOsID(id)
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) SetTargetOsID(id int) *OSUpdatePolicyResourceUpdate {
+	_u.mutation.SetTargetOsID(id)
+	return _u
 }
 
 // SetNillableTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (oupru *OSUpdatePolicyResourceUpdate) SetNillableTargetOsID(id *int) *OSUpdatePolicyResourceUpdate {
+func (_u *OSUpdatePolicyResourceUpdate) SetNillableTargetOsID(id *int) *OSUpdatePolicyResourceUpdate {
 	if id != nil {
-		oupru = oupru.SetTargetOsID(*id)
+		_u = _u.SetTargetOsID(*id)
 	}
-	return oupru
+	return _u
 }
 
 // SetTargetOs sets the "target_os" edge to the OperatingSystemResource entity.
-func (oupru *OSUpdatePolicyResourceUpdate) SetTargetOs(o *OperatingSystemResource) *OSUpdatePolicyResourceUpdate {
-	return oupru.SetTargetOsID(o.ID)
+func (_u *OSUpdatePolicyResourceUpdate) SetTargetOs(v *OperatingSystemResource) *OSUpdatePolicyResourceUpdate {
+	return _u.SetTargetOsID(v.ID)
 }
 
 // Mutation returns the OSUpdatePolicyResourceMutation object of the builder.
-func (oupru *OSUpdatePolicyResourceUpdate) Mutation() *OSUpdatePolicyResourceMutation {
-	return oupru.mutation
+func (_u *OSUpdatePolicyResourceUpdate) Mutation() *OSUpdatePolicyResourceMutation {
+	return _u.mutation
 }
 
 // ClearTargetOs clears the "target_os" edge to the OperatingSystemResource entity.
-func (oupru *OSUpdatePolicyResourceUpdate) ClearTargetOs() *OSUpdatePolicyResourceUpdate {
-	oupru.mutation.ClearTargetOs()
-	return oupru
+func (_u *OSUpdatePolicyResourceUpdate) ClearTargetOs() *OSUpdatePolicyResourceUpdate {
+	_u.mutation.ClearTargetOs()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (oupru *OSUpdatePolicyResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, oupru.sqlSave, oupru.mutation, oupru.hooks)
+func (_u *OSUpdatePolicyResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (oupru *OSUpdatePolicyResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := oupru.Save(ctx)
+func (_u *OSUpdatePolicyResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -135,55 +135,55 @@ func (oupru *OSUpdatePolicyResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (oupru *OSUpdatePolicyResourceUpdate) Exec(ctx context.Context) error {
-	_, err := oupru.Save(ctx)
+func (_u *OSUpdatePolicyResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (oupru *OSUpdatePolicyResourceUpdate) ExecX(ctx context.Context) {
-	if err := oupru.Exec(ctx); err != nil {
+func (_u *OSUpdatePolicyResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (oupru *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(osupdatepolicyresource.Table, osupdatepolicyresource.Columns, sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt))
-	if ps := oupru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := oupru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := oupru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldName, field.TypeString, value)
 	}
-	if value, ok := oupru.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldDescription, field.TypeString, value)
 	}
-	if oupru.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldDescription, field.TypeString)
 	}
-	if oupru.mutation.InstallPackagesCleared() {
+	if _u.mutation.InstallPackagesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldInstallPackages, field.TypeString)
 	}
-	if oupru.mutation.UpdateSourcesCleared() {
+	if _u.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdateSources, field.TypeString)
 	}
-	if oupru.mutation.KernelCommandCleared() {
+	if _u.mutation.KernelCommandCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldKernelCommand, field.TypeString)
 	}
-	if oupru.mutation.UpdatePolicyCleared() {
+	if _u.mutation.UpdatePolicyCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdatePolicy, field.TypeEnum)
 	}
-	if value, ok := oupru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if oupru.mutation.TargetOsCleared() {
+	if _u.mutation.TargetOsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -196,7 +196,7 @@ func (oupru *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (n int, 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oupru.mutation.TargetOsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -212,7 +212,7 @@ func (oupru *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (n int, 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, oupru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{osupdatepolicyresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -220,8 +220,8 @@ func (oupru *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (n int, 
 		}
 		return 0, err
 	}
-	oupru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // OSUpdatePolicyResourceUpdateOne is the builder for updating a single OSUpdatePolicyResource entity.
@@ -233,118 +233,118 @@ type OSUpdatePolicyResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetResourceID(s string) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.SetResourceID(s)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) SetResourceID(v string) *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetNillableResourceID(s *string) *OSUpdatePolicyResourceUpdateOne {
-	if s != nil {
-		oupruo.SetResourceID(*s)
+func (_u *OSUpdatePolicyResourceUpdateOne) SetNillableResourceID(v *string) *OSUpdatePolicyResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return oupruo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetName(s string) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.SetName(s)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) SetName(v string) *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetNillableName(s *string) *OSUpdatePolicyResourceUpdateOne {
-	if s != nil {
-		oupruo.SetName(*s)
+func (_u *OSUpdatePolicyResourceUpdateOne) SetNillableName(v *string) *OSUpdatePolicyResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return oupruo
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetDescription(s string) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.SetDescription(s)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) SetDescription(v string) *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetNillableDescription(s *string) *OSUpdatePolicyResourceUpdateOne {
-	if s != nil {
-		oupruo.SetDescription(*s)
+func (_u *OSUpdatePolicyResourceUpdateOne) SetNillableDescription(v *string) *OSUpdatePolicyResourceUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return oupruo
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) ClearDescription() *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.ClearDescription()
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) ClearDescription() *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetUpdatedAt(s string) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.SetUpdatedAt(s)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) SetUpdatedAt(v string) *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetNillableUpdatedAt(s *string) *OSUpdatePolicyResourceUpdateOne {
-	if s != nil {
-		oupruo.SetUpdatedAt(*s)
+func (_u *OSUpdatePolicyResourceUpdateOne) SetNillableUpdatedAt(v *string) *OSUpdatePolicyResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return oupruo
+	return _u
 }
 
 // SetTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by ID.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetTargetOsID(id int) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.SetTargetOsID(id)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) SetTargetOsID(id int) *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.SetTargetOsID(id)
+	return _u
 }
 
 // SetNillableTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetNillableTargetOsID(id *int) *OSUpdatePolicyResourceUpdateOne {
+func (_u *OSUpdatePolicyResourceUpdateOne) SetNillableTargetOsID(id *int) *OSUpdatePolicyResourceUpdateOne {
 	if id != nil {
-		oupruo = oupruo.SetTargetOsID(*id)
+		_u = _u.SetTargetOsID(*id)
 	}
-	return oupruo
+	return _u
 }
 
 // SetTargetOs sets the "target_os" edge to the OperatingSystemResource entity.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SetTargetOs(o *OperatingSystemResource) *OSUpdatePolicyResourceUpdateOne {
-	return oupruo.SetTargetOsID(o.ID)
+func (_u *OSUpdatePolicyResourceUpdateOne) SetTargetOs(v *OperatingSystemResource) *OSUpdatePolicyResourceUpdateOne {
+	return _u.SetTargetOsID(v.ID)
 }
 
 // Mutation returns the OSUpdatePolicyResourceMutation object of the builder.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) Mutation() *OSUpdatePolicyResourceMutation {
-	return oupruo.mutation
+func (_u *OSUpdatePolicyResourceUpdateOne) Mutation() *OSUpdatePolicyResourceMutation {
+	return _u.mutation
 }
 
 // ClearTargetOs clears the "target_os" edge to the OperatingSystemResource entity.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) ClearTargetOs() *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.ClearTargetOs()
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) ClearTargetOs() *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.ClearTargetOs()
+	return _u
 }
 
 // Where appends a list predicates to the OSUpdatePolicyResourceUpdate builder.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) Where(ps ...predicate.OSUpdatePolicyResource) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.mutation.Where(ps...)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) Where(ps ...predicate.OSUpdatePolicyResource) *OSUpdatePolicyResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) Select(field string, fields ...string) *OSUpdatePolicyResourceUpdateOne {
-	oupruo.fields = append([]string{field}, fields...)
-	return oupruo
+func (_u *OSUpdatePolicyResourceUpdateOne) Select(field string, fields ...string) *OSUpdatePolicyResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated OSUpdatePolicyResource entity.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) Save(ctx context.Context) (*OSUpdatePolicyResource, error) {
-	return withHooks(ctx, oupruo.sqlSave, oupruo.mutation, oupruo.hooks)
+func (_u *OSUpdatePolicyResourceUpdateOne) Save(ctx context.Context) (*OSUpdatePolicyResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) SaveX(ctx context.Context) *OSUpdatePolicyResource {
-	node, err := oupruo.Save(ctx)
+func (_u *OSUpdatePolicyResourceUpdateOne) SaveX(ctx context.Context) *OSUpdatePolicyResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -352,26 +352,26 @@ func (oupruo *OSUpdatePolicyResourceUpdateOne) SaveX(ctx context.Context) *OSUpd
 }
 
 // Exec executes the query on the entity.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := oupruo.Save(ctx)
+func (_u *OSUpdatePolicyResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (oupruo *OSUpdatePolicyResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := oupruo.Exec(ctx); err != nil {
+func (_u *OSUpdatePolicyResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (oupruo *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_node *OSUpdatePolicyResource, err error) {
+func (_u *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_node *OSUpdatePolicyResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(osupdatepolicyresource.Table, osupdatepolicyresource.Columns, sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt))
-	id, ok := oupruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "OSUpdatePolicyResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := oupruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, osupdatepolicyresource.FieldID)
 		for _, f := range fields {
@@ -383,41 +383,41 @@ func (oupruo *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_no
 			}
 		}
 	}
-	if ps := oupruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := oupruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := oupruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldName, field.TypeString, value)
 	}
-	if value, ok := oupruo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldDescription, field.TypeString, value)
 	}
-	if oupruo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldDescription, field.TypeString)
 	}
-	if oupruo.mutation.InstallPackagesCleared() {
+	if _u.mutation.InstallPackagesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldInstallPackages, field.TypeString)
 	}
-	if oupruo.mutation.UpdateSourcesCleared() {
+	if _u.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdateSources, field.TypeString)
 	}
-	if oupruo.mutation.KernelCommandCleared() {
+	if _u.mutation.KernelCommandCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldKernelCommand, field.TypeString)
 	}
-	if oupruo.mutation.UpdatePolicyCleared() {
+	if _u.mutation.UpdatePolicyCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdatePolicy, field.TypeEnum)
 	}
-	if value, ok := oupruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if oupruo.mutation.TargetOsCleared() {
+	if _u.mutation.TargetOsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -430,7 +430,7 @@ func (oupruo *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_no
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oupruo.mutation.TargetOsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -446,10 +446,10 @@ func (oupruo *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_no
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &OSUpdatePolicyResource{config: oupruo.config}
+	_node = &OSUpdatePolicyResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, oupruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{osupdatepolicyresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -457,6 +457,6 @@ func (oupruo *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_no
 		}
 		return nil, err
 	}
-	oupruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

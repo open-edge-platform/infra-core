@@ -98,7 +98,7 @@ func (*NetlinkResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the NetlinkResource fields.
-func (nr *NetlinkResource) assignValues(columns []string, values []any) error {
+func (_m *NetlinkResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -109,77 +109,77 @@ func (nr *NetlinkResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			nr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case netlinkresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				nr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case netlinkresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				nr.Kind = value.String
+				_m.Kind = value.String
 			}
 		case netlinkresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				nr.Name = value.String
+				_m.Name = value.String
 			}
 		case netlinkresource.FieldDesiredState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_state", values[i])
 			} else if value.Valid {
-				nr.DesiredState = netlinkresource.DesiredState(value.String)
+				_m.DesiredState = netlinkresource.DesiredState(value.String)
 			}
 		case netlinkresource.FieldCurrentState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_state", values[i])
 			} else if value.Valid {
-				nr.CurrentState = netlinkresource.CurrentState(value.String)
+				_m.CurrentState = netlinkresource.CurrentState(value.String)
 			}
 		case netlinkresource.FieldProviderStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provider_status", values[i])
 			} else if value.Valid {
-				nr.ProviderStatus = value.String
+				_m.ProviderStatus = value.String
 			}
 		case netlinkresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				nr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case netlinkresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				nr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case netlinkresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				nr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case netlinkresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field netlink_resource_src", value)
 			} else if value.Valid {
-				nr.netlink_resource_src = new(int)
-				*nr.netlink_resource_src = int(value.Int64)
+				_m.netlink_resource_src = new(int)
+				*_m.netlink_resource_src = int(value.Int64)
 			}
 		case netlinkresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field netlink_resource_dst", value)
 			} else if value.Valid {
-				nr.netlink_resource_dst = new(int)
-				*nr.netlink_resource_dst = int(value.Int64)
+				_m.netlink_resource_dst = new(int)
+				*_m.netlink_resource_dst = int(value.Int64)
 			}
 		default:
-			nr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -187,69 +187,69 @@ func (nr *NetlinkResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the NetlinkResource.
 // This includes values selected through modifiers, order, etc.
-func (nr *NetlinkResource) Value(name string) (ent.Value, error) {
-	return nr.selectValues.Get(name)
+func (_m *NetlinkResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QuerySrc queries the "src" edge of the NetlinkResource entity.
-func (nr *NetlinkResource) QuerySrc() *EndpointResourceQuery {
-	return NewNetlinkResourceClient(nr.config).QuerySrc(nr)
+func (_m *NetlinkResource) QuerySrc() *EndpointResourceQuery {
+	return NewNetlinkResourceClient(_m.config).QuerySrc(_m)
 }
 
 // QueryDst queries the "dst" edge of the NetlinkResource entity.
-func (nr *NetlinkResource) QueryDst() *EndpointResourceQuery {
-	return NewNetlinkResourceClient(nr.config).QueryDst(nr)
+func (_m *NetlinkResource) QueryDst() *EndpointResourceQuery {
+	return NewNetlinkResourceClient(_m.config).QueryDst(_m)
 }
 
 // Update returns a builder for updating this NetlinkResource.
 // Note that you need to call NetlinkResource.Unwrap() before calling this method if this NetlinkResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (nr *NetlinkResource) Update() *NetlinkResourceUpdateOne {
-	return NewNetlinkResourceClient(nr.config).UpdateOne(nr)
+func (_m *NetlinkResource) Update() *NetlinkResourceUpdateOne {
+	return NewNetlinkResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the NetlinkResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (nr *NetlinkResource) Unwrap() *NetlinkResource {
-	_tx, ok := nr.config.driver.(*txDriver)
+func (_m *NetlinkResource) Unwrap() *NetlinkResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: NetlinkResource is not a transactional entity")
 	}
-	nr.config.driver = _tx.drv
-	return nr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (nr *NetlinkResource) String() string {
+func (_m *NetlinkResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("NetlinkResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", nr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(nr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(nr.Kind)
+	builder.WriteString(_m.Kind)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(nr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("desired_state=")
-	builder.WriteString(fmt.Sprintf("%v", nr.DesiredState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredState))
 	builder.WriteString(", ")
 	builder.WriteString("current_state=")
-	builder.WriteString(fmt.Sprintf("%v", nr.CurrentState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentState))
 	builder.WriteString(", ")
 	builder.WriteString("provider_status=")
-	builder.WriteString(nr.ProviderStatus)
+	builder.WriteString(_m.ProviderStatus)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(nr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(nr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(nr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -23,517 +23,517 @@ type HostnicResourceUpdate struct {
 }
 
 // Where appends a list predicates to the HostnicResourceUpdate builder.
-func (hru *HostnicResourceUpdate) Where(ps ...predicate.HostnicResource) *HostnicResourceUpdate {
-	hru.mutation.Where(ps...)
-	return hru
+func (_u *HostnicResourceUpdate) Where(ps ...predicate.HostnicResource) *HostnicResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hru *HostnicResourceUpdate) SetResourceID(s string) *HostnicResourceUpdate {
-	hru.mutation.SetResourceID(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetResourceID(v string) *HostnicResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableResourceID(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetResourceID(*s)
+func (_u *HostnicResourceUpdate) SetNillableResourceID(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return hru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (hru *HostnicResourceUpdate) SetKind(s string) *HostnicResourceUpdate {
-	hru.mutation.SetKind(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetKind(v string) *HostnicResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableKind(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetKind(*s)
+func (_u *HostnicResourceUpdate) SetNillableKind(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (hru *HostnicResourceUpdate) ClearKind() *HostnicResourceUpdate {
-	hru.mutation.ClearKind()
-	return hru
+func (_u *HostnicResourceUpdate) ClearKind() *HostnicResourceUpdate {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (hru *HostnicResourceUpdate) SetProviderStatus(s string) *HostnicResourceUpdate {
-	hru.mutation.SetProviderStatus(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetProviderStatus(v string) *HostnicResourceUpdate {
+	_u.mutation.SetProviderStatus(v)
+	return _u
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableProviderStatus(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetProviderStatus(*s)
+func (_u *HostnicResourceUpdate) SetNillableProviderStatus(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetProviderStatus(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearProviderStatus clears the value of the "provider_status" field.
-func (hru *HostnicResourceUpdate) ClearProviderStatus() *HostnicResourceUpdate {
-	hru.mutation.ClearProviderStatus()
-	return hru
+func (_u *HostnicResourceUpdate) ClearProviderStatus() *HostnicResourceUpdate {
+	_u.mutation.ClearProviderStatus()
+	return _u
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hru *HostnicResourceUpdate) SetDeviceName(s string) *HostnicResourceUpdate {
-	hru.mutation.SetDeviceName(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetDeviceName(v string) *HostnicResourceUpdate {
+	_u.mutation.SetDeviceName(v)
+	return _u
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableDeviceName(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetDeviceName(*s)
+func (_u *HostnicResourceUpdate) SetNillableDeviceName(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetDeviceName(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearDeviceName clears the value of the "device_name" field.
-func (hru *HostnicResourceUpdate) ClearDeviceName() *HostnicResourceUpdate {
-	hru.mutation.ClearDeviceName()
-	return hru
+func (_u *HostnicResourceUpdate) ClearDeviceName() *HostnicResourceUpdate {
+	_u.mutation.ClearDeviceName()
+	return _u
 }
 
 // SetPciIdentifier sets the "pci_identifier" field.
-func (hru *HostnicResourceUpdate) SetPciIdentifier(s string) *HostnicResourceUpdate {
-	hru.mutation.SetPciIdentifier(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetPciIdentifier(v string) *HostnicResourceUpdate {
+	_u.mutation.SetPciIdentifier(v)
+	return _u
 }
 
 // SetNillablePciIdentifier sets the "pci_identifier" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillablePciIdentifier(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetPciIdentifier(*s)
+func (_u *HostnicResourceUpdate) SetNillablePciIdentifier(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetPciIdentifier(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPciIdentifier clears the value of the "pci_identifier" field.
-func (hru *HostnicResourceUpdate) ClearPciIdentifier() *HostnicResourceUpdate {
-	hru.mutation.ClearPciIdentifier()
-	return hru
+func (_u *HostnicResourceUpdate) ClearPciIdentifier() *HostnicResourceUpdate {
+	_u.mutation.ClearPciIdentifier()
+	return _u
 }
 
 // SetMACAddr sets the "mac_addr" field.
-func (hru *HostnicResourceUpdate) SetMACAddr(s string) *HostnicResourceUpdate {
-	hru.mutation.SetMACAddr(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetMACAddr(v string) *HostnicResourceUpdate {
+	_u.mutation.SetMACAddr(v)
+	return _u
 }
 
 // SetNillableMACAddr sets the "mac_addr" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableMACAddr(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetMACAddr(*s)
+func (_u *HostnicResourceUpdate) SetNillableMACAddr(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetMACAddr(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearMACAddr clears the value of the "mac_addr" field.
-func (hru *HostnicResourceUpdate) ClearMACAddr() *HostnicResourceUpdate {
-	hru.mutation.ClearMACAddr()
-	return hru
+func (_u *HostnicResourceUpdate) ClearMACAddr() *HostnicResourceUpdate {
+	_u.mutation.ClearMACAddr()
+	return _u
 }
 
 // SetSriovEnabled sets the "sriov_enabled" field.
-func (hru *HostnicResourceUpdate) SetSriovEnabled(b bool) *HostnicResourceUpdate {
-	hru.mutation.SetSriovEnabled(b)
-	return hru
+func (_u *HostnicResourceUpdate) SetSriovEnabled(v bool) *HostnicResourceUpdate {
+	_u.mutation.SetSriovEnabled(v)
+	return _u
 }
 
 // SetNillableSriovEnabled sets the "sriov_enabled" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableSriovEnabled(b *bool) *HostnicResourceUpdate {
-	if b != nil {
-		hru.SetSriovEnabled(*b)
+func (_u *HostnicResourceUpdate) SetNillableSriovEnabled(v *bool) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetSriovEnabled(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearSriovEnabled clears the value of the "sriov_enabled" field.
-func (hru *HostnicResourceUpdate) ClearSriovEnabled() *HostnicResourceUpdate {
-	hru.mutation.ClearSriovEnabled()
-	return hru
+func (_u *HostnicResourceUpdate) ClearSriovEnabled() *HostnicResourceUpdate {
+	_u.mutation.ClearSriovEnabled()
+	return _u
 }
 
 // SetSriovVfsNum sets the "sriov_vfs_num" field.
-func (hru *HostnicResourceUpdate) SetSriovVfsNum(u uint32) *HostnicResourceUpdate {
-	hru.mutation.ResetSriovVfsNum()
-	hru.mutation.SetSriovVfsNum(u)
-	return hru
+func (_u *HostnicResourceUpdate) SetSriovVfsNum(v uint32) *HostnicResourceUpdate {
+	_u.mutation.ResetSriovVfsNum()
+	_u.mutation.SetSriovVfsNum(v)
+	return _u
 }
 
 // SetNillableSriovVfsNum sets the "sriov_vfs_num" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableSriovVfsNum(u *uint32) *HostnicResourceUpdate {
-	if u != nil {
-		hru.SetSriovVfsNum(*u)
+func (_u *HostnicResourceUpdate) SetNillableSriovVfsNum(v *uint32) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetSriovVfsNum(*v)
 	}
-	return hru
+	return _u
 }
 
-// AddSriovVfsNum adds u to the "sriov_vfs_num" field.
-func (hru *HostnicResourceUpdate) AddSriovVfsNum(u int32) *HostnicResourceUpdate {
-	hru.mutation.AddSriovVfsNum(u)
-	return hru
+// AddSriovVfsNum adds value to the "sriov_vfs_num" field.
+func (_u *HostnicResourceUpdate) AddSriovVfsNum(v int32) *HostnicResourceUpdate {
+	_u.mutation.AddSriovVfsNum(v)
+	return _u
 }
 
 // ClearSriovVfsNum clears the value of the "sriov_vfs_num" field.
-func (hru *HostnicResourceUpdate) ClearSriovVfsNum() *HostnicResourceUpdate {
-	hru.mutation.ClearSriovVfsNum()
-	return hru
+func (_u *HostnicResourceUpdate) ClearSriovVfsNum() *HostnicResourceUpdate {
+	_u.mutation.ClearSriovVfsNum()
+	return _u
 }
 
 // SetSriovVfsTotal sets the "sriov_vfs_total" field.
-func (hru *HostnicResourceUpdate) SetSriovVfsTotal(u uint32) *HostnicResourceUpdate {
-	hru.mutation.ResetSriovVfsTotal()
-	hru.mutation.SetSriovVfsTotal(u)
-	return hru
+func (_u *HostnicResourceUpdate) SetSriovVfsTotal(v uint32) *HostnicResourceUpdate {
+	_u.mutation.ResetSriovVfsTotal()
+	_u.mutation.SetSriovVfsTotal(v)
+	return _u
 }
 
 // SetNillableSriovVfsTotal sets the "sriov_vfs_total" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableSriovVfsTotal(u *uint32) *HostnicResourceUpdate {
-	if u != nil {
-		hru.SetSriovVfsTotal(*u)
+func (_u *HostnicResourceUpdate) SetNillableSriovVfsTotal(v *uint32) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetSriovVfsTotal(*v)
 	}
-	return hru
+	return _u
 }
 
-// AddSriovVfsTotal adds u to the "sriov_vfs_total" field.
-func (hru *HostnicResourceUpdate) AddSriovVfsTotal(u int32) *HostnicResourceUpdate {
-	hru.mutation.AddSriovVfsTotal(u)
-	return hru
+// AddSriovVfsTotal adds value to the "sriov_vfs_total" field.
+func (_u *HostnicResourceUpdate) AddSriovVfsTotal(v int32) *HostnicResourceUpdate {
+	_u.mutation.AddSriovVfsTotal(v)
+	return _u
 }
 
 // ClearSriovVfsTotal clears the value of the "sriov_vfs_total" field.
-func (hru *HostnicResourceUpdate) ClearSriovVfsTotal() *HostnicResourceUpdate {
-	hru.mutation.ClearSriovVfsTotal()
-	return hru
+func (_u *HostnicResourceUpdate) ClearSriovVfsTotal() *HostnicResourceUpdate {
+	_u.mutation.ClearSriovVfsTotal()
+	return _u
 }
 
 // SetPeerName sets the "peer_name" field.
-func (hru *HostnicResourceUpdate) SetPeerName(s string) *HostnicResourceUpdate {
-	hru.mutation.SetPeerName(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetPeerName(v string) *HostnicResourceUpdate {
+	_u.mutation.SetPeerName(v)
+	return _u
 }
 
 // SetNillablePeerName sets the "peer_name" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillablePeerName(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetPeerName(*s)
+func (_u *HostnicResourceUpdate) SetNillablePeerName(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetPeerName(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPeerName clears the value of the "peer_name" field.
-func (hru *HostnicResourceUpdate) ClearPeerName() *HostnicResourceUpdate {
-	hru.mutation.ClearPeerName()
-	return hru
+func (_u *HostnicResourceUpdate) ClearPeerName() *HostnicResourceUpdate {
+	_u.mutation.ClearPeerName()
+	return _u
 }
 
 // SetPeerDescription sets the "peer_description" field.
-func (hru *HostnicResourceUpdate) SetPeerDescription(s string) *HostnicResourceUpdate {
-	hru.mutation.SetPeerDescription(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetPeerDescription(v string) *HostnicResourceUpdate {
+	_u.mutation.SetPeerDescription(v)
+	return _u
 }
 
 // SetNillablePeerDescription sets the "peer_description" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillablePeerDescription(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetPeerDescription(*s)
+func (_u *HostnicResourceUpdate) SetNillablePeerDescription(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetPeerDescription(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPeerDescription clears the value of the "peer_description" field.
-func (hru *HostnicResourceUpdate) ClearPeerDescription() *HostnicResourceUpdate {
-	hru.mutation.ClearPeerDescription()
-	return hru
+func (_u *HostnicResourceUpdate) ClearPeerDescription() *HostnicResourceUpdate {
+	_u.mutation.ClearPeerDescription()
+	return _u
 }
 
 // SetPeerMAC sets the "peer_mac" field.
-func (hru *HostnicResourceUpdate) SetPeerMAC(s string) *HostnicResourceUpdate {
-	hru.mutation.SetPeerMAC(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetPeerMAC(v string) *HostnicResourceUpdate {
+	_u.mutation.SetPeerMAC(v)
+	return _u
 }
 
 // SetNillablePeerMAC sets the "peer_mac" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillablePeerMAC(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetPeerMAC(*s)
+func (_u *HostnicResourceUpdate) SetNillablePeerMAC(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetPeerMAC(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPeerMAC clears the value of the "peer_mac" field.
-func (hru *HostnicResourceUpdate) ClearPeerMAC() *HostnicResourceUpdate {
-	hru.mutation.ClearPeerMAC()
-	return hru
+func (_u *HostnicResourceUpdate) ClearPeerMAC() *HostnicResourceUpdate {
+	_u.mutation.ClearPeerMAC()
+	return _u
 }
 
 // SetPeerMgmtIP sets the "peer_mgmt_ip" field.
-func (hru *HostnicResourceUpdate) SetPeerMgmtIP(s string) *HostnicResourceUpdate {
-	hru.mutation.SetPeerMgmtIP(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetPeerMgmtIP(v string) *HostnicResourceUpdate {
+	_u.mutation.SetPeerMgmtIP(v)
+	return _u
 }
 
 // SetNillablePeerMgmtIP sets the "peer_mgmt_ip" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillablePeerMgmtIP(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetPeerMgmtIP(*s)
+func (_u *HostnicResourceUpdate) SetNillablePeerMgmtIP(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetPeerMgmtIP(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPeerMgmtIP clears the value of the "peer_mgmt_ip" field.
-func (hru *HostnicResourceUpdate) ClearPeerMgmtIP() *HostnicResourceUpdate {
-	hru.mutation.ClearPeerMgmtIP()
-	return hru
+func (_u *HostnicResourceUpdate) ClearPeerMgmtIP() *HostnicResourceUpdate {
+	_u.mutation.ClearPeerMgmtIP()
+	return _u
 }
 
 // SetPeerPort sets the "peer_port" field.
-func (hru *HostnicResourceUpdate) SetPeerPort(s string) *HostnicResourceUpdate {
-	hru.mutation.SetPeerPort(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetPeerPort(v string) *HostnicResourceUpdate {
+	_u.mutation.SetPeerPort(v)
+	return _u
 }
 
 // SetNillablePeerPort sets the "peer_port" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillablePeerPort(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetPeerPort(*s)
+func (_u *HostnicResourceUpdate) SetNillablePeerPort(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetPeerPort(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPeerPort clears the value of the "peer_port" field.
-func (hru *HostnicResourceUpdate) ClearPeerPort() *HostnicResourceUpdate {
-	hru.mutation.ClearPeerPort()
-	return hru
+func (_u *HostnicResourceUpdate) ClearPeerPort() *HostnicResourceUpdate {
+	_u.mutation.ClearPeerPort()
+	return _u
 }
 
 // SetSupportedLinkMode sets the "supported_link_mode" field.
-func (hru *HostnicResourceUpdate) SetSupportedLinkMode(s string) *HostnicResourceUpdate {
-	hru.mutation.SetSupportedLinkMode(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetSupportedLinkMode(v string) *HostnicResourceUpdate {
+	_u.mutation.SetSupportedLinkMode(v)
+	return _u
 }
 
 // SetNillableSupportedLinkMode sets the "supported_link_mode" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableSupportedLinkMode(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetSupportedLinkMode(*s)
+func (_u *HostnicResourceUpdate) SetNillableSupportedLinkMode(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetSupportedLinkMode(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearSupportedLinkMode clears the value of the "supported_link_mode" field.
-func (hru *HostnicResourceUpdate) ClearSupportedLinkMode() *HostnicResourceUpdate {
-	hru.mutation.ClearSupportedLinkMode()
-	return hru
+func (_u *HostnicResourceUpdate) ClearSupportedLinkMode() *HostnicResourceUpdate {
+	_u.mutation.ClearSupportedLinkMode()
+	return _u
 }
 
 // SetAdvertisingLinkMode sets the "advertising_link_mode" field.
-func (hru *HostnicResourceUpdate) SetAdvertisingLinkMode(s string) *HostnicResourceUpdate {
-	hru.mutation.SetAdvertisingLinkMode(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetAdvertisingLinkMode(v string) *HostnicResourceUpdate {
+	_u.mutation.SetAdvertisingLinkMode(v)
+	return _u
 }
 
 // SetNillableAdvertisingLinkMode sets the "advertising_link_mode" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableAdvertisingLinkMode(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetAdvertisingLinkMode(*s)
+func (_u *HostnicResourceUpdate) SetNillableAdvertisingLinkMode(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetAdvertisingLinkMode(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearAdvertisingLinkMode clears the value of the "advertising_link_mode" field.
-func (hru *HostnicResourceUpdate) ClearAdvertisingLinkMode() *HostnicResourceUpdate {
-	hru.mutation.ClearAdvertisingLinkMode()
-	return hru
+func (_u *HostnicResourceUpdate) ClearAdvertisingLinkMode() *HostnicResourceUpdate {
+	_u.mutation.ClearAdvertisingLinkMode()
+	return _u
 }
 
 // SetCurrentSpeedBps sets the "current_speed_bps" field.
-func (hru *HostnicResourceUpdate) SetCurrentSpeedBps(u uint64) *HostnicResourceUpdate {
-	hru.mutation.ResetCurrentSpeedBps()
-	hru.mutation.SetCurrentSpeedBps(u)
-	return hru
+func (_u *HostnicResourceUpdate) SetCurrentSpeedBps(v uint64) *HostnicResourceUpdate {
+	_u.mutation.ResetCurrentSpeedBps()
+	_u.mutation.SetCurrentSpeedBps(v)
+	return _u
 }
 
 // SetNillableCurrentSpeedBps sets the "current_speed_bps" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableCurrentSpeedBps(u *uint64) *HostnicResourceUpdate {
-	if u != nil {
-		hru.SetCurrentSpeedBps(*u)
+func (_u *HostnicResourceUpdate) SetNillableCurrentSpeedBps(v *uint64) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetCurrentSpeedBps(*v)
 	}
-	return hru
+	return _u
 }
 
-// AddCurrentSpeedBps adds u to the "current_speed_bps" field.
-func (hru *HostnicResourceUpdate) AddCurrentSpeedBps(u int64) *HostnicResourceUpdate {
-	hru.mutation.AddCurrentSpeedBps(u)
-	return hru
+// AddCurrentSpeedBps adds value to the "current_speed_bps" field.
+func (_u *HostnicResourceUpdate) AddCurrentSpeedBps(v int64) *HostnicResourceUpdate {
+	_u.mutation.AddCurrentSpeedBps(v)
+	return _u
 }
 
 // ClearCurrentSpeedBps clears the value of the "current_speed_bps" field.
-func (hru *HostnicResourceUpdate) ClearCurrentSpeedBps() *HostnicResourceUpdate {
-	hru.mutation.ClearCurrentSpeedBps()
-	return hru
+func (_u *HostnicResourceUpdate) ClearCurrentSpeedBps() *HostnicResourceUpdate {
+	_u.mutation.ClearCurrentSpeedBps()
+	return _u
 }
 
 // SetCurrentDuplex sets the "current_duplex" field.
-func (hru *HostnicResourceUpdate) SetCurrentDuplex(s string) *HostnicResourceUpdate {
-	hru.mutation.SetCurrentDuplex(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetCurrentDuplex(v string) *HostnicResourceUpdate {
+	_u.mutation.SetCurrentDuplex(v)
+	return _u
 }
 
 // SetNillableCurrentDuplex sets the "current_duplex" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableCurrentDuplex(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetCurrentDuplex(*s)
+func (_u *HostnicResourceUpdate) SetNillableCurrentDuplex(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetCurrentDuplex(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearCurrentDuplex clears the value of the "current_duplex" field.
-func (hru *HostnicResourceUpdate) ClearCurrentDuplex() *HostnicResourceUpdate {
-	hru.mutation.ClearCurrentDuplex()
-	return hru
+func (_u *HostnicResourceUpdate) ClearCurrentDuplex() *HostnicResourceUpdate {
+	_u.mutation.ClearCurrentDuplex()
+	return _u
 }
 
 // SetFeatures sets the "features" field.
-func (hru *HostnicResourceUpdate) SetFeatures(s string) *HostnicResourceUpdate {
-	hru.mutation.SetFeatures(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetFeatures(v string) *HostnicResourceUpdate {
+	_u.mutation.SetFeatures(v)
+	return _u
 }
 
 // SetNillableFeatures sets the "features" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableFeatures(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetFeatures(*s)
+func (_u *HostnicResourceUpdate) SetNillableFeatures(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetFeatures(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearFeatures clears the value of the "features" field.
-func (hru *HostnicResourceUpdate) ClearFeatures() *HostnicResourceUpdate {
-	hru.mutation.ClearFeatures()
-	return hru
+func (_u *HostnicResourceUpdate) ClearFeatures() *HostnicResourceUpdate {
+	_u.mutation.ClearFeatures()
+	return _u
 }
 
 // SetMtu sets the "mtu" field.
-func (hru *HostnicResourceUpdate) SetMtu(u uint32) *HostnicResourceUpdate {
-	hru.mutation.ResetMtu()
-	hru.mutation.SetMtu(u)
-	return hru
+func (_u *HostnicResourceUpdate) SetMtu(v uint32) *HostnicResourceUpdate {
+	_u.mutation.ResetMtu()
+	_u.mutation.SetMtu(v)
+	return _u
 }
 
 // SetNillableMtu sets the "mtu" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableMtu(u *uint32) *HostnicResourceUpdate {
-	if u != nil {
-		hru.SetMtu(*u)
+func (_u *HostnicResourceUpdate) SetNillableMtu(v *uint32) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetMtu(*v)
 	}
-	return hru
+	return _u
 }
 
-// AddMtu adds u to the "mtu" field.
-func (hru *HostnicResourceUpdate) AddMtu(u int32) *HostnicResourceUpdate {
-	hru.mutation.AddMtu(u)
-	return hru
+// AddMtu adds value to the "mtu" field.
+func (_u *HostnicResourceUpdate) AddMtu(v int32) *HostnicResourceUpdate {
+	_u.mutation.AddMtu(v)
+	return _u
 }
 
 // ClearMtu clears the value of the "mtu" field.
-func (hru *HostnicResourceUpdate) ClearMtu() *HostnicResourceUpdate {
-	hru.mutation.ClearMtu()
-	return hru
+func (_u *HostnicResourceUpdate) ClearMtu() *HostnicResourceUpdate {
+	_u.mutation.ClearMtu()
+	return _u
 }
 
 // SetLinkState sets the "link_state" field.
-func (hru *HostnicResourceUpdate) SetLinkState(hs hostnicresource.LinkState) *HostnicResourceUpdate {
-	hru.mutation.SetLinkState(hs)
-	return hru
+func (_u *HostnicResourceUpdate) SetLinkState(v hostnicresource.LinkState) *HostnicResourceUpdate {
+	_u.mutation.SetLinkState(v)
+	return _u
 }
 
 // SetNillableLinkState sets the "link_state" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableLinkState(hs *hostnicresource.LinkState) *HostnicResourceUpdate {
-	if hs != nil {
-		hru.SetLinkState(*hs)
+func (_u *HostnicResourceUpdate) SetNillableLinkState(v *hostnicresource.LinkState) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetLinkState(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearLinkState clears the value of the "link_state" field.
-func (hru *HostnicResourceUpdate) ClearLinkState() *HostnicResourceUpdate {
-	hru.mutation.ClearLinkState()
-	return hru
+func (_u *HostnicResourceUpdate) ClearLinkState() *HostnicResourceUpdate {
+	_u.mutation.ClearLinkState()
+	return _u
 }
 
 // SetBmcInterface sets the "bmc_interface" field.
-func (hru *HostnicResourceUpdate) SetBmcInterface(b bool) *HostnicResourceUpdate {
-	hru.mutation.SetBmcInterface(b)
-	return hru
+func (_u *HostnicResourceUpdate) SetBmcInterface(v bool) *HostnicResourceUpdate {
+	_u.mutation.SetBmcInterface(v)
+	return _u
 }
 
 // SetNillableBmcInterface sets the "bmc_interface" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableBmcInterface(b *bool) *HostnicResourceUpdate {
-	if b != nil {
-		hru.SetBmcInterface(*b)
+func (_u *HostnicResourceUpdate) SetNillableBmcInterface(v *bool) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetBmcInterface(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearBmcInterface clears the value of the "bmc_interface" field.
-func (hru *HostnicResourceUpdate) ClearBmcInterface() *HostnicResourceUpdate {
-	hru.mutation.ClearBmcInterface()
-	return hru
+func (_u *HostnicResourceUpdate) ClearBmcInterface() *HostnicResourceUpdate {
+	_u.mutation.ClearBmcInterface()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hru *HostnicResourceUpdate) SetUpdatedAt(s string) *HostnicResourceUpdate {
-	hru.mutation.SetUpdatedAt(s)
-	return hru
+func (_u *HostnicResourceUpdate) SetUpdatedAt(v string) *HostnicResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (hru *HostnicResourceUpdate) SetNillableUpdatedAt(s *string) *HostnicResourceUpdate {
-	if s != nil {
-		hru.SetUpdatedAt(*s)
+func (_u *HostnicResourceUpdate) SetNillableUpdatedAt(v *string) *HostnicResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return hru
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hru *HostnicResourceUpdate) SetHostID(id int) *HostnicResourceUpdate {
-	hru.mutation.SetHostID(id)
-	return hru
+func (_u *HostnicResourceUpdate) SetHostID(id int) *HostnicResourceUpdate {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hru *HostnicResourceUpdate) SetHost(h *HostResource) *HostnicResourceUpdate {
-	return hru.SetHostID(h.ID)
+func (_u *HostnicResourceUpdate) SetHost(v *HostResource) *HostnicResourceUpdate {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the HostnicResourceMutation object of the builder.
-func (hru *HostnicResourceUpdate) Mutation() *HostnicResourceMutation {
-	return hru.mutation
+func (_u *HostnicResourceUpdate) Mutation() *HostnicResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (hru *HostnicResourceUpdate) ClearHost() *HostnicResourceUpdate {
-	hru.mutation.ClearHost()
-	return hru
+func (_u *HostnicResourceUpdate) ClearHost() *HostnicResourceUpdate {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (hru *HostnicResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, hru.sqlSave, hru.mutation, hru.hooks)
+func (_u *HostnicResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hru *HostnicResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := hru.Save(ctx)
+func (_u *HostnicResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -541,188 +541,188 @@ func (hru *HostnicResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (hru *HostnicResourceUpdate) Exec(ctx context.Context) error {
-	_, err := hru.Save(ctx)
+func (_u *HostnicResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hru *HostnicResourceUpdate) ExecX(ctx context.Context) {
-	if err := hru.Exec(ctx); err != nil {
+func (_u *HostnicResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hru *HostnicResourceUpdate) check() error {
-	if v, ok := hru.mutation.LinkState(); ok {
+func (_u *HostnicResourceUpdate) check() error {
+	if v, ok := _u.mutation.LinkState(); ok {
 		if err := hostnicresource.LinkStateValidator(v); err != nil {
 			return &ValidationError{Name: "link_state", err: fmt.Errorf(`ent: validator failed for field "HostnicResource.link_state": %w`, err)}
 		}
 	}
-	if hru.mutation.HostCleared() && len(hru.mutation.HostIDs()) > 0 {
+	if _u.mutation.HostCleared() && len(_u.mutation.HostIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "HostnicResource.host"`)
 	}
 	return nil
 }
 
-func (hru *HostnicResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := hru.check(); err != nil {
-		return n, err
+func (_u *HostnicResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(hostnicresource.Table, hostnicresource.Columns, sqlgraph.NewFieldSpec(hostnicresource.FieldID, field.TypeInt))
-	if ps := hru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := hru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(hostnicresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := hru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(hostnicresource.FieldKind, field.TypeString, value)
 	}
-	if hru.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(hostnicresource.FieldKind, field.TypeString)
 	}
-	if value, ok := hru.mutation.ProviderStatus(); ok {
+	if value, ok := _u.mutation.ProviderStatus(); ok {
 		_spec.SetField(hostnicresource.FieldProviderStatus, field.TypeString, value)
 	}
-	if hru.mutation.ProviderStatusCleared() {
+	if _u.mutation.ProviderStatusCleared() {
 		_spec.ClearField(hostnicresource.FieldProviderStatus, field.TypeString)
 	}
-	if value, ok := hru.mutation.DeviceName(); ok {
+	if value, ok := _u.mutation.DeviceName(); ok {
 		_spec.SetField(hostnicresource.FieldDeviceName, field.TypeString, value)
 	}
-	if hru.mutation.DeviceNameCleared() {
+	if _u.mutation.DeviceNameCleared() {
 		_spec.ClearField(hostnicresource.FieldDeviceName, field.TypeString)
 	}
-	if value, ok := hru.mutation.PciIdentifier(); ok {
+	if value, ok := _u.mutation.PciIdentifier(); ok {
 		_spec.SetField(hostnicresource.FieldPciIdentifier, field.TypeString, value)
 	}
-	if hru.mutation.PciIdentifierCleared() {
+	if _u.mutation.PciIdentifierCleared() {
 		_spec.ClearField(hostnicresource.FieldPciIdentifier, field.TypeString)
 	}
-	if value, ok := hru.mutation.MACAddr(); ok {
+	if value, ok := _u.mutation.MACAddr(); ok {
 		_spec.SetField(hostnicresource.FieldMACAddr, field.TypeString, value)
 	}
-	if hru.mutation.MACAddrCleared() {
+	if _u.mutation.MACAddrCleared() {
 		_spec.ClearField(hostnicresource.FieldMACAddr, field.TypeString)
 	}
-	if value, ok := hru.mutation.SriovEnabled(); ok {
+	if value, ok := _u.mutation.SriovEnabled(); ok {
 		_spec.SetField(hostnicresource.FieldSriovEnabled, field.TypeBool, value)
 	}
-	if hru.mutation.SriovEnabledCleared() {
+	if _u.mutation.SriovEnabledCleared() {
 		_spec.ClearField(hostnicresource.FieldSriovEnabled, field.TypeBool)
 	}
-	if value, ok := hru.mutation.SriovVfsNum(); ok {
+	if value, ok := _u.mutation.SriovVfsNum(); ok {
 		_spec.SetField(hostnicresource.FieldSriovVfsNum, field.TypeUint32, value)
 	}
-	if value, ok := hru.mutation.AddedSriovVfsNum(); ok {
+	if value, ok := _u.mutation.AddedSriovVfsNum(); ok {
 		_spec.AddField(hostnicresource.FieldSriovVfsNum, field.TypeUint32, value)
 	}
-	if hru.mutation.SriovVfsNumCleared() {
+	if _u.mutation.SriovVfsNumCleared() {
 		_spec.ClearField(hostnicresource.FieldSriovVfsNum, field.TypeUint32)
 	}
-	if value, ok := hru.mutation.SriovVfsTotal(); ok {
+	if value, ok := _u.mutation.SriovVfsTotal(); ok {
 		_spec.SetField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32, value)
 	}
-	if value, ok := hru.mutation.AddedSriovVfsTotal(); ok {
+	if value, ok := _u.mutation.AddedSriovVfsTotal(); ok {
 		_spec.AddField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32, value)
 	}
-	if hru.mutation.SriovVfsTotalCleared() {
+	if _u.mutation.SriovVfsTotalCleared() {
 		_spec.ClearField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32)
 	}
-	if value, ok := hru.mutation.PeerName(); ok {
+	if value, ok := _u.mutation.PeerName(); ok {
 		_spec.SetField(hostnicresource.FieldPeerName, field.TypeString, value)
 	}
-	if hru.mutation.PeerNameCleared() {
+	if _u.mutation.PeerNameCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerName, field.TypeString)
 	}
-	if value, ok := hru.mutation.PeerDescription(); ok {
+	if value, ok := _u.mutation.PeerDescription(); ok {
 		_spec.SetField(hostnicresource.FieldPeerDescription, field.TypeString, value)
 	}
-	if hru.mutation.PeerDescriptionCleared() {
+	if _u.mutation.PeerDescriptionCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerDescription, field.TypeString)
 	}
-	if value, ok := hru.mutation.PeerMAC(); ok {
+	if value, ok := _u.mutation.PeerMAC(); ok {
 		_spec.SetField(hostnicresource.FieldPeerMAC, field.TypeString, value)
 	}
-	if hru.mutation.PeerMACCleared() {
+	if _u.mutation.PeerMACCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerMAC, field.TypeString)
 	}
-	if value, ok := hru.mutation.PeerMgmtIP(); ok {
+	if value, ok := _u.mutation.PeerMgmtIP(); ok {
 		_spec.SetField(hostnicresource.FieldPeerMgmtIP, field.TypeString, value)
 	}
-	if hru.mutation.PeerMgmtIPCleared() {
+	if _u.mutation.PeerMgmtIPCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerMgmtIP, field.TypeString)
 	}
-	if value, ok := hru.mutation.PeerPort(); ok {
+	if value, ok := _u.mutation.PeerPort(); ok {
 		_spec.SetField(hostnicresource.FieldPeerPort, field.TypeString, value)
 	}
-	if hru.mutation.PeerPortCleared() {
+	if _u.mutation.PeerPortCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerPort, field.TypeString)
 	}
-	if value, ok := hru.mutation.SupportedLinkMode(); ok {
+	if value, ok := _u.mutation.SupportedLinkMode(); ok {
 		_spec.SetField(hostnicresource.FieldSupportedLinkMode, field.TypeString, value)
 	}
-	if hru.mutation.SupportedLinkModeCleared() {
+	if _u.mutation.SupportedLinkModeCleared() {
 		_spec.ClearField(hostnicresource.FieldSupportedLinkMode, field.TypeString)
 	}
-	if value, ok := hru.mutation.AdvertisingLinkMode(); ok {
+	if value, ok := _u.mutation.AdvertisingLinkMode(); ok {
 		_spec.SetField(hostnicresource.FieldAdvertisingLinkMode, field.TypeString, value)
 	}
-	if hru.mutation.AdvertisingLinkModeCleared() {
+	if _u.mutation.AdvertisingLinkModeCleared() {
 		_spec.ClearField(hostnicresource.FieldAdvertisingLinkMode, field.TypeString)
 	}
-	if value, ok := hru.mutation.CurrentSpeedBps(); ok {
+	if value, ok := _u.mutation.CurrentSpeedBps(); ok {
 		_spec.SetField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64, value)
 	}
-	if value, ok := hru.mutation.AddedCurrentSpeedBps(); ok {
+	if value, ok := _u.mutation.AddedCurrentSpeedBps(); ok {
 		_spec.AddField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64, value)
 	}
-	if hru.mutation.CurrentSpeedBpsCleared() {
+	if _u.mutation.CurrentSpeedBpsCleared() {
 		_spec.ClearField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64)
 	}
-	if value, ok := hru.mutation.CurrentDuplex(); ok {
+	if value, ok := _u.mutation.CurrentDuplex(); ok {
 		_spec.SetField(hostnicresource.FieldCurrentDuplex, field.TypeString, value)
 	}
-	if hru.mutation.CurrentDuplexCleared() {
+	if _u.mutation.CurrentDuplexCleared() {
 		_spec.ClearField(hostnicresource.FieldCurrentDuplex, field.TypeString)
 	}
-	if value, ok := hru.mutation.Features(); ok {
+	if value, ok := _u.mutation.Features(); ok {
 		_spec.SetField(hostnicresource.FieldFeatures, field.TypeString, value)
 	}
-	if hru.mutation.FeaturesCleared() {
+	if _u.mutation.FeaturesCleared() {
 		_spec.ClearField(hostnicresource.FieldFeatures, field.TypeString)
 	}
-	if value, ok := hru.mutation.Mtu(); ok {
+	if value, ok := _u.mutation.Mtu(); ok {
 		_spec.SetField(hostnicresource.FieldMtu, field.TypeUint32, value)
 	}
-	if value, ok := hru.mutation.AddedMtu(); ok {
+	if value, ok := _u.mutation.AddedMtu(); ok {
 		_spec.AddField(hostnicresource.FieldMtu, field.TypeUint32, value)
 	}
-	if hru.mutation.MtuCleared() {
+	if _u.mutation.MtuCleared() {
 		_spec.ClearField(hostnicresource.FieldMtu, field.TypeUint32)
 	}
-	if value, ok := hru.mutation.LinkState(); ok {
+	if value, ok := _u.mutation.LinkState(); ok {
 		_spec.SetField(hostnicresource.FieldLinkState, field.TypeEnum, value)
 	}
-	if hru.mutation.LinkStateCleared() {
+	if _u.mutation.LinkStateCleared() {
 		_spec.ClearField(hostnicresource.FieldLinkState, field.TypeEnum)
 	}
-	if value, ok := hru.mutation.BmcInterface(); ok {
+	if value, ok := _u.mutation.BmcInterface(); ok {
 		_spec.SetField(hostnicresource.FieldBmcInterface, field.TypeBool, value)
 	}
-	if hru.mutation.BmcInterfaceCleared() {
+	if _u.mutation.BmcInterfaceCleared() {
 		_spec.ClearField(hostnicresource.FieldBmcInterface, field.TypeBool)
 	}
-	if value, ok := hru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostnicresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if hru.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -735,7 +735,7 @@ func (hru *HostnicResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hru.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -751,7 +751,7 @@ func (hru *HostnicResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, hru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{hostnicresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -759,8 +759,8 @@ func (hru *HostnicResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		return 0, err
 	}
-	hru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // HostnicResourceUpdateOne is the builder for updating a single HostnicResource entity.
@@ -772,524 +772,524 @@ type HostnicResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hruo *HostnicResourceUpdateOne) SetResourceID(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetResourceID(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetResourceID(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableResourceID(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetResourceID(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableResourceID(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return hruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (hruo *HostnicResourceUpdateOne) SetKind(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetKind(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetKind(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableKind(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetKind(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableKind(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (hruo *HostnicResourceUpdateOne) ClearKind() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearKind()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearKind() *HostnicResourceUpdateOne {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (hruo *HostnicResourceUpdateOne) SetProviderStatus(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetProviderStatus(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetProviderStatus(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetProviderStatus(v)
+	return _u
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableProviderStatus(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetProviderStatus(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableProviderStatus(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetProviderStatus(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearProviderStatus clears the value of the "provider_status" field.
-func (hruo *HostnicResourceUpdateOne) ClearProviderStatus() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearProviderStatus()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearProviderStatus() *HostnicResourceUpdateOne {
+	_u.mutation.ClearProviderStatus()
+	return _u
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hruo *HostnicResourceUpdateOne) SetDeviceName(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetDeviceName(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetDeviceName(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetDeviceName(v)
+	return _u
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableDeviceName(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetDeviceName(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableDeviceName(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetDeviceName(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearDeviceName clears the value of the "device_name" field.
-func (hruo *HostnicResourceUpdateOne) ClearDeviceName() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearDeviceName()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearDeviceName() *HostnicResourceUpdateOne {
+	_u.mutation.ClearDeviceName()
+	return _u
 }
 
 // SetPciIdentifier sets the "pci_identifier" field.
-func (hruo *HostnicResourceUpdateOne) SetPciIdentifier(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetPciIdentifier(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetPciIdentifier(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetPciIdentifier(v)
+	return _u
 }
 
 // SetNillablePciIdentifier sets the "pci_identifier" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillablePciIdentifier(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetPciIdentifier(*s)
+func (_u *HostnicResourceUpdateOne) SetNillablePciIdentifier(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetPciIdentifier(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPciIdentifier clears the value of the "pci_identifier" field.
-func (hruo *HostnicResourceUpdateOne) ClearPciIdentifier() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearPciIdentifier()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearPciIdentifier() *HostnicResourceUpdateOne {
+	_u.mutation.ClearPciIdentifier()
+	return _u
 }
 
 // SetMACAddr sets the "mac_addr" field.
-func (hruo *HostnicResourceUpdateOne) SetMACAddr(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetMACAddr(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetMACAddr(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetMACAddr(v)
+	return _u
 }
 
 // SetNillableMACAddr sets the "mac_addr" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableMACAddr(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetMACAddr(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableMACAddr(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetMACAddr(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearMACAddr clears the value of the "mac_addr" field.
-func (hruo *HostnicResourceUpdateOne) ClearMACAddr() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearMACAddr()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearMACAddr() *HostnicResourceUpdateOne {
+	_u.mutation.ClearMACAddr()
+	return _u
 }
 
 // SetSriovEnabled sets the "sriov_enabled" field.
-func (hruo *HostnicResourceUpdateOne) SetSriovEnabled(b bool) *HostnicResourceUpdateOne {
-	hruo.mutation.SetSriovEnabled(b)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetSriovEnabled(v bool) *HostnicResourceUpdateOne {
+	_u.mutation.SetSriovEnabled(v)
+	return _u
 }
 
 // SetNillableSriovEnabled sets the "sriov_enabled" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableSriovEnabled(b *bool) *HostnicResourceUpdateOne {
-	if b != nil {
-		hruo.SetSriovEnabled(*b)
+func (_u *HostnicResourceUpdateOne) SetNillableSriovEnabled(v *bool) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetSriovEnabled(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearSriovEnabled clears the value of the "sriov_enabled" field.
-func (hruo *HostnicResourceUpdateOne) ClearSriovEnabled() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearSriovEnabled()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearSriovEnabled() *HostnicResourceUpdateOne {
+	_u.mutation.ClearSriovEnabled()
+	return _u
 }
 
 // SetSriovVfsNum sets the "sriov_vfs_num" field.
-func (hruo *HostnicResourceUpdateOne) SetSriovVfsNum(u uint32) *HostnicResourceUpdateOne {
-	hruo.mutation.ResetSriovVfsNum()
-	hruo.mutation.SetSriovVfsNum(u)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetSriovVfsNum(v uint32) *HostnicResourceUpdateOne {
+	_u.mutation.ResetSriovVfsNum()
+	_u.mutation.SetSriovVfsNum(v)
+	return _u
 }
 
 // SetNillableSriovVfsNum sets the "sriov_vfs_num" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableSriovVfsNum(u *uint32) *HostnicResourceUpdateOne {
-	if u != nil {
-		hruo.SetSriovVfsNum(*u)
+func (_u *HostnicResourceUpdateOne) SetNillableSriovVfsNum(v *uint32) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetSriovVfsNum(*v)
 	}
-	return hruo
+	return _u
 }
 
-// AddSriovVfsNum adds u to the "sriov_vfs_num" field.
-func (hruo *HostnicResourceUpdateOne) AddSriovVfsNum(u int32) *HostnicResourceUpdateOne {
-	hruo.mutation.AddSriovVfsNum(u)
-	return hruo
+// AddSriovVfsNum adds value to the "sriov_vfs_num" field.
+func (_u *HostnicResourceUpdateOne) AddSriovVfsNum(v int32) *HostnicResourceUpdateOne {
+	_u.mutation.AddSriovVfsNum(v)
+	return _u
 }
 
 // ClearSriovVfsNum clears the value of the "sriov_vfs_num" field.
-func (hruo *HostnicResourceUpdateOne) ClearSriovVfsNum() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearSriovVfsNum()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearSriovVfsNum() *HostnicResourceUpdateOne {
+	_u.mutation.ClearSriovVfsNum()
+	return _u
 }
 
 // SetSriovVfsTotal sets the "sriov_vfs_total" field.
-func (hruo *HostnicResourceUpdateOne) SetSriovVfsTotal(u uint32) *HostnicResourceUpdateOne {
-	hruo.mutation.ResetSriovVfsTotal()
-	hruo.mutation.SetSriovVfsTotal(u)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetSriovVfsTotal(v uint32) *HostnicResourceUpdateOne {
+	_u.mutation.ResetSriovVfsTotal()
+	_u.mutation.SetSriovVfsTotal(v)
+	return _u
 }
 
 // SetNillableSriovVfsTotal sets the "sriov_vfs_total" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableSriovVfsTotal(u *uint32) *HostnicResourceUpdateOne {
-	if u != nil {
-		hruo.SetSriovVfsTotal(*u)
+func (_u *HostnicResourceUpdateOne) SetNillableSriovVfsTotal(v *uint32) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetSriovVfsTotal(*v)
 	}
-	return hruo
+	return _u
 }
 
-// AddSriovVfsTotal adds u to the "sriov_vfs_total" field.
-func (hruo *HostnicResourceUpdateOne) AddSriovVfsTotal(u int32) *HostnicResourceUpdateOne {
-	hruo.mutation.AddSriovVfsTotal(u)
-	return hruo
+// AddSriovVfsTotal adds value to the "sriov_vfs_total" field.
+func (_u *HostnicResourceUpdateOne) AddSriovVfsTotal(v int32) *HostnicResourceUpdateOne {
+	_u.mutation.AddSriovVfsTotal(v)
+	return _u
 }
 
 // ClearSriovVfsTotal clears the value of the "sriov_vfs_total" field.
-func (hruo *HostnicResourceUpdateOne) ClearSriovVfsTotal() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearSriovVfsTotal()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearSriovVfsTotal() *HostnicResourceUpdateOne {
+	_u.mutation.ClearSriovVfsTotal()
+	return _u
 }
 
 // SetPeerName sets the "peer_name" field.
-func (hruo *HostnicResourceUpdateOne) SetPeerName(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetPeerName(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetPeerName(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetPeerName(v)
+	return _u
 }
 
 // SetNillablePeerName sets the "peer_name" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillablePeerName(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetPeerName(*s)
+func (_u *HostnicResourceUpdateOne) SetNillablePeerName(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetPeerName(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPeerName clears the value of the "peer_name" field.
-func (hruo *HostnicResourceUpdateOne) ClearPeerName() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearPeerName()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearPeerName() *HostnicResourceUpdateOne {
+	_u.mutation.ClearPeerName()
+	return _u
 }
 
 // SetPeerDescription sets the "peer_description" field.
-func (hruo *HostnicResourceUpdateOne) SetPeerDescription(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetPeerDescription(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetPeerDescription(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetPeerDescription(v)
+	return _u
 }
 
 // SetNillablePeerDescription sets the "peer_description" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillablePeerDescription(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetPeerDescription(*s)
+func (_u *HostnicResourceUpdateOne) SetNillablePeerDescription(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetPeerDescription(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPeerDescription clears the value of the "peer_description" field.
-func (hruo *HostnicResourceUpdateOne) ClearPeerDescription() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearPeerDescription()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearPeerDescription() *HostnicResourceUpdateOne {
+	_u.mutation.ClearPeerDescription()
+	return _u
 }
 
 // SetPeerMAC sets the "peer_mac" field.
-func (hruo *HostnicResourceUpdateOne) SetPeerMAC(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetPeerMAC(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetPeerMAC(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetPeerMAC(v)
+	return _u
 }
 
 // SetNillablePeerMAC sets the "peer_mac" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillablePeerMAC(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetPeerMAC(*s)
+func (_u *HostnicResourceUpdateOne) SetNillablePeerMAC(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetPeerMAC(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPeerMAC clears the value of the "peer_mac" field.
-func (hruo *HostnicResourceUpdateOne) ClearPeerMAC() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearPeerMAC()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearPeerMAC() *HostnicResourceUpdateOne {
+	_u.mutation.ClearPeerMAC()
+	return _u
 }
 
 // SetPeerMgmtIP sets the "peer_mgmt_ip" field.
-func (hruo *HostnicResourceUpdateOne) SetPeerMgmtIP(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetPeerMgmtIP(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetPeerMgmtIP(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetPeerMgmtIP(v)
+	return _u
 }
 
 // SetNillablePeerMgmtIP sets the "peer_mgmt_ip" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillablePeerMgmtIP(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetPeerMgmtIP(*s)
+func (_u *HostnicResourceUpdateOne) SetNillablePeerMgmtIP(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetPeerMgmtIP(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPeerMgmtIP clears the value of the "peer_mgmt_ip" field.
-func (hruo *HostnicResourceUpdateOne) ClearPeerMgmtIP() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearPeerMgmtIP()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearPeerMgmtIP() *HostnicResourceUpdateOne {
+	_u.mutation.ClearPeerMgmtIP()
+	return _u
 }
 
 // SetPeerPort sets the "peer_port" field.
-func (hruo *HostnicResourceUpdateOne) SetPeerPort(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetPeerPort(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetPeerPort(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetPeerPort(v)
+	return _u
 }
 
 // SetNillablePeerPort sets the "peer_port" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillablePeerPort(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetPeerPort(*s)
+func (_u *HostnicResourceUpdateOne) SetNillablePeerPort(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetPeerPort(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPeerPort clears the value of the "peer_port" field.
-func (hruo *HostnicResourceUpdateOne) ClearPeerPort() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearPeerPort()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearPeerPort() *HostnicResourceUpdateOne {
+	_u.mutation.ClearPeerPort()
+	return _u
 }
 
 // SetSupportedLinkMode sets the "supported_link_mode" field.
-func (hruo *HostnicResourceUpdateOne) SetSupportedLinkMode(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetSupportedLinkMode(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetSupportedLinkMode(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetSupportedLinkMode(v)
+	return _u
 }
 
 // SetNillableSupportedLinkMode sets the "supported_link_mode" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableSupportedLinkMode(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetSupportedLinkMode(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableSupportedLinkMode(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetSupportedLinkMode(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearSupportedLinkMode clears the value of the "supported_link_mode" field.
-func (hruo *HostnicResourceUpdateOne) ClearSupportedLinkMode() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearSupportedLinkMode()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearSupportedLinkMode() *HostnicResourceUpdateOne {
+	_u.mutation.ClearSupportedLinkMode()
+	return _u
 }
 
 // SetAdvertisingLinkMode sets the "advertising_link_mode" field.
-func (hruo *HostnicResourceUpdateOne) SetAdvertisingLinkMode(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetAdvertisingLinkMode(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetAdvertisingLinkMode(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetAdvertisingLinkMode(v)
+	return _u
 }
 
 // SetNillableAdvertisingLinkMode sets the "advertising_link_mode" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableAdvertisingLinkMode(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetAdvertisingLinkMode(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableAdvertisingLinkMode(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetAdvertisingLinkMode(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearAdvertisingLinkMode clears the value of the "advertising_link_mode" field.
-func (hruo *HostnicResourceUpdateOne) ClearAdvertisingLinkMode() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearAdvertisingLinkMode()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearAdvertisingLinkMode() *HostnicResourceUpdateOne {
+	_u.mutation.ClearAdvertisingLinkMode()
+	return _u
 }
 
 // SetCurrentSpeedBps sets the "current_speed_bps" field.
-func (hruo *HostnicResourceUpdateOne) SetCurrentSpeedBps(u uint64) *HostnicResourceUpdateOne {
-	hruo.mutation.ResetCurrentSpeedBps()
-	hruo.mutation.SetCurrentSpeedBps(u)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetCurrentSpeedBps(v uint64) *HostnicResourceUpdateOne {
+	_u.mutation.ResetCurrentSpeedBps()
+	_u.mutation.SetCurrentSpeedBps(v)
+	return _u
 }
 
 // SetNillableCurrentSpeedBps sets the "current_speed_bps" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableCurrentSpeedBps(u *uint64) *HostnicResourceUpdateOne {
-	if u != nil {
-		hruo.SetCurrentSpeedBps(*u)
+func (_u *HostnicResourceUpdateOne) SetNillableCurrentSpeedBps(v *uint64) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentSpeedBps(*v)
 	}
-	return hruo
+	return _u
 }
 
-// AddCurrentSpeedBps adds u to the "current_speed_bps" field.
-func (hruo *HostnicResourceUpdateOne) AddCurrentSpeedBps(u int64) *HostnicResourceUpdateOne {
-	hruo.mutation.AddCurrentSpeedBps(u)
-	return hruo
+// AddCurrentSpeedBps adds value to the "current_speed_bps" field.
+func (_u *HostnicResourceUpdateOne) AddCurrentSpeedBps(v int64) *HostnicResourceUpdateOne {
+	_u.mutation.AddCurrentSpeedBps(v)
+	return _u
 }
 
 // ClearCurrentSpeedBps clears the value of the "current_speed_bps" field.
-func (hruo *HostnicResourceUpdateOne) ClearCurrentSpeedBps() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearCurrentSpeedBps()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearCurrentSpeedBps() *HostnicResourceUpdateOne {
+	_u.mutation.ClearCurrentSpeedBps()
+	return _u
 }
 
 // SetCurrentDuplex sets the "current_duplex" field.
-func (hruo *HostnicResourceUpdateOne) SetCurrentDuplex(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetCurrentDuplex(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetCurrentDuplex(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetCurrentDuplex(v)
+	return _u
 }
 
 // SetNillableCurrentDuplex sets the "current_duplex" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableCurrentDuplex(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetCurrentDuplex(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableCurrentDuplex(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentDuplex(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearCurrentDuplex clears the value of the "current_duplex" field.
-func (hruo *HostnicResourceUpdateOne) ClearCurrentDuplex() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearCurrentDuplex()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearCurrentDuplex() *HostnicResourceUpdateOne {
+	_u.mutation.ClearCurrentDuplex()
+	return _u
 }
 
 // SetFeatures sets the "features" field.
-func (hruo *HostnicResourceUpdateOne) SetFeatures(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetFeatures(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetFeatures(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetFeatures(v)
+	return _u
 }
 
 // SetNillableFeatures sets the "features" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableFeatures(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetFeatures(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableFeatures(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetFeatures(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearFeatures clears the value of the "features" field.
-func (hruo *HostnicResourceUpdateOne) ClearFeatures() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearFeatures()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearFeatures() *HostnicResourceUpdateOne {
+	_u.mutation.ClearFeatures()
+	return _u
 }
 
 // SetMtu sets the "mtu" field.
-func (hruo *HostnicResourceUpdateOne) SetMtu(u uint32) *HostnicResourceUpdateOne {
-	hruo.mutation.ResetMtu()
-	hruo.mutation.SetMtu(u)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetMtu(v uint32) *HostnicResourceUpdateOne {
+	_u.mutation.ResetMtu()
+	_u.mutation.SetMtu(v)
+	return _u
 }
 
 // SetNillableMtu sets the "mtu" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableMtu(u *uint32) *HostnicResourceUpdateOne {
-	if u != nil {
-		hruo.SetMtu(*u)
+func (_u *HostnicResourceUpdateOne) SetNillableMtu(v *uint32) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetMtu(*v)
 	}
-	return hruo
+	return _u
 }
 
-// AddMtu adds u to the "mtu" field.
-func (hruo *HostnicResourceUpdateOne) AddMtu(u int32) *HostnicResourceUpdateOne {
-	hruo.mutation.AddMtu(u)
-	return hruo
+// AddMtu adds value to the "mtu" field.
+func (_u *HostnicResourceUpdateOne) AddMtu(v int32) *HostnicResourceUpdateOne {
+	_u.mutation.AddMtu(v)
+	return _u
 }
 
 // ClearMtu clears the value of the "mtu" field.
-func (hruo *HostnicResourceUpdateOne) ClearMtu() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearMtu()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearMtu() *HostnicResourceUpdateOne {
+	_u.mutation.ClearMtu()
+	return _u
 }
 
 // SetLinkState sets the "link_state" field.
-func (hruo *HostnicResourceUpdateOne) SetLinkState(hs hostnicresource.LinkState) *HostnicResourceUpdateOne {
-	hruo.mutation.SetLinkState(hs)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetLinkState(v hostnicresource.LinkState) *HostnicResourceUpdateOne {
+	_u.mutation.SetLinkState(v)
+	return _u
 }
 
 // SetNillableLinkState sets the "link_state" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableLinkState(hs *hostnicresource.LinkState) *HostnicResourceUpdateOne {
-	if hs != nil {
-		hruo.SetLinkState(*hs)
+func (_u *HostnicResourceUpdateOne) SetNillableLinkState(v *hostnicresource.LinkState) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetLinkState(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearLinkState clears the value of the "link_state" field.
-func (hruo *HostnicResourceUpdateOne) ClearLinkState() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearLinkState()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearLinkState() *HostnicResourceUpdateOne {
+	_u.mutation.ClearLinkState()
+	return _u
 }
 
 // SetBmcInterface sets the "bmc_interface" field.
-func (hruo *HostnicResourceUpdateOne) SetBmcInterface(b bool) *HostnicResourceUpdateOne {
-	hruo.mutation.SetBmcInterface(b)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetBmcInterface(v bool) *HostnicResourceUpdateOne {
+	_u.mutation.SetBmcInterface(v)
+	return _u
 }
 
 // SetNillableBmcInterface sets the "bmc_interface" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableBmcInterface(b *bool) *HostnicResourceUpdateOne {
-	if b != nil {
-		hruo.SetBmcInterface(*b)
+func (_u *HostnicResourceUpdateOne) SetNillableBmcInterface(v *bool) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetBmcInterface(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearBmcInterface clears the value of the "bmc_interface" field.
-func (hruo *HostnicResourceUpdateOne) ClearBmcInterface() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearBmcInterface()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearBmcInterface() *HostnicResourceUpdateOne {
+	_u.mutation.ClearBmcInterface()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hruo *HostnicResourceUpdateOne) SetUpdatedAt(s string) *HostnicResourceUpdateOne {
-	hruo.mutation.SetUpdatedAt(s)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetUpdatedAt(v string) *HostnicResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (hruo *HostnicResourceUpdateOne) SetNillableUpdatedAt(s *string) *HostnicResourceUpdateOne {
-	if s != nil {
-		hruo.SetUpdatedAt(*s)
+func (_u *HostnicResourceUpdateOne) SetNillableUpdatedAt(v *string) *HostnicResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return hruo
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hruo *HostnicResourceUpdateOne) SetHostID(id int) *HostnicResourceUpdateOne {
-	hruo.mutation.SetHostID(id)
-	return hruo
+func (_u *HostnicResourceUpdateOne) SetHostID(id int) *HostnicResourceUpdateOne {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hruo *HostnicResourceUpdateOne) SetHost(h *HostResource) *HostnicResourceUpdateOne {
-	return hruo.SetHostID(h.ID)
+func (_u *HostnicResourceUpdateOne) SetHost(v *HostResource) *HostnicResourceUpdateOne {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the HostnicResourceMutation object of the builder.
-func (hruo *HostnicResourceUpdateOne) Mutation() *HostnicResourceMutation {
-	return hruo.mutation
+func (_u *HostnicResourceUpdateOne) Mutation() *HostnicResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (hruo *HostnicResourceUpdateOne) ClearHost() *HostnicResourceUpdateOne {
-	hruo.mutation.ClearHost()
-	return hruo
+func (_u *HostnicResourceUpdateOne) ClearHost() *HostnicResourceUpdateOne {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Where appends a list predicates to the HostnicResourceUpdate builder.
-func (hruo *HostnicResourceUpdateOne) Where(ps ...predicate.HostnicResource) *HostnicResourceUpdateOne {
-	hruo.mutation.Where(ps...)
-	return hruo
+func (_u *HostnicResourceUpdateOne) Where(ps ...predicate.HostnicResource) *HostnicResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (hruo *HostnicResourceUpdateOne) Select(field string, fields ...string) *HostnicResourceUpdateOne {
-	hruo.fields = append([]string{field}, fields...)
-	return hruo
+func (_u *HostnicResourceUpdateOne) Select(field string, fields ...string) *HostnicResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated HostnicResource entity.
-func (hruo *HostnicResourceUpdateOne) Save(ctx context.Context) (*HostnicResource, error) {
-	return withHooks(ctx, hruo.sqlSave, hruo.mutation, hruo.hooks)
+func (_u *HostnicResourceUpdateOne) Save(ctx context.Context) (*HostnicResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hruo *HostnicResourceUpdateOne) SaveX(ctx context.Context) *HostnicResource {
-	node, err := hruo.Save(ctx)
+func (_u *HostnicResourceUpdateOne) SaveX(ctx context.Context) *HostnicResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -1297,42 +1297,42 @@ func (hruo *HostnicResourceUpdateOne) SaveX(ctx context.Context) *HostnicResourc
 }
 
 // Exec executes the query on the entity.
-func (hruo *HostnicResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := hruo.Save(ctx)
+func (_u *HostnicResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hruo *HostnicResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := hruo.Exec(ctx); err != nil {
+func (_u *HostnicResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hruo *HostnicResourceUpdateOne) check() error {
-	if v, ok := hruo.mutation.LinkState(); ok {
+func (_u *HostnicResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.LinkState(); ok {
 		if err := hostnicresource.LinkStateValidator(v); err != nil {
 			return &ValidationError{Name: "link_state", err: fmt.Errorf(`ent: validator failed for field "HostnicResource.link_state": %w`, err)}
 		}
 	}
-	if hruo.mutation.HostCleared() && len(hruo.mutation.HostIDs()) > 0 {
+	if _u.mutation.HostCleared() && len(_u.mutation.HostIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "HostnicResource.host"`)
 	}
 	return nil
 }
 
-func (hruo *HostnicResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostnicResource, err error) {
-	if err := hruo.check(); err != nil {
+func (_u *HostnicResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostnicResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(hostnicresource.Table, hostnicresource.Columns, sqlgraph.NewFieldSpec(hostnicresource.FieldID, field.TypeInt))
-	id, ok := hruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "HostnicResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := hruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, hostnicresource.FieldID)
 		for _, f := range fields {
@@ -1344,158 +1344,158 @@ func (hruo *HostnicResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostn
 			}
 		}
 	}
-	if ps := hruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := hruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(hostnicresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := hruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(hostnicresource.FieldKind, field.TypeString, value)
 	}
-	if hruo.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(hostnicresource.FieldKind, field.TypeString)
 	}
-	if value, ok := hruo.mutation.ProviderStatus(); ok {
+	if value, ok := _u.mutation.ProviderStatus(); ok {
 		_spec.SetField(hostnicresource.FieldProviderStatus, field.TypeString, value)
 	}
-	if hruo.mutation.ProviderStatusCleared() {
+	if _u.mutation.ProviderStatusCleared() {
 		_spec.ClearField(hostnicresource.FieldProviderStatus, field.TypeString)
 	}
-	if value, ok := hruo.mutation.DeviceName(); ok {
+	if value, ok := _u.mutation.DeviceName(); ok {
 		_spec.SetField(hostnicresource.FieldDeviceName, field.TypeString, value)
 	}
-	if hruo.mutation.DeviceNameCleared() {
+	if _u.mutation.DeviceNameCleared() {
 		_spec.ClearField(hostnicresource.FieldDeviceName, field.TypeString)
 	}
-	if value, ok := hruo.mutation.PciIdentifier(); ok {
+	if value, ok := _u.mutation.PciIdentifier(); ok {
 		_spec.SetField(hostnicresource.FieldPciIdentifier, field.TypeString, value)
 	}
-	if hruo.mutation.PciIdentifierCleared() {
+	if _u.mutation.PciIdentifierCleared() {
 		_spec.ClearField(hostnicresource.FieldPciIdentifier, field.TypeString)
 	}
-	if value, ok := hruo.mutation.MACAddr(); ok {
+	if value, ok := _u.mutation.MACAddr(); ok {
 		_spec.SetField(hostnicresource.FieldMACAddr, field.TypeString, value)
 	}
-	if hruo.mutation.MACAddrCleared() {
+	if _u.mutation.MACAddrCleared() {
 		_spec.ClearField(hostnicresource.FieldMACAddr, field.TypeString)
 	}
-	if value, ok := hruo.mutation.SriovEnabled(); ok {
+	if value, ok := _u.mutation.SriovEnabled(); ok {
 		_spec.SetField(hostnicresource.FieldSriovEnabled, field.TypeBool, value)
 	}
-	if hruo.mutation.SriovEnabledCleared() {
+	if _u.mutation.SriovEnabledCleared() {
 		_spec.ClearField(hostnicresource.FieldSriovEnabled, field.TypeBool)
 	}
-	if value, ok := hruo.mutation.SriovVfsNum(); ok {
+	if value, ok := _u.mutation.SriovVfsNum(); ok {
 		_spec.SetField(hostnicresource.FieldSriovVfsNum, field.TypeUint32, value)
 	}
-	if value, ok := hruo.mutation.AddedSriovVfsNum(); ok {
+	if value, ok := _u.mutation.AddedSriovVfsNum(); ok {
 		_spec.AddField(hostnicresource.FieldSriovVfsNum, field.TypeUint32, value)
 	}
-	if hruo.mutation.SriovVfsNumCleared() {
+	if _u.mutation.SriovVfsNumCleared() {
 		_spec.ClearField(hostnicresource.FieldSriovVfsNum, field.TypeUint32)
 	}
-	if value, ok := hruo.mutation.SriovVfsTotal(); ok {
+	if value, ok := _u.mutation.SriovVfsTotal(); ok {
 		_spec.SetField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32, value)
 	}
-	if value, ok := hruo.mutation.AddedSriovVfsTotal(); ok {
+	if value, ok := _u.mutation.AddedSriovVfsTotal(); ok {
 		_spec.AddField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32, value)
 	}
-	if hruo.mutation.SriovVfsTotalCleared() {
+	if _u.mutation.SriovVfsTotalCleared() {
 		_spec.ClearField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32)
 	}
-	if value, ok := hruo.mutation.PeerName(); ok {
+	if value, ok := _u.mutation.PeerName(); ok {
 		_spec.SetField(hostnicresource.FieldPeerName, field.TypeString, value)
 	}
-	if hruo.mutation.PeerNameCleared() {
+	if _u.mutation.PeerNameCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerName, field.TypeString)
 	}
-	if value, ok := hruo.mutation.PeerDescription(); ok {
+	if value, ok := _u.mutation.PeerDescription(); ok {
 		_spec.SetField(hostnicresource.FieldPeerDescription, field.TypeString, value)
 	}
-	if hruo.mutation.PeerDescriptionCleared() {
+	if _u.mutation.PeerDescriptionCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerDescription, field.TypeString)
 	}
-	if value, ok := hruo.mutation.PeerMAC(); ok {
+	if value, ok := _u.mutation.PeerMAC(); ok {
 		_spec.SetField(hostnicresource.FieldPeerMAC, field.TypeString, value)
 	}
-	if hruo.mutation.PeerMACCleared() {
+	if _u.mutation.PeerMACCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerMAC, field.TypeString)
 	}
-	if value, ok := hruo.mutation.PeerMgmtIP(); ok {
+	if value, ok := _u.mutation.PeerMgmtIP(); ok {
 		_spec.SetField(hostnicresource.FieldPeerMgmtIP, field.TypeString, value)
 	}
-	if hruo.mutation.PeerMgmtIPCleared() {
+	if _u.mutation.PeerMgmtIPCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerMgmtIP, field.TypeString)
 	}
-	if value, ok := hruo.mutation.PeerPort(); ok {
+	if value, ok := _u.mutation.PeerPort(); ok {
 		_spec.SetField(hostnicresource.FieldPeerPort, field.TypeString, value)
 	}
-	if hruo.mutation.PeerPortCleared() {
+	if _u.mutation.PeerPortCleared() {
 		_spec.ClearField(hostnicresource.FieldPeerPort, field.TypeString)
 	}
-	if value, ok := hruo.mutation.SupportedLinkMode(); ok {
+	if value, ok := _u.mutation.SupportedLinkMode(); ok {
 		_spec.SetField(hostnicresource.FieldSupportedLinkMode, field.TypeString, value)
 	}
-	if hruo.mutation.SupportedLinkModeCleared() {
+	if _u.mutation.SupportedLinkModeCleared() {
 		_spec.ClearField(hostnicresource.FieldSupportedLinkMode, field.TypeString)
 	}
-	if value, ok := hruo.mutation.AdvertisingLinkMode(); ok {
+	if value, ok := _u.mutation.AdvertisingLinkMode(); ok {
 		_spec.SetField(hostnicresource.FieldAdvertisingLinkMode, field.TypeString, value)
 	}
-	if hruo.mutation.AdvertisingLinkModeCleared() {
+	if _u.mutation.AdvertisingLinkModeCleared() {
 		_spec.ClearField(hostnicresource.FieldAdvertisingLinkMode, field.TypeString)
 	}
-	if value, ok := hruo.mutation.CurrentSpeedBps(); ok {
+	if value, ok := _u.mutation.CurrentSpeedBps(); ok {
 		_spec.SetField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64, value)
 	}
-	if value, ok := hruo.mutation.AddedCurrentSpeedBps(); ok {
+	if value, ok := _u.mutation.AddedCurrentSpeedBps(); ok {
 		_spec.AddField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64, value)
 	}
-	if hruo.mutation.CurrentSpeedBpsCleared() {
+	if _u.mutation.CurrentSpeedBpsCleared() {
 		_spec.ClearField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64)
 	}
-	if value, ok := hruo.mutation.CurrentDuplex(); ok {
+	if value, ok := _u.mutation.CurrentDuplex(); ok {
 		_spec.SetField(hostnicresource.FieldCurrentDuplex, field.TypeString, value)
 	}
-	if hruo.mutation.CurrentDuplexCleared() {
+	if _u.mutation.CurrentDuplexCleared() {
 		_spec.ClearField(hostnicresource.FieldCurrentDuplex, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Features(); ok {
+	if value, ok := _u.mutation.Features(); ok {
 		_spec.SetField(hostnicresource.FieldFeatures, field.TypeString, value)
 	}
-	if hruo.mutation.FeaturesCleared() {
+	if _u.mutation.FeaturesCleared() {
 		_spec.ClearField(hostnicresource.FieldFeatures, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Mtu(); ok {
+	if value, ok := _u.mutation.Mtu(); ok {
 		_spec.SetField(hostnicresource.FieldMtu, field.TypeUint32, value)
 	}
-	if value, ok := hruo.mutation.AddedMtu(); ok {
+	if value, ok := _u.mutation.AddedMtu(); ok {
 		_spec.AddField(hostnicresource.FieldMtu, field.TypeUint32, value)
 	}
-	if hruo.mutation.MtuCleared() {
+	if _u.mutation.MtuCleared() {
 		_spec.ClearField(hostnicresource.FieldMtu, field.TypeUint32)
 	}
-	if value, ok := hruo.mutation.LinkState(); ok {
+	if value, ok := _u.mutation.LinkState(); ok {
 		_spec.SetField(hostnicresource.FieldLinkState, field.TypeEnum, value)
 	}
-	if hruo.mutation.LinkStateCleared() {
+	if _u.mutation.LinkStateCleared() {
 		_spec.ClearField(hostnicresource.FieldLinkState, field.TypeEnum)
 	}
-	if value, ok := hruo.mutation.BmcInterface(); ok {
+	if value, ok := _u.mutation.BmcInterface(); ok {
 		_spec.SetField(hostnicresource.FieldBmcInterface, field.TypeBool, value)
 	}
-	if hruo.mutation.BmcInterfaceCleared() {
+	if _u.mutation.BmcInterfaceCleared() {
 		_spec.ClearField(hostnicresource.FieldBmcInterface, field.TypeBool)
 	}
-	if value, ok := hruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostnicresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if hruo.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1508,7 +1508,7 @@ func (hruo *HostnicResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostn
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hruo.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1524,10 +1524,10 @@ func (hruo *HostnicResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostn
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &HostnicResource{config: hruo.config}
+	_node = &HostnicResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, hruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{hostnicresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -1535,6 +1535,6 @@ func (hruo *HostnicResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostn
 		}
 		return nil, err
 	}
-	hruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

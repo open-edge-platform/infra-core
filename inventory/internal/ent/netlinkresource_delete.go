@@ -20,56 +20,56 @@ type NetlinkResourceDelete struct {
 }
 
 // Where appends a list predicates to the NetlinkResourceDelete builder.
-func (nrd *NetlinkResourceDelete) Where(ps ...predicate.NetlinkResource) *NetlinkResourceDelete {
-	nrd.mutation.Where(ps...)
-	return nrd
+func (_d *NetlinkResourceDelete) Where(ps ...predicate.NetlinkResource) *NetlinkResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (nrd *NetlinkResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, nrd.sqlExec, nrd.mutation, nrd.hooks)
+func (_d *NetlinkResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nrd *NetlinkResourceDelete) ExecX(ctx context.Context) int {
-	n, err := nrd.Exec(ctx)
+func (_d *NetlinkResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (nrd *NetlinkResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *NetlinkResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(netlinkresource.Table, sqlgraph.NewFieldSpec(netlinkresource.FieldID, field.TypeInt))
-	if ps := nrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, nrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	nrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // NetlinkResourceDeleteOne is the builder for deleting a single NetlinkResource entity.
 type NetlinkResourceDeleteOne struct {
-	nrd *NetlinkResourceDelete
+	_d *NetlinkResourceDelete
 }
 
 // Where appends a list predicates to the NetlinkResourceDelete builder.
-func (nrdo *NetlinkResourceDeleteOne) Where(ps ...predicate.NetlinkResource) *NetlinkResourceDeleteOne {
-	nrdo.nrd.mutation.Where(ps...)
-	return nrdo
+func (_d *NetlinkResourceDeleteOne) Where(ps ...predicate.NetlinkResource) *NetlinkResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (nrdo *NetlinkResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := nrdo.nrd.Exec(ctx)
+func (_d *NetlinkResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (nrdo *NetlinkResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nrdo *NetlinkResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := nrdo.Exec(ctx); err != nil {
+func (_d *NetlinkResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

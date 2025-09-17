@@ -27,547 +27,547 @@ type InstanceResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (irc *InstanceResourceCreate) SetResourceID(s string) *InstanceResourceCreate {
-	irc.mutation.SetResourceID(s)
-	return irc
+func (_c *InstanceResourceCreate) SetResourceID(v string) *InstanceResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (irc *InstanceResourceCreate) SetKind(i instanceresource.Kind) *InstanceResourceCreate {
-	irc.mutation.SetKind(i)
-	return irc
+func (_c *InstanceResourceCreate) SetKind(v instanceresource.Kind) *InstanceResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableKind(i *instanceresource.Kind) *InstanceResourceCreate {
-	if i != nil {
-		irc.SetKind(*i)
+func (_c *InstanceResourceCreate) SetNillableKind(v *instanceresource.Kind) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetName sets the "name" field.
-func (irc *InstanceResourceCreate) SetName(s string) *InstanceResourceCreate {
-	irc.mutation.SetName(s)
-	return irc
+func (_c *InstanceResourceCreate) SetName(v string) *InstanceResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableName(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetName(*s)
+func (_c *InstanceResourceCreate) SetNillableName(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (irc *InstanceResourceCreate) SetDesiredState(is instanceresource.DesiredState) *InstanceResourceCreate {
-	irc.mutation.SetDesiredState(is)
-	return irc
+func (_c *InstanceResourceCreate) SetDesiredState(v instanceresource.DesiredState) *InstanceResourceCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableDesiredState(is *instanceresource.DesiredState) *InstanceResourceCreate {
-	if is != nil {
-		irc.SetDesiredState(*is)
+func (_c *InstanceResourceCreate) SetNillableDesiredState(v *instanceresource.DesiredState) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetDesiredState(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (irc *InstanceResourceCreate) SetCurrentState(is instanceresource.CurrentState) *InstanceResourceCreate {
-	irc.mutation.SetCurrentState(is)
-	return irc
+func (_c *InstanceResourceCreate) SetCurrentState(v instanceresource.CurrentState) *InstanceResourceCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableCurrentState(is *instanceresource.CurrentState) *InstanceResourceCreate {
-	if is != nil {
-		irc.SetCurrentState(*is)
+func (_c *InstanceResourceCreate) SetNillableCurrentState(v *instanceresource.CurrentState) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetVMMemoryBytes sets the "vm_memory_bytes" field.
-func (irc *InstanceResourceCreate) SetVMMemoryBytes(u uint64) *InstanceResourceCreate {
-	irc.mutation.SetVMMemoryBytes(u)
-	return irc
+func (_c *InstanceResourceCreate) SetVMMemoryBytes(v uint64) *InstanceResourceCreate {
+	_c.mutation.SetVMMemoryBytes(v)
+	return _c
 }
 
 // SetNillableVMMemoryBytes sets the "vm_memory_bytes" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableVMMemoryBytes(u *uint64) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetVMMemoryBytes(*u)
+func (_c *InstanceResourceCreate) SetNillableVMMemoryBytes(v *uint64) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetVMMemoryBytes(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetVMCPUCores sets the "vm_cpu_cores" field.
-func (irc *InstanceResourceCreate) SetVMCPUCores(u uint32) *InstanceResourceCreate {
-	irc.mutation.SetVMCPUCores(u)
-	return irc
+func (_c *InstanceResourceCreate) SetVMCPUCores(v uint32) *InstanceResourceCreate {
+	_c.mutation.SetVMCPUCores(v)
+	return _c
 }
 
 // SetNillableVMCPUCores sets the "vm_cpu_cores" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableVMCPUCores(u *uint32) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetVMCPUCores(*u)
+func (_c *InstanceResourceCreate) SetNillableVMCPUCores(v *uint32) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetVMCPUCores(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetVMStorageBytes sets the "vm_storage_bytes" field.
-func (irc *InstanceResourceCreate) SetVMStorageBytes(u uint64) *InstanceResourceCreate {
-	irc.mutation.SetVMStorageBytes(u)
-	return irc
+func (_c *InstanceResourceCreate) SetVMStorageBytes(v uint64) *InstanceResourceCreate {
+	_c.mutation.SetVMStorageBytes(v)
+	return _c
 }
 
 // SetNillableVMStorageBytes sets the "vm_storage_bytes" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableVMStorageBytes(u *uint64) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetVMStorageBytes(*u)
+func (_c *InstanceResourceCreate) SetNillableVMStorageBytes(v *uint64) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetVMStorageBytes(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetSecurityFeature sets the "security_feature" field.
-func (irc *InstanceResourceCreate) SetSecurityFeature(_if instanceresource.SecurityFeature) *InstanceResourceCreate {
-	irc.mutation.SetSecurityFeature(_if)
-	return irc
+func (_c *InstanceResourceCreate) SetSecurityFeature(v instanceresource.SecurityFeature) *InstanceResourceCreate {
+	_c.mutation.SetSecurityFeature(v)
+	return _c
 }
 
 // SetNillableSecurityFeature sets the "security_feature" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableSecurityFeature(_if *instanceresource.SecurityFeature) *InstanceResourceCreate {
-	if _if != nil {
-		irc.SetSecurityFeature(*_if)
+func (_c *InstanceResourceCreate) SetNillableSecurityFeature(v *instanceresource.SecurityFeature) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetSecurityFeature(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetInstanceStatus sets the "instance_status" field.
-func (irc *InstanceResourceCreate) SetInstanceStatus(s string) *InstanceResourceCreate {
-	irc.mutation.SetInstanceStatus(s)
-	return irc
+func (_c *InstanceResourceCreate) SetInstanceStatus(v string) *InstanceResourceCreate {
+	_c.mutation.SetInstanceStatus(v)
+	return _c
 }
 
 // SetNillableInstanceStatus sets the "instance_status" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableInstanceStatus(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetInstanceStatus(*s)
+func (_c *InstanceResourceCreate) SetNillableInstanceStatus(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetInstanceStatus(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetInstanceStatusIndicator sets the "instance_status_indicator" field.
-func (irc *InstanceResourceCreate) SetInstanceStatusIndicator(isi instanceresource.InstanceStatusIndicator) *InstanceResourceCreate {
-	irc.mutation.SetInstanceStatusIndicator(isi)
-	return irc
+func (_c *InstanceResourceCreate) SetInstanceStatusIndicator(v instanceresource.InstanceStatusIndicator) *InstanceResourceCreate {
+	_c.mutation.SetInstanceStatusIndicator(v)
+	return _c
 }
 
 // SetNillableInstanceStatusIndicator sets the "instance_status_indicator" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableInstanceStatusIndicator(isi *instanceresource.InstanceStatusIndicator) *InstanceResourceCreate {
-	if isi != nil {
-		irc.SetInstanceStatusIndicator(*isi)
+func (_c *InstanceResourceCreate) SetNillableInstanceStatusIndicator(v *instanceresource.InstanceStatusIndicator) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetInstanceStatusIndicator(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetInstanceStatusTimestamp sets the "instance_status_timestamp" field.
-func (irc *InstanceResourceCreate) SetInstanceStatusTimestamp(u uint64) *InstanceResourceCreate {
-	irc.mutation.SetInstanceStatusTimestamp(u)
-	return irc
+func (_c *InstanceResourceCreate) SetInstanceStatusTimestamp(v uint64) *InstanceResourceCreate {
+	_c.mutation.SetInstanceStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableInstanceStatusTimestamp sets the "instance_status_timestamp" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableInstanceStatusTimestamp(u *uint64) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetInstanceStatusTimestamp(*u)
+func (_c *InstanceResourceCreate) SetNillableInstanceStatusTimestamp(v *uint64) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetInstanceStatusTimestamp(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetProvisioningStatus sets the "provisioning_status" field.
-func (irc *InstanceResourceCreate) SetProvisioningStatus(s string) *InstanceResourceCreate {
-	irc.mutation.SetProvisioningStatus(s)
-	return irc
+func (_c *InstanceResourceCreate) SetProvisioningStatus(v string) *InstanceResourceCreate {
+	_c.mutation.SetProvisioningStatus(v)
+	return _c
 }
 
 // SetNillableProvisioningStatus sets the "provisioning_status" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableProvisioningStatus(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetProvisioningStatus(*s)
+func (_c *InstanceResourceCreate) SetNillableProvisioningStatus(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetProvisioningStatus(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetProvisioningStatusIndicator sets the "provisioning_status_indicator" field.
-func (irc *InstanceResourceCreate) SetProvisioningStatusIndicator(isi instanceresource.ProvisioningStatusIndicator) *InstanceResourceCreate {
-	irc.mutation.SetProvisioningStatusIndicator(isi)
-	return irc
+func (_c *InstanceResourceCreate) SetProvisioningStatusIndicator(v instanceresource.ProvisioningStatusIndicator) *InstanceResourceCreate {
+	_c.mutation.SetProvisioningStatusIndicator(v)
+	return _c
 }
 
 // SetNillableProvisioningStatusIndicator sets the "provisioning_status_indicator" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableProvisioningStatusIndicator(isi *instanceresource.ProvisioningStatusIndicator) *InstanceResourceCreate {
-	if isi != nil {
-		irc.SetProvisioningStatusIndicator(*isi)
+func (_c *InstanceResourceCreate) SetNillableProvisioningStatusIndicator(v *instanceresource.ProvisioningStatusIndicator) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetProvisioningStatusIndicator(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetProvisioningStatusTimestamp sets the "provisioning_status_timestamp" field.
-func (irc *InstanceResourceCreate) SetProvisioningStatusTimestamp(u uint64) *InstanceResourceCreate {
-	irc.mutation.SetProvisioningStatusTimestamp(u)
-	return irc
+func (_c *InstanceResourceCreate) SetProvisioningStatusTimestamp(v uint64) *InstanceResourceCreate {
+	_c.mutation.SetProvisioningStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableProvisioningStatusTimestamp sets the "provisioning_status_timestamp" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableProvisioningStatusTimestamp(u *uint64) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetProvisioningStatusTimestamp(*u)
+func (_c *InstanceResourceCreate) SetNillableProvisioningStatusTimestamp(v *uint64) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetProvisioningStatusTimestamp(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetUpdateStatus sets the "update_status" field.
-func (irc *InstanceResourceCreate) SetUpdateStatus(s string) *InstanceResourceCreate {
-	irc.mutation.SetUpdateStatus(s)
-	return irc
+func (_c *InstanceResourceCreate) SetUpdateStatus(v string) *InstanceResourceCreate {
+	_c.mutation.SetUpdateStatus(v)
+	return _c
 }
 
 // SetNillableUpdateStatus sets the "update_status" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableUpdateStatus(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetUpdateStatus(*s)
+func (_c *InstanceResourceCreate) SetNillableUpdateStatus(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetUpdateStatus(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetUpdateStatusIndicator sets the "update_status_indicator" field.
-func (irc *InstanceResourceCreate) SetUpdateStatusIndicator(isi instanceresource.UpdateStatusIndicator) *InstanceResourceCreate {
-	irc.mutation.SetUpdateStatusIndicator(isi)
-	return irc
+func (_c *InstanceResourceCreate) SetUpdateStatusIndicator(v instanceresource.UpdateStatusIndicator) *InstanceResourceCreate {
+	_c.mutation.SetUpdateStatusIndicator(v)
+	return _c
 }
 
 // SetNillableUpdateStatusIndicator sets the "update_status_indicator" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableUpdateStatusIndicator(isi *instanceresource.UpdateStatusIndicator) *InstanceResourceCreate {
-	if isi != nil {
-		irc.SetUpdateStatusIndicator(*isi)
+func (_c *InstanceResourceCreate) SetNillableUpdateStatusIndicator(v *instanceresource.UpdateStatusIndicator) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetUpdateStatusIndicator(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetUpdateStatusTimestamp sets the "update_status_timestamp" field.
-func (irc *InstanceResourceCreate) SetUpdateStatusTimestamp(u uint64) *InstanceResourceCreate {
-	irc.mutation.SetUpdateStatusTimestamp(u)
-	return irc
+func (_c *InstanceResourceCreate) SetUpdateStatusTimestamp(v uint64) *InstanceResourceCreate {
+	_c.mutation.SetUpdateStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableUpdateStatusTimestamp sets the "update_status_timestamp" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableUpdateStatusTimestamp(u *uint64) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetUpdateStatusTimestamp(*u)
+func (_c *InstanceResourceCreate) SetNillableUpdateStatusTimestamp(v *uint64) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetUpdateStatusTimestamp(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetUpdateStatusDetail sets the "update_status_detail" field.
-func (irc *InstanceResourceCreate) SetUpdateStatusDetail(s string) *InstanceResourceCreate {
-	irc.mutation.SetUpdateStatusDetail(s)
-	return irc
+func (_c *InstanceResourceCreate) SetUpdateStatusDetail(v string) *InstanceResourceCreate {
+	_c.mutation.SetUpdateStatusDetail(v)
+	return _c
 }
 
 // SetNillableUpdateStatusDetail sets the "update_status_detail" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableUpdateStatusDetail(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetUpdateStatusDetail(*s)
+func (_c *InstanceResourceCreate) SetNillableUpdateStatusDetail(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetUpdateStatusDetail(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetTrustedAttestationStatus sets the "trusted_attestation_status" field.
-func (irc *InstanceResourceCreate) SetTrustedAttestationStatus(s string) *InstanceResourceCreate {
-	irc.mutation.SetTrustedAttestationStatus(s)
-	return irc
+func (_c *InstanceResourceCreate) SetTrustedAttestationStatus(v string) *InstanceResourceCreate {
+	_c.mutation.SetTrustedAttestationStatus(v)
+	return _c
 }
 
 // SetNillableTrustedAttestationStatus sets the "trusted_attestation_status" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableTrustedAttestationStatus(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetTrustedAttestationStatus(*s)
+func (_c *InstanceResourceCreate) SetNillableTrustedAttestationStatus(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetTrustedAttestationStatus(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetTrustedAttestationStatusIndicator sets the "trusted_attestation_status_indicator" field.
-func (irc *InstanceResourceCreate) SetTrustedAttestationStatusIndicator(iasi instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceCreate {
-	irc.mutation.SetTrustedAttestationStatusIndicator(iasi)
-	return irc
+func (_c *InstanceResourceCreate) SetTrustedAttestationStatusIndicator(v instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceCreate {
+	_c.mutation.SetTrustedAttestationStatusIndicator(v)
+	return _c
 }
 
 // SetNillableTrustedAttestationStatusIndicator sets the "trusted_attestation_status_indicator" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableTrustedAttestationStatusIndicator(iasi *instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceCreate {
-	if iasi != nil {
-		irc.SetTrustedAttestationStatusIndicator(*iasi)
+func (_c *InstanceResourceCreate) SetNillableTrustedAttestationStatusIndicator(v *instanceresource.TrustedAttestationStatusIndicator) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetTrustedAttestationStatusIndicator(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetTrustedAttestationStatusTimestamp sets the "trusted_attestation_status_timestamp" field.
-func (irc *InstanceResourceCreate) SetTrustedAttestationStatusTimestamp(u uint64) *InstanceResourceCreate {
-	irc.mutation.SetTrustedAttestationStatusTimestamp(u)
-	return irc
+func (_c *InstanceResourceCreate) SetTrustedAttestationStatusTimestamp(v uint64) *InstanceResourceCreate {
+	_c.mutation.SetTrustedAttestationStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableTrustedAttestationStatusTimestamp sets the "trusted_attestation_status_timestamp" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableTrustedAttestationStatusTimestamp(u *uint64) *InstanceResourceCreate {
-	if u != nil {
-		irc.SetTrustedAttestationStatusTimestamp(*u)
+func (_c *InstanceResourceCreate) SetNillableTrustedAttestationStatusTimestamp(v *uint64) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetTrustedAttestationStatusTimestamp(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetExistingCves sets the "existing_cves" field.
-func (irc *InstanceResourceCreate) SetExistingCves(s string) *InstanceResourceCreate {
-	irc.mutation.SetExistingCves(s)
-	return irc
+func (_c *InstanceResourceCreate) SetExistingCves(v string) *InstanceResourceCreate {
+	_c.mutation.SetExistingCves(v)
+	return _c
 }
 
 // SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableExistingCves(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetExistingCves(*s)
+func (_c *InstanceResourceCreate) SetNillableExistingCves(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetExistingCves(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetRuntimePackages sets the "runtime_packages" field.
-func (irc *InstanceResourceCreate) SetRuntimePackages(s string) *InstanceResourceCreate {
-	irc.mutation.SetRuntimePackages(s)
-	return irc
+func (_c *InstanceResourceCreate) SetRuntimePackages(v string) *InstanceResourceCreate {
+	_c.mutation.SetRuntimePackages(v)
+	return _c
 }
 
 // SetNillableRuntimePackages sets the "runtime_packages" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableRuntimePackages(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetRuntimePackages(*s)
+func (_c *InstanceResourceCreate) SetNillableRuntimePackages(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetRuntimePackages(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetOsUpdateAvailable sets the "os_update_available" field.
-func (irc *InstanceResourceCreate) SetOsUpdateAvailable(s string) *InstanceResourceCreate {
-	irc.mutation.SetOsUpdateAvailable(s)
-	return irc
+func (_c *InstanceResourceCreate) SetOsUpdateAvailable(v string) *InstanceResourceCreate {
+	_c.mutation.SetOsUpdateAvailable(v)
+	return _c
 }
 
 // SetNillableOsUpdateAvailable sets the "os_update_available" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableOsUpdateAvailable(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetOsUpdateAvailable(*s)
+func (_c *InstanceResourceCreate) SetNillableOsUpdateAvailable(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetOsUpdateAvailable(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (irc *InstanceResourceCreate) SetTenantID(s string) *InstanceResourceCreate {
-	irc.mutation.SetTenantID(s)
-	return irc
+func (_c *InstanceResourceCreate) SetTenantID(v string) *InstanceResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetInstanceStatusDetail sets the "instance_status_detail" field.
-func (irc *InstanceResourceCreate) SetInstanceStatusDetail(s string) *InstanceResourceCreate {
-	irc.mutation.SetInstanceStatusDetail(s)
-	return irc
+func (_c *InstanceResourceCreate) SetInstanceStatusDetail(v string) *InstanceResourceCreate {
+	_c.mutation.SetInstanceStatusDetail(v)
+	return _c
 }
 
 // SetNillableInstanceStatusDetail sets the "instance_status_detail" field if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableInstanceStatusDetail(s *string) *InstanceResourceCreate {
-	if s != nil {
-		irc.SetInstanceStatusDetail(*s)
+func (_c *InstanceResourceCreate) SetNillableInstanceStatusDetail(v *string) *InstanceResourceCreate {
+	if v != nil {
+		_c.SetInstanceStatusDetail(*v)
 	}
-	return irc
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (irc *InstanceResourceCreate) SetCreatedAt(s string) *InstanceResourceCreate {
-	irc.mutation.SetCreatedAt(s)
-	return irc
+func (_c *InstanceResourceCreate) SetCreatedAt(v string) *InstanceResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (irc *InstanceResourceCreate) SetUpdatedAt(s string) *InstanceResourceCreate {
-	irc.mutation.SetUpdatedAt(s)
-	return irc
+func (_c *InstanceResourceCreate) SetUpdatedAt(v string) *InstanceResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (irc *InstanceResourceCreate) SetHostID(id int) *InstanceResourceCreate {
-	irc.mutation.SetHostID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetHostID(id int) *InstanceResourceCreate {
+	_c.mutation.SetHostID(id)
+	return _c
 }
 
 // SetNillableHostID sets the "host" edge to the HostResource entity by ID if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableHostID(id *int) *InstanceResourceCreate {
+func (_c *InstanceResourceCreate) SetNillableHostID(id *int) *InstanceResourceCreate {
 	if id != nil {
-		irc = irc.SetHostID(*id)
+		_c = _c.SetHostID(*id)
 	}
-	return irc
+	return _c
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (irc *InstanceResourceCreate) SetHost(h *HostResource) *InstanceResourceCreate {
-	return irc.SetHostID(h.ID)
+func (_c *InstanceResourceCreate) SetHost(v *HostResource) *InstanceResourceCreate {
+	return _c.SetHostID(v.ID)
 }
 
 // SetDesiredOsID sets the "desired_os" edge to the OperatingSystemResource entity by ID.
-func (irc *InstanceResourceCreate) SetDesiredOsID(id int) *InstanceResourceCreate {
-	irc.mutation.SetDesiredOsID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetDesiredOsID(id int) *InstanceResourceCreate {
+	_c.mutation.SetDesiredOsID(id)
+	return _c
 }
 
 // SetDesiredOs sets the "desired_os" edge to the OperatingSystemResource entity.
-func (irc *InstanceResourceCreate) SetDesiredOs(o *OperatingSystemResource) *InstanceResourceCreate {
-	return irc.SetDesiredOsID(o.ID)
+func (_c *InstanceResourceCreate) SetDesiredOs(v *OperatingSystemResource) *InstanceResourceCreate {
+	return _c.SetDesiredOsID(v.ID)
 }
 
 // SetCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID.
-func (irc *InstanceResourceCreate) SetCurrentOsID(id int) *InstanceResourceCreate {
-	irc.mutation.SetCurrentOsID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetCurrentOsID(id int) *InstanceResourceCreate {
+	_c.mutation.SetCurrentOsID(id)
+	return _c
 }
 
 // SetNillableCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableCurrentOsID(id *int) *InstanceResourceCreate {
+func (_c *InstanceResourceCreate) SetNillableCurrentOsID(id *int) *InstanceResourceCreate {
 	if id != nil {
-		irc = irc.SetCurrentOsID(*id)
+		_c = _c.SetCurrentOsID(*id)
 	}
-	return irc
+	return _c
 }
 
 // SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
-func (irc *InstanceResourceCreate) SetCurrentOs(o *OperatingSystemResource) *InstanceResourceCreate {
-	return irc.SetCurrentOsID(o.ID)
+func (_c *InstanceResourceCreate) SetCurrentOs(v *OperatingSystemResource) *InstanceResourceCreate {
+	return _c.SetCurrentOsID(v.ID)
 }
 
 // SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
-func (irc *InstanceResourceCreate) SetOsID(id int) *InstanceResourceCreate {
-	irc.mutation.SetOsID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetOsID(id int) *InstanceResourceCreate {
+	_c.mutation.SetOsID(id)
+	return _c
 }
 
 // SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableOsID(id *int) *InstanceResourceCreate {
+func (_c *InstanceResourceCreate) SetNillableOsID(id *int) *InstanceResourceCreate {
 	if id != nil {
-		irc = irc.SetOsID(*id)
+		_c = _c.SetOsID(*id)
 	}
-	return irc
+	return _c
 }
 
 // SetOs sets the "os" edge to the OperatingSystemResource entity.
-func (irc *InstanceResourceCreate) SetOs(o *OperatingSystemResource) *InstanceResourceCreate {
-	return irc.SetOsID(o.ID)
+func (_c *InstanceResourceCreate) SetOs(v *OperatingSystemResource) *InstanceResourceCreate {
+	return _c.SetOsID(v.ID)
 }
 
 // AddWorkloadMemberIDs adds the "workload_members" edge to the WorkloadMember entity by IDs.
-func (irc *InstanceResourceCreate) AddWorkloadMemberIDs(ids ...int) *InstanceResourceCreate {
-	irc.mutation.AddWorkloadMemberIDs(ids...)
-	return irc
+func (_c *InstanceResourceCreate) AddWorkloadMemberIDs(ids ...int) *InstanceResourceCreate {
+	_c.mutation.AddWorkloadMemberIDs(ids...)
+	return _c
 }
 
 // AddWorkloadMembers adds the "workload_members" edges to the WorkloadMember entity.
-func (irc *InstanceResourceCreate) AddWorkloadMembers(w ...*WorkloadMember) *InstanceResourceCreate {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_c *InstanceResourceCreate) AddWorkloadMembers(v ...*WorkloadMember) *InstanceResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return irc.AddWorkloadMemberIDs(ids...)
+	return _c.AddWorkloadMemberIDs(ids...)
 }
 
 // SetProviderID sets the "provider" edge to the ProviderResource entity by ID.
-func (irc *InstanceResourceCreate) SetProviderID(id int) *InstanceResourceCreate {
-	irc.mutation.SetProviderID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetProviderID(id int) *InstanceResourceCreate {
+	_c.mutation.SetProviderID(id)
+	return _c
 }
 
 // SetNillableProviderID sets the "provider" edge to the ProviderResource entity by ID if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableProviderID(id *int) *InstanceResourceCreate {
+func (_c *InstanceResourceCreate) SetNillableProviderID(id *int) *InstanceResourceCreate {
 	if id != nil {
-		irc = irc.SetProviderID(*id)
+		_c = _c.SetProviderID(*id)
 	}
-	return irc
+	return _c
 }
 
 // SetProvider sets the "provider" edge to the ProviderResource entity.
-func (irc *InstanceResourceCreate) SetProvider(p *ProviderResource) *InstanceResourceCreate {
-	return irc.SetProviderID(p.ID)
+func (_c *InstanceResourceCreate) SetProvider(v *ProviderResource) *InstanceResourceCreate {
+	return _c.SetProviderID(v.ID)
 }
 
 // SetLocalaccountID sets the "localaccount" edge to the LocalAccountResource entity by ID.
-func (irc *InstanceResourceCreate) SetLocalaccountID(id int) *InstanceResourceCreate {
-	irc.mutation.SetLocalaccountID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetLocalaccountID(id int) *InstanceResourceCreate {
+	_c.mutation.SetLocalaccountID(id)
+	return _c
 }
 
 // SetNillableLocalaccountID sets the "localaccount" edge to the LocalAccountResource entity by ID if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableLocalaccountID(id *int) *InstanceResourceCreate {
+func (_c *InstanceResourceCreate) SetNillableLocalaccountID(id *int) *InstanceResourceCreate {
 	if id != nil {
-		irc = irc.SetLocalaccountID(*id)
+		_c = _c.SetLocalaccountID(*id)
 	}
-	return irc
+	return _c
 }
 
 // SetLocalaccount sets the "localaccount" edge to the LocalAccountResource entity.
-func (irc *InstanceResourceCreate) SetLocalaccount(l *LocalAccountResource) *InstanceResourceCreate {
-	return irc.SetLocalaccountID(l.ID)
+func (_c *InstanceResourceCreate) SetLocalaccount(v *LocalAccountResource) *InstanceResourceCreate {
+	return _c.SetLocalaccountID(v.ID)
 }
 
 // SetOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID.
-func (irc *InstanceResourceCreate) SetOsUpdatePolicyID(id int) *InstanceResourceCreate {
-	irc.mutation.SetOsUpdatePolicyID(id)
-	return irc
+func (_c *InstanceResourceCreate) SetOsUpdatePolicyID(id int) *InstanceResourceCreate {
+	_c.mutation.SetOsUpdatePolicyID(id)
+	return _c
 }
 
 // SetNillableOsUpdatePolicyID sets the "os_update_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
-func (irc *InstanceResourceCreate) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceCreate {
+func (_c *InstanceResourceCreate) SetNillableOsUpdatePolicyID(id *int) *InstanceResourceCreate {
 	if id != nil {
-		irc = irc.SetOsUpdatePolicyID(*id)
+		_c = _c.SetOsUpdatePolicyID(*id)
 	}
-	return irc
+	return _c
 }
 
 // SetOsUpdatePolicy sets the "os_update_policy" edge to the OSUpdatePolicyResource entity.
-func (irc *InstanceResourceCreate) SetOsUpdatePolicy(o *OSUpdatePolicyResource) *InstanceResourceCreate {
-	return irc.SetOsUpdatePolicyID(o.ID)
+func (_c *InstanceResourceCreate) SetOsUpdatePolicy(v *OSUpdatePolicyResource) *InstanceResourceCreate {
+	return _c.SetOsUpdatePolicyID(v.ID)
 }
 
 // AddCustomConfigIDs adds the "custom_config" edge to the CustomConfigResource entity by IDs.
-func (irc *InstanceResourceCreate) AddCustomConfigIDs(ids ...int) *InstanceResourceCreate {
-	irc.mutation.AddCustomConfigIDs(ids...)
-	return irc
+func (_c *InstanceResourceCreate) AddCustomConfigIDs(ids ...int) *InstanceResourceCreate {
+	_c.mutation.AddCustomConfigIDs(ids...)
+	return _c
 }
 
 // AddCustomConfig adds the "custom_config" edges to the CustomConfigResource entity.
-func (irc *InstanceResourceCreate) AddCustomConfig(c ...*CustomConfigResource) *InstanceResourceCreate {
-	ids := make([]int, len(c))
-	for i := range c {
-		ids[i] = c[i].ID
+func (_c *InstanceResourceCreate) AddCustomConfig(v ...*CustomConfigResource) *InstanceResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return irc.AddCustomConfigIDs(ids...)
+	return _c.AddCustomConfigIDs(ids...)
 }
 
 // Mutation returns the InstanceResourceMutation object of the builder.
-func (irc *InstanceResourceCreate) Mutation() *InstanceResourceMutation {
-	return irc.mutation
+func (_c *InstanceResourceCreate) Mutation() *InstanceResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the InstanceResource in the database.
-func (irc *InstanceResourceCreate) Save(ctx context.Context) (*InstanceResource, error) {
-	return withHooks(ctx, irc.sqlSave, irc.mutation, irc.hooks)
+func (_c *InstanceResourceCreate) Save(ctx context.Context) (*InstanceResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (irc *InstanceResourceCreate) SaveX(ctx context.Context) *InstanceResource {
-	v, err := irc.Save(ctx)
+func (_c *InstanceResourceCreate) SaveX(ctx context.Context) *InstanceResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -575,84 +575,84 @@ func (irc *InstanceResourceCreate) SaveX(ctx context.Context) *InstanceResource 
 }
 
 // Exec executes the query.
-func (irc *InstanceResourceCreate) Exec(ctx context.Context) error {
-	_, err := irc.Save(ctx)
+func (_c *InstanceResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (irc *InstanceResourceCreate) ExecX(ctx context.Context) {
-	if err := irc.Exec(ctx); err != nil {
+func (_c *InstanceResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (irc *InstanceResourceCreate) check() error {
-	if _, ok := irc.mutation.ResourceID(); !ok {
+func (_c *InstanceResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "InstanceResource.resource_id"`)}
 	}
-	if v, ok := irc.mutation.Kind(); ok {
+	if v, ok := _c.mutation.Kind(); ok {
 		if err := instanceresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := instanceresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := instanceresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.SecurityFeature(); ok {
+	if v, ok := _c.mutation.SecurityFeature(); ok {
 		if err := instanceresource.SecurityFeatureValidator(v); err != nil {
 			return &ValidationError{Name: "security_feature", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.security_feature": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.InstanceStatusIndicator(); ok {
+	if v, ok := _c.mutation.InstanceStatusIndicator(); ok {
 		if err := instanceresource.InstanceStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "instance_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.instance_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.ProvisioningStatusIndicator(); ok {
+	if v, ok := _c.mutation.ProvisioningStatusIndicator(); ok {
 		if err := instanceresource.ProvisioningStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "provisioning_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.provisioning_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.UpdateStatusIndicator(); ok {
+	if v, ok := _c.mutation.UpdateStatusIndicator(); ok {
 		if err := instanceresource.UpdateStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "update_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.update_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := irc.mutation.TrustedAttestationStatusIndicator(); ok {
+	if v, ok := _c.mutation.TrustedAttestationStatusIndicator(); ok {
 		if err := instanceresource.TrustedAttestationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
 	}
-	if _, ok := irc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "InstanceResource.tenant_id"`)}
 	}
-	if _, ok := irc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "InstanceResource.created_at"`)}
 	}
-	if _, ok := irc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "InstanceResource.updated_at"`)}
 	}
-	if len(irc.mutation.DesiredOsIDs()) == 0 {
+	if len(_c.mutation.DesiredOsIDs()) == 0 {
 		return &ValidationError{Name: "desired_os", err: errors.New(`ent: missing required edge "InstanceResource.desired_os"`)}
 	}
 	return nil
 }
 
-func (irc *InstanceResourceCreate) sqlSave(ctx context.Context) (*InstanceResource, error) {
-	if err := irc.check(); err != nil {
+func (_c *InstanceResourceCreate) sqlSave(ctx context.Context) (*InstanceResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := irc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, irc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -660,133 +660,133 @@ func (irc *InstanceResourceCreate) sqlSave(ctx context.Context) (*InstanceResour
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	irc.mutation.id = &_node.ID
-	irc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.CreateSpec) {
+func (_c *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &InstanceResource{config: irc.config}
+		_node = &InstanceResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(instanceresource.Table, sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt))
 	)
-	if value, ok := irc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(instanceresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := irc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(instanceresource.FieldKind, field.TypeEnum, value)
 		_node.Kind = value
 	}
-	if value, ok := irc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(instanceresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := irc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(instanceresource.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := irc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(instanceresource.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := irc.mutation.VMMemoryBytes(); ok {
+	if value, ok := _c.mutation.VMMemoryBytes(); ok {
 		_spec.SetField(instanceresource.FieldVMMemoryBytes, field.TypeUint64, value)
 		_node.VMMemoryBytes = value
 	}
-	if value, ok := irc.mutation.VMCPUCores(); ok {
+	if value, ok := _c.mutation.VMCPUCores(); ok {
 		_spec.SetField(instanceresource.FieldVMCPUCores, field.TypeUint32, value)
 		_node.VMCPUCores = value
 	}
-	if value, ok := irc.mutation.VMStorageBytes(); ok {
+	if value, ok := _c.mutation.VMStorageBytes(); ok {
 		_spec.SetField(instanceresource.FieldVMStorageBytes, field.TypeUint64, value)
 		_node.VMStorageBytes = value
 	}
-	if value, ok := irc.mutation.SecurityFeature(); ok {
+	if value, ok := _c.mutation.SecurityFeature(); ok {
 		_spec.SetField(instanceresource.FieldSecurityFeature, field.TypeEnum, value)
 		_node.SecurityFeature = value
 	}
-	if value, ok := irc.mutation.InstanceStatus(); ok {
+	if value, ok := _c.mutation.InstanceStatus(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatus, field.TypeString, value)
 		_node.InstanceStatus = value
 	}
-	if value, ok := irc.mutation.InstanceStatusIndicator(); ok {
+	if value, ok := _c.mutation.InstanceStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusIndicator, field.TypeEnum, value)
 		_node.InstanceStatusIndicator = value
 	}
-	if value, ok := irc.mutation.InstanceStatusTimestamp(); ok {
+	if value, ok := _c.mutation.InstanceStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusTimestamp, field.TypeUint64, value)
 		_node.InstanceStatusTimestamp = value
 	}
-	if value, ok := irc.mutation.ProvisioningStatus(); ok {
+	if value, ok := _c.mutation.ProvisioningStatus(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatus, field.TypeString, value)
 		_node.ProvisioningStatus = value
 	}
-	if value, ok := irc.mutation.ProvisioningStatusIndicator(); ok {
+	if value, ok := _c.mutation.ProvisioningStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatusIndicator, field.TypeEnum, value)
 		_node.ProvisioningStatusIndicator = value
 	}
-	if value, ok := irc.mutation.ProvisioningStatusTimestamp(); ok {
+	if value, ok := _c.mutation.ProvisioningStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldProvisioningStatusTimestamp, field.TypeUint64, value)
 		_node.ProvisioningStatusTimestamp = value
 	}
-	if value, ok := irc.mutation.UpdateStatus(); ok {
+	if value, ok := _c.mutation.UpdateStatus(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatus, field.TypeString, value)
 		_node.UpdateStatus = value
 	}
-	if value, ok := irc.mutation.UpdateStatusIndicator(); ok {
+	if value, ok := _c.mutation.UpdateStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusIndicator, field.TypeEnum, value)
 		_node.UpdateStatusIndicator = value
 	}
-	if value, ok := irc.mutation.UpdateStatusTimestamp(); ok {
+	if value, ok := _c.mutation.UpdateStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64, value)
 		_node.UpdateStatusTimestamp = value
 	}
-	if value, ok := irc.mutation.UpdateStatusDetail(); ok {
+	if value, ok := _c.mutation.UpdateStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldUpdateStatusDetail, field.TypeString, value)
 		_node.UpdateStatusDetail = value
 	}
-	if value, ok := irc.mutation.TrustedAttestationStatus(); ok {
+	if value, ok := _c.mutation.TrustedAttestationStatus(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatus, field.TypeString, value)
 		_node.TrustedAttestationStatus = value
 	}
-	if value, ok := irc.mutation.TrustedAttestationStatusIndicator(); ok {
+	if value, ok := _c.mutation.TrustedAttestationStatusIndicator(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusIndicator, field.TypeEnum, value)
 		_node.TrustedAttestationStatusIndicator = value
 	}
-	if value, ok := irc.mutation.TrustedAttestationStatusTimestamp(); ok {
+	if value, ok := _c.mutation.TrustedAttestationStatusTimestamp(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatusTimestamp, field.TypeUint64, value)
 		_node.TrustedAttestationStatusTimestamp = value
 	}
-	if value, ok := irc.mutation.ExistingCves(); ok {
+	if value, ok := _c.mutation.ExistingCves(); ok {
 		_spec.SetField(instanceresource.FieldExistingCves, field.TypeString, value)
 		_node.ExistingCves = value
 	}
-	if value, ok := irc.mutation.RuntimePackages(); ok {
+	if value, ok := _c.mutation.RuntimePackages(); ok {
 		_spec.SetField(instanceresource.FieldRuntimePackages, field.TypeString, value)
 		_node.RuntimePackages = value
 	}
-	if value, ok := irc.mutation.OsUpdateAvailable(); ok {
+	if value, ok := _c.mutation.OsUpdateAvailable(); ok {
 		_spec.SetField(instanceresource.FieldOsUpdateAvailable, field.TypeString, value)
 		_node.OsUpdateAvailable = value
 	}
-	if value, ok := irc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(instanceresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := irc.mutation.InstanceStatusDetail(); ok {
+	if value, ok := _c.mutation.InstanceStatusDetail(); ok {
 		_spec.SetField(instanceresource.FieldInstanceStatusDetail, field.TypeString, value)
 		_node.InstanceStatusDetail = value
 	}
-	if value, ok := irc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(instanceresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := irc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(instanceresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := irc.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
@@ -802,7 +802,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.DesiredOsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.DesiredOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -819,7 +819,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_node.instance_resource_desired_os = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.CurrentOsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CurrentOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -836,7 +836,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_node.instance_resource_current_os = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.OsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -853,7 +853,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_node.instance_resource_os = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.WorkloadMembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -869,7 +869,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.ProviderIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProviderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -886,7 +886,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_node.instance_resource_provider = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.LocalaccountIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.LocalaccountIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -903,7 +903,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_node.instance_resource_localaccount = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.OsUpdatePolicyIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -920,7 +920,7 @@ func (irc *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cr
 		_node.instance_resource_os_update_policy = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := irc.mutation.CustomConfigIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.CustomConfigIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -947,16 +947,16 @@ type InstanceResourceCreateBulk struct {
 }
 
 // Save creates the InstanceResource entities in the database.
-func (ircb *InstanceResourceCreateBulk) Save(ctx context.Context) ([]*InstanceResource, error) {
-	if ircb.err != nil {
-		return nil, ircb.err
+func (_c *InstanceResourceCreateBulk) Save(ctx context.Context) ([]*InstanceResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(ircb.builders))
-	nodes := make([]*InstanceResource, len(ircb.builders))
-	mutators := make([]Mutator, len(ircb.builders))
-	for i := range ircb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*InstanceResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := ircb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*InstanceResourceMutation)
 				if !ok {
@@ -969,11 +969,11 @@ func (ircb *InstanceResourceCreateBulk) Save(ctx context.Context) ([]*InstanceRe
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, ircb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, ircb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -997,7 +997,7 @@ func (ircb *InstanceResourceCreateBulk) Save(ctx context.Context) ([]*InstanceRe
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, ircb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -1005,8 +1005,8 @@ func (ircb *InstanceResourceCreateBulk) Save(ctx context.Context) ([]*InstanceRe
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ircb *InstanceResourceCreateBulk) SaveX(ctx context.Context) []*InstanceResource {
-	v, err := ircb.Save(ctx)
+func (_c *InstanceResourceCreateBulk) SaveX(ctx context.Context) []*InstanceResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -1014,14 +1014,14 @@ func (ircb *InstanceResourceCreateBulk) SaveX(ctx context.Context) []*InstanceRe
 }
 
 // Exec executes the query.
-func (ircb *InstanceResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := ircb.Save(ctx)
+func (_c *InstanceResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ircb *InstanceResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := ircb.Exec(ctx); err != nil {
+func (_c *InstanceResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

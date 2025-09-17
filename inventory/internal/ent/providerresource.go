@@ -57,7 +57,7 @@ func (*ProviderResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the ProviderResource fields.
-func (pr *ProviderResource) assignValues(columns []string, values []any) error {
+func (_m *ProviderResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -68,69 +68,69 @@ func (pr *ProviderResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			pr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case providerresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				pr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case providerresource.FieldProviderKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provider_kind", values[i])
 			} else if value.Valid {
-				pr.ProviderKind = providerresource.ProviderKind(value.String)
+				_m.ProviderKind = providerresource.ProviderKind(value.String)
 			}
 		case providerresource.FieldProviderVendor:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provider_vendor", values[i])
 			} else if value.Valid {
-				pr.ProviderVendor = providerresource.ProviderVendor(value.String)
+				_m.ProviderVendor = providerresource.ProviderVendor(value.String)
 			}
 		case providerresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				pr.Name = value.String
+				_m.Name = value.String
 			}
 		case providerresource.FieldAPIEndpoint:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field api_endpoint", values[i])
 			} else if value.Valid {
-				pr.APIEndpoint = value.String
+				_m.APIEndpoint = value.String
 			}
 		case providerresource.FieldAPICredentials:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field api_credentials", values[i])
 			} else if value.Valid {
-				pr.APICredentials = value.String
+				_m.APICredentials = value.String
 			}
 		case providerresource.FieldConfig:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field config", values[i])
 			} else if value.Valid {
-				pr.Config = value.String
+				_m.Config = value.String
 			}
 		case providerresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				pr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case providerresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				pr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case providerresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				pr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		default:
-			pr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -138,62 +138,62 @@ func (pr *ProviderResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the ProviderResource.
 // This includes values selected through modifiers, order, etc.
-func (pr *ProviderResource) Value(name string) (ent.Value, error) {
-	return pr.selectValues.Get(name)
+func (_m *ProviderResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this ProviderResource.
 // Note that you need to call ProviderResource.Unwrap() before calling this method if this ProviderResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (pr *ProviderResource) Update() *ProviderResourceUpdateOne {
-	return NewProviderResourceClient(pr.config).UpdateOne(pr)
+func (_m *ProviderResource) Update() *ProviderResourceUpdateOne {
+	return NewProviderResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the ProviderResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (pr *ProviderResource) Unwrap() *ProviderResource {
-	_tx, ok := pr.config.driver.(*txDriver)
+func (_m *ProviderResource) Unwrap() *ProviderResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: ProviderResource is not a transactional entity")
 	}
-	pr.config.driver = _tx.drv
-	return pr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (pr *ProviderResource) String() string {
+func (_m *ProviderResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("ProviderResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", pr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(pr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("provider_kind=")
-	builder.WriteString(fmt.Sprintf("%v", pr.ProviderKind))
+	builder.WriteString(fmt.Sprintf("%v", _m.ProviderKind))
 	builder.WriteString(", ")
 	builder.WriteString("provider_vendor=")
-	builder.WriteString(fmt.Sprintf("%v", pr.ProviderVendor))
+	builder.WriteString(fmt.Sprintf("%v", _m.ProviderVendor))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(pr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("api_endpoint=")
-	builder.WriteString(pr.APIEndpoint)
+	builder.WriteString(_m.APIEndpoint)
 	builder.WriteString(", ")
 	builder.WriteString("api_credentials=")
-	builder.WriteString(pr.APICredentials)
+	builder.WriteString(_m.APICredentials)
 	builder.WriteString(", ")
 	builder.WriteString("config=")
-	builder.WriteString(pr.Config)
+	builder.WriteString(_m.Config)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(pr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(pr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(pr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -20,56 +20,56 @@ type OSUpdatePolicyDelete struct {
 }
 
 // Where appends a list predicates to the OSUpdatePolicyDelete builder.
-func (oupd *OSUpdatePolicyDelete) Where(ps ...predicate.OSUpdatePolicy) *OSUpdatePolicyDelete {
-	oupd.mutation.Where(ps...)
-	return oupd
+func (_d *OSUpdatePolicyDelete) Where(ps ...predicate.OSUpdatePolicy) *OSUpdatePolicyDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (oupd *OSUpdatePolicyDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, oupd.sqlExec, oupd.mutation, oupd.hooks)
+func (_d *OSUpdatePolicyDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (oupd *OSUpdatePolicyDelete) ExecX(ctx context.Context) int {
-	n, err := oupd.Exec(ctx)
+func (_d *OSUpdatePolicyDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (oupd *OSUpdatePolicyDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *OSUpdatePolicyDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(osupdatepolicy.Table, sqlgraph.NewFieldSpec(osupdatepolicy.FieldID, field.TypeInt))
-	if ps := oupd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, oupd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	oupd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // OSUpdatePolicyDeleteOne is the builder for deleting a single OSUpdatePolicy entity.
 type OSUpdatePolicyDeleteOne struct {
-	oupd *OSUpdatePolicyDelete
+	_d *OSUpdatePolicyDelete
 }
 
 // Where appends a list predicates to the OSUpdatePolicyDelete builder.
-func (oupdo *OSUpdatePolicyDeleteOne) Where(ps ...predicate.OSUpdatePolicy) *OSUpdatePolicyDeleteOne {
-	oupdo.oupd.mutation.Where(ps...)
-	return oupdo
+func (_d *OSUpdatePolicyDeleteOne) Where(ps ...predicate.OSUpdatePolicy) *OSUpdatePolicyDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (oupdo *OSUpdatePolicyDeleteOne) Exec(ctx context.Context) error {
-	n, err := oupdo.oupd.Exec(ctx)
+func (_d *OSUpdatePolicyDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (oupdo *OSUpdatePolicyDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (oupdo *OSUpdatePolicyDeleteOne) ExecX(ctx context.Context) {
-	if err := oupdo.Exec(ctx); err != nil {
+func (_d *OSUpdatePolicyDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
