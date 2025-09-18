@@ -130,7 +130,7 @@ func (*SiteResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the SiteResource fields.
-func (sr *SiteResource) assignValues(columns []string, values []any) error {
+func (_m *SiteResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -141,126 +141,126 @@ func (sr *SiteResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			sr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case siteresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				sr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case siteresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				sr.Name = value.String
+				_m.Name = value.String
 			}
 		case siteresource.FieldAddress:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field address", values[i])
 			} else if value.Valid {
-				sr.Address = value.String
+				_m.Address = value.String
 			}
 		case siteresource.FieldSiteLat:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field site_lat", values[i])
 			} else if value.Valid {
-				sr.SiteLat = int32(value.Int64)
+				_m.SiteLat = int32(value.Int64)
 			}
 		case siteresource.FieldSiteLng:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field site_lng", values[i])
 			} else if value.Valid {
-				sr.SiteLng = int32(value.Int64)
+				_m.SiteLng = int32(value.Int64)
 			}
 		case siteresource.FieldDNSServers:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field dns_servers", values[i])
 			} else if value.Valid {
-				sr.DNSServers = value.String
+				_m.DNSServers = value.String
 			}
 		case siteresource.FieldDockerRegistries:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field docker_registries", values[i])
 			} else if value.Valid {
-				sr.DockerRegistries = value.String
+				_m.DockerRegistries = value.String
 			}
 		case siteresource.FieldMetricsEndpoint:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metrics_endpoint", values[i])
 			} else if value.Valid {
-				sr.MetricsEndpoint = value.String
+				_m.MetricsEndpoint = value.String
 			}
 		case siteresource.FieldHTTPProxy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field http_proxy", values[i])
 			} else if value.Valid {
-				sr.HTTPProxy = value.String
+				_m.HTTPProxy = value.String
 			}
 		case siteresource.FieldHTTPSProxy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field https_proxy", values[i])
 			} else if value.Valid {
-				sr.HTTPSProxy = value.String
+				_m.HTTPSProxy = value.String
 			}
 		case siteresource.FieldFtpProxy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field ftp_proxy", values[i])
 			} else if value.Valid {
-				sr.FtpProxy = value.String
+				_m.FtpProxy = value.String
 			}
 		case siteresource.FieldNoProxy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field no_proxy", values[i])
 			} else if value.Valid {
-				sr.NoProxy = value.String
+				_m.NoProxy = value.String
 			}
 		case siteresource.FieldMetadata:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
-				sr.Metadata = value.String
+				_m.Metadata = value.String
 			}
 		case siteresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				sr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case siteresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				sr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case siteresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				sr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case siteresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field site_resource_region", value)
 			} else if value.Valid {
-				sr.site_resource_region = new(int)
-				*sr.site_resource_region = int(value.Int64)
+				_m.site_resource_region = new(int)
+				*_m.site_resource_region = int(value.Int64)
 			}
 		case siteresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field site_resource_ou", value)
 			} else if value.Valid {
-				sr.site_resource_ou = new(int)
-				*sr.site_resource_ou = int(value.Int64)
+				_m.site_resource_ou = new(int)
+				*_m.site_resource_ou = int(value.Int64)
 			}
 		case siteresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field site_resource_provider", value)
 			} else if value.Valid {
-				sr.site_resource_provider = new(int)
-				*sr.site_resource_provider = int(value.Int64)
+				_m.site_resource_provider = new(int)
+				*_m.site_resource_provider = int(value.Int64)
 			}
 		default:
-			sr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -268,95 +268,95 @@ func (sr *SiteResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the SiteResource.
 // This includes values selected through modifiers, order, etc.
-func (sr *SiteResource) Value(name string) (ent.Value, error) {
-	return sr.selectValues.Get(name)
+func (_m *SiteResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryRegion queries the "region" edge of the SiteResource entity.
-func (sr *SiteResource) QueryRegion() *RegionResourceQuery {
-	return NewSiteResourceClient(sr.config).QueryRegion(sr)
+func (_m *SiteResource) QueryRegion() *RegionResourceQuery {
+	return NewSiteResourceClient(_m.config).QueryRegion(_m)
 }
 
 // QueryOu queries the "ou" edge of the SiteResource entity.
-func (sr *SiteResource) QueryOu() *OuResourceQuery {
-	return NewSiteResourceClient(sr.config).QueryOu(sr)
+func (_m *SiteResource) QueryOu() *OuResourceQuery {
+	return NewSiteResourceClient(_m.config).QueryOu(_m)
 }
 
 // QueryProvider queries the "provider" edge of the SiteResource entity.
-func (sr *SiteResource) QueryProvider() *ProviderResourceQuery {
-	return NewSiteResourceClient(sr.config).QueryProvider(sr)
+func (_m *SiteResource) QueryProvider() *ProviderResourceQuery {
+	return NewSiteResourceClient(_m.config).QueryProvider(_m)
 }
 
 // Update returns a builder for updating this SiteResource.
 // Note that you need to call SiteResource.Unwrap() before calling this method if this SiteResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (sr *SiteResource) Update() *SiteResourceUpdateOne {
-	return NewSiteResourceClient(sr.config).UpdateOne(sr)
+func (_m *SiteResource) Update() *SiteResourceUpdateOne {
+	return NewSiteResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the SiteResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (sr *SiteResource) Unwrap() *SiteResource {
-	_tx, ok := sr.config.driver.(*txDriver)
+func (_m *SiteResource) Unwrap() *SiteResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: SiteResource is not a transactional entity")
 	}
-	sr.config.driver = _tx.drv
-	return sr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (sr *SiteResource) String() string {
+func (_m *SiteResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("SiteResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", sr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(sr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(sr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("address=")
-	builder.WriteString(sr.Address)
+	builder.WriteString(_m.Address)
 	builder.WriteString(", ")
 	builder.WriteString("site_lat=")
-	builder.WriteString(fmt.Sprintf("%v", sr.SiteLat))
+	builder.WriteString(fmt.Sprintf("%v", _m.SiteLat))
 	builder.WriteString(", ")
 	builder.WriteString("site_lng=")
-	builder.WriteString(fmt.Sprintf("%v", sr.SiteLng))
+	builder.WriteString(fmt.Sprintf("%v", _m.SiteLng))
 	builder.WriteString(", ")
 	builder.WriteString("dns_servers=")
-	builder.WriteString(sr.DNSServers)
+	builder.WriteString(_m.DNSServers)
 	builder.WriteString(", ")
 	builder.WriteString("docker_registries=")
-	builder.WriteString(sr.DockerRegistries)
+	builder.WriteString(_m.DockerRegistries)
 	builder.WriteString(", ")
 	builder.WriteString("metrics_endpoint=")
-	builder.WriteString(sr.MetricsEndpoint)
+	builder.WriteString(_m.MetricsEndpoint)
 	builder.WriteString(", ")
 	builder.WriteString("http_proxy=")
-	builder.WriteString(sr.HTTPProxy)
+	builder.WriteString(_m.HTTPProxy)
 	builder.WriteString(", ")
 	builder.WriteString("https_proxy=")
-	builder.WriteString(sr.HTTPSProxy)
+	builder.WriteString(_m.HTTPSProxy)
 	builder.WriteString(", ")
 	builder.WriteString("ftp_proxy=")
-	builder.WriteString(sr.FtpProxy)
+	builder.WriteString(_m.FtpProxy)
 	builder.WriteString(", ")
 	builder.WriteString("no_proxy=")
-	builder.WriteString(sr.NoProxy)
+	builder.WriteString(_m.NoProxy)
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
-	builder.WriteString(sr.Metadata)
+	builder.WriteString(_m.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(sr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(sr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(sr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -20,118 +20,118 @@ type OuResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (orc *OuResourceCreate) SetResourceID(s string) *OuResourceCreate {
-	orc.mutation.SetResourceID(s)
-	return orc
+func (_c *OuResourceCreate) SetResourceID(v string) *OuResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (orc *OuResourceCreate) SetName(s string) *OuResourceCreate {
-	orc.mutation.SetName(s)
-	return orc
+func (_c *OuResourceCreate) SetName(v string) *OuResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (orc *OuResourceCreate) SetNillableName(s *string) *OuResourceCreate {
-	if s != nil {
-		orc.SetName(*s)
+func (_c *OuResourceCreate) SetNillableName(v *string) *OuResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return orc
+	return _c
 }
 
 // SetOuKind sets the "ou_kind" field.
-func (orc *OuResourceCreate) SetOuKind(s string) *OuResourceCreate {
-	orc.mutation.SetOuKind(s)
-	return orc
+func (_c *OuResourceCreate) SetOuKind(v string) *OuResourceCreate {
+	_c.mutation.SetOuKind(v)
+	return _c
 }
 
 // SetNillableOuKind sets the "ou_kind" field if the given value is not nil.
-func (orc *OuResourceCreate) SetNillableOuKind(s *string) *OuResourceCreate {
-	if s != nil {
-		orc.SetOuKind(*s)
+func (_c *OuResourceCreate) SetNillableOuKind(v *string) *OuResourceCreate {
+	if v != nil {
+		_c.SetOuKind(*v)
 	}
-	return orc
+	return _c
 }
 
 // SetMetadata sets the "metadata" field.
-func (orc *OuResourceCreate) SetMetadata(s string) *OuResourceCreate {
-	orc.mutation.SetMetadata(s)
-	return orc
+func (_c *OuResourceCreate) SetMetadata(v string) *OuResourceCreate {
+	_c.mutation.SetMetadata(v)
+	return _c
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (orc *OuResourceCreate) SetNillableMetadata(s *string) *OuResourceCreate {
-	if s != nil {
-		orc.SetMetadata(*s)
+func (_c *OuResourceCreate) SetNillableMetadata(v *string) *OuResourceCreate {
+	if v != nil {
+		_c.SetMetadata(*v)
 	}
-	return orc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (orc *OuResourceCreate) SetTenantID(s string) *OuResourceCreate {
-	orc.mutation.SetTenantID(s)
-	return orc
+func (_c *OuResourceCreate) SetTenantID(v string) *OuResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (orc *OuResourceCreate) SetCreatedAt(s string) *OuResourceCreate {
-	orc.mutation.SetCreatedAt(s)
-	return orc
+func (_c *OuResourceCreate) SetCreatedAt(v string) *OuResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (orc *OuResourceCreate) SetUpdatedAt(s string) *OuResourceCreate {
-	orc.mutation.SetUpdatedAt(s)
-	return orc
+func (_c *OuResourceCreate) SetUpdatedAt(v string) *OuResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetParentOuID sets the "parent_ou" edge to the OuResource entity by ID.
-func (orc *OuResourceCreate) SetParentOuID(id int) *OuResourceCreate {
-	orc.mutation.SetParentOuID(id)
-	return orc
+func (_c *OuResourceCreate) SetParentOuID(id int) *OuResourceCreate {
+	_c.mutation.SetParentOuID(id)
+	return _c
 }
 
 // SetNillableParentOuID sets the "parent_ou" edge to the OuResource entity by ID if the given value is not nil.
-func (orc *OuResourceCreate) SetNillableParentOuID(id *int) *OuResourceCreate {
+func (_c *OuResourceCreate) SetNillableParentOuID(id *int) *OuResourceCreate {
 	if id != nil {
-		orc = orc.SetParentOuID(*id)
+		_c = _c.SetParentOuID(*id)
 	}
-	return orc
+	return _c
 }
 
 // SetParentOu sets the "parent_ou" edge to the OuResource entity.
-func (orc *OuResourceCreate) SetParentOu(o *OuResource) *OuResourceCreate {
-	return orc.SetParentOuID(o.ID)
+func (_c *OuResourceCreate) SetParentOu(v *OuResource) *OuResourceCreate {
+	return _c.SetParentOuID(v.ID)
 }
 
 // AddChildIDs adds the "children" edge to the OuResource entity by IDs.
-func (orc *OuResourceCreate) AddChildIDs(ids ...int) *OuResourceCreate {
-	orc.mutation.AddChildIDs(ids...)
-	return orc
+func (_c *OuResourceCreate) AddChildIDs(ids ...int) *OuResourceCreate {
+	_c.mutation.AddChildIDs(ids...)
+	return _c
 }
 
 // AddChildren adds the "children" edges to the OuResource entity.
-func (orc *OuResourceCreate) AddChildren(o ...*OuResource) *OuResourceCreate {
-	ids := make([]int, len(o))
-	for i := range o {
-		ids[i] = o[i].ID
+func (_c *OuResourceCreate) AddChildren(v ...*OuResource) *OuResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return orc.AddChildIDs(ids...)
+	return _c.AddChildIDs(ids...)
 }
 
 // Mutation returns the OuResourceMutation object of the builder.
-func (orc *OuResourceCreate) Mutation() *OuResourceMutation {
-	return orc.mutation
+func (_c *OuResourceCreate) Mutation() *OuResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the OuResource in the database.
-func (orc *OuResourceCreate) Save(ctx context.Context) (*OuResource, error) {
-	return withHooks(ctx, orc.sqlSave, orc.mutation, orc.hooks)
+func (_c *OuResourceCreate) Save(ctx context.Context) (*OuResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (orc *OuResourceCreate) SaveX(ctx context.Context) *OuResource {
-	v, err := orc.Save(ctx)
+func (_c *OuResourceCreate) SaveX(ctx context.Context) *OuResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -139,41 +139,41 @@ func (orc *OuResourceCreate) SaveX(ctx context.Context) *OuResource {
 }
 
 // Exec executes the query.
-func (orc *OuResourceCreate) Exec(ctx context.Context) error {
-	_, err := orc.Save(ctx)
+func (_c *OuResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (orc *OuResourceCreate) ExecX(ctx context.Context) {
-	if err := orc.Exec(ctx); err != nil {
+func (_c *OuResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (orc *OuResourceCreate) check() error {
-	if _, ok := orc.mutation.ResourceID(); !ok {
+func (_c *OuResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "OuResource.resource_id"`)}
 	}
-	if _, ok := orc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "OuResource.tenant_id"`)}
 	}
-	if _, ok := orc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "OuResource.created_at"`)}
 	}
-	if _, ok := orc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "OuResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (orc *OuResourceCreate) sqlSave(ctx context.Context) (*OuResource, error) {
-	if err := orc.check(); err != nil {
+func (_c *OuResourceCreate) sqlSave(ctx context.Context) (*OuResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := orc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, orc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -181,45 +181,45 @@ func (orc *OuResourceCreate) sqlSave(ctx context.Context) (*OuResource, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	orc.mutation.id = &_node.ID
-	orc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (orc *OuResourceCreate) createSpec() (*OuResource, *sqlgraph.CreateSpec) {
+func (_c *OuResourceCreate) createSpec() (*OuResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &OuResource{config: orc.config}
+		_node = &OuResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(ouresource.Table, sqlgraph.NewFieldSpec(ouresource.FieldID, field.TypeInt))
 	)
-	if value, ok := orc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(ouresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := orc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(ouresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := orc.mutation.OuKind(); ok {
+	if value, ok := _c.mutation.OuKind(); ok {
 		_spec.SetField(ouresource.FieldOuKind, field.TypeString, value)
 		_node.OuKind = value
 	}
-	if value, ok := orc.mutation.Metadata(); ok {
+	if value, ok := _c.mutation.Metadata(); ok {
 		_spec.SetField(ouresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
 	}
-	if value, ok := orc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(ouresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := orc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(ouresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := orc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(ouresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := orc.mutation.ParentOuIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentOuIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -236,7 +236,7 @@ func (orc *OuResourceCreate) createSpec() (*OuResource, *sqlgraph.CreateSpec) {
 		_node.ou_resource_parent_ou = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := orc.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -263,16 +263,16 @@ type OuResourceCreateBulk struct {
 }
 
 // Save creates the OuResource entities in the database.
-func (orcb *OuResourceCreateBulk) Save(ctx context.Context) ([]*OuResource, error) {
-	if orcb.err != nil {
-		return nil, orcb.err
+func (_c *OuResourceCreateBulk) Save(ctx context.Context) ([]*OuResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(orcb.builders))
-	nodes := make([]*OuResource, len(orcb.builders))
-	mutators := make([]Mutator, len(orcb.builders))
-	for i := range orcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*OuResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := orcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*OuResourceMutation)
 				if !ok {
@@ -285,11 +285,11 @@ func (orcb *OuResourceCreateBulk) Save(ctx context.Context) ([]*OuResource, erro
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, orcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, orcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -313,7 +313,7 @@ func (orcb *OuResourceCreateBulk) Save(ctx context.Context) ([]*OuResource, erro
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, orcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -321,8 +321,8 @@ func (orcb *OuResourceCreateBulk) Save(ctx context.Context) ([]*OuResource, erro
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (orcb *OuResourceCreateBulk) SaveX(ctx context.Context) []*OuResource {
-	v, err := orcb.Save(ctx)
+func (_c *OuResourceCreateBulk) SaveX(ctx context.Context) []*OuResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -330,14 +330,14 @@ func (orcb *OuResourceCreateBulk) SaveX(ctx context.Context) []*OuResource {
 }
 
 // Exec executes the query.
-func (orcb *OuResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := orcb.Save(ctx)
+func (_c *OuResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (orcb *OuResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := orcb.Exec(ctx); err != nil {
+func (_c *OuResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

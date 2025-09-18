@@ -22,52 +22,52 @@ type LocalAccountResourceUpdate struct {
 }
 
 // Where appends a list predicates to the LocalAccountResourceUpdate builder.
-func (laru *LocalAccountResourceUpdate) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceUpdate {
-	laru.mutation.Where(ps...)
-	return laru
+func (_u *LocalAccountResourceUpdate) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (laru *LocalAccountResourceUpdate) SetResourceID(s string) *LocalAccountResourceUpdate {
-	laru.mutation.SetResourceID(s)
-	return laru
+func (_u *LocalAccountResourceUpdate) SetResourceID(v string) *LocalAccountResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (laru *LocalAccountResourceUpdate) SetNillableResourceID(s *string) *LocalAccountResourceUpdate {
-	if s != nil {
-		laru.SetResourceID(*s)
+func (_u *LocalAccountResourceUpdate) SetNillableResourceID(v *string) *LocalAccountResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return laru
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (laru *LocalAccountResourceUpdate) SetUpdatedAt(s string) *LocalAccountResourceUpdate {
-	laru.mutation.SetUpdatedAt(s)
-	return laru
+func (_u *LocalAccountResourceUpdate) SetUpdatedAt(v string) *LocalAccountResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (laru *LocalAccountResourceUpdate) SetNillableUpdatedAt(s *string) *LocalAccountResourceUpdate {
-	if s != nil {
-		laru.SetUpdatedAt(*s)
+func (_u *LocalAccountResourceUpdate) SetNillableUpdatedAt(v *string) *LocalAccountResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return laru
+	return _u
 }
 
 // Mutation returns the LocalAccountResourceMutation object of the builder.
-func (laru *LocalAccountResourceUpdate) Mutation() *LocalAccountResourceMutation {
-	return laru.mutation
+func (_u *LocalAccountResourceUpdate) Mutation() *LocalAccountResourceMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (laru *LocalAccountResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, laru.sqlSave, laru.mutation, laru.hooks)
+func (_u *LocalAccountResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (laru *LocalAccountResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := laru.Save(ctx)
+func (_u *LocalAccountResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -75,34 +75,34 @@ func (laru *LocalAccountResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (laru *LocalAccountResourceUpdate) Exec(ctx context.Context) error {
-	_, err := laru.Save(ctx)
+func (_u *LocalAccountResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (laru *LocalAccountResourceUpdate) ExecX(ctx context.Context) {
-	if err := laru.Exec(ctx); err != nil {
+func (_u *LocalAccountResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (laru *LocalAccountResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *LocalAccountResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(localaccountresource.Table, localaccountresource.Columns, sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt))
-	if ps := laru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := laru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(localaccountresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := laru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(localaccountresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, laru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{localaccountresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -110,8 +110,8 @@ func (laru *LocalAccountResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		return 0, err
 	}
-	laru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // LocalAccountResourceUpdateOne is the builder for updating a single LocalAccountResource entity.
@@ -123,59 +123,59 @@ type LocalAccountResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (laruo *LocalAccountResourceUpdateOne) SetResourceID(s string) *LocalAccountResourceUpdateOne {
-	laruo.mutation.SetResourceID(s)
-	return laruo
+func (_u *LocalAccountResourceUpdateOne) SetResourceID(v string) *LocalAccountResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (laruo *LocalAccountResourceUpdateOne) SetNillableResourceID(s *string) *LocalAccountResourceUpdateOne {
-	if s != nil {
-		laruo.SetResourceID(*s)
+func (_u *LocalAccountResourceUpdateOne) SetNillableResourceID(v *string) *LocalAccountResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return laruo
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (laruo *LocalAccountResourceUpdateOne) SetUpdatedAt(s string) *LocalAccountResourceUpdateOne {
-	laruo.mutation.SetUpdatedAt(s)
-	return laruo
+func (_u *LocalAccountResourceUpdateOne) SetUpdatedAt(v string) *LocalAccountResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (laruo *LocalAccountResourceUpdateOne) SetNillableUpdatedAt(s *string) *LocalAccountResourceUpdateOne {
-	if s != nil {
-		laruo.SetUpdatedAt(*s)
+func (_u *LocalAccountResourceUpdateOne) SetNillableUpdatedAt(v *string) *LocalAccountResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return laruo
+	return _u
 }
 
 // Mutation returns the LocalAccountResourceMutation object of the builder.
-func (laruo *LocalAccountResourceUpdateOne) Mutation() *LocalAccountResourceMutation {
-	return laruo.mutation
+func (_u *LocalAccountResourceUpdateOne) Mutation() *LocalAccountResourceMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the LocalAccountResourceUpdate builder.
-func (laruo *LocalAccountResourceUpdateOne) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceUpdateOne {
-	laruo.mutation.Where(ps...)
-	return laruo
+func (_u *LocalAccountResourceUpdateOne) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (laruo *LocalAccountResourceUpdateOne) Select(field string, fields ...string) *LocalAccountResourceUpdateOne {
-	laruo.fields = append([]string{field}, fields...)
-	return laruo
+func (_u *LocalAccountResourceUpdateOne) Select(field string, fields ...string) *LocalAccountResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated LocalAccountResource entity.
-func (laruo *LocalAccountResourceUpdateOne) Save(ctx context.Context) (*LocalAccountResource, error) {
-	return withHooks(ctx, laruo.sqlSave, laruo.mutation, laruo.hooks)
+func (_u *LocalAccountResourceUpdateOne) Save(ctx context.Context) (*LocalAccountResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (laruo *LocalAccountResourceUpdateOne) SaveX(ctx context.Context) *LocalAccountResource {
-	node, err := laruo.Save(ctx)
+func (_u *LocalAccountResourceUpdateOne) SaveX(ctx context.Context) *LocalAccountResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -183,26 +183,26 @@ func (laruo *LocalAccountResourceUpdateOne) SaveX(ctx context.Context) *LocalAcc
 }
 
 // Exec executes the query on the entity.
-func (laruo *LocalAccountResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := laruo.Save(ctx)
+func (_u *LocalAccountResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (laruo *LocalAccountResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := laruo.Exec(ctx); err != nil {
+func (_u *LocalAccountResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (laruo *LocalAccountResourceUpdateOne) sqlSave(ctx context.Context) (_node *LocalAccountResource, err error) {
+func (_u *LocalAccountResourceUpdateOne) sqlSave(ctx context.Context) (_node *LocalAccountResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(localaccountresource.Table, localaccountresource.Columns, sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt))
-	id, ok := laruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "LocalAccountResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := laruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, localaccountresource.FieldID)
 		for _, f := range fields {
@@ -214,23 +214,23 @@ func (laruo *LocalAccountResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 			}
 		}
 	}
-	if ps := laruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := laruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(localaccountresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := laruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(localaccountresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	_node = &LocalAccountResource{config: laruo.config}
+	_node = &LocalAccountResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, laruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{localaccountresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -238,6 +238,6 @@ func (laruo *LocalAccountResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		return nil, err
 	}
-	laruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

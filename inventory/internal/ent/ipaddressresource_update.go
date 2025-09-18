@@ -23,189 +23,189 @@ type IPAddressResourceUpdate struct {
 }
 
 // Where appends a list predicates to the IPAddressResourceUpdate builder.
-func (iaru *IPAddressResourceUpdate) Where(ps ...predicate.IPAddressResource) *IPAddressResourceUpdate {
-	iaru.mutation.Where(ps...)
-	return iaru
+func (_u *IPAddressResourceUpdate) Where(ps ...predicate.IPAddressResource) *IPAddressResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (iaru *IPAddressResourceUpdate) SetResourceID(s string) *IPAddressResourceUpdate {
-	iaru.mutation.SetResourceID(s)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetResourceID(v string) *IPAddressResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableResourceID(s *string) *IPAddressResourceUpdate {
-	if s != nil {
-		iaru.SetResourceID(*s)
+func (_u *IPAddressResourceUpdate) SetNillableResourceID(v *string) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return iaru
+	return _u
 }
 
 // SetAddress sets the "address" field.
-func (iaru *IPAddressResourceUpdate) SetAddress(s string) *IPAddressResourceUpdate {
-	iaru.mutation.SetAddress(s)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetAddress(v string) *IPAddressResourceUpdate {
+	_u.mutation.SetAddress(v)
+	return _u
 }
 
 // SetNillableAddress sets the "address" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableAddress(s *string) *IPAddressResourceUpdate {
-	if s != nil {
-		iaru.SetAddress(*s)
+func (_u *IPAddressResourceUpdate) SetNillableAddress(v *string) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetAddress(*v)
 	}
-	return iaru
+	return _u
 }
 
 // ClearAddress clears the value of the "address" field.
-func (iaru *IPAddressResourceUpdate) ClearAddress() *IPAddressResourceUpdate {
-	iaru.mutation.ClearAddress()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearAddress() *IPAddressResourceUpdate {
+	_u.mutation.ClearAddress()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (iaru *IPAddressResourceUpdate) SetDesiredState(is ipaddressresource.DesiredState) *IPAddressResourceUpdate {
-	iaru.mutation.SetDesiredState(is)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetDesiredState(v ipaddressresource.DesiredState) *IPAddressResourceUpdate {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableDesiredState(is *ipaddressresource.DesiredState) *IPAddressResourceUpdate {
-	if is != nil {
-		iaru.SetDesiredState(*is)
+func (_u *IPAddressResourceUpdate) SetNillableDesiredState(v *ipaddressresource.DesiredState) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return iaru
+	return _u
 }
 
 // ClearDesiredState clears the value of the "desired_state" field.
-func (iaru *IPAddressResourceUpdate) ClearDesiredState() *IPAddressResourceUpdate {
-	iaru.mutation.ClearDesiredState()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearDesiredState() *IPAddressResourceUpdate {
+	_u.mutation.ClearDesiredState()
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (iaru *IPAddressResourceUpdate) SetCurrentState(is ipaddressresource.CurrentState) *IPAddressResourceUpdate {
-	iaru.mutation.SetCurrentState(is)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetCurrentState(v ipaddressresource.CurrentState) *IPAddressResourceUpdate {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableCurrentState(is *ipaddressresource.CurrentState) *IPAddressResourceUpdate {
-	if is != nil {
-		iaru.SetCurrentState(*is)
+func (_u *IPAddressResourceUpdate) SetNillableCurrentState(v *ipaddressresource.CurrentState) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return iaru
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (iaru *IPAddressResourceUpdate) ClearCurrentState() *IPAddressResourceUpdate {
-	iaru.mutation.ClearCurrentState()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearCurrentState() *IPAddressResourceUpdate {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (iaru *IPAddressResourceUpdate) SetStatus(i ipaddressresource.Status) *IPAddressResourceUpdate {
-	iaru.mutation.SetStatus(i)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetStatus(v ipaddressresource.Status) *IPAddressResourceUpdate {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableStatus(i *ipaddressresource.Status) *IPAddressResourceUpdate {
-	if i != nil {
-		iaru.SetStatus(*i)
+func (_u *IPAddressResourceUpdate) SetNillableStatus(v *ipaddressresource.Status) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return iaru
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (iaru *IPAddressResourceUpdate) ClearStatus() *IPAddressResourceUpdate {
-	iaru.mutation.ClearStatus()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearStatus() *IPAddressResourceUpdate {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetStatusDetail sets the "status_detail" field.
-func (iaru *IPAddressResourceUpdate) SetStatusDetail(s string) *IPAddressResourceUpdate {
-	iaru.mutation.SetStatusDetail(s)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetStatusDetail(v string) *IPAddressResourceUpdate {
+	_u.mutation.SetStatusDetail(v)
+	return _u
 }
 
 // SetNillableStatusDetail sets the "status_detail" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableStatusDetail(s *string) *IPAddressResourceUpdate {
-	if s != nil {
-		iaru.SetStatusDetail(*s)
+func (_u *IPAddressResourceUpdate) SetNillableStatusDetail(v *string) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetStatusDetail(*v)
 	}
-	return iaru
+	return _u
 }
 
 // ClearStatusDetail clears the value of the "status_detail" field.
-func (iaru *IPAddressResourceUpdate) ClearStatusDetail() *IPAddressResourceUpdate {
-	iaru.mutation.ClearStatusDetail()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearStatusDetail() *IPAddressResourceUpdate {
+	_u.mutation.ClearStatusDetail()
+	return _u
 }
 
 // SetConfigMethod sets the "config_method" field.
-func (iaru *IPAddressResourceUpdate) SetConfigMethod(im ipaddressresource.ConfigMethod) *IPAddressResourceUpdate {
-	iaru.mutation.SetConfigMethod(im)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetConfigMethod(v ipaddressresource.ConfigMethod) *IPAddressResourceUpdate {
+	_u.mutation.SetConfigMethod(v)
+	return _u
 }
 
 // SetNillableConfigMethod sets the "config_method" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableConfigMethod(im *ipaddressresource.ConfigMethod) *IPAddressResourceUpdate {
-	if im != nil {
-		iaru.SetConfigMethod(*im)
+func (_u *IPAddressResourceUpdate) SetNillableConfigMethod(v *ipaddressresource.ConfigMethod) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetConfigMethod(*v)
 	}
-	return iaru
+	return _u
 }
 
 // ClearConfigMethod clears the value of the "config_method" field.
-func (iaru *IPAddressResourceUpdate) ClearConfigMethod() *IPAddressResourceUpdate {
-	iaru.mutation.ClearConfigMethod()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearConfigMethod() *IPAddressResourceUpdate {
+	_u.mutation.ClearConfigMethod()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (iaru *IPAddressResourceUpdate) SetUpdatedAt(s string) *IPAddressResourceUpdate {
-	iaru.mutation.SetUpdatedAt(s)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetUpdatedAt(v string) *IPAddressResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (iaru *IPAddressResourceUpdate) SetNillableUpdatedAt(s *string) *IPAddressResourceUpdate {
-	if s != nil {
-		iaru.SetUpdatedAt(*s)
+func (_u *IPAddressResourceUpdate) SetNillableUpdatedAt(v *string) *IPAddressResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return iaru
+	return _u
 }
 
 // SetNicID sets the "nic" edge to the HostnicResource entity by ID.
-func (iaru *IPAddressResourceUpdate) SetNicID(id int) *IPAddressResourceUpdate {
-	iaru.mutation.SetNicID(id)
-	return iaru
+func (_u *IPAddressResourceUpdate) SetNicID(id int) *IPAddressResourceUpdate {
+	_u.mutation.SetNicID(id)
+	return _u
 }
 
 // SetNic sets the "nic" edge to the HostnicResource entity.
-func (iaru *IPAddressResourceUpdate) SetNic(h *HostnicResource) *IPAddressResourceUpdate {
-	return iaru.SetNicID(h.ID)
+func (_u *IPAddressResourceUpdate) SetNic(v *HostnicResource) *IPAddressResourceUpdate {
+	return _u.SetNicID(v.ID)
 }
 
 // Mutation returns the IPAddressResourceMutation object of the builder.
-func (iaru *IPAddressResourceUpdate) Mutation() *IPAddressResourceMutation {
-	return iaru.mutation
+func (_u *IPAddressResourceUpdate) Mutation() *IPAddressResourceMutation {
+	return _u.mutation
 }
 
 // ClearNic clears the "nic" edge to the HostnicResource entity.
-func (iaru *IPAddressResourceUpdate) ClearNic() *IPAddressResourceUpdate {
-	iaru.mutation.ClearNic()
-	return iaru
+func (_u *IPAddressResourceUpdate) ClearNic() *IPAddressResourceUpdate {
+	_u.mutation.ClearNic()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (iaru *IPAddressResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, iaru.sqlSave, iaru.mutation, iaru.hooks)
+func (_u *IPAddressResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iaru *IPAddressResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := iaru.Save(ctx)
+func (_u *IPAddressResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -213,101 +213,101 @@ func (iaru *IPAddressResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (iaru *IPAddressResourceUpdate) Exec(ctx context.Context) error {
-	_, err := iaru.Save(ctx)
+func (_u *IPAddressResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iaru *IPAddressResourceUpdate) ExecX(ctx context.Context) {
-	if err := iaru.Exec(ctx); err != nil {
+func (_u *IPAddressResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (iaru *IPAddressResourceUpdate) check() error {
-	if v, ok := iaru.mutation.DesiredState(); ok {
+func (_u *IPAddressResourceUpdate) check() error {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := ipaddressresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := iaru.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := ipaddressresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := iaru.mutation.Status(); ok {
+	if v, ok := _u.mutation.Status(); ok {
 		if err := ipaddressresource.StatusValidator(v); err != nil {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.status": %w`, err)}
 		}
 	}
-	if v, ok := iaru.mutation.ConfigMethod(); ok {
+	if v, ok := _u.mutation.ConfigMethod(); ok {
 		if err := ipaddressresource.ConfigMethodValidator(v); err != nil {
 			return &ValidationError{Name: "config_method", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.config_method": %w`, err)}
 		}
 	}
-	if iaru.mutation.NicCleared() && len(iaru.mutation.NicIDs()) > 0 {
+	if _u.mutation.NicCleared() && len(_u.mutation.NicIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "IPAddressResource.nic"`)
 	}
 	return nil
 }
 
-func (iaru *IPAddressResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := iaru.check(); err != nil {
-		return n, err
+func (_u *IPAddressResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(ipaddressresource.Table, ipaddressresource.Columns, sqlgraph.NewFieldSpec(ipaddressresource.FieldID, field.TypeInt))
-	if ps := iaru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := iaru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(ipaddressresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := iaru.mutation.Address(); ok {
+	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(ipaddressresource.FieldAddress, field.TypeString, value)
 	}
-	if iaru.mutation.AddressCleared() {
+	if _u.mutation.AddressCleared() {
 		_spec.ClearField(ipaddressresource.FieldAddress, field.TypeString)
 	}
-	if value, ok := iaru.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(ipaddressresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if iaru.mutation.DesiredStateCleared() {
+	if _u.mutation.DesiredStateCleared() {
 		_spec.ClearField(ipaddressresource.FieldDesiredState, field.TypeEnum)
 	}
-	if value, ok := iaru.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(ipaddressresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if iaru.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(ipaddressresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := iaru.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(ipaddressresource.FieldStatus, field.TypeEnum, value)
 	}
-	if iaru.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(ipaddressresource.FieldStatus, field.TypeEnum)
 	}
-	if value, ok := iaru.mutation.StatusDetail(); ok {
+	if value, ok := _u.mutation.StatusDetail(); ok {
 		_spec.SetField(ipaddressresource.FieldStatusDetail, field.TypeString, value)
 	}
-	if iaru.mutation.StatusDetailCleared() {
+	if _u.mutation.StatusDetailCleared() {
 		_spec.ClearField(ipaddressresource.FieldStatusDetail, field.TypeString)
 	}
-	if value, ok := iaru.mutation.ConfigMethod(); ok {
+	if value, ok := _u.mutation.ConfigMethod(); ok {
 		_spec.SetField(ipaddressresource.FieldConfigMethod, field.TypeEnum, value)
 	}
-	if iaru.mutation.ConfigMethodCleared() {
+	if _u.mutation.ConfigMethodCleared() {
 		_spec.ClearField(ipaddressresource.FieldConfigMethod, field.TypeEnum)
 	}
-	if value, ok := iaru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(ipaddressresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if iaru.mutation.NicCleared() {
+	if _u.mutation.NicCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -320,7 +320,7 @@ func (iaru *IPAddressResourceUpdate) sqlSave(ctx context.Context) (n int, err er
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iaru.mutation.NicIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.NicIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -336,7 +336,7 @@ func (iaru *IPAddressResourceUpdate) sqlSave(ctx context.Context) (n int, err er
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, iaru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{ipaddressresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -344,8 +344,8 @@ func (iaru *IPAddressResourceUpdate) sqlSave(ctx context.Context) (n int, err er
 		}
 		return 0, err
 	}
-	iaru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // IPAddressResourceUpdateOne is the builder for updating a single IPAddressResource entity.
@@ -357,196 +357,196 @@ type IPAddressResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (iaruo *IPAddressResourceUpdateOne) SetResourceID(s string) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetResourceID(s)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetResourceID(v string) *IPAddressResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableResourceID(s *string) *IPAddressResourceUpdateOne {
-	if s != nil {
-		iaruo.SetResourceID(*s)
+func (_u *IPAddressResourceUpdateOne) SetNillableResourceID(v *string) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // SetAddress sets the "address" field.
-func (iaruo *IPAddressResourceUpdateOne) SetAddress(s string) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetAddress(s)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetAddress(v string) *IPAddressResourceUpdateOne {
+	_u.mutation.SetAddress(v)
+	return _u
 }
 
 // SetNillableAddress sets the "address" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableAddress(s *string) *IPAddressResourceUpdateOne {
-	if s != nil {
-		iaruo.SetAddress(*s)
+func (_u *IPAddressResourceUpdateOne) SetNillableAddress(v *string) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetAddress(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // ClearAddress clears the value of the "address" field.
-func (iaruo *IPAddressResourceUpdateOne) ClearAddress() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearAddress()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearAddress() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearAddress()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (iaruo *IPAddressResourceUpdateOne) SetDesiredState(is ipaddressresource.DesiredState) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetDesiredState(is)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetDesiredState(v ipaddressresource.DesiredState) *IPAddressResourceUpdateOne {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableDesiredState(is *ipaddressresource.DesiredState) *IPAddressResourceUpdateOne {
-	if is != nil {
-		iaruo.SetDesiredState(*is)
+func (_u *IPAddressResourceUpdateOne) SetNillableDesiredState(v *ipaddressresource.DesiredState) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // ClearDesiredState clears the value of the "desired_state" field.
-func (iaruo *IPAddressResourceUpdateOne) ClearDesiredState() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearDesiredState()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearDesiredState() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearDesiredState()
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (iaruo *IPAddressResourceUpdateOne) SetCurrentState(is ipaddressresource.CurrentState) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetCurrentState(is)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetCurrentState(v ipaddressresource.CurrentState) *IPAddressResourceUpdateOne {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableCurrentState(is *ipaddressresource.CurrentState) *IPAddressResourceUpdateOne {
-	if is != nil {
-		iaruo.SetCurrentState(*is)
+func (_u *IPAddressResourceUpdateOne) SetNillableCurrentState(v *ipaddressresource.CurrentState) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (iaruo *IPAddressResourceUpdateOne) ClearCurrentState() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearCurrentState()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearCurrentState() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (iaruo *IPAddressResourceUpdateOne) SetStatus(i ipaddressresource.Status) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetStatus(i)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetStatus(v ipaddressresource.Status) *IPAddressResourceUpdateOne {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableStatus(i *ipaddressresource.Status) *IPAddressResourceUpdateOne {
-	if i != nil {
-		iaruo.SetStatus(*i)
+func (_u *IPAddressResourceUpdateOne) SetNillableStatus(v *ipaddressresource.Status) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (iaruo *IPAddressResourceUpdateOne) ClearStatus() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearStatus()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearStatus() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetStatusDetail sets the "status_detail" field.
-func (iaruo *IPAddressResourceUpdateOne) SetStatusDetail(s string) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetStatusDetail(s)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetStatusDetail(v string) *IPAddressResourceUpdateOne {
+	_u.mutation.SetStatusDetail(v)
+	return _u
 }
 
 // SetNillableStatusDetail sets the "status_detail" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableStatusDetail(s *string) *IPAddressResourceUpdateOne {
-	if s != nil {
-		iaruo.SetStatusDetail(*s)
+func (_u *IPAddressResourceUpdateOne) SetNillableStatusDetail(v *string) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetStatusDetail(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // ClearStatusDetail clears the value of the "status_detail" field.
-func (iaruo *IPAddressResourceUpdateOne) ClearStatusDetail() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearStatusDetail()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearStatusDetail() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearStatusDetail()
+	return _u
 }
 
 // SetConfigMethod sets the "config_method" field.
-func (iaruo *IPAddressResourceUpdateOne) SetConfigMethod(im ipaddressresource.ConfigMethod) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetConfigMethod(im)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetConfigMethod(v ipaddressresource.ConfigMethod) *IPAddressResourceUpdateOne {
+	_u.mutation.SetConfigMethod(v)
+	return _u
 }
 
 // SetNillableConfigMethod sets the "config_method" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableConfigMethod(im *ipaddressresource.ConfigMethod) *IPAddressResourceUpdateOne {
-	if im != nil {
-		iaruo.SetConfigMethod(*im)
+func (_u *IPAddressResourceUpdateOne) SetNillableConfigMethod(v *ipaddressresource.ConfigMethod) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetConfigMethod(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // ClearConfigMethod clears the value of the "config_method" field.
-func (iaruo *IPAddressResourceUpdateOne) ClearConfigMethod() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearConfigMethod()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearConfigMethod() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearConfigMethod()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (iaruo *IPAddressResourceUpdateOne) SetUpdatedAt(s string) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetUpdatedAt(s)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetUpdatedAt(v string) *IPAddressResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (iaruo *IPAddressResourceUpdateOne) SetNillableUpdatedAt(s *string) *IPAddressResourceUpdateOne {
-	if s != nil {
-		iaruo.SetUpdatedAt(*s)
+func (_u *IPAddressResourceUpdateOne) SetNillableUpdatedAt(v *string) *IPAddressResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return iaruo
+	return _u
 }
 
 // SetNicID sets the "nic" edge to the HostnicResource entity by ID.
-func (iaruo *IPAddressResourceUpdateOne) SetNicID(id int) *IPAddressResourceUpdateOne {
-	iaruo.mutation.SetNicID(id)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) SetNicID(id int) *IPAddressResourceUpdateOne {
+	_u.mutation.SetNicID(id)
+	return _u
 }
 
 // SetNic sets the "nic" edge to the HostnicResource entity.
-func (iaruo *IPAddressResourceUpdateOne) SetNic(h *HostnicResource) *IPAddressResourceUpdateOne {
-	return iaruo.SetNicID(h.ID)
+func (_u *IPAddressResourceUpdateOne) SetNic(v *HostnicResource) *IPAddressResourceUpdateOne {
+	return _u.SetNicID(v.ID)
 }
 
 // Mutation returns the IPAddressResourceMutation object of the builder.
-func (iaruo *IPAddressResourceUpdateOne) Mutation() *IPAddressResourceMutation {
-	return iaruo.mutation
+func (_u *IPAddressResourceUpdateOne) Mutation() *IPAddressResourceMutation {
+	return _u.mutation
 }
 
 // ClearNic clears the "nic" edge to the HostnicResource entity.
-func (iaruo *IPAddressResourceUpdateOne) ClearNic() *IPAddressResourceUpdateOne {
-	iaruo.mutation.ClearNic()
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) ClearNic() *IPAddressResourceUpdateOne {
+	_u.mutation.ClearNic()
+	return _u
 }
 
 // Where appends a list predicates to the IPAddressResourceUpdate builder.
-func (iaruo *IPAddressResourceUpdateOne) Where(ps ...predicate.IPAddressResource) *IPAddressResourceUpdateOne {
-	iaruo.mutation.Where(ps...)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) Where(ps ...predicate.IPAddressResource) *IPAddressResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (iaruo *IPAddressResourceUpdateOne) Select(field string, fields ...string) *IPAddressResourceUpdateOne {
-	iaruo.fields = append([]string{field}, fields...)
-	return iaruo
+func (_u *IPAddressResourceUpdateOne) Select(field string, fields ...string) *IPAddressResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated IPAddressResource entity.
-func (iaruo *IPAddressResourceUpdateOne) Save(ctx context.Context) (*IPAddressResource, error) {
-	return withHooks(ctx, iaruo.sqlSave, iaruo.mutation, iaruo.hooks)
+func (_u *IPAddressResourceUpdateOne) Save(ctx context.Context) (*IPAddressResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iaruo *IPAddressResourceUpdateOne) SaveX(ctx context.Context) *IPAddressResource {
-	node, err := iaruo.Save(ctx)
+func (_u *IPAddressResourceUpdateOne) SaveX(ctx context.Context) *IPAddressResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -554,57 +554,57 @@ func (iaruo *IPAddressResourceUpdateOne) SaveX(ctx context.Context) *IPAddressRe
 }
 
 // Exec executes the query on the entity.
-func (iaruo *IPAddressResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := iaruo.Save(ctx)
+func (_u *IPAddressResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iaruo *IPAddressResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := iaruo.Exec(ctx); err != nil {
+func (_u *IPAddressResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (iaruo *IPAddressResourceUpdateOne) check() error {
-	if v, ok := iaruo.mutation.DesiredState(); ok {
+func (_u *IPAddressResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := ipaddressresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := iaruo.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := ipaddressresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := iaruo.mutation.Status(); ok {
+	if v, ok := _u.mutation.Status(); ok {
 		if err := ipaddressresource.StatusValidator(v); err != nil {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.status": %w`, err)}
 		}
 	}
-	if v, ok := iaruo.mutation.ConfigMethod(); ok {
+	if v, ok := _u.mutation.ConfigMethod(); ok {
 		if err := ipaddressresource.ConfigMethodValidator(v); err != nil {
 			return &ValidationError{Name: "config_method", err: fmt.Errorf(`ent: validator failed for field "IPAddressResource.config_method": %w`, err)}
 		}
 	}
-	if iaruo.mutation.NicCleared() && len(iaruo.mutation.NicIDs()) > 0 {
+	if _u.mutation.NicCleared() && len(_u.mutation.NicIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "IPAddressResource.nic"`)
 	}
 	return nil
 }
 
-func (iaruo *IPAddressResourceUpdateOne) sqlSave(ctx context.Context) (_node *IPAddressResource, err error) {
-	if err := iaruo.check(); err != nil {
+func (_u *IPAddressResourceUpdateOne) sqlSave(ctx context.Context) (_node *IPAddressResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(ipaddressresource.Table, ipaddressresource.Columns, sqlgraph.NewFieldSpec(ipaddressresource.FieldID, field.TypeInt))
-	id, ok := iaruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "IPAddressResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := iaruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, ipaddressresource.FieldID)
 		for _, f := range fields {
@@ -616,56 +616,56 @@ func (iaruo *IPAddressResourceUpdateOne) sqlSave(ctx context.Context) (_node *IP
 			}
 		}
 	}
-	if ps := iaruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := iaruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(ipaddressresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := iaruo.mutation.Address(); ok {
+	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(ipaddressresource.FieldAddress, field.TypeString, value)
 	}
-	if iaruo.mutation.AddressCleared() {
+	if _u.mutation.AddressCleared() {
 		_spec.ClearField(ipaddressresource.FieldAddress, field.TypeString)
 	}
-	if value, ok := iaruo.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(ipaddressresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if iaruo.mutation.DesiredStateCleared() {
+	if _u.mutation.DesiredStateCleared() {
 		_spec.ClearField(ipaddressresource.FieldDesiredState, field.TypeEnum)
 	}
-	if value, ok := iaruo.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(ipaddressresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if iaruo.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(ipaddressresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := iaruo.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(ipaddressresource.FieldStatus, field.TypeEnum, value)
 	}
-	if iaruo.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(ipaddressresource.FieldStatus, field.TypeEnum)
 	}
-	if value, ok := iaruo.mutation.StatusDetail(); ok {
+	if value, ok := _u.mutation.StatusDetail(); ok {
 		_spec.SetField(ipaddressresource.FieldStatusDetail, field.TypeString, value)
 	}
-	if iaruo.mutation.StatusDetailCleared() {
+	if _u.mutation.StatusDetailCleared() {
 		_spec.ClearField(ipaddressresource.FieldStatusDetail, field.TypeString)
 	}
-	if value, ok := iaruo.mutation.ConfigMethod(); ok {
+	if value, ok := _u.mutation.ConfigMethod(); ok {
 		_spec.SetField(ipaddressresource.FieldConfigMethod, field.TypeEnum, value)
 	}
-	if iaruo.mutation.ConfigMethodCleared() {
+	if _u.mutation.ConfigMethodCleared() {
 		_spec.ClearField(ipaddressresource.FieldConfigMethod, field.TypeEnum)
 	}
-	if value, ok := iaruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(ipaddressresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if iaruo.mutation.NicCleared() {
+	if _u.mutation.NicCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -678,7 +678,7 @@ func (iaruo *IPAddressResourceUpdateOne) sqlSave(ctx context.Context) (_node *IP
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iaruo.mutation.NicIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.NicIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -694,10 +694,10 @@ func (iaruo *IPAddressResourceUpdateOne) sqlSave(ctx context.Context) (_node *IP
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &IPAddressResource{config: iaruo.config}
+	_node = &IPAddressResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, iaruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{ipaddressresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -705,6 +705,6 @@ func (iaruo *IPAddressResourceUpdateOne) sqlSave(ctx context.Context) (_node *IP
 		}
 		return nil, err
 	}
-	iaruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

@@ -21,81 +21,81 @@ type TelemetryGroupResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tgrc *TelemetryGroupResourceCreate) SetResourceID(s string) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetResourceID(s)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetResourceID(v string) *TelemetryGroupResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (tgrc *TelemetryGroupResourceCreate) SetName(s string) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetName(s)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetName(v string) *TelemetryGroupResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (tgrc *TelemetryGroupResourceCreate) SetKind(t telemetrygroupresource.Kind) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetKind(t)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetKind(v telemetrygroupresource.Kind) *TelemetryGroupResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetCollectorKind sets the "collector_kind" field.
-func (tgrc *TelemetryGroupResourceCreate) SetCollectorKind(tk telemetrygroupresource.CollectorKind) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetCollectorKind(tk)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetCollectorKind(v telemetrygroupresource.CollectorKind) *TelemetryGroupResourceCreate {
+	_c.mutation.SetCollectorKind(v)
+	return _c
 }
 
 // SetGroups sets the "groups" field.
-func (tgrc *TelemetryGroupResourceCreate) SetGroups(s string) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetGroups(s)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetGroups(v string) *TelemetryGroupResourceCreate {
+	_c.mutation.SetGroups(v)
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (tgrc *TelemetryGroupResourceCreate) SetTenantID(s string) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetTenantID(s)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetTenantID(v string) *TelemetryGroupResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (tgrc *TelemetryGroupResourceCreate) SetCreatedAt(s string) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetCreatedAt(s)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetCreatedAt(v string) *TelemetryGroupResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tgrc *TelemetryGroupResourceCreate) SetUpdatedAt(s string) *TelemetryGroupResourceCreate {
-	tgrc.mutation.SetUpdatedAt(s)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) SetUpdatedAt(v string) *TelemetryGroupResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // AddProfileIDs adds the "profiles" edge to the TelemetryProfile entity by IDs.
-func (tgrc *TelemetryGroupResourceCreate) AddProfileIDs(ids ...int) *TelemetryGroupResourceCreate {
-	tgrc.mutation.AddProfileIDs(ids...)
-	return tgrc
+func (_c *TelemetryGroupResourceCreate) AddProfileIDs(ids ...int) *TelemetryGroupResourceCreate {
+	_c.mutation.AddProfileIDs(ids...)
+	return _c
 }
 
 // AddProfiles adds the "profiles" edges to the TelemetryProfile entity.
-func (tgrc *TelemetryGroupResourceCreate) AddProfiles(t ...*TelemetryProfile) *TelemetryGroupResourceCreate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_c *TelemetryGroupResourceCreate) AddProfiles(v ...*TelemetryProfile) *TelemetryGroupResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tgrc.AddProfileIDs(ids...)
+	return _c.AddProfileIDs(ids...)
 }
 
 // Mutation returns the TelemetryGroupResourceMutation object of the builder.
-func (tgrc *TelemetryGroupResourceCreate) Mutation() *TelemetryGroupResourceMutation {
-	return tgrc.mutation
+func (_c *TelemetryGroupResourceCreate) Mutation() *TelemetryGroupResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the TelemetryGroupResource in the database.
-func (tgrc *TelemetryGroupResourceCreate) Save(ctx context.Context) (*TelemetryGroupResource, error) {
-	return withHooks(ctx, tgrc.sqlSave, tgrc.mutation, tgrc.hooks)
+func (_c *TelemetryGroupResourceCreate) Save(ctx context.Context) (*TelemetryGroupResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (tgrc *TelemetryGroupResourceCreate) SaveX(ctx context.Context) *TelemetryGroupResource {
-	v, err := tgrc.Save(ctx)
+func (_c *TelemetryGroupResourceCreate) SaveX(ctx context.Context) *TelemetryGroupResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -103,63 +103,63 @@ func (tgrc *TelemetryGroupResourceCreate) SaveX(ctx context.Context) *TelemetryG
 }
 
 // Exec executes the query.
-func (tgrc *TelemetryGroupResourceCreate) Exec(ctx context.Context) error {
-	_, err := tgrc.Save(ctx)
+func (_c *TelemetryGroupResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tgrc *TelemetryGroupResourceCreate) ExecX(ctx context.Context) {
-	if err := tgrc.Exec(ctx); err != nil {
+func (_c *TelemetryGroupResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tgrc *TelemetryGroupResourceCreate) check() error {
-	if _, ok := tgrc.mutation.ResourceID(); !ok {
+func (_c *TelemetryGroupResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "TelemetryGroupResource.resource_id"`)}
 	}
-	if _, ok := tgrc.mutation.Name(); !ok {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "TelemetryGroupResource.name"`)}
 	}
-	if _, ok := tgrc.mutation.Kind(); !ok {
+	if _, ok := _c.mutation.Kind(); !ok {
 		return &ValidationError{Name: "kind", err: errors.New(`ent: missing required field "TelemetryGroupResource.kind"`)}
 	}
-	if v, ok := tgrc.mutation.Kind(); ok {
+	if v, ok := _c.mutation.Kind(); ok {
 		if err := telemetrygroupresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryGroupResource.kind": %w`, err)}
 		}
 	}
-	if _, ok := tgrc.mutation.CollectorKind(); !ok {
+	if _, ok := _c.mutation.CollectorKind(); !ok {
 		return &ValidationError{Name: "collector_kind", err: errors.New(`ent: missing required field "TelemetryGroupResource.collector_kind"`)}
 	}
-	if v, ok := tgrc.mutation.CollectorKind(); ok {
+	if v, ok := _c.mutation.CollectorKind(); ok {
 		if err := telemetrygroupresource.CollectorKindValidator(v); err != nil {
 			return &ValidationError{Name: "collector_kind", err: fmt.Errorf(`ent: validator failed for field "TelemetryGroupResource.collector_kind": %w`, err)}
 		}
 	}
-	if _, ok := tgrc.mutation.Groups(); !ok {
+	if _, ok := _c.mutation.Groups(); !ok {
 		return &ValidationError{Name: "groups", err: errors.New(`ent: missing required field "TelemetryGroupResource.groups"`)}
 	}
-	if _, ok := tgrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "TelemetryGroupResource.tenant_id"`)}
 	}
-	if _, ok := tgrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "TelemetryGroupResource.created_at"`)}
 	}
-	if _, ok := tgrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "TelemetryGroupResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (tgrc *TelemetryGroupResourceCreate) sqlSave(ctx context.Context) (*TelemetryGroupResource, error) {
-	if err := tgrc.check(); err != nil {
+func (_c *TelemetryGroupResourceCreate) sqlSave(ctx context.Context) (*TelemetryGroupResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := tgrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, tgrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -167,49 +167,49 @@ func (tgrc *TelemetryGroupResourceCreate) sqlSave(ctx context.Context) (*Telemet
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	tgrc.mutation.id = &_node.ID
-	tgrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (tgrc *TelemetryGroupResourceCreate) createSpec() (*TelemetryGroupResource, *sqlgraph.CreateSpec) {
+func (_c *TelemetryGroupResourceCreate) createSpec() (*TelemetryGroupResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &TelemetryGroupResource{config: tgrc.config}
+		_node = &TelemetryGroupResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(telemetrygroupresource.Table, sqlgraph.NewFieldSpec(telemetrygroupresource.FieldID, field.TypeInt))
 	)
-	if value, ok := tgrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(telemetrygroupresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := tgrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(telemetrygroupresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := tgrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(telemetrygroupresource.FieldKind, field.TypeEnum, value)
 		_node.Kind = value
 	}
-	if value, ok := tgrc.mutation.CollectorKind(); ok {
+	if value, ok := _c.mutation.CollectorKind(); ok {
 		_spec.SetField(telemetrygroupresource.FieldCollectorKind, field.TypeEnum, value)
 		_node.CollectorKind = value
 	}
-	if value, ok := tgrc.mutation.Groups(); ok {
+	if value, ok := _c.mutation.Groups(); ok {
 		_spec.SetField(telemetrygroupresource.FieldGroups, field.TypeString, value)
 		_node.Groups = value
 	}
-	if value, ok := tgrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(telemetrygroupresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := tgrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(telemetrygroupresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := tgrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(telemetrygroupresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := tgrc.mutation.ProfilesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProfilesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -236,16 +236,16 @@ type TelemetryGroupResourceCreateBulk struct {
 }
 
 // Save creates the TelemetryGroupResource entities in the database.
-func (tgrcb *TelemetryGroupResourceCreateBulk) Save(ctx context.Context) ([]*TelemetryGroupResource, error) {
-	if tgrcb.err != nil {
-		return nil, tgrcb.err
+func (_c *TelemetryGroupResourceCreateBulk) Save(ctx context.Context) ([]*TelemetryGroupResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(tgrcb.builders))
-	nodes := make([]*TelemetryGroupResource, len(tgrcb.builders))
-	mutators := make([]Mutator, len(tgrcb.builders))
-	for i := range tgrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*TelemetryGroupResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := tgrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*TelemetryGroupResourceMutation)
 				if !ok {
@@ -258,11 +258,11 @@ func (tgrcb *TelemetryGroupResourceCreateBulk) Save(ctx context.Context) ([]*Tel
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, tgrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, tgrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -286,7 +286,7 @@ func (tgrcb *TelemetryGroupResourceCreateBulk) Save(ctx context.Context) ([]*Tel
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, tgrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -294,8 +294,8 @@ func (tgrcb *TelemetryGroupResourceCreateBulk) Save(ctx context.Context) ([]*Tel
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tgrcb *TelemetryGroupResourceCreateBulk) SaveX(ctx context.Context) []*TelemetryGroupResource {
-	v, err := tgrcb.Save(ctx)
+func (_c *TelemetryGroupResourceCreateBulk) SaveX(ctx context.Context) []*TelemetryGroupResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -303,14 +303,14 @@ func (tgrcb *TelemetryGroupResourceCreateBulk) SaveX(ctx context.Context) []*Tel
 }
 
 // Exec executes the query.
-func (tgrcb *TelemetryGroupResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := tgrcb.Save(ctx)
+func (_c *TelemetryGroupResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tgrcb *TelemetryGroupResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := tgrcb.Exec(ctx); err != nil {
+func (_c *TelemetryGroupResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

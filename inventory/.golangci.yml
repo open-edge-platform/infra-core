@@ -441,6 +441,10 @@ issues:
       linters:
         - funlen
         - gosec
+    # Exclude gofumpt from generated ent code
+    - path: internal/ent/.*
+      linters:
+        - gofumpt
 
 output:
   # Format:

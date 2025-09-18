@@ -20,56 +20,56 @@ type WorkloadResourceDelete struct {
 }
 
 // Where appends a list predicates to the WorkloadResourceDelete builder.
-func (wrd *WorkloadResourceDelete) Where(ps ...predicate.WorkloadResource) *WorkloadResourceDelete {
-	wrd.mutation.Where(ps...)
-	return wrd
+func (_d *WorkloadResourceDelete) Where(ps ...predicate.WorkloadResource) *WorkloadResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (wrd *WorkloadResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, wrd.sqlExec, wrd.mutation, wrd.hooks)
+func (_d *WorkloadResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wrd *WorkloadResourceDelete) ExecX(ctx context.Context) int {
-	n, err := wrd.Exec(ctx)
+func (_d *WorkloadResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (wrd *WorkloadResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *WorkloadResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(workloadresource.Table, sqlgraph.NewFieldSpec(workloadresource.FieldID, field.TypeInt))
-	if ps := wrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, wrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	wrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // WorkloadResourceDeleteOne is the builder for deleting a single WorkloadResource entity.
 type WorkloadResourceDeleteOne struct {
-	wrd *WorkloadResourceDelete
+	_d *WorkloadResourceDelete
 }
 
 // Where appends a list predicates to the WorkloadResourceDelete builder.
-func (wrdo *WorkloadResourceDeleteOne) Where(ps ...predicate.WorkloadResource) *WorkloadResourceDeleteOne {
-	wrdo.wrd.mutation.Where(ps...)
-	return wrdo
+func (_d *WorkloadResourceDeleteOne) Where(ps ...predicate.WorkloadResource) *WorkloadResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (wrdo *WorkloadResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := wrdo.wrd.Exec(ctx)
+func (_d *WorkloadResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (wrdo *WorkloadResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wrdo *WorkloadResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := wrdo.Exec(ctx); err != nil {
+func (_d *WorkloadResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

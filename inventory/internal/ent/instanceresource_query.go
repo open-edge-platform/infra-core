@@ -46,44 +46,44 @@ type InstanceResourceQuery struct {
 }
 
 // Where adds a new predicate for the InstanceResourceQuery builder.
-func (irq *InstanceResourceQuery) Where(ps ...predicate.InstanceResource) *InstanceResourceQuery {
-	irq.predicates = append(irq.predicates, ps...)
-	return irq
+func (_q *InstanceResourceQuery) Where(ps ...predicate.InstanceResource) *InstanceResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (irq *InstanceResourceQuery) Limit(limit int) *InstanceResourceQuery {
-	irq.ctx.Limit = &limit
-	return irq
+func (_q *InstanceResourceQuery) Limit(limit int) *InstanceResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (irq *InstanceResourceQuery) Offset(offset int) *InstanceResourceQuery {
-	irq.ctx.Offset = &offset
-	return irq
+func (_q *InstanceResourceQuery) Offset(offset int) *InstanceResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (irq *InstanceResourceQuery) Unique(unique bool) *InstanceResourceQuery {
-	irq.ctx.Unique = &unique
-	return irq
+func (_q *InstanceResourceQuery) Unique(unique bool) *InstanceResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (irq *InstanceResourceQuery) Order(o ...instanceresource.OrderOption) *InstanceResourceQuery {
-	irq.order = append(irq.order, o...)
-	return irq
+func (_q *InstanceResourceQuery) Order(o ...instanceresource.OrderOption) *InstanceResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryHost chains the current query on the "host" edge.
-func (irq *InstanceResourceQuery) QueryHost() *HostResourceQuery {
-	query := (&HostResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryHost() *HostResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -92,20 +92,20 @@ func (irq *InstanceResourceQuery) QueryHost() *HostResourceQuery {
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, false, instanceresource.HostTable, instanceresource.HostColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryDesiredOs chains the current query on the "desired_os" edge.
-func (irq *InstanceResourceQuery) QueryDesiredOs() *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryDesiredOs() *OperatingSystemResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -114,20 +114,20 @@ func (irq *InstanceResourceQuery) QueryDesiredOs() *OperatingSystemResourceQuery
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.DesiredOsTable, instanceresource.DesiredOsColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryCurrentOs chains the current query on the "current_os" edge.
-func (irq *InstanceResourceQuery) QueryCurrentOs() *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryCurrentOs() *OperatingSystemResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -136,20 +136,20 @@ func (irq *InstanceResourceQuery) QueryCurrentOs() *OperatingSystemResourceQuery
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CurrentOsTable, instanceresource.CurrentOsColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryOs chains the current query on the "os" edge.
-func (irq *InstanceResourceQuery) QueryOs() *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryOs() *OperatingSystemResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -158,20 +158,20 @@ func (irq *InstanceResourceQuery) QueryOs() *OperatingSystemResourceQuery {
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsTable, instanceresource.OsColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryWorkloadMembers chains the current query on the "workload_members" edge.
-func (irq *InstanceResourceQuery) QueryWorkloadMembers() *WorkloadMemberQuery {
-	query := (&WorkloadMemberClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryWorkloadMembers() *WorkloadMemberQuery {
+	query := (&WorkloadMemberClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -180,20 +180,20 @@ func (irq *InstanceResourceQuery) QueryWorkloadMembers() *WorkloadMemberQuery {
 			sqlgraph.To(workloadmember.Table, workloadmember.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, instanceresource.WorkloadMembersTable, instanceresource.WorkloadMembersColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryProvider chains the current query on the "provider" edge.
-func (irq *InstanceResourceQuery) QueryProvider() *ProviderResourceQuery {
-	query := (&ProviderResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryProvider() *ProviderResourceQuery {
+	query := (&ProviderResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -202,20 +202,20 @@ func (irq *InstanceResourceQuery) QueryProvider() *ProviderResourceQuery {
 			sqlgraph.To(providerresource.Table, providerresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.ProviderTable, instanceresource.ProviderColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryLocalaccount chains the current query on the "localaccount" edge.
-func (irq *InstanceResourceQuery) QueryLocalaccount() *LocalAccountResourceQuery {
-	query := (&LocalAccountResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryLocalaccount() *LocalAccountResourceQuery {
+	query := (&LocalAccountResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -224,20 +224,20 @@ func (irq *InstanceResourceQuery) QueryLocalaccount() *LocalAccountResourceQuery
 			sqlgraph.To(localaccountresource.Table, localaccountresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.LocalaccountTable, instanceresource.LocalaccountColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryOsUpdatePolicy chains the current query on the "os_update_policy" edge.
-func (irq *InstanceResourceQuery) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
-	query := (&OSUpdatePolicyResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -246,20 +246,20 @@ func (irq *InstanceResourceQuery) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQ
 			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsUpdatePolicyTable, instanceresource.OsUpdatePolicyColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryCustomConfig chains the current query on the "custom_config" edge.
-func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery {
-	query := (&CustomConfigResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery {
+	query := (&CustomConfigResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := irq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := irq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -268,7 +268,7 @@ func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
 		)
-		fromU = sqlgraph.SetNeighbors(irq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -276,8 +276,8 @@ func (irq *InstanceResourceQuery) QueryCustomConfig() *CustomConfigResourceQuery
 
 // First returns the first InstanceResource entity from the query.
 // Returns a *NotFoundError when no InstanceResource was found.
-func (irq *InstanceResourceQuery) First(ctx context.Context) (*InstanceResource, error) {
-	nodes, err := irq.Limit(1).All(setContextOp(ctx, irq.ctx, ent.OpQueryFirst))
+func (_q *InstanceResourceQuery) First(ctx context.Context) (*InstanceResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -288,8 +288,8 @@ func (irq *InstanceResourceQuery) First(ctx context.Context) (*InstanceResource,
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (irq *InstanceResourceQuery) FirstX(ctx context.Context) *InstanceResource {
-	node, err := irq.First(ctx)
+func (_q *InstanceResourceQuery) FirstX(ctx context.Context) *InstanceResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -298,9 +298,9 @@ func (irq *InstanceResourceQuery) FirstX(ctx context.Context) *InstanceResource 
 
 // FirstID returns the first InstanceResource ID from the query.
 // Returns a *NotFoundError when no InstanceResource ID was found.
-func (irq *InstanceResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *InstanceResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = irq.Limit(1).IDs(setContextOp(ctx, irq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -311,8 +311,8 @@ func (irq *InstanceResourceQuery) FirstID(ctx context.Context) (id int, err erro
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (irq *InstanceResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := irq.FirstID(ctx)
+func (_q *InstanceResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -322,8 +322,8 @@ func (irq *InstanceResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single InstanceResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one InstanceResource entity is found.
 // Returns a *NotFoundError when no InstanceResource entities are found.
-func (irq *InstanceResourceQuery) Only(ctx context.Context) (*InstanceResource, error) {
-	nodes, err := irq.Limit(2).All(setContextOp(ctx, irq.ctx, ent.OpQueryOnly))
+func (_q *InstanceResourceQuery) Only(ctx context.Context) (*InstanceResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -338,8 +338,8 @@ func (irq *InstanceResourceQuery) Only(ctx context.Context) (*InstanceResource, 
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (irq *InstanceResourceQuery) OnlyX(ctx context.Context) *InstanceResource {
-	node, err := irq.Only(ctx)
+func (_q *InstanceResourceQuery) OnlyX(ctx context.Context) *InstanceResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -349,9 +349,9 @@ func (irq *InstanceResourceQuery) OnlyX(ctx context.Context) *InstanceResource {
 // OnlyID is like Only, but returns the only InstanceResource ID in the query.
 // Returns a *NotSingularError when more than one InstanceResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (irq *InstanceResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *InstanceResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = irq.Limit(2).IDs(setContextOp(ctx, irq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -366,8 +366,8 @@ func (irq *InstanceResourceQuery) OnlyID(ctx context.Context) (id int, err error
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (irq *InstanceResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := irq.OnlyID(ctx)
+func (_q *InstanceResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -375,18 +375,18 @@ func (irq *InstanceResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of InstanceResources.
-func (irq *InstanceResourceQuery) All(ctx context.Context) ([]*InstanceResource, error) {
-	ctx = setContextOp(ctx, irq.ctx, ent.OpQueryAll)
-	if err := irq.prepareQuery(ctx); err != nil {
+func (_q *InstanceResourceQuery) All(ctx context.Context) ([]*InstanceResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*InstanceResource, *InstanceResourceQuery]()
-	return withInterceptors[[]*InstanceResource](ctx, irq, qr, irq.inters)
+	return withInterceptors[[]*InstanceResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (irq *InstanceResourceQuery) AllX(ctx context.Context) []*InstanceResource {
-	nodes, err := irq.All(ctx)
+func (_q *InstanceResourceQuery) AllX(ctx context.Context) []*InstanceResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -394,20 +394,20 @@ func (irq *InstanceResourceQuery) AllX(ctx context.Context) []*InstanceResource 
 }
 
 // IDs executes the query and returns a list of InstanceResource IDs.
-func (irq *InstanceResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if irq.ctx.Unique == nil && irq.path != nil {
-		irq.Unique(true)
+func (_q *InstanceResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, irq.ctx, ent.OpQueryIDs)
-	if err = irq.Select(instanceresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(instanceresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (irq *InstanceResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := irq.IDs(ctx)
+func (_q *InstanceResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -415,17 +415,17 @@ func (irq *InstanceResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (irq *InstanceResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, irq.ctx, ent.OpQueryCount)
-	if err := irq.prepareQuery(ctx); err != nil {
+func (_q *InstanceResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, irq, querierCount[*InstanceResourceQuery](), irq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*InstanceResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (irq *InstanceResourceQuery) CountX(ctx context.Context) int {
-	count, err := irq.Count(ctx)
+func (_q *InstanceResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -433,9 +433,9 @@ func (irq *InstanceResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (irq *InstanceResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, irq.ctx, ent.OpQueryExist)
-	switch _, err := irq.FirstID(ctx); {
+func (_q *InstanceResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -446,8 +446,8 @@ func (irq *InstanceResourceQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (irq *InstanceResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := irq.Exist(ctx)
+func (_q *InstanceResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -456,128 +456,128 @@ func (irq *InstanceResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the InstanceResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (irq *InstanceResourceQuery) Clone() *InstanceResourceQuery {
-	if irq == nil {
+func (_q *InstanceResourceQuery) Clone() *InstanceResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &InstanceResourceQuery{
-		config:              irq.config,
-		ctx:                 irq.ctx.Clone(),
-		order:               append([]instanceresource.OrderOption{}, irq.order...),
-		inters:              append([]Interceptor{}, irq.inters...),
-		predicates:          append([]predicate.InstanceResource{}, irq.predicates...),
-		withHost:            irq.withHost.Clone(),
-		withDesiredOs:       irq.withDesiredOs.Clone(),
-		withCurrentOs:       irq.withCurrentOs.Clone(),
-		withOs:              irq.withOs.Clone(),
-		withWorkloadMembers: irq.withWorkloadMembers.Clone(),
-		withProvider:        irq.withProvider.Clone(),
-		withLocalaccount:    irq.withLocalaccount.Clone(),
-		withOsUpdatePolicy:  irq.withOsUpdatePolicy.Clone(),
-		withCustomConfig:    irq.withCustomConfig.Clone(),
+		config:              _q.config,
+		ctx:                 _q.ctx.Clone(),
+		order:               append([]instanceresource.OrderOption{}, _q.order...),
+		inters:              append([]Interceptor{}, _q.inters...),
+		predicates:          append([]predicate.InstanceResource{}, _q.predicates...),
+		withHost:            _q.withHost.Clone(),
+		withDesiredOs:       _q.withDesiredOs.Clone(),
+		withCurrentOs:       _q.withCurrentOs.Clone(),
+		withOs:              _q.withOs.Clone(),
+		withWorkloadMembers: _q.withWorkloadMembers.Clone(),
+		withProvider:        _q.withProvider.Clone(),
+		withLocalaccount:    _q.withLocalaccount.Clone(),
+		withOsUpdatePolicy:  _q.withOsUpdatePolicy.Clone(),
+		withCustomConfig:    _q.withCustomConfig.Clone(),
 		// clone intermediate query.
-		sql:  irq.sql.Clone(),
-		path: irq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithHost tells the query-builder to eager-load the nodes that are connected to
 // the "host" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *InstanceResourceQuery {
-	query := (&HostResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *InstanceResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withHost = query
-	return irq
+	_q.withHost = query
+	return _q
 }
 
 // WithDesiredOs tells the query-builder to eager-load the nodes that are connected to
 // the "desired_os" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithDesiredOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
-	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithDesiredOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withDesiredOs = query
-	return irq
+	_q.withDesiredOs = query
+	return _q
 }
 
 // WithCurrentOs tells the query-builder to eager-load the nodes that are connected to
 // the "current_os" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithCurrentOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
-	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithCurrentOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withCurrentOs = query
-	return irq
+	_q.withCurrentOs = query
+	return _q
 }
 
 // WithOs tells the query-builder to eager-load the nodes that are connected to
 // the "os" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
-	query := (&OperatingSystemResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithOs(opts ...func(*OperatingSystemResourceQuery)) *InstanceResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withOs = query
-	return irq
+	_q.withOs = query
+	return _q
 }
 
 // WithWorkloadMembers tells the query-builder to eager-load the nodes that are connected to
 // the "workload_members" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithWorkloadMembers(opts ...func(*WorkloadMemberQuery)) *InstanceResourceQuery {
-	query := (&WorkloadMemberClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithWorkloadMembers(opts ...func(*WorkloadMemberQuery)) *InstanceResourceQuery {
+	query := (&WorkloadMemberClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withWorkloadMembers = query
-	return irq
+	_q.withWorkloadMembers = query
+	return _q
 }
 
 // WithProvider tells the query-builder to eager-load the nodes that are connected to
 // the "provider" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithProvider(opts ...func(*ProviderResourceQuery)) *InstanceResourceQuery {
-	query := (&ProviderResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithProvider(opts ...func(*ProviderResourceQuery)) *InstanceResourceQuery {
+	query := (&ProviderResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withProvider = query
-	return irq
+	_q.withProvider = query
+	return _q
 }
 
 // WithLocalaccount tells the query-builder to eager-load the nodes that are connected to
 // the "localaccount" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithLocalaccount(opts ...func(*LocalAccountResourceQuery)) *InstanceResourceQuery {
-	query := (&LocalAccountResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithLocalaccount(opts ...func(*LocalAccountResourceQuery)) *InstanceResourceQuery {
+	query := (&LocalAccountResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withLocalaccount = query
-	return irq
+	_q.withLocalaccount = query
+	return _q
 }
 
 // WithOsUpdatePolicy tells the query-builder to eager-load the nodes that are connected to
 // the "os_update_policy" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithOsUpdatePolicy(opts ...func(*OSUpdatePolicyResourceQuery)) *InstanceResourceQuery {
-	query := (&OSUpdatePolicyResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithOsUpdatePolicy(opts ...func(*OSUpdatePolicyResourceQuery)) *InstanceResourceQuery {
+	query := (&OSUpdatePolicyResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withOsUpdatePolicy = query
-	return irq
+	_q.withOsUpdatePolicy = query
+	return _q
 }
 
 // WithCustomConfig tells the query-builder to eager-load the nodes that are connected to
 // the "custom_config" edge. The optional arguments are used to configure the query builder of the edge.
-func (irq *InstanceResourceQuery) WithCustomConfig(opts ...func(*CustomConfigResourceQuery)) *InstanceResourceQuery {
-	query := (&CustomConfigResourceClient{config: irq.config}).Query()
+func (_q *InstanceResourceQuery) WithCustomConfig(opts ...func(*CustomConfigResourceQuery)) *InstanceResourceQuery {
+	query := (&CustomConfigResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	irq.withCustomConfig = query
-	return irq
+	_q.withCustomConfig = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -594,10 +594,10 @@ func (irq *InstanceResourceQuery) WithCustomConfig(opts ...func(*CustomConfigRes
 //		GroupBy(instanceresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (irq *InstanceResourceQuery) GroupBy(field string, fields ...string) *InstanceResourceGroupBy {
-	irq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &InstanceResourceGroupBy{build: irq}
-	grbuild.flds = &irq.ctx.Fields
+func (_q *InstanceResourceQuery) GroupBy(field string, fields ...string) *InstanceResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &InstanceResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = instanceresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -615,63 +615,63 @@ func (irq *InstanceResourceQuery) GroupBy(field string, fields ...string) *Insta
 //	client.InstanceResource.Query().
 //		Select(instanceresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (irq *InstanceResourceQuery) Select(fields ...string) *InstanceResourceSelect {
-	irq.ctx.Fields = append(irq.ctx.Fields, fields...)
-	sbuild := &InstanceResourceSelect{InstanceResourceQuery: irq}
+func (_q *InstanceResourceQuery) Select(fields ...string) *InstanceResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &InstanceResourceSelect{InstanceResourceQuery: _q}
 	sbuild.label = instanceresource.Label
-	sbuild.flds, sbuild.scan = &irq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a InstanceResourceSelect configured with the given aggregations.
-func (irq *InstanceResourceQuery) Aggregate(fns ...AggregateFunc) *InstanceResourceSelect {
-	return irq.Select().Aggregate(fns...)
+func (_q *InstanceResourceQuery) Aggregate(fns ...AggregateFunc) *InstanceResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (irq *InstanceResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range irq.inters {
+func (_q *InstanceResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, irq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range irq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !instanceresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if irq.path != nil {
-		prev, err := irq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		irq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*InstanceResource, error) {
+func (_q *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*InstanceResource, error) {
 	var (
 		nodes       = []*InstanceResource{}
-		withFKs     = irq.withFKs
-		_spec       = irq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [9]bool{
-			irq.withHost != nil,
-			irq.withDesiredOs != nil,
-			irq.withCurrentOs != nil,
-			irq.withOs != nil,
-			irq.withWorkloadMembers != nil,
-			irq.withProvider != nil,
-			irq.withLocalaccount != nil,
-			irq.withOsUpdatePolicy != nil,
-			irq.withCustomConfig != nil,
+			_q.withHost != nil,
+			_q.withDesiredOs != nil,
+			_q.withCurrentOs != nil,
+			_q.withOs != nil,
+			_q.withWorkloadMembers != nil,
+			_q.withProvider != nil,
+			_q.withLocalaccount != nil,
+			_q.withOsUpdatePolicy != nil,
+			_q.withCustomConfig != nil,
 		}
 	)
-	if irq.withDesiredOs != nil || irq.withCurrentOs != nil || irq.withOs != nil || irq.withProvider != nil || irq.withLocalaccount != nil || irq.withOsUpdatePolicy != nil {
+	if _q.withDesiredOs != nil || _q.withCurrentOs != nil || _q.withOs != nil || _q.withProvider != nil || _q.withLocalaccount != nil || _q.withOsUpdatePolicy != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -681,7 +681,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		return (*InstanceResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &InstanceResource{config: irq.config}
+		node := &InstanceResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -689,38 +689,38 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, irq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := irq.withHost; query != nil {
-		if err := irq.loadHost(ctx, query, nodes, nil,
+	if query := _q.withHost; query != nil {
+		if err := _q.loadHost(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *HostResource) { n.Edges.Host = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withDesiredOs; query != nil {
-		if err := irq.loadDesiredOs(ctx, query, nodes, nil,
+	if query := _q.withDesiredOs; query != nil {
+		if err := _q.loadDesiredOs(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *OperatingSystemResource) { n.Edges.DesiredOs = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withCurrentOs; query != nil {
-		if err := irq.loadCurrentOs(ctx, query, nodes, nil,
+	if query := _q.withCurrentOs; query != nil {
+		if err := _q.loadCurrentOs(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *OperatingSystemResource) { n.Edges.CurrentOs = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withOs; query != nil {
-		if err := irq.loadOs(ctx, query, nodes, nil,
+	if query := _q.withOs; query != nil {
+		if err := _q.loadOs(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *OperatingSystemResource) { n.Edges.Os = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withWorkloadMembers; query != nil {
-		if err := irq.loadWorkloadMembers(ctx, query, nodes,
+	if query := _q.withWorkloadMembers; query != nil {
+		if err := _q.loadWorkloadMembers(ctx, query, nodes,
 			func(n *InstanceResource) { n.Edges.WorkloadMembers = []*WorkloadMember{} },
 			func(n *InstanceResource, e *WorkloadMember) {
 				n.Edges.WorkloadMembers = append(n.Edges.WorkloadMembers, e)
@@ -728,26 +728,26 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 			return nil, err
 		}
 	}
-	if query := irq.withProvider; query != nil {
-		if err := irq.loadProvider(ctx, query, nodes, nil,
+	if query := _q.withProvider; query != nil {
+		if err := _q.loadProvider(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *ProviderResource) { n.Edges.Provider = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withLocalaccount; query != nil {
-		if err := irq.loadLocalaccount(ctx, query, nodes, nil,
+	if query := _q.withLocalaccount; query != nil {
+		if err := _q.loadLocalaccount(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *LocalAccountResource) { n.Edges.Localaccount = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withOsUpdatePolicy; query != nil {
-		if err := irq.loadOsUpdatePolicy(ctx, query, nodes, nil,
+	if query := _q.withOsUpdatePolicy; query != nil {
+		if err := _q.loadOsUpdatePolicy(ctx, query, nodes, nil,
 			func(n *InstanceResource, e *OSUpdatePolicyResource) { n.Edges.OsUpdatePolicy = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := irq.withCustomConfig; query != nil {
-		if err := irq.loadCustomConfig(ctx, query, nodes,
+	if query := _q.withCustomConfig; query != nil {
+		if err := _q.loadCustomConfig(ctx, query, nodes,
 			func(n *InstanceResource) { n.Edges.CustomConfig = []*CustomConfigResource{} },
 			func(n *InstanceResource, e *CustomConfigResource) {
 				n.Edges.CustomConfig = append(n.Edges.CustomConfig, e)
@@ -758,7 +758,7 @@ func (irq *InstanceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	return nodes, nil
 }
 
-func (irq *InstanceResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *HostResource)) error {
+func (_q *InstanceResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *HostResource)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*InstanceResource)
 	for i := range nodes {
@@ -786,7 +786,7 @@ func (irq *InstanceResourceQuery) loadHost(ctx context.Context, query *HostResou
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadDesiredOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
+func (_q *InstanceResourceQuery) loadDesiredOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InstanceResource)
 	for i := range nodes {
@@ -818,7 +818,7 @@ func (irq *InstanceResourceQuery) loadDesiredOs(ctx context.Context, query *Oper
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadCurrentOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
+func (_q *InstanceResourceQuery) loadCurrentOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InstanceResource)
 	for i := range nodes {
@@ -850,7 +850,7 @@ func (irq *InstanceResourceQuery) loadCurrentOs(ctx context.Context, query *Oper
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
+func (_q *InstanceResourceQuery) loadOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OperatingSystemResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InstanceResource)
 	for i := range nodes {
@@ -882,7 +882,7 @@ func (irq *InstanceResourceQuery) loadOs(ctx context.Context, query *OperatingSy
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadWorkloadMembers(ctx context.Context, query *WorkloadMemberQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *WorkloadMember)) error {
+func (_q *InstanceResourceQuery) loadWorkloadMembers(ctx context.Context, query *WorkloadMemberQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *WorkloadMember)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*InstanceResource)
 	for i := range nodes {
@@ -913,7 +913,7 @@ func (irq *InstanceResourceQuery) loadWorkloadMembers(ctx context.Context, query
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadProvider(ctx context.Context, query *ProviderResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *ProviderResource)) error {
+func (_q *InstanceResourceQuery) loadProvider(ctx context.Context, query *ProviderResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *ProviderResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InstanceResource)
 	for i := range nodes {
@@ -945,7 +945,7 @@ func (irq *InstanceResourceQuery) loadProvider(ctx context.Context, query *Provi
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *LocalAccountResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *LocalAccountResource)) error {
+func (_q *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *LocalAccountResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *LocalAccountResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InstanceResource)
 	for i := range nodes {
@@ -977,7 +977,7 @@ func (irq *InstanceResourceQuery) loadLocalaccount(ctx context.Context, query *L
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadOsUpdatePolicy(ctx context.Context, query *OSUpdatePolicyResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OSUpdatePolicyResource)) error {
+func (_q *InstanceResourceQuery) loadOsUpdatePolicy(ctx context.Context, query *OSUpdatePolicyResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *OSUpdatePolicyResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InstanceResource)
 	for i := range nodes {
@@ -1009,7 +1009,7 @@ func (irq *InstanceResourceQuery) loadOsUpdatePolicy(ctx context.Context, query 
 	}
 	return nil
 }
-func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *CustomConfigResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *CustomConfigResource)) error {
+func (_q *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *CustomConfigResourceQuery, nodes []*InstanceResource, init func(*InstanceResource), assign func(*InstanceResource, *CustomConfigResource)) error {
 	edgeIDs := make([]driver.Value, len(nodes))
 	byID := make(map[int]*InstanceResource)
 	nids := make(map[int]map[*InstanceResource]struct{})
@@ -1071,24 +1071,24 @@ func (irq *InstanceResourceQuery) loadCustomConfig(ctx context.Context, query *C
 	return nil
 }
 
-func (irq *InstanceResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := irq.querySpec()
-	_spec.Node.Columns = irq.ctx.Fields
-	if len(irq.ctx.Fields) > 0 {
-		_spec.Unique = irq.ctx.Unique != nil && *irq.ctx.Unique
+func (_q *InstanceResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, irq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (irq *InstanceResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *InstanceResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(instanceresource.Table, instanceresource.Columns, sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt))
-	_spec.From = irq.sql
-	if unique := irq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if irq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := irq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, instanceresource.FieldID)
 		for i := range fields {
@@ -1097,20 +1097,20 @@ func (irq *InstanceResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := irq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := irq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := irq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := irq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -1120,33 +1120,33 @@ func (irq *InstanceResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (irq *InstanceResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(irq.driver.Dialect())
+func (_q *InstanceResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(instanceresource.Table)
-	columns := irq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = instanceresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if irq.sql != nil {
-		selector = irq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if irq.ctx.Unique != nil && *irq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range irq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range irq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := irq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := irq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -1159,41 +1159,41 @@ type InstanceResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (irgb *InstanceResourceGroupBy) Aggregate(fns ...AggregateFunc) *InstanceResourceGroupBy {
-	irgb.fns = append(irgb.fns, fns...)
-	return irgb
+func (_g *InstanceResourceGroupBy) Aggregate(fns ...AggregateFunc) *InstanceResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (irgb *InstanceResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, irgb.build.ctx, ent.OpQueryGroupBy)
-	if err := irgb.build.prepareQuery(ctx); err != nil {
+func (_g *InstanceResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*InstanceResourceQuery, *InstanceResourceGroupBy](ctx, irgb.build, irgb, irgb.build.inters, v)
+	return scanWithInterceptors[*InstanceResourceQuery, *InstanceResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (irgb *InstanceResourceGroupBy) sqlScan(ctx context.Context, root *InstanceResourceQuery, v any) error {
+func (_g *InstanceResourceGroupBy) sqlScan(ctx context.Context, root *InstanceResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(irgb.fns))
-	for _, fn := range irgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*irgb.flds)+len(irgb.fns))
-		for _, f := range *irgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*irgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := irgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -1207,27 +1207,27 @@ type InstanceResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (irs *InstanceResourceSelect) Aggregate(fns ...AggregateFunc) *InstanceResourceSelect {
-	irs.fns = append(irs.fns, fns...)
-	return irs
+func (_s *InstanceResourceSelect) Aggregate(fns ...AggregateFunc) *InstanceResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (irs *InstanceResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, irs.ctx, ent.OpQuerySelect)
-	if err := irs.prepareQuery(ctx); err != nil {
+func (_s *InstanceResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*InstanceResourceQuery, *InstanceResourceSelect](ctx, irs.InstanceResourceQuery, irs, irs.inters, v)
+	return scanWithInterceptors[*InstanceResourceQuery, *InstanceResourceSelect](ctx, _s.InstanceResourceQuery, _s, _s.inters, v)
 }
 
-func (irs *InstanceResourceSelect) sqlScan(ctx context.Context, root *InstanceResourceQuery, v any) error {
+func (_s *InstanceResourceSelect) sqlScan(ctx context.Context, root *InstanceResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(irs.fns))
-	for _, fn := range irs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*irs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -1235,7 +1235,7 @@ func (irs *InstanceResourceSelect) sqlScan(ctx context.Context, root *InstanceRe
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := irs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

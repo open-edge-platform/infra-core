@@ -21,83 +21,83 @@ type CustomConfigResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ccrc *CustomConfigResourceCreate) SetResourceID(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetResourceID(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetResourceID(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (ccrc *CustomConfigResourceCreate) SetName(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetName(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetName(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetConfig sets the "config" field.
-func (ccrc *CustomConfigResourceCreate) SetConfig(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetConfig(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetConfig(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetConfig(v)
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (ccrc *CustomConfigResourceCreate) SetDescription(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetDescription(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetDescription(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ccrc *CustomConfigResourceCreate) SetNillableDescription(s *string) *CustomConfigResourceCreate {
-	if s != nil {
-		ccrc.SetDescription(*s)
+func (_c *CustomConfigResourceCreate) SetNillableDescription(v *string) *CustomConfigResourceCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return ccrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (ccrc *CustomConfigResourceCreate) SetTenantID(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetTenantID(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetTenantID(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (ccrc *CustomConfigResourceCreate) SetCreatedAt(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetCreatedAt(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetCreatedAt(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ccrc *CustomConfigResourceCreate) SetUpdatedAt(s string) *CustomConfigResourceCreate {
-	ccrc.mutation.SetUpdatedAt(s)
-	return ccrc
+func (_c *CustomConfigResourceCreate) SetUpdatedAt(v string) *CustomConfigResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // AddInstanceIDs adds the "instances" edge to the InstanceResource entity by IDs.
-func (ccrc *CustomConfigResourceCreate) AddInstanceIDs(ids ...int) *CustomConfigResourceCreate {
-	ccrc.mutation.AddInstanceIDs(ids...)
-	return ccrc
+func (_c *CustomConfigResourceCreate) AddInstanceIDs(ids ...int) *CustomConfigResourceCreate {
+	_c.mutation.AddInstanceIDs(ids...)
+	return _c
 }
 
 // AddInstances adds the "instances" edges to the InstanceResource entity.
-func (ccrc *CustomConfigResourceCreate) AddInstances(i ...*InstanceResource) *CustomConfigResourceCreate {
-	ids := make([]int, len(i))
-	for j := range i {
-		ids[j] = i[j].ID
+func (_c *CustomConfigResourceCreate) AddInstances(v ...*InstanceResource) *CustomConfigResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ccrc.AddInstanceIDs(ids...)
+	return _c.AddInstanceIDs(ids...)
 }
 
 // Mutation returns the CustomConfigResourceMutation object of the builder.
-func (ccrc *CustomConfigResourceCreate) Mutation() *CustomConfigResourceMutation {
-	return ccrc.mutation
+func (_c *CustomConfigResourceCreate) Mutation() *CustomConfigResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the CustomConfigResource in the database.
-func (ccrc *CustomConfigResourceCreate) Save(ctx context.Context) (*CustomConfigResource, error) {
-	return withHooks(ctx, ccrc.sqlSave, ccrc.mutation, ccrc.hooks)
+func (_c *CustomConfigResourceCreate) Save(ctx context.Context) (*CustomConfigResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (ccrc *CustomConfigResourceCreate) SaveX(ctx context.Context) *CustomConfigResource {
-	v, err := ccrc.Save(ctx)
+func (_c *CustomConfigResourceCreate) SaveX(ctx context.Context) *CustomConfigResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -105,47 +105,47 @@ func (ccrc *CustomConfigResourceCreate) SaveX(ctx context.Context) *CustomConfig
 }
 
 // Exec executes the query.
-func (ccrc *CustomConfigResourceCreate) Exec(ctx context.Context) error {
-	_, err := ccrc.Save(ctx)
+func (_c *CustomConfigResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccrc *CustomConfigResourceCreate) ExecX(ctx context.Context) {
-	if err := ccrc.Exec(ctx); err != nil {
+func (_c *CustomConfigResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ccrc *CustomConfigResourceCreate) check() error {
-	if _, ok := ccrc.mutation.ResourceID(); !ok {
+func (_c *CustomConfigResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "CustomConfigResource.resource_id"`)}
 	}
-	if _, ok := ccrc.mutation.Name(); !ok {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "CustomConfigResource.name"`)}
 	}
-	if _, ok := ccrc.mutation.Config(); !ok {
+	if _, ok := _c.mutation.Config(); !ok {
 		return &ValidationError{Name: "config", err: errors.New(`ent: missing required field "CustomConfigResource.config"`)}
 	}
-	if _, ok := ccrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "CustomConfigResource.tenant_id"`)}
 	}
-	if _, ok := ccrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "CustomConfigResource.created_at"`)}
 	}
-	if _, ok := ccrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "CustomConfigResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (ccrc *CustomConfigResourceCreate) sqlSave(ctx context.Context) (*CustomConfigResource, error) {
-	if err := ccrc.check(); err != nil {
+func (_c *CustomConfigResourceCreate) sqlSave(ctx context.Context) (*CustomConfigResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := ccrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, ccrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -153,45 +153,45 @@ func (ccrc *CustomConfigResourceCreate) sqlSave(ctx context.Context) (*CustomCon
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	ccrc.mutation.id = &_node.ID
-	ccrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (ccrc *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sqlgraph.CreateSpec) {
+func (_c *CustomConfigResourceCreate) createSpec() (*CustomConfigResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &CustomConfigResource{config: ccrc.config}
+		_node = &CustomConfigResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(customconfigresource.Table, sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt))
 	)
-	if value, ok := ccrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(customconfigresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := ccrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(customconfigresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := ccrc.mutation.Config(); ok {
+	if value, ok := _c.mutation.Config(); ok {
 		_spec.SetField(customconfigresource.FieldConfig, field.TypeString, value)
 		_node.Config = value
 	}
-	if value, ok := ccrc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(customconfigresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := ccrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(customconfigresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := ccrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := ccrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(customconfigresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := ccrc.mutation.InstancesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.InstancesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -218,16 +218,16 @@ type CustomConfigResourceCreateBulk struct {
 }
 
 // Save creates the CustomConfigResource entities in the database.
-func (ccrcb *CustomConfigResourceCreateBulk) Save(ctx context.Context) ([]*CustomConfigResource, error) {
-	if ccrcb.err != nil {
-		return nil, ccrcb.err
+func (_c *CustomConfigResourceCreateBulk) Save(ctx context.Context) ([]*CustomConfigResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(ccrcb.builders))
-	nodes := make([]*CustomConfigResource, len(ccrcb.builders))
-	mutators := make([]Mutator, len(ccrcb.builders))
-	for i := range ccrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*CustomConfigResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := ccrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*CustomConfigResourceMutation)
 				if !ok {
@@ -240,11 +240,11 @@ func (ccrcb *CustomConfigResourceCreateBulk) Save(ctx context.Context) ([]*Custo
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, ccrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, ccrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -268,7 +268,7 @@ func (ccrcb *CustomConfigResourceCreateBulk) Save(ctx context.Context) ([]*Custo
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, ccrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -276,8 +276,8 @@ func (ccrcb *CustomConfigResourceCreateBulk) Save(ctx context.Context) ([]*Custo
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ccrcb *CustomConfigResourceCreateBulk) SaveX(ctx context.Context) []*CustomConfigResource {
-	v, err := ccrcb.Save(ctx)
+func (_c *CustomConfigResourceCreateBulk) SaveX(ctx context.Context) []*CustomConfigResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -285,14 +285,14 @@ func (ccrcb *CustomConfigResourceCreateBulk) SaveX(ctx context.Context) []*Custo
 }
 
 // Exec executes the query.
-func (ccrcb *CustomConfigResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := ccrcb.Save(ctx)
+func (_c *CustomConfigResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccrcb *CustomConfigResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := ccrcb.Exec(ctx); err != nil {
+func (_c *CustomConfigResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

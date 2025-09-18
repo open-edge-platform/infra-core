@@ -23,216 +23,216 @@ type WorkloadResourceUpdate struct {
 }
 
 // Where appends a list predicates to the WorkloadResourceUpdate builder.
-func (wru *WorkloadResourceUpdate) Where(ps ...predicate.WorkloadResource) *WorkloadResourceUpdate {
-	wru.mutation.Where(ps...)
-	return wru
+func (_u *WorkloadResourceUpdate) Where(ps ...predicate.WorkloadResource) *WorkloadResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (wru *WorkloadResourceUpdate) SetResourceID(s string) *WorkloadResourceUpdate {
-	wru.mutation.SetResourceID(s)
-	return wru
+func (_u *WorkloadResourceUpdate) SetResourceID(v string) *WorkloadResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableResourceID(s *string) *WorkloadResourceUpdate {
-	if s != nil {
-		wru.SetResourceID(*s)
+func (_u *WorkloadResourceUpdate) SetNillableResourceID(v *string) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return wru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (wru *WorkloadResourceUpdate) SetKind(w workloadresource.Kind) *WorkloadResourceUpdate {
-	wru.mutation.SetKind(w)
-	return wru
+func (_u *WorkloadResourceUpdate) SetKind(v workloadresource.Kind) *WorkloadResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableKind(w *workloadresource.Kind) *WorkloadResourceUpdate {
-	if w != nil {
-		wru.SetKind(*w)
+func (_u *WorkloadResourceUpdate) SetNillableKind(v *workloadresource.Kind) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return wru
+	return _u
 }
 
 // SetName sets the "name" field.
-func (wru *WorkloadResourceUpdate) SetName(s string) *WorkloadResourceUpdate {
-	wru.mutation.SetName(s)
-	return wru
+func (_u *WorkloadResourceUpdate) SetName(v string) *WorkloadResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableName(s *string) *WorkloadResourceUpdate {
-	if s != nil {
-		wru.SetName(*s)
+func (_u *WorkloadResourceUpdate) SetNillableName(v *string) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return wru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (wru *WorkloadResourceUpdate) ClearName() *WorkloadResourceUpdate {
-	wru.mutation.ClearName()
-	return wru
+func (_u *WorkloadResourceUpdate) ClearName() *WorkloadResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetExternalID sets the "external_id" field.
-func (wru *WorkloadResourceUpdate) SetExternalID(s string) *WorkloadResourceUpdate {
-	wru.mutation.SetExternalID(s)
-	return wru
+func (_u *WorkloadResourceUpdate) SetExternalID(v string) *WorkloadResourceUpdate {
+	_u.mutation.SetExternalID(v)
+	return _u
 }
 
 // SetNillableExternalID sets the "external_id" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableExternalID(s *string) *WorkloadResourceUpdate {
-	if s != nil {
-		wru.SetExternalID(*s)
+func (_u *WorkloadResourceUpdate) SetNillableExternalID(v *string) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetExternalID(*v)
 	}
-	return wru
+	return _u
 }
 
 // ClearExternalID clears the value of the "external_id" field.
-func (wru *WorkloadResourceUpdate) ClearExternalID() *WorkloadResourceUpdate {
-	wru.mutation.ClearExternalID()
-	return wru
+func (_u *WorkloadResourceUpdate) ClearExternalID() *WorkloadResourceUpdate {
+	_u.mutation.ClearExternalID()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (wru *WorkloadResourceUpdate) SetDesiredState(ws workloadresource.DesiredState) *WorkloadResourceUpdate {
-	wru.mutation.SetDesiredState(ws)
-	return wru
+func (_u *WorkloadResourceUpdate) SetDesiredState(v workloadresource.DesiredState) *WorkloadResourceUpdate {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableDesiredState(ws *workloadresource.DesiredState) *WorkloadResourceUpdate {
-	if ws != nil {
-		wru.SetDesiredState(*ws)
+func (_u *WorkloadResourceUpdate) SetNillableDesiredState(v *workloadresource.DesiredState) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return wru
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (wru *WorkloadResourceUpdate) SetCurrentState(ws workloadresource.CurrentState) *WorkloadResourceUpdate {
-	wru.mutation.SetCurrentState(ws)
-	return wru
+func (_u *WorkloadResourceUpdate) SetCurrentState(v workloadresource.CurrentState) *WorkloadResourceUpdate {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableCurrentState(ws *workloadresource.CurrentState) *WorkloadResourceUpdate {
-	if ws != nil {
-		wru.SetCurrentState(*ws)
+func (_u *WorkloadResourceUpdate) SetNillableCurrentState(v *workloadresource.CurrentState) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return wru
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (wru *WorkloadResourceUpdate) ClearCurrentState() *WorkloadResourceUpdate {
-	wru.mutation.ClearCurrentState()
-	return wru
+func (_u *WorkloadResourceUpdate) ClearCurrentState() *WorkloadResourceUpdate {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (wru *WorkloadResourceUpdate) SetStatus(s string) *WorkloadResourceUpdate {
-	wru.mutation.SetStatus(s)
-	return wru
+func (_u *WorkloadResourceUpdate) SetStatus(v string) *WorkloadResourceUpdate {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableStatus(s *string) *WorkloadResourceUpdate {
-	if s != nil {
-		wru.SetStatus(*s)
+func (_u *WorkloadResourceUpdate) SetNillableStatus(v *string) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return wru
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (wru *WorkloadResourceUpdate) ClearStatus() *WorkloadResourceUpdate {
-	wru.mutation.ClearStatus()
-	return wru
+func (_u *WorkloadResourceUpdate) ClearStatus() *WorkloadResourceUpdate {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (wru *WorkloadResourceUpdate) SetMetadata(s string) *WorkloadResourceUpdate {
-	wru.mutation.SetMetadata(s)
-	return wru
+func (_u *WorkloadResourceUpdate) SetMetadata(v string) *WorkloadResourceUpdate {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableMetadata(s *string) *WorkloadResourceUpdate {
-	if s != nil {
-		wru.SetMetadata(*s)
+func (_u *WorkloadResourceUpdate) SetNillableMetadata(v *string) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return wru
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (wru *WorkloadResourceUpdate) ClearMetadata() *WorkloadResourceUpdate {
-	wru.mutation.ClearMetadata()
-	return wru
+func (_u *WorkloadResourceUpdate) ClearMetadata() *WorkloadResourceUpdate {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (wru *WorkloadResourceUpdate) SetUpdatedAt(s string) *WorkloadResourceUpdate {
-	wru.mutation.SetUpdatedAt(s)
-	return wru
+func (_u *WorkloadResourceUpdate) SetUpdatedAt(v string) *WorkloadResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (wru *WorkloadResourceUpdate) SetNillableUpdatedAt(s *string) *WorkloadResourceUpdate {
-	if s != nil {
-		wru.SetUpdatedAt(*s)
+func (_u *WorkloadResourceUpdate) SetNillableUpdatedAt(v *string) *WorkloadResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return wru
+	return _u
 }
 
 // AddMemberIDs adds the "members" edge to the WorkloadMember entity by IDs.
-func (wru *WorkloadResourceUpdate) AddMemberIDs(ids ...int) *WorkloadResourceUpdate {
-	wru.mutation.AddMemberIDs(ids...)
-	return wru
+func (_u *WorkloadResourceUpdate) AddMemberIDs(ids ...int) *WorkloadResourceUpdate {
+	_u.mutation.AddMemberIDs(ids...)
+	return _u
 }
 
 // AddMembers adds the "members" edges to the WorkloadMember entity.
-func (wru *WorkloadResourceUpdate) AddMembers(w ...*WorkloadMember) *WorkloadResourceUpdate {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *WorkloadResourceUpdate) AddMembers(v ...*WorkloadMember) *WorkloadResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return wru.AddMemberIDs(ids...)
+	return _u.AddMemberIDs(ids...)
 }
 
 // Mutation returns the WorkloadResourceMutation object of the builder.
-func (wru *WorkloadResourceUpdate) Mutation() *WorkloadResourceMutation {
-	return wru.mutation
+func (_u *WorkloadResourceUpdate) Mutation() *WorkloadResourceMutation {
+	return _u.mutation
 }
 
 // ClearMembers clears all "members" edges to the WorkloadMember entity.
-func (wru *WorkloadResourceUpdate) ClearMembers() *WorkloadResourceUpdate {
-	wru.mutation.ClearMembers()
-	return wru
+func (_u *WorkloadResourceUpdate) ClearMembers() *WorkloadResourceUpdate {
+	_u.mutation.ClearMembers()
+	return _u
 }
 
 // RemoveMemberIDs removes the "members" edge to WorkloadMember entities by IDs.
-func (wru *WorkloadResourceUpdate) RemoveMemberIDs(ids ...int) *WorkloadResourceUpdate {
-	wru.mutation.RemoveMemberIDs(ids...)
-	return wru
+func (_u *WorkloadResourceUpdate) RemoveMemberIDs(ids ...int) *WorkloadResourceUpdate {
+	_u.mutation.RemoveMemberIDs(ids...)
+	return _u
 }
 
 // RemoveMembers removes "members" edges to WorkloadMember entities.
-func (wru *WorkloadResourceUpdate) RemoveMembers(w ...*WorkloadMember) *WorkloadResourceUpdate {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *WorkloadResourceUpdate) RemoveMembers(v ...*WorkloadMember) *WorkloadResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return wru.RemoveMemberIDs(ids...)
+	return _u.RemoveMemberIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (wru *WorkloadResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, wru.sqlSave, wru.mutation, wru.hooks)
+func (_u *WorkloadResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (wru *WorkloadResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := wru.Save(ctx)
+func (_u *WorkloadResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -240,31 +240,31 @@ func (wru *WorkloadResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (wru *WorkloadResourceUpdate) Exec(ctx context.Context) error {
-	_, err := wru.Save(ctx)
+func (_u *WorkloadResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wru *WorkloadResourceUpdate) ExecX(ctx context.Context) {
-	if err := wru.Exec(ctx); err != nil {
+func (_u *WorkloadResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (wru *WorkloadResourceUpdate) check() error {
-	if v, ok := wru.mutation.Kind(); ok {
+func (_u *WorkloadResourceUpdate) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := workloadresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := wru.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := workloadresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := wru.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := workloadresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.current_state": %w`, err)}
 		}
@@ -272,61 +272,61 @@ func (wru *WorkloadResourceUpdate) check() error {
 	return nil
 }
 
-func (wru *WorkloadResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := wru.check(); err != nil {
-		return n, err
+func (_u *WorkloadResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(workloadresource.Table, workloadresource.Columns, sqlgraph.NewFieldSpec(workloadresource.FieldID, field.TypeInt))
-	if ps := wru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := wru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(workloadresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := wru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(workloadresource.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := wru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(workloadresource.FieldName, field.TypeString, value)
 	}
-	if wru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(workloadresource.FieldName, field.TypeString)
 	}
-	if value, ok := wru.mutation.ExternalID(); ok {
+	if value, ok := _u.mutation.ExternalID(); ok {
 		_spec.SetField(workloadresource.FieldExternalID, field.TypeString, value)
 	}
-	if wru.mutation.ExternalIDCleared() {
+	if _u.mutation.ExternalIDCleared() {
 		_spec.ClearField(workloadresource.FieldExternalID, field.TypeString)
 	}
-	if value, ok := wru.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(workloadresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := wru.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(workloadresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if wru.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(workloadresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := wru.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(workloadresource.FieldStatus, field.TypeString, value)
 	}
-	if wru.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(workloadresource.FieldStatus, field.TypeString)
 	}
-	if value, ok := wru.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(workloadresource.FieldMetadata, field.TypeString, value)
 	}
-	if wru.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(workloadresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := wru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(workloadresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if wru.mutation.MembersCleared() {
+	if _u.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -339,7 +339,7 @@ func (wru *WorkloadResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wru.mutation.RemovedMembersIDs(); len(nodes) > 0 && !wru.mutation.MembersCleared() {
+	if nodes := _u.mutation.RemovedMembersIDs(); len(nodes) > 0 && !_u.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -355,7 +355,7 @@ func (wru *WorkloadResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wru.mutation.MembersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.MembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -371,7 +371,7 @@ func (wru *WorkloadResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, wru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{workloadresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -379,8 +379,8 @@ func (wru *WorkloadResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		return 0, err
 	}
-	wru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // WorkloadResourceUpdateOne is the builder for updating a single WorkloadResource entity.
@@ -392,223 +392,223 @@ type WorkloadResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (wruo *WorkloadResourceUpdateOne) SetResourceID(s string) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetResourceID(s)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetResourceID(v string) *WorkloadResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableResourceID(s *string) *WorkloadResourceUpdateOne {
-	if s != nil {
-		wruo.SetResourceID(*s)
+func (_u *WorkloadResourceUpdateOne) SetNillableResourceID(v *string) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return wruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (wruo *WorkloadResourceUpdateOne) SetKind(w workloadresource.Kind) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetKind(w)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetKind(v workloadresource.Kind) *WorkloadResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableKind(w *workloadresource.Kind) *WorkloadResourceUpdateOne {
-	if w != nil {
-		wruo.SetKind(*w)
+func (_u *WorkloadResourceUpdateOne) SetNillableKind(v *workloadresource.Kind) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return wruo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (wruo *WorkloadResourceUpdateOne) SetName(s string) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetName(s)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetName(v string) *WorkloadResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableName(s *string) *WorkloadResourceUpdateOne {
-	if s != nil {
-		wruo.SetName(*s)
+func (_u *WorkloadResourceUpdateOne) SetNillableName(v *string) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return wruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (wruo *WorkloadResourceUpdateOne) ClearName() *WorkloadResourceUpdateOne {
-	wruo.mutation.ClearName()
-	return wruo
+func (_u *WorkloadResourceUpdateOne) ClearName() *WorkloadResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetExternalID sets the "external_id" field.
-func (wruo *WorkloadResourceUpdateOne) SetExternalID(s string) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetExternalID(s)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetExternalID(v string) *WorkloadResourceUpdateOne {
+	_u.mutation.SetExternalID(v)
+	return _u
 }
 
 // SetNillableExternalID sets the "external_id" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableExternalID(s *string) *WorkloadResourceUpdateOne {
-	if s != nil {
-		wruo.SetExternalID(*s)
+func (_u *WorkloadResourceUpdateOne) SetNillableExternalID(v *string) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetExternalID(*v)
 	}
-	return wruo
+	return _u
 }
 
 // ClearExternalID clears the value of the "external_id" field.
-func (wruo *WorkloadResourceUpdateOne) ClearExternalID() *WorkloadResourceUpdateOne {
-	wruo.mutation.ClearExternalID()
-	return wruo
+func (_u *WorkloadResourceUpdateOne) ClearExternalID() *WorkloadResourceUpdateOne {
+	_u.mutation.ClearExternalID()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (wruo *WorkloadResourceUpdateOne) SetDesiredState(ws workloadresource.DesiredState) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetDesiredState(ws)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetDesiredState(v workloadresource.DesiredState) *WorkloadResourceUpdateOne {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableDesiredState(ws *workloadresource.DesiredState) *WorkloadResourceUpdateOne {
-	if ws != nil {
-		wruo.SetDesiredState(*ws)
+func (_u *WorkloadResourceUpdateOne) SetNillableDesiredState(v *workloadresource.DesiredState) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return wruo
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (wruo *WorkloadResourceUpdateOne) SetCurrentState(ws workloadresource.CurrentState) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetCurrentState(ws)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetCurrentState(v workloadresource.CurrentState) *WorkloadResourceUpdateOne {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableCurrentState(ws *workloadresource.CurrentState) *WorkloadResourceUpdateOne {
-	if ws != nil {
-		wruo.SetCurrentState(*ws)
+func (_u *WorkloadResourceUpdateOne) SetNillableCurrentState(v *workloadresource.CurrentState) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return wruo
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (wruo *WorkloadResourceUpdateOne) ClearCurrentState() *WorkloadResourceUpdateOne {
-	wruo.mutation.ClearCurrentState()
-	return wruo
+func (_u *WorkloadResourceUpdateOne) ClearCurrentState() *WorkloadResourceUpdateOne {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (wruo *WorkloadResourceUpdateOne) SetStatus(s string) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetStatus(s)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetStatus(v string) *WorkloadResourceUpdateOne {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableStatus(s *string) *WorkloadResourceUpdateOne {
-	if s != nil {
-		wruo.SetStatus(*s)
+func (_u *WorkloadResourceUpdateOne) SetNillableStatus(v *string) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return wruo
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (wruo *WorkloadResourceUpdateOne) ClearStatus() *WorkloadResourceUpdateOne {
-	wruo.mutation.ClearStatus()
-	return wruo
+func (_u *WorkloadResourceUpdateOne) ClearStatus() *WorkloadResourceUpdateOne {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (wruo *WorkloadResourceUpdateOne) SetMetadata(s string) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetMetadata(s)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetMetadata(v string) *WorkloadResourceUpdateOne {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableMetadata(s *string) *WorkloadResourceUpdateOne {
-	if s != nil {
-		wruo.SetMetadata(*s)
+func (_u *WorkloadResourceUpdateOne) SetNillableMetadata(v *string) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return wruo
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (wruo *WorkloadResourceUpdateOne) ClearMetadata() *WorkloadResourceUpdateOne {
-	wruo.mutation.ClearMetadata()
-	return wruo
+func (_u *WorkloadResourceUpdateOne) ClearMetadata() *WorkloadResourceUpdateOne {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (wruo *WorkloadResourceUpdateOne) SetUpdatedAt(s string) *WorkloadResourceUpdateOne {
-	wruo.mutation.SetUpdatedAt(s)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) SetUpdatedAt(v string) *WorkloadResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (wruo *WorkloadResourceUpdateOne) SetNillableUpdatedAt(s *string) *WorkloadResourceUpdateOne {
-	if s != nil {
-		wruo.SetUpdatedAt(*s)
+func (_u *WorkloadResourceUpdateOne) SetNillableUpdatedAt(v *string) *WorkloadResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return wruo
+	return _u
 }
 
 // AddMemberIDs adds the "members" edge to the WorkloadMember entity by IDs.
-func (wruo *WorkloadResourceUpdateOne) AddMemberIDs(ids ...int) *WorkloadResourceUpdateOne {
-	wruo.mutation.AddMemberIDs(ids...)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) AddMemberIDs(ids ...int) *WorkloadResourceUpdateOne {
+	_u.mutation.AddMemberIDs(ids...)
+	return _u
 }
 
 // AddMembers adds the "members" edges to the WorkloadMember entity.
-func (wruo *WorkloadResourceUpdateOne) AddMembers(w ...*WorkloadMember) *WorkloadResourceUpdateOne {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *WorkloadResourceUpdateOne) AddMembers(v ...*WorkloadMember) *WorkloadResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return wruo.AddMemberIDs(ids...)
+	return _u.AddMemberIDs(ids...)
 }
 
 // Mutation returns the WorkloadResourceMutation object of the builder.
-func (wruo *WorkloadResourceUpdateOne) Mutation() *WorkloadResourceMutation {
-	return wruo.mutation
+func (_u *WorkloadResourceUpdateOne) Mutation() *WorkloadResourceMutation {
+	return _u.mutation
 }
 
 // ClearMembers clears all "members" edges to the WorkloadMember entity.
-func (wruo *WorkloadResourceUpdateOne) ClearMembers() *WorkloadResourceUpdateOne {
-	wruo.mutation.ClearMembers()
-	return wruo
+func (_u *WorkloadResourceUpdateOne) ClearMembers() *WorkloadResourceUpdateOne {
+	_u.mutation.ClearMembers()
+	return _u
 }
 
 // RemoveMemberIDs removes the "members" edge to WorkloadMember entities by IDs.
-func (wruo *WorkloadResourceUpdateOne) RemoveMemberIDs(ids ...int) *WorkloadResourceUpdateOne {
-	wruo.mutation.RemoveMemberIDs(ids...)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) RemoveMemberIDs(ids ...int) *WorkloadResourceUpdateOne {
+	_u.mutation.RemoveMemberIDs(ids...)
+	return _u
 }
 
 // RemoveMembers removes "members" edges to WorkloadMember entities.
-func (wruo *WorkloadResourceUpdateOne) RemoveMembers(w ...*WorkloadMember) *WorkloadResourceUpdateOne {
-	ids := make([]int, len(w))
-	for i := range w {
-		ids[i] = w[i].ID
+func (_u *WorkloadResourceUpdateOne) RemoveMembers(v ...*WorkloadMember) *WorkloadResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return wruo.RemoveMemberIDs(ids...)
+	return _u.RemoveMemberIDs(ids...)
 }
 
 // Where appends a list predicates to the WorkloadResourceUpdate builder.
-func (wruo *WorkloadResourceUpdateOne) Where(ps ...predicate.WorkloadResource) *WorkloadResourceUpdateOne {
-	wruo.mutation.Where(ps...)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) Where(ps ...predicate.WorkloadResource) *WorkloadResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (wruo *WorkloadResourceUpdateOne) Select(field string, fields ...string) *WorkloadResourceUpdateOne {
-	wruo.fields = append([]string{field}, fields...)
-	return wruo
+func (_u *WorkloadResourceUpdateOne) Select(field string, fields ...string) *WorkloadResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated WorkloadResource entity.
-func (wruo *WorkloadResourceUpdateOne) Save(ctx context.Context) (*WorkloadResource, error) {
-	return withHooks(ctx, wruo.sqlSave, wruo.mutation, wruo.hooks)
+func (_u *WorkloadResourceUpdateOne) Save(ctx context.Context) (*WorkloadResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (wruo *WorkloadResourceUpdateOne) SaveX(ctx context.Context) *WorkloadResource {
-	node, err := wruo.Save(ctx)
+func (_u *WorkloadResourceUpdateOne) SaveX(ctx context.Context) *WorkloadResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -616,31 +616,31 @@ func (wruo *WorkloadResourceUpdateOne) SaveX(ctx context.Context) *WorkloadResou
 }
 
 // Exec executes the query on the entity.
-func (wruo *WorkloadResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := wruo.Save(ctx)
+func (_u *WorkloadResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wruo *WorkloadResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := wruo.Exec(ctx); err != nil {
+func (_u *WorkloadResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (wruo *WorkloadResourceUpdateOne) check() error {
-	if v, ok := wruo.mutation.Kind(); ok {
+func (_u *WorkloadResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := workloadresource.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.kind": %w`, err)}
 		}
 	}
-	if v, ok := wruo.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := workloadresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := wruo.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := workloadresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "WorkloadResource.current_state": %w`, err)}
 		}
@@ -648,17 +648,17 @@ func (wruo *WorkloadResourceUpdateOne) check() error {
 	return nil
 }
 
-func (wruo *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *WorkloadResource, err error) {
-	if err := wruo.check(); err != nil {
+func (_u *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *WorkloadResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(workloadresource.Table, workloadresource.Columns, sqlgraph.NewFieldSpec(workloadresource.FieldID, field.TypeInt))
-	id, ok := wruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "WorkloadResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := wruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, workloadresource.FieldID)
 		for _, f := range fields {
@@ -670,56 +670,56 @@ func (wruo *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *Work
 			}
 		}
 	}
-	if ps := wruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := wruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(workloadresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := wruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(workloadresource.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := wruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(workloadresource.FieldName, field.TypeString, value)
 	}
-	if wruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(workloadresource.FieldName, field.TypeString)
 	}
-	if value, ok := wruo.mutation.ExternalID(); ok {
+	if value, ok := _u.mutation.ExternalID(); ok {
 		_spec.SetField(workloadresource.FieldExternalID, field.TypeString, value)
 	}
-	if wruo.mutation.ExternalIDCleared() {
+	if _u.mutation.ExternalIDCleared() {
 		_spec.ClearField(workloadresource.FieldExternalID, field.TypeString)
 	}
-	if value, ok := wruo.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(workloadresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := wruo.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(workloadresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if wruo.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(workloadresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := wruo.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(workloadresource.FieldStatus, field.TypeString, value)
 	}
-	if wruo.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(workloadresource.FieldStatus, field.TypeString)
 	}
-	if value, ok := wruo.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(workloadresource.FieldMetadata, field.TypeString, value)
 	}
-	if wruo.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(workloadresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := wruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(workloadresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if wruo.mutation.MembersCleared() {
+	if _u.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -732,7 +732,7 @@ func (wruo *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *Work
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wruo.mutation.RemovedMembersIDs(); len(nodes) > 0 && !wruo.mutation.MembersCleared() {
+	if nodes := _u.mutation.RemovedMembersIDs(); len(nodes) > 0 && !_u.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -748,7 +748,7 @@ func (wruo *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *Work
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wruo.mutation.MembersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.MembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -764,10 +764,10 @@ func (wruo *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *Work
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &WorkloadResource{config: wruo.config}
+	_node = &WorkloadResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, wruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{workloadresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -775,6 +775,6 @@ func (wruo *WorkloadResourceUpdateOne) sqlSave(ctx context.Context) (_node *Work
 		}
 		return nil, err
 	}
-	wruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

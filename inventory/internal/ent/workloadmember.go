@@ -91,7 +91,7 @@ func (*WorkloadMember) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the WorkloadMember fields.
-func (wm *WorkloadMember) assignValues(columns []string, values []any) error {
+func (_m *WorkloadMember) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -102,53 +102,53 @@ func (wm *WorkloadMember) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			wm.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case workloadmember.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				wm.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case workloadmember.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				wm.Kind = workloadmember.Kind(value.String)
+				_m.Kind = workloadmember.Kind(value.String)
 			}
 		case workloadmember.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				wm.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case workloadmember.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				wm.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case workloadmember.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				wm.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case workloadmember.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field workload_member_workload", value)
 			} else if value.Valid {
-				wm.workload_member_workload = new(int)
-				*wm.workload_member_workload = int(value.Int64)
+				_m.workload_member_workload = new(int)
+				*_m.workload_member_workload = int(value.Int64)
 			}
 		case workloadmember.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field workload_member_instance", value)
 			} else if value.Valid {
-				wm.workload_member_instance = new(int)
-				*wm.workload_member_instance = int(value.Int64)
+				_m.workload_member_instance = new(int)
+				*_m.workload_member_instance = int(value.Int64)
 			}
 		default:
-			wm.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -156,57 +156,57 @@ func (wm *WorkloadMember) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the WorkloadMember.
 // This includes values selected through modifiers, order, etc.
-func (wm *WorkloadMember) Value(name string) (ent.Value, error) {
-	return wm.selectValues.Get(name)
+func (_m *WorkloadMember) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryWorkload queries the "workload" edge of the WorkloadMember entity.
-func (wm *WorkloadMember) QueryWorkload() *WorkloadResourceQuery {
-	return NewWorkloadMemberClient(wm.config).QueryWorkload(wm)
+func (_m *WorkloadMember) QueryWorkload() *WorkloadResourceQuery {
+	return NewWorkloadMemberClient(_m.config).QueryWorkload(_m)
 }
 
 // QueryInstance queries the "instance" edge of the WorkloadMember entity.
-func (wm *WorkloadMember) QueryInstance() *InstanceResourceQuery {
-	return NewWorkloadMemberClient(wm.config).QueryInstance(wm)
+func (_m *WorkloadMember) QueryInstance() *InstanceResourceQuery {
+	return NewWorkloadMemberClient(_m.config).QueryInstance(_m)
 }
 
 // Update returns a builder for updating this WorkloadMember.
 // Note that you need to call WorkloadMember.Unwrap() before calling this method if this WorkloadMember
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (wm *WorkloadMember) Update() *WorkloadMemberUpdateOne {
-	return NewWorkloadMemberClient(wm.config).UpdateOne(wm)
+func (_m *WorkloadMember) Update() *WorkloadMemberUpdateOne {
+	return NewWorkloadMemberClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the WorkloadMember entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (wm *WorkloadMember) Unwrap() *WorkloadMember {
-	_tx, ok := wm.config.driver.(*txDriver)
+func (_m *WorkloadMember) Unwrap() *WorkloadMember {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: WorkloadMember is not a transactional entity")
 	}
-	wm.config.driver = _tx.drv
-	return wm
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (wm *WorkloadMember) String() string {
+func (_m *WorkloadMember) String() string {
 	var builder strings.Builder
 	builder.WriteString("WorkloadMember(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", wm.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(wm.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(fmt.Sprintf("%v", wm.Kind))
+	builder.WriteString(fmt.Sprintf("%v", _m.Kind))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(wm.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(wm.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(wm.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

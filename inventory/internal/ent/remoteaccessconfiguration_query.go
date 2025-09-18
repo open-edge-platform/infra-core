@@ -31,44 +31,44 @@ type RemoteAccessConfigurationQuery struct {
 }
 
 // Where adds a new predicate for the RemoteAccessConfigurationQuery builder.
-func (racq *RemoteAccessConfigurationQuery) Where(ps ...predicate.RemoteAccessConfiguration) *RemoteAccessConfigurationQuery {
-	racq.predicates = append(racq.predicates, ps...)
-	return racq
+func (_q *RemoteAccessConfigurationQuery) Where(ps ...predicate.RemoteAccessConfiguration) *RemoteAccessConfigurationQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (racq *RemoteAccessConfigurationQuery) Limit(limit int) *RemoteAccessConfigurationQuery {
-	racq.ctx.Limit = &limit
-	return racq
+func (_q *RemoteAccessConfigurationQuery) Limit(limit int) *RemoteAccessConfigurationQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (racq *RemoteAccessConfigurationQuery) Offset(offset int) *RemoteAccessConfigurationQuery {
-	racq.ctx.Offset = &offset
-	return racq
+func (_q *RemoteAccessConfigurationQuery) Offset(offset int) *RemoteAccessConfigurationQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (racq *RemoteAccessConfigurationQuery) Unique(unique bool) *RemoteAccessConfigurationQuery {
-	racq.ctx.Unique = &unique
-	return racq
+func (_q *RemoteAccessConfigurationQuery) Unique(unique bool) *RemoteAccessConfigurationQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (racq *RemoteAccessConfigurationQuery) Order(o ...remoteaccessconfiguration.OrderOption) *RemoteAccessConfigurationQuery {
-	racq.order = append(racq.order, o...)
-	return racq
+func (_q *RemoteAccessConfigurationQuery) Order(o ...remoteaccessconfiguration.OrderOption) *RemoteAccessConfigurationQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryInstance chains the current query on the "instance" edge.
-func (racq *RemoteAccessConfigurationQuery) QueryInstance() *InstanceResourceQuery {
-	query := (&InstanceResourceClient{config: racq.config}).Query()
+func (_q *RemoteAccessConfigurationQuery) QueryInstance() *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := racq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := racq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (racq *RemoteAccessConfigurationQuery) QueryInstance() *InstanceResourceQue
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, remoteaccessconfiguration.InstanceTable, remoteaccessconfiguration.InstanceColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(racq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (racq *RemoteAccessConfigurationQuery) QueryInstance() *InstanceResourceQue
 
 // First returns the first RemoteAccessConfiguration entity from the query.
 // Returns a *NotFoundError when no RemoteAccessConfiguration was found.
-func (racq *RemoteAccessConfigurationQuery) First(ctx context.Context) (*RemoteAccessConfiguration, error) {
-	nodes, err := racq.Limit(1).All(setContextOp(ctx, racq.ctx, ent.OpQueryFirst))
+func (_q *RemoteAccessConfigurationQuery) First(ctx context.Context) (*RemoteAccessConfiguration, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (racq *RemoteAccessConfigurationQuery) First(ctx context.Context) (*RemoteA
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) FirstX(ctx context.Context) *RemoteAccessConfiguration {
-	node, err := racq.First(ctx)
+func (_q *RemoteAccessConfigurationQuery) FirstX(ctx context.Context) *RemoteAccessConfiguration {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (racq *RemoteAccessConfigurationQuery) FirstX(ctx context.Context) *RemoteA
 
 // FirstID returns the first RemoteAccessConfiguration ID from the query.
 // Returns a *NotFoundError when no RemoteAccessConfiguration ID was found.
-func (racq *RemoteAccessConfigurationQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *RemoteAccessConfigurationQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = racq.Limit(1).IDs(setContextOp(ctx, racq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (racq *RemoteAccessConfigurationQuery) FirstID(ctx context.Context) (id int
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) FirstIDX(ctx context.Context) int {
-	id, err := racq.FirstID(ctx)
+func (_q *RemoteAccessConfigurationQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (racq *RemoteAccessConfigurationQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single RemoteAccessConfiguration entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one RemoteAccessConfiguration entity is found.
 // Returns a *NotFoundError when no RemoteAccessConfiguration entities are found.
-func (racq *RemoteAccessConfigurationQuery) Only(ctx context.Context) (*RemoteAccessConfiguration, error) {
-	nodes, err := racq.Limit(2).All(setContextOp(ctx, racq.ctx, ent.OpQueryOnly))
+func (_q *RemoteAccessConfigurationQuery) Only(ctx context.Context) (*RemoteAccessConfiguration, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (racq *RemoteAccessConfigurationQuery) Only(ctx context.Context) (*RemoteAc
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) OnlyX(ctx context.Context) *RemoteAccessConfiguration {
-	node, err := racq.Only(ctx)
+func (_q *RemoteAccessConfigurationQuery) OnlyX(ctx context.Context) *RemoteAccessConfiguration {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (racq *RemoteAccessConfigurationQuery) OnlyX(ctx context.Context) *RemoteAc
 // OnlyID is like Only, but returns the only RemoteAccessConfiguration ID in the query.
 // Returns a *NotSingularError when more than one RemoteAccessConfiguration ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (racq *RemoteAccessConfigurationQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *RemoteAccessConfigurationQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = racq.Limit(2).IDs(setContextOp(ctx, racq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (racq *RemoteAccessConfigurationQuery) OnlyID(ctx context.Context) (id int,
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) OnlyIDX(ctx context.Context) int {
-	id, err := racq.OnlyID(ctx)
+func (_q *RemoteAccessConfigurationQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (racq *RemoteAccessConfigurationQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of RemoteAccessConfigurations.
-func (racq *RemoteAccessConfigurationQuery) All(ctx context.Context) ([]*RemoteAccessConfiguration, error) {
-	ctx = setContextOp(ctx, racq.ctx, ent.OpQueryAll)
-	if err := racq.prepareQuery(ctx); err != nil {
+func (_q *RemoteAccessConfigurationQuery) All(ctx context.Context) ([]*RemoteAccessConfiguration, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*RemoteAccessConfiguration, *RemoteAccessConfigurationQuery]()
-	return withInterceptors[[]*RemoteAccessConfiguration](ctx, racq, qr, racq.inters)
+	return withInterceptors[[]*RemoteAccessConfiguration](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) AllX(ctx context.Context) []*RemoteAccessConfiguration {
-	nodes, err := racq.All(ctx)
+func (_q *RemoteAccessConfigurationQuery) AllX(ctx context.Context) []*RemoteAccessConfiguration {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (racq *RemoteAccessConfigurationQuery) AllX(ctx context.Context) []*RemoteA
 }
 
 // IDs executes the query and returns a list of RemoteAccessConfiguration IDs.
-func (racq *RemoteAccessConfigurationQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if racq.ctx.Unique == nil && racq.path != nil {
-		racq.Unique(true)
+func (_q *RemoteAccessConfigurationQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, racq.ctx, ent.OpQueryIDs)
-	if err = racq.Select(remoteaccessconfiguration.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(remoteaccessconfiguration.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) IDsX(ctx context.Context) []int {
-	ids, err := racq.IDs(ctx)
+func (_q *RemoteAccessConfigurationQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (racq *RemoteAccessConfigurationQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (racq *RemoteAccessConfigurationQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, racq.ctx, ent.OpQueryCount)
-	if err := racq.prepareQuery(ctx); err != nil {
+func (_q *RemoteAccessConfigurationQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, racq, querierCount[*RemoteAccessConfigurationQuery](), racq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*RemoteAccessConfigurationQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) CountX(ctx context.Context) int {
-	count, err := racq.Count(ctx)
+func (_q *RemoteAccessConfigurationQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (racq *RemoteAccessConfigurationQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (racq *RemoteAccessConfigurationQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, racq.ctx, ent.OpQueryExist)
-	switch _, err := racq.FirstID(ctx); {
+func (_q *RemoteAccessConfigurationQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (racq *RemoteAccessConfigurationQuery) Exist(ctx context.Context) (bool, er
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (racq *RemoteAccessConfigurationQuery) ExistX(ctx context.Context) bool {
-	exist, err := racq.Exist(ctx)
+func (_q *RemoteAccessConfigurationQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (racq *RemoteAccessConfigurationQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the RemoteAccessConfigurationQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (racq *RemoteAccessConfigurationQuery) Clone() *RemoteAccessConfigurationQuery {
-	if racq == nil {
+func (_q *RemoteAccessConfigurationQuery) Clone() *RemoteAccessConfigurationQuery {
+	if _q == nil {
 		return nil
 	}
 	return &RemoteAccessConfigurationQuery{
-		config:       racq.config,
-		ctx:          racq.ctx.Clone(),
-		order:        append([]remoteaccessconfiguration.OrderOption{}, racq.order...),
-		inters:       append([]Interceptor{}, racq.inters...),
-		predicates:   append([]predicate.RemoteAccessConfiguration{}, racq.predicates...),
-		withInstance: racq.withInstance.Clone(),
+		config:       _q.config,
+		ctx:          _q.ctx.Clone(),
+		order:        append([]remoteaccessconfiguration.OrderOption{}, _q.order...),
+		inters:       append([]Interceptor{}, _q.inters...),
+		predicates:   append([]predicate.RemoteAccessConfiguration{}, _q.predicates...),
+		withInstance: _q.withInstance.Clone(),
 		// clone intermediate query.
-		sql:  racq.sql.Clone(),
-		path: racq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithInstance tells the query-builder to eager-load the nodes that are connected to
 // the "instance" edge. The optional arguments are used to configure the query builder of the edge.
-func (racq *RemoteAccessConfigurationQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *RemoteAccessConfigurationQuery {
-	query := (&InstanceResourceClient{config: racq.config}).Query()
+func (_q *RemoteAccessConfigurationQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *RemoteAccessConfigurationQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	racq.withInstance = query
-	return racq
+	_q.withInstance = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (racq *RemoteAccessConfigurationQuery) WithInstance(opts ...func(*InstanceR
 //		GroupBy(remoteaccessconfiguration.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (racq *RemoteAccessConfigurationQuery) GroupBy(field string, fields ...string) *RemoteAccessConfigurationGroupBy {
-	racq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &RemoteAccessConfigurationGroupBy{build: racq}
-	grbuild.flds = &racq.ctx.Fields
+func (_q *RemoteAccessConfigurationQuery) GroupBy(field string, fields ...string) *RemoteAccessConfigurationGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &RemoteAccessConfigurationGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = remoteaccessconfiguration.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,55 +328,55 @@ func (racq *RemoteAccessConfigurationQuery) GroupBy(field string, fields ...stri
 //	client.RemoteAccessConfiguration.Query().
 //		Select(remoteaccessconfiguration.FieldResourceID).
 //		Scan(ctx, &v)
-func (racq *RemoteAccessConfigurationQuery) Select(fields ...string) *RemoteAccessConfigurationSelect {
-	racq.ctx.Fields = append(racq.ctx.Fields, fields...)
-	sbuild := &RemoteAccessConfigurationSelect{RemoteAccessConfigurationQuery: racq}
+func (_q *RemoteAccessConfigurationQuery) Select(fields ...string) *RemoteAccessConfigurationSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &RemoteAccessConfigurationSelect{RemoteAccessConfigurationQuery: _q}
 	sbuild.label = remoteaccessconfiguration.Label
-	sbuild.flds, sbuild.scan = &racq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a RemoteAccessConfigurationSelect configured with the given aggregations.
-func (racq *RemoteAccessConfigurationQuery) Aggregate(fns ...AggregateFunc) *RemoteAccessConfigurationSelect {
-	return racq.Select().Aggregate(fns...)
+func (_q *RemoteAccessConfigurationQuery) Aggregate(fns ...AggregateFunc) *RemoteAccessConfigurationSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (racq *RemoteAccessConfigurationQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range racq.inters {
+func (_q *RemoteAccessConfigurationQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, racq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range racq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !remoteaccessconfiguration.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if racq.path != nil {
-		prev, err := racq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		racq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (racq *RemoteAccessConfigurationQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*RemoteAccessConfiguration, error) {
+func (_q *RemoteAccessConfigurationQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*RemoteAccessConfiguration, error) {
 	var (
 		nodes       = []*RemoteAccessConfiguration{}
-		withFKs     = racq.withFKs
-		_spec       = racq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			racq.withInstance != nil,
+			_q.withInstance != nil,
 		}
 	)
-	if racq.withInstance != nil {
+	if _q.withInstance != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,7 +386,7 @@ func (racq *RemoteAccessConfigurationQuery) sqlAll(ctx context.Context, hooks ..
 		return (*RemoteAccessConfiguration).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &RemoteAccessConfiguration{config: racq.config}
+		node := &RemoteAccessConfiguration{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -394,14 +394,14 @@ func (racq *RemoteAccessConfigurationQuery) sqlAll(ctx context.Context, hooks ..
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, racq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := racq.withInstance; query != nil {
-		if err := racq.loadInstance(ctx, query, nodes, nil,
+	if query := _q.withInstance; query != nil {
+		if err := _q.loadInstance(ctx, query, nodes, nil,
 			func(n *RemoteAccessConfiguration, e *InstanceResource) { n.Edges.Instance = e }); err != nil {
 			return nil, err
 		}
@@ -409,7 +409,7 @@ func (racq *RemoteAccessConfigurationQuery) sqlAll(ctx context.Context, hooks ..
 	return nodes, nil
 }
 
-func (racq *RemoteAccessConfigurationQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*RemoteAccessConfiguration, init func(*RemoteAccessConfiguration), assign func(*RemoteAccessConfiguration, *InstanceResource)) error {
+func (_q *RemoteAccessConfigurationQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*RemoteAccessConfiguration, init func(*RemoteAccessConfiguration), assign func(*RemoteAccessConfiguration, *InstanceResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RemoteAccessConfiguration)
 	for i := range nodes {
@@ -442,24 +442,24 @@ func (racq *RemoteAccessConfigurationQuery) loadInstance(ctx context.Context, qu
 	return nil
 }
 
-func (racq *RemoteAccessConfigurationQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := racq.querySpec()
-	_spec.Node.Columns = racq.ctx.Fields
-	if len(racq.ctx.Fields) > 0 {
-		_spec.Unique = racq.ctx.Unique != nil && *racq.ctx.Unique
+func (_q *RemoteAccessConfigurationQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, racq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (racq *RemoteAccessConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *RemoteAccessConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(remoteaccessconfiguration.Table, remoteaccessconfiguration.Columns, sqlgraph.NewFieldSpec(remoteaccessconfiguration.FieldID, field.TypeInt))
-	_spec.From = racq.sql
-	if unique := racq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if racq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := racq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, remoteaccessconfiguration.FieldID)
 		for i := range fields {
@@ -468,20 +468,20 @@ func (racq *RemoteAccessConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := racq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := racq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := racq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := racq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -491,33 +491,33 @@ func (racq *RemoteAccessConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (racq *RemoteAccessConfigurationQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(racq.driver.Dialect())
+func (_q *RemoteAccessConfigurationQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(remoteaccessconfiguration.Table)
-	columns := racq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = remoteaccessconfiguration.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if racq.sql != nil {
-		selector = racq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if racq.ctx.Unique != nil && *racq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range racq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range racq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := racq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := racq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -530,41 +530,41 @@ type RemoteAccessConfigurationGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (racgb *RemoteAccessConfigurationGroupBy) Aggregate(fns ...AggregateFunc) *RemoteAccessConfigurationGroupBy {
-	racgb.fns = append(racgb.fns, fns...)
-	return racgb
+func (_g *RemoteAccessConfigurationGroupBy) Aggregate(fns ...AggregateFunc) *RemoteAccessConfigurationGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (racgb *RemoteAccessConfigurationGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, racgb.build.ctx, ent.OpQueryGroupBy)
-	if err := racgb.build.prepareQuery(ctx); err != nil {
+func (_g *RemoteAccessConfigurationGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*RemoteAccessConfigurationQuery, *RemoteAccessConfigurationGroupBy](ctx, racgb.build, racgb, racgb.build.inters, v)
+	return scanWithInterceptors[*RemoteAccessConfigurationQuery, *RemoteAccessConfigurationGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (racgb *RemoteAccessConfigurationGroupBy) sqlScan(ctx context.Context, root *RemoteAccessConfigurationQuery, v any) error {
+func (_g *RemoteAccessConfigurationGroupBy) sqlScan(ctx context.Context, root *RemoteAccessConfigurationQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(racgb.fns))
-	for _, fn := range racgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*racgb.flds)+len(racgb.fns))
-		for _, f := range *racgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*racgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := racgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -578,27 +578,27 @@ type RemoteAccessConfigurationSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (racs *RemoteAccessConfigurationSelect) Aggregate(fns ...AggregateFunc) *RemoteAccessConfigurationSelect {
-	racs.fns = append(racs.fns, fns...)
-	return racs
+func (_s *RemoteAccessConfigurationSelect) Aggregate(fns ...AggregateFunc) *RemoteAccessConfigurationSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (racs *RemoteAccessConfigurationSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, racs.ctx, ent.OpQuerySelect)
-	if err := racs.prepareQuery(ctx); err != nil {
+func (_s *RemoteAccessConfigurationSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*RemoteAccessConfigurationQuery, *RemoteAccessConfigurationSelect](ctx, racs.RemoteAccessConfigurationQuery, racs, racs.inters, v)
+	return scanWithInterceptors[*RemoteAccessConfigurationQuery, *RemoteAccessConfigurationSelect](ctx, _s.RemoteAccessConfigurationQuery, _s, _s.inters, v)
 }
 
-func (racs *RemoteAccessConfigurationSelect) sqlScan(ctx context.Context, root *RemoteAccessConfigurationQuery, v any) error {
+func (_s *RemoteAccessConfigurationSelect) sqlScan(ctx context.Context, root *RemoteAccessConfigurationQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(racs.fns))
-	for _, fn := range racs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*racs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -606,7 +606,7 @@ func (racs *RemoteAccessConfigurationSelect) sqlScan(ctx context.Context, root *
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := racs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
