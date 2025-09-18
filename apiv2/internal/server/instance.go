@@ -421,7 +421,10 @@ func (is *InventorygRPCServer) InvalidateInstance(
 	return &restv1.InvalidateInstanceResponse{}, nil
 }
 
+// ...existing code...
+
 // deleteOSUpdateRunsForInstance deletes all OSUpdateRun resources linked to the given instance ID.
+// It continues deleting other OSUpdateRuns even if one fails, and returns an error if any deletion failed.
 func (is *InventorygRPCServer) deleteOSUpdateRunsForInstance(ctx context.Context, instanceID string) error {
 	zlog.Debug().Msgf("Deleting OSUpdateRuns for instance %s", instanceID)
 
@@ -449,7 +452,12 @@ func (is *InventorygRPCServer) deleteOSUpdateRunsForInstance(ctx context.Context
 		return errors.Wrap(err)
 	}
 
-	// Delete each OSUpdateRun
+	// Track deletion failures
+	var deletionErrors []error
+	successCount := 0
+	totalCount := len(invResp.GetResources())
+
+	// Delete each OSUpdateRun, continuing even if one fails
 	for _, invRes := range invResp.GetResources() {
 		osUpdateRun := invRes.GetResource().GetOsUpdateRun()
 		if osUpdateRun != nil {
@@ -459,12 +467,23 @@ func (is *InventorygRPCServer) deleteOSUpdateRunsForInstance(ctx context.Context
 			_, err := is.InvClient.Delete(ctx, runID)
 			if err != nil {
 				zlog.InfraErr(err).Msgf("Failed to delete OSUpdateRun %s for instance %s", runID, instanceID)
-				return errors.Wrap(err)
+				deletionErrors = append(deletionErrors, fmt.Errorf("failed to delete OSUpdateRun %s: %w", runID, err))
+			} else {
+				successCount++
+				zlog.Debug().Msgf("Successfully deleted OSUpdateRun %s for instance %s", runID, instanceID)
 			}
 		}
 	}
 
-	zlog.Debug().Msgf("Successfully deleted %d OSUpdateRuns for instance %s", len(invResp.GetResources()), instanceID)
+	if len(deletionErrors) > 0 {
+		zlog.Error().Msgf("Failed to delete %d out of %d OSUpdateRuns for instance %s",
+			len(deletionErrors), totalCount, instanceID)
+		// Return the first error wrapped with context about all failures
+		return fmt.Errorf("failed to delete %d out of %d OSUpdateRuns for instance %s: %w",
+			len(deletionErrors), totalCount, instanceID, deletionErrors[0])
+	}
+
+	zlog.Debug().Msgf("Successfully deleted all %d OSUpdateRuns for instance %s", successCount, instanceID)
 	return nil
 }
 
@@ -478,9 +497,11 @@ func (is *InventorygRPCServer) DeleteInstance(
 	instanceID := req.GetResourceId()
 
 	// First, delete all OSUpdateRuns linked to this instance
-	if err := is.deleteOSUpdateRunsForInstance(ctx, instanceID); err != nil {
-		zlog.InfraErr(err).Msgf("Failed to delete OSUpdateRuns for instance %s", instanceID)
-		return nil, errors.Wrap(err)
+	osUpdateRunDeletionErr := is.deleteOSUpdateRunsForInstance(ctx, instanceID)
+	if osUpdateRunDeletionErr != nil {
+		zlog.InfraErr(osUpdateRunDeletionErr).Msgf("Some OSUpdateRuns could not be deleted for instance %s", instanceID)
+		// Return the error - don't proceed to delete the instance if OSUpdateRun cleanup failed
+		return nil, errors.Wrap(osUpdateRunDeletionErr)
 	}
 
 	// Then delete the instance itself

@@ -522,7 +522,7 @@ func TestInstance_Delete(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Delete Instance - error deleting OSUpdateRun",
+			name: "Delete Instance - all OSUpdateRuns fail to delete",
 			mocks: func() []*mock.Call {
 				return []*mock.Call{
 					// Mock List call to find OSUpdateRuns
@@ -542,11 +542,75 @@ func TestInstance_Delete(t *testing.T) {
 									},
 								},
 							},
+							{
+								Resource: &inventory.Resource{
+									Resource: &inventory.Resource_OsUpdateRun{
+										OsUpdateRun: &inv_computev1.OSUpdateRunResource{
+											ResourceId: "osrun-87654321",
+											Instance: &inv_computev1.InstanceResource{
+												ResourceId: "instance-12345678",
+											},
+										},
+									},
+								},
+							},
 						},
 					}, nil).Once(),
-					// Mock Delete call for OSUpdateRun returns error
+					// Mock Delete calls - both fail
+					mockedClient.On("Delete", mock.Anything, "osrun-12345678").
+						Return(nil, errors.New("delete osrun1 error")).Once(),
+					mockedClient.On("Delete", mock.Anything, "osrun-87654321").
+						Return(nil, errors.New("delete osrun2 error")).Once(),
+					// Instance delete should NOT be called since OSUpdateRun cleanup failed
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.DeleteInstanceRequest{
+				ResourceId: "instance-12345678",
+			},
+			wantErr: true,
+		},
+		{
+			name: "Delete Instance - partial failure deleting OSUpdateRuns",
+			mocks: func() []*mock.Call {
+				return []*mock.Call{
+					// Mock List call to find OSUpdateRuns
+					mockedClient.On("List", mock.Anything, mock.MatchedBy(func(filter *inventory.ResourceFilter) bool {
+						return filter.GetResource().GetOsUpdateRun() != nil
+					})).Return(&inventory.ListResourcesResponse{
+						Resources: []*inventory.GetResourceResponse{
+							{
+								Resource: &inventory.Resource{
+									Resource: &inventory.Resource_OsUpdateRun{
+										OsUpdateRun: &inv_computev1.OSUpdateRunResource{
+											ResourceId: "osrun-12345678",
+											Instance: &inv_computev1.InstanceResource{
+												ResourceId: "instance-12345678",
+											},
+										},
+									},
+								},
+							},
+							{
+								Resource: &inventory.Resource{
+									Resource: &inventory.Resource_OsUpdateRun{
+										OsUpdateRun: &inv_computev1.OSUpdateRunResource{
+											ResourceId: "osrun-87654321",
+											Instance: &inv_computev1.InstanceResource{
+												ResourceId: "instance-12345678",
+											},
+										},
+									},
+								},
+							},
+						},
+					}, nil).Once(),
+					// Mock Delete calls - first fails, second succeeds
 					mockedClient.On("Delete", mock.Anything, "osrun-12345678").
 						Return(nil, errors.New("delete osrun error")).Once(),
+					mockedClient.On("Delete", mock.Anything, "osrun-87654321").
+						Return(&inventory.DeleteResourceResponse{}, nil).Once(),
+					// Instance delete should NOT be called since OSUpdateRun cleanup failed
 				}
 			},
 			ctx: context.Background(),
