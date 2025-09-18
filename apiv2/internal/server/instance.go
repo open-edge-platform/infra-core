@@ -421,10 +421,7 @@ func (is *InventorygRPCServer) InvalidateInstance(
 	return &restv1.InvalidateInstanceResponse{}, nil
 }
 
-// ...existing code...
-
 // deleteOSUpdateRunsForInstance deletes all OSUpdateRun resources linked to the given instance ID.
-// It continues deleting other OSUpdateRuns even if one fails, and returns an error if any deletion failed.
 func (is *InventorygRPCServer) deleteOSUpdateRunsForInstance(ctx context.Context, instanceID string) error {
 	zlog.Debug().Msgf("Deleting OSUpdateRuns for instance %s", instanceID)
 
