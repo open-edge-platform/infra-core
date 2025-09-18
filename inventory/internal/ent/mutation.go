@@ -1609,7 +1609,7 @@ type HostResourceMutation struct {
 	registration_status_indicator    *hostresource.RegistrationStatusIndicator
 	registration_status_timestamp    *uint64
 	addregistration_status_timestamp *int64
-	amt_sku                          *string
+	amt_sku                          *hostresource.AmtSku
 	desired_amt_state                *hostresource.DesiredAmtState
 	current_amt_state                *hostresource.CurrentAmtState
 	amt_status                       *string
@@ -4123,12 +4123,12 @@ func (m *HostResourceMutation) ResetRegistrationStatusTimestamp() {
 }
 
 // SetAmtSku sets the "amt_sku" field.
-func (m *HostResourceMutation) SetAmtSku(s string) {
-	m.amt_sku = &s
+func (m *HostResourceMutation) SetAmtSku(hs hostresource.AmtSku) {
+	m.amt_sku = &hs
 }
 
 // AmtSku returns the value of the "amt_sku" field in the mutation.
-func (m *HostResourceMutation) AmtSku() (r string, exists bool) {
+func (m *HostResourceMutation) AmtSku() (r hostresource.AmtSku, exists bool) {
 	v := m.amt_sku
 	if v == nil {
 		return
@@ -4139,7 +4139,7 @@ func (m *HostResourceMutation) AmtSku() (r string, exists bool) {
 // OldAmtSku returns the old "amt_sku" field's value of the HostResource entity.
 // If the HostResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HostResourceMutation) OldAmtSku(ctx context.Context) (v string, err error) {
+func (m *HostResourceMutation) OldAmtSku(ctx context.Context) (v hostresource.AmtSku, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldAmtSku is only allowed on UpdateOne operations")
 	}
@@ -5633,7 +5633,7 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		m.SetRegistrationStatusTimestamp(v)
 		return nil
 	case hostresource.FieldAmtSku:
-		v, ok := value.(string)
+		v, ok := value.(hostresource.AmtSku)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
