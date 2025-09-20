@@ -992,13 +992,13 @@ func (_u *HostResourceUpdate) ClearRegistrationStatusTimestamp() *HostResourceUp
 }
 
 // SetAmtSku sets the "amt_sku" field.
-func (_u *HostResourceUpdate) SetAmtSku(v string) *HostResourceUpdate {
+func (_u *HostResourceUpdate) SetAmtSku(v hostresource.AmtSku) *HostResourceUpdate {
 	_u.mutation.SetAmtSku(v)
 	return _u
 }
 
 // SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
-func (_u *HostResourceUpdate) SetNillableAmtSku(v *string) *HostResourceUpdate {
+func (_u *HostResourceUpdate) SetNillableAmtSku(v *hostresource.AmtSku) *HostResourceUpdate {
 	if v != nil {
 		_u.SetAmtSku(*v)
 	}
@@ -1435,6 +1435,11 @@ func (_u *HostResourceUpdate) check() error {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
 		}
 	}
+	if v, ok := _u.mutation.AmtSku(); ok {
+		if err := hostresource.AmtSkuValidator(v); err != nil {
+			return &ValidationError{Name: "amt_sku", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_sku": %w`, err)}
+		}
+	}
 	if v, ok := _u.mutation.DesiredAmtState(); ok {
 		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
@@ -1760,10 +1765,10 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 		_spec.ClearField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64)
 	}
 	if value, ok := _u.mutation.AmtSku(); ok {
-		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)
 	}
 	if _u.mutation.AmtSkuCleared() {
-		_spec.ClearField(hostresource.FieldAmtSku, field.TypeString)
+		_spec.ClearField(hostresource.FieldAmtSku, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.DesiredAmtState(); ok {
 		_spec.SetField(hostresource.FieldDesiredAmtState, field.TypeEnum, value)
@@ -3046,13 +3051,13 @@ func (_u *HostResourceUpdateOne) ClearRegistrationStatusTimestamp() *HostResourc
 }
 
 // SetAmtSku sets the "amt_sku" field.
-func (_u *HostResourceUpdateOne) SetAmtSku(v string) *HostResourceUpdateOne {
+func (_u *HostResourceUpdateOne) SetAmtSku(v hostresource.AmtSku) *HostResourceUpdateOne {
 	_u.mutation.SetAmtSku(v)
 	return _u
 }
 
 // SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
-func (_u *HostResourceUpdateOne) SetNillableAmtSku(v *string) *HostResourceUpdateOne {
+func (_u *HostResourceUpdateOne) SetNillableAmtSku(v *hostresource.AmtSku) *HostResourceUpdateOne {
 	if v != nil {
 		_u.SetAmtSku(*v)
 	}
@@ -3502,6 +3507,11 @@ func (_u *HostResourceUpdateOne) check() error {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
 		}
 	}
+	if v, ok := _u.mutation.AmtSku(); ok {
+		if err := hostresource.AmtSkuValidator(v); err != nil {
+			return &ValidationError{Name: "amt_sku", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_sku": %w`, err)}
+		}
+	}
 	if v, ok := _u.mutation.DesiredAmtState(); ok {
 		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
@@ -3844,10 +3854,10 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 		_spec.ClearField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64)
 	}
 	if value, ok := _u.mutation.AmtSku(); ok {
-		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)
 	}
 	if _u.mutation.AmtSkuCleared() {
-		_spec.ClearField(hostresource.FieldAmtSku, field.TypeString)
+		_spec.ClearField(hostresource.FieldAmtSku, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.DesiredAmtState(); ok {
 		_spec.SetField(hostresource.FieldDesiredAmtState, field.TypeEnum, value)

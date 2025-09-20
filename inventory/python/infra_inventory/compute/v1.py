@@ -57,6 +57,12 @@ class AmtState(betterproto.Enum):
     AMT_STATE_DISCONNECTED = 3
 
 
+class AmtSku(betterproto.Enum):
+    AMTSKU_NONE = 0
+    AMTSKU_AMT = 1
+    AMTSKU_ISM = 2
+
+
 class HostComponentState(betterproto.Enum):
     HOST_COMPONENT_STATE_UNSPECIFIED = 0
     HOST_COMPONENT_STATE_ERROR = 1
@@ -202,7 +208,7 @@ class HostResource(betterproto.Message):
     host_usbs: List["HostusbResource"] = betterproto.message_field(72)
     host_gpus: List["HostgpuResource"] = betterproto.message_field(73)
     instance: "InstanceResource" = betterproto.message_field(90)
-    amt_sku: str = betterproto.string_field(91)
+    amt_sku: "AmtSku" = betterproto.enum_field(91)
     desired_amt_state: "AmtState" = betterproto.enum_field(92)
     current_amt_state: "AmtState" = betterproto.enum_field(93)
     # A group of fields describing the AMT status. amt_status,
