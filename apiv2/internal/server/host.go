@@ -291,7 +291,7 @@ func fromInvHost(
 		HostNics:           fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:           fromInvHostUsbs(invHost.GetHostUsbs()),
 		HostGpus:           fromInvHostGpus(invHost.GetHostGpus()),
-		AmtSku:             invHost.GetAmtSku(),
+		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
 		Metadata:           metadata,

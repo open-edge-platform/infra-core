@@ -4588,6 +4588,13 @@ components:
         - STATUS_INDICATION_IN_PROGRESS
         - STATUS_INDICATION_IDLE
       description: The status indicator.
+    AmtSku:
+      type: string
+      title: AmtSku
+      enum:
+        - AMTSKU_NONE
+        - AMTSKU_AMT
+        - AMTSKU_ISM
     AmtState:
       type: string
       title: AmtState
@@ -4948,11 +4955,10 @@ components:
           readOnly: true
           $ref: '#/components/schemas/InstanceResource'
         amtSku:
-          type: string
           title: amt_sku
-          maxLength: 96
           description: coming from device introspection
           readOnly: true
+          $ref: '#/components/schemas/AmtSku'
         desiredAmtState:
           title: desired_amt_state
           description: (OPTIONAL) Desired AMT/vPRO state of the host

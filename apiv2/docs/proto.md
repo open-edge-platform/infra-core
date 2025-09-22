@@ -53,6 +53,7 @@
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
+    - [AmtSku](#resources-compute-v1-AmtSku)
     - [AmtState](#resources-compute-v1-AmtState)
     - [BaremetalControllerKind](#resources-compute-v1-BaremetalControllerKind)
     - [HostComponentState](#resources-compute-v1-HostComponentState)
@@ -801,7 +802,7 @@ A Host resource.
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
-| amt_sku | [string](#string) |  | coming from device introspection |
+| amt_sku | [AmtSku](#resources-compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
 | current_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
 | amt_status | [string](#string) |  | coming from device introspection. Set only by the DM RM. |
@@ -1072,6 +1073,19 @@ A generic way to group compute resources to obtain a workload.
 
 
  
+
+
+<a name="resources-compute-v1-AmtSku"></a>
+
+### AmtSku
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMTSKU_NONE | 0 |  |
+| AMTSKU_AMT | 1 |  |
+| AMTSKU_ISM | 2 |  |
+
 
 
 <a name="resources-compute-v1-AmtState"></a>
