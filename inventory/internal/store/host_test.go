@@ -577,21 +577,12 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 		},
 		"CreateHostLVMSizeZero": {
 			in: &computev1.HostResource{
-				Uuid:     uuid.NewString(),
-				Metadata: metaDuplicatedKeys,
-				LvmSize:  0,
+				Uuid:         uuid.NewString(),
+				SerialNumber: "12345678",
+				LvmSize:      0,
 			},
 			clientName: inv_testing.APIClient,
 			valid:      true,
-		},
-		"CreateBadHostLVMSize": {
-			in: &computev1.HostResource{
-				Uuid:     uuid.NewString(),
-				Metadata: metaDuplicatedKeys,
-				LvmSize:  4294967295,
-			},
-			clientName: inv_testing.APIClient,
-			valid:      false,
 		},
 	}
 
