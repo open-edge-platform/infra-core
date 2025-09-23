@@ -34,7 +34,7 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_UNSPECIFIED:
 		return errors.Errorfc(codes.InvalidArgument, "OS Update Policy type cannot be unspecified")
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_TARGET:
-		if isValidTargetPolicy(in) {
+		if !isValidTargetPolicy(in) {
 			return errors.Errorfc(codes.InvalidArgument, "Fields for mutable and immutable OSes are mutually exclusive")
 		}
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_LATEST:
