@@ -3244,3 +3244,73 @@ func TestHardDeleteResources_Hosts(t *testing.T) {
 		resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 	})
 }
+
+func Test_GetHost_WithRegionData(t *testing.T) {
+
+	// Create region, site, and provider
+	region := inv_testing.CreateRegionWithMeta(t, "[{\"key\":\"region-key\",\"value\":\"region-value\"}]", nil)
+	site := inv_testing.CreateSiteWithArgs(t, "Test Site", 100, 200, "[{\"key\":\"site-key\",\"value\":\"site-value\"}]", region, nil, nil)
+	provider := inv_testing.CreateProvider(t, "Test Provider")
+
+	// Create a host associated with the site
+	hostRequest := &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Host{
+			Host: &computev1.HostResource{
+				Name:         "Test Host for Region Verification",
+				DesiredState: computev1.HostState_HOST_STATE_REGISTERED,
+				Site:         site,
+				Provider:     provider,
+				Uuid:         uuid.NewString(),
+				HardwareKind: "TestHardware",
+				SerialNumber: "TEST123456789",
+				MemoryBytes:  32 * util.Gigabyte,
+				CpuModel:     "Test CPU",
+				CpuSockets:   1,
+				CpuCores:     8,
+				CpuThreads:   16,
+				Metadata:     "[{\"key\":\"host-key\",\"value\":\"host-value\"}]",
+			},
+		},
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	// Create the host
+	createResp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, hostRequest)
+	require.NoError(t, err, "Failed to create host")
+	require.NotNil(t, createResp, "Create response should not be nil")
+
+	hostResourceID := createResp.GetHost().GetResourceId()
+	require.NotEmpty(t, hostResourceID, "Host resource ID should not be empty")
+
+	// Clean up the host
+	defer func() {
+		inv_testing.HardDeleteHost(t, hostResourceID)
+	}()
+
+	// Get the host and verify region
+	getResp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, hostResourceID)
+	require.NoError(t, err, "Failed to get host")
+	require.NotNil(t, getResp, "Get response should not be nil")
+
+	hostResource := getResp.GetResource().GetHost()
+	require.NotNil(t, hostResource, "Host resource should not be nil")
+
+	// Verify site data is present
+	siteData := hostResource.GetSite()
+	require.NotNil(t, siteData, "Host site data should not be nil")
+	assert.Equal(t, site.GetResourceId(), siteData.GetResourceId(), "Site resource ID should match")
+	assert.Equal(t, "Test Site", siteData.GetName(), "Site name should match")
+
+	regionData := siteData.GetRegion()
+	require.NotNil(t, regionData, "Site region data should not be nil - this was the original issue")
+	assert.Equal(t, region.GetResourceId(), regionData.GetResourceId(), "Region resource ID should match")
+	assert.Equal(t, "for unit testing purposes", regionData.GetName(), "Region name should match")
+	assert.Equal(t, "test region", regionData.GetRegionKind(), "Region kind should match")
+
+	regionMetadata := regionData.GetMetadata()
+	assert.NotEmpty(t, regionMetadata, "Region metadata should not be empty")
+	assert.Contains(t, regionMetadata, "region-key", "Region metadata should contain expected key")
+
+}
