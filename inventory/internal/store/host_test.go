@@ -3246,11 +3246,10 @@ func TestHardDeleteResources_Hosts(t *testing.T) {
 }
 
 func Test_GetHost_WithRegionData(t *testing.T) {
-	// Create region, site, and provider
+	// Create region, site
 	region := inv_testing.CreateRegionWithMeta(t, "[{\"key\":\"region-key\",\"value\":\"region-value\"}]", nil)
 	site := inv_testing.CreateSiteWithArgs(t, "Test Site", 100, 200,
 		"[{\"key\":\"site-key\",\"value\":\"site-value\"}]", region, nil, nil)
-	provider := inv_testing.CreateProvider(t, "Test Provider")
 
 	// Create a host associated with the site
 	hostRequest := &inv_v1.Resource{
@@ -3259,7 +3258,6 @@ func Test_GetHost_WithRegionData(t *testing.T) {
 				Name:         "Test Host for Region Verification",
 				DesiredState: computev1.HostState_HOST_STATE_REGISTERED,
 				Site:         site,
-				Provider:     provider,
 				Uuid:         uuid.NewString(),
 				HardwareKind: "TestHardware",
 				SerialNumber: "TEST123456789",
