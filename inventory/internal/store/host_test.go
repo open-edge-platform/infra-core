@@ -3246,10 +3246,10 @@ func TestHardDeleteResources_Hosts(t *testing.T) {
 }
 
 func Test_GetHost_WithRegionData(t *testing.T) {
-
 	// Create region, site, and provider
 	region := inv_testing.CreateRegionWithMeta(t, "[{\"key\":\"region-key\",\"value\":\"region-value\"}]", nil)
-	site := inv_testing.CreateSiteWithArgs(t, "Test Site", 100, 200, "[{\"key\":\"site-key\",\"value\":\"site-value\"}]", region, nil, nil)
+	site := inv_testing.CreateSiteWithArgs(t, "Test Site", 100, 200,
+		"[{\"key\":\"site-key\",\"value\":\"site-value\"}]", region, nil, nil)
 	provider := inv_testing.CreateProvider(t, "Test Provider")
 
 	// Create a host associated with the site
@@ -3312,5 +3312,4 @@ func Test_GetHost_WithRegionData(t *testing.T) {
 	regionMetadata := regionData.GetMetadata()
 	assert.NotEmpty(t, regionMetadata, "Region metadata should not be empty")
 	assert.Contains(t, regionMetadata, "region-key", "Region metadata should contain expected key")
-
 }
