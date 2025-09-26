@@ -212,6 +212,7 @@ class HostResource(betterproto.Message):
     amt_status: str = betterproto.string_field(94)
     amt_status_indicator: v1.StatusIndication = betterproto.enum_field(95)
     amt_status_timestamp: int = betterproto.uint64_field(96)
+    user_lvm_size: int = betterproto.uint32_field(97)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)

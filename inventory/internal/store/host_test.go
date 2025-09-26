@@ -446,6 +446,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 
 				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
 
+				UserLvmSize: 80,
+
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
 			clientName: inv_testing.APIClient,
@@ -488,6 +490,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+
+				UserLvmSize: 80,
 
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
@@ -570,6 +574,15 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 			},
 			clientName: inv_testing.APIClient,
 			valid:      false,
+		},
+		"CreateHostLVMSizeZero": {
+			in: &computev1.HostResource{
+				Uuid:         uuid.NewString(),
+				SerialNumber: "12345678",
+				UserLvmSize:  0,
+			},
+			clientName: inv_testing.APIClient,
+			valid:      true,
 		},
 	}
 
@@ -688,6 +701,8 @@ func Test_UpdateHost(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+
+				UserLvmSize: 80,
 			},
 		},
 	}
@@ -726,6 +741,7 @@ func Test_UpdateHost(t *testing.T) {
 		Metadata:                    metaHost1,
 		DesiredPowerState:           computev1.PowerState_POWER_STATE_OFF,
 		// CurrentPowerState: should be provided by SB
+		UserLvmSize: 80,
 	}
 
 	// build a context for gRPC
@@ -1002,6 +1018,7 @@ func Test_UpdateHost(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
+				UserLvmSize:        80,
 			},
 			resourceID: hostResID,
 			clientName: inv_testing.RMClient,
@@ -1684,6 +1701,7 @@ func Test_FilterHosts(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
+				UserLvmSize:        80,
 			},
 		},
 	}
