@@ -148,6 +148,7 @@ const (
 	HostRegisterFieldUuid         = "uuid"
 	HostRegisterFieldAutoOnboard  = "auto_onboard"
 	HostRegisterFieldEnableVpro   = "enable_vpro"
+	HostRegisterFieldUserLvmSize  = "user_lvm_size"
 
 	// Fields and Edges constants for "RegisterHostRequest"
 	RegisterHostRequestFieldResourceId = "resourceId"
