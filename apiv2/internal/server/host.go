@@ -123,6 +123,7 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState_POWER_STATE_ON,
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
+		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 	}
 
@@ -157,6 +158,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
+		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 	}
 
