@@ -3255,18 +3255,9 @@ func Test_GetHost_WithRegionData(t *testing.T) {
 	hostRequest := &inv_v1.Resource{
 		Resource: &inv_v1.Resource_Host{
 			Host: &computev1.HostResource{
-				Name:         "Test Host for Region Verification",
-				DesiredState: computev1.HostState_HOST_STATE_REGISTERED,
-				Site:         site,
-				Uuid:         uuid.NewString(),
-				HardwareKind: "TestHardware",
-				SerialNumber: "TEST123456789",
-				MemoryBytes:  32 * util.Gigabyte,
-				CpuModel:     "Test CPU",
-				CpuSockets:   1,
-				CpuCores:     8,
-				CpuThreads:   16,
-				Metadata:     "[{\"key\":\"host-key\",\"value\":\"host-value\"}]",
+				Name: "Test Host",
+				Site: site,
+				Uuid: uuid.NewString(),
 			},
 		},
 	}
@@ -3283,9 +3274,7 @@ func Test_GetHost_WithRegionData(t *testing.T) {
 	require.NotEmpty(t, hostResourceID, "Host resource ID should not be empty")
 
 	// Clean up the host
-	defer func() {
-		inv_testing.HardDeleteHost(t, hostResourceID)
-	}()
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostResourceID) })
 
 	// Get the host and verify region
 	getResp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, hostResourceID)
