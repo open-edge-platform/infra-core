@@ -970,8 +970,34 @@ func (c *InvResourceDAO) CreateSiteNoCleanup(
 	return c.createSite(tb, tenantID, false, opts...)
 }
 
+// CreateSiteWithNested - creates site with cleanup and preserves nested objects like Region and OU.
+// This helper is useful when tests need to verify the full nested structure.
+func (c *InvResourceDAO) CreateSiteWithNested(
+	tb testing.TB, tenantID string, opts ...Opt[location_v1.SiteResource],
+) *location_v1.SiteResource {
+	tb.Helper()
+
+	return c.createSiteWithNested(tb, tenantID, true, true, opts...)
+}
+
+// CreateSiteWithNestedNoCleanup - creates site without cleanup and preserves nested objects like Region and OU.
+// This helper is useful when tests need to verify the full nested structure.
+func (c *InvResourceDAO) CreateSiteWithNestedNoCleanup(
+	tb testing.TB, tenantID string, opts ...Opt[location_v1.SiteResource],
+) *location_v1.SiteResource {
+	tb.Helper()
+
+	return c.createSiteWithNested(tb, tenantID, false, true, opts...)
+}
+
 func (c *InvResourceDAO) createSite(
 	tb testing.TB, tenantID string, doCleanup bool, opts ...Opt[location_v1.SiteResource],
+) *location_v1.SiteResource {
+	return c.createSiteWithNested(tb, tenantID, doCleanup, false, opts...)
+}
+
+func (c *InvResourceDAO) createSiteWithNested(
+	tb testing.TB, tenantID string, doCleanup bool, preserveNested bool, opts ...Opt[location_v1.SiteResource],
 ) *location_v1.SiteResource {
 	tb.Helper()
 
@@ -1000,8 +1026,10 @@ func (c *InvResourceDAO) createSite(
 	// resource, we do not expect further embedded messages. This matches the
 	// structure of objects returned by ent queries, i.e. no two layers of
 	// embedded objects for edges.
-	siteResp.Region = nil
-	siteResp.Ou = nil
+	if !preserveNested {
+		siteResp.Region = nil
+		siteResp.Ou = nil
+	}
 
 	return siteResp
 }
