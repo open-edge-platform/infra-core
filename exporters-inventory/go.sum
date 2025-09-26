@@ -267,12 +267,12 @@ github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f h1:/uK
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
 github.com/open-edge-platform/infra-core/api v1.36.0 h1:Y6phUoR9Z6wDrAaANEuQ0ss5xSmJs05yVualsvA3RdA=
 github.com/open-edge-platform/infra-core/api v1.36.0/go.mod h1:djQCkuszAVlfIM7e7vqdXh1mQI2z4eWEjrTzRhvUFME=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.30.3 h1:ISBbYkV/LH0Tq4GH5s5HeKTei0/85sy8UDNTJiHBneY=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.30.3/go.mod h1:aDqwibAHPVyA7wlDcoZicdJFkNeNmBaEGcGjpYd/Ass=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.30.5 h1:g8z4J4A0yKtAnxut2FEPPGg9AldP5Ik7AmHDx82HPIY=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.30.5/go.mod h1:3kDjSvr5SzS8tocYzqJGPCjeHsh6kzd20aaJYkcW3yc=
 github.com/open-edge-platform/infra-managers/host v1.23.0 h1:AiruY+8aQ9ld9/1CuFSclQXX6FhvDqoAIrFmxyRVTHg=
 github.com/open-edge-platform/infra-managers/host v1.23.0/go.mod h1:bJ/IHDVVWW37pXxT7afjsMuL+yr9PDKM65I88O9op8o=
-github.com/open-edge-platform/infra-managers/maintenance v1.23.1 h1:zHHuI05K7YlnIGnmDiZATedyrnDIo4w6xDOoq0ShEMU=
-github.com/open-edge-platform/infra-managers/maintenance v1.23.1/go.mod h1:pNHQ3+X8a+plhztpdEid/3eC1JmFAAcSjdczPCShiT8=
+github.com/open-edge-platform/infra-managers/maintenance v1.23.2 h1:Rd1RNRGZiH65T64sTmBQmJ8C+SmSGWyU4P053XU0BFc=
+github.com/open-edge-platform/infra-managers/maintenance v1.23.2/go.mod h1:7xW+WG85W+8uMAeHghY2jeIRvgJhpzErFMrWrCdEI+M=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.5 h1:GatP5L+gl7WD+vK+D7a5NM04xBBA4hrtbw+O9GzlhIc=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.5/go.mod h1:8no7kqCR93ru/3hLos3mAek8kq/YEKaLe1LtACFXZRA=
 github.com/open-edge-platform/orch-library/go v0.6.1 h1:IGR2ic73f3obnhlxTRfHcyYMbPbYu7BSqa9UYyEZ78Q=
