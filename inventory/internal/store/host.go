@@ -165,7 +165,9 @@ func getHostQuery(ctx context.Context, tx *ent.Tx, tenantID, resourceID string, 
 ) {
 	query := tx.HostResource.Query().
 		Where(hosts.ResourceID(resourceID)).
-		WithSite().
+		WithSite(func(sq *ent.SiteResourceQuery) {
+			sq.WithRegion()
+		}).
 		WithProvider().
 		WithHostStorages().
 		WithHostNics().
