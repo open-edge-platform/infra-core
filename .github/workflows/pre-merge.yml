@@ -33,10 +33,10 @@ jobs:
         with:
           persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@66d088403f0e7afeaacefc44e8547be4d53d8323  # 0.1.50
+        uses: open-edge-platform/orch-ci/verify-branch-name@c1686d1b8c91c27b418c03fd75d28e5d97cc0e7d  # 0.1.51
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@66d088403f0e7afeaacefc44e8547be4d53d8323  # 0.1.50
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@c1686d1b8c91c27b418c03fd75d28e5d97cc0e7d  # 0.1.51
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         env:
@@ -141,7 +141,7 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@66d088403f0e7afeaacefc44e8547be4d53d8323  # 0.1.50
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@c1686d1b8c91c27b418c03fd75d28e5d97cc0e7d  # 0.1.51
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
