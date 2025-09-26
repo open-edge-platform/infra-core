@@ -646,7 +646,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 func Test_UpdateHost(t *testing.T) {
 	region := inv_testing.CreateRegion(t, nil)
 	site1 := inv_testing.CreateSite(t, region, nil)
-	site2 := inv_testing.CreateSite(t, region, nil)
+	site2 := inv_testing.CreateSiteWithNested(t, region, nil)
 	provider := inv_testing.CreateProvider(t, "Test Provider1")
 	host1 := inv_testing.CreateHost(t, nil, nil)
 
