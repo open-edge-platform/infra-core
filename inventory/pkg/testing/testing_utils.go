@@ -993,6 +993,8 @@ func (c *InvResourceDAO) CreateSiteWithNestedNoCleanup(
 func (c *InvResourceDAO) createSite(
 	tb testing.TB, tenantID string, doCleanup bool, opts ...Opt[location_v1.SiteResource],
 ) *location_v1.SiteResource {
+	tb.Helper()
+
 	return c.createSiteWithNested(tb, tenantID, doCleanup, false, opts...)
 }
 

@@ -360,7 +360,9 @@ func CreateSiteWithNested(tb testing.TB, region *location_v1.RegionResource, ou 
 }
 
 // CreateSiteWithNestedNoCleanup - creates site with nested objects preserved and no cleanup.
-func CreateSiteWithNestedNoCleanup(tb testing.TB, region *location_v1.RegionResource, ou *ouv1.OuResource) *location_v1.SiteResource {
+func CreateSiteWithNestedNoCleanup(tb testing.TB, region *location_v1.RegionResource,
+	ou *ouv1.OuResource,
+) *location_v1.SiteResource {
 	tb.Helper()
 	return getInvResourceDAO().CreateSiteWithNestedNoCleanup(tb, client.FakeTenantID, SiteRegion(region), SiteOu(ou))
 }
