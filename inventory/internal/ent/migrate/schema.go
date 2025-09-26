@@ -118,7 +118,7 @@ var (
 		{Name: "registration_status", Type: field.TypeString, Nullable: true},
 		{Name: "registration_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "registration_status_timestamp", Type: field.TypeUint64, Nullable: true},
-		{Name: "amt_sku", Type: field.TypeString, Nullable: true},
+		{Name: "amt_sku", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMTSKU_NONE", "AMTSKU_AMT", "AMTSKU_ISM"}},
 		{Name: "desired_amt_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_STATE_UNSPECIFIED", "AMT_STATE_PROVISIONED", "AMT_STATE_UNPROVISIONED", "AMT_STATE_DISCONNECTED"}},
 		{Name: "current_amt_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_STATE_UNSPECIFIED", "AMT_STATE_PROVISIONED", "AMT_STATE_UNPROVISIONED", "AMT_STATE_DISCONNECTED"}},
 		{Name: "amt_status", Type: field.TypeString, Nullable: true},
