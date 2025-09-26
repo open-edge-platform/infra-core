@@ -124,7 +124,7 @@ var (
 		{Name: "amt_status", Type: field.TypeString, Nullable: true},
 		{Name: "amt_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "amt_status_timestamp", Type: field.TypeUint64, Nullable: true},
-		{Name: "lvm_size", Type: field.TypeUint32, Nullable: true},
+		{Name: "user_lvm_size", Type: field.TypeUint32, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},

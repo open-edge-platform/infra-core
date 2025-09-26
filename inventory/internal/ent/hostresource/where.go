@@ -243,9 +243,9 @@ func AmtStatusTimestamp(v uint64) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldAmtStatusTimestamp, v))
 }
 
-// LvmSize applies equality check predicate on the "lvm_size" field. It's identical to LvmSizeEQ.
-func LvmSize(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldEQ(FieldLvmSize, v))
+// UserLvmSize applies equality check predicate on the "user_lvm_size" field. It's identical to UserLvmSizeEQ.
+func UserLvmSize(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldUserLvmSize, v))
 }
 
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
@@ -3243,54 +3243,54 @@ func AmtStatusTimestampNotNil() predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotNull(FieldAmtStatusTimestamp))
 }
 
-// LvmSizeEQ applies the EQ predicate on the "lvm_size" field.
-func LvmSizeEQ(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldEQ(FieldLvmSize, v))
+// UserLvmSizeEQ applies the EQ predicate on the "user_lvm_size" field.
+func UserLvmSizeEQ(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldUserLvmSize, v))
 }
 
-// LvmSizeNEQ applies the NEQ predicate on the "lvm_size" field.
-func LvmSizeNEQ(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldNEQ(FieldLvmSize, v))
+// UserLvmSizeNEQ applies the NEQ predicate on the "user_lvm_size" field.
+func UserLvmSizeNEQ(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldUserLvmSize, v))
 }
 
-// LvmSizeIn applies the In predicate on the "lvm_size" field.
-func LvmSizeIn(vs ...uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldIn(FieldLvmSize, vs...))
+// UserLvmSizeIn applies the In predicate on the "user_lvm_size" field.
+func UserLvmSizeIn(vs ...uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldUserLvmSize, vs...))
 }
 
-// LvmSizeNotIn applies the NotIn predicate on the "lvm_size" field.
-func LvmSizeNotIn(vs ...uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldNotIn(FieldLvmSize, vs...))
+// UserLvmSizeNotIn applies the NotIn predicate on the "user_lvm_size" field.
+func UserLvmSizeNotIn(vs ...uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldUserLvmSize, vs...))
 }
 
-// LvmSizeGT applies the GT predicate on the "lvm_size" field.
-func LvmSizeGT(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldGT(FieldLvmSize, v))
+// UserLvmSizeGT applies the GT predicate on the "user_lvm_size" field.
+func UserLvmSizeGT(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldUserLvmSize, v))
 }
 
-// LvmSizeGTE applies the GTE predicate on the "lvm_size" field.
-func LvmSizeGTE(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldGTE(FieldLvmSize, v))
+// UserLvmSizeGTE applies the GTE predicate on the "user_lvm_size" field.
+func UserLvmSizeGTE(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldUserLvmSize, v))
 }
 
-// LvmSizeLT applies the LT predicate on the "lvm_size" field.
-func LvmSizeLT(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldLT(FieldLvmSize, v))
+// UserLvmSizeLT applies the LT predicate on the "user_lvm_size" field.
+func UserLvmSizeLT(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldUserLvmSize, v))
 }
 
-// LvmSizeLTE applies the LTE predicate on the "lvm_size" field.
-func LvmSizeLTE(v uint32) predicate.HostResource {
-	return predicate.HostResource(sql.FieldLTE(FieldLvmSize, v))
+// UserLvmSizeLTE applies the LTE predicate on the "user_lvm_size" field.
+func UserLvmSizeLTE(v uint32) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldUserLvmSize, v))
 }
 
-// LvmSizeIsNil applies the IsNil predicate on the "lvm_size" field.
-func LvmSizeIsNil() predicate.HostResource {
-	return predicate.HostResource(sql.FieldIsNull(FieldLvmSize))
+// UserLvmSizeIsNil applies the IsNil predicate on the "user_lvm_size" field.
+func UserLvmSizeIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldUserLvmSize))
 }
 
-// LvmSizeNotNil applies the NotNil predicate on the "lvm_size" field.
-func LvmSizeNotNil() predicate.HostResource {
-	return predicate.HostResource(sql.FieldNotNull(FieldLvmSize))
+// UserLvmSizeNotNil applies the NotNil predicate on the "user_lvm_size" field.
+func UserLvmSizeNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldUserLvmSize))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.

@@ -116,8 +116,8 @@ const (
 	FieldAmtStatusIndicator = "amt_status_indicator"
 	// FieldAmtStatusTimestamp holds the string denoting the amt_status_timestamp field in the database.
 	FieldAmtStatusTimestamp = "amt_status_timestamp"
-	// FieldLvmSize holds the string denoting the lvm_size field in the database.
-	FieldLvmSize = "lvm_size"
+	// FieldUserLvmSize holds the string denoting the user_lvm_size field in the database.
+	FieldUserLvmSize = "user_lvm_size"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -245,7 +245,7 @@ var Columns = []string{
 	FieldAmtStatus,
 	FieldAmtStatusIndicator,
 	FieldAmtStatusTimestamp,
-	FieldLvmSize,
+	FieldUserLvmSize,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -870,9 +870,9 @@ func ByAmtStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmtStatusTimestamp, opts...).ToFunc()
 }
 
-// ByLvmSize orders the results by the lvm_size field.
-func ByLvmSize(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldLvmSize, opts...).ToFunc()
+// ByUserLvmSize orders the results by the user_lvm_size field.
+func ByUserLvmSize(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserLvmSize, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

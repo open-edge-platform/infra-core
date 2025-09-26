@@ -1057,7 +1057,7 @@
 <text text-anchor="start" x="3903.83" y="-7787.57" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">bigint</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="3287.29,-7706.37 3287.29,-7766.37 3991.29,-7766.37 3991.29,-7706.37 3287.29,-7706.37"/>
 <polygon fill="none" stroke="#29235c" points="3287.29,-7706.37 3287.29,-7766.37 3991.29,-7766.37 3991.29,-7706.37 3287.29,-7706.37"/>
-<text text-anchor="start" x="3298.29" y="-7726.57" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">lvm_size &#160;&#160;&#160;</text>
+<text text-anchor="start" x="3298.29" y="-7726.57" font-family="Helvetica,sans-Serif" font-size="32.00" fill="#29235c">user_lvm_size &#160;&#160;&#160;</text>
 <text text-anchor="start" x="3903.83" y="-7727.57" font-family="Helvetica,sans-Serif" font-style="italic" font-size="32.00" fill="#29235c">bigint</text>
 <polygon fill="#e7e2dd" stroke="transparent" points="3287.29,-7646.37 3287.29,-7706.37 3991.29,-7706.37 3991.29,-7646.37 3287.29,-7646.37"/>
 <polygon fill="none" stroke="#29235c" points="3287.29,-7646.37 3287.29,-7706.37 3991.29,-7706.37 3991.29,-7646.37 3287.29,-7646.37"/>
