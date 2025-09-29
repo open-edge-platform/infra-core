@@ -22,154 +22,154 @@ type ProviderResourceUpdate struct {
 }
 
 // Where appends a list predicates to the ProviderResourceUpdate builder.
-func (pru *ProviderResourceUpdate) Where(ps ...predicate.ProviderResource) *ProviderResourceUpdate {
-	pru.mutation.Where(ps...)
-	return pru
+func (_u *ProviderResourceUpdate) Where(ps ...predicate.ProviderResource) *ProviderResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (pru *ProviderResourceUpdate) SetResourceID(s string) *ProviderResourceUpdate {
-	pru.mutation.SetResourceID(s)
-	return pru
+func (_u *ProviderResourceUpdate) SetResourceID(v string) *ProviderResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableResourceID(s *string) *ProviderResourceUpdate {
-	if s != nil {
-		pru.SetResourceID(*s)
+func (_u *ProviderResourceUpdate) SetNillableResourceID(v *string) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return pru
+	return _u
 }
 
 // SetProviderKind sets the "provider_kind" field.
-func (pru *ProviderResourceUpdate) SetProviderKind(pk providerresource.ProviderKind) *ProviderResourceUpdate {
-	pru.mutation.SetProviderKind(pk)
-	return pru
+func (_u *ProviderResourceUpdate) SetProviderKind(v providerresource.ProviderKind) *ProviderResourceUpdate {
+	_u.mutation.SetProviderKind(v)
+	return _u
 }
 
 // SetNillableProviderKind sets the "provider_kind" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableProviderKind(pk *providerresource.ProviderKind) *ProviderResourceUpdate {
-	if pk != nil {
-		pru.SetProviderKind(*pk)
+func (_u *ProviderResourceUpdate) SetNillableProviderKind(v *providerresource.ProviderKind) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetProviderKind(*v)
 	}
-	return pru
+	return _u
 }
 
 // SetProviderVendor sets the "provider_vendor" field.
-func (pru *ProviderResourceUpdate) SetProviderVendor(pv providerresource.ProviderVendor) *ProviderResourceUpdate {
-	pru.mutation.SetProviderVendor(pv)
-	return pru
+func (_u *ProviderResourceUpdate) SetProviderVendor(v providerresource.ProviderVendor) *ProviderResourceUpdate {
+	_u.mutation.SetProviderVendor(v)
+	return _u
 }
 
 // SetNillableProviderVendor sets the "provider_vendor" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableProviderVendor(pv *providerresource.ProviderVendor) *ProviderResourceUpdate {
-	if pv != nil {
-		pru.SetProviderVendor(*pv)
+func (_u *ProviderResourceUpdate) SetNillableProviderVendor(v *providerresource.ProviderVendor) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetProviderVendor(*v)
 	}
-	return pru
+	return _u
 }
 
 // ClearProviderVendor clears the value of the "provider_vendor" field.
-func (pru *ProviderResourceUpdate) ClearProviderVendor() *ProviderResourceUpdate {
-	pru.mutation.ClearProviderVendor()
-	return pru
+func (_u *ProviderResourceUpdate) ClearProviderVendor() *ProviderResourceUpdate {
+	_u.mutation.ClearProviderVendor()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (pru *ProviderResourceUpdate) SetName(s string) *ProviderResourceUpdate {
-	pru.mutation.SetName(s)
-	return pru
+func (_u *ProviderResourceUpdate) SetName(v string) *ProviderResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableName(s *string) *ProviderResourceUpdate {
-	if s != nil {
-		pru.SetName(*s)
+func (_u *ProviderResourceUpdate) SetNillableName(v *string) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return pru
+	return _u
 }
 
 // SetAPIEndpoint sets the "api_endpoint" field.
-func (pru *ProviderResourceUpdate) SetAPIEndpoint(s string) *ProviderResourceUpdate {
-	pru.mutation.SetAPIEndpoint(s)
-	return pru
+func (_u *ProviderResourceUpdate) SetAPIEndpoint(v string) *ProviderResourceUpdate {
+	_u.mutation.SetAPIEndpoint(v)
+	return _u
 }
 
 // SetNillableAPIEndpoint sets the "api_endpoint" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableAPIEndpoint(s *string) *ProviderResourceUpdate {
-	if s != nil {
-		pru.SetAPIEndpoint(*s)
+func (_u *ProviderResourceUpdate) SetNillableAPIEndpoint(v *string) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetAPIEndpoint(*v)
 	}
-	return pru
+	return _u
 }
 
 // SetAPICredentials sets the "api_credentials" field.
-func (pru *ProviderResourceUpdate) SetAPICredentials(s string) *ProviderResourceUpdate {
-	pru.mutation.SetAPICredentials(s)
-	return pru
+func (_u *ProviderResourceUpdate) SetAPICredentials(v string) *ProviderResourceUpdate {
+	_u.mutation.SetAPICredentials(v)
+	return _u
 }
 
 // SetNillableAPICredentials sets the "api_credentials" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableAPICredentials(s *string) *ProviderResourceUpdate {
-	if s != nil {
-		pru.SetAPICredentials(*s)
+func (_u *ProviderResourceUpdate) SetNillableAPICredentials(v *string) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetAPICredentials(*v)
 	}
-	return pru
+	return _u
 }
 
 // ClearAPICredentials clears the value of the "api_credentials" field.
-func (pru *ProviderResourceUpdate) ClearAPICredentials() *ProviderResourceUpdate {
-	pru.mutation.ClearAPICredentials()
-	return pru
+func (_u *ProviderResourceUpdate) ClearAPICredentials() *ProviderResourceUpdate {
+	_u.mutation.ClearAPICredentials()
+	return _u
 }
 
 // SetConfig sets the "config" field.
-func (pru *ProviderResourceUpdate) SetConfig(s string) *ProviderResourceUpdate {
-	pru.mutation.SetConfig(s)
-	return pru
+func (_u *ProviderResourceUpdate) SetConfig(v string) *ProviderResourceUpdate {
+	_u.mutation.SetConfig(v)
+	return _u
 }
 
 // SetNillableConfig sets the "config" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableConfig(s *string) *ProviderResourceUpdate {
-	if s != nil {
-		pru.SetConfig(*s)
+func (_u *ProviderResourceUpdate) SetNillableConfig(v *string) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetConfig(*v)
 	}
-	return pru
+	return _u
 }
 
 // ClearConfig clears the value of the "config" field.
-func (pru *ProviderResourceUpdate) ClearConfig() *ProviderResourceUpdate {
-	pru.mutation.ClearConfig()
-	return pru
+func (_u *ProviderResourceUpdate) ClearConfig() *ProviderResourceUpdate {
+	_u.mutation.ClearConfig()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (pru *ProviderResourceUpdate) SetUpdatedAt(s string) *ProviderResourceUpdate {
-	pru.mutation.SetUpdatedAt(s)
-	return pru
+func (_u *ProviderResourceUpdate) SetUpdatedAt(v string) *ProviderResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (pru *ProviderResourceUpdate) SetNillableUpdatedAt(s *string) *ProviderResourceUpdate {
-	if s != nil {
-		pru.SetUpdatedAt(*s)
+func (_u *ProviderResourceUpdate) SetNillableUpdatedAt(v *string) *ProviderResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return pru
+	return _u
 }
 
 // Mutation returns the ProviderResourceMutation object of the builder.
-func (pru *ProviderResourceUpdate) Mutation() *ProviderResourceMutation {
-	return pru.mutation
+func (_u *ProviderResourceUpdate) Mutation() *ProviderResourceMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (pru *ProviderResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, pru.sqlSave, pru.mutation, pru.hooks)
+func (_u *ProviderResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (pru *ProviderResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := pru.Save(ctx)
+func (_u *ProviderResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -177,26 +177,26 @@ func (pru *ProviderResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (pru *ProviderResourceUpdate) Exec(ctx context.Context) error {
-	_, err := pru.Save(ctx)
+func (_u *ProviderResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (pru *ProviderResourceUpdate) ExecX(ctx context.Context) {
-	if err := pru.Exec(ctx); err != nil {
+func (_u *ProviderResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (pru *ProviderResourceUpdate) check() error {
-	if v, ok := pru.mutation.ProviderKind(); ok {
+func (_u *ProviderResourceUpdate) check() error {
+	if v, ok := _u.mutation.ProviderKind(); ok {
 		if err := providerresource.ProviderKindValidator(v); err != nil {
 			return &ValidationError{Name: "provider_kind", err: fmt.Errorf(`ent: validator failed for field "ProviderResource.provider_kind": %w`, err)}
 		}
 	}
-	if v, ok := pru.mutation.ProviderVendor(); ok {
+	if v, ok := _u.mutation.ProviderVendor(); ok {
 		if err := providerresource.ProviderVendorValidator(v); err != nil {
 			return &ValidationError{Name: "provider_vendor", err: fmt.Errorf(`ent: validator failed for field "ProviderResource.provider_vendor": %w`, err)}
 		}
@@ -204,52 +204,52 @@ func (pru *ProviderResourceUpdate) check() error {
 	return nil
 }
 
-func (pru *ProviderResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := pru.check(); err != nil {
-		return n, err
+func (_u *ProviderResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(providerresource.Table, providerresource.Columns, sqlgraph.NewFieldSpec(providerresource.FieldID, field.TypeInt))
-	if ps := pru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := pru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(providerresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := pru.mutation.ProviderKind(); ok {
+	if value, ok := _u.mutation.ProviderKind(); ok {
 		_spec.SetField(providerresource.FieldProviderKind, field.TypeEnum, value)
 	}
-	if value, ok := pru.mutation.ProviderVendor(); ok {
+	if value, ok := _u.mutation.ProviderVendor(); ok {
 		_spec.SetField(providerresource.FieldProviderVendor, field.TypeEnum, value)
 	}
-	if pru.mutation.ProviderVendorCleared() {
+	if _u.mutation.ProviderVendorCleared() {
 		_spec.ClearField(providerresource.FieldProviderVendor, field.TypeEnum)
 	}
-	if value, ok := pru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(providerresource.FieldName, field.TypeString, value)
 	}
-	if value, ok := pru.mutation.APIEndpoint(); ok {
+	if value, ok := _u.mutation.APIEndpoint(); ok {
 		_spec.SetField(providerresource.FieldAPIEndpoint, field.TypeString, value)
 	}
-	if value, ok := pru.mutation.APICredentials(); ok {
+	if value, ok := _u.mutation.APICredentials(); ok {
 		_spec.SetField(providerresource.FieldAPICredentials, field.TypeString, value)
 	}
-	if pru.mutation.APICredentialsCleared() {
+	if _u.mutation.APICredentialsCleared() {
 		_spec.ClearField(providerresource.FieldAPICredentials, field.TypeString)
 	}
-	if value, ok := pru.mutation.Config(); ok {
+	if value, ok := _u.mutation.Config(); ok {
 		_spec.SetField(providerresource.FieldConfig, field.TypeString, value)
 	}
-	if pru.mutation.ConfigCleared() {
+	if _u.mutation.ConfigCleared() {
 		_spec.ClearField(providerresource.FieldConfig, field.TypeString)
 	}
-	if value, ok := pru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(providerresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, pru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{providerresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -257,8 +257,8 @@ func (pru *ProviderResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		return 0, err
 	}
-	pru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // ProviderResourceUpdateOne is the builder for updating a single ProviderResource entity.
@@ -270,161 +270,161 @@ type ProviderResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (pruo *ProviderResourceUpdateOne) SetResourceID(s string) *ProviderResourceUpdateOne {
-	pruo.mutation.SetResourceID(s)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetResourceID(v string) *ProviderResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableResourceID(s *string) *ProviderResourceUpdateOne {
-	if s != nil {
-		pruo.SetResourceID(*s)
+func (_u *ProviderResourceUpdateOne) SetNillableResourceID(v *string) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return pruo
+	return _u
 }
 
 // SetProviderKind sets the "provider_kind" field.
-func (pruo *ProviderResourceUpdateOne) SetProviderKind(pk providerresource.ProviderKind) *ProviderResourceUpdateOne {
-	pruo.mutation.SetProviderKind(pk)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetProviderKind(v providerresource.ProviderKind) *ProviderResourceUpdateOne {
+	_u.mutation.SetProviderKind(v)
+	return _u
 }
 
 // SetNillableProviderKind sets the "provider_kind" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableProviderKind(pk *providerresource.ProviderKind) *ProviderResourceUpdateOne {
-	if pk != nil {
-		pruo.SetProviderKind(*pk)
+func (_u *ProviderResourceUpdateOne) SetNillableProviderKind(v *providerresource.ProviderKind) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetProviderKind(*v)
 	}
-	return pruo
+	return _u
 }
 
 // SetProviderVendor sets the "provider_vendor" field.
-func (pruo *ProviderResourceUpdateOne) SetProviderVendor(pv providerresource.ProviderVendor) *ProviderResourceUpdateOne {
-	pruo.mutation.SetProviderVendor(pv)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetProviderVendor(v providerresource.ProviderVendor) *ProviderResourceUpdateOne {
+	_u.mutation.SetProviderVendor(v)
+	return _u
 }
 
 // SetNillableProviderVendor sets the "provider_vendor" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableProviderVendor(pv *providerresource.ProviderVendor) *ProviderResourceUpdateOne {
-	if pv != nil {
-		pruo.SetProviderVendor(*pv)
+func (_u *ProviderResourceUpdateOne) SetNillableProviderVendor(v *providerresource.ProviderVendor) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetProviderVendor(*v)
 	}
-	return pruo
+	return _u
 }
 
 // ClearProviderVendor clears the value of the "provider_vendor" field.
-func (pruo *ProviderResourceUpdateOne) ClearProviderVendor() *ProviderResourceUpdateOne {
-	pruo.mutation.ClearProviderVendor()
-	return pruo
+func (_u *ProviderResourceUpdateOne) ClearProviderVendor() *ProviderResourceUpdateOne {
+	_u.mutation.ClearProviderVendor()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (pruo *ProviderResourceUpdateOne) SetName(s string) *ProviderResourceUpdateOne {
-	pruo.mutation.SetName(s)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetName(v string) *ProviderResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableName(s *string) *ProviderResourceUpdateOne {
-	if s != nil {
-		pruo.SetName(*s)
+func (_u *ProviderResourceUpdateOne) SetNillableName(v *string) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return pruo
+	return _u
 }
 
 // SetAPIEndpoint sets the "api_endpoint" field.
-func (pruo *ProviderResourceUpdateOne) SetAPIEndpoint(s string) *ProviderResourceUpdateOne {
-	pruo.mutation.SetAPIEndpoint(s)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetAPIEndpoint(v string) *ProviderResourceUpdateOne {
+	_u.mutation.SetAPIEndpoint(v)
+	return _u
 }
 
 // SetNillableAPIEndpoint sets the "api_endpoint" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableAPIEndpoint(s *string) *ProviderResourceUpdateOne {
-	if s != nil {
-		pruo.SetAPIEndpoint(*s)
+func (_u *ProviderResourceUpdateOne) SetNillableAPIEndpoint(v *string) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetAPIEndpoint(*v)
 	}
-	return pruo
+	return _u
 }
 
 // SetAPICredentials sets the "api_credentials" field.
-func (pruo *ProviderResourceUpdateOne) SetAPICredentials(s string) *ProviderResourceUpdateOne {
-	pruo.mutation.SetAPICredentials(s)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetAPICredentials(v string) *ProviderResourceUpdateOne {
+	_u.mutation.SetAPICredentials(v)
+	return _u
 }
 
 // SetNillableAPICredentials sets the "api_credentials" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableAPICredentials(s *string) *ProviderResourceUpdateOne {
-	if s != nil {
-		pruo.SetAPICredentials(*s)
+func (_u *ProviderResourceUpdateOne) SetNillableAPICredentials(v *string) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetAPICredentials(*v)
 	}
-	return pruo
+	return _u
 }
 
 // ClearAPICredentials clears the value of the "api_credentials" field.
-func (pruo *ProviderResourceUpdateOne) ClearAPICredentials() *ProviderResourceUpdateOne {
-	pruo.mutation.ClearAPICredentials()
-	return pruo
+func (_u *ProviderResourceUpdateOne) ClearAPICredentials() *ProviderResourceUpdateOne {
+	_u.mutation.ClearAPICredentials()
+	return _u
 }
 
 // SetConfig sets the "config" field.
-func (pruo *ProviderResourceUpdateOne) SetConfig(s string) *ProviderResourceUpdateOne {
-	pruo.mutation.SetConfig(s)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetConfig(v string) *ProviderResourceUpdateOne {
+	_u.mutation.SetConfig(v)
+	return _u
 }
 
 // SetNillableConfig sets the "config" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableConfig(s *string) *ProviderResourceUpdateOne {
-	if s != nil {
-		pruo.SetConfig(*s)
+func (_u *ProviderResourceUpdateOne) SetNillableConfig(v *string) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetConfig(*v)
 	}
-	return pruo
+	return _u
 }
 
 // ClearConfig clears the value of the "config" field.
-func (pruo *ProviderResourceUpdateOne) ClearConfig() *ProviderResourceUpdateOne {
-	pruo.mutation.ClearConfig()
-	return pruo
+func (_u *ProviderResourceUpdateOne) ClearConfig() *ProviderResourceUpdateOne {
+	_u.mutation.ClearConfig()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (pruo *ProviderResourceUpdateOne) SetUpdatedAt(s string) *ProviderResourceUpdateOne {
-	pruo.mutation.SetUpdatedAt(s)
-	return pruo
+func (_u *ProviderResourceUpdateOne) SetUpdatedAt(v string) *ProviderResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (pruo *ProviderResourceUpdateOne) SetNillableUpdatedAt(s *string) *ProviderResourceUpdateOne {
-	if s != nil {
-		pruo.SetUpdatedAt(*s)
+func (_u *ProviderResourceUpdateOne) SetNillableUpdatedAt(v *string) *ProviderResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return pruo
+	return _u
 }
 
 // Mutation returns the ProviderResourceMutation object of the builder.
-func (pruo *ProviderResourceUpdateOne) Mutation() *ProviderResourceMutation {
-	return pruo.mutation
+func (_u *ProviderResourceUpdateOne) Mutation() *ProviderResourceMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the ProviderResourceUpdate builder.
-func (pruo *ProviderResourceUpdateOne) Where(ps ...predicate.ProviderResource) *ProviderResourceUpdateOne {
-	pruo.mutation.Where(ps...)
-	return pruo
+func (_u *ProviderResourceUpdateOne) Where(ps ...predicate.ProviderResource) *ProviderResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (pruo *ProviderResourceUpdateOne) Select(field string, fields ...string) *ProviderResourceUpdateOne {
-	pruo.fields = append([]string{field}, fields...)
-	return pruo
+func (_u *ProviderResourceUpdateOne) Select(field string, fields ...string) *ProviderResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated ProviderResource entity.
-func (pruo *ProviderResourceUpdateOne) Save(ctx context.Context) (*ProviderResource, error) {
-	return withHooks(ctx, pruo.sqlSave, pruo.mutation, pruo.hooks)
+func (_u *ProviderResourceUpdateOne) Save(ctx context.Context) (*ProviderResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (pruo *ProviderResourceUpdateOne) SaveX(ctx context.Context) *ProviderResource {
-	node, err := pruo.Save(ctx)
+func (_u *ProviderResourceUpdateOne) SaveX(ctx context.Context) *ProviderResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -432,26 +432,26 @@ func (pruo *ProviderResourceUpdateOne) SaveX(ctx context.Context) *ProviderResou
 }
 
 // Exec executes the query on the entity.
-func (pruo *ProviderResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := pruo.Save(ctx)
+func (_u *ProviderResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (pruo *ProviderResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := pruo.Exec(ctx); err != nil {
+func (_u *ProviderResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (pruo *ProviderResourceUpdateOne) check() error {
-	if v, ok := pruo.mutation.ProviderKind(); ok {
+func (_u *ProviderResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.ProviderKind(); ok {
 		if err := providerresource.ProviderKindValidator(v); err != nil {
 			return &ValidationError{Name: "provider_kind", err: fmt.Errorf(`ent: validator failed for field "ProviderResource.provider_kind": %w`, err)}
 		}
 	}
-	if v, ok := pruo.mutation.ProviderVendor(); ok {
+	if v, ok := _u.mutation.ProviderVendor(); ok {
 		if err := providerresource.ProviderVendorValidator(v); err != nil {
 			return &ValidationError{Name: "provider_vendor", err: fmt.Errorf(`ent: validator failed for field "ProviderResource.provider_vendor": %w`, err)}
 		}
@@ -459,17 +459,17 @@ func (pruo *ProviderResourceUpdateOne) check() error {
 	return nil
 }
 
-func (pruo *ProviderResourceUpdateOne) sqlSave(ctx context.Context) (_node *ProviderResource, err error) {
-	if err := pruo.check(); err != nil {
+func (_u *ProviderResourceUpdateOne) sqlSave(ctx context.Context) (_node *ProviderResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(providerresource.Table, providerresource.Columns, sqlgraph.NewFieldSpec(providerresource.FieldID, field.TypeInt))
-	id, ok := pruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "ProviderResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := pruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, providerresource.FieldID)
 		for _, f := range fields {
@@ -481,50 +481,50 @@ func (pruo *ProviderResourceUpdateOne) sqlSave(ctx context.Context) (_node *Prov
 			}
 		}
 	}
-	if ps := pruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := pruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(providerresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := pruo.mutation.ProviderKind(); ok {
+	if value, ok := _u.mutation.ProviderKind(); ok {
 		_spec.SetField(providerresource.FieldProviderKind, field.TypeEnum, value)
 	}
-	if value, ok := pruo.mutation.ProviderVendor(); ok {
+	if value, ok := _u.mutation.ProviderVendor(); ok {
 		_spec.SetField(providerresource.FieldProviderVendor, field.TypeEnum, value)
 	}
-	if pruo.mutation.ProviderVendorCleared() {
+	if _u.mutation.ProviderVendorCleared() {
 		_spec.ClearField(providerresource.FieldProviderVendor, field.TypeEnum)
 	}
-	if value, ok := pruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(providerresource.FieldName, field.TypeString, value)
 	}
-	if value, ok := pruo.mutation.APIEndpoint(); ok {
+	if value, ok := _u.mutation.APIEndpoint(); ok {
 		_spec.SetField(providerresource.FieldAPIEndpoint, field.TypeString, value)
 	}
-	if value, ok := pruo.mutation.APICredentials(); ok {
+	if value, ok := _u.mutation.APICredentials(); ok {
 		_spec.SetField(providerresource.FieldAPICredentials, field.TypeString, value)
 	}
-	if pruo.mutation.APICredentialsCleared() {
+	if _u.mutation.APICredentialsCleared() {
 		_spec.ClearField(providerresource.FieldAPICredentials, field.TypeString)
 	}
-	if value, ok := pruo.mutation.Config(); ok {
+	if value, ok := _u.mutation.Config(); ok {
 		_spec.SetField(providerresource.FieldConfig, field.TypeString, value)
 	}
-	if pruo.mutation.ConfigCleared() {
+	if _u.mutation.ConfigCleared() {
 		_spec.ClearField(providerresource.FieldConfig, field.TypeString)
 	}
-	if value, ok := pruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(providerresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	_node = &ProviderResource{config: pruo.config}
+	_node = &ProviderResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, pruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{providerresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -532,6 +532,6 @@ func (pruo *ProviderResourceUpdateOne) sqlSave(ctx context.Context) (_node *Prov
 		}
 		return nil, err
 	}
-	pruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

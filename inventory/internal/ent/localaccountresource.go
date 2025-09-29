@@ -49,7 +49,7 @@ func (*LocalAccountResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the LocalAccountResource fields.
-func (lar *LocalAccountResource) assignValues(columns []string, values []any) error {
+func (_m *LocalAccountResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -60,45 +60,45 @@ func (lar *LocalAccountResource) assignValues(columns []string, values []any) er
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			lar.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case localaccountresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				lar.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case localaccountresource.FieldUsername:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field username", values[i])
 			} else if value.Valid {
-				lar.Username = value.String
+				_m.Username = value.String
 			}
 		case localaccountresource.FieldSSHKey:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field ssh_key", values[i])
 			} else if value.Valid {
-				lar.SSHKey = value.String
+				_m.SSHKey = value.String
 			}
 		case localaccountresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				lar.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case localaccountresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				lar.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case localaccountresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				lar.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		default:
-			lar.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -106,50 +106,50 @@ func (lar *LocalAccountResource) assignValues(columns []string, values []any) er
 
 // Value returns the ent.Value that was dynamically selected and assigned to the LocalAccountResource.
 // This includes values selected through modifiers, order, etc.
-func (lar *LocalAccountResource) Value(name string) (ent.Value, error) {
-	return lar.selectValues.Get(name)
+func (_m *LocalAccountResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this LocalAccountResource.
 // Note that you need to call LocalAccountResource.Unwrap() before calling this method if this LocalAccountResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (lar *LocalAccountResource) Update() *LocalAccountResourceUpdateOne {
-	return NewLocalAccountResourceClient(lar.config).UpdateOne(lar)
+func (_m *LocalAccountResource) Update() *LocalAccountResourceUpdateOne {
+	return NewLocalAccountResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the LocalAccountResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (lar *LocalAccountResource) Unwrap() *LocalAccountResource {
-	_tx, ok := lar.config.driver.(*txDriver)
+func (_m *LocalAccountResource) Unwrap() *LocalAccountResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: LocalAccountResource is not a transactional entity")
 	}
-	lar.config.driver = _tx.drv
-	return lar
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (lar *LocalAccountResource) String() string {
+func (_m *LocalAccountResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("LocalAccountResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", lar.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(lar.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("username=")
-	builder.WriteString(lar.Username)
+	builder.WriteString(_m.Username)
 	builder.WriteString(", ")
 	builder.WriteString("ssh_key=")
-	builder.WriteString(lar.SSHKey)
+	builder.WriteString(_m.SSHKey)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(lar.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(lar.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(lar.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

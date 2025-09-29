@@ -20,56 +20,56 @@ type NetworkSegmentDelete struct {
 }
 
 // Where appends a list predicates to the NetworkSegmentDelete builder.
-func (nsd *NetworkSegmentDelete) Where(ps ...predicate.NetworkSegment) *NetworkSegmentDelete {
-	nsd.mutation.Where(ps...)
-	return nsd
+func (_d *NetworkSegmentDelete) Where(ps ...predicate.NetworkSegment) *NetworkSegmentDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (nsd *NetworkSegmentDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, nsd.sqlExec, nsd.mutation, nsd.hooks)
+func (_d *NetworkSegmentDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nsd *NetworkSegmentDelete) ExecX(ctx context.Context) int {
-	n, err := nsd.Exec(ctx)
+func (_d *NetworkSegmentDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (nsd *NetworkSegmentDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *NetworkSegmentDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(networksegment.Table, sqlgraph.NewFieldSpec(networksegment.FieldID, field.TypeInt))
-	if ps := nsd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, nsd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	nsd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // NetworkSegmentDeleteOne is the builder for deleting a single NetworkSegment entity.
 type NetworkSegmentDeleteOne struct {
-	nsd *NetworkSegmentDelete
+	_d *NetworkSegmentDelete
 }
 
 // Where appends a list predicates to the NetworkSegmentDelete builder.
-func (nsdo *NetworkSegmentDeleteOne) Where(ps ...predicate.NetworkSegment) *NetworkSegmentDeleteOne {
-	nsdo.nsd.mutation.Where(ps...)
-	return nsdo
+func (_d *NetworkSegmentDeleteOne) Where(ps ...predicate.NetworkSegment) *NetworkSegmentDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (nsdo *NetworkSegmentDeleteOne) Exec(ctx context.Context) error {
-	n, err := nsdo.nsd.Exec(ctx)
+func (_d *NetworkSegmentDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (nsdo *NetworkSegmentDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nsdo *NetworkSegmentDeleteOne) ExecX(ctx context.Context) {
-	if err := nsdo.Exec(ctx); err != nil {
+func (_d *NetworkSegmentDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

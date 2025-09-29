@@ -26,289 +26,289 @@ type RepeatedScheduleResourceUpdate struct {
 }
 
 // Where appends a list predicates to the RepeatedScheduleResourceUpdate builder.
-func (rsru *RepeatedScheduleResourceUpdate) Where(ps ...predicate.RepeatedScheduleResource) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.Where(ps...)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) Where(ps ...predicate.RepeatedScheduleResource) *RepeatedScheduleResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetResourceID(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetResourceID(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetResourceID(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableResourceID(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetResourceID(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableResourceID(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetScheduleStatus sets the "schedule_status" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetScheduleStatus(rs repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetScheduleStatus(rs)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetScheduleStatus(v repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetScheduleStatus(v)
+	return _u
 }
 
 // SetNillableScheduleStatus sets the "schedule_status" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableScheduleStatus(rs *repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdate {
-	if rs != nil {
-		rsru.SetScheduleStatus(*rs)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableScheduleStatus(v *repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetScheduleStatus(*v)
 	}
-	return rsru
+	return _u
 }
 
 // ClearScheduleStatus clears the value of the "schedule_status" field.
-func (rsru *RepeatedScheduleResourceUpdate) ClearScheduleStatus() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearScheduleStatus()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearScheduleStatus() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearScheduleStatus()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetName(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetName(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetName(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableName(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetName(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableName(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return rsru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (rsru *RepeatedScheduleResourceUpdate) ClearName() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearName()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearName() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDurationSeconds sets the "duration_seconds" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetDurationSeconds(u uint32) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ResetDurationSeconds()
-	rsru.mutation.SetDurationSeconds(u)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetDurationSeconds(v uint32) *RepeatedScheduleResourceUpdate {
+	_u.mutation.ResetDurationSeconds()
+	_u.mutation.SetDurationSeconds(v)
+	return _u
 }
 
 // SetNillableDurationSeconds sets the "duration_seconds" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableDurationSeconds(u *uint32) *RepeatedScheduleResourceUpdate {
-	if u != nil {
-		rsru.SetDurationSeconds(*u)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableDurationSeconds(v *uint32) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetDurationSeconds(*v)
 	}
-	return rsru
+	return _u
 }
 
-// AddDurationSeconds adds u to the "duration_seconds" field.
-func (rsru *RepeatedScheduleResourceUpdate) AddDurationSeconds(u int32) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.AddDurationSeconds(u)
-	return rsru
+// AddDurationSeconds adds value to the "duration_seconds" field.
+func (_u *RepeatedScheduleResourceUpdate) AddDurationSeconds(v int32) *RepeatedScheduleResourceUpdate {
+	_u.mutation.AddDurationSeconds(v)
+	return _u
 }
 
 // ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (rsru *RepeatedScheduleResourceUpdate) ClearDurationSeconds() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearDurationSeconds()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearDurationSeconds() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearDurationSeconds()
+	return _u
 }
 
 // SetCronMinutes sets the "cron_minutes" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetCronMinutes(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetCronMinutes(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetCronMinutes(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetCronMinutes(v)
+	return _u
 }
 
 // SetNillableCronMinutes sets the "cron_minutes" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableCronMinutes(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetCronMinutes(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableCronMinutes(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetCronMinutes(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetCronHours sets the "cron_hours" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetCronHours(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetCronHours(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetCronHours(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetCronHours(v)
+	return _u
 }
 
 // SetNillableCronHours sets the "cron_hours" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableCronHours(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetCronHours(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableCronHours(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetCronHours(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetCronDayMonth sets the "cron_day_month" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetCronDayMonth(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetCronDayMonth(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetCronDayMonth(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetCronDayMonth(v)
+	return _u
 }
 
 // SetNillableCronDayMonth sets the "cron_day_month" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableCronDayMonth(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetCronDayMonth(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableCronDayMonth(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetCronDayMonth(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetCronMonth sets the "cron_month" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetCronMonth(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetCronMonth(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetCronMonth(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetCronMonth(v)
+	return _u
 }
 
 // SetNillableCronMonth sets the "cron_month" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableCronMonth(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetCronMonth(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableCronMonth(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetCronMonth(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetCronDayWeek sets the "cron_day_week" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetCronDayWeek(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetCronDayWeek(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetCronDayWeek(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetCronDayWeek(v)
+	return _u
 }
 
 // SetNillableCronDayWeek sets the "cron_day_week" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableCronDayWeek(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetCronDayWeek(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableCronDayWeek(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetCronDayWeek(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (rsru *RepeatedScheduleResourceUpdate) SetUpdatedAt(s string) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetUpdatedAt(s)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetUpdatedAt(v string) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableUpdatedAt(s *string) *RepeatedScheduleResourceUpdate {
-	if s != nil {
-		rsru.SetUpdatedAt(*s)
+func (_u *RepeatedScheduleResourceUpdate) SetNillableUpdatedAt(v *string) *RepeatedScheduleResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return rsru
+	return _u
 }
 
 // SetTargetSiteID sets the "target_site" edge to the SiteResource entity by ID.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetSiteID(id int) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetTargetSiteID(id)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetTargetSiteID(id int) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetTargetSiteID(id)
+	return _u
 }
 
 // SetNillableTargetSiteID sets the "target_site" edge to the SiteResource entity by ID if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableTargetSiteID(id *int) *RepeatedScheduleResourceUpdate {
+func (_u *RepeatedScheduleResourceUpdate) SetNillableTargetSiteID(id *int) *RepeatedScheduleResourceUpdate {
 	if id != nil {
-		rsru = rsru.SetTargetSiteID(*id)
+		_u = _u.SetTargetSiteID(*id)
 	}
-	return rsru
+	return _u
 }
 
 // SetTargetSite sets the "target_site" edge to the SiteResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetSite(s *SiteResource) *RepeatedScheduleResourceUpdate {
-	return rsru.SetTargetSiteID(s.ID)
+func (_u *RepeatedScheduleResourceUpdate) SetTargetSite(v *SiteResource) *RepeatedScheduleResourceUpdate {
+	return _u.SetTargetSiteID(v.ID)
 }
 
 // SetTargetHostID sets the "target_host" edge to the HostResource entity by ID.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetHostID(id int) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetTargetHostID(id)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetTargetHostID(id int) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetTargetHostID(id)
+	return _u
 }
 
 // SetNillableTargetHostID sets the "target_host" edge to the HostResource entity by ID if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableTargetHostID(id *int) *RepeatedScheduleResourceUpdate {
+func (_u *RepeatedScheduleResourceUpdate) SetNillableTargetHostID(id *int) *RepeatedScheduleResourceUpdate {
 	if id != nil {
-		rsru = rsru.SetTargetHostID(*id)
+		_u = _u.SetTargetHostID(*id)
 	}
-	return rsru
+	return _u
 }
 
 // SetTargetHost sets the "target_host" edge to the HostResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetHost(h *HostResource) *RepeatedScheduleResourceUpdate {
-	return rsru.SetTargetHostID(h.ID)
+func (_u *RepeatedScheduleResourceUpdate) SetTargetHost(v *HostResource) *RepeatedScheduleResourceUpdate {
+	return _u.SetTargetHostID(v.ID)
 }
 
 // SetTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetWorkloadID(id int) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetTargetWorkloadID(id)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetTargetWorkloadID(id int) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetTargetWorkloadID(id)
+	return _u
 }
 
 // SetNillableTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableTargetWorkloadID(id *int) *RepeatedScheduleResourceUpdate {
+func (_u *RepeatedScheduleResourceUpdate) SetNillableTargetWorkloadID(id *int) *RepeatedScheduleResourceUpdate {
 	if id != nil {
-		rsru = rsru.SetTargetWorkloadID(*id)
+		_u = _u.SetTargetWorkloadID(*id)
 	}
-	return rsru
+	return _u
 }
 
 // SetTargetWorkload sets the "target_workload" edge to the WorkloadResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetWorkload(w *WorkloadResource) *RepeatedScheduleResourceUpdate {
-	return rsru.SetTargetWorkloadID(w.ID)
+func (_u *RepeatedScheduleResourceUpdate) SetTargetWorkload(v *WorkloadResource) *RepeatedScheduleResourceUpdate {
+	return _u.SetTargetWorkloadID(v.ID)
 }
 
 // SetTargetRegionID sets the "target_region" edge to the RegionResource entity by ID.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetRegionID(id int) *RepeatedScheduleResourceUpdate {
-	rsru.mutation.SetTargetRegionID(id)
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) SetTargetRegionID(id int) *RepeatedScheduleResourceUpdate {
+	_u.mutation.SetTargetRegionID(id)
+	return _u
 }
 
 // SetNillableTargetRegionID sets the "target_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (rsru *RepeatedScheduleResourceUpdate) SetNillableTargetRegionID(id *int) *RepeatedScheduleResourceUpdate {
+func (_u *RepeatedScheduleResourceUpdate) SetNillableTargetRegionID(id *int) *RepeatedScheduleResourceUpdate {
 	if id != nil {
-		rsru = rsru.SetTargetRegionID(*id)
+		_u = _u.SetTargetRegionID(*id)
 	}
-	return rsru
+	return _u
 }
 
 // SetTargetRegion sets the "target_region" edge to the RegionResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) SetTargetRegion(r *RegionResource) *RepeatedScheduleResourceUpdate {
-	return rsru.SetTargetRegionID(r.ID)
+func (_u *RepeatedScheduleResourceUpdate) SetTargetRegion(v *RegionResource) *RepeatedScheduleResourceUpdate {
+	return _u.SetTargetRegionID(v.ID)
 }
 
 // Mutation returns the RepeatedScheduleResourceMutation object of the builder.
-func (rsru *RepeatedScheduleResourceUpdate) Mutation() *RepeatedScheduleResourceMutation {
-	return rsru.mutation
+func (_u *RepeatedScheduleResourceUpdate) Mutation() *RepeatedScheduleResourceMutation {
+	return _u.mutation
 }
 
 // ClearTargetSite clears the "target_site" edge to the SiteResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) ClearTargetSite() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearTargetSite()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearTargetSite() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearTargetSite()
+	return _u
 }
 
 // ClearTargetHost clears the "target_host" edge to the HostResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) ClearTargetHost() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearTargetHost()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearTargetHost() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearTargetHost()
+	return _u
 }
 
 // ClearTargetWorkload clears the "target_workload" edge to the WorkloadResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) ClearTargetWorkload() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearTargetWorkload()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearTargetWorkload() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearTargetWorkload()
+	return _u
 }
 
 // ClearTargetRegion clears the "target_region" edge to the RegionResource entity.
-func (rsru *RepeatedScheduleResourceUpdate) ClearTargetRegion() *RepeatedScheduleResourceUpdate {
-	rsru.mutation.ClearTargetRegion()
-	return rsru
+func (_u *RepeatedScheduleResourceUpdate) ClearTargetRegion() *RepeatedScheduleResourceUpdate {
+	_u.mutation.ClearTargetRegion()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (rsru *RepeatedScheduleResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, rsru.sqlSave, rsru.mutation, rsru.hooks)
+func (_u *RepeatedScheduleResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (rsru *RepeatedScheduleResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := rsru.Save(ctx)
+func (_u *RepeatedScheduleResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -316,21 +316,21 @@ func (rsru *RepeatedScheduleResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (rsru *RepeatedScheduleResourceUpdate) Exec(ctx context.Context) error {
-	_, err := rsru.Save(ctx)
+func (_u *RepeatedScheduleResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rsru *RepeatedScheduleResourceUpdate) ExecX(ctx context.Context) {
-	if err := rsru.Exec(ctx); err != nil {
+func (_u *RepeatedScheduleResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (rsru *RepeatedScheduleResourceUpdate) check() error {
-	if v, ok := rsru.mutation.ScheduleStatus(); ok {
+func (_u *RepeatedScheduleResourceUpdate) check() error {
+	if v, ok := _u.mutation.ScheduleStatus(); ok {
 		if err := repeatedscheduleresource.ScheduleStatusValidator(v); err != nil {
 			return &ValidationError{Name: "schedule_status", err: fmt.Errorf(`ent: validator failed for field "RepeatedScheduleResource.schedule_status": %w`, err)}
 		}
@@ -338,61 +338,61 @@ func (rsru *RepeatedScheduleResourceUpdate) check() error {
 	return nil
 }
 
-func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := rsru.check(); err != nil {
-		return n, err
+func (_u *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(repeatedscheduleresource.Table, repeatedscheduleresource.Columns, sqlgraph.NewFieldSpec(repeatedscheduleresource.FieldID, field.TypeInt))
-	if ps := rsru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := rsru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := rsru.mutation.ScheduleStatus(); ok {
+	if value, ok := _u.mutation.ScheduleStatus(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldScheduleStatus, field.TypeEnum, value)
 	}
-	if rsru.mutation.ScheduleStatusCleared() {
+	if _u.mutation.ScheduleStatusCleared() {
 		_spec.ClearField(repeatedscheduleresource.FieldScheduleStatus, field.TypeEnum)
 	}
-	if value, ok := rsru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldName, field.TypeString, value)
 	}
-	if rsru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(repeatedscheduleresource.FieldName, field.TypeString)
 	}
-	if value, ok := rsru.mutation.DurationSeconds(); ok {
+	if value, ok := _u.mutation.DurationSeconds(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldDurationSeconds, field.TypeUint32, value)
 	}
-	if value, ok := rsru.mutation.AddedDurationSeconds(); ok {
+	if value, ok := _u.mutation.AddedDurationSeconds(); ok {
 		_spec.AddField(repeatedscheduleresource.FieldDurationSeconds, field.TypeUint32, value)
 	}
-	if rsru.mutation.DurationSecondsCleared() {
+	if _u.mutation.DurationSecondsCleared() {
 		_spec.ClearField(repeatedscheduleresource.FieldDurationSeconds, field.TypeUint32)
 	}
-	if value, ok := rsru.mutation.CronMinutes(); ok {
+	if value, ok := _u.mutation.CronMinutes(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronMinutes, field.TypeString, value)
 	}
-	if value, ok := rsru.mutation.CronHours(); ok {
+	if value, ok := _u.mutation.CronHours(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronHours, field.TypeString, value)
 	}
-	if value, ok := rsru.mutation.CronDayMonth(); ok {
+	if value, ok := _u.mutation.CronDayMonth(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronDayMonth, field.TypeString, value)
 	}
-	if value, ok := rsru.mutation.CronMonth(); ok {
+	if value, ok := _u.mutation.CronMonth(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronMonth, field.TypeString, value)
 	}
-	if value, ok := rsru.mutation.CronDayWeek(); ok {
+	if value, ok := _u.mutation.CronDayWeek(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronDayWeek, field.TypeString, value)
 	}
-	if value, ok := rsru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if rsru.mutation.TargetSiteCleared() {
+	if _u.mutation.TargetSiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -405,7 +405,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsru.mutation.TargetSiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetSiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -421,7 +421,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rsru.mutation.TargetHostCleared() {
+	if _u.mutation.TargetHostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -434,7 +434,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsru.mutation.TargetHostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetHostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -450,7 +450,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rsru.mutation.TargetWorkloadCleared() {
+	if _u.mutation.TargetWorkloadCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -463,7 +463,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsru.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -479,7 +479,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rsru.mutation.TargetRegionCleared() {
+	if _u.mutation.TargetRegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -492,7 +492,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsru.mutation.TargetRegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -508,7 +508,7 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, rsru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{repeatedscheduleresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -516,8 +516,8 @@ func (rsru *RepeatedScheduleResourceUpdate) sqlSave(ctx context.Context) (n int,
 		}
 		return 0, err
 	}
-	rsru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // RepeatedScheduleResourceUpdateOne is the builder for updating a single RepeatedScheduleResource entity.
@@ -529,296 +529,296 @@ type RepeatedScheduleResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetResourceID(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetResourceID(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetResourceID(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableResourceID(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetResourceID(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableResourceID(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetScheduleStatus sets the "schedule_status" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetScheduleStatus(rs repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetScheduleStatus(rs)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetScheduleStatus(v repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetScheduleStatus(v)
+	return _u
 }
 
 // SetNillableScheduleStatus sets the "schedule_status" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableScheduleStatus(rs *repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdateOne {
-	if rs != nil {
-		rsruo.SetScheduleStatus(*rs)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableScheduleStatus(v *repeatedscheduleresource.ScheduleStatus) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetScheduleStatus(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // ClearScheduleStatus clears the value of the "schedule_status" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearScheduleStatus() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearScheduleStatus()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearScheduleStatus() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearScheduleStatus()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetName(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetName(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetName(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableName(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetName(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableName(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearName() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearName()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearName() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDurationSeconds sets the "duration_seconds" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetDurationSeconds(u uint32) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ResetDurationSeconds()
-	rsruo.mutation.SetDurationSeconds(u)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetDurationSeconds(v uint32) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ResetDurationSeconds()
+	_u.mutation.SetDurationSeconds(v)
+	return _u
 }
 
 // SetNillableDurationSeconds sets the "duration_seconds" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableDurationSeconds(u *uint32) *RepeatedScheduleResourceUpdateOne {
-	if u != nil {
-		rsruo.SetDurationSeconds(*u)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableDurationSeconds(v *uint32) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetDurationSeconds(*v)
 	}
-	return rsruo
+	return _u
 }
 
-// AddDurationSeconds adds u to the "duration_seconds" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) AddDurationSeconds(u int32) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.AddDurationSeconds(u)
-	return rsruo
+// AddDurationSeconds adds value to the "duration_seconds" field.
+func (_u *RepeatedScheduleResourceUpdateOne) AddDurationSeconds(v int32) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.AddDurationSeconds(v)
+	return _u
 }
 
 // ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearDurationSeconds() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearDurationSeconds()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearDurationSeconds() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearDurationSeconds()
+	return _u
 }
 
 // SetCronMinutes sets the "cron_minutes" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetCronMinutes(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetCronMinutes(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetCronMinutes(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetCronMinutes(v)
+	return _u
 }
 
 // SetNillableCronMinutes sets the "cron_minutes" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableCronMinutes(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetCronMinutes(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableCronMinutes(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetCronMinutes(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetCronHours sets the "cron_hours" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetCronHours(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetCronHours(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetCronHours(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetCronHours(v)
+	return _u
 }
 
 // SetNillableCronHours sets the "cron_hours" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableCronHours(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetCronHours(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableCronHours(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetCronHours(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetCronDayMonth sets the "cron_day_month" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetCronDayMonth(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetCronDayMonth(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetCronDayMonth(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetCronDayMonth(v)
+	return _u
 }
 
 // SetNillableCronDayMonth sets the "cron_day_month" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableCronDayMonth(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetCronDayMonth(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableCronDayMonth(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetCronDayMonth(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetCronMonth sets the "cron_month" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetCronMonth(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetCronMonth(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetCronMonth(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetCronMonth(v)
+	return _u
 }
 
 // SetNillableCronMonth sets the "cron_month" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableCronMonth(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetCronMonth(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableCronMonth(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetCronMonth(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetCronDayWeek sets the "cron_day_week" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetCronDayWeek(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetCronDayWeek(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetCronDayWeek(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetCronDayWeek(v)
+	return _u
 }
 
 // SetNillableCronDayWeek sets the "cron_day_week" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableCronDayWeek(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetCronDayWeek(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableCronDayWeek(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetCronDayWeek(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetUpdatedAt(s string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetUpdatedAt(s)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetUpdatedAt(v string) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableUpdatedAt(s *string) *RepeatedScheduleResourceUpdateOne {
-	if s != nil {
-		rsruo.SetUpdatedAt(*s)
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableUpdatedAt(v *string) *RepeatedScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return rsruo
+	return _u
 }
 
 // SetTargetSiteID sets the "target_site" edge to the SiteResource entity by ID.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetSiteID(id int) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetTargetSiteID(id)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetSiteID(id int) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetTargetSiteID(id)
+	return _u
 }
 
 // SetNillableTargetSiteID sets the "target_site" edge to the SiteResource entity by ID if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableTargetSiteID(id *int) *RepeatedScheduleResourceUpdateOne {
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableTargetSiteID(id *int) *RepeatedScheduleResourceUpdateOne {
 	if id != nil {
-		rsruo = rsruo.SetTargetSiteID(*id)
+		_u = _u.SetTargetSiteID(*id)
 	}
-	return rsruo
+	return _u
 }
 
 // SetTargetSite sets the "target_site" edge to the SiteResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetSite(s *SiteResource) *RepeatedScheduleResourceUpdateOne {
-	return rsruo.SetTargetSiteID(s.ID)
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetSite(v *SiteResource) *RepeatedScheduleResourceUpdateOne {
+	return _u.SetTargetSiteID(v.ID)
 }
 
 // SetTargetHostID sets the "target_host" edge to the HostResource entity by ID.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetHostID(id int) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetTargetHostID(id)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetHostID(id int) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetTargetHostID(id)
+	return _u
 }
 
 // SetNillableTargetHostID sets the "target_host" edge to the HostResource entity by ID if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableTargetHostID(id *int) *RepeatedScheduleResourceUpdateOne {
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableTargetHostID(id *int) *RepeatedScheduleResourceUpdateOne {
 	if id != nil {
-		rsruo = rsruo.SetTargetHostID(*id)
+		_u = _u.SetTargetHostID(*id)
 	}
-	return rsruo
+	return _u
 }
 
 // SetTargetHost sets the "target_host" edge to the HostResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetHost(h *HostResource) *RepeatedScheduleResourceUpdateOne {
-	return rsruo.SetTargetHostID(h.ID)
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetHost(v *HostResource) *RepeatedScheduleResourceUpdateOne {
+	return _u.SetTargetHostID(v.ID)
 }
 
 // SetTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetWorkloadID(id int) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetTargetWorkloadID(id)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetWorkloadID(id int) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetTargetWorkloadID(id)
+	return _u
 }
 
 // SetNillableTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableTargetWorkloadID(id *int) *RepeatedScheduleResourceUpdateOne {
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableTargetWorkloadID(id *int) *RepeatedScheduleResourceUpdateOne {
 	if id != nil {
-		rsruo = rsruo.SetTargetWorkloadID(*id)
+		_u = _u.SetTargetWorkloadID(*id)
 	}
-	return rsruo
+	return _u
 }
 
 // SetTargetWorkload sets the "target_workload" edge to the WorkloadResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetWorkload(w *WorkloadResource) *RepeatedScheduleResourceUpdateOne {
-	return rsruo.SetTargetWorkloadID(w.ID)
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetWorkload(v *WorkloadResource) *RepeatedScheduleResourceUpdateOne {
+	return _u.SetTargetWorkloadID(v.ID)
 }
 
 // SetTargetRegionID sets the "target_region" edge to the RegionResource entity by ID.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetRegionID(id int) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.SetTargetRegionID(id)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetRegionID(id int) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.SetTargetRegionID(id)
+	return _u
 }
 
 // SetNillableTargetRegionID sets the "target_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetNillableTargetRegionID(id *int) *RepeatedScheduleResourceUpdateOne {
+func (_u *RepeatedScheduleResourceUpdateOne) SetNillableTargetRegionID(id *int) *RepeatedScheduleResourceUpdateOne {
 	if id != nil {
-		rsruo = rsruo.SetTargetRegionID(*id)
+		_u = _u.SetTargetRegionID(*id)
 	}
-	return rsruo
+	return _u
 }
 
 // SetTargetRegion sets the "target_region" edge to the RegionResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SetTargetRegion(r *RegionResource) *RepeatedScheduleResourceUpdateOne {
-	return rsruo.SetTargetRegionID(r.ID)
+func (_u *RepeatedScheduleResourceUpdateOne) SetTargetRegion(v *RegionResource) *RepeatedScheduleResourceUpdateOne {
+	return _u.SetTargetRegionID(v.ID)
 }
 
 // Mutation returns the RepeatedScheduleResourceMutation object of the builder.
-func (rsruo *RepeatedScheduleResourceUpdateOne) Mutation() *RepeatedScheduleResourceMutation {
-	return rsruo.mutation
+func (_u *RepeatedScheduleResourceUpdateOne) Mutation() *RepeatedScheduleResourceMutation {
+	return _u.mutation
 }
 
 // ClearTargetSite clears the "target_site" edge to the SiteResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearTargetSite() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearTargetSite()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearTargetSite() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetSite()
+	return _u
 }
 
 // ClearTargetHost clears the "target_host" edge to the HostResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearTargetHost() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearTargetHost()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearTargetHost() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetHost()
+	return _u
 }
 
 // ClearTargetWorkload clears the "target_workload" edge to the WorkloadResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearTargetWorkload() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearTargetWorkload()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearTargetWorkload() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetWorkload()
+	return _u
 }
 
 // ClearTargetRegion clears the "target_region" edge to the RegionResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ClearTargetRegion() *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.ClearTargetRegion()
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) ClearTargetRegion() *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetRegion()
+	return _u
 }
 
 // Where appends a list predicates to the RepeatedScheduleResourceUpdate builder.
-func (rsruo *RepeatedScheduleResourceUpdateOne) Where(ps ...predicate.RepeatedScheduleResource) *RepeatedScheduleResourceUpdateOne {
-	rsruo.mutation.Where(ps...)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) Where(ps ...predicate.RepeatedScheduleResource) *RepeatedScheduleResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (rsruo *RepeatedScheduleResourceUpdateOne) Select(field string, fields ...string) *RepeatedScheduleResourceUpdateOne {
-	rsruo.fields = append([]string{field}, fields...)
-	return rsruo
+func (_u *RepeatedScheduleResourceUpdateOne) Select(field string, fields ...string) *RepeatedScheduleResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated RepeatedScheduleResource entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) Save(ctx context.Context) (*RepeatedScheduleResource, error) {
-	return withHooks(ctx, rsruo.sqlSave, rsruo.mutation, rsruo.hooks)
+func (_u *RepeatedScheduleResourceUpdateOne) Save(ctx context.Context) (*RepeatedScheduleResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (rsruo *RepeatedScheduleResourceUpdateOne) SaveX(ctx context.Context) *RepeatedScheduleResource {
-	node, err := rsruo.Save(ctx)
+func (_u *RepeatedScheduleResourceUpdateOne) SaveX(ctx context.Context) *RepeatedScheduleResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -826,21 +826,21 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) SaveX(ctx context.Context) *Repe
 }
 
 // Exec executes the query on the entity.
-func (rsruo *RepeatedScheduleResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := rsruo.Save(ctx)
+func (_u *RepeatedScheduleResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rsruo *RepeatedScheduleResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := rsruo.Exec(ctx); err != nil {
+func (_u *RepeatedScheduleResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (rsruo *RepeatedScheduleResourceUpdateOne) check() error {
-	if v, ok := rsruo.mutation.ScheduleStatus(); ok {
+func (_u *RepeatedScheduleResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.ScheduleStatus(); ok {
 		if err := repeatedscheduleresource.ScheduleStatusValidator(v); err != nil {
 			return &ValidationError{Name: "schedule_status", err: fmt.Errorf(`ent: validator failed for field "RepeatedScheduleResource.schedule_status": %w`, err)}
 		}
@@ -848,17 +848,17 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) check() error {
 	return nil
 }
 
-func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_node *RepeatedScheduleResource, err error) {
-	if err := rsruo.check(); err != nil {
+func (_u *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_node *RepeatedScheduleResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(repeatedscheduleresource.Table, repeatedscheduleresource.Columns, sqlgraph.NewFieldSpec(repeatedscheduleresource.FieldID, field.TypeInt))
-	id, ok := rsruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "RepeatedScheduleResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := rsruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, repeatedscheduleresource.FieldID)
 		for _, f := range fields {
@@ -870,56 +870,56 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 			}
 		}
 	}
-	if ps := rsruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := rsruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := rsruo.mutation.ScheduleStatus(); ok {
+	if value, ok := _u.mutation.ScheduleStatus(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldScheduleStatus, field.TypeEnum, value)
 	}
-	if rsruo.mutation.ScheduleStatusCleared() {
+	if _u.mutation.ScheduleStatusCleared() {
 		_spec.ClearField(repeatedscheduleresource.FieldScheduleStatus, field.TypeEnum)
 	}
-	if value, ok := rsruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldName, field.TypeString, value)
 	}
-	if rsruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(repeatedscheduleresource.FieldName, field.TypeString)
 	}
-	if value, ok := rsruo.mutation.DurationSeconds(); ok {
+	if value, ok := _u.mutation.DurationSeconds(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldDurationSeconds, field.TypeUint32, value)
 	}
-	if value, ok := rsruo.mutation.AddedDurationSeconds(); ok {
+	if value, ok := _u.mutation.AddedDurationSeconds(); ok {
 		_spec.AddField(repeatedscheduleresource.FieldDurationSeconds, field.TypeUint32, value)
 	}
-	if rsruo.mutation.DurationSecondsCleared() {
+	if _u.mutation.DurationSecondsCleared() {
 		_spec.ClearField(repeatedscheduleresource.FieldDurationSeconds, field.TypeUint32)
 	}
-	if value, ok := rsruo.mutation.CronMinutes(); ok {
+	if value, ok := _u.mutation.CronMinutes(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronMinutes, field.TypeString, value)
 	}
-	if value, ok := rsruo.mutation.CronHours(); ok {
+	if value, ok := _u.mutation.CronHours(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronHours, field.TypeString, value)
 	}
-	if value, ok := rsruo.mutation.CronDayMonth(); ok {
+	if value, ok := _u.mutation.CronDayMonth(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronDayMonth, field.TypeString, value)
 	}
-	if value, ok := rsruo.mutation.CronMonth(); ok {
+	if value, ok := _u.mutation.CronMonth(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronMonth, field.TypeString, value)
 	}
-	if value, ok := rsruo.mutation.CronDayWeek(); ok {
+	if value, ok := _u.mutation.CronDayWeek(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldCronDayWeek, field.TypeString, value)
 	}
-	if value, ok := rsruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(repeatedscheduleresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if rsruo.mutation.TargetSiteCleared() {
+	if _u.mutation.TargetSiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -932,7 +932,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsruo.mutation.TargetSiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetSiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -948,7 +948,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rsruo.mutation.TargetHostCleared() {
+	if _u.mutation.TargetHostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -961,7 +961,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsruo.mutation.TargetHostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetHostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -977,7 +977,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rsruo.mutation.TargetWorkloadCleared() {
+	if _u.mutation.TargetWorkloadCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -990,7 +990,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsruo.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1006,7 +1006,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if rsruo.mutation.TargetRegionCleared() {
+	if _u.mutation.TargetRegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1019,7 +1019,7 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := rsruo.mutation.TargetRegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1035,10 +1035,10 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &RepeatedScheduleResource{config: rsruo.config}
+	_node = &RepeatedScheduleResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, rsruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{repeatedscheduleresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -1046,6 +1046,6 @@ func (rsruo *RepeatedScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_n
 		}
 		return nil, err
 	}
-	rsruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

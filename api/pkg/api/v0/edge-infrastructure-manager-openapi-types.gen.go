@@ -21,7 +21,6 @@ const (
 
 // Defines values for HostPowerState.
 const (
-	POWERSTATEERROR       HostPowerState = "POWER_STATE_ERROR"
 	POWERSTATEOFF         HostPowerState = "POWER_STATE_OFF"
 	POWERSTATEON          HostPowerState = "POWER_STATE_ON"
 	POWERSTATEUNSPECIFIED HostPowerState = "POWER_STATE_UNSPECIFIED"

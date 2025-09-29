@@ -37,44 +37,44 @@ type RepeatedScheduleResourceQuery struct {
 }
 
 // Where adds a new predicate for the RepeatedScheduleResourceQuery builder.
-func (rsrq *RepeatedScheduleResourceQuery) Where(ps ...predicate.RepeatedScheduleResource) *RepeatedScheduleResourceQuery {
-	rsrq.predicates = append(rsrq.predicates, ps...)
-	return rsrq
+func (_q *RepeatedScheduleResourceQuery) Where(ps ...predicate.RepeatedScheduleResource) *RepeatedScheduleResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (rsrq *RepeatedScheduleResourceQuery) Limit(limit int) *RepeatedScheduleResourceQuery {
-	rsrq.ctx.Limit = &limit
-	return rsrq
+func (_q *RepeatedScheduleResourceQuery) Limit(limit int) *RepeatedScheduleResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (rsrq *RepeatedScheduleResourceQuery) Offset(offset int) *RepeatedScheduleResourceQuery {
-	rsrq.ctx.Offset = &offset
-	return rsrq
+func (_q *RepeatedScheduleResourceQuery) Offset(offset int) *RepeatedScheduleResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (rsrq *RepeatedScheduleResourceQuery) Unique(unique bool) *RepeatedScheduleResourceQuery {
-	rsrq.ctx.Unique = &unique
-	return rsrq
+func (_q *RepeatedScheduleResourceQuery) Unique(unique bool) *RepeatedScheduleResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (rsrq *RepeatedScheduleResourceQuery) Order(o ...repeatedscheduleresource.OrderOption) *RepeatedScheduleResourceQuery {
-	rsrq.order = append(rsrq.order, o...)
-	return rsrq
+func (_q *RepeatedScheduleResourceQuery) Order(o ...repeatedscheduleresource.OrderOption) *RepeatedScheduleResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryTargetSite chains the current query on the "target_site" edge.
-func (rsrq *RepeatedScheduleResourceQuery) QueryTargetSite() *SiteResourceQuery {
-	query := (&SiteResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) QueryTargetSite() *SiteResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rsrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := rsrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -83,20 +83,20 @@ func (rsrq *RepeatedScheduleResourceQuery) QueryTargetSite() *SiteResourceQuery 
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetSiteTable, repeatedscheduleresource.TargetSiteColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(rsrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryTargetHost chains the current query on the "target_host" edge.
-func (rsrq *RepeatedScheduleResourceQuery) QueryTargetHost() *HostResourceQuery {
-	query := (&HostResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) QueryTargetHost() *HostResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rsrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := rsrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -105,20 +105,20 @@ func (rsrq *RepeatedScheduleResourceQuery) QueryTargetHost() *HostResourceQuery 
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetHostTable, repeatedscheduleresource.TargetHostColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(rsrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryTargetWorkload chains the current query on the "target_workload" edge.
-func (rsrq *RepeatedScheduleResourceQuery) QueryTargetWorkload() *WorkloadResourceQuery {
-	query := (&WorkloadResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) QueryTargetWorkload() *WorkloadResourceQuery {
+	query := (&WorkloadResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rsrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := rsrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -127,20 +127,20 @@ func (rsrq *RepeatedScheduleResourceQuery) QueryTargetWorkload() *WorkloadResour
 			sqlgraph.To(workloadresource.Table, workloadresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetWorkloadTable, repeatedscheduleresource.TargetWorkloadColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(rsrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryTargetRegion chains the current query on the "target_region" edge.
-func (rsrq *RepeatedScheduleResourceQuery) QueryTargetRegion() *RegionResourceQuery {
-	query := (&RegionResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) QueryTargetRegion() *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rsrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := rsrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -149,7 +149,7 @@ func (rsrq *RepeatedScheduleResourceQuery) QueryTargetRegion() *RegionResourceQu
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetRegionTable, repeatedscheduleresource.TargetRegionColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(rsrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -157,8 +157,8 @@ func (rsrq *RepeatedScheduleResourceQuery) QueryTargetRegion() *RegionResourceQu
 
 // First returns the first RepeatedScheduleResource entity from the query.
 // Returns a *NotFoundError when no RepeatedScheduleResource was found.
-func (rsrq *RepeatedScheduleResourceQuery) First(ctx context.Context) (*RepeatedScheduleResource, error) {
-	nodes, err := rsrq.Limit(1).All(setContextOp(ctx, rsrq.ctx, ent.OpQueryFirst))
+func (_q *RepeatedScheduleResourceQuery) First(ctx context.Context) (*RepeatedScheduleResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -169,8 +169,8 @@ func (rsrq *RepeatedScheduleResourceQuery) First(ctx context.Context) (*Repeated
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) FirstX(ctx context.Context) *RepeatedScheduleResource {
-	node, err := rsrq.First(ctx)
+func (_q *RepeatedScheduleResourceQuery) FirstX(ctx context.Context) *RepeatedScheduleResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -179,9 +179,9 @@ func (rsrq *RepeatedScheduleResourceQuery) FirstX(ctx context.Context) *Repeated
 
 // FirstID returns the first RepeatedScheduleResource ID from the query.
 // Returns a *NotFoundError when no RepeatedScheduleResource ID was found.
-func (rsrq *RepeatedScheduleResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *RepeatedScheduleResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = rsrq.Limit(1).IDs(setContextOp(ctx, rsrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -192,8 +192,8 @@ func (rsrq *RepeatedScheduleResourceQuery) FirstID(ctx context.Context) (id int,
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := rsrq.FirstID(ctx)
+func (_q *RepeatedScheduleResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -203,8 +203,8 @@ func (rsrq *RepeatedScheduleResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single RepeatedScheduleResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one RepeatedScheduleResource entity is found.
 // Returns a *NotFoundError when no RepeatedScheduleResource entities are found.
-func (rsrq *RepeatedScheduleResourceQuery) Only(ctx context.Context) (*RepeatedScheduleResource, error) {
-	nodes, err := rsrq.Limit(2).All(setContextOp(ctx, rsrq.ctx, ent.OpQueryOnly))
+func (_q *RepeatedScheduleResourceQuery) Only(ctx context.Context) (*RepeatedScheduleResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -219,8 +219,8 @@ func (rsrq *RepeatedScheduleResourceQuery) Only(ctx context.Context) (*RepeatedS
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) OnlyX(ctx context.Context) *RepeatedScheduleResource {
-	node, err := rsrq.Only(ctx)
+func (_q *RepeatedScheduleResourceQuery) OnlyX(ctx context.Context) *RepeatedScheduleResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -230,9 +230,9 @@ func (rsrq *RepeatedScheduleResourceQuery) OnlyX(ctx context.Context) *RepeatedS
 // OnlyID is like Only, but returns the only RepeatedScheduleResource ID in the query.
 // Returns a *NotSingularError when more than one RepeatedScheduleResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (rsrq *RepeatedScheduleResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *RepeatedScheduleResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = rsrq.Limit(2).IDs(setContextOp(ctx, rsrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -247,8 +247,8 @@ func (rsrq *RepeatedScheduleResourceQuery) OnlyID(ctx context.Context) (id int, 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := rsrq.OnlyID(ctx)
+func (_q *RepeatedScheduleResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -256,18 +256,18 @@ func (rsrq *RepeatedScheduleResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of RepeatedScheduleResources.
-func (rsrq *RepeatedScheduleResourceQuery) All(ctx context.Context) ([]*RepeatedScheduleResource, error) {
-	ctx = setContextOp(ctx, rsrq.ctx, ent.OpQueryAll)
-	if err := rsrq.prepareQuery(ctx); err != nil {
+func (_q *RepeatedScheduleResourceQuery) All(ctx context.Context) ([]*RepeatedScheduleResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*RepeatedScheduleResource, *RepeatedScheduleResourceQuery]()
-	return withInterceptors[[]*RepeatedScheduleResource](ctx, rsrq, qr, rsrq.inters)
+	return withInterceptors[[]*RepeatedScheduleResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) AllX(ctx context.Context) []*RepeatedScheduleResource {
-	nodes, err := rsrq.All(ctx)
+func (_q *RepeatedScheduleResourceQuery) AllX(ctx context.Context) []*RepeatedScheduleResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -275,20 +275,20 @@ func (rsrq *RepeatedScheduleResourceQuery) AllX(ctx context.Context) []*Repeated
 }
 
 // IDs executes the query and returns a list of RepeatedScheduleResource IDs.
-func (rsrq *RepeatedScheduleResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if rsrq.ctx.Unique == nil && rsrq.path != nil {
-		rsrq.Unique(true)
+func (_q *RepeatedScheduleResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, rsrq.ctx, ent.OpQueryIDs)
-	if err = rsrq.Select(repeatedscheduleresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(repeatedscheduleresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := rsrq.IDs(ctx)
+func (_q *RepeatedScheduleResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -296,17 +296,17 @@ func (rsrq *RepeatedScheduleResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (rsrq *RepeatedScheduleResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, rsrq.ctx, ent.OpQueryCount)
-	if err := rsrq.prepareQuery(ctx); err != nil {
+func (_q *RepeatedScheduleResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, rsrq, querierCount[*RepeatedScheduleResourceQuery](), rsrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*RepeatedScheduleResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) CountX(ctx context.Context) int {
-	count, err := rsrq.Count(ctx)
+func (_q *RepeatedScheduleResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -314,9 +314,9 @@ func (rsrq *RepeatedScheduleResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (rsrq *RepeatedScheduleResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, rsrq.ctx, ent.OpQueryExist)
-	switch _, err := rsrq.FirstID(ctx); {
+func (_q *RepeatedScheduleResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -327,8 +327,8 @@ func (rsrq *RepeatedScheduleResourceQuery) Exist(ctx context.Context) (bool, err
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (rsrq *RepeatedScheduleResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := rsrq.Exist(ctx)
+func (_q *RepeatedScheduleResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -337,68 +337,68 @@ func (rsrq *RepeatedScheduleResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the RepeatedScheduleResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (rsrq *RepeatedScheduleResourceQuery) Clone() *RepeatedScheduleResourceQuery {
-	if rsrq == nil {
+func (_q *RepeatedScheduleResourceQuery) Clone() *RepeatedScheduleResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &RepeatedScheduleResourceQuery{
-		config:             rsrq.config,
-		ctx:                rsrq.ctx.Clone(),
-		order:              append([]repeatedscheduleresource.OrderOption{}, rsrq.order...),
-		inters:             append([]Interceptor{}, rsrq.inters...),
-		predicates:         append([]predicate.RepeatedScheduleResource{}, rsrq.predicates...),
-		withTargetSite:     rsrq.withTargetSite.Clone(),
-		withTargetHost:     rsrq.withTargetHost.Clone(),
-		withTargetWorkload: rsrq.withTargetWorkload.Clone(),
-		withTargetRegion:   rsrq.withTargetRegion.Clone(),
+		config:             _q.config,
+		ctx:                _q.ctx.Clone(),
+		order:              append([]repeatedscheduleresource.OrderOption{}, _q.order...),
+		inters:             append([]Interceptor{}, _q.inters...),
+		predicates:         append([]predicate.RepeatedScheduleResource{}, _q.predicates...),
+		withTargetSite:     _q.withTargetSite.Clone(),
+		withTargetHost:     _q.withTargetHost.Clone(),
+		withTargetWorkload: _q.withTargetWorkload.Clone(),
+		withTargetRegion:   _q.withTargetRegion.Clone(),
 		// clone intermediate query.
-		sql:  rsrq.sql.Clone(),
-		path: rsrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithTargetSite tells the query-builder to eager-load the nodes that are connected to
 // the "target_site" edge. The optional arguments are used to configure the query builder of the edge.
-func (rsrq *RepeatedScheduleResourceQuery) WithTargetSite(opts ...func(*SiteResourceQuery)) *RepeatedScheduleResourceQuery {
-	query := (&SiteResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) WithTargetSite(opts ...func(*SiteResourceQuery)) *RepeatedScheduleResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	rsrq.withTargetSite = query
-	return rsrq
+	_q.withTargetSite = query
+	return _q
 }
 
 // WithTargetHost tells the query-builder to eager-load the nodes that are connected to
 // the "target_host" edge. The optional arguments are used to configure the query builder of the edge.
-func (rsrq *RepeatedScheduleResourceQuery) WithTargetHost(opts ...func(*HostResourceQuery)) *RepeatedScheduleResourceQuery {
-	query := (&HostResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) WithTargetHost(opts ...func(*HostResourceQuery)) *RepeatedScheduleResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	rsrq.withTargetHost = query
-	return rsrq
+	_q.withTargetHost = query
+	return _q
 }
 
 // WithTargetWorkload tells the query-builder to eager-load the nodes that are connected to
 // the "target_workload" edge. The optional arguments are used to configure the query builder of the edge.
-func (rsrq *RepeatedScheduleResourceQuery) WithTargetWorkload(opts ...func(*WorkloadResourceQuery)) *RepeatedScheduleResourceQuery {
-	query := (&WorkloadResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) WithTargetWorkload(opts ...func(*WorkloadResourceQuery)) *RepeatedScheduleResourceQuery {
+	query := (&WorkloadResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	rsrq.withTargetWorkload = query
-	return rsrq
+	_q.withTargetWorkload = query
+	return _q
 }
 
 // WithTargetRegion tells the query-builder to eager-load the nodes that are connected to
 // the "target_region" edge. The optional arguments are used to configure the query builder of the edge.
-func (rsrq *RepeatedScheduleResourceQuery) WithTargetRegion(opts ...func(*RegionResourceQuery)) *RepeatedScheduleResourceQuery {
-	query := (&RegionResourceClient{config: rsrq.config}).Query()
+func (_q *RepeatedScheduleResourceQuery) WithTargetRegion(opts ...func(*RegionResourceQuery)) *RepeatedScheduleResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	rsrq.withTargetRegion = query
-	return rsrq
+	_q.withTargetRegion = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -415,10 +415,10 @@ func (rsrq *RepeatedScheduleResourceQuery) WithTargetRegion(opts ...func(*Region
 //		GroupBy(repeatedscheduleresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (rsrq *RepeatedScheduleResourceQuery) GroupBy(field string, fields ...string) *RepeatedScheduleResourceGroupBy {
-	rsrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &RepeatedScheduleResourceGroupBy{build: rsrq}
-	grbuild.flds = &rsrq.ctx.Fields
+func (_q *RepeatedScheduleResourceQuery) GroupBy(field string, fields ...string) *RepeatedScheduleResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &RepeatedScheduleResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = repeatedscheduleresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -436,58 +436,58 @@ func (rsrq *RepeatedScheduleResourceQuery) GroupBy(field string, fields ...strin
 //	client.RepeatedScheduleResource.Query().
 //		Select(repeatedscheduleresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (rsrq *RepeatedScheduleResourceQuery) Select(fields ...string) *RepeatedScheduleResourceSelect {
-	rsrq.ctx.Fields = append(rsrq.ctx.Fields, fields...)
-	sbuild := &RepeatedScheduleResourceSelect{RepeatedScheduleResourceQuery: rsrq}
+func (_q *RepeatedScheduleResourceQuery) Select(fields ...string) *RepeatedScheduleResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &RepeatedScheduleResourceSelect{RepeatedScheduleResourceQuery: _q}
 	sbuild.label = repeatedscheduleresource.Label
-	sbuild.flds, sbuild.scan = &rsrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a RepeatedScheduleResourceSelect configured with the given aggregations.
-func (rsrq *RepeatedScheduleResourceQuery) Aggregate(fns ...AggregateFunc) *RepeatedScheduleResourceSelect {
-	return rsrq.Select().Aggregate(fns...)
+func (_q *RepeatedScheduleResourceQuery) Aggregate(fns ...AggregateFunc) *RepeatedScheduleResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (rsrq *RepeatedScheduleResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range rsrq.inters {
+func (_q *RepeatedScheduleResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, rsrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range rsrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !repeatedscheduleresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if rsrq.path != nil {
-		prev, err := rsrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		rsrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (rsrq *RepeatedScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*RepeatedScheduleResource, error) {
+func (_q *RepeatedScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*RepeatedScheduleResource, error) {
 	var (
 		nodes       = []*RepeatedScheduleResource{}
-		withFKs     = rsrq.withFKs
-		_spec       = rsrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [4]bool{
-			rsrq.withTargetSite != nil,
-			rsrq.withTargetHost != nil,
-			rsrq.withTargetWorkload != nil,
-			rsrq.withTargetRegion != nil,
+			_q.withTargetSite != nil,
+			_q.withTargetHost != nil,
+			_q.withTargetWorkload != nil,
+			_q.withTargetRegion != nil,
 		}
 	)
-	if rsrq.withTargetSite != nil || rsrq.withTargetHost != nil || rsrq.withTargetWorkload != nil || rsrq.withTargetRegion != nil {
+	if _q.withTargetSite != nil || _q.withTargetHost != nil || _q.withTargetWorkload != nil || _q.withTargetRegion != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -497,7 +497,7 @@ func (rsrq *RepeatedScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...
 		return (*RepeatedScheduleResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &RepeatedScheduleResource{config: rsrq.config}
+		node := &RepeatedScheduleResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -505,32 +505,32 @@ func (rsrq *RepeatedScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, rsrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := rsrq.withTargetSite; query != nil {
-		if err := rsrq.loadTargetSite(ctx, query, nodes, nil,
+	if query := _q.withTargetSite; query != nil {
+		if err := _q.loadTargetSite(ctx, query, nodes, nil,
 			func(n *RepeatedScheduleResource, e *SiteResource) { n.Edges.TargetSite = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := rsrq.withTargetHost; query != nil {
-		if err := rsrq.loadTargetHost(ctx, query, nodes, nil,
+	if query := _q.withTargetHost; query != nil {
+		if err := _q.loadTargetHost(ctx, query, nodes, nil,
 			func(n *RepeatedScheduleResource, e *HostResource) { n.Edges.TargetHost = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := rsrq.withTargetWorkload; query != nil {
-		if err := rsrq.loadTargetWorkload(ctx, query, nodes, nil,
+	if query := _q.withTargetWorkload; query != nil {
+		if err := _q.loadTargetWorkload(ctx, query, nodes, nil,
 			func(n *RepeatedScheduleResource, e *WorkloadResource) { n.Edges.TargetWorkload = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := rsrq.withTargetRegion; query != nil {
-		if err := rsrq.loadTargetRegion(ctx, query, nodes, nil,
+	if query := _q.withTargetRegion; query != nil {
+		if err := _q.loadTargetRegion(ctx, query, nodes, nil,
 			func(n *RepeatedScheduleResource, e *RegionResource) { n.Edges.TargetRegion = e }); err != nil {
 			return nil, err
 		}
@@ -538,7 +538,7 @@ func (rsrq *RepeatedScheduleResourceQuery) sqlAll(ctx context.Context, hooks ...
 	return nodes, nil
 }
 
-func (rsrq *RepeatedScheduleResourceQuery) loadTargetSite(ctx context.Context, query *SiteResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *SiteResource)) error {
+func (_q *RepeatedScheduleResourceQuery) loadTargetSite(ctx context.Context, query *SiteResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *SiteResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RepeatedScheduleResource)
 	for i := range nodes {
@@ -570,7 +570,7 @@ func (rsrq *RepeatedScheduleResourceQuery) loadTargetSite(ctx context.Context, q
 	}
 	return nil
 }
-func (rsrq *RepeatedScheduleResourceQuery) loadTargetHost(ctx context.Context, query *HostResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *HostResource)) error {
+func (_q *RepeatedScheduleResourceQuery) loadTargetHost(ctx context.Context, query *HostResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *HostResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RepeatedScheduleResource)
 	for i := range nodes {
@@ -602,7 +602,7 @@ func (rsrq *RepeatedScheduleResourceQuery) loadTargetHost(ctx context.Context, q
 	}
 	return nil
 }
-func (rsrq *RepeatedScheduleResourceQuery) loadTargetWorkload(ctx context.Context, query *WorkloadResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *WorkloadResource)) error {
+func (_q *RepeatedScheduleResourceQuery) loadTargetWorkload(ctx context.Context, query *WorkloadResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *WorkloadResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RepeatedScheduleResource)
 	for i := range nodes {
@@ -634,7 +634,7 @@ func (rsrq *RepeatedScheduleResourceQuery) loadTargetWorkload(ctx context.Contex
 	}
 	return nil
 }
-func (rsrq *RepeatedScheduleResourceQuery) loadTargetRegion(ctx context.Context, query *RegionResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *RegionResource)) error {
+func (_q *RepeatedScheduleResourceQuery) loadTargetRegion(ctx context.Context, query *RegionResourceQuery, nodes []*RepeatedScheduleResource, init func(*RepeatedScheduleResource), assign func(*RepeatedScheduleResource, *RegionResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RepeatedScheduleResource)
 	for i := range nodes {
@@ -667,24 +667,24 @@ func (rsrq *RepeatedScheduleResourceQuery) loadTargetRegion(ctx context.Context,
 	return nil
 }
 
-func (rsrq *RepeatedScheduleResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := rsrq.querySpec()
-	_spec.Node.Columns = rsrq.ctx.Fields
-	if len(rsrq.ctx.Fields) > 0 {
-		_spec.Unique = rsrq.ctx.Unique != nil && *rsrq.ctx.Unique
+func (_q *RepeatedScheduleResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, rsrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (rsrq *RepeatedScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *RepeatedScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(repeatedscheduleresource.Table, repeatedscheduleresource.Columns, sqlgraph.NewFieldSpec(repeatedscheduleresource.FieldID, field.TypeInt))
-	_spec.From = rsrq.sql
-	if unique := rsrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if rsrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := rsrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, repeatedscheduleresource.FieldID)
 		for i := range fields {
@@ -693,20 +693,20 @@ func (rsrq *RepeatedScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := rsrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := rsrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := rsrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := rsrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -716,33 +716,33 @@ func (rsrq *RepeatedScheduleResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (rsrq *RepeatedScheduleResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(rsrq.driver.Dialect())
+func (_q *RepeatedScheduleResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(repeatedscheduleresource.Table)
-	columns := rsrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = repeatedscheduleresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if rsrq.sql != nil {
-		selector = rsrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if rsrq.ctx.Unique != nil && *rsrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range rsrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range rsrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := rsrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := rsrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -755,41 +755,41 @@ type RepeatedScheduleResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (rsrgb *RepeatedScheduleResourceGroupBy) Aggregate(fns ...AggregateFunc) *RepeatedScheduleResourceGroupBy {
-	rsrgb.fns = append(rsrgb.fns, fns...)
-	return rsrgb
+func (_g *RepeatedScheduleResourceGroupBy) Aggregate(fns ...AggregateFunc) *RepeatedScheduleResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (rsrgb *RepeatedScheduleResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, rsrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := rsrgb.build.prepareQuery(ctx); err != nil {
+func (_g *RepeatedScheduleResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*RepeatedScheduleResourceQuery, *RepeatedScheduleResourceGroupBy](ctx, rsrgb.build, rsrgb, rsrgb.build.inters, v)
+	return scanWithInterceptors[*RepeatedScheduleResourceQuery, *RepeatedScheduleResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (rsrgb *RepeatedScheduleResourceGroupBy) sqlScan(ctx context.Context, root *RepeatedScheduleResourceQuery, v any) error {
+func (_g *RepeatedScheduleResourceGroupBy) sqlScan(ctx context.Context, root *RepeatedScheduleResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(rsrgb.fns))
-	for _, fn := range rsrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*rsrgb.flds)+len(rsrgb.fns))
-		for _, f := range *rsrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*rsrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := rsrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -803,27 +803,27 @@ type RepeatedScheduleResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (rsrs *RepeatedScheduleResourceSelect) Aggregate(fns ...AggregateFunc) *RepeatedScheduleResourceSelect {
-	rsrs.fns = append(rsrs.fns, fns...)
-	return rsrs
+func (_s *RepeatedScheduleResourceSelect) Aggregate(fns ...AggregateFunc) *RepeatedScheduleResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (rsrs *RepeatedScheduleResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, rsrs.ctx, ent.OpQuerySelect)
-	if err := rsrs.prepareQuery(ctx); err != nil {
+func (_s *RepeatedScheduleResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*RepeatedScheduleResourceQuery, *RepeatedScheduleResourceSelect](ctx, rsrs.RepeatedScheduleResourceQuery, rsrs, rsrs.inters, v)
+	return scanWithInterceptors[*RepeatedScheduleResourceQuery, *RepeatedScheduleResourceSelect](ctx, _s.RepeatedScheduleResourceQuery, _s, _s.inters, v)
 }
 
-func (rsrs *RepeatedScheduleResourceSelect) sqlScan(ctx context.Context, root *RepeatedScheduleResourceQuery, v any) error {
+func (_s *RepeatedScheduleResourceSelect) sqlScan(ctx context.Context, root *RepeatedScheduleResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(rsrs.fns))
-	for _, fn := range rsrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*rsrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -831,7 +831,7 @@ func (rsrs *RepeatedScheduleResourceSelect) sqlScan(ctx context.Context, root *R
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := rsrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

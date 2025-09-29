@@ -20,56 +20,56 @@ type EndpointResourceDelete struct {
 }
 
 // Where appends a list predicates to the EndpointResourceDelete builder.
-func (erd *EndpointResourceDelete) Where(ps ...predicate.EndpointResource) *EndpointResourceDelete {
-	erd.mutation.Where(ps...)
-	return erd
+func (_d *EndpointResourceDelete) Where(ps ...predicate.EndpointResource) *EndpointResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (erd *EndpointResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, erd.sqlExec, erd.mutation, erd.hooks)
+func (_d *EndpointResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (erd *EndpointResourceDelete) ExecX(ctx context.Context) int {
-	n, err := erd.Exec(ctx)
+func (_d *EndpointResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (erd *EndpointResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *EndpointResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(endpointresource.Table, sqlgraph.NewFieldSpec(endpointresource.FieldID, field.TypeInt))
-	if ps := erd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, erd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	erd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // EndpointResourceDeleteOne is the builder for deleting a single EndpointResource entity.
 type EndpointResourceDeleteOne struct {
-	erd *EndpointResourceDelete
+	_d *EndpointResourceDelete
 }
 
 // Where appends a list predicates to the EndpointResourceDelete builder.
-func (erdo *EndpointResourceDeleteOne) Where(ps ...predicate.EndpointResource) *EndpointResourceDeleteOne {
-	erdo.erd.mutation.Where(ps...)
-	return erdo
+func (_d *EndpointResourceDeleteOne) Where(ps ...predicate.EndpointResource) *EndpointResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (erdo *EndpointResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := erdo.erd.Exec(ctx)
+func (_d *EndpointResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (erdo *EndpointResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (erdo *EndpointResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := erdo.Exec(ctx); err != nil {
+func (_d *EndpointResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

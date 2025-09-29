@@ -25,381 +25,381 @@ type SiteResourceUpdate struct {
 }
 
 // Where appends a list predicates to the SiteResourceUpdate builder.
-func (sru *SiteResourceUpdate) Where(ps ...predicate.SiteResource) *SiteResourceUpdate {
-	sru.mutation.Where(ps...)
-	return sru
+func (_u *SiteResourceUpdate) Where(ps ...predicate.SiteResource) *SiteResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (sru *SiteResourceUpdate) SetResourceID(s string) *SiteResourceUpdate {
-	sru.mutation.SetResourceID(s)
-	return sru
+func (_u *SiteResourceUpdate) SetResourceID(v string) *SiteResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableResourceID(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetResourceID(*s)
+func (_u *SiteResourceUpdate) SetNillableResourceID(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return sru
+	return _u
 }
 
 // SetName sets the "name" field.
-func (sru *SiteResourceUpdate) SetName(s string) *SiteResourceUpdate {
-	sru.mutation.SetName(s)
-	return sru
+func (_u *SiteResourceUpdate) SetName(v string) *SiteResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableName(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetName(*s)
+func (_u *SiteResourceUpdate) SetNillableName(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (sru *SiteResourceUpdate) ClearName() *SiteResourceUpdate {
-	sru.mutation.ClearName()
-	return sru
+func (_u *SiteResourceUpdate) ClearName() *SiteResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetAddress sets the "address" field.
-func (sru *SiteResourceUpdate) SetAddress(s string) *SiteResourceUpdate {
-	sru.mutation.SetAddress(s)
-	return sru
+func (_u *SiteResourceUpdate) SetAddress(v string) *SiteResourceUpdate {
+	_u.mutation.SetAddress(v)
+	return _u
 }
 
 // SetNillableAddress sets the "address" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableAddress(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetAddress(*s)
+func (_u *SiteResourceUpdate) SetNillableAddress(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetAddress(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearAddress clears the value of the "address" field.
-func (sru *SiteResourceUpdate) ClearAddress() *SiteResourceUpdate {
-	sru.mutation.ClearAddress()
-	return sru
+func (_u *SiteResourceUpdate) ClearAddress() *SiteResourceUpdate {
+	_u.mutation.ClearAddress()
+	return _u
 }
 
 // SetSiteLat sets the "site_lat" field.
-func (sru *SiteResourceUpdate) SetSiteLat(i int32) *SiteResourceUpdate {
-	sru.mutation.ResetSiteLat()
-	sru.mutation.SetSiteLat(i)
-	return sru
+func (_u *SiteResourceUpdate) SetSiteLat(v int32) *SiteResourceUpdate {
+	_u.mutation.ResetSiteLat()
+	_u.mutation.SetSiteLat(v)
+	return _u
 }
 
 // SetNillableSiteLat sets the "site_lat" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableSiteLat(i *int32) *SiteResourceUpdate {
-	if i != nil {
-		sru.SetSiteLat(*i)
+func (_u *SiteResourceUpdate) SetNillableSiteLat(v *int32) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetSiteLat(*v)
 	}
-	return sru
+	return _u
 }
 
-// AddSiteLat adds i to the "site_lat" field.
-func (sru *SiteResourceUpdate) AddSiteLat(i int32) *SiteResourceUpdate {
-	sru.mutation.AddSiteLat(i)
-	return sru
+// AddSiteLat adds value to the "site_lat" field.
+func (_u *SiteResourceUpdate) AddSiteLat(v int32) *SiteResourceUpdate {
+	_u.mutation.AddSiteLat(v)
+	return _u
 }
 
 // ClearSiteLat clears the value of the "site_lat" field.
-func (sru *SiteResourceUpdate) ClearSiteLat() *SiteResourceUpdate {
-	sru.mutation.ClearSiteLat()
-	return sru
+func (_u *SiteResourceUpdate) ClearSiteLat() *SiteResourceUpdate {
+	_u.mutation.ClearSiteLat()
+	return _u
 }
 
 // SetSiteLng sets the "site_lng" field.
-func (sru *SiteResourceUpdate) SetSiteLng(i int32) *SiteResourceUpdate {
-	sru.mutation.ResetSiteLng()
-	sru.mutation.SetSiteLng(i)
-	return sru
+func (_u *SiteResourceUpdate) SetSiteLng(v int32) *SiteResourceUpdate {
+	_u.mutation.ResetSiteLng()
+	_u.mutation.SetSiteLng(v)
+	return _u
 }
 
 // SetNillableSiteLng sets the "site_lng" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableSiteLng(i *int32) *SiteResourceUpdate {
-	if i != nil {
-		sru.SetSiteLng(*i)
+func (_u *SiteResourceUpdate) SetNillableSiteLng(v *int32) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetSiteLng(*v)
 	}
-	return sru
+	return _u
 }
 
-// AddSiteLng adds i to the "site_lng" field.
-func (sru *SiteResourceUpdate) AddSiteLng(i int32) *SiteResourceUpdate {
-	sru.mutation.AddSiteLng(i)
-	return sru
+// AddSiteLng adds value to the "site_lng" field.
+func (_u *SiteResourceUpdate) AddSiteLng(v int32) *SiteResourceUpdate {
+	_u.mutation.AddSiteLng(v)
+	return _u
 }
 
 // ClearSiteLng clears the value of the "site_lng" field.
-func (sru *SiteResourceUpdate) ClearSiteLng() *SiteResourceUpdate {
-	sru.mutation.ClearSiteLng()
-	return sru
+func (_u *SiteResourceUpdate) ClearSiteLng() *SiteResourceUpdate {
+	_u.mutation.ClearSiteLng()
+	return _u
 }
 
 // SetDNSServers sets the "dns_servers" field.
-func (sru *SiteResourceUpdate) SetDNSServers(s string) *SiteResourceUpdate {
-	sru.mutation.SetDNSServers(s)
-	return sru
+func (_u *SiteResourceUpdate) SetDNSServers(v string) *SiteResourceUpdate {
+	_u.mutation.SetDNSServers(v)
+	return _u
 }
 
 // SetNillableDNSServers sets the "dns_servers" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableDNSServers(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetDNSServers(*s)
+func (_u *SiteResourceUpdate) SetNillableDNSServers(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetDNSServers(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearDNSServers clears the value of the "dns_servers" field.
-func (sru *SiteResourceUpdate) ClearDNSServers() *SiteResourceUpdate {
-	sru.mutation.ClearDNSServers()
-	return sru
+func (_u *SiteResourceUpdate) ClearDNSServers() *SiteResourceUpdate {
+	_u.mutation.ClearDNSServers()
+	return _u
 }
 
 // SetDockerRegistries sets the "docker_registries" field.
-func (sru *SiteResourceUpdate) SetDockerRegistries(s string) *SiteResourceUpdate {
-	sru.mutation.SetDockerRegistries(s)
-	return sru
+func (_u *SiteResourceUpdate) SetDockerRegistries(v string) *SiteResourceUpdate {
+	_u.mutation.SetDockerRegistries(v)
+	return _u
 }
 
 // SetNillableDockerRegistries sets the "docker_registries" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableDockerRegistries(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetDockerRegistries(*s)
+func (_u *SiteResourceUpdate) SetNillableDockerRegistries(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetDockerRegistries(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearDockerRegistries clears the value of the "docker_registries" field.
-func (sru *SiteResourceUpdate) ClearDockerRegistries() *SiteResourceUpdate {
-	sru.mutation.ClearDockerRegistries()
-	return sru
+func (_u *SiteResourceUpdate) ClearDockerRegistries() *SiteResourceUpdate {
+	_u.mutation.ClearDockerRegistries()
+	return _u
 }
 
 // SetMetricsEndpoint sets the "metrics_endpoint" field.
-func (sru *SiteResourceUpdate) SetMetricsEndpoint(s string) *SiteResourceUpdate {
-	sru.mutation.SetMetricsEndpoint(s)
-	return sru
+func (_u *SiteResourceUpdate) SetMetricsEndpoint(v string) *SiteResourceUpdate {
+	_u.mutation.SetMetricsEndpoint(v)
+	return _u
 }
 
 // SetNillableMetricsEndpoint sets the "metrics_endpoint" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableMetricsEndpoint(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetMetricsEndpoint(*s)
+func (_u *SiteResourceUpdate) SetNillableMetricsEndpoint(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetMetricsEndpoint(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearMetricsEndpoint clears the value of the "metrics_endpoint" field.
-func (sru *SiteResourceUpdate) ClearMetricsEndpoint() *SiteResourceUpdate {
-	sru.mutation.ClearMetricsEndpoint()
-	return sru
+func (_u *SiteResourceUpdate) ClearMetricsEndpoint() *SiteResourceUpdate {
+	_u.mutation.ClearMetricsEndpoint()
+	return _u
 }
 
 // SetHTTPProxy sets the "http_proxy" field.
-func (sru *SiteResourceUpdate) SetHTTPProxy(s string) *SiteResourceUpdate {
-	sru.mutation.SetHTTPProxy(s)
-	return sru
+func (_u *SiteResourceUpdate) SetHTTPProxy(v string) *SiteResourceUpdate {
+	_u.mutation.SetHTTPProxy(v)
+	return _u
 }
 
 // SetNillableHTTPProxy sets the "http_proxy" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableHTTPProxy(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetHTTPProxy(*s)
+func (_u *SiteResourceUpdate) SetNillableHTTPProxy(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetHTTPProxy(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearHTTPProxy clears the value of the "http_proxy" field.
-func (sru *SiteResourceUpdate) ClearHTTPProxy() *SiteResourceUpdate {
-	sru.mutation.ClearHTTPProxy()
-	return sru
+func (_u *SiteResourceUpdate) ClearHTTPProxy() *SiteResourceUpdate {
+	_u.mutation.ClearHTTPProxy()
+	return _u
 }
 
 // SetHTTPSProxy sets the "https_proxy" field.
-func (sru *SiteResourceUpdate) SetHTTPSProxy(s string) *SiteResourceUpdate {
-	sru.mutation.SetHTTPSProxy(s)
-	return sru
+func (_u *SiteResourceUpdate) SetHTTPSProxy(v string) *SiteResourceUpdate {
+	_u.mutation.SetHTTPSProxy(v)
+	return _u
 }
 
 // SetNillableHTTPSProxy sets the "https_proxy" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableHTTPSProxy(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetHTTPSProxy(*s)
+func (_u *SiteResourceUpdate) SetNillableHTTPSProxy(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetHTTPSProxy(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearHTTPSProxy clears the value of the "https_proxy" field.
-func (sru *SiteResourceUpdate) ClearHTTPSProxy() *SiteResourceUpdate {
-	sru.mutation.ClearHTTPSProxy()
-	return sru
+func (_u *SiteResourceUpdate) ClearHTTPSProxy() *SiteResourceUpdate {
+	_u.mutation.ClearHTTPSProxy()
+	return _u
 }
 
 // SetFtpProxy sets the "ftp_proxy" field.
-func (sru *SiteResourceUpdate) SetFtpProxy(s string) *SiteResourceUpdate {
-	sru.mutation.SetFtpProxy(s)
-	return sru
+func (_u *SiteResourceUpdate) SetFtpProxy(v string) *SiteResourceUpdate {
+	_u.mutation.SetFtpProxy(v)
+	return _u
 }
 
 // SetNillableFtpProxy sets the "ftp_proxy" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableFtpProxy(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetFtpProxy(*s)
+func (_u *SiteResourceUpdate) SetNillableFtpProxy(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetFtpProxy(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearFtpProxy clears the value of the "ftp_proxy" field.
-func (sru *SiteResourceUpdate) ClearFtpProxy() *SiteResourceUpdate {
-	sru.mutation.ClearFtpProxy()
-	return sru
+func (_u *SiteResourceUpdate) ClearFtpProxy() *SiteResourceUpdate {
+	_u.mutation.ClearFtpProxy()
+	return _u
 }
 
 // SetNoProxy sets the "no_proxy" field.
-func (sru *SiteResourceUpdate) SetNoProxy(s string) *SiteResourceUpdate {
-	sru.mutation.SetNoProxy(s)
-	return sru
+func (_u *SiteResourceUpdate) SetNoProxy(v string) *SiteResourceUpdate {
+	_u.mutation.SetNoProxy(v)
+	return _u
 }
 
 // SetNillableNoProxy sets the "no_proxy" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableNoProxy(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetNoProxy(*s)
+func (_u *SiteResourceUpdate) SetNillableNoProxy(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetNoProxy(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearNoProxy clears the value of the "no_proxy" field.
-func (sru *SiteResourceUpdate) ClearNoProxy() *SiteResourceUpdate {
-	sru.mutation.ClearNoProxy()
-	return sru
+func (_u *SiteResourceUpdate) ClearNoProxy() *SiteResourceUpdate {
+	_u.mutation.ClearNoProxy()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (sru *SiteResourceUpdate) SetMetadata(s string) *SiteResourceUpdate {
-	sru.mutation.SetMetadata(s)
-	return sru
+func (_u *SiteResourceUpdate) SetMetadata(v string) *SiteResourceUpdate {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableMetadata(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetMetadata(*s)
+func (_u *SiteResourceUpdate) SetNillableMetadata(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return sru
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (sru *SiteResourceUpdate) ClearMetadata() *SiteResourceUpdate {
-	sru.mutation.ClearMetadata()
-	return sru
+func (_u *SiteResourceUpdate) ClearMetadata() *SiteResourceUpdate {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (sru *SiteResourceUpdate) SetUpdatedAt(s string) *SiteResourceUpdate {
-	sru.mutation.SetUpdatedAt(s)
-	return sru
+func (_u *SiteResourceUpdate) SetUpdatedAt(v string) *SiteResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableUpdatedAt(s *string) *SiteResourceUpdate {
-	if s != nil {
-		sru.SetUpdatedAt(*s)
+func (_u *SiteResourceUpdate) SetNillableUpdatedAt(v *string) *SiteResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return sru
+	return _u
 }
 
 // SetRegionID sets the "region" edge to the RegionResource entity by ID.
-func (sru *SiteResourceUpdate) SetRegionID(id int) *SiteResourceUpdate {
-	sru.mutation.SetRegionID(id)
-	return sru
+func (_u *SiteResourceUpdate) SetRegionID(id int) *SiteResourceUpdate {
+	_u.mutation.SetRegionID(id)
+	return _u
 }
 
 // SetNillableRegionID sets the "region" edge to the RegionResource entity by ID if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableRegionID(id *int) *SiteResourceUpdate {
+func (_u *SiteResourceUpdate) SetNillableRegionID(id *int) *SiteResourceUpdate {
 	if id != nil {
-		sru = sru.SetRegionID(*id)
+		_u = _u.SetRegionID(*id)
 	}
-	return sru
+	return _u
 }
 
 // SetRegion sets the "region" edge to the RegionResource entity.
-func (sru *SiteResourceUpdate) SetRegion(r *RegionResource) *SiteResourceUpdate {
-	return sru.SetRegionID(r.ID)
+func (_u *SiteResourceUpdate) SetRegion(v *RegionResource) *SiteResourceUpdate {
+	return _u.SetRegionID(v.ID)
 }
 
 // SetOuID sets the "ou" edge to the OuResource entity by ID.
-func (sru *SiteResourceUpdate) SetOuID(id int) *SiteResourceUpdate {
-	sru.mutation.SetOuID(id)
-	return sru
+func (_u *SiteResourceUpdate) SetOuID(id int) *SiteResourceUpdate {
+	_u.mutation.SetOuID(id)
+	return _u
 }
 
 // SetNillableOuID sets the "ou" edge to the OuResource entity by ID if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableOuID(id *int) *SiteResourceUpdate {
+func (_u *SiteResourceUpdate) SetNillableOuID(id *int) *SiteResourceUpdate {
 	if id != nil {
-		sru = sru.SetOuID(*id)
+		_u = _u.SetOuID(*id)
 	}
-	return sru
+	return _u
 }
 
 // SetOu sets the "ou" edge to the OuResource entity.
-func (sru *SiteResourceUpdate) SetOu(o *OuResource) *SiteResourceUpdate {
-	return sru.SetOuID(o.ID)
+func (_u *SiteResourceUpdate) SetOu(v *OuResource) *SiteResourceUpdate {
+	return _u.SetOuID(v.ID)
 }
 
 // SetProviderID sets the "provider" edge to the ProviderResource entity by ID.
-func (sru *SiteResourceUpdate) SetProviderID(id int) *SiteResourceUpdate {
-	sru.mutation.SetProviderID(id)
-	return sru
+func (_u *SiteResourceUpdate) SetProviderID(id int) *SiteResourceUpdate {
+	_u.mutation.SetProviderID(id)
+	return _u
 }
 
 // SetNillableProviderID sets the "provider" edge to the ProviderResource entity by ID if the given value is not nil.
-func (sru *SiteResourceUpdate) SetNillableProviderID(id *int) *SiteResourceUpdate {
+func (_u *SiteResourceUpdate) SetNillableProviderID(id *int) *SiteResourceUpdate {
 	if id != nil {
-		sru = sru.SetProviderID(*id)
+		_u = _u.SetProviderID(*id)
 	}
-	return sru
+	return _u
 }
 
 // SetProvider sets the "provider" edge to the ProviderResource entity.
-func (sru *SiteResourceUpdate) SetProvider(p *ProviderResource) *SiteResourceUpdate {
-	return sru.SetProviderID(p.ID)
+func (_u *SiteResourceUpdate) SetProvider(v *ProviderResource) *SiteResourceUpdate {
+	return _u.SetProviderID(v.ID)
 }
 
 // Mutation returns the SiteResourceMutation object of the builder.
-func (sru *SiteResourceUpdate) Mutation() *SiteResourceMutation {
-	return sru.mutation
+func (_u *SiteResourceUpdate) Mutation() *SiteResourceMutation {
+	return _u.mutation
 }
 
 // ClearRegion clears the "region" edge to the RegionResource entity.
-func (sru *SiteResourceUpdate) ClearRegion() *SiteResourceUpdate {
-	sru.mutation.ClearRegion()
-	return sru
+func (_u *SiteResourceUpdate) ClearRegion() *SiteResourceUpdate {
+	_u.mutation.ClearRegion()
+	return _u
 }
 
 // ClearOu clears the "ou" edge to the OuResource entity.
-func (sru *SiteResourceUpdate) ClearOu() *SiteResourceUpdate {
-	sru.mutation.ClearOu()
-	return sru
+func (_u *SiteResourceUpdate) ClearOu() *SiteResourceUpdate {
+	_u.mutation.ClearOu()
+	return _u
 }
 
 // ClearProvider clears the "provider" edge to the ProviderResource entity.
-func (sru *SiteResourceUpdate) ClearProvider() *SiteResourceUpdate {
-	sru.mutation.ClearProvider()
-	return sru
+func (_u *SiteResourceUpdate) ClearProvider() *SiteResourceUpdate {
+	_u.mutation.ClearProvider()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (sru *SiteResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, sru.sqlSave, sru.mutation, sru.hooks)
+func (_u *SiteResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (sru *SiteResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := sru.Save(ctx)
+func (_u *SiteResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -407,112 +407,112 @@ func (sru *SiteResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (sru *SiteResourceUpdate) Exec(ctx context.Context) error {
-	_, err := sru.Save(ctx)
+func (_u *SiteResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (sru *SiteResourceUpdate) ExecX(ctx context.Context) {
-	if err := sru.Exec(ctx); err != nil {
+func (_u *SiteResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *SiteResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(siteresource.Table, siteresource.Columns, sqlgraph.NewFieldSpec(siteresource.FieldID, field.TypeInt))
-	if ps := sru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := sru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(siteresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := sru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(siteresource.FieldName, field.TypeString, value)
 	}
-	if sru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(siteresource.FieldName, field.TypeString)
 	}
-	if value, ok := sru.mutation.Address(); ok {
+	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(siteresource.FieldAddress, field.TypeString, value)
 	}
-	if sru.mutation.AddressCleared() {
+	if _u.mutation.AddressCleared() {
 		_spec.ClearField(siteresource.FieldAddress, field.TypeString)
 	}
-	if value, ok := sru.mutation.SiteLat(); ok {
+	if value, ok := _u.mutation.SiteLat(); ok {
 		_spec.SetField(siteresource.FieldSiteLat, field.TypeInt32, value)
 	}
-	if value, ok := sru.mutation.AddedSiteLat(); ok {
+	if value, ok := _u.mutation.AddedSiteLat(); ok {
 		_spec.AddField(siteresource.FieldSiteLat, field.TypeInt32, value)
 	}
-	if sru.mutation.SiteLatCleared() {
+	if _u.mutation.SiteLatCleared() {
 		_spec.ClearField(siteresource.FieldSiteLat, field.TypeInt32)
 	}
-	if value, ok := sru.mutation.SiteLng(); ok {
+	if value, ok := _u.mutation.SiteLng(); ok {
 		_spec.SetField(siteresource.FieldSiteLng, field.TypeInt32, value)
 	}
-	if value, ok := sru.mutation.AddedSiteLng(); ok {
+	if value, ok := _u.mutation.AddedSiteLng(); ok {
 		_spec.AddField(siteresource.FieldSiteLng, field.TypeInt32, value)
 	}
-	if sru.mutation.SiteLngCleared() {
+	if _u.mutation.SiteLngCleared() {
 		_spec.ClearField(siteresource.FieldSiteLng, field.TypeInt32)
 	}
-	if value, ok := sru.mutation.DNSServers(); ok {
+	if value, ok := _u.mutation.DNSServers(); ok {
 		_spec.SetField(siteresource.FieldDNSServers, field.TypeString, value)
 	}
-	if sru.mutation.DNSServersCleared() {
+	if _u.mutation.DNSServersCleared() {
 		_spec.ClearField(siteresource.FieldDNSServers, field.TypeString)
 	}
-	if value, ok := sru.mutation.DockerRegistries(); ok {
+	if value, ok := _u.mutation.DockerRegistries(); ok {
 		_spec.SetField(siteresource.FieldDockerRegistries, field.TypeString, value)
 	}
-	if sru.mutation.DockerRegistriesCleared() {
+	if _u.mutation.DockerRegistriesCleared() {
 		_spec.ClearField(siteresource.FieldDockerRegistries, field.TypeString)
 	}
-	if value, ok := sru.mutation.MetricsEndpoint(); ok {
+	if value, ok := _u.mutation.MetricsEndpoint(); ok {
 		_spec.SetField(siteresource.FieldMetricsEndpoint, field.TypeString, value)
 	}
-	if sru.mutation.MetricsEndpointCleared() {
+	if _u.mutation.MetricsEndpointCleared() {
 		_spec.ClearField(siteresource.FieldMetricsEndpoint, field.TypeString)
 	}
-	if value, ok := sru.mutation.HTTPProxy(); ok {
+	if value, ok := _u.mutation.HTTPProxy(); ok {
 		_spec.SetField(siteresource.FieldHTTPProxy, field.TypeString, value)
 	}
-	if sru.mutation.HTTPProxyCleared() {
+	if _u.mutation.HTTPProxyCleared() {
 		_spec.ClearField(siteresource.FieldHTTPProxy, field.TypeString)
 	}
-	if value, ok := sru.mutation.HTTPSProxy(); ok {
+	if value, ok := _u.mutation.HTTPSProxy(); ok {
 		_spec.SetField(siteresource.FieldHTTPSProxy, field.TypeString, value)
 	}
-	if sru.mutation.HTTPSProxyCleared() {
+	if _u.mutation.HTTPSProxyCleared() {
 		_spec.ClearField(siteresource.FieldHTTPSProxy, field.TypeString)
 	}
-	if value, ok := sru.mutation.FtpProxy(); ok {
+	if value, ok := _u.mutation.FtpProxy(); ok {
 		_spec.SetField(siteresource.FieldFtpProxy, field.TypeString, value)
 	}
-	if sru.mutation.FtpProxyCleared() {
+	if _u.mutation.FtpProxyCleared() {
 		_spec.ClearField(siteresource.FieldFtpProxy, field.TypeString)
 	}
-	if value, ok := sru.mutation.NoProxy(); ok {
+	if value, ok := _u.mutation.NoProxy(); ok {
 		_spec.SetField(siteresource.FieldNoProxy, field.TypeString, value)
 	}
-	if sru.mutation.NoProxyCleared() {
+	if _u.mutation.NoProxyCleared() {
 		_spec.ClearField(siteresource.FieldNoProxy, field.TypeString)
 	}
-	if value, ok := sru.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(siteresource.FieldMetadata, field.TypeString, value)
 	}
-	if sru.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(siteresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := sru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(siteresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if sru.mutation.RegionCleared() {
+	if _u.mutation.RegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -525,7 +525,7 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := sru.mutation.RegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -541,7 +541,7 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if sru.mutation.OuCleared() {
+	if _u.mutation.OuCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -554,7 +554,7 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := sru.mutation.OuIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OuIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -570,7 +570,7 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if sru.mutation.ProviderCleared() {
+	if _u.mutation.ProviderCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -583,7 +583,7 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := sru.mutation.ProviderIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProviderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -599,7 +599,7 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, sru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{siteresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -607,8 +607,8 @@ func (sru *SiteResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	sru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // SiteResourceUpdateOne is the builder for updating a single SiteResource entity.
@@ -620,388 +620,388 @@ type SiteResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (sruo *SiteResourceUpdateOne) SetResourceID(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetResourceID(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetResourceID(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableResourceID(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetResourceID(*s)
+func (_u *SiteResourceUpdateOne) SetNillableResourceID(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return sruo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (sruo *SiteResourceUpdateOne) SetName(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetName(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetName(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableName(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetName(*s)
+func (_u *SiteResourceUpdateOne) SetNillableName(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (sruo *SiteResourceUpdateOne) ClearName() *SiteResourceUpdateOne {
-	sruo.mutation.ClearName()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearName() *SiteResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetAddress sets the "address" field.
-func (sruo *SiteResourceUpdateOne) SetAddress(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetAddress(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetAddress(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetAddress(v)
+	return _u
 }
 
 // SetNillableAddress sets the "address" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableAddress(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetAddress(*s)
+func (_u *SiteResourceUpdateOne) SetNillableAddress(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetAddress(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearAddress clears the value of the "address" field.
-func (sruo *SiteResourceUpdateOne) ClearAddress() *SiteResourceUpdateOne {
-	sruo.mutation.ClearAddress()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearAddress() *SiteResourceUpdateOne {
+	_u.mutation.ClearAddress()
+	return _u
 }
 
 // SetSiteLat sets the "site_lat" field.
-func (sruo *SiteResourceUpdateOne) SetSiteLat(i int32) *SiteResourceUpdateOne {
-	sruo.mutation.ResetSiteLat()
-	sruo.mutation.SetSiteLat(i)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetSiteLat(v int32) *SiteResourceUpdateOne {
+	_u.mutation.ResetSiteLat()
+	_u.mutation.SetSiteLat(v)
+	return _u
 }
 
 // SetNillableSiteLat sets the "site_lat" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableSiteLat(i *int32) *SiteResourceUpdateOne {
-	if i != nil {
-		sruo.SetSiteLat(*i)
+func (_u *SiteResourceUpdateOne) SetNillableSiteLat(v *int32) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetSiteLat(*v)
 	}
-	return sruo
+	return _u
 }
 
-// AddSiteLat adds i to the "site_lat" field.
-func (sruo *SiteResourceUpdateOne) AddSiteLat(i int32) *SiteResourceUpdateOne {
-	sruo.mutation.AddSiteLat(i)
-	return sruo
+// AddSiteLat adds value to the "site_lat" field.
+func (_u *SiteResourceUpdateOne) AddSiteLat(v int32) *SiteResourceUpdateOne {
+	_u.mutation.AddSiteLat(v)
+	return _u
 }
 
 // ClearSiteLat clears the value of the "site_lat" field.
-func (sruo *SiteResourceUpdateOne) ClearSiteLat() *SiteResourceUpdateOne {
-	sruo.mutation.ClearSiteLat()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearSiteLat() *SiteResourceUpdateOne {
+	_u.mutation.ClearSiteLat()
+	return _u
 }
 
 // SetSiteLng sets the "site_lng" field.
-func (sruo *SiteResourceUpdateOne) SetSiteLng(i int32) *SiteResourceUpdateOne {
-	sruo.mutation.ResetSiteLng()
-	sruo.mutation.SetSiteLng(i)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetSiteLng(v int32) *SiteResourceUpdateOne {
+	_u.mutation.ResetSiteLng()
+	_u.mutation.SetSiteLng(v)
+	return _u
 }
 
 // SetNillableSiteLng sets the "site_lng" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableSiteLng(i *int32) *SiteResourceUpdateOne {
-	if i != nil {
-		sruo.SetSiteLng(*i)
+func (_u *SiteResourceUpdateOne) SetNillableSiteLng(v *int32) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetSiteLng(*v)
 	}
-	return sruo
+	return _u
 }
 
-// AddSiteLng adds i to the "site_lng" field.
-func (sruo *SiteResourceUpdateOne) AddSiteLng(i int32) *SiteResourceUpdateOne {
-	sruo.mutation.AddSiteLng(i)
-	return sruo
+// AddSiteLng adds value to the "site_lng" field.
+func (_u *SiteResourceUpdateOne) AddSiteLng(v int32) *SiteResourceUpdateOne {
+	_u.mutation.AddSiteLng(v)
+	return _u
 }
 
 // ClearSiteLng clears the value of the "site_lng" field.
-func (sruo *SiteResourceUpdateOne) ClearSiteLng() *SiteResourceUpdateOne {
-	sruo.mutation.ClearSiteLng()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearSiteLng() *SiteResourceUpdateOne {
+	_u.mutation.ClearSiteLng()
+	return _u
 }
 
 // SetDNSServers sets the "dns_servers" field.
-func (sruo *SiteResourceUpdateOne) SetDNSServers(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetDNSServers(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetDNSServers(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetDNSServers(v)
+	return _u
 }
 
 // SetNillableDNSServers sets the "dns_servers" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableDNSServers(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetDNSServers(*s)
+func (_u *SiteResourceUpdateOne) SetNillableDNSServers(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetDNSServers(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearDNSServers clears the value of the "dns_servers" field.
-func (sruo *SiteResourceUpdateOne) ClearDNSServers() *SiteResourceUpdateOne {
-	sruo.mutation.ClearDNSServers()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearDNSServers() *SiteResourceUpdateOne {
+	_u.mutation.ClearDNSServers()
+	return _u
 }
 
 // SetDockerRegistries sets the "docker_registries" field.
-func (sruo *SiteResourceUpdateOne) SetDockerRegistries(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetDockerRegistries(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetDockerRegistries(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetDockerRegistries(v)
+	return _u
 }
 
 // SetNillableDockerRegistries sets the "docker_registries" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableDockerRegistries(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetDockerRegistries(*s)
+func (_u *SiteResourceUpdateOne) SetNillableDockerRegistries(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetDockerRegistries(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearDockerRegistries clears the value of the "docker_registries" field.
-func (sruo *SiteResourceUpdateOne) ClearDockerRegistries() *SiteResourceUpdateOne {
-	sruo.mutation.ClearDockerRegistries()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearDockerRegistries() *SiteResourceUpdateOne {
+	_u.mutation.ClearDockerRegistries()
+	return _u
 }
 
 // SetMetricsEndpoint sets the "metrics_endpoint" field.
-func (sruo *SiteResourceUpdateOne) SetMetricsEndpoint(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetMetricsEndpoint(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetMetricsEndpoint(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetMetricsEndpoint(v)
+	return _u
 }
 
 // SetNillableMetricsEndpoint sets the "metrics_endpoint" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableMetricsEndpoint(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetMetricsEndpoint(*s)
+func (_u *SiteResourceUpdateOne) SetNillableMetricsEndpoint(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetMetricsEndpoint(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearMetricsEndpoint clears the value of the "metrics_endpoint" field.
-func (sruo *SiteResourceUpdateOne) ClearMetricsEndpoint() *SiteResourceUpdateOne {
-	sruo.mutation.ClearMetricsEndpoint()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearMetricsEndpoint() *SiteResourceUpdateOne {
+	_u.mutation.ClearMetricsEndpoint()
+	return _u
 }
 
 // SetHTTPProxy sets the "http_proxy" field.
-func (sruo *SiteResourceUpdateOne) SetHTTPProxy(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetHTTPProxy(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetHTTPProxy(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetHTTPProxy(v)
+	return _u
 }
 
 // SetNillableHTTPProxy sets the "http_proxy" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableHTTPProxy(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetHTTPProxy(*s)
+func (_u *SiteResourceUpdateOne) SetNillableHTTPProxy(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetHTTPProxy(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearHTTPProxy clears the value of the "http_proxy" field.
-func (sruo *SiteResourceUpdateOne) ClearHTTPProxy() *SiteResourceUpdateOne {
-	sruo.mutation.ClearHTTPProxy()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearHTTPProxy() *SiteResourceUpdateOne {
+	_u.mutation.ClearHTTPProxy()
+	return _u
 }
 
 // SetHTTPSProxy sets the "https_proxy" field.
-func (sruo *SiteResourceUpdateOne) SetHTTPSProxy(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetHTTPSProxy(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetHTTPSProxy(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetHTTPSProxy(v)
+	return _u
 }
 
 // SetNillableHTTPSProxy sets the "https_proxy" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableHTTPSProxy(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetHTTPSProxy(*s)
+func (_u *SiteResourceUpdateOne) SetNillableHTTPSProxy(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetHTTPSProxy(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearHTTPSProxy clears the value of the "https_proxy" field.
-func (sruo *SiteResourceUpdateOne) ClearHTTPSProxy() *SiteResourceUpdateOne {
-	sruo.mutation.ClearHTTPSProxy()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearHTTPSProxy() *SiteResourceUpdateOne {
+	_u.mutation.ClearHTTPSProxy()
+	return _u
 }
 
 // SetFtpProxy sets the "ftp_proxy" field.
-func (sruo *SiteResourceUpdateOne) SetFtpProxy(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetFtpProxy(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetFtpProxy(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetFtpProxy(v)
+	return _u
 }
 
 // SetNillableFtpProxy sets the "ftp_proxy" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableFtpProxy(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetFtpProxy(*s)
+func (_u *SiteResourceUpdateOne) SetNillableFtpProxy(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetFtpProxy(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearFtpProxy clears the value of the "ftp_proxy" field.
-func (sruo *SiteResourceUpdateOne) ClearFtpProxy() *SiteResourceUpdateOne {
-	sruo.mutation.ClearFtpProxy()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearFtpProxy() *SiteResourceUpdateOne {
+	_u.mutation.ClearFtpProxy()
+	return _u
 }
 
 // SetNoProxy sets the "no_proxy" field.
-func (sruo *SiteResourceUpdateOne) SetNoProxy(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetNoProxy(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetNoProxy(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetNoProxy(v)
+	return _u
 }
 
 // SetNillableNoProxy sets the "no_proxy" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableNoProxy(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetNoProxy(*s)
+func (_u *SiteResourceUpdateOne) SetNillableNoProxy(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetNoProxy(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearNoProxy clears the value of the "no_proxy" field.
-func (sruo *SiteResourceUpdateOne) ClearNoProxy() *SiteResourceUpdateOne {
-	sruo.mutation.ClearNoProxy()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearNoProxy() *SiteResourceUpdateOne {
+	_u.mutation.ClearNoProxy()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (sruo *SiteResourceUpdateOne) SetMetadata(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetMetadata(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetMetadata(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableMetadata(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetMetadata(*s)
+func (_u *SiteResourceUpdateOne) SetNillableMetadata(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return sruo
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (sruo *SiteResourceUpdateOne) ClearMetadata() *SiteResourceUpdateOne {
-	sruo.mutation.ClearMetadata()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearMetadata() *SiteResourceUpdateOne {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (sruo *SiteResourceUpdateOne) SetUpdatedAt(s string) *SiteResourceUpdateOne {
-	sruo.mutation.SetUpdatedAt(s)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetUpdatedAt(v string) *SiteResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableUpdatedAt(s *string) *SiteResourceUpdateOne {
-	if s != nil {
-		sruo.SetUpdatedAt(*s)
+func (_u *SiteResourceUpdateOne) SetNillableUpdatedAt(v *string) *SiteResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return sruo
+	return _u
 }
 
 // SetRegionID sets the "region" edge to the RegionResource entity by ID.
-func (sruo *SiteResourceUpdateOne) SetRegionID(id int) *SiteResourceUpdateOne {
-	sruo.mutation.SetRegionID(id)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetRegionID(id int) *SiteResourceUpdateOne {
+	_u.mutation.SetRegionID(id)
+	return _u
 }
 
 // SetNillableRegionID sets the "region" edge to the RegionResource entity by ID if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableRegionID(id *int) *SiteResourceUpdateOne {
+func (_u *SiteResourceUpdateOne) SetNillableRegionID(id *int) *SiteResourceUpdateOne {
 	if id != nil {
-		sruo = sruo.SetRegionID(*id)
+		_u = _u.SetRegionID(*id)
 	}
-	return sruo
+	return _u
 }
 
 // SetRegion sets the "region" edge to the RegionResource entity.
-func (sruo *SiteResourceUpdateOne) SetRegion(r *RegionResource) *SiteResourceUpdateOne {
-	return sruo.SetRegionID(r.ID)
+func (_u *SiteResourceUpdateOne) SetRegion(v *RegionResource) *SiteResourceUpdateOne {
+	return _u.SetRegionID(v.ID)
 }
 
 // SetOuID sets the "ou" edge to the OuResource entity by ID.
-func (sruo *SiteResourceUpdateOne) SetOuID(id int) *SiteResourceUpdateOne {
-	sruo.mutation.SetOuID(id)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetOuID(id int) *SiteResourceUpdateOne {
+	_u.mutation.SetOuID(id)
+	return _u
 }
 
 // SetNillableOuID sets the "ou" edge to the OuResource entity by ID if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableOuID(id *int) *SiteResourceUpdateOne {
+func (_u *SiteResourceUpdateOne) SetNillableOuID(id *int) *SiteResourceUpdateOne {
 	if id != nil {
-		sruo = sruo.SetOuID(*id)
+		_u = _u.SetOuID(*id)
 	}
-	return sruo
+	return _u
 }
 
 // SetOu sets the "ou" edge to the OuResource entity.
-func (sruo *SiteResourceUpdateOne) SetOu(o *OuResource) *SiteResourceUpdateOne {
-	return sruo.SetOuID(o.ID)
+func (_u *SiteResourceUpdateOne) SetOu(v *OuResource) *SiteResourceUpdateOne {
+	return _u.SetOuID(v.ID)
 }
 
 // SetProviderID sets the "provider" edge to the ProviderResource entity by ID.
-func (sruo *SiteResourceUpdateOne) SetProviderID(id int) *SiteResourceUpdateOne {
-	sruo.mutation.SetProviderID(id)
-	return sruo
+func (_u *SiteResourceUpdateOne) SetProviderID(id int) *SiteResourceUpdateOne {
+	_u.mutation.SetProviderID(id)
+	return _u
 }
 
 // SetNillableProviderID sets the "provider" edge to the ProviderResource entity by ID if the given value is not nil.
-func (sruo *SiteResourceUpdateOne) SetNillableProviderID(id *int) *SiteResourceUpdateOne {
+func (_u *SiteResourceUpdateOne) SetNillableProviderID(id *int) *SiteResourceUpdateOne {
 	if id != nil {
-		sruo = sruo.SetProviderID(*id)
+		_u = _u.SetProviderID(*id)
 	}
-	return sruo
+	return _u
 }
 
 // SetProvider sets the "provider" edge to the ProviderResource entity.
-func (sruo *SiteResourceUpdateOne) SetProvider(p *ProviderResource) *SiteResourceUpdateOne {
-	return sruo.SetProviderID(p.ID)
+func (_u *SiteResourceUpdateOne) SetProvider(v *ProviderResource) *SiteResourceUpdateOne {
+	return _u.SetProviderID(v.ID)
 }
 
 // Mutation returns the SiteResourceMutation object of the builder.
-func (sruo *SiteResourceUpdateOne) Mutation() *SiteResourceMutation {
-	return sruo.mutation
+func (_u *SiteResourceUpdateOne) Mutation() *SiteResourceMutation {
+	return _u.mutation
 }
 
 // ClearRegion clears the "region" edge to the RegionResource entity.
-func (sruo *SiteResourceUpdateOne) ClearRegion() *SiteResourceUpdateOne {
-	sruo.mutation.ClearRegion()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearRegion() *SiteResourceUpdateOne {
+	_u.mutation.ClearRegion()
+	return _u
 }
 
 // ClearOu clears the "ou" edge to the OuResource entity.
-func (sruo *SiteResourceUpdateOne) ClearOu() *SiteResourceUpdateOne {
-	sruo.mutation.ClearOu()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearOu() *SiteResourceUpdateOne {
+	_u.mutation.ClearOu()
+	return _u
 }
 
 // ClearProvider clears the "provider" edge to the ProviderResource entity.
-func (sruo *SiteResourceUpdateOne) ClearProvider() *SiteResourceUpdateOne {
-	sruo.mutation.ClearProvider()
-	return sruo
+func (_u *SiteResourceUpdateOne) ClearProvider() *SiteResourceUpdateOne {
+	_u.mutation.ClearProvider()
+	return _u
 }
 
 // Where appends a list predicates to the SiteResourceUpdate builder.
-func (sruo *SiteResourceUpdateOne) Where(ps ...predicate.SiteResource) *SiteResourceUpdateOne {
-	sruo.mutation.Where(ps...)
-	return sruo
+func (_u *SiteResourceUpdateOne) Where(ps ...predicate.SiteResource) *SiteResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (sruo *SiteResourceUpdateOne) Select(field string, fields ...string) *SiteResourceUpdateOne {
-	sruo.fields = append([]string{field}, fields...)
-	return sruo
+func (_u *SiteResourceUpdateOne) Select(field string, fields ...string) *SiteResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated SiteResource entity.
-func (sruo *SiteResourceUpdateOne) Save(ctx context.Context) (*SiteResource, error) {
-	return withHooks(ctx, sruo.sqlSave, sruo.mutation, sruo.hooks)
+func (_u *SiteResourceUpdateOne) Save(ctx context.Context) (*SiteResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (sruo *SiteResourceUpdateOne) SaveX(ctx context.Context) *SiteResource {
-	node, err := sruo.Save(ctx)
+func (_u *SiteResourceUpdateOne) SaveX(ctx context.Context) *SiteResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -1009,26 +1009,26 @@ func (sruo *SiteResourceUpdateOne) SaveX(ctx context.Context) *SiteResource {
 }
 
 // Exec executes the query on the entity.
-func (sruo *SiteResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := sruo.Save(ctx)
+func (_u *SiteResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (sruo *SiteResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := sruo.Exec(ctx); err != nil {
+func (_u *SiteResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteResource, err error) {
+func (_u *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(siteresource.Table, siteresource.Columns, sqlgraph.NewFieldSpec(siteresource.FieldID, field.TypeInt))
-	id, ok := sruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "SiteResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := sruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, siteresource.FieldID)
 		for _, f := range fields {
@@ -1040,98 +1040,98 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 			}
 		}
 	}
-	if ps := sruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := sruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(siteresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := sruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(siteresource.FieldName, field.TypeString, value)
 	}
-	if sruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(siteresource.FieldName, field.TypeString)
 	}
-	if value, ok := sruo.mutation.Address(); ok {
+	if value, ok := _u.mutation.Address(); ok {
 		_spec.SetField(siteresource.FieldAddress, field.TypeString, value)
 	}
-	if sruo.mutation.AddressCleared() {
+	if _u.mutation.AddressCleared() {
 		_spec.ClearField(siteresource.FieldAddress, field.TypeString)
 	}
-	if value, ok := sruo.mutation.SiteLat(); ok {
+	if value, ok := _u.mutation.SiteLat(); ok {
 		_spec.SetField(siteresource.FieldSiteLat, field.TypeInt32, value)
 	}
-	if value, ok := sruo.mutation.AddedSiteLat(); ok {
+	if value, ok := _u.mutation.AddedSiteLat(); ok {
 		_spec.AddField(siteresource.FieldSiteLat, field.TypeInt32, value)
 	}
-	if sruo.mutation.SiteLatCleared() {
+	if _u.mutation.SiteLatCleared() {
 		_spec.ClearField(siteresource.FieldSiteLat, field.TypeInt32)
 	}
-	if value, ok := sruo.mutation.SiteLng(); ok {
+	if value, ok := _u.mutation.SiteLng(); ok {
 		_spec.SetField(siteresource.FieldSiteLng, field.TypeInt32, value)
 	}
-	if value, ok := sruo.mutation.AddedSiteLng(); ok {
+	if value, ok := _u.mutation.AddedSiteLng(); ok {
 		_spec.AddField(siteresource.FieldSiteLng, field.TypeInt32, value)
 	}
-	if sruo.mutation.SiteLngCleared() {
+	if _u.mutation.SiteLngCleared() {
 		_spec.ClearField(siteresource.FieldSiteLng, field.TypeInt32)
 	}
-	if value, ok := sruo.mutation.DNSServers(); ok {
+	if value, ok := _u.mutation.DNSServers(); ok {
 		_spec.SetField(siteresource.FieldDNSServers, field.TypeString, value)
 	}
-	if sruo.mutation.DNSServersCleared() {
+	if _u.mutation.DNSServersCleared() {
 		_spec.ClearField(siteresource.FieldDNSServers, field.TypeString)
 	}
-	if value, ok := sruo.mutation.DockerRegistries(); ok {
+	if value, ok := _u.mutation.DockerRegistries(); ok {
 		_spec.SetField(siteresource.FieldDockerRegistries, field.TypeString, value)
 	}
-	if sruo.mutation.DockerRegistriesCleared() {
+	if _u.mutation.DockerRegistriesCleared() {
 		_spec.ClearField(siteresource.FieldDockerRegistries, field.TypeString)
 	}
-	if value, ok := sruo.mutation.MetricsEndpoint(); ok {
+	if value, ok := _u.mutation.MetricsEndpoint(); ok {
 		_spec.SetField(siteresource.FieldMetricsEndpoint, field.TypeString, value)
 	}
-	if sruo.mutation.MetricsEndpointCleared() {
+	if _u.mutation.MetricsEndpointCleared() {
 		_spec.ClearField(siteresource.FieldMetricsEndpoint, field.TypeString)
 	}
-	if value, ok := sruo.mutation.HTTPProxy(); ok {
+	if value, ok := _u.mutation.HTTPProxy(); ok {
 		_spec.SetField(siteresource.FieldHTTPProxy, field.TypeString, value)
 	}
-	if sruo.mutation.HTTPProxyCleared() {
+	if _u.mutation.HTTPProxyCleared() {
 		_spec.ClearField(siteresource.FieldHTTPProxy, field.TypeString)
 	}
-	if value, ok := sruo.mutation.HTTPSProxy(); ok {
+	if value, ok := _u.mutation.HTTPSProxy(); ok {
 		_spec.SetField(siteresource.FieldHTTPSProxy, field.TypeString, value)
 	}
-	if sruo.mutation.HTTPSProxyCleared() {
+	if _u.mutation.HTTPSProxyCleared() {
 		_spec.ClearField(siteresource.FieldHTTPSProxy, field.TypeString)
 	}
-	if value, ok := sruo.mutation.FtpProxy(); ok {
+	if value, ok := _u.mutation.FtpProxy(); ok {
 		_spec.SetField(siteresource.FieldFtpProxy, field.TypeString, value)
 	}
-	if sruo.mutation.FtpProxyCleared() {
+	if _u.mutation.FtpProxyCleared() {
 		_spec.ClearField(siteresource.FieldFtpProxy, field.TypeString)
 	}
-	if value, ok := sruo.mutation.NoProxy(); ok {
+	if value, ok := _u.mutation.NoProxy(); ok {
 		_spec.SetField(siteresource.FieldNoProxy, field.TypeString, value)
 	}
-	if sruo.mutation.NoProxyCleared() {
+	if _u.mutation.NoProxyCleared() {
 		_spec.ClearField(siteresource.FieldNoProxy, field.TypeString)
 	}
-	if value, ok := sruo.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(siteresource.FieldMetadata, field.TypeString, value)
 	}
-	if sruo.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(siteresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := sruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(siteresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if sruo.mutation.RegionCleared() {
+	if _u.mutation.RegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1144,7 +1144,7 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := sruo.mutation.RegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.RegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1160,7 +1160,7 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if sruo.mutation.OuCleared() {
+	if _u.mutation.OuCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1173,7 +1173,7 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := sruo.mutation.OuIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.OuIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1189,7 +1189,7 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if sruo.mutation.ProviderCleared() {
+	if _u.mutation.ProviderCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1202,7 +1202,7 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := sruo.mutation.ProviderIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProviderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1218,10 +1218,10 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &SiteResource{config: sruo.config}
+	_node = &SiteResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, sruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{siteresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -1229,6 +1229,6 @@ func (sruo *SiteResourceUpdateOne) sqlSave(ctx context.Context) (_node *SiteReso
 		}
 		return nil, err
 	}
-	sruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

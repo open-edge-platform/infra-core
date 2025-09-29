@@ -31,44 +31,44 @@ type OSUpdatePolicyQuery struct {
 }
 
 // Where adds a new predicate for the OSUpdatePolicyQuery builder.
-func (oupq *OSUpdatePolicyQuery) Where(ps ...predicate.OSUpdatePolicy) *OSUpdatePolicyQuery {
-	oupq.predicates = append(oupq.predicates, ps...)
-	return oupq
+func (_q *OSUpdatePolicyQuery) Where(ps ...predicate.OSUpdatePolicy) *OSUpdatePolicyQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (oupq *OSUpdatePolicyQuery) Limit(limit int) *OSUpdatePolicyQuery {
-	oupq.ctx.Limit = &limit
-	return oupq
+func (_q *OSUpdatePolicyQuery) Limit(limit int) *OSUpdatePolicyQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (oupq *OSUpdatePolicyQuery) Offset(offset int) *OSUpdatePolicyQuery {
-	oupq.ctx.Offset = &offset
-	return oupq
+func (_q *OSUpdatePolicyQuery) Offset(offset int) *OSUpdatePolicyQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (oupq *OSUpdatePolicyQuery) Unique(unique bool) *OSUpdatePolicyQuery {
-	oupq.ctx.Unique = &unique
-	return oupq
+func (_q *OSUpdatePolicyQuery) Unique(unique bool) *OSUpdatePolicyQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (oupq *OSUpdatePolicyQuery) Order(o ...osupdatepolicy.OrderOption) *OSUpdatePolicyQuery {
-	oupq.order = append(oupq.order, o...)
-	return oupq
+func (_q *OSUpdatePolicyQuery) Order(o ...osupdatepolicy.OrderOption) *OSUpdatePolicyQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryTargetOs chains the current query on the "target_os" edge.
-func (oupq *OSUpdatePolicyQuery) QueryTargetOs() *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: oupq.config}).Query()
+func (_q *OSUpdatePolicyQuery) QueryTargetOs() *OperatingSystemResourceQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := oupq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := oupq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (oupq *OSUpdatePolicyQuery) QueryTargetOs() *OperatingSystemResourceQuery {
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdatepolicy.TargetOsTable, osupdatepolicy.TargetOsColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(oupq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (oupq *OSUpdatePolicyQuery) QueryTargetOs() *OperatingSystemResourceQuery {
 
 // First returns the first OSUpdatePolicy entity from the query.
 // Returns a *NotFoundError when no OSUpdatePolicy was found.
-func (oupq *OSUpdatePolicyQuery) First(ctx context.Context) (*OSUpdatePolicy, error) {
-	nodes, err := oupq.Limit(1).All(setContextOp(ctx, oupq.ctx, ent.OpQueryFirst))
+func (_q *OSUpdatePolicyQuery) First(ctx context.Context) (*OSUpdatePolicy, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (oupq *OSUpdatePolicyQuery) First(ctx context.Context) (*OSUpdatePolicy, er
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) FirstX(ctx context.Context) *OSUpdatePolicy {
-	node, err := oupq.First(ctx)
+func (_q *OSUpdatePolicyQuery) FirstX(ctx context.Context) *OSUpdatePolicy {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (oupq *OSUpdatePolicyQuery) FirstX(ctx context.Context) *OSUpdatePolicy {
 
 // FirstID returns the first OSUpdatePolicy ID from the query.
 // Returns a *NotFoundError when no OSUpdatePolicy ID was found.
-func (oupq *OSUpdatePolicyQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *OSUpdatePolicyQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = oupq.Limit(1).IDs(setContextOp(ctx, oupq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (oupq *OSUpdatePolicyQuery) FirstID(ctx context.Context) (id int, err error
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) FirstIDX(ctx context.Context) int {
-	id, err := oupq.FirstID(ctx)
+func (_q *OSUpdatePolicyQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (oupq *OSUpdatePolicyQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single OSUpdatePolicy entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one OSUpdatePolicy entity is found.
 // Returns a *NotFoundError when no OSUpdatePolicy entities are found.
-func (oupq *OSUpdatePolicyQuery) Only(ctx context.Context) (*OSUpdatePolicy, error) {
-	nodes, err := oupq.Limit(2).All(setContextOp(ctx, oupq.ctx, ent.OpQueryOnly))
+func (_q *OSUpdatePolicyQuery) Only(ctx context.Context) (*OSUpdatePolicy, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (oupq *OSUpdatePolicyQuery) Only(ctx context.Context) (*OSUpdatePolicy, err
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) OnlyX(ctx context.Context) *OSUpdatePolicy {
-	node, err := oupq.Only(ctx)
+func (_q *OSUpdatePolicyQuery) OnlyX(ctx context.Context) *OSUpdatePolicy {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (oupq *OSUpdatePolicyQuery) OnlyX(ctx context.Context) *OSUpdatePolicy {
 // OnlyID is like Only, but returns the only OSUpdatePolicy ID in the query.
 // Returns a *NotSingularError when more than one OSUpdatePolicy ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (oupq *OSUpdatePolicyQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *OSUpdatePolicyQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = oupq.Limit(2).IDs(setContextOp(ctx, oupq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (oupq *OSUpdatePolicyQuery) OnlyID(ctx context.Context) (id int, err error)
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) OnlyIDX(ctx context.Context) int {
-	id, err := oupq.OnlyID(ctx)
+func (_q *OSUpdatePolicyQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (oupq *OSUpdatePolicyQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of OSUpdatePolicies.
-func (oupq *OSUpdatePolicyQuery) All(ctx context.Context) ([]*OSUpdatePolicy, error) {
-	ctx = setContextOp(ctx, oupq.ctx, ent.OpQueryAll)
-	if err := oupq.prepareQuery(ctx); err != nil {
+func (_q *OSUpdatePolicyQuery) All(ctx context.Context) ([]*OSUpdatePolicy, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*OSUpdatePolicy, *OSUpdatePolicyQuery]()
-	return withInterceptors[[]*OSUpdatePolicy](ctx, oupq, qr, oupq.inters)
+	return withInterceptors[[]*OSUpdatePolicy](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) AllX(ctx context.Context) []*OSUpdatePolicy {
-	nodes, err := oupq.All(ctx)
+func (_q *OSUpdatePolicyQuery) AllX(ctx context.Context) []*OSUpdatePolicy {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (oupq *OSUpdatePolicyQuery) AllX(ctx context.Context) []*OSUpdatePolicy {
 }
 
 // IDs executes the query and returns a list of OSUpdatePolicy IDs.
-func (oupq *OSUpdatePolicyQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if oupq.ctx.Unique == nil && oupq.path != nil {
-		oupq.Unique(true)
+func (_q *OSUpdatePolicyQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, oupq.ctx, ent.OpQueryIDs)
-	if err = oupq.Select(osupdatepolicy.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(osupdatepolicy.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) IDsX(ctx context.Context) []int {
-	ids, err := oupq.IDs(ctx)
+func (_q *OSUpdatePolicyQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (oupq *OSUpdatePolicyQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (oupq *OSUpdatePolicyQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, oupq.ctx, ent.OpQueryCount)
-	if err := oupq.prepareQuery(ctx); err != nil {
+func (_q *OSUpdatePolicyQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, oupq, querierCount[*OSUpdatePolicyQuery](), oupq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*OSUpdatePolicyQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) CountX(ctx context.Context) int {
-	count, err := oupq.Count(ctx)
+func (_q *OSUpdatePolicyQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (oupq *OSUpdatePolicyQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (oupq *OSUpdatePolicyQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, oupq.ctx, ent.OpQueryExist)
-	switch _, err := oupq.FirstID(ctx); {
+func (_q *OSUpdatePolicyQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (oupq *OSUpdatePolicyQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (oupq *OSUpdatePolicyQuery) ExistX(ctx context.Context) bool {
-	exist, err := oupq.Exist(ctx)
+func (_q *OSUpdatePolicyQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (oupq *OSUpdatePolicyQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the OSUpdatePolicyQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (oupq *OSUpdatePolicyQuery) Clone() *OSUpdatePolicyQuery {
-	if oupq == nil {
+func (_q *OSUpdatePolicyQuery) Clone() *OSUpdatePolicyQuery {
+	if _q == nil {
 		return nil
 	}
 	return &OSUpdatePolicyQuery{
-		config:       oupq.config,
-		ctx:          oupq.ctx.Clone(),
-		order:        append([]osupdatepolicy.OrderOption{}, oupq.order...),
-		inters:       append([]Interceptor{}, oupq.inters...),
-		predicates:   append([]predicate.OSUpdatePolicy{}, oupq.predicates...),
-		withTargetOs: oupq.withTargetOs.Clone(),
+		config:       _q.config,
+		ctx:          _q.ctx.Clone(),
+		order:        append([]osupdatepolicy.OrderOption{}, _q.order...),
+		inters:       append([]Interceptor{}, _q.inters...),
+		predicates:   append([]predicate.OSUpdatePolicy{}, _q.predicates...),
+		withTargetOs: _q.withTargetOs.Clone(),
 		// clone intermediate query.
-		sql:  oupq.sql.Clone(),
-		path: oupq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithTargetOs tells the query-builder to eager-load the nodes that are connected to
 // the "target_os" edge. The optional arguments are used to configure the query builder of the edge.
-func (oupq *OSUpdatePolicyQuery) WithTargetOs(opts ...func(*OperatingSystemResourceQuery)) *OSUpdatePolicyQuery {
-	query := (&OperatingSystemResourceClient{config: oupq.config}).Query()
+func (_q *OSUpdatePolicyQuery) WithTargetOs(opts ...func(*OperatingSystemResourceQuery)) *OSUpdatePolicyQuery {
+	query := (&OperatingSystemResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	oupq.withTargetOs = query
-	return oupq
+	_q.withTargetOs = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (oupq *OSUpdatePolicyQuery) WithTargetOs(opts ...func(*OperatingSystemResou
 //		GroupBy(osupdatepolicy.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (oupq *OSUpdatePolicyQuery) GroupBy(field string, fields ...string) *OSUpdatePolicyGroupBy {
-	oupq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &OSUpdatePolicyGroupBy{build: oupq}
-	grbuild.flds = &oupq.ctx.Fields
+func (_q *OSUpdatePolicyQuery) GroupBy(field string, fields ...string) *OSUpdatePolicyGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &OSUpdatePolicyGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = osupdatepolicy.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,55 +328,55 @@ func (oupq *OSUpdatePolicyQuery) GroupBy(field string, fields ...string) *OSUpda
 //	client.OSUpdatePolicy.Query().
 //		Select(osupdatepolicy.FieldResourceID).
 //		Scan(ctx, &v)
-func (oupq *OSUpdatePolicyQuery) Select(fields ...string) *OSUpdatePolicySelect {
-	oupq.ctx.Fields = append(oupq.ctx.Fields, fields...)
-	sbuild := &OSUpdatePolicySelect{OSUpdatePolicyQuery: oupq}
+func (_q *OSUpdatePolicyQuery) Select(fields ...string) *OSUpdatePolicySelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &OSUpdatePolicySelect{OSUpdatePolicyQuery: _q}
 	sbuild.label = osupdatepolicy.Label
-	sbuild.flds, sbuild.scan = &oupq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a OSUpdatePolicySelect configured with the given aggregations.
-func (oupq *OSUpdatePolicyQuery) Aggregate(fns ...AggregateFunc) *OSUpdatePolicySelect {
-	return oupq.Select().Aggregate(fns...)
+func (_q *OSUpdatePolicyQuery) Aggregate(fns ...AggregateFunc) *OSUpdatePolicySelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (oupq *OSUpdatePolicyQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range oupq.inters {
+func (_q *OSUpdatePolicyQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, oupq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range oupq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !osupdatepolicy.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if oupq.path != nil {
-		prev, err := oupq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		oupq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (oupq *OSUpdatePolicyQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*OSUpdatePolicy, error) {
+func (_q *OSUpdatePolicyQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*OSUpdatePolicy, error) {
 	var (
 		nodes       = []*OSUpdatePolicy{}
-		withFKs     = oupq.withFKs
-		_spec       = oupq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			oupq.withTargetOs != nil,
+			_q.withTargetOs != nil,
 		}
 	)
-	if oupq.withTargetOs != nil {
+	if _q.withTargetOs != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,7 +386,7 @@ func (oupq *OSUpdatePolicyQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 		return (*OSUpdatePolicy).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &OSUpdatePolicy{config: oupq.config}
+		node := &OSUpdatePolicy{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -394,14 +394,14 @@ func (oupq *OSUpdatePolicyQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, oupq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := oupq.withTargetOs; query != nil {
-		if err := oupq.loadTargetOs(ctx, query, nodes, nil,
+	if query := _q.withTargetOs; query != nil {
+		if err := _q.loadTargetOs(ctx, query, nodes, nil,
 			func(n *OSUpdatePolicy, e *OperatingSystemResource) { n.Edges.TargetOs = e }); err != nil {
 			return nil, err
 		}
@@ -409,7 +409,7 @@ func (oupq *OSUpdatePolicyQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 	return nodes, nil
 }
 
-func (oupq *OSUpdatePolicyQuery) loadTargetOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*OSUpdatePolicy, init func(*OSUpdatePolicy), assign func(*OSUpdatePolicy, *OperatingSystemResource)) error {
+func (_q *OSUpdatePolicyQuery) loadTargetOs(ctx context.Context, query *OperatingSystemResourceQuery, nodes []*OSUpdatePolicy, init func(*OSUpdatePolicy), assign func(*OSUpdatePolicy, *OperatingSystemResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*OSUpdatePolicy)
 	for i := range nodes {
@@ -442,24 +442,24 @@ func (oupq *OSUpdatePolicyQuery) loadTargetOs(ctx context.Context, query *Operat
 	return nil
 }
 
-func (oupq *OSUpdatePolicyQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := oupq.querySpec()
-	_spec.Node.Columns = oupq.ctx.Fields
-	if len(oupq.ctx.Fields) > 0 {
-		_spec.Unique = oupq.ctx.Unique != nil && *oupq.ctx.Unique
+func (_q *OSUpdatePolicyQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, oupq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (oupq *OSUpdatePolicyQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *OSUpdatePolicyQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(osupdatepolicy.Table, osupdatepolicy.Columns, sqlgraph.NewFieldSpec(osupdatepolicy.FieldID, field.TypeInt))
-	_spec.From = oupq.sql
-	if unique := oupq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if oupq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := oupq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, osupdatepolicy.FieldID)
 		for i := range fields {
@@ -468,20 +468,20 @@ func (oupq *OSUpdatePolicyQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := oupq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := oupq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := oupq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := oupq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -491,33 +491,33 @@ func (oupq *OSUpdatePolicyQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (oupq *OSUpdatePolicyQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(oupq.driver.Dialect())
+func (_q *OSUpdatePolicyQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(osupdatepolicy.Table)
-	columns := oupq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = osupdatepolicy.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if oupq.sql != nil {
-		selector = oupq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if oupq.ctx.Unique != nil && *oupq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range oupq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range oupq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := oupq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := oupq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -530,41 +530,41 @@ type OSUpdatePolicyGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (oupgb *OSUpdatePolicyGroupBy) Aggregate(fns ...AggregateFunc) *OSUpdatePolicyGroupBy {
-	oupgb.fns = append(oupgb.fns, fns...)
-	return oupgb
+func (_g *OSUpdatePolicyGroupBy) Aggregate(fns ...AggregateFunc) *OSUpdatePolicyGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (oupgb *OSUpdatePolicyGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, oupgb.build.ctx, ent.OpQueryGroupBy)
-	if err := oupgb.build.prepareQuery(ctx); err != nil {
+func (_g *OSUpdatePolicyGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*OSUpdatePolicyQuery, *OSUpdatePolicyGroupBy](ctx, oupgb.build, oupgb, oupgb.build.inters, v)
+	return scanWithInterceptors[*OSUpdatePolicyQuery, *OSUpdatePolicyGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (oupgb *OSUpdatePolicyGroupBy) sqlScan(ctx context.Context, root *OSUpdatePolicyQuery, v any) error {
+func (_g *OSUpdatePolicyGroupBy) sqlScan(ctx context.Context, root *OSUpdatePolicyQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(oupgb.fns))
-	for _, fn := range oupgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*oupgb.flds)+len(oupgb.fns))
-		for _, f := range *oupgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*oupgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := oupgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -578,27 +578,27 @@ type OSUpdatePolicySelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (oups *OSUpdatePolicySelect) Aggregate(fns ...AggregateFunc) *OSUpdatePolicySelect {
-	oups.fns = append(oups.fns, fns...)
-	return oups
+func (_s *OSUpdatePolicySelect) Aggregate(fns ...AggregateFunc) *OSUpdatePolicySelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (oups *OSUpdatePolicySelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, oups.ctx, ent.OpQuerySelect)
-	if err := oups.prepareQuery(ctx); err != nil {
+func (_s *OSUpdatePolicySelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*OSUpdatePolicyQuery, *OSUpdatePolicySelect](ctx, oups.OSUpdatePolicyQuery, oups, oups.inters, v)
+	return scanWithInterceptors[*OSUpdatePolicyQuery, *OSUpdatePolicySelect](ctx, _s.OSUpdatePolicyQuery, _s, _s.inters, v)
 }
 
-func (oups *OSUpdatePolicySelect) sqlScan(ctx context.Context, root *OSUpdatePolicyQuery, v any) error {
+func (_s *OSUpdatePolicySelect) sqlScan(ctx context.Context, root *OSUpdatePolicyQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(oups.fns))
-	for _, fn := range oups.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*oups.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -606,7 +606,7 @@ func (oups *OSUpdatePolicySelect) sqlScan(ctx context.Context, root *OSUpdatePol
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := oups.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

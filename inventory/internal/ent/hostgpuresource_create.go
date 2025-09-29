@@ -21,137 +21,137 @@ type HostgpuResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hrc *HostgpuResourceCreate) SetResourceID(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetResourceID(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetResourceID(v string) *HostgpuResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetPciID sets the "pci_id" field.
-func (hrc *HostgpuResourceCreate) SetPciID(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetPciID(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetPciID(v string) *HostgpuResourceCreate {
+	_c.mutation.SetPciID(v)
+	return _c
 }
 
 // SetNillablePciID sets the "pci_id" field if the given value is not nil.
-func (hrc *HostgpuResourceCreate) SetNillablePciID(s *string) *HostgpuResourceCreate {
-	if s != nil {
-		hrc.SetPciID(*s)
+func (_c *HostgpuResourceCreate) SetNillablePciID(v *string) *HostgpuResourceCreate {
+	if v != nil {
+		_c.SetPciID(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetProduct sets the "product" field.
-func (hrc *HostgpuResourceCreate) SetProduct(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetProduct(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetProduct(v string) *HostgpuResourceCreate {
+	_c.mutation.SetProduct(v)
+	return _c
 }
 
 // SetNillableProduct sets the "product" field if the given value is not nil.
-func (hrc *HostgpuResourceCreate) SetNillableProduct(s *string) *HostgpuResourceCreate {
-	if s != nil {
-		hrc.SetProduct(*s)
+func (_c *HostgpuResourceCreate) SetNillableProduct(v *string) *HostgpuResourceCreate {
+	if v != nil {
+		_c.SetProduct(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetVendor sets the "vendor" field.
-func (hrc *HostgpuResourceCreate) SetVendor(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetVendor(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetVendor(v string) *HostgpuResourceCreate {
+	_c.mutation.SetVendor(v)
+	return _c
 }
 
 // SetNillableVendor sets the "vendor" field if the given value is not nil.
-func (hrc *HostgpuResourceCreate) SetNillableVendor(s *string) *HostgpuResourceCreate {
-	if s != nil {
-		hrc.SetVendor(*s)
+func (_c *HostgpuResourceCreate) SetNillableVendor(v *string) *HostgpuResourceCreate {
+	if v != nil {
+		_c.SetVendor(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (hrc *HostgpuResourceCreate) SetDescription(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetDescription(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetDescription(v string) *HostgpuResourceCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (hrc *HostgpuResourceCreate) SetNillableDescription(s *string) *HostgpuResourceCreate {
-	if s != nil {
-		hrc.SetDescription(*s)
+func (_c *HostgpuResourceCreate) SetNillableDescription(v *string) *HostgpuResourceCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hrc *HostgpuResourceCreate) SetDeviceName(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetDeviceName(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetDeviceName(v string) *HostgpuResourceCreate {
+	_c.mutation.SetDeviceName(v)
+	return _c
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hrc *HostgpuResourceCreate) SetNillableDeviceName(s *string) *HostgpuResourceCreate {
-	if s != nil {
-		hrc.SetDeviceName(*s)
+func (_c *HostgpuResourceCreate) SetNillableDeviceName(v *string) *HostgpuResourceCreate {
+	if v != nil {
+		_c.SetDeviceName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetFeatures sets the "features" field.
-func (hrc *HostgpuResourceCreate) SetFeatures(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetFeatures(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetFeatures(v string) *HostgpuResourceCreate {
+	_c.mutation.SetFeatures(v)
+	return _c
 }
 
 // SetNillableFeatures sets the "features" field if the given value is not nil.
-func (hrc *HostgpuResourceCreate) SetNillableFeatures(s *string) *HostgpuResourceCreate {
-	if s != nil {
-		hrc.SetFeatures(*s)
+func (_c *HostgpuResourceCreate) SetNillableFeatures(v *string) *HostgpuResourceCreate {
+	if v != nil {
+		_c.SetFeatures(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (hrc *HostgpuResourceCreate) SetTenantID(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetTenantID(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetTenantID(v string) *HostgpuResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (hrc *HostgpuResourceCreate) SetCreatedAt(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetCreatedAt(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetCreatedAt(v string) *HostgpuResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hrc *HostgpuResourceCreate) SetUpdatedAt(s string) *HostgpuResourceCreate {
-	hrc.mutation.SetUpdatedAt(s)
-	return hrc
+func (_c *HostgpuResourceCreate) SetUpdatedAt(v string) *HostgpuResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hrc *HostgpuResourceCreate) SetHostID(id int) *HostgpuResourceCreate {
-	hrc.mutation.SetHostID(id)
-	return hrc
+func (_c *HostgpuResourceCreate) SetHostID(id int) *HostgpuResourceCreate {
+	_c.mutation.SetHostID(id)
+	return _c
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hrc *HostgpuResourceCreate) SetHost(h *HostResource) *HostgpuResourceCreate {
-	return hrc.SetHostID(h.ID)
+func (_c *HostgpuResourceCreate) SetHost(v *HostResource) *HostgpuResourceCreate {
+	return _c.SetHostID(v.ID)
 }
 
 // Mutation returns the HostgpuResourceMutation object of the builder.
-func (hrc *HostgpuResourceCreate) Mutation() *HostgpuResourceMutation {
-	return hrc.mutation
+func (_c *HostgpuResourceCreate) Mutation() *HostgpuResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the HostgpuResource in the database.
-func (hrc *HostgpuResourceCreate) Save(ctx context.Context) (*HostgpuResource, error) {
-	return withHooks(ctx, hrc.sqlSave, hrc.mutation, hrc.hooks)
+func (_c *HostgpuResourceCreate) Save(ctx context.Context) (*HostgpuResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (hrc *HostgpuResourceCreate) SaveX(ctx context.Context) *HostgpuResource {
-	v, err := hrc.Save(ctx)
+func (_c *HostgpuResourceCreate) SaveX(ctx context.Context) *HostgpuResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,44 +159,44 @@ func (hrc *HostgpuResourceCreate) SaveX(ctx context.Context) *HostgpuResource {
 }
 
 // Exec executes the query.
-func (hrc *HostgpuResourceCreate) Exec(ctx context.Context) error {
-	_, err := hrc.Save(ctx)
+func (_c *HostgpuResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrc *HostgpuResourceCreate) ExecX(ctx context.Context) {
-	if err := hrc.Exec(ctx); err != nil {
+func (_c *HostgpuResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hrc *HostgpuResourceCreate) check() error {
-	if _, ok := hrc.mutation.ResourceID(); !ok {
+func (_c *HostgpuResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "HostgpuResource.resource_id"`)}
 	}
-	if _, ok := hrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "HostgpuResource.tenant_id"`)}
 	}
-	if _, ok := hrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "HostgpuResource.created_at"`)}
 	}
-	if _, ok := hrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "HostgpuResource.updated_at"`)}
 	}
-	if len(hrc.mutation.HostIDs()) == 0 {
+	if len(_c.mutation.HostIDs()) == 0 {
 		return &ValidationError{Name: "host", err: errors.New(`ent: missing required edge "HostgpuResource.host"`)}
 	}
 	return nil
 }
 
-func (hrc *HostgpuResourceCreate) sqlSave(ctx context.Context) (*HostgpuResource, error) {
-	if err := hrc.check(); err != nil {
+func (_c *HostgpuResourceCreate) sqlSave(ctx context.Context) (*HostgpuResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := hrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, hrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -204,57 +204,57 @@ func (hrc *HostgpuResourceCreate) sqlSave(ctx context.Context) (*HostgpuResource
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	hrc.mutation.id = &_node.ID
-	hrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (hrc *HostgpuResourceCreate) createSpec() (*HostgpuResource, *sqlgraph.CreateSpec) {
+func (_c *HostgpuResourceCreate) createSpec() (*HostgpuResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &HostgpuResource{config: hrc.config}
+		_node = &HostgpuResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(hostgpuresource.Table, sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt))
 	)
-	if value, ok := hrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(hostgpuresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := hrc.mutation.PciID(); ok {
+	if value, ok := _c.mutation.PciID(); ok {
 		_spec.SetField(hostgpuresource.FieldPciID, field.TypeString, value)
 		_node.PciID = value
 	}
-	if value, ok := hrc.mutation.Product(); ok {
+	if value, ok := _c.mutation.Product(); ok {
 		_spec.SetField(hostgpuresource.FieldProduct, field.TypeString, value)
 		_node.Product = value
 	}
-	if value, ok := hrc.mutation.Vendor(); ok {
+	if value, ok := _c.mutation.Vendor(); ok {
 		_spec.SetField(hostgpuresource.FieldVendor, field.TypeString, value)
 		_node.Vendor = value
 	}
-	if value, ok := hrc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(hostgpuresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := hrc.mutation.DeviceName(); ok {
+	if value, ok := _c.mutation.DeviceName(); ok {
 		_spec.SetField(hostgpuresource.FieldDeviceName, field.TypeString, value)
 		_node.DeviceName = value
 	}
-	if value, ok := hrc.mutation.Features(); ok {
+	if value, ok := _c.mutation.Features(); ok {
 		_spec.SetField(hostgpuresource.FieldFeatures, field.TypeString, value)
 		_node.Features = value
 	}
-	if value, ok := hrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostgpuresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := hrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(hostgpuresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := hrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostgpuresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := hrc.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -282,16 +282,16 @@ type HostgpuResourceCreateBulk struct {
 }
 
 // Save creates the HostgpuResource entities in the database.
-func (hrcb *HostgpuResourceCreateBulk) Save(ctx context.Context) ([]*HostgpuResource, error) {
-	if hrcb.err != nil {
-		return nil, hrcb.err
+func (_c *HostgpuResourceCreateBulk) Save(ctx context.Context) ([]*HostgpuResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(hrcb.builders))
-	nodes := make([]*HostgpuResource, len(hrcb.builders))
-	mutators := make([]Mutator, len(hrcb.builders))
-	for i := range hrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*HostgpuResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := hrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*HostgpuResourceMutation)
 				if !ok {
@@ -304,11 +304,11 @@ func (hrcb *HostgpuResourceCreateBulk) Save(ctx context.Context) ([]*HostgpuReso
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, hrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, hrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -332,7 +332,7 @@ func (hrcb *HostgpuResourceCreateBulk) Save(ctx context.Context) ([]*HostgpuReso
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, hrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -340,8 +340,8 @@ func (hrcb *HostgpuResourceCreateBulk) Save(ctx context.Context) ([]*HostgpuReso
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hrcb *HostgpuResourceCreateBulk) SaveX(ctx context.Context) []*HostgpuResource {
-	v, err := hrcb.Save(ctx)
+func (_c *HostgpuResourceCreateBulk) SaveX(ctx context.Context) []*HostgpuResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -349,14 +349,14 @@ func (hrcb *HostgpuResourceCreateBulk) SaveX(ctx context.Context) []*HostgpuReso
 }
 
 // Exec executes the query.
-func (hrcb *HostgpuResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := hrcb.Save(ctx)
+func (_c *HostgpuResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrcb *HostgpuResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := hrcb.Exec(ctx); err != nil {
+func (_c *HostgpuResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

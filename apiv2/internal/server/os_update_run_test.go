@@ -29,7 +29,7 @@ var (
 		ResourceId:  "osupdaterun-12345678",
 		Name:        "example-run",
 		Description: "An example OS update run",
-		StartTime:   time.Now().UTC().Format(invserver.ISO8601TimeFormat),
+		StartTime:   uint64(time.Now().Unix()),
 	}
 )
 

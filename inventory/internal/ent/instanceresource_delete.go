@@ -20,56 +20,56 @@ type InstanceResourceDelete struct {
 }
 
 // Where appends a list predicates to the InstanceResourceDelete builder.
-func (ird *InstanceResourceDelete) Where(ps ...predicate.InstanceResource) *InstanceResourceDelete {
-	ird.mutation.Where(ps...)
-	return ird
+func (_d *InstanceResourceDelete) Where(ps ...predicate.InstanceResource) *InstanceResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (ird *InstanceResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, ird.sqlExec, ird.mutation, ird.hooks)
+func (_d *InstanceResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ird *InstanceResourceDelete) ExecX(ctx context.Context) int {
-	n, err := ird.Exec(ctx)
+func (_d *InstanceResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (ird *InstanceResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *InstanceResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(instanceresource.Table, sqlgraph.NewFieldSpec(instanceresource.FieldID, field.TypeInt))
-	if ps := ird.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, ird.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	ird.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // InstanceResourceDeleteOne is the builder for deleting a single InstanceResource entity.
 type InstanceResourceDeleteOne struct {
-	ird *InstanceResourceDelete
+	_d *InstanceResourceDelete
 }
 
 // Where appends a list predicates to the InstanceResourceDelete builder.
-func (irdo *InstanceResourceDeleteOne) Where(ps ...predicate.InstanceResource) *InstanceResourceDeleteOne {
-	irdo.ird.mutation.Where(ps...)
-	return irdo
+func (_d *InstanceResourceDeleteOne) Where(ps ...predicate.InstanceResource) *InstanceResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (irdo *InstanceResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := irdo.ird.Exec(ctx)
+func (_d *InstanceResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (irdo *InstanceResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (irdo *InstanceResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := irdo.Exec(ctx); err != nil {
+func (_d *InstanceResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

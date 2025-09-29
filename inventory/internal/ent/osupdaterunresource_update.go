@@ -24,174 +24,188 @@ type OSUpdateRunResourceUpdate struct {
 }
 
 // Where appends a list predicates to the OSUpdateRunResourceUpdate builder.
-func (ourru *OSUpdateRunResourceUpdate) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceUpdate {
-	ourru.mutation.Where(ps...)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ourru *OSUpdateRunResourceUpdate) SetResourceID(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetResourceID(s)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetResourceID(v string) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableResourceID(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetResourceID(*s)
+func (_u *OSUpdateRunResourceUpdate) SetNillableResourceID(v *string) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return ourru
+	return _u
 }
 
 // SetStatusIndicator sets the "status_indicator" field.
-func (ourru *OSUpdateRunResourceUpdate) SetStatusIndicator(oi osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetStatusIndicator(oi)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetStatusIndicator(v osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetStatusIndicator(v)
+	return _u
 }
 
 // SetNillableStatusIndicator sets the "status_indicator" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableStatusIndicator(oi *osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdate {
-	if oi != nil {
-		ourru.SetStatusIndicator(*oi)
+func (_u *OSUpdateRunResourceUpdate) SetNillableStatusIndicator(v *osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetStatusIndicator(*v)
 	}
-	return ourru
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (ourru *OSUpdateRunResourceUpdate) SetStatus(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetStatus(s)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetStatus(v string) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableStatus(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetStatus(*s)
+func (_u *OSUpdateRunResourceUpdate) SetNillableStatus(v *string) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return ourru
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (ourru *OSUpdateRunResourceUpdate) ClearStatus() *OSUpdateRunResourceUpdate {
-	ourru.mutation.ClearStatus()
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) ClearStatus() *OSUpdateRunResourceUpdate {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetStatusDetails sets the "status_details" field.
-func (ourru *OSUpdateRunResourceUpdate) SetStatusDetails(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetStatusDetails(s)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetStatusDetails(v string) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetStatusDetails(v)
+	return _u
 }
 
 // SetNillableStatusDetails sets the "status_details" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableStatusDetails(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetStatusDetails(*s)
+func (_u *OSUpdateRunResourceUpdate) SetNillableStatusDetails(v *string) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetStatusDetails(*v)
 	}
-	return ourru
+	return _u
 }
 
 // ClearStatusDetails clears the value of the "status_details" field.
-func (ourru *OSUpdateRunResourceUpdate) ClearStatusDetails() *OSUpdateRunResourceUpdate {
-	ourru.mutation.ClearStatusDetails()
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) ClearStatusDetails() *OSUpdateRunResourceUpdate {
+	_u.mutation.ClearStatusDetails()
+	return _u
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (ourru *OSUpdateRunResourceUpdate) SetStatusTimestamp(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetStatusTimestamp(s)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetStatusTimestamp(v uint64) *OSUpdateRunResourceUpdate {
+	_u.mutation.ResetStatusTimestamp()
+	_u.mutation.SetStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableStatusTimestamp sets the "status_timestamp" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableStatusTimestamp(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetStatusTimestamp(*s)
+func (_u *OSUpdateRunResourceUpdate) SetNillableStatusTimestamp(v *uint64) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetStatusTimestamp(*v)
 	}
-	return ourru
+	return _u
+}
+
+// AddStatusTimestamp adds value to the "status_timestamp" field.
+func (_u *OSUpdateRunResourceUpdate) AddStatusTimestamp(v int64) *OSUpdateRunResourceUpdate {
+	_u.mutation.AddStatusTimestamp(v)
+	return _u
 }
 
 // SetEndTime sets the "end_time" field.
-func (ourru *OSUpdateRunResourceUpdate) SetEndTime(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetEndTime(s)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetEndTime(v uint64) *OSUpdateRunResourceUpdate {
+	_u.mutation.ResetEndTime()
+	_u.mutation.SetEndTime(v)
+	return _u
 }
 
 // SetNillableEndTime sets the "end_time" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableEndTime(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetEndTime(*s)
+func (_u *OSUpdateRunResourceUpdate) SetNillableEndTime(v *uint64) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetEndTime(*v)
 	}
-	return ourru
+	return _u
+}
+
+// AddEndTime adds value to the "end_time" field.
+func (_u *OSUpdateRunResourceUpdate) AddEndTime(v int64) *OSUpdateRunResourceUpdate {
+	_u.mutation.AddEndTime(v)
+	return _u
 }
 
 // ClearEndTime clears the value of the "end_time" field.
-func (ourru *OSUpdateRunResourceUpdate) ClearEndTime() *OSUpdateRunResourceUpdate {
-	ourru.mutation.ClearEndTime()
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) ClearEndTime() *OSUpdateRunResourceUpdate {
+	_u.mutation.ClearEndTime()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ourru *OSUpdateRunResourceUpdate) SetUpdatedAt(s string) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetUpdatedAt(s)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetUpdatedAt(v string) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ourru *OSUpdateRunResourceUpdate) SetNillableUpdatedAt(s *string) *OSUpdateRunResourceUpdate {
-	if s != nil {
-		ourru.SetUpdatedAt(*s)
+func (_u *OSUpdateRunResourceUpdate) SetNillableUpdatedAt(v *string) *OSUpdateRunResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return ourru
+	return _u
 }
 
 // SetAppliedPolicyID sets the "applied_policy" edge to the OSUpdatePolicyResource entity by ID.
-func (ourru *OSUpdateRunResourceUpdate) SetAppliedPolicyID(id int) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetAppliedPolicyID(id)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetAppliedPolicyID(id int) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetAppliedPolicyID(id)
+	return _u
 }
 
 // SetAppliedPolicy sets the "applied_policy" edge to the OSUpdatePolicyResource entity.
-func (ourru *OSUpdateRunResourceUpdate) SetAppliedPolicy(o *OSUpdatePolicyResource) *OSUpdateRunResourceUpdate {
-	return ourru.SetAppliedPolicyID(o.ID)
+func (_u *OSUpdateRunResourceUpdate) SetAppliedPolicy(v *OSUpdatePolicyResource) *OSUpdateRunResourceUpdate {
+	return _u.SetAppliedPolicyID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (ourru *OSUpdateRunResourceUpdate) SetInstanceID(id int) *OSUpdateRunResourceUpdate {
-	ourru.mutation.SetInstanceID(id)
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) SetInstanceID(id int) *OSUpdateRunResourceUpdate {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (ourru *OSUpdateRunResourceUpdate) SetInstance(i *InstanceResource) *OSUpdateRunResourceUpdate {
-	return ourru.SetInstanceID(i.ID)
+func (_u *OSUpdateRunResourceUpdate) SetInstance(v *InstanceResource) *OSUpdateRunResourceUpdate {
+	return _u.SetInstanceID(v.ID)
 }
 
 // Mutation returns the OSUpdateRunResourceMutation object of the builder.
-func (ourru *OSUpdateRunResourceUpdate) Mutation() *OSUpdateRunResourceMutation {
-	return ourru.mutation
+func (_u *OSUpdateRunResourceUpdate) Mutation() *OSUpdateRunResourceMutation {
+	return _u.mutation
 }
 
 // ClearAppliedPolicy clears the "applied_policy" edge to the OSUpdatePolicyResource entity.
-func (ourru *OSUpdateRunResourceUpdate) ClearAppliedPolicy() *OSUpdateRunResourceUpdate {
-	ourru.mutation.ClearAppliedPolicy()
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) ClearAppliedPolicy() *OSUpdateRunResourceUpdate {
+	_u.mutation.ClearAppliedPolicy()
+	return _u
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (ourru *OSUpdateRunResourceUpdate) ClearInstance() *OSUpdateRunResourceUpdate {
-	ourru.mutation.ClearInstance()
-	return ourru
+func (_u *OSUpdateRunResourceUpdate) ClearInstance() *OSUpdateRunResourceUpdate {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (ourru *OSUpdateRunResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, ourru.sqlSave, ourru.mutation, ourru.hooks)
+func (_u *OSUpdateRunResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ourru *OSUpdateRunResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := ourru.Save(ctx)
+func (_u *OSUpdateRunResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -199,83 +213,89 @@ func (ourru *OSUpdateRunResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (ourru *OSUpdateRunResourceUpdate) Exec(ctx context.Context) error {
-	_, err := ourru.Save(ctx)
+func (_u *OSUpdateRunResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ourru *OSUpdateRunResourceUpdate) ExecX(ctx context.Context) {
-	if err := ourru.Exec(ctx); err != nil {
+func (_u *OSUpdateRunResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ourru *OSUpdateRunResourceUpdate) check() error {
-	if v, ok := ourru.mutation.StatusIndicator(); ok {
+func (_u *OSUpdateRunResourceUpdate) check() error {
+	if v, ok := _u.mutation.StatusIndicator(); ok {
 		if err := osupdaterunresource.StatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "status_indicator", err: fmt.Errorf(`ent: validator failed for field "OSUpdateRunResource.status_indicator": %w`, err)}
 		}
 	}
-	if ourru.mutation.AppliedPolicyCleared() && len(ourru.mutation.AppliedPolicyIDs()) > 0 {
+	if _u.mutation.AppliedPolicyCleared() && len(_u.mutation.AppliedPolicyIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.applied_policy"`)
 	}
-	if ourru.mutation.InstanceCleared() && len(ourru.mutation.InstanceIDs()) > 0 {
+	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.instance"`)
 	}
 	return nil
 }
 
-func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := ourru.check(); err != nil {
-		return n, err
+func (_u *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(osupdaterunresource.Table, osupdaterunresource.Columns, sqlgraph.NewFieldSpec(osupdaterunresource.FieldID, field.TypeInt))
-	if ps := ourru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ourru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(osupdaterunresource.FieldResourceID, field.TypeString, value)
 	}
-	if ourru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(osupdaterunresource.FieldName, field.TypeString)
 	}
-	if ourru.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdaterunresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := ourru.mutation.StatusIndicator(); ok {
+	if value, ok := _u.mutation.StatusIndicator(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusIndicator, field.TypeEnum, value)
 	}
-	if value, ok := ourru.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatus, field.TypeString, value)
 	}
-	if ourru.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(osupdaterunresource.FieldStatus, field.TypeString)
 	}
-	if value, ok := ourru.mutation.StatusDetails(); ok {
+	if value, ok := _u.mutation.StatusDetails(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusDetails, field.TypeString, value)
 	}
-	if ourru.mutation.StatusDetailsCleared() {
+	if _u.mutation.StatusDetailsCleared() {
 		_spec.ClearField(osupdaterunresource.FieldStatusDetails, field.TypeString)
 	}
-	if value, ok := ourru.mutation.StatusTimestamp(); ok {
-		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
+	if value, ok := _u.mutation.StatusTimestamp(); ok {
+		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := ourru.mutation.EndTime(); ok {
-		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+	if value, ok := _u.mutation.AddedStatusTimestamp(); ok {
+		_spec.AddField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 	}
-	if ourru.mutation.EndTimeCleared() {
-		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeString)
+	if value, ok := _u.mutation.EndTime(); ok {
+		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
 	}
-	if value, ok := ourru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.AddedEndTime(); ok {
+		_spec.AddField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
+	}
+	if _u.mutation.EndTimeCleared() {
+		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeUint64)
+	}
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if ourru.mutation.AppliedPolicyCleared() {
+	if _u.mutation.AppliedPolicyCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -288,7 +308,7 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ourru.mutation.AppliedPolicyIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AppliedPolicyIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -304,7 +324,7 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ourru.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -317,7 +337,7 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ourru.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -333,7 +353,7 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, ourru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{osupdaterunresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -341,8 +361,8 @@ func (ourru *OSUpdateRunResourceUpdate) sqlSave(ctx context.Context) (n int, err
 		}
 		return 0, err
 	}
-	ourru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // OSUpdateRunResourceUpdateOne is the builder for updating a single OSUpdateRunResource entity.
@@ -354,181 +374,195 @@ type OSUpdateRunResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetResourceID(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetResourceID(s)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetResourceID(v string) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableResourceID(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetResourceID(*s)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableResourceID(v *string) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return ourruo
+	return _u
 }
 
 // SetStatusIndicator sets the "status_indicator" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetStatusIndicator(oi osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetStatusIndicator(oi)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetStatusIndicator(v osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetStatusIndicator(v)
+	return _u
 }
 
 // SetNillableStatusIndicator sets the "status_indicator" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatusIndicator(oi *osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdateOne {
-	if oi != nil {
-		ourruo.SetStatusIndicator(*oi)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableStatusIndicator(v *osupdaterunresource.StatusIndicator) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetStatusIndicator(*v)
 	}
-	return ourruo
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetStatus(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetStatus(s)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetStatus(v string) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatus(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetStatus(*s)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableStatus(v *string) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return ourruo
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) ClearStatus() *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.ClearStatus()
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) ClearStatus() *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetStatusDetails sets the "status_details" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetStatusDetails(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetStatusDetails(s)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetStatusDetails(v string) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetStatusDetails(v)
+	return _u
 }
 
 // SetNillableStatusDetails sets the "status_details" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatusDetails(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetStatusDetails(*s)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableStatusDetails(v *string) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetStatusDetails(*v)
 	}
-	return ourruo
+	return _u
 }
 
 // ClearStatusDetails clears the value of the "status_details" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) ClearStatusDetails() *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.ClearStatusDetails()
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) ClearStatusDetails() *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ClearStatusDetails()
+	return _u
 }
 
 // SetStatusTimestamp sets the "status_timestamp" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetStatusTimestamp(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetStatusTimestamp(s)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetStatusTimestamp(v uint64) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ResetStatusTimestamp()
+	_u.mutation.SetStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableStatusTimestamp sets the "status_timestamp" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableStatusTimestamp(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetStatusTimestamp(*s)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableStatusTimestamp(v *uint64) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetStatusTimestamp(*v)
 	}
-	return ourruo
+	return _u
+}
+
+// AddStatusTimestamp adds value to the "status_timestamp" field.
+func (_u *OSUpdateRunResourceUpdateOne) AddStatusTimestamp(v int64) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.AddStatusTimestamp(v)
+	return _u
 }
 
 // SetEndTime sets the "end_time" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetEndTime(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetEndTime(s)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetEndTime(v uint64) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ResetEndTime()
+	_u.mutation.SetEndTime(v)
+	return _u
 }
 
 // SetNillableEndTime sets the "end_time" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableEndTime(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetEndTime(*s)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableEndTime(v *uint64) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetEndTime(*v)
 	}
-	return ourruo
+	return _u
+}
+
+// AddEndTime adds value to the "end_time" field.
+func (_u *OSUpdateRunResourceUpdateOne) AddEndTime(v int64) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.AddEndTime(v)
+	return _u
 }
 
 // ClearEndTime clears the value of the "end_time" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) ClearEndTime() *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.ClearEndTime()
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) ClearEndTime() *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ClearEndTime()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetUpdatedAt(s string) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetUpdatedAt(s)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetUpdatedAt(v string) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetNillableUpdatedAt(s *string) *OSUpdateRunResourceUpdateOne {
-	if s != nil {
-		ourruo.SetUpdatedAt(*s)
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableUpdatedAt(v *string) *OSUpdateRunResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return ourruo
+	return _u
 }
 
 // SetAppliedPolicyID sets the "applied_policy" edge to the OSUpdatePolicyResource entity by ID.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetAppliedPolicyID(id int) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetAppliedPolicyID(id)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetAppliedPolicyID(id int) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetAppliedPolicyID(id)
+	return _u
 }
 
 // SetAppliedPolicy sets the "applied_policy" edge to the OSUpdatePolicyResource entity.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetAppliedPolicy(o *OSUpdatePolicyResource) *OSUpdateRunResourceUpdateOne {
-	return ourruo.SetAppliedPolicyID(o.ID)
+func (_u *OSUpdateRunResourceUpdateOne) SetAppliedPolicy(v *OSUpdatePolicyResource) *OSUpdateRunResourceUpdateOne {
+	return _u.SetAppliedPolicyID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetInstanceID(id int) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.SetInstanceID(id)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) SetInstanceID(id int) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (ourruo *OSUpdateRunResourceUpdateOne) SetInstance(i *InstanceResource) *OSUpdateRunResourceUpdateOne {
-	return ourruo.SetInstanceID(i.ID)
+func (_u *OSUpdateRunResourceUpdateOne) SetInstance(v *InstanceResource) *OSUpdateRunResourceUpdateOne {
+	return _u.SetInstanceID(v.ID)
 }
 
 // Mutation returns the OSUpdateRunResourceMutation object of the builder.
-func (ourruo *OSUpdateRunResourceUpdateOne) Mutation() *OSUpdateRunResourceMutation {
-	return ourruo.mutation
+func (_u *OSUpdateRunResourceUpdateOne) Mutation() *OSUpdateRunResourceMutation {
+	return _u.mutation
 }
 
 // ClearAppliedPolicy clears the "applied_policy" edge to the OSUpdatePolicyResource entity.
-func (ourruo *OSUpdateRunResourceUpdateOne) ClearAppliedPolicy() *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.ClearAppliedPolicy()
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) ClearAppliedPolicy() *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ClearAppliedPolicy()
+	return _u
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (ourruo *OSUpdateRunResourceUpdateOne) ClearInstance() *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.ClearInstance()
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) ClearInstance() *OSUpdateRunResourceUpdateOne {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // Where appends a list predicates to the OSUpdateRunResourceUpdate builder.
-func (ourruo *OSUpdateRunResourceUpdateOne) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceUpdateOne {
-	ourruo.mutation.Where(ps...)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (ourruo *OSUpdateRunResourceUpdateOne) Select(field string, fields ...string) *OSUpdateRunResourceUpdateOne {
-	ourruo.fields = append([]string{field}, fields...)
-	return ourruo
+func (_u *OSUpdateRunResourceUpdateOne) Select(field string, fields ...string) *OSUpdateRunResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated OSUpdateRunResource entity.
-func (ourruo *OSUpdateRunResourceUpdateOne) Save(ctx context.Context) (*OSUpdateRunResource, error) {
-	return withHooks(ctx, ourruo.sqlSave, ourruo.mutation, ourruo.hooks)
+func (_u *OSUpdateRunResourceUpdateOne) Save(ctx context.Context) (*OSUpdateRunResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ourruo *OSUpdateRunResourceUpdateOne) SaveX(ctx context.Context) *OSUpdateRunResource {
-	node, err := ourruo.Save(ctx)
+func (_u *OSUpdateRunResourceUpdateOne) SaveX(ctx context.Context) *OSUpdateRunResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -536,45 +570,45 @@ func (ourruo *OSUpdateRunResourceUpdateOne) SaveX(ctx context.Context) *OSUpdate
 }
 
 // Exec executes the query on the entity.
-func (ourruo *OSUpdateRunResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := ourruo.Save(ctx)
+func (_u *OSUpdateRunResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ourruo *OSUpdateRunResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := ourruo.Exec(ctx); err != nil {
+func (_u *OSUpdateRunResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ourruo *OSUpdateRunResourceUpdateOne) check() error {
-	if v, ok := ourruo.mutation.StatusIndicator(); ok {
+func (_u *OSUpdateRunResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.StatusIndicator(); ok {
 		if err := osupdaterunresource.StatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "status_indicator", err: fmt.Errorf(`ent: validator failed for field "OSUpdateRunResource.status_indicator": %w`, err)}
 		}
 	}
-	if ourruo.mutation.AppliedPolicyCleared() && len(ourruo.mutation.AppliedPolicyIDs()) > 0 {
+	if _u.mutation.AppliedPolicyCleared() && len(_u.mutation.AppliedPolicyIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.applied_policy"`)
 	}
-	if ourruo.mutation.InstanceCleared() && len(ourruo.mutation.InstanceIDs()) > 0 {
+	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.instance"`)
 	}
 	return nil
 }
 
-func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node *OSUpdateRunResource, err error) {
-	if err := ourruo.check(); err != nil {
+func (_u *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node *OSUpdateRunResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(osupdaterunresource.Table, osupdaterunresource.Columns, sqlgraph.NewFieldSpec(osupdaterunresource.FieldID, field.TypeInt))
-	id, ok := ourruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "OSUpdateRunResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := ourruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, osupdaterunresource.FieldID)
 		for _, f := range fields {
@@ -586,50 +620,56 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 			}
 		}
 	}
-	if ps := ourruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ourruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(osupdaterunresource.FieldResourceID, field.TypeString, value)
 	}
-	if ourruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(osupdaterunresource.FieldName, field.TypeString)
 	}
-	if ourruo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdaterunresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := ourruo.mutation.StatusIndicator(); ok {
+	if value, ok := _u.mutation.StatusIndicator(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusIndicator, field.TypeEnum, value)
 	}
-	if value, ok := ourruo.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatus, field.TypeString, value)
 	}
-	if ourruo.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(osupdaterunresource.FieldStatus, field.TypeString)
 	}
-	if value, ok := ourruo.mutation.StatusDetails(); ok {
+	if value, ok := _u.mutation.StatusDetails(); ok {
 		_spec.SetField(osupdaterunresource.FieldStatusDetails, field.TypeString, value)
 	}
-	if ourruo.mutation.StatusDetailsCleared() {
+	if _u.mutation.StatusDetailsCleared() {
 		_spec.ClearField(osupdaterunresource.FieldStatusDetails, field.TypeString)
 	}
-	if value, ok := ourruo.mutation.StatusTimestamp(); ok {
-		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeString, value)
+	if value, ok := _u.mutation.StatusTimestamp(); ok {
+		_spec.SetField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := ourruo.mutation.EndTime(); ok {
-		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeString, value)
+	if value, ok := _u.mutation.AddedStatusTimestamp(); ok {
+		_spec.AddField(osupdaterunresource.FieldStatusTimestamp, field.TypeUint64, value)
 	}
-	if ourruo.mutation.EndTimeCleared() {
-		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeString)
+	if value, ok := _u.mutation.EndTime(); ok {
+		_spec.SetField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
 	}
-	if value, ok := ourruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.AddedEndTime(); ok {
+		_spec.AddField(osupdaterunresource.FieldEndTime, field.TypeUint64, value)
+	}
+	if _u.mutation.EndTimeCleared() {
+		_spec.ClearField(osupdaterunresource.FieldEndTime, field.TypeUint64)
+	}
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdaterunresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if ourruo.mutation.AppliedPolicyCleared() {
+	if _u.mutation.AppliedPolicyCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -642,7 +682,7 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ourruo.mutation.AppliedPolicyIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.AppliedPolicyIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -658,7 +698,7 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ourruo.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -671,7 +711,7 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ourruo.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -687,10 +727,10 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &OSUpdateRunResource{config: ourruo.config}
+	_node = &OSUpdateRunResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, ourruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{osupdaterunresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -698,6 +738,6 @@ func (ourruo *OSUpdateRunResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 		}
 		return nil, err
 	}
-	ourruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

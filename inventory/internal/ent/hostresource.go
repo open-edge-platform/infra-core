@@ -121,6 +121,8 @@ type HostResource struct {
 	AmtStatusIndicator hostresource.AmtStatusIndicator `json:"amt_status_indicator,omitempty"`
 	// AmtStatusTimestamp holds the value of the "amt_status_timestamp" field.
 	AmtStatusTimestamp uint64 `json:"amt_status_timestamp,omitempty"`
+	// UserLvmSize holds the value of the "user_lvm_size" field.
+	UserLvmSize uint32 `json:"user_lvm_size,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -231,7 +233,7 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp:
+		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp, hostresource.FieldUserLvmSize:
 			values[i] = new(sql.NullInt64)
 		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
@@ -250,7 +252,7 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the HostResource fields.
-func (hr *HostResource) assignValues(columns []string, values []any) error {
+func (_m *HostResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -261,354 +263,360 @@ func (hr *HostResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			hr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case hostresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				hr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case hostresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				hr.Kind = value.String
+				_m.Kind = value.String
 			}
 		case hostresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				hr.Name = value.String
+				_m.Name = value.String
 			}
 		case hostresource.FieldDesiredState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_state", values[i])
 			} else if value.Valid {
-				hr.DesiredState = hostresource.DesiredState(value.String)
+				_m.DesiredState = hostresource.DesiredState(value.String)
 			}
 		case hostresource.FieldCurrentState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_state", values[i])
 			} else if value.Valid {
-				hr.CurrentState = hostresource.CurrentState(value.String)
+				_m.CurrentState = hostresource.CurrentState(value.String)
 			}
 		case hostresource.FieldNote:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field note", values[i])
 			} else if value.Valid {
-				hr.Note = value.String
+				_m.Note = value.String
 			}
 		case hostresource.FieldHardwareKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field hardware_kind", values[i])
 			} else if value.Valid {
-				hr.HardwareKind = value.String
+				_m.HardwareKind = value.String
 			}
 		case hostresource.FieldSerialNumber:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field serial_number", values[i])
 			} else if value.Valid {
-				hr.SerialNumber = value.String
+				_m.SerialNumber = value.String
 			}
 		case hostresource.FieldUUID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field uuid", values[i])
 			} else if value.Valid {
-				hr.UUID = value.String
+				_m.UUID = value.String
 			}
 		case hostresource.FieldMemoryBytes:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field memory_bytes", values[i])
 			} else if value.Valid {
-				hr.MemoryBytes = uint64(value.Int64)
+				_m.MemoryBytes = uint64(value.Int64)
 			}
 		case hostresource.FieldCPUModel:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_model", values[i])
 			} else if value.Valid {
-				hr.CPUModel = value.String
+				_m.CPUModel = value.String
 			}
 		case hostresource.FieldCPUSockets:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_sockets", values[i])
 			} else if value.Valid {
-				hr.CPUSockets = uint32(value.Int64)
+				_m.CPUSockets = uint32(value.Int64)
 			}
 		case hostresource.FieldCPUCores:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_cores", values[i])
 			} else if value.Valid {
-				hr.CPUCores = uint32(value.Int64)
+				_m.CPUCores = uint32(value.Int64)
 			}
 		case hostresource.FieldCPUCapabilities:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_capabilities", values[i])
 			} else if value.Valid {
-				hr.CPUCapabilities = value.String
+				_m.CPUCapabilities = value.String
 			}
 		case hostresource.FieldCPUArchitecture:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_architecture", values[i])
 			} else if value.Valid {
-				hr.CPUArchitecture = value.String
+				_m.CPUArchitecture = value.String
 			}
 		case hostresource.FieldCPUThreads:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_threads", values[i])
 			} else if value.Valid {
-				hr.CPUThreads = uint32(value.Int64)
+				_m.CPUThreads = uint32(value.Int64)
 			}
 		case hostresource.FieldCPUTopology:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field cpu_topology", values[i])
 			} else if value.Valid {
-				hr.CPUTopology = value.String
+				_m.CPUTopology = value.String
 			}
 		case hostresource.FieldMgmtIP:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field mgmt_ip", values[i])
 			} else if value.Valid {
-				hr.MgmtIP = value.String
+				_m.MgmtIP = value.String
 			}
 		case hostresource.FieldBmcKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bmc_kind", values[i])
 			} else if value.Valid {
-				hr.BmcKind = hostresource.BmcKind(value.String)
+				_m.BmcKind = hostresource.BmcKind(value.String)
 			}
 		case hostresource.FieldBmcIP:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bmc_ip", values[i])
 			} else if value.Valid {
-				hr.BmcIP = value.String
+				_m.BmcIP = value.String
 			}
 		case hostresource.FieldBmcUsername:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bmc_username", values[i])
 			} else if value.Valid {
-				hr.BmcUsername = value.String
+				_m.BmcUsername = value.String
 			}
 		case hostresource.FieldBmcPassword:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bmc_password", values[i])
 			} else if value.Valid {
-				hr.BmcPassword = value.String
+				_m.BmcPassword = value.String
 			}
 		case hostresource.FieldPxeMAC:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field pxe_mac", values[i])
 			} else if value.Valid {
-				hr.PxeMAC = value.String
+				_m.PxeMAC = value.String
 			}
 		case hostresource.FieldHostname:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field hostname", values[i])
 			} else if value.Valid {
-				hr.Hostname = value.String
+				_m.Hostname = value.String
 			}
 		case hostresource.FieldProductName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field product_name", values[i])
 			} else if value.Valid {
-				hr.ProductName = value.String
+				_m.ProductName = value.String
 			}
 		case hostresource.FieldBiosVersion:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bios_version", values[i])
 			} else if value.Valid {
-				hr.BiosVersion = value.String
+				_m.BiosVersion = value.String
 			}
 		case hostresource.FieldBiosReleaseDate:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bios_release_date", values[i])
 			} else if value.Valid {
-				hr.BiosReleaseDate = value.String
+				_m.BiosReleaseDate = value.String
 			}
 		case hostresource.FieldBiosVendor:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field bios_vendor", values[i])
 			} else if value.Valid {
-				hr.BiosVendor = value.String
+				_m.BiosVendor = value.String
 			}
 		case hostresource.FieldMetadata:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
-				hr.Metadata = value.String
+				_m.Metadata = value.String
 			}
 		case hostresource.FieldDesiredPowerState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_power_state", values[i])
 			} else if value.Valid {
-				hr.DesiredPowerState = hostresource.DesiredPowerState(value.String)
+				_m.DesiredPowerState = hostresource.DesiredPowerState(value.String)
 			}
 		case hostresource.FieldCurrentPowerState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_power_state", values[i])
 			} else if value.Valid {
-				hr.CurrentPowerState = hostresource.CurrentPowerState(value.String)
+				_m.CurrentPowerState = hostresource.CurrentPowerState(value.String)
 			}
 		case hostresource.FieldPowerStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field power_status", values[i])
 			} else if value.Valid {
-				hr.PowerStatus = value.String
+				_m.PowerStatus = value.String
 			}
 		case hostresource.FieldPowerStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field power_status_indicator", values[i])
 			} else if value.Valid {
-				hr.PowerStatusIndicator = hostresource.PowerStatusIndicator(value.String)
+				_m.PowerStatusIndicator = hostresource.PowerStatusIndicator(value.String)
 			}
 		case hostresource.FieldPowerStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field power_status_timestamp", values[i])
 			} else if value.Valid {
-				hr.PowerStatusTimestamp = uint64(value.Int64)
+				_m.PowerStatusTimestamp = uint64(value.Int64)
 			}
 		case hostresource.FieldPowerCommandPolicy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field power_command_policy", values[i])
 			} else if value.Valid {
-				hr.PowerCommandPolicy = hostresource.PowerCommandPolicy(value.String)
+				_m.PowerCommandPolicy = hostresource.PowerCommandPolicy(value.String)
 			}
 		case hostresource.FieldPowerOnTime:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field power_on_time", values[i])
 			} else if value.Valid {
-				hr.PowerOnTime = uint64(value.Int64)
+				_m.PowerOnTime = uint64(value.Int64)
 			}
 		case hostresource.FieldHostStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field host_status", values[i])
 			} else if value.Valid {
-				hr.HostStatus = value.String
+				_m.HostStatus = value.String
 			}
 		case hostresource.FieldHostStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field host_status_indicator", values[i])
 			} else if value.Valid {
-				hr.HostStatusIndicator = hostresource.HostStatusIndicator(value.String)
+				_m.HostStatusIndicator = hostresource.HostStatusIndicator(value.String)
 			}
 		case hostresource.FieldHostStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field host_status_timestamp", values[i])
 			} else if value.Valid {
-				hr.HostStatusTimestamp = uint64(value.Int64)
+				_m.HostStatusTimestamp = uint64(value.Int64)
 			}
 		case hostresource.FieldOnboardingStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field onboarding_status", values[i])
 			} else if value.Valid {
-				hr.OnboardingStatus = value.String
+				_m.OnboardingStatus = value.String
 			}
 		case hostresource.FieldOnboardingStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field onboarding_status_indicator", values[i])
 			} else if value.Valid {
-				hr.OnboardingStatusIndicator = hostresource.OnboardingStatusIndicator(value.String)
+				_m.OnboardingStatusIndicator = hostresource.OnboardingStatusIndicator(value.String)
 			}
 		case hostresource.FieldOnboardingStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field onboarding_status_timestamp", values[i])
 			} else if value.Valid {
-				hr.OnboardingStatusTimestamp = uint64(value.Int64)
+				_m.OnboardingStatusTimestamp = uint64(value.Int64)
 			}
 		case hostresource.FieldRegistrationStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field registration_status", values[i])
 			} else if value.Valid {
-				hr.RegistrationStatus = value.String
+				_m.RegistrationStatus = value.String
 			}
 		case hostresource.FieldRegistrationStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field registration_status_indicator", values[i])
 			} else if value.Valid {
-				hr.RegistrationStatusIndicator = hostresource.RegistrationStatusIndicator(value.String)
+				_m.RegistrationStatusIndicator = hostresource.RegistrationStatusIndicator(value.String)
 			}
 		case hostresource.FieldRegistrationStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field registration_status_timestamp", values[i])
 			} else if value.Valid {
-				hr.RegistrationStatusTimestamp = uint64(value.Int64)
+				_m.RegistrationStatusTimestamp = uint64(value.Int64)
 			}
 		case hostresource.FieldAmtSku:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field amt_sku", values[i])
 			} else if value.Valid {
-				hr.AmtSku = value.String
+				_m.AmtSku = value.String
 			}
 		case hostresource.FieldDesiredAmtState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_amt_state", values[i])
 			} else if value.Valid {
-				hr.DesiredAmtState = hostresource.DesiredAmtState(value.String)
+				_m.DesiredAmtState = hostresource.DesiredAmtState(value.String)
 			}
 		case hostresource.FieldCurrentAmtState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_amt_state", values[i])
 			} else if value.Valid {
-				hr.CurrentAmtState = hostresource.CurrentAmtState(value.String)
+				_m.CurrentAmtState = hostresource.CurrentAmtState(value.String)
 			}
 		case hostresource.FieldAmtStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field amt_status", values[i])
 			} else if value.Valid {
-				hr.AmtStatus = value.String
+				_m.AmtStatus = value.String
 			}
 		case hostresource.FieldAmtStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field amt_status_indicator", values[i])
 			} else if value.Valid {
-				hr.AmtStatusIndicator = hostresource.AmtStatusIndicator(value.String)
+				_m.AmtStatusIndicator = hostresource.AmtStatusIndicator(value.String)
 			}
 		case hostresource.FieldAmtStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field amt_status_timestamp", values[i])
 			} else if value.Valid {
-				hr.AmtStatusTimestamp = uint64(value.Int64)
+				_m.AmtStatusTimestamp = uint64(value.Int64)
+			}
+		case hostresource.FieldUserLvmSize:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field user_lvm_size", values[i])
+			} else if value.Valid {
+				_m.UserLvmSize = uint32(value.Int64)
 			}
 		case hostresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				hr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case hostresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				hr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case hostresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				hr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case hostresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field host_resource_site", value)
 			} else if value.Valid {
-				hr.host_resource_site = new(int)
-				*hr.host_resource_site = int(value.Int64)
+				_m.host_resource_site = new(int)
+				*_m.host_resource_site = int(value.Int64)
 			}
 		case hostresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field host_resource_provider", value)
 			} else if value.Valid {
-				hr.host_resource_provider = new(int)
-				*hr.host_resource_provider = int(value.Int64)
+				_m.host_resource_provider = new(int)
+				*_m.host_resource_provider = int(value.Int64)
 			}
 		case hostresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_host", value)
 			} else if value.Valid {
-				hr.instance_resource_host = new(int)
-				*hr.instance_resource_host = int(value.Int64)
+				_m.instance_resource_host = new(int)
+				*_m.instance_resource_host = int(value.Int64)
 			}
 		default:
-			hr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -616,229 +624,232 @@ func (hr *HostResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the HostResource.
 // This includes values selected through modifiers, order, etc.
-func (hr *HostResource) Value(name string) (ent.Value, error) {
-	return hr.selectValues.Get(name)
+func (_m *HostResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QuerySite queries the "site" edge of the HostResource entity.
-func (hr *HostResource) QuerySite() *SiteResourceQuery {
-	return NewHostResourceClient(hr.config).QuerySite(hr)
+func (_m *HostResource) QuerySite() *SiteResourceQuery {
+	return NewHostResourceClient(_m.config).QuerySite(_m)
 }
 
 // QueryProvider queries the "provider" edge of the HostResource entity.
-func (hr *HostResource) QueryProvider() *ProviderResourceQuery {
-	return NewHostResourceClient(hr.config).QueryProvider(hr)
+func (_m *HostResource) QueryProvider() *ProviderResourceQuery {
+	return NewHostResourceClient(_m.config).QueryProvider(_m)
 }
 
 // QueryHostStorages queries the "host_storages" edge of the HostResource entity.
-func (hr *HostResource) QueryHostStorages() *HoststorageResourceQuery {
-	return NewHostResourceClient(hr.config).QueryHostStorages(hr)
+func (_m *HostResource) QueryHostStorages() *HoststorageResourceQuery {
+	return NewHostResourceClient(_m.config).QueryHostStorages(_m)
 }
 
 // QueryHostNics queries the "host_nics" edge of the HostResource entity.
-func (hr *HostResource) QueryHostNics() *HostnicResourceQuery {
-	return NewHostResourceClient(hr.config).QueryHostNics(hr)
+func (_m *HostResource) QueryHostNics() *HostnicResourceQuery {
+	return NewHostResourceClient(_m.config).QueryHostNics(_m)
 }
 
 // QueryHostUsbs queries the "host_usbs" edge of the HostResource entity.
-func (hr *HostResource) QueryHostUsbs() *HostusbResourceQuery {
-	return NewHostResourceClient(hr.config).QueryHostUsbs(hr)
+func (_m *HostResource) QueryHostUsbs() *HostusbResourceQuery {
+	return NewHostResourceClient(_m.config).QueryHostUsbs(_m)
 }
 
 // QueryHostGpus queries the "host_gpus" edge of the HostResource entity.
-func (hr *HostResource) QueryHostGpus() *HostgpuResourceQuery {
-	return NewHostResourceClient(hr.config).QueryHostGpus(hr)
+func (_m *HostResource) QueryHostGpus() *HostgpuResourceQuery {
+	return NewHostResourceClient(_m.config).QueryHostGpus(_m)
 }
 
 // QueryInstance queries the "instance" edge of the HostResource entity.
-func (hr *HostResource) QueryInstance() *InstanceResourceQuery {
-	return NewHostResourceClient(hr.config).QueryInstance(hr)
+func (_m *HostResource) QueryInstance() *InstanceResourceQuery {
+	return NewHostResourceClient(_m.config).QueryInstance(_m)
 }
 
 // Update returns a builder for updating this HostResource.
 // Note that you need to call HostResource.Unwrap() before calling this method if this HostResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (hr *HostResource) Update() *HostResourceUpdateOne {
-	return NewHostResourceClient(hr.config).UpdateOne(hr)
+func (_m *HostResource) Update() *HostResourceUpdateOne {
+	return NewHostResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the HostResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (hr *HostResource) Unwrap() *HostResource {
-	_tx, ok := hr.config.driver.(*txDriver)
+func (_m *HostResource) Unwrap() *HostResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: HostResource is not a transactional entity")
 	}
-	hr.config.driver = _tx.drv
-	return hr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (hr *HostResource) String() string {
+func (_m *HostResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("HostResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", hr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(hr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(hr.Kind)
+	builder.WriteString(_m.Kind)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(hr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("desired_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.DesiredState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredState))
 	builder.WriteString(", ")
 	builder.WriteString("current_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CurrentState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentState))
 	builder.WriteString(", ")
 	builder.WriteString("note=")
-	builder.WriteString(hr.Note)
+	builder.WriteString(_m.Note)
 	builder.WriteString(", ")
 	builder.WriteString("hardware_kind=")
-	builder.WriteString(hr.HardwareKind)
+	builder.WriteString(_m.HardwareKind)
 	builder.WriteString(", ")
 	builder.WriteString("serial_number=")
-	builder.WriteString(hr.SerialNumber)
+	builder.WriteString(_m.SerialNumber)
 	builder.WriteString(", ")
 	builder.WriteString("uuid=")
-	builder.WriteString(hr.UUID)
+	builder.WriteString(_m.UUID)
 	builder.WriteString(", ")
 	builder.WriteString("memory_bytes=")
-	builder.WriteString(fmt.Sprintf("%v", hr.MemoryBytes))
+	builder.WriteString(fmt.Sprintf("%v", _m.MemoryBytes))
 	builder.WriteString(", ")
 	builder.WriteString("cpu_model=")
-	builder.WriteString(hr.CPUModel)
+	builder.WriteString(_m.CPUModel)
 	builder.WriteString(", ")
 	builder.WriteString("cpu_sockets=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CPUSockets))
+	builder.WriteString(fmt.Sprintf("%v", _m.CPUSockets))
 	builder.WriteString(", ")
 	builder.WriteString("cpu_cores=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CPUCores))
+	builder.WriteString(fmt.Sprintf("%v", _m.CPUCores))
 	builder.WriteString(", ")
 	builder.WriteString("cpu_capabilities=")
-	builder.WriteString(hr.CPUCapabilities)
+	builder.WriteString(_m.CPUCapabilities)
 	builder.WriteString(", ")
 	builder.WriteString("cpu_architecture=")
-	builder.WriteString(hr.CPUArchitecture)
+	builder.WriteString(_m.CPUArchitecture)
 	builder.WriteString(", ")
 	builder.WriteString("cpu_threads=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CPUThreads))
+	builder.WriteString(fmt.Sprintf("%v", _m.CPUThreads))
 	builder.WriteString(", ")
 	builder.WriteString("cpu_topology=")
-	builder.WriteString(hr.CPUTopology)
+	builder.WriteString(_m.CPUTopology)
 	builder.WriteString(", ")
 	builder.WriteString("mgmt_ip=")
-	builder.WriteString(hr.MgmtIP)
+	builder.WriteString(_m.MgmtIP)
 	builder.WriteString(", ")
 	builder.WriteString("bmc_kind=")
-	builder.WriteString(fmt.Sprintf("%v", hr.BmcKind))
+	builder.WriteString(fmt.Sprintf("%v", _m.BmcKind))
 	builder.WriteString(", ")
 	builder.WriteString("bmc_ip=")
-	builder.WriteString(hr.BmcIP)
+	builder.WriteString(_m.BmcIP)
 	builder.WriteString(", ")
 	builder.WriteString("bmc_username=")
-	builder.WriteString(hr.BmcUsername)
+	builder.WriteString(_m.BmcUsername)
 	builder.WriteString(", ")
 	builder.WriteString("bmc_password=")
-	builder.WriteString(hr.BmcPassword)
+	builder.WriteString(_m.BmcPassword)
 	builder.WriteString(", ")
 	builder.WriteString("pxe_mac=")
-	builder.WriteString(hr.PxeMAC)
+	builder.WriteString(_m.PxeMAC)
 	builder.WriteString(", ")
 	builder.WriteString("hostname=")
-	builder.WriteString(hr.Hostname)
+	builder.WriteString(_m.Hostname)
 	builder.WriteString(", ")
 	builder.WriteString("product_name=")
-	builder.WriteString(hr.ProductName)
+	builder.WriteString(_m.ProductName)
 	builder.WriteString(", ")
 	builder.WriteString("bios_version=")
-	builder.WriteString(hr.BiosVersion)
+	builder.WriteString(_m.BiosVersion)
 	builder.WriteString(", ")
 	builder.WriteString("bios_release_date=")
-	builder.WriteString(hr.BiosReleaseDate)
+	builder.WriteString(_m.BiosReleaseDate)
 	builder.WriteString(", ")
 	builder.WriteString("bios_vendor=")
-	builder.WriteString(hr.BiosVendor)
+	builder.WriteString(_m.BiosVendor)
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
-	builder.WriteString(hr.Metadata)
+	builder.WriteString(_m.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("desired_power_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.DesiredPowerState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredPowerState))
 	builder.WriteString(", ")
 	builder.WriteString("current_power_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CurrentPowerState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentPowerState))
 	builder.WriteString(", ")
 	builder.WriteString("power_status=")
-	builder.WriteString(hr.PowerStatus)
+	builder.WriteString(_m.PowerStatus)
 	builder.WriteString(", ")
 	builder.WriteString("power_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", hr.PowerStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.PowerStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("power_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", hr.PowerStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.PowerStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("power_command_policy=")
-	builder.WriteString(fmt.Sprintf("%v", hr.PowerCommandPolicy))
+	builder.WriteString(fmt.Sprintf("%v", _m.PowerCommandPolicy))
 	builder.WriteString(", ")
 	builder.WriteString("power_on_time=")
-	builder.WriteString(fmt.Sprintf("%v", hr.PowerOnTime))
+	builder.WriteString(fmt.Sprintf("%v", _m.PowerOnTime))
 	builder.WriteString(", ")
 	builder.WriteString("host_status=")
-	builder.WriteString(hr.HostStatus)
+	builder.WriteString(_m.HostStatus)
 	builder.WriteString(", ")
 	builder.WriteString("host_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", hr.HostStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.HostStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("host_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", hr.HostStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.HostStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("onboarding_status=")
-	builder.WriteString(hr.OnboardingStatus)
+	builder.WriteString(_m.OnboardingStatus)
 	builder.WriteString(", ")
 	builder.WriteString("onboarding_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", hr.OnboardingStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.OnboardingStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("onboarding_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", hr.OnboardingStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.OnboardingStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("registration_status=")
-	builder.WriteString(hr.RegistrationStatus)
+	builder.WriteString(_m.RegistrationStatus)
 	builder.WriteString(", ")
 	builder.WriteString("registration_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", hr.RegistrationStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.RegistrationStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("registration_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", hr.RegistrationStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.RegistrationStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("amt_sku=")
-	builder.WriteString(hr.AmtSku)
+	builder.WriteString(_m.AmtSku)
 	builder.WriteString(", ")
 	builder.WriteString("desired_amt_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.DesiredAmtState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredAmtState))
 	builder.WriteString(", ")
 	builder.WriteString("current_amt_state=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CurrentAmtState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentAmtState))
 	builder.WriteString(", ")
 	builder.WriteString("amt_status=")
-	builder.WriteString(hr.AmtStatus)
+	builder.WriteString(_m.AmtStatus)
 	builder.WriteString(", ")
 	builder.WriteString("amt_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", hr.AmtStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.AmtStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("amt_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", hr.AmtStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.AmtStatusTimestamp))
+	builder.WriteString(", ")
+	builder.WriteString("user_lvm_size=")
+	builder.WriteString(fmt.Sprintf("%v", _m.UserLvmSize))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(hr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(hr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(hr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

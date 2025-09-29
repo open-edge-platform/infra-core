@@ -80,7 +80,7 @@ func (*OSUpdatePolicy) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the OSUpdatePolicy fields.
-func (oup *OSUpdatePolicy) assignValues(columns []string, values []any) error {
+func (_m *OSUpdatePolicy) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -91,64 +91,64 @@ func (oup *OSUpdatePolicy) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			oup.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case osupdatepolicy.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				oup.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case osupdatepolicy.FieldInstalledPackages:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field installed_packages", values[i])
 			} else if value.Valid {
-				oup.InstalledPackages = value.String
+				_m.InstalledPackages = value.String
 			}
 		case osupdatepolicy.FieldUpdateSources:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_sources", values[i])
 			} else if value.Valid {
-				oup.UpdateSources = value.String
+				_m.UpdateSources = value.String
 			}
 		case osupdatepolicy.FieldKernelCommand:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kernel_command", values[i])
 			} else if value.Valid {
-				oup.KernelCommand = value.String
+				_m.KernelCommand = value.String
 			}
 		case osupdatepolicy.FieldUpdatePolicy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_policy", values[i])
 			} else if value.Valid {
-				oup.UpdatePolicy = osupdatepolicy.UpdatePolicy(value.String)
+				_m.UpdatePolicy = osupdatepolicy.UpdatePolicy(value.String)
 			}
 		case osupdatepolicy.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				oup.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case osupdatepolicy.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				oup.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case osupdatepolicy.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				oup.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case osupdatepolicy.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field os_update_policy_target_os", value)
 			} else if value.Valid {
-				oup.os_update_policy_target_os = new(int)
-				*oup.os_update_policy_target_os = int(value.Int64)
+				_m.os_update_policy_target_os = new(int)
+				*_m.os_update_policy_target_os = int(value.Int64)
 			}
 		default:
-			oup.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -156,61 +156,61 @@ func (oup *OSUpdatePolicy) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the OSUpdatePolicy.
 // This includes values selected through modifiers, order, etc.
-func (oup *OSUpdatePolicy) Value(name string) (ent.Value, error) {
-	return oup.selectValues.Get(name)
+func (_m *OSUpdatePolicy) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryTargetOs queries the "target_os" edge of the OSUpdatePolicy entity.
-func (oup *OSUpdatePolicy) QueryTargetOs() *OperatingSystemResourceQuery {
-	return NewOSUpdatePolicyClient(oup.config).QueryTargetOs(oup)
+func (_m *OSUpdatePolicy) QueryTargetOs() *OperatingSystemResourceQuery {
+	return NewOSUpdatePolicyClient(_m.config).QueryTargetOs(_m)
 }
 
 // Update returns a builder for updating this OSUpdatePolicy.
 // Note that you need to call OSUpdatePolicy.Unwrap() before calling this method if this OSUpdatePolicy
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (oup *OSUpdatePolicy) Update() *OSUpdatePolicyUpdateOne {
-	return NewOSUpdatePolicyClient(oup.config).UpdateOne(oup)
+func (_m *OSUpdatePolicy) Update() *OSUpdatePolicyUpdateOne {
+	return NewOSUpdatePolicyClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the OSUpdatePolicy entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (oup *OSUpdatePolicy) Unwrap() *OSUpdatePolicy {
-	_tx, ok := oup.config.driver.(*txDriver)
+func (_m *OSUpdatePolicy) Unwrap() *OSUpdatePolicy {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: OSUpdatePolicy is not a transactional entity")
 	}
-	oup.config.driver = _tx.drv
-	return oup
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (oup *OSUpdatePolicy) String() string {
+func (_m *OSUpdatePolicy) String() string {
 	var builder strings.Builder
 	builder.WriteString("OSUpdatePolicy(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", oup.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(oup.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("installed_packages=")
-	builder.WriteString(oup.InstalledPackages)
+	builder.WriteString(_m.InstalledPackages)
 	builder.WriteString(", ")
 	builder.WriteString("update_sources=")
-	builder.WriteString(oup.UpdateSources)
+	builder.WriteString(_m.UpdateSources)
 	builder.WriteString(", ")
 	builder.WriteString("kernel_command=")
-	builder.WriteString(oup.KernelCommand)
+	builder.WriteString(_m.KernelCommand)
 	builder.WriteString(", ")
 	builder.WriteString("update_policy=")
-	builder.WriteString(fmt.Sprintf("%v", oup.UpdatePolicy))
+	builder.WriteString(fmt.Sprintf("%v", _m.UpdatePolicy))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(oup.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(oup.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(oup.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

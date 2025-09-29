@@ -33,44 +33,44 @@ type WorkloadMemberQuery struct {
 }
 
 // Where adds a new predicate for the WorkloadMemberQuery builder.
-func (wmq *WorkloadMemberQuery) Where(ps ...predicate.WorkloadMember) *WorkloadMemberQuery {
-	wmq.predicates = append(wmq.predicates, ps...)
-	return wmq
+func (_q *WorkloadMemberQuery) Where(ps ...predicate.WorkloadMember) *WorkloadMemberQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (wmq *WorkloadMemberQuery) Limit(limit int) *WorkloadMemberQuery {
-	wmq.ctx.Limit = &limit
-	return wmq
+func (_q *WorkloadMemberQuery) Limit(limit int) *WorkloadMemberQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (wmq *WorkloadMemberQuery) Offset(offset int) *WorkloadMemberQuery {
-	wmq.ctx.Offset = &offset
-	return wmq
+func (_q *WorkloadMemberQuery) Offset(offset int) *WorkloadMemberQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (wmq *WorkloadMemberQuery) Unique(unique bool) *WorkloadMemberQuery {
-	wmq.ctx.Unique = &unique
-	return wmq
+func (_q *WorkloadMemberQuery) Unique(unique bool) *WorkloadMemberQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (wmq *WorkloadMemberQuery) Order(o ...workloadmember.OrderOption) *WorkloadMemberQuery {
-	wmq.order = append(wmq.order, o...)
-	return wmq
+func (_q *WorkloadMemberQuery) Order(o ...workloadmember.OrderOption) *WorkloadMemberQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryWorkload chains the current query on the "workload" edge.
-func (wmq *WorkloadMemberQuery) QueryWorkload() *WorkloadResourceQuery {
-	query := (&WorkloadResourceClient{config: wmq.config}).Query()
+func (_q *WorkloadMemberQuery) QueryWorkload() *WorkloadResourceQuery {
+	query := (&WorkloadResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := wmq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := wmq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -79,20 +79,20 @@ func (wmq *WorkloadMemberQuery) QueryWorkload() *WorkloadResourceQuery {
 			sqlgraph.To(workloadresource.Table, workloadresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, workloadmember.WorkloadTable, workloadmember.WorkloadColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(wmq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryInstance chains the current query on the "instance" edge.
-func (wmq *WorkloadMemberQuery) QueryInstance() *InstanceResourceQuery {
-	query := (&InstanceResourceClient{config: wmq.config}).Query()
+func (_q *WorkloadMemberQuery) QueryInstance() *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := wmq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := wmq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -101,7 +101,7 @@ func (wmq *WorkloadMemberQuery) QueryInstance() *InstanceResourceQuery {
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, workloadmember.InstanceTable, workloadmember.InstanceColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(wmq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -109,8 +109,8 @@ func (wmq *WorkloadMemberQuery) QueryInstance() *InstanceResourceQuery {
 
 // First returns the first WorkloadMember entity from the query.
 // Returns a *NotFoundError when no WorkloadMember was found.
-func (wmq *WorkloadMemberQuery) First(ctx context.Context) (*WorkloadMember, error) {
-	nodes, err := wmq.Limit(1).All(setContextOp(ctx, wmq.ctx, ent.OpQueryFirst))
+func (_q *WorkloadMemberQuery) First(ctx context.Context) (*WorkloadMember, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -121,8 +121,8 @@ func (wmq *WorkloadMemberQuery) First(ctx context.Context) (*WorkloadMember, err
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) FirstX(ctx context.Context) *WorkloadMember {
-	node, err := wmq.First(ctx)
+func (_q *WorkloadMemberQuery) FirstX(ctx context.Context) *WorkloadMember {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,9 +131,9 @@ func (wmq *WorkloadMemberQuery) FirstX(ctx context.Context) *WorkloadMember {
 
 // FirstID returns the first WorkloadMember ID from the query.
 // Returns a *NotFoundError when no WorkloadMember ID was found.
-func (wmq *WorkloadMemberQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *WorkloadMemberQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = wmq.Limit(1).IDs(setContextOp(ctx, wmq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -144,8 +144,8 @@ func (wmq *WorkloadMemberQuery) FirstID(ctx context.Context) (id int, err error)
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) FirstIDX(ctx context.Context) int {
-	id, err := wmq.FirstID(ctx)
+func (_q *WorkloadMemberQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -155,8 +155,8 @@ func (wmq *WorkloadMemberQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single WorkloadMember entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one WorkloadMember entity is found.
 // Returns a *NotFoundError when no WorkloadMember entities are found.
-func (wmq *WorkloadMemberQuery) Only(ctx context.Context) (*WorkloadMember, error) {
-	nodes, err := wmq.Limit(2).All(setContextOp(ctx, wmq.ctx, ent.OpQueryOnly))
+func (_q *WorkloadMemberQuery) Only(ctx context.Context) (*WorkloadMember, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -171,8 +171,8 @@ func (wmq *WorkloadMemberQuery) Only(ctx context.Context) (*WorkloadMember, erro
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) OnlyX(ctx context.Context) *WorkloadMember {
-	node, err := wmq.Only(ctx)
+func (_q *WorkloadMemberQuery) OnlyX(ctx context.Context) *WorkloadMember {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -182,9 +182,9 @@ func (wmq *WorkloadMemberQuery) OnlyX(ctx context.Context) *WorkloadMember {
 // OnlyID is like Only, but returns the only WorkloadMember ID in the query.
 // Returns a *NotSingularError when more than one WorkloadMember ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (wmq *WorkloadMemberQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *WorkloadMemberQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = wmq.Limit(2).IDs(setContextOp(ctx, wmq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -199,8 +199,8 @@ func (wmq *WorkloadMemberQuery) OnlyID(ctx context.Context) (id int, err error) 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) OnlyIDX(ctx context.Context) int {
-	id, err := wmq.OnlyID(ctx)
+func (_q *WorkloadMemberQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -208,18 +208,18 @@ func (wmq *WorkloadMemberQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of WorkloadMembers.
-func (wmq *WorkloadMemberQuery) All(ctx context.Context) ([]*WorkloadMember, error) {
-	ctx = setContextOp(ctx, wmq.ctx, ent.OpQueryAll)
-	if err := wmq.prepareQuery(ctx); err != nil {
+func (_q *WorkloadMemberQuery) All(ctx context.Context) ([]*WorkloadMember, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*WorkloadMember, *WorkloadMemberQuery]()
-	return withInterceptors[[]*WorkloadMember](ctx, wmq, qr, wmq.inters)
+	return withInterceptors[[]*WorkloadMember](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) AllX(ctx context.Context) []*WorkloadMember {
-	nodes, err := wmq.All(ctx)
+func (_q *WorkloadMemberQuery) AllX(ctx context.Context) []*WorkloadMember {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -227,20 +227,20 @@ func (wmq *WorkloadMemberQuery) AllX(ctx context.Context) []*WorkloadMember {
 }
 
 // IDs executes the query and returns a list of WorkloadMember IDs.
-func (wmq *WorkloadMemberQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if wmq.ctx.Unique == nil && wmq.path != nil {
-		wmq.Unique(true)
+func (_q *WorkloadMemberQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, wmq.ctx, ent.OpQueryIDs)
-	if err = wmq.Select(workloadmember.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(workloadmember.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) IDsX(ctx context.Context) []int {
-	ids, err := wmq.IDs(ctx)
+func (_q *WorkloadMemberQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -248,17 +248,17 @@ func (wmq *WorkloadMemberQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (wmq *WorkloadMemberQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, wmq.ctx, ent.OpQueryCount)
-	if err := wmq.prepareQuery(ctx); err != nil {
+func (_q *WorkloadMemberQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, wmq, querierCount[*WorkloadMemberQuery](), wmq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*WorkloadMemberQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) CountX(ctx context.Context) int {
-	count, err := wmq.Count(ctx)
+func (_q *WorkloadMemberQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -266,9 +266,9 @@ func (wmq *WorkloadMemberQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (wmq *WorkloadMemberQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, wmq.ctx, ent.OpQueryExist)
-	switch _, err := wmq.FirstID(ctx); {
+func (_q *WorkloadMemberQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -279,8 +279,8 @@ func (wmq *WorkloadMemberQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (wmq *WorkloadMemberQuery) ExistX(ctx context.Context) bool {
-	exist, err := wmq.Exist(ctx)
+func (_q *WorkloadMemberQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -289,44 +289,44 @@ func (wmq *WorkloadMemberQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the WorkloadMemberQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (wmq *WorkloadMemberQuery) Clone() *WorkloadMemberQuery {
-	if wmq == nil {
+func (_q *WorkloadMemberQuery) Clone() *WorkloadMemberQuery {
+	if _q == nil {
 		return nil
 	}
 	return &WorkloadMemberQuery{
-		config:       wmq.config,
-		ctx:          wmq.ctx.Clone(),
-		order:        append([]workloadmember.OrderOption{}, wmq.order...),
-		inters:       append([]Interceptor{}, wmq.inters...),
-		predicates:   append([]predicate.WorkloadMember{}, wmq.predicates...),
-		withWorkload: wmq.withWorkload.Clone(),
-		withInstance: wmq.withInstance.Clone(),
+		config:       _q.config,
+		ctx:          _q.ctx.Clone(),
+		order:        append([]workloadmember.OrderOption{}, _q.order...),
+		inters:       append([]Interceptor{}, _q.inters...),
+		predicates:   append([]predicate.WorkloadMember{}, _q.predicates...),
+		withWorkload: _q.withWorkload.Clone(),
+		withInstance: _q.withInstance.Clone(),
 		// clone intermediate query.
-		sql:  wmq.sql.Clone(),
-		path: wmq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithWorkload tells the query-builder to eager-load the nodes that are connected to
 // the "workload" edge. The optional arguments are used to configure the query builder of the edge.
-func (wmq *WorkloadMemberQuery) WithWorkload(opts ...func(*WorkloadResourceQuery)) *WorkloadMemberQuery {
-	query := (&WorkloadResourceClient{config: wmq.config}).Query()
+func (_q *WorkloadMemberQuery) WithWorkload(opts ...func(*WorkloadResourceQuery)) *WorkloadMemberQuery {
+	query := (&WorkloadResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	wmq.withWorkload = query
-	return wmq
+	_q.withWorkload = query
+	return _q
 }
 
 // WithInstance tells the query-builder to eager-load the nodes that are connected to
 // the "instance" edge. The optional arguments are used to configure the query builder of the edge.
-func (wmq *WorkloadMemberQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *WorkloadMemberQuery {
-	query := (&InstanceResourceClient{config: wmq.config}).Query()
+func (_q *WorkloadMemberQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *WorkloadMemberQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	wmq.withInstance = query
-	return wmq
+	_q.withInstance = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -343,10 +343,10 @@ func (wmq *WorkloadMemberQuery) WithInstance(opts ...func(*InstanceResourceQuery
 //		GroupBy(workloadmember.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (wmq *WorkloadMemberQuery) GroupBy(field string, fields ...string) *WorkloadMemberGroupBy {
-	wmq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &WorkloadMemberGroupBy{build: wmq}
-	grbuild.flds = &wmq.ctx.Fields
+func (_q *WorkloadMemberQuery) GroupBy(field string, fields ...string) *WorkloadMemberGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &WorkloadMemberGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = workloadmember.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -364,56 +364,56 @@ func (wmq *WorkloadMemberQuery) GroupBy(field string, fields ...string) *Workloa
 //	client.WorkloadMember.Query().
 //		Select(workloadmember.FieldResourceID).
 //		Scan(ctx, &v)
-func (wmq *WorkloadMemberQuery) Select(fields ...string) *WorkloadMemberSelect {
-	wmq.ctx.Fields = append(wmq.ctx.Fields, fields...)
-	sbuild := &WorkloadMemberSelect{WorkloadMemberQuery: wmq}
+func (_q *WorkloadMemberQuery) Select(fields ...string) *WorkloadMemberSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &WorkloadMemberSelect{WorkloadMemberQuery: _q}
 	sbuild.label = workloadmember.Label
-	sbuild.flds, sbuild.scan = &wmq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a WorkloadMemberSelect configured with the given aggregations.
-func (wmq *WorkloadMemberQuery) Aggregate(fns ...AggregateFunc) *WorkloadMemberSelect {
-	return wmq.Select().Aggregate(fns...)
+func (_q *WorkloadMemberQuery) Aggregate(fns ...AggregateFunc) *WorkloadMemberSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (wmq *WorkloadMemberQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range wmq.inters {
+func (_q *WorkloadMemberQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, wmq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range wmq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !workloadmember.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if wmq.path != nil {
-		prev, err := wmq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		wmq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (wmq *WorkloadMemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*WorkloadMember, error) {
+func (_q *WorkloadMemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*WorkloadMember, error) {
 	var (
 		nodes       = []*WorkloadMember{}
-		withFKs     = wmq.withFKs
-		_spec       = wmq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [2]bool{
-			wmq.withWorkload != nil,
-			wmq.withInstance != nil,
+			_q.withWorkload != nil,
+			_q.withInstance != nil,
 		}
 	)
-	if wmq.withWorkload != nil || wmq.withInstance != nil {
+	if _q.withWorkload != nil || _q.withInstance != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -423,7 +423,7 @@ func (wmq *WorkloadMemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 		return (*WorkloadMember).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &WorkloadMember{config: wmq.config}
+		node := &WorkloadMember{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -431,20 +431,20 @@ func (wmq *WorkloadMemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, wmq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := wmq.withWorkload; query != nil {
-		if err := wmq.loadWorkload(ctx, query, nodes, nil,
+	if query := _q.withWorkload; query != nil {
+		if err := _q.loadWorkload(ctx, query, nodes, nil,
 			func(n *WorkloadMember, e *WorkloadResource) { n.Edges.Workload = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := wmq.withInstance; query != nil {
-		if err := wmq.loadInstance(ctx, query, nodes, nil,
+	if query := _q.withInstance; query != nil {
+		if err := _q.loadInstance(ctx, query, nodes, nil,
 			func(n *WorkloadMember, e *InstanceResource) { n.Edges.Instance = e }); err != nil {
 			return nil, err
 		}
@@ -452,7 +452,7 @@ func (wmq *WorkloadMemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	return nodes, nil
 }
 
-func (wmq *WorkloadMemberQuery) loadWorkload(ctx context.Context, query *WorkloadResourceQuery, nodes []*WorkloadMember, init func(*WorkloadMember), assign func(*WorkloadMember, *WorkloadResource)) error {
+func (_q *WorkloadMemberQuery) loadWorkload(ctx context.Context, query *WorkloadResourceQuery, nodes []*WorkloadMember, init func(*WorkloadMember), assign func(*WorkloadMember, *WorkloadResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*WorkloadMember)
 	for i := range nodes {
@@ -484,7 +484,7 @@ func (wmq *WorkloadMemberQuery) loadWorkload(ctx context.Context, query *Workloa
 	}
 	return nil
 }
-func (wmq *WorkloadMemberQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*WorkloadMember, init func(*WorkloadMember), assign func(*WorkloadMember, *InstanceResource)) error {
+func (_q *WorkloadMemberQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*WorkloadMember, init func(*WorkloadMember), assign func(*WorkloadMember, *InstanceResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*WorkloadMember)
 	for i := range nodes {
@@ -517,24 +517,24 @@ func (wmq *WorkloadMemberQuery) loadInstance(ctx context.Context, query *Instanc
 	return nil
 }
 
-func (wmq *WorkloadMemberQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := wmq.querySpec()
-	_spec.Node.Columns = wmq.ctx.Fields
-	if len(wmq.ctx.Fields) > 0 {
-		_spec.Unique = wmq.ctx.Unique != nil && *wmq.ctx.Unique
+func (_q *WorkloadMemberQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, wmq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (wmq *WorkloadMemberQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *WorkloadMemberQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(workloadmember.Table, workloadmember.Columns, sqlgraph.NewFieldSpec(workloadmember.FieldID, field.TypeInt))
-	_spec.From = wmq.sql
-	if unique := wmq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if wmq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := wmq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, workloadmember.FieldID)
 		for i := range fields {
@@ -543,20 +543,20 @@ func (wmq *WorkloadMemberQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := wmq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := wmq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := wmq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := wmq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -566,33 +566,33 @@ func (wmq *WorkloadMemberQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (wmq *WorkloadMemberQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(wmq.driver.Dialect())
+func (_q *WorkloadMemberQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(workloadmember.Table)
-	columns := wmq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = workloadmember.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if wmq.sql != nil {
-		selector = wmq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if wmq.ctx.Unique != nil && *wmq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range wmq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range wmq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := wmq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := wmq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -605,41 +605,41 @@ type WorkloadMemberGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (wmgb *WorkloadMemberGroupBy) Aggregate(fns ...AggregateFunc) *WorkloadMemberGroupBy {
-	wmgb.fns = append(wmgb.fns, fns...)
-	return wmgb
+func (_g *WorkloadMemberGroupBy) Aggregate(fns ...AggregateFunc) *WorkloadMemberGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (wmgb *WorkloadMemberGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, wmgb.build.ctx, ent.OpQueryGroupBy)
-	if err := wmgb.build.prepareQuery(ctx); err != nil {
+func (_g *WorkloadMemberGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*WorkloadMemberQuery, *WorkloadMemberGroupBy](ctx, wmgb.build, wmgb, wmgb.build.inters, v)
+	return scanWithInterceptors[*WorkloadMemberQuery, *WorkloadMemberGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (wmgb *WorkloadMemberGroupBy) sqlScan(ctx context.Context, root *WorkloadMemberQuery, v any) error {
+func (_g *WorkloadMemberGroupBy) sqlScan(ctx context.Context, root *WorkloadMemberQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(wmgb.fns))
-	for _, fn := range wmgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*wmgb.flds)+len(wmgb.fns))
-		for _, f := range *wmgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*wmgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := wmgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -653,27 +653,27 @@ type WorkloadMemberSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (wms *WorkloadMemberSelect) Aggregate(fns ...AggregateFunc) *WorkloadMemberSelect {
-	wms.fns = append(wms.fns, fns...)
-	return wms
+func (_s *WorkloadMemberSelect) Aggregate(fns ...AggregateFunc) *WorkloadMemberSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (wms *WorkloadMemberSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, wms.ctx, ent.OpQuerySelect)
-	if err := wms.prepareQuery(ctx); err != nil {
+func (_s *WorkloadMemberSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*WorkloadMemberQuery, *WorkloadMemberSelect](ctx, wms.WorkloadMemberQuery, wms, wms.inters, v)
+	return scanWithInterceptors[*WorkloadMemberQuery, *WorkloadMemberSelect](ctx, _s.WorkloadMemberQuery, _s, _s.inters, v)
 }
 
-func (wms *WorkloadMemberSelect) sqlScan(ctx context.Context, root *WorkloadMemberQuery, v any) error {
+func (_s *WorkloadMemberSelect) sqlScan(ctx context.Context, root *WorkloadMemberQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(wms.fns))
-	for _, fn := range wms.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*wms.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -681,7 +681,7 @@ func (wms *WorkloadMemberSelect) sqlScan(ctx context.Context, root *WorkloadMemb
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := wms.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

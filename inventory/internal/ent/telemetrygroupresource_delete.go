@@ -20,56 +20,56 @@ type TelemetryGroupResourceDelete struct {
 }
 
 // Where appends a list predicates to the TelemetryGroupResourceDelete builder.
-func (tgrd *TelemetryGroupResourceDelete) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceDelete {
-	tgrd.mutation.Where(ps...)
-	return tgrd
+func (_d *TelemetryGroupResourceDelete) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (tgrd *TelemetryGroupResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, tgrd.sqlExec, tgrd.mutation, tgrd.hooks)
+func (_d *TelemetryGroupResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tgrd *TelemetryGroupResourceDelete) ExecX(ctx context.Context) int {
-	n, err := tgrd.Exec(ctx)
+func (_d *TelemetryGroupResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (tgrd *TelemetryGroupResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *TelemetryGroupResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(telemetrygroupresource.Table, sqlgraph.NewFieldSpec(telemetrygroupresource.FieldID, field.TypeInt))
-	if ps := tgrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, tgrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	tgrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // TelemetryGroupResourceDeleteOne is the builder for deleting a single TelemetryGroupResource entity.
 type TelemetryGroupResourceDeleteOne struct {
-	tgrd *TelemetryGroupResourceDelete
+	_d *TelemetryGroupResourceDelete
 }
 
 // Where appends a list predicates to the TelemetryGroupResourceDelete builder.
-func (tgrdo *TelemetryGroupResourceDeleteOne) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceDeleteOne {
-	tgrdo.tgrd.mutation.Where(ps...)
-	return tgrdo
+func (_d *TelemetryGroupResourceDeleteOne) Where(ps ...predicate.TelemetryGroupResource) *TelemetryGroupResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (tgrdo *TelemetryGroupResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := tgrdo.tgrd.Exec(ctx)
+func (_d *TelemetryGroupResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (tgrdo *TelemetryGroupResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tgrdo *TelemetryGroupResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := tgrdo.Exec(ctx); err != nil {
+func (_d *TelemetryGroupResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

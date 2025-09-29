@@ -37,44 +37,44 @@ type TelemetryProfileQuery struct {
 }
 
 // Where adds a new predicate for the TelemetryProfileQuery builder.
-func (tpq *TelemetryProfileQuery) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileQuery {
-	tpq.predicates = append(tpq.predicates, ps...)
-	return tpq
+func (_q *TelemetryProfileQuery) Where(ps ...predicate.TelemetryProfile) *TelemetryProfileQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (tpq *TelemetryProfileQuery) Limit(limit int) *TelemetryProfileQuery {
-	tpq.ctx.Limit = &limit
-	return tpq
+func (_q *TelemetryProfileQuery) Limit(limit int) *TelemetryProfileQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (tpq *TelemetryProfileQuery) Offset(offset int) *TelemetryProfileQuery {
-	tpq.ctx.Offset = &offset
-	return tpq
+func (_q *TelemetryProfileQuery) Offset(offset int) *TelemetryProfileQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (tpq *TelemetryProfileQuery) Unique(unique bool) *TelemetryProfileQuery {
-	tpq.ctx.Unique = &unique
-	return tpq
+func (_q *TelemetryProfileQuery) Unique(unique bool) *TelemetryProfileQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (tpq *TelemetryProfileQuery) Order(o ...telemetryprofile.OrderOption) *TelemetryProfileQuery {
-	tpq.order = append(tpq.order, o...)
-	return tpq
+func (_q *TelemetryProfileQuery) Order(o ...telemetryprofile.OrderOption) *TelemetryProfileQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryRegion chains the current query on the "region" edge.
-func (tpq *TelemetryProfileQuery) QueryRegion() *RegionResourceQuery {
-	query := (&RegionResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) QueryRegion() *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := tpq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := tpq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -83,20 +83,20 @@ func (tpq *TelemetryProfileQuery) QueryRegion() *RegionResourceQuery {
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.RegionTable, telemetryprofile.RegionColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(tpq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QuerySite chains the current query on the "site" edge.
-func (tpq *TelemetryProfileQuery) QuerySite() *SiteResourceQuery {
-	query := (&SiteResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) QuerySite() *SiteResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := tpq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := tpq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -105,20 +105,20 @@ func (tpq *TelemetryProfileQuery) QuerySite() *SiteResourceQuery {
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.SiteTable, telemetryprofile.SiteColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(tpq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryInstance chains the current query on the "instance" edge.
-func (tpq *TelemetryProfileQuery) QueryInstance() *InstanceResourceQuery {
-	query := (&InstanceResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) QueryInstance() *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := tpq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := tpq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -127,20 +127,20 @@ func (tpq *TelemetryProfileQuery) QueryInstance() *InstanceResourceQuery {
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.InstanceTable, telemetryprofile.InstanceColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(tpq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryGroup chains the current query on the "group" edge.
-func (tpq *TelemetryProfileQuery) QueryGroup() *TelemetryGroupResourceQuery {
-	query := (&TelemetryGroupResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) QueryGroup() *TelemetryGroupResourceQuery {
+	query := (&TelemetryGroupResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := tpq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := tpq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -149,7 +149,7 @@ func (tpq *TelemetryProfileQuery) QueryGroup() *TelemetryGroupResourceQuery {
 			sqlgraph.To(telemetrygroupresource.Table, telemetrygroupresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.GroupTable, telemetryprofile.GroupColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(tpq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -157,8 +157,8 @@ func (tpq *TelemetryProfileQuery) QueryGroup() *TelemetryGroupResourceQuery {
 
 // First returns the first TelemetryProfile entity from the query.
 // Returns a *NotFoundError when no TelemetryProfile was found.
-func (tpq *TelemetryProfileQuery) First(ctx context.Context) (*TelemetryProfile, error) {
-	nodes, err := tpq.Limit(1).All(setContextOp(ctx, tpq.ctx, ent.OpQueryFirst))
+func (_q *TelemetryProfileQuery) First(ctx context.Context) (*TelemetryProfile, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -169,8 +169,8 @@ func (tpq *TelemetryProfileQuery) First(ctx context.Context) (*TelemetryProfile,
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) FirstX(ctx context.Context) *TelemetryProfile {
-	node, err := tpq.First(ctx)
+func (_q *TelemetryProfileQuery) FirstX(ctx context.Context) *TelemetryProfile {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -179,9 +179,9 @@ func (tpq *TelemetryProfileQuery) FirstX(ctx context.Context) *TelemetryProfile 
 
 // FirstID returns the first TelemetryProfile ID from the query.
 // Returns a *NotFoundError when no TelemetryProfile ID was found.
-func (tpq *TelemetryProfileQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *TelemetryProfileQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = tpq.Limit(1).IDs(setContextOp(ctx, tpq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -192,8 +192,8 @@ func (tpq *TelemetryProfileQuery) FirstID(ctx context.Context) (id int, err erro
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) FirstIDX(ctx context.Context) int {
-	id, err := tpq.FirstID(ctx)
+func (_q *TelemetryProfileQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -203,8 +203,8 @@ func (tpq *TelemetryProfileQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single TelemetryProfile entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one TelemetryProfile entity is found.
 // Returns a *NotFoundError when no TelemetryProfile entities are found.
-func (tpq *TelemetryProfileQuery) Only(ctx context.Context) (*TelemetryProfile, error) {
-	nodes, err := tpq.Limit(2).All(setContextOp(ctx, tpq.ctx, ent.OpQueryOnly))
+func (_q *TelemetryProfileQuery) Only(ctx context.Context) (*TelemetryProfile, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -219,8 +219,8 @@ func (tpq *TelemetryProfileQuery) Only(ctx context.Context) (*TelemetryProfile, 
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) OnlyX(ctx context.Context) *TelemetryProfile {
-	node, err := tpq.Only(ctx)
+func (_q *TelemetryProfileQuery) OnlyX(ctx context.Context) *TelemetryProfile {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -230,9 +230,9 @@ func (tpq *TelemetryProfileQuery) OnlyX(ctx context.Context) *TelemetryProfile {
 // OnlyID is like Only, but returns the only TelemetryProfile ID in the query.
 // Returns a *NotSingularError when more than one TelemetryProfile ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (tpq *TelemetryProfileQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *TelemetryProfileQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = tpq.Limit(2).IDs(setContextOp(ctx, tpq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -247,8 +247,8 @@ func (tpq *TelemetryProfileQuery) OnlyID(ctx context.Context) (id int, err error
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) OnlyIDX(ctx context.Context) int {
-	id, err := tpq.OnlyID(ctx)
+func (_q *TelemetryProfileQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -256,18 +256,18 @@ func (tpq *TelemetryProfileQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of TelemetryProfiles.
-func (tpq *TelemetryProfileQuery) All(ctx context.Context) ([]*TelemetryProfile, error) {
-	ctx = setContextOp(ctx, tpq.ctx, ent.OpQueryAll)
-	if err := tpq.prepareQuery(ctx); err != nil {
+func (_q *TelemetryProfileQuery) All(ctx context.Context) ([]*TelemetryProfile, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*TelemetryProfile, *TelemetryProfileQuery]()
-	return withInterceptors[[]*TelemetryProfile](ctx, tpq, qr, tpq.inters)
+	return withInterceptors[[]*TelemetryProfile](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) AllX(ctx context.Context) []*TelemetryProfile {
-	nodes, err := tpq.All(ctx)
+func (_q *TelemetryProfileQuery) AllX(ctx context.Context) []*TelemetryProfile {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -275,20 +275,20 @@ func (tpq *TelemetryProfileQuery) AllX(ctx context.Context) []*TelemetryProfile 
 }
 
 // IDs executes the query and returns a list of TelemetryProfile IDs.
-func (tpq *TelemetryProfileQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if tpq.ctx.Unique == nil && tpq.path != nil {
-		tpq.Unique(true)
+func (_q *TelemetryProfileQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, tpq.ctx, ent.OpQueryIDs)
-	if err = tpq.Select(telemetryprofile.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(telemetryprofile.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) IDsX(ctx context.Context) []int {
-	ids, err := tpq.IDs(ctx)
+func (_q *TelemetryProfileQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -296,17 +296,17 @@ func (tpq *TelemetryProfileQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (tpq *TelemetryProfileQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, tpq.ctx, ent.OpQueryCount)
-	if err := tpq.prepareQuery(ctx); err != nil {
+func (_q *TelemetryProfileQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, tpq, querierCount[*TelemetryProfileQuery](), tpq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*TelemetryProfileQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) CountX(ctx context.Context) int {
-	count, err := tpq.Count(ctx)
+func (_q *TelemetryProfileQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -314,9 +314,9 @@ func (tpq *TelemetryProfileQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (tpq *TelemetryProfileQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, tpq.ctx, ent.OpQueryExist)
-	switch _, err := tpq.FirstID(ctx); {
+func (_q *TelemetryProfileQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -327,8 +327,8 @@ func (tpq *TelemetryProfileQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (tpq *TelemetryProfileQuery) ExistX(ctx context.Context) bool {
-	exist, err := tpq.Exist(ctx)
+func (_q *TelemetryProfileQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -337,68 +337,68 @@ func (tpq *TelemetryProfileQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the TelemetryProfileQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (tpq *TelemetryProfileQuery) Clone() *TelemetryProfileQuery {
-	if tpq == nil {
+func (_q *TelemetryProfileQuery) Clone() *TelemetryProfileQuery {
+	if _q == nil {
 		return nil
 	}
 	return &TelemetryProfileQuery{
-		config:       tpq.config,
-		ctx:          tpq.ctx.Clone(),
-		order:        append([]telemetryprofile.OrderOption{}, tpq.order...),
-		inters:       append([]Interceptor{}, tpq.inters...),
-		predicates:   append([]predicate.TelemetryProfile{}, tpq.predicates...),
-		withRegion:   tpq.withRegion.Clone(),
-		withSite:     tpq.withSite.Clone(),
-		withInstance: tpq.withInstance.Clone(),
-		withGroup:    tpq.withGroup.Clone(),
+		config:       _q.config,
+		ctx:          _q.ctx.Clone(),
+		order:        append([]telemetryprofile.OrderOption{}, _q.order...),
+		inters:       append([]Interceptor{}, _q.inters...),
+		predicates:   append([]predicate.TelemetryProfile{}, _q.predicates...),
+		withRegion:   _q.withRegion.Clone(),
+		withSite:     _q.withSite.Clone(),
+		withInstance: _q.withInstance.Clone(),
+		withGroup:    _q.withGroup.Clone(),
 		// clone intermediate query.
-		sql:  tpq.sql.Clone(),
-		path: tpq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithRegion tells the query-builder to eager-load the nodes that are connected to
 // the "region" edge. The optional arguments are used to configure the query builder of the edge.
-func (tpq *TelemetryProfileQuery) WithRegion(opts ...func(*RegionResourceQuery)) *TelemetryProfileQuery {
-	query := (&RegionResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) WithRegion(opts ...func(*RegionResourceQuery)) *TelemetryProfileQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	tpq.withRegion = query
-	return tpq
+	_q.withRegion = query
+	return _q
 }
 
 // WithSite tells the query-builder to eager-load the nodes that are connected to
 // the "site" edge. The optional arguments are used to configure the query builder of the edge.
-func (tpq *TelemetryProfileQuery) WithSite(opts ...func(*SiteResourceQuery)) *TelemetryProfileQuery {
-	query := (&SiteResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) WithSite(opts ...func(*SiteResourceQuery)) *TelemetryProfileQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	tpq.withSite = query
-	return tpq
+	_q.withSite = query
+	return _q
 }
 
 // WithInstance tells the query-builder to eager-load the nodes that are connected to
 // the "instance" edge. The optional arguments are used to configure the query builder of the edge.
-func (tpq *TelemetryProfileQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *TelemetryProfileQuery {
-	query := (&InstanceResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *TelemetryProfileQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	tpq.withInstance = query
-	return tpq
+	_q.withInstance = query
+	return _q
 }
 
 // WithGroup tells the query-builder to eager-load the nodes that are connected to
 // the "group" edge. The optional arguments are used to configure the query builder of the edge.
-func (tpq *TelemetryProfileQuery) WithGroup(opts ...func(*TelemetryGroupResourceQuery)) *TelemetryProfileQuery {
-	query := (&TelemetryGroupResourceClient{config: tpq.config}).Query()
+func (_q *TelemetryProfileQuery) WithGroup(opts ...func(*TelemetryGroupResourceQuery)) *TelemetryProfileQuery {
+	query := (&TelemetryGroupResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	tpq.withGroup = query
-	return tpq
+	_q.withGroup = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -415,10 +415,10 @@ func (tpq *TelemetryProfileQuery) WithGroup(opts ...func(*TelemetryGroupResource
 //		GroupBy(telemetryprofile.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (tpq *TelemetryProfileQuery) GroupBy(field string, fields ...string) *TelemetryProfileGroupBy {
-	tpq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &TelemetryProfileGroupBy{build: tpq}
-	grbuild.flds = &tpq.ctx.Fields
+func (_q *TelemetryProfileQuery) GroupBy(field string, fields ...string) *TelemetryProfileGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &TelemetryProfileGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = telemetryprofile.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -436,58 +436,58 @@ func (tpq *TelemetryProfileQuery) GroupBy(field string, fields ...string) *Telem
 //	client.TelemetryProfile.Query().
 //		Select(telemetryprofile.FieldResourceID).
 //		Scan(ctx, &v)
-func (tpq *TelemetryProfileQuery) Select(fields ...string) *TelemetryProfileSelect {
-	tpq.ctx.Fields = append(tpq.ctx.Fields, fields...)
-	sbuild := &TelemetryProfileSelect{TelemetryProfileQuery: tpq}
+func (_q *TelemetryProfileQuery) Select(fields ...string) *TelemetryProfileSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &TelemetryProfileSelect{TelemetryProfileQuery: _q}
 	sbuild.label = telemetryprofile.Label
-	sbuild.flds, sbuild.scan = &tpq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a TelemetryProfileSelect configured with the given aggregations.
-func (tpq *TelemetryProfileQuery) Aggregate(fns ...AggregateFunc) *TelemetryProfileSelect {
-	return tpq.Select().Aggregate(fns...)
+func (_q *TelemetryProfileQuery) Aggregate(fns ...AggregateFunc) *TelemetryProfileSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (tpq *TelemetryProfileQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range tpq.inters {
+func (_q *TelemetryProfileQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, tpq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range tpq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !telemetryprofile.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if tpq.path != nil {
-		prev, err := tpq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		tpq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (tpq *TelemetryProfileQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*TelemetryProfile, error) {
+func (_q *TelemetryProfileQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*TelemetryProfile, error) {
 	var (
 		nodes       = []*TelemetryProfile{}
-		withFKs     = tpq.withFKs
-		_spec       = tpq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [4]bool{
-			tpq.withRegion != nil,
-			tpq.withSite != nil,
-			tpq.withInstance != nil,
-			tpq.withGroup != nil,
+			_q.withRegion != nil,
+			_q.withSite != nil,
+			_q.withInstance != nil,
+			_q.withGroup != nil,
 		}
 	)
-	if tpq.withRegion != nil || tpq.withSite != nil || tpq.withInstance != nil || tpq.withGroup != nil {
+	if _q.withRegion != nil || _q.withSite != nil || _q.withInstance != nil || _q.withGroup != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -497,7 +497,7 @@ func (tpq *TelemetryProfileQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		return (*TelemetryProfile).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &TelemetryProfile{config: tpq.config}
+		node := &TelemetryProfile{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -505,32 +505,32 @@ func (tpq *TelemetryProfileQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, tpq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := tpq.withRegion; query != nil {
-		if err := tpq.loadRegion(ctx, query, nodes, nil,
+	if query := _q.withRegion; query != nil {
+		if err := _q.loadRegion(ctx, query, nodes, nil,
 			func(n *TelemetryProfile, e *RegionResource) { n.Edges.Region = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := tpq.withSite; query != nil {
-		if err := tpq.loadSite(ctx, query, nodes, nil,
+	if query := _q.withSite; query != nil {
+		if err := _q.loadSite(ctx, query, nodes, nil,
 			func(n *TelemetryProfile, e *SiteResource) { n.Edges.Site = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := tpq.withInstance; query != nil {
-		if err := tpq.loadInstance(ctx, query, nodes, nil,
+	if query := _q.withInstance; query != nil {
+		if err := _q.loadInstance(ctx, query, nodes, nil,
 			func(n *TelemetryProfile, e *InstanceResource) { n.Edges.Instance = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := tpq.withGroup; query != nil {
-		if err := tpq.loadGroup(ctx, query, nodes, nil,
+	if query := _q.withGroup; query != nil {
+		if err := _q.loadGroup(ctx, query, nodes, nil,
 			func(n *TelemetryProfile, e *TelemetryGroupResource) { n.Edges.Group = e }); err != nil {
 			return nil, err
 		}
@@ -538,7 +538,7 @@ func (tpq *TelemetryProfileQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	return nodes, nil
 }
 
-func (tpq *TelemetryProfileQuery) loadRegion(ctx context.Context, query *RegionResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *RegionResource)) error {
+func (_q *TelemetryProfileQuery) loadRegion(ctx context.Context, query *RegionResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *RegionResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TelemetryProfile)
 	for i := range nodes {
@@ -570,7 +570,7 @@ func (tpq *TelemetryProfileQuery) loadRegion(ctx context.Context, query *RegionR
 	}
 	return nil
 }
-func (tpq *TelemetryProfileQuery) loadSite(ctx context.Context, query *SiteResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *SiteResource)) error {
+func (_q *TelemetryProfileQuery) loadSite(ctx context.Context, query *SiteResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *SiteResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TelemetryProfile)
 	for i := range nodes {
@@ -602,7 +602,7 @@ func (tpq *TelemetryProfileQuery) loadSite(ctx context.Context, query *SiteResou
 	}
 	return nil
 }
-func (tpq *TelemetryProfileQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *InstanceResource)) error {
+func (_q *TelemetryProfileQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *InstanceResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TelemetryProfile)
 	for i := range nodes {
@@ -634,7 +634,7 @@ func (tpq *TelemetryProfileQuery) loadInstance(ctx context.Context, query *Insta
 	}
 	return nil
 }
-func (tpq *TelemetryProfileQuery) loadGroup(ctx context.Context, query *TelemetryGroupResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *TelemetryGroupResource)) error {
+func (_q *TelemetryProfileQuery) loadGroup(ctx context.Context, query *TelemetryGroupResourceQuery, nodes []*TelemetryProfile, init func(*TelemetryProfile), assign func(*TelemetryProfile, *TelemetryGroupResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*TelemetryProfile)
 	for i := range nodes {
@@ -667,24 +667,24 @@ func (tpq *TelemetryProfileQuery) loadGroup(ctx context.Context, query *Telemetr
 	return nil
 }
 
-func (tpq *TelemetryProfileQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := tpq.querySpec()
-	_spec.Node.Columns = tpq.ctx.Fields
-	if len(tpq.ctx.Fields) > 0 {
-		_spec.Unique = tpq.ctx.Unique != nil && *tpq.ctx.Unique
+func (_q *TelemetryProfileQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, tpq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (tpq *TelemetryProfileQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *TelemetryProfileQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(telemetryprofile.Table, telemetryprofile.Columns, sqlgraph.NewFieldSpec(telemetryprofile.FieldID, field.TypeInt))
-	_spec.From = tpq.sql
-	if unique := tpq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if tpq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := tpq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, telemetryprofile.FieldID)
 		for i := range fields {
@@ -693,20 +693,20 @@ func (tpq *TelemetryProfileQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := tpq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := tpq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := tpq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := tpq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -716,33 +716,33 @@ func (tpq *TelemetryProfileQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (tpq *TelemetryProfileQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(tpq.driver.Dialect())
+func (_q *TelemetryProfileQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(telemetryprofile.Table)
-	columns := tpq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = telemetryprofile.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if tpq.sql != nil {
-		selector = tpq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if tpq.ctx.Unique != nil && *tpq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range tpq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range tpq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := tpq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := tpq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -755,41 +755,41 @@ type TelemetryProfileGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (tpgb *TelemetryProfileGroupBy) Aggregate(fns ...AggregateFunc) *TelemetryProfileGroupBy {
-	tpgb.fns = append(tpgb.fns, fns...)
-	return tpgb
+func (_g *TelemetryProfileGroupBy) Aggregate(fns ...AggregateFunc) *TelemetryProfileGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (tpgb *TelemetryProfileGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, tpgb.build.ctx, ent.OpQueryGroupBy)
-	if err := tpgb.build.prepareQuery(ctx); err != nil {
+func (_g *TelemetryProfileGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*TelemetryProfileQuery, *TelemetryProfileGroupBy](ctx, tpgb.build, tpgb, tpgb.build.inters, v)
+	return scanWithInterceptors[*TelemetryProfileQuery, *TelemetryProfileGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (tpgb *TelemetryProfileGroupBy) sqlScan(ctx context.Context, root *TelemetryProfileQuery, v any) error {
+func (_g *TelemetryProfileGroupBy) sqlScan(ctx context.Context, root *TelemetryProfileQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(tpgb.fns))
-	for _, fn := range tpgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*tpgb.flds)+len(tpgb.fns))
-		for _, f := range *tpgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*tpgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := tpgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -803,27 +803,27 @@ type TelemetryProfileSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (tps *TelemetryProfileSelect) Aggregate(fns ...AggregateFunc) *TelemetryProfileSelect {
-	tps.fns = append(tps.fns, fns...)
-	return tps
+func (_s *TelemetryProfileSelect) Aggregate(fns ...AggregateFunc) *TelemetryProfileSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (tps *TelemetryProfileSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, tps.ctx, ent.OpQuerySelect)
-	if err := tps.prepareQuery(ctx); err != nil {
+func (_s *TelemetryProfileSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*TelemetryProfileQuery, *TelemetryProfileSelect](ctx, tps.TelemetryProfileQuery, tps, tps.inters, v)
+	return scanWithInterceptors[*TelemetryProfileQuery, *TelemetryProfileSelect](ctx, _s.TelemetryProfileQuery, _s, _s.inters, v)
 }
 
-func (tps *TelemetryProfileSelect) sqlScan(ctx context.Context, root *TelemetryProfileQuery, v any) error {
+func (_s *TelemetryProfileSelect) sqlScan(ctx context.Context, root *TelemetryProfileQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(tps.fns))
-	for _, fn := range tps.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*tps.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -831,7 +831,7 @@ func (tps *TelemetryProfileSelect) sqlScan(ctx context.Context, root *TelemetryP
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := tps.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

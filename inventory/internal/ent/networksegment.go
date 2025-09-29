@@ -76,7 +76,7 @@ func (*NetworkSegment) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the NetworkSegment fields.
-func (ns *NetworkSegment) assignValues(columns []string, values []any) error {
+func (_m *NetworkSegment) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -87,52 +87,52 @@ func (ns *NetworkSegment) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			ns.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case networksegment.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				ns.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case networksegment.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				ns.Name = value.String
+				_m.Name = value.String
 			}
 		case networksegment.FieldVlanID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field vlan_id", values[i])
 			} else if value.Valid {
-				ns.VlanID = int32(value.Int64)
+				_m.VlanID = int32(value.Int64)
 			}
 		case networksegment.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				ns.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case networksegment.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				ns.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case networksegment.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				ns.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case networksegment.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field network_segment_site", value)
 			} else if value.Valid {
-				ns.network_segment_site = new(int)
-				*ns.network_segment_site = int(value.Int64)
+				_m.network_segment_site = new(int)
+				*_m.network_segment_site = int(value.Int64)
 			}
 		default:
-			ns.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -140,55 +140,55 @@ func (ns *NetworkSegment) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the NetworkSegment.
 // This includes values selected through modifiers, order, etc.
-func (ns *NetworkSegment) Value(name string) (ent.Value, error) {
-	return ns.selectValues.Get(name)
+func (_m *NetworkSegment) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QuerySite queries the "site" edge of the NetworkSegment entity.
-func (ns *NetworkSegment) QuerySite() *SiteResourceQuery {
-	return NewNetworkSegmentClient(ns.config).QuerySite(ns)
+func (_m *NetworkSegment) QuerySite() *SiteResourceQuery {
+	return NewNetworkSegmentClient(_m.config).QuerySite(_m)
 }
 
 // Update returns a builder for updating this NetworkSegment.
 // Note that you need to call NetworkSegment.Unwrap() before calling this method if this NetworkSegment
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (ns *NetworkSegment) Update() *NetworkSegmentUpdateOne {
-	return NewNetworkSegmentClient(ns.config).UpdateOne(ns)
+func (_m *NetworkSegment) Update() *NetworkSegmentUpdateOne {
+	return NewNetworkSegmentClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the NetworkSegment entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (ns *NetworkSegment) Unwrap() *NetworkSegment {
-	_tx, ok := ns.config.driver.(*txDriver)
+func (_m *NetworkSegment) Unwrap() *NetworkSegment {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: NetworkSegment is not a transactional entity")
 	}
-	ns.config.driver = _tx.drv
-	return ns
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (ns *NetworkSegment) String() string {
+func (_m *NetworkSegment) String() string {
 	var builder strings.Builder
 	builder.WriteString("NetworkSegment(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", ns.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(ns.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(ns.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("vlan_id=")
-	builder.WriteString(fmt.Sprintf("%v", ns.VlanID))
+	builder.WriteString(fmt.Sprintf("%v", _m.VlanID))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(ns.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(ns.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(ns.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -84,7 +84,7 @@ func (*HostgpuResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the HostgpuResource fields.
-func (hr *HostgpuResource) assignValues(columns []string, values []any) error {
+func (_m *HostgpuResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -95,76 +95,76 @@ func (hr *HostgpuResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			hr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case hostgpuresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				hr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case hostgpuresource.FieldPciID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field pci_id", values[i])
 			} else if value.Valid {
-				hr.PciID = value.String
+				_m.PciID = value.String
 			}
 		case hostgpuresource.FieldProduct:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field product", values[i])
 			} else if value.Valid {
-				hr.Product = value.String
+				_m.Product = value.String
 			}
 		case hostgpuresource.FieldVendor:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field vendor", values[i])
 			} else if value.Valid {
-				hr.Vendor = value.String
+				_m.Vendor = value.String
 			}
 		case hostgpuresource.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				hr.Description = value.String
+				_m.Description = value.String
 			}
 		case hostgpuresource.FieldDeviceName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field device_name", values[i])
 			} else if value.Valid {
-				hr.DeviceName = value.String
+				_m.DeviceName = value.String
 			}
 		case hostgpuresource.FieldFeatures:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field features", values[i])
 			} else if value.Valid {
-				hr.Features = value.String
+				_m.Features = value.String
 			}
 		case hostgpuresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				hr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case hostgpuresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				hr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case hostgpuresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				hr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case hostgpuresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field hostgpu_resource_host", value)
 			} else if value.Valid {
-				hr.hostgpu_resource_host = new(int)
-				*hr.hostgpu_resource_host = int(value.Int64)
+				_m.hostgpu_resource_host = new(int)
+				*_m.hostgpu_resource_host = int(value.Int64)
 			}
 		default:
-			hr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -172,67 +172,67 @@ func (hr *HostgpuResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the HostgpuResource.
 // This includes values selected through modifiers, order, etc.
-func (hr *HostgpuResource) Value(name string) (ent.Value, error) {
-	return hr.selectValues.Get(name)
+func (_m *HostgpuResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryHost queries the "host" edge of the HostgpuResource entity.
-func (hr *HostgpuResource) QueryHost() *HostResourceQuery {
-	return NewHostgpuResourceClient(hr.config).QueryHost(hr)
+func (_m *HostgpuResource) QueryHost() *HostResourceQuery {
+	return NewHostgpuResourceClient(_m.config).QueryHost(_m)
 }
 
 // Update returns a builder for updating this HostgpuResource.
 // Note that you need to call HostgpuResource.Unwrap() before calling this method if this HostgpuResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (hr *HostgpuResource) Update() *HostgpuResourceUpdateOne {
-	return NewHostgpuResourceClient(hr.config).UpdateOne(hr)
+func (_m *HostgpuResource) Update() *HostgpuResourceUpdateOne {
+	return NewHostgpuResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the HostgpuResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (hr *HostgpuResource) Unwrap() *HostgpuResource {
-	_tx, ok := hr.config.driver.(*txDriver)
+func (_m *HostgpuResource) Unwrap() *HostgpuResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: HostgpuResource is not a transactional entity")
 	}
-	hr.config.driver = _tx.drv
-	return hr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (hr *HostgpuResource) String() string {
+func (_m *HostgpuResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("HostgpuResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", hr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(hr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("pci_id=")
-	builder.WriteString(hr.PciID)
+	builder.WriteString(_m.PciID)
 	builder.WriteString(", ")
 	builder.WriteString("product=")
-	builder.WriteString(hr.Product)
+	builder.WriteString(_m.Product)
 	builder.WriteString(", ")
 	builder.WriteString("vendor=")
-	builder.WriteString(hr.Vendor)
+	builder.WriteString(_m.Vendor)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(hr.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("device_name=")
-	builder.WriteString(hr.DeviceName)
+	builder.WriteString(_m.DeviceName)
 	builder.WriteString(", ")
 	builder.WriteString("features=")
-	builder.WriteString(hr.Features)
+	builder.WriteString(_m.Features)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(hr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(hr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(hr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

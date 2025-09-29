@@ -44,44 +44,44 @@ type HostResourceQuery struct {
 }
 
 // Where adds a new predicate for the HostResourceQuery builder.
-func (hrq *HostResourceQuery) Where(ps ...predicate.HostResource) *HostResourceQuery {
-	hrq.predicates = append(hrq.predicates, ps...)
-	return hrq
+func (_q *HostResourceQuery) Where(ps ...predicate.HostResource) *HostResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (hrq *HostResourceQuery) Limit(limit int) *HostResourceQuery {
-	hrq.ctx.Limit = &limit
-	return hrq
+func (_q *HostResourceQuery) Limit(limit int) *HostResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (hrq *HostResourceQuery) Offset(offset int) *HostResourceQuery {
-	hrq.ctx.Offset = &offset
-	return hrq
+func (_q *HostResourceQuery) Offset(offset int) *HostResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (hrq *HostResourceQuery) Unique(unique bool) *HostResourceQuery {
-	hrq.ctx.Unique = &unique
-	return hrq
+func (_q *HostResourceQuery) Unique(unique bool) *HostResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (hrq *HostResourceQuery) Order(o ...hostresource.OrderOption) *HostResourceQuery {
-	hrq.order = append(hrq.order, o...)
-	return hrq
+func (_q *HostResourceQuery) Order(o ...hostresource.OrderOption) *HostResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QuerySite chains the current query on the "site" edge.
-func (hrq *HostResourceQuery) QuerySite() *SiteResourceQuery {
-	query := (&SiteResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QuerySite() *SiteResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -90,20 +90,20 @@ func (hrq *HostResourceQuery) QuerySite() *SiteResourceQuery {
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostresource.SiteTable, hostresource.SiteColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryProvider chains the current query on the "provider" edge.
-func (hrq *HostResourceQuery) QueryProvider() *ProviderResourceQuery {
-	query := (&ProviderResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QueryProvider() *ProviderResourceQuery {
+	query := (&ProviderResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -112,20 +112,20 @@ func (hrq *HostResourceQuery) QueryProvider() *ProviderResourceQuery {
 			sqlgraph.To(providerresource.Table, providerresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostresource.ProviderTable, hostresource.ProviderColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryHostStorages chains the current query on the "host_storages" edge.
-func (hrq *HostResourceQuery) QueryHostStorages() *HoststorageResourceQuery {
-	query := (&HoststorageResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QueryHostStorages() *HoststorageResourceQuery {
+	query := (&HoststorageResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -134,20 +134,20 @@ func (hrq *HostResourceQuery) QueryHostStorages() *HoststorageResourceQuery {
 			sqlgraph.To(hoststorageresource.Table, hoststorageresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostStoragesTable, hostresource.HostStoragesColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryHostNics chains the current query on the "host_nics" edge.
-func (hrq *HostResourceQuery) QueryHostNics() *HostnicResourceQuery {
-	query := (&HostnicResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QueryHostNics() *HostnicResourceQuery {
+	query := (&HostnicResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -156,20 +156,20 @@ func (hrq *HostResourceQuery) QueryHostNics() *HostnicResourceQuery {
 			sqlgraph.To(hostnicresource.Table, hostnicresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostNicsTable, hostresource.HostNicsColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryHostUsbs chains the current query on the "host_usbs" edge.
-func (hrq *HostResourceQuery) QueryHostUsbs() *HostusbResourceQuery {
-	query := (&HostusbResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QueryHostUsbs() *HostusbResourceQuery {
+	query := (&HostusbResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -178,20 +178,20 @@ func (hrq *HostResourceQuery) QueryHostUsbs() *HostusbResourceQuery {
 			sqlgraph.To(hostusbresource.Table, hostusbresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostUsbsTable, hostresource.HostUsbsColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryHostGpus chains the current query on the "host_gpus" edge.
-func (hrq *HostResourceQuery) QueryHostGpus() *HostgpuResourceQuery {
-	query := (&HostgpuResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QueryHostGpus() *HostgpuResourceQuery {
+	query := (&HostgpuResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -200,20 +200,20 @@ func (hrq *HostResourceQuery) QueryHostGpus() *HostgpuResourceQuery {
 			sqlgraph.To(hostgpuresource.Table, hostgpuresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostGpusTable, hostresource.HostGpusColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryInstance chains the current query on the "instance" edge.
-func (hrq *HostResourceQuery) QueryInstance() *InstanceResourceQuery {
-	query := (&InstanceResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) QueryInstance() *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -222,7 +222,7 @@ func (hrq *HostResourceQuery) QueryInstance() *InstanceResourceQuery {
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, true, hostresource.InstanceTable, hostresource.InstanceColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -230,8 +230,8 @@ func (hrq *HostResourceQuery) QueryInstance() *InstanceResourceQuery {
 
 // First returns the first HostResource entity from the query.
 // Returns a *NotFoundError when no HostResource was found.
-func (hrq *HostResourceQuery) First(ctx context.Context) (*HostResource, error) {
-	nodes, err := hrq.Limit(1).All(setContextOp(ctx, hrq.ctx, ent.OpQueryFirst))
+func (_q *HostResourceQuery) First(ctx context.Context) (*HostResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -242,8 +242,8 @@ func (hrq *HostResourceQuery) First(ctx context.Context) (*HostResource, error) 
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (hrq *HostResourceQuery) FirstX(ctx context.Context) *HostResource {
-	node, err := hrq.First(ctx)
+func (_q *HostResourceQuery) FirstX(ctx context.Context) *HostResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -252,9 +252,9 @@ func (hrq *HostResourceQuery) FirstX(ctx context.Context) *HostResource {
 
 // FirstID returns the first HostResource ID from the query.
 // Returns a *NotFoundError when no HostResource ID was found.
-func (hrq *HostResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *HostResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = hrq.Limit(1).IDs(setContextOp(ctx, hrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -265,8 +265,8 @@ func (hrq *HostResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (hrq *HostResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := hrq.FirstID(ctx)
+func (_q *HostResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -276,8 +276,8 @@ func (hrq *HostResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single HostResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one HostResource entity is found.
 // Returns a *NotFoundError when no HostResource entities are found.
-func (hrq *HostResourceQuery) Only(ctx context.Context) (*HostResource, error) {
-	nodes, err := hrq.Limit(2).All(setContextOp(ctx, hrq.ctx, ent.OpQueryOnly))
+func (_q *HostResourceQuery) Only(ctx context.Context) (*HostResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -292,8 +292,8 @@ func (hrq *HostResourceQuery) Only(ctx context.Context) (*HostResource, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (hrq *HostResourceQuery) OnlyX(ctx context.Context) *HostResource {
-	node, err := hrq.Only(ctx)
+func (_q *HostResourceQuery) OnlyX(ctx context.Context) *HostResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -303,9 +303,9 @@ func (hrq *HostResourceQuery) OnlyX(ctx context.Context) *HostResource {
 // OnlyID is like Only, but returns the only HostResource ID in the query.
 // Returns a *NotSingularError when more than one HostResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (hrq *HostResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *HostResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = hrq.Limit(2).IDs(setContextOp(ctx, hrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -320,8 +320,8 @@ func (hrq *HostResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (hrq *HostResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := hrq.OnlyID(ctx)
+func (_q *HostResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -329,18 +329,18 @@ func (hrq *HostResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of HostResources.
-func (hrq *HostResourceQuery) All(ctx context.Context) ([]*HostResource, error) {
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryAll)
-	if err := hrq.prepareQuery(ctx); err != nil {
+func (_q *HostResourceQuery) All(ctx context.Context) ([]*HostResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*HostResource, *HostResourceQuery]()
-	return withInterceptors[[]*HostResource](ctx, hrq, qr, hrq.inters)
+	return withInterceptors[[]*HostResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (hrq *HostResourceQuery) AllX(ctx context.Context) []*HostResource {
-	nodes, err := hrq.All(ctx)
+func (_q *HostResourceQuery) AllX(ctx context.Context) []*HostResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -348,20 +348,20 @@ func (hrq *HostResourceQuery) AllX(ctx context.Context) []*HostResource {
 }
 
 // IDs executes the query and returns a list of HostResource IDs.
-func (hrq *HostResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if hrq.ctx.Unique == nil && hrq.path != nil {
-		hrq.Unique(true)
+func (_q *HostResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryIDs)
-	if err = hrq.Select(hostresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(hostresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (hrq *HostResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := hrq.IDs(ctx)
+func (_q *HostResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -369,17 +369,17 @@ func (hrq *HostResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (hrq *HostResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryCount)
-	if err := hrq.prepareQuery(ctx); err != nil {
+func (_q *HostResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, hrq, querierCount[*HostResourceQuery](), hrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*HostResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (hrq *HostResourceQuery) CountX(ctx context.Context) int {
-	count, err := hrq.Count(ctx)
+func (_q *HostResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -387,9 +387,9 @@ func (hrq *HostResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (hrq *HostResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryExist)
-	switch _, err := hrq.FirstID(ctx); {
+func (_q *HostResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -400,8 +400,8 @@ func (hrq *HostResourceQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (hrq *HostResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := hrq.Exist(ctx)
+func (_q *HostResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -410,104 +410,104 @@ func (hrq *HostResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the HostResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (hrq *HostResourceQuery) Clone() *HostResourceQuery {
-	if hrq == nil {
+func (_q *HostResourceQuery) Clone() *HostResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &HostResourceQuery{
-		config:           hrq.config,
-		ctx:              hrq.ctx.Clone(),
-		order:            append([]hostresource.OrderOption{}, hrq.order...),
-		inters:           append([]Interceptor{}, hrq.inters...),
-		predicates:       append([]predicate.HostResource{}, hrq.predicates...),
-		withSite:         hrq.withSite.Clone(),
-		withProvider:     hrq.withProvider.Clone(),
-		withHostStorages: hrq.withHostStorages.Clone(),
-		withHostNics:     hrq.withHostNics.Clone(),
-		withHostUsbs:     hrq.withHostUsbs.Clone(),
-		withHostGpus:     hrq.withHostGpus.Clone(),
-		withInstance:     hrq.withInstance.Clone(),
+		config:           _q.config,
+		ctx:              _q.ctx.Clone(),
+		order:            append([]hostresource.OrderOption{}, _q.order...),
+		inters:           append([]Interceptor{}, _q.inters...),
+		predicates:       append([]predicate.HostResource{}, _q.predicates...),
+		withSite:         _q.withSite.Clone(),
+		withProvider:     _q.withProvider.Clone(),
+		withHostStorages: _q.withHostStorages.Clone(),
+		withHostNics:     _q.withHostNics.Clone(),
+		withHostUsbs:     _q.withHostUsbs.Clone(),
+		withHostGpus:     _q.withHostGpus.Clone(),
+		withInstance:     _q.withInstance.Clone(),
 		// clone intermediate query.
-		sql:  hrq.sql.Clone(),
-		path: hrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithSite tells the query-builder to eager-load the nodes that are connected to
 // the "site" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithSite(opts ...func(*SiteResourceQuery)) *HostResourceQuery {
-	query := (&SiteResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithSite(opts ...func(*SiteResourceQuery)) *HostResourceQuery {
+	query := (&SiteResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withSite = query
-	return hrq
+	_q.withSite = query
+	return _q
 }
 
 // WithProvider tells the query-builder to eager-load the nodes that are connected to
 // the "provider" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithProvider(opts ...func(*ProviderResourceQuery)) *HostResourceQuery {
-	query := (&ProviderResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithProvider(opts ...func(*ProviderResourceQuery)) *HostResourceQuery {
+	query := (&ProviderResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withProvider = query
-	return hrq
+	_q.withProvider = query
+	return _q
 }
 
 // WithHostStorages tells the query-builder to eager-load the nodes that are connected to
 // the "host_storages" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithHostStorages(opts ...func(*HoststorageResourceQuery)) *HostResourceQuery {
-	query := (&HoststorageResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithHostStorages(opts ...func(*HoststorageResourceQuery)) *HostResourceQuery {
+	query := (&HoststorageResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withHostStorages = query
-	return hrq
+	_q.withHostStorages = query
+	return _q
 }
 
 // WithHostNics tells the query-builder to eager-load the nodes that are connected to
 // the "host_nics" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithHostNics(opts ...func(*HostnicResourceQuery)) *HostResourceQuery {
-	query := (&HostnicResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithHostNics(opts ...func(*HostnicResourceQuery)) *HostResourceQuery {
+	query := (&HostnicResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withHostNics = query
-	return hrq
+	_q.withHostNics = query
+	return _q
 }
 
 // WithHostUsbs tells the query-builder to eager-load the nodes that are connected to
 // the "host_usbs" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithHostUsbs(opts ...func(*HostusbResourceQuery)) *HostResourceQuery {
-	query := (&HostusbResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithHostUsbs(opts ...func(*HostusbResourceQuery)) *HostResourceQuery {
+	query := (&HostusbResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withHostUsbs = query
-	return hrq
+	_q.withHostUsbs = query
+	return _q
 }
 
 // WithHostGpus tells the query-builder to eager-load the nodes that are connected to
 // the "host_gpus" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithHostGpus(opts ...func(*HostgpuResourceQuery)) *HostResourceQuery {
-	query := (&HostgpuResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithHostGpus(opts ...func(*HostgpuResourceQuery)) *HostResourceQuery {
+	query := (&HostgpuResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withHostGpus = query
-	return hrq
+	_q.withHostGpus = query
+	return _q
 }
 
 // WithInstance tells the query-builder to eager-load the nodes that are connected to
 // the "instance" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostResourceQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *HostResourceQuery {
-	query := (&InstanceResourceClient{config: hrq.config}).Query()
+func (_q *HostResourceQuery) WithInstance(opts ...func(*InstanceResourceQuery)) *HostResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withInstance = query
-	return hrq
+	_q.withInstance = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -524,10 +524,10 @@ func (hrq *HostResourceQuery) WithInstance(opts ...func(*InstanceResourceQuery))
 //		GroupBy(hostresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (hrq *HostResourceQuery) GroupBy(field string, fields ...string) *HostResourceGroupBy {
-	hrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &HostResourceGroupBy{build: hrq}
-	grbuild.flds = &hrq.ctx.Fields
+func (_q *HostResourceQuery) GroupBy(field string, fields ...string) *HostResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &HostResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = hostresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -545,61 +545,61 @@ func (hrq *HostResourceQuery) GroupBy(field string, fields ...string) *HostResou
 //	client.HostResource.Query().
 //		Select(hostresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (hrq *HostResourceQuery) Select(fields ...string) *HostResourceSelect {
-	hrq.ctx.Fields = append(hrq.ctx.Fields, fields...)
-	sbuild := &HostResourceSelect{HostResourceQuery: hrq}
+func (_q *HostResourceQuery) Select(fields ...string) *HostResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &HostResourceSelect{HostResourceQuery: _q}
 	sbuild.label = hostresource.Label
-	sbuild.flds, sbuild.scan = &hrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a HostResourceSelect configured with the given aggregations.
-func (hrq *HostResourceQuery) Aggregate(fns ...AggregateFunc) *HostResourceSelect {
-	return hrq.Select().Aggregate(fns...)
+func (_q *HostResourceQuery) Aggregate(fns ...AggregateFunc) *HostResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (hrq *HostResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range hrq.inters {
+func (_q *HostResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, hrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range hrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !hostresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if hrq.path != nil {
-		prev, err := hrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		hrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (hrq *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*HostResource, error) {
+func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*HostResource, error) {
 	var (
 		nodes       = []*HostResource{}
-		withFKs     = hrq.withFKs
-		_spec       = hrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [7]bool{
-			hrq.withSite != nil,
-			hrq.withProvider != nil,
-			hrq.withHostStorages != nil,
-			hrq.withHostNics != nil,
-			hrq.withHostUsbs != nil,
-			hrq.withHostGpus != nil,
-			hrq.withInstance != nil,
+			_q.withSite != nil,
+			_q.withProvider != nil,
+			_q.withHostStorages != nil,
+			_q.withHostNics != nil,
+			_q.withHostUsbs != nil,
+			_q.withHostGpus != nil,
+			_q.withInstance != nil,
 		}
 	)
-	if hrq.withSite != nil || hrq.withProvider != nil || hrq.withInstance != nil {
+	if _q.withSite != nil || _q.withProvider != nil || _q.withInstance != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -609,7 +609,7 @@ func (hrq *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([
 		return (*HostResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &HostResource{config: hrq.config}
+		node := &HostResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -617,54 +617,54 @@ func (hrq *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, hrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := hrq.withSite; query != nil {
-		if err := hrq.loadSite(ctx, query, nodes, nil,
+	if query := _q.withSite; query != nil {
+		if err := _q.loadSite(ctx, query, nodes, nil,
 			func(n *HostResource, e *SiteResource) { n.Edges.Site = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := hrq.withProvider; query != nil {
-		if err := hrq.loadProvider(ctx, query, nodes, nil,
+	if query := _q.withProvider; query != nil {
+		if err := _q.loadProvider(ctx, query, nodes, nil,
 			func(n *HostResource, e *ProviderResource) { n.Edges.Provider = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := hrq.withHostStorages; query != nil {
-		if err := hrq.loadHostStorages(ctx, query, nodes,
+	if query := _q.withHostStorages; query != nil {
+		if err := _q.loadHostStorages(ctx, query, nodes,
 			func(n *HostResource) { n.Edges.HostStorages = []*HoststorageResource{} },
 			func(n *HostResource, e *HoststorageResource) { n.Edges.HostStorages = append(n.Edges.HostStorages, e) }); err != nil {
 			return nil, err
 		}
 	}
-	if query := hrq.withHostNics; query != nil {
-		if err := hrq.loadHostNics(ctx, query, nodes,
+	if query := _q.withHostNics; query != nil {
+		if err := _q.loadHostNics(ctx, query, nodes,
 			func(n *HostResource) { n.Edges.HostNics = []*HostnicResource{} },
 			func(n *HostResource, e *HostnicResource) { n.Edges.HostNics = append(n.Edges.HostNics, e) }); err != nil {
 			return nil, err
 		}
 	}
-	if query := hrq.withHostUsbs; query != nil {
-		if err := hrq.loadHostUsbs(ctx, query, nodes,
+	if query := _q.withHostUsbs; query != nil {
+		if err := _q.loadHostUsbs(ctx, query, nodes,
 			func(n *HostResource) { n.Edges.HostUsbs = []*HostusbResource{} },
 			func(n *HostResource, e *HostusbResource) { n.Edges.HostUsbs = append(n.Edges.HostUsbs, e) }); err != nil {
 			return nil, err
 		}
 	}
-	if query := hrq.withHostGpus; query != nil {
-		if err := hrq.loadHostGpus(ctx, query, nodes,
+	if query := _q.withHostGpus; query != nil {
+		if err := _q.loadHostGpus(ctx, query, nodes,
 			func(n *HostResource) { n.Edges.HostGpus = []*HostgpuResource{} },
 			func(n *HostResource, e *HostgpuResource) { n.Edges.HostGpus = append(n.Edges.HostGpus, e) }); err != nil {
 			return nil, err
 		}
 	}
-	if query := hrq.withInstance; query != nil {
-		if err := hrq.loadInstance(ctx, query, nodes, nil,
+	if query := _q.withInstance; query != nil {
+		if err := _q.loadInstance(ctx, query, nodes, nil,
 			func(n *HostResource, e *InstanceResource) { n.Edges.Instance = e }); err != nil {
 			return nil, err
 		}
@@ -672,7 +672,7 @@ func (hrq *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([
 	return nodes, nil
 }
 
-func (hrq *HostResourceQuery) loadSite(ctx context.Context, query *SiteResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *SiteResource)) error {
+func (_q *HostResourceQuery) loadSite(ctx context.Context, query *SiteResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *SiteResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*HostResource)
 	for i := range nodes {
@@ -704,7 +704,7 @@ func (hrq *HostResourceQuery) loadSite(ctx context.Context, query *SiteResourceQ
 	}
 	return nil
 }
-func (hrq *HostResourceQuery) loadProvider(ctx context.Context, query *ProviderResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *ProviderResource)) error {
+func (_q *HostResourceQuery) loadProvider(ctx context.Context, query *ProviderResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *ProviderResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*HostResource)
 	for i := range nodes {
@@ -736,7 +736,7 @@ func (hrq *HostResourceQuery) loadProvider(ctx context.Context, query *ProviderR
 	}
 	return nil
 }
-func (hrq *HostResourceQuery) loadHostStorages(ctx context.Context, query *HoststorageResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HoststorageResource)) error {
+func (_q *HostResourceQuery) loadHostStorages(ctx context.Context, query *HoststorageResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HoststorageResource)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*HostResource)
 	for i := range nodes {
@@ -767,7 +767,7 @@ func (hrq *HostResourceQuery) loadHostStorages(ctx context.Context, query *Hosts
 	}
 	return nil
 }
-func (hrq *HostResourceQuery) loadHostNics(ctx context.Context, query *HostnicResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostnicResource)) error {
+func (_q *HostResourceQuery) loadHostNics(ctx context.Context, query *HostnicResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostnicResource)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*HostResource)
 	for i := range nodes {
@@ -798,7 +798,7 @@ func (hrq *HostResourceQuery) loadHostNics(ctx context.Context, query *HostnicRe
 	}
 	return nil
 }
-func (hrq *HostResourceQuery) loadHostUsbs(ctx context.Context, query *HostusbResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostusbResource)) error {
+func (_q *HostResourceQuery) loadHostUsbs(ctx context.Context, query *HostusbResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostusbResource)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*HostResource)
 	for i := range nodes {
@@ -829,7 +829,7 @@ func (hrq *HostResourceQuery) loadHostUsbs(ctx context.Context, query *HostusbRe
 	}
 	return nil
 }
-func (hrq *HostResourceQuery) loadHostGpus(ctx context.Context, query *HostgpuResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostgpuResource)) error {
+func (_q *HostResourceQuery) loadHostGpus(ctx context.Context, query *HostgpuResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostgpuResource)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*HostResource)
 	for i := range nodes {
@@ -860,7 +860,7 @@ func (hrq *HostResourceQuery) loadHostGpus(ctx context.Context, query *HostgpuRe
 	}
 	return nil
 }
-func (hrq *HostResourceQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *InstanceResource)) error {
+func (_q *HostResourceQuery) loadInstance(ctx context.Context, query *InstanceResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *InstanceResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*HostResource)
 	for i := range nodes {
@@ -893,24 +893,24 @@ func (hrq *HostResourceQuery) loadInstance(ctx context.Context, query *InstanceR
 	return nil
 }
 
-func (hrq *HostResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := hrq.querySpec()
-	_spec.Node.Columns = hrq.ctx.Fields
-	if len(hrq.ctx.Fields) > 0 {
-		_spec.Unique = hrq.ctx.Unique != nil && *hrq.ctx.Unique
+func (_q *HostResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, hrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (hrq *HostResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *HostResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(hostresource.Table, hostresource.Columns, sqlgraph.NewFieldSpec(hostresource.FieldID, field.TypeInt))
-	_spec.From = hrq.sql
-	if unique := hrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if hrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := hrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, hostresource.FieldID)
 		for i := range fields {
@@ -919,20 +919,20 @@ func (hrq *HostResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := hrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := hrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := hrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := hrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -942,33 +942,33 @@ func (hrq *HostResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (hrq *HostResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(hrq.driver.Dialect())
+func (_q *HostResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(hostresource.Table)
-	columns := hrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = hostresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if hrq.sql != nil {
-		selector = hrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if hrq.ctx.Unique != nil && *hrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range hrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range hrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := hrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := hrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -981,41 +981,41 @@ type HostResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (hrgb *HostResourceGroupBy) Aggregate(fns ...AggregateFunc) *HostResourceGroupBy {
-	hrgb.fns = append(hrgb.fns, fns...)
-	return hrgb
+func (_g *HostResourceGroupBy) Aggregate(fns ...AggregateFunc) *HostResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (hrgb *HostResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, hrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := hrgb.build.prepareQuery(ctx); err != nil {
+func (_g *HostResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*HostResourceQuery, *HostResourceGroupBy](ctx, hrgb.build, hrgb, hrgb.build.inters, v)
+	return scanWithInterceptors[*HostResourceQuery, *HostResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (hrgb *HostResourceGroupBy) sqlScan(ctx context.Context, root *HostResourceQuery, v any) error {
+func (_g *HostResourceGroupBy) sqlScan(ctx context.Context, root *HostResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(hrgb.fns))
-	for _, fn := range hrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*hrgb.flds)+len(hrgb.fns))
-		for _, f := range *hrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*hrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := hrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -1029,27 +1029,27 @@ type HostResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (hrs *HostResourceSelect) Aggregate(fns ...AggregateFunc) *HostResourceSelect {
-	hrs.fns = append(hrs.fns, fns...)
-	return hrs
+func (_s *HostResourceSelect) Aggregate(fns ...AggregateFunc) *HostResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (hrs *HostResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, hrs.ctx, ent.OpQuerySelect)
-	if err := hrs.prepareQuery(ctx); err != nil {
+func (_s *HostResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*HostResourceQuery, *HostResourceSelect](ctx, hrs.HostResourceQuery, hrs, hrs.inters, v)
+	return scanWithInterceptors[*HostResourceQuery, *HostResourceSelect](ctx, _s.HostResourceQuery, _s, _s.inters, v)
 }
 
-func (hrs *HostResourceSelect) sqlScan(ctx context.Context, root *HostResourceQuery, v any) error {
+func (_s *HostResourceSelect) sqlScan(ctx context.Context, root *HostResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(hrs.fns))
-	for _, fn := range hrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*hrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -1057,7 +1057,7 @@ func (hrs *HostResourceSelect) sqlScan(ctx context.Context, root *HostResourceQu
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := hrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

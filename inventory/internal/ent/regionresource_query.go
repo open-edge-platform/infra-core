@@ -32,44 +32,44 @@ type RegionResourceQuery struct {
 }
 
 // Where adds a new predicate for the RegionResourceQuery builder.
-func (rrq *RegionResourceQuery) Where(ps ...predicate.RegionResource) *RegionResourceQuery {
-	rrq.predicates = append(rrq.predicates, ps...)
-	return rrq
+func (_q *RegionResourceQuery) Where(ps ...predicate.RegionResource) *RegionResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (rrq *RegionResourceQuery) Limit(limit int) *RegionResourceQuery {
-	rrq.ctx.Limit = &limit
-	return rrq
+func (_q *RegionResourceQuery) Limit(limit int) *RegionResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (rrq *RegionResourceQuery) Offset(offset int) *RegionResourceQuery {
-	rrq.ctx.Offset = &offset
-	return rrq
+func (_q *RegionResourceQuery) Offset(offset int) *RegionResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (rrq *RegionResourceQuery) Unique(unique bool) *RegionResourceQuery {
-	rrq.ctx.Unique = &unique
-	return rrq
+func (_q *RegionResourceQuery) Unique(unique bool) *RegionResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (rrq *RegionResourceQuery) Order(o ...regionresource.OrderOption) *RegionResourceQuery {
-	rrq.order = append(rrq.order, o...)
-	return rrq
+func (_q *RegionResourceQuery) Order(o ...regionresource.OrderOption) *RegionResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryParentRegion chains the current query on the "parent_region" edge.
-func (rrq *RegionResourceQuery) QueryParentRegion() *RegionResourceQuery {
-	query := (&RegionResourceClient{config: rrq.config}).Query()
+func (_q *RegionResourceQuery) QueryParentRegion() *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := rrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -78,20 +78,20 @@ func (rrq *RegionResourceQuery) QueryParentRegion() *RegionResourceQuery {
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, regionresource.ParentRegionTable, regionresource.ParentRegionColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(rrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryChildren chains the current query on the "children" edge.
-func (rrq *RegionResourceQuery) QueryChildren() *RegionResourceQuery {
-	query := (&RegionResourceClient{config: rrq.config}).Query()
+func (_q *RegionResourceQuery) QueryChildren() *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := rrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -100,7 +100,7 @@ func (rrq *RegionResourceQuery) QueryChildren() *RegionResourceQuery {
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, regionresource.ChildrenTable, regionresource.ChildrenColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(rrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -108,8 +108,8 @@ func (rrq *RegionResourceQuery) QueryChildren() *RegionResourceQuery {
 
 // First returns the first RegionResource entity from the query.
 // Returns a *NotFoundError when no RegionResource was found.
-func (rrq *RegionResourceQuery) First(ctx context.Context) (*RegionResource, error) {
-	nodes, err := rrq.Limit(1).All(setContextOp(ctx, rrq.ctx, ent.OpQueryFirst))
+func (_q *RegionResourceQuery) First(ctx context.Context) (*RegionResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -120,8 +120,8 @@ func (rrq *RegionResourceQuery) First(ctx context.Context) (*RegionResource, err
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (rrq *RegionResourceQuery) FirstX(ctx context.Context) *RegionResource {
-	node, err := rrq.First(ctx)
+func (_q *RegionResourceQuery) FirstX(ctx context.Context) *RegionResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -130,9 +130,9 @@ func (rrq *RegionResourceQuery) FirstX(ctx context.Context) *RegionResource {
 
 // FirstID returns the first RegionResource ID from the query.
 // Returns a *NotFoundError when no RegionResource ID was found.
-func (rrq *RegionResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *RegionResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = rrq.Limit(1).IDs(setContextOp(ctx, rrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -143,8 +143,8 @@ func (rrq *RegionResourceQuery) FirstID(ctx context.Context) (id int, err error)
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (rrq *RegionResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := rrq.FirstID(ctx)
+func (_q *RegionResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -154,8 +154,8 @@ func (rrq *RegionResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single RegionResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one RegionResource entity is found.
 // Returns a *NotFoundError when no RegionResource entities are found.
-func (rrq *RegionResourceQuery) Only(ctx context.Context) (*RegionResource, error) {
-	nodes, err := rrq.Limit(2).All(setContextOp(ctx, rrq.ctx, ent.OpQueryOnly))
+func (_q *RegionResourceQuery) Only(ctx context.Context) (*RegionResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -170,8 +170,8 @@ func (rrq *RegionResourceQuery) Only(ctx context.Context) (*RegionResource, erro
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (rrq *RegionResourceQuery) OnlyX(ctx context.Context) *RegionResource {
-	node, err := rrq.Only(ctx)
+func (_q *RegionResourceQuery) OnlyX(ctx context.Context) *RegionResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -181,9 +181,9 @@ func (rrq *RegionResourceQuery) OnlyX(ctx context.Context) *RegionResource {
 // OnlyID is like Only, but returns the only RegionResource ID in the query.
 // Returns a *NotSingularError when more than one RegionResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (rrq *RegionResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *RegionResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = rrq.Limit(2).IDs(setContextOp(ctx, rrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -198,8 +198,8 @@ func (rrq *RegionResourceQuery) OnlyID(ctx context.Context) (id int, err error) 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (rrq *RegionResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := rrq.OnlyID(ctx)
+func (_q *RegionResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -207,18 +207,18 @@ func (rrq *RegionResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of RegionResources.
-func (rrq *RegionResourceQuery) All(ctx context.Context) ([]*RegionResource, error) {
-	ctx = setContextOp(ctx, rrq.ctx, ent.OpQueryAll)
-	if err := rrq.prepareQuery(ctx); err != nil {
+func (_q *RegionResourceQuery) All(ctx context.Context) ([]*RegionResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*RegionResource, *RegionResourceQuery]()
-	return withInterceptors[[]*RegionResource](ctx, rrq, qr, rrq.inters)
+	return withInterceptors[[]*RegionResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (rrq *RegionResourceQuery) AllX(ctx context.Context) []*RegionResource {
-	nodes, err := rrq.All(ctx)
+func (_q *RegionResourceQuery) AllX(ctx context.Context) []*RegionResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -226,20 +226,20 @@ func (rrq *RegionResourceQuery) AllX(ctx context.Context) []*RegionResource {
 }
 
 // IDs executes the query and returns a list of RegionResource IDs.
-func (rrq *RegionResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if rrq.ctx.Unique == nil && rrq.path != nil {
-		rrq.Unique(true)
+func (_q *RegionResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, rrq.ctx, ent.OpQueryIDs)
-	if err = rrq.Select(regionresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(regionresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (rrq *RegionResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := rrq.IDs(ctx)
+func (_q *RegionResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -247,17 +247,17 @@ func (rrq *RegionResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (rrq *RegionResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, rrq.ctx, ent.OpQueryCount)
-	if err := rrq.prepareQuery(ctx); err != nil {
+func (_q *RegionResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, rrq, querierCount[*RegionResourceQuery](), rrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*RegionResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (rrq *RegionResourceQuery) CountX(ctx context.Context) int {
-	count, err := rrq.Count(ctx)
+func (_q *RegionResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,9 +265,9 @@ func (rrq *RegionResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (rrq *RegionResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, rrq.ctx, ent.OpQueryExist)
-	switch _, err := rrq.FirstID(ctx); {
+func (_q *RegionResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -278,8 +278,8 @@ func (rrq *RegionResourceQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (rrq *RegionResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := rrq.Exist(ctx)
+func (_q *RegionResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -288,44 +288,44 @@ func (rrq *RegionResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the RegionResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (rrq *RegionResourceQuery) Clone() *RegionResourceQuery {
-	if rrq == nil {
+func (_q *RegionResourceQuery) Clone() *RegionResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &RegionResourceQuery{
-		config:           rrq.config,
-		ctx:              rrq.ctx.Clone(),
-		order:            append([]regionresource.OrderOption{}, rrq.order...),
-		inters:           append([]Interceptor{}, rrq.inters...),
-		predicates:       append([]predicate.RegionResource{}, rrq.predicates...),
-		withParentRegion: rrq.withParentRegion.Clone(),
-		withChildren:     rrq.withChildren.Clone(),
+		config:           _q.config,
+		ctx:              _q.ctx.Clone(),
+		order:            append([]regionresource.OrderOption{}, _q.order...),
+		inters:           append([]Interceptor{}, _q.inters...),
+		predicates:       append([]predicate.RegionResource{}, _q.predicates...),
+		withParentRegion: _q.withParentRegion.Clone(),
+		withChildren:     _q.withChildren.Clone(),
 		// clone intermediate query.
-		sql:  rrq.sql.Clone(),
-		path: rrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithParentRegion tells the query-builder to eager-load the nodes that are connected to
 // the "parent_region" edge. The optional arguments are used to configure the query builder of the edge.
-func (rrq *RegionResourceQuery) WithParentRegion(opts ...func(*RegionResourceQuery)) *RegionResourceQuery {
-	query := (&RegionResourceClient{config: rrq.config}).Query()
+func (_q *RegionResourceQuery) WithParentRegion(opts ...func(*RegionResourceQuery)) *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	rrq.withParentRegion = query
-	return rrq
+	_q.withParentRegion = query
+	return _q
 }
 
 // WithChildren tells the query-builder to eager-load the nodes that are connected to
 // the "children" edge. The optional arguments are used to configure the query builder of the edge.
-func (rrq *RegionResourceQuery) WithChildren(opts ...func(*RegionResourceQuery)) *RegionResourceQuery {
-	query := (&RegionResourceClient{config: rrq.config}).Query()
+func (_q *RegionResourceQuery) WithChildren(opts ...func(*RegionResourceQuery)) *RegionResourceQuery {
+	query := (&RegionResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	rrq.withChildren = query
-	return rrq
+	_q.withChildren = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -342,10 +342,10 @@ func (rrq *RegionResourceQuery) WithChildren(opts ...func(*RegionResourceQuery))
 //		GroupBy(regionresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (rrq *RegionResourceQuery) GroupBy(field string, fields ...string) *RegionResourceGroupBy {
-	rrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &RegionResourceGroupBy{build: rrq}
-	grbuild.flds = &rrq.ctx.Fields
+func (_q *RegionResourceQuery) GroupBy(field string, fields ...string) *RegionResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &RegionResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = regionresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -363,56 +363,56 @@ func (rrq *RegionResourceQuery) GroupBy(field string, fields ...string) *RegionR
 //	client.RegionResource.Query().
 //		Select(regionresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (rrq *RegionResourceQuery) Select(fields ...string) *RegionResourceSelect {
-	rrq.ctx.Fields = append(rrq.ctx.Fields, fields...)
-	sbuild := &RegionResourceSelect{RegionResourceQuery: rrq}
+func (_q *RegionResourceQuery) Select(fields ...string) *RegionResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &RegionResourceSelect{RegionResourceQuery: _q}
 	sbuild.label = regionresource.Label
-	sbuild.flds, sbuild.scan = &rrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a RegionResourceSelect configured with the given aggregations.
-func (rrq *RegionResourceQuery) Aggregate(fns ...AggregateFunc) *RegionResourceSelect {
-	return rrq.Select().Aggregate(fns...)
+func (_q *RegionResourceQuery) Aggregate(fns ...AggregateFunc) *RegionResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (rrq *RegionResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range rrq.inters {
+func (_q *RegionResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, rrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range rrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !regionresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if rrq.path != nil {
-		prev, err := rrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		rrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (rrq *RegionResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*RegionResource, error) {
+func (_q *RegionResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*RegionResource, error) {
 	var (
 		nodes       = []*RegionResource{}
-		withFKs     = rrq.withFKs
-		_spec       = rrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [2]bool{
-			rrq.withParentRegion != nil,
-			rrq.withChildren != nil,
+			_q.withParentRegion != nil,
+			_q.withChildren != nil,
 		}
 	)
-	if rrq.withParentRegion != nil {
+	if _q.withParentRegion != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -422,7 +422,7 @@ func (rrq *RegionResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 		return (*RegionResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &RegionResource{config: rrq.config}
+		node := &RegionResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -430,20 +430,20 @@ func (rrq *RegionResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, rrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := rrq.withParentRegion; query != nil {
-		if err := rrq.loadParentRegion(ctx, query, nodes, nil,
+	if query := _q.withParentRegion; query != nil {
+		if err := _q.loadParentRegion(ctx, query, nodes, nil,
 			func(n *RegionResource, e *RegionResource) { n.Edges.ParentRegion = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := rrq.withChildren; query != nil {
-		if err := rrq.loadChildren(ctx, query, nodes,
+	if query := _q.withChildren; query != nil {
+		if err := _q.loadChildren(ctx, query, nodes,
 			func(n *RegionResource) { n.Edges.Children = []*RegionResource{} },
 			func(n *RegionResource, e *RegionResource) { n.Edges.Children = append(n.Edges.Children, e) }); err != nil {
 			return nil, err
@@ -452,7 +452,7 @@ func (rrq *RegionResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	return nodes, nil
 }
 
-func (rrq *RegionResourceQuery) loadParentRegion(ctx context.Context, query *RegionResourceQuery, nodes []*RegionResource, init func(*RegionResource), assign func(*RegionResource, *RegionResource)) error {
+func (_q *RegionResourceQuery) loadParentRegion(ctx context.Context, query *RegionResourceQuery, nodes []*RegionResource, init func(*RegionResource), assign func(*RegionResource, *RegionResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*RegionResource)
 	for i := range nodes {
@@ -484,7 +484,7 @@ func (rrq *RegionResourceQuery) loadParentRegion(ctx context.Context, query *Reg
 	}
 	return nil
 }
-func (rrq *RegionResourceQuery) loadChildren(ctx context.Context, query *RegionResourceQuery, nodes []*RegionResource, init func(*RegionResource), assign func(*RegionResource, *RegionResource)) error {
+func (_q *RegionResourceQuery) loadChildren(ctx context.Context, query *RegionResourceQuery, nodes []*RegionResource, init func(*RegionResource), assign func(*RegionResource, *RegionResource)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[int]*RegionResource)
 	for i := range nodes {
@@ -516,24 +516,24 @@ func (rrq *RegionResourceQuery) loadChildren(ctx context.Context, query *RegionR
 	return nil
 }
 
-func (rrq *RegionResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := rrq.querySpec()
-	_spec.Node.Columns = rrq.ctx.Fields
-	if len(rrq.ctx.Fields) > 0 {
-		_spec.Unique = rrq.ctx.Unique != nil && *rrq.ctx.Unique
+func (_q *RegionResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, rrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (rrq *RegionResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *RegionResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(regionresource.Table, regionresource.Columns, sqlgraph.NewFieldSpec(regionresource.FieldID, field.TypeInt))
-	_spec.From = rrq.sql
-	if unique := rrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if rrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := rrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, regionresource.FieldID)
 		for i := range fields {
@@ -542,20 +542,20 @@ func (rrq *RegionResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := rrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := rrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := rrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := rrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -565,33 +565,33 @@ func (rrq *RegionResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (rrq *RegionResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(rrq.driver.Dialect())
+func (_q *RegionResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(regionresource.Table)
-	columns := rrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = regionresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if rrq.sql != nil {
-		selector = rrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if rrq.ctx.Unique != nil && *rrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range rrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range rrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := rrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := rrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -604,41 +604,41 @@ type RegionResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (rrgb *RegionResourceGroupBy) Aggregate(fns ...AggregateFunc) *RegionResourceGroupBy {
-	rrgb.fns = append(rrgb.fns, fns...)
-	return rrgb
+func (_g *RegionResourceGroupBy) Aggregate(fns ...AggregateFunc) *RegionResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (rrgb *RegionResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, rrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := rrgb.build.prepareQuery(ctx); err != nil {
+func (_g *RegionResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*RegionResourceQuery, *RegionResourceGroupBy](ctx, rrgb.build, rrgb, rrgb.build.inters, v)
+	return scanWithInterceptors[*RegionResourceQuery, *RegionResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (rrgb *RegionResourceGroupBy) sqlScan(ctx context.Context, root *RegionResourceQuery, v any) error {
+func (_g *RegionResourceGroupBy) sqlScan(ctx context.Context, root *RegionResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(rrgb.fns))
-	for _, fn := range rrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*rrgb.flds)+len(rrgb.fns))
-		for _, f := range *rrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*rrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := rrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -652,27 +652,27 @@ type RegionResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (rrs *RegionResourceSelect) Aggregate(fns ...AggregateFunc) *RegionResourceSelect {
-	rrs.fns = append(rrs.fns, fns...)
-	return rrs
+func (_s *RegionResourceSelect) Aggregate(fns ...AggregateFunc) *RegionResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (rrs *RegionResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, rrs.ctx, ent.OpQuerySelect)
-	if err := rrs.prepareQuery(ctx); err != nil {
+func (_s *RegionResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*RegionResourceQuery, *RegionResourceSelect](ctx, rrs.RegionResourceQuery, rrs, rrs.inters, v)
+	return scanWithInterceptors[*RegionResourceQuery, *RegionResourceSelect](ctx, _s.RegionResourceQuery, _s, _s.inters, v)
 }
 
-func (rrs *RegionResourceSelect) sqlScan(ctx context.Context, root *RegionResourceQuery, v any) error {
+func (_s *RegionResourceSelect) sqlScan(ctx context.Context, root *RegionResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(rrs.fns))
-	for _, fn := range rrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*rrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -680,7 +680,7 @@ func (rrs *RegionResourceSelect) sqlScan(ctx context.Context, root *RegionResour
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := rrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

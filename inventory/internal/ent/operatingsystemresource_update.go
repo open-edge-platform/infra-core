@@ -22,192 +22,192 @@ type OperatingSystemResourceUpdate struct {
 }
 
 // Where appends a list predicates to the OperatingSystemResourceUpdate builder.
-func (osru *OperatingSystemResourceUpdate) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceUpdate {
-	osru.mutation.Where(ps...)
-	return osru
+func (_u *OperatingSystemResourceUpdate) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (osru *OperatingSystemResourceUpdate) SetResourceID(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetResourceID(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetResourceID(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableResourceID(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetResourceID(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableResourceID(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return osru
+	return _u
 }
 
 // SetArchitecture sets the "architecture" field.
-func (osru *OperatingSystemResourceUpdate) SetArchitecture(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetArchitecture(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetArchitecture(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetArchitecture(v)
+	return _u
 }
 
 // SetNillableArchitecture sets the "architecture" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableArchitecture(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetArchitecture(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableArchitecture(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetArchitecture(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearArchitecture clears the value of the "architecture" field.
-func (osru *OperatingSystemResourceUpdate) ClearArchitecture() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearArchitecture()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearArchitecture() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearArchitecture()
+	return _u
 }
 
 // SetKernelCommand sets the "kernel_command" field.
-func (osru *OperatingSystemResourceUpdate) SetKernelCommand(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetKernelCommand(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetKernelCommand(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetKernelCommand(v)
+	return _u
 }
 
 // SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableKernelCommand(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetKernelCommand(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableKernelCommand(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetKernelCommand(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearKernelCommand clears the value of the "kernel_command" field.
-func (osru *OperatingSystemResourceUpdate) ClearKernelCommand() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearKernelCommand()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearKernelCommand() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearKernelCommand()
+	return _u
 }
 
 // SetUpdateSources sets the "update_sources" field.
-func (osru *OperatingSystemResourceUpdate) SetUpdateSources(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetUpdateSources(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetUpdateSources(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetUpdateSources(v)
+	return _u
 }
 
 // SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableUpdateSources(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetUpdateSources(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableUpdateSources(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetUpdateSources(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearUpdateSources clears the value of the "update_sources" field.
-func (osru *OperatingSystemResourceUpdate) ClearUpdateSources() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearUpdateSources()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearUpdateSources() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearUpdateSources()
+	return _u
 }
 
 // SetInstalledPackages sets the "installed_packages" field.
-func (osru *OperatingSystemResourceUpdate) SetInstalledPackages(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetInstalledPackages(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetInstalledPackages(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetInstalledPackages(v)
+	return _u
 }
 
 // SetNillableInstalledPackages sets the "installed_packages" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableInstalledPackages(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetInstalledPackages(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableInstalledPackages(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetInstalledPackages(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearInstalledPackages clears the value of the "installed_packages" field.
-func (osru *OperatingSystemResourceUpdate) ClearInstalledPackages() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearInstalledPackages()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearInstalledPackages() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearInstalledPackages()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (osru *OperatingSystemResourceUpdate) SetMetadata(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetMetadata(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetMetadata(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableMetadata(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetMetadata(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableMetadata(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (osru *OperatingSystemResourceUpdate) ClearMetadata() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearMetadata()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearMetadata() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetExistingCves sets the "existing_cves" field.
-func (osru *OperatingSystemResourceUpdate) SetExistingCves(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetExistingCves(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetExistingCves(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetExistingCves(v)
+	return _u
 }
 
 // SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableExistingCves(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetExistingCves(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableExistingCves(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetExistingCves(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearExistingCves clears the value of the "existing_cves" field.
-func (osru *OperatingSystemResourceUpdate) ClearExistingCves() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearExistingCves()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearExistingCves() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearExistingCves()
+	return _u
 }
 
 // SetFixedCves sets the "fixed_cves" field.
-func (osru *OperatingSystemResourceUpdate) SetFixedCves(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetFixedCves(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetFixedCves(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetFixedCves(v)
+	return _u
 }
 
 // SetNillableFixedCves sets the "fixed_cves" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableFixedCves(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetFixedCves(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableFixedCves(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetFixedCves(*v)
 	}
-	return osru
+	return _u
 }
 
 // ClearFixedCves clears the value of the "fixed_cves" field.
-func (osru *OperatingSystemResourceUpdate) ClearFixedCves() *OperatingSystemResourceUpdate {
-	osru.mutation.ClearFixedCves()
-	return osru
+func (_u *OperatingSystemResourceUpdate) ClearFixedCves() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearFixedCves()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (osru *OperatingSystemResourceUpdate) SetUpdatedAt(s string) *OperatingSystemResourceUpdate {
-	osru.mutation.SetUpdatedAt(s)
-	return osru
+func (_u *OperatingSystemResourceUpdate) SetUpdatedAt(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (osru *OperatingSystemResourceUpdate) SetNillableUpdatedAt(s *string) *OperatingSystemResourceUpdate {
-	if s != nil {
-		osru.SetUpdatedAt(*s)
+func (_u *OperatingSystemResourceUpdate) SetNillableUpdatedAt(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return osru
+	return _u
 }
 
 // Mutation returns the OperatingSystemResourceMutation object of the builder.
-func (osru *OperatingSystemResourceUpdate) Mutation() *OperatingSystemResourceMutation {
-	return osru.mutation
+func (_u *OperatingSystemResourceUpdate) Mutation() *OperatingSystemResourceMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (osru *OperatingSystemResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, osru.sqlSave, osru.mutation, osru.hooks)
+func (_u *OperatingSystemResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (osru *OperatingSystemResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := osru.Save(ctx)
+func (_u *OperatingSystemResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -215,115 +215,115 @@ func (osru *OperatingSystemResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (osru *OperatingSystemResourceUpdate) Exec(ctx context.Context) error {
-	_, err := osru.Save(ctx)
+func (_u *OperatingSystemResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (osru *OperatingSystemResourceUpdate) ExecX(ctx context.Context) {
-	if err := osru.Exec(ctx); err != nil {
+func (_u *OperatingSystemResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(operatingsystemresource.Table, operatingsystemresource.Columns, sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt))
-	if ps := osru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := osru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(operatingsystemresource.FieldResourceID, field.TypeString, value)
 	}
-	if osru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(operatingsystemresource.FieldName, field.TypeString)
 	}
-	if value, ok := osru.mutation.Architecture(); ok {
+	if value, ok := _u.mutation.Architecture(); ok {
 		_spec.SetField(operatingsystemresource.FieldArchitecture, field.TypeString, value)
 	}
-	if osru.mutation.ArchitectureCleared() {
+	if _u.mutation.ArchitectureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldArchitecture, field.TypeString)
 	}
-	if value, ok := osru.mutation.KernelCommand(); ok {
+	if value, ok := _u.mutation.KernelCommand(); ok {
 		_spec.SetField(operatingsystemresource.FieldKernelCommand, field.TypeString, value)
 	}
-	if osru.mutation.KernelCommandCleared() {
+	if _u.mutation.KernelCommandCleared() {
 		_spec.ClearField(operatingsystemresource.FieldKernelCommand, field.TypeString)
 	}
-	if value, ok := osru.mutation.UpdateSources(); ok {
+	if value, ok := _u.mutation.UpdateSources(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdateSources, field.TypeString, value)
 	}
-	if osru.mutation.UpdateSourcesCleared() {
+	if _u.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldUpdateSources, field.TypeString)
 	}
-	if osru.mutation.ImageURLCleared() {
+	if _u.mutation.ImageURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldImageURL, field.TypeString)
 	}
-	if osru.mutation.ImageIDCleared() {
+	if _u.mutation.ImageIDCleared() {
 		_spec.ClearField(operatingsystemresource.FieldImageID, field.TypeString)
 	}
-	if osru.mutation.Sha256Cleared() {
+	if _u.mutation.Sha256Cleared() {
 		_spec.ClearField(operatingsystemresource.FieldSha256, field.TypeString)
 	}
-	if osru.mutation.ProfileNameCleared() {
+	if _u.mutation.ProfileNameCleared() {
 		_spec.ClearField(operatingsystemresource.FieldProfileName, field.TypeString)
 	}
-	if osru.mutation.ProfileVersionCleared() {
+	if _u.mutation.ProfileVersionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldProfileVersion, field.TypeString)
 	}
-	if value, ok := osru.mutation.InstalledPackages(); ok {
+	if value, ok := _u.mutation.InstalledPackages(); ok {
 		_spec.SetField(operatingsystemresource.FieldInstalledPackages, field.TypeString, value)
 	}
-	if osru.mutation.InstalledPackagesCleared() {
+	if _u.mutation.InstalledPackagesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldInstalledPackages, field.TypeString)
 	}
-	if osru.mutation.InstalledPackagesURLCleared() {
+	if _u.mutation.InstalledPackagesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldInstalledPackagesURL, field.TypeString)
 	}
-	if osru.mutation.SecurityFeatureCleared() {
+	if _u.mutation.SecurityFeatureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldSecurityFeature, field.TypeEnum)
 	}
-	if osru.mutation.OsTypeCleared() {
+	if _u.mutation.OsTypeCleared() {
 		_spec.ClearField(operatingsystemresource.FieldOsType, field.TypeEnum)
 	}
-	if osru.mutation.PlatformBundleCleared() {
+	if _u.mutation.PlatformBundleCleared() {
 		_spec.ClearField(operatingsystemresource.FieldPlatformBundle, field.TypeString)
 	}
-	if osru.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := osru.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
 	}
-	if osru.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
 	}
-	if osru.mutation.ExistingCvesURLCleared() {
+	if _u.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
 	}
-	if value, ok := osru.mutation.ExistingCves(); ok {
+	if value, ok := _u.mutation.ExistingCves(); ok {
 		_spec.SetField(operatingsystemresource.FieldExistingCves, field.TypeString, value)
 	}
-	if osru.mutation.ExistingCvesCleared() {
+	if _u.mutation.ExistingCvesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCves, field.TypeString)
 	}
-	if osru.mutation.FixedCvesURLCleared() {
+	if _u.mutation.FixedCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldFixedCvesURL, field.TypeString)
 	}
-	if value, ok := osru.mutation.FixedCves(); ok {
+	if value, ok := _u.mutation.FixedCves(); ok {
 		_spec.SetField(operatingsystemresource.FieldFixedCves, field.TypeString, value)
 	}
-	if osru.mutation.FixedCvesCleared() {
+	if _u.mutation.FixedCvesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldFixedCves, field.TypeString)
 	}
-	if value, ok := osru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, osru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{operatingsystemresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -331,8 +331,8 @@ func (osru *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (n int, 
 		}
 		return 0, err
 	}
-	osru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // OperatingSystemResourceUpdateOne is the builder for updating a single OperatingSystemResource entity.
@@ -344,199 +344,199 @@ type OperatingSystemResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetResourceID(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetResourceID(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetResourceID(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableResourceID(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetResourceID(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableResourceID(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return osruo
+	return _u
 }
 
 // SetArchitecture sets the "architecture" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetArchitecture(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetArchitecture(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetArchitecture(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetArchitecture(v)
+	return _u
 }
 
 // SetNillableArchitecture sets the "architecture" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableArchitecture(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetArchitecture(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableArchitecture(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetArchitecture(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearArchitecture clears the value of the "architecture" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearArchitecture() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearArchitecture()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearArchitecture() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearArchitecture()
+	return _u
 }
 
 // SetKernelCommand sets the "kernel_command" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetKernelCommand(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetKernelCommand(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetKernelCommand(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetKernelCommand(v)
+	return _u
 }
 
 // SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableKernelCommand(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetKernelCommand(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableKernelCommand(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetKernelCommand(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearKernelCommand clears the value of the "kernel_command" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearKernelCommand() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearKernelCommand()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearKernelCommand() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearKernelCommand()
+	return _u
 }
 
 // SetUpdateSources sets the "update_sources" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetUpdateSources(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetUpdateSources(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetUpdateSources(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetUpdateSources(v)
+	return _u
 }
 
 // SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableUpdateSources(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetUpdateSources(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableUpdateSources(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdateSources(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearUpdateSources clears the value of the "update_sources" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearUpdateSources() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearUpdateSources()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearUpdateSources() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearUpdateSources()
+	return _u
 }
 
 // SetInstalledPackages sets the "installed_packages" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetInstalledPackages(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetInstalledPackages(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetInstalledPackages(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetInstalledPackages(v)
+	return _u
 }
 
 // SetNillableInstalledPackages sets the "installed_packages" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableInstalledPackages(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetInstalledPackages(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableInstalledPackages(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetInstalledPackages(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearInstalledPackages clears the value of the "installed_packages" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearInstalledPackages() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearInstalledPackages()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearInstalledPackages() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearInstalledPackages()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetMetadata(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetMetadata(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetMetadata(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableMetadata(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetMetadata(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableMetadata(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearMetadata() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearMetadata()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearMetadata() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetExistingCves sets the "existing_cves" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetExistingCves(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetExistingCves(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetExistingCves(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetExistingCves(v)
+	return _u
 }
 
 // SetNillableExistingCves sets the "existing_cves" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableExistingCves(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetExistingCves(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableExistingCves(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetExistingCves(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearExistingCves clears the value of the "existing_cves" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearExistingCves() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearExistingCves()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearExistingCves() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearExistingCves()
+	return _u
 }
 
 // SetFixedCves sets the "fixed_cves" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetFixedCves(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetFixedCves(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetFixedCves(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetFixedCves(v)
+	return _u
 }
 
 // SetNillableFixedCves sets the "fixed_cves" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableFixedCves(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetFixedCves(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableFixedCves(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetFixedCves(*v)
 	}
-	return osruo
+	return _u
 }
 
 // ClearFixedCves clears the value of the "fixed_cves" field.
-func (osruo *OperatingSystemResourceUpdateOne) ClearFixedCves() *OperatingSystemResourceUpdateOne {
-	osruo.mutation.ClearFixedCves()
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) ClearFixedCves() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearFixedCves()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (osruo *OperatingSystemResourceUpdateOne) SetUpdatedAt(s string) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.SetUpdatedAt(s)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) SetUpdatedAt(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (osruo *OperatingSystemResourceUpdateOne) SetNillableUpdatedAt(s *string) *OperatingSystemResourceUpdateOne {
-	if s != nil {
-		osruo.SetUpdatedAt(*s)
+func (_u *OperatingSystemResourceUpdateOne) SetNillableUpdatedAt(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return osruo
+	return _u
 }
 
 // Mutation returns the OperatingSystemResourceMutation object of the builder.
-func (osruo *OperatingSystemResourceUpdateOne) Mutation() *OperatingSystemResourceMutation {
-	return osruo.mutation
+func (_u *OperatingSystemResourceUpdateOne) Mutation() *OperatingSystemResourceMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the OperatingSystemResourceUpdate builder.
-func (osruo *OperatingSystemResourceUpdateOne) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceUpdateOne {
-	osruo.mutation.Where(ps...)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (osruo *OperatingSystemResourceUpdateOne) Select(field string, fields ...string) *OperatingSystemResourceUpdateOne {
-	osruo.fields = append([]string{field}, fields...)
-	return osruo
+func (_u *OperatingSystemResourceUpdateOne) Select(field string, fields ...string) *OperatingSystemResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated OperatingSystemResource entity.
-func (osruo *OperatingSystemResourceUpdateOne) Save(ctx context.Context) (*OperatingSystemResource, error) {
-	return withHooks(ctx, osruo.sqlSave, osruo.mutation, osruo.hooks)
+func (_u *OperatingSystemResourceUpdateOne) Save(ctx context.Context) (*OperatingSystemResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (osruo *OperatingSystemResourceUpdateOne) SaveX(ctx context.Context) *OperatingSystemResource {
-	node, err := osruo.Save(ctx)
+func (_u *OperatingSystemResourceUpdateOne) SaveX(ctx context.Context) *OperatingSystemResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -544,26 +544,26 @@ func (osruo *OperatingSystemResourceUpdateOne) SaveX(ctx context.Context) *Opera
 }
 
 // Exec executes the query on the entity.
-func (osruo *OperatingSystemResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := osruo.Save(ctx)
+func (_u *OperatingSystemResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (osruo *OperatingSystemResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := osruo.Exec(ctx); err != nil {
+func (_u *OperatingSystemResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_node *OperatingSystemResource, err error) {
+func (_u *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_node *OperatingSystemResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(operatingsystemresource.Table, operatingsystemresource.Columns, sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt))
-	id, ok := osruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "OperatingSystemResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := osruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, operatingsystemresource.FieldID)
 		for _, f := range fields {
@@ -575,104 +575,104 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 			}
 		}
 	}
-	if ps := osruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := osruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(operatingsystemresource.FieldResourceID, field.TypeString, value)
 	}
-	if osruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(operatingsystemresource.FieldName, field.TypeString)
 	}
-	if value, ok := osruo.mutation.Architecture(); ok {
+	if value, ok := _u.mutation.Architecture(); ok {
 		_spec.SetField(operatingsystemresource.FieldArchitecture, field.TypeString, value)
 	}
-	if osruo.mutation.ArchitectureCleared() {
+	if _u.mutation.ArchitectureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldArchitecture, field.TypeString)
 	}
-	if value, ok := osruo.mutation.KernelCommand(); ok {
+	if value, ok := _u.mutation.KernelCommand(); ok {
 		_spec.SetField(operatingsystemresource.FieldKernelCommand, field.TypeString, value)
 	}
-	if osruo.mutation.KernelCommandCleared() {
+	if _u.mutation.KernelCommandCleared() {
 		_spec.ClearField(operatingsystemresource.FieldKernelCommand, field.TypeString)
 	}
-	if value, ok := osruo.mutation.UpdateSources(); ok {
+	if value, ok := _u.mutation.UpdateSources(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdateSources, field.TypeString, value)
 	}
-	if osruo.mutation.UpdateSourcesCleared() {
+	if _u.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldUpdateSources, field.TypeString)
 	}
-	if osruo.mutation.ImageURLCleared() {
+	if _u.mutation.ImageURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldImageURL, field.TypeString)
 	}
-	if osruo.mutation.ImageIDCleared() {
+	if _u.mutation.ImageIDCleared() {
 		_spec.ClearField(operatingsystemresource.FieldImageID, field.TypeString)
 	}
-	if osruo.mutation.Sha256Cleared() {
+	if _u.mutation.Sha256Cleared() {
 		_spec.ClearField(operatingsystemresource.FieldSha256, field.TypeString)
 	}
-	if osruo.mutation.ProfileNameCleared() {
+	if _u.mutation.ProfileNameCleared() {
 		_spec.ClearField(operatingsystemresource.FieldProfileName, field.TypeString)
 	}
-	if osruo.mutation.ProfileVersionCleared() {
+	if _u.mutation.ProfileVersionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldProfileVersion, field.TypeString)
 	}
-	if value, ok := osruo.mutation.InstalledPackages(); ok {
+	if value, ok := _u.mutation.InstalledPackages(); ok {
 		_spec.SetField(operatingsystemresource.FieldInstalledPackages, field.TypeString, value)
 	}
-	if osruo.mutation.InstalledPackagesCleared() {
+	if _u.mutation.InstalledPackagesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldInstalledPackages, field.TypeString)
 	}
-	if osruo.mutation.InstalledPackagesURLCleared() {
+	if _u.mutation.InstalledPackagesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldInstalledPackagesURL, field.TypeString)
 	}
-	if osruo.mutation.SecurityFeatureCleared() {
+	if _u.mutation.SecurityFeatureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldSecurityFeature, field.TypeEnum)
 	}
-	if osruo.mutation.OsTypeCleared() {
+	if _u.mutation.OsTypeCleared() {
 		_spec.ClearField(operatingsystemresource.FieldOsType, field.TypeEnum)
 	}
-	if osruo.mutation.PlatformBundleCleared() {
+	if _u.mutation.PlatformBundleCleared() {
 		_spec.ClearField(operatingsystemresource.FieldPlatformBundle, field.TypeString)
 	}
-	if osruo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(operatingsystemresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := osruo.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
 	}
-	if osruo.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
 	}
-	if osruo.mutation.ExistingCvesURLCleared() {
+	if _u.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
 	}
-	if value, ok := osruo.mutation.ExistingCves(); ok {
+	if value, ok := _u.mutation.ExistingCves(); ok {
 		_spec.SetField(operatingsystemresource.FieldExistingCves, field.TypeString, value)
 	}
-	if osruo.mutation.ExistingCvesCleared() {
+	if _u.mutation.ExistingCvesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCves, field.TypeString)
 	}
-	if osruo.mutation.FixedCvesURLCleared() {
+	if _u.mutation.FixedCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldFixedCvesURL, field.TypeString)
 	}
-	if value, ok := osruo.mutation.FixedCves(); ok {
+	if value, ok := _u.mutation.FixedCves(); ok {
 		_spec.SetField(operatingsystemresource.FieldFixedCves, field.TypeString, value)
 	}
-	if osruo.mutation.FixedCvesCleared() {
+	if _u.mutation.FixedCvesCleared() {
 		_spec.ClearField(operatingsystemresource.FieldFixedCves, field.TypeString)
 	}
-	if value, ok := osruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(operatingsystemresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	_node = &OperatingSystemResource{config: osruo.config}
+	_node = &OperatingSystemResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, osruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{operatingsystemresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -680,6 +680,6 @@ func (osruo *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_no
 		}
 		return nil, err
 	}
-	osruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

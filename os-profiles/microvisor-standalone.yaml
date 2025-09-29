@@ -1,21 +1,22 @@
 ---
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
+
 appVersion: apps/v1
 metadata:
   standalone-node: true
 spec:
-  name: Edge Microvisor Toolkit Standalone 3.0.20250711
+  name: Edge Microvisor Toolkit Standalone 3.0.20250909
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-standalone  # Name has to be identical to this file's name
-  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250717.0734.raw.gz
-  osImageVersion: 3.0.20250717.0734
-  osImageSha256: 61bb53db38df5560ced2fbf125ad4f4cc9791bf94f3c52a5f9c843dd63601725
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250717.0734_pkg_manifest.json
-  osExistingCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250717.0734.json
-  osFixedCvesURL: files-edge-orch/repository/microvisor/iso/EdgeMicrovisorToolkit-3.0.20250717.0734_fixed_cves.json
+  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250909.2156.raw.gz
+  osImageVersion: 3.0.20250909.2156
+  osImageSha256: c31debdaa9bb6b37ddf7bfc4c968d87e3bcdf5da3b2431baa8fba35f9bf946ff
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20250909.2156_pkg_manifest.json
+  osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.1_cve.json
+  osFixedCvesURL:
   securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit Standalone for x86_64 architecture
   platformBundle:

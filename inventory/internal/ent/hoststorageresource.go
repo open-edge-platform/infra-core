@@ -88,7 +88,7 @@ func (*HoststorageResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the HoststorageResource fields.
-func (hr *HoststorageResource) assignValues(columns []string, values []any) error {
+func (_m *HoststorageResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -99,88 +99,88 @@ func (hr *HoststorageResource) assignValues(columns []string, values []any) erro
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			hr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case hoststorageresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				hr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case hoststorageresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				hr.Kind = value.String
+				_m.Kind = value.String
 			}
 		case hoststorageresource.FieldProviderStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provider_status", values[i])
 			} else if value.Valid {
-				hr.ProviderStatus = value.String
+				_m.ProviderStatus = value.String
 			}
 		case hoststorageresource.FieldWwid:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field wwid", values[i])
 			} else if value.Valid {
-				hr.Wwid = value.String
+				_m.Wwid = value.String
 			}
 		case hoststorageresource.FieldSerial:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field serial", values[i])
 			} else if value.Valid {
-				hr.Serial = value.String
+				_m.Serial = value.String
 			}
 		case hoststorageresource.FieldVendor:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field vendor", values[i])
 			} else if value.Valid {
-				hr.Vendor = value.String
+				_m.Vendor = value.String
 			}
 		case hoststorageresource.FieldModel:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field model", values[i])
 			} else if value.Valid {
-				hr.Model = value.String
+				_m.Model = value.String
 			}
 		case hoststorageresource.FieldCapacityBytes:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field capacity_bytes", values[i])
 			} else if value.Valid {
-				hr.CapacityBytes = uint64(value.Int64)
+				_m.CapacityBytes = uint64(value.Int64)
 			}
 		case hoststorageresource.FieldDeviceName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field device_name", values[i])
 			} else if value.Valid {
-				hr.DeviceName = value.String
+				_m.DeviceName = value.String
 			}
 		case hoststorageresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				hr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case hoststorageresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				hr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case hoststorageresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				hr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case hoststorageresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field hoststorage_resource_host", value)
 			} else if value.Valid {
-				hr.hoststorage_resource_host = new(int)
-				*hr.hoststorage_resource_host = int(value.Int64)
+				_m.hoststorage_resource_host = new(int)
+				*_m.hoststorage_resource_host = int(value.Int64)
 			}
 		default:
-			hr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -188,73 +188,73 @@ func (hr *HoststorageResource) assignValues(columns []string, values []any) erro
 
 // Value returns the ent.Value that was dynamically selected and assigned to the HoststorageResource.
 // This includes values selected through modifiers, order, etc.
-func (hr *HoststorageResource) Value(name string) (ent.Value, error) {
-	return hr.selectValues.Get(name)
+func (_m *HoststorageResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryHost queries the "host" edge of the HoststorageResource entity.
-func (hr *HoststorageResource) QueryHost() *HostResourceQuery {
-	return NewHoststorageResourceClient(hr.config).QueryHost(hr)
+func (_m *HoststorageResource) QueryHost() *HostResourceQuery {
+	return NewHoststorageResourceClient(_m.config).QueryHost(_m)
 }
 
 // Update returns a builder for updating this HoststorageResource.
 // Note that you need to call HoststorageResource.Unwrap() before calling this method if this HoststorageResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (hr *HoststorageResource) Update() *HoststorageResourceUpdateOne {
-	return NewHoststorageResourceClient(hr.config).UpdateOne(hr)
+func (_m *HoststorageResource) Update() *HoststorageResourceUpdateOne {
+	return NewHoststorageResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the HoststorageResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (hr *HoststorageResource) Unwrap() *HoststorageResource {
-	_tx, ok := hr.config.driver.(*txDriver)
+func (_m *HoststorageResource) Unwrap() *HoststorageResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: HoststorageResource is not a transactional entity")
 	}
-	hr.config.driver = _tx.drv
-	return hr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (hr *HoststorageResource) String() string {
+func (_m *HoststorageResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("HoststorageResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", hr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(hr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(hr.Kind)
+	builder.WriteString(_m.Kind)
 	builder.WriteString(", ")
 	builder.WriteString("provider_status=")
-	builder.WriteString(hr.ProviderStatus)
+	builder.WriteString(_m.ProviderStatus)
 	builder.WriteString(", ")
 	builder.WriteString("wwid=")
-	builder.WriteString(hr.Wwid)
+	builder.WriteString(_m.Wwid)
 	builder.WriteString(", ")
 	builder.WriteString("serial=")
-	builder.WriteString(hr.Serial)
+	builder.WriteString(_m.Serial)
 	builder.WriteString(", ")
 	builder.WriteString("vendor=")
-	builder.WriteString(hr.Vendor)
+	builder.WriteString(_m.Vendor)
 	builder.WriteString(", ")
 	builder.WriteString("model=")
-	builder.WriteString(hr.Model)
+	builder.WriteString(_m.Model)
 	builder.WriteString(", ")
 	builder.WriteString("capacity_bytes=")
-	builder.WriteString(fmt.Sprintf("%v", hr.CapacityBytes))
+	builder.WriteString(fmt.Sprintf("%v", _m.CapacityBytes))
 	builder.WriteString(", ")
 	builder.WriteString("device_name=")
-	builder.WriteString(hr.DeviceName)
+	builder.WriteString(_m.DeviceName)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(hr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(hr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(hr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

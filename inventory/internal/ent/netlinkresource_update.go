@@ -23,196 +23,196 @@ type NetlinkResourceUpdate struct {
 }
 
 // Where appends a list predicates to the NetlinkResourceUpdate builder.
-func (nru *NetlinkResourceUpdate) Where(ps ...predicate.NetlinkResource) *NetlinkResourceUpdate {
-	nru.mutation.Where(ps...)
-	return nru
+func (_u *NetlinkResourceUpdate) Where(ps ...predicate.NetlinkResource) *NetlinkResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (nru *NetlinkResourceUpdate) SetResourceID(s string) *NetlinkResourceUpdate {
-	nru.mutation.SetResourceID(s)
-	return nru
+func (_u *NetlinkResourceUpdate) SetResourceID(v string) *NetlinkResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableResourceID(s *string) *NetlinkResourceUpdate {
-	if s != nil {
-		nru.SetResourceID(*s)
+func (_u *NetlinkResourceUpdate) SetNillableResourceID(v *string) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return nru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (nru *NetlinkResourceUpdate) SetKind(s string) *NetlinkResourceUpdate {
-	nru.mutation.SetKind(s)
-	return nru
+func (_u *NetlinkResourceUpdate) SetKind(v string) *NetlinkResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableKind(s *string) *NetlinkResourceUpdate {
-	if s != nil {
-		nru.SetKind(*s)
+func (_u *NetlinkResourceUpdate) SetNillableKind(v *string) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return nru
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (nru *NetlinkResourceUpdate) ClearKind() *NetlinkResourceUpdate {
-	nru.mutation.ClearKind()
-	return nru
+func (_u *NetlinkResourceUpdate) ClearKind() *NetlinkResourceUpdate {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (nru *NetlinkResourceUpdate) SetName(s string) *NetlinkResourceUpdate {
-	nru.mutation.SetName(s)
-	return nru
+func (_u *NetlinkResourceUpdate) SetName(v string) *NetlinkResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableName(s *string) *NetlinkResourceUpdate {
-	if s != nil {
-		nru.SetName(*s)
+func (_u *NetlinkResourceUpdate) SetNillableName(v *string) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return nru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (nru *NetlinkResourceUpdate) ClearName() *NetlinkResourceUpdate {
-	nru.mutation.ClearName()
-	return nru
+func (_u *NetlinkResourceUpdate) ClearName() *NetlinkResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (nru *NetlinkResourceUpdate) SetDesiredState(ns netlinkresource.DesiredState) *NetlinkResourceUpdate {
-	nru.mutation.SetDesiredState(ns)
-	return nru
+func (_u *NetlinkResourceUpdate) SetDesiredState(v netlinkresource.DesiredState) *NetlinkResourceUpdate {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableDesiredState(ns *netlinkresource.DesiredState) *NetlinkResourceUpdate {
-	if ns != nil {
-		nru.SetDesiredState(*ns)
+func (_u *NetlinkResourceUpdate) SetNillableDesiredState(v *netlinkresource.DesiredState) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return nru
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (nru *NetlinkResourceUpdate) SetCurrentState(ns netlinkresource.CurrentState) *NetlinkResourceUpdate {
-	nru.mutation.SetCurrentState(ns)
-	return nru
+func (_u *NetlinkResourceUpdate) SetCurrentState(v netlinkresource.CurrentState) *NetlinkResourceUpdate {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableCurrentState(ns *netlinkresource.CurrentState) *NetlinkResourceUpdate {
-	if ns != nil {
-		nru.SetCurrentState(*ns)
+func (_u *NetlinkResourceUpdate) SetNillableCurrentState(v *netlinkresource.CurrentState) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return nru
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (nru *NetlinkResourceUpdate) ClearCurrentState() *NetlinkResourceUpdate {
-	nru.mutation.ClearCurrentState()
-	return nru
+func (_u *NetlinkResourceUpdate) ClearCurrentState() *NetlinkResourceUpdate {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (nru *NetlinkResourceUpdate) SetProviderStatus(s string) *NetlinkResourceUpdate {
-	nru.mutation.SetProviderStatus(s)
-	return nru
+func (_u *NetlinkResourceUpdate) SetProviderStatus(v string) *NetlinkResourceUpdate {
+	_u.mutation.SetProviderStatus(v)
+	return _u
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableProviderStatus(s *string) *NetlinkResourceUpdate {
-	if s != nil {
-		nru.SetProviderStatus(*s)
+func (_u *NetlinkResourceUpdate) SetNillableProviderStatus(v *string) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetProviderStatus(*v)
 	}
-	return nru
+	return _u
 }
 
 // ClearProviderStatus clears the value of the "provider_status" field.
-func (nru *NetlinkResourceUpdate) ClearProviderStatus() *NetlinkResourceUpdate {
-	nru.mutation.ClearProviderStatus()
-	return nru
+func (_u *NetlinkResourceUpdate) ClearProviderStatus() *NetlinkResourceUpdate {
+	_u.mutation.ClearProviderStatus()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (nru *NetlinkResourceUpdate) SetUpdatedAt(s string) *NetlinkResourceUpdate {
-	nru.mutation.SetUpdatedAt(s)
-	return nru
+func (_u *NetlinkResourceUpdate) SetUpdatedAt(v string) *NetlinkResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableUpdatedAt(s *string) *NetlinkResourceUpdate {
-	if s != nil {
-		nru.SetUpdatedAt(*s)
+func (_u *NetlinkResourceUpdate) SetNillableUpdatedAt(v *string) *NetlinkResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return nru
+	return _u
 }
 
 // SetSrcID sets the "src" edge to the EndpointResource entity by ID.
-func (nru *NetlinkResourceUpdate) SetSrcID(id int) *NetlinkResourceUpdate {
-	nru.mutation.SetSrcID(id)
-	return nru
+func (_u *NetlinkResourceUpdate) SetSrcID(id int) *NetlinkResourceUpdate {
+	_u.mutation.SetSrcID(id)
+	return _u
 }
 
 // SetNillableSrcID sets the "src" edge to the EndpointResource entity by ID if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableSrcID(id *int) *NetlinkResourceUpdate {
+func (_u *NetlinkResourceUpdate) SetNillableSrcID(id *int) *NetlinkResourceUpdate {
 	if id != nil {
-		nru = nru.SetSrcID(*id)
+		_u = _u.SetSrcID(*id)
 	}
-	return nru
+	return _u
 }
 
 // SetSrc sets the "src" edge to the EndpointResource entity.
-func (nru *NetlinkResourceUpdate) SetSrc(e *EndpointResource) *NetlinkResourceUpdate {
-	return nru.SetSrcID(e.ID)
+func (_u *NetlinkResourceUpdate) SetSrc(v *EndpointResource) *NetlinkResourceUpdate {
+	return _u.SetSrcID(v.ID)
 }
 
 // SetDstID sets the "dst" edge to the EndpointResource entity by ID.
-func (nru *NetlinkResourceUpdate) SetDstID(id int) *NetlinkResourceUpdate {
-	nru.mutation.SetDstID(id)
-	return nru
+func (_u *NetlinkResourceUpdate) SetDstID(id int) *NetlinkResourceUpdate {
+	_u.mutation.SetDstID(id)
+	return _u
 }
 
 // SetNillableDstID sets the "dst" edge to the EndpointResource entity by ID if the given value is not nil.
-func (nru *NetlinkResourceUpdate) SetNillableDstID(id *int) *NetlinkResourceUpdate {
+func (_u *NetlinkResourceUpdate) SetNillableDstID(id *int) *NetlinkResourceUpdate {
 	if id != nil {
-		nru = nru.SetDstID(*id)
+		_u = _u.SetDstID(*id)
 	}
-	return nru
+	return _u
 }
 
 // SetDst sets the "dst" edge to the EndpointResource entity.
-func (nru *NetlinkResourceUpdate) SetDst(e *EndpointResource) *NetlinkResourceUpdate {
-	return nru.SetDstID(e.ID)
+func (_u *NetlinkResourceUpdate) SetDst(v *EndpointResource) *NetlinkResourceUpdate {
+	return _u.SetDstID(v.ID)
 }
 
 // Mutation returns the NetlinkResourceMutation object of the builder.
-func (nru *NetlinkResourceUpdate) Mutation() *NetlinkResourceMutation {
-	return nru.mutation
+func (_u *NetlinkResourceUpdate) Mutation() *NetlinkResourceMutation {
+	return _u.mutation
 }
 
 // ClearSrc clears the "src" edge to the EndpointResource entity.
-func (nru *NetlinkResourceUpdate) ClearSrc() *NetlinkResourceUpdate {
-	nru.mutation.ClearSrc()
-	return nru
+func (_u *NetlinkResourceUpdate) ClearSrc() *NetlinkResourceUpdate {
+	_u.mutation.ClearSrc()
+	return _u
 }
 
 // ClearDst clears the "dst" edge to the EndpointResource entity.
-func (nru *NetlinkResourceUpdate) ClearDst() *NetlinkResourceUpdate {
-	nru.mutation.ClearDst()
-	return nru
+func (_u *NetlinkResourceUpdate) ClearDst() *NetlinkResourceUpdate {
+	_u.mutation.ClearDst()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (nru *NetlinkResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, nru.sqlSave, nru.mutation, nru.hooks)
+func (_u *NetlinkResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nru *NetlinkResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := nru.Save(ctx)
+func (_u *NetlinkResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -220,26 +220,26 @@ func (nru *NetlinkResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (nru *NetlinkResourceUpdate) Exec(ctx context.Context) error {
-	_, err := nru.Save(ctx)
+func (_u *NetlinkResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nru *NetlinkResourceUpdate) ExecX(ctx context.Context) {
-	if err := nru.Exec(ctx); err != nil {
+func (_u *NetlinkResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (nru *NetlinkResourceUpdate) check() error {
-	if v, ok := nru.mutation.DesiredState(); ok {
+func (_u *NetlinkResourceUpdate) check() error {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := netlinkresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "NetlinkResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := nru.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := netlinkresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "NetlinkResource.current_state": %w`, err)}
 		}
@@ -247,52 +247,52 @@ func (nru *NetlinkResourceUpdate) check() error {
 	return nil
 }
 
-func (nru *NetlinkResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := nru.check(); err != nil {
-		return n, err
+func (_u *NetlinkResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(netlinkresource.Table, netlinkresource.Columns, sqlgraph.NewFieldSpec(netlinkresource.FieldID, field.TypeInt))
-	if ps := nru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := nru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(netlinkresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := nru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(netlinkresource.FieldKind, field.TypeString, value)
 	}
-	if nru.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(netlinkresource.FieldKind, field.TypeString)
 	}
-	if value, ok := nru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(netlinkresource.FieldName, field.TypeString, value)
 	}
-	if nru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(netlinkresource.FieldName, field.TypeString)
 	}
-	if value, ok := nru.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(netlinkresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := nru.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(netlinkresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if nru.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(netlinkresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := nru.mutation.ProviderStatus(); ok {
+	if value, ok := _u.mutation.ProviderStatus(); ok {
 		_spec.SetField(netlinkresource.FieldProviderStatus, field.TypeString, value)
 	}
-	if nru.mutation.ProviderStatusCleared() {
+	if _u.mutation.ProviderStatusCleared() {
 		_spec.ClearField(netlinkresource.FieldProviderStatus, field.TypeString)
 	}
-	if value, ok := nru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(netlinkresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if nru.mutation.SrcCleared() {
+	if _u.mutation.SrcCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -305,7 +305,7 @@ func (nru *NetlinkResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nru.mutation.SrcIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SrcIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -321,7 +321,7 @@ func (nru *NetlinkResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nru.mutation.DstCleared() {
+	if _u.mutation.DstCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -334,7 +334,7 @@ func (nru *NetlinkResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nru.mutation.DstIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DstIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -350,7 +350,7 @@ func (nru *NetlinkResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, nru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{netlinkresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -358,8 +358,8 @@ func (nru *NetlinkResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		return 0, err
 	}
-	nru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // NetlinkResourceUpdateOne is the builder for updating a single NetlinkResource entity.
@@ -371,203 +371,203 @@ type NetlinkResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (nruo *NetlinkResourceUpdateOne) SetResourceID(s string) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetResourceID(s)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetResourceID(v string) *NetlinkResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableResourceID(s *string) *NetlinkResourceUpdateOne {
-	if s != nil {
-		nruo.SetResourceID(*s)
+func (_u *NetlinkResourceUpdateOne) SetNillableResourceID(v *string) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return nruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (nruo *NetlinkResourceUpdateOne) SetKind(s string) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetKind(s)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetKind(v string) *NetlinkResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableKind(s *string) *NetlinkResourceUpdateOne {
-	if s != nil {
-		nruo.SetKind(*s)
+func (_u *NetlinkResourceUpdateOne) SetNillableKind(v *string) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return nruo
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (nruo *NetlinkResourceUpdateOne) ClearKind() *NetlinkResourceUpdateOne {
-	nruo.mutation.ClearKind()
-	return nruo
+func (_u *NetlinkResourceUpdateOne) ClearKind() *NetlinkResourceUpdateOne {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (nruo *NetlinkResourceUpdateOne) SetName(s string) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetName(s)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetName(v string) *NetlinkResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableName(s *string) *NetlinkResourceUpdateOne {
-	if s != nil {
-		nruo.SetName(*s)
+func (_u *NetlinkResourceUpdateOne) SetNillableName(v *string) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return nruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (nruo *NetlinkResourceUpdateOne) ClearName() *NetlinkResourceUpdateOne {
-	nruo.mutation.ClearName()
-	return nruo
+func (_u *NetlinkResourceUpdateOne) ClearName() *NetlinkResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (nruo *NetlinkResourceUpdateOne) SetDesiredState(ns netlinkresource.DesiredState) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetDesiredState(ns)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetDesiredState(v netlinkresource.DesiredState) *NetlinkResourceUpdateOne {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableDesiredState(ns *netlinkresource.DesiredState) *NetlinkResourceUpdateOne {
-	if ns != nil {
-		nruo.SetDesiredState(*ns)
+func (_u *NetlinkResourceUpdateOne) SetNillableDesiredState(v *netlinkresource.DesiredState) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return nruo
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (nruo *NetlinkResourceUpdateOne) SetCurrentState(ns netlinkresource.CurrentState) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetCurrentState(ns)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetCurrentState(v netlinkresource.CurrentState) *NetlinkResourceUpdateOne {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableCurrentState(ns *netlinkresource.CurrentState) *NetlinkResourceUpdateOne {
-	if ns != nil {
-		nruo.SetCurrentState(*ns)
+func (_u *NetlinkResourceUpdateOne) SetNillableCurrentState(v *netlinkresource.CurrentState) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return nruo
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (nruo *NetlinkResourceUpdateOne) ClearCurrentState() *NetlinkResourceUpdateOne {
-	nruo.mutation.ClearCurrentState()
-	return nruo
+func (_u *NetlinkResourceUpdateOne) ClearCurrentState() *NetlinkResourceUpdateOne {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (nruo *NetlinkResourceUpdateOne) SetProviderStatus(s string) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetProviderStatus(s)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetProviderStatus(v string) *NetlinkResourceUpdateOne {
+	_u.mutation.SetProviderStatus(v)
+	return _u
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableProviderStatus(s *string) *NetlinkResourceUpdateOne {
-	if s != nil {
-		nruo.SetProviderStatus(*s)
+func (_u *NetlinkResourceUpdateOne) SetNillableProviderStatus(v *string) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetProviderStatus(*v)
 	}
-	return nruo
+	return _u
 }
 
 // ClearProviderStatus clears the value of the "provider_status" field.
-func (nruo *NetlinkResourceUpdateOne) ClearProviderStatus() *NetlinkResourceUpdateOne {
-	nruo.mutation.ClearProviderStatus()
-	return nruo
+func (_u *NetlinkResourceUpdateOne) ClearProviderStatus() *NetlinkResourceUpdateOne {
+	_u.mutation.ClearProviderStatus()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (nruo *NetlinkResourceUpdateOne) SetUpdatedAt(s string) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetUpdatedAt(s)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetUpdatedAt(v string) *NetlinkResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableUpdatedAt(s *string) *NetlinkResourceUpdateOne {
-	if s != nil {
-		nruo.SetUpdatedAt(*s)
+func (_u *NetlinkResourceUpdateOne) SetNillableUpdatedAt(v *string) *NetlinkResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return nruo
+	return _u
 }
 
 // SetSrcID sets the "src" edge to the EndpointResource entity by ID.
-func (nruo *NetlinkResourceUpdateOne) SetSrcID(id int) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetSrcID(id)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetSrcID(id int) *NetlinkResourceUpdateOne {
+	_u.mutation.SetSrcID(id)
+	return _u
 }
 
 // SetNillableSrcID sets the "src" edge to the EndpointResource entity by ID if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableSrcID(id *int) *NetlinkResourceUpdateOne {
+func (_u *NetlinkResourceUpdateOne) SetNillableSrcID(id *int) *NetlinkResourceUpdateOne {
 	if id != nil {
-		nruo = nruo.SetSrcID(*id)
+		_u = _u.SetSrcID(*id)
 	}
-	return nruo
+	return _u
 }
 
 // SetSrc sets the "src" edge to the EndpointResource entity.
-func (nruo *NetlinkResourceUpdateOne) SetSrc(e *EndpointResource) *NetlinkResourceUpdateOne {
-	return nruo.SetSrcID(e.ID)
+func (_u *NetlinkResourceUpdateOne) SetSrc(v *EndpointResource) *NetlinkResourceUpdateOne {
+	return _u.SetSrcID(v.ID)
 }
 
 // SetDstID sets the "dst" edge to the EndpointResource entity by ID.
-func (nruo *NetlinkResourceUpdateOne) SetDstID(id int) *NetlinkResourceUpdateOne {
-	nruo.mutation.SetDstID(id)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) SetDstID(id int) *NetlinkResourceUpdateOne {
+	_u.mutation.SetDstID(id)
+	return _u
 }
 
 // SetNillableDstID sets the "dst" edge to the EndpointResource entity by ID if the given value is not nil.
-func (nruo *NetlinkResourceUpdateOne) SetNillableDstID(id *int) *NetlinkResourceUpdateOne {
+func (_u *NetlinkResourceUpdateOne) SetNillableDstID(id *int) *NetlinkResourceUpdateOne {
 	if id != nil {
-		nruo = nruo.SetDstID(*id)
+		_u = _u.SetDstID(*id)
 	}
-	return nruo
+	return _u
 }
 
 // SetDst sets the "dst" edge to the EndpointResource entity.
-func (nruo *NetlinkResourceUpdateOne) SetDst(e *EndpointResource) *NetlinkResourceUpdateOne {
-	return nruo.SetDstID(e.ID)
+func (_u *NetlinkResourceUpdateOne) SetDst(v *EndpointResource) *NetlinkResourceUpdateOne {
+	return _u.SetDstID(v.ID)
 }
 
 // Mutation returns the NetlinkResourceMutation object of the builder.
-func (nruo *NetlinkResourceUpdateOne) Mutation() *NetlinkResourceMutation {
-	return nruo.mutation
+func (_u *NetlinkResourceUpdateOne) Mutation() *NetlinkResourceMutation {
+	return _u.mutation
 }
 
 // ClearSrc clears the "src" edge to the EndpointResource entity.
-func (nruo *NetlinkResourceUpdateOne) ClearSrc() *NetlinkResourceUpdateOne {
-	nruo.mutation.ClearSrc()
-	return nruo
+func (_u *NetlinkResourceUpdateOne) ClearSrc() *NetlinkResourceUpdateOne {
+	_u.mutation.ClearSrc()
+	return _u
 }
 
 // ClearDst clears the "dst" edge to the EndpointResource entity.
-func (nruo *NetlinkResourceUpdateOne) ClearDst() *NetlinkResourceUpdateOne {
-	nruo.mutation.ClearDst()
-	return nruo
+func (_u *NetlinkResourceUpdateOne) ClearDst() *NetlinkResourceUpdateOne {
+	_u.mutation.ClearDst()
+	return _u
 }
 
 // Where appends a list predicates to the NetlinkResourceUpdate builder.
-func (nruo *NetlinkResourceUpdateOne) Where(ps ...predicate.NetlinkResource) *NetlinkResourceUpdateOne {
-	nruo.mutation.Where(ps...)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) Where(ps ...predicate.NetlinkResource) *NetlinkResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (nruo *NetlinkResourceUpdateOne) Select(field string, fields ...string) *NetlinkResourceUpdateOne {
-	nruo.fields = append([]string{field}, fields...)
-	return nruo
+func (_u *NetlinkResourceUpdateOne) Select(field string, fields ...string) *NetlinkResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated NetlinkResource entity.
-func (nruo *NetlinkResourceUpdateOne) Save(ctx context.Context) (*NetlinkResource, error) {
-	return withHooks(ctx, nruo.sqlSave, nruo.mutation, nruo.hooks)
+func (_u *NetlinkResourceUpdateOne) Save(ctx context.Context) (*NetlinkResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nruo *NetlinkResourceUpdateOne) SaveX(ctx context.Context) *NetlinkResource {
-	node, err := nruo.Save(ctx)
+func (_u *NetlinkResourceUpdateOne) SaveX(ctx context.Context) *NetlinkResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -575,26 +575,26 @@ func (nruo *NetlinkResourceUpdateOne) SaveX(ctx context.Context) *NetlinkResourc
 }
 
 // Exec executes the query on the entity.
-func (nruo *NetlinkResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := nruo.Save(ctx)
+func (_u *NetlinkResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nruo *NetlinkResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := nruo.Exec(ctx); err != nil {
+func (_u *NetlinkResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (nruo *NetlinkResourceUpdateOne) check() error {
-	if v, ok := nruo.mutation.DesiredState(); ok {
+func (_u *NetlinkResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := netlinkresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "NetlinkResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := nruo.mutation.CurrentState(); ok {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := netlinkresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "NetlinkResource.current_state": %w`, err)}
 		}
@@ -602,17 +602,17 @@ func (nruo *NetlinkResourceUpdateOne) check() error {
 	return nil
 }
 
-func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *NetlinkResource, err error) {
-	if err := nruo.check(); err != nil {
+func (_u *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *NetlinkResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(netlinkresource.Table, netlinkresource.Columns, sqlgraph.NewFieldSpec(netlinkresource.FieldID, field.TypeInt))
-	id, ok := nruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "NetlinkResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := nruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, netlinkresource.FieldID)
 		for _, f := range fields {
@@ -624,47 +624,47 @@ func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *Netli
 			}
 		}
 	}
-	if ps := nruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := nruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(netlinkresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := nruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(netlinkresource.FieldKind, field.TypeString, value)
 	}
-	if nruo.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(netlinkresource.FieldKind, field.TypeString)
 	}
-	if value, ok := nruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(netlinkresource.FieldName, field.TypeString, value)
 	}
-	if nruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(netlinkresource.FieldName, field.TypeString)
 	}
-	if value, ok := nruo.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(netlinkresource.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := nruo.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(netlinkresource.FieldCurrentState, field.TypeEnum, value)
 	}
-	if nruo.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(netlinkresource.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := nruo.mutation.ProviderStatus(); ok {
+	if value, ok := _u.mutation.ProviderStatus(); ok {
 		_spec.SetField(netlinkresource.FieldProviderStatus, field.TypeString, value)
 	}
-	if nruo.mutation.ProviderStatusCleared() {
+	if _u.mutation.ProviderStatusCleared() {
 		_spec.ClearField(netlinkresource.FieldProviderStatus, field.TypeString)
 	}
-	if value, ok := nruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(netlinkresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if nruo.mutation.SrcCleared() {
+	if _u.mutation.SrcCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -677,7 +677,7 @@ func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *Netli
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nruo.mutation.SrcIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.SrcIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -693,7 +693,7 @@ func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *Netli
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nruo.mutation.DstCleared() {
+	if _u.mutation.DstCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -706,7 +706,7 @@ func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *Netli
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nruo.mutation.DstIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DstIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -722,10 +722,10 @@ func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *Netli
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &NetlinkResource{config: nruo.config}
+	_node = &NetlinkResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, nruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{netlinkresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -733,6 +733,6 @@ func (nruo *NetlinkResourceUpdateOne) sqlSave(ctx context.Context) (_node *Netli
 		}
 		return nil, err
 	}
-	nruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }
