@@ -807,6 +807,7 @@ A Host resource.
 | amt_status | [string](#string) |  | coming from device introspection. Set only by the DM RM. |
 | amt_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
 | amt_status_timestamp | [uint32](#uint32) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
+| user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -3081,6 +3082,7 @@ Message to register a Host.
 | uuid | [string](#string) |  | The host UUID. |
 | auto_onboard | [bool](#bool) |  | Flag to signal to automatically onboard the host. |
 | enable_vpro | [bool](#bool) |  | Flag to signal to enable vPRO on the host. |
+| user_lvm_size | [uint32](#uint32) |  | LVM size in GB |
 
 
 
