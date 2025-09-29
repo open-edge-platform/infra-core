@@ -261,6 +261,11 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 		mut.ResetDesiredAmtState()
 		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
 	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldAmtSku) &&
+		in.GetAmtSku() == computev1.AmtSku_AMTSKU_NONE {
+		mut.ResetAmtSku()
+		mut.SetAmtSku(hosts.AmtSkuAMTSKU_NONE)
+	}
 }
 
 func hostResourceUpdater(
