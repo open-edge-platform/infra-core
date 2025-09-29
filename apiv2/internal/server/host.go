@@ -124,6 +124,7 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		DesiredPowerState:  inv_computev1.PowerState_POWER_STATE_ON,
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+		UserLvmSize:        host.GetUserLvmSize(),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -297,6 +298,7 @@ func fromInvHost(
 		Metadata:           metadata,
 		InheritedMetadata:  []*commonv1.MetadataItem{},
 		Timestamps:         GrpcToOpenAPITimestamps(invHost),
+		UserLvmSize:        invHost.GetUserLvmSize(),
 	}
 
 	if err = fromInvHostEdges(invHost, host); err != nil {
@@ -675,6 +677,9 @@ func (is *InventorygRPCServer) RegisterHost(
 	if req.GetHost().GetEnableVpro() {
 		hostResource.DesiredAmtState = inv_computev1.AmtState_AMT_STATE_PROVISIONED
 	}
+
+	hostUserLvmSize := req.GetHost().GetUserLvmSize()
+	hostResource.UserLvmSize = hostUserLvmSize
 
 	invRes := &inventory.Resource{
 		Resource: &inventory.Resource_Host{
