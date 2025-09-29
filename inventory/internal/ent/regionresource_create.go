@@ -20,118 +20,118 @@ type RegionResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (rrc *RegionResourceCreate) SetResourceID(s string) *RegionResourceCreate {
-	rrc.mutation.SetResourceID(s)
-	return rrc
+func (_c *RegionResourceCreate) SetResourceID(v string) *RegionResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (rrc *RegionResourceCreate) SetName(s string) *RegionResourceCreate {
-	rrc.mutation.SetName(s)
-	return rrc
+func (_c *RegionResourceCreate) SetName(v string) *RegionResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (rrc *RegionResourceCreate) SetNillableName(s *string) *RegionResourceCreate {
-	if s != nil {
-		rrc.SetName(*s)
+func (_c *RegionResourceCreate) SetNillableName(v *string) *RegionResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return rrc
+	return _c
 }
 
 // SetRegionKind sets the "region_kind" field.
-func (rrc *RegionResourceCreate) SetRegionKind(s string) *RegionResourceCreate {
-	rrc.mutation.SetRegionKind(s)
-	return rrc
+func (_c *RegionResourceCreate) SetRegionKind(v string) *RegionResourceCreate {
+	_c.mutation.SetRegionKind(v)
+	return _c
 }
 
 // SetNillableRegionKind sets the "region_kind" field if the given value is not nil.
-func (rrc *RegionResourceCreate) SetNillableRegionKind(s *string) *RegionResourceCreate {
-	if s != nil {
-		rrc.SetRegionKind(*s)
+func (_c *RegionResourceCreate) SetNillableRegionKind(v *string) *RegionResourceCreate {
+	if v != nil {
+		_c.SetRegionKind(*v)
 	}
-	return rrc
+	return _c
 }
 
 // SetMetadata sets the "metadata" field.
-func (rrc *RegionResourceCreate) SetMetadata(s string) *RegionResourceCreate {
-	rrc.mutation.SetMetadata(s)
-	return rrc
+func (_c *RegionResourceCreate) SetMetadata(v string) *RegionResourceCreate {
+	_c.mutation.SetMetadata(v)
+	return _c
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (rrc *RegionResourceCreate) SetNillableMetadata(s *string) *RegionResourceCreate {
-	if s != nil {
-		rrc.SetMetadata(*s)
+func (_c *RegionResourceCreate) SetNillableMetadata(v *string) *RegionResourceCreate {
+	if v != nil {
+		_c.SetMetadata(*v)
 	}
-	return rrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (rrc *RegionResourceCreate) SetTenantID(s string) *RegionResourceCreate {
-	rrc.mutation.SetTenantID(s)
-	return rrc
+func (_c *RegionResourceCreate) SetTenantID(v string) *RegionResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (rrc *RegionResourceCreate) SetCreatedAt(s string) *RegionResourceCreate {
-	rrc.mutation.SetCreatedAt(s)
-	return rrc
+func (_c *RegionResourceCreate) SetCreatedAt(v string) *RegionResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (rrc *RegionResourceCreate) SetUpdatedAt(s string) *RegionResourceCreate {
-	rrc.mutation.SetUpdatedAt(s)
-	return rrc
+func (_c *RegionResourceCreate) SetUpdatedAt(v string) *RegionResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetParentRegionID sets the "parent_region" edge to the RegionResource entity by ID.
-func (rrc *RegionResourceCreate) SetParentRegionID(id int) *RegionResourceCreate {
-	rrc.mutation.SetParentRegionID(id)
-	return rrc
+func (_c *RegionResourceCreate) SetParentRegionID(id int) *RegionResourceCreate {
+	_c.mutation.SetParentRegionID(id)
+	return _c
 }
 
 // SetNillableParentRegionID sets the "parent_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (rrc *RegionResourceCreate) SetNillableParentRegionID(id *int) *RegionResourceCreate {
+func (_c *RegionResourceCreate) SetNillableParentRegionID(id *int) *RegionResourceCreate {
 	if id != nil {
-		rrc = rrc.SetParentRegionID(*id)
+		_c = _c.SetParentRegionID(*id)
 	}
-	return rrc
+	return _c
 }
 
 // SetParentRegion sets the "parent_region" edge to the RegionResource entity.
-func (rrc *RegionResourceCreate) SetParentRegion(r *RegionResource) *RegionResourceCreate {
-	return rrc.SetParentRegionID(r.ID)
+func (_c *RegionResourceCreate) SetParentRegion(v *RegionResource) *RegionResourceCreate {
+	return _c.SetParentRegionID(v.ID)
 }
 
 // AddChildIDs adds the "children" edge to the RegionResource entity by IDs.
-func (rrc *RegionResourceCreate) AddChildIDs(ids ...int) *RegionResourceCreate {
-	rrc.mutation.AddChildIDs(ids...)
-	return rrc
+func (_c *RegionResourceCreate) AddChildIDs(ids ...int) *RegionResourceCreate {
+	_c.mutation.AddChildIDs(ids...)
+	return _c
 }
 
 // AddChildren adds the "children" edges to the RegionResource entity.
-func (rrc *RegionResourceCreate) AddChildren(r ...*RegionResource) *RegionResourceCreate {
-	ids := make([]int, len(r))
-	for i := range r {
-		ids[i] = r[i].ID
+func (_c *RegionResourceCreate) AddChildren(v ...*RegionResource) *RegionResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return rrc.AddChildIDs(ids...)
+	return _c.AddChildIDs(ids...)
 }
 
 // Mutation returns the RegionResourceMutation object of the builder.
-func (rrc *RegionResourceCreate) Mutation() *RegionResourceMutation {
-	return rrc.mutation
+func (_c *RegionResourceCreate) Mutation() *RegionResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the RegionResource in the database.
-func (rrc *RegionResourceCreate) Save(ctx context.Context) (*RegionResource, error) {
-	return withHooks(ctx, rrc.sqlSave, rrc.mutation, rrc.hooks)
+func (_c *RegionResourceCreate) Save(ctx context.Context) (*RegionResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (rrc *RegionResourceCreate) SaveX(ctx context.Context) *RegionResource {
-	v, err := rrc.Save(ctx)
+func (_c *RegionResourceCreate) SaveX(ctx context.Context) *RegionResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -139,41 +139,41 @@ func (rrc *RegionResourceCreate) SaveX(ctx context.Context) *RegionResource {
 }
 
 // Exec executes the query.
-func (rrc *RegionResourceCreate) Exec(ctx context.Context) error {
-	_, err := rrc.Save(ctx)
+func (_c *RegionResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rrc *RegionResourceCreate) ExecX(ctx context.Context) {
-	if err := rrc.Exec(ctx); err != nil {
+func (_c *RegionResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (rrc *RegionResourceCreate) check() error {
-	if _, ok := rrc.mutation.ResourceID(); !ok {
+func (_c *RegionResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "RegionResource.resource_id"`)}
 	}
-	if _, ok := rrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "RegionResource.tenant_id"`)}
 	}
-	if _, ok := rrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "RegionResource.created_at"`)}
 	}
-	if _, ok := rrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "RegionResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (rrc *RegionResourceCreate) sqlSave(ctx context.Context) (*RegionResource, error) {
-	if err := rrc.check(); err != nil {
+func (_c *RegionResourceCreate) sqlSave(ctx context.Context) (*RegionResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := rrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, rrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -181,45 +181,45 @@ func (rrc *RegionResourceCreate) sqlSave(ctx context.Context) (*RegionResource, 
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	rrc.mutation.id = &_node.ID
-	rrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (rrc *RegionResourceCreate) createSpec() (*RegionResource, *sqlgraph.CreateSpec) {
+func (_c *RegionResourceCreate) createSpec() (*RegionResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &RegionResource{config: rrc.config}
+		_node = &RegionResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(regionresource.Table, sqlgraph.NewFieldSpec(regionresource.FieldID, field.TypeInt))
 	)
-	if value, ok := rrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(regionresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := rrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(regionresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := rrc.mutation.RegionKind(); ok {
+	if value, ok := _c.mutation.RegionKind(); ok {
 		_spec.SetField(regionresource.FieldRegionKind, field.TypeString, value)
 		_node.RegionKind = value
 	}
-	if value, ok := rrc.mutation.Metadata(); ok {
+	if value, ok := _c.mutation.Metadata(); ok {
 		_spec.SetField(regionresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
 	}
-	if value, ok := rrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(regionresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := rrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(regionresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := rrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(regionresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := rrc.mutation.ParentRegionIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ParentRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -236,7 +236,7 @@ func (rrc *RegionResourceCreate) createSpec() (*RegionResource, *sqlgraph.Create
 		_node.region_resource_parent_region = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := rrc.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ChildrenIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -263,16 +263,16 @@ type RegionResourceCreateBulk struct {
 }
 
 // Save creates the RegionResource entities in the database.
-func (rrcb *RegionResourceCreateBulk) Save(ctx context.Context) ([]*RegionResource, error) {
-	if rrcb.err != nil {
-		return nil, rrcb.err
+func (_c *RegionResourceCreateBulk) Save(ctx context.Context) ([]*RegionResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(rrcb.builders))
-	nodes := make([]*RegionResource, len(rrcb.builders))
-	mutators := make([]Mutator, len(rrcb.builders))
-	for i := range rrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*RegionResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := rrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*RegionResourceMutation)
 				if !ok {
@@ -285,11 +285,11 @@ func (rrcb *RegionResourceCreateBulk) Save(ctx context.Context) ([]*RegionResour
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, rrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, rrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -313,7 +313,7 @@ func (rrcb *RegionResourceCreateBulk) Save(ctx context.Context) ([]*RegionResour
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, rrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -321,8 +321,8 @@ func (rrcb *RegionResourceCreateBulk) Save(ctx context.Context) ([]*RegionResour
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (rrcb *RegionResourceCreateBulk) SaveX(ctx context.Context) []*RegionResource {
-	v, err := rrcb.Save(ctx)
+func (_c *RegionResourceCreateBulk) SaveX(ctx context.Context) []*RegionResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -330,14 +330,14 @@ func (rrcb *RegionResourceCreateBulk) SaveX(ctx context.Context) []*RegionResour
 }
 
 // Exec executes the query.
-func (rrcb *RegionResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := rrcb.Save(ctx)
+func (_c *RegionResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rrcb *RegionResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := rrcb.Exec(ctx); err != nil {
+func (_c *RegionResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

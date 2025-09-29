@@ -20,56 +20,56 @@ type RegionResourceDelete struct {
 }
 
 // Where appends a list predicates to the RegionResourceDelete builder.
-func (rrd *RegionResourceDelete) Where(ps ...predicate.RegionResource) *RegionResourceDelete {
-	rrd.mutation.Where(ps...)
-	return rrd
+func (_d *RegionResourceDelete) Where(ps ...predicate.RegionResource) *RegionResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (rrd *RegionResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, rrd.sqlExec, rrd.mutation, rrd.hooks)
+func (_d *RegionResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rrd *RegionResourceDelete) ExecX(ctx context.Context) int {
-	n, err := rrd.Exec(ctx)
+func (_d *RegionResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (rrd *RegionResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *RegionResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(regionresource.Table, sqlgraph.NewFieldSpec(regionresource.FieldID, field.TypeInt))
-	if ps := rrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, rrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	rrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // RegionResourceDeleteOne is the builder for deleting a single RegionResource entity.
 type RegionResourceDeleteOne struct {
-	rrd *RegionResourceDelete
+	_d *RegionResourceDelete
 }
 
 // Where appends a list predicates to the RegionResourceDelete builder.
-func (rrdo *RegionResourceDeleteOne) Where(ps ...predicate.RegionResource) *RegionResourceDeleteOne {
-	rrdo.rrd.mutation.Where(ps...)
-	return rrdo
+func (_d *RegionResourceDeleteOne) Where(ps ...predicate.RegionResource) *RegionResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (rrdo *RegionResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := rrdo.rrd.Exec(ctx)
+func (_d *RegionResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (rrdo *RegionResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (rrdo *RegionResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := rrdo.Exec(ctx); err != nil {
+func (_d *RegionResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

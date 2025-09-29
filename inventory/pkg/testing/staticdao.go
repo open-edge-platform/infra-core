@@ -352,6 +352,21 @@ func CreateSiteWithArgs(
 	)
 }
 
+// CreateSiteWithNested - creates site with nested objects preserved. Use this when tests need
+// to verify the full nested structure including Region and OU data.
+func CreateSiteWithNested(tb testing.TB, region *location_v1.RegionResource, ou *ouv1.OuResource) *location_v1.SiteResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateSiteWithNested(tb, client.FakeTenantID, SiteRegion(region), SiteOu(ou))
+}
+
+// CreateSiteWithNestedNoCleanup - creates site with nested objects preserved and no cleanup.
+func CreateSiteWithNestedNoCleanup(tb testing.TB, region *location_v1.RegionResource,
+	ou *ouv1.OuResource,
+) *location_v1.SiteResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateSiteWithNestedNoCleanup(tb, client.FakeTenantID, SiteRegion(region), SiteOu(ou))
+}
+
 // CreateInstance - creates instance with a cleanup. Note this helper is not really meant to be used for the
 // test of InstanceResource, but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by the eager loading.

@@ -176,7 +176,6 @@ HostPowerState:
   format: enum
   enum:
     - POWER_STATE_UNSPECIFIED
-    - POWER_STATE_ERROR
     - POWER_STATE_ON
     - POWER_STATE_OFF
 

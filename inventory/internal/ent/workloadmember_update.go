@@ -24,100 +24,100 @@ type WorkloadMemberUpdate struct {
 }
 
 // Where appends a list predicates to the WorkloadMemberUpdate builder.
-func (wmu *WorkloadMemberUpdate) Where(ps ...predicate.WorkloadMember) *WorkloadMemberUpdate {
-	wmu.mutation.Where(ps...)
-	return wmu
+func (_u *WorkloadMemberUpdate) Where(ps ...predicate.WorkloadMember) *WorkloadMemberUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (wmu *WorkloadMemberUpdate) SetResourceID(s string) *WorkloadMemberUpdate {
-	wmu.mutation.SetResourceID(s)
-	return wmu
+func (_u *WorkloadMemberUpdate) SetResourceID(v string) *WorkloadMemberUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (wmu *WorkloadMemberUpdate) SetNillableResourceID(s *string) *WorkloadMemberUpdate {
-	if s != nil {
-		wmu.SetResourceID(*s)
+func (_u *WorkloadMemberUpdate) SetNillableResourceID(v *string) *WorkloadMemberUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return wmu
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (wmu *WorkloadMemberUpdate) SetKind(w workloadmember.Kind) *WorkloadMemberUpdate {
-	wmu.mutation.SetKind(w)
-	return wmu
+func (_u *WorkloadMemberUpdate) SetKind(v workloadmember.Kind) *WorkloadMemberUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (wmu *WorkloadMemberUpdate) SetNillableKind(w *workloadmember.Kind) *WorkloadMemberUpdate {
-	if w != nil {
-		wmu.SetKind(*w)
+func (_u *WorkloadMemberUpdate) SetNillableKind(v *workloadmember.Kind) *WorkloadMemberUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return wmu
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (wmu *WorkloadMemberUpdate) SetUpdatedAt(s string) *WorkloadMemberUpdate {
-	wmu.mutation.SetUpdatedAt(s)
-	return wmu
+func (_u *WorkloadMemberUpdate) SetUpdatedAt(v string) *WorkloadMemberUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (wmu *WorkloadMemberUpdate) SetNillableUpdatedAt(s *string) *WorkloadMemberUpdate {
-	if s != nil {
-		wmu.SetUpdatedAt(*s)
+func (_u *WorkloadMemberUpdate) SetNillableUpdatedAt(v *string) *WorkloadMemberUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return wmu
+	return _u
 }
 
 // SetWorkloadID sets the "workload" edge to the WorkloadResource entity by ID.
-func (wmu *WorkloadMemberUpdate) SetWorkloadID(id int) *WorkloadMemberUpdate {
-	wmu.mutation.SetWorkloadID(id)
-	return wmu
+func (_u *WorkloadMemberUpdate) SetWorkloadID(id int) *WorkloadMemberUpdate {
+	_u.mutation.SetWorkloadID(id)
+	return _u
 }
 
 // SetWorkload sets the "workload" edge to the WorkloadResource entity.
-func (wmu *WorkloadMemberUpdate) SetWorkload(w *WorkloadResource) *WorkloadMemberUpdate {
-	return wmu.SetWorkloadID(w.ID)
+func (_u *WorkloadMemberUpdate) SetWorkload(v *WorkloadResource) *WorkloadMemberUpdate {
+	return _u.SetWorkloadID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (wmu *WorkloadMemberUpdate) SetInstanceID(id int) *WorkloadMemberUpdate {
-	wmu.mutation.SetInstanceID(id)
-	return wmu
+func (_u *WorkloadMemberUpdate) SetInstanceID(id int) *WorkloadMemberUpdate {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (wmu *WorkloadMemberUpdate) SetInstance(i *InstanceResource) *WorkloadMemberUpdate {
-	return wmu.SetInstanceID(i.ID)
+func (_u *WorkloadMemberUpdate) SetInstance(v *InstanceResource) *WorkloadMemberUpdate {
+	return _u.SetInstanceID(v.ID)
 }
 
 // Mutation returns the WorkloadMemberMutation object of the builder.
-func (wmu *WorkloadMemberUpdate) Mutation() *WorkloadMemberMutation {
-	return wmu.mutation
+func (_u *WorkloadMemberUpdate) Mutation() *WorkloadMemberMutation {
+	return _u.mutation
 }
 
 // ClearWorkload clears the "workload" edge to the WorkloadResource entity.
-func (wmu *WorkloadMemberUpdate) ClearWorkload() *WorkloadMemberUpdate {
-	wmu.mutation.ClearWorkload()
-	return wmu
+func (_u *WorkloadMemberUpdate) ClearWorkload() *WorkloadMemberUpdate {
+	_u.mutation.ClearWorkload()
+	return _u
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (wmu *WorkloadMemberUpdate) ClearInstance() *WorkloadMemberUpdate {
-	wmu.mutation.ClearInstance()
-	return wmu
+func (_u *WorkloadMemberUpdate) ClearInstance() *WorkloadMemberUpdate {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (wmu *WorkloadMemberUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, wmu.sqlSave, wmu.mutation, wmu.hooks)
+func (_u *WorkloadMemberUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (wmu *WorkloadMemberUpdate) SaveX(ctx context.Context) int {
-	affected, err := wmu.Save(ctx)
+func (_u *WorkloadMemberUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -125,56 +125,56 @@ func (wmu *WorkloadMemberUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (wmu *WorkloadMemberUpdate) Exec(ctx context.Context) error {
-	_, err := wmu.Save(ctx)
+func (_u *WorkloadMemberUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wmu *WorkloadMemberUpdate) ExecX(ctx context.Context) {
-	if err := wmu.Exec(ctx); err != nil {
+func (_u *WorkloadMemberUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (wmu *WorkloadMemberUpdate) check() error {
-	if v, ok := wmu.mutation.Kind(); ok {
+func (_u *WorkloadMemberUpdate) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := workloadmember.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "WorkloadMember.kind": %w`, err)}
 		}
 	}
-	if wmu.mutation.WorkloadCleared() && len(wmu.mutation.WorkloadIDs()) > 0 {
+	if _u.mutation.WorkloadCleared() && len(_u.mutation.WorkloadIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "WorkloadMember.workload"`)
 	}
-	if wmu.mutation.InstanceCleared() && len(wmu.mutation.InstanceIDs()) > 0 {
+	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "WorkloadMember.instance"`)
 	}
 	return nil
 }
 
-func (wmu *WorkloadMemberUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := wmu.check(); err != nil {
-		return n, err
+func (_u *WorkloadMemberUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(workloadmember.Table, workloadmember.Columns, sqlgraph.NewFieldSpec(workloadmember.FieldID, field.TypeInt))
-	if ps := wmu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := wmu.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(workloadmember.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := wmu.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(workloadmember.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := wmu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(workloadmember.FieldUpdatedAt, field.TypeString, value)
 	}
-	if wmu.mutation.WorkloadCleared() {
+	if _u.mutation.WorkloadCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -187,7 +187,7 @@ func (wmu *WorkloadMemberUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wmu.mutation.WorkloadIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.WorkloadIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -203,7 +203,7 @@ func (wmu *WorkloadMemberUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if wmu.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -216,7 +216,7 @@ func (wmu *WorkloadMemberUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wmu.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -232,7 +232,7 @@ func (wmu *WorkloadMemberUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, wmu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{workloadmember.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -240,8 +240,8 @@ func (wmu *WorkloadMemberUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		return 0, err
 	}
-	wmu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // WorkloadMemberUpdateOne is the builder for updating a single WorkloadMember entity.
@@ -253,107 +253,107 @@ type WorkloadMemberUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (wmuo *WorkloadMemberUpdateOne) SetResourceID(s string) *WorkloadMemberUpdateOne {
-	wmuo.mutation.SetResourceID(s)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) SetResourceID(v string) *WorkloadMemberUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (wmuo *WorkloadMemberUpdateOne) SetNillableResourceID(s *string) *WorkloadMemberUpdateOne {
-	if s != nil {
-		wmuo.SetResourceID(*s)
+func (_u *WorkloadMemberUpdateOne) SetNillableResourceID(v *string) *WorkloadMemberUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return wmuo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (wmuo *WorkloadMemberUpdateOne) SetKind(w workloadmember.Kind) *WorkloadMemberUpdateOne {
-	wmuo.mutation.SetKind(w)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) SetKind(v workloadmember.Kind) *WorkloadMemberUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (wmuo *WorkloadMemberUpdateOne) SetNillableKind(w *workloadmember.Kind) *WorkloadMemberUpdateOne {
-	if w != nil {
-		wmuo.SetKind(*w)
+func (_u *WorkloadMemberUpdateOne) SetNillableKind(v *workloadmember.Kind) *WorkloadMemberUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return wmuo
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (wmuo *WorkloadMemberUpdateOne) SetUpdatedAt(s string) *WorkloadMemberUpdateOne {
-	wmuo.mutation.SetUpdatedAt(s)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) SetUpdatedAt(v string) *WorkloadMemberUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (wmuo *WorkloadMemberUpdateOne) SetNillableUpdatedAt(s *string) *WorkloadMemberUpdateOne {
-	if s != nil {
-		wmuo.SetUpdatedAt(*s)
+func (_u *WorkloadMemberUpdateOne) SetNillableUpdatedAt(v *string) *WorkloadMemberUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return wmuo
+	return _u
 }
 
 // SetWorkloadID sets the "workload" edge to the WorkloadResource entity by ID.
-func (wmuo *WorkloadMemberUpdateOne) SetWorkloadID(id int) *WorkloadMemberUpdateOne {
-	wmuo.mutation.SetWorkloadID(id)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) SetWorkloadID(id int) *WorkloadMemberUpdateOne {
+	_u.mutation.SetWorkloadID(id)
+	return _u
 }
 
 // SetWorkload sets the "workload" edge to the WorkloadResource entity.
-func (wmuo *WorkloadMemberUpdateOne) SetWorkload(w *WorkloadResource) *WorkloadMemberUpdateOne {
-	return wmuo.SetWorkloadID(w.ID)
+func (_u *WorkloadMemberUpdateOne) SetWorkload(v *WorkloadResource) *WorkloadMemberUpdateOne {
+	return _u.SetWorkloadID(v.ID)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (wmuo *WorkloadMemberUpdateOne) SetInstanceID(id int) *WorkloadMemberUpdateOne {
-	wmuo.mutation.SetInstanceID(id)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) SetInstanceID(id int) *WorkloadMemberUpdateOne {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (wmuo *WorkloadMemberUpdateOne) SetInstance(i *InstanceResource) *WorkloadMemberUpdateOne {
-	return wmuo.SetInstanceID(i.ID)
+func (_u *WorkloadMemberUpdateOne) SetInstance(v *InstanceResource) *WorkloadMemberUpdateOne {
+	return _u.SetInstanceID(v.ID)
 }
 
 // Mutation returns the WorkloadMemberMutation object of the builder.
-func (wmuo *WorkloadMemberUpdateOne) Mutation() *WorkloadMemberMutation {
-	return wmuo.mutation
+func (_u *WorkloadMemberUpdateOne) Mutation() *WorkloadMemberMutation {
+	return _u.mutation
 }
 
 // ClearWorkload clears the "workload" edge to the WorkloadResource entity.
-func (wmuo *WorkloadMemberUpdateOne) ClearWorkload() *WorkloadMemberUpdateOne {
-	wmuo.mutation.ClearWorkload()
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) ClearWorkload() *WorkloadMemberUpdateOne {
+	_u.mutation.ClearWorkload()
+	return _u
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (wmuo *WorkloadMemberUpdateOne) ClearInstance() *WorkloadMemberUpdateOne {
-	wmuo.mutation.ClearInstance()
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) ClearInstance() *WorkloadMemberUpdateOne {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // Where appends a list predicates to the WorkloadMemberUpdate builder.
-func (wmuo *WorkloadMemberUpdateOne) Where(ps ...predicate.WorkloadMember) *WorkloadMemberUpdateOne {
-	wmuo.mutation.Where(ps...)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) Where(ps ...predicate.WorkloadMember) *WorkloadMemberUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (wmuo *WorkloadMemberUpdateOne) Select(field string, fields ...string) *WorkloadMemberUpdateOne {
-	wmuo.fields = append([]string{field}, fields...)
-	return wmuo
+func (_u *WorkloadMemberUpdateOne) Select(field string, fields ...string) *WorkloadMemberUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated WorkloadMember entity.
-func (wmuo *WorkloadMemberUpdateOne) Save(ctx context.Context) (*WorkloadMember, error) {
-	return withHooks(ctx, wmuo.sqlSave, wmuo.mutation, wmuo.hooks)
+func (_u *WorkloadMemberUpdateOne) Save(ctx context.Context) (*WorkloadMember, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (wmuo *WorkloadMemberUpdateOne) SaveX(ctx context.Context) *WorkloadMember {
-	node, err := wmuo.Save(ctx)
+func (_u *WorkloadMemberUpdateOne) SaveX(ctx context.Context) *WorkloadMember {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -361,45 +361,45 @@ func (wmuo *WorkloadMemberUpdateOne) SaveX(ctx context.Context) *WorkloadMember 
 }
 
 // Exec executes the query on the entity.
-func (wmuo *WorkloadMemberUpdateOne) Exec(ctx context.Context) error {
-	_, err := wmuo.Save(ctx)
+func (_u *WorkloadMemberUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (wmuo *WorkloadMemberUpdateOne) ExecX(ctx context.Context) {
-	if err := wmuo.Exec(ctx); err != nil {
+func (_u *WorkloadMemberUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (wmuo *WorkloadMemberUpdateOne) check() error {
-	if v, ok := wmuo.mutation.Kind(); ok {
+func (_u *WorkloadMemberUpdateOne) check() error {
+	if v, ok := _u.mutation.Kind(); ok {
 		if err := workloadmember.KindValidator(v); err != nil {
 			return &ValidationError{Name: "kind", err: fmt.Errorf(`ent: validator failed for field "WorkloadMember.kind": %w`, err)}
 		}
 	}
-	if wmuo.mutation.WorkloadCleared() && len(wmuo.mutation.WorkloadIDs()) > 0 {
+	if _u.mutation.WorkloadCleared() && len(_u.mutation.WorkloadIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "WorkloadMember.workload"`)
 	}
-	if wmuo.mutation.InstanceCleared() && len(wmuo.mutation.InstanceIDs()) > 0 {
+	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "WorkloadMember.instance"`)
 	}
 	return nil
 }
 
-func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *WorkloadMember, err error) {
-	if err := wmuo.check(); err != nil {
+func (_u *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *WorkloadMember, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(workloadmember.Table, workloadmember.Columns, sqlgraph.NewFieldSpec(workloadmember.FieldID, field.TypeInt))
-	id, ok := wmuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "WorkloadMember.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := wmuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, workloadmember.FieldID)
 		for _, f := range fields {
@@ -411,23 +411,23 @@ func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *Worklo
 			}
 		}
 	}
-	if ps := wmuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := wmuo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(workloadmember.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := wmuo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(workloadmember.FieldKind, field.TypeEnum, value)
 	}
-	if value, ok := wmuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(workloadmember.FieldUpdatedAt, field.TypeString, value)
 	}
-	if wmuo.mutation.WorkloadCleared() {
+	if _u.mutation.WorkloadCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -440,7 +440,7 @@ func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *Worklo
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wmuo.mutation.WorkloadIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.WorkloadIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -456,7 +456,7 @@ func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *Worklo
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if wmuo.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -469,7 +469,7 @@ func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *Worklo
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := wmuo.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -485,10 +485,10 @@ func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *Worklo
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &WorkloadMember{config: wmuo.config}
+	_node = &WorkloadMember{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, wmuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{workloadmember.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -496,6 +496,6 @@ func (wmuo *WorkloadMemberUpdateOne) sqlSave(ctx context.Context) (_node *Worklo
 		}
 		return nil, err
 	}
-	wmuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

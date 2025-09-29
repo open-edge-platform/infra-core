@@ -22,173 +22,173 @@ type OuResourceUpdate struct {
 }
 
 // Where appends a list predicates to the OuResourceUpdate builder.
-func (oru *OuResourceUpdate) Where(ps ...predicate.OuResource) *OuResourceUpdate {
-	oru.mutation.Where(ps...)
-	return oru
+func (_u *OuResourceUpdate) Where(ps ...predicate.OuResource) *OuResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (oru *OuResourceUpdate) SetResourceID(s string) *OuResourceUpdate {
-	oru.mutation.SetResourceID(s)
-	return oru
+func (_u *OuResourceUpdate) SetResourceID(v string) *OuResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (oru *OuResourceUpdate) SetNillableResourceID(s *string) *OuResourceUpdate {
-	if s != nil {
-		oru.SetResourceID(*s)
+func (_u *OuResourceUpdate) SetNillableResourceID(v *string) *OuResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return oru
+	return _u
 }
 
 // SetName sets the "name" field.
-func (oru *OuResourceUpdate) SetName(s string) *OuResourceUpdate {
-	oru.mutation.SetName(s)
-	return oru
+func (_u *OuResourceUpdate) SetName(v string) *OuResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (oru *OuResourceUpdate) SetNillableName(s *string) *OuResourceUpdate {
-	if s != nil {
-		oru.SetName(*s)
+func (_u *OuResourceUpdate) SetNillableName(v *string) *OuResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return oru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (oru *OuResourceUpdate) ClearName() *OuResourceUpdate {
-	oru.mutation.ClearName()
-	return oru
+func (_u *OuResourceUpdate) ClearName() *OuResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetOuKind sets the "ou_kind" field.
-func (oru *OuResourceUpdate) SetOuKind(s string) *OuResourceUpdate {
-	oru.mutation.SetOuKind(s)
-	return oru
+func (_u *OuResourceUpdate) SetOuKind(v string) *OuResourceUpdate {
+	_u.mutation.SetOuKind(v)
+	return _u
 }
 
 // SetNillableOuKind sets the "ou_kind" field if the given value is not nil.
-func (oru *OuResourceUpdate) SetNillableOuKind(s *string) *OuResourceUpdate {
-	if s != nil {
-		oru.SetOuKind(*s)
+func (_u *OuResourceUpdate) SetNillableOuKind(v *string) *OuResourceUpdate {
+	if v != nil {
+		_u.SetOuKind(*v)
 	}
-	return oru
+	return _u
 }
 
 // ClearOuKind clears the value of the "ou_kind" field.
-func (oru *OuResourceUpdate) ClearOuKind() *OuResourceUpdate {
-	oru.mutation.ClearOuKind()
-	return oru
+func (_u *OuResourceUpdate) ClearOuKind() *OuResourceUpdate {
+	_u.mutation.ClearOuKind()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (oru *OuResourceUpdate) SetMetadata(s string) *OuResourceUpdate {
-	oru.mutation.SetMetadata(s)
-	return oru
+func (_u *OuResourceUpdate) SetMetadata(v string) *OuResourceUpdate {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (oru *OuResourceUpdate) SetNillableMetadata(s *string) *OuResourceUpdate {
-	if s != nil {
-		oru.SetMetadata(*s)
+func (_u *OuResourceUpdate) SetNillableMetadata(v *string) *OuResourceUpdate {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return oru
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (oru *OuResourceUpdate) ClearMetadata() *OuResourceUpdate {
-	oru.mutation.ClearMetadata()
-	return oru
+func (_u *OuResourceUpdate) ClearMetadata() *OuResourceUpdate {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (oru *OuResourceUpdate) SetUpdatedAt(s string) *OuResourceUpdate {
-	oru.mutation.SetUpdatedAt(s)
-	return oru
+func (_u *OuResourceUpdate) SetUpdatedAt(v string) *OuResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (oru *OuResourceUpdate) SetNillableUpdatedAt(s *string) *OuResourceUpdate {
-	if s != nil {
-		oru.SetUpdatedAt(*s)
+func (_u *OuResourceUpdate) SetNillableUpdatedAt(v *string) *OuResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return oru
+	return _u
 }
 
 // SetParentOuID sets the "parent_ou" edge to the OuResource entity by ID.
-func (oru *OuResourceUpdate) SetParentOuID(id int) *OuResourceUpdate {
-	oru.mutation.SetParentOuID(id)
-	return oru
+func (_u *OuResourceUpdate) SetParentOuID(id int) *OuResourceUpdate {
+	_u.mutation.SetParentOuID(id)
+	return _u
 }
 
 // SetNillableParentOuID sets the "parent_ou" edge to the OuResource entity by ID if the given value is not nil.
-func (oru *OuResourceUpdate) SetNillableParentOuID(id *int) *OuResourceUpdate {
+func (_u *OuResourceUpdate) SetNillableParentOuID(id *int) *OuResourceUpdate {
 	if id != nil {
-		oru = oru.SetParentOuID(*id)
+		_u = _u.SetParentOuID(*id)
 	}
-	return oru
+	return _u
 }
 
 // SetParentOu sets the "parent_ou" edge to the OuResource entity.
-func (oru *OuResourceUpdate) SetParentOu(o *OuResource) *OuResourceUpdate {
-	return oru.SetParentOuID(o.ID)
+func (_u *OuResourceUpdate) SetParentOu(v *OuResource) *OuResourceUpdate {
+	return _u.SetParentOuID(v.ID)
 }
 
 // AddChildIDs adds the "children" edge to the OuResource entity by IDs.
-func (oru *OuResourceUpdate) AddChildIDs(ids ...int) *OuResourceUpdate {
-	oru.mutation.AddChildIDs(ids...)
-	return oru
+func (_u *OuResourceUpdate) AddChildIDs(ids ...int) *OuResourceUpdate {
+	_u.mutation.AddChildIDs(ids...)
+	return _u
 }
 
 // AddChildren adds the "children" edges to the OuResource entity.
-func (oru *OuResourceUpdate) AddChildren(o ...*OuResource) *OuResourceUpdate {
-	ids := make([]int, len(o))
-	for i := range o {
-		ids[i] = o[i].ID
+func (_u *OuResourceUpdate) AddChildren(v ...*OuResource) *OuResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return oru.AddChildIDs(ids...)
+	return _u.AddChildIDs(ids...)
 }
 
 // Mutation returns the OuResourceMutation object of the builder.
-func (oru *OuResourceUpdate) Mutation() *OuResourceMutation {
-	return oru.mutation
+func (_u *OuResourceUpdate) Mutation() *OuResourceMutation {
+	return _u.mutation
 }
 
 // ClearParentOu clears the "parent_ou" edge to the OuResource entity.
-func (oru *OuResourceUpdate) ClearParentOu() *OuResourceUpdate {
-	oru.mutation.ClearParentOu()
-	return oru
+func (_u *OuResourceUpdate) ClearParentOu() *OuResourceUpdate {
+	_u.mutation.ClearParentOu()
+	return _u
 }
 
 // ClearChildren clears all "children" edges to the OuResource entity.
-func (oru *OuResourceUpdate) ClearChildren() *OuResourceUpdate {
-	oru.mutation.ClearChildren()
-	return oru
+func (_u *OuResourceUpdate) ClearChildren() *OuResourceUpdate {
+	_u.mutation.ClearChildren()
+	return _u
 }
 
 // RemoveChildIDs removes the "children" edge to OuResource entities by IDs.
-func (oru *OuResourceUpdate) RemoveChildIDs(ids ...int) *OuResourceUpdate {
-	oru.mutation.RemoveChildIDs(ids...)
-	return oru
+func (_u *OuResourceUpdate) RemoveChildIDs(ids ...int) *OuResourceUpdate {
+	_u.mutation.RemoveChildIDs(ids...)
+	return _u
 }
 
 // RemoveChildren removes "children" edges to OuResource entities.
-func (oru *OuResourceUpdate) RemoveChildren(o ...*OuResource) *OuResourceUpdate {
-	ids := make([]int, len(o))
-	for i := range o {
-		ids[i] = o[i].ID
+func (_u *OuResourceUpdate) RemoveChildren(v ...*OuResource) *OuResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return oru.RemoveChildIDs(ids...)
+	return _u.RemoveChildIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (oru *OuResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, oru.sqlSave, oru.mutation, oru.hooks)
+func (_u *OuResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (oru *OuResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := oru.Save(ctx)
+func (_u *OuResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -196,52 +196,52 @@ func (oru *OuResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (oru *OuResourceUpdate) Exec(ctx context.Context) error {
-	_, err := oru.Save(ctx)
+func (_u *OuResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (oru *OuResourceUpdate) ExecX(ctx context.Context) {
-	if err := oru.Exec(ctx); err != nil {
+func (_u *OuResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *OuResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(ouresource.Table, ouresource.Columns, sqlgraph.NewFieldSpec(ouresource.FieldID, field.TypeInt))
-	if ps := oru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := oru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(ouresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := oru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(ouresource.FieldName, field.TypeString, value)
 	}
-	if oru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(ouresource.FieldName, field.TypeString)
 	}
-	if value, ok := oru.mutation.OuKind(); ok {
+	if value, ok := _u.mutation.OuKind(); ok {
 		_spec.SetField(ouresource.FieldOuKind, field.TypeString, value)
 	}
-	if oru.mutation.OuKindCleared() {
+	if _u.mutation.OuKindCleared() {
 		_spec.ClearField(ouresource.FieldOuKind, field.TypeString)
 	}
-	if value, ok := oru.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(ouresource.FieldMetadata, field.TypeString, value)
 	}
-	if oru.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(ouresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := oru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(ouresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if oru.mutation.ParentOuCleared() {
+	if _u.mutation.ParentOuCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -254,7 +254,7 @@ func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oru.mutation.ParentOuIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentOuIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -270,7 +270,7 @@ func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if oru.mutation.ChildrenCleared() {
+	if _u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -283,7 +283,7 @@ func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oru.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !oru.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -299,7 +299,7 @@ func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oru.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -315,7 +315,7 @@ func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, oru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{ouresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -323,8 +323,8 @@ func (oru *OuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	oru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // OuResourceUpdateOne is the builder for updating a single OuResource entity.
@@ -336,180 +336,180 @@ type OuResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (oruo *OuResourceUpdateOne) SetResourceID(s string) *OuResourceUpdateOne {
-	oruo.mutation.SetResourceID(s)
-	return oruo
+func (_u *OuResourceUpdateOne) SetResourceID(v string) *OuResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (oruo *OuResourceUpdateOne) SetNillableResourceID(s *string) *OuResourceUpdateOne {
-	if s != nil {
-		oruo.SetResourceID(*s)
+func (_u *OuResourceUpdateOne) SetNillableResourceID(v *string) *OuResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return oruo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (oruo *OuResourceUpdateOne) SetName(s string) *OuResourceUpdateOne {
-	oruo.mutation.SetName(s)
-	return oruo
+func (_u *OuResourceUpdateOne) SetName(v string) *OuResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (oruo *OuResourceUpdateOne) SetNillableName(s *string) *OuResourceUpdateOne {
-	if s != nil {
-		oruo.SetName(*s)
+func (_u *OuResourceUpdateOne) SetNillableName(v *string) *OuResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return oruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (oruo *OuResourceUpdateOne) ClearName() *OuResourceUpdateOne {
-	oruo.mutation.ClearName()
-	return oruo
+func (_u *OuResourceUpdateOne) ClearName() *OuResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetOuKind sets the "ou_kind" field.
-func (oruo *OuResourceUpdateOne) SetOuKind(s string) *OuResourceUpdateOne {
-	oruo.mutation.SetOuKind(s)
-	return oruo
+func (_u *OuResourceUpdateOne) SetOuKind(v string) *OuResourceUpdateOne {
+	_u.mutation.SetOuKind(v)
+	return _u
 }
 
 // SetNillableOuKind sets the "ou_kind" field if the given value is not nil.
-func (oruo *OuResourceUpdateOne) SetNillableOuKind(s *string) *OuResourceUpdateOne {
-	if s != nil {
-		oruo.SetOuKind(*s)
+func (_u *OuResourceUpdateOne) SetNillableOuKind(v *string) *OuResourceUpdateOne {
+	if v != nil {
+		_u.SetOuKind(*v)
 	}
-	return oruo
+	return _u
 }
 
 // ClearOuKind clears the value of the "ou_kind" field.
-func (oruo *OuResourceUpdateOne) ClearOuKind() *OuResourceUpdateOne {
-	oruo.mutation.ClearOuKind()
-	return oruo
+func (_u *OuResourceUpdateOne) ClearOuKind() *OuResourceUpdateOne {
+	_u.mutation.ClearOuKind()
+	return _u
 }
 
 // SetMetadata sets the "metadata" field.
-func (oruo *OuResourceUpdateOne) SetMetadata(s string) *OuResourceUpdateOne {
-	oruo.mutation.SetMetadata(s)
-	return oruo
+func (_u *OuResourceUpdateOne) SetMetadata(v string) *OuResourceUpdateOne {
+	_u.mutation.SetMetadata(v)
+	return _u
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (oruo *OuResourceUpdateOne) SetNillableMetadata(s *string) *OuResourceUpdateOne {
-	if s != nil {
-		oruo.SetMetadata(*s)
+func (_u *OuResourceUpdateOne) SetNillableMetadata(v *string) *OuResourceUpdateOne {
+	if v != nil {
+		_u.SetMetadata(*v)
 	}
-	return oruo
+	return _u
 }
 
 // ClearMetadata clears the value of the "metadata" field.
-func (oruo *OuResourceUpdateOne) ClearMetadata() *OuResourceUpdateOne {
-	oruo.mutation.ClearMetadata()
-	return oruo
+func (_u *OuResourceUpdateOne) ClearMetadata() *OuResourceUpdateOne {
+	_u.mutation.ClearMetadata()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (oruo *OuResourceUpdateOne) SetUpdatedAt(s string) *OuResourceUpdateOne {
-	oruo.mutation.SetUpdatedAt(s)
-	return oruo
+func (_u *OuResourceUpdateOne) SetUpdatedAt(v string) *OuResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (oruo *OuResourceUpdateOne) SetNillableUpdatedAt(s *string) *OuResourceUpdateOne {
-	if s != nil {
-		oruo.SetUpdatedAt(*s)
+func (_u *OuResourceUpdateOne) SetNillableUpdatedAt(v *string) *OuResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return oruo
+	return _u
 }
 
 // SetParentOuID sets the "parent_ou" edge to the OuResource entity by ID.
-func (oruo *OuResourceUpdateOne) SetParentOuID(id int) *OuResourceUpdateOne {
-	oruo.mutation.SetParentOuID(id)
-	return oruo
+func (_u *OuResourceUpdateOne) SetParentOuID(id int) *OuResourceUpdateOne {
+	_u.mutation.SetParentOuID(id)
+	return _u
 }
 
 // SetNillableParentOuID sets the "parent_ou" edge to the OuResource entity by ID if the given value is not nil.
-func (oruo *OuResourceUpdateOne) SetNillableParentOuID(id *int) *OuResourceUpdateOne {
+func (_u *OuResourceUpdateOne) SetNillableParentOuID(id *int) *OuResourceUpdateOne {
 	if id != nil {
-		oruo = oruo.SetParentOuID(*id)
+		_u = _u.SetParentOuID(*id)
 	}
-	return oruo
+	return _u
 }
 
 // SetParentOu sets the "parent_ou" edge to the OuResource entity.
-func (oruo *OuResourceUpdateOne) SetParentOu(o *OuResource) *OuResourceUpdateOne {
-	return oruo.SetParentOuID(o.ID)
+func (_u *OuResourceUpdateOne) SetParentOu(v *OuResource) *OuResourceUpdateOne {
+	return _u.SetParentOuID(v.ID)
 }
 
 // AddChildIDs adds the "children" edge to the OuResource entity by IDs.
-func (oruo *OuResourceUpdateOne) AddChildIDs(ids ...int) *OuResourceUpdateOne {
-	oruo.mutation.AddChildIDs(ids...)
-	return oruo
+func (_u *OuResourceUpdateOne) AddChildIDs(ids ...int) *OuResourceUpdateOne {
+	_u.mutation.AddChildIDs(ids...)
+	return _u
 }
 
 // AddChildren adds the "children" edges to the OuResource entity.
-func (oruo *OuResourceUpdateOne) AddChildren(o ...*OuResource) *OuResourceUpdateOne {
-	ids := make([]int, len(o))
-	for i := range o {
-		ids[i] = o[i].ID
+func (_u *OuResourceUpdateOne) AddChildren(v ...*OuResource) *OuResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return oruo.AddChildIDs(ids...)
+	return _u.AddChildIDs(ids...)
 }
 
 // Mutation returns the OuResourceMutation object of the builder.
-func (oruo *OuResourceUpdateOne) Mutation() *OuResourceMutation {
-	return oruo.mutation
+func (_u *OuResourceUpdateOne) Mutation() *OuResourceMutation {
+	return _u.mutation
 }
 
 // ClearParentOu clears the "parent_ou" edge to the OuResource entity.
-func (oruo *OuResourceUpdateOne) ClearParentOu() *OuResourceUpdateOne {
-	oruo.mutation.ClearParentOu()
-	return oruo
+func (_u *OuResourceUpdateOne) ClearParentOu() *OuResourceUpdateOne {
+	_u.mutation.ClearParentOu()
+	return _u
 }
 
 // ClearChildren clears all "children" edges to the OuResource entity.
-func (oruo *OuResourceUpdateOne) ClearChildren() *OuResourceUpdateOne {
-	oruo.mutation.ClearChildren()
-	return oruo
+func (_u *OuResourceUpdateOne) ClearChildren() *OuResourceUpdateOne {
+	_u.mutation.ClearChildren()
+	return _u
 }
 
 // RemoveChildIDs removes the "children" edge to OuResource entities by IDs.
-func (oruo *OuResourceUpdateOne) RemoveChildIDs(ids ...int) *OuResourceUpdateOne {
-	oruo.mutation.RemoveChildIDs(ids...)
-	return oruo
+func (_u *OuResourceUpdateOne) RemoveChildIDs(ids ...int) *OuResourceUpdateOne {
+	_u.mutation.RemoveChildIDs(ids...)
+	return _u
 }
 
 // RemoveChildren removes "children" edges to OuResource entities.
-func (oruo *OuResourceUpdateOne) RemoveChildren(o ...*OuResource) *OuResourceUpdateOne {
-	ids := make([]int, len(o))
-	for i := range o {
-		ids[i] = o[i].ID
+func (_u *OuResourceUpdateOne) RemoveChildren(v ...*OuResource) *OuResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return oruo.RemoveChildIDs(ids...)
+	return _u.RemoveChildIDs(ids...)
 }
 
 // Where appends a list predicates to the OuResourceUpdate builder.
-func (oruo *OuResourceUpdateOne) Where(ps ...predicate.OuResource) *OuResourceUpdateOne {
-	oruo.mutation.Where(ps...)
-	return oruo
+func (_u *OuResourceUpdateOne) Where(ps ...predicate.OuResource) *OuResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (oruo *OuResourceUpdateOne) Select(field string, fields ...string) *OuResourceUpdateOne {
-	oruo.fields = append([]string{field}, fields...)
-	return oruo
+func (_u *OuResourceUpdateOne) Select(field string, fields ...string) *OuResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated OuResource entity.
-func (oruo *OuResourceUpdateOne) Save(ctx context.Context) (*OuResource, error) {
-	return withHooks(ctx, oruo.sqlSave, oruo.mutation, oruo.hooks)
+func (_u *OuResourceUpdateOne) Save(ctx context.Context) (*OuResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (oruo *OuResourceUpdateOne) SaveX(ctx context.Context) *OuResource {
-	node, err := oruo.Save(ctx)
+func (_u *OuResourceUpdateOne) SaveX(ctx context.Context) *OuResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -517,26 +517,26 @@ func (oruo *OuResourceUpdateOne) SaveX(ctx context.Context) *OuResource {
 }
 
 // Exec executes the query on the entity.
-func (oruo *OuResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := oruo.Save(ctx)
+func (_u *OuResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (oruo *OuResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := oruo.Exec(ctx); err != nil {
+func (_u *OuResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource, err error) {
+func (_u *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(ouresource.Table, ouresource.Columns, sqlgraph.NewFieldSpec(ouresource.FieldID, field.TypeInt))
-	id, ok := oruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "OuResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := oruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, ouresource.FieldID)
 		for _, f := range fields {
@@ -548,38 +548,38 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 			}
 		}
 	}
-	if ps := oruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := oruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(ouresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := oruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(ouresource.FieldName, field.TypeString, value)
 	}
-	if oruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(ouresource.FieldName, field.TypeString)
 	}
-	if value, ok := oruo.mutation.OuKind(); ok {
+	if value, ok := _u.mutation.OuKind(); ok {
 		_spec.SetField(ouresource.FieldOuKind, field.TypeString, value)
 	}
-	if oruo.mutation.OuKindCleared() {
+	if _u.mutation.OuKindCleared() {
 		_spec.ClearField(ouresource.FieldOuKind, field.TypeString)
 	}
-	if value, ok := oruo.mutation.Metadata(); ok {
+	if value, ok := _u.mutation.Metadata(); ok {
 		_spec.SetField(ouresource.FieldMetadata, field.TypeString, value)
 	}
-	if oruo.mutation.MetadataCleared() {
+	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(ouresource.FieldMetadata, field.TypeString)
 	}
-	if value, ok := oruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(ouresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if oruo.mutation.ParentOuCleared() {
+	if _u.mutation.ParentOuCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -592,7 +592,7 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oruo.mutation.ParentOuIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ParentOuIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -608,7 +608,7 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if oruo.mutation.ChildrenCleared() {
+	if _u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -621,7 +621,7 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oruo.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !oruo.mutation.ChildrenCleared() {
+	if nodes := _u.mutation.RemovedChildrenIDs(); len(nodes) > 0 && !_u.mutation.ChildrenCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -637,7 +637,7 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := oruo.mutation.ChildrenIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ChildrenIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -653,10 +653,10 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &OuResource{config: oruo.config}
+	_node = &OuResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, oruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{ouresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -664,6 +664,6 @@ func (oruo *OuResourceUpdateOne) sqlSave(ctx context.Context) (_node *OuResource
 		}
 		return nil, err
 	}
-	oruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

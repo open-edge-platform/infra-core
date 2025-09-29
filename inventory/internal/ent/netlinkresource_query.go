@@ -32,44 +32,44 @@ type NetlinkResourceQuery struct {
 }
 
 // Where adds a new predicate for the NetlinkResourceQuery builder.
-func (nrq *NetlinkResourceQuery) Where(ps ...predicate.NetlinkResource) *NetlinkResourceQuery {
-	nrq.predicates = append(nrq.predicates, ps...)
-	return nrq
+func (_q *NetlinkResourceQuery) Where(ps ...predicate.NetlinkResource) *NetlinkResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (nrq *NetlinkResourceQuery) Limit(limit int) *NetlinkResourceQuery {
-	nrq.ctx.Limit = &limit
-	return nrq
+func (_q *NetlinkResourceQuery) Limit(limit int) *NetlinkResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (nrq *NetlinkResourceQuery) Offset(offset int) *NetlinkResourceQuery {
-	nrq.ctx.Offset = &offset
-	return nrq
+func (_q *NetlinkResourceQuery) Offset(offset int) *NetlinkResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (nrq *NetlinkResourceQuery) Unique(unique bool) *NetlinkResourceQuery {
-	nrq.ctx.Unique = &unique
-	return nrq
+func (_q *NetlinkResourceQuery) Unique(unique bool) *NetlinkResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (nrq *NetlinkResourceQuery) Order(o ...netlinkresource.OrderOption) *NetlinkResourceQuery {
-	nrq.order = append(nrq.order, o...)
-	return nrq
+func (_q *NetlinkResourceQuery) Order(o ...netlinkresource.OrderOption) *NetlinkResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QuerySrc chains the current query on the "src" edge.
-func (nrq *NetlinkResourceQuery) QuerySrc() *EndpointResourceQuery {
-	query := (&EndpointResourceClient{config: nrq.config}).Query()
+func (_q *NetlinkResourceQuery) QuerySrc() *EndpointResourceQuery {
+	query := (&EndpointResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := nrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := nrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -78,20 +78,20 @@ func (nrq *NetlinkResourceQuery) QuerySrc() *EndpointResourceQuery {
 			sqlgraph.To(endpointresource.Table, endpointresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, netlinkresource.SrcTable, netlinkresource.SrcColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(nrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryDst chains the current query on the "dst" edge.
-func (nrq *NetlinkResourceQuery) QueryDst() *EndpointResourceQuery {
-	query := (&EndpointResourceClient{config: nrq.config}).Query()
+func (_q *NetlinkResourceQuery) QueryDst() *EndpointResourceQuery {
+	query := (&EndpointResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := nrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := nrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -100,7 +100,7 @@ func (nrq *NetlinkResourceQuery) QueryDst() *EndpointResourceQuery {
 			sqlgraph.To(endpointresource.Table, endpointresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, netlinkresource.DstTable, netlinkresource.DstColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(nrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -108,8 +108,8 @@ func (nrq *NetlinkResourceQuery) QueryDst() *EndpointResourceQuery {
 
 // First returns the first NetlinkResource entity from the query.
 // Returns a *NotFoundError when no NetlinkResource was found.
-func (nrq *NetlinkResourceQuery) First(ctx context.Context) (*NetlinkResource, error) {
-	nodes, err := nrq.Limit(1).All(setContextOp(ctx, nrq.ctx, ent.OpQueryFirst))
+func (_q *NetlinkResourceQuery) First(ctx context.Context) (*NetlinkResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -120,8 +120,8 @@ func (nrq *NetlinkResourceQuery) First(ctx context.Context) (*NetlinkResource, e
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) FirstX(ctx context.Context) *NetlinkResource {
-	node, err := nrq.First(ctx)
+func (_q *NetlinkResourceQuery) FirstX(ctx context.Context) *NetlinkResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -130,9 +130,9 @@ func (nrq *NetlinkResourceQuery) FirstX(ctx context.Context) *NetlinkResource {
 
 // FirstID returns the first NetlinkResource ID from the query.
 // Returns a *NotFoundError when no NetlinkResource ID was found.
-func (nrq *NetlinkResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *NetlinkResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = nrq.Limit(1).IDs(setContextOp(ctx, nrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -143,8 +143,8 @@ func (nrq *NetlinkResourceQuery) FirstID(ctx context.Context) (id int, err error
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := nrq.FirstID(ctx)
+func (_q *NetlinkResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -154,8 +154,8 @@ func (nrq *NetlinkResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single NetlinkResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one NetlinkResource entity is found.
 // Returns a *NotFoundError when no NetlinkResource entities are found.
-func (nrq *NetlinkResourceQuery) Only(ctx context.Context) (*NetlinkResource, error) {
-	nodes, err := nrq.Limit(2).All(setContextOp(ctx, nrq.ctx, ent.OpQueryOnly))
+func (_q *NetlinkResourceQuery) Only(ctx context.Context) (*NetlinkResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -170,8 +170,8 @@ func (nrq *NetlinkResourceQuery) Only(ctx context.Context) (*NetlinkResource, er
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) OnlyX(ctx context.Context) *NetlinkResource {
-	node, err := nrq.Only(ctx)
+func (_q *NetlinkResourceQuery) OnlyX(ctx context.Context) *NetlinkResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -181,9 +181,9 @@ func (nrq *NetlinkResourceQuery) OnlyX(ctx context.Context) *NetlinkResource {
 // OnlyID is like Only, but returns the only NetlinkResource ID in the query.
 // Returns a *NotSingularError when more than one NetlinkResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (nrq *NetlinkResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *NetlinkResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = nrq.Limit(2).IDs(setContextOp(ctx, nrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -198,8 +198,8 @@ func (nrq *NetlinkResourceQuery) OnlyID(ctx context.Context) (id int, err error)
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := nrq.OnlyID(ctx)
+func (_q *NetlinkResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -207,18 +207,18 @@ func (nrq *NetlinkResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of NetlinkResources.
-func (nrq *NetlinkResourceQuery) All(ctx context.Context) ([]*NetlinkResource, error) {
-	ctx = setContextOp(ctx, nrq.ctx, ent.OpQueryAll)
-	if err := nrq.prepareQuery(ctx); err != nil {
+func (_q *NetlinkResourceQuery) All(ctx context.Context) ([]*NetlinkResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*NetlinkResource, *NetlinkResourceQuery]()
-	return withInterceptors[[]*NetlinkResource](ctx, nrq, qr, nrq.inters)
+	return withInterceptors[[]*NetlinkResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) AllX(ctx context.Context) []*NetlinkResource {
-	nodes, err := nrq.All(ctx)
+func (_q *NetlinkResourceQuery) AllX(ctx context.Context) []*NetlinkResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -226,20 +226,20 @@ func (nrq *NetlinkResourceQuery) AllX(ctx context.Context) []*NetlinkResource {
 }
 
 // IDs executes the query and returns a list of NetlinkResource IDs.
-func (nrq *NetlinkResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if nrq.ctx.Unique == nil && nrq.path != nil {
-		nrq.Unique(true)
+func (_q *NetlinkResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, nrq.ctx, ent.OpQueryIDs)
-	if err = nrq.Select(netlinkresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(netlinkresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := nrq.IDs(ctx)
+func (_q *NetlinkResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -247,17 +247,17 @@ func (nrq *NetlinkResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (nrq *NetlinkResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, nrq.ctx, ent.OpQueryCount)
-	if err := nrq.prepareQuery(ctx); err != nil {
+func (_q *NetlinkResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, nrq, querierCount[*NetlinkResourceQuery](), nrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*NetlinkResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) CountX(ctx context.Context) int {
-	count, err := nrq.Count(ctx)
+func (_q *NetlinkResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,9 +265,9 @@ func (nrq *NetlinkResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (nrq *NetlinkResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, nrq.ctx, ent.OpQueryExist)
-	switch _, err := nrq.FirstID(ctx); {
+func (_q *NetlinkResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -278,8 +278,8 @@ func (nrq *NetlinkResourceQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (nrq *NetlinkResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := nrq.Exist(ctx)
+func (_q *NetlinkResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -288,44 +288,44 @@ func (nrq *NetlinkResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the NetlinkResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (nrq *NetlinkResourceQuery) Clone() *NetlinkResourceQuery {
-	if nrq == nil {
+func (_q *NetlinkResourceQuery) Clone() *NetlinkResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &NetlinkResourceQuery{
-		config:     nrq.config,
-		ctx:        nrq.ctx.Clone(),
-		order:      append([]netlinkresource.OrderOption{}, nrq.order...),
-		inters:     append([]Interceptor{}, nrq.inters...),
-		predicates: append([]predicate.NetlinkResource{}, nrq.predicates...),
-		withSrc:    nrq.withSrc.Clone(),
-		withDst:    nrq.withDst.Clone(),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]netlinkresource.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.NetlinkResource{}, _q.predicates...),
+		withSrc:    _q.withSrc.Clone(),
+		withDst:    _q.withDst.Clone(),
 		// clone intermediate query.
-		sql:  nrq.sql.Clone(),
-		path: nrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithSrc tells the query-builder to eager-load the nodes that are connected to
 // the "src" edge. The optional arguments are used to configure the query builder of the edge.
-func (nrq *NetlinkResourceQuery) WithSrc(opts ...func(*EndpointResourceQuery)) *NetlinkResourceQuery {
-	query := (&EndpointResourceClient{config: nrq.config}).Query()
+func (_q *NetlinkResourceQuery) WithSrc(opts ...func(*EndpointResourceQuery)) *NetlinkResourceQuery {
+	query := (&EndpointResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	nrq.withSrc = query
-	return nrq
+	_q.withSrc = query
+	return _q
 }
 
 // WithDst tells the query-builder to eager-load the nodes that are connected to
 // the "dst" edge. The optional arguments are used to configure the query builder of the edge.
-func (nrq *NetlinkResourceQuery) WithDst(opts ...func(*EndpointResourceQuery)) *NetlinkResourceQuery {
-	query := (&EndpointResourceClient{config: nrq.config}).Query()
+func (_q *NetlinkResourceQuery) WithDst(opts ...func(*EndpointResourceQuery)) *NetlinkResourceQuery {
+	query := (&EndpointResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	nrq.withDst = query
-	return nrq
+	_q.withDst = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -342,10 +342,10 @@ func (nrq *NetlinkResourceQuery) WithDst(opts ...func(*EndpointResourceQuery)) *
 //		GroupBy(netlinkresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (nrq *NetlinkResourceQuery) GroupBy(field string, fields ...string) *NetlinkResourceGroupBy {
-	nrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &NetlinkResourceGroupBy{build: nrq}
-	grbuild.flds = &nrq.ctx.Fields
+func (_q *NetlinkResourceQuery) GroupBy(field string, fields ...string) *NetlinkResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &NetlinkResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = netlinkresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -363,56 +363,56 @@ func (nrq *NetlinkResourceQuery) GroupBy(field string, fields ...string) *Netlin
 //	client.NetlinkResource.Query().
 //		Select(netlinkresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (nrq *NetlinkResourceQuery) Select(fields ...string) *NetlinkResourceSelect {
-	nrq.ctx.Fields = append(nrq.ctx.Fields, fields...)
-	sbuild := &NetlinkResourceSelect{NetlinkResourceQuery: nrq}
+func (_q *NetlinkResourceQuery) Select(fields ...string) *NetlinkResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &NetlinkResourceSelect{NetlinkResourceQuery: _q}
 	sbuild.label = netlinkresource.Label
-	sbuild.flds, sbuild.scan = &nrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a NetlinkResourceSelect configured with the given aggregations.
-func (nrq *NetlinkResourceQuery) Aggregate(fns ...AggregateFunc) *NetlinkResourceSelect {
-	return nrq.Select().Aggregate(fns...)
+func (_q *NetlinkResourceQuery) Aggregate(fns ...AggregateFunc) *NetlinkResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (nrq *NetlinkResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range nrq.inters {
+func (_q *NetlinkResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, nrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range nrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !netlinkresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if nrq.path != nil {
-		prev, err := nrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		nrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (nrq *NetlinkResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*NetlinkResource, error) {
+func (_q *NetlinkResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*NetlinkResource, error) {
 	var (
 		nodes       = []*NetlinkResource{}
-		withFKs     = nrq.withFKs
-		_spec       = nrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [2]bool{
-			nrq.withSrc != nil,
-			nrq.withDst != nil,
+			_q.withSrc != nil,
+			_q.withDst != nil,
 		}
 	)
-	if nrq.withSrc != nil || nrq.withDst != nil {
+	if _q.withSrc != nil || _q.withDst != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -422,7 +422,7 @@ func (nrq *NetlinkResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 		return (*NetlinkResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &NetlinkResource{config: nrq.config}
+		node := &NetlinkResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -430,20 +430,20 @@ func (nrq *NetlinkResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, nrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := nrq.withSrc; query != nil {
-		if err := nrq.loadSrc(ctx, query, nodes, nil,
+	if query := _q.withSrc; query != nil {
+		if err := _q.loadSrc(ctx, query, nodes, nil,
 			func(n *NetlinkResource, e *EndpointResource) { n.Edges.Src = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := nrq.withDst; query != nil {
-		if err := nrq.loadDst(ctx, query, nodes, nil,
+	if query := _q.withDst; query != nil {
+		if err := _q.loadDst(ctx, query, nodes, nil,
 			func(n *NetlinkResource, e *EndpointResource) { n.Edges.Dst = e }); err != nil {
 			return nil, err
 		}
@@ -451,7 +451,7 @@ func (nrq *NetlinkResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 	return nodes, nil
 }
 
-func (nrq *NetlinkResourceQuery) loadSrc(ctx context.Context, query *EndpointResourceQuery, nodes []*NetlinkResource, init func(*NetlinkResource), assign func(*NetlinkResource, *EndpointResource)) error {
+func (_q *NetlinkResourceQuery) loadSrc(ctx context.Context, query *EndpointResourceQuery, nodes []*NetlinkResource, init func(*NetlinkResource), assign func(*NetlinkResource, *EndpointResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*NetlinkResource)
 	for i := range nodes {
@@ -483,7 +483,7 @@ func (nrq *NetlinkResourceQuery) loadSrc(ctx context.Context, query *EndpointRes
 	}
 	return nil
 }
-func (nrq *NetlinkResourceQuery) loadDst(ctx context.Context, query *EndpointResourceQuery, nodes []*NetlinkResource, init func(*NetlinkResource), assign func(*NetlinkResource, *EndpointResource)) error {
+func (_q *NetlinkResourceQuery) loadDst(ctx context.Context, query *EndpointResourceQuery, nodes []*NetlinkResource, init func(*NetlinkResource), assign func(*NetlinkResource, *EndpointResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*NetlinkResource)
 	for i := range nodes {
@@ -516,24 +516,24 @@ func (nrq *NetlinkResourceQuery) loadDst(ctx context.Context, query *EndpointRes
 	return nil
 }
 
-func (nrq *NetlinkResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := nrq.querySpec()
-	_spec.Node.Columns = nrq.ctx.Fields
-	if len(nrq.ctx.Fields) > 0 {
-		_spec.Unique = nrq.ctx.Unique != nil && *nrq.ctx.Unique
+func (_q *NetlinkResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, nrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (nrq *NetlinkResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *NetlinkResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(netlinkresource.Table, netlinkresource.Columns, sqlgraph.NewFieldSpec(netlinkresource.FieldID, field.TypeInt))
-	_spec.From = nrq.sql
-	if unique := nrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if nrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := nrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, netlinkresource.FieldID)
 		for i := range fields {
@@ -542,20 +542,20 @@ func (nrq *NetlinkResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := nrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := nrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := nrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := nrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -565,33 +565,33 @@ func (nrq *NetlinkResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (nrq *NetlinkResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(nrq.driver.Dialect())
+func (_q *NetlinkResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(netlinkresource.Table)
-	columns := nrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = netlinkresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if nrq.sql != nil {
-		selector = nrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if nrq.ctx.Unique != nil && *nrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range nrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range nrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := nrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := nrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -604,41 +604,41 @@ type NetlinkResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (nrgb *NetlinkResourceGroupBy) Aggregate(fns ...AggregateFunc) *NetlinkResourceGroupBy {
-	nrgb.fns = append(nrgb.fns, fns...)
-	return nrgb
+func (_g *NetlinkResourceGroupBy) Aggregate(fns ...AggregateFunc) *NetlinkResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (nrgb *NetlinkResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, nrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := nrgb.build.prepareQuery(ctx); err != nil {
+func (_g *NetlinkResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*NetlinkResourceQuery, *NetlinkResourceGroupBy](ctx, nrgb.build, nrgb, nrgb.build.inters, v)
+	return scanWithInterceptors[*NetlinkResourceQuery, *NetlinkResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (nrgb *NetlinkResourceGroupBy) sqlScan(ctx context.Context, root *NetlinkResourceQuery, v any) error {
+func (_g *NetlinkResourceGroupBy) sqlScan(ctx context.Context, root *NetlinkResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(nrgb.fns))
-	for _, fn := range nrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*nrgb.flds)+len(nrgb.fns))
-		for _, f := range *nrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*nrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := nrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -652,27 +652,27 @@ type NetlinkResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (nrs *NetlinkResourceSelect) Aggregate(fns ...AggregateFunc) *NetlinkResourceSelect {
-	nrs.fns = append(nrs.fns, fns...)
-	return nrs
+func (_s *NetlinkResourceSelect) Aggregate(fns ...AggregateFunc) *NetlinkResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (nrs *NetlinkResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, nrs.ctx, ent.OpQuerySelect)
-	if err := nrs.prepareQuery(ctx); err != nil {
+func (_s *NetlinkResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*NetlinkResourceQuery, *NetlinkResourceSelect](ctx, nrs.NetlinkResourceQuery, nrs, nrs.inters, v)
+	return scanWithInterceptors[*NetlinkResourceQuery, *NetlinkResourceSelect](ctx, _s.NetlinkResourceQuery, _s, _s.inters, v)
 }
 
-func (nrs *NetlinkResourceSelect) sqlScan(ctx context.Context, root *NetlinkResourceQuery, v any) error {
+func (_s *NetlinkResourceSelect) sqlScan(ctx context.Context, root *NetlinkResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(nrs.fns))
-	for _, fn := range nrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*nrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -680,7 +680,7 @@ func (nrs *NetlinkResourceSelect) sqlScan(ctx context.Context, root *NetlinkReso
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := nrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

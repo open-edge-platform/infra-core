@@ -20,76 +20,76 @@ type TenantCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tc *TenantCreate) SetResourceID(s string) *TenantCreate {
-	tc.mutation.SetResourceID(s)
-	return tc
+func (_c *TenantCreate) SetResourceID(v string) *TenantCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (tc *TenantCreate) SetCurrentState(ts tenant.CurrentState) *TenantCreate {
-	tc.mutation.SetCurrentState(ts)
-	return tc
+func (_c *TenantCreate) SetCurrentState(v tenant.CurrentState) *TenantCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (tc *TenantCreate) SetNillableCurrentState(ts *tenant.CurrentState) *TenantCreate {
-	if ts != nil {
-		tc.SetCurrentState(*ts)
+func (_c *TenantCreate) SetNillableCurrentState(v *tenant.CurrentState) *TenantCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return tc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (tc *TenantCreate) SetDesiredState(ts tenant.DesiredState) *TenantCreate {
-	tc.mutation.SetDesiredState(ts)
-	return tc
+func (_c *TenantCreate) SetDesiredState(v tenant.DesiredState) *TenantCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetWatcherOsmanager sets the "watcher_osmanager" field.
-func (tc *TenantCreate) SetWatcherOsmanager(b bool) *TenantCreate {
-	tc.mutation.SetWatcherOsmanager(b)
-	return tc
+func (_c *TenantCreate) SetWatcherOsmanager(v bool) *TenantCreate {
+	_c.mutation.SetWatcherOsmanager(v)
+	return _c
 }
 
 // SetNillableWatcherOsmanager sets the "watcher_osmanager" field if the given value is not nil.
-func (tc *TenantCreate) SetNillableWatcherOsmanager(b *bool) *TenantCreate {
-	if b != nil {
-		tc.SetWatcherOsmanager(*b)
+func (_c *TenantCreate) SetNillableWatcherOsmanager(v *bool) *TenantCreate {
+	if v != nil {
+		_c.SetWatcherOsmanager(*v)
 	}
-	return tc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (tc *TenantCreate) SetTenantID(s string) *TenantCreate {
-	tc.mutation.SetTenantID(s)
-	return tc
+func (_c *TenantCreate) SetTenantID(v string) *TenantCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (tc *TenantCreate) SetCreatedAt(s string) *TenantCreate {
-	tc.mutation.SetCreatedAt(s)
-	return tc
+func (_c *TenantCreate) SetCreatedAt(v string) *TenantCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tc *TenantCreate) SetUpdatedAt(s string) *TenantCreate {
-	tc.mutation.SetUpdatedAt(s)
-	return tc
+func (_c *TenantCreate) SetUpdatedAt(v string) *TenantCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // Mutation returns the TenantMutation object of the builder.
-func (tc *TenantCreate) Mutation() *TenantMutation {
-	return tc.mutation
+func (_c *TenantCreate) Mutation() *TenantMutation {
+	return _c.mutation
 }
 
 // Save creates the Tenant in the database.
-func (tc *TenantCreate) Save(ctx context.Context) (*Tenant, error) {
-	return withHooks(ctx, tc.sqlSave, tc.mutation, tc.hooks)
+func (_c *TenantCreate) Save(ctx context.Context) (*Tenant, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (tc *TenantCreate) SaveX(ctx context.Context) *Tenant {
-	v, err := tc.Save(ctx)
+func (_c *TenantCreate) SaveX(ctx context.Context) *Tenant {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -97,54 +97,54 @@ func (tc *TenantCreate) SaveX(ctx context.Context) *Tenant {
 }
 
 // Exec executes the query.
-func (tc *TenantCreate) Exec(ctx context.Context) error {
-	_, err := tc.Save(ctx)
+func (_c *TenantCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tc *TenantCreate) ExecX(ctx context.Context) {
-	if err := tc.Exec(ctx); err != nil {
+func (_c *TenantCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tc *TenantCreate) check() error {
-	if _, ok := tc.mutation.ResourceID(); !ok {
+func (_c *TenantCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "Tenant.resource_id"`)}
 	}
-	if v, ok := tc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := tenant.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "Tenant.current_state": %w`, err)}
 		}
 	}
-	if _, ok := tc.mutation.DesiredState(); !ok {
+	if _, ok := _c.mutation.DesiredState(); !ok {
 		return &ValidationError{Name: "desired_state", err: errors.New(`ent: missing required field "Tenant.desired_state"`)}
 	}
-	if v, ok := tc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := tenant.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "Tenant.desired_state": %w`, err)}
 		}
 	}
-	if _, ok := tc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "Tenant.tenant_id"`)}
 	}
-	if _, ok := tc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Tenant.created_at"`)}
 	}
-	if _, ok := tc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Tenant.updated_at"`)}
 	}
 	return nil
 }
 
-func (tc *TenantCreate) sqlSave(ctx context.Context) (*Tenant, error) {
-	if err := tc.check(); err != nil {
+func (_c *TenantCreate) sqlSave(ctx context.Context) (*Tenant, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := tc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, tc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -152,41 +152,41 @@ func (tc *TenantCreate) sqlSave(ctx context.Context) (*Tenant, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	tc.mutation.id = &_node.ID
-	tc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
+func (_c *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 	var (
-		_node = &Tenant{config: tc.config}
+		_node = &Tenant{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(tenant.Table, sqlgraph.NewFieldSpec(tenant.FieldID, field.TypeInt))
 	)
-	if value, ok := tc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(tenant.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := tc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(tenant.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := tc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(tenant.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := tc.mutation.WatcherOsmanager(); ok {
+	if value, ok := _c.mutation.WatcherOsmanager(); ok {
 		_spec.SetField(tenant.FieldWatcherOsmanager, field.TypeBool, value)
 		_node.WatcherOsmanager = value
 	}
-	if value, ok := tc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(tenant.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := tc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(tenant.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := tc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(tenant.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
@@ -201,16 +201,16 @@ type TenantCreateBulk struct {
 }
 
 // Save creates the Tenant entities in the database.
-func (tcb *TenantCreateBulk) Save(ctx context.Context) ([]*Tenant, error) {
-	if tcb.err != nil {
-		return nil, tcb.err
+func (_c *TenantCreateBulk) Save(ctx context.Context) ([]*Tenant, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(tcb.builders))
-	nodes := make([]*Tenant, len(tcb.builders))
-	mutators := make([]Mutator, len(tcb.builders))
-	for i := range tcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*Tenant, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := tcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*TenantMutation)
 				if !ok {
@@ -223,11 +223,11 @@ func (tcb *TenantCreateBulk) Save(ctx context.Context) ([]*Tenant, error) {
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, tcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, tcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -251,7 +251,7 @@ func (tcb *TenantCreateBulk) Save(ctx context.Context) ([]*Tenant, error) {
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, tcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -259,8 +259,8 @@ func (tcb *TenantCreateBulk) Save(ctx context.Context) ([]*Tenant, error) {
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tcb *TenantCreateBulk) SaveX(ctx context.Context) []*Tenant {
-	v, err := tcb.Save(ctx)
+func (_c *TenantCreateBulk) SaveX(ctx context.Context) []*Tenant {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -268,14 +268,14 @@ func (tcb *TenantCreateBulk) SaveX(ctx context.Context) []*Tenant {
 }
 
 // Exec executes the query.
-func (tcb *TenantCreateBulk) Exec(ctx context.Context) error {
-	_, err := tcb.Save(ctx)
+func (_c *TenantCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tcb *TenantCreateBulk) ExecX(ctx context.Context) {
-	if err := tcb.Exec(ctx); err != nil {
+func (_c *TenantCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

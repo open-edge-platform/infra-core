@@ -398,7 +398,7 @@ func Test_Host_BackReferences_Read(t *testing.T) {
 
 func Test_Create_Get_Delete_Host(t *testing.T) {
 	region := inv_testing.CreateRegion(t, nil)
-	site := inv_testing.CreateSite(t, region, nil)
+	site := inv_testing.CreateSiteWithNested(t, region, nil)
 	provider := inv_testing.CreateProvider(t, "Test Provider1")
 
 	testcases := map[string]struct {
@@ -446,6 +446,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 
 				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
 
+				UserLvmSize: 80,
+
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
 			clientName: inv_testing.APIClient,
@@ -488,6 +490,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+
+				UserLvmSize: 80,
 
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
 			},
@@ -571,6 +575,15 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 			clientName: inv_testing.APIClient,
 			valid:      false,
 		},
+		"CreateHostLVMSizeZero": {
+			in: &computev1.HostResource{
+				Uuid:         uuid.NewString(),
+				SerialNumber: "12345678",
+				UserLvmSize:  0,
+			},
+			clientName: inv_testing.APIClient,
+			valid:      true,
+		},
 	}
 
 	for tcname, tc := range testcases {
@@ -646,7 +659,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 func Test_UpdateHost(t *testing.T) {
 	region := inv_testing.CreateRegion(t, nil)
 	site1 := inv_testing.CreateSite(t, region, nil)
-	site2 := inv_testing.CreateSite(t, region, nil)
+	site2 := inv_testing.CreateSiteWithNested(t, region, nil)
 	provider := inv_testing.CreateProvider(t, "Test Provider1")
 	host1 := inv_testing.CreateHost(t, nil, nil)
 
@@ -688,6 +701,8 @@ func Test_UpdateHost(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+
+				UserLvmSize: 80,
 			},
 		},
 	}
@@ -726,6 +741,7 @@ func Test_UpdateHost(t *testing.T) {
 		Metadata:                    metaHost1,
 		DesiredPowerState:           computev1.PowerState_POWER_STATE_OFF,
 		// CurrentPowerState: should be provided by SB
+		UserLvmSize: 80,
 	}
 
 	// build a context for gRPC
@@ -1002,6 +1018,7 @@ func Test_UpdateHost(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
+				UserLvmSize:        80,
 			},
 			resourceID: hostResID,
 			clientName: inv_testing.RMClient,
@@ -1684,6 +1701,7 @@ func Test_FilterHosts(t *testing.T) {
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
 				AmtSku:             "vPRO Corporate 16.5.2",
+				UserLvmSize:        80,
 			},
 		},
 	}
@@ -3243,4 +3261,60 @@ func TestHardDeleteResources_Hosts(t *testing.T) {
 		},
 		resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 	})
+}
+
+func Test_GetHost_WithRegionData(t *testing.T) {
+	// Create region, site
+	region := inv_testing.CreateRegionWithMeta(t, "[{\"key\":\"region-key\",\"value\":\"region-value\"}]", nil)
+	site := inv_testing.CreateSiteWithArgs(t, "Test Site", 100, 200,
+		"[{\"key\":\"site-key\",\"value\":\"site-value\"}]", region, nil, nil)
+
+	// Create a host associated with the site
+	hostRequest := &inv_v1.Resource{
+		Resource: &inv_v1.Resource_Host{
+			Host: &computev1.HostResource{
+				Name: "Test Host",
+				Site: site,
+				Uuid: uuid.NewString(),
+			},
+		},
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	// Create the host
+	createResp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, hostRequest)
+	require.NoError(t, err, "Failed to create host")
+	require.NotNil(t, createResp, "Create response should not be nil")
+
+	hostResourceID := createResp.GetHost().GetResourceId()
+	require.NotEmpty(t, hostResourceID, "Host resource ID should not be empty")
+
+	// Clean up the host
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostResourceID) })
+
+	// Get the host and verify region
+	getResp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, hostResourceID)
+	require.NoError(t, err, "Failed to get host")
+	require.NotNil(t, getResp, "Get response should not be nil")
+
+	hostResource := getResp.GetResource().GetHost()
+	require.NotNil(t, hostResource, "Host resource should not be nil")
+
+	// Verify site data is present
+	siteData := hostResource.GetSite()
+	require.NotNil(t, siteData, "Host site data should not be nil")
+	assert.Equal(t, site.GetResourceId(), siteData.GetResourceId(), "Site resource ID should match")
+	assert.Equal(t, "Test Site", siteData.GetName(), "Site name should match")
+
+	regionData := siteData.GetRegion()
+	require.NotNil(t, regionData, "Site region data should not be nil - this was the original issue")
+	assert.Equal(t, region.GetResourceId(), regionData.GetResourceId(), "Region resource ID should match")
+	assert.Equal(t, "for unit testing purposes", regionData.GetName(), "Region name should match")
+	assert.Equal(t, "test region", regionData.GetRegionKind(), "Region kind should match")
+
+	regionMetadata := regionData.GetMetadata()
+	assert.NotEmpty(t, regionMetadata, "Region metadata should not be empty")
+	assert.Contains(t, regionMetadata, "region-key", "Region metadata should contain expected key")
 }

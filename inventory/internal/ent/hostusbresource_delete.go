@@ -20,56 +20,56 @@ type HostusbResourceDelete struct {
 }
 
 // Where appends a list predicates to the HostusbResourceDelete builder.
-func (hrd *HostusbResourceDelete) Where(ps ...predicate.HostusbResource) *HostusbResourceDelete {
-	hrd.mutation.Where(ps...)
-	return hrd
+func (_d *HostusbResourceDelete) Where(ps ...predicate.HostusbResource) *HostusbResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (hrd *HostusbResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, hrd.sqlExec, hrd.mutation, hrd.hooks)
+func (_d *HostusbResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrd *HostusbResourceDelete) ExecX(ctx context.Context) int {
-	n, err := hrd.Exec(ctx)
+func (_d *HostusbResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (hrd *HostusbResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *HostusbResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(hostusbresource.Table, sqlgraph.NewFieldSpec(hostusbresource.FieldID, field.TypeInt))
-	if ps := hrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, hrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	hrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // HostusbResourceDeleteOne is the builder for deleting a single HostusbResource entity.
 type HostusbResourceDeleteOne struct {
-	hrd *HostusbResourceDelete
+	_d *HostusbResourceDelete
 }
 
 // Where appends a list predicates to the HostusbResourceDelete builder.
-func (hrdo *HostusbResourceDeleteOne) Where(ps ...predicate.HostusbResource) *HostusbResourceDeleteOne {
-	hrdo.hrd.mutation.Where(ps...)
-	return hrdo
+func (_d *HostusbResourceDeleteOne) Where(ps ...predicate.HostusbResource) *HostusbResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (hrdo *HostusbResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := hrdo.hrd.Exec(ctx)
+func (_d *HostusbResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (hrdo *HostusbResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrdo *HostusbResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := hrdo.Exec(ctx); err != nil {
+func (_d *HostusbResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

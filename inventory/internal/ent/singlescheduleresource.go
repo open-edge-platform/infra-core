@@ -131,7 +131,7 @@ func (*SingleScheduleResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the SingleScheduleResource fields.
-func (ssr *SingleScheduleResource) assignValues(columns []string, values []any) error {
+func (_m *SingleScheduleResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -142,85 +142,85 @@ func (ssr *SingleScheduleResource) assignValues(columns []string, values []any) 
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			ssr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case singlescheduleresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				ssr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case singlescheduleresource.FieldScheduleStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field schedule_status", values[i])
 			} else if value.Valid {
-				ssr.ScheduleStatus = singlescheduleresource.ScheduleStatus(value.String)
+				_m.ScheduleStatus = singlescheduleresource.ScheduleStatus(value.String)
 			}
 		case singlescheduleresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				ssr.Name = value.String
+				_m.Name = value.String
 			}
 		case singlescheduleresource.FieldStartSeconds:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field start_seconds", values[i])
 			} else if value.Valid {
-				ssr.StartSeconds = uint64(value.Int64)
+				_m.StartSeconds = uint64(value.Int64)
 			}
 		case singlescheduleresource.FieldEndSeconds:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field end_seconds", values[i])
 			} else if value.Valid {
-				ssr.EndSeconds = uint64(value.Int64)
+				_m.EndSeconds = uint64(value.Int64)
 			}
 		case singlescheduleresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				ssr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case singlescheduleresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				ssr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case singlescheduleresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				ssr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case singlescheduleresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field single_schedule_resource_target_site", value)
 			} else if value.Valid {
-				ssr.single_schedule_resource_target_site = new(int)
-				*ssr.single_schedule_resource_target_site = int(value.Int64)
+				_m.single_schedule_resource_target_site = new(int)
+				*_m.single_schedule_resource_target_site = int(value.Int64)
 			}
 		case singlescheduleresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field single_schedule_resource_target_host", value)
 			} else if value.Valid {
-				ssr.single_schedule_resource_target_host = new(int)
-				*ssr.single_schedule_resource_target_host = int(value.Int64)
+				_m.single_schedule_resource_target_host = new(int)
+				*_m.single_schedule_resource_target_host = int(value.Int64)
 			}
 		case singlescheduleresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field single_schedule_resource_target_workload", value)
 			} else if value.Valid {
-				ssr.single_schedule_resource_target_workload = new(int)
-				*ssr.single_schedule_resource_target_workload = int(value.Int64)
+				_m.single_schedule_resource_target_workload = new(int)
+				*_m.single_schedule_resource_target_workload = int(value.Int64)
 			}
 		case singlescheduleresource.ForeignKeys[3]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field single_schedule_resource_target_region", value)
 			} else if value.Valid {
-				ssr.single_schedule_resource_target_region = new(int)
-				*ssr.single_schedule_resource_target_region = int(value.Int64)
+				_m.single_schedule_resource_target_region = new(int)
+				*_m.single_schedule_resource_target_region = int(value.Int64)
 			}
 		default:
-			ssr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -228,76 +228,76 @@ func (ssr *SingleScheduleResource) assignValues(columns []string, values []any) 
 
 // Value returns the ent.Value that was dynamically selected and assigned to the SingleScheduleResource.
 // This includes values selected through modifiers, order, etc.
-func (ssr *SingleScheduleResource) Value(name string) (ent.Value, error) {
-	return ssr.selectValues.Get(name)
+func (_m *SingleScheduleResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryTargetSite queries the "target_site" edge of the SingleScheduleResource entity.
-func (ssr *SingleScheduleResource) QueryTargetSite() *SiteResourceQuery {
-	return NewSingleScheduleResourceClient(ssr.config).QueryTargetSite(ssr)
+func (_m *SingleScheduleResource) QueryTargetSite() *SiteResourceQuery {
+	return NewSingleScheduleResourceClient(_m.config).QueryTargetSite(_m)
 }
 
 // QueryTargetHost queries the "target_host" edge of the SingleScheduleResource entity.
-func (ssr *SingleScheduleResource) QueryTargetHost() *HostResourceQuery {
-	return NewSingleScheduleResourceClient(ssr.config).QueryTargetHost(ssr)
+func (_m *SingleScheduleResource) QueryTargetHost() *HostResourceQuery {
+	return NewSingleScheduleResourceClient(_m.config).QueryTargetHost(_m)
 }
 
 // QueryTargetWorkload queries the "target_workload" edge of the SingleScheduleResource entity.
-func (ssr *SingleScheduleResource) QueryTargetWorkload() *WorkloadResourceQuery {
-	return NewSingleScheduleResourceClient(ssr.config).QueryTargetWorkload(ssr)
+func (_m *SingleScheduleResource) QueryTargetWorkload() *WorkloadResourceQuery {
+	return NewSingleScheduleResourceClient(_m.config).QueryTargetWorkload(_m)
 }
 
 // QueryTargetRegion queries the "target_region" edge of the SingleScheduleResource entity.
-func (ssr *SingleScheduleResource) QueryTargetRegion() *RegionResourceQuery {
-	return NewSingleScheduleResourceClient(ssr.config).QueryTargetRegion(ssr)
+func (_m *SingleScheduleResource) QueryTargetRegion() *RegionResourceQuery {
+	return NewSingleScheduleResourceClient(_m.config).QueryTargetRegion(_m)
 }
 
 // Update returns a builder for updating this SingleScheduleResource.
 // Note that you need to call SingleScheduleResource.Unwrap() before calling this method if this SingleScheduleResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (ssr *SingleScheduleResource) Update() *SingleScheduleResourceUpdateOne {
-	return NewSingleScheduleResourceClient(ssr.config).UpdateOne(ssr)
+func (_m *SingleScheduleResource) Update() *SingleScheduleResourceUpdateOne {
+	return NewSingleScheduleResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the SingleScheduleResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (ssr *SingleScheduleResource) Unwrap() *SingleScheduleResource {
-	_tx, ok := ssr.config.driver.(*txDriver)
+func (_m *SingleScheduleResource) Unwrap() *SingleScheduleResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: SingleScheduleResource is not a transactional entity")
 	}
-	ssr.config.driver = _tx.drv
-	return ssr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (ssr *SingleScheduleResource) String() string {
+func (_m *SingleScheduleResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("SingleScheduleResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", ssr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(ssr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("schedule_status=")
-	builder.WriteString(fmt.Sprintf("%v", ssr.ScheduleStatus))
+	builder.WriteString(fmt.Sprintf("%v", _m.ScheduleStatus))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(ssr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("start_seconds=")
-	builder.WriteString(fmt.Sprintf("%v", ssr.StartSeconds))
+	builder.WriteString(fmt.Sprintf("%v", _m.StartSeconds))
 	builder.WriteString(", ")
 	builder.WriteString("end_seconds=")
-	builder.WriteString(fmt.Sprintf("%v", ssr.EndSeconds))
+	builder.WriteString(fmt.Sprintf("%v", _m.EndSeconds))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(ssr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(ssr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(ssr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

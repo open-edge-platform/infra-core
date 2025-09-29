@@ -163,7 +163,7 @@ linters-settings:
           - github.com/jackc/pgx/v5/stdlib
           - github.com/hashicorp/vault/api
           - github.com/golang-jwt/jwt/v5
-          - github.com/bufbuild/protovalidate-go
+          - buf.build/go/protovalidate
           - github.com/adhocore/gronx
           - github.com/prometheus/client_golang/prometheus
           - github.com/lib/pq
@@ -194,7 +194,7 @@ linters-settings:
           - github.com/stretchr/testify/suite
           - github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
           - github.com/hashicorp/vault/api
-          - github.com/bufbuild/protovalidate-go
+          - buf.build/go/protovalidate
           - github.com/labstack/echo/v4
           - github.com/golang-jwt/jwt/v5
           - github.com/Nerzal/gocloak
@@ -441,6 +441,10 @@ issues:
       linters:
         - funlen
         - gosec
+    # Exclude gofumpt from generated ent code
+    - path: internal/ent/.*
+      linters:
+        - gofumpt
 
 output:
   # Format:

@@ -21,347 +21,347 @@ type HostnicResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hrc *HostnicResourceCreate) SetResourceID(s string) *HostnicResourceCreate {
-	hrc.mutation.SetResourceID(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetResourceID(v string) *HostnicResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (hrc *HostnicResourceCreate) SetKind(s string) *HostnicResourceCreate {
-	hrc.mutation.SetKind(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetKind(v string) *HostnicResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableKind(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetKind(*s)
+func (_c *HostnicResourceCreate) SetNillableKind(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetProviderStatus sets the "provider_status" field.
-func (hrc *HostnicResourceCreate) SetProviderStatus(s string) *HostnicResourceCreate {
-	hrc.mutation.SetProviderStatus(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetProviderStatus(v string) *HostnicResourceCreate {
+	_c.mutation.SetProviderStatus(v)
+	return _c
 }
 
 // SetNillableProviderStatus sets the "provider_status" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableProviderStatus(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetProviderStatus(*s)
+func (_c *HostnicResourceCreate) SetNillableProviderStatus(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetProviderStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hrc *HostnicResourceCreate) SetDeviceName(s string) *HostnicResourceCreate {
-	hrc.mutation.SetDeviceName(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetDeviceName(v string) *HostnicResourceCreate {
+	_c.mutation.SetDeviceName(v)
+	return _c
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableDeviceName(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetDeviceName(*s)
+func (_c *HostnicResourceCreate) SetNillableDeviceName(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetDeviceName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPciIdentifier sets the "pci_identifier" field.
-func (hrc *HostnicResourceCreate) SetPciIdentifier(s string) *HostnicResourceCreate {
-	hrc.mutation.SetPciIdentifier(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetPciIdentifier(v string) *HostnicResourceCreate {
+	_c.mutation.SetPciIdentifier(v)
+	return _c
 }
 
 // SetNillablePciIdentifier sets the "pci_identifier" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillablePciIdentifier(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetPciIdentifier(*s)
+func (_c *HostnicResourceCreate) SetNillablePciIdentifier(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetPciIdentifier(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetMACAddr sets the "mac_addr" field.
-func (hrc *HostnicResourceCreate) SetMACAddr(s string) *HostnicResourceCreate {
-	hrc.mutation.SetMACAddr(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetMACAddr(v string) *HostnicResourceCreate {
+	_c.mutation.SetMACAddr(v)
+	return _c
 }
 
 // SetNillableMACAddr sets the "mac_addr" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableMACAddr(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetMACAddr(*s)
+func (_c *HostnicResourceCreate) SetNillableMACAddr(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetMACAddr(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSriovEnabled sets the "sriov_enabled" field.
-func (hrc *HostnicResourceCreate) SetSriovEnabled(b bool) *HostnicResourceCreate {
-	hrc.mutation.SetSriovEnabled(b)
-	return hrc
+func (_c *HostnicResourceCreate) SetSriovEnabled(v bool) *HostnicResourceCreate {
+	_c.mutation.SetSriovEnabled(v)
+	return _c
 }
 
 // SetNillableSriovEnabled sets the "sriov_enabled" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableSriovEnabled(b *bool) *HostnicResourceCreate {
-	if b != nil {
-		hrc.SetSriovEnabled(*b)
+func (_c *HostnicResourceCreate) SetNillableSriovEnabled(v *bool) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetSriovEnabled(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSriovVfsNum sets the "sriov_vfs_num" field.
-func (hrc *HostnicResourceCreate) SetSriovVfsNum(u uint32) *HostnicResourceCreate {
-	hrc.mutation.SetSriovVfsNum(u)
-	return hrc
+func (_c *HostnicResourceCreate) SetSriovVfsNum(v uint32) *HostnicResourceCreate {
+	_c.mutation.SetSriovVfsNum(v)
+	return _c
 }
 
 // SetNillableSriovVfsNum sets the "sriov_vfs_num" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableSriovVfsNum(u *uint32) *HostnicResourceCreate {
-	if u != nil {
-		hrc.SetSriovVfsNum(*u)
+func (_c *HostnicResourceCreate) SetNillableSriovVfsNum(v *uint32) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetSriovVfsNum(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSriovVfsTotal sets the "sriov_vfs_total" field.
-func (hrc *HostnicResourceCreate) SetSriovVfsTotal(u uint32) *HostnicResourceCreate {
-	hrc.mutation.SetSriovVfsTotal(u)
-	return hrc
+func (_c *HostnicResourceCreate) SetSriovVfsTotal(v uint32) *HostnicResourceCreate {
+	_c.mutation.SetSriovVfsTotal(v)
+	return _c
 }
 
 // SetNillableSriovVfsTotal sets the "sriov_vfs_total" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableSriovVfsTotal(u *uint32) *HostnicResourceCreate {
-	if u != nil {
-		hrc.SetSriovVfsTotal(*u)
+func (_c *HostnicResourceCreate) SetNillableSriovVfsTotal(v *uint32) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetSriovVfsTotal(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPeerName sets the "peer_name" field.
-func (hrc *HostnicResourceCreate) SetPeerName(s string) *HostnicResourceCreate {
-	hrc.mutation.SetPeerName(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetPeerName(v string) *HostnicResourceCreate {
+	_c.mutation.SetPeerName(v)
+	return _c
 }
 
 // SetNillablePeerName sets the "peer_name" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillablePeerName(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetPeerName(*s)
+func (_c *HostnicResourceCreate) SetNillablePeerName(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetPeerName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPeerDescription sets the "peer_description" field.
-func (hrc *HostnicResourceCreate) SetPeerDescription(s string) *HostnicResourceCreate {
-	hrc.mutation.SetPeerDescription(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetPeerDescription(v string) *HostnicResourceCreate {
+	_c.mutation.SetPeerDescription(v)
+	return _c
 }
 
 // SetNillablePeerDescription sets the "peer_description" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillablePeerDescription(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetPeerDescription(*s)
+func (_c *HostnicResourceCreate) SetNillablePeerDescription(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetPeerDescription(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPeerMAC sets the "peer_mac" field.
-func (hrc *HostnicResourceCreate) SetPeerMAC(s string) *HostnicResourceCreate {
-	hrc.mutation.SetPeerMAC(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetPeerMAC(v string) *HostnicResourceCreate {
+	_c.mutation.SetPeerMAC(v)
+	return _c
 }
 
 // SetNillablePeerMAC sets the "peer_mac" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillablePeerMAC(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetPeerMAC(*s)
+func (_c *HostnicResourceCreate) SetNillablePeerMAC(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetPeerMAC(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPeerMgmtIP sets the "peer_mgmt_ip" field.
-func (hrc *HostnicResourceCreate) SetPeerMgmtIP(s string) *HostnicResourceCreate {
-	hrc.mutation.SetPeerMgmtIP(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetPeerMgmtIP(v string) *HostnicResourceCreate {
+	_c.mutation.SetPeerMgmtIP(v)
+	return _c
 }
 
 // SetNillablePeerMgmtIP sets the "peer_mgmt_ip" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillablePeerMgmtIP(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetPeerMgmtIP(*s)
+func (_c *HostnicResourceCreate) SetNillablePeerMgmtIP(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetPeerMgmtIP(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPeerPort sets the "peer_port" field.
-func (hrc *HostnicResourceCreate) SetPeerPort(s string) *HostnicResourceCreate {
-	hrc.mutation.SetPeerPort(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetPeerPort(v string) *HostnicResourceCreate {
+	_c.mutation.SetPeerPort(v)
+	return _c
 }
 
 // SetNillablePeerPort sets the "peer_port" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillablePeerPort(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetPeerPort(*s)
+func (_c *HostnicResourceCreate) SetNillablePeerPort(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetPeerPort(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSupportedLinkMode sets the "supported_link_mode" field.
-func (hrc *HostnicResourceCreate) SetSupportedLinkMode(s string) *HostnicResourceCreate {
-	hrc.mutation.SetSupportedLinkMode(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetSupportedLinkMode(v string) *HostnicResourceCreate {
+	_c.mutation.SetSupportedLinkMode(v)
+	return _c
 }
 
 // SetNillableSupportedLinkMode sets the "supported_link_mode" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableSupportedLinkMode(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetSupportedLinkMode(*s)
+func (_c *HostnicResourceCreate) SetNillableSupportedLinkMode(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetSupportedLinkMode(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetAdvertisingLinkMode sets the "advertising_link_mode" field.
-func (hrc *HostnicResourceCreate) SetAdvertisingLinkMode(s string) *HostnicResourceCreate {
-	hrc.mutation.SetAdvertisingLinkMode(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetAdvertisingLinkMode(v string) *HostnicResourceCreate {
+	_c.mutation.SetAdvertisingLinkMode(v)
+	return _c
 }
 
 // SetNillableAdvertisingLinkMode sets the "advertising_link_mode" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableAdvertisingLinkMode(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetAdvertisingLinkMode(*s)
+func (_c *HostnicResourceCreate) SetNillableAdvertisingLinkMode(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetAdvertisingLinkMode(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCurrentSpeedBps sets the "current_speed_bps" field.
-func (hrc *HostnicResourceCreate) SetCurrentSpeedBps(u uint64) *HostnicResourceCreate {
-	hrc.mutation.SetCurrentSpeedBps(u)
-	return hrc
+func (_c *HostnicResourceCreate) SetCurrentSpeedBps(v uint64) *HostnicResourceCreate {
+	_c.mutation.SetCurrentSpeedBps(v)
+	return _c
 }
 
 // SetNillableCurrentSpeedBps sets the "current_speed_bps" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableCurrentSpeedBps(u *uint64) *HostnicResourceCreate {
-	if u != nil {
-		hrc.SetCurrentSpeedBps(*u)
+func (_c *HostnicResourceCreate) SetNillableCurrentSpeedBps(v *uint64) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetCurrentSpeedBps(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCurrentDuplex sets the "current_duplex" field.
-func (hrc *HostnicResourceCreate) SetCurrentDuplex(s string) *HostnicResourceCreate {
-	hrc.mutation.SetCurrentDuplex(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetCurrentDuplex(v string) *HostnicResourceCreate {
+	_c.mutation.SetCurrentDuplex(v)
+	return _c
 }
 
 // SetNillableCurrentDuplex sets the "current_duplex" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableCurrentDuplex(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetCurrentDuplex(*s)
+func (_c *HostnicResourceCreate) SetNillableCurrentDuplex(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetCurrentDuplex(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetFeatures sets the "features" field.
-func (hrc *HostnicResourceCreate) SetFeatures(s string) *HostnicResourceCreate {
-	hrc.mutation.SetFeatures(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetFeatures(v string) *HostnicResourceCreate {
+	_c.mutation.SetFeatures(v)
+	return _c
 }
 
 // SetNillableFeatures sets the "features" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableFeatures(s *string) *HostnicResourceCreate {
-	if s != nil {
-		hrc.SetFeatures(*s)
+func (_c *HostnicResourceCreate) SetNillableFeatures(v *string) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetFeatures(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetMtu sets the "mtu" field.
-func (hrc *HostnicResourceCreate) SetMtu(u uint32) *HostnicResourceCreate {
-	hrc.mutation.SetMtu(u)
-	return hrc
+func (_c *HostnicResourceCreate) SetMtu(v uint32) *HostnicResourceCreate {
+	_c.mutation.SetMtu(v)
+	return _c
 }
 
 // SetNillableMtu sets the "mtu" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableMtu(u *uint32) *HostnicResourceCreate {
-	if u != nil {
-		hrc.SetMtu(*u)
+func (_c *HostnicResourceCreate) SetNillableMtu(v *uint32) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetMtu(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetLinkState sets the "link_state" field.
-func (hrc *HostnicResourceCreate) SetLinkState(hs hostnicresource.LinkState) *HostnicResourceCreate {
-	hrc.mutation.SetLinkState(hs)
-	return hrc
+func (_c *HostnicResourceCreate) SetLinkState(v hostnicresource.LinkState) *HostnicResourceCreate {
+	_c.mutation.SetLinkState(v)
+	return _c
 }
 
 // SetNillableLinkState sets the "link_state" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableLinkState(hs *hostnicresource.LinkState) *HostnicResourceCreate {
-	if hs != nil {
-		hrc.SetLinkState(*hs)
+func (_c *HostnicResourceCreate) SetNillableLinkState(v *hostnicresource.LinkState) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetLinkState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBmcInterface sets the "bmc_interface" field.
-func (hrc *HostnicResourceCreate) SetBmcInterface(b bool) *HostnicResourceCreate {
-	hrc.mutation.SetBmcInterface(b)
-	return hrc
+func (_c *HostnicResourceCreate) SetBmcInterface(v bool) *HostnicResourceCreate {
+	_c.mutation.SetBmcInterface(v)
+	return _c
 }
 
 // SetNillableBmcInterface sets the "bmc_interface" field if the given value is not nil.
-func (hrc *HostnicResourceCreate) SetNillableBmcInterface(b *bool) *HostnicResourceCreate {
-	if b != nil {
-		hrc.SetBmcInterface(*b)
+func (_c *HostnicResourceCreate) SetNillableBmcInterface(v *bool) *HostnicResourceCreate {
+	if v != nil {
+		_c.SetBmcInterface(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (hrc *HostnicResourceCreate) SetTenantID(s string) *HostnicResourceCreate {
-	hrc.mutation.SetTenantID(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetTenantID(v string) *HostnicResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (hrc *HostnicResourceCreate) SetCreatedAt(s string) *HostnicResourceCreate {
-	hrc.mutation.SetCreatedAt(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetCreatedAt(v string) *HostnicResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hrc *HostnicResourceCreate) SetUpdatedAt(s string) *HostnicResourceCreate {
-	hrc.mutation.SetUpdatedAt(s)
-	return hrc
+func (_c *HostnicResourceCreate) SetUpdatedAt(v string) *HostnicResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hrc *HostnicResourceCreate) SetHostID(id int) *HostnicResourceCreate {
-	hrc.mutation.SetHostID(id)
-	return hrc
+func (_c *HostnicResourceCreate) SetHostID(id int) *HostnicResourceCreate {
+	_c.mutation.SetHostID(id)
+	return _c
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hrc *HostnicResourceCreate) SetHost(h *HostResource) *HostnicResourceCreate {
-	return hrc.SetHostID(h.ID)
+func (_c *HostnicResourceCreate) SetHost(v *HostResource) *HostnicResourceCreate {
+	return _c.SetHostID(v.ID)
 }
 
 // Mutation returns the HostnicResourceMutation object of the builder.
-func (hrc *HostnicResourceCreate) Mutation() *HostnicResourceMutation {
-	return hrc.mutation
+func (_c *HostnicResourceCreate) Mutation() *HostnicResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the HostnicResource in the database.
-func (hrc *HostnicResourceCreate) Save(ctx context.Context) (*HostnicResource, error) {
-	return withHooks(ctx, hrc.sqlSave, hrc.mutation, hrc.hooks)
+func (_c *HostnicResourceCreate) Save(ctx context.Context) (*HostnicResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (hrc *HostnicResourceCreate) SaveX(ctx context.Context) *HostnicResource {
-	v, err := hrc.Save(ctx)
+func (_c *HostnicResourceCreate) SaveX(ctx context.Context) *HostnicResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -369,49 +369,49 @@ func (hrc *HostnicResourceCreate) SaveX(ctx context.Context) *HostnicResource {
 }
 
 // Exec executes the query.
-func (hrc *HostnicResourceCreate) Exec(ctx context.Context) error {
-	_, err := hrc.Save(ctx)
+func (_c *HostnicResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrc *HostnicResourceCreate) ExecX(ctx context.Context) {
-	if err := hrc.Exec(ctx); err != nil {
+func (_c *HostnicResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hrc *HostnicResourceCreate) check() error {
-	if _, ok := hrc.mutation.ResourceID(); !ok {
+func (_c *HostnicResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "HostnicResource.resource_id"`)}
 	}
-	if v, ok := hrc.mutation.LinkState(); ok {
+	if v, ok := _c.mutation.LinkState(); ok {
 		if err := hostnicresource.LinkStateValidator(v); err != nil {
 			return &ValidationError{Name: "link_state", err: fmt.Errorf(`ent: validator failed for field "HostnicResource.link_state": %w`, err)}
 		}
 	}
-	if _, ok := hrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "HostnicResource.tenant_id"`)}
 	}
-	if _, ok := hrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "HostnicResource.created_at"`)}
 	}
-	if _, ok := hrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "HostnicResource.updated_at"`)}
 	}
-	if len(hrc.mutation.HostIDs()) == 0 {
+	if len(_c.mutation.HostIDs()) == 0 {
 		return &ValidationError{Name: "host", err: errors.New(`ent: missing required edge "HostnicResource.host"`)}
 	}
 	return nil
 }
 
-func (hrc *HostnicResourceCreate) sqlSave(ctx context.Context) (*HostnicResource, error) {
-	if err := hrc.check(); err != nil {
+func (_c *HostnicResourceCreate) sqlSave(ctx context.Context) (*HostnicResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := hrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, hrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -419,117 +419,117 @@ func (hrc *HostnicResourceCreate) sqlSave(ctx context.Context) (*HostnicResource
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	hrc.mutation.id = &_node.ID
-	hrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (hrc *HostnicResourceCreate) createSpec() (*HostnicResource, *sqlgraph.CreateSpec) {
+func (_c *HostnicResourceCreate) createSpec() (*HostnicResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &HostnicResource{config: hrc.config}
+		_node = &HostnicResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(hostnicresource.Table, sqlgraph.NewFieldSpec(hostnicresource.FieldID, field.TypeInt))
 	)
-	if value, ok := hrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(hostnicresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := hrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(hostnicresource.FieldKind, field.TypeString, value)
 		_node.Kind = value
 	}
-	if value, ok := hrc.mutation.ProviderStatus(); ok {
+	if value, ok := _c.mutation.ProviderStatus(); ok {
 		_spec.SetField(hostnicresource.FieldProviderStatus, field.TypeString, value)
 		_node.ProviderStatus = value
 	}
-	if value, ok := hrc.mutation.DeviceName(); ok {
+	if value, ok := _c.mutation.DeviceName(); ok {
 		_spec.SetField(hostnicresource.FieldDeviceName, field.TypeString, value)
 		_node.DeviceName = value
 	}
-	if value, ok := hrc.mutation.PciIdentifier(); ok {
+	if value, ok := _c.mutation.PciIdentifier(); ok {
 		_spec.SetField(hostnicresource.FieldPciIdentifier, field.TypeString, value)
 		_node.PciIdentifier = value
 	}
-	if value, ok := hrc.mutation.MACAddr(); ok {
+	if value, ok := _c.mutation.MACAddr(); ok {
 		_spec.SetField(hostnicresource.FieldMACAddr, field.TypeString, value)
 		_node.MACAddr = value
 	}
-	if value, ok := hrc.mutation.SriovEnabled(); ok {
+	if value, ok := _c.mutation.SriovEnabled(); ok {
 		_spec.SetField(hostnicresource.FieldSriovEnabled, field.TypeBool, value)
 		_node.SriovEnabled = value
 	}
-	if value, ok := hrc.mutation.SriovVfsNum(); ok {
+	if value, ok := _c.mutation.SriovVfsNum(); ok {
 		_spec.SetField(hostnicresource.FieldSriovVfsNum, field.TypeUint32, value)
 		_node.SriovVfsNum = value
 	}
-	if value, ok := hrc.mutation.SriovVfsTotal(); ok {
+	if value, ok := _c.mutation.SriovVfsTotal(); ok {
 		_spec.SetField(hostnicresource.FieldSriovVfsTotal, field.TypeUint32, value)
 		_node.SriovVfsTotal = value
 	}
-	if value, ok := hrc.mutation.PeerName(); ok {
+	if value, ok := _c.mutation.PeerName(); ok {
 		_spec.SetField(hostnicresource.FieldPeerName, field.TypeString, value)
 		_node.PeerName = value
 	}
-	if value, ok := hrc.mutation.PeerDescription(); ok {
+	if value, ok := _c.mutation.PeerDescription(); ok {
 		_spec.SetField(hostnicresource.FieldPeerDescription, field.TypeString, value)
 		_node.PeerDescription = value
 	}
-	if value, ok := hrc.mutation.PeerMAC(); ok {
+	if value, ok := _c.mutation.PeerMAC(); ok {
 		_spec.SetField(hostnicresource.FieldPeerMAC, field.TypeString, value)
 		_node.PeerMAC = value
 	}
-	if value, ok := hrc.mutation.PeerMgmtIP(); ok {
+	if value, ok := _c.mutation.PeerMgmtIP(); ok {
 		_spec.SetField(hostnicresource.FieldPeerMgmtIP, field.TypeString, value)
 		_node.PeerMgmtIP = value
 	}
-	if value, ok := hrc.mutation.PeerPort(); ok {
+	if value, ok := _c.mutation.PeerPort(); ok {
 		_spec.SetField(hostnicresource.FieldPeerPort, field.TypeString, value)
 		_node.PeerPort = value
 	}
-	if value, ok := hrc.mutation.SupportedLinkMode(); ok {
+	if value, ok := _c.mutation.SupportedLinkMode(); ok {
 		_spec.SetField(hostnicresource.FieldSupportedLinkMode, field.TypeString, value)
 		_node.SupportedLinkMode = value
 	}
-	if value, ok := hrc.mutation.AdvertisingLinkMode(); ok {
+	if value, ok := _c.mutation.AdvertisingLinkMode(); ok {
 		_spec.SetField(hostnicresource.FieldAdvertisingLinkMode, field.TypeString, value)
 		_node.AdvertisingLinkMode = value
 	}
-	if value, ok := hrc.mutation.CurrentSpeedBps(); ok {
+	if value, ok := _c.mutation.CurrentSpeedBps(); ok {
 		_spec.SetField(hostnicresource.FieldCurrentSpeedBps, field.TypeUint64, value)
 		_node.CurrentSpeedBps = value
 	}
-	if value, ok := hrc.mutation.CurrentDuplex(); ok {
+	if value, ok := _c.mutation.CurrentDuplex(); ok {
 		_spec.SetField(hostnicresource.FieldCurrentDuplex, field.TypeString, value)
 		_node.CurrentDuplex = value
 	}
-	if value, ok := hrc.mutation.Features(); ok {
+	if value, ok := _c.mutation.Features(); ok {
 		_spec.SetField(hostnicresource.FieldFeatures, field.TypeString, value)
 		_node.Features = value
 	}
-	if value, ok := hrc.mutation.Mtu(); ok {
+	if value, ok := _c.mutation.Mtu(); ok {
 		_spec.SetField(hostnicresource.FieldMtu, field.TypeUint32, value)
 		_node.Mtu = value
 	}
-	if value, ok := hrc.mutation.LinkState(); ok {
+	if value, ok := _c.mutation.LinkState(); ok {
 		_spec.SetField(hostnicresource.FieldLinkState, field.TypeEnum, value)
 		_node.LinkState = value
 	}
-	if value, ok := hrc.mutation.BmcInterface(); ok {
+	if value, ok := _c.mutation.BmcInterface(); ok {
 		_spec.SetField(hostnicresource.FieldBmcInterface, field.TypeBool, value)
 		_node.BmcInterface = value
 	}
-	if value, ok := hrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostnicresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := hrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(hostnicresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := hrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostnicresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := hrc.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -557,16 +557,16 @@ type HostnicResourceCreateBulk struct {
 }
 
 // Save creates the HostnicResource entities in the database.
-func (hrcb *HostnicResourceCreateBulk) Save(ctx context.Context) ([]*HostnicResource, error) {
-	if hrcb.err != nil {
-		return nil, hrcb.err
+func (_c *HostnicResourceCreateBulk) Save(ctx context.Context) ([]*HostnicResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(hrcb.builders))
-	nodes := make([]*HostnicResource, len(hrcb.builders))
-	mutators := make([]Mutator, len(hrcb.builders))
-	for i := range hrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*HostnicResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := hrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*HostnicResourceMutation)
 				if !ok {
@@ -579,11 +579,11 @@ func (hrcb *HostnicResourceCreateBulk) Save(ctx context.Context) ([]*HostnicReso
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, hrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, hrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -607,7 +607,7 @@ func (hrcb *HostnicResourceCreateBulk) Save(ctx context.Context) ([]*HostnicReso
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, hrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -615,8 +615,8 @@ func (hrcb *HostnicResourceCreateBulk) Save(ctx context.Context) ([]*HostnicReso
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hrcb *HostnicResourceCreateBulk) SaveX(ctx context.Context) []*HostnicResource {
-	v, err := hrcb.Save(ctx)
+func (_c *HostnicResourceCreateBulk) SaveX(ctx context.Context) []*HostnicResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -624,14 +624,14 @@ func (hrcb *HostnicResourceCreateBulk) SaveX(ctx context.Context) []*HostnicReso
 }
 
 // Exec executes the query.
-func (hrcb *HostnicResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := hrcb.Save(ctx)
+func (_c *HostnicResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrcb *HostnicResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := hrcb.Exec(ctx); err != nil {
+func (_c *HostnicResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

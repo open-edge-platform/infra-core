@@ -31,44 +31,44 @@ type CustomConfigResourceQuery struct {
 }
 
 // Where adds a new predicate for the CustomConfigResourceQuery builder.
-func (ccrq *CustomConfigResourceQuery) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceQuery {
-	ccrq.predicates = append(ccrq.predicates, ps...)
-	return ccrq
+func (_q *CustomConfigResourceQuery) Where(ps ...predicate.CustomConfigResource) *CustomConfigResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (ccrq *CustomConfigResourceQuery) Limit(limit int) *CustomConfigResourceQuery {
-	ccrq.ctx.Limit = &limit
-	return ccrq
+func (_q *CustomConfigResourceQuery) Limit(limit int) *CustomConfigResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (ccrq *CustomConfigResourceQuery) Offset(offset int) *CustomConfigResourceQuery {
-	ccrq.ctx.Offset = &offset
-	return ccrq
+func (_q *CustomConfigResourceQuery) Offset(offset int) *CustomConfigResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (ccrq *CustomConfigResourceQuery) Unique(unique bool) *CustomConfigResourceQuery {
-	ccrq.ctx.Unique = &unique
-	return ccrq
+func (_q *CustomConfigResourceQuery) Unique(unique bool) *CustomConfigResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (ccrq *CustomConfigResourceQuery) Order(o ...customconfigresource.OrderOption) *CustomConfigResourceQuery {
-	ccrq.order = append(ccrq.order, o...)
-	return ccrq
+func (_q *CustomConfigResourceQuery) Order(o ...customconfigresource.OrderOption) *CustomConfigResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryInstances chains the current query on the "instances" edge.
-func (ccrq *CustomConfigResourceQuery) QueryInstances() *InstanceResourceQuery {
-	query := (&InstanceResourceClient{config: ccrq.config}).Query()
+func (_q *CustomConfigResourceQuery) QueryInstances() *InstanceResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := ccrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := ccrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (ccrq *CustomConfigResourceQuery) QueryInstances() *InstanceResourceQuery {
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, true, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
 		)
-		fromU = sqlgraph.SetNeighbors(ccrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (ccrq *CustomConfigResourceQuery) QueryInstances() *InstanceResourceQuery {
 
 // First returns the first CustomConfigResource entity from the query.
 // Returns a *NotFoundError when no CustomConfigResource was found.
-func (ccrq *CustomConfigResourceQuery) First(ctx context.Context) (*CustomConfigResource, error) {
-	nodes, err := ccrq.Limit(1).All(setContextOp(ctx, ccrq.ctx, ent.OpQueryFirst))
+func (_q *CustomConfigResourceQuery) First(ctx context.Context) (*CustomConfigResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (ccrq *CustomConfigResourceQuery) First(ctx context.Context) (*CustomConfig
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) FirstX(ctx context.Context) *CustomConfigResource {
-	node, err := ccrq.First(ctx)
+func (_q *CustomConfigResourceQuery) FirstX(ctx context.Context) *CustomConfigResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (ccrq *CustomConfigResourceQuery) FirstX(ctx context.Context) *CustomConfig
 
 // FirstID returns the first CustomConfigResource ID from the query.
 // Returns a *NotFoundError when no CustomConfigResource ID was found.
-func (ccrq *CustomConfigResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *CustomConfigResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ccrq.Limit(1).IDs(setContextOp(ctx, ccrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (ccrq *CustomConfigResourceQuery) FirstID(ctx context.Context) (id int, err
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := ccrq.FirstID(ctx)
+func (_q *CustomConfigResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (ccrq *CustomConfigResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single CustomConfigResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one CustomConfigResource entity is found.
 // Returns a *NotFoundError when no CustomConfigResource entities are found.
-func (ccrq *CustomConfigResourceQuery) Only(ctx context.Context) (*CustomConfigResource, error) {
-	nodes, err := ccrq.Limit(2).All(setContextOp(ctx, ccrq.ctx, ent.OpQueryOnly))
+func (_q *CustomConfigResourceQuery) Only(ctx context.Context) (*CustomConfigResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (ccrq *CustomConfigResourceQuery) Only(ctx context.Context) (*CustomConfigR
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) OnlyX(ctx context.Context) *CustomConfigResource {
-	node, err := ccrq.Only(ctx)
+func (_q *CustomConfigResourceQuery) OnlyX(ctx context.Context) *CustomConfigResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (ccrq *CustomConfigResourceQuery) OnlyX(ctx context.Context) *CustomConfigR
 // OnlyID is like Only, but returns the only CustomConfigResource ID in the query.
 // Returns a *NotSingularError when more than one CustomConfigResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (ccrq *CustomConfigResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *CustomConfigResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ccrq.Limit(2).IDs(setContextOp(ctx, ccrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (ccrq *CustomConfigResourceQuery) OnlyID(ctx context.Context) (id int, err 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := ccrq.OnlyID(ctx)
+func (_q *CustomConfigResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (ccrq *CustomConfigResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of CustomConfigResources.
-func (ccrq *CustomConfigResourceQuery) All(ctx context.Context) ([]*CustomConfigResource, error) {
-	ctx = setContextOp(ctx, ccrq.ctx, ent.OpQueryAll)
-	if err := ccrq.prepareQuery(ctx); err != nil {
+func (_q *CustomConfigResourceQuery) All(ctx context.Context) ([]*CustomConfigResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*CustomConfigResource, *CustomConfigResourceQuery]()
-	return withInterceptors[[]*CustomConfigResource](ctx, ccrq, qr, ccrq.inters)
+	return withInterceptors[[]*CustomConfigResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) AllX(ctx context.Context) []*CustomConfigResource {
-	nodes, err := ccrq.All(ctx)
+func (_q *CustomConfigResourceQuery) AllX(ctx context.Context) []*CustomConfigResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (ccrq *CustomConfigResourceQuery) AllX(ctx context.Context) []*CustomConfig
 }
 
 // IDs executes the query and returns a list of CustomConfigResource IDs.
-func (ccrq *CustomConfigResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if ccrq.ctx.Unique == nil && ccrq.path != nil {
-		ccrq.Unique(true)
+func (_q *CustomConfigResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, ccrq.ctx, ent.OpQueryIDs)
-	if err = ccrq.Select(customconfigresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(customconfigresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := ccrq.IDs(ctx)
+func (_q *CustomConfigResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (ccrq *CustomConfigResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (ccrq *CustomConfigResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, ccrq.ctx, ent.OpQueryCount)
-	if err := ccrq.prepareQuery(ctx); err != nil {
+func (_q *CustomConfigResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, ccrq, querierCount[*CustomConfigResourceQuery](), ccrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*CustomConfigResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) CountX(ctx context.Context) int {
-	count, err := ccrq.Count(ctx)
+func (_q *CustomConfigResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (ccrq *CustomConfigResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (ccrq *CustomConfigResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, ccrq.ctx, ent.OpQueryExist)
-	switch _, err := ccrq.FirstID(ctx); {
+func (_q *CustomConfigResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (ccrq *CustomConfigResourceQuery) Exist(ctx context.Context) (bool, error) 
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (ccrq *CustomConfigResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := ccrq.Exist(ctx)
+func (_q *CustomConfigResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (ccrq *CustomConfigResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the CustomConfigResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (ccrq *CustomConfigResourceQuery) Clone() *CustomConfigResourceQuery {
-	if ccrq == nil {
+func (_q *CustomConfigResourceQuery) Clone() *CustomConfigResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &CustomConfigResourceQuery{
-		config:        ccrq.config,
-		ctx:           ccrq.ctx.Clone(),
-		order:         append([]customconfigresource.OrderOption{}, ccrq.order...),
-		inters:        append([]Interceptor{}, ccrq.inters...),
-		predicates:    append([]predicate.CustomConfigResource{}, ccrq.predicates...),
-		withInstances: ccrq.withInstances.Clone(),
+		config:        _q.config,
+		ctx:           _q.ctx.Clone(),
+		order:         append([]customconfigresource.OrderOption{}, _q.order...),
+		inters:        append([]Interceptor{}, _q.inters...),
+		predicates:    append([]predicate.CustomConfigResource{}, _q.predicates...),
+		withInstances: _q.withInstances.Clone(),
 		// clone intermediate query.
-		sql:  ccrq.sql.Clone(),
-		path: ccrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithInstances tells the query-builder to eager-load the nodes that are connected to
 // the "instances" edge. The optional arguments are used to configure the query builder of the edge.
-func (ccrq *CustomConfigResourceQuery) WithInstances(opts ...func(*InstanceResourceQuery)) *CustomConfigResourceQuery {
-	query := (&InstanceResourceClient{config: ccrq.config}).Query()
+func (_q *CustomConfigResourceQuery) WithInstances(opts ...func(*InstanceResourceQuery)) *CustomConfigResourceQuery {
+	query := (&InstanceResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ccrq.withInstances = query
-	return ccrq
+	_q.withInstances = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (ccrq *CustomConfigResourceQuery) WithInstances(opts ...func(*InstanceResou
 //		GroupBy(customconfigresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (ccrq *CustomConfigResourceQuery) GroupBy(field string, fields ...string) *CustomConfigResourceGroupBy {
-	ccrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &CustomConfigResourceGroupBy{build: ccrq}
-	grbuild.flds = &ccrq.ctx.Fields
+func (_q *CustomConfigResourceQuery) GroupBy(field string, fields ...string) *CustomConfigResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &CustomConfigResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = customconfigresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,58 +328,58 @@ func (ccrq *CustomConfigResourceQuery) GroupBy(field string, fields ...string) *
 //	client.CustomConfigResource.Query().
 //		Select(customconfigresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (ccrq *CustomConfigResourceQuery) Select(fields ...string) *CustomConfigResourceSelect {
-	ccrq.ctx.Fields = append(ccrq.ctx.Fields, fields...)
-	sbuild := &CustomConfigResourceSelect{CustomConfigResourceQuery: ccrq}
+func (_q *CustomConfigResourceQuery) Select(fields ...string) *CustomConfigResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &CustomConfigResourceSelect{CustomConfigResourceQuery: _q}
 	sbuild.label = customconfigresource.Label
-	sbuild.flds, sbuild.scan = &ccrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a CustomConfigResourceSelect configured with the given aggregations.
-func (ccrq *CustomConfigResourceQuery) Aggregate(fns ...AggregateFunc) *CustomConfigResourceSelect {
-	return ccrq.Select().Aggregate(fns...)
+func (_q *CustomConfigResourceQuery) Aggregate(fns ...AggregateFunc) *CustomConfigResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (ccrq *CustomConfigResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range ccrq.inters {
+func (_q *CustomConfigResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, ccrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range ccrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !customconfigresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if ccrq.path != nil {
-		prev, err := ccrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		ccrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (ccrq *CustomConfigResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*CustomConfigResource, error) {
+func (_q *CustomConfigResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*CustomConfigResource, error) {
 	var (
 		nodes       = []*CustomConfigResource{}
-		_spec       = ccrq.querySpec()
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			ccrq.withInstances != nil,
+			_q.withInstances != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*CustomConfigResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &CustomConfigResource{config: ccrq.config}
+		node := &CustomConfigResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -387,14 +387,14 @@ func (ccrq *CustomConfigResourceQuery) sqlAll(ctx context.Context, hooks ...quer
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, ccrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := ccrq.withInstances; query != nil {
-		if err := ccrq.loadInstances(ctx, query, nodes,
+	if query := _q.withInstances; query != nil {
+		if err := _q.loadInstances(ctx, query, nodes,
 			func(n *CustomConfigResource) { n.Edges.Instances = []*InstanceResource{} },
 			func(n *CustomConfigResource, e *InstanceResource) { n.Edges.Instances = append(n.Edges.Instances, e) }); err != nil {
 			return nil, err
@@ -403,7 +403,7 @@ func (ccrq *CustomConfigResourceQuery) sqlAll(ctx context.Context, hooks ...quer
 	return nodes, nil
 }
 
-func (ccrq *CustomConfigResourceQuery) loadInstances(ctx context.Context, query *InstanceResourceQuery, nodes []*CustomConfigResource, init func(*CustomConfigResource), assign func(*CustomConfigResource, *InstanceResource)) error {
+func (_q *CustomConfigResourceQuery) loadInstances(ctx context.Context, query *InstanceResourceQuery, nodes []*CustomConfigResource, init func(*CustomConfigResource), assign func(*CustomConfigResource, *InstanceResource)) error {
 	edgeIDs := make([]driver.Value, len(nodes))
 	byID := make(map[int]*CustomConfigResource)
 	nids := make(map[int]map[*CustomConfigResource]struct{})
@@ -465,24 +465,24 @@ func (ccrq *CustomConfigResourceQuery) loadInstances(ctx context.Context, query 
 	return nil
 }
 
-func (ccrq *CustomConfigResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := ccrq.querySpec()
-	_spec.Node.Columns = ccrq.ctx.Fields
-	if len(ccrq.ctx.Fields) > 0 {
-		_spec.Unique = ccrq.ctx.Unique != nil && *ccrq.ctx.Unique
+func (_q *CustomConfigResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, ccrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (ccrq *CustomConfigResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *CustomConfigResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(customconfigresource.Table, customconfigresource.Columns, sqlgraph.NewFieldSpec(customconfigresource.FieldID, field.TypeInt))
-	_spec.From = ccrq.sql
-	if unique := ccrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if ccrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := ccrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, customconfigresource.FieldID)
 		for i := range fields {
@@ -491,20 +491,20 @@ func (ccrq *CustomConfigResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := ccrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := ccrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := ccrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := ccrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -514,33 +514,33 @@ func (ccrq *CustomConfigResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (ccrq *CustomConfigResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(ccrq.driver.Dialect())
+func (_q *CustomConfigResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(customconfigresource.Table)
-	columns := ccrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = customconfigresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if ccrq.sql != nil {
-		selector = ccrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if ccrq.ctx.Unique != nil && *ccrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range ccrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range ccrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := ccrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := ccrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -553,41 +553,41 @@ type CustomConfigResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (ccrgb *CustomConfigResourceGroupBy) Aggregate(fns ...AggregateFunc) *CustomConfigResourceGroupBy {
-	ccrgb.fns = append(ccrgb.fns, fns...)
-	return ccrgb
+func (_g *CustomConfigResourceGroupBy) Aggregate(fns ...AggregateFunc) *CustomConfigResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ccrgb *CustomConfigResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ccrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := ccrgb.build.prepareQuery(ctx); err != nil {
+func (_g *CustomConfigResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*CustomConfigResourceQuery, *CustomConfigResourceGroupBy](ctx, ccrgb.build, ccrgb, ccrgb.build.inters, v)
+	return scanWithInterceptors[*CustomConfigResourceQuery, *CustomConfigResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (ccrgb *CustomConfigResourceGroupBy) sqlScan(ctx context.Context, root *CustomConfigResourceQuery, v any) error {
+func (_g *CustomConfigResourceGroupBy) sqlScan(ctx context.Context, root *CustomConfigResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(ccrgb.fns))
-	for _, fn := range ccrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*ccrgb.flds)+len(ccrgb.fns))
-		for _, f := range *ccrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*ccrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ccrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -601,27 +601,27 @@ type CustomConfigResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (ccrs *CustomConfigResourceSelect) Aggregate(fns ...AggregateFunc) *CustomConfigResourceSelect {
-	ccrs.fns = append(ccrs.fns, fns...)
-	return ccrs
+func (_s *CustomConfigResourceSelect) Aggregate(fns ...AggregateFunc) *CustomConfigResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ccrs *CustomConfigResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ccrs.ctx, ent.OpQuerySelect)
-	if err := ccrs.prepareQuery(ctx); err != nil {
+func (_s *CustomConfigResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*CustomConfigResourceQuery, *CustomConfigResourceSelect](ctx, ccrs.CustomConfigResourceQuery, ccrs, ccrs.inters, v)
+	return scanWithInterceptors[*CustomConfigResourceQuery, *CustomConfigResourceSelect](ctx, _s.CustomConfigResourceQuery, _s, _s.inters, v)
 }
 
-func (ccrs *CustomConfigResourceSelect) sqlScan(ctx context.Context, root *CustomConfigResourceQuery, v any) error {
+func (_s *CustomConfigResourceSelect) sqlScan(ctx context.Context, root *CustomConfigResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(ccrs.fns))
-	for _, fn := range ccrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*ccrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -629,7 +629,7 @@ func (ccrs *CustomConfigResourceSelect) sqlScan(ctx context.Context, root *Custo
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ccrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

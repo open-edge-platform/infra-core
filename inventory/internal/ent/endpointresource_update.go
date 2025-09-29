@@ -23,117 +23,117 @@ type EndpointResourceUpdate struct {
 }
 
 // Where appends a list predicates to the EndpointResourceUpdate builder.
-func (eru *EndpointResourceUpdate) Where(ps ...predicate.EndpointResource) *EndpointResourceUpdate {
-	eru.mutation.Where(ps...)
-	return eru
+func (_u *EndpointResourceUpdate) Where(ps ...predicate.EndpointResource) *EndpointResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (eru *EndpointResourceUpdate) SetResourceID(s string) *EndpointResourceUpdate {
-	eru.mutation.SetResourceID(s)
-	return eru
+func (_u *EndpointResourceUpdate) SetResourceID(v string) *EndpointResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (eru *EndpointResourceUpdate) SetNillableResourceID(s *string) *EndpointResourceUpdate {
-	if s != nil {
-		eru.SetResourceID(*s)
+func (_u *EndpointResourceUpdate) SetNillableResourceID(v *string) *EndpointResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return eru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (eru *EndpointResourceUpdate) SetKind(s string) *EndpointResourceUpdate {
-	eru.mutation.SetKind(s)
-	return eru
+func (_u *EndpointResourceUpdate) SetKind(v string) *EndpointResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (eru *EndpointResourceUpdate) SetNillableKind(s *string) *EndpointResourceUpdate {
-	if s != nil {
-		eru.SetKind(*s)
+func (_u *EndpointResourceUpdate) SetNillableKind(v *string) *EndpointResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return eru
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (eru *EndpointResourceUpdate) ClearKind() *EndpointResourceUpdate {
-	eru.mutation.ClearKind()
-	return eru
+func (_u *EndpointResourceUpdate) ClearKind() *EndpointResourceUpdate {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (eru *EndpointResourceUpdate) SetName(s string) *EndpointResourceUpdate {
-	eru.mutation.SetName(s)
-	return eru
+func (_u *EndpointResourceUpdate) SetName(v string) *EndpointResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (eru *EndpointResourceUpdate) SetNillableName(s *string) *EndpointResourceUpdate {
-	if s != nil {
-		eru.SetName(*s)
+func (_u *EndpointResourceUpdate) SetNillableName(v *string) *EndpointResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return eru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (eru *EndpointResourceUpdate) ClearName() *EndpointResourceUpdate {
-	eru.mutation.ClearName()
-	return eru
+func (_u *EndpointResourceUpdate) ClearName() *EndpointResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (eru *EndpointResourceUpdate) SetUpdatedAt(s string) *EndpointResourceUpdate {
-	eru.mutation.SetUpdatedAt(s)
-	return eru
+func (_u *EndpointResourceUpdate) SetUpdatedAt(v string) *EndpointResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (eru *EndpointResourceUpdate) SetNillableUpdatedAt(s *string) *EndpointResourceUpdate {
-	if s != nil {
-		eru.SetUpdatedAt(*s)
+func (_u *EndpointResourceUpdate) SetNillableUpdatedAt(v *string) *EndpointResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return eru
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (eru *EndpointResourceUpdate) SetHostID(id int) *EndpointResourceUpdate {
-	eru.mutation.SetHostID(id)
-	return eru
+func (_u *EndpointResourceUpdate) SetHostID(id int) *EndpointResourceUpdate {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetNillableHostID sets the "host" edge to the HostResource entity by ID if the given value is not nil.
-func (eru *EndpointResourceUpdate) SetNillableHostID(id *int) *EndpointResourceUpdate {
+func (_u *EndpointResourceUpdate) SetNillableHostID(id *int) *EndpointResourceUpdate {
 	if id != nil {
-		eru = eru.SetHostID(*id)
+		_u = _u.SetHostID(*id)
 	}
-	return eru
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (eru *EndpointResourceUpdate) SetHost(h *HostResource) *EndpointResourceUpdate {
-	return eru.SetHostID(h.ID)
+func (_u *EndpointResourceUpdate) SetHost(v *HostResource) *EndpointResourceUpdate {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the EndpointResourceMutation object of the builder.
-func (eru *EndpointResourceUpdate) Mutation() *EndpointResourceMutation {
-	return eru.mutation
+func (_u *EndpointResourceUpdate) Mutation() *EndpointResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (eru *EndpointResourceUpdate) ClearHost() *EndpointResourceUpdate {
-	eru.mutation.ClearHost()
-	return eru
+func (_u *EndpointResourceUpdate) ClearHost() *EndpointResourceUpdate {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (eru *EndpointResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, eru.sqlSave, eru.mutation, eru.hooks)
+func (_u *EndpointResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (eru *EndpointResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := eru.Save(ctx)
+func (_u *EndpointResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -141,46 +141,46 @@ func (eru *EndpointResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (eru *EndpointResourceUpdate) Exec(ctx context.Context) error {
-	_, err := eru.Save(ctx)
+func (_u *EndpointResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (eru *EndpointResourceUpdate) ExecX(ctx context.Context) {
-	if err := eru.Exec(ctx); err != nil {
+func (_u *EndpointResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (eru *EndpointResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *EndpointResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(endpointresource.Table, endpointresource.Columns, sqlgraph.NewFieldSpec(endpointresource.FieldID, field.TypeInt))
-	if ps := eru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := eru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(endpointresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := eru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(endpointresource.FieldKind, field.TypeString, value)
 	}
-	if eru.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(endpointresource.FieldKind, field.TypeString)
 	}
-	if value, ok := eru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(endpointresource.FieldName, field.TypeString, value)
 	}
-	if eru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(endpointresource.FieldName, field.TypeString)
 	}
-	if value, ok := eru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(endpointresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if eru.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -193,7 +193,7 @@ func (eru *EndpointResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := eru.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -209,7 +209,7 @@ func (eru *EndpointResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, eru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{endpointresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -217,8 +217,8 @@ func (eru *EndpointResourceUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		return 0, err
 	}
-	eru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // EndpointResourceUpdateOne is the builder for updating a single EndpointResource entity.
@@ -230,124 +230,124 @@ type EndpointResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (eruo *EndpointResourceUpdateOne) SetResourceID(s string) *EndpointResourceUpdateOne {
-	eruo.mutation.SetResourceID(s)
-	return eruo
+func (_u *EndpointResourceUpdateOne) SetResourceID(v string) *EndpointResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (eruo *EndpointResourceUpdateOne) SetNillableResourceID(s *string) *EndpointResourceUpdateOne {
-	if s != nil {
-		eruo.SetResourceID(*s)
+func (_u *EndpointResourceUpdateOne) SetNillableResourceID(v *string) *EndpointResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return eruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (eruo *EndpointResourceUpdateOne) SetKind(s string) *EndpointResourceUpdateOne {
-	eruo.mutation.SetKind(s)
-	return eruo
+func (_u *EndpointResourceUpdateOne) SetKind(v string) *EndpointResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (eruo *EndpointResourceUpdateOne) SetNillableKind(s *string) *EndpointResourceUpdateOne {
-	if s != nil {
-		eruo.SetKind(*s)
+func (_u *EndpointResourceUpdateOne) SetNillableKind(v *string) *EndpointResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return eruo
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (eruo *EndpointResourceUpdateOne) ClearKind() *EndpointResourceUpdateOne {
-	eruo.mutation.ClearKind()
-	return eruo
+func (_u *EndpointResourceUpdateOne) ClearKind() *EndpointResourceUpdateOne {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (eruo *EndpointResourceUpdateOne) SetName(s string) *EndpointResourceUpdateOne {
-	eruo.mutation.SetName(s)
-	return eruo
+func (_u *EndpointResourceUpdateOne) SetName(v string) *EndpointResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (eruo *EndpointResourceUpdateOne) SetNillableName(s *string) *EndpointResourceUpdateOne {
-	if s != nil {
-		eruo.SetName(*s)
+func (_u *EndpointResourceUpdateOne) SetNillableName(v *string) *EndpointResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return eruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (eruo *EndpointResourceUpdateOne) ClearName() *EndpointResourceUpdateOne {
-	eruo.mutation.ClearName()
-	return eruo
+func (_u *EndpointResourceUpdateOne) ClearName() *EndpointResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (eruo *EndpointResourceUpdateOne) SetUpdatedAt(s string) *EndpointResourceUpdateOne {
-	eruo.mutation.SetUpdatedAt(s)
-	return eruo
+func (_u *EndpointResourceUpdateOne) SetUpdatedAt(v string) *EndpointResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (eruo *EndpointResourceUpdateOne) SetNillableUpdatedAt(s *string) *EndpointResourceUpdateOne {
-	if s != nil {
-		eruo.SetUpdatedAt(*s)
+func (_u *EndpointResourceUpdateOne) SetNillableUpdatedAt(v *string) *EndpointResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return eruo
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (eruo *EndpointResourceUpdateOne) SetHostID(id int) *EndpointResourceUpdateOne {
-	eruo.mutation.SetHostID(id)
-	return eruo
+func (_u *EndpointResourceUpdateOne) SetHostID(id int) *EndpointResourceUpdateOne {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetNillableHostID sets the "host" edge to the HostResource entity by ID if the given value is not nil.
-func (eruo *EndpointResourceUpdateOne) SetNillableHostID(id *int) *EndpointResourceUpdateOne {
+func (_u *EndpointResourceUpdateOne) SetNillableHostID(id *int) *EndpointResourceUpdateOne {
 	if id != nil {
-		eruo = eruo.SetHostID(*id)
+		_u = _u.SetHostID(*id)
 	}
-	return eruo
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (eruo *EndpointResourceUpdateOne) SetHost(h *HostResource) *EndpointResourceUpdateOne {
-	return eruo.SetHostID(h.ID)
+func (_u *EndpointResourceUpdateOne) SetHost(v *HostResource) *EndpointResourceUpdateOne {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the EndpointResourceMutation object of the builder.
-func (eruo *EndpointResourceUpdateOne) Mutation() *EndpointResourceMutation {
-	return eruo.mutation
+func (_u *EndpointResourceUpdateOne) Mutation() *EndpointResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (eruo *EndpointResourceUpdateOne) ClearHost() *EndpointResourceUpdateOne {
-	eruo.mutation.ClearHost()
-	return eruo
+func (_u *EndpointResourceUpdateOne) ClearHost() *EndpointResourceUpdateOne {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Where appends a list predicates to the EndpointResourceUpdate builder.
-func (eruo *EndpointResourceUpdateOne) Where(ps ...predicate.EndpointResource) *EndpointResourceUpdateOne {
-	eruo.mutation.Where(ps...)
-	return eruo
+func (_u *EndpointResourceUpdateOne) Where(ps ...predicate.EndpointResource) *EndpointResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (eruo *EndpointResourceUpdateOne) Select(field string, fields ...string) *EndpointResourceUpdateOne {
-	eruo.fields = append([]string{field}, fields...)
-	return eruo
+func (_u *EndpointResourceUpdateOne) Select(field string, fields ...string) *EndpointResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated EndpointResource entity.
-func (eruo *EndpointResourceUpdateOne) Save(ctx context.Context) (*EndpointResource, error) {
-	return withHooks(ctx, eruo.sqlSave, eruo.mutation, eruo.hooks)
+func (_u *EndpointResourceUpdateOne) Save(ctx context.Context) (*EndpointResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (eruo *EndpointResourceUpdateOne) SaveX(ctx context.Context) *EndpointResource {
-	node, err := eruo.Save(ctx)
+func (_u *EndpointResourceUpdateOne) SaveX(ctx context.Context) *EndpointResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -355,26 +355,26 @@ func (eruo *EndpointResourceUpdateOne) SaveX(ctx context.Context) *EndpointResou
 }
 
 // Exec executes the query on the entity.
-func (eruo *EndpointResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := eruo.Save(ctx)
+func (_u *EndpointResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (eruo *EndpointResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := eruo.Exec(ctx); err != nil {
+func (_u *EndpointResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (eruo *EndpointResourceUpdateOne) sqlSave(ctx context.Context) (_node *EndpointResource, err error) {
+func (_u *EndpointResourceUpdateOne) sqlSave(ctx context.Context) (_node *EndpointResource, err error) {
 	_spec := sqlgraph.NewUpdateSpec(endpointresource.Table, endpointresource.Columns, sqlgraph.NewFieldSpec(endpointresource.FieldID, field.TypeInt))
-	id, ok := eruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "EndpointResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := eruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, endpointresource.FieldID)
 		for _, f := range fields {
@@ -386,32 +386,32 @@ func (eruo *EndpointResourceUpdateOne) sqlSave(ctx context.Context) (_node *Endp
 			}
 		}
 	}
-	if ps := eruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := eruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(endpointresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := eruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(endpointresource.FieldKind, field.TypeString, value)
 	}
-	if eruo.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(endpointresource.FieldKind, field.TypeString)
 	}
-	if value, ok := eruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(endpointresource.FieldName, field.TypeString, value)
 	}
-	if eruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(endpointresource.FieldName, field.TypeString)
 	}
-	if value, ok := eruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(endpointresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if eruo.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -424,7 +424,7 @@ func (eruo *EndpointResourceUpdateOne) sqlSave(ctx context.Context) (_node *Endp
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := eruo.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -440,10 +440,10 @@ func (eruo *EndpointResourceUpdateOne) sqlSave(ctx context.Context) (_node *Endp
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &EndpointResource{config: eruo.config}
+	_node = &EndpointResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, eruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{endpointresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -451,6 +451,6 @@ func (eruo *EndpointResourceUpdateOne) sqlSave(ctx context.Context) (_node *Endp
 		}
 		return nil, err
 	}
-	eruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

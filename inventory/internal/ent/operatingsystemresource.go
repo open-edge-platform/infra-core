@@ -87,7 +87,7 @@ func (*OperatingSystemResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the OperatingSystemResource fields.
-func (osr *OperatingSystemResource) assignValues(columns []string, values []any) error {
+func (_m *OperatingSystemResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -98,159 +98,159 @@ func (osr *OperatingSystemResource) assignValues(columns []string, values []any)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			osr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case operatingsystemresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				osr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case operatingsystemresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				osr.Name = value.String
+				_m.Name = value.String
 			}
 		case operatingsystemresource.FieldArchitecture:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field architecture", values[i])
 			} else if value.Valid {
-				osr.Architecture = value.String
+				_m.Architecture = value.String
 			}
 		case operatingsystemresource.FieldKernelCommand:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kernel_command", values[i])
 			} else if value.Valid {
-				osr.KernelCommand = value.String
+				_m.KernelCommand = value.String
 			}
 		case operatingsystemresource.FieldUpdateSources:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_sources", values[i])
 			} else if value.Valid {
-				osr.UpdateSources = value.String
+				_m.UpdateSources = value.String
 			}
 		case operatingsystemresource.FieldImageURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field image_url", values[i])
 			} else if value.Valid {
-				osr.ImageURL = value.String
+				_m.ImageURL = value.String
 			}
 		case operatingsystemresource.FieldImageID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field image_id", values[i])
 			} else if value.Valid {
-				osr.ImageID = value.String
+				_m.ImageID = value.String
 			}
 		case operatingsystemresource.FieldSha256:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sha256", values[i])
 			} else if value.Valid {
-				osr.Sha256 = value.String
+				_m.Sha256 = value.String
 			}
 		case operatingsystemresource.FieldProfileName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field profile_name", values[i])
 			} else if value.Valid {
-				osr.ProfileName = value.String
+				_m.ProfileName = value.String
 			}
 		case operatingsystemresource.FieldProfileVersion:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field profile_version", values[i])
 			} else if value.Valid {
-				osr.ProfileVersion = value.String
+				_m.ProfileVersion = value.String
 			}
 		case operatingsystemresource.FieldInstalledPackages:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field installed_packages", values[i])
 			} else if value.Valid {
-				osr.InstalledPackages = value.String
+				_m.InstalledPackages = value.String
 			}
 		case operatingsystemresource.FieldInstalledPackagesURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field installed_packages_url", values[i])
 			} else if value.Valid {
-				osr.InstalledPackagesURL = value.String
+				_m.InstalledPackagesURL = value.String
 			}
 		case operatingsystemresource.FieldSecurityFeature:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field security_feature", values[i])
 			} else if value.Valid {
-				osr.SecurityFeature = operatingsystemresource.SecurityFeature(value.String)
+				_m.SecurityFeature = operatingsystemresource.SecurityFeature(value.String)
 			}
 		case operatingsystemresource.FieldOsType:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field os_type", values[i])
 			} else if value.Valid {
-				osr.OsType = operatingsystemresource.OsType(value.String)
+				_m.OsType = operatingsystemresource.OsType(value.String)
 			}
 		case operatingsystemresource.FieldOsProvider:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field os_provider", values[i])
 			} else if value.Valid {
-				osr.OsProvider = operatingsystemresource.OsProvider(value.String)
+				_m.OsProvider = operatingsystemresource.OsProvider(value.String)
 			}
 		case operatingsystemresource.FieldPlatformBundle:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field platform_bundle", values[i])
 			} else if value.Valid {
-				osr.PlatformBundle = value.String
+				_m.PlatformBundle = value.String
 			}
 		case operatingsystemresource.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				osr.Description = value.String
+				_m.Description = value.String
 			}
 		case operatingsystemresource.FieldMetadata:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
-				osr.Metadata = value.String
+				_m.Metadata = value.String
 			}
 		case operatingsystemresource.FieldExistingCvesURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field existing_cves_url", values[i])
 			} else if value.Valid {
-				osr.ExistingCvesURL = value.String
+				_m.ExistingCvesURL = value.String
 			}
 		case operatingsystemresource.FieldExistingCves:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field existing_cves", values[i])
 			} else if value.Valid {
-				osr.ExistingCves = value.String
+				_m.ExistingCves = value.String
 			}
 		case operatingsystemresource.FieldFixedCvesURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field fixed_cves_url", values[i])
 			} else if value.Valid {
-				osr.FixedCvesURL = value.String
+				_m.FixedCvesURL = value.String
 			}
 		case operatingsystemresource.FieldFixedCves:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field fixed_cves", values[i])
 			} else if value.Valid {
-				osr.FixedCves = value.String
+				_m.FixedCves = value.String
 			}
 		case operatingsystemresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				osr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case operatingsystemresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				osr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case operatingsystemresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				osr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		default:
-			osr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -258,107 +258,107 @@ func (osr *OperatingSystemResource) assignValues(columns []string, values []any)
 
 // Value returns the ent.Value that was dynamically selected and assigned to the OperatingSystemResource.
 // This includes values selected through modifiers, order, etc.
-func (osr *OperatingSystemResource) Value(name string) (ent.Value, error) {
-	return osr.selectValues.Get(name)
+func (_m *OperatingSystemResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this OperatingSystemResource.
 // Note that you need to call OperatingSystemResource.Unwrap() before calling this method if this OperatingSystemResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (osr *OperatingSystemResource) Update() *OperatingSystemResourceUpdateOne {
-	return NewOperatingSystemResourceClient(osr.config).UpdateOne(osr)
+func (_m *OperatingSystemResource) Update() *OperatingSystemResourceUpdateOne {
+	return NewOperatingSystemResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the OperatingSystemResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (osr *OperatingSystemResource) Unwrap() *OperatingSystemResource {
-	_tx, ok := osr.config.driver.(*txDriver)
+func (_m *OperatingSystemResource) Unwrap() *OperatingSystemResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: OperatingSystemResource is not a transactional entity")
 	}
-	osr.config.driver = _tx.drv
-	return osr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (osr *OperatingSystemResource) String() string {
+func (_m *OperatingSystemResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("OperatingSystemResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", osr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(osr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(osr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("architecture=")
-	builder.WriteString(osr.Architecture)
+	builder.WriteString(_m.Architecture)
 	builder.WriteString(", ")
 	builder.WriteString("kernel_command=")
-	builder.WriteString(osr.KernelCommand)
+	builder.WriteString(_m.KernelCommand)
 	builder.WriteString(", ")
 	builder.WriteString("update_sources=")
-	builder.WriteString(osr.UpdateSources)
+	builder.WriteString(_m.UpdateSources)
 	builder.WriteString(", ")
 	builder.WriteString("image_url=")
-	builder.WriteString(osr.ImageURL)
+	builder.WriteString(_m.ImageURL)
 	builder.WriteString(", ")
 	builder.WriteString("image_id=")
-	builder.WriteString(osr.ImageID)
+	builder.WriteString(_m.ImageID)
 	builder.WriteString(", ")
 	builder.WriteString("sha256=")
-	builder.WriteString(osr.Sha256)
+	builder.WriteString(_m.Sha256)
 	builder.WriteString(", ")
 	builder.WriteString("profile_name=")
-	builder.WriteString(osr.ProfileName)
+	builder.WriteString(_m.ProfileName)
 	builder.WriteString(", ")
 	builder.WriteString("profile_version=")
-	builder.WriteString(osr.ProfileVersion)
+	builder.WriteString(_m.ProfileVersion)
 	builder.WriteString(", ")
 	builder.WriteString("installed_packages=")
-	builder.WriteString(osr.InstalledPackages)
+	builder.WriteString(_m.InstalledPackages)
 	builder.WriteString(", ")
 	builder.WriteString("installed_packages_url=")
-	builder.WriteString(osr.InstalledPackagesURL)
+	builder.WriteString(_m.InstalledPackagesURL)
 	builder.WriteString(", ")
 	builder.WriteString("security_feature=")
-	builder.WriteString(fmt.Sprintf("%v", osr.SecurityFeature))
+	builder.WriteString(fmt.Sprintf("%v", _m.SecurityFeature))
 	builder.WriteString(", ")
 	builder.WriteString("os_type=")
-	builder.WriteString(fmt.Sprintf("%v", osr.OsType))
+	builder.WriteString(fmt.Sprintf("%v", _m.OsType))
 	builder.WriteString(", ")
 	builder.WriteString("os_provider=")
-	builder.WriteString(fmt.Sprintf("%v", osr.OsProvider))
+	builder.WriteString(fmt.Sprintf("%v", _m.OsProvider))
 	builder.WriteString(", ")
 	builder.WriteString("platform_bundle=")
-	builder.WriteString(osr.PlatformBundle)
+	builder.WriteString(_m.PlatformBundle)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(osr.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
-	builder.WriteString(osr.Metadata)
+	builder.WriteString(_m.Metadata)
 	builder.WriteString(", ")
 	builder.WriteString("existing_cves_url=")
-	builder.WriteString(osr.ExistingCvesURL)
+	builder.WriteString(_m.ExistingCvesURL)
 	builder.WriteString(", ")
 	builder.WriteString("existing_cves=")
-	builder.WriteString(osr.ExistingCves)
+	builder.WriteString(_m.ExistingCves)
 	builder.WriteString(", ")
 	builder.WriteString("fixed_cves_url=")
-	builder.WriteString(osr.FixedCvesURL)
+	builder.WriteString(_m.FixedCvesURL)
 	builder.WriteString(", ")
 	builder.WriteString("fixed_cves=")
-	builder.WriteString(osr.FixedCves)
+	builder.WriteString(_m.FixedCves)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(osr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(osr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(osr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

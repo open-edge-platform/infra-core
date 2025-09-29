@@ -28,40 +28,40 @@ type LocalAccountResourceQuery struct {
 }
 
 // Where adds a new predicate for the LocalAccountResourceQuery builder.
-func (larq *LocalAccountResourceQuery) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceQuery {
-	larq.predicates = append(larq.predicates, ps...)
-	return larq
+func (_q *LocalAccountResourceQuery) Where(ps ...predicate.LocalAccountResource) *LocalAccountResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (larq *LocalAccountResourceQuery) Limit(limit int) *LocalAccountResourceQuery {
-	larq.ctx.Limit = &limit
-	return larq
+func (_q *LocalAccountResourceQuery) Limit(limit int) *LocalAccountResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (larq *LocalAccountResourceQuery) Offset(offset int) *LocalAccountResourceQuery {
-	larq.ctx.Offset = &offset
-	return larq
+func (_q *LocalAccountResourceQuery) Offset(offset int) *LocalAccountResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (larq *LocalAccountResourceQuery) Unique(unique bool) *LocalAccountResourceQuery {
-	larq.ctx.Unique = &unique
-	return larq
+func (_q *LocalAccountResourceQuery) Unique(unique bool) *LocalAccountResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (larq *LocalAccountResourceQuery) Order(o ...localaccountresource.OrderOption) *LocalAccountResourceQuery {
-	larq.order = append(larq.order, o...)
-	return larq
+func (_q *LocalAccountResourceQuery) Order(o ...localaccountresource.OrderOption) *LocalAccountResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // First returns the first LocalAccountResource entity from the query.
 // Returns a *NotFoundError when no LocalAccountResource was found.
-func (larq *LocalAccountResourceQuery) First(ctx context.Context) (*LocalAccountResource, error) {
-	nodes, err := larq.Limit(1).All(setContextOp(ctx, larq.ctx, ent.OpQueryFirst))
+func (_q *LocalAccountResourceQuery) First(ctx context.Context) (*LocalAccountResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (larq *LocalAccountResourceQuery) First(ctx context.Context) (*LocalAccount
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) FirstX(ctx context.Context) *LocalAccountResource {
-	node, err := larq.First(ctx)
+func (_q *LocalAccountResourceQuery) FirstX(ctx context.Context) *LocalAccountResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -82,9 +82,9 @@ func (larq *LocalAccountResourceQuery) FirstX(ctx context.Context) *LocalAccount
 
 // FirstID returns the first LocalAccountResource ID from the query.
 // Returns a *NotFoundError when no LocalAccountResource ID was found.
-func (larq *LocalAccountResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *LocalAccountResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = larq.Limit(1).IDs(setContextOp(ctx, larq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -95,8 +95,8 @@ func (larq *LocalAccountResourceQuery) FirstID(ctx context.Context) (id int, err
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := larq.FirstID(ctx)
+func (_q *LocalAccountResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -106,8 +106,8 @@ func (larq *LocalAccountResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single LocalAccountResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one LocalAccountResource entity is found.
 // Returns a *NotFoundError when no LocalAccountResource entities are found.
-func (larq *LocalAccountResourceQuery) Only(ctx context.Context) (*LocalAccountResource, error) {
-	nodes, err := larq.Limit(2).All(setContextOp(ctx, larq.ctx, ent.OpQueryOnly))
+func (_q *LocalAccountResourceQuery) Only(ctx context.Context) (*LocalAccountResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +122,8 @@ func (larq *LocalAccountResourceQuery) Only(ctx context.Context) (*LocalAccountR
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) OnlyX(ctx context.Context) *LocalAccountResource {
-	node, err := larq.Only(ctx)
+func (_q *LocalAccountResourceQuery) OnlyX(ctx context.Context) *LocalAccountResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -133,9 +133,9 @@ func (larq *LocalAccountResourceQuery) OnlyX(ctx context.Context) *LocalAccountR
 // OnlyID is like Only, but returns the only LocalAccountResource ID in the query.
 // Returns a *NotSingularError when more than one LocalAccountResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (larq *LocalAccountResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *LocalAccountResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = larq.Limit(2).IDs(setContextOp(ctx, larq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -150,8 +150,8 @@ func (larq *LocalAccountResourceQuery) OnlyID(ctx context.Context) (id int, err 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := larq.OnlyID(ctx)
+func (_q *LocalAccountResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,18 +159,18 @@ func (larq *LocalAccountResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of LocalAccountResources.
-func (larq *LocalAccountResourceQuery) All(ctx context.Context) ([]*LocalAccountResource, error) {
-	ctx = setContextOp(ctx, larq.ctx, ent.OpQueryAll)
-	if err := larq.prepareQuery(ctx); err != nil {
+func (_q *LocalAccountResourceQuery) All(ctx context.Context) ([]*LocalAccountResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*LocalAccountResource, *LocalAccountResourceQuery]()
-	return withInterceptors[[]*LocalAccountResource](ctx, larq, qr, larq.inters)
+	return withInterceptors[[]*LocalAccountResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) AllX(ctx context.Context) []*LocalAccountResource {
-	nodes, err := larq.All(ctx)
+func (_q *LocalAccountResourceQuery) AllX(ctx context.Context) []*LocalAccountResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -178,20 +178,20 @@ func (larq *LocalAccountResourceQuery) AllX(ctx context.Context) []*LocalAccount
 }
 
 // IDs executes the query and returns a list of LocalAccountResource IDs.
-func (larq *LocalAccountResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if larq.ctx.Unique == nil && larq.path != nil {
-		larq.Unique(true)
+func (_q *LocalAccountResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, larq.ctx, ent.OpQueryIDs)
-	if err = larq.Select(localaccountresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(localaccountresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := larq.IDs(ctx)
+func (_q *LocalAccountResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -199,17 +199,17 @@ func (larq *LocalAccountResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (larq *LocalAccountResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, larq.ctx, ent.OpQueryCount)
-	if err := larq.prepareQuery(ctx); err != nil {
+func (_q *LocalAccountResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, larq, querierCount[*LocalAccountResourceQuery](), larq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*LocalAccountResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) CountX(ctx context.Context) int {
-	count, err := larq.Count(ctx)
+func (_q *LocalAccountResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -217,9 +217,9 @@ func (larq *LocalAccountResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (larq *LocalAccountResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, larq.ctx, ent.OpQueryExist)
-	switch _, err := larq.FirstID(ctx); {
+func (_q *LocalAccountResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -230,8 +230,8 @@ func (larq *LocalAccountResourceQuery) Exist(ctx context.Context) (bool, error) 
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (larq *LocalAccountResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := larq.Exist(ctx)
+func (_q *LocalAccountResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -240,19 +240,19 @@ func (larq *LocalAccountResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the LocalAccountResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (larq *LocalAccountResourceQuery) Clone() *LocalAccountResourceQuery {
-	if larq == nil {
+func (_q *LocalAccountResourceQuery) Clone() *LocalAccountResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &LocalAccountResourceQuery{
-		config:     larq.config,
-		ctx:        larq.ctx.Clone(),
-		order:      append([]localaccountresource.OrderOption{}, larq.order...),
-		inters:     append([]Interceptor{}, larq.inters...),
-		predicates: append([]predicate.LocalAccountResource{}, larq.predicates...),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]localaccountresource.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.LocalAccountResource{}, _q.predicates...),
 		// clone intermediate query.
-		sql:  larq.sql.Clone(),
-		path: larq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
@@ -270,10 +270,10 @@ func (larq *LocalAccountResourceQuery) Clone() *LocalAccountResourceQuery {
 //		GroupBy(localaccountresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (larq *LocalAccountResourceQuery) GroupBy(field string, fields ...string) *LocalAccountResourceGroupBy {
-	larq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &LocalAccountResourceGroupBy{build: larq}
-	grbuild.flds = &larq.ctx.Fields
+func (_q *LocalAccountResourceQuery) GroupBy(field string, fields ...string) *LocalAccountResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &LocalAccountResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = localaccountresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -291,62 +291,62 @@ func (larq *LocalAccountResourceQuery) GroupBy(field string, fields ...string) *
 //	client.LocalAccountResource.Query().
 //		Select(localaccountresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (larq *LocalAccountResourceQuery) Select(fields ...string) *LocalAccountResourceSelect {
-	larq.ctx.Fields = append(larq.ctx.Fields, fields...)
-	sbuild := &LocalAccountResourceSelect{LocalAccountResourceQuery: larq}
+func (_q *LocalAccountResourceQuery) Select(fields ...string) *LocalAccountResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &LocalAccountResourceSelect{LocalAccountResourceQuery: _q}
 	sbuild.label = localaccountresource.Label
-	sbuild.flds, sbuild.scan = &larq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a LocalAccountResourceSelect configured with the given aggregations.
-func (larq *LocalAccountResourceQuery) Aggregate(fns ...AggregateFunc) *LocalAccountResourceSelect {
-	return larq.Select().Aggregate(fns...)
+func (_q *LocalAccountResourceQuery) Aggregate(fns ...AggregateFunc) *LocalAccountResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (larq *LocalAccountResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range larq.inters {
+func (_q *LocalAccountResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, larq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range larq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !localaccountresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if larq.path != nil {
-		prev, err := larq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		larq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (larq *LocalAccountResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*LocalAccountResource, error) {
+func (_q *LocalAccountResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*LocalAccountResource, error) {
 	var (
 		nodes = []*LocalAccountResource{}
-		_spec = larq.querySpec()
+		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*LocalAccountResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &LocalAccountResource{config: larq.config}
+		node := &LocalAccountResource{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, larq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
@@ -355,24 +355,24 @@ func (larq *LocalAccountResourceQuery) sqlAll(ctx context.Context, hooks ...quer
 	return nodes, nil
 }
 
-func (larq *LocalAccountResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := larq.querySpec()
-	_spec.Node.Columns = larq.ctx.Fields
-	if len(larq.ctx.Fields) > 0 {
-		_spec.Unique = larq.ctx.Unique != nil && *larq.ctx.Unique
+func (_q *LocalAccountResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, larq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (larq *LocalAccountResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *LocalAccountResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(localaccountresource.Table, localaccountresource.Columns, sqlgraph.NewFieldSpec(localaccountresource.FieldID, field.TypeInt))
-	_spec.From = larq.sql
-	if unique := larq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if larq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := larq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, localaccountresource.FieldID)
 		for i := range fields {
@@ -381,20 +381,20 @@ func (larq *LocalAccountResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := larq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := larq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := larq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := larq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -404,33 +404,33 @@ func (larq *LocalAccountResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (larq *LocalAccountResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(larq.driver.Dialect())
+func (_q *LocalAccountResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(localaccountresource.Table)
-	columns := larq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = localaccountresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if larq.sql != nil {
-		selector = larq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if larq.ctx.Unique != nil && *larq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range larq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range larq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := larq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := larq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -443,41 +443,41 @@ type LocalAccountResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (largb *LocalAccountResourceGroupBy) Aggregate(fns ...AggregateFunc) *LocalAccountResourceGroupBy {
-	largb.fns = append(largb.fns, fns...)
-	return largb
+func (_g *LocalAccountResourceGroupBy) Aggregate(fns ...AggregateFunc) *LocalAccountResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (largb *LocalAccountResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, largb.build.ctx, ent.OpQueryGroupBy)
-	if err := largb.build.prepareQuery(ctx); err != nil {
+func (_g *LocalAccountResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*LocalAccountResourceQuery, *LocalAccountResourceGroupBy](ctx, largb.build, largb, largb.build.inters, v)
+	return scanWithInterceptors[*LocalAccountResourceQuery, *LocalAccountResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (largb *LocalAccountResourceGroupBy) sqlScan(ctx context.Context, root *LocalAccountResourceQuery, v any) error {
+func (_g *LocalAccountResourceGroupBy) sqlScan(ctx context.Context, root *LocalAccountResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(largb.fns))
-	for _, fn := range largb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*largb.flds)+len(largb.fns))
-		for _, f := range *largb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*largb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := largb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -491,27 +491,27 @@ type LocalAccountResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (lars *LocalAccountResourceSelect) Aggregate(fns ...AggregateFunc) *LocalAccountResourceSelect {
-	lars.fns = append(lars.fns, fns...)
-	return lars
+func (_s *LocalAccountResourceSelect) Aggregate(fns ...AggregateFunc) *LocalAccountResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (lars *LocalAccountResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, lars.ctx, ent.OpQuerySelect)
-	if err := lars.prepareQuery(ctx); err != nil {
+func (_s *LocalAccountResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*LocalAccountResourceQuery, *LocalAccountResourceSelect](ctx, lars.LocalAccountResourceQuery, lars, lars.inters, v)
+	return scanWithInterceptors[*LocalAccountResourceQuery, *LocalAccountResourceSelect](ctx, _s.LocalAccountResourceQuery, _s, _s.inters, v)
 }
 
-func (lars *LocalAccountResourceSelect) sqlScan(ctx context.Context, root *LocalAccountResourceQuery, v any) error {
+func (_s *LocalAccountResourceSelect) sqlScan(ctx context.Context, root *LocalAccountResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(lars.fns))
-	for _, fn := range lars.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*lars.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -519,7 +519,7 @@ func (lars *LocalAccountResourceSelect) sqlScan(ctx context.Context, root *Local
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := lars.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

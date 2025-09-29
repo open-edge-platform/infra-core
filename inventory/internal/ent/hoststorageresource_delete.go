@@ -20,56 +20,56 @@ type HoststorageResourceDelete struct {
 }
 
 // Where appends a list predicates to the HoststorageResourceDelete builder.
-func (hrd *HoststorageResourceDelete) Where(ps ...predicate.HoststorageResource) *HoststorageResourceDelete {
-	hrd.mutation.Where(ps...)
-	return hrd
+func (_d *HoststorageResourceDelete) Where(ps ...predicate.HoststorageResource) *HoststorageResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (hrd *HoststorageResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, hrd.sqlExec, hrd.mutation, hrd.hooks)
+func (_d *HoststorageResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrd *HoststorageResourceDelete) ExecX(ctx context.Context) int {
-	n, err := hrd.Exec(ctx)
+func (_d *HoststorageResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (hrd *HoststorageResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *HoststorageResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(hoststorageresource.Table, sqlgraph.NewFieldSpec(hoststorageresource.FieldID, field.TypeInt))
-	if ps := hrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, hrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	hrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // HoststorageResourceDeleteOne is the builder for deleting a single HoststorageResource entity.
 type HoststorageResourceDeleteOne struct {
-	hrd *HoststorageResourceDelete
+	_d *HoststorageResourceDelete
 }
 
 // Where appends a list predicates to the HoststorageResourceDelete builder.
-func (hrdo *HoststorageResourceDeleteOne) Where(ps ...predicate.HoststorageResource) *HoststorageResourceDeleteOne {
-	hrdo.hrd.mutation.Where(ps...)
-	return hrdo
+func (_d *HoststorageResourceDeleteOne) Where(ps ...predicate.HoststorageResource) *HoststorageResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (hrdo *HoststorageResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := hrdo.hrd.Exec(ctx)
+func (_d *HoststorageResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (hrdo *HoststorageResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrdo *HoststorageResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := hrdo.Exec(ctx); err != nil {
+func (_d *HoststorageResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

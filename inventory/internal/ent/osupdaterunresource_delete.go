@@ -20,56 +20,56 @@ type OSUpdateRunResourceDelete struct {
 }
 
 // Where appends a list predicates to the OSUpdateRunResourceDelete builder.
-func (ourrd *OSUpdateRunResourceDelete) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceDelete {
-	ourrd.mutation.Where(ps...)
-	return ourrd
+func (_d *OSUpdateRunResourceDelete) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (ourrd *OSUpdateRunResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, ourrd.sqlExec, ourrd.mutation, ourrd.hooks)
+func (_d *OSUpdateRunResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ourrd *OSUpdateRunResourceDelete) ExecX(ctx context.Context) int {
-	n, err := ourrd.Exec(ctx)
+func (_d *OSUpdateRunResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (ourrd *OSUpdateRunResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *OSUpdateRunResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(osupdaterunresource.Table, sqlgraph.NewFieldSpec(osupdaterunresource.FieldID, field.TypeInt))
-	if ps := ourrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, ourrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	ourrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // OSUpdateRunResourceDeleteOne is the builder for deleting a single OSUpdateRunResource entity.
 type OSUpdateRunResourceDeleteOne struct {
-	ourrd *OSUpdateRunResourceDelete
+	_d *OSUpdateRunResourceDelete
 }
 
 // Where appends a list predicates to the OSUpdateRunResourceDelete builder.
-func (ourrdo *OSUpdateRunResourceDeleteOne) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceDeleteOne {
-	ourrdo.ourrd.mutation.Where(ps...)
-	return ourrdo
+func (_d *OSUpdateRunResourceDeleteOne) Where(ps ...predicate.OSUpdateRunResource) *OSUpdateRunResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (ourrdo *OSUpdateRunResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := ourrdo.ourrd.Exec(ctx)
+func (_d *OSUpdateRunResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (ourrdo *OSUpdateRunResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ourrdo *OSUpdateRunResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := ourrdo.Exec(ctx); err != nil {
+func (_d *OSUpdateRunResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

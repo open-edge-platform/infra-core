@@ -72,7 +72,7 @@ func (*CustomConfigResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the CustomConfigResource fields.
-func (ccr *CustomConfigResource) assignValues(columns []string, values []any) error {
+func (_m *CustomConfigResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -83,51 +83,51 @@ func (ccr *CustomConfigResource) assignValues(columns []string, values []any) er
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			ccr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case customconfigresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				ccr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case customconfigresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				ccr.Name = value.String
+				_m.Name = value.String
 			}
 		case customconfigresource.FieldConfig:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field config", values[i])
 			} else if value.Valid {
-				ccr.Config = value.String
+				_m.Config = value.String
 			}
 		case customconfigresource.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				ccr.Description = value.String
+				_m.Description = value.String
 			}
 		case customconfigresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				ccr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case customconfigresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				ccr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case customconfigresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				ccr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		default:
-			ccr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -135,58 +135,58 @@ func (ccr *CustomConfigResource) assignValues(columns []string, values []any) er
 
 // Value returns the ent.Value that was dynamically selected and assigned to the CustomConfigResource.
 // This includes values selected through modifiers, order, etc.
-func (ccr *CustomConfigResource) Value(name string) (ent.Value, error) {
-	return ccr.selectValues.Get(name)
+func (_m *CustomConfigResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryInstances queries the "instances" edge of the CustomConfigResource entity.
-func (ccr *CustomConfigResource) QueryInstances() *InstanceResourceQuery {
-	return NewCustomConfigResourceClient(ccr.config).QueryInstances(ccr)
+func (_m *CustomConfigResource) QueryInstances() *InstanceResourceQuery {
+	return NewCustomConfigResourceClient(_m.config).QueryInstances(_m)
 }
 
 // Update returns a builder for updating this CustomConfigResource.
 // Note that you need to call CustomConfigResource.Unwrap() before calling this method if this CustomConfigResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (ccr *CustomConfigResource) Update() *CustomConfigResourceUpdateOne {
-	return NewCustomConfigResourceClient(ccr.config).UpdateOne(ccr)
+func (_m *CustomConfigResource) Update() *CustomConfigResourceUpdateOne {
+	return NewCustomConfigResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the CustomConfigResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (ccr *CustomConfigResource) Unwrap() *CustomConfigResource {
-	_tx, ok := ccr.config.driver.(*txDriver)
+func (_m *CustomConfigResource) Unwrap() *CustomConfigResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: CustomConfigResource is not a transactional entity")
 	}
-	ccr.config.driver = _tx.drv
-	return ccr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (ccr *CustomConfigResource) String() string {
+func (_m *CustomConfigResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("CustomConfigResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", ccr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(ccr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(ccr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("config=")
-	builder.WriteString(ccr.Config)
+	builder.WriteString(_m.Config)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(ccr.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(ccr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(ccr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(ccr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

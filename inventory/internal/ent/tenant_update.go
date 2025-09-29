@@ -22,106 +22,106 @@ type TenantUpdate struct {
 }
 
 // Where appends a list predicates to the TenantUpdate builder.
-func (tu *TenantUpdate) Where(ps ...predicate.Tenant) *TenantUpdate {
-	tu.mutation.Where(ps...)
-	return tu
+func (_u *TenantUpdate) Where(ps ...predicate.Tenant) *TenantUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tu *TenantUpdate) SetResourceID(s string) *TenantUpdate {
-	tu.mutation.SetResourceID(s)
-	return tu
+func (_u *TenantUpdate) SetResourceID(v string) *TenantUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (tu *TenantUpdate) SetNillableResourceID(s *string) *TenantUpdate {
-	if s != nil {
-		tu.SetResourceID(*s)
+func (_u *TenantUpdate) SetNillableResourceID(v *string) *TenantUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return tu
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (tu *TenantUpdate) SetCurrentState(ts tenant.CurrentState) *TenantUpdate {
-	tu.mutation.SetCurrentState(ts)
-	return tu
+func (_u *TenantUpdate) SetCurrentState(v tenant.CurrentState) *TenantUpdate {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (tu *TenantUpdate) SetNillableCurrentState(ts *tenant.CurrentState) *TenantUpdate {
-	if ts != nil {
-		tu.SetCurrentState(*ts)
+func (_u *TenantUpdate) SetNillableCurrentState(v *tenant.CurrentState) *TenantUpdate {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return tu
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (tu *TenantUpdate) ClearCurrentState() *TenantUpdate {
-	tu.mutation.ClearCurrentState()
-	return tu
+func (_u *TenantUpdate) ClearCurrentState() *TenantUpdate {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (tu *TenantUpdate) SetDesiredState(ts tenant.DesiredState) *TenantUpdate {
-	tu.mutation.SetDesiredState(ts)
-	return tu
+func (_u *TenantUpdate) SetDesiredState(v tenant.DesiredState) *TenantUpdate {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (tu *TenantUpdate) SetNillableDesiredState(ts *tenant.DesiredState) *TenantUpdate {
-	if ts != nil {
-		tu.SetDesiredState(*ts)
+func (_u *TenantUpdate) SetNillableDesiredState(v *tenant.DesiredState) *TenantUpdate {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return tu
+	return _u
 }
 
 // SetWatcherOsmanager sets the "watcher_osmanager" field.
-func (tu *TenantUpdate) SetWatcherOsmanager(b bool) *TenantUpdate {
-	tu.mutation.SetWatcherOsmanager(b)
-	return tu
+func (_u *TenantUpdate) SetWatcherOsmanager(v bool) *TenantUpdate {
+	_u.mutation.SetWatcherOsmanager(v)
+	return _u
 }
 
 // SetNillableWatcherOsmanager sets the "watcher_osmanager" field if the given value is not nil.
-func (tu *TenantUpdate) SetNillableWatcherOsmanager(b *bool) *TenantUpdate {
-	if b != nil {
-		tu.SetWatcherOsmanager(*b)
+func (_u *TenantUpdate) SetNillableWatcherOsmanager(v *bool) *TenantUpdate {
+	if v != nil {
+		_u.SetWatcherOsmanager(*v)
 	}
-	return tu
+	return _u
 }
 
 // ClearWatcherOsmanager clears the value of the "watcher_osmanager" field.
-func (tu *TenantUpdate) ClearWatcherOsmanager() *TenantUpdate {
-	tu.mutation.ClearWatcherOsmanager()
-	return tu
+func (_u *TenantUpdate) ClearWatcherOsmanager() *TenantUpdate {
+	_u.mutation.ClearWatcherOsmanager()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tu *TenantUpdate) SetUpdatedAt(s string) *TenantUpdate {
-	tu.mutation.SetUpdatedAt(s)
-	return tu
+func (_u *TenantUpdate) SetUpdatedAt(v string) *TenantUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (tu *TenantUpdate) SetNillableUpdatedAt(s *string) *TenantUpdate {
-	if s != nil {
-		tu.SetUpdatedAt(*s)
+func (_u *TenantUpdate) SetNillableUpdatedAt(v *string) *TenantUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return tu
+	return _u
 }
 
 // Mutation returns the TenantMutation object of the builder.
-func (tu *TenantUpdate) Mutation() *TenantMutation {
-	return tu.mutation
+func (_u *TenantUpdate) Mutation() *TenantMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (tu *TenantUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, tu.sqlSave, tu.mutation, tu.hooks)
+func (_u *TenantUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tu *TenantUpdate) SaveX(ctx context.Context) int {
-	affected, err := tu.Save(ctx)
+func (_u *TenantUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -129,26 +129,26 @@ func (tu *TenantUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (tu *TenantUpdate) Exec(ctx context.Context) error {
-	_, err := tu.Save(ctx)
+func (_u *TenantUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tu *TenantUpdate) ExecX(ctx context.Context) {
-	if err := tu.Exec(ctx); err != nil {
+func (_u *TenantUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tu *TenantUpdate) check() error {
-	if v, ok := tu.mutation.CurrentState(); ok {
+func (_u *TenantUpdate) check() error {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := tenant.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "Tenant.current_state": %w`, err)}
 		}
 	}
-	if v, ok := tu.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := tenant.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "Tenant.desired_state": %w`, err)}
 		}
@@ -156,40 +156,40 @@ func (tu *TenantUpdate) check() error {
 	return nil
 }
 
-func (tu *TenantUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := tu.check(); err != nil {
-		return n, err
+func (_u *TenantUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(tenant.Table, tenant.Columns, sqlgraph.NewFieldSpec(tenant.FieldID, field.TypeInt))
-	if ps := tu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tu.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(tenant.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := tu.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(tenant.FieldCurrentState, field.TypeEnum, value)
 	}
-	if tu.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(tenant.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := tu.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(tenant.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := tu.mutation.WatcherOsmanager(); ok {
+	if value, ok := _u.mutation.WatcherOsmanager(); ok {
 		_spec.SetField(tenant.FieldWatcherOsmanager, field.TypeBool, value)
 	}
-	if tu.mutation.WatcherOsmanagerCleared() {
+	if _u.mutation.WatcherOsmanagerCleared() {
 		_spec.ClearField(tenant.FieldWatcherOsmanager, field.TypeBool)
 	}
-	if value, ok := tu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(tenant.FieldUpdatedAt, field.TypeString, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, tu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{tenant.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -197,8 +197,8 @@ func (tu *TenantUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	tu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // TenantUpdateOne is the builder for updating a single Tenant entity.
@@ -210,113 +210,113 @@ type TenantUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (tuo *TenantUpdateOne) SetResourceID(s string) *TenantUpdateOne {
-	tuo.mutation.SetResourceID(s)
-	return tuo
+func (_u *TenantUpdateOne) SetResourceID(v string) *TenantUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (tuo *TenantUpdateOne) SetNillableResourceID(s *string) *TenantUpdateOne {
-	if s != nil {
-		tuo.SetResourceID(*s)
+func (_u *TenantUpdateOne) SetNillableResourceID(v *string) *TenantUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return tuo
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (tuo *TenantUpdateOne) SetCurrentState(ts tenant.CurrentState) *TenantUpdateOne {
-	tuo.mutation.SetCurrentState(ts)
-	return tuo
+func (_u *TenantUpdateOne) SetCurrentState(v tenant.CurrentState) *TenantUpdateOne {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (tuo *TenantUpdateOne) SetNillableCurrentState(ts *tenant.CurrentState) *TenantUpdateOne {
-	if ts != nil {
-		tuo.SetCurrentState(*ts)
+func (_u *TenantUpdateOne) SetNillableCurrentState(v *tenant.CurrentState) *TenantUpdateOne {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return tuo
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (tuo *TenantUpdateOne) ClearCurrentState() *TenantUpdateOne {
-	tuo.mutation.ClearCurrentState()
-	return tuo
+func (_u *TenantUpdateOne) ClearCurrentState() *TenantUpdateOne {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (tuo *TenantUpdateOne) SetDesiredState(ts tenant.DesiredState) *TenantUpdateOne {
-	tuo.mutation.SetDesiredState(ts)
-	return tuo
+func (_u *TenantUpdateOne) SetDesiredState(v tenant.DesiredState) *TenantUpdateOne {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (tuo *TenantUpdateOne) SetNillableDesiredState(ts *tenant.DesiredState) *TenantUpdateOne {
-	if ts != nil {
-		tuo.SetDesiredState(*ts)
+func (_u *TenantUpdateOne) SetNillableDesiredState(v *tenant.DesiredState) *TenantUpdateOne {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return tuo
+	return _u
 }
 
 // SetWatcherOsmanager sets the "watcher_osmanager" field.
-func (tuo *TenantUpdateOne) SetWatcherOsmanager(b bool) *TenantUpdateOne {
-	tuo.mutation.SetWatcherOsmanager(b)
-	return tuo
+func (_u *TenantUpdateOne) SetWatcherOsmanager(v bool) *TenantUpdateOne {
+	_u.mutation.SetWatcherOsmanager(v)
+	return _u
 }
 
 // SetNillableWatcherOsmanager sets the "watcher_osmanager" field if the given value is not nil.
-func (tuo *TenantUpdateOne) SetNillableWatcherOsmanager(b *bool) *TenantUpdateOne {
-	if b != nil {
-		tuo.SetWatcherOsmanager(*b)
+func (_u *TenantUpdateOne) SetNillableWatcherOsmanager(v *bool) *TenantUpdateOne {
+	if v != nil {
+		_u.SetWatcherOsmanager(*v)
 	}
-	return tuo
+	return _u
 }
 
 // ClearWatcherOsmanager clears the value of the "watcher_osmanager" field.
-func (tuo *TenantUpdateOne) ClearWatcherOsmanager() *TenantUpdateOne {
-	tuo.mutation.ClearWatcherOsmanager()
-	return tuo
+func (_u *TenantUpdateOne) ClearWatcherOsmanager() *TenantUpdateOne {
+	_u.mutation.ClearWatcherOsmanager()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (tuo *TenantUpdateOne) SetUpdatedAt(s string) *TenantUpdateOne {
-	tuo.mutation.SetUpdatedAt(s)
-	return tuo
+func (_u *TenantUpdateOne) SetUpdatedAt(v string) *TenantUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (tuo *TenantUpdateOne) SetNillableUpdatedAt(s *string) *TenantUpdateOne {
-	if s != nil {
-		tuo.SetUpdatedAt(*s)
+func (_u *TenantUpdateOne) SetNillableUpdatedAt(v *string) *TenantUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return tuo
+	return _u
 }
 
 // Mutation returns the TenantMutation object of the builder.
-func (tuo *TenantUpdateOne) Mutation() *TenantMutation {
-	return tuo.mutation
+func (_u *TenantUpdateOne) Mutation() *TenantMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the TenantUpdate builder.
-func (tuo *TenantUpdateOne) Where(ps ...predicate.Tenant) *TenantUpdateOne {
-	tuo.mutation.Where(ps...)
-	return tuo
+func (_u *TenantUpdateOne) Where(ps ...predicate.Tenant) *TenantUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (tuo *TenantUpdateOne) Select(field string, fields ...string) *TenantUpdateOne {
-	tuo.fields = append([]string{field}, fields...)
-	return tuo
+func (_u *TenantUpdateOne) Select(field string, fields ...string) *TenantUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated Tenant entity.
-func (tuo *TenantUpdateOne) Save(ctx context.Context) (*Tenant, error) {
-	return withHooks(ctx, tuo.sqlSave, tuo.mutation, tuo.hooks)
+func (_u *TenantUpdateOne) Save(ctx context.Context) (*Tenant, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tuo *TenantUpdateOne) SaveX(ctx context.Context) *Tenant {
-	node, err := tuo.Save(ctx)
+func (_u *TenantUpdateOne) SaveX(ctx context.Context) *Tenant {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -324,26 +324,26 @@ func (tuo *TenantUpdateOne) SaveX(ctx context.Context) *Tenant {
 }
 
 // Exec executes the query on the entity.
-func (tuo *TenantUpdateOne) Exec(ctx context.Context) error {
-	_, err := tuo.Save(ctx)
+func (_u *TenantUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tuo *TenantUpdateOne) ExecX(ctx context.Context) {
-	if err := tuo.Exec(ctx); err != nil {
+func (_u *TenantUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (tuo *TenantUpdateOne) check() error {
-	if v, ok := tuo.mutation.CurrentState(); ok {
+func (_u *TenantUpdateOne) check() error {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := tenant.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "Tenant.current_state": %w`, err)}
 		}
 	}
-	if v, ok := tuo.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := tenant.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "Tenant.desired_state": %w`, err)}
 		}
@@ -351,17 +351,17 @@ func (tuo *TenantUpdateOne) check() error {
 	return nil
 }
 
-func (tuo *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err error) {
-	if err := tuo.check(); err != nil {
+func (_u *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(tenant.Table, tenant.Columns, sqlgraph.NewFieldSpec(tenant.FieldID, field.TypeInt))
-	id, ok := tuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Tenant.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := tuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, tenant.FieldID)
 		for _, f := range fields {
@@ -373,38 +373,38 @@ func (tuo *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err err
 			}
 		}
 	}
-	if ps := tuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tuo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(tenant.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := tuo.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(tenant.FieldCurrentState, field.TypeEnum, value)
 	}
-	if tuo.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(tenant.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := tuo.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(tenant.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := tuo.mutation.WatcherOsmanager(); ok {
+	if value, ok := _u.mutation.WatcherOsmanager(); ok {
 		_spec.SetField(tenant.FieldWatcherOsmanager, field.TypeBool, value)
 	}
-	if tuo.mutation.WatcherOsmanagerCleared() {
+	if _u.mutation.WatcherOsmanagerCleared() {
 		_spec.ClearField(tenant.FieldWatcherOsmanager, field.TypeBool)
 	}
-	if value, ok := tuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(tenant.FieldUpdatedAt, field.TypeString, value)
 	}
-	_node = &Tenant{config: tuo.config}
+	_node = &Tenant{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, tuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{tenant.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -412,6 +412,6 @@ func (tuo *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err err
 		}
 		return nil, err
 	}
-	tuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }
