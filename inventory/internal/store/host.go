@@ -95,6 +95,9 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	if in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.SetCurrentAmtState(hosts.CurrentAmtStateAMT_STATE_UNSPECIFIED)
 	}
+	if in.GetAmtSku() == computev1.AmtSku_AMTSKU_NONE {
+		mut.SetAmtSku(hosts.AmtSkuAMTSKU_NONE)
+	}
 }
 
 func hostResourceCreator(in *computev1.HostResource) func(context.Context, *ent.Tx) (

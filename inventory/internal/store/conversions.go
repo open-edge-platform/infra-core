@@ -432,6 +432,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,
 	}
+	zlog.Info().Msgf("####Conversions.go: AmtSku: %+v, AmtSku_type: %T", protoHost.AmtSku, protoHost.AmtSku)
 	// Convert the edges recursively.
 	if site, qerr := host.Edges.SiteOrErr(); qerr == nil {
 		protoHost.Site = entSiteResourceToProtoSiteResource(site)
