@@ -38,7 +38,7 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 			return errors.Errorfc(codes.InvalidArgument, "Fields for mutable and immutable OSes are mutually exclusive")
 		}
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_LATEST:
-		if isValidLatestPolicy(in) {
+		if !isValidLatestPolicy(in) {
 			return errors.Errorfc(codes.InvalidArgument, "With Policy LATEST, no fields should be set")
 		}
 	default:
@@ -47,15 +47,18 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 }
 
 func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
-	// Enforce mutually exclusive fields
-	return (in.GetTargetOs() == nil) ==
-		(in.GetInstallPackages() == "" && in.GetUpdateSources() == nil && in.GetKernelCommand() == "")
+	// Enforce mutually exclusive fields: either TargetOs OR the other fields, but not both or neither
+	targetOsSet := in.GetTargetOs() != nil
+	mutableOSFieldsSet := in.GetInstallPackages() != "" || in.GetUpdateSources() != nil || in.GetKernelCommand() != ""
+
+	// Valid if exactly one group is set and at least one group is set
+	return targetOsSet != mutableOSFieldsSet && (targetOsSet || mutableOSFieldsSet)
 }
 
 func isValidLatestPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// All fields must be unset
-	return in.GetTargetOs() != nil || in.GetInstallPackages() != "" ||
-		in.GetUpdateSources() != nil || in.GetKernelCommand() != ""
+	return in.GetTargetOs() == nil && in.GetInstallPackages() == "" &&
+		in.GetUpdateSources() == nil && in.GetKernelCommand() == ""
 }
 
 // OSUpdatePolicyEnumStateMap maps proto enum fields to their Ent equivalents.
