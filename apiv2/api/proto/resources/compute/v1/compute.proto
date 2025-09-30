@@ -217,6 +217,7 @@ message HostResource {
   ]; // coming from device introspection. Set only by the DM RM.
   status.v1.StatusIndication amt_status_indicator = 95 [(google.api.field_behavior) = OUTPUT_ONLY]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
   uint32 amt_status_timestamp = 96 [(google.api.field_behavior) = OUTPUT_ONLY]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
+  uint32 user_lvm_size = 97 [(google.api.field_behavior) = OUTPUT_ONLY]; // LVM size in GB.
 
   // The site where the host is located.
   string site_id = 5001 [

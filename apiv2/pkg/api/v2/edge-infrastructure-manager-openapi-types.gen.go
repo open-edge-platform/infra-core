@@ -891,6 +891,9 @@ type HostRegister struct {
 	// SerialNumber The host serial number.
 	SerialNumber *string `json:"serialNumber,omitempty"`
 
+	// UserLvmSize LVM size in GB
+	UserLvmSize *int `json:"userLvmSize,omitempty"`
+
 	// Uuid The host UUID.
 	Uuid *string `json:"uuid,omitempty"`
 }
@@ -1057,6 +1060,9 @@ type HostResource struct {
 	// SiteId The site where the host is located.
 	SiteId     *string     `json:"siteId,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
+
+	// UserLvmSize LVM size in GB.
+	UserLvmSize *int `json:"userLvmSize,omitempty"`
 
 	// Uuid (OPTIONAL) The host UUID identifier; UUID is unique and immutable.
 	Uuid *string `json:"uuid,omitempty"`

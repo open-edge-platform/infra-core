@@ -1024,6 +1024,9 @@ message HostRegister {
   bool auto_onboard = 18;
   // Flag to signal to enable vPRO on the host.
   bool enable_vpro = 19;
+
+  // LVM size in GB
+  uint32 user_lvm_size = 20;
 }
 
 // Request to register a Host.
