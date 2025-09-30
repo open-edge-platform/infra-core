@@ -114,7 +114,6 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 	if err != nil {
 		return nil, err
 	}
-	zlog.Info().Msgf("####Amt_sku: %+v, Type: %T", host.GetAmtSku(), host.GetAmtSku())
 
 	invHost := &inv_computev1.HostResource{
 		Name:               host.GetName(),
@@ -412,7 +411,7 @@ func (is *InventorygRPCServer) CreateHost(
 	ctx context.Context,
 	req *restv1.CreateHostRequest,
 ) (*computev1.HostResource, error) {
-	zlog.Info().Msg("CreateHost")
+	zlog.Debug().Msg("CreateHost")
 
 	host := req.GetHost()
 	invHost, err := toInvHost(host)
