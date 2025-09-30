@@ -42,6 +42,7 @@
     - [WorkloadMember](#compute-v1-WorkloadMember)
     - [WorkloadResource](#compute-v1-WorkloadResource)
   
+    - [AmtSku](#compute-v1-AmtSku)
     - [AmtState](#compute-v1-AmtState)
     - [BaremetalControllerKind](#compute-v1-BaremetalControllerKind)
     - [HostComponentState](#compute-v1-HostComponentState)
@@ -576,7 +577,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | host_usbs | [HostusbResource](#compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. This edge is read-only. |
 | host_gpus | [HostgpuResource](#compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. This edge is read-only. |
 | instance | [InstanceResource](#compute-v1-InstanceResource) |  | back-reference to baremetal Instance associated to this host |
-| amt_sku | [string](#string) |  | coming from device introspection |
+| amt_sku | [AmtSku](#compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
 | current_amt_state | [AmtState](#compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
 | amt_status | [string](#string) |  | A group of fields describing the AMT status. amt_status, amt_status_indicator and amt_status_timestamp should always be updated in one shot. If amt_status is empty during initialization, it is automatically set to a Unknown value.
@@ -881,6 +882,19 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 
  
+
+
+<a name="compute-v1-AmtSku"></a>
+
+### AmtSku
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMTSKU_NONE | 0 |  |
+| AMTSKU_AMT | 1 |  |
+| AMTSKU_ISM | 2 |  |
+
 
 
 <a name="compute-v1-AmtState"></a>

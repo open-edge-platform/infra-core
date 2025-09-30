@@ -649,13 +649,13 @@ func (_c *HostResourceCreate) SetNillableRegistrationStatusTimestamp(v *uint64) 
 }
 
 // SetAmtSku sets the "amt_sku" field.
-func (_c *HostResourceCreate) SetAmtSku(v string) *HostResourceCreate {
+func (_c *HostResourceCreate) SetAmtSku(v hostresource.AmtSku) *HostResourceCreate {
 	_c.mutation.SetAmtSku(v)
 	return _c
 }
 
 // SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
-func (_c *HostResourceCreate) SetNillableAmtSku(v *string) *HostResourceCreate {
+func (_c *HostResourceCreate) SetNillableAmtSku(v *hostresource.AmtSku) *HostResourceCreate {
 	if v != nil {
 		_c.SetAmtSku(*v)
 	}
@@ -968,6 +968,11 @@ func (_c *HostResourceCreate) check() error {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
 		}
 	}
+	if v, ok := _c.mutation.AmtSku(); ok {
+		if err := hostresource.AmtSkuValidator(v); err != nil {
+			return &ValidationError{Name: "amt_sku", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_sku": %w`, err)}
+		}
+	}
 	if v, ok := _c.mutation.DesiredAmtState(); ok {
 		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
@@ -1199,7 +1204,7 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 		_node.RegistrationStatusTimestamp = value
 	}
 	if value, ok := _c.mutation.AmtSku(); ok {
-		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)
 		_node.AmtSku = value
 	}
 	if value, ok := _c.mutation.DesiredAmtState(); ok {

@@ -45,6 +45,7 @@ func HostEnumStateMap(fname string, eint int32) (ent.Value, error) {
 		hosts.FieldPowerCommandPolicy:          hosts.PowerCommandPolicy(computev1.PowerCommandPolicy_name[eint]),
 		hosts.FieldDesiredAmtState:             hosts.DesiredAmtState(computev1.AmtState_name[eint]),
 		hosts.FieldCurrentAmtState:             hosts.CurrentAmtState(computev1.AmtState_name[eint]),
+		hosts.FieldAmtSku:                      hosts.AmtSku(computev1.AmtSku_name[eint]),
 		hosts.FieldPowerStatusIndicator:        hosts.PowerStatusIndicator(statusv1.StatusIndication_name[eint]),
 		hosts.FieldAmtStatusIndicator:          hosts.AmtStatusIndicator(statusv1.StatusIndication_name[eint]),
 	}
@@ -93,6 +94,9 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	}
 	if in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.SetCurrentAmtState(hosts.CurrentAmtStateAMT_STATE_UNSPECIFIED)
+	}
+	if in.GetAmtSku() == computev1.AmtSku_AMTSKU_NONE {
+		mut.SetAmtSku(hosts.AmtSkuAMTSKU_NONE)
 	}
 }
 
@@ -258,6 +262,11 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 		in.GetDesiredAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.ResetDesiredAmtState()
 		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldAmtSku) &&
+		in.GetAmtSku() == computev1.AmtSku_AMTSKU_NONE {
+		mut.ResetAmtSku()
+		mut.SetAmtSku(hosts.AmtSkuAMTSKU_NONE)
 	}
 }
 
