@@ -558,7 +558,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
-				AmtSku:             "vPRO Corporate 16.5.2",
+				AmtSku:             computev1.AmtSku_AMTSKU_AMT,
 			},
 			clientName: inv_testing.RMClient,
 			valid:      true,
@@ -598,8 +598,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
-				if tc.in.AmtSku == "" {
-					tc.in.AmtSku = "Unknown"
+				if tc.in.AmtSku == computev1.AmtSku_AMTSKU_NONE {
+					tc.in.AmtSku = computev1.AmtSku_AMTSKU_NONE
 				}
 				if tc.in.AmtStatus == "" {
 					tc.in.AmtStatus = res_status.DefaultAmtStatus
@@ -1001,7 +1001,7 @@ func Test_UpdateHost(t *testing.T) {
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
-				AmtSku:             "vPRO Corporate 16.5.2",
+				AmtSku:             computev1.AmtSku_AMTSKU_AMT,
 			},
 			resourceID: hostResID,
 			clientName: inv_testing.RMClient,
@@ -1252,8 +1252,8 @@ func Test_Register_Host(t *testing.T) {
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
-				if tc.in.AmtSku == "" {
-					tc.in.AmtSku = "Unknown"
+				if tc.in.AmtSku == computev1.AmtSku_AMTSKU_NONE {
+					tc.in.AmtSku = computev1.AmtSku_AMTSKU_NONE
 				}
 				if tc.in.AmtStatus == "" {
 					tc.in.AmtStatus = res_status.DefaultAmtStatus
@@ -1683,7 +1683,7 @@ func Test_FilterHosts(t *testing.T) {
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
-				AmtSku:             "vPRO Corporate 16.5.2",
+				AmtSku:             computev1.AmtSku_AMTSKU_AMT,
 			},
 		},
 	}
