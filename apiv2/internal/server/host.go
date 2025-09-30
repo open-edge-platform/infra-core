@@ -123,8 +123,8 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState_POWER_STATE_ON,
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
+		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
-		UserLvmSize:        host.GetUserLvmSize(),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -158,6 +158,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
+		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 	}
 
@@ -292,7 +293,7 @@ func fromInvHost(
 		HostNics:           fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:           fromInvHostUsbs(invHost.GetHostUsbs()),
 		HostGpus:           fromInvHostGpus(invHost.GetHostGpus()),
-		AmtSku:             invHost.GetAmtSku(),
+		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
 		Metadata:           metadata,
