@@ -61,7 +61,7 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 	BiosVendor:         "Example Vendor",
 	PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 	PowerOnTime:        1234567890,
-	AmtSku:             inv_computev1.AmtSku_AMTSKU_AMT,
+	AmtSku:             inv_computev1.AmtSku_AMT_SKU_AMT,
 	HostStorages: []*inv_computev1.HoststorageResource{
 		{
 			ResourceId:    "storage-12345678",
