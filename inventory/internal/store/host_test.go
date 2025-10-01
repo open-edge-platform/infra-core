@@ -2426,9 +2426,9 @@ func Test_FilterHosts(t *testing.T) {
 		"FilterByAmtSku": {
 			in: &inv_v1.ResourceFilter{
 				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
-				Filter:   fmt.Sprintf(`%s = %q`, hostresource.FieldAmtSku, "Unknown"),
+				Filter:   fmt.Sprintf(`%s = %s`, hostresource.FieldAmtSku, computev1.AmtSku_AMT_SKU_AMT),
 			},
-			resources: []*computev1.HostResource{&expHost1, &expHost2, &expHost3},
+			resources: []*computev1.HostResource{&expHost4},
 			valid:     true,
 		},
 		"FilterByAmtStatus": {
