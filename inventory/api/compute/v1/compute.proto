@@ -61,6 +61,12 @@ enum AmtState {
   AMT_STATE_DISCONNECTED = 3;
 }
 
+enum AmtSku {
+  AMT_SKU_UNSPECIFIED = 0;
+  AMT_SKU_AMT = 1;
+  AMT_SKU_ISM = 2;
+}
+
 message HostResource {
   option (ent.schema) = {gen: true};
   option (infrainv.schemaExtension) = {
@@ -206,11 +212,7 @@ message HostResource {
     ref: "host"
   }]; // back-reference to baremetal Instance associated to this host
 
-  string amt_sku = 91 [
-    (ent.field) = {optional: true},
-    (buf.validate.field).string = {max_bytes: 96},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ]; // coming from device introspection
+  AmtSku amt_sku = 91 [(ent.field) = {optional: true}]; // coming from device introspection
   AmtState desired_amt_state = 92 [(ent.field) = {optional: true}]; // Desired AMT/vPRO state of the host
   AmtState current_amt_state = 93 [(ent.field) = {optional: true}]; // Current AMT/vPRO state of the host
   // A group of fields describing the AMT status. amt_status, amt_status_indicator and

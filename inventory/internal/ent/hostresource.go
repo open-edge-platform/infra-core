@@ -110,7 +110,7 @@ type HostResource struct {
 	// RegistrationStatusTimestamp holds the value of the "registration_status_timestamp" field.
 	RegistrationStatusTimestamp uint64 `json:"registration_status_timestamp,omitempty"`
 	// AmtSku holds the value of the "amt_sku" field.
-	AmtSku string `json:"amt_sku,omitempty"`
+	AmtSku hostresource.AmtSku `json:"amt_sku,omitempty"`
 	// DesiredAmtState holds the value of the "desired_amt_state" field.
 	DesiredAmtState hostresource.DesiredAmtState `json:"desired_amt_state,omitempty"`
 	// CurrentAmtState holds the value of the "current_amt_state" field.
@@ -538,7 +538,7 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field amt_sku", values[i])
 			} else if value.Valid {
-				_m.AmtSku = value.String
+				_m.AmtSku = hostresource.AmtSku(value.String)
 			}
 		case hostresource.FieldDesiredAmtState:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -822,7 +822,7 @@ func (_m *HostResource) String() string {
 	builder.WriteString(fmt.Sprintf("%v", _m.RegistrationStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("amt_sku=")
-	builder.WriteString(_m.AmtSku)
+	builder.WriteString(fmt.Sprintf("%v", _m.AmtSku))
 	builder.WriteString(", ")
 	builder.WriteString("desired_amt_state=")
 	builder.WriteString(fmt.Sprintf("%v", _m.DesiredAmtState))

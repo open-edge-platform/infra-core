@@ -532,6 +532,30 @@ func RegistrationStatusIndicatorValidator(rsi RegistrationStatusIndicator) error
 	}
 }
 
+// AmtSku defines the type for the "amt_sku" enum field.
+type AmtSku string
+
+// AmtSku values.
+const (
+	AmtSkuAMT_SKU_UNSPECIFIED AmtSku = "AMT_SKU_UNSPECIFIED"
+	AmtSkuAMT_SKU_AMT         AmtSku = "AMT_SKU_AMT"
+	AmtSkuAMT_SKU_ISM         AmtSku = "AMT_SKU_ISM"
+)
+
+func (as AmtSku) String() string {
+	return string(as)
+}
+
+// AmtSkuValidator is a validator for the "amt_sku" field enum values. It is called by the builders before save.
+func AmtSkuValidator(as AmtSku) error {
+	switch as {
+	case AmtSkuAMT_SKU_UNSPECIFIED, AmtSkuAMT_SKU_AMT, AmtSkuAMT_SKU_ISM:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for amt_sku field: %q", as)
+	}
+}
+
 // DesiredAmtState defines the type for the "desired_amt_state" enum field.
 type DesiredAmtState string
 
