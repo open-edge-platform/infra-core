@@ -562,7 +562,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
-				AmtSku:             "vPRO Corporate 16.5.2",
+				AmtSku:             computev1.AmtSku_AMT_SKU_AMT,
 			},
 			clientName: inv_testing.RMClient,
 			valid:      true,
@@ -611,8 +611,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
-				if tc.in.AmtSku == "" {
-					tc.in.AmtSku = "Unknown"
+				if tc.in.AmtSku == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
+					tc.in.AmtSku = computev1.AmtSku_AMT_SKU_UNSPECIFIED
 				}
 				if tc.in.AmtStatus == "" {
 					tc.in.AmtStatus = res_status.DefaultAmtStatus
@@ -1017,7 +1017,7 @@ func Test_UpdateHost(t *testing.T) {
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
-				AmtSku:             "vPRO Corporate 16.5.2",
+				AmtSku:             computev1.AmtSku_AMT_SKU_AMT,
 				UserLvmSize:        80,
 			},
 			resourceID: hostResID,
@@ -1269,8 +1269,8 @@ func Test_Register_Host(t *testing.T) {
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
-				if tc.in.AmtSku == "" {
-					tc.in.AmtSku = "Unknown"
+				if tc.in.AmtSku == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
+					tc.in.AmtSku = computev1.AmtSku_AMT_SKU_UNSPECIFIED
 				}
 				if tc.in.AmtStatus == "" {
 					tc.in.AmtStatus = res_status.DefaultAmtStatus
@@ -1700,7 +1700,7 @@ func Test_FilterHosts(t *testing.T) {
 				AmtStatus:          "Provisioned",
 				AmtStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				AmtStatusTimestamp: uint64(time.Now().UnixNano()), //nolint:gosec // This is a test
-				AmtSku:             "vPRO Corporate 16.5.2",
+				AmtSku:             computev1.AmtSku_AMT_SKU_AMT,
 				UserLvmSize:        80,
 			},
 		},
@@ -2426,9 +2426,9 @@ func Test_FilterHosts(t *testing.T) {
 		"FilterByAmtSku": {
 			in: &inv_v1.ResourceFilter{
 				Resource: &inv_v1.Resource{Resource: &inv_v1.Resource_Host{}},
-				Filter:   fmt.Sprintf(`%s = %q`, hostresource.FieldAmtSku, "Unknown"),
+				Filter:   fmt.Sprintf(`%s = %s`, hostresource.FieldAmtSku, computev1.AmtSku_AMT_SKU_AMT),
 			},
-			resources: []*computev1.HostResource{&expHost1, &expHost2, &expHost3},
+			resources: []*computev1.HostResource{&expHost4},
 			valid:     true,
 		},
 		"FilterByAmtStatus": {

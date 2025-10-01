@@ -5486,7 +5486,7 @@ components:
           type: string
           title: install_packages
           maxLength: 500000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\ \n{}[]]+$
+          pattern: ^$|^[A-Za-z0-9._/:;=@?!#,<>\-*+~()\[\]{} \n]+$
           description: |-
             Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
              Applies only to Mutable OSes.

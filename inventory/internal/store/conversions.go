@@ -355,7 +355,7 @@ func entLocalAccountResourceToProtoLocalAccountResource(
 	return protoLocalAccount
 }
 
-//nolint:cyclop // host resource has many edges that need to be converted.
+//nolint:cyclop,funlen // host resource has many edges and fields that need conversion from ent to proto
 func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostResource {
 	if host == nil {
 		return nil
@@ -370,6 +370,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 	onboardingStatusIndicator := statusv1.StatusIndication_value[host.OnboardingStatusIndicator.String()]
 	registrationStatusIndicator := statusv1.StatusIndication_value[host.RegistrationStatusIndicator.String()]
 	powerCommandPolicy := computev1.PowerCommandPolicy_value[host.PowerCommandPolicy.String()]
+	amtSku := computev1.AmtSku_value[host.AmtSku.String()]
 	desiredAmtState := computev1.AmtState_value[host.DesiredAmtState.String()]
 	currentAmtState := computev1.AmtState_value[host.CurrentAmtState.String()]
 	powerStatusIndicator := statusv1.StatusIndication_value[host.PowerStatusIndicator.String()]
@@ -421,7 +422,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		PowerStatusTimestamp:        host.PowerStatusTimestamp,
 		PowerCommandPolicy:          computev1.PowerCommandPolicy(powerCommandPolicy),
 		PowerOnTime:                 host.PowerOnTime,
-		AmtSku:                      host.AmtSku,
+		AmtSku:                      computev1.AmtSku(amtSku),
 		DesiredAmtState:             computev1.AmtState(desiredAmtState),
 		CurrentAmtState:             computev1.AmtState(currentAmtState),
 		AmtStatus:                   host.AmtStatus,
