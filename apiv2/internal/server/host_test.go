@@ -170,7 +170,7 @@ var exampleAPIHostResource = &computev1.HostResource{
 	BiosVendor:         "Example Vendor",
 	PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 	PowerOnTime:        1234567890,
-	AmtSku:             computev1.AmtSku_AMT_SKU_ISM,
+	AmtSku:             computev1.AmtSku_AMT_SKU_AMT,
 	HostStorages: []*computev1.HoststorageResource{
 		{
 			Wwid:          "wwid-1234",
