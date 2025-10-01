@@ -355,7 +355,7 @@ func entLocalAccountResourceToProtoLocalAccountResource(
 	return protoLocalAccount
 }
 
-//nolint:cyclop // host resource has many edges that need to be converted.
+//nolint:cyclop,funlen // host resource has many edges and fields that need conversion from ent to proto
 func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostResource {
 	if host == nil {
 		return nil
