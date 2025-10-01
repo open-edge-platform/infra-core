@@ -4592,9 +4592,9 @@ components:
       type: string
       title: AmtSku
       enum:
-        - AMTSKU_NONE
-        - AMTSKU_AMT
-        - AMTSKU_ISM
+        - AMT_SKU_UNSPECIFIED
+        - AMT_SKU_AMT
+        - AMT_SKU_ISM
     AmtState:
       type: string
       title: AmtState

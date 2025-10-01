@@ -13,9 +13,9 @@ import (
 
 // Defines values for AmtSku.
 const (
-	AMTSKUAMT  AmtSku = "AMTSKU_AMT"
-	AMTSKUISM  AmtSku = "AMTSKU_ISM"
-	AMTSKUNONE AmtSku = "AMTSKU_NONE"
+	AMTSKUAMT         AmtSku = "AMT_SKU_AMT"
+	AMTSKUISM         AmtSku = "AMT_SKU_ISM"
+	AMTSKUUNSPECIFIED AmtSku = "AMT_SKU_UNSPECIFIED"
 )
 
 // Defines values for AmtState.
