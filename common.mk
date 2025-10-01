@@ -30,10 +30,7 @@ GOCMD   := go
 OUT_DIR	    := out
 SRC         := $(shell find . -type f -name '*.go' ! -name '*_test.go')
 DEPS        := go.mod go.sum
-# Use GitHub PR base branch if available, otherwise default to main
-BASE_BRANCH := $(or $(GITHUB_BASE_REF),main)
-# For comparison branch, check if COMPARISON_BRANCH is set and extract branch name
-COMPARISON_BRANCH_EXTRACTED := $(if $(COMPARISON_BRANCH),$(shell echo $(COMPARISON_BRANCH) | sed 's/origin\///'),$(BASE_BRANCH))
+BASE_BRANCH := main
 
 # Docker variables
 DOCKER_ENV              := DOCKER_BUILDKIT=1
@@ -238,7 +235,7 @@ common-buf-lint: $(VENV_NAME) ## Lint and format protobuf files
 	buf lint
 
 common-buf-breaking:  $(VENV_NAME) ## Find breaking changes in protobuf files
-	buf breaking --against 'https://github.com/open-edge-platform/infra-core.git#branch=${COMPARISON_BRANCH_EXTRACTED},subdir=${SUBPROJECT_DIR}'
+	buf breaking --against 'https://github.com/open-edge-platform/infra-core.git#branch=${BASE_BRANCH},subdir=${SUBPROJECT_DIR}'
 
 #### Clean Targets ###
 
