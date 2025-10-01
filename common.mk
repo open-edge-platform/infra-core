@@ -30,7 +30,7 @@ GOCMD   := go
 OUT_DIR	    := out
 SRC         := $(shell find . -type f -name '*.go' ! -name '*_test.go')
 DEPS        := go.mod go.sum
-BASE_BRANCH := main
+BASE_BRANCH := release-inventory-2.29
 
 # Docker variables
 DOCKER_ENV              := DOCKER_BUILDKIT=1
