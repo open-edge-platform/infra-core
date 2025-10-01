@@ -95,8 +95,8 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	if in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.SetCurrentAmtState(hosts.CurrentAmtStateAMT_STATE_UNSPECIFIED)
 	}
-	if in.GetAmtSku() == computev1.AmtSku_AMTSKU_NONE {
-		mut.SetAmtSku(hosts.AmtSkuAMTSKU_NONE)
+	if in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
+		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
 	}
 }
 
@@ -264,9 +264,9 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
 	}
 	if slices.Contains(fieldmask.GetPaths(), hosts.FieldAmtSku) &&
-		in.GetAmtSku() == computev1.AmtSku_AMTSKU_NONE {
+		in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.ResetAmtSku()
-		mut.SetAmtSku(hosts.AmtSkuAMTSKU_NONE)
+		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
 	}
 }
 

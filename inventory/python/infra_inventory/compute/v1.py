@@ -58,9 +58,9 @@ class AmtState(betterproto.Enum):
 
 
 class AmtSku(betterproto.Enum):
-    AMTSKU_NONE = 0
-    AMTSKU_AMT = 1
-    AMTSKU_ISM = 2
+    AMT_SKU_UNSPECIFIED = 0
+    AMT_SKU_AMT = 1
+    AMT_SKU_ISM = 2
 
 
 class HostComponentState(betterproto.Enum):
