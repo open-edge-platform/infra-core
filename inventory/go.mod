@@ -7,7 +7,7 @@ go 1.24.6
 
 require (
 	ariga.io/atlas v0.37.0
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.9-20250912141014-52f32327d4b0.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
 	buf.build/go/protovalidate v1.0.0
 	entgo.io/contrib v0.7.0
 	entgo.io/ent v0.14.5
@@ -58,7 +58,7 @@ require (
 	golang.org/x/tools v0.37.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20250825161204-c5933d9347a5
 	google.golang.org/grpc v1.75.1
-	google.golang.org/protobuf v1.36.9
+	google.golang.org/protobuf v1.36.10
 	oras.land/oras-go/v2 v2.6.0
 )
 
