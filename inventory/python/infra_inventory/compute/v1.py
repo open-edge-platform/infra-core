@@ -420,6 +420,8 @@ class OSUpdatePolicyResource(betterproto.Message):
     install_packages: str = betterproto.string_field(4)
     update_sources: List[str] = betterproto.string_field(5)
     kernel_command: str = betterproto.string_field(6)
+    update_packages: str = betterproto.string_field(7)
+    update_kernel_command: str = betterproto.string_field(8)
     target_os: v1.OperatingSystemResource = betterproto.message_field(50)
     update_policy: "UpdatePolicy" = betterproto.enum_field(60)
     tenant_id: str = betterproto.string_field(100)

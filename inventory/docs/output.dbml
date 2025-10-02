@@ -1,0 +1,779 @@
+Table "tenants" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "current_state" "character varying"
+  "desired_state" "character varying" [not null]
+  "watcher_osmanager" boolean
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "tenants_resource_id_key"]
+    tenant_id [unique, name: "tenants_tenant_id_key"]
+    tenant_id [name: "tenant_tenant_id"]
+  }
+}
+
+Table "region_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying"
+  "region_kind" "character varying"
+  "metadata" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "region_resource_parent_region" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "region_resources_resource_id_key"]
+    tenant_id [name: "regionresource_tenant_id"]
+  }
+}
+
+Table "ou_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying"
+  "ou_kind" "character varying"
+  "metadata" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "ou_resource_parent_ou" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "ou_resources_resource_id_key"]
+    tenant_id [name: "ouresource_tenant_id"]
+  }
+}
+
+Table "provider_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "provider_kind" "character varying" [not null]
+  "provider_vendor" "character varying"
+  "name" "character varying" [not null]
+  "api_endpoint" "character varying" [not null]
+  "api_credentials" "character varying"
+  "config" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "provider_resources_resource_id_key"]
+    (name, tenant_id) [unique, name: "providerresource_name_tenant_id"]
+    tenant_id [name: "providerresource_tenant_id"]
+  }
+}
+
+Table "site_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying"
+  "address" "character varying"
+  "site_lat" integer
+  "site_lng" integer
+  "dns_servers" "character varying"
+  "docker_registries" "character varying"
+  "metrics_endpoint" "character varying"
+  "http_proxy" "character varying"
+  "https_proxy" "character varying"
+  "ftp_proxy" "character varying"
+  "no_proxy" "character varying"
+  "metadata" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "site_resource_region" bigint
+  "site_resource_ou" bigint
+  "site_resource_provider" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "site_resources_resource_id_key"]
+    tenant_id [name: "siteresource_tenant_id"]
+  }
+}
+
+Table "operating_system_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying"
+  "architecture" "character varying"
+  "kernel_command" "character varying"
+  "update_sources" "character varying"
+  "image_url" "character varying"
+  "image_id" "character varying"
+  "sha256" "character varying"
+  "profile_name" "character varying"
+  "profile_version" "character varying"
+  "installed_packages" "character varying"
+  "installed_packages_url" "character varying"
+  "security_feature" "character varying"
+  "os_type" "character varying"
+  "os_provider" "character varying" [not null]
+  "platform_bundle" "character varying"
+  "description" "character varying"
+  "metadata" "character varying"
+  "existing_cves_url" "character varying"
+  "existing_cves" "character varying"
+  "fixed_cves_url" "character varying"
+  "fixed_cves" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "operating_system_resources_resource_id_key"]
+    (name, tenant_id) [unique, name: "operatingsystemresource_name_tenant_id"]
+    tenant_id [name: "operatingsystemresource_tenant_id"]
+  }
+}
+
+Table "local_account_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "username" "character varying" [not null]
+  "ssh_key" "character varying" [not null]
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "local_account_resources_resource_id_key"]
+    (username, tenant_id) [unique, name: "localaccountresource_username_tenant_id"]
+    tenant_id [name: "localaccountresource_tenant_id"]
+  }
+}
+
+Table "os_update_policy_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying" [not null]
+  "description" "character varying"
+  "install_packages" "character varying"
+  "update_sources" "character varying"
+  "kernel_command" "character varying"
+  "update_packages" "character varying"
+  "update_kernel_command" "character varying"
+  "update_policy" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "os_update_policy_resource_target_os" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "os_update_policy_resources_resource_id_key"]
+  }
+}
+
+Table "instance_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "name" "character varying"
+  "desired_state" "character varying"
+  "current_state" "character varying"
+  "vm_memory_bytes" bigint
+  "vm_cpu_cores" bigint
+  "vm_storage_bytes" bigint
+  "security_feature" "character varying"
+  "instance_status" "character varying"
+  "instance_status_indicator" "character varying"
+  "instance_status_timestamp" bigint
+  "provisioning_status" "character varying"
+  "provisioning_status_indicator" "character varying"
+  "provisioning_status_timestamp" bigint
+  "update_status" "character varying"
+  "update_status_indicator" "character varying"
+  "update_status_timestamp" bigint
+  "update_status_detail" "character varying"
+  "trusted_attestation_status" "character varying"
+  "trusted_attestation_status_indicator" "character varying"
+  "trusted_attestation_status_timestamp" bigint
+  "existing_cves" "character varying"
+  "runtime_packages" "character varying"
+  "os_update_available" "character varying"
+  "tenant_id" "character varying" [not null]
+  "instance_status_detail" "character varying"
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "instance_resource_desired_os" bigint [not null]
+  "instance_resource_current_os" bigint
+  "instance_resource_os" bigint
+  "instance_resource_provider" bigint
+  "instance_resource_localaccount" bigint
+  "instance_resource_os_update_policy" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "instance_resources_resource_id_key"]
+    tenant_id [name: "instanceresource_tenant_id"]
+  }
+}
+
+Table "host_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "name" "character varying"
+  "desired_state" "character varying"
+  "current_state" "character varying"
+  "note" "character varying"
+  "hardware_kind" "character varying"
+  "serial_number" "character varying"
+  "uuid" "character varying"
+  "memory_bytes" bigint
+  "cpu_model" "character varying"
+  "cpu_sockets" bigint
+  "cpu_cores" bigint
+  "cpu_capabilities" "character varying"
+  "cpu_architecture" "character varying"
+  "cpu_threads" bigint
+  "cpu_topology" "character varying"
+  "mgmt_ip" "character varying"
+  "bmc_kind" "character varying"
+  "bmc_ip" "character varying"
+  "bmc_username" "character varying"
+  "bmc_password" "character varying"
+  "pxe_mac" "character varying"
+  "hostname" "character varying"
+  "product_name" "character varying"
+  "bios_version" "character varying"
+  "bios_release_date" "character varying"
+  "bios_vendor" "character varying"
+  "metadata" "character varying"
+  "desired_power_state" "character varying"
+  "current_power_state" "character varying"
+  "power_status" "character varying"
+  "power_status_indicator" "character varying"
+  "power_status_timestamp" bigint
+  "power_command_policy" "character varying"
+  "power_on_time" bigint
+  "host_status" "character varying"
+  "host_status_indicator" "character varying"
+  "host_status_timestamp" bigint
+  "onboarding_status" "character varying"
+  "onboarding_status_indicator" "character varying"
+  "onboarding_status_timestamp" bigint
+  "registration_status" "character varying"
+  "registration_status_indicator" "character varying"
+  "registration_status_timestamp" bigint
+  "amt_sku" "character varying"
+  "desired_amt_state" "character varying"
+  "current_amt_state" "character varying"
+  "amt_status" "character varying"
+  "amt_status_indicator" "character varying"
+  "amt_status_timestamp" bigint
+  "user_lvm_size" bigint
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "host_resource_site" bigint
+  "host_resource_provider" bigint
+  "instance_resource_host" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "host_resources_resource_id_key"]
+    uuid [unique, name: "host_resources_uuid_key"]
+    instance_resource_host [unique, name: "host_resources_instance_resource_host_key"]
+    uuid [unique, name: "hostresource_uuid"]
+    serial_number [unique, name: "hostresource_serial_number"]
+    tenant_id [name: "hostresource_tenant_id"]
+  }
+}
+
+Table "endpoint_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "name" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "endpoint_resource_host" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "endpoint_resources_resource_id_key"]
+    tenant_id [name: "endpointresource_tenant_id"]
+  }
+}
+
+Table "hostgpu_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "pci_id" "character varying"
+  "product" "character varying"
+  "vendor" "character varying"
+  "description" "character varying"
+  "device_name" "character varying"
+  "features" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "hostgpu_resource_host" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "hostgpu_resources_resource_id_key"]
+    tenant_id [name: "hostgpuresource_tenant_id"]
+  }
+}
+
+Table "hostnic_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "provider_status" "character varying"
+  "device_name" "character varying"
+  "pci_identifier" "character varying"
+  "mac_addr" "character varying"
+  "sriov_enabled" boolean
+  "sriov_vfs_num" bigint
+  "sriov_vfs_total" bigint
+  "peer_name" "character varying"
+  "peer_description" "character varying"
+  "peer_mac" "character varying"
+  "peer_mgmt_ip" "character varying"
+  "peer_port" "character varying"
+  "supported_link_mode" "character varying"
+  "advertising_link_mode" "character varying"
+  "current_speed_bps" bigint
+  "current_duplex" "character varying"
+  "features" "character varying"
+  "mtu" bigint
+  "link_state" "character varying"
+  "bmc_interface" boolean
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "hostnic_resource_host" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "hostnic_resources_resource_id_key"]
+    tenant_id [name: "hostnicresource_tenant_id"]
+  }
+}
+
+Table "hoststorage_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "provider_status" "character varying"
+  "wwid" "character varying"
+  "serial" "character varying"
+  "vendor" "character varying"
+  "model" "character varying"
+  "capacity_bytes" bigint
+  "device_name" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "hoststorage_resource_host" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "hoststorage_resources_resource_id_key"]
+    tenant_id [name: "hoststorageresource_tenant_id"]
+  }
+}
+
+Table "hostusb_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "owner_id" "character varying"
+  "idvendor" "character varying"
+  "idproduct" "character varying"
+  "bus" bigint
+  "addr" bigint
+  "class" "character varying"
+  "serial" "character varying"
+  "device_name" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "hostusb_resource_host" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "hostusb_resources_resource_id_key"]
+    tenant_id [name: "hostusbresource_tenant_id"]
+  }
+}
+
+Table "custom_config_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying" [not null]
+  "config" "character varying" [not null]
+  "description" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "custom_config_resources_resource_id_key"]
+    (name, tenant_id) [unique, name: "customconfigresource_name_tenant_id"]
+    tenant_id [name: "customconfigresource_tenant_id"]
+  }
+}
+
+Table "instance_resource_custom_config" {
+  "instance_resource_id" bigint [not null]
+  "custom_config_resource_id" bigint [not null]
+
+  Indexes {
+    (instance_resource_id, custom_config_resource_id) [pk]
+  }
+}
+
+Table "ip_address_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "address" "character varying"
+  "desired_state" "character varying"
+  "current_state" "character varying"
+  "status" "character varying"
+  "status_detail" "character varying"
+  "config_method" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "ip_address_resource_nic" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "ip_address_resources_resource_id_key"]
+    tenant_id [name: "ipaddressresource_tenant_id"]
+  }
+}
+
+Table "netlink_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying"
+  "name" "character varying"
+  "desired_state" "character varying" [not null]
+  "current_state" "character varying"
+  "provider_status" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "netlink_resource_src" bigint
+  "netlink_resource_dst" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "netlink_resources_resource_id_key"]
+    tenant_id [name: "netlinkresource_tenant_id"]
+  }
+}
+
+Table "network_segments" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying"
+  "vlan_id" integer
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "network_segment_site" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "network_segments_resource_id_key"]
+  }
+}
+
+Table "os_update_policies" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "installed_packages" "character varying"
+  "update_sources" "character varying"
+  "kernel_command" "character varying"
+  "update_policy" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "os_update_policy_target_os" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "os_update_policies_resource_id_key"]
+  }
+}
+
+Table "os_update_run_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying"
+  "description" "character varying"
+  "status_indicator" "character varying" [not null]
+  "status" "character varying"
+  "status_details" "character varying"
+  "status_timestamp" bigint [not null]
+  "start_time" bigint [not null]
+  "end_time" bigint
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "os_update_run_resource_applied_policy" bigint [not null]
+  "os_update_run_resource_instance" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "os_update_run_resources_resource_id_key"]
+  }
+}
+
+Table "remote_access_configurations" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "expiration_timestamp" bigint [not null]
+  "local_port" bigint
+  "user" "character varying"
+  "current_state" "character varying"
+  "desired_state" "character varying" [not null]
+  "configuration_status" "character varying"
+  "configuration_status_indicator" "character varying"
+  "configuration_status_timestamp" bigint
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "remote_access_configuration_instance" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "remote_access_configurations_resource_id_key"]
+    local_port [unique, name: "remote_access_configurations_local_port_key"]
+    tenant_id [name: "remoteaccessconfiguration_tenant_id"]
+  }
+}
+
+Table "workload_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying" [not null]
+  "name" "character varying"
+  "external_id" "character varying"
+  "desired_state" "character varying" [not null]
+  "current_state" "character varying"
+  "status" "character varying"
+  "metadata" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "workload_resources_resource_id_key"]
+    (external_id, tenant_id) [unique, name: "workloadresource_external_id_tenant_id"]
+    tenant_id [name: "workloadresource_tenant_id"]
+  }
+}
+
+Table "repeated_schedule_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "schedule_status" "character varying"
+  "name" "character varying"
+  "duration_seconds" bigint
+  "cron_minutes" "character varying" [not null]
+  "cron_hours" "character varying" [not null]
+  "cron_day_month" "character varying" [not null]
+  "cron_month" "character varying" [not null]
+  "cron_day_week" "character varying" [not null]
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "repeated_schedule_resource_target_site" bigint
+  "repeated_schedule_resource_target_host" bigint
+  "repeated_schedule_resource_target_workload" bigint
+  "repeated_schedule_resource_target_region" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "repeated_schedule_resources_resource_id_key"]
+    tenant_id [name: "repeatedscheduleresource_tenant_id"]
+  }
+}
+
+Table "single_schedule_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "schedule_status" "character varying"
+  "name" "character varying"
+  "start_seconds" bigint [not null]
+  "end_seconds" bigint
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "single_schedule_resource_target_site" bigint
+  "single_schedule_resource_target_host" bigint
+  "single_schedule_resource_target_workload" bigint
+  "single_schedule_resource_target_region" bigint
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "single_schedule_resources_resource_id_key"]
+    tenant_id [name: "singlescheduleresource_tenant_id"]
+  }
+}
+
+Table "telemetry_group_resources" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "name" "character varying" [not null]
+  "kind" "character varying" [not null]
+  "collector_kind" "character varying" [not null]
+  "groups" "character varying" [not null]
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "telemetry_group_resources_resource_id_key"]
+    tenant_id [name: "telemetrygroupresource_tenant_id"]
+  }
+}
+
+Table "telemetry_profiles" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying" [not null]
+  "metrics_interval" bigint
+  "log_level" "character varying"
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "telemetry_profile_region" bigint
+  "telemetry_profile_site" bigint
+  "telemetry_profile_instance" bigint
+  "telemetry_profile_group" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "telemetry_profiles_resource_id_key"]
+    tenant_id [name: "telemetryprofile_tenant_id"]
+  }
+}
+
+Table "workload_members" {
+  "id" bigint [not null, increment]
+  "resource_id" "character varying" [not null]
+  "kind" "character varying" [not null]
+  "tenant_id" "character varying" [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "workload_member_workload" bigint [not null]
+  "workload_member_instance" bigint [not null]
+
+  Indexes {
+    id [pk]
+    resource_id [unique, name: "workload_members_resource_id_key"]
+  }
+}
+
+Ref "region_resources_region_resources_parent_region":"region_resources"."id" < "region_resources"."region_resource_parent_region" [delete: set null]
+
+Ref "ou_resources_ou_resources_parent_ou":"ou_resources"."id" < "ou_resources"."ou_resource_parent_ou" [delete: set null]
+
+Ref "site_resources_region_resources_region":"region_resources"."id" < "site_resources"."site_resource_region" [delete: set null]
+
+Ref "site_resources_ou_resources_ou":"ou_resources"."id" < "site_resources"."site_resource_ou" [delete: set null]
+
+Ref "site_resources_provider_resources_provider":"provider_resources"."id" < "site_resources"."site_resource_provider" [delete: set null]
+
+Ref "os_update_policy_resources_operating_system_resources_target_os":"operating_system_resources"."id" < "os_update_policy_resources"."os_update_policy_resource_target_os" [delete: set null]
+
+Ref "instance_resources_operating_system_resources_desired_os":"operating_system_resources"."id" < "instance_resources"."instance_resource_desired_os" [delete: no action]
+
+Ref "instance_resources_operating_system_resources_current_os":"operating_system_resources"."id" < "instance_resources"."instance_resource_current_os" [delete: set null]
+
+Ref "instance_resources_operating_system_resources_os":"operating_system_resources"."id" < "instance_resources"."instance_resource_os" [delete: set null]
+
+Ref "instance_resources_provider_resources_provider":"provider_resources"."id" < "instance_resources"."instance_resource_provider" [delete: set null]
+
+Ref "instance_resources_local_account_resources_localaccount":"local_account_resources"."id" < "instance_resources"."instance_resource_localaccount" [delete: set null]
+
+Ref "instance_resources_os_update_policy_resources_os_update_policy":"os_update_policy_resources"."id" < "instance_resources"."instance_resource_os_update_policy" [delete: set null]
+
+Ref "host_resources_site_resources_site":"site_resources"."id" < "host_resources"."host_resource_site" [delete: set null]
+
+Ref "host_resources_provider_resources_provider":"provider_resources"."id" < "host_resources"."host_resource_provider" [delete: set null]
+
+Ref "host_resources_instance_resources_host":"instance_resources"."id" < "host_resources"."instance_resource_host" [delete: set null]
+
+Ref "endpoint_resources_host_resources_host":"host_resources"."id" < "endpoint_resources"."endpoint_resource_host" [delete: set null]
+
+Ref "hostgpu_resources_host_resources_host":"host_resources"."id" < "hostgpu_resources"."hostgpu_resource_host" [delete: no action]
+
+Ref "hostnic_resources_host_resources_host":"host_resources"."id" < "hostnic_resources"."hostnic_resource_host" [delete: no action]
+
+Ref "hoststorage_resources_host_resources_host":"host_resources"."id" < "hoststorage_resources"."hoststorage_resource_host" [delete: no action]
+
+Ref "hostusb_resources_host_resources_host":"host_resources"."id" < "hostusb_resources"."hostusb_resource_host" [delete: no action]
+
+Ref "instance_resource_custom_config_instance_resource_id":"instance_resources"."id" < "instance_resource_custom_config"."instance_resource_id" [delete: cascade]
+
+Ref "instance_resource_custom_config_custom_config_resource_id":"custom_config_resources"."id" < "instance_resource_custom_config"."custom_config_resource_id" [delete: cascade]
+
+Ref "ip_address_resources_hostnic_resources_nic":"hostnic_resources"."id" < "ip_address_resources"."ip_address_resource_nic" [delete: no action]
+
+Ref "netlink_resources_endpoint_resources_src":"endpoint_resources"."id" < "netlink_resources"."netlink_resource_src" [delete: set null]
+
+Ref "netlink_resources_endpoint_resources_dst":"endpoint_resources"."id" < "netlink_resources"."netlink_resource_dst" [delete: set null]
+
+Ref "network_segments_site_resources_site":"site_resources"."id" < "network_segments"."network_segment_site" [delete: no action]
+
+Ref "os_update_policies_operating_system_resources_target_os":"operating_system_resources"."id" < "os_update_policies"."os_update_policy_target_os" [delete: set null]
+
+Ref "os_update_run_resources_os_upd_59e63391a29dbb5d975b005406c27afc":"os_update_policy_resources"."id" < "os_update_run_resources"."os_update_run_resource_applied_policy" [delete: no action]
+
+Ref "os_update_run_resources_instance_resources_instance":"instance_resources"."id" < "os_update_run_resources"."os_update_run_resource_instance" [delete: no action]
+
+Ref "remote_access_configurations_instance_resources_instance":"instance_resources"."id" < "remote_access_configurations"."remote_access_configuration_instance" [delete: no action]
+
+Ref "repeated_schedule_resources_site_resources_target_site":"site_resources"."id" < "repeated_schedule_resources"."repeated_schedule_resource_target_site" [delete: set null]
+
+Ref "repeated_schedule_resources_host_resources_target_host":"host_resources"."id" < "repeated_schedule_resources"."repeated_schedule_resource_target_host" [delete: set null]
+
+Ref "repeated_schedule_resources_workload_resources_target_workload":"workload_resources"."id" < "repeated_schedule_resources"."repeated_schedule_resource_target_workload" [delete: set null]
+
+Ref "repeated_schedule_resources_region_resources_target_region":"region_resources"."id" < "repeated_schedule_resources"."repeated_schedule_resource_target_region" [delete: set null]
+
+Ref "single_schedule_resources_site_resources_target_site":"site_resources"."id" < "single_schedule_resources"."single_schedule_resource_target_site" [delete: set null]
+
+Ref "single_schedule_resources_host_resources_target_host":"host_resources"."id" < "single_schedule_resources"."single_schedule_resource_target_host" [delete: set null]
+
+Ref "single_schedule_resources_workload_resources_target_workload":"workload_resources"."id" < "single_schedule_resources"."single_schedule_resource_target_workload" [delete: set null]
+
+Ref "single_schedule_resources_region_resources_target_region":"region_resources"."id" < "single_schedule_resources"."single_schedule_resource_target_region" [delete: set null]
+
+Ref "telemetry_profiles_region_resources_region":"region_resources"."id" < "telemetry_profiles"."telemetry_profile_region" [delete: set null]
+
+Ref "telemetry_profiles_site_resources_site":"site_resources"."id" < "telemetry_profiles"."telemetry_profile_site" [delete: set null]
+
+Ref "telemetry_profiles_instance_resources_instance":"instance_resources"."id" < "telemetry_profiles"."telemetry_profile_instance" [delete: set null]
+
+Ref "telemetry_profiles_telemetry_group_resources_group":"telemetry_group_resources"."id" < "telemetry_profiles"."telemetry_profile_group" [delete: no action]
+
+Ref "workload_members_workload_resources_workload":"workload_resources"."id" < "workload_members"."workload_member_workload" [delete: no action]
+
+Ref "workload_members_instance_resources_instance":"instance_resources"."id" < "workload_members"."workload_member_instance" [delete: no action]

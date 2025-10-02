@@ -1,4 +1,4 @@
-h1:U9exd0GFc7OIIZnProY670vmvIBSj+qUifSeclHFrUs=
+h1:iRWq2Y1AgetFpHEXsXXa+UyG262yNFGyTzK1hwuZtic=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
@@ -14,3 +14,4 @@ h1:U9exd0GFc7OIIZnProY670vmvIBSj+qUifSeclHFrUs=
 20250612153212_datamigration_day2.sql h1:O84vn5ox9GagwfuQDjDBIoXtYabaV1pnYgxGFaVAHxU=
 20250801172500_modify_OSUpdateRun.sql h1:R7NqKak8JLMAKMr9sx/8tj7FnZvFnm4/Sjcqy7eipbs=
 20250926132933_add_lvm_size.sql h1:TBEf371YjevfmQyElf+Q6MFnuELnYqn+/S/mUj6H2Ys=
+20251002155731_modify_OSUpdatePolicy_fields_names.sql h1:tfeDQ7WIs+yLz4slBhomwy13+QAe/llLNzBhMTglx8c=

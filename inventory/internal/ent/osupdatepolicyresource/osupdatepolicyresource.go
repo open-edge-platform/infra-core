@@ -26,6 +26,10 @@ const (
 	FieldUpdateSources = "update_sources"
 	// FieldKernelCommand holds the string denoting the kernel_command field in the database.
 	FieldKernelCommand = "kernel_command"
+	// FieldUpdatePackages holds the string denoting the update_packages field in the database.
+	FieldUpdatePackages = "update_packages"
+	// FieldUpdateKernelCommand holds the string denoting the update_kernel_command field in the database.
+	FieldUpdateKernelCommand = "update_kernel_command"
 	// FieldUpdatePolicy holds the string denoting the update_policy field in the database.
 	FieldUpdatePolicy = "update_policy"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
@@ -56,6 +60,8 @@ var Columns = []string{
 	FieldInstallPackages,
 	FieldUpdateSources,
 	FieldKernelCommand,
+	FieldUpdatePackages,
+	FieldUpdateKernelCommand,
 	FieldUpdatePolicy,
 	FieldTenantID,
 	FieldCreatedAt,
@@ -143,6 +149,16 @@ func ByUpdateSources(opts ...sql.OrderTermOption) OrderOption {
 // ByKernelCommand orders the results by the kernel_command field.
 func ByKernelCommand(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldKernelCommand, opts...).ToFunc()
+}
+
+// ByUpdatePackages orders the results by the update_packages field.
+func ByUpdatePackages(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUpdatePackages, opts...).ToFunc()
+}
+
+// ByUpdateKernelCommand orders the results by the update_kernel_command field.
+func ByUpdateKernelCommand(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUpdateKernelCommand, opts...).ToFunc()
 }
 
 // ByUpdatePolicy orders the results by the update_policy field.

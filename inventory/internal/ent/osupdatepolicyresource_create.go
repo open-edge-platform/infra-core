@@ -88,6 +88,34 @@ func (_c *OSUpdatePolicyResourceCreate) SetNillableKernelCommand(v *string) *OSU
 	return _c
 }
 
+// SetUpdatePackages sets the "update_packages" field.
+func (_c *OSUpdatePolicyResourceCreate) SetUpdatePackages(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdatePackages(v)
+	return _c
+}
+
+// SetNillableUpdatePackages sets the "update_packages" field if the given value is not nil.
+func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdatePackages(v *string) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetUpdatePackages(*v)
+	}
+	return _c
+}
+
+// SetUpdateKernelCommand sets the "update_kernel_command" field.
+func (_c *OSUpdatePolicyResourceCreate) SetUpdateKernelCommand(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdateKernelCommand(v)
+	return _c
+}
+
+// SetNillableUpdateKernelCommand sets the "update_kernel_command" field if the given value is not nil.
+func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdateKernelCommand(v *string) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetUpdateKernelCommand(*v)
+	}
+	return _c
+}
+
 // SetUpdatePolicy sets the "update_policy" field.
 func (_c *OSUpdatePolicyResourceCreate) SetUpdatePolicy(v osupdatepolicyresource.UpdatePolicy) *OSUpdatePolicyResourceCreate {
 	_c.mutation.SetUpdatePolicy(v)
@@ -242,6 +270,14 @@ func (_c *OSUpdatePolicyResourceCreate) createSpec() (*OSUpdatePolicyResource, *
 	if value, ok := _c.mutation.KernelCommand(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldKernelCommand, field.TypeString, value)
 		_node.KernelCommand = value
+	}
+	if value, ok := _c.mutation.UpdatePackages(); ok {
+		_spec.SetField(osupdatepolicyresource.FieldUpdatePackages, field.TypeString, value)
+		_node.UpdatePackages = value
+	}
+	if value, ok := _c.mutation.UpdateKernelCommand(); ok {
+		_spec.SetField(osupdatepolicyresource.FieldUpdateKernelCommand, field.TypeString, value)
+		_node.UpdateKernelCommand = value
 	}
 	if value, ok := _c.mutation.UpdatePolicy(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdatePolicy, field.TypeEnum, value)
