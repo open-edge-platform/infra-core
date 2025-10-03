@@ -11,6 +11,13 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for AmtSku.
+const (
+	AMTSKUAMT         AmtSku = "AMT_SKU_AMT"
+	AMTSKUISM         AmtSku = "AMT_SKU_ISM"
+	AMTSKUUNSPECIFIED AmtSku = "AMT_SKU_UNSPECIFIED"
+)
+
 // Defines values for AmtState.
 const (
 	AMTSTATEDISCONNECTED  AmtState = "AMT_STATE_DISCONNECTED"
@@ -244,6 +251,9 @@ const (
 	Unimplemented      ConnectErrorCode = "unimplemented"
 	Unknown            ConnectErrorCode = "unknown"
 )
+
+// AmtSku defines model for AmtSku.
+type AmtSku string
 
 // AmtState The state of the AMT (Active Management Technology) component.
 type AmtState string
@@ -900,8 +910,7 @@ type HostRegister struct {
 
 // HostResource A Host resource.
 type HostResource struct {
-	// AmtSku coming from device introspection
-	AmtSku *string `json:"amtSku,omitempty"`
+	AmtSku *AmtSku `json:"amtSku,omitempty"`
 
 	// AmtStatus coming from device introspection. Set only by the DM RM.
 	AmtStatus *string `json:"amtStatus,omitempty"`
