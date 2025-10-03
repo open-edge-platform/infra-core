@@ -125,6 +125,7 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+		UserLvmSize:        host.GetUserLvmSize(),
 	}
 
 	hostSiteID := host.GetSiteId()
