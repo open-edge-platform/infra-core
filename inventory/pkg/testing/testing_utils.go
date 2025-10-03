@@ -1631,11 +1631,6 @@ func (c *InvResourceDAO) createOSUpdatePolicy(
 		return nil, err
 	}
 	oupResp := resp.GetOsUpdatePolicy()
-	// When this test object is used in protobuf comparisons as part of another
-	// resource, we do not expect further embedded messages. This matches the
-	// structure of objects returned by ent queries, i.e. no two layers of
-	// embedded objects for edges.
-	oupResp.TargetOs = nil
 
 	return oupResp, nil
 }

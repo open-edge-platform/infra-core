@@ -36,8 +36,7 @@ func Test_Create_Get_Delete_Update_OSUpdateRun(t *testing.T) {
 	osUpdatePolicy := dao.CreateOSUpdatePolicy(
 		t, tenantID,
 		inv_testing.OsUpdatePolicyName("test-policy"),
-		inv_testing.OSUpdatePolicyTarget(),
-		inv_testing.OSUpdatePolicyTargetOS(os))
+		inv_testing.OSUpdatePolicyLatest())
 	testcases := map[string]struct {
 		in    *computev1.OSUpdateRunResource
 		valid bool
