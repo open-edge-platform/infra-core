@@ -5490,6 +5490,7 @@ components:
           description: |-
             Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
              Applies only to Mutable OSes.
+             Deprecated, will be removed in EMF v3.2.0, use update_packages field instead.
         updateSources:
           type: array
           items:
@@ -5505,6 +5506,23 @@ components:
         kernelCommand:
           type: string
           title: kernel_command
+          maxLength: 500
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+          description: |-
+            The OS resource's kernel Command Line Options.
+             Applies only to Mutable OSes.
+             Deprecated, will be removed in EMF v3.2.0, use update_kernel_command field instead.
+        updatePackages:
+          type: string
+          title: update_packages
+          maxLength: 500000
+          pattern: ^$|^[A-Za-z0-9._/:;=@?!#,<>\-*+~()\[\]{} \n]+$
+          description: |-
+            Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+             Applies only to Mutable OSes.
+        updateKernelCommand:
+          type: string
+          title: update_kernel_command
           maxLength: 500
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
           description: |-
@@ -5532,7 +5550,7 @@ components:
              - for mutable: unsupported
              - for immutable: latest version of the OS Resource
              UPDATE_POLICY_TARGET:
-             - for mutable: apply the install_packages, update_sources, kernel_command
+             - for mutable: apply the update_packages, update_sources, update_kernel_command
              - for immutable: install the version referenced by target_os
           $ref: '#/components/schemas/UpdatePolicy'
         timestamps:

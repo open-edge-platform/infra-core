@@ -2060,10 +2060,12 @@ type OSUpdatePolicy struct {
 
 	// InstallPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
 	//  Applies only to Mutable OSes.
+	//  Deprecated, will be removed in EMF v3.2.0, use update_packages field instead.
 	InstallPackages *string `json:"installPackages,omitempty"`
 
 	// KernelCommand The OS resource's kernel Command Line Options.
 	//  Applies only to Mutable OSes.
+	//  Deprecated, will be removed in EMF v3.2.0, use update_kernel_command field instead.
 	KernelCommand *string `json:"kernelCommand,omitempty"`
 
 	// Name User-provided, human-readable name.
@@ -2078,6 +2080,14 @@ type OSUpdatePolicy struct {
 	// TargetOsId The unique identifier of target OS will be associated with the OS Update policy.
 	TargetOsId *string     `json:"targetOsId,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
+
+	// UpdateKernelCommand The OS resource's kernel Command Line Options.
+	//  Applies only to Mutable OSes.
+	UpdateKernelCommand *string `json:"updateKernelCommand,omitempty"`
+
+	// UpdatePackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+	//  Applies only to Mutable OSes.
+	UpdatePackages *string `json:"updatePackages,omitempty"`
 
 	// UpdatePolicy States of the host.
 	UpdatePolicy *UpdatePolicy `json:"updatePolicy,omitempty"`

@@ -126,15 +126,15 @@ func fromInvOSUpdatePolicy(invOSUpdatePolicy *inv_computev1.OSUpdatePolicyResour
 		targetOs = fromInvOSResource(invOSUpdatePolicy.GetTargetOs())
 	}
 	osUpdatePolicy := &computev1.OSUpdatePolicy{
-		ResourceId:      invOSUpdatePolicy.GetResourceId(),
-		Name:            invOSUpdatePolicy.GetName(),
-		Description:     invOSUpdatePolicy.GetDescription(),
-		InstallPackages: invOSUpdatePolicy.GetInstallPackages(),
-		UpdateSources:   invOSUpdatePolicy.GetUpdateSources(),
-		KernelCommand:   invOSUpdatePolicy.GetKernelCommand(),
-		TargetOs:        targetOs,
-		UpdatePolicy:    computev1.UpdatePolicy(invOSUpdatePolicy.GetUpdatePolicy()),
-		Timestamps:      GrpcToOpenAPITimestamps(invOSUpdatePolicy),
+		ResourceId:          invOSUpdatePolicy.GetResourceId(),
+		Name:                invOSUpdatePolicy.GetName(),
+		Description:         invOSUpdatePolicy.GetDescription(),
+		UpdatePackages:      invOSUpdatePolicy.GetUpdatePackages(),
+		UpdateSources:       invOSUpdatePolicy.GetUpdateSources(),
+		UpdateKernelCommand: invOSUpdatePolicy.GetUpdateKernelCommand(),
+		TargetOs:            targetOs,
+		UpdatePolicy:        computev1.UpdatePolicy(invOSUpdatePolicy.GetUpdatePolicy()),
+		Timestamps:          GrpcToOpenAPITimestamps(invOSUpdatePolicy),
 	}
 	return osUpdatePolicy
 }
@@ -145,12 +145,12 @@ func toInvOSUpdatePolicy(osUpdatePolicy *computev1.OSUpdatePolicy) (*inv_compute
 	}
 
 	invOSUpdatePolicy := &inv_computev1.OSUpdatePolicyResource{
-		Name:            osUpdatePolicy.GetName(),
-		Description:     osUpdatePolicy.GetDescription(),
-		InstallPackages: osUpdatePolicy.GetInstallPackages(),
-		UpdateSources:   osUpdatePolicy.GetUpdateSources(),
-		KernelCommand:   osUpdatePolicy.GetKernelCommand(),
-		UpdatePolicy:    inv_computev1.UpdatePolicy(osUpdatePolicy.GetUpdatePolicy()),
+		Name:                osUpdatePolicy.GetName(),
+		Description:         osUpdatePolicy.GetDescription(),
+		UpdatePackages:      osUpdatePolicy.GetUpdatePackages(),
+		UpdateSources:       osUpdatePolicy.GetUpdateSources(),
+		UpdateKernelCommand: osUpdatePolicy.GetUpdateKernelCommand(),
+		UpdatePolicy:        inv_computev1.UpdatePolicy(osUpdatePolicy.GetUpdatePolicy()),
 	}
 
 	targetOSID := osUpdatePolicy.GetTargetOsId()
