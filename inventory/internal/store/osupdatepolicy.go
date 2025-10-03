@@ -49,7 +49,7 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// Enforce mutually exclusive fields: either TargetOs OR the other fields, but not both or neither
 	targetOsSet := in.GetTargetOs() != nil
-	mutableOSFieldsSet := in.GetInstallPackages() != "" || in.GetUpdateSources() != nil || in.GetKernelCommand() != ""
+	mutableOSFieldsSet := in.GetUpdatePackages() != "" || in.GetUpdateSources() != nil || in.GetUpdateKernelCommand() != ""
 
 	// Valid if exactly one group is set and at least one group is set
 	return targetOsSet != mutableOSFieldsSet && (targetOsSet || mutableOSFieldsSet)
@@ -57,8 +57,8 @@ func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 
 func isValidLatestPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// All fields must be unset
-	return in.GetTargetOs() == nil && in.GetInstallPackages() == "" &&
-		in.GetUpdateSources() == nil && in.GetKernelCommand() == ""
+	return in.GetTargetOs() == nil && in.GetUpdatePackages() == "" &&
+		in.GetUpdateSources() == nil && in.GetUpdateKernelCommand() == ""
 }
 
 // OSUpdatePolicyEnumStateMap maps proto enum fields to their Ent equivalents.

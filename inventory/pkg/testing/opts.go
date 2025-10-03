@@ -425,9 +425,9 @@ func OsUpdatePolicyDescription(desc string) Opt[compute_v1.OSUpdatePolicyResourc
 	}
 }
 
-func OSUpdatePolicyInstallPackages(pkgs string) Opt[compute_v1.OSUpdatePolicyResource] {
+func OSUpdatePolicyUpdatePackages(pkgs string) Opt[compute_v1.OSUpdatePolicyResource] {
 	return func(oup *compute_v1.OSUpdatePolicyResource) {
-		oup.InstallPackages = pkgs
+		oup.UpdatePackages = pkgs
 	}
 }
 
@@ -437,9 +437,9 @@ func OSUpdatePolicyUpdateSources(sources []string) Opt[compute_v1.OSUpdatePolicy
 	}
 }
 
-func OSUpdatePolicyKernelCommand(cmd string) Opt[compute_v1.OSUpdatePolicyResource] {
+func OSUpdatePolicyUpdateKernelCommand(cmd string) Opt[compute_v1.OSUpdatePolicyResource] {
 	return func(oup *compute_v1.OSUpdatePolicyResource) {
-		oup.KernelCommand = cmd
+		oup.UpdateKernelCommand = cmd
 	}
 }
 

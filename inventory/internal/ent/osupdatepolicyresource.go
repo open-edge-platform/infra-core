@@ -29,6 +29,10 @@ type OSUpdatePolicyResource struct {
 	UpdateSources string `json:"update_sources,omitempty"`
 	// KernelCommand holds the value of the "kernel_command" field.
 	KernelCommand string `json:"kernel_command,omitempty"`
+	// UpdatePackages holds the value of the "update_packages" field.
+	UpdatePackages string `json:"update_packages,omitempty"`
+	// UpdateKernelCommand holds the value of the "update_kernel_command" field.
+	UpdateKernelCommand string `json:"update_kernel_command,omitempty"`
 	// UpdatePolicy holds the value of the "update_policy" field.
 	UpdatePolicy osupdatepolicyresource.UpdatePolicy `json:"update_policy,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
@@ -71,7 +75,7 @@ func (*OSUpdatePolicyResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case osupdatepolicyresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case osupdatepolicyresource.FieldResourceID, osupdatepolicyresource.FieldName, osupdatepolicyresource.FieldDescription, osupdatepolicyresource.FieldInstallPackages, osupdatepolicyresource.FieldUpdateSources, osupdatepolicyresource.FieldKernelCommand, osupdatepolicyresource.FieldUpdatePolicy, osupdatepolicyresource.FieldTenantID, osupdatepolicyresource.FieldCreatedAt, osupdatepolicyresource.FieldUpdatedAt:
+		case osupdatepolicyresource.FieldResourceID, osupdatepolicyresource.FieldName, osupdatepolicyresource.FieldDescription, osupdatepolicyresource.FieldInstallPackages, osupdatepolicyresource.FieldUpdateSources, osupdatepolicyresource.FieldKernelCommand, osupdatepolicyresource.FieldUpdatePackages, osupdatepolicyresource.FieldUpdateKernelCommand, osupdatepolicyresource.FieldUpdatePolicy, osupdatepolicyresource.FieldTenantID, osupdatepolicyresource.FieldCreatedAt, osupdatepolicyresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case osupdatepolicyresource.ForeignKeys[0]: // os_update_policy_resource_target_os
 			values[i] = new(sql.NullInt64)
@@ -131,6 +135,18 @@ func (_m *OSUpdatePolicyResource) assignValues(columns []string, values []any) e
 				return fmt.Errorf("unexpected type %T for field kernel_command", values[i])
 			} else if value.Valid {
 				_m.KernelCommand = value.String
+			}
+		case osupdatepolicyresource.FieldUpdatePackages:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field update_packages", values[i])
+			} else if value.Valid {
+				_m.UpdatePackages = value.String
+			}
+		case osupdatepolicyresource.FieldUpdateKernelCommand:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field update_kernel_command", values[i])
+			} else if value.Valid {
+				_m.UpdateKernelCommand = value.String
 			}
 		case osupdatepolicyresource.FieldUpdatePolicy:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -221,6 +237,12 @@ func (_m *OSUpdatePolicyResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("kernel_command=")
 	builder.WriteString(_m.KernelCommand)
+	builder.WriteString(", ")
+	builder.WriteString("update_packages=")
+	builder.WriteString(_m.UpdatePackages)
+	builder.WriteString(", ")
+	builder.WriteString("update_kernel_command=")
+	builder.WriteString(_m.UpdateKernelCommand)
 	builder.WriteString(", ")
 	builder.WriteString("update_policy=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UpdatePolicy))

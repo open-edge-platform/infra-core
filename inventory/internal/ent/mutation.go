@@ -19645,25 +19645,27 @@ func (m *OSUpdatePolicyMutation) ResetEdge(name string) error {
 // OSUpdatePolicyResourceMutation represents an operation that mutates the OSUpdatePolicyResource nodes in the graph.
 type OSUpdatePolicyResourceMutation struct {
 	config
-	op               Op
-	typ              string
-	id               *int
-	resource_id      *string
-	name             *string
-	description      *string
-	install_packages *string
-	update_sources   *string
-	kernel_command   *string
-	update_policy    *osupdatepolicyresource.UpdatePolicy
-	tenant_id        *string
-	created_at       *string
-	updated_at       *string
-	clearedFields    map[string]struct{}
-	target_os        *int
-	clearedtarget_os bool
-	done             bool
-	oldValue         func(context.Context) (*OSUpdatePolicyResource, error)
-	predicates       []predicate.OSUpdatePolicyResource
+	op                    Op
+	typ                   string
+	id                    *int
+	resource_id           *string
+	name                  *string
+	description           *string
+	install_packages      *string
+	update_sources        *string
+	kernel_command        *string
+	update_packages       *string
+	update_kernel_command *string
+	update_policy         *osupdatepolicyresource.UpdatePolicy
+	tenant_id             *string
+	created_at            *string
+	updated_at            *string
+	clearedFields         map[string]struct{}
+	target_os             *int
+	clearedtarget_os      bool
+	done                  bool
+	oldValue              func(context.Context) (*OSUpdatePolicyResource, error)
+	predicates            []predicate.OSUpdatePolicyResource
 }
 
 var _ ent.Mutation = (*OSUpdatePolicyResourceMutation)(nil)
@@ -20032,6 +20034,104 @@ func (m *OSUpdatePolicyResourceMutation) ResetKernelCommand() {
 	delete(m.clearedFields, osupdatepolicyresource.FieldKernelCommand)
 }
 
+// SetUpdatePackages sets the "update_packages" field.
+func (m *OSUpdatePolicyResourceMutation) SetUpdatePackages(s string) {
+	m.update_packages = &s
+}
+
+// UpdatePackages returns the value of the "update_packages" field in the mutation.
+func (m *OSUpdatePolicyResourceMutation) UpdatePackages() (r string, exists bool) {
+	v := m.update_packages
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatePackages returns the old "update_packages" field's value of the OSUpdatePolicyResource entity.
+// If the OSUpdatePolicyResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OSUpdatePolicyResourceMutation) OldUpdatePackages(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatePackages is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatePackages requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatePackages: %w", err)
+	}
+	return oldValue.UpdatePackages, nil
+}
+
+// ClearUpdatePackages clears the value of the "update_packages" field.
+func (m *OSUpdatePolicyResourceMutation) ClearUpdatePackages() {
+	m.update_packages = nil
+	m.clearedFields[osupdatepolicyresource.FieldUpdatePackages] = struct{}{}
+}
+
+// UpdatePackagesCleared returns if the "update_packages" field was cleared in this mutation.
+func (m *OSUpdatePolicyResourceMutation) UpdatePackagesCleared() bool {
+	_, ok := m.clearedFields[osupdatepolicyresource.FieldUpdatePackages]
+	return ok
+}
+
+// ResetUpdatePackages resets all changes to the "update_packages" field.
+func (m *OSUpdatePolicyResourceMutation) ResetUpdatePackages() {
+	m.update_packages = nil
+	delete(m.clearedFields, osupdatepolicyresource.FieldUpdatePackages)
+}
+
+// SetUpdateKernelCommand sets the "update_kernel_command" field.
+func (m *OSUpdatePolicyResourceMutation) SetUpdateKernelCommand(s string) {
+	m.update_kernel_command = &s
+}
+
+// UpdateKernelCommand returns the value of the "update_kernel_command" field in the mutation.
+func (m *OSUpdatePolicyResourceMutation) UpdateKernelCommand() (r string, exists bool) {
+	v := m.update_kernel_command
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdateKernelCommand returns the old "update_kernel_command" field's value of the OSUpdatePolicyResource entity.
+// If the OSUpdatePolicyResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OSUpdatePolicyResourceMutation) OldUpdateKernelCommand(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdateKernelCommand is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdateKernelCommand requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdateKernelCommand: %w", err)
+	}
+	return oldValue.UpdateKernelCommand, nil
+}
+
+// ClearUpdateKernelCommand clears the value of the "update_kernel_command" field.
+func (m *OSUpdatePolicyResourceMutation) ClearUpdateKernelCommand() {
+	m.update_kernel_command = nil
+	m.clearedFields[osupdatepolicyresource.FieldUpdateKernelCommand] = struct{}{}
+}
+
+// UpdateKernelCommandCleared returns if the "update_kernel_command" field was cleared in this mutation.
+func (m *OSUpdatePolicyResourceMutation) UpdateKernelCommandCleared() bool {
+	_, ok := m.clearedFields[osupdatepolicyresource.FieldUpdateKernelCommand]
+	return ok
+}
+
+// ResetUpdateKernelCommand resets all changes to the "update_kernel_command" field.
+func (m *OSUpdatePolicyResourceMutation) ResetUpdateKernelCommand() {
+	m.update_kernel_command = nil
+	delete(m.clearedFields, osupdatepolicyresource.FieldUpdateKernelCommand)
+}
+
 // SetUpdatePolicy sets the "update_policy" field.
 func (m *OSUpdatePolicyResourceMutation) SetUpdatePolicy(op osupdatepolicyresource.UpdatePolicy) {
 	m.update_policy = &op
@@ -20262,7 +20362,7 @@ func (m *OSUpdatePolicyResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OSUpdatePolicyResourceMutation) Fields() []string {
-	fields := make([]string, 0, 10)
+	fields := make([]string, 0, 12)
 	if m.resource_id != nil {
 		fields = append(fields, osupdatepolicyresource.FieldResourceID)
 	}
@@ -20280,6 +20380,12 @@ func (m *OSUpdatePolicyResourceMutation) Fields() []string {
 	}
 	if m.kernel_command != nil {
 		fields = append(fields, osupdatepolicyresource.FieldKernelCommand)
+	}
+	if m.update_packages != nil {
+		fields = append(fields, osupdatepolicyresource.FieldUpdatePackages)
+	}
+	if m.update_kernel_command != nil {
+		fields = append(fields, osupdatepolicyresource.FieldUpdateKernelCommand)
 	}
 	if m.update_policy != nil {
 		fields = append(fields, osupdatepolicyresource.FieldUpdatePolicy)
@@ -20313,6 +20419,10 @@ func (m *OSUpdatePolicyResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.UpdateSources()
 	case osupdatepolicyresource.FieldKernelCommand:
 		return m.KernelCommand()
+	case osupdatepolicyresource.FieldUpdatePackages:
+		return m.UpdatePackages()
+	case osupdatepolicyresource.FieldUpdateKernelCommand:
+		return m.UpdateKernelCommand()
 	case osupdatepolicyresource.FieldUpdatePolicy:
 		return m.UpdatePolicy()
 	case osupdatepolicyresource.FieldTenantID:
@@ -20342,6 +20452,10 @@ func (m *OSUpdatePolicyResourceMutation) OldField(ctx context.Context, name stri
 		return m.OldUpdateSources(ctx)
 	case osupdatepolicyresource.FieldKernelCommand:
 		return m.OldKernelCommand(ctx)
+	case osupdatepolicyresource.FieldUpdatePackages:
+		return m.OldUpdatePackages(ctx)
+	case osupdatepolicyresource.FieldUpdateKernelCommand:
+		return m.OldUpdateKernelCommand(ctx)
 	case osupdatepolicyresource.FieldUpdatePolicy:
 		return m.OldUpdatePolicy(ctx)
 	case osupdatepolicyresource.FieldTenantID:
@@ -20400,6 +20514,20 @@ func (m *OSUpdatePolicyResourceMutation) SetField(name string, value ent.Value) 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetKernelCommand(v)
+		return nil
+	case osupdatepolicyresource.FieldUpdatePackages:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatePackages(v)
+		return nil
+	case osupdatepolicyresource.FieldUpdateKernelCommand:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdateKernelCommand(v)
 		return nil
 	case osupdatepolicyresource.FieldUpdatePolicy:
 		v, ok := value.(osupdatepolicyresource.UpdatePolicy)
@@ -20471,6 +20599,12 @@ func (m *OSUpdatePolicyResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(osupdatepolicyresource.FieldKernelCommand) {
 		fields = append(fields, osupdatepolicyresource.FieldKernelCommand)
 	}
+	if m.FieldCleared(osupdatepolicyresource.FieldUpdatePackages) {
+		fields = append(fields, osupdatepolicyresource.FieldUpdatePackages)
+	}
+	if m.FieldCleared(osupdatepolicyresource.FieldUpdateKernelCommand) {
+		fields = append(fields, osupdatepolicyresource.FieldUpdateKernelCommand)
+	}
 	if m.FieldCleared(osupdatepolicyresource.FieldUpdatePolicy) {
 		fields = append(fields, osupdatepolicyresource.FieldUpdatePolicy)
 	}
@@ -20500,6 +20634,12 @@ func (m *OSUpdatePolicyResourceMutation) ClearField(name string) error {
 	case osupdatepolicyresource.FieldKernelCommand:
 		m.ClearKernelCommand()
 		return nil
+	case osupdatepolicyresource.FieldUpdatePackages:
+		m.ClearUpdatePackages()
+		return nil
+	case osupdatepolicyresource.FieldUpdateKernelCommand:
+		m.ClearUpdateKernelCommand()
+		return nil
 	case osupdatepolicyresource.FieldUpdatePolicy:
 		m.ClearUpdatePolicy()
 		return nil
@@ -20528,6 +20668,12 @@ func (m *OSUpdatePolicyResourceMutation) ResetField(name string) error {
 		return nil
 	case osupdatepolicyresource.FieldKernelCommand:
 		m.ResetKernelCommand()
+		return nil
+	case osupdatepolicyresource.FieldUpdatePackages:
+		m.ResetUpdatePackages()
+		return nil
+	case osupdatepolicyresource.FieldUpdateKernelCommand:
+		m.ResetUpdateKernelCommand()
 		return nil
 	case osupdatepolicyresource.FieldUpdatePolicy:
 		m.ResetUpdatePolicy()
