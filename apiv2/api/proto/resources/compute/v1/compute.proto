@@ -64,6 +64,12 @@ enum AmtState {
   AMT_STATE_DISCONNECTED = 3;
 }
 
+enum AmtSku {
+  AMT_SKU_UNSPECIFIED = 0;
+  AMT_SKU_AMT = 1;
+  AMT_SKU_ISM = 2;
+}
+
 // A Host resource.
 message HostResource {
   // Resource ID, generated on Create.
@@ -205,10 +211,7 @@ message HostResource {
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  string amt_sku = 91 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (buf.validate.field).string = {max_len: 96}
-  ]; // coming from device introspection
+  AmtSku amt_sku = 91 [(google.api.field_behavior) = OUTPUT_ONLY]; // coming from device introspection
   AmtState desired_amt_state = 92 [(google.api.field_behavior) = OPTIONAL]; // Desired AMT/vPRO state of the host
   AmtState current_amt_state = 93 [(google.api.field_behavior) = OUTPUT_ONLY]; // Current AMT/vPRO state of the host
   string amt_status = 94 [
