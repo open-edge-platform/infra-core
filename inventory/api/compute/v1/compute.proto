@@ -1001,7 +1001,7 @@ message OSUpdatePolicyResource {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$"
       max_len: 500000
     }
-  ]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes.
+  ]; // Deprecated, use update_packages field instead. Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes.
 
   repeated string update_sources = 5 [
     (ent.field) = {
@@ -1021,6 +1021,28 @@ message OSUpdatePolicyResource {
   ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Applies only to Mutable OSes.
 
   string kernel_command = 6 [
+    (ent.field) = {
+      immutable: true
+      optional: true
+    },
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+      max_len: 500
+    }
+  ]; // Deprecated, use update_kernel_command field instead. Kernel Command Line Options. Applies only to Mutable OSes.
+
+  string update_packages = 7 [
+    (ent.field) = {
+      immutable: true
+      optional: true
+    },
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$"
+      max_len: 500000
+    }
+  ]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes.
+
+  string update_kernel_command = 8 [
     (ent.field) = {
       immutable: true
       optional: true

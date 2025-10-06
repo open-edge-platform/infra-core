@@ -83,6 +83,16 @@ func KernelCommand(v string) predicate.OSUpdatePolicyResource {
 	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldKernelCommand, v))
 }
 
+// UpdatePackages applies equality check predicate on the "update_packages" field. It's identical to UpdatePackagesEQ.
+func UpdatePackages(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldUpdatePackages, v))
+}
+
+// UpdateKernelCommand applies equality check predicate on the "update_kernel_command" field. It's identical to UpdateKernelCommandEQ.
+func UpdateKernelCommand(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldUpdateKernelCommand, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.OSUpdatePolicyResource {
 	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldTenantID, v))
@@ -526,6 +536,156 @@ func KernelCommandEqualFold(v string) predicate.OSUpdatePolicyResource {
 // KernelCommandContainsFold applies the ContainsFold predicate on the "kernel_command" field.
 func KernelCommandContainsFold(v string) predicate.OSUpdatePolicyResource {
 	return predicate.OSUpdatePolicyResource(sql.FieldContainsFold(FieldKernelCommand, v))
+}
+
+// UpdatePackagesEQ applies the EQ predicate on the "update_packages" field.
+func UpdatePackagesEQ(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesNEQ applies the NEQ predicate on the "update_packages" field.
+func UpdatePackagesNEQ(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNEQ(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesIn applies the In predicate on the "update_packages" field.
+func UpdatePackagesIn(vs ...string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldIn(FieldUpdatePackages, vs...))
+}
+
+// UpdatePackagesNotIn applies the NotIn predicate on the "update_packages" field.
+func UpdatePackagesNotIn(vs ...string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNotIn(FieldUpdatePackages, vs...))
+}
+
+// UpdatePackagesGT applies the GT predicate on the "update_packages" field.
+func UpdatePackagesGT(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldGT(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesGTE applies the GTE predicate on the "update_packages" field.
+func UpdatePackagesGTE(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldGTE(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesLT applies the LT predicate on the "update_packages" field.
+func UpdatePackagesLT(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldLT(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesLTE applies the LTE predicate on the "update_packages" field.
+func UpdatePackagesLTE(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldLTE(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesContains applies the Contains predicate on the "update_packages" field.
+func UpdatePackagesContains(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldContains(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesHasPrefix applies the HasPrefix predicate on the "update_packages" field.
+func UpdatePackagesHasPrefix(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldHasPrefix(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesHasSuffix applies the HasSuffix predicate on the "update_packages" field.
+func UpdatePackagesHasSuffix(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldHasSuffix(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesIsNil applies the IsNil predicate on the "update_packages" field.
+func UpdatePackagesIsNil() predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldIsNull(FieldUpdatePackages))
+}
+
+// UpdatePackagesNotNil applies the NotNil predicate on the "update_packages" field.
+func UpdatePackagesNotNil() predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNotNull(FieldUpdatePackages))
+}
+
+// UpdatePackagesEqualFold applies the EqualFold predicate on the "update_packages" field.
+func UpdatePackagesEqualFold(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEqualFold(FieldUpdatePackages, v))
+}
+
+// UpdatePackagesContainsFold applies the ContainsFold predicate on the "update_packages" field.
+func UpdatePackagesContainsFold(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldContainsFold(FieldUpdatePackages, v))
+}
+
+// UpdateKernelCommandEQ applies the EQ predicate on the "update_kernel_command" field.
+func UpdateKernelCommandEQ(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEQ(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandNEQ applies the NEQ predicate on the "update_kernel_command" field.
+func UpdateKernelCommandNEQ(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNEQ(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandIn applies the In predicate on the "update_kernel_command" field.
+func UpdateKernelCommandIn(vs ...string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldIn(FieldUpdateKernelCommand, vs...))
+}
+
+// UpdateKernelCommandNotIn applies the NotIn predicate on the "update_kernel_command" field.
+func UpdateKernelCommandNotIn(vs ...string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNotIn(FieldUpdateKernelCommand, vs...))
+}
+
+// UpdateKernelCommandGT applies the GT predicate on the "update_kernel_command" field.
+func UpdateKernelCommandGT(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldGT(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandGTE applies the GTE predicate on the "update_kernel_command" field.
+func UpdateKernelCommandGTE(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldGTE(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandLT applies the LT predicate on the "update_kernel_command" field.
+func UpdateKernelCommandLT(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldLT(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandLTE applies the LTE predicate on the "update_kernel_command" field.
+func UpdateKernelCommandLTE(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldLTE(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandContains applies the Contains predicate on the "update_kernel_command" field.
+func UpdateKernelCommandContains(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldContains(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandHasPrefix applies the HasPrefix predicate on the "update_kernel_command" field.
+func UpdateKernelCommandHasPrefix(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldHasPrefix(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandHasSuffix applies the HasSuffix predicate on the "update_kernel_command" field.
+func UpdateKernelCommandHasSuffix(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldHasSuffix(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandIsNil applies the IsNil predicate on the "update_kernel_command" field.
+func UpdateKernelCommandIsNil() predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldIsNull(FieldUpdateKernelCommand))
+}
+
+// UpdateKernelCommandNotNil applies the NotNil predicate on the "update_kernel_command" field.
+func UpdateKernelCommandNotNil() predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldNotNull(FieldUpdateKernelCommand))
+}
+
+// UpdateKernelCommandEqualFold applies the EqualFold predicate on the "update_kernel_command" field.
+func UpdateKernelCommandEqualFold(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldEqualFold(FieldUpdateKernelCommand, v))
+}
+
+// UpdateKernelCommandContainsFold applies the ContainsFold predicate on the "update_kernel_command" field.
+func UpdateKernelCommandContainsFold(v string) predicate.OSUpdatePolicyResource {
+	return predicate.OSUpdatePolicyResource(sql.FieldContainsFold(FieldUpdateKernelCommand, v))
 }
 
 // UpdatePolicyEQ applies the EQ predicate on the "update_policy" field.

@@ -602,6 +602,8 @@ var (
 		{Name: "install_packages", Type: field.TypeString, Nullable: true},
 		{Name: "update_sources", Type: field.TypeString, Nullable: true},
 		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
+		{Name: "update_packages", Type: field.TypeString, Nullable: true},
+		{Name: "update_kernel_command", Type: field.TypeString, Nullable: true},
 		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -616,7 +618,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "os_update_policy_resources_operating_system_resources_target_os",
-				Columns:    []*schema.Column{OsUpdatePolicyResourcesColumns[11]},
+				Columns:    []*schema.Column{OsUpdatePolicyResourcesColumns[13]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
