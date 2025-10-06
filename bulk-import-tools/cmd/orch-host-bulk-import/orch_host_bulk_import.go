@@ -51,7 +51,7 @@ func main() {
 func handleImportCommand() {
 	importCmd := flag.NewFlagSet("import", flag.ExitOnError)
 	importCmd.Usage = displayHelp
-	onboardFlag := importCmd.Bool("onboard", false, "")
+	onboardFlag := importCmd.Bool("onboard", true, "")
 	projectNameIn := importCmd.String("project", "", "")
 	osProfileIn := importCmd.String("os-profile", "", "")
 	siteIn := importCmd.String("site", "", "")
@@ -181,15 +181,17 @@ func doImport(autoOnboard bool, filePath, serverURL, projectName string, globalA
 	if err != nil {
 		return err
 	}
-
+	fmt.Println("CSV looks good")
 	oClient, err := orchcli.NewOrchCli(ctx, serverURL, projectName)
 	if err != nil {
+		fmt.Println("New CLI failed")
 		return err
 	}
-
+	fmt.Println("New CLI looks good")
 	// registerHost
 	// iterate over all entries available
 	for _, record := range validated {
+		fmt.Println("registering record")
 		doRegister(ctx, oClient, autoOnboard, globalAttr, record, &erringRecords)
 	}
 	// write import error to import_error_<rfc3339_timestamp>_<filename>
@@ -212,35 +214,40 @@ func doRegister(ctx context.Context, oClient *orchcli.OrchCli, autoOnboard bool,
 	// get the required fields from the record
 	sNo := rIn.Serial
 	uuid := rIn.UUID
-
+	fmt.Println("HEELO")
 	rOut, err := sanitizeProvisioningFields(ctx, oClient, rIn, erringRecords, globalAttr)
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
-
 	// Register host
 	hostID, err := oClient.RegisterHost(ctx, "", sNo, uuid, autoOnboard)
 	if err != nil {
 		if e.Is(e.ErrAlreadyRegistered, err) {
 			// If already registered, get the hostID
+			fmt.Println(err)
 			hostID, err = oClient.GetHostID(ctx, sNo, uuid)
 		}
 		if err != nil {
+			fmt.Println(err)
 			rIn.Error = err.Error()
 			*erringRecords = append(*erringRecords, rIn)
 			return
 		}
 	}
+	fmt.Println("HOLO")
 	// Create instance if osProfileID is available else append to error list
 	// Need not notify user of instance ID. Unnecessary detail for user.
 	_, err = oClient.CreateInstance(ctx, hostID, rOut)
 	if err != nil {
+		fmt.Println("could not create instance")
 		rIn.Error = err.Error()
 		*erringRecords = append(*erringRecords, rIn)
 		return
 	}
 
 	if err := oClient.AllocateHostToSiteAndAddMetadata(ctx, hostID, rOut.Site, rOut.Metadata); err != nil {
+		fmt.Println("could not allocate host to site")
 		rIn.Error = err.Error()
 		*erringRecords = append(*erringRecords, rIn)
 		return
@@ -255,20 +262,28 @@ func sanitizeProvisioningFields(ctx context.Context, oClient *orchcli.OrchCli, r
 	isSecure := resolveSecure(record.Secure, globalAttr.Secure)
 	osProfileID, err := resolveOSProfile(ctx, oClient, record.OSProfile, globalAttr.OSProfile, record, erringRecords)
 	if err != nil {
+		fmt.Println(err)
+		fmt.Println("resolve OS profile failed")
 		return nil, err
 	}
 
 	if valErr := validateSecurityFeature(oClient, osProfileID, isSecure, record, erringRecords); valErr != nil {
+		fmt.Println(err)
+		fmt.Println("resolve security failed")
 		return nil, valErr
 	}
 
 	siteID, err := resolveSite(ctx, oClient, record.Site, globalAttr.Site, record, erringRecords)
 	if err != nil {
+		fmt.Println(err)
+		fmt.Println("resolve site failed")
 		return nil, err
 	}
-
+	fmt.Println("site resolved")
 	laID, err := resolveRemoteUser(ctx, oClient, record.RemoteUser, globalAttr.RemoteUser, record, erringRecords)
 	if err != nil {
+		fmt.Println(err)
+		fmt.Println("resolve user failed")
 		return nil, err
 	}
 
@@ -297,9 +312,10 @@ func resolveOSProfile(ctx context.Context, oClient *orchcli.OrchCli, recordOSPro
 ) (string, error) {
 	osProfileID := recordOSProfile
 	if globalOSProfile != "" {
+		fmt.Printf("global OS profile is %s\n", globalOSProfile)
 		osProfileID = globalOSProfile
 	}
-
+	fmt.Printf("retrieving ID from %s\n", osProfileID)
 	osProfileID, err := oClient.GetOsProfileID(ctx, osProfileID)
 	if err != nil {
 		record.Error = err.Error()

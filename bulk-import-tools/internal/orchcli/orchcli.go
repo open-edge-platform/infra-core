@@ -50,7 +50,8 @@ func NewOrchCli(ctx context.Context, svcURL, project string) (*OrchCli, error) {
 	keycloakURL := *uParsed
 	//nolint:mnd // split required into 2 parts to get service name and sub-domain
 	keycloakURL.Host = "keycloak" + strings.TrimPrefix(keycloakURL.Host, strings.SplitN(keycloakURL.Host, ".", 2)[0])
-
+	fmt.Println("url is:")
+	fmt.Println(keycloakURL)
 	// get credentials & authenticate
 	jwt, err := authn.Authenticate(ctx, &keycloakURL)
 	if err != nil {
@@ -72,6 +73,9 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts/register", oC.Project))
 
+	fmt.Printf("DEBUG RegisterHost: URL: %s\n", uParsed.String())
+	fmt.Printf("DEBUG RegisterHost: Input - host: %s, sNo: %s, uuid: %s, autoOnboard: %v\n", host, sNo, uuid, autoOnboard)
+
 	// Prepare the form data
 	payload := &api.HostRegisterInfo{
 		Name:        &host,
@@ -80,77 +84,148 @@ func (oC *OrchCli) RegisterHost(ctx context.Context, host, sNo, uuid string, aut
 
 	if sNo != "" {
 		payload.SerialNumber = &sNo
+		fmt.Printf("DEBUG RegisterHost: Added SerialNumber: %s\n", sNo)
 	}
 	if uuid != "" {
 		uObj := u.MustParse(uuid)
 		payload.Uuid = &uObj
+		fmt.Printf("DEBUG RegisterHost: Added UUID: %s\n", uuid)
 	}
 
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
+		fmt.Printf("DEBUG RegisterHost: JSON Marshal failed: %v\n", err)
 		return "", e.NewCustomError(e.ErrInternal)
 	}
+
+	fmt.Printf("DEBUG RegisterHost: Request payload: %s\n", string(jsonData))
 
 	// Create the HTTP client and make request
 	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPost, bytes.NewBuffer(jsonData))
 	if err != nil {
+		fmt.Printf("DEBUG RegisterHost: HTTP request failed: %v\n", err)
 		return "", err
 	}
 	defer resp.Body.Close()
 
+	// Read response body for debugging
+	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyString := string(bodyBytes)
+	
+	fmt.Printf("DEBUG RegisterHost: Response Status: %d\n", resp.StatusCode)
+	fmt.Printf("DEBUG RegisterHost: Response Body: %s\n", bodyString)
+
 	if resp.StatusCode == http.StatusPreconditionFailed {
+		fmt.Printf("DEBUG RegisterHost: Host already registered (412)\n")
 		return "", e.NewCustomError(e.ErrAlreadyRegistered)
 	}
 
-	if resp.StatusCode != http.StatusCreated {
+	// Accept both 200 and 201 as success
+	if resp.StatusCode != http.StatusCreated && resp.StatusCode != http.StatusOK {
+		fmt.Printf("DEBUG RegisterHost: Registration failed with status %d\n", resp.StatusCode)
 		return "", e.NewCustomError(e.ErrRegisterFailed)
 	}
 
-	var hostInfo api.Host
-
-	if err := json.NewDecoder(resp.Body).Decode(&hostInfo); err != nil {
+	// Use generic JSON parsing to avoid struct mismatch issues
+	var response map[string]interface{}
+	if err := json.Unmarshal(bodyBytes, &response); err != nil {
+		fmt.Printf("DEBUG RegisterHost: JSON unmarshal failed: %v\n", err)
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	oC.HostCache[*hostInfo.ResourceId] = hostInfo
-	return *hostInfo.ResourceId, nil
+	// Extract resourceId directly from the map
+	resourceId, ok := response["resourceId"].(string)
+	if !ok {
+		fmt.Printf("DEBUG RegisterHost: Could not extract resourceId from response\n")
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	fmt.Printf("DEBUG RegisterHost: Successfully registered host with ID: %s\n", resourceId)
+
+	// Note: We're not caching the full host object due to struct mismatch
+	// If you need caching, you'll need to fix the api.Host struct definition
+	
+	return resourceId, nil
 }
 
 func (oC *OrchCli) CreateInstance(ctx context.Context, hostID string, r *types.HostRecord) (string, error) {
+	fmt.Printf("DEBUG CreateInstance: Starting - hostID: %s, Serial: %s, UUID: %s\n", hostID, r.Serial, r.UUID)
+	
 	if exists, err := oC.InstanceExists(ctx, r.Serial, r.UUID); exists {
+		fmt.Printf("DEBUG CreateInstance: Instance already exists\n")
 		return "", e.NewCustomError(e.ErrAlreadyRegistered)
 	} else if err != nil {
+		fmt.Printf("DEBUG CreateInstance: Error checking if instance exists: %v\n", err)
 		return "", err
 	}
 
+	fmt.Printf("DEBUG CreateInstance: Validating OS Profile: %s\n", r.OSProfile)
 	if err := validateOSProfile(r.OSProfile); err != nil {
+		fmt.Printf("DEBUG CreateInstance: OS Profile validation failed: %v\n", err)
 		return "", err
 	}
 
+	fmt.Printf("DEBUG CreateInstance: Preparing instance payload\n")
 	payload, err := oC.prepareInstancePayload(hostID, r)
 	if err != nil {
+		fmt.Printf("DEBUG CreateInstance: Failed to prepare payload: %v\n", err)
 		return "", err
 	}
 
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/instances", oC.Project))
 
+	fmt.Printf("DEBUG CreateInstance: URL: %s\n", uParsed.String())
+	fmt.Printf("DEBUG CreateInstance: Payload: %s\n", string(payload))
+
 	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPost, bytes.NewBuffer(payload))
 	if err != nil {
+		fmt.Printf("DEBUG CreateInstance: HTTP request failed: %v\n", err)
 		return "", err
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusCreated {
+	// Read response body for debugging
+	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyString := string(bodyBytes)
+	
+	fmt.Printf("DEBUG CreateInstance: Response Status: %d\n", resp.StatusCode)
+	fmt.Printf("DEBUG CreateInstance: Response Body: %s\n", bodyString)
+
+	// Accept both 200 and 201 as success (like we did for RegisterHost)
+	if resp.StatusCode != http.StatusCreated && resp.StatusCode != http.StatusOK {
+		fmt.Printf("DEBUG CreateInstance: Instance creation failed with status %d\n", resp.StatusCode)
+		fmt.Printf("DEBUG CreateInstance: Expected status 200 or 201, got %d\n", resp.StatusCode)
 		return "", e.NewCustomError(e.ErrInstanceFailed)
 	}
 
-	var instanceInfo api.Instance
-	if err := json.NewDecoder(resp.Body).Decode(&instanceInfo); err != nil {
+	// Use generic JSON parsing to avoid struct mismatch issues
+	var response map[string]interface{}
+	if err := json.Unmarshal(bodyBytes, &response); err != nil {
+		fmt.Printf("DEBUG CreateInstance: JSON unmarshal failed: %v\n", err)
+		fmt.Printf("DEBUG CreateInstance: Response body was: %s\n", bodyString)
 		return "", e.NewCustomError(e.ErrInternal)
 	}
 
-	return *instanceInfo.ResourceId, nil
+	// Extract resourceId directly from the map
+	resourceId, ok := response["resourceId"].(string)
+	if !ok {
+		fmt.Printf("DEBUG CreateInstance: Could not extract resourceId from response\n")
+		fmt.Printf("DEBUG CreateInstance: Available keys in response: %v\n", getMapKeys(response))
+		return "", e.NewCustomError(e.ErrInternal)
+	}
+
+	fmt.Printf("DEBUG CreateInstance: Successfully created instance with ID: %s\n", resourceId)
+	return resourceId, nil
+}
+
+// Helper function to debug available keys in response
+func getMapKeys(m map[string]interface{}) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	return keys
 }
 
 func validateOSProfile(osProfile string) error {
@@ -194,12 +269,21 @@ func obtainRequestPath(oC *OrchCli, input, pattern, pathByID, pathByName, filter
 	if re.MatchString(input) {
 		// if successful, query db to check if site exists by id
 		uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf(pathByID, oC.Project, input))
+		fmt.Printf("Constructed URL: %s\n", uParsed.String())
+		fmt.Printf("RawQuery: %s\n", uParsed.RawQuery)
 	} else {
 		// else query db to check if site exists by name
 		uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf(pathByName, oC.Project))
-		query := uParsed.Query()
-		query.Set("filter", fmt.Sprintf("%s=%q", filter, input))
-		uParsed.RawQuery = query.Encode()
+		// REPLACE THIS SECTION:
+		// query := uParsed.Query()
+		// query.Set("filter", fmt.Sprintf("%s=%q", filter, input))
+		// uParsed.RawQuery = query.Encode()
+		
+		// WITH THIS:
+		uParsed.RawQuery = fmt.Sprintf("filter=%s=\"%s\"", filter, input)
+		// Debug logging
+		fmt.Printf("Constructed URL: %s\n", uParsed.String())
+		fmt.Printf("RawQuery: %s\n", uParsed.RawQuery)
 	}
 	return uParsed, re
 }
@@ -350,17 +434,15 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 	if siteResource, ok := oC.SiteCache[site]; ok {
 		return *siteResource.ResourceId, nil
 	}
-
+	
 	pathByID := "/v1/projects/%s/regions/regionID/sites/%s"
 	pathByName := "/v1/projects/%s/regions/regionID/sites"
 	uParsed, siteRe := obtainRequestPath(oC, site, validator.SITEIDPATTERN, pathByID, pathByName, "name")
-
-	// Create the HTTP client and make request
+	
 	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodGet, http.NoBody)
 	if err != nil {
 		return "", err
 	}
-
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
@@ -368,6 +450,7 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 	}
 
 	if siteRe.MatchString(site) {
+		// Handle single site response (by ID)
 		var siteResource api.Site
 		if err := json.NewDecoder(resp.Body).Decode(&siteResource); err != nil {
 			return "", e.NewCustomError(e.ErrInternal)
@@ -377,20 +460,40 @@ func (oC *OrchCli) GetSiteID(ctx context.Context, site string) (string, error) {
 		return *siteResource.ResourceId, nil
 	}
 
-	var sites api.SitesList
-
-	if err := json.NewDecoder(resp.Body).Decode(&sites); err != nil {
+	// Handle sites list response (by name) - parse manually to avoid struct issues
+	bodyBytes, _ := io.ReadAll(resp.Body)
+	
+	// Use a generic map to parse the JSON
+	var response map[string]interface{}
+	if err := json.Unmarshal(bodyBytes, &response); err != nil {
 		return "", e.NewCustomError(e.ErrInternal)
 	}
-
-	for _, siteItem := range *sites.Sites {
-		if *siteItem.Name == site {
-			oC.SiteCache[site] = siteItem
-			oC.SiteCache[*siteItem.ResourceId] = siteItem
-			return *siteItem.ResourceId, nil
+	
+	sites, ok := response["sites"].([]interface{})
+	if !ok {
+		return "", e.NewCustomError(e.ErrInvalidSite)
+	}
+	
+	for _, siteInterface := range sites {
+		siteMap, ok := siteInterface.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		
+		siteName, ok := siteMap["name"].(string)
+		if !ok {
+			continue
+		}
+		
+		if siteName == site {
+			resourceId, ok := siteMap["resourceId"].(string)
+			if !ok {
+				return "", e.NewCustomError(e.ErrInternal)
+			}
+			return resourceId, nil
 		}
 	}
-
+	
 	return "", e.NewCustomError(e.ErrInvalidSite)
 }
 
@@ -446,45 +549,89 @@ func (oC *OrchCli) GetLocalAccountID(ctx context.Context, lAName string) (string
 }
 
 func (oC *OrchCli) AllocateHostToSiteAndAddMetadata(ctx context.Context, hostID, siteID, metadata string) error {
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Starting - hostID: %s, siteID: %s, metadata: %s\n", hostID, siteID, metadata)
+	
 	if siteID == "" && metadata == "" {
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Nothing to do - both siteID and metadata are empty\n")
 		return nil
 	}
 
 	uParsed := *oC.SvcURL
 	uParsed.Path = path.Join(uParsed.Path, fmt.Sprintf("/v1/projects/%s/compute/hosts/%s", oC.Project, hostID))
 
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: URL: %s\n", uParsed.String())
+
 	metadataToSend, err := DecodeMetadata(metadata)
 	if err != nil {
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Failed to decode metadata: %v\n", err)
 		return err
 	}
-	// Prepare the form data
-	payload := &api.Host{}
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Decoded metadata: %+v\n", metadataToSend)
+
+	// Prepare the payload using a generic map to avoid struct issues
+	payload := make(map[string]interface{})
+	
 	if host, ok := oC.HostCache[hostID]; ok {
-		payload.Name = host.Name
+		if host.Name != "" {  // Changed: removed nil check and dereference
+			payload["name"] = host.Name  // Changed: removed dereference
+			fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Added name from cache: %s\n", host.Name)  // Changed: removed dereference
+		}
+	} else {
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Host not found in cache, will send without name\n")
+		payload["name"] =""
 	}
+	
 	if siteID != "" {
-		payload.SiteId = &siteID
+		payload["siteId"] = siteID
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Added siteId: %s\n", siteID)
 	}
-	if metadata != "" {
-		payload.Metadata = metadataToSend
+	
+	if metadata != "" && metadataToSend != nil {
+		payload["metadata"] = metadataToSend
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Added metadata\n")
 	}
 
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: JSON marshal failed: %v\n", err)
 		return e.NewCustomError(e.ErrInternal)
 	}
+
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Request payload: %s\n", string(jsonData))
+
 	// Create the HTTP client and make request
 	resp, err := oC.doRequest(ctx, uParsed.String(), http.MethodPatch, bytes.NewBuffer(jsonData))
 	if err != nil {
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: HTTP request failed: %v\n", err)
 		return err
 	}
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
+	// Read response body for debugging
+	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyString := string(bodyBytes)
+	
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Response Status: %d\n", resp.StatusCode)
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Response Body: %s\n", bodyString)
+
+	// Accept both 200 and 204 as success for PATCH operations
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNoContent {
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Operation failed with status %d\n", resp.StatusCode)
+		fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Expected status 200 or 204, got %d\n", resp.StatusCode)
+		
+		// Try to parse error response
+		if bodyString != "" {
+			var errorResponse map[string]interface{}
+			if json.Unmarshal(bodyBytes, &errorResponse) == nil {
+				fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Error response: %+v\n", errorResponse)
+			}
+		}
+		
 		return e.NewCustomError(e.ErrHostSiteMetadataFailed)
 	}
 
+	fmt.Printf("DEBUG AllocateHostToSiteAndAddMetadata: Successfully updated host\n")
 	return nil
 }
 
