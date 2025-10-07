@@ -45,14 +45,18 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 	}
 	return nil
 }
-
 func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
-	// Enforce mutually exclusive fields: either TargetOs OR the other fields, but not both or neither
+	// Enforce mutually exclusive fields: either TargetOs OR the other fields, but not both
 	targetOsSet := in.GetTargetOs() != nil
-	mutableOSFieldsSet := in.GetUpdatePackages() != "" || in.GetUpdateSources() != nil || in.GetUpdateKernelCommand() != ""
+	mutableOSFieldsSet := in.GetUpdatePackages() != "" || in.GetUpdateSources() != nil
 
-	// Valid if exactly one group is set and at least one group is set
-	return targetOsSet != mutableOSFieldsSet && (targetOsSet || mutableOSFieldsSet)
+	// Invalid if both groups are set
+	if targetOsSet && mutableOSFieldsSet {
+		return false
+	}
+
+	// Valid if at least one group is set
+	return targetOsSet || mutableOSFieldsSet || in.GetUpdateKernelCommand() != ""
 }
 
 func isValidLatestPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
