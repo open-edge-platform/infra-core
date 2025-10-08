@@ -10,7 +10,7 @@ require (
 	github.com/open-edge-platform/infra-core/api v1.36.0
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.10
 	github.com/open-edge-platform/infra-managers/host v1.23.0
-	github.com/open-edge-platform/infra-managers/maintenance v1.23.3
+	github.com/open-edge-platform/infra-managers/maintenance v1.23.4
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.6
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
