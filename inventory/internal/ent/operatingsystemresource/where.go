@@ -127,6 +127,11 @@ func Metadata(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldMetadata, v))
 }
 
+// TLSCaCert applies equality check predicate on the "tls_ca_cert" field. It's identical to TLSCaCertEQ.
+func TLSCaCert(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldTLSCaCert, v))
+}
+
 // ExistingCvesURL applies equality check predicate on the "existing_cves_url" field. It's identical to ExistingCvesURLEQ.
 func ExistingCvesURL(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldExistingCvesURL, v))
@@ -1355,6 +1360,81 @@ func MetadataEqualFold(v string) predicate.OperatingSystemResource {
 // MetadataContainsFold applies the ContainsFold predicate on the "metadata" field.
 func MetadataContainsFold(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldMetadata, v))
+}
+
+// TLSCaCertEQ applies the EQ predicate on the "tls_ca_cert" field.
+func TLSCaCertEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldTLSCaCert, v))
+}
+
+// TLSCaCertNEQ applies the NEQ predicate on the "tls_ca_cert" field.
+func TLSCaCertNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldTLSCaCert, v))
+}
+
+// TLSCaCertIn applies the In predicate on the "tls_ca_cert" field.
+func TLSCaCertIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldTLSCaCert, vs...))
+}
+
+// TLSCaCertNotIn applies the NotIn predicate on the "tls_ca_cert" field.
+func TLSCaCertNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldTLSCaCert, vs...))
+}
+
+// TLSCaCertGT applies the GT predicate on the "tls_ca_cert" field.
+func TLSCaCertGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldTLSCaCert, v))
+}
+
+// TLSCaCertGTE applies the GTE predicate on the "tls_ca_cert" field.
+func TLSCaCertGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldTLSCaCert, v))
+}
+
+// TLSCaCertLT applies the LT predicate on the "tls_ca_cert" field.
+func TLSCaCertLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldTLSCaCert, v))
+}
+
+// TLSCaCertLTE applies the LTE predicate on the "tls_ca_cert" field.
+func TLSCaCertLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldTLSCaCert, v))
+}
+
+// TLSCaCertContains applies the Contains predicate on the "tls_ca_cert" field.
+func TLSCaCertContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldTLSCaCert, v))
+}
+
+// TLSCaCertHasPrefix applies the HasPrefix predicate on the "tls_ca_cert" field.
+func TLSCaCertHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldTLSCaCert, v))
+}
+
+// TLSCaCertHasSuffix applies the HasSuffix predicate on the "tls_ca_cert" field.
+func TLSCaCertHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldTLSCaCert, v))
+}
+
+// TLSCaCertIsNil applies the IsNil predicate on the "tls_ca_cert" field.
+func TLSCaCertIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldTLSCaCert))
+}
+
+// TLSCaCertNotNil applies the NotNil predicate on the "tls_ca_cert" field.
+func TLSCaCertNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldTLSCaCert))
+}
+
+// TLSCaCertEqualFold applies the EqualFold predicate on the "tls_ca_cert" field.
+func TLSCaCertEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldTLSCaCert, v))
+}
+
+// TLSCaCertContainsFold applies the ContainsFold predicate on the "tls_ca_cert" field.
+func TLSCaCertContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldTLSCaCert, v))
 }
 
 // ExistingCvesURLEQ applies the EQ predicate on the "existing_cves_url" field.

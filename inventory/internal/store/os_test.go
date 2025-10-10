@@ -62,6 +62,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				FixedCvesUrl: "/files/fixed_cves.json",
 				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
 				Metadata:     `{"release":"0.0.0-dev","version":"0.0.3"}`,
+				TlsCaCert:    "LS0tLS1CRUdJTi...==",
 			},
 			valid: true,
 		},
@@ -204,6 +205,45 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				Metadata:             "invalid JSON",
 			},
 			valid: false,
+		},
+		"CreateGoodOsWithTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os with TLS CA",
+				UpdateSources: []string{"test entry1"},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+				ProfileName:   "Test OS profile name",
+				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:     "LS0tLS1CRUdJTi...==",
+			},
+			valid: true,
+		},
+		"CreateGoodOsWithEmptyTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os with empty TLS CA",
+				UpdateSources: []string{"test entry1"},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+				ProfileName:   "Test OS profile name",
+				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:     "",
+			},
+			valid: true,
+		},
+		"CreateBadOsWithInvalidTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os with bad TLS CA",
+				UpdateSources: []string{"test entry1"},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+				ProfileName:   "Test OS profile name",
+				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:     "not a cert",
+			},
+			valid: false, // Only if you enforce PEM pattern validation
 		},
 	}
 
@@ -579,6 +619,27 @@ func Test_UpdateOs(t *testing.T) {
 				Paths: []string{
 					oss.FieldPlatformBundle,
 				},
+			},
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
+		"UpdateTlsCaCertValid": {
+			in: &os_v1.OperatingSystemResource{
+				TlsCaCert: "LS0tLS1CRUdJTi...==",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{oss.FieldTLSCaCert},
+			},
+			valid: true,
+		},
+		"UpdateTlsCaCertInvalid": {
+			in: &os_v1.OperatingSystemResource{
+				TlsCaCert: "not a cert",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{oss.FieldTLSCaCert},
 			},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
