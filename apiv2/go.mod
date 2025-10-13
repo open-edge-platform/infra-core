@@ -5,8 +5,8 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.6
 
-// Use local inventory for POWER_STATE_RESET_REPEAT support
-replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+// Use specific inventory commit with POWER_STATE_RESET_REPEAT support
+replace github.com/open-edge-platform/infra-core/inventory/v2 => github.com/open-edge-platform/infra-core/inventory/v2 v2.0.0-20251013154907-b094655fe7ca
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
