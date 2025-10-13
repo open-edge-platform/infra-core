@@ -5,9 +5,6 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.6
 
-// Use specific inventory version for POWER_STATE_RESET_REPEAT support
-replace github.com/open-edge-platform/infra-core/inventory/v2 => github.com/open-edge-platform/infra-core/inventory/v2 v2.0.0-20251013154907-b094655fe7ca
-
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
 	github.com/getkin/kin-openapi v0.132.0
@@ -19,7 +16,7 @@ require (
 	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/oapi-codegen/runtime v1.1.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.10
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.0.0-20251013154907-b094655fe7ca
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
