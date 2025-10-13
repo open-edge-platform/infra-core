@@ -535,13 +535,15 @@ func (is *InventorygRPCServer) UpdateHost(
 
 	// Switch to RESET_REPEAT for consecutive reset operations to avoid state conflicts
 	if invHost.GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET {
-		currentHostRes, err := is.InvClient.Get(ctx, req.GetResourceId())
-		if err != nil {
-			zlog.Warn().Err(err).Msgf("Could not retrieve current host state for %s, proceeding with standard reset", req.GetResourceId())
+		currentHostRes, getErr := is.InvClient.Get(ctx, req.GetResourceId())
+		if getErr != nil {
+			zlog.Warn().Err(getErr).Msgf("Could not retrieve current host state for %s, proceeding with standard reset",
+				req.GetResourceId())
 		} else if currentHost := currentHostRes.GetResource().GetHost(); currentHost != nil {
 			currentPowerState := currentHost.GetCurrentPowerState()
 			if currentPowerState == inv_computev1.PowerState_POWER_STATE_RESET {
-				zlog.Info().Msgf("Detected consecutive reset operation for host %s, switching to RESET_REPEAT", req.GetResourceId())
+				zlog.Info().Msgf("Detected consecutive reset operation for host %s, switching to RESET_REPEAT",
+					req.GetResourceId())
 				invHost.DesiredPowerState = inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
 			}
 		}
@@ -587,13 +589,15 @@ func (is *InventorygRPCServer) PatchHost(
 
 	// Switch to RESET_REPEAT for consecutive reset operations to avoid state conflicts
 	if invHost.GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET {
-		currentHostRes, err := is.InvClient.Get(ctx, req.GetResourceId())
-		if err != nil {
-			zlog.Warn().Err(err).Msgf("Could not retrieve current host state for %s, proceeding with standard reset", req.GetResourceId())
+		currentHostRes, getErr := is.InvClient.Get(ctx, req.GetResourceId())
+		if getErr != nil {
+			zlog.Warn().Err(getErr).Msgf("Could not retrieve current host state for %s, proceeding with standard reset",
+				req.GetResourceId())
 		} else if currentHost := currentHostRes.GetResource().GetHost(); currentHost != nil {
 			currentPowerState := currentHost.GetCurrentPowerState()
 			if currentPowerState == inv_computev1.PowerState_POWER_STATE_RESET {
-				zlog.Info().Msgf("Detected consecutive reset operation for host %s, switching to RESET_REPEAT", req.GetResourceId())
+				zlog.Info().Msgf("Detected consecutive reset operation for host %s, switching to RESET_REPEAT",
+					req.GetResourceId())
 				invHost.DesiredPowerState = inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
 			}
 		}
