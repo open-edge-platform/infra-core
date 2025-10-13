@@ -5,11 +5,11 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.24.6
 
-// Revert when needed
-//replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
+// Use local inventory for POWER_STATE_RESET_REPEAT support
+replace github.com/open-edge-platform/infra-core/inventory/v2 => ../inventory
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.9-20250912141014-52f32327d4b0.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
 	github.com/getkin/kin-openapi v0.132.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/google/gnostic v0.7.0
@@ -26,8 +26,8 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0
 	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b
 	google.golang.org/genproto/googleapis/api v0.0.0-20250825161204-c5933d9347a5
-	google.golang.org/grpc v1.75.1
-	google.golang.org/protobuf v1.36.9
+	google.golang.org/grpc v1.76.0
+	google.golang.org/protobuf v1.36.10
 )
 
 require (
@@ -58,7 +58,7 @@ require (
 	github.com/gin-gonic/gin v1.10.1 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.4 // indirect
-	github.com/go-jose/go-jose/v4 v4.1.1 // indirect
+	github.com/go-jose/go-jose/v4 v4.1.2 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/inflect v0.21.2 // indirect
@@ -85,7 +85,7 @@ require (
 	github.com/hashicorp/go-sockaddr v1.0.7 // indirect
 	github.com/hashicorp/hcl v1.0.1-vault-7 // indirect
 	github.com/hashicorp/hcl/v2 v2.23.0 // indirect
-	github.com/hashicorp/vault/api v1.21.0 // indirect
+	github.com/hashicorp/vault/api v1.22.0 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
@@ -125,7 +125,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
-	github.com/prometheus/common v0.66.1 // indirect
+	github.com/prometheus/common v0.67.1 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	github.com/rs/zerolog v1.34.0 // indirect
@@ -157,7 +157,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.38.0 // indirect
 	go.opentelemetry.io/otel/trace v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.7.1 // indirect
-	go.yaml.in/yaml/v2 v2.4.2 // indirect
+	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	golang.org/x/arch v0.18.0 // indirect
 	golang.org/x/crypto v0.42.0 // indirect
 	golang.org/x/mod v0.28.0 // indirect

@@ -533,6 +533,20 @@ func (is *InventorygRPCServer) UpdateHost(
 		return nil, errors.Wrap(err)
 	}
 
+	// Switch to RESET_REPEAT for consecutive reset operations to avoid state conflicts
+	if invHost.GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET {
+		currentHostRes, err := is.InvClient.Get(ctx, req.GetResourceId())
+		if err != nil {
+			zlog.Warn().Err(err).Msgf("Could not retrieve current host state for %s, proceeding with standard reset", req.GetResourceId())
+		} else if currentHost := currentHostRes.GetResource().GetHost(); currentHost != nil {
+			currentPowerState := currentHost.GetCurrentPowerState()
+			if currentPowerState == inv_computev1.PowerState_POWER_STATE_RESET {
+				zlog.Info().Msgf("Detected consecutive reset operation for host %s, switching to RESET_REPEAT", req.GetResourceId())
+				invHost.DesiredPowerState = inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+			}
+		}
+	}
+
 	fieldmask, err := fieldmaskpb.New(invHost, maps.Values(OpenAPIHostToProto)...)
 	if err != nil {
 		return nil, errors.Wrap(err)
@@ -569,6 +583,20 @@ func (is *InventorygRPCServer) PatchHost(
 	invHost, err := toInvHostUpdate(host)
 	if err != nil {
 		return nil, errors.Wrap(err)
+	}
+
+	// Switch to RESET_REPEAT for consecutive reset operations to avoid state conflicts
+	if invHost.GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET {
+		currentHostRes, err := is.InvClient.Get(ctx, req.GetResourceId())
+		if err != nil {
+			zlog.Warn().Err(err).Msgf("Could not retrieve current host state for %s, proceeding with standard reset", req.GetResourceId())
+		} else if currentHost := currentHostRes.GetResource().GetHost(); currentHost != nil {
+			currentPowerState := currentHost.GetCurrentPowerState()
+			if currentPowerState == inv_computev1.PowerState_POWER_STATE_RESET {
+				zlog.Info().Msgf("Detected consecutive reset operation for host %s, switching to RESET_REPEAT", req.GetResourceId())
+				invHost.DesiredPowerState = inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+			}
+		}
 	}
 
 	fieldmask, err := parseFielmask(invHost, req.GetFieldMask(), OpenAPIHostToProto)
