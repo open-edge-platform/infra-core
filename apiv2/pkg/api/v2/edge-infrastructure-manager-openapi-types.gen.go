@@ -136,6 +136,7 @@ const (
 	POWERSTATEON          PowerState = "POWER_STATE_ON"
 	POWERSTATEPOWERCYCLE  PowerState = "POWER_STATE_POWER_CYCLE"
 	POWERSTATERESET       PowerState = "POWER_STATE_RESET"
+	POWERSTATERESETREPEAT PowerState = "POWER_STATE_RESET_REPEAT"
 	POWERSTATESLEEP       PowerState = "POWER_STATE_SLEEP"
 	POWERSTATEUNSPECIFIED PowerState = "POWER_STATE_UNSPECIFIED"
 )
@@ -4769,7 +4770,7 @@ type Timestamps struct {
 	//  [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
 	//  the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
 	//  the Joda Time's [`ISODateTimeFormat.dateTime()`](
-	//  http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+	//  http://www.joda.org/joda-time/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime%2D%2D
 	//  ) to obtain a formatter capable of generating timestamps in this format.
 	CreatedAt *GoogleProtobufTimestamp `json:"createdAt,omitempty"`
 
@@ -4860,7 +4861,7 @@ type Timestamps struct {
 	//  [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
 	//  the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
 	//  the Joda Time's [`ISODateTimeFormat.dateTime()`](
-	//  http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+	//  http://www.joda.org/joda-time/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime%2D%2D
 	//  ) to obtain a formatter capable of generating timestamps in this format.
 	UpdatedAt *GoogleProtobufTimestamp `json:"updatedAt,omitempty"`
 }
@@ -5342,7 +5343,7 @@ type GoogleProtobufFieldMask = string
 //	[`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
 //	the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
 //	the Joda Time's [`ISODateTimeFormat.dateTime()`](
-//	http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+//	http://www.joda.org/joda-time/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime%2D%2D
 //	) to obtain a formatter capable of generating timestamps in this format.
 type GoogleProtobufTimestamp = time.Time
 
