@@ -54,6 +54,7 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 		OsProvider:           inv_osv1.OsProviderKind(osResource.GetOsProvider()),
 		Description:          osResource.GetDescription(),
 		Metadata:             osResource.GetMetadata(),
+		TlsCaCert:            osResource.GetTlsCaCert(),
 		ExistingCvesUrl:      osResource.GetExistingCvesUrl(),
 		FixedCvesUrl:         osResource.GetFixedCvesUrl(),
 	}
@@ -92,6 +93,7 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		PlatformBundle:       invOSResource.GetPlatformBundle(),
 		Description:          invOSResource.GetDescription(),
 		Metadata:             invOSResource.GetMetadata(),
+		TlsCaCert:            invOSResource.GetTlsCaCert(),
 		ExistingCvesUrl:      invOSResource.GetExistingCvesUrl(),
 		ExistingCves:         invOSResource.GetExistingCves(),
 		FixedCvesUrl:         invOSResource.GetFixedCvesUrl(),
