@@ -165,7 +165,7 @@ message OperatingSystemResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      max_len: 500000
     }
   ];
 
@@ -183,7 +183,7 @@ message OperatingSystemResource {
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      max_len: 500000
     }
   ];
 
