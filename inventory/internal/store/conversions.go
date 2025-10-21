@@ -716,7 +716,6 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 		UpdateStatus:                      ins.UpdateStatus,
 		UpdateStatusIndicator:             statusv1.StatusIndication(updateStatusIndicator),
 		UpdateStatusTimestamp:             ins.UpdateStatusTimestamp,
-		UpdateStatusDetail:                ins.UpdateStatusDetail,
 		ProvisioningStatus:                ins.ProvisioningStatus,
 		ProvisioningStatusIndicator:       statusv1.StatusIndication(provisioningStatusIndicator),
 		ProvisioningStatusTimestamp:       ins.ProvisioningStatusTimestamp,
@@ -733,12 +732,6 @@ func entInstanceResourceToProtoInstanceResource(ins *ent.InstanceResource) *comp
 	// Convert the edges recursively.
 	if host, qerr := ins.Edges.HostOrErr(); qerr == nil {
 		protoInstance.Host = entHostResourceToProtoHostResource(host)
-	}
-	if os, qerr := ins.Edges.DesiredOsOrErr(); qerr == nil {
-		protoInstance.DesiredOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
-	}
-	if os, qerr := ins.Edges.CurrentOsOrErr(); qerr == nil {
-		protoInstance.CurrentOs = entOperatingSystemResourceToProtoOperatingSystemResource(os)
 	}
 	if os, qerr := ins.Edges.OsOrErr(); qerr == nil {
 		protoInstance.Os = entOperatingSystemResourceToProtoOperatingSystemResource(os)
@@ -860,8 +853,6 @@ func entOSUpdatePolicyResourceToProtoOSUpdatePolicyResource(osup *ent.OSUpdatePo
 		Name:                osup.Name,
 		Description:         osup.Description,
 		ResourceId:          osup.ResourceID,
-		InstallPackages:     osup.InstallPackages,
-		KernelCommand:       osup.KernelCommand,
 		UpdatePackages:      osup.UpdatePackages,
 		UpdateKernelCommand: osup.UpdateKernelCommand,
 		UpdatePolicy:        computev1.UpdatePolicy(updatePolicy),
