@@ -1008,7 +1008,6 @@ func FuzzCreateInstance(f *testing.F) {
 						ProvisioningStatusTimestamp: provisioningStatusTimestamp,
 						UpdateStatus:                updateStatus,
 						UpdateStatusTimestamp:       updateStatusTimestamp,
-						UpdateStatusDetail:          updateStatusDetail,
 						TenantId:                    tenantId,
 					},
 				},

@@ -96,8 +96,7 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				TenantId:        tenantID,
 				Kind:            computev1.InstanceKind_INSTANCE_KIND_VM,
 				DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				DesiredOs:       os,
-				CurrentOs:       os,
+				Os:              os,
 				VmMemoryBytes:   2 * util.Gigabyte,
 				VmCpuCores:      4,
 				VmStorageBytes:  16 * util.Gigabyte,
@@ -111,8 +110,6 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:         host,
-				DesiredOs:    os,
-				CurrentOs:    os,
 				Os:           os,
 				ExistingCves: `[
 {
@@ -141,20 +138,22 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateDiscoveredInstance": {
 			in: &computev1.InstanceResource{
-				TenantId:  tenantID,
-				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
-				Host:      host,
-				DesiredOs: os,
+				TenantId: tenantID,
+				Kind:     computev1.InstanceKind_INSTANCE_KIND_METAL,
+				Host:     host,
+				//DesiredOs: os,
+				Os: os,
 			},
 			valid: true,
 		},
 		"CreateDiscoveredInstanceWithProvider": {
 			in: &computev1.InstanceResource{
-				TenantId:  tenantID,
-				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
-				Host:      host,
-				Provider:  provider,
-				DesiredOs: os,
+				TenantId: tenantID,
+				Kind:     computev1.InstanceKind_INSTANCE_KIND_METAL,
+				Host:     host,
+				Provider: provider,
+				//DesiredOs: os,
+				Os: os,
 			},
 			valid: true,
 		},
@@ -164,8 +163,9 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:         host,
-				DesiredOs:    os,
-				CurrentOs:    os,
+				//DesiredOs:    os,
+				//CurrentOs:    os,
+				Os:           os,
 				Localaccount: localaccount,
 			},
 			valid: true,
@@ -176,20 +176,22 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 				Host:         host,
-				DesiredOs:    os,
-				CurrentOs:    os,
+				//DesiredOs:    os,
+				//CurrentOs:    os,
+				Os:           os,
 				CustomConfig: []*computev1.CustomConfigResource{cc},
 			},
 			valid: true,
 		},
 		"CreateInstanceWithOsUpdatePolicy": {
 			in: &computev1.InstanceResource{
-				TenantId:       tenantID,
-				Kind:           computev1.InstanceKind_INSTANCE_KIND_METAL,
-				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				Host:           host,
-				DesiredOs:      os,
-				CurrentOs:      os,
+				TenantId:     tenantID,
+				Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
+				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Host:         host,
+				//DesiredOs:      os,
+				//CurrentOs:      os,
+				Os:             os,
 				OsUpdatePolicy: oup,
 			},
 			valid: true,
@@ -198,12 +200,13 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &computev1.InstanceResource{
-				TenantId:       tenantID,
-				ResourceId:     "instance-12345678",
-				Kind:           computev1.InstanceKind_INSTANCE_KIND_VM,
-				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				Host:           host,
-				DesiredOs:      os,
+				TenantId:     tenantID,
+				ResourceId:   "instance-12345678",
+				Kind:         computev1.InstanceKind_INSTANCE_KIND_VM,
+				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Host:         host,
+				//DesiredOs:      os,
+				Os:             os,
 				VmMemoryBytes:  2 * util.Gigabyte,
 				VmCpuCores:     4,
 				VmStorageBytes: 16 * util.Gigabyte,
@@ -214,12 +217,13 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &computev1.InstanceResource{
-				TenantId:       tenantID,
-				ResourceId:     "inst-12345678",
-				Kind:           computev1.InstanceKind_INSTANCE_KIND_VM,
-				DesiredState:   computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				Host:           host,
-				DesiredOs:      os,
+				TenantId:     tenantID,
+				ResourceId:   "inst-12345678",
+				Kind:         computev1.InstanceKind_INSTANCE_KIND_VM,
+				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+				Host:         host,
+				//DesiredOs:      os,
+				Os:             os,
 				VmMemoryBytes:  2 * util.Gigabyte,
 				VmCpuCores:     4,
 				VmStorageBytes: 16 * util.Gigabyte,
@@ -260,9 +264,10 @@ func Test_Create_Get_Delete_Instance(t *testing.T) {
 		},
 		"CreateBadInstanceInvalidExistingCVEs": {
 			in: &computev1.InstanceResource{
-				Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
-				Host:      host,
-				DesiredOs: os,
+				Kind: computev1.InstanceKind_INSTANCE_KIND_METAL,
+				Host: host,
+				//DesiredOs: os,
+				Os: os,
 			},
 			valid: false,
 		},
@@ -336,10 +341,11 @@ func Test_CreateInstanceFromRM(t *testing.T) {
 	os := inv_testing.CreateOs(t)
 
 	instRes := computev1.InstanceResource{
-		Kind:            computev1.InstanceKind_INSTANCE_KIND_METAL,
-		DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
-		DesiredOs:       os,
-		CurrentOs:       os,
+		Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
+		DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+		//DesiredOs:       os,
+		//CurrentOs:       os,
+		Os:              os,
 		Host:            host,
 		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
 	}
@@ -416,8 +422,9 @@ func Test_UpdateInstance(t *testing.T) {
 	createresreq := &inv_v1.Resource{
 		Resource: &inv_v1.Resource_Instance{
 			Instance: &computev1.InstanceResource{
-				Host:            host,
-				DesiredOs:       os,
+				Host: host,
+				//DesiredOs:       os,
+				Os:              os,
 				VmMemoryBytes:   2 * util.Gigabyte,
 				VmCpuCores:      4,
 				VmStorageBytes:  16 * util.Gigabyte,
@@ -447,16 +454,17 @@ func Test_UpdateInstance(t *testing.T) {
 			in: &computev1.InstanceResource{
 				VmCpuCores:   8,
 				CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				DesiredOs:    os,
-				CurrentOs:    os,
+				//DesiredOs:    os,
+				//CurrentOs:    os,
+				Os: os,
 			},
 			resourceID: instanceResID,
 			fieldMask: &fieldmaskpb.FieldMask{
 				Paths: []string{
 					instanceresource.FieldVMCPUCores,
 					instanceresource.FieldCurrentState,
-					instanceresource.EdgeDesiredOs,
-					instanceresource.EdgeCurrentOs,
+					//instanceresource.EdgeDesiredOs,
+					instanceresource.EdgeOs,
 				},
 			},
 			valid: true,
@@ -495,21 +503,21 @@ func Test_UpdateInstance(t *testing.T) {
 		},
 		"UpdateInstanceOsNoop": {
 			in: &computev1.InstanceResource{
-				DesiredOs: os,
+				Os: os,
 			},
 			resourceID: instanceResID,
 			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{instanceresource.EdgeDesiredOs},
+				Paths: []string{instanceresource.EdgeOs},
 			},
 			valid: true,
 		},
 		"UpdateInstanceOs2": {
 			in: &computev1.InstanceResource{
-				DesiredOs: os2,
+				Os: os2,
 			},
 			resourceID: instanceResID,
 			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{instanceresource.EdgeDesiredOs},
+				Paths: []string{instanceresource.EdgeOs},
 			},
 			valid: true,
 		},
@@ -547,7 +555,7 @@ func Test_UpdateInstance(t *testing.T) {
 			in: &computev1.InstanceResource{
 				VmCpuCores:   8,
 				CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				DesiredOs:    os,
+				Os:           os,
 			},
 			resourceID:   instanceResID,
 			valid:        false,
@@ -574,7 +582,7 @@ func Test_UpdateInstance(t *testing.T) {
 				UpdateStatus:          "Some update status",
 				UpdateStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 				UpdateStatusTimestamp: uint64(time.Now().Unix()), //nolint:gosec // This is a test
-				UpdateStatusDetail:    "Some update status detail",
+				//UpdateStatusDetail:    "Some update status detail",
 			},
 			resourceID: instanceResID,
 			fieldMask: &fieldmaskpb.FieldMask{
@@ -582,7 +590,7 @@ func Test_UpdateInstance(t *testing.T) {
 					instanceresource.FieldUpdateStatus,
 					instanceresource.FieldUpdateStatusIndicator,
 					instanceresource.FieldUpdateStatusTimestamp,
-					instanceresource.FieldUpdateStatusDetail,
+					//instanceresource.FieldUpdateStatusDetail,
 				},
 			},
 			valid: true,
@@ -1017,8 +1025,7 @@ func Test_FilterInstances(t *testing.T) {
 		Resource: &inv_v1.Resource_Instance{
 			Instance: &computev1.InstanceResource{
 				Host:            host1,
-				DesiredOs:       os1,
-				CurrentOs:       os1,
+				Os:              os1,
 				VmMemoryBytes:   2 * util.Gigabyte,
 				VmCpuCores:      4,
 				VmStorageBytes:  16 * util.Gigabyte,
@@ -1032,7 +1039,7 @@ func Test_FilterInstances(t *testing.T) {
 		Resource: &inv_v1.Resource_Instance{
 			Instance: &computev1.InstanceResource{
 				Host:           host2,
-				DesiredOs:      os2,
+				Os:             os2,
 				VmMemoryBytes:  2 * util.Gigabyte,
 				VmCpuCores:     4,
 				VmStorageBytes: 16 * util.Gigabyte,
@@ -1046,7 +1053,7 @@ func Test_FilterInstances(t *testing.T) {
 			Instance: &computev1.InstanceResource{
 				VmCpuCores:   4,
 				DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				DesiredOs:    os3,
+				Os:           os3,
 				Provider:     provider,
 			},
 		},
@@ -1142,21 +1149,12 @@ func Test_FilterInstances(t *testing.T) {
 			resources: []*computev1.InstanceResource{instExp1},
 			valid:     true,
 		},
-		"FilterByDesiredOsID": {
-			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s.%s = %q`, instanceresource.EdgeDesiredOs, operatingsystemresource.FieldResourceID,
-					instExp1.GetDesiredOs().GetResourceId()),
-			},
-			resources: []*computev1.InstanceResource{instExp1},
-			valid:     true,
-		},
 		"FilterByInstalledOsID": {
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s.%s = %q`, instanceresource.EdgeCurrentOs, operatingsystemresource.FieldResourceID,
-					instExp1.GetCurrentOs().GetResourceId()),
+				Filter: fmt.Sprintf(`%s.%s = %q`, instanceresource.EdgeOs, operatingsystemresource.FieldResourceID,
+					instExp1.GetOs().GetResourceId()),
 			},
-			resources: []*computev1.InstanceResource{instExp1},
-			valid:     true,
+			resources: []*computev1.InstanceResource{instExp1}, valid: true,
 		},
 		"FilterHostEmpty": {
 			in: &inv_v1.ResourceFilter{
@@ -1165,10 +1163,10 @@ func Test_FilterInstances(t *testing.T) {
 			resources: []*computev1.InstanceResource{instExpEmpty},
 			valid:     true,
 		},
-		"FilterDesiredOSEmpty": {
+		"FilterOSEmpty": {
 			// OS cannot be empty
 			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`NOT has(%s)`, instanceresource.EdgeDesiredOs),
+				Filter: fmt.Sprintf(`NOT has(%s)`, instanceresource.EdgeOs),
 			},
 			valid: true,
 		},
@@ -1327,11 +1325,8 @@ func instanceEdgesOnlyResourceID(expected *computev1.InstanceResource) {
 	if expected.Host != nil {
 		expected.Host = &computev1.HostResource{ResourceId: expected.Host.ResourceId}
 	}
-	if expected.DesiredOs != nil {
-		expected.DesiredOs = &osv1.OperatingSystemResource{ResourceId: expected.DesiredOs.ResourceId}
-	}
-	if expected.CurrentOs != nil {
-		expected.CurrentOs = &osv1.OperatingSystemResource{ResourceId: expected.CurrentOs.ResourceId}
+	if expected.Os != nil {
+		expected.Os = &osv1.OperatingSystemResource{ResourceId: expected.Os.ResourceId}
 	}
 }
 
@@ -1353,8 +1348,6 @@ func Test_NestedFilterInstances(t *testing.T) {
 	workloadMember1.Workload = workload1
 	instance1.WorkloadMembers = append(instance1.WorkloadMembers, workloadMember1)
 	instance1.Host = host1
-	instance1.DesiredOs = os1
-	instance1.CurrentOs = os1
 	instance1.Os = os1
 
 	instance2 := inv_testing.CreateInstance(t, host2, os1)
@@ -1366,26 +1359,18 @@ func Test_NestedFilterInstances(t *testing.T) {
 	workloadMember3.Workload = workload1
 	instance4.WorkloadMembers = append(instance4.WorkloadMembers, workloadMember3)
 	instance4.Host = host5
-	instance4.DesiredOs = os2
-	instance4.CurrentOs = os2
 	instance4.Os = os2
 	instance2.WorkloadMembers = append(instance2.WorkloadMembers, workloadMember2)
 	instance2.Host = host2
-	instance2.DesiredOs = os1
-	instance2.CurrentOs = os1
 	instance2.Os = os1
 
 	instance3 := inv_testing.CreateInstance(t, host3, os2)
 	instance3.Host = host3
-	instance3.DesiredOs = os2
-	instance3.CurrentOs = os2
 	instance3.Os = os2
 
 	provider := inv_testing.CreateProvider(t, "Test Provider1")
 	instanceWithProvider := inv_testing.CreateInstanceWithProvider(t, host4, os2, provider)
 	instanceWithProvider.Host = host4
-	instanceWithProvider.DesiredOs = os2
-	instanceWithProvider.CurrentOs = os2
 	instanceWithProvider.Os = os2
 	instanceWithProvider.Provider = provider
 
@@ -1395,8 +1380,6 @@ func Test_NestedFilterInstances(t *testing.T) {
 	)
 	instanceWithLocalAccount := inv_testing.CreateInstanceWithLocalAccount(t, host6, os2, localaccount)
 	instanceWithLocalAccount.Host = host6
-	instanceWithLocalAccount.DesiredOs = os2
-	instanceWithLocalAccount.CurrentOs = os2
 	instanceWithLocalAccount.Os = os2
 	instanceWithLocalAccount.Localaccount = localaccount
 
@@ -1451,7 +1434,7 @@ func Test_NestedFilterInstances(t *testing.T) {
 		"FilterByOsName": {
 			in: &inv_v1.ResourceFilter{
 				Filter: fmt.Sprintf(`%s.%s = %q`,
-					instanceresource.EdgeDesiredOs, operatingsystemresource.FieldName, os1.GetName()),
+					instanceresource.EdgeOs, operatingsystemresource.FieldName, os1.GetName()),
 			},
 			resources: []*computev1.InstanceResource{
 				instance1, instance2,
@@ -1562,7 +1545,7 @@ func Test_One2One_Relation_InstanceHost(t *testing.T) {
 	inst2Req := computev1.InstanceResource{
 		Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
 		DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
-		DesiredOs:    os,
+		Os:           os,
 		Host:         host1,
 	}
 	_, err := inv_testing.GetClient(t, inv_testing.APIClient).Create(ctx,

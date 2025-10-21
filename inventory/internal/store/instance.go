@@ -144,14 +144,6 @@ func setRelationsForInstanceCreate(ctx context.Context,
 	if err := setEdgeHostIDForMut(ctx, client, mut, in.GetHost()); err != nil {
 		return err
 	}
-	// Look up the optional Desired OS ID for this Instance.
-	if err := setEdgeDesiredOSIDForMut(ctx, client, mut, in.GetDesiredOs()); err != nil {
-		return err
-	}
-	// Look up the optional Desired OS ID for this Instance.
-	if err := setEdgeCurrentOSIDForMut(ctx, client, mut, in.GetCurrentOs()); err != nil {
-		return err
-	}
 	// Look up the optional provider ID for this Instance.
 	if err := setEdgeProviderIDForMut(ctx, client, mut, in.GetProvider()); err != nil {
 		return err
@@ -197,8 +189,6 @@ func (is *InvStore) GetInstance(ctx context.Context, id string) (*inv_v1.Resourc
 func getInstanceQuery(ctx context.Context, tx *ent.Tx, resourceID string, nestedLoad bool) (*ent.InstanceResource, error) {
 	query := tx.InstanceResource.Query().
 		Where(instanceresource.ResourceID(resourceID)).
-		WithDesiredOs().
-		WithCurrentOs().
 		WithOs().
 		WithProvider().
 		WithLocalaccount().
@@ -475,8 +465,6 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 			q.WithSite()     // Populate the site of each host
 			q.WithProvider() // Populate the provider of each host
 		}).
-		WithDesiredOs().
-		WithCurrentOs().
 		WithWorkloadMembers(func(q *ent.WorkloadMemberQuery) {
 			q.WithWorkload() // Populate the workload of each member
 		}).
@@ -543,18 +531,6 @@ func setRelationsForInstanceMutIfNeeded(
 	mut.ResetHost()
 	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeHost) {
 		if err := setEdgeHostIDForMut(ctx, client, mut, in.GetHost()); err != nil {
-			return err
-		}
-	}
-	mut.ResetDesiredOs()
-	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeDesiredOs) {
-		if err := setEdgeDesiredOSIDForMut(ctx, client, mut, in.GetDesiredOs()); err != nil {
-			return err
-		}
-	}
-	mut.ResetCurrentOs()
-	if slices.Contains(fieldmask.GetPaths(), instanceresource.EdgeCurrentOs) {
-		if err := setEdgeCurrentOSIDForMut(ctx, client, mut, in.GetCurrentOs()); err != nil {
 			return err
 		}
 	}

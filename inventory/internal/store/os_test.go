@@ -905,7 +905,7 @@ func Test_StrongRelations_On_Delete_Ou_Os(t *testing.T) {
 		Name:         "test instance",
 		DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		Host:         nil,
-		DesiredOs:    os,
+		Os:           os,
 	}
 	resp, err = inv_testing.TestClients[inv_testing.APIClient].Create(ctx,
 		&inv_v1.Resource{Resource: &inv_v1.Resource_Instance{Instance: ins}})

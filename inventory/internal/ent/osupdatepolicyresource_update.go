@@ -168,14 +168,8 @@ func (_u *OSUpdatePolicyResourceUpdate) sqlSave(ctx context.Context) (_node int,
 	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldDescription, field.TypeString)
 	}
-	if _u.mutation.InstallPackagesCleared() {
-		_spec.ClearField(osupdatepolicyresource.FieldInstallPackages, field.TypeString)
-	}
 	if _u.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdateSources, field.TypeString)
-	}
-	if _u.mutation.KernelCommandCleared() {
-		_spec.ClearField(osupdatepolicyresource.FieldKernelCommand, field.TypeString)
 	}
 	if _u.mutation.UpdatePackagesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdatePackages, field.TypeString)
@@ -408,14 +402,8 @@ func (_u *OSUpdatePolicyResourceUpdateOne) sqlSave(ctx context.Context) (_node *
 	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldDescription, field.TypeString)
 	}
-	if _u.mutation.InstallPackagesCleared() {
-		_spec.ClearField(osupdatepolicyresource.FieldInstallPackages, field.TypeString)
-	}
 	if _u.mutation.UpdateSourcesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdateSources, field.TypeString)
-	}
-	if _u.mutation.KernelCommandCleared() {
-		_spec.ClearField(osupdatepolicyresource.FieldKernelCommand, field.TypeString)
 	}
 	if _u.mutation.UpdatePackagesCleared() {
 		_spec.ClearField(osupdatepolicyresource.FieldUpdatePackages, field.TypeString)

@@ -465,10 +465,10 @@ func Test_ImmutableFieldsOnUpdateOsUpdatePolicy(t *testing.T) {
 		},
 		"UpdateImmutableKernelCommand": {
 			in: &computev1.OSUpdatePolicyResource{
-				KernelCommand: "test kernel command",
+				UpdateKernelCommand: "test kernel command",
 			},
 			resourceID:   osUpPolicy3.GetResourceId(),
-			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldKernelCommand}},
+			fieldMask:    &fieldmaskpb.FieldMask{Paths: []string{oup.FieldUpdateKernelCommand}},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
 		},
