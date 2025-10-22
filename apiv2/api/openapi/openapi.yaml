@@ -4436,7 +4436,7 @@ components:
           type: string
           title: existing_cves
           maxLength: 500000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \n\{\}\[\]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\\n\{\}\[\]]+$
           description: The CVEs that are currently present on the Operating System, encoded as a JSON list.
           readOnly: true
         fixedCvesUrl:
@@ -4449,7 +4449,7 @@ components:
           type: string
           title: fixed_cves
           maxLength: 500000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \n\{\}\[\]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\\n\{\}\[\]]+$
           description: The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
           readOnly: true
         osResourceID:
@@ -5366,7 +5366,7 @@ components:
           type: string
           title: existing_cves
           maxLength: 500000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\ \n\{\}\[\]]+$
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\\n\{\}\[\]]+$
           description: The CVEs that are currently present on the Instance, encoded as a JSON list.
           readOnly: true
         runtimePackages:

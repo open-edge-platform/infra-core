@@ -704,7 +704,7 @@ message InstanceResource {
   string existing_cves = 42 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\n{}\\[\\]]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\\\n{}\\[\\]]+$"
       max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
