@@ -177,7 +177,7 @@ message OperatingSystemResource {
   string existing_cves = 43 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\n\\{\\}\\[\\]\\\\\" ]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\n\\{\\}\\[\\]\\\\\\s\" ]+$"
       max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
@@ -198,7 +198,7 @@ message OperatingSystemResource {
   string fixed_cves = 45 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\n\\{\\}\\[\\]\\\\\" ]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\n\\{\\}\\[\\]\\\\\\s\" ]+$"
       max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
