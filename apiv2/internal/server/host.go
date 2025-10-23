@@ -521,6 +521,7 @@ func (is *InventorygRPCServer) GetHost(ctx context.Context, req *restv1.GetHostR
 }
 
 // Update a host. (PUT).
+//nolint:cyclop // Ignoring cyclomatic complexity for consecutive reset implementation
 func (is *InventorygRPCServer) UpdateHost(
 	ctx context.Context,
 	req *restv1.UpdateHostRequest,
@@ -597,6 +598,7 @@ func (is *InventorygRPCServer) UpdateHost(
 }
 
 // Update a host. (PATCH).
+//nolint:cyclop // Ignoring cyclomatic complexity for consecutive reset implementation
 func (is *InventorygRPCServer) PatchHost(
 	ctx context.Context,
 	req *restv1.PatchHostRequest,
