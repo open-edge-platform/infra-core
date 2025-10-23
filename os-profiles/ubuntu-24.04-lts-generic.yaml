@@ -17,6 +17,8 @@ spec:
   osImageVersion: 24.04.2
   osImageSha256: bc471ca49de03b5129c65b70f9862b7f4b5e721622fd34ade78132f6f7999e2d
   osPackageManifestURL: ""
+  osExistingCvesURL: https://security-metadata.canonical.com/oval/com.ubuntu.noble.cve.oval.xml.bz2
+  osFixedCvesURL: https://security-metadata.canonical.com/oval/com.ubuntu.noble.usn.oval.xml.bz2
   securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   description: Ubuntu 24.04.2 LTS for x86_64 architecture
   platformBundle:
