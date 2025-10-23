@@ -644,9 +644,10 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -677,9 +678,10 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -710,9 +712,10 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -743,9 +746,10 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_ON
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_ON
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -819,9 +823,10 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -855,9 +860,10 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -891,9 +897,10 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
@@ -927,9 +934,10 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 								Resource: &inventory.Resource_Host{Host: currentHost},
 							},
 						}, nil).Once(),
-					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.MatchedBy(func(res *inventory.Resource) bool {
-						return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_ON
-					})).Return(&inventory.Resource{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_ON
+						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
 				}
