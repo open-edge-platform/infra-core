@@ -164,7 +164,7 @@ message OperatingSystemResource {
   string existing_cves = 43 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\n\\{\\}\\[\\] ]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 500000
     }
   ];
@@ -182,7 +182,7 @@ message OperatingSystemResource {
   string fixed_cves = 45 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\n\\{\\}\\[\\] ]+$"
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
       max_len: 500000
     }
   ];
