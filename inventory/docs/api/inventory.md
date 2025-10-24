@@ -1024,6 +1024,7 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | POWER_STATE_HIBERNATE | 5 |  |
 | POWER_STATE_RESET | 6 |  |
 | POWER_STATE_POWER_CYCLE | 7 |  |
+| POWER_STATE_RESET_REPEAT | 8 | For consecutive reset operations |
 
 
 
