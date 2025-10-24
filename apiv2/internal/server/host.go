@@ -146,12 +146,8 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 
 func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource, error) {
 	if host == nil {
-		zlog.Info().Msg("toInvHostUpdate: Received nil host resource")
 		return &inv_computev1.HostResource{}, nil
 	}
-
-	zlog.Info().Msgf("toInvHostUpdate: Converting host '%s', DesiredPowerState=%v",
-		host.GetName(), host.GetDesiredPowerState())
 
 	metadata, err := toInvMetadata(host.GetMetadata())
 	if err != nil {
@@ -167,9 +163,6 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 	}
 
-	zlog.Info().Msgf("toInvHostUpdate: Converted power state for host '%s': OpenAPI=%v -> Inventory=%v",
-		host.GetName(), host.GetDesiredPowerState(), invHost.DesiredPowerState)
-
 	hostSiteID := host.GetSiteId()
 	if isSet(&hostSiteID) {
 		invHost.Site = &inv_locationv1.SiteResource{
@@ -179,13 +172,9 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 
 	err = validator.ValidateMessage(invHost)
 	if err != nil {
-		zlog.InfraErr(err).Msgf("toInvHostUpdate: Failed to validate inventory resource for host '%s'",
-			host.GetName())
+		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
 		return nil, err
 	}
-
-	zlog.Info().Msgf("toInvHostUpdate: Successfully converted host '%s' with final DesiredPowerState=%v",
-		host.GetName(), invHost.DesiredPowerState)
 	return invHost, nil
 }
 
