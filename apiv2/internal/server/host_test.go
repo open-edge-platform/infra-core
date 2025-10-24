@@ -630,7 +630,7 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 		description          string
 	}{
 		{
-			name: "Step 1: First RESET from ON state (Standard reset)",
+			name: "First RESET from ON state",
 			mocks: func() []*mock.Call {
 				currentHost := &inv_computev1.HostResource{
 					ResourceId:        "host-12345678",
@@ -661,10 +661,10 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 			},
 			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
 			wantErr:              false,
-			description:          "Initial: ON→ON, User clicks RESET → Standard RESET applied",
+			description:          "ON→ON, User clicks RESET → Standard RESET",
 		},
 		{
-			name: "Step 2: Second RESET (First consecutive - RESET to RESET_REPEAT)",
+			name: "Second RESET (First consecutive - RESET to RESET_REPEAT)",
 			mocks: func() []*mock.Call {
 				currentHost := &inv_computev1.HostResource{
 					ResourceId:        "host-12345678",
@@ -695,10 +695,10 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 			},
 			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
 			wantErr:              false,
-			description:          "Current: RESET→RESET, User clicks RESET → Converts to RESET_REPEAT",
+			description:          "RESET→RESET, User clicks RESET → Converts to RESET_REPEAT",
 		},
 		{
-			name: "Step 3: Third RESET (Unlimited consecutive - RESET_REPEAT maintained)",
+			name: "Third RESET (Alternating consecutive - RESET_REPEAT to RESET)",
 			mocks: func() []*mock.Call {
 				currentHost := &inv_computev1.HostResource{
 					ResourceId:        "host-12345678",
@@ -714,7 +714,7 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 						}, nil).Once(),
 					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
 						mock.MatchedBy(func(res *inventory.Resource) bool {
-							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
 						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
@@ -727,9 +727,9 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
 				},
 			},
-			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
 			wantErr:              false,
-			description:          "Current: RESET_REPEAT→RESET_REPEAT, User clicks RESET → Maintains RESET_REPEAT",
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks RESET → Alternates to RESET",
 		},
 		{
 			name: "Step 4: Power ON (Exit reset cycle)",
@@ -763,7 +763,7 @@ func TestHost_UpdateConsecutiveReset(t *testing.T) {
 			},
 			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_ON,
 			wantErr:              false,
-			description:          "Current: RESET_REPEAT→RESET_REPEAT, User clicks POWER ON → Exits reset cycle",
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks POWER ON → Exits reset cycle",
 		},
 	}
 
@@ -809,7 +809,7 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 		description          string
 	}{
 		{
-			name: "First RESET from ON state (Standard reset)",
+			name: "RESET from ON state (Standard reset)",
 			mocks: func() []*mock.Call {
 				currentHost := &inv_computev1.HostResource{
 					ResourceId:        "host-12345678",
@@ -843,7 +843,7 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 			},
 			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
 			wantErr:              false,
-			description:          "Initial: ON→ON, User clicks RESET → Standard RESET applied",
+			description:          "Initial: ON→ON, Standard RESET",
 		},
 		{
 			name: "Second RESET (First consecutive - RESET to RESET_REPEAT)",
@@ -883,7 +883,7 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 			description:          "RESET→RESET, User clicks RESET → Converts to RESET_REPEAT",
 		},
 		{
-			name: "Third RESET (Unlimited consecutive - RESET_REPEAT maintained)",
+			name: "Third RESET (Alternating consecutive - RESET_REPEAT to RESET)",
 			mocks: func() []*mock.Call {
 				currentHost := &inv_computev1.HostResource{
 					ResourceId:        "host-12345678",
@@ -899,7 +899,7 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 						}, nil).Once(),
 					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
 						mock.MatchedBy(func(res *inventory.Resource) bool {
-							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
 						})).Return(&inventory.Resource{
 						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
 					}, nil).Once(),
@@ -915,12 +915,12 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 					Paths: []string{"desired_power_state"},
 				},
 			},
-			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
 			wantErr:              false,
-			description:          "RESET_REPEAT→RESET_REPEAT, User clicks RESET → Maintains RESET_REPEAT",
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks RESET → Alternates to RESET",
 		},
 		{
-			name: "Power ON (Exit reset cycle)",
+			name: "Power ON",
 			mocks: func() []*mock.Call {
 				currentHost := &inv_computev1.HostResource{
 					ResourceId:        "host-12345678",
@@ -954,7 +954,7 @@ func TestHost_PatchConsecutiveReset(t *testing.T) {
 			},
 			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_ON,
 			wantErr:              false,
-			description:          "Current: RESET_REPEAT→RESET_REPEAT, User clicks POWER ON → Exits reset cycle",
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks POWER ON → Exits reset cycle",
 		},
 	}
 
