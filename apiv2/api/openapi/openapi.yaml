@@ -4676,6 +4676,7 @@ components:
         - POWER_STATE_HIBERNATE
         - POWER_STATE_RESET
         - POWER_STATE_POWER_CYCLE
+        - POWER_STATE_RESET_REPEAT
       description: The host power state.
     UpdatePolicy:
       type: string
