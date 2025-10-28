@@ -45,6 +45,7 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 	}
 	return nil
 }
+
 func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// Enforce mutually exclusive fields: either TargetOs OR the other fields, but not both
 	targetOsSet := in.GetTargetOs() != nil
