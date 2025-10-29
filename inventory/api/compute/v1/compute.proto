@@ -38,6 +38,7 @@ enum PowerState {
   POWER_STATE_HIBERNATE = 5;
   POWER_STATE_RESET = 6;
   POWER_STATE_POWER_CYCLE = 7;
+  POWER_STATE_RESET_REPEAT = 8; // For consecutive reset operations
 }
 
 enum PowerCommandPolicy {
@@ -689,8 +690,8 @@ message InstanceResource {
   string existing_cves = 42 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\n{}\\[\\]]+$"
-      max_len: 20000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\À-ÿ \\n{}\\[\\]]+$"
+      max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // The CVEs that are currently present on the Instance, encoded as a JSON list.

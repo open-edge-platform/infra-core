@@ -90,13 +90,14 @@ func (HostState) EnumDescriptor() ([]byte, []int) {
 type PowerState int32
 
 const (
-	PowerState_POWER_STATE_UNSPECIFIED PowerState = 0
-	PowerState_POWER_STATE_ON          PowerState = 2
-	PowerState_POWER_STATE_OFF         PowerState = 3
-	PowerState_POWER_STATE_SLEEP       PowerState = 4
-	PowerState_POWER_STATE_HIBERNATE   PowerState = 5
-	PowerState_POWER_STATE_RESET       PowerState = 6
-	PowerState_POWER_STATE_POWER_CYCLE PowerState = 7
+	PowerState_POWER_STATE_UNSPECIFIED  PowerState = 0
+	PowerState_POWER_STATE_ON           PowerState = 2
+	PowerState_POWER_STATE_OFF          PowerState = 3
+	PowerState_POWER_STATE_SLEEP        PowerState = 4
+	PowerState_POWER_STATE_HIBERNATE    PowerState = 5
+	PowerState_POWER_STATE_RESET        PowerState = 6
+	PowerState_POWER_STATE_POWER_CYCLE  PowerState = 7
+	PowerState_POWER_STATE_RESET_REPEAT PowerState = 8 // For consecutive reset operations
 )
 
 // Enum value maps for PowerState.
@@ -109,15 +110,17 @@ var (
 		5: "POWER_STATE_HIBERNATE",
 		6: "POWER_STATE_RESET",
 		7: "POWER_STATE_POWER_CYCLE",
+		8: "POWER_STATE_RESET_REPEAT",
 	}
 	PowerState_value = map[string]int32{
-		"POWER_STATE_UNSPECIFIED": 0,
-		"POWER_STATE_ON":          2,
-		"POWER_STATE_OFF":         3,
-		"POWER_STATE_SLEEP":       4,
-		"POWER_STATE_HIBERNATE":   5,
-		"POWER_STATE_RESET":       6,
-		"POWER_STATE_POWER_CYCLE": 7,
+		"POWER_STATE_UNSPECIFIED":  0,
+		"POWER_STATE_ON":           2,
+		"POWER_STATE_OFF":          3,
+		"POWER_STATE_SLEEP":        4,
+		"POWER_STATE_HIBERNATE":    5,
+		"POWER_STATE_RESET":        6,
+		"POWER_STATE_POWER_CYCLE":  7,
+		"POWER_STATE_RESET_REPEAT": 8,
 	}
 )
 

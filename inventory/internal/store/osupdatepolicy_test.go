@@ -55,6 +55,16 @@ func Test_Create_Get_Delete_Update_OSUpdatePolicy(t *testing.T) {
 			},
 			valid: true,
 		},
+
+		"CreateGoodOsUpdatePolicyTargetImm2": {
+			in: &computev1.OSUpdatePolicyResource{
+				Name:                "Test OS Update Policy",
+				Description:         "Test Description",
+				UpdateKernelCommand: "test command",
+				UpdatePolicy:        computev1.UpdatePolicy_UPDATE_POLICY_TARGET,
+			},
+			valid: true,
+		},
 		"CreateGoodOsUpdatePolicyLatest": {
 			in: &computev1.OSUpdatePolicyResource{
 				Name:         "Test OS Update Policy",
