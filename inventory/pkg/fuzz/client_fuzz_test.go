@@ -1229,7 +1229,6 @@ func FuzzCreateOs(f *testing.F) {
 					Os: &osv1.OperatingSystemResource{
 						Name:              name,
 						Architecture:      architecture,
-						KernelCommand:     kernelCommand,
 						ImageUrl:          imageUrl,
 						ImageId:           imageId,
 						Sha256:            sha256,

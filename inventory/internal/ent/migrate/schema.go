@@ -412,7 +412,7 @@ var (
 		{Name: "instance_status_detail", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
-		{Name: "instance_resource_os", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_os", Type: field.TypeInt},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_os_update_policy", Type: field.TypeInt, Nullable: true},
@@ -427,7 +427,7 @@ var (
 				Symbol:     "instance_resources_operating_system_resources_os",
 				Columns:    []*schema.Column{InstanceResourcesColumns[29]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
+				OnDelete:   schema.NoAction,
 			},
 			{
 				Symbol:     "instance_resources_provider_resources_provider",
@@ -651,8 +651,6 @@ var (
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "architecture", Type: field.TypeString, Nullable: true},
-		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
-		{Name: "update_sources", Type: field.TypeString, Nullable: true},
 		{Name: "image_url", Type: field.TypeString, Nullable: true},
 		{Name: "image_id", Type: field.TypeString, Nullable: true},
 		{Name: "sha256", Type: field.TypeString, Nullable: true},
@@ -683,12 +681,12 @@ var (
 			{
 				Name:    "operatingsystemresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[23]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[21]},
 			},
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[23]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[21]},
 			},
 		},
 	}

@@ -596,14 +596,6 @@ func (_u *InstanceResourceUpdate) SetOsID(id int) *InstanceResourceUpdate {
 	return _u
 }
 
-// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_u *InstanceResourceUpdate) SetNillableOsID(id *int) *InstanceResourceUpdate {
-	if id != nil {
-		_u = _u.SetOsID(*id)
-	}
-	return _u
-}
-
 // SetOs sets the "os" edge to the OperatingSystemResource entity.
 func (_u *InstanceResourceUpdate) SetOs(v *OperatingSystemResource) *InstanceResourceUpdate {
 	return _u.SetOsID(v.ID)
@@ -836,6 +828,9 @@ func (_u *InstanceResourceUpdate) check() error {
 		if err := instanceresource.TrustedAttestationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
+	}
+	if _u.mutation.OsCleared() && len(_u.mutation.OsIDs()) > 0 {
+		return errors.New(`ent: clearing a required unique edge "InstanceResource.os"`)
 	}
 	return nil
 }
@@ -1837,14 +1832,6 @@ func (_u *InstanceResourceUpdateOne) SetOsID(id int) *InstanceResourceUpdateOne 
 	return _u
 }
 
-// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_u *InstanceResourceUpdateOne) SetNillableOsID(id *int) *InstanceResourceUpdateOne {
-	if id != nil {
-		_u = _u.SetOsID(*id)
-	}
-	return _u
-}
-
 // SetOs sets the "os" edge to the OperatingSystemResource entity.
 func (_u *InstanceResourceUpdateOne) SetOs(v *OperatingSystemResource) *InstanceResourceUpdateOne {
 	return _u.SetOsID(v.ID)
@@ -2090,6 +2077,9 @@ func (_u *InstanceResourceUpdateOne) check() error {
 		if err := instanceresource.TrustedAttestationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
+	}
+	if _u.mutation.OsCleared() && len(_u.mutation.OsIDs()) > 0 {
+		return errors.New(`ent: clearing a required unique edge "InstanceResource.os"`)
 	}
 	return nil
 }

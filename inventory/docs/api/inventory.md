@@ -366,14 +366,12 @@
 | resource_id | [string](#string) |  | Resource ID of this OperatingSystemResource |
 | name | [string](#string) |  | user-provided, human-readable name of OS |
 | architecture | [string](#string) |  | CPU architecture supported |
-| kernel_command | [string](#string) |  | Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
-| update_sources | [string](#string) | repeated | OS Update Sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
 | image_url | [string](#string) |  | OS image URL. URL of the original installation source. |
 | image_id | [string](#string) |  | OS image ID. This must be a unique identifier of OS image that can be retrieved from running OS. Used by IMMUTABLE only. |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in HEX. It&#39;s length is 32 bytes, but string representation of HEX is twice long (64 chars) |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies family of OSResources. |
 | profile_version | [string](#string) |  | Version of an OS profile that the OS resource belongs to. Along with profile_name uniquely identifies OS resource. |
-| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
+| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of installed package names, one per line (newline separated). Populated internally for immutable OS only. |
 | installed_packages_url | [string](#string) |  | The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field for the advance use case to allow manual creation of OSProfiles when supported from backend. |
 | security_feature | [SecurityFeature](#os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). |
 | os_type | [OsType](#os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |

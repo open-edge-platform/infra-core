@@ -377,7 +377,6 @@ func TestInventoryClient_Subscribe(t *testing.T) {
 			Os: &osv1.OperatingSystemResource{
 				Name:              "Test OS resource",
 				Sha256:            inv_testing.GenerateRandomSha256(),
-				UpdateSources:     []string{"foo"},
 				ImageUrl:          "test",
 				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
 				OsType:            osv1.OsType_OS_TYPE_MUTABLE,

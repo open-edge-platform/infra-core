@@ -851,7 +851,6 @@ func (c *InvResourceDAO) createOsWithOpts(
 	// a default OS resource, can be overwritten by opts
 	osCreateReq := &osv1.OperatingSystemResource{
 		Name:                 "for unit testing purposes",
-		UpdateSources:        []string{"test entries"},
 		ImageUrl:             "Repo URL Test",
 		ImageId:              "some image ID",
 		ProfileName:          "test profile name",

@@ -411,14 +411,6 @@ func (_c *InstanceResourceCreate) SetOsID(id int) *InstanceResourceCreate {
 	return _c
 }
 
-// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_c *InstanceResourceCreate) SetNillableOsID(id *int) *InstanceResourceCreate {
-	if id != nil {
-		_c = _c.SetOsID(*id)
-	}
-	return _c
-}
-
 // SetOs sets the "os" edge to the OperatingSystemResource entity.
 func (_c *InstanceResourceCreate) SetOs(v *OperatingSystemResource) *InstanceResourceCreate {
 	return _c.SetOsID(v.ID)
@@ -596,6 +588,9 @@ func (_c *InstanceResourceCreate) check() error {
 	}
 	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "InstanceResource.updated_at"`)}
+	}
+	if len(_c.mutation.OsIDs()) == 0 {
+		return &ValidationError{Name: "os", err: errors.New(`ent: missing required edge "InstanceResource.os"`)}
 	}
 	return nil
 }

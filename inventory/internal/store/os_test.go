@@ -36,7 +36,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateGoodOs": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				ImageUrl:             "Repo test entry",
 				ImageId:              "some ID",
 				Sha256:               inv_testing.RandomSha256v1,
@@ -68,7 +67,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateGoodOsLenovoProvider": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				ImageUrl:             "Repo test entry",
 				ImageId:              "some ID",
 				Sha256:               inv_testing.RandomSha256v1,
@@ -85,39 +83,15 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		},
 		"CreateBadOsWrongSha": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", "test entry2"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        "________________________________________________________________",
+				Name:     "Test Os 1",
+				ImageUrl: "Repo test entry",
+				Sha256:   "________________________________________________________________",
 			},
 			valid: false,
-		},
-		"CreateBadWithTooLongUpdateSource": {
-			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", inv_testing.RandomString(10001)},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-			},
-			valid: false,
-		},
-		"CreateGoodLongUpdateSource": {
-			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", inv_testing.RandomString(9999)},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-			},
-			valid: true,
 		},
 		"CreateGoodOsMissingSha": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				ImageUrl:             "Repo test entry",
 				InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
 				InstalledPackagesUrl: "https://manifest-url.example.com/installed-packages.txt",
@@ -130,12 +104,11 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &os_v1.OperatingSystemResource{
-				ResourceId:    "os-12345678",
-				Name:          "Test Os 2",
-				UpdateSources: []string{"test entries"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
+				ResourceId:  "os-12345678",
+				Name:        "Test Os 2",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
 			},
 			valid: false,
 		},
@@ -143,29 +116,26 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &os_v1.OperatingSystemResource{
-				ResourceId:    "os-1234678",
-				Name:          "Test Os 2",
-				UpdateSources: []string{"test entries"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
+				ResourceId:  "os-1234678",
+				Name:        "Test Os 2",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
 			},
 			valid: false,
 		},
 		"CreateGoodOsBadSHA256": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", "test entry2"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        strings.ToUpper(inv_testing.RandomSha256v1),
-				ProfileName:   "Test OS profile name",
+				Name:        "Test Os 1",
+				ImageUrl:    "Repo test entry",
+				Sha256:      strings.ToUpper(inv_testing.RandomSha256v1),
+				ProfileName: "Test OS profile name",
 			},
 			valid: false,
 		},
 		"CreateGoodOsNoRepoURL": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name",
 				InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
@@ -179,7 +149,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateBadOsDuplicateMetadata1": {
 			in: &os_v1.OperatingSystemResource{
 				Name:              "Test Os 1",
-				UpdateSources:     []string{"test entry1", "test entry2"},
 				Sha256:            inv_testing.RandomSha256v1,
 				ProfileName:       "Test OS profile name",
 				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
@@ -193,7 +162,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateBadOsDuplicateMetadata2": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name",
 				InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
@@ -259,7 +227,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 					},
 				}
 				fieldMask := &fieldmaskpb.FieldMask{
-					Paths: []string{oss.FieldUpdateSources, oss.FieldInstalledPackages},
+					Paths: []string{oss.FieldInstalledPackages},
 				}
 				upRes, err := inv_testing.TestClients[inv_testing.APIClient].Update(
 					ctx,
@@ -334,13 +302,6 @@ func Test_FilterOss(t *testing.T) {
 				Filter: fmt.Sprintf(`%s = %q`, oss.FieldResourceID, cupdatesourceResp1.ResourceId),
 			},
 			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp1},
-			valid:     true,
-		},
-		"FilterUpdateSources": {
-			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oss.FieldUpdateSources, cupdatesourceResp1.UpdateSources[0]),
-			},
-			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp1, cupdatesourceResp2},
 			valid:     true,
 		},
 		"FilterBySecurityFeatures": {
@@ -502,7 +463,6 @@ func Test_UpdateOs(t *testing.T) {
 		Resource: &inv_v1.Resource_Os{
 			Os: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entries"},
 				ImageUrl:             "Repo test entry",
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name 1",
@@ -530,20 +490,6 @@ func Test_UpdateOs(t *testing.T) {
 		valid        bool
 		expErrorCode codes.Code
 	}{
-		"UpdateMultipleFields": {
-			in: &os_v1.OperatingSystemResource{
-				Name:          "Updated Name",
-				KernelCommand: "linux",
-				UpdateSources: []string{"update 2"},
-			},
-			resourceID: osResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{
-					oss.FieldKernelCommand, oss.FieldUpdateSources,
-				},
-			},
-			valid: true,
-		},
 		"UpdateImmutableSecurityFeatureFail": {
 			in: &os_v1.OperatingSystemResource{
 				SecurityFeature: os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
@@ -682,7 +628,6 @@ func Test_ImmutableFieldsOnUpdate(t *testing.T) {
 		Resource: &inv_v1.Resource_Os{
 			Os: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entries"},
 				ImageUrl:             "Repo test entry",
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name 1",
@@ -712,8 +657,6 @@ func Test_ImmutableFieldsOnUpdate(t *testing.T) {
 		ResourceId:           os1.ResourceId,
 		Name:                 "TEST",
 		Architecture:         "TEST",
-		KernelCommand:        "TEST",
-		UpdateSources:        []string{"TEST"},
 		ImageUrl:             "TEST",
 		Sha256:               inv_testing.RandomSha256v2,
 		ProfileName:          "Test OS profile name 2",
@@ -884,13 +827,12 @@ func Test_StrongRelations_On_Delete_Ou_Os(t *testing.T) {
 
 	// Create the Desired OS to test on.
 	os := &os_v1.OperatingSystemResource{
-		Name:          "Test Os 1",
-		UpdateSources: []string{"source 1"},
-		ImageUrl:      "test repo url",
-		Sha256:        inv_testing.RandomSha256v1,
-		ProfileName:   "Test OS profile name",
-		OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-		OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+		Name:        "Test Os 1",
+		ImageUrl:    "test repo url",
+		Sha256:      inv_testing.RandomSha256v1,
+		ProfileName: "Test OS profile name",
+		OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+		OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 	}
 	resp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx,
 		&inv_v1.Resource{Resource: &inv_v1.Resource_Os{Os: os}})
@@ -931,7 +873,6 @@ func Test_Create_Get_Delete_Update_Os_Install_Packages(t *testing.T) {
 		"CreateOswithInstallPackages": {
 			in: &os_v1.OperatingSystemResource{
 				Name:              "Test Os 1",
-				UpdateSources:     []string{"test entry1", "test entry2"},
 				ImageUrl:          "Repo test entry",
 				Sha256:            inv_testing.RandomSha256v1,
 				ProfileName:       "Test OS profile name",
@@ -943,13 +884,12 @@ func Test_Create_Get_Delete_Update_Os_Install_Packages(t *testing.T) {
 		},
 		"CreateOswithoutInstallPackages": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", "test entry2"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Name:        "Test Os 1",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 			},
 			valid: true,
 		},

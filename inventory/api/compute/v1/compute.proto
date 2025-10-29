@@ -629,7 +629,7 @@ message InstanceResource {
 
   os.v1.OperatingSystemResource os = 12 [(ent.edge) = {
     unique: true
-    required: false
+    required: true
   }]; // OS resource that is installed for this Instance.
 
   os.v1.SecurityFeature security_feature = 14 [(ent.field) = {

@@ -1154,7 +1154,8 @@ func Test_FilterInstances(t *testing.T) {
 				Filter: fmt.Sprintf(`%s.%s = %q`, instanceresource.EdgeOs, operatingsystemresource.FieldResourceID,
 					instExp1.GetOs().GetResourceId()),
 			},
-			resources: []*computev1.InstanceResource{instExp1}, valid: true,
+			resources: []*computev1.InstanceResource{instExp1},
+			valid:     true,
 		},
 		"FilterHostEmpty": {
 			in: &inv_v1.ResourceFilter{

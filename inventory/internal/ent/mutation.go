@@ -21684,8 +21684,6 @@ type OperatingSystemResourceMutation struct {
 	resource_id            *string
 	name                   *string
 	architecture           *string
-	kernel_command         *string
-	update_sources         *string
 	image_url              *string
 	image_id               *string
 	sha256                 *string
@@ -21942,104 +21940,6 @@ func (m *OperatingSystemResourceMutation) ArchitectureCleared() bool {
 func (m *OperatingSystemResourceMutation) ResetArchitecture() {
 	m.architecture = nil
 	delete(m.clearedFields, operatingsystemresource.FieldArchitecture)
-}
-
-// SetKernelCommand sets the "kernel_command" field.
-func (m *OperatingSystemResourceMutation) SetKernelCommand(s string) {
-	m.kernel_command = &s
-}
-
-// KernelCommand returns the value of the "kernel_command" field in the mutation.
-func (m *OperatingSystemResourceMutation) KernelCommand() (r string, exists bool) {
-	v := m.kernel_command
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldKernelCommand returns the old "kernel_command" field's value of the OperatingSystemResource entity.
-// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OperatingSystemResourceMutation) OldKernelCommand(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldKernelCommand is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldKernelCommand requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldKernelCommand: %w", err)
-	}
-	return oldValue.KernelCommand, nil
-}
-
-// ClearKernelCommand clears the value of the "kernel_command" field.
-func (m *OperatingSystemResourceMutation) ClearKernelCommand() {
-	m.kernel_command = nil
-	m.clearedFields[operatingsystemresource.FieldKernelCommand] = struct{}{}
-}
-
-// KernelCommandCleared returns if the "kernel_command" field was cleared in this mutation.
-func (m *OperatingSystemResourceMutation) KernelCommandCleared() bool {
-	_, ok := m.clearedFields[operatingsystemresource.FieldKernelCommand]
-	return ok
-}
-
-// ResetKernelCommand resets all changes to the "kernel_command" field.
-func (m *OperatingSystemResourceMutation) ResetKernelCommand() {
-	m.kernel_command = nil
-	delete(m.clearedFields, operatingsystemresource.FieldKernelCommand)
-}
-
-// SetUpdateSources sets the "update_sources" field.
-func (m *OperatingSystemResourceMutation) SetUpdateSources(s string) {
-	m.update_sources = &s
-}
-
-// UpdateSources returns the value of the "update_sources" field in the mutation.
-func (m *OperatingSystemResourceMutation) UpdateSources() (r string, exists bool) {
-	v := m.update_sources
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldUpdateSources returns the old "update_sources" field's value of the OperatingSystemResource entity.
-// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OperatingSystemResourceMutation) OldUpdateSources(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUpdateSources is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUpdateSources requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdateSources: %w", err)
-	}
-	return oldValue.UpdateSources, nil
-}
-
-// ClearUpdateSources clears the value of the "update_sources" field.
-func (m *OperatingSystemResourceMutation) ClearUpdateSources() {
-	m.update_sources = nil
-	m.clearedFields[operatingsystemresource.FieldUpdateSources] = struct{}{}
-}
-
-// UpdateSourcesCleared returns if the "update_sources" field was cleared in this mutation.
-func (m *OperatingSystemResourceMutation) UpdateSourcesCleared() bool {
-	_, ok := m.clearedFields[operatingsystemresource.FieldUpdateSources]
-	return ok
-}
-
-// ResetUpdateSources resets all changes to the "update_sources" field.
-func (m *OperatingSystemResourceMutation) ResetUpdateSources() {
-	m.update_sources = nil
-	delete(m.clearedFields, operatingsystemresource.FieldUpdateSources)
 }
 
 // SetImageURL sets the "image_url" field.
@@ -23004,7 +22904,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 25)
+	fields := make([]string, 0, 23)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -23013,12 +22913,6 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.architecture != nil {
 		fields = append(fields, operatingsystemresource.FieldArchitecture)
-	}
-	if m.kernel_command != nil {
-		fields = append(fields, operatingsystemresource.FieldKernelCommand)
-	}
-	if m.update_sources != nil {
-		fields = append(fields, operatingsystemresource.FieldUpdateSources)
 	}
 	if m.image_url != nil {
 		fields = append(fields, operatingsystemresource.FieldImageURL)
@@ -23094,10 +22988,6 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case operatingsystemresource.FieldArchitecture:
 		return m.Architecture()
-	case operatingsystemresource.FieldKernelCommand:
-		return m.KernelCommand()
-	case operatingsystemresource.FieldUpdateSources:
-		return m.UpdateSources()
 	case operatingsystemresource.FieldImageURL:
 		return m.ImageURL()
 	case operatingsystemresource.FieldImageID:
@@ -23153,10 +23043,6 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldName(ctx)
 	case operatingsystemresource.FieldArchitecture:
 		return m.OldArchitecture(ctx)
-	case operatingsystemresource.FieldKernelCommand:
-		return m.OldKernelCommand(ctx)
-	case operatingsystemresource.FieldUpdateSources:
-		return m.OldUpdateSources(ctx)
 	case operatingsystemresource.FieldImageURL:
 		return m.OldImageURL(ctx)
 	case operatingsystemresource.FieldImageID:
@@ -23226,20 +23112,6 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetArchitecture(v)
-		return nil
-	case operatingsystemresource.FieldKernelCommand:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetKernelCommand(v)
-		return nil
-	case operatingsystemresource.FieldUpdateSources:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetUpdateSources(v)
 		return nil
 	case operatingsystemresource.FieldImageURL:
 		v, ok := value.(string)
@@ -23417,12 +23289,6 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldArchitecture) {
 		fields = append(fields, operatingsystemresource.FieldArchitecture)
 	}
-	if m.FieldCleared(operatingsystemresource.FieldKernelCommand) {
-		fields = append(fields, operatingsystemresource.FieldKernelCommand)
-	}
-	if m.FieldCleared(operatingsystemresource.FieldUpdateSources) {
-		fields = append(fields, operatingsystemresource.FieldUpdateSources)
-	}
 	if m.FieldCleared(operatingsystemresource.FieldImageURL) {
 		fields = append(fields, operatingsystemresource.FieldImageURL)
 	}
@@ -23491,12 +23357,6 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldArchitecture:
 		m.ClearArchitecture()
 		return nil
-	case operatingsystemresource.FieldKernelCommand:
-		m.ClearKernelCommand()
-		return nil
-	case operatingsystemresource.FieldUpdateSources:
-		m.ClearUpdateSources()
-		return nil
 	case operatingsystemresource.FieldImageURL:
 		m.ClearImageURL()
 		return nil
@@ -23561,12 +23421,6 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldArchitecture:
 		m.ResetArchitecture()
-		return nil
-	case operatingsystemresource.FieldKernelCommand:
-		m.ResetKernelCommand()
-		return nil
-	case operatingsystemresource.FieldUpdateSources:
-		m.ResetUpdateSources()
 		return nil
 	case operatingsystemresource.FieldImageURL:
 		m.ResetImageURL()

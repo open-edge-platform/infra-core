@@ -198,7 +198,6 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 		ResourceId:           os.ResourceID,
 		Name:                 os.Name,
 		Architecture:         os.Architecture,
-		KernelCommand:        os.KernelCommand,
 		ImageUrl:             os.ImageURL,
 		ImageId:              os.ImageID,
 		Sha256:               os.Sha256,
@@ -220,9 +219,7 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 		UpdatedAt:            os.UpdatedAt,
 		Metadata:             os.Metadata,
 	}
-	if os.UpdateSources != "" {
-		protoUpdate.UpdateSources = strings.Split(os.UpdateSources, "|")
-	}
+
 	return protoUpdate
 }
 

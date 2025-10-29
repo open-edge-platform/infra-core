@@ -465,10 +465,10 @@ func filterInstances(ctx context.Context, client *ent.Client, filter *inv_v1.Res
 			q.WithSite()     // Populate the site of each host
 			q.WithProvider() // Populate the provider of each host
 		}).
+		WithOs().
 		WithWorkloadMembers(func(q *ent.WorkloadMemberQuery) {
 			q.WithWorkload() // Populate the workload of each member
 		}).
-		WithOs().
 		WithProvider().
 		WithLocalaccount().
 		WithOsUpdatePolicy().

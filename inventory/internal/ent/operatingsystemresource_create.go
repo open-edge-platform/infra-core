@@ -53,34 +53,6 @@ func (_c *OperatingSystemResourceCreate) SetNillableArchitecture(v *string) *Ope
 	return _c
 }
 
-// SetKernelCommand sets the "kernel_command" field.
-func (_c *OperatingSystemResourceCreate) SetKernelCommand(v string) *OperatingSystemResourceCreate {
-	_c.mutation.SetKernelCommand(v)
-	return _c
-}
-
-// SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (_c *OperatingSystemResourceCreate) SetNillableKernelCommand(v *string) *OperatingSystemResourceCreate {
-	if v != nil {
-		_c.SetKernelCommand(*v)
-	}
-	return _c
-}
-
-// SetUpdateSources sets the "update_sources" field.
-func (_c *OperatingSystemResourceCreate) SetUpdateSources(v string) *OperatingSystemResourceCreate {
-	_c.mutation.SetUpdateSources(v)
-	return _c
-}
-
-// SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (_c *OperatingSystemResourceCreate) SetNillableUpdateSources(v *string) *OperatingSystemResourceCreate {
-	if v != nil {
-		_c.SetUpdateSources(*v)
-	}
-	return _c
-}
-
 // SetImageURL sets the "image_url" field.
 func (_c *OperatingSystemResourceCreate) SetImageURL(v string) *OperatingSystemResourceCreate {
 	_c.mutation.SetImageURL(v)
@@ -430,14 +402,6 @@ func (_c *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResource,
 	if value, ok := _c.mutation.Architecture(); ok {
 		_spec.SetField(operatingsystemresource.FieldArchitecture, field.TypeString, value)
 		_node.Architecture = value
-	}
-	if value, ok := _c.mutation.KernelCommand(); ok {
-		_spec.SetField(operatingsystemresource.FieldKernelCommand, field.TypeString, value)
-		_node.KernelCommand = value
-	}
-	if value, ok := _c.mutation.UpdateSources(); ok {
-		_spec.SetField(operatingsystemresource.FieldUpdateSources, field.TypeString, value)
-		_node.UpdateSources = value
 	}
 	if value, ok := _c.mutation.ImageURL(); ok {
 		_spec.SetField(operatingsystemresource.FieldImageURL, field.TypeString, value)
