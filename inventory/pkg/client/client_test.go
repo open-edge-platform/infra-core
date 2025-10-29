@@ -965,7 +965,7 @@ func TestCacheUuidInvalidateViaCreateEvent(t *testing.T) {
 	host2 := inv_testing.CreateHost(t, nil, nil)
 	hostUUID := host.Uuid
 	host2UUID := host2.Uuid
-	//osRes := inv_testing.CreateOs(t)
+	osRes := inv_testing.CreateOs(t)
 
 	loadAndAssertUUIDInCache(t, hostUUID)
 	loadAndAssertUUIDInCache(t, host2UUID)
@@ -1019,6 +1019,7 @@ func TestCacheUuidInvalidateViaCreateEvent(t *testing.T) {
 				Resource: &inv_v1.Resource_Instance{Instance: &computev1.InstanceResource{
 					Kind: computev1.InstanceKind_INSTANCE_KIND_METAL,
 					Host: host,
+					Os:   osRes,
 				}},
 			})
 		require.NoError(t, err)
@@ -1136,12 +1137,12 @@ func TestCacheUuidCreateWithWarmCache(t *testing.T) {
 
 	t.Run("Instance", func(t *testing.T) {
 		loadAndAssertUUIDInCache(t, hostUUID)
-		//osRes := inv_testing.CreateOs(t)
+		osRes := inv_testing.CreateOs(t)
 		resp, err := clientCache.Create(ctx,
 			&inv_v1.Resource{
 				Resource: &inv_v1.Resource_Instance{Instance: &computev1.InstanceResource{
 					Kind: computev1.InstanceKind_INSTANCE_KIND_METAL,
-					//DesiredOs: osRes,
+					Os:   osRes,
 					Host: host,
 				}},
 			})
