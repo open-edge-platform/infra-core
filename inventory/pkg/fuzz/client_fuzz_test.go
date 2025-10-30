@@ -992,7 +992,6 @@ func FuzzCreateInstance(f *testing.F) {
 			provisioningStatusTimestamp uint64,
 			updateStatus string,
 			updateStatusTimestamp uint64,
-			updateStatusDetail string,
 			tenantId string,
 		) {
 			res := &invv1.Resource{
@@ -1215,7 +1214,6 @@ func FuzzCreateOs(f *testing.F) {
 		func(t *testing.T,
 			name string,
 			architecture string,
-			kernelCommand string,
 			imageUrl string,
 			imageId string,
 			sha256 string,
