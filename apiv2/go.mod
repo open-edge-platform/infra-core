@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/apiv2/v2
 
-go 1.24.6
+go 1.24.8
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
