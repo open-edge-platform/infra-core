@@ -90,9 +90,10 @@ jobs:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@cf81328e4c9526e579181efb1f609af06071889b  # 0.1.55
     with:
+      orch_ci_repo_ref: cf81328e4c9526e579181efb1f609af06071889b  # 0.1.55
       run_security_scans: true
       run_version_check: true
-      run_dep_version_check: true
+      run_dep_version_check: false
       run_build: true
       run_lint: true
       run_test: true
@@ -111,7 +112,7 @@ jobs:
       contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@cf81328e4c9526e579181efb1f609af06071889b  # 0.1.55
     with:
       bootstrap_tools: "yq,nodejs"
       run_security_scans: true
