@@ -974,7 +974,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(400000),
 		"updateStatus3",
 		uint64(400000),
-		" ",
 		"tenant-55667788",
 	)
 	f.Fuzz(
@@ -1162,7 +1161,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name",
 		"architecture",
-		"kernelCommand",
 		"http://",
 		"123132",
 		inv_testing.GenerateRandomSha256(),
@@ -1174,7 +1172,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name1",
 		"architecture1",
-		"-asdda/dsa ",
 		"1111",
 		" ",
 		inv_testing.GenerateRandomSha256(),
@@ -1186,7 +1183,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name2",
 		"architecture2",
-		"kernelCommand2",
 		"imageUrl2",
 		"BBBB",
 		inv_testing.GenerateRandomSha256(),
@@ -1198,7 +1194,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name3",
 		"xxxxx",
-		"dasdasd",
 		"imageUrl3",
 		" ",
 		inv_testing.GenerateRandomSha256(),
