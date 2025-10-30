@@ -3,7 +3,9 @@
 
 module github.com/open-edge-platform/infra-core/apiv2/v2
 
-go 1.24.6
+go 1.24.8
+
+toolchain go1.24.9
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
@@ -16,7 +18,7 @@ require (
 	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/oapi-codegen/runtime v1.1.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.31.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.31.2-0.20251030143633-38a3d7efdc9d
 	github.com/open-edge-platform/orch-library/go v0.6.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1

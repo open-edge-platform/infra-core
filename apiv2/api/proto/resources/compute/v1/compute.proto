@@ -396,10 +396,6 @@ message InstanceResource {
   HostResource host = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
   // OS resource that should be installed to this Instance.
   resources.os.v1.OperatingSystemResource os = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
-  resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance.
-  resources.os.v1.OperatingSystemResource current_os = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
   resources.os.v1.SecurityFeature security_feature = 14;
 
@@ -429,10 +425,6 @@ message InstanceResource {
   status.v1.StatusIndication update_status_indicator = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when update_status was last changed. Set by RMs only.
   uint32 update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
-  string update_status_detail = 24 [(buf.validate.field).string = {max_len: 100000},
-    (google.api.field_behavior) = OUTPUT_ONLY
-  ];
 
   // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
   string trusted_attestation_status = 26 [
@@ -705,38 +697,6 @@ message OSUpdatePolicy {
       max_len: 200
     }
   ];
-
-  // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
-  // Applies only to Mutable OSes.
-  // Deprecated, will be removed in EMF v3.2.0, use update_packages field instead.
-  string install_packages = 4 [(buf.validate.field).string = {
-    pattern: "^$|^[A-Za-z0-9._/:;=@?!#,<>\\-*+~()\\[\\]{} \\n]+$"
-    max_len: 500000
-  }];
-
-  // The list of OS resource update sources.
-  // Should be in 'DEB822 Source Format' for Debian style OSs.
-  // Applies only to Mutable OSes.
-  repeated string update_sources = 5 [
-    (buf.validate.field).repeated = {
-      min_items: 0
-      max_items: 100
-      items: {
-        string: {
-          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\\n]+$"
-          max_bytes: 10000
-        }
-      }
-    }
-  ];
-
-  // The OS resource's kernel Command Line Options.
-  // Applies only to Mutable OSes.
-  // Deprecated, will be removed in EMF v3.2.0, use update_kernel_command field instead.
-  string kernel_command = 6 [(buf.validate.field).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
-    max_len: 500
-  }];
 
   // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
   // Applies only to Mutable OSes.

@@ -57,8 +57,6 @@ var (
 		ResourceId:        "os-12345678",
 		Name:              "example-os",
 		Architecture:      "x86_64",
-		KernelCommand:     "quiet splash nomodeset",
-		UpdateSources:     []string{"http://repo.example.com/updates"},
 		ImageUrl:          "http://images.example.com/example-os.iso",
 		ImageId:           "image-12345678",
 		Sha256:            "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",

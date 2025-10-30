@@ -27,8 +27,6 @@ import (
 var OpenAPIOSResourceToProto = map[string]string{
 	osv1.OperatingSystemResourceFieldName:              inv_osv1.OperatingSystemResourceFieldName,
 	osv1.OperatingSystemResourceFieldArchitecture:      inv_osv1.OperatingSystemResourceFieldArchitecture,
-	osv1.OperatingSystemResourceFieldKernelCommand:     inv_osv1.OperatingSystemResourceFieldKernelCommand,
-	osv1.OperatingSystemResourceFieldUpdateSources:     inv_osv1.OperatingSystemResourceFieldUpdateSources,
 	osv1.OperatingSystemResourceFieldInstalledPackages: inv_osv1.OperatingSystemResourceFieldInstalledPackages,
 	osv1.OperatingSystemResourceFieldMetadata:          inv_osv1.OperatingSystemResourceFieldMetadata,
 }
@@ -40,8 +38,6 @@ func toInvOSResource(osResource *osv1.OperatingSystemResource) (*inv_osv1.Operat
 	invOSResource := &inv_osv1.OperatingSystemResource{
 		Name:                 osResource.GetName(),
 		Architecture:         osResource.GetArchitecture(),
-		KernelCommand:        osResource.GetKernelCommand(),
-		UpdateSources:        osResource.GetUpdateSources(),
 		ImageUrl:             osResource.GetImageUrl(),
 		ImageId:              osResource.GetImageId(),
 		Sha256:               osResource.GetSha256(),
@@ -75,8 +71,6 @@ func fromInvOSResource(invOSResource *inv_osv1.OperatingSystemResource) *osv1.Op
 		ResourceId:           invOSResource.GetResourceId(),
 		Name:                 invOSResource.GetName(),
 		Architecture:         invOSResource.GetArchitecture(),
-		KernelCommand:        invOSResource.GetKernelCommand(),
-		UpdateSources:        invOSResource.GetUpdateSources(),
 		ImageUrl:             invOSResource.GetImageUrl(),
 		ImageId:              invOSResource.GetImageId(),
 		Sha256:               invOSResource.GetSha256(),
