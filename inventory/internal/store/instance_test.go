@@ -341,8 +341,8 @@ func Test_CreateInstanceFromRM(t *testing.T) {
 	os := inv_testing.CreateOs(t)
 
 	instRes := computev1.InstanceResource{
-		Kind:         computev1.InstanceKind_INSTANCE_KIND_METAL,
-		DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
+		Kind:            computev1.InstanceKind_INSTANCE_KIND_METAL,
+		DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		Os:              os,
 		Host:            host,
 		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION,
@@ -420,7 +420,7 @@ func Test_UpdateInstance(t *testing.T) {
 	createresreq := &inv_v1.Resource{
 		Resource: &inv_v1.Resource_Instance{
 			Instance: &computev1.InstanceResource{
-				Host: host,
+				Host:            host,
 				Os:              os,
 				VmMemoryBytes:   2 * util.Gigabyte,
 				VmCpuCores:      4,
@@ -451,7 +451,7 @@ func Test_UpdateInstance(t *testing.T) {
 			in: &computev1.InstanceResource{
 				VmCpuCores:   8,
 				CurrentState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
-				Os: os,
+				Os:           os,
 			},
 			resourceID: instanceResID,
 			fieldMask: &fieldmaskpb.FieldMask{

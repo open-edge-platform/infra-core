@@ -935,7 +935,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(100000),
 		"updateStatus",
 		uint64(100000),
-		"updateStatusDetail",
 		"tenant-12345678",
 	)
 	f.Add(
@@ -949,7 +948,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(200000),
 		"updateStatus1",
 		uint64(200000),
-		"updateStatusDetail1",
 		"tenant-87654321",
 	)
 	f.Add(
@@ -963,7 +961,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(300000),
 		"updateStatus2",
 		uint64(300000),
-		"updateStatusDetail2",
 		"tenant-11223344",
 	)
 	f.Add(
