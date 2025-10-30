@@ -55,6 +55,9 @@ message OperatingSystemResource {
     max_len: 20
   }];
 
+  reserved 4; // Previously kernel_command, removed in v2025.2
+  reserved 5; // Previously update_sources, removed in v2025.2
+
   // The URL repository of the OS image.
   string image_url = 6 [(buf.validate.field).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\"\\ ]+$"
@@ -91,7 +94,7 @@ message OperatingSystemResource {
   // Version of OS profile that the OS resource belongs to.
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // List of currently installed packages, encoded as a JSON list.
+  // List of installed packages, encoded as a JSON list.
   string installed_packages = 9 [(buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
       max_len: 500000

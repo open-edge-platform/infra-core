@@ -170,6 +170,7 @@ const (
 	OSUpdatePolicyFieldResourceId          = "resource_id"
 	OSUpdatePolicyFieldName                = "name"
 	OSUpdatePolicyFieldDescription         = "description"
+	OSUpdatePolicyFieldUpdateSources       = "update_sources"
 	OSUpdatePolicyFieldUpdatePackages      = "update_packages"
 	OSUpdatePolicyFieldUpdateKernelCommand = "update_kernel_command"
 	OSUpdatePolicyEdgeTargetOs             = "target_os"

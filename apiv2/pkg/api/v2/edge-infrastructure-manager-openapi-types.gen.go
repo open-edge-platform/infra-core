@@ -2073,6 +2073,11 @@ type OSUpdatePolicy struct {
 
 	// UpdatePolicy States of the host.
 	UpdatePolicy *UpdatePolicy `json:"updatePolicy,omitempty"`
+
+	// UpdateSources The list of OS resource update sources.
+	//  Should be in 'DEB822 Source Format' for Debian style OSs.
+	//  Applies only to Mutable OSes.
+	UpdateSources *[]string `json:"updateSources,omitempty"`
 }
 
 // OSUpdateRun defines model for OSUpdateRun.
@@ -2145,7 +2150,7 @@ type OperatingSystemResource struct {
 	// ImageUrl The URL repository of the OS image.
 	ImageUrl *string `json:"imageUrl,omitempty"`
 
-	// InstalledPackages List of currently installed packages, encoded as a JSON list.
+	// InstalledPackages List of installed packages, encoded as a JSON list.
 	InstalledPackages *string `json:"installedPackages,omitempty"`
 
 	// InstalledPackagesUrl (IMMUTABLE) The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field

@@ -127,15 +127,12 @@ func fromInvInstanceStatus(
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
 }
 
-//nolint:cyclop // it is a conversion function
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
 	}
 
 	var err error
-	var desiredOs *osv1.OperatingSystemResource
-	var currentOs *osv1.OperatingSystemResource
 	var os *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
@@ -183,9 +180,7 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 		Host:              host,
 		HostID:            host.GetResourceId(),
 		Os:                os,
-		DesiredOs:         desiredOs,
-		CurrentOs:         currentOs,
-		OsID:              currentOs.GetResourceId(),
+		OsID:              os.GetResourceId(),
 		SecurityFeature:   osv1.SecurityFeature(invInstance.GetSecurityFeature()),
 		Localaccount:      la,
 		LocalAccountID:    la.GetResourceId(),

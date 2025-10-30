@@ -4374,7 +4374,7 @@ components:
           title: installed_packages
           maxLength: 500000
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
-          description: List of currently installed packages, encoded as a JSON list.
+          description: List of installed packages, encoded as a JSON list.
         installedPackagesUrl:
           type: string
           title: installed_packages_url
@@ -5449,6 +5449,18 @@ components:
           maxLength: 200
           pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
           description: User-provided, human-readable description.
+        updateSources:
+          type: array
+          items:
+            type: string
+            pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()" \\n]+$
+            maxItems: 100
+          title: update_sources
+          maxItems: 100
+          description: |-
+            The list of OS resource update sources.
+             Should be in 'DEB822 Source Format' for Debian style OSs.
+             Applies only to Mutable OSes.
         updatePackages:
           type: string
           title: update_packages
