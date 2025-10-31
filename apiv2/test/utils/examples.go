@@ -559,9 +559,7 @@ var (
 
 	OSResource1Request = api.OperatingSystemResource{
 		Name:            &OSName1,
-		KernelCommand:   &OSKernel1,
 		Architecture:    &OSArch1,
-		UpdateSources:   &[]string{"sourcesList"},
 		RepoUrl:         &OSRepo1,
 		Sha256:          inv_testing.GenerateRandomSha256(),
 		SecurityFeature: &OSSecurityFeature1,
@@ -571,7 +569,6 @@ var (
 	OSResource2Request = api.OperatingSystemResource{
 		Name:            &OSName2,
 		Architecture:    &OSArch2,
-		UpdateSources:   &[]string{"sourcesList"},
 		RepoUrl:         &OSRepo2,
 		Sha256:          inv_testing.GenerateRandomSha256(),
 		ProfileName:     &OSProfileName1,
@@ -581,23 +578,21 @@ var (
 	}
 
 	OSResource3Request = api.OperatingSystemResource{
-		Name:          &OSName3,
-		Architecture:  &OSArch3,
-		UpdateSources: &[]string{"sourcesList"},
-		RepoUrl:       &OSRepo3,
-		Sha256:        inv_testing.GenerateRandomSha256(),
-		OsType:        &OsTypeMutable,
-		OsProvider:    &OSProvider,
+		Name:         &OSName3,
+		Architecture: &OSArch3,
+		RepoUrl:      &OSRepo3,
+		Sha256:       inv_testing.GenerateRandomSha256(),
+		OsType:       &OsTypeMutable,
+		OsProvider:   &OSProvider,
 	}
 
 	OSResourceRequestInvalidSha256 = api.OperatingSystemResource{
-		Name:          &OSName3,
-		Architecture:  &OSArch3,
-		UpdateSources: &[]string{"sourcesList"},
-		RepoUrl:       &OSRepo3,
-		Sha256:        strings.ToUpper(inv_testing.GenerateRandomSha256()),
-		OsType:        &OsTypeMutable,
-		OsProvider:    &OSProvider,
+		Name:         &OSName3,
+		Architecture: &OSArch3,
+		RepoUrl:      &OSRepo3,
+		Sha256:       strings.ToUpper(inv_testing.GenerateRandomSha256()),
+		OsType:       &OsTypeMutable,
+		OsProvider:   &OSProvider,
 	}
 
 	OSResourceRequestNoUpdateSources = api.OperatingSystemResource{
@@ -610,27 +605,23 @@ var (
 	}
 
 	OSResourceRequestNoRepoURL = api.OperatingSystemResource{
-		Name:          &OSName3,
-		Architecture:  &OSArch3,
-		UpdateSources: &[]string{"sourcesList"},
-		Sha256:        inv_testing.GenerateRandomSha256(),
-		OsType:        &OsTypeMutable,
-		OsProvider:    &OSProvider,
+		Name:         &OSName3,
+		Architecture: &OSArch3,
+		Sha256:       inv_testing.GenerateRandomSha256(),
+		OsType:       &OsTypeMutable,
+		OsProvider:   &OSProvider,
 	}
 
 	OSResourceRequestNoSha = api.OperatingSystemResource{
-		Name:          &OSName3,
-		Architecture:  &OSArch3,
-		RepoUrl:       &OSRepo3,
-		UpdateSources: &[]string{"sourcesList"},
-		OsType:        &OsTypeMutable,
-		OsProvider:    &OSProvider,
+		Name:         &OSName3,
+		Architecture: &OSArch3,
+		RepoUrl:      &OSRepo3,
+		OsType:       &OsTypeMutable,
+		OsProvider:   &OSProvider,
 	}
 	OSResource1ReqwithInstallPackages = api.OperatingSystemResource{
 		Name:              &OSName1,
-		KernelCommand:     &OSKernel1,
 		Architecture:      &OSArch1,
-		UpdateSources:     &[]string{"sourcesList"},
 		RepoUrl:           &OSRepo1,
 		Sha256:            inv_testing.GenerateRandomSha256(),
 		InstalledPackages: &OSInstalledPackages,

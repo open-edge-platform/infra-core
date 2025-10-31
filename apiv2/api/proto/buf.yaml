@@ -10,6 +10,8 @@ deps:
 breaking:
   use:
     - FILE
+  except:
+    - FIELD_NO_DELETE
 lint:
   use:
     - STANDARD

@@ -68,9 +68,6 @@ var (
 		Host: &inv_computev1.HostResource{
 			ResourceId: "host-87654321",
 		},
-		CurrentOs: &inv_osv1.OperatingSystemResource{
-			ResourceId: "os-12345678",
-		},
 		Os: &inv_osv1.OperatingSystemResource{
 			ResourceId: "os-12345678",
 		},

@@ -9,8 +9,6 @@ const (
 	OperatingSystemResourceFieldResourceId           = "resource_id"
 	OperatingSystemResourceFieldName                 = "name"
 	OperatingSystemResourceFieldArchitecture         = "architecture"
-	OperatingSystemResourceFieldKernelCommand        = "kernel_command"
-	OperatingSystemResourceFieldUpdateSources        = "update_sources"
 	OperatingSystemResourceFieldImageUrl             = "image_url"
 	OperatingSystemResourceFieldImageId              = "image_id"
 	OperatingSystemResourceFieldDescription          = "description"
