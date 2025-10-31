@@ -4375,6 +4375,7 @@ components:
           maxLength: 500000
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
           description: List of installed packages, encoded as a JSON list.
+          readOnly: true
         installedPackagesUrl:
           type: string
           title: installed_packages_url
