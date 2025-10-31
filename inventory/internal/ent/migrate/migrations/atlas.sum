@@ -1,4 +1,4 @@
-h1:N1J4AE7GxH2BAS5vmNAf0PttLja2SYz6KvTGI0cb7vo=
+h1:jxmai+dkus/XaEAwRW02f3gxxlmobkjgTKq5IQAwpgo=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
@@ -16,5 +16,5 @@ h1:N1J4AE7GxH2BAS5vmNAf0PttLja2SYz6KvTGI0cb7vo=
 20250926132933_add_lvm_size.sql h1:TBEf371YjevfmQyElf+Q6MFnuELnYqn+/S/mUj6H2Ys=
 20251002164125_modify_OSUpdatePolicy.sql h1:ndAWm2d/NX/npyT4ZoIOR3MvsTMdEUOOPx9NB5wRxDw=
 20251002165719_datamigration_OSUpdatePolicy.sql h1:q+jxXd0teE6l0DUJT9VtHyg+B5/mRta+bX6ugHcOefY=
-20251017124853_empty_deprecated_columns.sql h1:razI2TtrG+cFstyWBsbsEaAOGxsxTwneN2s+9whkWtI=
-20251017133722_remove_deprecated_columns.sql h1:fNVDm0OJz/6U8mECa407PVJmB+ZMceIhV4DobU8nL4E=
+20251017124853_empty_deprecated_columns.sql h1:3spStwonaf5c20pxvCiOuabU1efmN4XEoRgNgEjzAYY=
+20251017133722_remove_deprecated_columns.sql h1:7atql09FGdSnLSaTrd6GBQpJgRfiMKnZGWHwBgYL+zk=
