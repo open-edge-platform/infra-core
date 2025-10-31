@@ -628,19 +628,9 @@ message InstanceResource {
   HostResource host = 9 [(ent.edge) = {unique: true}]; // Host this Instance is placed on. Only applicable to baremetal instances.
   reserved 10; // Reserve for User edge
 
-  os.v1.OperatingSystemResource desired_os = 11 [(ent.edge) = {
-    unique: true
-    required: true
-  }]; // Deprecated, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
-
-  os.v1.OperatingSystemResource current_os = 25 [(ent.edge) = {
-    unique: true
-    required: false
-  }]; // Deprecated, use os field instead. OS resource that is currently installed for this Instance.
-
   os.v1.OperatingSystemResource os = 12 [(ent.edge) = {
     unique: true
-    required: false
+    required: true
   }]; // OS resource that is installed for this Instance.
 
   os.v1.SecurityFeature security_feature = 14 [(ent.field) = {
@@ -680,11 +670,6 @@ message InstanceResource {
   ]; // textual message that describes the update status of Instance. Set by RMs only.
   status.v1.StatusIndication update_status_indicator = 22 [(ent.field) = {optional: true}]; // Indicates interpretation of update_status. Set by RMs only.
   uint64 update_status_timestamp = 23 [(ent.field) = {optional: true}]; // UTC timestamp when update_status was last changed. Set by RMs only.
-  string update_status_detail = 24 [
-    (ent.field) = {optional: true},
-    (buf.validate.field).string = {max_bytes: 100000},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ]; // Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
 
   // A group of fields describing the Instance trusted_attestation status.
   // trusted_attestation_status, trusted_attestation_status_indicator and
@@ -993,17 +978,6 @@ message OSUpdatePolicyResource {
     }
   ];
 
-  string install_packages = 4 [
-    (ent.field) = {
-      immutable: true
-      optional: true
-    },
-    (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\n]+$"
-      max_len: 500000
-    }
-  ]; // Deprecated, use update_packages field instead. Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes.
-
   repeated string update_sources = 5 [
     (ent.field) = {
       immutable: true
@@ -1020,17 +994,6 @@ message OSUpdatePolicyResource {
       }
     }
   ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Applies only to Mutable OSes.
-
-  string kernel_command = 6 [
-    (ent.field) = {
-      immutable: true
-      optional: true
-    },
-    (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
-      max_len: 500
-    }
-  ]; // Deprecated, use update_kernel_command field instead. Kernel Command Line Options. Applies only to Mutable OSes.
 
   string update_packages = 7 [
     (ent.field) = {

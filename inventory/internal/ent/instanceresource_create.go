@@ -270,20 +270,6 @@ func (_c *InstanceResourceCreate) SetNillableUpdateStatusTimestamp(v *uint64) *I
 	return _c
 }
 
-// SetUpdateStatusDetail sets the "update_status_detail" field.
-func (_c *InstanceResourceCreate) SetUpdateStatusDetail(v string) *InstanceResourceCreate {
-	_c.mutation.SetUpdateStatusDetail(v)
-	return _c
-}
-
-// SetNillableUpdateStatusDetail sets the "update_status_detail" field if the given value is not nil.
-func (_c *InstanceResourceCreate) SetNillableUpdateStatusDetail(v *string) *InstanceResourceCreate {
-	if v != nil {
-		_c.SetUpdateStatusDetail(*v)
-	}
-	return _c
-}
-
 // SetTrustedAttestationStatus sets the "trusted_attestation_status" field.
 func (_c *InstanceResourceCreate) SetTrustedAttestationStatus(v string) *InstanceResourceCreate {
 	_c.mutation.SetTrustedAttestationStatus(v)
@@ -419,47 +405,9 @@ func (_c *InstanceResourceCreate) SetHost(v *HostResource) *InstanceResourceCrea
 	return _c.SetHostID(v.ID)
 }
 
-// SetDesiredOsID sets the "desired_os" edge to the OperatingSystemResource entity by ID.
-func (_c *InstanceResourceCreate) SetDesiredOsID(id int) *InstanceResourceCreate {
-	_c.mutation.SetDesiredOsID(id)
-	return _c
-}
-
-// SetDesiredOs sets the "desired_os" edge to the OperatingSystemResource entity.
-func (_c *InstanceResourceCreate) SetDesiredOs(v *OperatingSystemResource) *InstanceResourceCreate {
-	return _c.SetDesiredOsID(v.ID)
-}
-
-// SetCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID.
-func (_c *InstanceResourceCreate) SetCurrentOsID(id int) *InstanceResourceCreate {
-	_c.mutation.SetCurrentOsID(id)
-	return _c
-}
-
-// SetNillableCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_c *InstanceResourceCreate) SetNillableCurrentOsID(id *int) *InstanceResourceCreate {
-	if id != nil {
-		_c = _c.SetCurrentOsID(*id)
-	}
-	return _c
-}
-
-// SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
-func (_c *InstanceResourceCreate) SetCurrentOs(v *OperatingSystemResource) *InstanceResourceCreate {
-	return _c.SetCurrentOsID(v.ID)
-}
-
 // SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
 func (_c *InstanceResourceCreate) SetOsID(id int) *InstanceResourceCreate {
 	_c.mutation.SetOsID(id)
-	return _c
-}
-
-// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_c *InstanceResourceCreate) SetNillableOsID(id *int) *InstanceResourceCreate {
-	if id != nil {
-		_c = _c.SetOsID(*id)
-	}
 	return _c
 }
 
@@ -641,8 +589,8 @@ func (_c *InstanceResourceCreate) check() error {
 	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "InstanceResource.updated_at"`)}
 	}
-	if len(_c.mutation.DesiredOsIDs()) == 0 {
-		return &ValidationError{Name: "desired_os", err: errors.New(`ent: missing required edge "InstanceResource.desired_os"`)}
+	if len(_c.mutation.OsIDs()) == 0 {
+		return &ValidationError{Name: "os", err: errors.New(`ent: missing required edge "InstanceResource.os"`)}
 	}
 	return nil
 }
@@ -742,10 +690,6 @@ func (_c *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cre
 		_spec.SetField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64, value)
 		_node.UpdateStatusTimestamp = value
 	}
-	if value, ok := _c.mutation.UpdateStatusDetail(); ok {
-		_spec.SetField(instanceresource.FieldUpdateStatusDetail, field.TypeString, value)
-		_node.UpdateStatusDetail = value
-	}
 	if value, ok := _c.mutation.TrustedAttestationStatus(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatus, field.TypeString, value)
 		_node.TrustedAttestationStatus = value
@@ -800,40 +744,6 @@ func (_c *InstanceResourceCreate) createSpec() (*InstanceResource, *sqlgraph.Cre
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_spec.Edges = append(_spec.Edges, edge)
-	}
-	if nodes := _c.mutation.DesiredOsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.DesiredOsTable,
-			Columns: []string{instanceresource.DesiredOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_node.instance_resource_desired_os = &nodes[0]
-		_spec.Edges = append(_spec.Edges, edge)
-	}
-	if nodes := _c.mutation.CurrentOsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.CurrentOsTable,
-			Columns: []string{instanceresource.CurrentOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_node.instance_resource_current_os = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := _c.mutation.OsIDs(); len(nodes) > 0 {

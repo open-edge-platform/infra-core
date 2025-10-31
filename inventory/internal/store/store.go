@@ -305,7 +305,7 @@ func setEdgeHostIDForMut(ctx context.Context, client *ent.Client, mut ent.Mutati
 	return nil
 }
 
-func setEdgeDesiredOSIDForMut(
+/*func setEdgeDesiredOSIDForMut(
 	ctx context.Context, client *ent.Client, mut ent.Mutation, osres *osv1.OperatingSystemResource,
 ) error {
 	if osres == nil {
@@ -343,7 +343,7 @@ func setEdgeCurrentOSIDForMut(
 		return errors.Errorfc(codes.InvalidArgument, "unknown mutation kind: %T", mut)
 	}
 	return nil
-}
+}*/
 
 func setEdgeOSIDForMut(
 	ctx context.Context, client *ent.Client, mut ent.Mutation, osres *osv1.OperatingSystemResource,

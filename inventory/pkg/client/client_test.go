@@ -377,7 +377,6 @@ func TestInventoryClient_Subscribe(t *testing.T) {
 			Os: &osv1.OperatingSystemResource{
 				Name:              "Test OS resource",
 				Sha256:            inv_testing.GenerateRandomSha256(),
-				UpdateSources:     []string{"foo"},
 				ImageUrl:          "test",
 				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
 				OsType:            osv1.OsType_OS_TYPE_MUTABLE,
@@ -1018,9 +1017,9 @@ func TestCacheUuidInvalidateViaCreateEvent(t *testing.T) {
 		resp, err := rmClient.Create(ctx,
 			&inv_v1.Resource{
 				Resource: &inv_v1.Resource_Instance{Instance: &computev1.InstanceResource{
-					Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
-					DesiredOs: osRes,
-					Host:      host,
+					Kind: computev1.InstanceKind_INSTANCE_KIND_METAL,
+					Host: host,
+					Os:   osRes,
 				}},
 			})
 		require.NoError(t, err)
@@ -1142,9 +1141,9 @@ func TestCacheUuidCreateWithWarmCache(t *testing.T) {
 		resp, err := clientCache.Create(ctx,
 			&inv_v1.Resource{
 				Resource: &inv_v1.Resource_Instance{Instance: &computev1.InstanceResource{
-					Kind:      computev1.InstanceKind_INSTANCE_KIND_METAL,
-					DesiredOs: osRes,
-					Host:      host,
+					Kind: computev1.InstanceKind_INSTANCE_KIND_METAL,
+					Os:   osRes,
+					Host: host,
 				}},
 			})
 		require.NoError(t, err)

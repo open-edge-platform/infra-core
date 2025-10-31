@@ -2,7 +2,6 @@
 # sources: os/v1/os.proto
 # plugin: python-betterproto
 from dataclasses import dataclass
-from typing import List
 
 import betterproto
 
@@ -44,8 +43,6 @@ class OperatingSystemResource(betterproto.Message):
     resource_id: str = betterproto.string_field(1)
     name: str = betterproto.string_field(2)
     architecture: str = betterproto.string_field(3)
-    kernel_command: str = betterproto.string_field(4)
-    update_sources: List[str] = betterproto.string_field(5)
     image_url: str = betterproto.string_field(6)
     image_id: str = betterproto.string_field(13)
     sha256: str = betterproto.string_field(7)

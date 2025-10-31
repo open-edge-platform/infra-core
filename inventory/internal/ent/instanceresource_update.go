@@ -410,26 +410,6 @@ func (_u *InstanceResourceUpdate) ClearUpdateStatusTimestamp() *InstanceResource
 	return _u
 }
 
-// SetUpdateStatusDetail sets the "update_status_detail" field.
-func (_u *InstanceResourceUpdate) SetUpdateStatusDetail(v string) *InstanceResourceUpdate {
-	_u.mutation.SetUpdateStatusDetail(v)
-	return _u
-}
-
-// SetNillableUpdateStatusDetail sets the "update_status_detail" field if the given value is not nil.
-func (_u *InstanceResourceUpdate) SetNillableUpdateStatusDetail(v *string) *InstanceResourceUpdate {
-	if v != nil {
-		_u.SetUpdateStatusDetail(*v)
-	}
-	return _u
-}
-
-// ClearUpdateStatusDetail clears the value of the "update_status_detail" field.
-func (_u *InstanceResourceUpdate) ClearUpdateStatusDetail() *InstanceResourceUpdate {
-	_u.mutation.ClearUpdateStatusDetail()
-	return _u
-}
-
 // SetTrustedAttestationStatus sets the "trusted_attestation_status" field.
 func (_u *InstanceResourceUpdate) SetTrustedAttestationStatus(v string) *InstanceResourceUpdate {
 	_u.mutation.SetTrustedAttestationStatus(v)
@@ -610,47 +590,9 @@ func (_u *InstanceResourceUpdate) SetHost(v *HostResource) *InstanceResourceUpda
 	return _u.SetHostID(v.ID)
 }
 
-// SetDesiredOsID sets the "desired_os" edge to the OperatingSystemResource entity by ID.
-func (_u *InstanceResourceUpdate) SetDesiredOsID(id int) *InstanceResourceUpdate {
-	_u.mutation.SetDesiredOsID(id)
-	return _u
-}
-
-// SetDesiredOs sets the "desired_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdate) SetDesiredOs(v *OperatingSystemResource) *InstanceResourceUpdate {
-	return _u.SetDesiredOsID(v.ID)
-}
-
-// SetCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID.
-func (_u *InstanceResourceUpdate) SetCurrentOsID(id int) *InstanceResourceUpdate {
-	_u.mutation.SetCurrentOsID(id)
-	return _u
-}
-
-// SetNillableCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_u *InstanceResourceUpdate) SetNillableCurrentOsID(id *int) *InstanceResourceUpdate {
-	if id != nil {
-		_u = _u.SetCurrentOsID(*id)
-	}
-	return _u
-}
-
-// SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdate) SetCurrentOs(v *OperatingSystemResource) *InstanceResourceUpdate {
-	return _u.SetCurrentOsID(v.ID)
-}
-
 // SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
 func (_u *InstanceResourceUpdate) SetOsID(id int) *InstanceResourceUpdate {
 	_u.mutation.SetOsID(id)
-	return _u
-}
-
-// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_u *InstanceResourceUpdate) SetNillableOsID(id *int) *InstanceResourceUpdate {
-	if id != nil {
-		_u = _u.SetOsID(*id)
-	}
 	return _u
 }
 
@@ -754,18 +696,6 @@ func (_u *InstanceResourceUpdate) Mutation() *InstanceResourceMutation {
 // ClearHost clears the "host" edge to the HostResource entity.
 func (_u *InstanceResourceUpdate) ClearHost() *InstanceResourceUpdate {
 	_u.mutation.ClearHost()
-	return _u
-}
-
-// ClearDesiredOs clears the "desired_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdate) ClearDesiredOs() *InstanceResourceUpdate {
-	_u.mutation.ClearDesiredOs()
-	return _u
-}
-
-// ClearCurrentOs clears the "current_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdate) ClearCurrentOs() *InstanceResourceUpdate {
-	_u.mutation.ClearCurrentOs()
 	return _u
 }
 
@@ -899,8 +829,8 @@ func (_u *InstanceResourceUpdate) check() error {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
 	}
-	if _u.mutation.DesiredOsCleared() && len(_u.mutation.DesiredOsIDs()) > 0 {
-		return errors.New(`ent: clearing a required unique edge "InstanceResource.desired_os"`)
+	if _u.mutation.OsCleared() && len(_u.mutation.OsIDs()) > 0 {
+		return errors.New(`ent: clearing a required unique edge "InstanceResource.os"`)
 	}
 	return nil
 }
@@ -1037,12 +967,6 @@ func (_u *InstanceResourceUpdate) sqlSave(ctx context.Context) (_node int, err e
 	if _u.mutation.UpdateStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := _u.mutation.UpdateStatusDetail(); ok {
-		_spec.SetField(instanceresource.FieldUpdateStatusDetail, field.TypeString, value)
-	}
-	if _u.mutation.UpdateStatusDetailCleared() {
-		_spec.ClearField(instanceresource.FieldUpdateStatusDetail, field.TypeString)
-	}
 	if value, ok := _u.mutation.TrustedAttestationStatus(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatus, field.TypeString, value)
 	}
@@ -1113,64 +1037,6 @@ func (_u *InstanceResourceUpdate) sqlSave(ctx context.Context) (_node int, err e
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
-	if _u.mutation.DesiredOsCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.DesiredOsTable,
-			Columns: []string{instanceresource.DesiredOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := _u.mutation.DesiredOsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.DesiredOsTable,
-			Columns: []string{instanceresource.DesiredOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
-	if _u.mutation.CurrentOsCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.CurrentOsTable,
-			Columns: []string{instanceresource.CurrentOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := _u.mutation.CurrentOsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.CurrentOsTable,
-			Columns: []string{instanceresource.CurrentOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -1780,26 +1646,6 @@ func (_u *InstanceResourceUpdateOne) ClearUpdateStatusTimestamp() *InstanceResou
 	return _u
 }
 
-// SetUpdateStatusDetail sets the "update_status_detail" field.
-func (_u *InstanceResourceUpdateOne) SetUpdateStatusDetail(v string) *InstanceResourceUpdateOne {
-	_u.mutation.SetUpdateStatusDetail(v)
-	return _u
-}
-
-// SetNillableUpdateStatusDetail sets the "update_status_detail" field if the given value is not nil.
-func (_u *InstanceResourceUpdateOne) SetNillableUpdateStatusDetail(v *string) *InstanceResourceUpdateOne {
-	if v != nil {
-		_u.SetUpdateStatusDetail(*v)
-	}
-	return _u
-}
-
-// ClearUpdateStatusDetail clears the value of the "update_status_detail" field.
-func (_u *InstanceResourceUpdateOne) ClearUpdateStatusDetail() *InstanceResourceUpdateOne {
-	_u.mutation.ClearUpdateStatusDetail()
-	return _u
-}
-
 // SetTrustedAttestationStatus sets the "trusted_attestation_status" field.
 func (_u *InstanceResourceUpdateOne) SetTrustedAttestationStatus(v string) *InstanceResourceUpdateOne {
 	_u.mutation.SetTrustedAttestationStatus(v)
@@ -1980,47 +1826,9 @@ func (_u *InstanceResourceUpdateOne) SetHost(v *HostResource) *InstanceResourceU
 	return _u.SetHostID(v.ID)
 }
 
-// SetDesiredOsID sets the "desired_os" edge to the OperatingSystemResource entity by ID.
-func (_u *InstanceResourceUpdateOne) SetDesiredOsID(id int) *InstanceResourceUpdateOne {
-	_u.mutation.SetDesiredOsID(id)
-	return _u
-}
-
-// SetDesiredOs sets the "desired_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdateOne) SetDesiredOs(v *OperatingSystemResource) *InstanceResourceUpdateOne {
-	return _u.SetDesiredOsID(v.ID)
-}
-
-// SetCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID.
-func (_u *InstanceResourceUpdateOne) SetCurrentOsID(id int) *InstanceResourceUpdateOne {
-	_u.mutation.SetCurrentOsID(id)
-	return _u
-}
-
-// SetNillableCurrentOsID sets the "current_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_u *InstanceResourceUpdateOne) SetNillableCurrentOsID(id *int) *InstanceResourceUpdateOne {
-	if id != nil {
-		_u = _u.SetCurrentOsID(*id)
-	}
-	return _u
-}
-
-// SetCurrentOs sets the "current_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdateOne) SetCurrentOs(v *OperatingSystemResource) *InstanceResourceUpdateOne {
-	return _u.SetCurrentOsID(v.ID)
-}
-
 // SetOsID sets the "os" edge to the OperatingSystemResource entity by ID.
 func (_u *InstanceResourceUpdateOne) SetOsID(id int) *InstanceResourceUpdateOne {
 	_u.mutation.SetOsID(id)
-	return _u
-}
-
-// SetNillableOsID sets the "os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (_u *InstanceResourceUpdateOne) SetNillableOsID(id *int) *InstanceResourceUpdateOne {
-	if id != nil {
-		_u = _u.SetOsID(*id)
-	}
 	return _u
 }
 
@@ -2124,18 +1932,6 @@ func (_u *InstanceResourceUpdateOne) Mutation() *InstanceResourceMutation {
 // ClearHost clears the "host" edge to the HostResource entity.
 func (_u *InstanceResourceUpdateOne) ClearHost() *InstanceResourceUpdateOne {
 	_u.mutation.ClearHost()
-	return _u
-}
-
-// ClearDesiredOs clears the "desired_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdateOne) ClearDesiredOs() *InstanceResourceUpdateOne {
-	_u.mutation.ClearDesiredOs()
-	return _u
-}
-
-// ClearCurrentOs clears the "current_os" edge to the OperatingSystemResource entity.
-func (_u *InstanceResourceUpdateOne) ClearCurrentOs() *InstanceResourceUpdateOne {
-	_u.mutation.ClearCurrentOs()
 	return _u
 }
 
@@ -2282,8 +2078,8 @@ func (_u *InstanceResourceUpdateOne) check() error {
 			return &ValidationError{Name: "trusted_attestation_status_indicator", err: fmt.Errorf(`ent: validator failed for field "InstanceResource.trusted_attestation_status_indicator": %w`, err)}
 		}
 	}
-	if _u.mutation.DesiredOsCleared() && len(_u.mutation.DesiredOsIDs()) > 0 {
-		return errors.New(`ent: clearing a required unique edge "InstanceResource.desired_os"`)
+	if _u.mutation.OsCleared() && len(_u.mutation.OsIDs()) > 0 {
+		return errors.New(`ent: clearing a required unique edge "InstanceResource.os"`)
 	}
 	return nil
 }
@@ -2437,12 +2233,6 @@ func (_u *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Instan
 	if _u.mutation.UpdateStatusTimestampCleared() {
 		_spec.ClearField(instanceresource.FieldUpdateStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := _u.mutation.UpdateStatusDetail(); ok {
-		_spec.SetField(instanceresource.FieldUpdateStatusDetail, field.TypeString, value)
-	}
-	if _u.mutation.UpdateStatusDetailCleared() {
-		_spec.ClearField(instanceresource.FieldUpdateStatusDetail, field.TypeString)
-	}
 	if value, ok := _u.mutation.TrustedAttestationStatus(); ok {
 		_spec.SetField(instanceresource.FieldTrustedAttestationStatus, field.TypeString, value)
 	}
@@ -2513,64 +2303,6 @@ func (_u *InstanceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Instan
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
-	if _u.mutation.DesiredOsCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.DesiredOsTable,
-			Columns: []string{instanceresource.DesiredOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := _u.mutation.DesiredOsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.DesiredOsTable,
-			Columns: []string{instanceresource.DesiredOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
-	if _u.mutation.CurrentOsCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.CurrentOsTable,
-			Columns: []string{instanceresource.CurrentOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := _u.mutation.CurrentOsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: false,
-			Table:   instanceresource.CurrentOsTable,
-			Columns: []string{instanceresource.CurrentOsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

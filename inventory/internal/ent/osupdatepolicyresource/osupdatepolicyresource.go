@@ -20,12 +20,8 @@ const (
 	FieldName = "name"
 	// FieldDescription holds the string denoting the description field in the database.
 	FieldDescription = "description"
-	// FieldInstallPackages holds the string denoting the install_packages field in the database.
-	FieldInstallPackages = "install_packages"
 	// FieldUpdateSources holds the string denoting the update_sources field in the database.
 	FieldUpdateSources = "update_sources"
-	// FieldKernelCommand holds the string denoting the kernel_command field in the database.
-	FieldKernelCommand = "kernel_command"
 	// FieldUpdatePackages holds the string denoting the update_packages field in the database.
 	FieldUpdatePackages = "update_packages"
 	// FieldUpdateKernelCommand holds the string denoting the update_kernel_command field in the database.
@@ -57,9 +53,7 @@ var Columns = []string{
 	FieldResourceID,
 	FieldName,
 	FieldDescription,
-	FieldInstallPackages,
 	FieldUpdateSources,
-	FieldKernelCommand,
 	FieldUpdatePackages,
 	FieldUpdateKernelCommand,
 	FieldUpdatePolicy,
@@ -136,19 +130,9 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDescription, opts...).ToFunc()
 }
 
-// ByInstallPackages orders the results by the install_packages field.
-func ByInstallPackages(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldInstallPackages, opts...).ToFunc()
-}
-
 // ByUpdateSources orders the results by the update_sources field.
 func ByUpdateSources(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUpdateSources, opts...).ToFunc()
-}
-
-// ByKernelCommand orders the results by the kernel_command field.
-func ByKernelCommand(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldKernelCommand, opts...).ToFunc()
 }
 
 // ByUpdatePackages orders the results by the update_packages field.
