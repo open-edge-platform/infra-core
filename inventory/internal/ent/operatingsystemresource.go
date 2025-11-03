@@ -48,6 +48,8 @@ type OperatingSystemResource struct {
 	Description string `json:"description,omitempty"`
 	// Metadata holds the value of the "metadata" field.
 	Metadata string `json:"metadata,omitempty"`
+	// TLSCaCert holds the value of the "tls_ca_cert" field.
+	TLSCaCert string `json:"tls_ca_cert,omitempty"`
 	// ExistingCvesURL holds the value of the "existing_cves_url" field.
 	ExistingCvesURL string `json:"existing_cves_url,omitempty"`
 	// ExistingCves holds the value of the "existing_cves" field.
@@ -72,7 +74,7 @@ func (*OperatingSystemResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case operatingsystemresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldInstalledPackagesURL, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
+		case operatingsystemresource.FieldResourceID, operatingsystemresource.FieldName, operatingsystemresource.FieldArchitecture, operatingsystemresource.FieldImageURL, operatingsystemresource.FieldImageID, operatingsystemresource.FieldSha256, operatingsystemresource.FieldProfileName, operatingsystemresource.FieldProfileVersion, operatingsystemresource.FieldInstalledPackages, operatingsystemresource.FieldInstalledPackagesURL, operatingsystemresource.FieldSecurityFeature, operatingsystemresource.FieldOsType, operatingsystemresource.FieldOsProvider, operatingsystemresource.FieldPlatformBundle, operatingsystemresource.FieldDescription, operatingsystemresource.FieldMetadata, operatingsystemresource.FieldTLSCaCert, operatingsystemresource.FieldExistingCvesURL, operatingsystemresource.FieldExistingCves, operatingsystemresource.FieldFixedCvesURL, operatingsystemresource.FieldFixedCves, operatingsystemresource.FieldTenantID, operatingsystemresource.FieldCreatedAt, operatingsystemresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -190,6 +192,12 @@ func (_m *OperatingSystemResource) assignValues(columns []string, values []any) 
 				return fmt.Errorf("unexpected type %T for field metadata", values[i])
 			} else if value.Valid {
 				_m.Metadata = value.String
+			}
+		case operatingsystemresource.FieldTLSCaCert:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field tls_ca_cert", values[i])
+			} else if value.Valid {
+				_m.TLSCaCert = value.String
 			}
 		case operatingsystemresource.FieldExistingCvesURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -316,6 +324,9 @@ func (_m *OperatingSystemResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("metadata=")
 	builder.WriteString(_m.Metadata)
+	builder.WriteString(", ")
+	builder.WriteString("tls_ca_cert=")
+	builder.WriteString(_m.TLSCaCert)
 	builder.WriteString(", ")
 	builder.WriteString("existing_cves_url=")
 	builder.WriteString(_m.ExistingCvesURL)

@@ -59,6 +59,7 @@ class OperatingSystemResource(betterproto.Message):
     platform_bundle: str = betterproto.string_field(15)
     description: str = betterproto.string_field(16)
     metadata: str = betterproto.string_field(18)
+    tls_ca_cert: str = betterproto.string_field(19)
     existing_cves_url: str = betterproto.string_field(42)
     existing_cves: str = betterproto.string_field(43)
     fixed_cves_url: str = betterproto.string_field(44)

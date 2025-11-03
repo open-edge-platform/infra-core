@@ -664,6 +664,7 @@ var (
 		{Name: "platform_bundle", Type: field.TypeString, Nullable: true},
 		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "metadata", Type: field.TypeString, Nullable: true},
+		{Name: "tls_ca_cert", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves_url", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
 		{Name: "fixed_cves_url", Type: field.TypeString, Nullable: true},
@@ -681,12 +682,12 @@ var (
 			{
 				Name:    "operatingsystemresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[21]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[22]},
 			},
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[21]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
 			},
 		},
 	}

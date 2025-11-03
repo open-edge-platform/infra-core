@@ -227,6 +227,20 @@ func (_c *OperatingSystemResourceCreate) SetNillableMetadata(v *string) *Operati
 	return _c
 }
 
+// SetTLSCaCert sets the "tls_ca_cert" field.
+func (_c *OperatingSystemResourceCreate) SetTLSCaCert(v string) *OperatingSystemResourceCreate {
+	_c.mutation.SetTLSCaCert(v)
+	return _c
+}
+
+// SetNillableTLSCaCert sets the "tls_ca_cert" field if the given value is not nil.
+func (_c *OperatingSystemResourceCreate) SetNillableTLSCaCert(v *string) *OperatingSystemResourceCreate {
+	if v != nil {
+		_c.SetTLSCaCert(*v)
+	}
+	return _c
+}
+
 // SetExistingCvesURL sets the "existing_cves_url" field.
 func (_c *OperatingSystemResourceCreate) SetExistingCvesURL(v string) *OperatingSystemResourceCreate {
 	_c.mutation.SetExistingCvesURL(v)
@@ -454,6 +468,10 @@ func (_c *OperatingSystemResourceCreate) createSpec() (*OperatingSystemResource,
 	if value, ok := _c.mutation.Metadata(); ok {
 		_spec.SetField(operatingsystemresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
+	}
+	if value, ok := _c.mutation.TLSCaCert(); ok {
+		_spec.SetField(operatingsystemresource.FieldTLSCaCert, field.TypeString, value)
+		_node.TLSCaCert = value
 	}
 	if value, ok := _c.mutation.ExistingCvesURL(); ok {
 		_spec.SetField(operatingsystemresource.FieldExistingCvesURL, field.TypeString, value)

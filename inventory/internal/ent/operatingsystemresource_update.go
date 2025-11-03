@@ -101,6 +101,26 @@ func (_u *OperatingSystemResourceUpdate) ClearMetadata() *OperatingSystemResourc
 	return _u
 }
 
+// SetTLSCaCert sets the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdate) SetTLSCaCert(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetTLSCaCert(v)
+	return _u
+}
+
+// SetNillableTLSCaCert sets the "tls_ca_cert" field if the given value is not nil.
+func (_u *OperatingSystemResourceUpdate) SetNillableTLSCaCert(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetTLSCaCert(*v)
+	}
+	return _u
+}
+
+// ClearTLSCaCert clears the value of the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdate) ClearTLSCaCert() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearTLSCaCert()
+	return _u
+}
+
 // SetExistingCves sets the "existing_cves" field.
 func (_u *OperatingSystemResourceUpdate) SetExistingCves(v string) *OperatingSystemResourceUpdate {
 	_u.mutation.SetExistingCves(v)
@@ -250,6 +270,12 @@ func (_u *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (_node int
 	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
 	}
+	if value, ok := _u.mutation.TLSCaCert(); ok {
+		_spec.SetField(operatingsystemresource.FieldTLSCaCert, field.TypeString, value)
+	}
+	if _u.mutation.TLSCaCertCleared() {
+		_spec.ClearField(operatingsystemresource.FieldTLSCaCert, field.TypeString)
+	}
 	if _u.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
 	}
@@ -362,6 +388,26 @@ func (_u *OperatingSystemResourceUpdateOne) SetNillableMetadata(v *string) *Oper
 // ClearMetadata clears the value of the "metadata" field.
 func (_u *OperatingSystemResourceUpdateOne) ClearMetadata() *OperatingSystemResourceUpdateOne {
 	_u.mutation.ClearMetadata()
+	return _u
+}
+
+// SetTLSCaCert sets the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdateOne) SetTLSCaCert(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetTLSCaCert(v)
+	return _u
+}
+
+// SetNillableTLSCaCert sets the "tls_ca_cert" field if the given value is not nil.
+func (_u *OperatingSystemResourceUpdateOne) SetNillableTLSCaCert(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetTLSCaCert(*v)
+	}
+	return _u
+}
+
+// ClearTLSCaCert clears the value of the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdateOne) ClearTLSCaCert() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearTLSCaCert()
 	return _u
 }
 
@@ -543,6 +589,12 @@ func (_u *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	}
 	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
+	}
+	if value, ok := _u.mutation.TLSCaCert(); ok {
+		_spec.SetField(operatingsystemresource.FieldTLSCaCert, field.TypeString, value)
+	}
+	if _u.mutation.TLSCaCertCleared() {
+		_spec.ClearField(operatingsystemresource.FieldTLSCaCert, field.TypeString)
 	}
 	if _u.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)

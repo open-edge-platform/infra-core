@@ -218,6 +218,7 @@ func entOperatingSystemResourceToProtoOperatingSystemResource(os *ent.OperatingS
 		CreatedAt:            os.CreatedAt,
 		UpdatedAt:            os.UpdatedAt,
 		Metadata:             os.Metadata,
+		TlsCaCert:            os.TLSCaCert,
 	}
 
 	return protoUpdate
