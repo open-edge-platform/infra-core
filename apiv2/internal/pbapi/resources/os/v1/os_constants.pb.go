@@ -22,6 +22,7 @@ const (
 	OperatingSystemResourceFieldOsProvider           = "os_provider"
 	OperatingSystemResourceFieldPlatformBundle       = "platform_bundle"
 	OperatingSystemResourceFieldMetadata             = "metadata"
+	OperatingSystemResourceFieldTlsCaCert            = "tls_ca_cert"
 	OperatingSystemResourceFieldExistingCvesUrl      = "existing_cves_url"
 	OperatingSystemResourceFieldExistingCves         = "existing_cves"
 	OperatingSystemResourceFieldFixedCvesUrl         = "fixed_cves_url"

@@ -217,6 +217,8 @@ type OperatingSystemResource struct {
 	PlatformBundle string `protobuf:"bytes,15,opt,name=platform_bundle,json=platformBundle,proto3" json:"platform_bundle,omitempty"`
 	// Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
 	Metadata string `protobuf:"bytes,18,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	// user-provided, TLS CA Certificate
+	TlsCaCert string `protobuf:"bytes,19,opt,name=tls_ca_cert,json=tlsCaCert,proto3" json:"tls_ca_cert,omitempty"`
 	// URL of the file containing information about the existing CVEs on the Operating System.
 	ExistingCvesUrl string `protobuf:"bytes,42,opt,name=existing_cves_url,json=existingCvesUrl,proto3" json:"existing_cves_url,omitempty"`
 	// The CVEs that are currently present on the Operating System, encoded as a JSON list.
@@ -373,6 +375,13 @@ func (x *OperatingSystemResource) GetPlatformBundle() string {
 func (x *OperatingSystemResource) GetMetadata() string {
 	if x != nil {
 		return x.Metadata
+	}
+	return ""
+}
+
+func (x *OperatingSystemResource) GetTlsCaCert() string {
+	if x != nil {
+		return x.TlsCaCert
 	}
 	return ""
 }

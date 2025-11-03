@@ -22036,6 +22036,7 @@ type OperatingSystemResourceMutation struct {
 	platform_bundle        *string
 	description            *string
 	metadata               *string
+	tls_ca_cert            *string
 	existing_cves_url      *string
 	existing_cves          *string
 	fixed_cves_url         *string
@@ -23003,6 +23004,55 @@ func (m *OperatingSystemResourceMutation) ResetMetadata() {
 	delete(m.clearedFields, operatingsystemresource.FieldMetadata)
 }
 
+// SetTLSCaCert sets the "tls_ca_cert" field.
+func (m *OperatingSystemResourceMutation) SetTLSCaCert(s string) {
+	m.tls_ca_cert = &s
+}
+
+// TLSCaCert returns the value of the "tls_ca_cert" field in the mutation.
+func (m *OperatingSystemResourceMutation) TLSCaCert() (r string, exists bool) {
+	v := m.tls_ca_cert
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTLSCaCert returns the old "tls_ca_cert" field's value of the OperatingSystemResource entity.
+// If the OperatingSystemResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *OperatingSystemResourceMutation) OldTLSCaCert(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTLSCaCert is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTLSCaCert requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTLSCaCert: %w", err)
+	}
+	return oldValue.TLSCaCert, nil
+}
+
+// ClearTLSCaCert clears the value of the "tls_ca_cert" field.
+func (m *OperatingSystemResourceMutation) ClearTLSCaCert() {
+	m.tls_ca_cert = nil
+	m.clearedFields[operatingsystemresource.FieldTLSCaCert] = struct{}{}
+}
+
+// TLSCaCertCleared returns if the "tls_ca_cert" field was cleared in this mutation.
+func (m *OperatingSystemResourceMutation) TLSCaCertCleared() bool {
+	_, ok := m.clearedFields[operatingsystemresource.FieldTLSCaCert]
+	return ok
+}
+
+// ResetTLSCaCert resets all changes to the "tls_ca_cert" field.
+func (m *OperatingSystemResourceMutation) ResetTLSCaCert() {
+	m.tls_ca_cert = nil
+	delete(m.clearedFields, operatingsystemresource.FieldTLSCaCert)
+}
+
 // SetExistingCvesURL sets the "existing_cves_url" field.
 func (m *OperatingSystemResourceMutation) SetExistingCvesURL(s string) {
 	m.existing_cves_url = &s
@@ -23341,7 +23391,7 @@ func (m *OperatingSystemResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *OperatingSystemResourceMutation) Fields() []string {
-	fields := make([]string, 0, 25)
+	fields := make([]string, 0, 26)
 	if m.resource_id != nil {
 		fields = append(fields, operatingsystemresource.FieldResourceID)
 	}
@@ -23395,6 +23445,9 @@ func (m *OperatingSystemResourceMutation) Fields() []string {
 	}
 	if m.metadata != nil {
 		fields = append(fields, operatingsystemresource.FieldMetadata)
+	}
+	if m.tls_ca_cert != nil {
+		fields = append(fields, operatingsystemresource.FieldTLSCaCert)
 	}
 	if m.existing_cves_url != nil {
 		fields = append(fields, operatingsystemresource.FieldExistingCvesURL)
@@ -23461,6 +23514,8 @@ func (m *OperatingSystemResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.Description()
 	case operatingsystemresource.FieldMetadata:
 		return m.Metadata()
+	case operatingsystemresource.FieldTLSCaCert:
+		return m.TLSCaCert()
 	case operatingsystemresource.FieldExistingCvesURL:
 		return m.ExistingCvesURL()
 	case operatingsystemresource.FieldExistingCves:
@@ -23520,6 +23575,8 @@ func (m *OperatingSystemResourceMutation) OldField(ctx context.Context, name str
 		return m.OldDescription(ctx)
 	case operatingsystemresource.FieldMetadata:
 		return m.OldMetadata(ctx)
+	case operatingsystemresource.FieldTLSCaCert:
+		return m.OldTLSCaCert(ctx)
 	case operatingsystemresource.FieldExistingCvesURL:
 		return m.OldExistingCvesURL(ctx)
 	case operatingsystemresource.FieldExistingCves:
@@ -23669,6 +23726,13 @@ func (m *OperatingSystemResourceMutation) SetField(name string, value ent.Value)
 		}
 		m.SetMetadata(v)
 		return nil
+	case operatingsystemresource.FieldTLSCaCert:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTLSCaCert(v)
+		return nil
 	case operatingsystemresource.FieldExistingCvesURL:
 		v, ok := value.(string)
 		if !ok {
@@ -23796,6 +23860,9 @@ func (m *OperatingSystemResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(operatingsystemresource.FieldMetadata) {
 		fields = append(fields, operatingsystemresource.FieldMetadata)
 	}
+	if m.FieldCleared(operatingsystemresource.FieldTLSCaCert) {
+		fields = append(fields, operatingsystemresource.FieldTLSCaCert)
+	}
 	if m.FieldCleared(operatingsystemresource.FieldExistingCvesURL) {
 		fields = append(fields, operatingsystemresource.FieldExistingCvesURL)
 	}
@@ -23870,6 +23937,9 @@ func (m *OperatingSystemResourceMutation) ClearField(name string) error {
 	case operatingsystemresource.FieldMetadata:
 		m.ClearMetadata()
 		return nil
+	case operatingsystemresource.FieldTLSCaCert:
+		m.ClearTLSCaCert()
+		return nil
 	case operatingsystemresource.FieldExistingCvesURL:
 		m.ClearExistingCvesURL()
 		return nil
@@ -23943,6 +24013,9 @@ func (m *OperatingSystemResourceMutation) ResetField(name string) error {
 		return nil
 	case operatingsystemresource.FieldMetadata:
 		m.ResetMetadata()
+		return nil
+	case operatingsystemresource.FieldTLSCaCert:
+		m.ResetTLSCaCert()
 		return nil
 	case operatingsystemresource.FieldExistingCvesURL:
 		m.ResetExistingCvesURL()
