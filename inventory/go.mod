@@ -15,7 +15,7 @@ require (
 	github.com/adhocore/gronx v1.19.6
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/eko/gocache/lib/v4 v4.2.0
-	github.com/eko/gocache/store/go_cache/v4 v4.2.3
+	github.com/eko/gocache/store/go_cache/v4 v4.2.2
 	github.com/goccy/go-json v0.10.5
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/golang/mock v1.6.0
