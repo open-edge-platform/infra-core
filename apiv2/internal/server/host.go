@@ -175,7 +175,6 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		zlog.InfraErr(err).Msg("Failed to validate inventory resource")
 		return nil, err
 	}
-
 	return invHost, nil
 }
 
@@ -520,6 +519,50 @@ func (is *InventorygRPCServer) GetHost(ctx context.Context, req *restv1.GetHostR
 	return host, nil
 }
 
+// handleConsecutivePowerReset manages consecutive power reset operations for hosts.
+func (is *InventorygRPCServer) handleConsecutivePowerReset(
+	ctx context.Context,
+	resourceID string,
+	invHost *inv_computev1.HostResource,
+) {
+	if invHost.GetDesiredPowerState() != inv_computev1.PowerState_POWER_STATE_RESET {
+		return
+	}
+	zlog.Info().Msgf("Processing RESET request for host %s", resourceID)
+	currentHostRes, getErr := is.InvClient.Get(ctx, resourceID)
+	if getErr != nil {
+		zlog.Warn().Err(getErr).Msgf("Could not retrieve current host state for %s, proceeding with standard reset",
+			resourceID)
+		return
+	}
+	currentHost := currentHostRes.GetResource().GetHost()
+	if currentHost == nil {
+		return
+	}
+	currentPowerState := currentHost.GetCurrentPowerState()
+	currentDesiredState := currentHost.GetDesiredPowerState()
+	zlog.Info().Msgf("Host %s state analysis: current=%v, desired=%v",
+		resourceID, currentPowerState, currentDesiredState)
+
+	// Check both current and desired power states for consecutive resets
+	switch {
+	case currentPowerState == inv_computev1.PowerState_POWER_STATE_RESET ||
+		currentDesiredState == inv_computev1.PowerState_POWER_STATE_RESET:
+		zlog.Info().Msgf("RESET -> RESET_REPEAT for host %s", resourceID)
+		invHost.DesiredPowerState = inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+	case currentPowerState == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT &&
+		currentDesiredState == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT:
+		zlog.Info().Msgf("RESET_REPEAT -> RESET for host %s", resourceID)
+		invHost.DesiredPowerState = inv_computev1.PowerState_POWER_STATE_RESET
+	default:
+		zlog.Info().Msgf("Standard reset operation for host %s (current=%v, desired=%v)",
+			resourceID, currentPowerState, currentDesiredState)
+	}
+
+	zlog.Info().Msgf("Final power state being sent to inventory for host %s: %v",
+		resourceID, invHost.DesiredPowerState)
+}
+
 // Update a host. (PUT).
 func (is *InventorygRPCServer) UpdateHost(
 	ctx context.Context,
@@ -532,6 +575,9 @@ func (is *InventorygRPCServer) UpdateHost(
 	if err != nil {
 		return nil, errors.Wrap(err)
 	}
+
+	// Handle consecutive power reset operations
+	is.handleConsecutivePowerReset(ctx, req.GetResourceId(), invHost)
 
 	fieldmask, err := fieldmaskpb.New(invHost, maps.Values(OpenAPIHostToProto)...)
 	if err != nil {
@@ -570,6 +616,9 @@ func (is *InventorygRPCServer) PatchHost(
 	if err != nil {
 		return nil, errors.Wrap(err)
 	}
+
+	// Handle consecutive power reset operations
+	is.handleConsecutivePowerReset(ctx, req.GetResourceId(), invHost)
 
 	fieldmask, err := parseFielmask(invHost, req.GetFieldMask(), OpenAPIHostToProto)
 	if err != nil {

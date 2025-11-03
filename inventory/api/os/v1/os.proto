@@ -162,6 +162,15 @@ message OperatingSystemResource {
     }
   ]; // Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
 
+  string tls_ca_cert = 19 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+      min_len: 0
+      max_len: 10000
+    }
+  ]; // user-provided, TLS CA Certificate
+
   string existing_cves_url = 42 [
     (ent.field) = {
       optional: true
@@ -177,8 +186,8 @@ message OperatingSystemResource {
   string existing_cves = 43 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\À-ÿ \\\n\\{\\}\\[\\]]+$"
+      max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // The CVEs that are currently present on the Operating System, encoded as a JSON list.
@@ -198,8 +207,8 @@ message OperatingSystemResource {
   string fixed_cves = 45 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      pattern: "^$|^[\\p{L}\\p{N}\\p{P}\\p{S}\\p{Z}\\n\\{\\}\\[\\]]+$"
+      max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.

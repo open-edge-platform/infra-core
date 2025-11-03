@@ -102,8 +102,8 @@ var (
 		{Name: "bios_release_date", Type: field.TypeString, Nullable: true},
 		{Name: "bios_vendor", Type: field.TypeString, Nullable: true},
 		{Name: "metadata", Type: field.TypeString, Nullable: true},
-		{Name: "desired_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE"}},
-		{Name: "current_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE"}},
+		{Name: "desired_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE", "POWER_STATE_RESET_REPEAT"}},
+		{Name: "current_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE", "POWER_STATE_RESET_REPEAT"}},
 		{Name: "power_status", Type: field.TypeString, Nullable: true},
 		{Name: "power_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "power_status_timestamp", Type: field.TypeUint64, Nullable: true},
@@ -683,6 +683,7 @@ var (
 		{Name: "platform_bundle", Type: field.TypeString, Nullable: true},
 		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "metadata", Type: field.TypeString, Nullable: true},
+		{Name: "tls_ca_cert", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves_url", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
 		{Name: "fixed_cves_url", Type: field.TypeString, Nullable: true},
@@ -700,12 +701,12 @@ var (
 			{
 				Name:    "operatingsystemresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[23]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[24]},
 			},
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[23]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[24]},
 			},
 		},
 	}
