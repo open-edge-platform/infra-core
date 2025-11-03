@@ -49,6 +49,8 @@ const (
 	FieldDescription = "description"
 	// FieldMetadata holds the string denoting the metadata field in the database.
 	FieldMetadata = "metadata"
+	// FieldTLSCaCert holds the string denoting the tls_ca_cert field in the database.
+	FieldTLSCaCert = "tls_ca_cert"
 	// FieldExistingCvesURL holds the string denoting the existing_cves_url field in the database.
 	FieldExistingCvesURL = "existing_cves_url"
 	// FieldExistingCves holds the string denoting the existing_cves field in the database.
@@ -88,6 +90,7 @@ var Columns = []string{
 	FieldPlatformBundle,
 	FieldDescription,
 	FieldMetadata,
+	FieldTLSCaCert,
 	FieldExistingCvesURL,
 	FieldExistingCves,
 	FieldFixedCvesURL,
@@ -275,6 +278,11 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 // ByMetadata orders the results by the metadata field.
 func ByMetadata(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMetadata, opts...).ToFunc()
+}
+
+// ByTLSCaCert orders the results by the tls_ca_cert field.
+func ByTLSCaCert(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTLSCaCert, opts...).ToFunc()
 }
 
 // ByExistingCvesURL orders the results by the existing_cves_url field.
