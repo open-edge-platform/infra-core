@@ -62,6 +62,36 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				FixedCvesUrl: "/files/fixed_cves.json",
 				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
 				Metadata:     `{"release":"0.0.0-dev","version":"0.0.3"}`,
+				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
+					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
+					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
+					"NW5hVzU0TG05eVkyZ3RNVEF0TVRNNUxUSXlNQzB5TVRZdWNHbGtMbWx1ClpuSmhMV2h2YzNRdVkyOXRN" +
+					"QjRYRFRJMU1UQXdOekUwTkRrd01sb1hEVEkyTVRBd056RTVORGt3TWxvd2F6RUwKTUFrR0ExVUVCaE1D" +
+					"VlZNeEdqQVlCZ05WQkFvVEVVbHVkR1ZzSUVOdmNuQnZjbUYwYVc5dU1VQXdQZ1lEVlFRRApFemQwYVc1" +
+					"clpYSmlaV3hzTFc1bmFXNTRMbTl5WTJndE1UQXRNVE01TFRJeU1DMHlNVFl1Y0dsa0xtbHVabkpoCkxX" +
+					"aHZjM1F1WTI5dE1JSUJvakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBWThBTUlJQmlnS0NBWUVBNzdTQ25Q" +
+					"UXIKbGZaNUhqbytEYU5qUTFJTjgyMkFjbUpWY05xam5va2xNYUdWcm51d2IwZDlUajVFeHh1cmVlbVlT" +
+					"aVVjejRicgovam9EK20wNStpZWd0V3lpTUtNb2JFQkM2eFRNRTUrT0gvVFdSbjNIVll4YTJxcHluTWd6" +
+					"eHUwTXlHSjc4OWVQCmFYTytTdU1XZVRleTZTZFBYSjlNZVRCNE93SGNHbFJWMGkwcnBWY0tsc3V0N09X" +
+					"bjc1Z0gxWDR6elNqY010OHAKYVM2K1Jjdi9SdTBuQjRXM3VSRUxCak53aEx6cGVMUlZpWG1jNGhmeGJW" +
+					"M3ZwL0FNT0RGQlJtLzg3eU54TzlBRgpJczJuaG9manN0ZmJrRWppNTB1TU54RHRnQVFCYzlTaEV1QWJ5" +
+					"dDJTTURHWjNKTDNGaDdSaW9DZVRRVzZBOGxGCkk4TjBEeDkxN0JCTXczYlVDanNKMEx1UkhtQkhMbXRT" +
+					"QTd1UC96U0cwRXVjMzV3dk1Bd1BYZ25LNWFGZDZjYnQKVytDYkRoaXBNM3BjVmlXTjNiRzZtd3RxWWs1" +
+					"b1JWSkdMQjBrZ1lOSzhnY251WHRkaGpHNFIxVjFpUVIvRGcxbwora3BVRGM1eVFqVlMxRit2WVNTUTVD" +
+					"S3Y0eTZhRktoYzlNa2dHMy9ZTkVMUTVmcFRpMEo0VTRJREFnTUJBQUdqCmdad3dnWmt3RGdZRFZSMFBB" +
+					"UUgvQkFRREFnS0VNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUE4R0ExVWQKRXdFQi93UUZNQU1C" +
+					"QWY4d0hRWURWUjBPQkJZRUZKQUJ6NUhmZGtGbEhTUGVZcUZPNnVtdlIxcjZNRUlHQTFVZApFUVE3TURt" +
+					"Q04zUnBibXRsY21KbGJHd3RibWRwYm5ndWIzSmphQzB4TUMweE16a3RNakl3TFRJeE5pNXdhV1F1CmFX" +
+					"NW1jbUV0YUc5emRDNWpiMjB3RFFZSktvWklodmNOQVFFTUJRQURnZ0dCQUtWamowVHE1NmR5ME55SDJH" +
+					"N3cKZm0zSCs2citYamhLVXBPTzB4dkpWTXR1dzZlQlpvTXhRdEo1Z2dFM2FnT0t3bDRYV0NUTFd5WUY1" +
+					"anljMWVlVgp3NExjSVBjRDZqWjVlRFpRNFo0d2YybVcwdVU0Sk5JVzB5VXFub3JEOUJsdkxsZXJBVkpk" +
+					"cmRwSGZEU1NMOVY4CjFjZHNsZFMvbjVTOFdHV0tUaE9CNlVGcStQTHFEY3VNenh0Q25FbzlmOExVQWlD" +
+					"ZlljekxuQjA5bWNGN1E0clQKQTN3NHNWRzNvM1o5c1hCTDZjUnAvMHhWMzNoQ2xvSCtqcm16WU0rcE92" +
+					"LzdWdndhWEhFZlNVamIzZVh3SDF1MApyQUFkampLM3pSRXZwbUFzTTMxN2JsMTFIUWhJY25kVk1JTklr" +
+					"cjVYQ0RvZFdGQnladXI4WE80ZVpSOHlCYzdaCnNNMXZMblh1QWxmcnhlbGlnZ1lhTzI3SzB1SmJuOXlI" +
+					"eE9uclY5MmZMdVRGYWZCdEphYXl2bjJSVGdqYVFsWCsKazFURHlrZCs1YUVFaTNZQ3IybmVEV1l0aTJt" +
+					"Z3lGRVZ0WEhOWjNMbjBMUStTbUhreTFxSzhqNUpNbFQyRnhpNApuSXFpVzZKeDZwTVVBNDlTa2VPMCs3" +
+					"dllYRDUrY1FvVW1ZRDNSNktqYUtUeUFnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
 			},
 			valid: true,
 		},
@@ -204,6 +234,74 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				Metadata:             "invalid JSON",
 			},
 			valid: false,
+		},
+		"CreateGoodOsWithTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os with TLS CA",
+				UpdateSources: []string{"test entry1"},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+				ProfileName:   "Test OS profile name",
+				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
+					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
+					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
+					"NW5hVzU0TG05eVkyZ3RNVEF0TVRNNUxUSXlNQzB5TVRZdWNHbGtMbWx1ClpuSmhMV2h2YzNRdVkyOXRN" +
+					"QjRYRFRJMU1UQXdOekUwTkRrd01sb1hEVEkyTVRBd056RTVORGt3TWxvd2F6RUwKTUFrR0ExVUVCaE1D" +
+					"VlZNeEdqQVlCZ05WQkFvVEVVbHVkR1ZzSUVOdmNuQnZjbUYwYVc5dU1VQXdQZ1lEVlFRRApFemQwYVc1" +
+					"clpYSmlaV3hzTFc1bmFXNTRMbTl5WTJndE1UQXRNVE01TFRJeU1DMHlNVFl1Y0dsa0xtbHVabkpoCkxX" +
+					"aHZjM1F1WTI5dE1JSUJvakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBWThBTUlJQmlnS0NBWUVBNzdTQ25Q" +
+					"UXIKbGZaNUhqbytEYU5qUTFJTjgyMkFjbUpWY05xam5va2xNYUdWcm51d2IwZDlUajVFeHh1cmVlbVlT" +
+					"aVVjejRicgovam9EK20wNStpZWd0V3lpTUtNb2JFQkM2eFRNRTUrT0gvVFdSbjNIVll4YTJxcHluTWd6" +
+					"eHUwTXlHSjc4OWVQCmFYTytTdU1XZVRleTZTZFBYSjlNZVRCNE93SGNHbFJWMGkwcnBWY0tsc3V0N09X" +
+					"bjc1Z0gxWDR6elNqY010OHAKYVM2K1Jjdi9SdTBuQjRXM3VSRUxCak53aEx6cGVMUlZpWG1jNGhmeGJW" +
+					"M3ZwL0FNT0RGQlJtLzg3eU54TzlBRgpJczJuaG9manN0ZmJrRWppNTB1TU54RHRnQVFCYzlTaEV1QWJ5" +
+					"dDJTTURHWjNKTDNGaDdSaW9DZVRRVzZBOGxGCkk4TjBEeDkxN0JCTXczYlVDanNKMEx1UkhtQkhMbXRT" +
+					"QTd1UC96U0cwRXVjMzV3dk1Bd1BYZ25LNWFGZDZjYnQKVytDYkRoaXBNM3BjVmlXTjNiRzZtd3RxWWs1" +
+					"b1JWSkdMQjBrZ1lOSzhnY251WHRkaGpHNFIxVjFpUVIvRGcxbwora3BVRGM1eVFqVlMxRit2WVNTUTVD" +
+					"S3Y0eTZhRktoYzlNa2dHMy9ZTkVMUTVmcFRpMEo0VTRJREFnTUJBQUdqCmdad3dnWmt3RGdZRFZSMFBB" +
+					"UUgvQkFRREFnS0VNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUE4R0ExVWQKRXdFQi93UUZNQU1C" +
+					"QWY4d0hRWURWUjBPQkJZRUZKQUJ6NUhmZGtGbEhTUGVZcUZPNnVtdlIxcjZNRUlHQTFVZApFUVE3TURt" +
+					"Q04zUnBibXRsY21KbGJHd3RibWRwYm5ndWIzSmphQzB4TUMweE16a3RNakl3TFRJeE5pNXdhV1F1CmFX" +
+					"NW1jbUV0YUc5emRDNWpiMjB3RFFZSktvWklodmNOQVFFTUJRQURnZ0dCQUtWamowVHE1NmR5ME55SDJH" +
+					"N3cKZm0zSCs2citYamhLVXBPTzB4dkpWTXR1dzZlQlpvTXhRdEo1Z2dFM2FnT0t3bDRYV0NUTFd5WUY1" +
+					"anljMWVlVgp3NExjSVBjRDZqWjVlRFpRNFo0d2YybVcwdVU0Sk5JVzB5VXFub3JEOUJsdkxsZXJBVkpk" +
+					"cmRwSGZEU1NMOVY4CjFjZHNsZFMvbjVTOFdHV0tUaE9CNlVGcStQTHFEY3VNenh0Q25FbzlmOExVQWlD" +
+					"ZlljekxuQjA5bWNGN1E0clQKQTN3NHNWRzNvM1o5c1hCTDZjUnAvMHhWMzNoQ2xvSCtqcm16WU0rcE92" +
+					"LzdWdndhWEhFZlNVamIzZVh3SDF1MApyQUFkampLM3pSRXZwbUFzTTMxN2JsMTFIUWhJY25kVk1JTklr" +
+					"cjVYQ0RvZFdGQnladXI4WE80ZVpSOHlCYzdaCnNNMXZMblh1QWxmcnhlbGlnZ1lhTzI3SzB1SmJuOXlI" +
+					"eE9uclY5MmZMdVRGYWZCdEphYXl2bjJSVGdqYVFsWCsKazFURHlrZCs1YUVFaTNZQ3IybmVEV1l0aTJt" +
+					"Z3lGRVZ0WEhOWjNMbjBMUStTbUhreTFxSzhqNUpNbFQyRnhpNApuSXFpVzZKeDZwTVVBNDlTa2VPMCs3" +
+					"dllYRDUrY1FvVW1ZRDNSNktqYUtUeUFnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+			},
+			valid: true,
+		},
+		"CreateGoodOsWithEmptyTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os with empty TLS CA",
+				UpdateSources: []string{"test entry1"},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+				ProfileName:   "Test OS profile name",
+				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:     "",
+			},
+			valid: true,
+		},
+		"CreateBadOsWithInvalidTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:          "Test Os with bad TLS CA",
+				UpdateSources: []string{"test entry1"},
+				ImageUrl:      "Repo test entry",
+				Sha256:        inv_testing.RandomSha256v1,
+				ProfileName:   "Test OS profile name",
+				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:     "not a cert",
+			},
+			valid: false, // Only if you enforce PEM pattern validation
 		},
 	}
 
@@ -579,6 +677,56 @@ func Test_UpdateOs(t *testing.T) {
 				Paths: []string{
 					oss.FieldPlatformBundle,
 				},
+			},
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
+		"UpdateTlsCaCertValid": {
+			in: &os_v1.OperatingSystemResource{
+				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
+					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
+					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
+					"NW5hVzU0TG05eVkyZ3RNVEF0TVRNNUxUSXlNQzB5TVRZdWNHbGtMbWx1ClpuSmhMV2h2YzNRdVkyOXRN" +
+					"QjRYRFRJMU1UQXdOekUwTkRrd01sb1hEVEkyTVRBd056RTVORGt3TWxvd2F6RUwKTUFrR0ExVUVCaE1D" +
+					"VlZNeEdqQVlCZ05WQkFvVEVVbHVkR1ZzSUVOdmNuQnZjbUYwYVc5dU1VQXdQZ1lEVlFRRApFemQwYVc1" +
+					"clpYSmlaV3hzTFc1bmFXNTRMbTl5WTJndE1UQXRNVE01TFRJeU1DMHlNVFl1Y0dsa0xtbHVabkpoCkxX" +
+					"aHZjM1F1WTI5dE1JSUJvakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBWThBTUlJQmlnS0NBWUVBNzdTQ25Q" +
+					"UXIKbGZaNUhqbytEYU5qUTFJTjgyMkFjbUpWY05xam5va2xNYUdWcm51d2IwZDlUajVFeHh1cmVlbVlT" +
+					"aVVjejRicgovam9EK20wNStpZWd0V3lpTUtNb2JFQkM2eFRNRTUrT0gvVFdSbjNIVll4YTJxcHluTWd6" +
+					"eHUwTXlHSjc4OWVQCmFYTytTdU1XZVRleTZTZFBYSjlNZVRCNE93SGNHbFJWMGkwcnBWY0tsc3V0N09X" +
+					"bjc1Z0gxWDR6elNqY010OHAKYVM2K1Jjdi9SdTBuQjRXM3VSRUxCak53aEx6cGVMUlZpWG1jNGhmeGJW" +
+					"M3ZwL0FNT0RGQlJtLzg3eU54TzlBRgpJczJuaG9manN0ZmJrRWppNTB1TU54RHRnQVFCYzlTaEV1QWJ5" +
+					"dDJTTURHWjNKTDNGaDdSaW9DZVRRVzZBOGxGCkk4TjBEeDkxN0JCTXczYlVDanNKMEx1UkhtQkhMbXRT" +
+					"QTd1UC96U0cwRXVjMzV3dk1Bd1BYZ25LNWFGZDZjYnQKVytDYkRoaXBNM3BjVmlXTjNiRzZtd3RxWWs1" +
+					"b1JWSkdMQjBrZ1lOSzhnY251WHRkaGpHNFIxVjFpUVIvRGcxbwora3BVRGM1eVFqVlMxRit2WVNTUTVD" +
+					"S3Y0eTZhRktoYzlNa2dHMy9ZTkVMUTVmcFRpMEo0VTRJREFnTUJBQUdqCmdad3dnWmt3RGdZRFZSMFBB" +
+					"UUgvQkFRREFnS0VNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUE4R0ExVWQKRXdFQi93UUZNQU1C" +
+					"QWY4d0hRWURWUjBPQkJZRUZKQUJ6NUhmZGtGbEhTUGVZcUZPNnVtdlIxcjZNRUlHQTFVZApFUVE3TURt" +
+					"Q04zUnBibXRsY21KbGJHd3RibWRwYm5ndWIzSmphQzB4TUMweE16a3RNakl3TFRJeE5pNXdhV1F1CmFX" +
+					"NW1jbUV0YUc5emRDNWpiMjB3RFFZSktvWklodmNOQVFFTUJRQURnZ0dCQUtWamowVHE1NmR5ME55SDJH" +
+					"N3cKZm0zSCs2citYamhLVXBPTzB4dkpWTXR1dzZlQlpvTXhRdEo1Z2dFM2FnT0t3bDRYV0NUTFd5WUY1" +
+					"anljMWVlVgp3NExjSVBjRDZqWjVlRFpRNFo0d2YybVcwdVU0Sk5JVzB5VXFub3JEOUJsdkxsZXJBVkpk" +
+					"cmRwSGZEU1NMOVY4CjFjZHNsZFMvbjVTOFdHV0tUaE9CNlVGcStQTHFEY3VNenh0Q25FbzlmOExVQWlD" +
+					"ZlljekxuQjA5bWNGN1E0clQKQTN3NHNWRzNvM1o5c1hCTDZjUnAvMHhWMzNoQ2xvSCtqcm16WU0rcE92" +
+					"LzdWdndhWEhFZlNVamIzZVh3SDF1MApyQUFkampLM3pSRXZwbUFzTTMxN2JsMTFIUWhJY25kVk1JTklr" +
+					"cjVYQ0RvZFdGQnladXI4WE80ZVpSOHlCYzdaCnNNMXZMblh1QWxmcnhlbGlnZ1lhTzI3SzB1SmJuOXlI" +
+					"eE9uclY5MmZMdVRGYWZCdEphYXl2bjJSVGdqYVFsWCsKazFURHlrZCs1YUVFaTNZQ3IybmVEV1l0aTJt" +
+					"Z3lGRVZ0WEhOWjNMbjBMUStTbUhreTFxSzhqNUpNbFQyRnhpNApuSXFpVzZKeDZwTVVBNDlTa2VPMCs3" +
+					"dllYRDUrY1FvVW1ZRDNSNktqYUtUeUFnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{oss.FieldTLSCaCert},
+			},
+			valid: true,
+		},
+		"UpdateTlsCaCertInvalid": {
+			in: &os_v1.OperatingSystemResource{
+				TlsCaCert: "not a cert",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{oss.FieldTLSCaCert},
 			},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
