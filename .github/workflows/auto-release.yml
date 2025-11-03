@@ -103,27 +103,27 @@ jobs:
             GIT_MESSAGE=$(git log -1 --pretty=format:"%s" "$COMMIT")
             GIT_AUTHOR=$(git log -1 --pretty=format:"%an" "$COMMIT")
             GIT_EMAIL=$(git log -1 --pretty=format:"%ae" "$COMMIT")
-          
+
             # Collect contributor info
             CONTRIBUTORS+=("$GIT_AUTHOR<$GIT_EMAIL>")
-          
+
             # Try to get enhanced metadata from GitHub API
             COMMIT_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
               "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${COMMIT}")
-          
+
             # Check if the API response is valid JSON
             if echo "$COMMIT_DATA" | jq empty 2>/dev/null; then
               # Extract message (first line only) and escape problematic characters
               MESSAGE=$(echo "$COMMIT_DATA" | jq -r '.commit.message // empty' | head -n 1 | sed 's/"/\\"/g')
-          
+
               # If empty message from API, fall back to git
               if [ -z "$MESSAGE" ]; then
                 MESSAGE="$GIT_MESSAGE"
               fi
-          
+
               # Extract GitHub username (if linked)
               AUTHOR_LOGIN=$(echo "$COMMIT_DATA" | jq -r '.author.login // empty')
-          
+
               if [ -z "$AUTHOR_LOGIN" ] || [ "$AUTHOR_LOGIN" = "null" ]; then
                 AUTHOR_INFO="($GIT_AUTHOR)"
               else
@@ -134,7 +134,7 @@ jobs:
               MESSAGE="$GIT_MESSAGE"
               AUTHOR_INFO="($GIT_AUTHOR)"
             fi
-          
+
             # Append to changelog
             LOG+="- \`$SHORT_SHA\` $MESSAGE $AUTHOR_INFO"$'\n'
           done
@@ -143,7 +143,7 @@ jobs:
             BODY="No changes in \`$SUBFOLDER/\` since last release."
           else
             PREV_LABEL=${PREV_TAG:-"beginning"}
-          
+
             # Create comparison URL for full changelog
             if [ -n "$PREV_TAG" ]; then
               COMPARE_URL="https://github.com/${GITHUB_REPOSITORY}/compare/${PREV_TAG}...${TAG}"
@@ -151,7 +151,7 @@ jobs:
             else
               CHANGELOG_LINK=""
             fi
-          
+
             # Add changelog link to the body if available
             if [ -n "$CHANGELOG_LINK" ]; then
               BODY="## Changes in \`$SUBFOLDER\` since \`${PREV_LABEL}\` to \`${TAG}\`:\n\n${LOG}\n\n${CHANGELOG_LINK}"

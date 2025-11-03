@@ -4449,7 +4449,7 @@ components:
           type: string
           title: fixed_cves
           maxLength: 500000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()"\\À-ÿ \\n\{\}\[\]]+$
+          pattern: ^$|^[\p{L}\p{N}\p{P}\p{S}\p{Z}\n\{\}\[\]]+$
           description: The CVEs that have been fixed by this OS Resource version, encoded as a JSON list.
           readOnly: true
         osResourceID:
