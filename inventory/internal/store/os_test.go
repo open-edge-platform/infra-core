@@ -205,13 +205,12 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		},
 		"CreateGoodOsWithTlsCaCert": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os with TLS CA",
-				UpdateSources: []string{"test entry1"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Name:        "Test Os with TLS CA",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
 					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
 					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
@@ -247,27 +246,25 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		},
 		"CreateGoodOsWithEmptyTlsCaCert": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os with empty TLS CA",
-				UpdateSources: []string{"test entry1"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-				TlsCaCert:     "",
+				Name:        "Test Os with empty TLS CA",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:   "",
 			},
 			valid: true,
 		},
 		"CreateBadOsWithInvalidTlsCaCert": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os with bad TLS CA",
-				UpdateSources: []string{"test entry1"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-				TlsCaCert:     "not a cert",
+				Name:        "Test Os with bad TLS CA",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:   "not a cert",
 			},
 			valid: false, // Only if you enforce PEM pattern validation
 		},
