@@ -305,46 +305,6 @@ func setEdgeHostIDForMut(ctx context.Context, client *ent.Client, mut ent.Mutati
 	return nil
 }
 
-/*func setEdgeDesiredOSIDForMut(
-	ctx context.Context, client *ent.Client, mut ent.Mutation, osres *osv1.OperatingSystemResource,
-) error {
-	if osres == nil {
-		return nil
-	}
-	osID, qerr := getOSIDFromResourceID(ctx, client, osres)
-	if qerr != nil {
-		return qerr
-	}
-	switch mut := mut.(type) {
-	case *ent.InstanceResourceMutation:
-		mut.SetDesiredOsID(osID)
-	default:
-		zlog.InfraSec().InfraError("unknown mutation kind: %T", mut).Msgf("")
-		return errors.Errorfc(codes.InvalidArgument, "unknown mutation kind: %T", mut)
-	}
-	return nil
-}
-
-func setEdgeCurrentOSIDForMut(
-	ctx context.Context, client *ent.Client, mut ent.Mutation, osres *osv1.OperatingSystemResource,
-) error {
-	if osres == nil {
-		return nil
-	}
-	osID, qerr := getOSIDFromResourceID(ctx, client, osres)
-	if qerr != nil {
-		return qerr
-	}
-	switch mut := mut.(type) {
-	case *ent.InstanceResourceMutation:
-		mut.SetCurrentOsID(osID)
-	default:
-		zlog.InfraSec().InfraError("unknown mutation kind: %T", mut).Msgf("")
-		return errors.Errorfc(codes.InvalidArgument, "unknown mutation kind: %T", mut)
-	}
-	return nil
-}*/
-
 func setEdgeOSIDForMut(
 	ctx context.Context, client *ent.Client, mut ent.Mutation, osres *osv1.OperatingSystemResource,
 ) error {
