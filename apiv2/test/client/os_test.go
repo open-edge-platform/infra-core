@@ -97,7 +97,6 @@ func TestOS_UpdatePut(t *testing.T) {
 	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
 	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
 	assert.Equal(t, *utils.OSResource2Request.Architecture, *OSResource1GetUp.JSON200.Architecture)
-	assert.Equal(t, "", *OSResource1GetUp.JSON200.KernelCommand)
 	// Security Feature is immutable
 	assert.Equal(t, *utils.OSResource1Request.SecurityFeature, *OSResource1GetUp.JSON200.SecurityFeature)
 
@@ -323,35 +322,16 @@ func TestOS_CreatewithCustom(t *testing.T) {
 
 	OSName1 := "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816)"
 	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2 TestName#724"
-	OSKernel1 := "kvmgt vfio-iommu-type1 vfio-mdev i915.enable_gvt=1 kvm.ignore_msrs=1 intel_iommu=on iommu=pt drm.debug=0"
 	OSArch1 := "x86"
 	OSRepo1 := "http://test.com/test.raw.gz"
 
 	OSInstalledPackages := "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero"
 	OSSecFeat := api.SECURITYFEATURENONE
-	OperatingSystemUpdateSources := `#ReleaseService\nTypes: deb\nURIs:
-https://files-rs.edgeorchestration.intel.com/repository
-Suites: 24.08
-Components: release
-Signed-By:
------BEGIN PGP PUBLIC KEY BLOCK-----
- .
- mQINBGXE3tkBEAD85hzXnrq6rPnOXxwns35NfLaT595jJ3r5J17U/heOymT+K18D
- A6ewAwQgyHEWemW87xW6iqzRI4jB5m/ #### FAKE ### tboh57AZ40JFRlzz4
- dKybtByZ2ntW/sYvXwR818/sUd2PjtRHekBq+bprw2JR2OwPhfAswBs9UzWNiSqd
- rA3NksCeuj/j6sSaqpXn123ZtlliZttviM+bvbSps5qJ5TbxHtSwr4H5gYSlHVT/
- IwqUfFrYNoQVDejlGkVgyjQYonEqk8eX
- =w4R+
- -----END PGP PUBLIC KEY BLOCK-----
-`
-	updateSources := []string{OperatingSystemUpdateSources}
 	randSHA := inv_testing.GenerateRandomSha256()
 	OSResource1ReqwithCustom := api.OperatingSystemResource{
 		Name:              &OSName1,
 		ProfileName:       &OSProfileName1,
-		KernelCommand:     &OSKernel1,
 		Architecture:      &OSArch1,
-		UpdateSources:     &updateSources,
 		RepoUrl:           &OSRepo1,
 		Sha256:            randSHA,
 		InstalledPackages: &OSInstalledPackages,
@@ -411,7 +391,6 @@ func TestOS_UpdatePatch(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
-	assert.Equal(t, *utils.OSResource1Request.KernelCommand, *OSResource1GetUp.JSON200.KernelCommand)
 	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
 	assert.Equal(
 		t,
