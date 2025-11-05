@@ -4334,24 +4334,6 @@ components:
           maxLength: 20
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
           description: The OS resource's CPU architecture.
-        kernelCommand:
-          type: string
-          title: kernel_command
-          maxLength: 500
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
-          description: Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
-        updateSources:
-          type: array
-          items:
-            type: string
-            maxLength: 10000
-            pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()"\ \\\n]+$
-            maxItems: 100
-          title: update_sources
-          maxItems: 100
-          description: |-
-            Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
-             Should be in 'DEB822 Source Format' for Debian style OSs
         imageUrl:
           type: string
           title: image_url
@@ -4393,6 +4375,7 @@ components:
           maxLength: 500000
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" \\\n]+$
           description: List of installed packages, encoded as a JSON list.
+          readOnly: true
         installedPackagesUrl:
           type: string
           title: installed_packages_url
@@ -5261,16 +5244,6 @@ components:
           description: OS resource that should be installed to this Instance.
           readOnly: true
           $ref: '#/components/schemas/OperatingSystemResource'
-        desiredOs:
-          title: desired_os
-          description: Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
-          readOnly: true
-          $ref: '#/components/schemas/OperatingSystemResource'
-        currentOs:
-          title: current_os
-          description: Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance.
-          readOnly: true
-          $ref: '#/components/schemas/OperatingSystemResource'
         securityFeature:
           title: security_feature
           description: Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
@@ -5322,12 +5295,6 @@ components:
           type: integer
           title: update_status_timestamp
           description: UTC timestamp when update_status was last changed. Set by RMs only.
-          readOnly: true
-        updateStatusDetail:
-          type: string
-          title: update_status_detail
-          maxLength: 100000
-          description: Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
           readOnly: true
         trustedAttestationStatus:
           type: string
@@ -5489,15 +5456,6 @@ components:
           maxLength: 200
           pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*() ]+$
           description: User-provided, human-readable description.
-        installPackages:
-          type: string
-          title: install_packages
-          maxLength: 500000
-          pattern: ^$|^[A-Za-z0-9._/:;=@?!#,<>\-*+~()\[\]{} \n]+$
-          description: |-
-            Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
-             Applies only to Mutable OSes.
-             Deprecated, will be removed in EMF v3.2.0, use update_packages field instead.
         updateSources:
           type: array
           items:
@@ -5510,15 +5468,6 @@ components:
             The list of OS resource update sources.
              Should be in 'DEB822 Source Format' for Debian style OSs.
              Applies only to Mutable OSes.
-        kernelCommand:
-          type: string
-          title: kernel_command
-          maxLength: 500
-          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
-          description: |-
-            The OS resource's kernel Command Line Options.
-             Applies only to Mutable OSes.
-             Deprecated, will be removed in EMF v3.2.0, use update_kernel_command field instead.
         updatePackages:
           type: string
           title: update_packages
