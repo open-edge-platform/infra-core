@@ -50,8 +50,6 @@ const (
 	FieldUpdateStatusIndicator = "update_status_indicator"
 	// FieldUpdateStatusTimestamp holds the string denoting the update_status_timestamp field in the database.
 	FieldUpdateStatusTimestamp = "update_status_timestamp"
-	// FieldUpdateStatusDetail holds the string denoting the update_status_detail field in the database.
-	FieldUpdateStatusDetail = "update_status_detail"
 	// FieldTrustedAttestationStatus holds the string denoting the trusted_attestation_status field in the database.
 	FieldTrustedAttestationStatus = "trusted_attestation_status"
 	// FieldTrustedAttestationStatusIndicator holds the string denoting the trusted_attestation_status_indicator field in the database.
@@ -74,10 +72,6 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// EdgeHost holds the string denoting the host edge name in mutations.
 	EdgeHost = "host"
-	// EdgeDesiredOs holds the string denoting the desired_os edge name in mutations.
-	EdgeDesiredOs = "desired_os"
-	// EdgeCurrentOs holds the string denoting the current_os edge name in mutations.
-	EdgeCurrentOs = "current_os"
 	// EdgeOs holds the string denoting the os edge name in mutations.
 	EdgeOs = "os"
 	// EdgeWorkloadMembers holds the string denoting the workload_members edge name in mutations.
@@ -99,20 +93,6 @@ const (
 	HostInverseTable = "host_resources"
 	// HostColumn is the table column denoting the host relation/edge.
 	HostColumn = "instance_resource_host"
-	// DesiredOsTable is the table that holds the desired_os relation/edge.
-	DesiredOsTable = "instance_resources"
-	// DesiredOsInverseTable is the table name for the OperatingSystemResource entity.
-	// It exists in this package in order to avoid circular dependency with the "operatingsystemresource" package.
-	DesiredOsInverseTable = "operating_system_resources"
-	// DesiredOsColumn is the table column denoting the desired_os relation/edge.
-	DesiredOsColumn = "instance_resource_desired_os"
-	// CurrentOsTable is the table that holds the current_os relation/edge.
-	CurrentOsTable = "instance_resources"
-	// CurrentOsInverseTable is the table name for the OperatingSystemResource entity.
-	// It exists in this package in order to avoid circular dependency with the "operatingsystemresource" package.
-	CurrentOsInverseTable = "operating_system_resources"
-	// CurrentOsColumn is the table column denoting the current_os relation/edge.
-	CurrentOsColumn = "instance_resource_current_os"
 	// OsTable is the table that holds the os relation/edge.
 	OsTable = "instance_resources"
 	// OsInverseTable is the table name for the OperatingSystemResource entity.
@@ -176,7 +156,6 @@ var Columns = []string{
 	FieldUpdateStatus,
 	FieldUpdateStatusIndicator,
 	FieldUpdateStatusTimestamp,
-	FieldUpdateStatusDetail,
 	FieldTrustedAttestationStatus,
 	FieldTrustedAttestationStatusIndicator,
 	FieldTrustedAttestationStatusTimestamp,
@@ -192,8 +171,6 @@ var Columns = []string{
 // ForeignKeys holds the SQL foreign-keys that are owned by the "instance_resources"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
-	"instance_resource_desired_os",
-	"instance_resource_current_os",
 	"instance_resource_os",
 	"instance_resource_provider",
 	"instance_resource_localaccount",
@@ -517,11 +494,6 @@ func ByUpdateStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUpdateStatusTimestamp, opts...).ToFunc()
 }
 
-// ByUpdateStatusDetail orders the results by the update_status_detail field.
-func ByUpdateStatusDetail(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUpdateStatusDetail, opts...).ToFunc()
-}
-
 // ByTrustedAttestationStatus orders the results by the trusted_attestation_status field.
 func ByTrustedAttestationStatus(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTrustedAttestationStatus, opts...).ToFunc()
@@ -576,20 +548,6 @@ func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
 func ByHostField(field string, opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborTerms(s, newHostStep(), sql.OrderByField(field, opts...))
-	}
-}
-
-// ByDesiredOsField orders the results by desired_os field.
-func ByDesiredOsField(field string, opts ...sql.OrderTermOption) OrderOption {
-	return func(s *sql.Selector) {
-		sqlgraph.OrderByNeighborTerms(s, newDesiredOsStep(), sql.OrderByField(field, opts...))
-	}
-}
-
-// ByCurrentOsField orders the results by current_os field.
-func ByCurrentOsField(field string, opts ...sql.OrderTermOption) OrderOption {
-	return func(s *sql.Selector) {
-		sqlgraph.OrderByNeighborTerms(s, newCurrentOsStep(), sql.OrderByField(field, opts...))
 	}
 }
 
@@ -653,20 +611,6 @@ func newHostStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(HostInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.O2O, false, HostTable, HostColumn),
-	)
-}
-func newDesiredOsStep() *sqlgraph.Step {
-	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(DesiredOsInverseTable, FieldID),
-		sqlgraph.Edge(sqlgraph.M2O, false, DesiredOsTable, DesiredOsColumn),
-	)
-}
-func newCurrentOsStep() *sqlgraph.Step {
-	return sqlgraph.NewStep(
-		sqlgraph.From(Table, FieldID),
-		sqlgraph.To(CurrentOsInverseTable, FieldID),
-		sqlgraph.Edge(sqlgraph.M2O, false, CurrentOsTable, CurrentOsColumn),
 	)
 }
 func newOsStep() *sqlgraph.Step {
