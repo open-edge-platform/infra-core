@@ -1213,9 +1213,6 @@ type InstanceKind string
 //
 //	host or hypervisor.
 type InstanceResource struct {
-	// CurrentOs An OS resource.
-	CurrentOs *OperatingSystemResource `json:"currentOs,omitempty"`
-
 	// CurrentState The Instance States.
 	CurrentState *InstanceState `json:"currentState,omitempty"`
 
@@ -1224,9 +1221,6 @@ type InstanceResource struct {
 
 	// CustomConfigID The list of custom config associated with the instance.
 	CustomConfigID *[]string `json:"customConfigID,omitempty"`
-
-	// DesiredOs An OS resource.
-	DesiredOs *OperatingSystemResource `json:"desiredOs,omitempty"`
 
 	// DesiredState The Instance States.
 	DesiredState *InstanceState `json:"desiredState,omitempty"`
@@ -1306,9 +1300,6 @@ type InstanceResource struct {
 
 	// UpdateStatus textual message that describes the update status of Instance. Set by RMs only.
 	UpdateStatus *string `json:"updateStatus,omitempty"`
-
-	// UpdateStatusDetail Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
-	UpdateStatusDetail *string `json:"updateStatusDetail,omitempty"`
 
 	// UpdateStatusIndicator The status indicator.
 	UpdateStatusIndicator *StatusIndication `json:"updateStatusIndicator,omitempty"`
@@ -2059,16 +2050,6 @@ type OSUpdatePolicy struct {
 	// Description User-provided, human-readable description.
 	Description *string `json:"description,omitempty"`
 
-	// InstallPackages Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
-	//  Applies only to Mutable OSes.
-	//  Deprecated, will be removed in EMF v3.2.0, use update_packages field instead.
-	InstallPackages *string `json:"installPackages,omitempty"`
-
-	// KernelCommand The OS resource's kernel Command Line Options.
-	//  Applies only to Mutable OSes.
-	//  Deprecated, will be removed in EMF v3.2.0, use update_kernel_command field instead.
-	KernelCommand *string `json:"kernelCommand,omitempty"`
-
 	// Name User-provided, human-readable name.
 	Name string `json:"name"`
 
@@ -2176,9 +2157,6 @@ type OperatingSystemResource struct {
 	//  for the advance use case to allow manual creation of OSProfiles when supported from backend.
 	InstalledPackagesUrl *string `json:"installedPackagesUrl,omitempty"`
 
-	// KernelCommand Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
-	KernelCommand *string `json:"kernelCommand,omitempty"`
-
 	// Metadata Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
 	Metadata *string `json:"metadata,omitempty"`
 
@@ -2220,10 +2198,6 @@ type OperatingSystemResource struct {
 
 	// TlsCaCert user-provided, TLS CA Certificate
 	TlsCaCert *string `json:"tlsCaCert,omitempty"`
-
-	// UpdateSources Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
-	//  Should be in 'DEB822 Source Format' for Debian style OSs
-	UpdateSources *[]string `json:"updateSources,omitempty"`
 }
 
 // OsProviderKind OsProviderKind describes "owner" of the OS, that will drive OS provisioning.
