@@ -113,7 +113,7 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 		case "HostgpuResource", "HostnicResource", "HoststorageResource", "HostusbResource":
 			fieldName = "device_name"
 		case "OperatingSystemResource":
-			fieldName = "kernel_command"
+			fieldName = "installed_packages"
 		default:
 			fieldName = "name"
 		}
