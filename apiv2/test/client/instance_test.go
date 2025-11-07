@@ -546,9 +546,12 @@ func TestInstance_CreateWithOSUpdatePolicy(t *testing.T) {
 
 	// Check if the OSUpdatePolicy is the one assigned earlier
 	require.NotNil(t, get1.JSON200.UpdatePolicy, "OSUpdatePolicy should be assigned")
-	assert.Equal(t, *osUpdatePolicy.JSON200.ResourceId, *get1.JSON200.UpdatePolicy.ResourceId, "OSUpdatePolicy ResourceId should match")
-	assert.Equal(t, osUpdatePolicy.JSON200.Name, get1.JSON200.UpdatePolicy.Name, "OSUpdatePolicy Name should match")
-	assert.Equal(t, osUpdatePolicy.JSON200.Description, get1.JSON200.UpdatePolicy.Description, "OSUpdatePolicy Description should match")
+	assert.Equal(t,
+		*osUpdatePolicy.JSON200.ResourceId, *get1.JSON200.UpdatePolicy.ResourceId, "OSUpdatePolicy ResourceId should match")
+	assert.Equal(t,
+		osUpdatePolicy.JSON200.Name, get1.JSON200.UpdatePolicy.Name, "OSUpdatePolicy Name should match")
+	assert.Equal(t,
+		osUpdatePolicy.JSON200.Description, get1.JSON200.UpdatePolicy.Description, "OSUpdatePolicy Description should match")
 
 	clearInstanceIDs()
 }
