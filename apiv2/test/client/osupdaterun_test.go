@@ -43,6 +43,7 @@ func TestOSUpdateRun_GetListNotFound(t *testing.T) {
 	assert.Empty(t, listResp.JSON200.OsUpdateRuns, "Expected OSUpdateRuns list to be empty")
 }
 
+//nolint:gosec // uint64 conversions are safe for testing
 func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -100,6 +101,7 @@ func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, getAfterDelete.StatusCode())
 }
 
+//nolint:gosec // uint64 conversions are safe for testing
 func TestOSUpdateRun_ListMultiple(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()

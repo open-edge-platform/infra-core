@@ -44,16 +44,35 @@ func TestOSUpdatePolicy_CreateGetListDelete(t *testing.T) {
 		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
-	found1 := false
-	found2 := false
-	for _, p := range listResp.JSON200.OsUpdatePolicies {
-		if p.Name == policy1.JSON200.Name {
-			found1 = true
-		}
-		if p.Name == policy2.JSON200.Name {
-			found2 = true
-		}
-	}
-	assert.True(t, found1, "First created policy should be in list")
-	assert.True(t, found2, "Second created policy should be in list")
+
+	// Verify both policies are in the list
+	resourceIDs := []string{*listResp.JSON200.OsUpdatePolicies[0].ResourceId, *listResp.JSON200.OsUpdatePolicies[1].ResourceId}
+	assert.Contains(t, resourceIDs, *policy1.JSON200.ResourceId)
+	assert.Contains(t, resourceIDs, *policy2.JSON200.ResourceId)
+}
+
+func TestOSUpdatePolicy_GetListNotFound(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	osUpdatePolicyNonexistResourceID := "osupdatepolicy-111111"
+
+	// Get OSUpdatePolicy
+	getResp, err := apiClient.OSUpdatePolicyGetOSUpdatePolicyWithResponse(
+		ctx, osUpdatePolicyNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusNotFound, getResp.StatusCode())
+
+	// List OSUpdatePolicies should not be found
+	listResp, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
+		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, listResp.StatusCode())
+
+	// The returned list is empty
+	assert.NotNil(t, listResp.JSON200)
+	assert.Empty(t, listResp.JSON200.OsUpdatePolicies, "Expected OSUpdatePolicies list to be empty")
 }
