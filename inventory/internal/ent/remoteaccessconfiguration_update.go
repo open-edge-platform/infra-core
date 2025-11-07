@@ -23,217 +23,217 @@ type RemoteAccessConfigurationUpdate struct {
 }
 
 // Where appends a list predicates to the RemoteAccessConfigurationUpdate builder.
-func (racu *RemoteAccessConfigurationUpdate) Where(ps ...predicate.RemoteAccessConfiguration) *RemoteAccessConfigurationUpdate {
-	racu.mutation.Where(ps...)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) Where(ps ...predicate.RemoteAccessConfiguration) *RemoteAccessConfigurationUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (racu *RemoteAccessConfigurationUpdate) SetResourceID(s string) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetResourceID(s)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetResourceID(v string) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableResourceID(s *string) *RemoteAccessConfigurationUpdate {
-	if s != nil {
-		racu.SetResourceID(*s)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableResourceID(v *string) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return racu
+	return _u
 }
 
 // SetLocalPort sets the "local_port" field.
-func (racu *RemoteAccessConfigurationUpdate) SetLocalPort(u uint32) *RemoteAccessConfigurationUpdate {
-	racu.mutation.ResetLocalPort()
-	racu.mutation.SetLocalPort(u)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetLocalPort(v uint32) *RemoteAccessConfigurationUpdate {
+	_u.mutation.ResetLocalPort()
+	_u.mutation.SetLocalPort(v)
+	return _u
 }
 
 // SetNillableLocalPort sets the "local_port" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableLocalPort(u *uint32) *RemoteAccessConfigurationUpdate {
-	if u != nil {
-		racu.SetLocalPort(*u)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableLocalPort(v *uint32) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetLocalPort(*v)
 	}
-	return racu
+	return _u
 }
 
-// AddLocalPort adds u to the "local_port" field.
-func (racu *RemoteAccessConfigurationUpdate) AddLocalPort(u int32) *RemoteAccessConfigurationUpdate {
-	racu.mutation.AddLocalPort(u)
-	return racu
+// AddLocalPort adds value to the "local_port" field.
+func (_u *RemoteAccessConfigurationUpdate) AddLocalPort(v int32) *RemoteAccessConfigurationUpdate {
+	_u.mutation.AddLocalPort(v)
+	return _u
 }
 
 // ClearLocalPort clears the value of the "local_port" field.
-func (racu *RemoteAccessConfigurationUpdate) ClearLocalPort() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearLocalPort()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearLocalPort() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearLocalPort()
+	return _u
 }
 
 // SetUser sets the "user" field.
-func (racu *RemoteAccessConfigurationUpdate) SetUser(s string) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetUser(s)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetUser(v string) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetUser(v)
+	return _u
 }
 
 // SetNillableUser sets the "user" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableUser(s *string) *RemoteAccessConfigurationUpdate {
-	if s != nil {
-		racu.SetUser(*s)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableUser(v *string) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetUser(*v)
 	}
-	return racu
+	return _u
 }
 
 // ClearUser clears the value of the "user" field.
-func (racu *RemoteAccessConfigurationUpdate) ClearUser() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearUser()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearUser() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearUser()
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (racu *RemoteAccessConfigurationUpdate) SetCurrentState(rs remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetCurrentState(rs)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetCurrentState(v remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableCurrentState(rs *remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdate {
-	if rs != nil {
-		racu.SetCurrentState(*rs)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableCurrentState(v *remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return racu
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (racu *RemoteAccessConfigurationUpdate) ClearCurrentState() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearCurrentState()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearCurrentState() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (racu *RemoteAccessConfigurationUpdate) SetDesiredState(rs remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetDesiredState(rs)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetDesiredState(v remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableDesiredState(rs *remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdate {
-	if rs != nil {
-		racu.SetDesiredState(*rs)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableDesiredState(v *remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return racu
+	return _u
 }
 
 // SetConfigurationStatus sets the "configuration_status" field.
-func (racu *RemoteAccessConfigurationUpdate) SetConfigurationStatus(s string) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetConfigurationStatus(s)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetConfigurationStatus(v string) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetConfigurationStatus(v)
+	return _u
 }
 
 // SetNillableConfigurationStatus sets the "configuration_status" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableConfigurationStatus(s *string) *RemoteAccessConfigurationUpdate {
-	if s != nil {
-		racu.SetConfigurationStatus(*s)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableConfigurationStatus(v *string) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetConfigurationStatus(*v)
 	}
-	return racu
+	return _u
 }
 
 // ClearConfigurationStatus clears the value of the "configuration_status" field.
-func (racu *RemoteAccessConfigurationUpdate) ClearConfigurationStatus() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearConfigurationStatus()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearConfigurationStatus() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearConfigurationStatus()
+	return _u
 }
 
 // SetConfigurationStatusIndicator sets the "configuration_status_indicator" field.
-func (racu *RemoteAccessConfigurationUpdate) SetConfigurationStatusIndicator(rsi remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetConfigurationStatusIndicator(rsi)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetConfigurationStatusIndicator(v remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetConfigurationStatusIndicator(v)
+	return _u
 }
 
 // SetNillableConfigurationStatusIndicator sets the "configuration_status_indicator" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableConfigurationStatusIndicator(rsi *remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdate {
-	if rsi != nil {
-		racu.SetConfigurationStatusIndicator(*rsi)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableConfigurationStatusIndicator(v *remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetConfigurationStatusIndicator(*v)
 	}
-	return racu
+	return _u
 }
 
 // ClearConfigurationStatusIndicator clears the value of the "configuration_status_indicator" field.
-func (racu *RemoteAccessConfigurationUpdate) ClearConfigurationStatusIndicator() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearConfigurationStatusIndicator()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearConfigurationStatusIndicator() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearConfigurationStatusIndicator()
+	return _u
 }
 
 // SetConfigurationStatusTimestamp sets the "configuration_status_timestamp" field.
-func (racu *RemoteAccessConfigurationUpdate) SetConfigurationStatusTimestamp(u uint64) *RemoteAccessConfigurationUpdate {
-	racu.mutation.ResetConfigurationStatusTimestamp()
-	racu.mutation.SetConfigurationStatusTimestamp(u)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetConfigurationStatusTimestamp(v uint64) *RemoteAccessConfigurationUpdate {
+	_u.mutation.ResetConfigurationStatusTimestamp()
+	_u.mutation.SetConfigurationStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableConfigurationStatusTimestamp sets the "configuration_status_timestamp" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableConfigurationStatusTimestamp(u *uint64) *RemoteAccessConfigurationUpdate {
-	if u != nil {
-		racu.SetConfigurationStatusTimestamp(*u)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableConfigurationStatusTimestamp(v *uint64) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetConfigurationStatusTimestamp(*v)
 	}
-	return racu
+	return _u
 }
 
-// AddConfigurationStatusTimestamp adds u to the "configuration_status_timestamp" field.
-func (racu *RemoteAccessConfigurationUpdate) AddConfigurationStatusTimestamp(u int64) *RemoteAccessConfigurationUpdate {
-	racu.mutation.AddConfigurationStatusTimestamp(u)
-	return racu
+// AddConfigurationStatusTimestamp adds value to the "configuration_status_timestamp" field.
+func (_u *RemoteAccessConfigurationUpdate) AddConfigurationStatusTimestamp(v int64) *RemoteAccessConfigurationUpdate {
+	_u.mutation.AddConfigurationStatusTimestamp(v)
+	return _u
 }
 
 // ClearConfigurationStatusTimestamp clears the value of the "configuration_status_timestamp" field.
-func (racu *RemoteAccessConfigurationUpdate) ClearConfigurationStatusTimestamp() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearConfigurationStatusTimestamp()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearConfigurationStatusTimestamp() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearConfigurationStatusTimestamp()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (racu *RemoteAccessConfigurationUpdate) SetUpdatedAt(s string) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetUpdatedAt(s)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetUpdatedAt(v string) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (racu *RemoteAccessConfigurationUpdate) SetNillableUpdatedAt(s *string) *RemoteAccessConfigurationUpdate {
-	if s != nil {
-		racu.SetUpdatedAt(*s)
+func (_u *RemoteAccessConfigurationUpdate) SetNillableUpdatedAt(v *string) *RemoteAccessConfigurationUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return racu
+	return _u
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (racu *RemoteAccessConfigurationUpdate) SetInstanceID(id int) *RemoteAccessConfigurationUpdate {
-	racu.mutation.SetInstanceID(id)
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) SetInstanceID(id int) *RemoteAccessConfigurationUpdate {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (racu *RemoteAccessConfigurationUpdate) SetInstance(i *InstanceResource) *RemoteAccessConfigurationUpdate {
-	return racu.SetInstanceID(i.ID)
+func (_u *RemoteAccessConfigurationUpdate) SetInstance(v *InstanceResource) *RemoteAccessConfigurationUpdate {
+	return _u.SetInstanceID(v.ID)
 }
 
 // Mutation returns the RemoteAccessConfigurationMutation object of the builder.
-func (racu *RemoteAccessConfigurationUpdate) Mutation() *RemoteAccessConfigurationMutation {
-	return racu.mutation
+func (_u *RemoteAccessConfigurationUpdate) Mutation() *RemoteAccessConfigurationMutation {
+	return _u.mutation
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (racu *RemoteAccessConfigurationUpdate) ClearInstance() *RemoteAccessConfigurationUpdate {
-	racu.mutation.ClearInstance()
-	return racu
+func (_u *RemoteAccessConfigurationUpdate) ClearInstance() *RemoteAccessConfigurationUpdate {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (racu *RemoteAccessConfigurationUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, racu.sqlSave, racu.mutation, racu.hooks)
+func (_u *RemoteAccessConfigurationUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (racu *RemoteAccessConfigurationUpdate) SaveX(ctx context.Context) int {
-	affected, err := racu.Save(ctx)
+func (_u *RemoteAccessConfigurationUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -241,105 +241,105 @@ func (racu *RemoteAccessConfigurationUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (racu *RemoteAccessConfigurationUpdate) Exec(ctx context.Context) error {
-	_, err := racu.Save(ctx)
+func (_u *RemoteAccessConfigurationUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (racu *RemoteAccessConfigurationUpdate) ExecX(ctx context.Context) {
-	if err := racu.Exec(ctx); err != nil {
+func (_u *RemoteAccessConfigurationUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (racu *RemoteAccessConfigurationUpdate) check() error {
-	if v, ok := racu.mutation.CurrentState(); ok {
+func (_u *RemoteAccessConfigurationUpdate) check() error {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := remoteaccessconfiguration.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.current_state": %w`, err)}
 		}
 	}
-	if v, ok := racu.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := remoteaccessconfiguration.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := racu.mutation.ConfigurationStatusIndicator(); ok {
+	if v, ok := _u.mutation.ConfigurationStatusIndicator(); ok {
 		if err := remoteaccessconfiguration.ConfigurationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "configuration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.configuration_status_indicator": %w`, err)}
 		}
 	}
-	if racu.mutation.InstanceCleared() && len(racu.mutation.InstanceIDs()) > 0 {
+	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "RemoteAccessConfiguration.instance"`)
 	}
 	return nil
 }
 
-func (racu *RemoteAccessConfigurationUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := racu.check(); err != nil {
-		return n, err
+func (_u *RemoteAccessConfigurationUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(remoteaccessconfiguration.Table, remoteaccessconfiguration.Columns, sqlgraph.NewFieldSpec(remoteaccessconfiguration.FieldID, field.TypeInt))
-	if ps := racu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := racu.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := racu.mutation.LocalPort(); ok {
+	if value, ok := _u.mutation.LocalPort(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32, value)
 	}
-	if value, ok := racu.mutation.AddedLocalPort(); ok {
+	if value, ok := _u.mutation.AddedLocalPort(); ok {
 		_spec.AddField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32, value)
 	}
-	if racu.mutation.LocalPortCleared() {
+	if _u.mutation.LocalPortCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32)
 	}
-	if value, ok := racu.mutation.User(); ok {
+	if value, ok := _u.mutation.User(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldUser, field.TypeString, value)
 	}
-	if racu.mutation.UserCleared() {
+	if _u.mutation.UserCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldUser, field.TypeString)
 	}
-	if value, ok := racu.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldCurrentState, field.TypeEnum, value)
 	}
-	if racu.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := racu.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := racu.mutation.ConfigurationStatus(); ok {
+	if value, ok := _u.mutation.ConfigurationStatus(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatus, field.TypeString, value)
 	}
-	if racu.mutation.ConfigurationStatusCleared() {
+	if _u.mutation.ConfigurationStatusCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldConfigurationStatus, field.TypeString)
 	}
-	if value, ok := racu.mutation.ConfigurationStatusIndicator(); ok {
+	if value, ok := _u.mutation.ConfigurationStatusIndicator(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatusIndicator, field.TypeEnum, value)
 	}
-	if racu.mutation.ConfigurationStatusIndicatorCleared() {
+	if _u.mutation.ConfigurationStatusIndicatorCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldConfigurationStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := racu.mutation.ConfigurationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.ConfigurationStatusTimestamp(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := racu.mutation.AddedConfigurationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedConfigurationStatusTimestamp(); ok {
 		_spec.AddField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64, value)
 	}
-	if racu.mutation.ConfigurationStatusTimestampCleared() {
+	if _u.mutation.ConfigurationStatusTimestampCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := racu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldUpdatedAt, field.TypeString, value)
 	}
-	if racu.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -352,7 +352,7 @@ func (racu *RemoteAccessConfigurationUpdate) sqlSave(ctx context.Context) (n int
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := racu.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -368,7 +368,7 @@ func (racu *RemoteAccessConfigurationUpdate) sqlSave(ctx context.Context) (n int
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, racu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{remoteaccessconfiguration.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -376,8 +376,8 @@ func (racu *RemoteAccessConfigurationUpdate) sqlSave(ctx context.Context) (n int
 		}
 		return 0, err
 	}
-	racu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // RemoteAccessConfigurationUpdateOne is the builder for updating a single RemoteAccessConfiguration entity.
@@ -389,224 +389,224 @@ type RemoteAccessConfigurationUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetResourceID(s string) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetResourceID(s)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetResourceID(v string) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableResourceID(s *string) *RemoteAccessConfigurationUpdateOne {
-	if s != nil {
-		racuo.SetResourceID(*s)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableResourceID(v *string) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return racuo
+	return _u
 }
 
 // SetLocalPort sets the "local_port" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetLocalPort(u uint32) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ResetLocalPort()
-	racuo.mutation.SetLocalPort(u)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetLocalPort(v uint32) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ResetLocalPort()
+	_u.mutation.SetLocalPort(v)
+	return _u
 }
 
 // SetNillableLocalPort sets the "local_port" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableLocalPort(u *uint32) *RemoteAccessConfigurationUpdateOne {
-	if u != nil {
-		racuo.SetLocalPort(*u)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableLocalPort(v *uint32) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetLocalPort(*v)
 	}
-	return racuo
+	return _u
 }
 
-// AddLocalPort adds u to the "local_port" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) AddLocalPort(u int32) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.AddLocalPort(u)
-	return racuo
+// AddLocalPort adds value to the "local_port" field.
+func (_u *RemoteAccessConfigurationUpdateOne) AddLocalPort(v int32) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.AddLocalPort(v)
+	return _u
 }
 
 // ClearLocalPort clears the value of the "local_port" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearLocalPort() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearLocalPort()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearLocalPort() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearLocalPort()
+	return _u
 }
 
 // SetUser sets the "user" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetUser(s string) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetUser(s)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetUser(v string) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetUser(v)
+	return _u
 }
 
 // SetNillableUser sets the "user" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableUser(s *string) *RemoteAccessConfigurationUpdateOne {
-	if s != nil {
-		racuo.SetUser(*s)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableUser(v *string) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetUser(*v)
 	}
-	return racuo
+	return _u
 }
 
 // ClearUser clears the value of the "user" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearUser() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearUser()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearUser() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearUser()
+	return _u
 }
 
 // SetCurrentState sets the "current_state" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetCurrentState(rs remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetCurrentState(rs)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetCurrentState(v remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetCurrentState(v)
+	return _u
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableCurrentState(rs *remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdateOne {
-	if rs != nil {
-		racuo.SetCurrentState(*rs)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableCurrentState(v *remoteaccessconfiguration.CurrentState) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetCurrentState(*v)
 	}
-	return racuo
+	return _u
 }
 
 // ClearCurrentState clears the value of the "current_state" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearCurrentState() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearCurrentState()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearCurrentState() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearCurrentState()
+	return _u
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetDesiredState(rs remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetDesiredState(rs)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetDesiredState(v remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetDesiredState(v)
+	return _u
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableDesiredState(rs *remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdateOne {
-	if rs != nil {
-		racuo.SetDesiredState(*rs)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableDesiredState(v *remoteaccessconfiguration.DesiredState) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetDesiredState(*v)
 	}
-	return racuo
+	return _u
 }
 
 // SetConfigurationStatus sets the "configuration_status" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetConfigurationStatus(s string) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetConfigurationStatus(s)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetConfigurationStatus(v string) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetConfigurationStatus(v)
+	return _u
 }
 
 // SetNillableConfigurationStatus sets the "configuration_status" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableConfigurationStatus(s *string) *RemoteAccessConfigurationUpdateOne {
-	if s != nil {
-		racuo.SetConfigurationStatus(*s)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableConfigurationStatus(v *string) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetConfigurationStatus(*v)
 	}
-	return racuo
+	return _u
 }
 
 // ClearConfigurationStatus clears the value of the "configuration_status" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearConfigurationStatus() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearConfigurationStatus()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearConfigurationStatus() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearConfigurationStatus()
+	return _u
 }
 
 // SetConfigurationStatusIndicator sets the "configuration_status_indicator" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetConfigurationStatusIndicator(rsi remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetConfigurationStatusIndicator(rsi)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetConfigurationStatusIndicator(v remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetConfigurationStatusIndicator(v)
+	return _u
 }
 
 // SetNillableConfigurationStatusIndicator sets the "configuration_status_indicator" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableConfigurationStatusIndicator(rsi *remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdateOne {
-	if rsi != nil {
-		racuo.SetConfigurationStatusIndicator(*rsi)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableConfigurationStatusIndicator(v *remoteaccessconfiguration.ConfigurationStatusIndicator) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetConfigurationStatusIndicator(*v)
 	}
-	return racuo
+	return _u
 }
 
 // ClearConfigurationStatusIndicator clears the value of the "configuration_status_indicator" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearConfigurationStatusIndicator() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearConfigurationStatusIndicator()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearConfigurationStatusIndicator() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearConfigurationStatusIndicator()
+	return _u
 }
 
 // SetConfigurationStatusTimestamp sets the "configuration_status_timestamp" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetConfigurationStatusTimestamp(u uint64) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ResetConfigurationStatusTimestamp()
-	racuo.mutation.SetConfigurationStatusTimestamp(u)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetConfigurationStatusTimestamp(v uint64) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ResetConfigurationStatusTimestamp()
+	_u.mutation.SetConfigurationStatusTimestamp(v)
+	return _u
 }
 
 // SetNillableConfigurationStatusTimestamp sets the "configuration_status_timestamp" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableConfigurationStatusTimestamp(u *uint64) *RemoteAccessConfigurationUpdateOne {
-	if u != nil {
-		racuo.SetConfigurationStatusTimestamp(*u)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableConfigurationStatusTimestamp(v *uint64) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetConfigurationStatusTimestamp(*v)
 	}
-	return racuo
+	return _u
 }
 
-// AddConfigurationStatusTimestamp adds u to the "configuration_status_timestamp" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) AddConfigurationStatusTimestamp(u int64) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.AddConfigurationStatusTimestamp(u)
-	return racuo
+// AddConfigurationStatusTimestamp adds value to the "configuration_status_timestamp" field.
+func (_u *RemoteAccessConfigurationUpdateOne) AddConfigurationStatusTimestamp(v int64) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.AddConfigurationStatusTimestamp(v)
+	return _u
 }
 
 // ClearConfigurationStatusTimestamp clears the value of the "configuration_status_timestamp" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearConfigurationStatusTimestamp() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearConfigurationStatusTimestamp()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearConfigurationStatusTimestamp() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearConfigurationStatusTimestamp()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetUpdatedAt(s string) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetUpdatedAt(s)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetUpdatedAt(v string) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetNillableUpdatedAt(s *string) *RemoteAccessConfigurationUpdateOne {
-	if s != nil {
-		racuo.SetUpdatedAt(*s)
+func (_u *RemoteAccessConfigurationUpdateOne) SetNillableUpdatedAt(v *string) *RemoteAccessConfigurationUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return racuo
+	return _u
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetInstanceID(id int) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.SetInstanceID(id)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) SetInstanceID(id int) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.SetInstanceID(id)
+	return _u
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (racuo *RemoteAccessConfigurationUpdateOne) SetInstance(i *InstanceResource) *RemoteAccessConfigurationUpdateOne {
-	return racuo.SetInstanceID(i.ID)
+func (_u *RemoteAccessConfigurationUpdateOne) SetInstance(v *InstanceResource) *RemoteAccessConfigurationUpdateOne {
+	return _u.SetInstanceID(v.ID)
 }
 
 // Mutation returns the RemoteAccessConfigurationMutation object of the builder.
-func (racuo *RemoteAccessConfigurationUpdateOne) Mutation() *RemoteAccessConfigurationMutation {
-	return racuo.mutation
+func (_u *RemoteAccessConfigurationUpdateOne) Mutation() *RemoteAccessConfigurationMutation {
+	return _u.mutation
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
-func (racuo *RemoteAccessConfigurationUpdateOne) ClearInstance() *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.ClearInstance()
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) ClearInstance() *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.ClearInstance()
+	return _u
 }
 
 // Where appends a list predicates to the RemoteAccessConfigurationUpdate builder.
-func (racuo *RemoteAccessConfigurationUpdateOne) Where(ps ...predicate.RemoteAccessConfiguration) *RemoteAccessConfigurationUpdateOne {
-	racuo.mutation.Where(ps...)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) Where(ps ...predicate.RemoteAccessConfiguration) *RemoteAccessConfigurationUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (racuo *RemoteAccessConfigurationUpdateOne) Select(field string, fields ...string) *RemoteAccessConfigurationUpdateOne {
-	racuo.fields = append([]string{field}, fields...)
-	return racuo
+func (_u *RemoteAccessConfigurationUpdateOne) Select(field string, fields ...string) *RemoteAccessConfigurationUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated RemoteAccessConfiguration entity.
-func (racuo *RemoteAccessConfigurationUpdateOne) Save(ctx context.Context) (*RemoteAccessConfiguration, error) {
-	return withHooks(ctx, racuo.sqlSave, racuo.mutation, racuo.hooks)
+func (_u *RemoteAccessConfigurationUpdateOne) Save(ctx context.Context) (*RemoteAccessConfiguration, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (racuo *RemoteAccessConfigurationUpdateOne) SaveX(ctx context.Context) *RemoteAccessConfiguration {
-	node, err := racuo.Save(ctx)
+func (_u *RemoteAccessConfigurationUpdateOne) SaveX(ctx context.Context) *RemoteAccessConfiguration {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -614,52 +614,52 @@ func (racuo *RemoteAccessConfigurationUpdateOne) SaveX(ctx context.Context) *Rem
 }
 
 // Exec executes the query on the entity.
-func (racuo *RemoteAccessConfigurationUpdateOne) Exec(ctx context.Context) error {
-	_, err := racuo.Save(ctx)
+func (_u *RemoteAccessConfigurationUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (racuo *RemoteAccessConfigurationUpdateOne) ExecX(ctx context.Context) {
-	if err := racuo.Exec(ctx); err != nil {
+func (_u *RemoteAccessConfigurationUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (racuo *RemoteAccessConfigurationUpdateOne) check() error {
-	if v, ok := racuo.mutation.CurrentState(); ok {
+func (_u *RemoteAccessConfigurationUpdateOne) check() error {
+	if v, ok := _u.mutation.CurrentState(); ok {
 		if err := remoteaccessconfiguration.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.current_state": %w`, err)}
 		}
 	}
-	if v, ok := racuo.mutation.DesiredState(); ok {
+	if v, ok := _u.mutation.DesiredState(); ok {
 		if err := remoteaccessconfiguration.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := racuo.mutation.ConfigurationStatusIndicator(); ok {
+	if v, ok := _u.mutation.ConfigurationStatusIndicator(); ok {
 		if err := remoteaccessconfiguration.ConfigurationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "configuration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "RemoteAccessConfiguration.configuration_status_indicator": %w`, err)}
 		}
 	}
-	if racuo.mutation.InstanceCleared() && len(racuo.mutation.InstanceIDs()) > 0 {
+	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "RemoteAccessConfiguration.instance"`)
 	}
 	return nil
 }
 
-func (racuo *RemoteAccessConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *RemoteAccessConfiguration, err error) {
-	if err := racuo.check(); err != nil {
+func (_u *RemoteAccessConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *RemoteAccessConfiguration, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(remoteaccessconfiguration.Table, remoteaccessconfiguration.Columns, sqlgraph.NewFieldSpec(remoteaccessconfiguration.FieldID, field.TypeInt))
-	id, ok := racuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "RemoteAccessConfiguration.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := racuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, remoteaccessconfiguration.FieldID)
 		for _, f := range fields {
@@ -671,65 +671,65 @@ func (racuo *RemoteAccessConfigurationUpdateOne) sqlSave(ctx context.Context) (_
 			}
 		}
 	}
-	if ps := racuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := racuo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := racuo.mutation.LocalPort(); ok {
+	if value, ok := _u.mutation.LocalPort(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32, value)
 	}
-	if value, ok := racuo.mutation.AddedLocalPort(); ok {
+	if value, ok := _u.mutation.AddedLocalPort(); ok {
 		_spec.AddField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32, value)
 	}
-	if racuo.mutation.LocalPortCleared() {
+	if _u.mutation.LocalPortCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldLocalPort, field.TypeUint32)
 	}
-	if value, ok := racuo.mutation.User(); ok {
+	if value, ok := _u.mutation.User(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldUser, field.TypeString, value)
 	}
-	if racuo.mutation.UserCleared() {
+	if _u.mutation.UserCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldUser, field.TypeString)
 	}
-	if value, ok := racuo.mutation.CurrentState(); ok {
+	if value, ok := _u.mutation.CurrentState(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldCurrentState, field.TypeEnum, value)
 	}
-	if racuo.mutation.CurrentStateCleared() {
+	if _u.mutation.CurrentStateCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldCurrentState, field.TypeEnum)
 	}
-	if value, ok := racuo.mutation.DesiredState(); ok {
+	if value, ok := _u.mutation.DesiredState(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldDesiredState, field.TypeEnum, value)
 	}
-	if value, ok := racuo.mutation.ConfigurationStatus(); ok {
+	if value, ok := _u.mutation.ConfigurationStatus(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatus, field.TypeString, value)
 	}
-	if racuo.mutation.ConfigurationStatusCleared() {
+	if _u.mutation.ConfigurationStatusCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldConfigurationStatus, field.TypeString)
 	}
-	if value, ok := racuo.mutation.ConfigurationStatusIndicator(); ok {
+	if value, ok := _u.mutation.ConfigurationStatusIndicator(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatusIndicator, field.TypeEnum, value)
 	}
-	if racuo.mutation.ConfigurationStatusIndicatorCleared() {
+	if _u.mutation.ConfigurationStatusIndicatorCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldConfigurationStatusIndicator, field.TypeEnum)
 	}
-	if value, ok := racuo.mutation.ConfigurationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.ConfigurationStatusTimestamp(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64, value)
 	}
-	if value, ok := racuo.mutation.AddedConfigurationStatusTimestamp(); ok {
+	if value, ok := _u.mutation.AddedConfigurationStatusTimestamp(); ok {
 		_spec.AddField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64, value)
 	}
-	if racuo.mutation.ConfigurationStatusTimestampCleared() {
+	if _u.mutation.ConfigurationStatusTimestampCleared() {
 		_spec.ClearField(remoteaccessconfiguration.FieldConfigurationStatusTimestamp, field.TypeUint64)
 	}
-	if value, ok := racuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(remoteaccessconfiguration.FieldUpdatedAt, field.TypeString, value)
 	}
-	if racuo.mutation.InstanceCleared() {
+	if _u.mutation.InstanceCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -742,7 +742,7 @@ func (racuo *RemoteAccessConfigurationUpdateOne) sqlSave(ctx context.Context) (_
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := racuo.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -758,10 +758,10 @@ func (racuo *RemoteAccessConfigurationUpdateOne) sqlSave(ctx context.Context) (_
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &RemoteAccessConfiguration{config: racuo.config}
+	_node = &RemoteAccessConfiguration{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, racuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{remoteaccessconfiguration.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -769,6 +769,6 @@ func (racuo *RemoteAccessConfigurationUpdateOne) sqlSave(ctx context.Context) (_
 		}
 		return nil, err
 	}
-	racuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

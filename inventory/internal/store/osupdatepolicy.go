@@ -34,11 +34,11 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_UNSPECIFIED:
 		return errors.Errorfc(codes.InvalidArgument, "OS Update Policy type cannot be unspecified")
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_TARGET:
-		if isValidTargetPolicy(in) {
+		if !isValidTargetPolicy(in) {
 			return errors.Errorfc(codes.InvalidArgument, "Fields for mutable and immutable OSes are mutually exclusive")
 		}
 	case compute_v1.UpdatePolicy_UPDATE_POLICY_LATEST:
-		if isValidLatestPolicy(in) {
+		if !isValidLatestPolicy(in) {
 			return errors.Errorfc(codes.InvalidArgument, "With Policy LATEST, no fields should be set")
 		}
 	default:
@@ -47,15 +47,23 @@ func validateOSUpdatePolicyProto(in *compute_v1.OSUpdatePolicyResource) error {
 }
 
 func isValidTargetPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
-	// Enforce mutually exclusive fields
-	return (in.GetTargetOs() == nil) ==
-		(in.GetInstallPackages() == "" && in.GetUpdateSources() == nil && in.GetKernelCommand() == "")
+	// Enforce mutually exclusive fields: either TargetOs OR the other fields, but not both
+	targetOsSet := in.GetTargetOs() != nil
+	mutableOSFieldsSet := in.GetUpdatePackages() != "" || in.GetUpdateSources() != nil
+
+	// Invalid if both groups are set
+	if targetOsSet && mutableOSFieldsSet {
+		return false
+	}
+
+	// Valid if at least one group is set
+	return targetOsSet || mutableOSFieldsSet || in.GetUpdateKernelCommand() != ""
 }
 
 func isValidLatestPolicy(in *compute_v1.OSUpdatePolicyResource) bool {
 	// All fields must be unset
-	return in.GetTargetOs() != nil || in.GetInstallPackages() != "" ||
-		in.GetUpdateSources() != nil || in.GetKernelCommand() != ""
+	return in.GetTargetOs() == nil && in.GetUpdatePackages() == "" &&
+		in.GetUpdateSources() == nil && in.GetUpdateKernelCommand() == ""
 }
 
 // OSUpdatePolicyEnumStateMap maps proto enum fields to their Ent equivalents.
@@ -289,6 +297,7 @@ func filterOSUpdatePolicies(ctx context.Context, client *ent.Client, filter *inv
 
 	// perform query - And together all the predicates
 	query := client.OSUpdatePolicyResource.Query().
+		WithTargetOs().
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)

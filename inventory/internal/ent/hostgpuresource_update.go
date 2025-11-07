@@ -23,189 +23,189 @@ type HostgpuResourceUpdate struct {
 }
 
 // Where appends a list predicates to the HostgpuResourceUpdate builder.
-func (hru *HostgpuResourceUpdate) Where(ps ...predicate.HostgpuResource) *HostgpuResourceUpdate {
-	hru.mutation.Where(ps...)
-	return hru
+func (_u *HostgpuResourceUpdate) Where(ps ...predicate.HostgpuResource) *HostgpuResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hru *HostgpuResourceUpdate) SetResourceID(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetResourceID(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetResourceID(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableResourceID(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetResourceID(*s)
+func (_u *HostgpuResourceUpdate) SetNillableResourceID(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return hru
+	return _u
 }
 
 // SetPciID sets the "pci_id" field.
-func (hru *HostgpuResourceUpdate) SetPciID(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetPciID(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetPciID(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetPciID(v)
+	return _u
 }
 
 // SetNillablePciID sets the "pci_id" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillablePciID(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetPciID(*s)
+func (_u *HostgpuResourceUpdate) SetNillablePciID(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetPciID(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearPciID clears the value of the "pci_id" field.
-func (hru *HostgpuResourceUpdate) ClearPciID() *HostgpuResourceUpdate {
-	hru.mutation.ClearPciID()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearPciID() *HostgpuResourceUpdate {
+	_u.mutation.ClearPciID()
+	return _u
 }
 
 // SetProduct sets the "product" field.
-func (hru *HostgpuResourceUpdate) SetProduct(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetProduct(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetProduct(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetProduct(v)
+	return _u
 }
 
 // SetNillableProduct sets the "product" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableProduct(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetProduct(*s)
+func (_u *HostgpuResourceUpdate) SetNillableProduct(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetProduct(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearProduct clears the value of the "product" field.
-func (hru *HostgpuResourceUpdate) ClearProduct() *HostgpuResourceUpdate {
-	hru.mutation.ClearProduct()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearProduct() *HostgpuResourceUpdate {
+	_u.mutation.ClearProduct()
+	return _u
 }
 
 // SetVendor sets the "vendor" field.
-func (hru *HostgpuResourceUpdate) SetVendor(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetVendor(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetVendor(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetVendor(v)
+	return _u
 }
 
 // SetNillableVendor sets the "vendor" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableVendor(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetVendor(*s)
+func (_u *HostgpuResourceUpdate) SetNillableVendor(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetVendor(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearVendor clears the value of the "vendor" field.
-func (hru *HostgpuResourceUpdate) ClearVendor() *HostgpuResourceUpdate {
-	hru.mutation.ClearVendor()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearVendor() *HostgpuResourceUpdate {
+	_u.mutation.ClearVendor()
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (hru *HostgpuResourceUpdate) SetDescription(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetDescription(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetDescription(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableDescription(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetDescription(*s)
+func (_u *HostgpuResourceUpdate) SetNillableDescription(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (hru *HostgpuResourceUpdate) ClearDescription() *HostgpuResourceUpdate {
-	hru.mutation.ClearDescription()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearDescription() *HostgpuResourceUpdate {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hru *HostgpuResourceUpdate) SetDeviceName(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetDeviceName(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetDeviceName(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetDeviceName(v)
+	return _u
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableDeviceName(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetDeviceName(*s)
+func (_u *HostgpuResourceUpdate) SetNillableDeviceName(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetDeviceName(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearDeviceName clears the value of the "device_name" field.
-func (hru *HostgpuResourceUpdate) ClearDeviceName() *HostgpuResourceUpdate {
-	hru.mutation.ClearDeviceName()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearDeviceName() *HostgpuResourceUpdate {
+	_u.mutation.ClearDeviceName()
+	return _u
 }
 
 // SetFeatures sets the "features" field.
-func (hru *HostgpuResourceUpdate) SetFeatures(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetFeatures(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetFeatures(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetFeatures(v)
+	return _u
 }
 
 // SetNillableFeatures sets the "features" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableFeatures(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetFeatures(*s)
+func (_u *HostgpuResourceUpdate) SetNillableFeatures(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetFeatures(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearFeatures clears the value of the "features" field.
-func (hru *HostgpuResourceUpdate) ClearFeatures() *HostgpuResourceUpdate {
-	hru.mutation.ClearFeatures()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearFeatures() *HostgpuResourceUpdate {
+	_u.mutation.ClearFeatures()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hru *HostgpuResourceUpdate) SetUpdatedAt(s string) *HostgpuResourceUpdate {
-	hru.mutation.SetUpdatedAt(s)
-	return hru
+func (_u *HostgpuResourceUpdate) SetUpdatedAt(v string) *HostgpuResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (hru *HostgpuResourceUpdate) SetNillableUpdatedAt(s *string) *HostgpuResourceUpdate {
-	if s != nil {
-		hru.SetUpdatedAt(*s)
+func (_u *HostgpuResourceUpdate) SetNillableUpdatedAt(v *string) *HostgpuResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return hru
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hru *HostgpuResourceUpdate) SetHostID(id int) *HostgpuResourceUpdate {
-	hru.mutation.SetHostID(id)
-	return hru
+func (_u *HostgpuResourceUpdate) SetHostID(id int) *HostgpuResourceUpdate {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hru *HostgpuResourceUpdate) SetHost(h *HostResource) *HostgpuResourceUpdate {
-	return hru.SetHostID(h.ID)
+func (_u *HostgpuResourceUpdate) SetHost(v *HostResource) *HostgpuResourceUpdate {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the HostgpuResourceMutation object of the builder.
-func (hru *HostgpuResourceUpdate) Mutation() *HostgpuResourceMutation {
-	return hru.mutation
+func (_u *HostgpuResourceUpdate) Mutation() *HostgpuResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (hru *HostgpuResourceUpdate) ClearHost() *HostgpuResourceUpdate {
-	hru.mutation.ClearHost()
-	return hru
+func (_u *HostgpuResourceUpdate) ClearHost() *HostgpuResourceUpdate {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (hru *HostgpuResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, hru.sqlSave, hru.mutation, hru.hooks)
+func (_u *HostgpuResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hru *HostgpuResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := hru.Save(ctx)
+func (_u *HostgpuResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -213,81 +213,81 @@ func (hru *HostgpuResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (hru *HostgpuResourceUpdate) Exec(ctx context.Context) error {
-	_, err := hru.Save(ctx)
+func (_u *HostgpuResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hru *HostgpuResourceUpdate) ExecX(ctx context.Context) {
-	if err := hru.Exec(ctx); err != nil {
+func (_u *HostgpuResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hru *HostgpuResourceUpdate) check() error {
-	if hru.mutation.HostCleared() && len(hru.mutation.HostIDs()) > 0 {
+func (_u *HostgpuResourceUpdate) check() error {
+	if _u.mutation.HostCleared() && len(_u.mutation.HostIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "HostgpuResource.host"`)
 	}
 	return nil
 }
 
-func (hru *HostgpuResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := hru.check(); err != nil {
-		return n, err
+func (_u *HostgpuResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(hostgpuresource.Table, hostgpuresource.Columns, sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt))
-	if ps := hru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := hru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(hostgpuresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := hru.mutation.PciID(); ok {
+	if value, ok := _u.mutation.PciID(); ok {
 		_spec.SetField(hostgpuresource.FieldPciID, field.TypeString, value)
 	}
-	if hru.mutation.PciIDCleared() {
+	if _u.mutation.PciIDCleared() {
 		_spec.ClearField(hostgpuresource.FieldPciID, field.TypeString)
 	}
-	if value, ok := hru.mutation.Product(); ok {
+	if value, ok := _u.mutation.Product(); ok {
 		_spec.SetField(hostgpuresource.FieldProduct, field.TypeString, value)
 	}
-	if hru.mutation.ProductCleared() {
+	if _u.mutation.ProductCleared() {
 		_spec.ClearField(hostgpuresource.FieldProduct, field.TypeString)
 	}
-	if value, ok := hru.mutation.Vendor(); ok {
+	if value, ok := _u.mutation.Vendor(); ok {
 		_spec.SetField(hostgpuresource.FieldVendor, field.TypeString, value)
 	}
-	if hru.mutation.VendorCleared() {
+	if _u.mutation.VendorCleared() {
 		_spec.ClearField(hostgpuresource.FieldVendor, field.TypeString)
 	}
-	if value, ok := hru.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(hostgpuresource.FieldDescription, field.TypeString, value)
 	}
-	if hru.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(hostgpuresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := hru.mutation.DeviceName(); ok {
+	if value, ok := _u.mutation.DeviceName(); ok {
 		_spec.SetField(hostgpuresource.FieldDeviceName, field.TypeString, value)
 	}
-	if hru.mutation.DeviceNameCleared() {
+	if _u.mutation.DeviceNameCleared() {
 		_spec.ClearField(hostgpuresource.FieldDeviceName, field.TypeString)
 	}
-	if value, ok := hru.mutation.Features(); ok {
+	if value, ok := _u.mutation.Features(); ok {
 		_spec.SetField(hostgpuresource.FieldFeatures, field.TypeString, value)
 	}
-	if hru.mutation.FeaturesCleared() {
+	if _u.mutation.FeaturesCleared() {
 		_spec.ClearField(hostgpuresource.FieldFeatures, field.TypeString)
 	}
-	if value, ok := hru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostgpuresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if hru.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -300,7 +300,7 @@ func (hru *HostgpuResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hru.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -316,7 +316,7 @@ func (hru *HostgpuResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, hru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{hostgpuresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -324,8 +324,8 @@ func (hru *HostgpuResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		return 0, err
 	}
-	hru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // HostgpuResourceUpdateOne is the builder for updating a single HostgpuResource entity.
@@ -337,196 +337,196 @@ type HostgpuResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hruo *HostgpuResourceUpdateOne) SetResourceID(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetResourceID(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetResourceID(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableResourceID(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetResourceID(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableResourceID(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return hruo
+	return _u
 }
 
 // SetPciID sets the "pci_id" field.
-func (hruo *HostgpuResourceUpdateOne) SetPciID(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetPciID(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetPciID(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetPciID(v)
+	return _u
 }
 
 // SetNillablePciID sets the "pci_id" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillablePciID(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetPciID(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillablePciID(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetPciID(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearPciID clears the value of the "pci_id" field.
-func (hruo *HostgpuResourceUpdateOne) ClearPciID() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearPciID()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearPciID() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearPciID()
+	return _u
 }
 
 // SetProduct sets the "product" field.
-func (hruo *HostgpuResourceUpdateOne) SetProduct(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetProduct(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetProduct(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetProduct(v)
+	return _u
 }
 
 // SetNillableProduct sets the "product" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableProduct(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetProduct(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableProduct(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetProduct(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearProduct clears the value of the "product" field.
-func (hruo *HostgpuResourceUpdateOne) ClearProduct() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearProduct()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearProduct() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearProduct()
+	return _u
 }
 
 // SetVendor sets the "vendor" field.
-func (hruo *HostgpuResourceUpdateOne) SetVendor(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetVendor(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetVendor(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetVendor(v)
+	return _u
 }
 
 // SetNillableVendor sets the "vendor" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableVendor(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetVendor(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableVendor(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetVendor(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearVendor clears the value of the "vendor" field.
-func (hruo *HostgpuResourceUpdateOne) ClearVendor() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearVendor()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearVendor() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearVendor()
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (hruo *HostgpuResourceUpdateOne) SetDescription(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetDescription(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetDescription(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableDescription(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetDescription(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableDescription(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (hruo *HostgpuResourceUpdateOne) ClearDescription() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearDescription()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearDescription() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hruo *HostgpuResourceUpdateOne) SetDeviceName(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetDeviceName(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetDeviceName(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetDeviceName(v)
+	return _u
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableDeviceName(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetDeviceName(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableDeviceName(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetDeviceName(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearDeviceName clears the value of the "device_name" field.
-func (hruo *HostgpuResourceUpdateOne) ClearDeviceName() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearDeviceName()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearDeviceName() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearDeviceName()
+	return _u
 }
 
 // SetFeatures sets the "features" field.
-func (hruo *HostgpuResourceUpdateOne) SetFeatures(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetFeatures(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetFeatures(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetFeatures(v)
+	return _u
 }
 
 // SetNillableFeatures sets the "features" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableFeatures(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetFeatures(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableFeatures(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetFeatures(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearFeatures clears the value of the "features" field.
-func (hruo *HostgpuResourceUpdateOne) ClearFeatures() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearFeatures()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearFeatures() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearFeatures()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hruo *HostgpuResourceUpdateOne) SetUpdatedAt(s string) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetUpdatedAt(s)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetUpdatedAt(v string) *HostgpuResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (hruo *HostgpuResourceUpdateOne) SetNillableUpdatedAt(s *string) *HostgpuResourceUpdateOne {
-	if s != nil {
-		hruo.SetUpdatedAt(*s)
+func (_u *HostgpuResourceUpdateOne) SetNillableUpdatedAt(v *string) *HostgpuResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return hruo
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hruo *HostgpuResourceUpdateOne) SetHostID(id int) *HostgpuResourceUpdateOne {
-	hruo.mutation.SetHostID(id)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) SetHostID(id int) *HostgpuResourceUpdateOne {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hruo *HostgpuResourceUpdateOne) SetHost(h *HostResource) *HostgpuResourceUpdateOne {
-	return hruo.SetHostID(h.ID)
+func (_u *HostgpuResourceUpdateOne) SetHost(v *HostResource) *HostgpuResourceUpdateOne {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the HostgpuResourceMutation object of the builder.
-func (hruo *HostgpuResourceUpdateOne) Mutation() *HostgpuResourceMutation {
-	return hruo.mutation
+func (_u *HostgpuResourceUpdateOne) Mutation() *HostgpuResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (hruo *HostgpuResourceUpdateOne) ClearHost() *HostgpuResourceUpdateOne {
-	hruo.mutation.ClearHost()
-	return hruo
+func (_u *HostgpuResourceUpdateOne) ClearHost() *HostgpuResourceUpdateOne {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Where appends a list predicates to the HostgpuResourceUpdate builder.
-func (hruo *HostgpuResourceUpdateOne) Where(ps ...predicate.HostgpuResource) *HostgpuResourceUpdateOne {
-	hruo.mutation.Where(ps...)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) Where(ps ...predicate.HostgpuResource) *HostgpuResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (hruo *HostgpuResourceUpdateOne) Select(field string, fields ...string) *HostgpuResourceUpdateOne {
-	hruo.fields = append([]string{field}, fields...)
-	return hruo
+func (_u *HostgpuResourceUpdateOne) Select(field string, fields ...string) *HostgpuResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated HostgpuResource entity.
-func (hruo *HostgpuResourceUpdateOne) Save(ctx context.Context) (*HostgpuResource, error) {
-	return withHooks(ctx, hruo.sqlSave, hruo.mutation, hruo.hooks)
+func (_u *HostgpuResourceUpdateOne) Save(ctx context.Context) (*HostgpuResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hruo *HostgpuResourceUpdateOne) SaveX(ctx context.Context) *HostgpuResource {
-	node, err := hruo.Save(ctx)
+func (_u *HostgpuResourceUpdateOne) SaveX(ctx context.Context) *HostgpuResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -534,37 +534,37 @@ func (hruo *HostgpuResourceUpdateOne) SaveX(ctx context.Context) *HostgpuResourc
 }
 
 // Exec executes the query on the entity.
-func (hruo *HostgpuResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := hruo.Save(ctx)
+func (_u *HostgpuResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hruo *HostgpuResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := hruo.Exec(ctx); err != nil {
+func (_u *HostgpuResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hruo *HostgpuResourceUpdateOne) check() error {
-	if hruo.mutation.HostCleared() && len(hruo.mutation.HostIDs()) > 0 {
+func (_u *HostgpuResourceUpdateOne) check() error {
+	if _u.mutation.HostCleared() && len(_u.mutation.HostIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "HostgpuResource.host"`)
 	}
 	return nil
 }
 
-func (hruo *HostgpuResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostgpuResource, err error) {
-	if err := hruo.check(); err != nil {
+func (_u *HostgpuResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostgpuResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(hostgpuresource.Table, hostgpuresource.Columns, sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt))
-	id, ok := hruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "HostgpuResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := hruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, hostgpuresource.FieldID)
 		for _, f := range fields {
@@ -576,56 +576,56 @@ func (hruo *HostgpuResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostg
 			}
 		}
 	}
-	if ps := hruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := hruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(hostgpuresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := hruo.mutation.PciID(); ok {
+	if value, ok := _u.mutation.PciID(); ok {
 		_spec.SetField(hostgpuresource.FieldPciID, field.TypeString, value)
 	}
-	if hruo.mutation.PciIDCleared() {
+	if _u.mutation.PciIDCleared() {
 		_spec.ClearField(hostgpuresource.FieldPciID, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Product(); ok {
+	if value, ok := _u.mutation.Product(); ok {
 		_spec.SetField(hostgpuresource.FieldProduct, field.TypeString, value)
 	}
-	if hruo.mutation.ProductCleared() {
+	if _u.mutation.ProductCleared() {
 		_spec.ClearField(hostgpuresource.FieldProduct, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Vendor(); ok {
+	if value, ok := _u.mutation.Vendor(); ok {
 		_spec.SetField(hostgpuresource.FieldVendor, field.TypeString, value)
 	}
-	if hruo.mutation.VendorCleared() {
+	if _u.mutation.VendorCleared() {
 		_spec.ClearField(hostgpuresource.FieldVendor, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(hostgpuresource.FieldDescription, field.TypeString, value)
 	}
-	if hruo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(hostgpuresource.FieldDescription, field.TypeString)
 	}
-	if value, ok := hruo.mutation.DeviceName(); ok {
+	if value, ok := _u.mutation.DeviceName(); ok {
 		_spec.SetField(hostgpuresource.FieldDeviceName, field.TypeString, value)
 	}
-	if hruo.mutation.DeviceNameCleared() {
+	if _u.mutation.DeviceNameCleared() {
 		_spec.ClearField(hostgpuresource.FieldDeviceName, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Features(); ok {
+	if value, ok := _u.mutation.Features(); ok {
 		_spec.SetField(hostgpuresource.FieldFeatures, field.TypeString, value)
 	}
-	if hruo.mutation.FeaturesCleared() {
+	if _u.mutation.FeaturesCleared() {
 		_spec.ClearField(hostgpuresource.FieldFeatures, field.TypeString)
 	}
-	if value, ok := hruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostgpuresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if hruo.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -638,7 +638,7 @@ func (hruo *HostgpuResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostg
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hruo.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -654,10 +654,10 @@ func (hruo *HostgpuResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostg
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &HostgpuResource{config: hruo.config}
+	_node = &HostgpuResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, hruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{hostgpuresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -665,6 +665,6 @@ func (hruo *HostgpuResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostg
 		}
 		return nil, err
 	}
-	hruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

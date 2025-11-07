@@ -27,859 +27,873 @@ type HostResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hrc *HostResourceCreate) SetResourceID(s string) *HostResourceCreate {
-	hrc.mutation.SetResourceID(s)
-	return hrc
+func (_c *HostResourceCreate) SetResourceID(v string) *HostResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (hrc *HostResourceCreate) SetKind(s string) *HostResourceCreate {
-	hrc.mutation.SetKind(s)
-	return hrc
+func (_c *HostResourceCreate) SetKind(v string) *HostResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableKind(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetKind(*s)
+func (_c *HostResourceCreate) SetNillableKind(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetName sets the "name" field.
-func (hrc *HostResourceCreate) SetName(s string) *HostResourceCreate {
-	hrc.mutation.SetName(s)
-	return hrc
+func (_c *HostResourceCreate) SetName(v string) *HostResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableName(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetName(*s)
+func (_c *HostResourceCreate) SetNillableName(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDesiredState sets the "desired_state" field.
-func (hrc *HostResourceCreate) SetDesiredState(hs hostresource.DesiredState) *HostResourceCreate {
-	hrc.mutation.SetDesiredState(hs)
-	return hrc
+func (_c *HostResourceCreate) SetDesiredState(v hostresource.DesiredState) *HostResourceCreate {
+	_c.mutation.SetDesiredState(v)
+	return _c
 }
 
 // SetNillableDesiredState sets the "desired_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableDesiredState(hs *hostresource.DesiredState) *HostResourceCreate {
-	if hs != nil {
-		hrc.SetDesiredState(*hs)
+func (_c *HostResourceCreate) SetNillableDesiredState(v *hostresource.DesiredState) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCurrentState sets the "current_state" field.
-func (hrc *HostResourceCreate) SetCurrentState(hs hostresource.CurrentState) *HostResourceCreate {
-	hrc.mutation.SetCurrentState(hs)
-	return hrc
+func (_c *HostResourceCreate) SetCurrentState(v hostresource.CurrentState) *HostResourceCreate {
+	_c.mutation.SetCurrentState(v)
+	return _c
 }
 
 // SetNillableCurrentState sets the "current_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCurrentState(hs *hostresource.CurrentState) *HostResourceCreate {
-	if hs != nil {
-		hrc.SetCurrentState(*hs)
+func (_c *HostResourceCreate) SetNillableCurrentState(v *hostresource.CurrentState) *HostResourceCreate {
+	if v != nil {
+		_c.SetCurrentState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetNote sets the "note" field.
-func (hrc *HostResourceCreate) SetNote(s string) *HostResourceCreate {
-	hrc.mutation.SetNote(s)
-	return hrc
+func (_c *HostResourceCreate) SetNote(v string) *HostResourceCreate {
+	_c.mutation.SetNote(v)
+	return _c
 }
 
 // SetNillableNote sets the "note" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableNote(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetNote(*s)
+func (_c *HostResourceCreate) SetNillableNote(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetNote(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetHardwareKind sets the "hardware_kind" field.
-func (hrc *HostResourceCreate) SetHardwareKind(s string) *HostResourceCreate {
-	hrc.mutation.SetHardwareKind(s)
-	return hrc
+func (_c *HostResourceCreate) SetHardwareKind(v string) *HostResourceCreate {
+	_c.mutation.SetHardwareKind(v)
+	return _c
 }
 
 // SetNillableHardwareKind sets the "hardware_kind" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableHardwareKind(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetHardwareKind(*s)
+func (_c *HostResourceCreate) SetNillableHardwareKind(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetHardwareKind(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetSerialNumber sets the "serial_number" field.
-func (hrc *HostResourceCreate) SetSerialNumber(s string) *HostResourceCreate {
-	hrc.mutation.SetSerialNumber(s)
-	return hrc
+func (_c *HostResourceCreate) SetSerialNumber(v string) *HostResourceCreate {
+	_c.mutation.SetSerialNumber(v)
+	return _c
 }
 
 // SetNillableSerialNumber sets the "serial_number" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableSerialNumber(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetSerialNumber(*s)
+func (_c *HostResourceCreate) SetNillableSerialNumber(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetSerialNumber(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetUUID sets the "uuid" field.
-func (hrc *HostResourceCreate) SetUUID(s string) *HostResourceCreate {
-	hrc.mutation.SetUUID(s)
-	return hrc
+func (_c *HostResourceCreate) SetUUID(v string) *HostResourceCreate {
+	_c.mutation.SetUUID(v)
+	return _c
 }
 
 // SetNillableUUID sets the "uuid" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableUUID(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetUUID(*s)
+func (_c *HostResourceCreate) SetNillableUUID(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetUUID(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetMemoryBytes sets the "memory_bytes" field.
-func (hrc *HostResourceCreate) SetMemoryBytes(u uint64) *HostResourceCreate {
-	hrc.mutation.SetMemoryBytes(u)
-	return hrc
+func (_c *HostResourceCreate) SetMemoryBytes(v uint64) *HostResourceCreate {
+	_c.mutation.SetMemoryBytes(v)
+	return _c
 }
 
 // SetNillableMemoryBytes sets the "memory_bytes" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableMemoryBytes(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetMemoryBytes(*u)
+func (_c *HostResourceCreate) SetNillableMemoryBytes(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetMemoryBytes(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUModel sets the "cpu_model" field.
-func (hrc *HostResourceCreate) SetCPUModel(s string) *HostResourceCreate {
-	hrc.mutation.SetCPUModel(s)
-	return hrc
+func (_c *HostResourceCreate) SetCPUModel(v string) *HostResourceCreate {
+	_c.mutation.SetCPUModel(v)
+	return _c
 }
 
 // SetNillableCPUModel sets the "cpu_model" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUModel(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetCPUModel(*s)
+func (_c *HostResourceCreate) SetNillableCPUModel(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUModel(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUSockets sets the "cpu_sockets" field.
-func (hrc *HostResourceCreate) SetCPUSockets(u uint32) *HostResourceCreate {
-	hrc.mutation.SetCPUSockets(u)
-	return hrc
+func (_c *HostResourceCreate) SetCPUSockets(v uint32) *HostResourceCreate {
+	_c.mutation.SetCPUSockets(v)
+	return _c
 }
 
 // SetNillableCPUSockets sets the "cpu_sockets" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUSockets(u *uint32) *HostResourceCreate {
-	if u != nil {
-		hrc.SetCPUSockets(*u)
+func (_c *HostResourceCreate) SetNillableCPUSockets(v *uint32) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUSockets(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUCores sets the "cpu_cores" field.
-func (hrc *HostResourceCreate) SetCPUCores(u uint32) *HostResourceCreate {
-	hrc.mutation.SetCPUCores(u)
-	return hrc
+func (_c *HostResourceCreate) SetCPUCores(v uint32) *HostResourceCreate {
+	_c.mutation.SetCPUCores(v)
+	return _c
 }
 
 // SetNillableCPUCores sets the "cpu_cores" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUCores(u *uint32) *HostResourceCreate {
-	if u != nil {
-		hrc.SetCPUCores(*u)
+func (_c *HostResourceCreate) SetNillableCPUCores(v *uint32) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUCores(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUCapabilities sets the "cpu_capabilities" field.
-func (hrc *HostResourceCreate) SetCPUCapabilities(s string) *HostResourceCreate {
-	hrc.mutation.SetCPUCapabilities(s)
-	return hrc
+func (_c *HostResourceCreate) SetCPUCapabilities(v string) *HostResourceCreate {
+	_c.mutation.SetCPUCapabilities(v)
+	return _c
 }
 
 // SetNillableCPUCapabilities sets the "cpu_capabilities" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUCapabilities(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetCPUCapabilities(*s)
+func (_c *HostResourceCreate) SetNillableCPUCapabilities(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUCapabilities(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUArchitecture sets the "cpu_architecture" field.
-func (hrc *HostResourceCreate) SetCPUArchitecture(s string) *HostResourceCreate {
-	hrc.mutation.SetCPUArchitecture(s)
-	return hrc
+func (_c *HostResourceCreate) SetCPUArchitecture(v string) *HostResourceCreate {
+	_c.mutation.SetCPUArchitecture(v)
+	return _c
 }
 
 // SetNillableCPUArchitecture sets the "cpu_architecture" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUArchitecture(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetCPUArchitecture(*s)
+func (_c *HostResourceCreate) SetNillableCPUArchitecture(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUArchitecture(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUThreads sets the "cpu_threads" field.
-func (hrc *HostResourceCreate) SetCPUThreads(u uint32) *HostResourceCreate {
-	hrc.mutation.SetCPUThreads(u)
-	return hrc
+func (_c *HostResourceCreate) SetCPUThreads(v uint32) *HostResourceCreate {
+	_c.mutation.SetCPUThreads(v)
+	return _c
 }
 
 // SetNillableCPUThreads sets the "cpu_threads" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUThreads(u *uint32) *HostResourceCreate {
-	if u != nil {
-		hrc.SetCPUThreads(*u)
+func (_c *HostResourceCreate) SetNillableCPUThreads(v *uint32) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUThreads(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCPUTopology sets the "cpu_topology" field.
-func (hrc *HostResourceCreate) SetCPUTopology(s string) *HostResourceCreate {
-	hrc.mutation.SetCPUTopology(s)
-	return hrc
+func (_c *HostResourceCreate) SetCPUTopology(v string) *HostResourceCreate {
+	_c.mutation.SetCPUTopology(v)
+	return _c
 }
 
 // SetNillableCPUTopology sets the "cpu_topology" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCPUTopology(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetCPUTopology(*s)
+func (_c *HostResourceCreate) SetNillableCPUTopology(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetCPUTopology(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetMgmtIP sets the "mgmt_ip" field.
-func (hrc *HostResourceCreate) SetMgmtIP(s string) *HostResourceCreate {
-	hrc.mutation.SetMgmtIP(s)
-	return hrc
+func (_c *HostResourceCreate) SetMgmtIP(v string) *HostResourceCreate {
+	_c.mutation.SetMgmtIP(v)
+	return _c
 }
 
 // SetNillableMgmtIP sets the "mgmt_ip" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableMgmtIP(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetMgmtIP(*s)
+func (_c *HostResourceCreate) SetNillableMgmtIP(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetMgmtIP(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBmcKind sets the "bmc_kind" field.
-func (hrc *HostResourceCreate) SetBmcKind(hk hostresource.BmcKind) *HostResourceCreate {
-	hrc.mutation.SetBmcKind(hk)
-	return hrc
+func (_c *HostResourceCreate) SetBmcKind(v hostresource.BmcKind) *HostResourceCreate {
+	_c.mutation.SetBmcKind(v)
+	return _c
 }
 
 // SetNillableBmcKind sets the "bmc_kind" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBmcKind(hk *hostresource.BmcKind) *HostResourceCreate {
-	if hk != nil {
-		hrc.SetBmcKind(*hk)
+func (_c *HostResourceCreate) SetNillableBmcKind(v *hostresource.BmcKind) *HostResourceCreate {
+	if v != nil {
+		_c.SetBmcKind(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBmcIP sets the "bmc_ip" field.
-func (hrc *HostResourceCreate) SetBmcIP(s string) *HostResourceCreate {
-	hrc.mutation.SetBmcIP(s)
-	return hrc
+func (_c *HostResourceCreate) SetBmcIP(v string) *HostResourceCreate {
+	_c.mutation.SetBmcIP(v)
+	return _c
 }
 
 // SetNillableBmcIP sets the "bmc_ip" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBmcIP(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetBmcIP(*s)
+func (_c *HostResourceCreate) SetNillableBmcIP(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetBmcIP(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBmcUsername sets the "bmc_username" field.
-func (hrc *HostResourceCreate) SetBmcUsername(s string) *HostResourceCreate {
-	hrc.mutation.SetBmcUsername(s)
-	return hrc
+func (_c *HostResourceCreate) SetBmcUsername(v string) *HostResourceCreate {
+	_c.mutation.SetBmcUsername(v)
+	return _c
 }
 
 // SetNillableBmcUsername sets the "bmc_username" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBmcUsername(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetBmcUsername(*s)
+func (_c *HostResourceCreate) SetNillableBmcUsername(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetBmcUsername(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBmcPassword sets the "bmc_password" field.
-func (hrc *HostResourceCreate) SetBmcPassword(s string) *HostResourceCreate {
-	hrc.mutation.SetBmcPassword(s)
-	return hrc
+func (_c *HostResourceCreate) SetBmcPassword(v string) *HostResourceCreate {
+	_c.mutation.SetBmcPassword(v)
+	return _c
 }
 
 // SetNillableBmcPassword sets the "bmc_password" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBmcPassword(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetBmcPassword(*s)
+func (_c *HostResourceCreate) SetNillableBmcPassword(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetBmcPassword(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPxeMAC sets the "pxe_mac" field.
-func (hrc *HostResourceCreate) SetPxeMAC(s string) *HostResourceCreate {
-	hrc.mutation.SetPxeMAC(s)
-	return hrc
+func (_c *HostResourceCreate) SetPxeMAC(v string) *HostResourceCreate {
+	_c.mutation.SetPxeMAC(v)
+	return _c
 }
 
 // SetNillablePxeMAC sets the "pxe_mac" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillablePxeMAC(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetPxeMAC(*s)
+func (_c *HostResourceCreate) SetNillablePxeMAC(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetPxeMAC(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetHostname sets the "hostname" field.
-func (hrc *HostResourceCreate) SetHostname(s string) *HostResourceCreate {
-	hrc.mutation.SetHostname(s)
-	return hrc
+func (_c *HostResourceCreate) SetHostname(v string) *HostResourceCreate {
+	_c.mutation.SetHostname(v)
+	return _c
 }
 
 // SetNillableHostname sets the "hostname" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableHostname(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetHostname(*s)
+func (_c *HostResourceCreate) SetNillableHostname(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetHostname(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetProductName sets the "product_name" field.
-func (hrc *HostResourceCreate) SetProductName(s string) *HostResourceCreate {
-	hrc.mutation.SetProductName(s)
-	return hrc
+func (_c *HostResourceCreate) SetProductName(v string) *HostResourceCreate {
+	_c.mutation.SetProductName(v)
+	return _c
 }
 
 // SetNillableProductName sets the "product_name" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableProductName(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetProductName(*s)
+func (_c *HostResourceCreate) SetNillableProductName(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetProductName(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBiosVersion sets the "bios_version" field.
-func (hrc *HostResourceCreate) SetBiosVersion(s string) *HostResourceCreate {
-	hrc.mutation.SetBiosVersion(s)
-	return hrc
+func (_c *HostResourceCreate) SetBiosVersion(v string) *HostResourceCreate {
+	_c.mutation.SetBiosVersion(v)
+	return _c
 }
 
 // SetNillableBiosVersion sets the "bios_version" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBiosVersion(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetBiosVersion(*s)
+func (_c *HostResourceCreate) SetNillableBiosVersion(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetBiosVersion(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBiosReleaseDate sets the "bios_release_date" field.
-func (hrc *HostResourceCreate) SetBiosReleaseDate(s string) *HostResourceCreate {
-	hrc.mutation.SetBiosReleaseDate(s)
-	return hrc
+func (_c *HostResourceCreate) SetBiosReleaseDate(v string) *HostResourceCreate {
+	_c.mutation.SetBiosReleaseDate(v)
+	return _c
 }
 
 // SetNillableBiosReleaseDate sets the "bios_release_date" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBiosReleaseDate(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetBiosReleaseDate(*s)
+func (_c *HostResourceCreate) SetNillableBiosReleaseDate(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetBiosReleaseDate(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetBiosVendor sets the "bios_vendor" field.
-func (hrc *HostResourceCreate) SetBiosVendor(s string) *HostResourceCreate {
-	hrc.mutation.SetBiosVendor(s)
-	return hrc
+func (_c *HostResourceCreate) SetBiosVendor(v string) *HostResourceCreate {
+	_c.mutation.SetBiosVendor(v)
+	return _c
 }
 
 // SetNillableBiosVendor sets the "bios_vendor" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableBiosVendor(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetBiosVendor(*s)
+func (_c *HostResourceCreate) SetNillableBiosVendor(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetBiosVendor(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetMetadata sets the "metadata" field.
-func (hrc *HostResourceCreate) SetMetadata(s string) *HostResourceCreate {
-	hrc.mutation.SetMetadata(s)
-	return hrc
+func (_c *HostResourceCreate) SetMetadata(v string) *HostResourceCreate {
+	_c.mutation.SetMetadata(v)
+	return _c
 }
 
 // SetNillableMetadata sets the "metadata" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableMetadata(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetMetadata(*s)
+func (_c *HostResourceCreate) SetNillableMetadata(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetMetadata(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDesiredPowerState sets the "desired_power_state" field.
-func (hrc *HostResourceCreate) SetDesiredPowerState(hps hostresource.DesiredPowerState) *HostResourceCreate {
-	hrc.mutation.SetDesiredPowerState(hps)
-	return hrc
+func (_c *HostResourceCreate) SetDesiredPowerState(v hostresource.DesiredPowerState) *HostResourceCreate {
+	_c.mutation.SetDesiredPowerState(v)
+	return _c
 }
 
 // SetNillableDesiredPowerState sets the "desired_power_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableDesiredPowerState(hps *hostresource.DesiredPowerState) *HostResourceCreate {
-	if hps != nil {
-		hrc.SetDesiredPowerState(*hps)
+func (_c *HostResourceCreate) SetNillableDesiredPowerState(v *hostresource.DesiredPowerState) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredPowerState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCurrentPowerState sets the "current_power_state" field.
-func (hrc *HostResourceCreate) SetCurrentPowerState(hps hostresource.CurrentPowerState) *HostResourceCreate {
-	hrc.mutation.SetCurrentPowerState(hps)
-	return hrc
+func (_c *HostResourceCreate) SetCurrentPowerState(v hostresource.CurrentPowerState) *HostResourceCreate {
+	_c.mutation.SetCurrentPowerState(v)
+	return _c
 }
 
 // SetNillableCurrentPowerState sets the "current_power_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCurrentPowerState(hps *hostresource.CurrentPowerState) *HostResourceCreate {
-	if hps != nil {
-		hrc.SetCurrentPowerState(*hps)
+func (_c *HostResourceCreate) SetNillableCurrentPowerState(v *hostresource.CurrentPowerState) *HostResourceCreate {
+	if v != nil {
+		_c.SetCurrentPowerState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPowerStatus sets the "power_status" field.
-func (hrc *HostResourceCreate) SetPowerStatus(s string) *HostResourceCreate {
-	hrc.mutation.SetPowerStatus(s)
-	return hrc
+func (_c *HostResourceCreate) SetPowerStatus(v string) *HostResourceCreate {
+	_c.mutation.SetPowerStatus(v)
+	return _c
 }
 
 // SetNillablePowerStatus sets the "power_status" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillablePowerStatus(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetPowerStatus(*s)
+func (_c *HostResourceCreate) SetNillablePowerStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetPowerStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPowerStatusIndicator sets the "power_status_indicator" field.
-func (hrc *HostResourceCreate) SetPowerStatusIndicator(hsi hostresource.PowerStatusIndicator) *HostResourceCreate {
-	hrc.mutation.SetPowerStatusIndicator(hsi)
-	return hrc
+func (_c *HostResourceCreate) SetPowerStatusIndicator(v hostresource.PowerStatusIndicator) *HostResourceCreate {
+	_c.mutation.SetPowerStatusIndicator(v)
+	return _c
 }
 
 // SetNillablePowerStatusIndicator sets the "power_status_indicator" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillablePowerStatusIndicator(hsi *hostresource.PowerStatusIndicator) *HostResourceCreate {
-	if hsi != nil {
-		hrc.SetPowerStatusIndicator(*hsi)
+func (_c *HostResourceCreate) SetNillablePowerStatusIndicator(v *hostresource.PowerStatusIndicator) *HostResourceCreate {
+	if v != nil {
+		_c.SetPowerStatusIndicator(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPowerStatusTimestamp sets the "power_status_timestamp" field.
-func (hrc *HostResourceCreate) SetPowerStatusTimestamp(u uint64) *HostResourceCreate {
-	hrc.mutation.SetPowerStatusTimestamp(u)
-	return hrc
+func (_c *HostResourceCreate) SetPowerStatusTimestamp(v uint64) *HostResourceCreate {
+	_c.mutation.SetPowerStatusTimestamp(v)
+	return _c
 }
 
 // SetNillablePowerStatusTimestamp sets the "power_status_timestamp" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillablePowerStatusTimestamp(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetPowerStatusTimestamp(*u)
+func (_c *HostResourceCreate) SetNillablePowerStatusTimestamp(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetPowerStatusTimestamp(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPowerCommandPolicy sets the "power_command_policy" field.
-func (hrc *HostResourceCreate) SetPowerCommandPolicy(hcp hostresource.PowerCommandPolicy) *HostResourceCreate {
-	hrc.mutation.SetPowerCommandPolicy(hcp)
-	return hrc
+func (_c *HostResourceCreate) SetPowerCommandPolicy(v hostresource.PowerCommandPolicy) *HostResourceCreate {
+	_c.mutation.SetPowerCommandPolicy(v)
+	return _c
 }
 
 // SetNillablePowerCommandPolicy sets the "power_command_policy" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillablePowerCommandPolicy(hcp *hostresource.PowerCommandPolicy) *HostResourceCreate {
-	if hcp != nil {
-		hrc.SetPowerCommandPolicy(*hcp)
+func (_c *HostResourceCreate) SetNillablePowerCommandPolicy(v *hostresource.PowerCommandPolicy) *HostResourceCreate {
+	if v != nil {
+		_c.SetPowerCommandPolicy(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetPowerOnTime sets the "power_on_time" field.
-func (hrc *HostResourceCreate) SetPowerOnTime(u uint64) *HostResourceCreate {
-	hrc.mutation.SetPowerOnTime(u)
-	return hrc
+func (_c *HostResourceCreate) SetPowerOnTime(v uint64) *HostResourceCreate {
+	_c.mutation.SetPowerOnTime(v)
+	return _c
 }
 
 // SetNillablePowerOnTime sets the "power_on_time" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillablePowerOnTime(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetPowerOnTime(*u)
+func (_c *HostResourceCreate) SetNillablePowerOnTime(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetPowerOnTime(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetHostStatus sets the "host_status" field.
-func (hrc *HostResourceCreate) SetHostStatus(s string) *HostResourceCreate {
-	hrc.mutation.SetHostStatus(s)
-	return hrc
+func (_c *HostResourceCreate) SetHostStatus(v string) *HostResourceCreate {
+	_c.mutation.SetHostStatus(v)
+	return _c
 }
 
 // SetNillableHostStatus sets the "host_status" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableHostStatus(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetHostStatus(*s)
+func (_c *HostResourceCreate) SetNillableHostStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetHostStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetHostStatusIndicator sets the "host_status_indicator" field.
-func (hrc *HostResourceCreate) SetHostStatusIndicator(hsi hostresource.HostStatusIndicator) *HostResourceCreate {
-	hrc.mutation.SetHostStatusIndicator(hsi)
-	return hrc
+func (_c *HostResourceCreate) SetHostStatusIndicator(v hostresource.HostStatusIndicator) *HostResourceCreate {
+	_c.mutation.SetHostStatusIndicator(v)
+	return _c
 }
 
 // SetNillableHostStatusIndicator sets the "host_status_indicator" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableHostStatusIndicator(hsi *hostresource.HostStatusIndicator) *HostResourceCreate {
-	if hsi != nil {
-		hrc.SetHostStatusIndicator(*hsi)
+func (_c *HostResourceCreate) SetNillableHostStatusIndicator(v *hostresource.HostStatusIndicator) *HostResourceCreate {
+	if v != nil {
+		_c.SetHostStatusIndicator(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetHostStatusTimestamp sets the "host_status_timestamp" field.
-func (hrc *HostResourceCreate) SetHostStatusTimestamp(u uint64) *HostResourceCreate {
-	hrc.mutation.SetHostStatusTimestamp(u)
-	return hrc
+func (_c *HostResourceCreate) SetHostStatusTimestamp(v uint64) *HostResourceCreate {
+	_c.mutation.SetHostStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableHostStatusTimestamp sets the "host_status_timestamp" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableHostStatusTimestamp(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetHostStatusTimestamp(*u)
+func (_c *HostResourceCreate) SetNillableHostStatusTimestamp(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetHostStatusTimestamp(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetOnboardingStatus sets the "onboarding_status" field.
-func (hrc *HostResourceCreate) SetOnboardingStatus(s string) *HostResourceCreate {
-	hrc.mutation.SetOnboardingStatus(s)
-	return hrc
+func (_c *HostResourceCreate) SetOnboardingStatus(v string) *HostResourceCreate {
+	_c.mutation.SetOnboardingStatus(v)
+	return _c
 }
 
 // SetNillableOnboardingStatus sets the "onboarding_status" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableOnboardingStatus(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetOnboardingStatus(*s)
+func (_c *HostResourceCreate) SetNillableOnboardingStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetOnboardingStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetOnboardingStatusIndicator sets the "onboarding_status_indicator" field.
-func (hrc *HostResourceCreate) SetOnboardingStatusIndicator(hsi hostresource.OnboardingStatusIndicator) *HostResourceCreate {
-	hrc.mutation.SetOnboardingStatusIndicator(hsi)
-	return hrc
+func (_c *HostResourceCreate) SetOnboardingStatusIndicator(v hostresource.OnboardingStatusIndicator) *HostResourceCreate {
+	_c.mutation.SetOnboardingStatusIndicator(v)
+	return _c
 }
 
 // SetNillableOnboardingStatusIndicator sets the "onboarding_status_indicator" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableOnboardingStatusIndicator(hsi *hostresource.OnboardingStatusIndicator) *HostResourceCreate {
-	if hsi != nil {
-		hrc.SetOnboardingStatusIndicator(*hsi)
+func (_c *HostResourceCreate) SetNillableOnboardingStatusIndicator(v *hostresource.OnboardingStatusIndicator) *HostResourceCreate {
+	if v != nil {
+		_c.SetOnboardingStatusIndicator(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetOnboardingStatusTimestamp sets the "onboarding_status_timestamp" field.
-func (hrc *HostResourceCreate) SetOnboardingStatusTimestamp(u uint64) *HostResourceCreate {
-	hrc.mutation.SetOnboardingStatusTimestamp(u)
-	return hrc
+func (_c *HostResourceCreate) SetOnboardingStatusTimestamp(v uint64) *HostResourceCreate {
+	_c.mutation.SetOnboardingStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableOnboardingStatusTimestamp sets the "onboarding_status_timestamp" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableOnboardingStatusTimestamp(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetOnboardingStatusTimestamp(*u)
+func (_c *HostResourceCreate) SetNillableOnboardingStatusTimestamp(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetOnboardingStatusTimestamp(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetRegistrationStatus sets the "registration_status" field.
-func (hrc *HostResourceCreate) SetRegistrationStatus(s string) *HostResourceCreate {
-	hrc.mutation.SetRegistrationStatus(s)
-	return hrc
+func (_c *HostResourceCreate) SetRegistrationStatus(v string) *HostResourceCreate {
+	_c.mutation.SetRegistrationStatus(v)
+	return _c
 }
 
 // SetNillableRegistrationStatus sets the "registration_status" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableRegistrationStatus(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetRegistrationStatus(*s)
+func (_c *HostResourceCreate) SetNillableRegistrationStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetRegistrationStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetRegistrationStatusIndicator sets the "registration_status_indicator" field.
-func (hrc *HostResourceCreate) SetRegistrationStatusIndicator(hsi hostresource.RegistrationStatusIndicator) *HostResourceCreate {
-	hrc.mutation.SetRegistrationStatusIndicator(hsi)
-	return hrc
+func (_c *HostResourceCreate) SetRegistrationStatusIndicator(v hostresource.RegistrationStatusIndicator) *HostResourceCreate {
+	_c.mutation.SetRegistrationStatusIndicator(v)
+	return _c
 }
 
 // SetNillableRegistrationStatusIndicator sets the "registration_status_indicator" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableRegistrationStatusIndicator(hsi *hostresource.RegistrationStatusIndicator) *HostResourceCreate {
-	if hsi != nil {
-		hrc.SetRegistrationStatusIndicator(*hsi)
+func (_c *HostResourceCreate) SetNillableRegistrationStatusIndicator(v *hostresource.RegistrationStatusIndicator) *HostResourceCreate {
+	if v != nil {
+		_c.SetRegistrationStatusIndicator(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetRegistrationStatusTimestamp sets the "registration_status_timestamp" field.
-func (hrc *HostResourceCreate) SetRegistrationStatusTimestamp(u uint64) *HostResourceCreate {
-	hrc.mutation.SetRegistrationStatusTimestamp(u)
-	return hrc
+func (_c *HostResourceCreate) SetRegistrationStatusTimestamp(v uint64) *HostResourceCreate {
+	_c.mutation.SetRegistrationStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableRegistrationStatusTimestamp sets the "registration_status_timestamp" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableRegistrationStatusTimestamp(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetRegistrationStatusTimestamp(*u)
+func (_c *HostResourceCreate) SetNillableRegistrationStatusTimestamp(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetRegistrationStatusTimestamp(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetAmtSku sets the "amt_sku" field.
-func (hrc *HostResourceCreate) SetAmtSku(s string) *HostResourceCreate {
-	hrc.mutation.SetAmtSku(s)
-	return hrc
+func (_c *HostResourceCreate) SetAmtSku(v hostresource.AmtSku) *HostResourceCreate {
+	_c.mutation.SetAmtSku(v)
+	return _c
 }
 
 // SetNillableAmtSku sets the "amt_sku" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableAmtSku(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetAmtSku(*s)
+func (_c *HostResourceCreate) SetNillableAmtSku(v *hostresource.AmtSku) *HostResourceCreate {
+	if v != nil {
+		_c.SetAmtSku(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetDesiredAmtState sets the "desired_amt_state" field.
-func (hrc *HostResourceCreate) SetDesiredAmtState(has hostresource.DesiredAmtState) *HostResourceCreate {
-	hrc.mutation.SetDesiredAmtState(has)
-	return hrc
+func (_c *HostResourceCreate) SetDesiredAmtState(v hostresource.DesiredAmtState) *HostResourceCreate {
+	_c.mutation.SetDesiredAmtState(v)
+	return _c
 }
 
 // SetNillableDesiredAmtState sets the "desired_amt_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableDesiredAmtState(has *hostresource.DesiredAmtState) *HostResourceCreate {
-	if has != nil {
-		hrc.SetDesiredAmtState(*has)
+func (_c *HostResourceCreate) SetNillableDesiredAmtState(v *hostresource.DesiredAmtState) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredAmtState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetCurrentAmtState sets the "current_amt_state" field.
-func (hrc *HostResourceCreate) SetCurrentAmtState(has hostresource.CurrentAmtState) *HostResourceCreate {
-	hrc.mutation.SetCurrentAmtState(has)
-	return hrc
+func (_c *HostResourceCreate) SetCurrentAmtState(v hostresource.CurrentAmtState) *HostResourceCreate {
+	_c.mutation.SetCurrentAmtState(v)
+	return _c
 }
 
 // SetNillableCurrentAmtState sets the "current_amt_state" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableCurrentAmtState(has *hostresource.CurrentAmtState) *HostResourceCreate {
-	if has != nil {
-		hrc.SetCurrentAmtState(*has)
+func (_c *HostResourceCreate) SetNillableCurrentAmtState(v *hostresource.CurrentAmtState) *HostResourceCreate {
+	if v != nil {
+		_c.SetCurrentAmtState(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetAmtStatus sets the "amt_status" field.
-func (hrc *HostResourceCreate) SetAmtStatus(s string) *HostResourceCreate {
-	hrc.mutation.SetAmtStatus(s)
-	return hrc
+func (_c *HostResourceCreate) SetAmtStatus(v string) *HostResourceCreate {
+	_c.mutation.SetAmtStatus(v)
+	return _c
 }
 
 // SetNillableAmtStatus sets the "amt_status" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableAmtStatus(s *string) *HostResourceCreate {
-	if s != nil {
-		hrc.SetAmtStatus(*s)
+func (_c *HostResourceCreate) SetNillableAmtStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetAmtStatus(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetAmtStatusIndicator sets the "amt_status_indicator" field.
-func (hrc *HostResourceCreate) SetAmtStatusIndicator(hsi hostresource.AmtStatusIndicator) *HostResourceCreate {
-	hrc.mutation.SetAmtStatusIndicator(hsi)
-	return hrc
+func (_c *HostResourceCreate) SetAmtStatusIndicator(v hostresource.AmtStatusIndicator) *HostResourceCreate {
+	_c.mutation.SetAmtStatusIndicator(v)
+	return _c
 }
 
 // SetNillableAmtStatusIndicator sets the "amt_status_indicator" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableAmtStatusIndicator(hsi *hostresource.AmtStatusIndicator) *HostResourceCreate {
-	if hsi != nil {
-		hrc.SetAmtStatusIndicator(*hsi)
+func (_c *HostResourceCreate) SetNillableAmtStatusIndicator(v *hostresource.AmtStatusIndicator) *HostResourceCreate {
+	if v != nil {
+		_c.SetAmtStatusIndicator(*v)
 	}
-	return hrc
+	return _c
 }
 
 // SetAmtStatusTimestamp sets the "amt_status_timestamp" field.
-func (hrc *HostResourceCreate) SetAmtStatusTimestamp(u uint64) *HostResourceCreate {
-	hrc.mutation.SetAmtStatusTimestamp(u)
-	return hrc
+func (_c *HostResourceCreate) SetAmtStatusTimestamp(v uint64) *HostResourceCreate {
+	_c.mutation.SetAmtStatusTimestamp(v)
+	return _c
 }
 
 // SetNillableAmtStatusTimestamp sets the "amt_status_timestamp" field if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableAmtStatusTimestamp(u *uint64) *HostResourceCreate {
-	if u != nil {
-		hrc.SetAmtStatusTimestamp(*u)
+func (_c *HostResourceCreate) SetNillableAmtStatusTimestamp(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetAmtStatusTimestamp(*v)
 	}
-	return hrc
+	return _c
+}
+
+// SetUserLvmSize sets the "user_lvm_size" field.
+func (_c *HostResourceCreate) SetUserLvmSize(v uint32) *HostResourceCreate {
+	_c.mutation.SetUserLvmSize(v)
+	return _c
+}
+
+// SetNillableUserLvmSize sets the "user_lvm_size" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableUserLvmSize(v *uint32) *HostResourceCreate {
+	if v != nil {
+		_c.SetUserLvmSize(*v)
+	}
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (hrc *HostResourceCreate) SetTenantID(s string) *HostResourceCreate {
-	hrc.mutation.SetTenantID(s)
-	return hrc
+func (_c *HostResourceCreate) SetTenantID(v string) *HostResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (hrc *HostResourceCreate) SetCreatedAt(s string) *HostResourceCreate {
-	hrc.mutation.SetCreatedAt(s)
-	return hrc
+func (_c *HostResourceCreate) SetCreatedAt(v string) *HostResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hrc *HostResourceCreate) SetUpdatedAt(s string) *HostResourceCreate {
-	hrc.mutation.SetUpdatedAt(s)
-	return hrc
+func (_c *HostResourceCreate) SetUpdatedAt(v string) *HostResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetSiteID sets the "site" edge to the SiteResource entity by ID.
-func (hrc *HostResourceCreate) SetSiteID(id int) *HostResourceCreate {
-	hrc.mutation.SetSiteID(id)
-	return hrc
+func (_c *HostResourceCreate) SetSiteID(id int) *HostResourceCreate {
+	_c.mutation.SetSiteID(id)
+	return _c
 }
 
 // SetNillableSiteID sets the "site" edge to the SiteResource entity by ID if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableSiteID(id *int) *HostResourceCreate {
+func (_c *HostResourceCreate) SetNillableSiteID(id *int) *HostResourceCreate {
 	if id != nil {
-		hrc = hrc.SetSiteID(*id)
+		_c = _c.SetSiteID(*id)
 	}
-	return hrc
+	return _c
 }
 
 // SetSite sets the "site" edge to the SiteResource entity.
-func (hrc *HostResourceCreate) SetSite(s *SiteResource) *HostResourceCreate {
-	return hrc.SetSiteID(s.ID)
+func (_c *HostResourceCreate) SetSite(v *SiteResource) *HostResourceCreate {
+	return _c.SetSiteID(v.ID)
 }
 
 // SetProviderID sets the "provider" edge to the ProviderResource entity by ID.
-func (hrc *HostResourceCreate) SetProviderID(id int) *HostResourceCreate {
-	hrc.mutation.SetProviderID(id)
-	return hrc
+func (_c *HostResourceCreate) SetProviderID(id int) *HostResourceCreate {
+	_c.mutation.SetProviderID(id)
+	return _c
 }
 
 // SetNillableProviderID sets the "provider" edge to the ProviderResource entity by ID if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableProviderID(id *int) *HostResourceCreate {
+func (_c *HostResourceCreate) SetNillableProviderID(id *int) *HostResourceCreate {
 	if id != nil {
-		hrc = hrc.SetProviderID(*id)
+		_c = _c.SetProviderID(*id)
 	}
-	return hrc
+	return _c
 }
 
 // SetProvider sets the "provider" edge to the ProviderResource entity.
-func (hrc *HostResourceCreate) SetProvider(p *ProviderResource) *HostResourceCreate {
-	return hrc.SetProviderID(p.ID)
+func (_c *HostResourceCreate) SetProvider(v *ProviderResource) *HostResourceCreate {
+	return _c.SetProviderID(v.ID)
 }
 
 // AddHostStorageIDs adds the "host_storages" edge to the HoststorageResource entity by IDs.
-func (hrc *HostResourceCreate) AddHostStorageIDs(ids ...int) *HostResourceCreate {
-	hrc.mutation.AddHostStorageIDs(ids...)
-	return hrc
+func (_c *HostResourceCreate) AddHostStorageIDs(ids ...int) *HostResourceCreate {
+	_c.mutation.AddHostStorageIDs(ids...)
+	return _c
 }
 
 // AddHostStorages adds the "host_storages" edges to the HoststorageResource entity.
-func (hrc *HostResourceCreate) AddHostStorages(h ...*HoststorageResource) *HostResourceCreate {
-	ids := make([]int, len(h))
-	for i := range h {
-		ids[i] = h[i].ID
+func (_c *HostResourceCreate) AddHostStorages(v ...*HoststorageResource) *HostResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return hrc.AddHostStorageIDs(ids...)
+	return _c.AddHostStorageIDs(ids...)
 }
 
 // AddHostNicIDs adds the "host_nics" edge to the HostnicResource entity by IDs.
-func (hrc *HostResourceCreate) AddHostNicIDs(ids ...int) *HostResourceCreate {
-	hrc.mutation.AddHostNicIDs(ids...)
-	return hrc
+func (_c *HostResourceCreate) AddHostNicIDs(ids ...int) *HostResourceCreate {
+	_c.mutation.AddHostNicIDs(ids...)
+	return _c
 }
 
 // AddHostNics adds the "host_nics" edges to the HostnicResource entity.
-func (hrc *HostResourceCreate) AddHostNics(h ...*HostnicResource) *HostResourceCreate {
-	ids := make([]int, len(h))
-	for i := range h {
-		ids[i] = h[i].ID
+func (_c *HostResourceCreate) AddHostNics(v ...*HostnicResource) *HostResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return hrc.AddHostNicIDs(ids...)
+	return _c.AddHostNicIDs(ids...)
 }
 
 // AddHostUsbIDs adds the "host_usbs" edge to the HostusbResource entity by IDs.
-func (hrc *HostResourceCreate) AddHostUsbIDs(ids ...int) *HostResourceCreate {
-	hrc.mutation.AddHostUsbIDs(ids...)
-	return hrc
+func (_c *HostResourceCreate) AddHostUsbIDs(ids ...int) *HostResourceCreate {
+	_c.mutation.AddHostUsbIDs(ids...)
+	return _c
 }
 
 // AddHostUsbs adds the "host_usbs" edges to the HostusbResource entity.
-func (hrc *HostResourceCreate) AddHostUsbs(h ...*HostusbResource) *HostResourceCreate {
-	ids := make([]int, len(h))
-	for i := range h {
-		ids[i] = h[i].ID
+func (_c *HostResourceCreate) AddHostUsbs(v ...*HostusbResource) *HostResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return hrc.AddHostUsbIDs(ids...)
+	return _c.AddHostUsbIDs(ids...)
 }
 
 // AddHostGpuIDs adds the "host_gpus" edge to the HostgpuResource entity by IDs.
-func (hrc *HostResourceCreate) AddHostGpuIDs(ids ...int) *HostResourceCreate {
-	hrc.mutation.AddHostGpuIDs(ids...)
-	return hrc
+func (_c *HostResourceCreate) AddHostGpuIDs(ids ...int) *HostResourceCreate {
+	_c.mutation.AddHostGpuIDs(ids...)
+	return _c
 }
 
 // AddHostGpus adds the "host_gpus" edges to the HostgpuResource entity.
-func (hrc *HostResourceCreate) AddHostGpus(h ...*HostgpuResource) *HostResourceCreate {
-	ids := make([]int, len(h))
-	for i := range h {
-		ids[i] = h[i].ID
+func (_c *HostResourceCreate) AddHostGpus(v ...*HostgpuResource) *HostResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return hrc.AddHostGpuIDs(ids...)
+	return _c.AddHostGpuIDs(ids...)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
-func (hrc *HostResourceCreate) SetInstanceID(id int) *HostResourceCreate {
-	hrc.mutation.SetInstanceID(id)
-	return hrc
+func (_c *HostResourceCreate) SetInstanceID(id int) *HostResourceCreate {
+	_c.mutation.SetInstanceID(id)
+	return _c
 }
 
 // SetNillableInstanceID sets the "instance" edge to the InstanceResource entity by ID if the given value is not nil.
-func (hrc *HostResourceCreate) SetNillableInstanceID(id *int) *HostResourceCreate {
+func (_c *HostResourceCreate) SetNillableInstanceID(id *int) *HostResourceCreate {
 	if id != nil {
-		hrc = hrc.SetInstanceID(*id)
+		_c = _c.SetInstanceID(*id)
 	}
-	return hrc
+	return _c
 }
 
 // SetInstance sets the "instance" edge to the InstanceResource entity.
-func (hrc *HostResourceCreate) SetInstance(i *InstanceResource) *HostResourceCreate {
-	return hrc.SetInstanceID(i.ID)
+func (_c *HostResourceCreate) SetInstance(v *InstanceResource) *HostResourceCreate {
+	return _c.SetInstanceID(v.ID)
 }
 
 // Mutation returns the HostResourceMutation object of the builder.
-func (hrc *HostResourceCreate) Mutation() *HostResourceMutation {
-	return hrc.mutation
+func (_c *HostResourceCreate) Mutation() *HostResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the HostResource in the database.
-func (hrc *HostResourceCreate) Save(ctx context.Context) (*HostResource, error) {
-	return withHooks(ctx, hrc.sqlSave, hrc.mutation, hrc.hooks)
+func (_c *HostResourceCreate) Save(ctx context.Context) (*HostResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (hrc *HostResourceCreate) SaveX(ctx context.Context) *HostResource {
-	v, err := hrc.Save(ctx)
+func (_c *HostResourceCreate) SaveX(ctx context.Context) *HostResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -887,106 +901,111 @@ func (hrc *HostResourceCreate) SaveX(ctx context.Context) *HostResource {
 }
 
 // Exec executes the query.
-func (hrc *HostResourceCreate) Exec(ctx context.Context) error {
-	_, err := hrc.Save(ctx)
+func (_c *HostResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrc *HostResourceCreate) ExecX(ctx context.Context) {
-	if err := hrc.Exec(ctx); err != nil {
+func (_c *HostResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hrc *HostResourceCreate) check() error {
-	if _, ok := hrc.mutation.ResourceID(); !ok {
+func (_c *HostResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "HostResource.resource_id"`)}
 	}
-	if v, ok := hrc.mutation.DesiredState(); ok {
+	if v, ok := _c.mutation.DesiredState(); ok {
 		if err := hostresource.DesiredStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.CurrentState(); ok {
+	if v, ok := _c.mutation.CurrentState(); ok {
 		if err := hostresource.CurrentStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.BmcKind(); ok {
+	if v, ok := _c.mutation.BmcKind(); ok {
 		if err := hostresource.BmcKindValidator(v); err != nil {
 			return &ValidationError{Name: "bmc_kind", err: fmt.Errorf(`ent: validator failed for field "HostResource.bmc_kind": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.DesiredPowerState(); ok {
+	if v, ok := _c.mutation.DesiredPowerState(); ok {
 		if err := hostresource.DesiredPowerStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_power_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.CurrentPowerState(); ok {
+	if v, ok := _c.mutation.CurrentPowerState(); ok {
 		if err := hostresource.CurrentPowerStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_power_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_power_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.PowerStatusIndicator(); ok {
+	if v, ok := _c.mutation.PowerStatusIndicator(); ok {
 		if err := hostresource.PowerStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "power_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.PowerCommandPolicy(); ok {
+	if v, ok := _c.mutation.PowerCommandPolicy(); ok {
 		if err := hostresource.PowerCommandPolicyValidator(v); err != nil {
 			return &ValidationError{Name: "power_command_policy", err: fmt.Errorf(`ent: validator failed for field "HostResource.power_command_policy": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.HostStatusIndicator(); ok {
+	if v, ok := _c.mutation.HostStatusIndicator(); ok {
 		if err := hostresource.HostStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "host_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.host_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.OnboardingStatusIndicator(); ok {
+	if v, ok := _c.mutation.OnboardingStatusIndicator(); ok {
 		if err := hostresource.OnboardingStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "onboarding_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.onboarding_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.RegistrationStatusIndicator(); ok {
+	if v, ok := _c.mutation.RegistrationStatusIndicator(); ok {
 		if err := hostresource.RegistrationStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "registration_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.registration_status_indicator": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.DesiredAmtState(); ok {
+	if v, ok := _c.mutation.AmtSku(); ok {
+		if err := hostresource.AmtSkuValidator(v); err != nil {
+			return &ValidationError{Name: "amt_sku", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_sku": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.DesiredAmtState(); ok {
 		if err := hostresource.DesiredAmtStateValidator(v); err != nil {
 			return &ValidationError{Name: "desired_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_amt_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.CurrentAmtState(); ok {
+	if v, ok := _c.mutation.CurrentAmtState(); ok {
 		if err := hostresource.CurrentAmtStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_amt_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_amt_state": %w`, err)}
 		}
 	}
-	if v, ok := hrc.mutation.AmtStatusIndicator(); ok {
+	if v, ok := _c.mutation.AmtStatusIndicator(); ok {
 		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
 		}
 	}
-	if _, ok := hrc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "HostResource.tenant_id"`)}
 	}
-	if _, ok := hrc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "HostResource.created_at"`)}
 	}
-	if _, ok := hrc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "HostResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (hrc *HostResourceCreate) sqlSave(ctx context.Context) (*HostResource, error) {
-	if err := hrc.check(); err != nil {
+func (_c *HostResourceCreate) sqlSave(ctx context.Context) (*HostResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := hrc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, hrc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -994,233 +1013,237 @@ func (hrc *HostResourceCreate) sqlSave(ctx context.Context) (*HostResource, erro
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	hrc.mutation.id = &_node.ID
-	hrc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec) {
+func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &HostResource{config: hrc.config}
+		_node = &HostResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(hostresource.Table, sqlgraph.NewFieldSpec(hostresource.FieldID, field.TypeInt))
 	)
-	if value, ok := hrc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(hostresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := hrc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(hostresource.FieldKind, field.TypeString, value)
 		_node.Kind = value
 	}
-	if value, ok := hrc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(hostresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := hrc.mutation.DesiredState(); ok {
+	if value, ok := _c.mutation.DesiredState(); ok {
 		_spec.SetField(hostresource.FieldDesiredState, field.TypeEnum, value)
 		_node.DesiredState = value
 	}
-	if value, ok := hrc.mutation.CurrentState(); ok {
+	if value, ok := _c.mutation.CurrentState(); ok {
 		_spec.SetField(hostresource.FieldCurrentState, field.TypeEnum, value)
 		_node.CurrentState = value
 	}
-	if value, ok := hrc.mutation.Note(); ok {
+	if value, ok := _c.mutation.Note(); ok {
 		_spec.SetField(hostresource.FieldNote, field.TypeString, value)
 		_node.Note = value
 	}
-	if value, ok := hrc.mutation.HardwareKind(); ok {
+	if value, ok := _c.mutation.HardwareKind(); ok {
 		_spec.SetField(hostresource.FieldHardwareKind, field.TypeString, value)
 		_node.HardwareKind = value
 	}
-	if value, ok := hrc.mutation.SerialNumber(); ok {
+	if value, ok := _c.mutation.SerialNumber(); ok {
 		_spec.SetField(hostresource.FieldSerialNumber, field.TypeString, value)
 		_node.SerialNumber = value
 	}
-	if value, ok := hrc.mutation.UUID(); ok {
+	if value, ok := _c.mutation.UUID(); ok {
 		_spec.SetField(hostresource.FieldUUID, field.TypeString, value)
 		_node.UUID = value
 	}
-	if value, ok := hrc.mutation.MemoryBytes(); ok {
+	if value, ok := _c.mutation.MemoryBytes(); ok {
 		_spec.SetField(hostresource.FieldMemoryBytes, field.TypeUint64, value)
 		_node.MemoryBytes = value
 	}
-	if value, ok := hrc.mutation.CPUModel(); ok {
+	if value, ok := _c.mutation.CPUModel(); ok {
 		_spec.SetField(hostresource.FieldCPUModel, field.TypeString, value)
 		_node.CPUModel = value
 	}
-	if value, ok := hrc.mutation.CPUSockets(); ok {
+	if value, ok := _c.mutation.CPUSockets(); ok {
 		_spec.SetField(hostresource.FieldCPUSockets, field.TypeUint32, value)
 		_node.CPUSockets = value
 	}
-	if value, ok := hrc.mutation.CPUCores(); ok {
+	if value, ok := _c.mutation.CPUCores(); ok {
 		_spec.SetField(hostresource.FieldCPUCores, field.TypeUint32, value)
 		_node.CPUCores = value
 	}
-	if value, ok := hrc.mutation.CPUCapabilities(); ok {
+	if value, ok := _c.mutation.CPUCapabilities(); ok {
 		_spec.SetField(hostresource.FieldCPUCapabilities, field.TypeString, value)
 		_node.CPUCapabilities = value
 	}
-	if value, ok := hrc.mutation.CPUArchitecture(); ok {
+	if value, ok := _c.mutation.CPUArchitecture(); ok {
 		_spec.SetField(hostresource.FieldCPUArchitecture, field.TypeString, value)
 		_node.CPUArchitecture = value
 	}
-	if value, ok := hrc.mutation.CPUThreads(); ok {
+	if value, ok := _c.mutation.CPUThreads(); ok {
 		_spec.SetField(hostresource.FieldCPUThreads, field.TypeUint32, value)
 		_node.CPUThreads = value
 	}
-	if value, ok := hrc.mutation.CPUTopology(); ok {
+	if value, ok := _c.mutation.CPUTopology(); ok {
 		_spec.SetField(hostresource.FieldCPUTopology, field.TypeString, value)
 		_node.CPUTopology = value
 	}
-	if value, ok := hrc.mutation.MgmtIP(); ok {
+	if value, ok := _c.mutation.MgmtIP(); ok {
 		_spec.SetField(hostresource.FieldMgmtIP, field.TypeString, value)
 		_node.MgmtIP = value
 	}
-	if value, ok := hrc.mutation.BmcKind(); ok {
+	if value, ok := _c.mutation.BmcKind(); ok {
 		_spec.SetField(hostresource.FieldBmcKind, field.TypeEnum, value)
 		_node.BmcKind = value
 	}
-	if value, ok := hrc.mutation.BmcIP(); ok {
+	if value, ok := _c.mutation.BmcIP(); ok {
 		_spec.SetField(hostresource.FieldBmcIP, field.TypeString, value)
 		_node.BmcIP = value
 	}
-	if value, ok := hrc.mutation.BmcUsername(); ok {
+	if value, ok := _c.mutation.BmcUsername(); ok {
 		_spec.SetField(hostresource.FieldBmcUsername, field.TypeString, value)
 		_node.BmcUsername = value
 	}
-	if value, ok := hrc.mutation.BmcPassword(); ok {
+	if value, ok := _c.mutation.BmcPassword(); ok {
 		_spec.SetField(hostresource.FieldBmcPassword, field.TypeString, value)
 		_node.BmcPassword = value
 	}
-	if value, ok := hrc.mutation.PxeMAC(); ok {
+	if value, ok := _c.mutation.PxeMAC(); ok {
 		_spec.SetField(hostresource.FieldPxeMAC, field.TypeString, value)
 		_node.PxeMAC = value
 	}
-	if value, ok := hrc.mutation.Hostname(); ok {
+	if value, ok := _c.mutation.Hostname(); ok {
 		_spec.SetField(hostresource.FieldHostname, field.TypeString, value)
 		_node.Hostname = value
 	}
-	if value, ok := hrc.mutation.ProductName(); ok {
+	if value, ok := _c.mutation.ProductName(); ok {
 		_spec.SetField(hostresource.FieldProductName, field.TypeString, value)
 		_node.ProductName = value
 	}
-	if value, ok := hrc.mutation.BiosVersion(); ok {
+	if value, ok := _c.mutation.BiosVersion(); ok {
 		_spec.SetField(hostresource.FieldBiosVersion, field.TypeString, value)
 		_node.BiosVersion = value
 	}
-	if value, ok := hrc.mutation.BiosReleaseDate(); ok {
+	if value, ok := _c.mutation.BiosReleaseDate(); ok {
 		_spec.SetField(hostresource.FieldBiosReleaseDate, field.TypeString, value)
 		_node.BiosReleaseDate = value
 	}
-	if value, ok := hrc.mutation.BiosVendor(); ok {
+	if value, ok := _c.mutation.BiosVendor(); ok {
 		_spec.SetField(hostresource.FieldBiosVendor, field.TypeString, value)
 		_node.BiosVendor = value
 	}
-	if value, ok := hrc.mutation.Metadata(); ok {
+	if value, ok := _c.mutation.Metadata(); ok {
 		_spec.SetField(hostresource.FieldMetadata, field.TypeString, value)
 		_node.Metadata = value
 	}
-	if value, ok := hrc.mutation.DesiredPowerState(); ok {
+	if value, ok := _c.mutation.DesiredPowerState(); ok {
 		_spec.SetField(hostresource.FieldDesiredPowerState, field.TypeEnum, value)
 		_node.DesiredPowerState = value
 	}
-	if value, ok := hrc.mutation.CurrentPowerState(); ok {
+	if value, ok := _c.mutation.CurrentPowerState(); ok {
 		_spec.SetField(hostresource.FieldCurrentPowerState, field.TypeEnum, value)
 		_node.CurrentPowerState = value
 	}
-	if value, ok := hrc.mutation.PowerStatus(); ok {
+	if value, ok := _c.mutation.PowerStatus(); ok {
 		_spec.SetField(hostresource.FieldPowerStatus, field.TypeString, value)
 		_node.PowerStatus = value
 	}
-	if value, ok := hrc.mutation.PowerStatusIndicator(); ok {
+	if value, ok := _c.mutation.PowerStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldPowerStatusIndicator, field.TypeEnum, value)
 		_node.PowerStatusIndicator = value
 	}
-	if value, ok := hrc.mutation.PowerStatusTimestamp(); ok {
+	if value, ok := _c.mutation.PowerStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldPowerStatusTimestamp, field.TypeUint64, value)
 		_node.PowerStatusTimestamp = value
 	}
-	if value, ok := hrc.mutation.PowerCommandPolicy(); ok {
+	if value, ok := _c.mutation.PowerCommandPolicy(); ok {
 		_spec.SetField(hostresource.FieldPowerCommandPolicy, field.TypeEnum, value)
 		_node.PowerCommandPolicy = value
 	}
-	if value, ok := hrc.mutation.PowerOnTime(); ok {
+	if value, ok := _c.mutation.PowerOnTime(); ok {
 		_spec.SetField(hostresource.FieldPowerOnTime, field.TypeUint64, value)
 		_node.PowerOnTime = value
 	}
-	if value, ok := hrc.mutation.HostStatus(); ok {
+	if value, ok := _c.mutation.HostStatus(); ok {
 		_spec.SetField(hostresource.FieldHostStatus, field.TypeString, value)
 		_node.HostStatus = value
 	}
-	if value, ok := hrc.mutation.HostStatusIndicator(); ok {
+	if value, ok := _c.mutation.HostStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldHostStatusIndicator, field.TypeEnum, value)
 		_node.HostStatusIndicator = value
 	}
-	if value, ok := hrc.mutation.HostStatusTimestamp(); ok {
+	if value, ok := _c.mutation.HostStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldHostStatusTimestamp, field.TypeUint64, value)
 		_node.HostStatusTimestamp = value
 	}
-	if value, ok := hrc.mutation.OnboardingStatus(); ok {
+	if value, ok := _c.mutation.OnboardingStatus(); ok {
 		_spec.SetField(hostresource.FieldOnboardingStatus, field.TypeString, value)
 		_node.OnboardingStatus = value
 	}
-	if value, ok := hrc.mutation.OnboardingStatusIndicator(); ok {
+	if value, ok := _c.mutation.OnboardingStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldOnboardingStatusIndicator, field.TypeEnum, value)
 		_node.OnboardingStatusIndicator = value
 	}
-	if value, ok := hrc.mutation.OnboardingStatusTimestamp(); ok {
+	if value, ok := _c.mutation.OnboardingStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldOnboardingStatusTimestamp, field.TypeUint64, value)
 		_node.OnboardingStatusTimestamp = value
 	}
-	if value, ok := hrc.mutation.RegistrationStatus(); ok {
+	if value, ok := _c.mutation.RegistrationStatus(); ok {
 		_spec.SetField(hostresource.FieldRegistrationStatus, field.TypeString, value)
 		_node.RegistrationStatus = value
 	}
-	if value, ok := hrc.mutation.RegistrationStatusIndicator(); ok {
+	if value, ok := _c.mutation.RegistrationStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldRegistrationStatusIndicator, field.TypeEnum, value)
 		_node.RegistrationStatusIndicator = value
 	}
-	if value, ok := hrc.mutation.RegistrationStatusTimestamp(); ok {
+	if value, ok := _c.mutation.RegistrationStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64, value)
 		_node.RegistrationStatusTimestamp = value
 	}
-	if value, ok := hrc.mutation.AmtSku(); ok {
-		_spec.SetField(hostresource.FieldAmtSku, field.TypeString, value)
+	if value, ok := _c.mutation.AmtSku(); ok {
+		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)
 		_node.AmtSku = value
 	}
-	if value, ok := hrc.mutation.DesiredAmtState(); ok {
+	if value, ok := _c.mutation.DesiredAmtState(); ok {
 		_spec.SetField(hostresource.FieldDesiredAmtState, field.TypeEnum, value)
 		_node.DesiredAmtState = value
 	}
-	if value, ok := hrc.mutation.CurrentAmtState(); ok {
+	if value, ok := _c.mutation.CurrentAmtState(); ok {
 		_spec.SetField(hostresource.FieldCurrentAmtState, field.TypeEnum, value)
 		_node.CurrentAmtState = value
 	}
-	if value, ok := hrc.mutation.AmtStatus(); ok {
+	if value, ok := _c.mutation.AmtStatus(); ok {
 		_spec.SetField(hostresource.FieldAmtStatus, field.TypeString, value)
 		_node.AmtStatus = value
 	}
-	if value, ok := hrc.mutation.AmtStatusIndicator(); ok {
+	if value, ok := _c.mutation.AmtStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldAmtStatusIndicator, field.TypeEnum, value)
 		_node.AmtStatusIndicator = value
 	}
-	if value, ok := hrc.mutation.AmtStatusTimestamp(); ok {
+	if value, ok := _c.mutation.AmtStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldAmtStatusTimestamp, field.TypeUint64, value)
 		_node.AmtStatusTimestamp = value
 	}
-	if value, ok := hrc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.UserLvmSize(); ok {
+		_spec.SetField(hostresource.FieldUserLvmSize, field.TypeUint32, value)
+		_node.UserLvmSize = value
+	}
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := hrc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(hostresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := hrc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := hrc.mutation.SiteIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.SiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1237,7 +1260,7 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		_node.host_resource_site = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hrc.mutation.ProviderIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProviderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -1254,7 +1277,7 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		_node.host_resource_provider = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hrc.mutation.HostStoragesIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostStoragesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1270,7 +1293,7 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hrc.mutation.HostNicsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostNicsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1286,7 +1309,7 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hrc.mutation.HostUsbsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostUsbsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1302,7 +1325,7 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hrc.mutation.HostGpusIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostGpusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
@@ -1318,7 +1341,7 @@ func (hrc *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hrc.mutation.InstanceIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.InstanceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
@@ -1346,16 +1369,16 @@ type HostResourceCreateBulk struct {
 }
 
 // Save creates the HostResource entities in the database.
-func (hrcb *HostResourceCreateBulk) Save(ctx context.Context) ([]*HostResource, error) {
-	if hrcb.err != nil {
-		return nil, hrcb.err
+func (_c *HostResourceCreateBulk) Save(ctx context.Context) ([]*HostResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(hrcb.builders))
-	nodes := make([]*HostResource, len(hrcb.builders))
-	mutators := make([]Mutator, len(hrcb.builders))
-	for i := range hrcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*HostResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := hrcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*HostResourceMutation)
 				if !ok {
@@ -1368,11 +1391,11 @@ func (hrcb *HostResourceCreateBulk) Save(ctx context.Context) ([]*HostResource, 
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, hrcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, hrcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -1396,7 +1419,7 @@ func (hrcb *HostResourceCreateBulk) Save(ctx context.Context) ([]*HostResource, 
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, hrcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -1404,8 +1427,8 @@ func (hrcb *HostResourceCreateBulk) Save(ctx context.Context) ([]*HostResource, 
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hrcb *HostResourceCreateBulk) SaveX(ctx context.Context) []*HostResource {
-	v, err := hrcb.Save(ctx)
+func (_c *HostResourceCreateBulk) SaveX(ctx context.Context) []*HostResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -1413,14 +1436,14 @@ func (hrcb *HostResourceCreateBulk) SaveX(ctx context.Context) []*HostResource {
 }
 
 // Exec executes the query.
-func (hrcb *HostResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := hrcb.Save(ctx)
+func (_c *HostResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hrcb *HostResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := hrcb.Exec(ctx); err != nil {
+func (_c *HostResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

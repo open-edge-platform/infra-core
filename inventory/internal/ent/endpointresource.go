@@ -76,7 +76,7 @@ func (*EndpointResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the EndpointResource fields.
-func (er *EndpointResource) assignValues(columns []string, values []any) error {
+func (_m *EndpointResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -87,52 +87,52 @@ func (er *EndpointResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			er.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case endpointresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				er.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case endpointresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				er.Kind = value.String
+				_m.Kind = value.String
 			}
 		case endpointresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				er.Name = value.String
+				_m.Name = value.String
 			}
 		case endpointresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				er.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case endpointresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				er.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case endpointresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				er.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case endpointresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field endpoint_resource_host", value)
 			} else if value.Valid {
-				er.endpoint_resource_host = new(int)
-				*er.endpoint_resource_host = int(value.Int64)
+				_m.endpoint_resource_host = new(int)
+				*_m.endpoint_resource_host = int(value.Int64)
 			}
 		default:
-			er.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -140,55 +140,55 @@ func (er *EndpointResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the EndpointResource.
 // This includes values selected through modifiers, order, etc.
-func (er *EndpointResource) Value(name string) (ent.Value, error) {
-	return er.selectValues.Get(name)
+func (_m *EndpointResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryHost queries the "host" edge of the EndpointResource entity.
-func (er *EndpointResource) QueryHost() *HostResourceQuery {
-	return NewEndpointResourceClient(er.config).QueryHost(er)
+func (_m *EndpointResource) QueryHost() *HostResourceQuery {
+	return NewEndpointResourceClient(_m.config).QueryHost(_m)
 }
 
 // Update returns a builder for updating this EndpointResource.
 // Note that you need to call EndpointResource.Unwrap() before calling this method if this EndpointResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (er *EndpointResource) Update() *EndpointResourceUpdateOne {
-	return NewEndpointResourceClient(er.config).UpdateOne(er)
+func (_m *EndpointResource) Update() *EndpointResourceUpdateOne {
+	return NewEndpointResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the EndpointResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (er *EndpointResource) Unwrap() *EndpointResource {
-	_tx, ok := er.config.driver.(*txDriver)
+func (_m *EndpointResource) Unwrap() *EndpointResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: EndpointResource is not a transactional entity")
 	}
-	er.config.driver = _tx.drv
-	return er
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (er *EndpointResource) String() string {
+func (_m *EndpointResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("EndpointResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", er.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(er.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(er.Kind)
+	builder.WriteString(_m.Kind)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(er.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(er.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(er.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(er.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

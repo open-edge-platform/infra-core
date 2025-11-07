@@ -61,7 +61,7 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 	BiosVendor:         "Example Vendor",
 	PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 	PowerOnTime:        1234567890,
-	AmtSku:             "sku-1234",
+	AmtSku:             inv_computev1.AmtSku_AMT_SKU_AMT,
 	HostStorages: []*inv_computev1.HoststorageResource{
 		{
 			ResourceId:    "storage-12345678",
@@ -170,7 +170,7 @@ var exampleAPIHostResource = &computev1.HostResource{
 	BiosVendor:         "Example Vendor",
 	PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 	PowerOnTime:        1234567890,
-	AmtSku:             "sku-1234",
+	AmtSku:             computev1.AmtSku_AMT_SKU_AMT,
 	HostStorages: []*computev1.HoststorageResource{
 		{
 			Wwid:          "wwid-1234",
@@ -611,6 +611,376 @@ func TestHost_Update(t *testing.T) {
 				return
 			}
 			compareProtoMessages(t, exampleAPIHostResource, reply)
+		})
+	}
+}
+
+//nolint:funlen // Test functions are long but necessary to test core consecutive reset flow.
+func TestHost_UpdateConsecutiveReset(t *testing.T) {
+	mockedClient := newMockedInventoryTestClient()
+	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
+
+	cases := []struct {
+		name                 string
+		mocks                func() []*mock.Call
+		ctx                  context.Context
+		req                  *restv1.UpdateHostRequest
+		expectedDesiredState inv_computev1.PowerState
+		wantErr              bool
+		description          string
+	}{
+		{
+			name: "First RESET from ON state",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_ON,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_ON,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.UpdateHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
+			wantErr:              false,
+			description:          "ON→ON, User clicks RESET → Standard RESET",
+		},
+		{
+			name: "Second RESET (First consecutive - RESET to RESET_REPEAT)",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_RESET,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_RESET,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.UpdateHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+			wantErr:              false,
+			description:          "RESET→RESET, User clicks RESET → Converts to RESET_REPEAT",
+		},
+		{
+			name: "Third RESET (Alternating consecutive - RESET_REPEAT to RESET)",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.UpdateHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
+			wantErr:              false,
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks RESET → Alternates to RESET",
+		},
+		{
+			name: "Step 4: Power ON (Exit reset cycle)",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_ON
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.UpdateHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_ON,
+			wantErr:              false,
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks POWER ON → Exits reset cycle",
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.mocks != nil {
+				tc.mocks()
+			}
+
+			reply, err := server.UpdateHost(tc.ctx, tc.req)
+			if tc.wantErr {
+				if err == nil {
+					t.Errorf("UpdateHost() got err = nil, want err")
+				}
+				return
+			}
+			if err != nil {
+				t.Errorf("UpdateHost() got err = %v, want nil", err)
+				return
+			}
+			if reply == nil {
+				t.Errorf("UpdateHost() got reply = nil, want non-nil")
+				return
+			}
+
+			t.Logf("Test case: %s", tc.description)
+		})
+	}
+}
+
+//nolint:funlen // Test functions are long but necessary to test core consecutive reset flow.
+func TestHost_PatchConsecutiveReset(t *testing.T) {
+	mockedClient := newMockedInventoryTestClient()
+	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
+
+	cases := []struct {
+		name                 string
+		mocks                func() []*mock.Call
+		ctx                  context.Context
+		req                  *restv1.PatchHostRequest
+		expectedDesiredState inv_computev1.PowerState
+		wantErr              bool
+		description          string
+	}{
+		{
+			name: "RESET from ON state (Standard reset)",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_ON,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_ON,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{"desired_power_state"},
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
+			wantErr:              false,
+			description:          "Initial: ON→ON, Standard RESET",
+		},
+		{
+			name: "Second RESET (First consecutive - RESET to RESET_REPEAT)",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_RESET,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_RESET,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET_REPEAT
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{"desired_power_state"},
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+			wantErr:              false,
+			description:          "RESET→RESET, User clicks RESET → Converts to RESET_REPEAT",
+		},
+		{
+			name: "Third RESET (Alternating consecutive - RESET_REPEAT to RESET)",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_RESET
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_RESET,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{"desired_power_state"},
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_RESET,
+			wantErr:              false,
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks RESET → Alternates to RESET",
+		},
+		{
+			name: "Power ON",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:        "host-12345678",
+					CurrentPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+					DesiredPowerState: inv_computev1.PowerState_POWER_STATE_RESET_REPEAT,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything,
+						mock.MatchedBy(func(res *inventory.Resource) bool {
+							return res.GetHost().GetDesiredPowerState() == inv_computev1.PowerState_POWER_STATE_ON
+						})).Return(&inventory.Resource{
+						Resource: &inventory.Resource_Host{Host: exampleInvHostResource},
+					}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{"desired_power_state"},
+				},
+			},
+			expectedDesiredState: inv_computev1.PowerState_POWER_STATE_ON,
+			wantErr:              false,
+			description:          "RESET_REPEAT→RESET_REPEAT, User clicks POWER ON → Exits reset cycle",
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.mocks != nil {
+				tc.mocks()
+			}
+
+			reply, err := server.PatchHost(tc.ctx, tc.req)
+			if tc.wantErr {
+				if err == nil {
+					t.Errorf("PatchHost() got err = nil, want err")
+				}
+				return
+			}
+			if err != nil {
+				t.Errorf("PatchHost() got err = %v, want nil", err)
+				return
+			}
+			if reply == nil {
+				t.Errorf("PatchHost() got reply = nil, want non-nil")
+				return
+			}
+
+			t.Logf("Test case: %s", tc.description)
 		})
 	}
 }

@@ -23,263 +23,263 @@ type HostusbResourceUpdate struct {
 }
 
 // Where appends a list predicates to the HostusbResourceUpdate builder.
-func (hru *HostusbResourceUpdate) Where(ps ...predicate.HostusbResource) *HostusbResourceUpdate {
-	hru.mutation.Where(ps...)
-	return hru
+func (_u *HostusbResourceUpdate) Where(ps ...predicate.HostusbResource) *HostusbResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hru *HostusbResourceUpdate) SetResourceID(s string) *HostusbResourceUpdate {
-	hru.mutation.SetResourceID(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetResourceID(v string) *HostusbResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableResourceID(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetResourceID(*s)
+func (_u *HostusbResourceUpdate) SetNillableResourceID(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return hru
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (hru *HostusbResourceUpdate) SetKind(s string) *HostusbResourceUpdate {
-	hru.mutation.SetKind(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetKind(v string) *HostusbResourceUpdate {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableKind(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetKind(*s)
+func (_u *HostusbResourceUpdate) SetNillableKind(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (hru *HostusbResourceUpdate) ClearKind() *HostusbResourceUpdate {
-	hru.mutation.ClearKind()
-	return hru
+func (_u *HostusbResourceUpdate) ClearKind() *HostusbResourceUpdate {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetOwnerID sets the "owner_id" field.
-func (hru *HostusbResourceUpdate) SetOwnerID(s string) *HostusbResourceUpdate {
-	hru.mutation.SetOwnerID(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetOwnerID(v string) *HostusbResourceUpdate {
+	_u.mutation.SetOwnerID(v)
+	return _u
 }
 
 // SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableOwnerID(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetOwnerID(*s)
+func (_u *HostusbResourceUpdate) SetNillableOwnerID(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetOwnerID(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearOwnerID clears the value of the "owner_id" field.
-func (hru *HostusbResourceUpdate) ClearOwnerID() *HostusbResourceUpdate {
-	hru.mutation.ClearOwnerID()
-	return hru
+func (_u *HostusbResourceUpdate) ClearOwnerID() *HostusbResourceUpdate {
+	_u.mutation.ClearOwnerID()
+	return _u
 }
 
 // SetIdvendor sets the "idvendor" field.
-func (hru *HostusbResourceUpdate) SetIdvendor(s string) *HostusbResourceUpdate {
-	hru.mutation.SetIdvendor(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetIdvendor(v string) *HostusbResourceUpdate {
+	_u.mutation.SetIdvendor(v)
+	return _u
 }
 
 // SetNillableIdvendor sets the "idvendor" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableIdvendor(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetIdvendor(*s)
+func (_u *HostusbResourceUpdate) SetNillableIdvendor(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetIdvendor(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearIdvendor clears the value of the "idvendor" field.
-func (hru *HostusbResourceUpdate) ClearIdvendor() *HostusbResourceUpdate {
-	hru.mutation.ClearIdvendor()
-	return hru
+func (_u *HostusbResourceUpdate) ClearIdvendor() *HostusbResourceUpdate {
+	_u.mutation.ClearIdvendor()
+	return _u
 }
 
 // SetIdproduct sets the "idproduct" field.
-func (hru *HostusbResourceUpdate) SetIdproduct(s string) *HostusbResourceUpdate {
-	hru.mutation.SetIdproduct(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetIdproduct(v string) *HostusbResourceUpdate {
+	_u.mutation.SetIdproduct(v)
+	return _u
 }
 
 // SetNillableIdproduct sets the "idproduct" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableIdproduct(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetIdproduct(*s)
+func (_u *HostusbResourceUpdate) SetNillableIdproduct(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetIdproduct(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearIdproduct clears the value of the "idproduct" field.
-func (hru *HostusbResourceUpdate) ClearIdproduct() *HostusbResourceUpdate {
-	hru.mutation.ClearIdproduct()
-	return hru
+func (_u *HostusbResourceUpdate) ClearIdproduct() *HostusbResourceUpdate {
+	_u.mutation.ClearIdproduct()
+	return _u
 }
 
 // SetBus sets the "bus" field.
-func (hru *HostusbResourceUpdate) SetBus(u uint32) *HostusbResourceUpdate {
-	hru.mutation.ResetBus()
-	hru.mutation.SetBus(u)
-	return hru
+func (_u *HostusbResourceUpdate) SetBus(v uint32) *HostusbResourceUpdate {
+	_u.mutation.ResetBus()
+	_u.mutation.SetBus(v)
+	return _u
 }
 
 // SetNillableBus sets the "bus" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableBus(u *uint32) *HostusbResourceUpdate {
-	if u != nil {
-		hru.SetBus(*u)
+func (_u *HostusbResourceUpdate) SetNillableBus(v *uint32) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetBus(*v)
 	}
-	return hru
+	return _u
 }
 
-// AddBus adds u to the "bus" field.
-func (hru *HostusbResourceUpdate) AddBus(u int32) *HostusbResourceUpdate {
-	hru.mutation.AddBus(u)
-	return hru
+// AddBus adds value to the "bus" field.
+func (_u *HostusbResourceUpdate) AddBus(v int32) *HostusbResourceUpdate {
+	_u.mutation.AddBus(v)
+	return _u
 }
 
 // ClearBus clears the value of the "bus" field.
-func (hru *HostusbResourceUpdate) ClearBus() *HostusbResourceUpdate {
-	hru.mutation.ClearBus()
-	return hru
+func (_u *HostusbResourceUpdate) ClearBus() *HostusbResourceUpdate {
+	_u.mutation.ClearBus()
+	return _u
 }
 
 // SetAddr sets the "addr" field.
-func (hru *HostusbResourceUpdate) SetAddr(u uint32) *HostusbResourceUpdate {
-	hru.mutation.ResetAddr()
-	hru.mutation.SetAddr(u)
-	return hru
+func (_u *HostusbResourceUpdate) SetAddr(v uint32) *HostusbResourceUpdate {
+	_u.mutation.ResetAddr()
+	_u.mutation.SetAddr(v)
+	return _u
 }
 
 // SetNillableAddr sets the "addr" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableAddr(u *uint32) *HostusbResourceUpdate {
-	if u != nil {
-		hru.SetAddr(*u)
+func (_u *HostusbResourceUpdate) SetNillableAddr(v *uint32) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetAddr(*v)
 	}
-	return hru
+	return _u
 }
 
-// AddAddr adds u to the "addr" field.
-func (hru *HostusbResourceUpdate) AddAddr(u int32) *HostusbResourceUpdate {
-	hru.mutation.AddAddr(u)
-	return hru
+// AddAddr adds value to the "addr" field.
+func (_u *HostusbResourceUpdate) AddAddr(v int32) *HostusbResourceUpdate {
+	_u.mutation.AddAddr(v)
+	return _u
 }
 
 // ClearAddr clears the value of the "addr" field.
-func (hru *HostusbResourceUpdate) ClearAddr() *HostusbResourceUpdate {
-	hru.mutation.ClearAddr()
-	return hru
+func (_u *HostusbResourceUpdate) ClearAddr() *HostusbResourceUpdate {
+	_u.mutation.ClearAddr()
+	return _u
 }
 
 // SetClass sets the "class" field.
-func (hru *HostusbResourceUpdate) SetClass(s string) *HostusbResourceUpdate {
-	hru.mutation.SetClass(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetClass(v string) *HostusbResourceUpdate {
+	_u.mutation.SetClass(v)
+	return _u
 }
 
 // SetNillableClass sets the "class" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableClass(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetClass(*s)
+func (_u *HostusbResourceUpdate) SetNillableClass(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetClass(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearClass clears the value of the "class" field.
-func (hru *HostusbResourceUpdate) ClearClass() *HostusbResourceUpdate {
-	hru.mutation.ClearClass()
-	return hru
+func (_u *HostusbResourceUpdate) ClearClass() *HostusbResourceUpdate {
+	_u.mutation.ClearClass()
+	return _u
 }
 
 // SetSerial sets the "serial" field.
-func (hru *HostusbResourceUpdate) SetSerial(s string) *HostusbResourceUpdate {
-	hru.mutation.SetSerial(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetSerial(v string) *HostusbResourceUpdate {
+	_u.mutation.SetSerial(v)
+	return _u
 }
 
 // SetNillableSerial sets the "serial" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableSerial(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetSerial(*s)
+func (_u *HostusbResourceUpdate) SetNillableSerial(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetSerial(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearSerial clears the value of the "serial" field.
-func (hru *HostusbResourceUpdate) ClearSerial() *HostusbResourceUpdate {
-	hru.mutation.ClearSerial()
-	return hru
+func (_u *HostusbResourceUpdate) ClearSerial() *HostusbResourceUpdate {
+	_u.mutation.ClearSerial()
+	return _u
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hru *HostusbResourceUpdate) SetDeviceName(s string) *HostusbResourceUpdate {
-	hru.mutation.SetDeviceName(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetDeviceName(v string) *HostusbResourceUpdate {
+	_u.mutation.SetDeviceName(v)
+	return _u
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableDeviceName(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetDeviceName(*s)
+func (_u *HostusbResourceUpdate) SetNillableDeviceName(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetDeviceName(*v)
 	}
-	return hru
+	return _u
 }
 
 // ClearDeviceName clears the value of the "device_name" field.
-func (hru *HostusbResourceUpdate) ClearDeviceName() *HostusbResourceUpdate {
-	hru.mutation.ClearDeviceName()
-	return hru
+func (_u *HostusbResourceUpdate) ClearDeviceName() *HostusbResourceUpdate {
+	_u.mutation.ClearDeviceName()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hru *HostusbResourceUpdate) SetUpdatedAt(s string) *HostusbResourceUpdate {
-	hru.mutation.SetUpdatedAt(s)
-	return hru
+func (_u *HostusbResourceUpdate) SetUpdatedAt(v string) *HostusbResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (hru *HostusbResourceUpdate) SetNillableUpdatedAt(s *string) *HostusbResourceUpdate {
-	if s != nil {
-		hru.SetUpdatedAt(*s)
+func (_u *HostusbResourceUpdate) SetNillableUpdatedAt(v *string) *HostusbResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return hru
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hru *HostusbResourceUpdate) SetHostID(id int) *HostusbResourceUpdate {
-	hru.mutation.SetHostID(id)
-	return hru
+func (_u *HostusbResourceUpdate) SetHostID(id int) *HostusbResourceUpdate {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hru *HostusbResourceUpdate) SetHost(h *HostResource) *HostusbResourceUpdate {
-	return hru.SetHostID(h.ID)
+func (_u *HostusbResourceUpdate) SetHost(v *HostResource) *HostusbResourceUpdate {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the HostusbResourceMutation object of the builder.
-func (hru *HostusbResourceUpdate) Mutation() *HostusbResourceMutation {
-	return hru.mutation
+func (_u *HostusbResourceUpdate) Mutation() *HostusbResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (hru *HostusbResourceUpdate) ClearHost() *HostusbResourceUpdate {
-	hru.mutation.ClearHost()
-	return hru
+func (_u *HostusbResourceUpdate) ClearHost() *HostusbResourceUpdate {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (hru *HostusbResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, hru.sqlSave, hru.mutation, hru.hooks)
+func (_u *HostusbResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hru *HostusbResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := hru.Save(ctx)
+func (_u *HostusbResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -287,105 +287,105 @@ func (hru *HostusbResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (hru *HostusbResourceUpdate) Exec(ctx context.Context) error {
-	_, err := hru.Save(ctx)
+func (_u *HostusbResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hru *HostusbResourceUpdate) ExecX(ctx context.Context) {
-	if err := hru.Exec(ctx); err != nil {
+func (_u *HostusbResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hru *HostusbResourceUpdate) check() error {
-	if hru.mutation.HostCleared() && len(hru.mutation.HostIDs()) > 0 {
+func (_u *HostusbResourceUpdate) check() error {
+	if _u.mutation.HostCleared() && len(_u.mutation.HostIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "HostusbResource.host"`)
 	}
 	return nil
 }
 
-func (hru *HostusbResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := hru.check(); err != nil {
-		return n, err
+func (_u *HostusbResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(hostusbresource.Table, hostusbresource.Columns, sqlgraph.NewFieldSpec(hostusbresource.FieldID, field.TypeInt))
-	if ps := hru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := hru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(hostusbresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := hru.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(hostusbresource.FieldKind, field.TypeString, value)
 	}
-	if hru.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(hostusbresource.FieldKind, field.TypeString)
 	}
-	if value, ok := hru.mutation.OwnerID(); ok {
+	if value, ok := _u.mutation.OwnerID(); ok {
 		_spec.SetField(hostusbresource.FieldOwnerID, field.TypeString, value)
 	}
-	if hru.mutation.OwnerIDCleared() {
+	if _u.mutation.OwnerIDCleared() {
 		_spec.ClearField(hostusbresource.FieldOwnerID, field.TypeString)
 	}
-	if value, ok := hru.mutation.Idvendor(); ok {
+	if value, ok := _u.mutation.Idvendor(); ok {
 		_spec.SetField(hostusbresource.FieldIdvendor, field.TypeString, value)
 	}
-	if hru.mutation.IdvendorCleared() {
+	if _u.mutation.IdvendorCleared() {
 		_spec.ClearField(hostusbresource.FieldIdvendor, field.TypeString)
 	}
-	if value, ok := hru.mutation.Idproduct(); ok {
+	if value, ok := _u.mutation.Idproduct(); ok {
 		_spec.SetField(hostusbresource.FieldIdproduct, field.TypeString, value)
 	}
-	if hru.mutation.IdproductCleared() {
+	if _u.mutation.IdproductCleared() {
 		_spec.ClearField(hostusbresource.FieldIdproduct, field.TypeString)
 	}
-	if value, ok := hru.mutation.Bus(); ok {
+	if value, ok := _u.mutation.Bus(); ok {
 		_spec.SetField(hostusbresource.FieldBus, field.TypeUint32, value)
 	}
-	if value, ok := hru.mutation.AddedBus(); ok {
+	if value, ok := _u.mutation.AddedBus(); ok {
 		_spec.AddField(hostusbresource.FieldBus, field.TypeUint32, value)
 	}
-	if hru.mutation.BusCleared() {
+	if _u.mutation.BusCleared() {
 		_spec.ClearField(hostusbresource.FieldBus, field.TypeUint32)
 	}
-	if value, ok := hru.mutation.Addr(); ok {
+	if value, ok := _u.mutation.Addr(); ok {
 		_spec.SetField(hostusbresource.FieldAddr, field.TypeUint32, value)
 	}
-	if value, ok := hru.mutation.AddedAddr(); ok {
+	if value, ok := _u.mutation.AddedAddr(); ok {
 		_spec.AddField(hostusbresource.FieldAddr, field.TypeUint32, value)
 	}
-	if hru.mutation.AddrCleared() {
+	if _u.mutation.AddrCleared() {
 		_spec.ClearField(hostusbresource.FieldAddr, field.TypeUint32)
 	}
-	if value, ok := hru.mutation.Class(); ok {
+	if value, ok := _u.mutation.Class(); ok {
 		_spec.SetField(hostusbresource.FieldClass, field.TypeString, value)
 	}
-	if hru.mutation.ClassCleared() {
+	if _u.mutation.ClassCleared() {
 		_spec.ClearField(hostusbresource.FieldClass, field.TypeString)
 	}
-	if value, ok := hru.mutation.Serial(); ok {
+	if value, ok := _u.mutation.Serial(); ok {
 		_spec.SetField(hostusbresource.FieldSerial, field.TypeString, value)
 	}
-	if hru.mutation.SerialCleared() {
+	if _u.mutation.SerialCleared() {
 		_spec.ClearField(hostusbresource.FieldSerial, field.TypeString)
 	}
-	if value, ok := hru.mutation.DeviceName(); ok {
+	if value, ok := _u.mutation.DeviceName(); ok {
 		_spec.SetField(hostusbresource.FieldDeviceName, field.TypeString, value)
 	}
-	if hru.mutation.DeviceNameCleared() {
+	if _u.mutation.DeviceNameCleared() {
 		_spec.ClearField(hostusbresource.FieldDeviceName, field.TypeString)
 	}
-	if value, ok := hru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostusbresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if hru.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -398,7 +398,7 @@ func (hru *HostusbResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hru.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -414,7 +414,7 @@ func (hru *HostusbResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, hru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{hostusbresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -422,8 +422,8 @@ func (hru *HostusbResourceUpdate) sqlSave(ctx context.Context) (n int, err error
 		}
 		return 0, err
 	}
-	hru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // HostusbResourceUpdateOne is the builder for updating a single HostusbResource entity.
@@ -435,270 +435,270 @@ type HostusbResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (hruo *HostusbResourceUpdateOne) SetResourceID(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetResourceID(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetResourceID(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableResourceID(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetResourceID(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableResourceID(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return hruo
+	return _u
 }
 
 // SetKind sets the "kind" field.
-func (hruo *HostusbResourceUpdateOne) SetKind(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetKind(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetKind(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetKind(v)
+	return _u
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableKind(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetKind(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableKind(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetKind(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearKind clears the value of the "kind" field.
-func (hruo *HostusbResourceUpdateOne) ClearKind() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearKind()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearKind() *HostusbResourceUpdateOne {
+	_u.mutation.ClearKind()
+	return _u
 }
 
 // SetOwnerID sets the "owner_id" field.
-func (hruo *HostusbResourceUpdateOne) SetOwnerID(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetOwnerID(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetOwnerID(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetOwnerID(v)
+	return _u
 }
 
 // SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableOwnerID(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetOwnerID(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableOwnerID(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetOwnerID(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearOwnerID clears the value of the "owner_id" field.
-func (hruo *HostusbResourceUpdateOne) ClearOwnerID() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearOwnerID()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearOwnerID() *HostusbResourceUpdateOne {
+	_u.mutation.ClearOwnerID()
+	return _u
 }
 
 // SetIdvendor sets the "idvendor" field.
-func (hruo *HostusbResourceUpdateOne) SetIdvendor(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetIdvendor(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetIdvendor(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetIdvendor(v)
+	return _u
 }
 
 // SetNillableIdvendor sets the "idvendor" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableIdvendor(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetIdvendor(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableIdvendor(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetIdvendor(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearIdvendor clears the value of the "idvendor" field.
-func (hruo *HostusbResourceUpdateOne) ClearIdvendor() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearIdvendor()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearIdvendor() *HostusbResourceUpdateOne {
+	_u.mutation.ClearIdvendor()
+	return _u
 }
 
 // SetIdproduct sets the "idproduct" field.
-func (hruo *HostusbResourceUpdateOne) SetIdproduct(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetIdproduct(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetIdproduct(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetIdproduct(v)
+	return _u
 }
 
 // SetNillableIdproduct sets the "idproduct" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableIdproduct(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetIdproduct(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableIdproduct(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetIdproduct(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearIdproduct clears the value of the "idproduct" field.
-func (hruo *HostusbResourceUpdateOne) ClearIdproduct() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearIdproduct()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearIdproduct() *HostusbResourceUpdateOne {
+	_u.mutation.ClearIdproduct()
+	return _u
 }
 
 // SetBus sets the "bus" field.
-func (hruo *HostusbResourceUpdateOne) SetBus(u uint32) *HostusbResourceUpdateOne {
-	hruo.mutation.ResetBus()
-	hruo.mutation.SetBus(u)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetBus(v uint32) *HostusbResourceUpdateOne {
+	_u.mutation.ResetBus()
+	_u.mutation.SetBus(v)
+	return _u
 }
 
 // SetNillableBus sets the "bus" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableBus(u *uint32) *HostusbResourceUpdateOne {
-	if u != nil {
-		hruo.SetBus(*u)
+func (_u *HostusbResourceUpdateOne) SetNillableBus(v *uint32) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetBus(*v)
 	}
-	return hruo
+	return _u
 }
 
-// AddBus adds u to the "bus" field.
-func (hruo *HostusbResourceUpdateOne) AddBus(u int32) *HostusbResourceUpdateOne {
-	hruo.mutation.AddBus(u)
-	return hruo
+// AddBus adds value to the "bus" field.
+func (_u *HostusbResourceUpdateOne) AddBus(v int32) *HostusbResourceUpdateOne {
+	_u.mutation.AddBus(v)
+	return _u
 }
 
 // ClearBus clears the value of the "bus" field.
-func (hruo *HostusbResourceUpdateOne) ClearBus() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearBus()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearBus() *HostusbResourceUpdateOne {
+	_u.mutation.ClearBus()
+	return _u
 }
 
 // SetAddr sets the "addr" field.
-func (hruo *HostusbResourceUpdateOne) SetAddr(u uint32) *HostusbResourceUpdateOne {
-	hruo.mutation.ResetAddr()
-	hruo.mutation.SetAddr(u)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetAddr(v uint32) *HostusbResourceUpdateOne {
+	_u.mutation.ResetAddr()
+	_u.mutation.SetAddr(v)
+	return _u
 }
 
 // SetNillableAddr sets the "addr" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableAddr(u *uint32) *HostusbResourceUpdateOne {
-	if u != nil {
-		hruo.SetAddr(*u)
+func (_u *HostusbResourceUpdateOne) SetNillableAddr(v *uint32) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetAddr(*v)
 	}
-	return hruo
+	return _u
 }
 
-// AddAddr adds u to the "addr" field.
-func (hruo *HostusbResourceUpdateOne) AddAddr(u int32) *HostusbResourceUpdateOne {
-	hruo.mutation.AddAddr(u)
-	return hruo
+// AddAddr adds value to the "addr" field.
+func (_u *HostusbResourceUpdateOne) AddAddr(v int32) *HostusbResourceUpdateOne {
+	_u.mutation.AddAddr(v)
+	return _u
 }
 
 // ClearAddr clears the value of the "addr" field.
-func (hruo *HostusbResourceUpdateOne) ClearAddr() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearAddr()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearAddr() *HostusbResourceUpdateOne {
+	_u.mutation.ClearAddr()
+	return _u
 }
 
 // SetClass sets the "class" field.
-func (hruo *HostusbResourceUpdateOne) SetClass(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetClass(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetClass(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetClass(v)
+	return _u
 }
 
 // SetNillableClass sets the "class" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableClass(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetClass(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableClass(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetClass(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearClass clears the value of the "class" field.
-func (hruo *HostusbResourceUpdateOne) ClearClass() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearClass()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearClass() *HostusbResourceUpdateOne {
+	_u.mutation.ClearClass()
+	return _u
 }
 
 // SetSerial sets the "serial" field.
-func (hruo *HostusbResourceUpdateOne) SetSerial(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetSerial(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetSerial(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetSerial(v)
+	return _u
 }
 
 // SetNillableSerial sets the "serial" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableSerial(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetSerial(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableSerial(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetSerial(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearSerial clears the value of the "serial" field.
-func (hruo *HostusbResourceUpdateOne) ClearSerial() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearSerial()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearSerial() *HostusbResourceUpdateOne {
+	_u.mutation.ClearSerial()
+	return _u
 }
 
 // SetDeviceName sets the "device_name" field.
-func (hruo *HostusbResourceUpdateOne) SetDeviceName(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetDeviceName(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetDeviceName(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetDeviceName(v)
+	return _u
 }
 
 // SetNillableDeviceName sets the "device_name" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableDeviceName(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetDeviceName(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableDeviceName(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetDeviceName(*v)
 	}
-	return hruo
+	return _u
 }
 
 // ClearDeviceName clears the value of the "device_name" field.
-func (hruo *HostusbResourceUpdateOne) ClearDeviceName() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearDeviceName()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearDeviceName() *HostusbResourceUpdateOne {
+	_u.mutation.ClearDeviceName()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (hruo *HostusbResourceUpdateOne) SetUpdatedAt(s string) *HostusbResourceUpdateOne {
-	hruo.mutation.SetUpdatedAt(s)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetUpdatedAt(v string) *HostusbResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (hruo *HostusbResourceUpdateOne) SetNillableUpdatedAt(s *string) *HostusbResourceUpdateOne {
-	if s != nil {
-		hruo.SetUpdatedAt(*s)
+func (_u *HostusbResourceUpdateOne) SetNillableUpdatedAt(v *string) *HostusbResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return hruo
+	return _u
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (hruo *HostusbResourceUpdateOne) SetHostID(id int) *HostusbResourceUpdateOne {
-	hruo.mutation.SetHostID(id)
-	return hruo
+func (_u *HostusbResourceUpdateOne) SetHostID(id int) *HostusbResourceUpdateOne {
+	_u.mutation.SetHostID(id)
+	return _u
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (hruo *HostusbResourceUpdateOne) SetHost(h *HostResource) *HostusbResourceUpdateOne {
-	return hruo.SetHostID(h.ID)
+func (_u *HostusbResourceUpdateOne) SetHost(v *HostResource) *HostusbResourceUpdateOne {
+	return _u.SetHostID(v.ID)
 }
 
 // Mutation returns the HostusbResourceMutation object of the builder.
-func (hruo *HostusbResourceUpdateOne) Mutation() *HostusbResourceMutation {
-	return hruo.mutation
+func (_u *HostusbResourceUpdateOne) Mutation() *HostusbResourceMutation {
+	return _u.mutation
 }
 
 // ClearHost clears the "host" edge to the HostResource entity.
-func (hruo *HostusbResourceUpdateOne) ClearHost() *HostusbResourceUpdateOne {
-	hruo.mutation.ClearHost()
-	return hruo
+func (_u *HostusbResourceUpdateOne) ClearHost() *HostusbResourceUpdateOne {
+	_u.mutation.ClearHost()
+	return _u
 }
 
 // Where appends a list predicates to the HostusbResourceUpdate builder.
-func (hruo *HostusbResourceUpdateOne) Where(ps ...predicate.HostusbResource) *HostusbResourceUpdateOne {
-	hruo.mutation.Where(ps...)
-	return hruo
+func (_u *HostusbResourceUpdateOne) Where(ps ...predicate.HostusbResource) *HostusbResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (hruo *HostusbResourceUpdateOne) Select(field string, fields ...string) *HostusbResourceUpdateOne {
-	hruo.fields = append([]string{field}, fields...)
-	return hruo
+func (_u *HostusbResourceUpdateOne) Select(field string, fields ...string) *HostusbResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated HostusbResource entity.
-func (hruo *HostusbResourceUpdateOne) Save(ctx context.Context) (*HostusbResource, error) {
-	return withHooks(ctx, hruo.sqlSave, hruo.mutation, hruo.hooks)
+func (_u *HostusbResourceUpdateOne) Save(ctx context.Context) (*HostusbResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (hruo *HostusbResourceUpdateOne) SaveX(ctx context.Context) *HostusbResource {
-	node, err := hruo.Save(ctx)
+func (_u *HostusbResourceUpdateOne) SaveX(ctx context.Context) *HostusbResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -706,37 +706,37 @@ func (hruo *HostusbResourceUpdateOne) SaveX(ctx context.Context) *HostusbResourc
 }
 
 // Exec executes the query on the entity.
-func (hruo *HostusbResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := hruo.Save(ctx)
+func (_u *HostusbResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (hruo *HostusbResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := hruo.Exec(ctx); err != nil {
+func (_u *HostusbResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (hruo *HostusbResourceUpdateOne) check() error {
-	if hruo.mutation.HostCleared() && len(hruo.mutation.HostIDs()) > 0 {
+func (_u *HostusbResourceUpdateOne) check() error {
+	if _u.mutation.HostCleared() && len(_u.mutation.HostIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "HostusbResource.host"`)
 	}
 	return nil
 }
 
-func (hruo *HostusbResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostusbResource, err error) {
-	if err := hruo.check(); err != nil {
+func (_u *HostusbResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostusbResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(hostusbresource.Table, hostusbresource.Columns, sqlgraph.NewFieldSpec(hostusbresource.FieldID, field.TypeInt))
-	id, ok := hruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "HostusbResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := hruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, hostusbresource.FieldID)
 		for _, f := range fields {
@@ -748,80 +748,80 @@ func (hruo *HostusbResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostu
 			}
 		}
 	}
-	if ps := hruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := hruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(hostusbresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := hruo.mutation.Kind(); ok {
+	if value, ok := _u.mutation.Kind(); ok {
 		_spec.SetField(hostusbresource.FieldKind, field.TypeString, value)
 	}
-	if hruo.mutation.KindCleared() {
+	if _u.mutation.KindCleared() {
 		_spec.ClearField(hostusbresource.FieldKind, field.TypeString)
 	}
-	if value, ok := hruo.mutation.OwnerID(); ok {
+	if value, ok := _u.mutation.OwnerID(); ok {
 		_spec.SetField(hostusbresource.FieldOwnerID, field.TypeString, value)
 	}
-	if hruo.mutation.OwnerIDCleared() {
+	if _u.mutation.OwnerIDCleared() {
 		_spec.ClearField(hostusbresource.FieldOwnerID, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Idvendor(); ok {
+	if value, ok := _u.mutation.Idvendor(); ok {
 		_spec.SetField(hostusbresource.FieldIdvendor, field.TypeString, value)
 	}
-	if hruo.mutation.IdvendorCleared() {
+	if _u.mutation.IdvendorCleared() {
 		_spec.ClearField(hostusbresource.FieldIdvendor, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Idproduct(); ok {
+	if value, ok := _u.mutation.Idproduct(); ok {
 		_spec.SetField(hostusbresource.FieldIdproduct, field.TypeString, value)
 	}
-	if hruo.mutation.IdproductCleared() {
+	if _u.mutation.IdproductCleared() {
 		_spec.ClearField(hostusbresource.FieldIdproduct, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Bus(); ok {
+	if value, ok := _u.mutation.Bus(); ok {
 		_spec.SetField(hostusbresource.FieldBus, field.TypeUint32, value)
 	}
-	if value, ok := hruo.mutation.AddedBus(); ok {
+	if value, ok := _u.mutation.AddedBus(); ok {
 		_spec.AddField(hostusbresource.FieldBus, field.TypeUint32, value)
 	}
-	if hruo.mutation.BusCleared() {
+	if _u.mutation.BusCleared() {
 		_spec.ClearField(hostusbresource.FieldBus, field.TypeUint32)
 	}
-	if value, ok := hruo.mutation.Addr(); ok {
+	if value, ok := _u.mutation.Addr(); ok {
 		_spec.SetField(hostusbresource.FieldAddr, field.TypeUint32, value)
 	}
-	if value, ok := hruo.mutation.AddedAddr(); ok {
+	if value, ok := _u.mutation.AddedAddr(); ok {
 		_spec.AddField(hostusbresource.FieldAddr, field.TypeUint32, value)
 	}
-	if hruo.mutation.AddrCleared() {
+	if _u.mutation.AddrCleared() {
 		_spec.ClearField(hostusbresource.FieldAddr, field.TypeUint32)
 	}
-	if value, ok := hruo.mutation.Class(); ok {
+	if value, ok := _u.mutation.Class(); ok {
 		_spec.SetField(hostusbresource.FieldClass, field.TypeString, value)
 	}
-	if hruo.mutation.ClassCleared() {
+	if _u.mutation.ClassCleared() {
 		_spec.ClearField(hostusbresource.FieldClass, field.TypeString)
 	}
-	if value, ok := hruo.mutation.Serial(); ok {
+	if value, ok := _u.mutation.Serial(); ok {
 		_spec.SetField(hostusbresource.FieldSerial, field.TypeString, value)
 	}
-	if hruo.mutation.SerialCleared() {
+	if _u.mutation.SerialCleared() {
 		_spec.ClearField(hostusbresource.FieldSerial, field.TypeString)
 	}
-	if value, ok := hruo.mutation.DeviceName(); ok {
+	if value, ok := _u.mutation.DeviceName(); ok {
 		_spec.SetField(hostusbresource.FieldDeviceName, field.TypeString, value)
 	}
-	if hruo.mutation.DeviceNameCleared() {
+	if _u.mutation.DeviceNameCleared() {
 		_spec.ClearField(hostusbresource.FieldDeviceName, field.TypeString)
 	}
-	if value, ok := hruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostusbresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if hruo.mutation.HostCleared() {
+	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -834,7 +834,7 @@ func (hruo *HostusbResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostu
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hruo.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -850,10 +850,10 @@ func (hruo *HostusbResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostu
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &HostusbResource{config: hruo.config}
+	_node = &HostusbResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, hruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{hostusbresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -861,6 +861,6 @@ func (hruo *HostusbResourceUpdateOne) sqlSave(ctx context.Context) (_node *Hostu
 		}
 		return nil, err
 	}
-	hruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

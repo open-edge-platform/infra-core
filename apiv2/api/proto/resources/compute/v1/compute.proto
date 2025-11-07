@@ -47,6 +47,7 @@ enum PowerState {
   POWER_STATE_HIBERNATE = 5;
   POWER_STATE_RESET = 6;
   POWER_STATE_POWER_CYCLE = 7;
+  POWER_STATE_RESET_REPEAT = 8; // For consecutive reset operations
 }
 
 // The policy for handling power commands.
@@ -62,6 +63,12 @@ enum AmtState {
   AMT_STATE_PROVISIONED = 1;
   AMT_STATE_UNPROVISIONED = 2;
   AMT_STATE_DISCONNECTED = 3;
+}
+
+enum AmtSku {
+  AMT_SKU_UNSPECIFIED = 0;
+  AMT_SKU_AMT = 1;
+  AMT_SKU_ISM = 2;
 }
 
 // A Host resource.
@@ -205,10 +212,7 @@ message HostResource {
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  string amt_sku = 91 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (buf.validate.field).string = {max_len: 96}
-  ]; // coming from device introspection
+  AmtSku amt_sku = 91 [(google.api.field_behavior) = OUTPUT_ONLY]; // coming from device introspection
   AmtState desired_amt_state = 92 [(google.api.field_behavior) = OPTIONAL]; // Desired AMT/vPRO state of the host
   AmtState current_amt_state = 93 [(google.api.field_behavior) = OUTPUT_ONLY]; // Current AMT/vPRO state of the host
   string amt_status = 94 [
@@ -217,6 +221,7 @@ message HostResource {
   ]; // coming from device introspection. Set only by the DM RM.
   status.v1.StatusIndication amt_status_indicator = 95 [(google.api.field_behavior) = OUTPUT_ONLY]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
   uint32 amt_status_timestamp = 96 [(google.api.field_behavior) = OUTPUT_ONLY]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
+  uint32 user_lvm_size = 97 [(google.api.field_behavior) = OUTPUT_ONLY]; // LVM size in GB.
 
   // The site where the host is located.
   string site_id = 5001 [
@@ -392,9 +397,8 @@ message InstanceResource {
   // OS resource that should be installed to this Instance.
   resources.os.v1.OperatingSystemResource os = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Deprecated, will be removed in EMF v3.2.0, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance.
-  resources.os.v1.OperatingSystemResource desired_os = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Deprecated, will be removed in EMF v3.2.0, use os field instead. OS resource that is currently installed for this Instance.
-  resources.os.v1.OperatingSystemResource current_os = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
+  reserved 11; // Previously desired_os, removed in v2025.2
+  reserved 12; // Previously current_os, removed in v2025.2
   // Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE).
   resources.os.v1.SecurityFeature security_feature = 14;
 
@@ -424,10 +428,7 @@ message InstanceResource {
   status.v1.StatusIndication update_status_indicator = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
   // UTC timestamp when update_status was last changed. Set by RMs only.
   uint32 update_status_timestamp = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change.
-  string update_status_detail = 24 [(buf.validate.field).string = {max_len: 100000},
-    (google.api.field_behavior) = OUTPUT_ONLY
-  ];
+  reserved 24; // Previously update_status_detail, removed in v2025.2
 
   // textual message that describes the trusted_attestation status of Instance. Set by RMs only.
   string trusted_attestation_status = 26 [
@@ -461,8 +462,8 @@ message InstanceResource {
   string existing_cves = 42 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\À-ÿ \\\\n\\{\\}\\[\\]]+$"
+      max_len: 500000
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
@@ -701,12 +702,7 @@ message OSUpdatePolicy {
     }
   ];
 
-  // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
-  // Applies only to Mutable OSes.
-  string install_packages = 4 [(buf.validate.field).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\ \\n{}[]]+$"
-    max_len: 500000
-  }];
+  reserved 4; // Previously install_packages, removed in v2025.2 and replaced with update_kernel_command.
 
   // The list of OS resource update sources.
   // Should be in 'DEB822 Source Format' for Debian style OSs.
@@ -724,13 +720,21 @@ message OSUpdatePolicy {
     }
   ];
 
+  reserved 6; // Previously kernel_command, removed in v2025.2 and replaced with update_packages.
+
+  // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Must not contain version information.
+  // Applies only to Mutable OSes.
+  string update_packages = 7 [(buf.validate.field).string = {
+    pattern: "^$|^[A-Za-z0-9._/:;=@?!#,<>\\-*+~()\\[\\]{} \\n]+$"
+    max_len: 500000
+  }];
+
   // The OS resource's kernel Command Line Options.
   // Applies only to Mutable OSes.
-  string kernel_command = 6 [(buf.validate.field).string = {
+  string update_kernel_command = 8 [(buf.validate.field).string = {
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
     max_len: 500
   }];
-
 
   // The target OS for the update.
   // Applies only to Immutable OSes for A/B upgrades.
@@ -751,7 +755,7 @@ message OSUpdatePolicy {
   // - for mutable: unsupported
   // - for immutable: latest version of the OS Resource
   // UPDATE_POLICY_TARGET:
-  // - for mutable: apply the install_packages, update_sources, kernel_command
+  // - for mutable: apply the update_packages, update_sources, update_kernel_command
   // - for immutable: install the version referenced by target_os
   UpdatePolicy update_policy = 60;
 

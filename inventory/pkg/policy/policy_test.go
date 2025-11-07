@@ -730,7 +730,7 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 					Host: &computev1.HostResource{
 						Name:         "host",
 						SerialNumber: "12345678",
-						AmtSku:       "vPRO Corporate 16.5.2",
+						AmtSku:       computev1.AmtSku_AMT_SKU_AMT,
 					},
 				},
 			},
@@ -744,7 +744,7 @@ func TestPolicyVerifyCreate(t *testing.T) { // table-driven test
 					Host: &computev1.HostResource{
 						Name:         "host",
 						SerialNumber: "12345678",
-						AmtSku:       "vPRO Corporate 16.5.2",
+						AmtSku:       computev1.AmtSku_AMT_SKU_AMT,
 					},
 				},
 			},
@@ -1621,7 +1621,7 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 				Resource: &inv_v1.Resource_Host{
 					Host: &computev1.HostResource{
 						Name:   "host",
-						AmtSku: "vPRO Corporate 16.5.2",
+						AmtSku: computev1.AmtSku_AMT_SKU_AMT,
 					},
 				},
 			},
@@ -1634,7 +1634,7 @@ func TestPolicyVerifyUpdate(t *testing.T) { // table-driven test
 				Resource: &inv_v1.Resource_Host{
 					Host: &computev1.HostResource{
 						Name:   "host",
-						AmtSku: "vPRO Corporate 16.5.2",
+						AmtSku: computev1.AmtSku_AMT_SKU_AMT,
 					},
 				},
 			},

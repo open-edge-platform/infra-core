@@ -105,7 +105,7 @@ func (*OSUpdateRunResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the OSUpdateRunResource fields.
-func (ourr *OSUpdateRunResource) assignValues(columns []string, values []any) error {
+func (_m *OSUpdateRunResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -116,95 +116,95 @@ func (ourr *OSUpdateRunResource) assignValues(columns []string, values []any) er
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			ourr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case osupdaterunresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				ourr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case osupdaterunresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				ourr.Name = value.String
+				_m.Name = value.String
 			}
 		case osupdaterunresource.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				ourr.Description = value.String
+				_m.Description = value.String
 			}
 		case osupdaterunresource.FieldStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status_indicator", values[i])
 			} else if value.Valid {
-				ourr.StatusIndicator = osupdaterunresource.StatusIndicator(value.String)
+				_m.StatusIndicator = osupdaterunresource.StatusIndicator(value.String)
 			}
 		case osupdaterunresource.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
 			} else if value.Valid {
-				ourr.Status = value.String
+				_m.Status = value.String
 			}
 		case osupdaterunresource.FieldStatusDetails:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status_details", values[i])
 			} else if value.Valid {
-				ourr.StatusDetails = value.String
+				_m.StatusDetails = value.String
 			}
 		case osupdaterunresource.FieldStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status_timestamp", values[i])
 			} else if value.Valid {
-				ourr.StatusTimestamp = uint64(value.Int64)
+				_m.StatusTimestamp = uint64(value.Int64)
 			}
 		case osupdaterunresource.FieldStartTime:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field start_time", values[i])
 			} else if value.Valid {
-				ourr.StartTime = uint64(value.Int64)
+				_m.StartTime = uint64(value.Int64)
 			}
 		case osupdaterunresource.FieldEndTime:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field end_time", values[i])
 			} else if value.Valid {
-				ourr.EndTime = uint64(value.Int64)
+				_m.EndTime = uint64(value.Int64)
 			}
 		case osupdaterunresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				ourr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case osupdaterunresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				ourr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case osupdaterunresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				ourr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case osupdaterunresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field os_update_run_resource_applied_policy", value)
 			} else if value.Valid {
-				ourr.os_update_run_resource_applied_policy = new(int)
-				*ourr.os_update_run_resource_applied_policy = int(value.Int64)
+				_m.os_update_run_resource_applied_policy = new(int)
+				*_m.os_update_run_resource_applied_policy = int(value.Int64)
 			}
 		case osupdaterunresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field os_update_run_resource_instance", value)
 			} else if value.Valid {
-				ourr.os_update_run_resource_instance = new(int)
-				*ourr.os_update_run_resource_instance = int(value.Int64)
+				_m.os_update_run_resource_instance = new(int)
+				*_m.os_update_run_resource_instance = int(value.Int64)
 			}
 		default:
-			ourr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -212,78 +212,78 @@ func (ourr *OSUpdateRunResource) assignValues(columns []string, values []any) er
 
 // Value returns the ent.Value that was dynamically selected and assigned to the OSUpdateRunResource.
 // This includes values selected through modifiers, order, etc.
-func (ourr *OSUpdateRunResource) Value(name string) (ent.Value, error) {
-	return ourr.selectValues.Get(name)
+func (_m *OSUpdateRunResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryAppliedPolicy queries the "applied_policy" edge of the OSUpdateRunResource entity.
-func (ourr *OSUpdateRunResource) QueryAppliedPolicy() *OSUpdatePolicyResourceQuery {
-	return NewOSUpdateRunResourceClient(ourr.config).QueryAppliedPolicy(ourr)
+func (_m *OSUpdateRunResource) QueryAppliedPolicy() *OSUpdatePolicyResourceQuery {
+	return NewOSUpdateRunResourceClient(_m.config).QueryAppliedPolicy(_m)
 }
 
 // QueryInstance queries the "instance" edge of the OSUpdateRunResource entity.
-func (ourr *OSUpdateRunResource) QueryInstance() *InstanceResourceQuery {
-	return NewOSUpdateRunResourceClient(ourr.config).QueryInstance(ourr)
+func (_m *OSUpdateRunResource) QueryInstance() *InstanceResourceQuery {
+	return NewOSUpdateRunResourceClient(_m.config).QueryInstance(_m)
 }
 
 // Update returns a builder for updating this OSUpdateRunResource.
 // Note that you need to call OSUpdateRunResource.Unwrap() before calling this method if this OSUpdateRunResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (ourr *OSUpdateRunResource) Update() *OSUpdateRunResourceUpdateOne {
-	return NewOSUpdateRunResourceClient(ourr.config).UpdateOne(ourr)
+func (_m *OSUpdateRunResource) Update() *OSUpdateRunResourceUpdateOne {
+	return NewOSUpdateRunResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the OSUpdateRunResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (ourr *OSUpdateRunResource) Unwrap() *OSUpdateRunResource {
-	_tx, ok := ourr.config.driver.(*txDriver)
+func (_m *OSUpdateRunResource) Unwrap() *OSUpdateRunResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: OSUpdateRunResource is not a transactional entity")
 	}
-	ourr.config.driver = _tx.drv
-	return ourr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (ourr *OSUpdateRunResource) String() string {
+func (_m *OSUpdateRunResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("OSUpdateRunResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", ourr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(ourr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(ourr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(ourr.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", ourr.StatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.StatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("status=")
-	builder.WriteString(ourr.Status)
+	builder.WriteString(_m.Status)
 	builder.WriteString(", ")
 	builder.WriteString("status_details=")
-	builder.WriteString(ourr.StatusDetails)
+	builder.WriteString(_m.StatusDetails)
 	builder.WriteString(", ")
 	builder.WriteString("status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", ourr.StatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.StatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("start_time=")
-	builder.WriteString(fmt.Sprintf("%v", ourr.StartTime))
+	builder.WriteString(fmt.Sprintf("%v", _m.StartTime))
 	builder.WriteString(", ")
 	builder.WriteString("end_time=")
-	builder.WriteString(fmt.Sprintf("%v", ourr.EndTime))
+	builder.WriteString(fmt.Sprintf("%v", _m.EndTime))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(ourr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(ourr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(ourr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

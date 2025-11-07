@@ -102,8 +102,8 @@ var (
 		{Name: "bios_release_date", Type: field.TypeString, Nullable: true},
 		{Name: "bios_vendor", Type: field.TypeString, Nullable: true},
 		{Name: "metadata", Type: field.TypeString, Nullable: true},
-		{Name: "desired_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE"}},
-		{Name: "current_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE"}},
+		{Name: "desired_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE", "POWER_STATE_RESET_REPEAT"}},
+		{Name: "current_power_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"POWER_STATE_UNSPECIFIED", "POWER_STATE_ON", "POWER_STATE_OFF", "POWER_STATE_SLEEP", "POWER_STATE_HIBERNATE", "POWER_STATE_RESET", "POWER_STATE_POWER_CYCLE", "POWER_STATE_RESET_REPEAT"}},
 		{Name: "power_status", Type: field.TypeString, Nullable: true},
 		{Name: "power_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "power_status_timestamp", Type: field.TypeUint64, Nullable: true},
@@ -118,12 +118,13 @@ var (
 		{Name: "registration_status", Type: field.TypeString, Nullable: true},
 		{Name: "registration_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "registration_status_timestamp", Type: field.TypeUint64, Nullable: true},
-		{Name: "amt_sku", Type: field.TypeString, Nullable: true},
+		{Name: "amt_sku", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_SKU_UNSPECIFIED", "AMT_SKU_AMT", "AMT_SKU_ISM"}},
 		{Name: "desired_amt_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_STATE_UNSPECIFIED", "AMT_STATE_PROVISIONED", "AMT_STATE_UNPROVISIONED", "AMT_STATE_DISCONNECTED"}},
 		{Name: "current_amt_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_STATE_UNSPECIFIED", "AMT_STATE_PROVISIONED", "AMT_STATE_UNPROVISIONED", "AMT_STATE_DISCONNECTED"}},
 		{Name: "amt_status", Type: field.TypeString, Nullable: true},
 		{Name: "amt_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "amt_status_timestamp", Type: field.TypeUint64, Nullable: true},
+		{Name: "user_lvm_size", Type: field.TypeUint32, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -139,19 +140,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[55]},
+				Columns:    []*schema.Column{HostResourcesColumns[56]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[56]},
+				Columns:    []*schema.Column{HostResourcesColumns[57]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[57]},
+				Columns:    []*schema.Column{HostResourcesColumns[58]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -176,7 +177,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[52]},
+				Columns: []*schema.Column{HostResourcesColumns[53]},
 			},
 		},
 	}
@@ -401,7 +402,6 @@ var (
 		{Name: "update_status", Type: field.TypeString, Nullable: true},
 		{Name: "update_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "update_status_timestamp", Type: field.TypeUint64, Nullable: true},
-		{Name: "update_status_detail", Type: field.TypeString, Nullable: true},
 		{Name: "trusted_attestation_status", Type: field.TypeString, Nullable: true},
 		{Name: "trusted_attestation_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "trusted_attestation_status_timestamp", Type: field.TypeUint64, Nullable: true},
@@ -412,9 +412,7 @@ var (
 		{Name: "instance_status_detail", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
-		{Name: "instance_resource_desired_os", Type: field.TypeInt},
-		{Name: "instance_resource_current_os", Type: field.TypeInt, Nullable: true},
-		{Name: "instance_resource_os", Type: field.TypeInt, Nullable: true},
+		{Name: "instance_resource_os", Type: field.TypeInt},
 		{Name: "instance_resource_provider", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_localaccount", Type: field.TypeInt, Nullable: true},
 		{Name: "instance_resource_os_update_policy", Type: field.TypeInt, Nullable: true},
@@ -426,38 +424,26 @@ var (
 		PrimaryKey: []*schema.Column{InstanceResourcesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "instance_resources_operating_system_resources_desired_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
+				Symbol:     "instance_resources_operating_system_resources_os",
+				Columns:    []*schema.Column{InstanceResourcesColumns[29]},
 				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
 				OnDelete:   schema.NoAction,
 			},
 			{
-				Symbol:     "instance_resources_operating_system_resources_current_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
-				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:     "instance_resources_operating_system_resources_os",
-				Columns:    []*schema.Column{InstanceResourcesColumns[32]},
-				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
 				Symbol:     "instance_resources_provider_resources_provider",
-				Columns:    []*schema.Column{InstanceResourcesColumns[33]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[30]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_local_account_resources_localaccount",
-				Columns:    []*schema.Column{InstanceResourcesColumns[34]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[31]},
 				RefColumns: []*schema.Column{LocalAccountResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "instance_resources_os_update_policy_resources_os_update_policy",
-				Columns:    []*schema.Column{InstanceResourcesColumns[35]},
+				Columns:    []*schema.Column{InstanceResourcesColumns[32]},
 				RefColumns: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -466,7 +452,7 @@ var (
 			{
 				Name:    "instanceresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{InstanceResourcesColumns[26]},
+				Columns: []*schema.Column{InstanceResourcesColumns[25]},
 			},
 		},
 	}
@@ -598,9 +584,9 @@ var (
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString, Nullable: true},
-		{Name: "install_packages", Type: field.TypeString, Nullable: true},
 		{Name: "update_sources", Type: field.TypeString, Nullable: true},
-		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
+		{Name: "update_packages", Type: field.TypeString, Nullable: true},
+		{Name: "update_kernel_command", Type: field.TypeString, Nullable: true},
 		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -665,8 +651,6 @@ var (
 		{Name: "resource_id", Type: field.TypeString, Unique: true},
 		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "architecture", Type: field.TypeString, Nullable: true},
-		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
-		{Name: "update_sources", Type: field.TypeString, Nullable: true},
 		{Name: "image_url", Type: field.TypeString, Nullable: true},
 		{Name: "image_id", Type: field.TypeString, Nullable: true},
 		{Name: "sha256", Type: field.TypeString, Nullable: true},
@@ -680,6 +664,7 @@ var (
 		{Name: "platform_bundle", Type: field.TypeString, Nullable: true},
 		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "metadata", Type: field.TypeString, Nullable: true},
+		{Name: "tls_ca_cert", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves_url", Type: field.TypeString, Nullable: true},
 		{Name: "existing_cves", Type: field.TypeString, Nullable: true},
 		{Name: "fixed_cves_url", Type: field.TypeString, Nullable: true},
@@ -697,12 +682,12 @@ var (
 			{
 				Name:    "operatingsystemresource_name_tenant_id",
 				Unique:  true,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[23]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[22]},
 			},
 			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{OperatingSystemResourcesColumns[23]},
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
 			},
 		},
 	}
@@ -1249,11 +1234,9 @@ func init() {
 	HostusbResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	IPAddressResourcesTable.ForeignKeys[0].RefTable = HostnicResourcesTable
 	InstanceResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
-	InstanceResourcesTable.ForeignKeys[1].RefTable = OperatingSystemResourcesTable
-	InstanceResourcesTable.ForeignKeys[2].RefTable = OperatingSystemResourcesTable
-	InstanceResourcesTable.ForeignKeys[3].RefTable = ProviderResourcesTable
-	InstanceResourcesTable.ForeignKeys[4].RefTable = LocalAccountResourcesTable
-	InstanceResourcesTable.ForeignKeys[5].RefTable = OsUpdatePolicyResourcesTable
+	InstanceResourcesTable.ForeignKeys[1].RefTable = ProviderResourcesTable
+	InstanceResourcesTable.ForeignKeys[2].RefTable = LocalAccountResourcesTable
+	InstanceResourcesTable.ForeignKeys[3].RefTable = OsUpdatePolicyResourcesTable
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable

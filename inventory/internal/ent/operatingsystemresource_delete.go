@@ -20,56 +20,56 @@ type OperatingSystemResourceDelete struct {
 }
 
 // Where appends a list predicates to the OperatingSystemResourceDelete builder.
-func (osrd *OperatingSystemResourceDelete) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceDelete {
-	osrd.mutation.Where(ps...)
-	return osrd
+func (_d *OperatingSystemResourceDelete) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (osrd *OperatingSystemResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, osrd.sqlExec, osrd.mutation, osrd.hooks)
+func (_d *OperatingSystemResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (osrd *OperatingSystemResourceDelete) ExecX(ctx context.Context) int {
-	n, err := osrd.Exec(ctx)
+func (_d *OperatingSystemResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (osrd *OperatingSystemResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *OperatingSystemResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(operatingsystemresource.Table, sqlgraph.NewFieldSpec(operatingsystemresource.FieldID, field.TypeInt))
-	if ps := osrd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, osrd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	osrd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // OperatingSystemResourceDeleteOne is the builder for deleting a single OperatingSystemResource entity.
 type OperatingSystemResourceDeleteOne struct {
-	osrd *OperatingSystemResourceDelete
+	_d *OperatingSystemResourceDelete
 }
 
 // Where appends a list predicates to the OperatingSystemResourceDelete builder.
-func (osrdo *OperatingSystemResourceDeleteOne) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceDeleteOne {
-	osrdo.osrd.mutation.Where(ps...)
-	return osrdo
+func (_d *OperatingSystemResourceDeleteOne) Where(ps ...predicate.OperatingSystemResource) *OperatingSystemResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (osrdo *OperatingSystemResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := osrdo.osrd.Exec(ctx)
+func (_d *OperatingSystemResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (osrdo *OperatingSystemResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (osrdo *OperatingSystemResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := osrdo.Exec(ctx); err != nil {
+func (_d *OperatingSystemResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

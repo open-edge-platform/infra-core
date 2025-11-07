@@ -31,44 +31,44 @@ type HostnicResourceQuery struct {
 }
 
 // Where adds a new predicate for the HostnicResourceQuery builder.
-func (hrq *HostnicResourceQuery) Where(ps ...predicate.HostnicResource) *HostnicResourceQuery {
-	hrq.predicates = append(hrq.predicates, ps...)
-	return hrq
+func (_q *HostnicResourceQuery) Where(ps ...predicate.HostnicResource) *HostnicResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (hrq *HostnicResourceQuery) Limit(limit int) *HostnicResourceQuery {
-	hrq.ctx.Limit = &limit
-	return hrq
+func (_q *HostnicResourceQuery) Limit(limit int) *HostnicResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (hrq *HostnicResourceQuery) Offset(offset int) *HostnicResourceQuery {
-	hrq.ctx.Offset = &offset
-	return hrq
+func (_q *HostnicResourceQuery) Offset(offset int) *HostnicResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (hrq *HostnicResourceQuery) Unique(unique bool) *HostnicResourceQuery {
-	hrq.ctx.Unique = &unique
-	return hrq
+func (_q *HostnicResourceQuery) Unique(unique bool) *HostnicResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (hrq *HostnicResourceQuery) Order(o ...hostnicresource.OrderOption) *HostnicResourceQuery {
-	hrq.order = append(hrq.order, o...)
-	return hrq
+func (_q *HostnicResourceQuery) Order(o ...hostnicresource.OrderOption) *HostnicResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryHost chains the current query on the "host" edge.
-func (hrq *HostnicResourceQuery) QueryHost() *HostResourceQuery {
-	query := (&HostResourceClient{config: hrq.config}).Query()
+func (_q *HostnicResourceQuery) QueryHost() *HostResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := hrq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := hrq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (hrq *HostnicResourceQuery) QueryHost() *HostResourceQuery {
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostnicresource.HostTable, hostnicresource.HostColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(hrq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (hrq *HostnicResourceQuery) QueryHost() *HostResourceQuery {
 
 // First returns the first HostnicResource entity from the query.
 // Returns a *NotFoundError when no HostnicResource was found.
-func (hrq *HostnicResourceQuery) First(ctx context.Context) (*HostnicResource, error) {
-	nodes, err := hrq.Limit(1).All(setContextOp(ctx, hrq.ctx, ent.OpQueryFirst))
+func (_q *HostnicResourceQuery) First(ctx context.Context) (*HostnicResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (hrq *HostnicResourceQuery) First(ctx context.Context) (*HostnicResource, e
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) FirstX(ctx context.Context) *HostnicResource {
-	node, err := hrq.First(ctx)
+func (_q *HostnicResourceQuery) FirstX(ctx context.Context) *HostnicResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (hrq *HostnicResourceQuery) FirstX(ctx context.Context) *HostnicResource {
 
 // FirstID returns the first HostnicResource ID from the query.
 // Returns a *NotFoundError when no HostnicResource ID was found.
-func (hrq *HostnicResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *HostnicResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = hrq.Limit(1).IDs(setContextOp(ctx, hrq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (hrq *HostnicResourceQuery) FirstID(ctx context.Context) (id int, err error
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := hrq.FirstID(ctx)
+func (_q *HostnicResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (hrq *HostnicResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single HostnicResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one HostnicResource entity is found.
 // Returns a *NotFoundError when no HostnicResource entities are found.
-func (hrq *HostnicResourceQuery) Only(ctx context.Context) (*HostnicResource, error) {
-	nodes, err := hrq.Limit(2).All(setContextOp(ctx, hrq.ctx, ent.OpQueryOnly))
+func (_q *HostnicResourceQuery) Only(ctx context.Context) (*HostnicResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (hrq *HostnicResourceQuery) Only(ctx context.Context) (*HostnicResource, er
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) OnlyX(ctx context.Context) *HostnicResource {
-	node, err := hrq.Only(ctx)
+func (_q *HostnicResourceQuery) OnlyX(ctx context.Context) *HostnicResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (hrq *HostnicResourceQuery) OnlyX(ctx context.Context) *HostnicResource {
 // OnlyID is like Only, but returns the only HostnicResource ID in the query.
 // Returns a *NotSingularError when more than one HostnicResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (hrq *HostnicResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *HostnicResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = hrq.Limit(2).IDs(setContextOp(ctx, hrq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (hrq *HostnicResourceQuery) OnlyID(ctx context.Context) (id int, err error)
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := hrq.OnlyID(ctx)
+func (_q *HostnicResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (hrq *HostnicResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of HostnicResources.
-func (hrq *HostnicResourceQuery) All(ctx context.Context) ([]*HostnicResource, error) {
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryAll)
-	if err := hrq.prepareQuery(ctx); err != nil {
+func (_q *HostnicResourceQuery) All(ctx context.Context) ([]*HostnicResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*HostnicResource, *HostnicResourceQuery]()
-	return withInterceptors[[]*HostnicResource](ctx, hrq, qr, hrq.inters)
+	return withInterceptors[[]*HostnicResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) AllX(ctx context.Context) []*HostnicResource {
-	nodes, err := hrq.All(ctx)
+func (_q *HostnicResourceQuery) AllX(ctx context.Context) []*HostnicResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (hrq *HostnicResourceQuery) AllX(ctx context.Context) []*HostnicResource {
 }
 
 // IDs executes the query and returns a list of HostnicResource IDs.
-func (hrq *HostnicResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if hrq.ctx.Unique == nil && hrq.path != nil {
-		hrq.Unique(true)
+func (_q *HostnicResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryIDs)
-	if err = hrq.Select(hostnicresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(hostnicresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := hrq.IDs(ctx)
+func (_q *HostnicResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (hrq *HostnicResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (hrq *HostnicResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryCount)
-	if err := hrq.prepareQuery(ctx); err != nil {
+func (_q *HostnicResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, hrq, querierCount[*HostnicResourceQuery](), hrq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*HostnicResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) CountX(ctx context.Context) int {
-	count, err := hrq.Count(ctx)
+func (_q *HostnicResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (hrq *HostnicResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (hrq *HostnicResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, hrq.ctx, ent.OpQueryExist)
-	switch _, err := hrq.FirstID(ctx); {
+func (_q *HostnicResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (hrq *HostnicResourceQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (hrq *HostnicResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := hrq.Exist(ctx)
+func (_q *HostnicResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (hrq *HostnicResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the HostnicResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (hrq *HostnicResourceQuery) Clone() *HostnicResourceQuery {
-	if hrq == nil {
+func (_q *HostnicResourceQuery) Clone() *HostnicResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &HostnicResourceQuery{
-		config:     hrq.config,
-		ctx:        hrq.ctx.Clone(),
-		order:      append([]hostnicresource.OrderOption{}, hrq.order...),
-		inters:     append([]Interceptor{}, hrq.inters...),
-		predicates: append([]predicate.HostnicResource{}, hrq.predicates...),
-		withHost:   hrq.withHost.Clone(),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]hostnicresource.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.HostnicResource{}, _q.predicates...),
+		withHost:   _q.withHost.Clone(),
 		// clone intermediate query.
-		sql:  hrq.sql.Clone(),
-		path: hrq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithHost tells the query-builder to eager-load the nodes that are connected to
 // the "host" edge. The optional arguments are used to configure the query builder of the edge.
-func (hrq *HostnicResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *HostnicResourceQuery {
-	query := (&HostResourceClient{config: hrq.config}).Query()
+func (_q *HostnicResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *HostnicResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	hrq.withHost = query
-	return hrq
+	_q.withHost = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (hrq *HostnicResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *Hos
 //		GroupBy(hostnicresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (hrq *HostnicResourceQuery) GroupBy(field string, fields ...string) *HostnicResourceGroupBy {
-	hrq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &HostnicResourceGroupBy{build: hrq}
-	grbuild.flds = &hrq.ctx.Fields
+func (_q *HostnicResourceQuery) GroupBy(field string, fields ...string) *HostnicResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &HostnicResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = hostnicresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,55 +328,55 @@ func (hrq *HostnicResourceQuery) GroupBy(field string, fields ...string) *Hostni
 //	client.HostnicResource.Query().
 //		Select(hostnicresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (hrq *HostnicResourceQuery) Select(fields ...string) *HostnicResourceSelect {
-	hrq.ctx.Fields = append(hrq.ctx.Fields, fields...)
-	sbuild := &HostnicResourceSelect{HostnicResourceQuery: hrq}
+func (_q *HostnicResourceQuery) Select(fields ...string) *HostnicResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &HostnicResourceSelect{HostnicResourceQuery: _q}
 	sbuild.label = hostnicresource.Label
-	sbuild.flds, sbuild.scan = &hrq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a HostnicResourceSelect configured with the given aggregations.
-func (hrq *HostnicResourceQuery) Aggregate(fns ...AggregateFunc) *HostnicResourceSelect {
-	return hrq.Select().Aggregate(fns...)
+func (_q *HostnicResourceQuery) Aggregate(fns ...AggregateFunc) *HostnicResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (hrq *HostnicResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range hrq.inters {
+func (_q *HostnicResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, hrq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range hrq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !hostnicresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if hrq.path != nil {
-		prev, err := hrq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		hrq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (hrq *HostnicResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*HostnicResource, error) {
+func (_q *HostnicResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*HostnicResource, error) {
 	var (
 		nodes       = []*HostnicResource{}
-		withFKs     = hrq.withFKs
-		_spec       = hrq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			hrq.withHost != nil,
+			_q.withHost != nil,
 		}
 	)
-	if hrq.withHost != nil {
+	if _q.withHost != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,7 +386,7 @@ func (hrq *HostnicResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 		return (*HostnicResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &HostnicResource{config: hrq.config}
+		node := &HostnicResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -394,14 +394,14 @@ func (hrq *HostnicResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, hrq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := hrq.withHost; query != nil {
-		if err := hrq.loadHost(ctx, query, nodes, nil,
+	if query := _q.withHost; query != nil {
+		if err := _q.loadHost(ctx, query, nodes, nil,
 			func(n *HostnicResource, e *HostResource) { n.Edges.Host = e }); err != nil {
 			return nil, err
 		}
@@ -409,7 +409,7 @@ func (hrq *HostnicResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook)
 	return nodes, nil
 }
 
-func (hrq *HostnicResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*HostnicResource, init func(*HostnicResource), assign func(*HostnicResource, *HostResource)) error {
+func (_q *HostnicResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*HostnicResource, init func(*HostnicResource), assign func(*HostnicResource, *HostResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*HostnicResource)
 	for i := range nodes {
@@ -442,24 +442,24 @@ func (hrq *HostnicResourceQuery) loadHost(ctx context.Context, query *HostResour
 	return nil
 }
 
-func (hrq *HostnicResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := hrq.querySpec()
-	_spec.Node.Columns = hrq.ctx.Fields
-	if len(hrq.ctx.Fields) > 0 {
-		_spec.Unique = hrq.ctx.Unique != nil && *hrq.ctx.Unique
+func (_q *HostnicResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, hrq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (hrq *HostnicResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *HostnicResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(hostnicresource.Table, hostnicresource.Columns, sqlgraph.NewFieldSpec(hostnicresource.FieldID, field.TypeInt))
-	_spec.From = hrq.sql
-	if unique := hrq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if hrq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := hrq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, hostnicresource.FieldID)
 		for i := range fields {
@@ -468,20 +468,20 @@ func (hrq *HostnicResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := hrq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := hrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := hrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := hrq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -491,33 +491,33 @@ func (hrq *HostnicResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (hrq *HostnicResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(hrq.driver.Dialect())
+func (_q *HostnicResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(hostnicresource.Table)
-	columns := hrq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = hostnicresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if hrq.sql != nil {
-		selector = hrq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if hrq.ctx.Unique != nil && *hrq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range hrq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range hrq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := hrq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := hrq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -530,41 +530,41 @@ type HostnicResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (hrgb *HostnicResourceGroupBy) Aggregate(fns ...AggregateFunc) *HostnicResourceGroupBy {
-	hrgb.fns = append(hrgb.fns, fns...)
-	return hrgb
+func (_g *HostnicResourceGroupBy) Aggregate(fns ...AggregateFunc) *HostnicResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (hrgb *HostnicResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, hrgb.build.ctx, ent.OpQueryGroupBy)
-	if err := hrgb.build.prepareQuery(ctx); err != nil {
+func (_g *HostnicResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*HostnicResourceQuery, *HostnicResourceGroupBy](ctx, hrgb.build, hrgb, hrgb.build.inters, v)
+	return scanWithInterceptors[*HostnicResourceQuery, *HostnicResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (hrgb *HostnicResourceGroupBy) sqlScan(ctx context.Context, root *HostnicResourceQuery, v any) error {
+func (_g *HostnicResourceGroupBy) sqlScan(ctx context.Context, root *HostnicResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(hrgb.fns))
-	for _, fn := range hrgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*hrgb.flds)+len(hrgb.fns))
-		for _, f := range *hrgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*hrgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := hrgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -578,27 +578,27 @@ type HostnicResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (hrs *HostnicResourceSelect) Aggregate(fns ...AggregateFunc) *HostnicResourceSelect {
-	hrs.fns = append(hrs.fns, fns...)
-	return hrs
+func (_s *HostnicResourceSelect) Aggregate(fns ...AggregateFunc) *HostnicResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (hrs *HostnicResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, hrs.ctx, ent.OpQuerySelect)
-	if err := hrs.prepareQuery(ctx); err != nil {
+func (_s *HostnicResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*HostnicResourceQuery, *HostnicResourceSelect](ctx, hrs.HostnicResourceQuery, hrs, hrs.inters, v)
+	return scanWithInterceptors[*HostnicResourceQuery, *HostnicResourceSelect](ctx, _s.HostnicResourceQuery, _s, _s.inters, v)
 }
 
-func (hrs *HostnicResourceSelect) sqlScan(ctx context.Context, root *HostnicResourceQuery, v any) error {
+func (_s *HostnicResourceSelect) sqlScan(ctx context.Context, root *HostnicResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(hrs.fns))
-	for _, fn := range hrs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*hrs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -606,7 +606,7 @@ func (hrs *HostnicResourceSelect) sqlScan(ctx context.Context, root *HostnicReso
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := hrs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

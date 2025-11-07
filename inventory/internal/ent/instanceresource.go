@@ -57,8 +57,6 @@ type InstanceResource struct {
 	UpdateStatusIndicator instanceresource.UpdateStatusIndicator `json:"update_status_indicator,omitempty"`
 	// UpdateStatusTimestamp holds the value of the "update_status_timestamp" field.
 	UpdateStatusTimestamp uint64 `json:"update_status_timestamp,omitempty"`
-	// UpdateStatusDetail holds the value of the "update_status_detail" field.
-	UpdateStatusDetail string `json:"update_status_detail,omitempty"`
 	// TrustedAttestationStatus holds the value of the "trusted_attestation_status" field.
 	TrustedAttestationStatus string `json:"trusted_attestation_status,omitempty"`
 	// TrustedAttestationStatusIndicator holds the value of the "trusted_attestation_status_indicator" field.
@@ -82,8 +80,6 @@ type InstanceResource struct {
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the InstanceResourceQuery when eager-loading is set.
 	Edges                              InstanceResourceEdges `json:"edges"`
-	instance_resource_desired_os       *int
-	instance_resource_current_os       *int
 	instance_resource_os               *int
 	instance_resource_provider         *int
 	instance_resource_localaccount     *int
@@ -95,10 +91,6 @@ type InstanceResource struct {
 type InstanceResourceEdges struct {
 	// Host holds the value of the host edge.
 	Host *HostResource `json:"host,omitempty"`
-	// DesiredOs holds the value of the desired_os edge.
-	DesiredOs *OperatingSystemResource `json:"desired_os,omitempty"`
-	// CurrentOs holds the value of the current_os edge.
-	CurrentOs *OperatingSystemResource `json:"current_os,omitempty"`
 	// Os holds the value of the os edge.
 	Os *OperatingSystemResource `json:"os,omitempty"`
 	// WorkloadMembers holds the value of the workload_members edge.
@@ -113,7 +105,7 @@ type InstanceResourceEdges struct {
 	CustomConfig []*CustomConfigResource `json:"custom_config,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [9]bool
+	loadedTypes [7]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -127,34 +119,12 @@ func (e InstanceResourceEdges) HostOrErr() (*HostResource, error) {
 	return nil, &NotLoadedError{edge: "host"}
 }
 
-// DesiredOsOrErr returns the DesiredOs value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e InstanceResourceEdges) DesiredOsOrErr() (*OperatingSystemResource, error) {
-	if e.DesiredOs != nil {
-		return e.DesiredOs, nil
-	} else if e.loadedTypes[1] {
-		return nil, &NotFoundError{label: operatingsystemresource.Label}
-	}
-	return nil, &NotLoadedError{edge: "desired_os"}
-}
-
-// CurrentOsOrErr returns the CurrentOs value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e InstanceResourceEdges) CurrentOsOrErr() (*OperatingSystemResource, error) {
-	if e.CurrentOs != nil {
-		return e.CurrentOs, nil
-	} else if e.loadedTypes[2] {
-		return nil, &NotFoundError{label: operatingsystemresource.Label}
-	}
-	return nil, &NotLoadedError{edge: "current_os"}
-}
-
 // OsOrErr returns the Os value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e InstanceResourceEdges) OsOrErr() (*OperatingSystemResource, error) {
 	if e.Os != nil {
 		return e.Os, nil
-	} else if e.loadedTypes[3] {
+	} else if e.loadedTypes[1] {
 		return nil, &NotFoundError{label: operatingsystemresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "os"}
@@ -163,7 +133,7 @@ func (e InstanceResourceEdges) OsOrErr() (*OperatingSystemResource, error) {
 // WorkloadMembersOrErr returns the WorkloadMembers value or an error if the edge
 // was not loaded in eager-loading.
 func (e InstanceResourceEdges) WorkloadMembersOrErr() ([]*WorkloadMember, error) {
-	if e.loadedTypes[4] {
+	if e.loadedTypes[2] {
 		return e.WorkloadMembers, nil
 	}
 	return nil, &NotLoadedError{edge: "workload_members"}
@@ -174,7 +144,7 @@ func (e InstanceResourceEdges) WorkloadMembersOrErr() ([]*WorkloadMember, error)
 func (e InstanceResourceEdges) ProviderOrErr() (*ProviderResource, error) {
 	if e.Provider != nil {
 		return e.Provider, nil
-	} else if e.loadedTypes[5] {
+	} else if e.loadedTypes[3] {
 		return nil, &NotFoundError{label: providerresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "provider"}
@@ -185,7 +155,7 @@ func (e InstanceResourceEdges) ProviderOrErr() (*ProviderResource, error) {
 func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error) {
 	if e.Localaccount != nil {
 		return e.Localaccount, nil
-	} else if e.loadedTypes[6] {
+	} else if e.loadedTypes[4] {
 		return nil, &NotFoundError{label: localaccountresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "localaccount"}
@@ -196,7 +166,7 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, error) {
 	if e.OsUpdatePolicy != nil {
 		return e.OsUpdatePolicy, nil
-	} else if e.loadedTypes[7] {
+	} else if e.loadedTypes[5] {
 		return nil, &NotFoundError{label: osupdatepolicyresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "os_update_policy"}
@@ -205,7 +175,7 @@ func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, e
 // CustomConfigOrErr returns the CustomConfig value or an error if the edge
 // was not loaded in eager-loading.
 func (e InstanceResourceEdges) CustomConfigOrErr() ([]*CustomConfigResource, error) {
-	if e.loadedTypes[8] {
+	if e.loadedTypes[6] {
 		return e.CustomConfig, nil
 	}
 	return nil, &NotLoadedError{edge: "custom_config"}
@@ -218,19 +188,15 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case instanceresource.FieldID, instanceresource.FieldVMMemoryBytes, instanceresource.FieldVMCPUCores, instanceresource.FieldVMStorageBytes, instanceresource.FieldInstanceStatusTimestamp, instanceresource.FieldProvisioningStatusTimestamp, instanceresource.FieldUpdateStatusTimestamp, instanceresource.FieldTrustedAttestationStatusTimestamp:
 			values[i] = new(sql.NullInt64)
-		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldRuntimePackages, instanceresource.FieldOsUpdateAvailable, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
+		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldRuntimePackages, instanceresource.FieldOsUpdateAvailable, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
-		case instanceresource.ForeignKeys[0]: // instance_resource_desired_os
+		case instanceresource.ForeignKeys[0]: // instance_resource_os
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[1]: // instance_resource_current_os
+		case instanceresource.ForeignKeys[1]: // instance_resource_provider
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[2]: // instance_resource_os
+		case instanceresource.ForeignKeys[2]: // instance_resource_localaccount
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[3]: // instance_resource_provider
-			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[4]: // instance_resource_localaccount
-			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[5]: // instance_resource_os_update_policy
+		case instanceresource.ForeignKeys[3]: // instance_resource_os_update_policy
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -241,7 +207,7 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the InstanceResource fields.
-func (ir *InstanceResource) assignValues(columns []string, values []any) error {
+func (_m *InstanceResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -252,225 +218,205 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			ir.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case instanceresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				ir.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case instanceresource.FieldKind:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field kind", values[i])
 			} else if value.Valid {
-				ir.Kind = instanceresource.Kind(value.String)
+				_m.Kind = instanceresource.Kind(value.String)
 			}
 		case instanceresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				ir.Name = value.String
+				_m.Name = value.String
 			}
 		case instanceresource.FieldDesiredState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desired_state", values[i])
 			} else if value.Valid {
-				ir.DesiredState = instanceresource.DesiredState(value.String)
+				_m.DesiredState = instanceresource.DesiredState(value.String)
 			}
 		case instanceresource.FieldCurrentState:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field current_state", values[i])
 			} else if value.Valid {
-				ir.CurrentState = instanceresource.CurrentState(value.String)
+				_m.CurrentState = instanceresource.CurrentState(value.String)
 			}
 		case instanceresource.FieldVMMemoryBytes:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field vm_memory_bytes", values[i])
 			} else if value.Valid {
-				ir.VMMemoryBytes = uint64(value.Int64)
+				_m.VMMemoryBytes = uint64(value.Int64)
 			}
 		case instanceresource.FieldVMCPUCores:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field vm_cpu_cores", values[i])
 			} else if value.Valid {
-				ir.VMCPUCores = uint32(value.Int64)
+				_m.VMCPUCores = uint32(value.Int64)
 			}
 		case instanceresource.FieldVMStorageBytes:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field vm_storage_bytes", values[i])
 			} else if value.Valid {
-				ir.VMStorageBytes = uint64(value.Int64)
+				_m.VMStorageBytes = uint64(value.Int64)
 			}
 		case instanceresource.FieldSecurityFeature:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field security_feature", values[i])
 			} else if value.Valid {
-				ir.SecurityFeature = instanceresource.SecurityFeature(value.String)
+				_m.SecurityFeature = instanceresource.SecurityFeature(value.String)
 			}
 		case instanceresource.FieldInstanceStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field instance_status", values[i])
 			} else if value.Valid {
-				ir.InstanceStatus = value.String
+				_m.InstanceStatus = value.String
 			}
 		case instanceresource.FieldInstanceStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field instance_status_indicator", values[i])
 			} else if value.Valid {
-				ir.InstanceStatusIndicator = instanceresource.InstanceStatusIndicator(value.String)
+				_m.InstanceStatusIndicator = instanceresource.InstanceStatusIndicator(value.String)
 			}
 		case instanceresource.FieldInstanceStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field instance_status_timestamp", values[i])
 			} else if value.Valid {
-				ir.InstanceStatusTimestamp = uint64(value.Int64)
+				_m.InstanceStatusTimestamp = uint64(value.Int64)
 			}
 		case instanceresource.FieldProvisioningStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provisioning_status", values[i])
 			} else if value.Valid {
-				ir.ProvisioningStatus = value.String
+				_m.ProvisioningStatus = value.String
 			}
 		case instanceresource.FieldProvisioningStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field provisioning_status_indicator", values[i])
 			} else if value.Valid {
-				ir.ProvisioningStatusIndicator = instanceresource.ProvisioningStatusIndicator(value.String)
+				_m.ProvisioningStatusIndicator = instanceresource.ProvisioningStatusIndicator(value.String)
 			}
 		case instanceresource.FieldProvisioningStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field provisioning_status_timestamp", values[i])
 			} else if value.Valid {
-				ir.ProvisioningStatusTimestamp = uint64(value.Int64)
+				_m.ProvisioningStatusTimestamp = uint64(value.Int64)
 			}
 		case instanceresource.FieldUpdateStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_status", values[i])
 			} else if value.Valid {
-				ir.UpdateStatus = value.String
+				_m.UpdateStatus = value.String
 			}
 		case instanceresource.FieldUpdateStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_status_indicator", values[i])
 			} else if value.Valid {
-				ir.UpdateStatusIndicator = instanceresource.UpdateStatusIndicator(value.String)
+				_m.UpdateStatusIndicator = instanceresource.UpdateStatusIndicator(value.String)
 			}
 		case instanceresource.FieldUpdateStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field update_status_timestamp", values[i])
 			} else if value.Valid {
-				ir.UpdateStatusTimestamp = uint64(value.Int64)
-			}
-		case instanceresource.FieldUpdateStatusDetail:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field update_status_detail", values[i])
-			} else if value.Valid {
-				ir.UpdateStatusDetail = value.String
+				_m.UpdateStatusTimestamp = uint64(value.Int64)
 			}
 		case instanceresource.FieldTrustedAttestationStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field trusted_attestation_status", values[i])
 			} else if value.Valid {
-				ir.TrustedAttestationStatus = value.String
+				_m.TrustedAttestationStatus = value.String
 			}
 		case instanceresource.FieldTrustedAttestationStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field trusted_attestation_status_indicator", values[i])
 			} else if value.Valid {
-				ir.TrustedAttestationStatusIndicator = instanceresource.TrustedAttestationStatusIndicator(value.String)
+				_m.TrustedAttestationStatusIndicator = instanceresource.TrustedAttestationStatusIndicator(value.String)
 			}
 		case instanceresource.FieldTrustedAttestationStatusTimestamp:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field trusted_attestation_status_timestamp", values[i])
 			} else if value.Valid {
-				ir.TrustedAttestationStatusTimestamp = uint64(value.Int64)
+				_m.TrustedAttestationStatusTimestamp = uint64(value.Int64)
 			}
 		case instanceresource.FieldExistingCves:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field existing_cves", values[i])
 			} else if value.Valid {
-				ir.ExistingCves = value.String
+				_m.ExistingCves = value.String
 			}
 		case instanceresource.FieldRuntimePackages:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field runtime_packages", values[i])
 			} else if value.Valid {
-				ir.RuntimePackages = value.String
+				_m.RuntimePackages = value.String
 			}
 		case instanceresource.FieldOsUpdateAvailable:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field os_update_available", values[i])
 			} else if value.Valid {
-				ir.OsUpdateAvailable = value.String
+				_m.OsUpdateAvailable = value.String
 			}
 		case instanceresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				ir.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case instanceresource.FieldInstanceStatusDetail:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field instance_status_detail", values[i])
 			} else if value.Valid {
-				ir.InstanceStatusDetail = value.String
+				_m.InstanceStatusDetail = value.String
 			}
 		case instanceresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				ir.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case instanceresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				ir.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case instanceresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_desired_os", value)
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os", value)
 			} else if value.Valid {
-				ir.instance_resource_desired_os = new(int)
-				*ir.instance_resource_desired_os = int(value.Int64)
+				_m.instance_resource_os = new(int)
+				*_m.instance_resource_os = int(value.Int64)
 			}
 		case instanceresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_current_os", value)
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_provider", value)
 			} else if value.Valid {
-				ir.instance_resource_current_os = new(int)
-				*ir.instance_resource_current_os = int(value.Int64)
+				_m.instance_resource_provider = new(int)
+				*_m.instance_resource_provider = int(value.Int64)
 			}
 		case instanceresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os", value)
+				return fmt.Errorf("unexpected type %T for edge-field instance_resource_localaccount", value)
 			} else if value.Valid {
-				ir.instance_resource_os = new(int)
-				*ir.instance_resource_os = int(value.Int64)
+				_m.instance_resource_localaccount = new(int)
+				*_m.instance_resource_localaccount = int(value.Int64)
 			}
 		case instanceresource.ForeignKeys[3]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_provider", value)
-			} else if value.Valid {
-				ir.instance_resource_provider = new(int)
-				*ir.instance_resource_provider = int(value.Int64)
-			}
-		case instanceresource.ForeignKeys[4]:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_localaccount", value)
-			} else if value.Valid {
-				ir.instance_resource_localaccount = new(int)
-				*ir.instance_resource_localaccount = int(value.Int64)
-			}
-		case instanceresource.ForeignKeys[5]:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os_update_policy", value)
 			} else if value.Valid {
-				ir.instance_resource_os_update_policy = new(int)
-				*ir.instance_resource_os_update_policy = int(value.Int64)
+				_m.instance_resource_os_update_policy = new(int)
+				*_m.instance_resource_os_update_policy = int(value.Int64)
 			}
 		default:
-			ir.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -478,164 +424,151 @@ func (ir *InstanceResource) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the InstanceResource.
 // This includes values selected through modifiers, order, etc.
-func (ir *InstanceResource) Value(name string) (ent.Value, error) {
-	return ir.selectValues.Get(name)
+func (_m *InstanceResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryHost queries the "host" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryHost() *HostResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryHost(ir)
-}
-
-// QueryDesiredOs queries the "desired_os" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryDesiredOs() *OperatingSystemResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryDesiredOs(ir)
-}
-
-// QueryCurrentOs queries the "current_os" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryCurrentOs() *OperatingSystemResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryCurrentOs(ir)
+func (_m *InstanceResource) QueryHost() *HostResourceQuery {
+	return NewInstanceResourceClient(_m.config).QueryHost(_m)
 }
 
 // QueryOs queries the "os" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryOs() *OperatingSystemResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryOs(ir)
+func (_m *InstanceResource) QueryOs() *OperatingSystemResourceQuery {
+	return NewInstanceResourceClient(_m.config).QueryOs(_m)
 }
 
 // QueryWorkloadMembers queries the "workload_members" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryWorkloadMembers() *WorkloadMemberQuery {
-	return NewInstanceResourceClient(ir.config).QueryWorkloadMembers(ir)
+func (_m *InstanceResource) QueryWorkloadMembers() *WorkloadMemberQuery {
+	return NewInstanceResourceClient(_m.config).QueryWorkloadMembers(_m)
 }
 
 // QueryProvider queries the "provider" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryProvider() *ProviderResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryProvider(ir)
+func (_m *InstanceResource) QueryProvider() *ProviderResourceQuery {
+	return NewInstanceResourceClient(_m.config).QueryProvider(_m)
 }
 
 // QueryLocalaccount queries the "localaccount" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryLocalaccount() *LocalAccountResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryLocalaccount(ir)
+func (_m *InstanceResource) QueryLocalaccount() *LocalAccountResourceQuery {
+	return NewInstanceResourceClient(_m.config).QueryLocalaccount(_m)
 }
 
 // QueryOsUpdatePolicy queries the "os_update_policy" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryOsUpdatePolicy(ir)
+func (_m *InstanceResource) QueryOsUpdatePolicy() *OSUpdatePolicyResourceQuery {
+	return NewInstanceResourceClient(_m.config).QueryOsUpdatePolicy(_m)
 }
 
 // QueryCustomConfig queries the "custom_config" edge of the InstanceResource entity.
-func (ir *InstanceResource) QueryCustomConfig() *CustomConfigResourceQuery {
-	return NewInstanceResourceClient(ir.config).QueryCustomConfig(ir)
+func (_m *InstanceResource) QueryCustomConfig() *CustomConfigResourceQuery {
+	return NewInstanceResourceClient(_m.config).QueryCustomConfig(_m)
 }
 
 // Update returns a builder for updating this InstanceResource.
 // Note that you need to call InstanceResource.Unwrap() before calling this method if this InstanceResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (ir *InstanceResource) Update() *InstanceResourceUpdateOne {
-	return NewInstanceResourceClient(ir.config).UpdateOne(ir)
+func (_m *InstanceResource) Update() *InstanceResourceUpdateOne {
+	return NewInstanceResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the InstanceResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (ir *InstanceResource) Unwrap() *InstanceResource {
-	_tx, ok := ir.config.driver.(*txDriver)
+func (_m *InstanceResource) Unwrap() *InstanceResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: InstanceResource is not a transactional entity")
 	}
-	ir.config.driver = _tx.drv
-	return ir
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (ir *InstanceResource) String() string {
+func (_m *InstanceResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("InstanceResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", ir.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(ir.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("kind=")
-	builder.WriteString(fmt.Sprintf("%v", ir.Kind))
+	builder.WriteString(fmt.Sprintf("%v", _m.Kind))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(ir.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("desired_state=")
-	builder.WriteString(fmt.Sprintf("%v", ir.DesiredState))
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredState))
 	builder.WriteString(", ")
 	builder.WriteString("current_state=")
-	builder.WriteString(fmt.Sprintf("%v", ir.CurrentState))
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentState))
 	builder.WriteString(", ")
 	builder.WriteString("vm_memory_bytes=")
-	builder.WriteString(fmt.Sprintf("%v", ir.VMMemoryBytes))
+	builder.WriteString(fmt.Sprintf("%v", _m.VMMemoryBytes))
 	builder.WriteString(", ")
 	builder.WriteString("vm_cpu_cores=")
-	builder.WriteString(fmt.Sprintf("%v", ir.VMCPUCores))
+	builder.WriteString(fmt.Sprintf("%v", _m.VMCPUCores))
 	builder.WriteString(", ")
 	builder.WriteString("vm_storage_bytes=")
-	builder.WriteString(fmt.Sprintf("%v", ir.VMStorageBytes))
+	builder.WriteString(fmt.Sprintf("%v", _m.VMStorageBytes))
 	builder.WriteString(", ")
 	builder.WriteString("security_feature=")
-	builder.WriteString(fmt.Sprintf("%v", ir.SecurityFeature))
+	builder.WriteString(fmt.Sprintf("%v", _m.SecurityFeature))
 	builder.WriteString(", ")
 	builder.WriteString("instance_status=")
-	builder.WriteString(ir.InstanceStatus)
+	builder.WriteString(_m.InstanceStatus)
 	builder.WriteString(", ")
 	builder.WriteString("instance_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", ir.InstanceStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.InstanceStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("instance_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", ir.InstanceStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.InstanceStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("provisioning_status=")
-	builder.WriteString(ir.ProvisioningStatus)
+	builder.WriteString(_m.ProvisioningStatus)
 	builder.WriteString(", ")
 	builder.WriteString("provisioning_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", ir.ProvisioningStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.ProvisioningStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("provisioning_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", ir.ProvisioningStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.ProvisioningStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("update_status=")
-	builder.WriteString(ir.UpdateStatus)
+	builder.WriteString(_m.UpdateStatus)
 	builder.WriteString(", ")
 	builder.WriteString("update_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", ir.UpdateStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.UpdateStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("update_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", ir.UpdateStatusTimestamp))
-	builder.WriteString(", ")
-	builder.WriteString("update_status_detail=")
-	builder.WriteString(ir.UpdateStatusDetail)
+	builder.WriteString(fmt.Sprintf("%v", _m.UpdateStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("trusted_attestation_status=")
-	builder.WriteString(ir.TrustedAttestationStatus)
+	builder.WriteString(_m.TrustedAttestationStatus)
 	builder.WriteString(", ")
 	builder.WriteString("trusted_attestation_status_indicator=")
-	builder.WriteString(fmt.Sprintf("%v", ir.TrustedAttestationStatusIndicator))
+	builder.WriteString(fmt.Sprintf("%v", _m.TrustedAttestationStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("trusted_attestation_status_timestamp=")
-	builder.WriteString(fmt.Sprintf("%v", ir.TrustedAttestationStatusTimestamp))
+	builder.WriteString(fmt.Sprintf("%v", _m.TrustedAttestationStatusTimestamp))
 	builder.WriteString(", ")
 	builder.WriteString("existing_cves=")
-	builder.WriteString(ir.ExistingCves)
+	builder.WriteString(_m.ExistingCves)
 	builder.WriteString(", ")
 	builder.WriteString("runtime_packages=")
-	builder.WriteString(ir.RuntimePackages)
+	builder.WriteString(_m.RuntimePackages)
 	builder.WriteString(", ")
 	builder.WriteString("os_update_available=")
-	builder.WriteString(ir.OsUpdateAvailable)
+	builder.WriteString(_m.OsUpdateAvailable)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(ir.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("instance_status_detail=")
-	builder.WriteString(ir.InstanceStatusDetail)
+	builder.WriteString(_m.InstanceStatusDetail)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(ir.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(ir.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

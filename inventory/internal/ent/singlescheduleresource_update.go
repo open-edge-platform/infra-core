@@ -26,240 +26,240 @@ type SingleScheduleResourceUpdate struct {
 }
 
 // Where appends a list predicates to the SingleScheduleResourceUpdate builder.
-func (ssru *SingleScheduleResourceUpdate) Where(ps ...predicate.SingleScheduleResource) *SingleScheduleResourceUpdate {
-	ssru.mutation.Where(ps...)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) Where(ps ...predicate.SingleScheduleResource) *SingleScheduleResourceUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ssru *SingleScheduleResourceUpdate) SetResourceID(s string) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetResourceID(s)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetResourceID(v string) *SingleScheduleResourceUpdate {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableResourceID(s *string) *SingleScheduleResourceUpdate {
-	if s != nil {
-		ssru.SetResourceID(*s)
+func (_u *SingleScheduleResourceUpdate) SetNillableResourceID(v *string) *SingleScheduleResourceUpdate {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return ssru
+	return _u
 }
 
 // SetScheduleStatus sets the "schedule_status" field.
-func (ssru *SingleScheduleResourceUpdate) SetScheduleStatus(ss singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetScheduleStatus(ss)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetScheduleStatus(v singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdate {
+	_u.mutation.SetScheduleStatus(v)
+	return _u
 }
 
 // SetNillableScheduleStatus sets the "schedule_status" field if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableScheduleStatus(ss *singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdate {
-	if ss != nil {
-		ssru.SetScheduleStatus(*ss)
+func (_u *SingleScheduleResourceUpdate) SetNillableScheduleStatus(v *singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdate {
+	if v != nil {
+		_u.SetScheduleStatus(*v)
 	}
-	return ssru
+	return _u
 }
 
 // ClearScheduleStatus clears the value of the "schedule_status" field.
-func (ssru *SingleScheduleResourceUpdate) ClearScheduleStatus() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearScheduleStatus()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearScheduleStatus() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearScheduleStatus()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (ssru *SingleScheduleResourceUpdate) SetName(s string) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetName(s)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetName(v string) *SingleScheduleResourceUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableName(s *string) *SingleScheduleResourceUpdate {
-	if s != nil {
-		ssru.SetName(*s)
+func (_u *SingleScheduleResourceUpdate) SetNillableName(v *string) *SingleScheduleResourceUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return ssru
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (ssru *SingleScheduleResourceUpdate) ClearName() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearName()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearName() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetStartSeconds sets the "start_seconds" field.
-func (ssru *SingleScheduleResourceUpdate) SetStartSeconds(u uint64) *SingleScheduleResourceUpdate {
-	ssru.mutation.ResetStartSeconds()
-	ssru.mutation.SetStartSeconds(u)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetStartSeconds(v uint64) *SingleScheduleResourceUpdate {
+	_u.mutation.ResetStartSeconds()
+	_u.mutation.SetStartSeconds(v)
+	return _u
 }
 
 // SetNillableStartSeconds sets the "start_seconds" field if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableStartSeconds(u *uint64) *SingleScheduleResourceUpdate {
-	if u != nil {
-		ssru.SetStartSeconds(*u)
+func (_u *SingleScheduleResourceUpdate) SetNillableStartSeconds(v *uint64) *SingleScheduleResourceUpdate {
+	if v != nil {
+		_u.SetStartSeconds(*v)
 	}
-	return ssru
+	return _u
 }
 
-// AddStartSeconds adds u to the "start_seconds" field.
-func (ssru *SingleScheduleResourceUpdate) AddStartSeconds(u int64) *SingleScheduleResourceUpdate {
-	ssru.mutation.AddStartSeconds(u)
-	return ssru
+// AddStartSeconds adds value to the "start_seconds" field.
+func (_u *SingleScheduleResourceUpdate) AddStartSeconds(v int64) *SingleScheduleResourceUpdate {
+	_u.mutation.AddStartSeconds(v)
+	return _u
 }
 
 // SetEndSeconds sets the "end_seconds" field.
-func (ssru *SingleScheduleResourceUpdate) SetEndSeconds(u uint64) *SingleScheduleResourceUpdate {
-	ssru.mutation.ResetEndSeconds()
-	ssru.mutation.SetEndSeconds(u)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetEndSeconds(v uint64) *SingleScheduleResourceUpdate {
+	_u.mutation.ResetEndSeconds()
+	_u.mutation.SetEndSeconds(v)
+	return _u
 }
 
 // SetNillableEndSeconds sets the "end_seconds" field if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableEndSeconds(u *uint64) *SingleScheduleResourceUpdate {
-	if u != nil {
-		ssru.SetEndSeconds(*u)
+func (_u *SingleScheduleResourceUpdate) SetNillableEndSeconds(v *uint64) *SingleScheduleResourceUpdate {
+	if v != nil {
+		_u.SetEndSeconds(*v)
 	}
-	return ssru
+	return _u
 }
 
-// AddEndSeconds adds u to the "end_seconds" field.
-func (ssru *SingleScheduleResourceUpdate) AddEndSeconds(u int64) *SingleScheduleResourceUpdate {
-	ssru.mutation.AddEndSeconds(u)
-	return ssru
+// AddEndSeconds adds value to the "end_seconds" field.
+func (_u *SingleScheduleResourceUpdate) AddEndSeconds(v int64) *SingleScheduleResourceUpdate {
+	_u.mutation.AddEndSeconds(v)
+	return _u
 }
 
 // ClearEndSeconds clears the value of the "end_seconds" field.
-func (ssru *SingleScheduleResourceUpdate) ClearEndSeconds() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearEndSeconds()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearEndSeconds() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearEndSeconds()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ssru *SingleScheduleResourceUpdate) SetUpdatedAt(s string) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetUpdatedAt(s)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetUpdatedAt(v string) *SingleScheduleResourceUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableUpdatedAt(s *string) *SingleScheduleResourceUpdate {
-	if s != nil {
-		ssru.SetUpdatedAt(*s)
+func (_u *SingleScheduleResourceUpdate) SetNillableUpdatedAt(v *string) *SingleScheduleResourceUpdate {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return ssru
+	return _u
 }
 
 // SetTargetSiteID sets the "target_site" edge to the SiteResource entity by ID.
-func (ssru *SingleScheduleResourceUpdate) SetTargetSiteID(id int) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetTargetSiteID(id)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetTargetSiteID(id int) *SingleScheduleResourceUpdate {
+	_u.mutation.SetTargetSiteID(id)
+	return _u
 }
 
 // SetNillableTargetSiteID sets the "target_site" edge to the SiteResource entity by ID if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableTargetSiteID(id *int) *SingleScheduleResourceUpdate {
+func (_u *SingleScheduleResourceUpdate) SetNillableTargetSiteID(id *int) *SingleScheduleResourceUpdate {
 	if id != nil {
-		ssru = ssru.SetTargetSiteID(*id)
+		_u = _u.SetTargetSiteID(*id)
 	}
-	return ssru
+	return _u
 }
 
 // SetTargetSite sets the "target_site" edge to the SiteResource entity.
-func (ssru *SingleScheduleResourceUpdate) SetTargetSite(s *SiteResource) *SingleScheduleResourceUpdate {
-	return ssru.SetTargetSiteID(s.ID)
+func (_u *SingleScheduleResourceUpdate) SetTargetSite(v *SiteResource) *SingleScheduleResourceUpdate {
+	return _u.SetTargetSiteID(v.ID)
 }
 
 // SetTargetHostID sets the "target_host" edge to the HostResource entity by ID.
-func (ssru *SingleScheduleResourceUpdate) SetTargetHostID(id int) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetTargetHostID(id)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetTargetHostID(id int) *SingleScheduleResourceUpdate {
+	_u.mutation.SetTargetHostID(id)
+	return _u
 }
 
 // SetNillableTargetHostID sets the "target_host" edge to the HostResource entity by ID if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableTargetHostID(id *int) *SingleScheduleResourceUpdate {
+func (_u *SingleScheduleResourceUpdate) SetNillableTargetHostID(id *int) *SingleScheduleResourceUpdate {
 	if id != nil {
-		ssru = ssru.SetTargetHostID(*id)
+		_u = _u.SetTargetHostID(*id)
 	}
-	return ssru
+	return _u
 }
 
 // SetTargetHost sets the "target_host" edge to the HostResource entity.
-func (ssru *SingleScheduleResourceUpdate) SetTargetHost(h *HostResource) *SingleScheduleResourceUpdate {
-	return ssru.SetTargetHostID(h.ID)
+func (_u *SingleScheduleResourceUpdate) SetTargetHost(v *HostResource) *SingleScheduleResourceUpdate {
+	return _u.SetTargetHostID(v.ID)
 }
 
 // SetTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID.
-func (ssru *SingleScheduleResourceUpdate) SetTargetWorkloadID(id int) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetTargetWorkloadID(id)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetTargetWorkloadID(id int) *SingleScheduleResourceUpdate {
+	_u.mutation.SetTargetWorkloadID(id)
+	return _u
 }
 
 // SetNillableTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableTargetWorkloadID(id *int) *SingleScheduleResourceUpdate {
+func (_u *SingleScheduleResourceUpdate) SetNillableTargetWorkloadID(id *int) *SingleScheduleResourceUpdate {
 	if id != nil {
-		ssru = ssru.SetTargetWorkloadID(*id)
+		_u = _u.SetTargetWorkloadID(*id)
 	}
-	return ssru
+	return _u
 }
 
 // SetTargetWorkload sets the "target_workload" edge to the WorkloadResource entity.
-func (ssru *SingleScheduleResourceUpdate) SetTargetWorkload(w *WorkloadResource) *SingleScheduleResourceUpdate {
-	return ssru.SetTargetWorkloadID(w.ID)
+func (_u *SingleScheduleResourceUpdate) SetTargetWorkload(v *WorkloadResource) *SingleScheduleResourceUpdate {
+	return _u.SetTargetWorkloadID(v.ID)
 }
 
 // SetTargetRegionID sets the "target_region" edge to the RegionResource entity by ID.
-func (ssru *SingleScheduleResourceUpdate) SetTargetRegionID(id int) *SingleScheduleResourceUpdate {
-	ssru.mutation.SetTargetRegionID(id)
-	return ssru
+func (_u *SingleScheduleResourceUpdate) SetTargetRegionID(id int) *SingleScheduleResourceUpdate {
+	_u.mutation.SetTargetRegionID(id)
+	return _u
 }
 
 // SetNillableTargetRegionID sets the "target_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (ssru *SingleScheduleResourceUpdate) SetNillableTargetRegionID(id *int) *SingleScheduleResourceUpdate {
+func (_u *SingleScheduleResourceUpdate) SetNillableTargetRegionID(id *int) *SingleScheduleResourceUpdate {
 	if id != nil {
-		ssru = ssru.SetTargetRegionID(*id)
+		_u = _u.SetTargetRegionID(*id)
 	}
-	return ssru
+	return _u
 }
 
 // SetTargetRegion sets the "target_region" edge to the RegionResource entity.
-func (ssru *SingleScheduleResourceUpdate) SetTargetRegion(r *RegionResource) *SingleScheduleResourceUpdate {
-	return ssru.SetTargetRegionID(r.ID)
+func (_u *SingleScheduleResourceUpdate) SetTargetRegion(v *RegionResource) *SingleScheduleResourceUpdate {
+	return _u.SetTargetRegionID(v.ID)
 }
 
 // Mutation returns the SingleScheduleResourceMutation object of the builder.
-func (ssru *SingleScheduleResourceUpdate) Mutation() *SingleScheduleResourceMutation {
-	return ssru.mutation
+func (_u *SingleScheduleResourceUpdate) Mutation() *SingleScheduleResourceMutation {
+	return _u.mutation
 }
 
 // ClearTargetSite clears the "target_site" edge to the SiteResource entity.
-func (ssru *SingleScheduleResourceUpdate) ClearTargetSite() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearTargetSite()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearTargetSite() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearTargetSite()
+	return _u
 }
 
 // ClearTargetHost clears the "target_host" edge to the HostResource entity.
-func (ssru *SingleScheduleResourceUpdate) ClearTargetHost() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearTargetHost()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearTargetHost() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearTargetHost()
+	return _u
 }
 
 // ClearTargetWorkload clears the "target_workload" edge to the WorkloadResource entity.
-func (ssru *SingleScheduleResourceUpdate) ClearTargetWorkload() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearTargetWorkload()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearTargetWorkload() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearTargetWorkload()
+	return _u
 }
 
 // ClearTargetRegion clears the "target_region" edge to the RegionResource entity.
-func (ssru *SingleScheduleResourceUpdate) ClearTargetRegion() *SingleScheduleResourceUpdate {
-	ssru.mutation.ClearTargetRegion()
-	return ssru
+func (_u *SingleScheduleResourceUpdate) ClearTargetRegion() *SingleScheduleResourceUpdate {
+	_u.mutation.ClearTargetRegion()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (ssru *SingleScheduleResourceUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, ssru.sqlSave, ssru.mutation, ssru.hooks)
+func (_u *SingleScheduleResourceUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ssru *SingleScheduleResourceUpdate) SaveX(ctx context.Context) int {
-	affected, err := ssru.Save(ctx)
+func (_u *SingleScheduleResourceUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -267,21 +267,21 @@ func (ssru *SingleScheduleResourceUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (ssru *SingleScheduleResourceUpdate) Exec(ctx context.Context) error {
-	_, err := ssru.Save(ctx)
+func (_u *SingleScheduleResourceUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ssru *SingleScheduleResourceUpdate) ExecX(ctx context.Context) {
-	if err := ssru.Exec(ctx); err != nil {
+func (_u *SingleScheduleResourceUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ssru *SingleScheduleResourceUpdate) check() error {
-	if v, ok := ssru.mutation.ScheduleStatus(); ok {
+func (_u *SingleScheduleResourceUpdate) check() error {
+	if v, ok := _u.mutation.ScheduleStatus(); ok {
 		if err := singlescheduleresource.ScheduleStatusValidator(v); err != nil {
 			return &ValidationError{Name: "schedule_status", err: fmt.Errorf(`ent: validator failed for field "SingleScheduleResource.schedule_status": %w`, err)}
 		}
@@ -289,52 +289,52 @@ func (ssru *SingleScheduleResourceUpdate) check() error {
 	return nil
 }
 
-func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := ssru.check(); err != nil {
-		return n, err
+func (_u *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(singlescheduleresource.Table, singlescheduleresource.Columns, sqlgraph.NewFieldSpec(singlescheduleresource.FieldID, field.TypeInt))
-	if ps := ssru.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ssru.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(singlescheduleresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := ssru.mutation.ScheduleStatus(); ok {
+	if value, ok := _u.mutation.ScheduleStatus(); ok {
 		_spec.SetField(singlescheduleresource.FieldScheduleStatus, field.TypeEnum, value)
 	}
-	if ssru.mutation.ScheduleStatusCleared() {
+	if _u.mutation.ScheduleStatusCleared() {
 		_spec.ClearField(singlescheduleresource.FieldScheduleStatus, field.TypeEnum)
 	}
-	if value, ok := ssru.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(singlescheduleresource.FieldName, field.TypeString, value)
 	}
-	if ssru.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(singlescheduleresource.FieldName, field.TypeString)
 	}
-	if value, ok := ssru.mutation.StartSeconds(); ok {
+	if value, ok := _u.mutation.StartSeconds(); ok {
 		_spec.SetField(singlescheduleresource.FieldStartSeconds, field.TypeUint64, value)
 	}
-	if value, ok := ssru.mutation.AddedStartSeconds(); ok {
+	if value, ok := _u.mutation.AddedStartSeconds(); ok {
 		_spec.AddField(singlescheduleresource.FieldStartSeconds, field.TypeUint64, value)
 	}
-	if value, ok := ssru.mutation.EndSeconds(); ok {
+	if value, ok := _u.mutation.EndSeconds(); ok {
 		_spec.SetField(singlescheduleresource.FieldEndSeconds, field.TypeUint64, value)
 	}
-	if value, ok := ssru.mutation.AddedEndSeconds(); ok {
+	if value, ok := _u.mutation.AddedEndSeconds(); ok {
 		_spec.AddField(singlescheduleresource.FieldEndSeconds, field.TypeUint64, value)
 	}
-	if ssru.mutation.EndSecondsCleared() {
+	if _u.mutation.EndSecondsCleared() {
 		_spec.ClearField(singlescheduleresource.FieldEndSeconds, field.TypeUint64)
 	}
-	if value, ok := ssru.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(singlescheduleresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if ssru.mutation.TargetSiteCleared() {
+	if _u.mutation.TargetSiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -347,7 +347,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssru.mutation.TargetSiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetSiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -363,7 +363,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ssru.mutation.TargetHostCleared() {
+	if _u.mutation.TargetHostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -376,7 +376,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssru.mutation.TargetHostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetHostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -392,7 +392,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ssru.mutation.TargetWorkloadCleared() {
+	if _u.mutation.TargetWorkloadCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -405,7 +405,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssru.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -421,7 +421,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ssru.mutation.TargetRegionCleared() {
+	if _u.mutation.TargetRegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -434,7 +434,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssru.mutation.TargetRegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -450,7 +450,7 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, ssru.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{singlescheduleresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -458,8 +458,8 @@ func (ssru *SingleScheduleResourceUpdate) sqlSave(ctx context.Context) (n int, e
 		}
 		return 0, err
 	}
-	ssru.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // SingleScheduleResourceUpdateOne is the builder for updating a single SingleScheduleResource entity.
@@ -471,247 +471,247 @@ type SingleScheduleResourceUpdateOne struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ssruo *SingleScheduleResourceUpdateOne) SetResourceID(s string) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetResourceID(s)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetResourceID(v string) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetResourceID(v)
+	return _u
 }
 
 // SetNillableResourceID sets the "resource_id" field if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableResourceID(s *string) *SingleScheduleResourceUpdateOne {
-	if s != nil {
-		ssruo.SetResourceID(*s)
+func (_u *SingleScheduleResourceUpdateOne) SetNillableResourceID(v *string) *SingleScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetResourceID(*v)
 	}
-	return ssruo
+	return _u
 }
 
 // SetScheduleStatus sets the "schedule_status" field.
-func (ssruo *SingleScheduleResourceUpdateOne) SetScheduleStatus(ss singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetScheduleStatus(ss)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetScheduleStatus(v singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetScheduleStatus(v)
+	return _u
 }
 
 // SetNillableScheduleStatus sets the "schedule_status" field if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableScheduleStatus(ss *singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdateOne {
-	if ss != nil {
-		ssruo.SetScheduleStatus(*ss)
+func (_u *SingleScheduleResourceUpdateOne) SetNillableScheduleStatus(v *singlescheduleresource.ScheduleStatus) *SingleScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetScheduleStatus(*v)
 	}
-	return ssruo
+	return _u
 }
 
 // ClearScheduleStatus clears the value of the "schedule_status" field.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearScheduleStatus() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearScheduleStatus()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearScheduleStatus() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearScheduleStatus()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (ssruo *SingleScheduleResourceUpdateOne) SetName(s string) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetName(s)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetName(v string) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableName(s *string) *SingleScheduleResourceUpdateOne {
-	if s != nil {
-		ssruo.SetName(*s)
+func (_u *SingleScheduleResourceUpdateOne) SetNillableName(v *string) *SingleScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return ssruo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearName() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearName()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearName() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetStartSeconds sets the "start_seconds" field.
-func (ssruo *SingleScheduleResourceUpdateOne) SetStartSeconds(u uint64) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ResetStartSeconds()
-	ssruo.mutation.SetStartSeconds(u)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetStartSeconds(v uint64) *SingleScheduleResourceUpdateOne {
+	_u.mutation.ResetStartSeconds()
+	_u.mutation.SetStartSeconds(v)
+	return _u
 }
 
 // SetNillableStartSeconds sets the "start_seconds" field if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableStartSeconds(u *uint64) *SingleScheduleResourceUpdateOne {
-	if u != nil {
-		ssruo.SetStartSeconds(*u)
+func (_u *SingleScheduleResourceUpdateOne) SetNillableStartSeconds(v *uint64) *SingleScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetStartSeconds(*v)
 	}
-	return ssruo
+	return _u
 }
 
-// AddStartSeconds adds u to the "start_seconds" field.
-func (ssruo *SingleScheduleResourceUpdateOne) AddStartSeconds(u int64) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.AddStartSeconds(u)
-	return ssruo
+// AddStartSeconds adds value to the "start_seconds" field.
+func (_u *SingleScheduleResourceUpdateOne) AddStartSeconds(v int64) *SingleScheduleResourceUpdateOne {
+	_u.mutation.AddStartSeconds(v)
+	return _u
 }
 
 // SetEndSeconds sets the "end_seconds" field.
-func (ssruo *SingleScheduleResourceUpdateOne) SetEndSeconds(u uint64) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ResetEndSeconds()
-	ssruo.mutation.SetEndSeconds(u)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetEndSeconds(v uint64) *SingleScheduleResourceUpdateOne {
+	_u.mutation.ResetEndSeconds()
+	_u.mutation.SetEndSeconds(v)
+	return _u
 }
 
 // SetNillableEndSeconds sets the "end_seconds" field if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableEndSeconds(u *uint64) *SingleScheduleResourceUpdateOne {
-	if u != nil {
-		ssruo.SetEndSeconds(*u)
+func (_u *SingleScheduleResourceUpdateOne) SetNillableEndSeconds(v *uint64) *SingleScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetEndSeconds(*v)
 	}
-	return ssruo
+	return _u
 }
 
-// AddEndSeconds adds u to the "end_seconds" field.
-func (ssruo *SingleScheduleResourceUpdateOne) AddEndSeconds(u int64) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.AddEndSeconds(u)
-	return ssruo
+// AddEndSeconds adds value to the "end_seconds" field.
+func (_u *SingleScheduleResourceUpdateOne) AddEndSeconds(v int64) *SingleScheduleResourceUpdateOne {
+	_u.mutation.AddEndSeconds(v)
+	return _u
 }
 
 // ClearEndSeconds clears the value of the "end_seconds" field.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearEndSeconds() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearEndSeconds()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearEndSeconds() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearEndSeconds()
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ssruo *SingleScheduleResourceUpdateOne) SetUpdatedAt(s string) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetUpdatedAt(s)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetUpdatedAt(v string) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableUpdatedAt(s *string) *SingleScheduleResourceUpdateOne {
-	if s != nil {
-		ssruo.SetUpdatedAt(*s)
+func (_u *SingleScheduleResourceUpdateOne) SetNillableUpdatedAt(v *string) *SingleScheduleResourceUpdateOne {
+	if v != nil {
+		_u.SetUpdatedAt(*v)
 	}
-	return ssruo
+	return _u
 }
 
 // SetTargetSiteID sets the "target_site" edge to the SiteResource entity by ID.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetSiteID(id int) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetTargetSiteID(id)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetTargetSiteID(id int) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetTargetSiteID(id)
+	return _u
 }
 
 // SetNillableTargetSiteID sets the "target_site" edge to the SiteResource entity by ID if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableTargetSiteID(id *int) *SingleScheduleResourceUpdateOne {
+func (_u *SingleScheduleResourceUpdateOne) SetNillableTargetSiteID(id *int) *SingleScheduleResourceUpdateOne {
 	if id != nil {
-		ssruo = ssruo.SetTargetSiteID(*id)
+		_u = _u.SetTargetSiteID(*id)
 	}
-	return ssruo
+	return _u
 }
 
 // SetTargetSite sets the "target_site" edge to the SiteResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetSite(s *SiteResource) *SingleScheduleResourceUpdateOne {
-	return ssruo.SetTargetSiteID(s.ID)
+func (_u *SingleScheduleResourceUpdateOne) SetTargetSite(v *SiteResource) *SingleScheduleResourceUpdateOne {
+	return _u.SetTargetSiteID(v.ID)
 }
 
 // SetTargetHostID sets the "target_host" edge to the HostResource entity by ID.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetHostID(id int) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetTargetHostID(id)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetTargetHostID(id int) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetTargetHostID(id)
+	return _u
 }
 
 // SetNillableTargetHostID sets the "target_host" edge to the HostResource entity by ID if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableTargetHostID(id *int) *SingleScheduleResourceUpdateOne {
+func (_u *SingleScheduleResourceUpdateOne) SetNillableTargetHostID(id *int) *SingleScheduleResourceUpdateOne {
 	if id != nil {
-		ssruo = ssruo.SetTargetHostID(*id)
+		_u = _u.SetTargetHostID(*id)
 	}
-	return ssruo
+	return _u
 }
 
 // SetTargetHost sets the "target_host" edge to the HostResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetHost(h *HostResource) *SingleScheduleResourceUpdateOne {
-	return ssruo.SetTargetHostID(h.ID)
+func (_u *SingleScheduleResourceUpdateOne) SetTargetHost(v *HostResource) *SingleScheduleResourceUpdateOne {
+	return _u.SetTargetHostID(v.ID)
 }
 
 // SetTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetWorkloadID(id int) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetTargetWorkloadID(id)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetTargetWorkloadID(id int) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetTargetWorkloadID(id)
+	return _u
 }
 
 // SetNillableTargetWorkloadID sets the "target_workload" edge to the WorkloadResource entity by ID if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableTargetWorkloadID(id *int) *SingleScheduleResourceUpdateOne {
+func (_u *SingleScheduleResourceUpdateOne) SetNillableTargetWorkloadID(id *int) *SingleScheduleResourceUpdateOne {
 	if id != nil {
-		ssruo = ssruo.SetTargetWorkloadID(*id)
+		_u = _u.SetTargetWorkloadID(*id)
 	}
-	return ssruo
+	return _u
 }
 
 // SetTargetWorkload sets the "target_workload" edge to the WorkloadResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetWorkload(w *WorkloadResource) *SingleScheduleResourceUpdateOne {
-	return ssruo.SetTargetWorkloadID(w.ID)
+func (_u *SingleScheduleResourceUpdateOne) SetTargetWorkload(v *WorkloadResource) *SingleScheduleResourceUpdateOne {
+	return _u.SetTargetWorkloadID(v.ID)
 }
 
 // SetTargetRegionID sets the "target_region" edge to the RegionResource entity by ID.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetRegionID(id int) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.SetTargetRegionID(id)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) SetTargetRegionID(id int) *SingleScheduleResourceUpdateOne {
+	_u.mutation.SetTargetRegionID(id)
+	return _u
 }
 
 // SetNillableTargetRegionID sets the "target_region" edge to the RegionResource entity by ID if the given value is not nil.
-func (ssruo *SingleScheduleResourceUpdateOne) SetNillableTargetRegionID(id *int) *SingleScheduleResourceUpdateOne {
+func (_u *SingleScheduleResourceUpdateOne) SetNillableTargetRegionID(id *int) *SingleScheduleResourceUpdateOne {
 	if id != nil {
-		ssruo = ssruo.SetTargetRegionID(*id)
+		_u = _u.SetTargetRegionID(*id)
 	}
-	return ssruo
+	return _u
 }
 
 // SetTargetRegion sets the "target_region" edge to the RegionResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) SetTargetRegion(r *RegionResource) *SingleScheduleResourceUpdateOne {
-	return ssruo.SetTargetRegionID(r.ID)
+func (_u *SingleScheduleResourceUpdateOne) SetTargetRegion(v *RegionResource) *SingleScheduleResourceUpdateOne {
+	return _u.SetTargetRegionID(v.ID)
 }
 
 // Mutation returns the SingleScheduleResourceMutation object of the builder.
-func (ssruo *SingleScheduleResourceUpdateOne) Mutation() *SingleScheduleResourceMutation {
-	return ssruo.mutation
+func (_u *SingleScheduleResourceUpdateOne) Mutation() *SingleScheduleResourceMutation {
+	return _u.mutation
 }
 
 // ClearTargetSite clears the "target_site" edge to the SiteResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearTargetSite() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearTargetSite()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearTargetSite() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetSite()
+	return _u
 }
 
 // ClearTargetHost clears the "target_host" edge to the HostResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearTargetHost() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearTargetHost()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearTargetHost() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetHost()
+	return _u
 }
 
 // ClearTargetWorkload clears the "target_workload" edge to the WorkloadResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearTargetWorkload() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearTargetWorkload()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearTargetWorkload() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetWorkload()
+	return _u
 }
 
 // ClearTargetRegion clears the "target_region" edge to the RegionResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) ClearTargetRegion() *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.ClearTargetRegion()
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) ClearTargetRegion() *SingleScheduleResourceUpdateOne {
+	_u.mutation.ClearTargetRegion()
+	return _u
 }
 
 // Where appends a list predicates to the SingleScheduleResourceUpdate builder.
-func (ssruo *SingleScheduleResourceUpdateOne) Where(ps ...predicate.SingleScheduleResource) *SingleScheduleResourceUpdateOne {
-	ssruo.mutation.Where(ps...)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) Where(ps ...predicate.SingleScheduleResource) *SingleScheduleResourceUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (ssruo *SingleScheduleResourceUpdateOne) Select(field string, fields ...string) *SingleScheduleResourceUpdateOne {
-	ssruo.fields = append([]string{field}, fields...)
-	return ssruo
+func (_u *SingleScheduleResourceUpdateOne) Select(field string, fields ...string) *SingleScheduleResourceUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated SingleScheduleResource entity.
-func (ssruo *SingleScheduleResourceUpdateOne) Save(ctx context.Context) (*SingleScheduleResource, error) {
-	return withHooks(ctx, ssruo.sqlSave, ssruo.mutation, ssruo.hooks)
+func (_u *SingleScheduleResourceUpdateOne) Save(ctx context.Context) (*SingleScheduleResource, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ssruo *SingleScheduleResourceUpdateOne) SaveX(ctx context.Context) *SingleScheduleResource {
-	node, err := ssruo.Save(ctx)
+func (_u *SingleScheduleResourceUpdateOne) SaveX(ctx context.Context) *SingleScheduleResource {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -719,21 +719,21 @@ func (ssruo *SingleScheduleResourceUpdateOne) SaveX(ctx context.Context) *Single
 }
 
 // Exec executes the query on the entity.
-func (ssruo *SingleScheduleResourceUpdateOne) Exec(ctx context.Context) error {
-	_, err := ssruo.Save(ctx)
+func (_u *SingleScheduleResourceUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ssruo *SingleScheduleResourceUpdateOne) ExecX(ctx context.Context) {
-	if err := ssruo.Exec(ctx); err != nil {
+func (_u *SingleScheduleResourceUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ssruo *SingleScheduleResourceUpdateOne) check() error {
-	if v, ok := ssruo.mutation.ScheduleStatus(); ok {
+func (_u *SingleScheduleResourceUpdateOne) check() error {
+	if v, ok := _u.mutation.ScheduleStatus(); ok {
 		if err := singlescheduleresource.ScheduleStatusValidator(v); err != nil {
 			return &ValidationError{Name: "schedule_status", err: fmt.Errorf(`ent: validator failed for field "SingleScheduleResource.schedule_status": %w`, err)}
 		}
@@ -741,17 +741,17 @@ func (ssruo *SingleScheduleResourceUpdateOne) check() error {
 	return nil
 }
 
-func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_node *SingleScheduleResource, err error) {
-	if err := ssruo.check(); err != nil {
+func (_u *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_node *SingleScheduleResource, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(singlescheduleresource.Table, singlescheduleresource.Columns, sqlgraph.NewFieldSpec(singlescheduleresource.FieldID, field.TypeInt))
-	id, ok := ssruo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "SingleScheduleResource.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := ssruo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, singlescheduleresource.FieldID)
 		for _, f := range fields {
@@ -763,47 +763,47 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 			}
 		}
 	}
-	if ps := ssruo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ssruo.mutation.ResourceID(); ok {
+	if value, ok := _u.mutation.ResourceID(); ok {
 		_spec.SetField(singlescheduleresource.FieldResourceID, field.TypeString, value)
 	}
-	if value, ok := ssruo.mutation.ScheduleStatus(); ok {
+	if value, ok := _u.mutation.ScheduleStatus(); ok {
 		_spec.SetField(singlescheduleresource.FieldScheduleStatus, field.TypeEnum, value)
 	}
-	if ssruo.mutation.ScheduleStatusCleared() {
+	if _u.mutation.ScheduleStatusCleared() {
 		_spec.ClearField(singlescheduleresource.FieldScheduleStatus, field.TypeEnum)
 	}
-	if value, ok := ssruo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(singlescheduleresource.FieldName, field.TypeString, value)
 	}
-	if ssruo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(singlescheduleresource.FieldName, field.TypeString)
 	}
-	if value, ok := ssruo.mutation.StartSeconds(); ok {
+	if value, ok := _u.mutation.StartSeconds(); ok {
 		_spec.SetField(singlescheduleresource.FieldStartSeconds, field.TypeUint64, value)
 	}
-	if value, ok := ssruo.mutation.AddedStartSeconds(); ok {
+	if value, ok := _u.mutation.AddedStartSeconds(); ok {
 		_spec.AddField(singlescheduleresource.FieldStartSeconds, field.TypeUint64, value)
 	}
-	if value, ok := ssruo.mutation.EndSeconds(); ok {
+	if value, ok := _u.mutation.EndSeconds(); ok {
 		_spec.SetField(singlescheduleresource.FieldEndSeconds, field.TypeUint64, value)
 	}
-	if value, ok := ssruo.mutation.AddedEndSeconds(); ok {
+	if value, ok := _u.mutation.AddedEndSeconds(); ok {
 		_spec.AddField(singlescheduleresource.FieldEndSeconds, field.TypeUint64, value)
 	}
-	if ssruo.mutation.EndSecondsCleared() {
+	if _u.mutation.EndSecondsCleared() {
 		_spec.ClearField(singlescheduleresource.FieldEndSeconds, field.TypeUint64)
 	}
-	if value, ok := ssruo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(singlescheduleresource.FieldUpdatedAt, field.TypeString, value)
 	}
-	if ssruo.mutation.TargetSiteCleared() {
+	if _u.mutation.TargetSiteCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -816,7 +816,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssruo.mutation.TargetSiteIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetSiteIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -832,7 +832,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ssruo.mutation.TargetHostCleared() {
+	if _u.mutation.TargetHostCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -845,7 +845,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssruo.mutation.TargetHostIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetHostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -861,7 +861,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ssruo.mutation.TargetWorkloadCleared() {
+	if _u.mutation.TargetWorkloadCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -874,7 +874,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssruo.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetWorkloadIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -890,7 +890,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ssruo.mutation.TargetRegionCleared() {
+	if _u.mutation.TargetRegionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -903,7 +903,7 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ssruo.mutation.TargetRegionIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TargetRegionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -919,10 +919,10 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &SingleScheduleResource{config: ssruo.config}
+	_node = &SingleScheduleResource{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, ssruo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{singlescheduleresource.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -930,6 +930,6 @@ func (ssruo *SingleScheduleResourceUpdateOne) sqlSave(ctx context.Context) (_nod
 		}
 		return nil, err
 	}
-	ssruo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

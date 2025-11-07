@@ -23,12 +23,12 @@ type OSUpdatePolicyResource struct {
 	Name string `json:"name,omitempty"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty"`
-	// InstallPackages holds the value of the "install_packages" field.
-	InstallPackages string `json:"install_packages,omitempty"`
 	// UpdateSources holds the value of the "update_sources" field.
 	UpdateSources string `json:"update_sources,omitempty"`
-	// KernelCommand holds the value of the "kernel_command" field.
-	KernelCommand string `json:"kernel_command,omitempty"`
+	// UpdatePackages holds the value of the "update_packages" field.
+	UpdatePackages string `json:"update_packages,omitempty"`
+	// UpdateKernelCommand holds the value of the "update_kernel_command" field.
+	UpdateKernelCommand string `json:"update_kernel_command,omitempty"`
 	// UpdatePolicy holds the value of the "update_policy" field.
 	UpdatePolicy osupdatepolicyresource.UpdatePolicy `json:"update_policy,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
@@ -71,7 +71,7 @@ func (*OSUpdatePolicyResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case osupdatepolicyresource.FieldID:
 			values[i] = new(sql.NullInt64)
-		case osupdatepolicyresource.FieldResourceID, osupdatepolicyresource.FieldName, osupdatepolicyresource.FieldDescription, osupdatepolicyresource.FieldInstallPackages, osupdatepolicyresource.FieldUpdateSources, osupdatepolicyresource.FieldKernelCommand, osupdatepolicyresource.FieldUpdatePolicy, osupdatepolicyresource.FieldTenantID, osupdatepolicyresource.FieldCreatedAt, osupdatepolicyresource.FieldUpdatedAt:
+		case osupdatepolicyresource.FieldResourceID, osupdatepolicyresource.FieldName, osupdatepolicyresource.FieldDescription, osupdatepolicyresource.FieldUpdateSources, osupdatepolicyresource.FieldUpdatePackages, osupdatepolicyresource.FieldUpdateKernelCommand, osupdatepolicyresource.FieldUpdatePolicy, osupdatepolicyresource.FieldTenantID, osupdatepolicyresource.FieldCreatedAt, osupdatepolicyresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case osupdatepolicyresource.ForeignKeys[0]: // os_update_policy_resource_target_os
 			values[i] = new(sql.NullInt64)
@@ -84,7 +84,7 @@ func (*OSUpdatePolicyResource) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the OSUpdatePolicyResource fields.
-func (oupr *OSUpdatePolicyResource) assignValues(columns []string, values []any) error {
+func (_m *OSUpdatePolicyResource) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -95,76 +95,76 @@ func (oupr *OSUpdatePolicyResource) assignValues(columns []string, values []any)
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			oupr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case osupdatepolicyresource.FieldResourceID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field resource_id", values[i])
 			} else if value.Valid {
-				oupr.ResourceID = value.String
+				_m.ResourceID = value.String
 			}
 		case osupdatepolicyresource.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				oupr.Name = value.String
+				_m.Name = value.String
 			}
 		case osupdatepolicyresource.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				oupr.Description = value.String
-			}
-		case osupdatepolicyresource.FieldInstallPackages:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field install_packages", values[i])
-			} else if value.Valid {
-				oupr.InstallPackages = value.String
+				_m.Description = value.String
 			}
 		case osupdatepolicyresource.FieldUpdateSources:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_sources", values[i])
 			} else if value.Valid {
-				oupr.UpdateSources = value.String
+				_m.UpdateSources = value.String
 			}
-		case osupdatepolicyresource.FieldKernelCommand:
+		case osupdatepolicyresource.FieldUpdatePackages:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field kernel_command", values[i])
+				return fmt.Errorf("unexpected type %T for field update_packages", values[i])
 			} else if value.Valid {
-				oupr.KernelCommand = value.String
+				_m.UpdatePackages = value.String
+			}
+		case osupdatepolicyresource.FieldUpdateKernelCommand:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field update_kernel_command", values[i])
+			} else if value.Valid {
+				_m.UpdateKernelCommand = value.String
 			}
 		case osupdatepolicyresource.FieldUpdatePolicy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field update_policy", values[i])
 			} else if value.Valid {
-				oupr.UpdatePolicy = osupdatepolicyresource.UpdatePolicy(value.String)
+				_m.UpdatePolicy = osupdatepolicyresource.UpdatePolicy(value.String)
 			}
 		case osupdatepolicyresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
 			} else if value.Valid {
-				oupr.TenantID = value.String
+				_m.TenantID = value.String
 			}
 		case osupdatepolicyresource.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				oupr.CreatedAt = value.String
+				_m.CreatedAt = value.String
 			}
 		case osupdatepolicyresource.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				oupr.UpdatedAt = value.String
+				_m.UpdatedAt = value.String
 			}
 		case osupdatepolicyresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field os_update_policy_resource_target_os", value)
 			} else if value.Valid {
-				oupr.os_update_policy_resource_target_os = new(int)
-				*oupr.os_update_policy_resource_target_os = int(value.Int64)
+				_m.os_update_policy_resource_target_os = new(int)
+				*_m.os_update_policy_resource_target_os = int(value.Int64)
 			}
 		default:
-			oupr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -172,67 +172,67 @@ func (oupr *OSUpdatePolicyResource) assignValues(columns []string, values []any)
 
 // Value returns the ent.Value that was dynamically selected and assigned to the OSUpdatePolicyResource.
 // This includes values selected through modifiers, order, etc.
-func (oupr *OSUpdatePolicyResource) Value(name string) (ent.Value, error) {
-	return oupr.selectValues.Get(name)
+func (_m *OSUpdatePolicyResource) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryTargetOs queries the "target_os" edge of the OSUpdatePolicyResource entity.
-func (oupr *OSUpdatePolicyResource) QueryTargetOs() *OperatingSystemResourceQuery {
-	return NewOSUpdatePolicyResourceClient(oupr.config).QueryTargetOs(oupr)
+func (_m *OSUpdatePolicyResource) QueryTargetOs() *OperatingSystemResourceQuery {
+	return NewOSUpdatePolicyResourceClient(_m.config).QueryTargetOs(_m)
 }
 
 // Update returns a builder for updating this OSUpdatePolicyResource.
 // Note that you need to call OSUpdatePolicyResource.Unwrap() before calling this method if this OSUpdatePolicyResource
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (oupr *OSUpdatePolicyResource) Update() *OSUpdatePolicyResourceUpdateOne {
-	return NewOSUpdatePolicyResourceClient(oupr.config).UpdateOne(oupr)
+func (_m *OSUpdatePolicyResource) Update() *OSUpdatePolicyResourceUpdateOne {
+	return NewOSUpdatePolicyResourceClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the OSUpdatePolicyResource entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (oupr *OSUpdatePolicyResource) Unwrap() *OSUpdatePolicyResource {
-	_tx, ok := oupr.config.driver.(*txDriver)
+func (_m *OSUpdatePolicyResource) Unwrap() *OSUpdatePolicyResource {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: OSUpdatePolicyResource is not a transactional entity")
 	}
-	oupr.config.driver = _tx.drv
-	return oupr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (oupr *OSUpdatePolicyResource) String() string {
+func (_m *OSUpdatePolicyResource) String() string {
 	var builder strings.Builder
 	builder.WriteString("OSUpdatePolicyResource(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", oupr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("resource_id=")
-	builder.WriteString(oupr.ResourceID)
+	builder.WriteString(_m.ResourceID)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(oupr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(oupr.Description)
-	builder.WriteString(", ")
-	builder.WriteString("install_packages=")
-	builder.WriteString(oupr.InstallPackages)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("update_sources=")
-	builder.WriteString(oupr.UpdateSources)
+	builder.WriteString(_m.UpdateSources)
 	builder.WriteString(", ")
-	builder.WriteString("kernel_command=")
-	builder.WriteString(oupr.KernelCommand)
+	builder.WriteString("update_packages=")
+	builder.WriteString(_m.UpdatePackages)
+	builder.WriteString(", ")
+	builder.WriteString("update_kernel_command=")
+	builder.WriteString(_m.UpdateKernelCommand)
 	builder.WriteString(", ")
 	builder.WriteString("update_policy=")
-	builder.WriteString(fmt.Sprintf("%v", oupr.UpdatePolicy))
+	builder.WriteString(fmt.Sprintf("%v", _m.UpdatePolicy))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
-	builder.WriteString(oupr.TenantID)
+	builder.WriteString(_m.TenantID)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(oupr.CreatedAt)
+	builder.WriteString(_m.CreatedAt)
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(oupr.UpdatedAt)
+	builder.WriteString(_m.UpdatedAt)
 	builder.WriteByte(')')
 	return builder.String()
 }

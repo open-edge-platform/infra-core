@@ -19,10 +19,6 @@ const (
 	FieldName = "name"
 	// FieldArchitecture holds the string denoting the architecture field in the database.
 	FieldArchitecture = "architecture"
-	// FieldKernelCommand holds the string denoting the kernel_command field in the database.
-	FieldKernelCommand = "kernel_command"
-	// FieldUpdateSources holds the string denoting the update_sources field in the database.
-	FieldUpdateSources = "update_sources"
 	// FieldImageURL holds the string denoting the image_url field in the database.
 	FieldImageURL = "image_url"
 	// FieldImageID holds the string denoting the image_id field in the database.
@@ -49,6 +45,8 @@ const (
 	FieldDescription = "description"
 	// FieldMetadata holds the string denoting the metadata field in the database.
 	FieldMetadata = "metadata"
+	// FieldTLSCaCert holds the string denoting the tls_ca_cert field in the database.
+	FieldTLSCaCert = "tls_ca_cert"
 	// FieldExistingCvesURL holds the string denoting the existing_cves_url field in the database.
 	FieldExistingCvesURL = "existing_cves_url"
 	// FieldExistingCves holds the string denoting the existing_cves field in the database.
@@ -73,8 +71,6 @@ var Columns = []string{
 	FieldResourceID,
 	FieldName,
 	FieldArchitecture,
-	FieldKernelCommand,
-	FieldUpdateSources,
 	FieldImageURL,
 	FieldImageID,
 	FieldSha256,
@@ -88,6 +84,7 @@ var Columns = []string{
 	FieldPlatformBundle,
 	FieldDescription,
 	FieldMetadata,
+	FieldTLSCaCert,
 	FieldExistingCvesURL,
 	FieldExistingCves,
 	FieldFixedCvesURL,
@@ -202,16 +199,6 @@ func ByArchitecture(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldArchitecture, opts...).ToFunc()
 }
 
-// ByKernelCommand orders the results by the kernel_command field.
-func ByKernelCommand(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldKernelCommand, opts...).ToFunc()
-}
-
-// ByUpdateSources orders the results by the update_sources field.
-func ByUpdateSources(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldUpdateSources, opts...).ToFunc()
-}
-
 // ByImageURL orders the results by the image_url field.
 func ByImageURL(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldImageURL, opts...).ToFunc()
@@ -275,6 +262,11 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 // ByMetadata orders the results by the metadata field.
 func ByMetadata(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMetadata, opts...).ToFunc()
+}
+
+// ByTLSCaCert orders the results by the tls_ca_cert field.
+func ByTLSCaCert(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTLSCaCert, opts...).ToFunc()
 }
 
 // ByExistingCvesURL orders the results by the existing_cves_url field.

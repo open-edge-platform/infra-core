@@ -116,6 +116,8 @@ const (
 	FieldAmtStatusIndicator = "amt_status_indicator"
 	// FieldAmtStatusTimestamp holds the string denoting the amt_status_timestamp field in the database.
 	FieldAmtStatusTimestamp = "amt_status_timestamp"
+	// FieldUserLvmSize holds the string denoting the user_lvm_size field in the database.
+	FieldUserLvmSize = "user_lvm_size"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -243,6 +245,7 @@ var Columns = []string{
 	FieldAmtStatus,
 	FieldAmtStatusIndicator,
 	FieldAmtStatusTimestamp,
+	FieldUserLvmSize,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -354,13 +357,14 @@ type DesiredPowerState string
 
 // DesiredPowerState values.
 const (
-	DesiredPowerStatePOWER_STATE_UNSPECIFIED DesiredPowerState = "POWER_STATE_UNSPECIFIED"
-	DesiredPowerStatePOWER_STATE_ON          DesiredPowerState = "POWER_STATE_ON"
-	DesiredPowerStatePOWER_STATE_OFF         DesiredPowerState = "POWER_STATE_OFF"
-	DesiredPowerStatePOWER_STATE_SLEEP       DesiredPowerState = "POWER_STATE_SLEEP"
-	DesiredPowerStatePOWER_STATE_HIBERNATE   DesiredPowerState = "POWER_STATE_HIBERNATE"
-	DesiredPowerStatePOWER_STATE_RESET       DesiredPowerState = "POWER_STATE_RESET"
-	DesiredPowerStatePOWER_STATE_POWER_CYCLE DesiredPowerState = "POWER_STATE_POWER_CYCLE"
+	DesiredPowerStatePOWER_STATE_UNSPECIFIED  DesiredPowerState = "POWER_STATE_UNSPECIFIED"
+	DesiredPowerStatePOWER_STATE_ON           DesiredPowerState = "POWER_STATE_ON"
+	DesiredPowerStatePOWER_STATE_OFF          DesiredPowerState = "POWER_STATE_OFF"
+	DesiredPowerStatePOWER_STATE_SLEEP        DesiredPowerState = "POWER_STATE_SLEEP"
+	DesiredPowerStatePOWER_STATE_HIBERNATE    DesiredPowerState = "POWER_STATE_HIBERNATE"
+	DesiredPowerStatePOWER_STATE_RESET        DesiredPowerState = "POWER_STATE_RESET"
+	DesiredPowerStatePOWER_STATE_POWER_CYCLE  DesiredPowerState = "POWER_STATE_POWER_CYCLE"
+	DesiredPowerStatePOWER_STATE_RESET_REPEAT DesiredPowerState = "POWER_STATE_RESET_REPEAT"
 )
 
 func (dps DesiredPowerState) String() string {
@@ -370,7 +374,7 @@ func (dps DesiredPowerState) String() string {
 // DesiredPowerStateValidator is a validator for the "desired_power_state" field enum values. It is called by the builders before save.
 func DesiredPowerStateValidator(dps DesiredPowerState) error {
 	switch dps {
-	case DesiredPowerStatePOWER_STATE_UNSPECIFIED, DesiredPowerStatePOWER_STATE_ON, DesiredPowerStatePOWER_STATE_OFF, DesiredPowerStatePOWER_STATE_SLEEP, DesiredPowerStatePOWER_STATE_HIBERNATE, DesiredPowerStatePOWER_STATE_RESET, DesiredPowerStatePOWER_STATE_POWER_CYCLE:
+	case DesiredPowerStatePOWER_STATE_UNSPECIFIED, DesiredPowerStatePOWER_STATE_ON, DesiredPowerStatePOWER_STATE_OFF, DesiredPowerStatePOWER_STATE_SLEEP, DesiredPowerStatePOWER_STATE_HIBERNATE, DesiredPowerStatePOWER_STATE_RESET, DesiredPowerStatePOWER_STATE_POWER_CYCLE, DesiredPowerStatePOWER_STATE_RESET_REPEAT:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for desired_power_state field: %q", dps)
@@ -382,13 +386,14 @@ type CurrentPowerState string
 
 // CurrentPowerState values.
 const (
-	CurrentPowerStatePOWER_STATE_UNSPECIFIED CurrentPowerState = "POWER_STATE_UNSPECIFIED"
-	CurrentPowerStatePOWER_STATE_ON          CurrentPowerState = "POWER_STATE_ON"
-	CurrentPowerStatePOWER_STATE_OFF         CurrentPowerState = "POWER_STATE_OFF"
-	CurrentPowerStatePOWER_STATE_SLEEP       CurrentPowerState = "POWER_STATE_SLEEP"
-	CurrentPowerStatePOWER_STATE_HIBERNATE   CurrentPowerState = "POWER_STATE_HIBERNATE"
-	CurrentPowerStatePOWER_STATE_RESET       CurrentPowerState = "POWER_STATE_RESET"
-	CurrentPowerStatePOWER_STATE_POWER_CYCLE CurrentPowerState = "POWER_STATE_POWER_CYCLE"
+	CurrentPowerStatePOWER_STATE_UNSPECIFIED  CurrentPowerState = "POWER_STATE_UNSPECIFIED"
+	CurrentPowerStatePOWER_STATE_ON           CurrentPowerState = "POWER_STATE_ON"
+	CurrentPowerStatePOWER_STATE_OFF          CurrentPowerState = "POWER_STATE_OFF"
+	CurrentPowerStatePOWER_STATE_SLEEP        CurrentPowerState = "POWER_STATE_SLEEP"
+	CurrentPowerStatePOWER_STATE_HIBERNATE    CurrentPowerState = "POWER_STATE_HIBERNATE"
+	CurrentPowerStatePOWER_STATE_RESET        CurrentPowerState = "POWER_STATE_RESET"
+	CurrentPowerStatePOWER_STATE_POWER_CYCLE  CurrentPowerState = "POWER_STATE_POWER_CYCLE"
+	CurrentPowerStatePOWER_STATE_RESET_REPEAT CurrentPowerState = "POWER_STATE_RESET_REPEAT"
 )
 
 func (cps CurrentPowerState) String() string {
@@ -398,7 +403,7 @@ func (cps CurrentPowerState) String() string {
 // CurrentPowerStateValidator is a validator for the "current_power_state" field enum values. It is called by the builders before save.
 func CurrentPowerStateValidator(cps CurrentPowerState) error {
 	switch cps {
-	case CurrentPowerStatePOWER_STATE_UNSPECIFIED, CurrentPowerStatePOWER_STATE_ON, CurrentPowerStatePOWER_STATE_OFF, CurrentPowerStatePOWER_STATE_SLEEP, CurrentPowerStatePOWER_STATE_HIBERNATE, CurrentPowerStatePOWER_STATE_RESET, CurrentPowerStatePOWER_STATE_POWER_CYCLE:
+	case CurrentPowerStatePOWER_STATE_UNSPECIFIED, CurrentPowerStatePOWER_STATE_ON, CurrentPowerStatePOWER_STATE_OFF, CurrentPowerStatePOWER_STATE_SLEEP, CurrentPowerStatePOWER_STATE_HIBERNATE, CurrentPowerStatePOWER_STATE_RESET, CurrentPowerStatePOWER_STATE_POWER_CYCLE, CurrentPowerStatePOWER_STATE_RESET_REPEAT:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for current_power_state field: %q", cps)
@@ -526,6 +531,30 @@ func RegistrationStatusIndicatorValidator(rsi RegistrationStatusIndicator) error
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for registration_status_indicator field: %q", rsi)
+	}
+}
+
+// AmtSku defines the type for the "amt_sku" enum field.
+type AmtSku string
+
+// AmtSku values.
+const (
+	AmtSkuAMT_SKU_UNSPECIFIED AmtSku = "AMT_SKU_UNSPECIFIED"
+	AmtSkuAMT_SKU_AMT         AmtSku = "AMT_SKU_AMT"
+	AmtSkuAMT_SKU_ISM         AmtSku = "AMT_SKU_ISM"
+)
+
+func (as AmtSku) String() string {
+	return string(as)
+}
+
+// AmtSkuValidator is a validator for the "amt_sku" field enum values. It is called by the builders before save.
+func AmtSkuValidator(as AmtSku) error {
+	switch as {
+	case AmtSkuAMT_SKU_UNSPECIFIED, AmtSkuAMT_SKU_AMT, AmtSkuAMT_SKU_ISM:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for amt_sku field: %q", as)
 	}
 }
 
@@ -865,6 +894,11 @@ func ByAmtStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
 // ByAmtStatusTimestamp orders the results by the amt_status_timestamp field.
 func ByAmtStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmtStatusTimestamp, opts...).ToFunc()
+}
+
+// ByUserLvmSize orders the results by the user_lvm_size field.
+func ByUserLvmSize(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserLvmSize, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

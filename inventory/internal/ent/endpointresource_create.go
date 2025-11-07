@@ -21,89 +21,89 @@ type EndpointResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (erc *EndpointResourceCreate) SetResourceID(s string) *EndpointResourceCreate {
-	erc.mutation.SetResourceID(s)
-	return erc
+func (_c *EndpointResourceCreate) SetResourceID(v string) *EndpointResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetKind sets the "kind" field.
-func (erc *EndpointResourceCreate) SetKind(s string) *EndpointResourceCreate {
-	erc.mutation.SetKind(s)
-	return erc
+func (_c *EndpointResourceCreate) SetKind(v string) *EndpointResourceCreate {
+	_c.mutation.SetKind(v)
+	return _c
 }
 
 // SetNillableKind sets the "kind" field if the given value is not nil.
-func (erc *EndpointResourceCreate) SetNillableKind(s *string) *EndpointResourceCreate {
-	if s != nil {
-		erc.SetKind(*s)
+func (_c *EndpointResourceCreate) SetNillableKind(v *string) *EndpointResourceCreate {
+	if v != nil {
+		_c.SetKind(*v)
 	}
-	return erc
+	return _c
 }
 
 // SetName sets the "name" field.
-func (erc *EndpointResourceCreate) SetName(s string) *EndpointResourceCreate {
-	erc.mutation.SetName(s)
-	return erc
+func (_c *EndpointResourceCreate) SetName(v string) *EndpointResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (erc *EndpointResourceCreate) SetNillableName(s *string) *EndpointResourceCreate {
-	if s != nil {
-		erc.SetName(*s)
+func (_c *EndpointResourceCreate) SetNillableName(v *string) *EndpointResourceCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return erc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (erc *EndpointResourceCreate) SetTenantID(s string) *EndpointResourceCreate {
-	erc.mutation.SetTenantID(s)
-	return erc
+func (_c *EndpointResourceCreate) SetTenantID(v string) *EndpointResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (erc *EndpointResourceCreate) SetCreatedAt(s string) *EndpointResourceCreate {
-	erc.mutation.SetCreatedAt(s)
-	return erc
+func (_c *EndpointResourceCreate) SetCreatedAt(v string) *EndpointResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (erc *EndpointResourceCreate) SetUpdatedAt(s string) *EndpointResourceCreate {
-	erc.mutation.SetUpdatedAt(s)
-	return erc
+func (_c *EndpointResourceCreate) SetUpdatedAt(v string) *EndpointResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetHostID sets the "host" edge to the HostResource entity by ID.
-func (erc *EndpointResourceCreate) SetHostID(id int) *EndpointResourceCreate {
-	erc.mutation.SetHostID(id)
-	return erc
+func (_c *EndpointResourceCreate) SetHostID(id int) *EndpointResourceCreate {
+	_c.mutation.SetHostID(id)
+	return _c
 }
 
 // SetNillableHostID sets the "host" edge to the HostResource entity by ID if the given value is not nil.
-func (erc *EndpointResourceCreate) SetNillableHostID(id *int) *EndpointResourceCreate {
+func (_c *EndpointResourceCreate) SetNillableHostID(id *int) *EndpointResourceCreate {
 	if id != nil {
-		erc = erc.SetHostID(*id)
+		_c = _c.SetHostID(*id)
 	}
-	return erc
+	return _c
 }
 
 // SetHost sets the "host" edge to the HostResource entity.
-func (erc *EndpointResourceCreate) SetHost(h *HostResource) *EndpointResourceCreate {
-	return erc.SetHostID(h.ID)
+func (_c *EndpointResourceCreate) SetHost(v *HostResource) *EndpointResourceCreate {
+	return _c.SetHostID(v.ID)
 }
 
 // Mutation returns the EndpointResourceMutation object of the builder.
-func (erc *EndpointResourceCreate) Mutation() *EndpointResourceMutation {
-	return erc.mutation
+func (_c *EndpointResourceCreate) Mutation() *EndpointResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the EndpointResource in the database.
-func (erc *EndpointResourceCreate) Save(ctx context.Context) (*EndpointResource, error) {
-	return withHooks(ctx, erc.sqlSave, erc.mutation, erc.hooks)
+func (_c *EndpointResourceCreate) Save(ctx context.Context) (*EndpointResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (erc *EndpointResourceCreate) SaveX(ctx context.Context) *EndpointResource {
-	v, err := erc.Save(ctx)
+func (_c *EndpointResourceCreate) SaveX(ctx context.Context) *EndpointResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -111,41 +111,41 @@ func (erc *EndpointResourceCreate) SaveX(ctx context.Context) *EndpointResource 
 }
 
 // Exec executes the query.
-func (erc *EndpointResourceCreate) Exec(ctx context.Context) error {
-	_, err := erc.Save(ctx)
+func (_c *EndpointResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (erc *EndpointResourceCreate) ExecX(ctx context.Context) {
-	if err := erc.Exec(ctx); err != nil {
+func (_c *EndpointResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (erc *EndpointResourceCreate) check() error {
-	if _, ok := erc.mutation.ResourceID(); !ok {
+func (_c *EndpointResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "EndpointResource.resource_id"`)}
 	}
-	if _, ok := erc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "EndpointResource.tenant_id"`)}
 	}
-	if _, ok := erc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "EndpointResource.created_at"`)}
 	}
-	if _, ok := erc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "EndpointResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (erc *EndpointResourceCreate) sqlSave(ctx context.Context) (*EndpointResource, error) {
-	if err := erc.check(); err != nil {
+func (_c *EndpointResourceCreate) sqlSave(ctx context.Context) (*EndpointResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := erc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, erc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -153,41 +153,41 @@ func (erc *EndpointResourceCreate) sqlSave(ctx context.Context) (*EndpointResour
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	erc.mutation.id = &_node.ID
-	erc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (erc *EndpointResourceCreate) createSpec() (*EndpointResource, *sqlgraph.CreateSpec) {
+func (_c *EndpointResourceCreate) createSpec() (*EndpointResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &EndpointResource{config: erc.config}
+		_node = &EndpointResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(endpointresource.Table, sqlgraph.NewFieldSpec(endpointresource.FieldID, field.TypeInt))
 	)
-	if value, ok := erc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(endpointresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := erc.mutation.Kind(); ok {
+	if value, ok := _c.mutation.Kind(); ok {
 		_spec.SetField(endpointresource.FieldKind, field.TypeString, value)
 		_node.Kind = value
 	}
-	if value, ok := erc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(endpointresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := erc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(endpointresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := erc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(endpointresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := erc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(endpointresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := erc.mutation.HostIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -215,16 +215,16 @@ type EndpointResourceCreateBulk struct {
 }
 
 // Save creates the EndpointResource entities in the database.
-func (ercb *EndpointResourceCreateBulk) Save(ctx context.Context) ([]*EndpointResource, error) {
-	if ercb.err != nil {
-		return nil, ercb.err
+func (_c *EndpointResourceCreateBulk) Save(ctx context.Context) ([]*EndpointResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(ercb.builders))
-	nodes := make([]*EndpointResource, len(ercb.builders))
-	mutators := make([]Mutator, len(ercb.builders))
-	for i := range ercb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*EndpointResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := ercb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*EndpointResourceMutation)
 				if !ok {
@@ -237,11 +237,11 @@ func (ercb *EndpointResourceCreateBulk) Save(ctx context.Context) ([]*EndpointRe
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, ercb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, ercb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -265,7 +265,7 @@ func (ercb *EndpointResourceCreateBulk) Save(ctx context.Context) ([]*EndpointRe
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, ercb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -273,8 +273,8 @@ func (ercb *EndpointResourceCreateBulk) Save(ctx context.Context) ([]*EndpointRe
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ercb *EndpointResourceCreateBulk) SaveX(ctx context.Context) []*EndpointResource {
-	v, err := ercb.Save(ctx)
+func (_c *EndpointResourceCreateBulk) SaveX(ctx context.Context) []*EndpointResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -282,14 +282,14 @@ func (ercb *EndpointResourceCreateBulk) SaveX(ctx context.Context) []*EndpointRe
 }
 
 // Exec executes the query.
-func (ercb *EndpointResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := ercb.Save(ctx)
+func (_c *EndpointResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ercb *EndpointResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := ercb.Exec(ctx); err != nil {
+func (_c *EndpointResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

@@ -494,8 +494,8 @@ func (c *CustomConfigResourceClient) Update() *CustomConfigResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *CustomConfigResourceClient) UpdateOne(ccr *CustomConfigResource) *CustomConfigResourceUpdateOne {
-	mutation := newCustomConfigResourceMutation(c.config, OpUpdateOne, withCustomConfigResource(ccr))
+func (c *CustomConfigResourceClient) UpdateOne(_m *CustomConfigResource) *CustomConfigResourceUpdateOne {
+	mutation := newCustomConfigResourceMutation(c.config, OpUpdateOne, withCustomConfigResource(_m))
 	return &CustomConfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -512,8 +512,8 @@ func (c *CustomConfigResourceClient) Delete() *CustomConfigResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *CustomConfigResourceClient) DeleteOne(ccr *CustomConfigResource) *CustomConfigResourceDeleteOne {
-	return c.DeleteOneID(ccr.ID)
+func (c *CustomConfigResourceClient) DeleteOne(_m *CustomConfigResource) *CustomConfigResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -548,16 +548,16 @@ func (c *CustomConfigResourceClient) GetX(ctx context.Context, id int) *CustomCo
 }
 
 // QueryInstances queries the instances edge of a CustomConfigResource.
-func (c *CustomConfigResourceClient) QueryInstances(ccr *CustomConfigResource) *InstanceResourceQuery {
+func (c *CustomConfigResourceClient) QueryInstances(_m *CustomConfigResource) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ccr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(customconfigresource.Table, customconfigresource.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, true, customconfigresource.InstancesTable, customconfigresource.InstancesPrimaryKey...),
 		)
-		fromV = sqlgraph.Neighbors(ccr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -643,8 +643,8 @@ func (c *EndpointResourceClient) Update() *EndpointResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *EndpointResourceClient) UpdateOne(er *EndpointResource) *EndpointResourceUpdateOne {
-	mutation := newEndpointResourceMutation(c.config, OpUpdateOne, withEndpointResource(er))
+func (c *EndpointResourceClient) UpdateOne(_m *EndpointResource) *EndpointResourceUpdateOne {
+	mutation := newEndpointResourceMutation(c.config, OpUpdateOne, withEndpointResource(_m))
 	return &EndpointResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -661,8 +661,8 @@ func (c *EndpointResourceClient) Delete() *EndpointResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *EndpointResourceClient) DeleteOne(er *EndpointResource) *EndpointResourceDeleteOne {
-	return c.DeleteOneID(er.ID)
+func (c *EndpointResourceClient) DeleteOne(_m *EndpointResource) *EndpointResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -697,16 +697,16 @@ func (c *EndpointResourceClient) GetX(ctx context.Context, id int) *EndpointReso
 }
 
 // QueryHost queries the host edge of a EndpointResource.
-func (c *EndpointResourceClient) QueryHost(er *EndpointResource) *HostResourceQuery {
+func (c *EndpointResourceClient) QueryHost(_m *EndpointResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := er.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(endpointresource.Table, endpointresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, endpointresource.HostTable, endpointresource.HostColumn),
 		)
-		fromV = sqlgraph.Neighbors(er.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -792,8 +792,8 @@ func (c *HostResourceClient) Update() *HostResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *HostResourceClient) UpdateOne(hr *HostResource) *HostResourceUpdateOne {
-	mutation := newHostResourceMutation(c.config, OpUpdateOne, withHostResource(hr))
+func (c *HostResourceClient) UpdateOne(_m *HostResource) *HostResourceUpdateOne {
+	mutation := newHostResourceMutation(c.config, OpUpdateOne, withHostResource(_m))
 	return &HostResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -810,8 +810,8 @@ func (c *HostResourceClient) Delete() *HostResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *HostResourceClient) DeleteOne(hr *HostResource) *HostResourceDeleteOne {
-	return c.DeleteOneID(hr.ID)
+func (c *HostResourceClient) DeleteOne(_m *HostResource) *HostResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -846,112 +846,112 @@ func (c *HostResourceClient) GetX(ctx context.Context, id int) *HostResource {
 }
 
 // QuerySite queries the site edge of a HostResource.
-func (c *HostResourceClient) QuerySite(hr *HostResource) *SiteResourceQuery {
+func (c *HostResourceClient) QuerySite(_m *HostResource) *SiteResourceQuery {
 	query := (&SiteResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostresource.SiteTable, hostresource.SiteColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryProvider queries the provider edge of a HostResource.
-func (c *HostResourceClient) QueryProvider(hr *HostResource) *ProviderResourceQuery {
+func (c *HostResourceClient) QueryProvider(_m *HostResource) *ProviderResourceQuery {
 	query := (&ProviderResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(providerresource.Table, providerresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostresource.ProviderTable, hostresource.ProviderColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryHostStorages queries the host_storages edge of a HostResource.
-func (c *HostResourceClient) QueryHostStorages(hr *HostResource) *HoststorageResourceQuery {
+func (c *HostResourceClient) QueryHostStorages(_m *HostResource) *HoststorageResourceQuery {
 	query := (&HoststorageResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(hoststorageresource.Table, hoststorageresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostStoragesTable, hostresource.HostStoragesColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryHostNics queries the host_nics edge of a HostResource.
-func (c *HostResourceClient) QueryHostNics(hr *HostResource) *HostnicResourceQuery {
+func (c *HostResourceClient) QueryHostNics(_m *HostResource) *HostnicResourceQuery {
 	query := (&HostnicResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(hostnicresource.Table, hostnicresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostNicsTable, hostresource.HostNicsColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryHostUsbs queries the host_usbs edge of a HostResource.
-func (c *HostResourceClient) QueryHostUsbs(hr *HostResource) *HostusbResourceQuery {
+func (c *HostResourceClient) QueryHostUsbs(_m *HostResource) *HostusbResourceQuery {
 	query := (&HostusbResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(hostusbresource.Table, hostusbresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostUsbsTable, hostresource.HostUsbsColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryHostGpus queries the host_gpus edge of a HostResource.
-func (c *HostResourceClient) QueryHostGpus(hr *HostResource) *HostgpuResourceQuery {
+func (c *HostResourceClient) QueryHostGpus(_m *HostResource) *HostgpuResourceQuery {
 	query := (&HostgpuResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(hostgpuresource.Table, hostgpuresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostGpusTable, hostresource.HostGpusColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryInstance queries the instance edge of a HostResource.
-func (c *HostResourceClient) QueryInstance(hr *HostResource) *InstanceResourceQuery {
+func (c *HostResourceClient) QueryInstance(_m *HostResource) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, true, hostresource.InstanceTable, hostresource.InstanceColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1037,8 +1037,8 @@ func (c *HostgpuResourceClient) Update() *HostgpuResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *HostgpuResourceClient) UpdateOne(hr *HostgpuResource) *HostgpuResourceUpdateOne {
-	mutation := newHostgpuResourceMutation(c.config, OpUpdateOne, withHostgpuResource(hr))
+func (c *HostgpuResourceClient) UpdateOne(_m *HostgpuResource) *HostgpuResourceUpdateOne {
+	mutation := newHostgpuResourceMutation(c.config, OpUpdateOne, withHostgpuResource(_m))
 	return &HostgpuResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1055,8 +1055,8 @@ func (c *HostgpuResourceClient) Delete() *HostgpuResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *HostgpuResourceClient) DeleteOne(hr *HostgpuResource) *HostgpuResourceDeleteOne {
-	return c.DeleteOneID(hr.ID)
+func (c *HostgpuResourceClient) DeleteOne(_m *HostgpuResource) *HostgpuResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1091,16 +1091,16 @@ func (c *HostgpuResourceClient) GetX(ctx context.Context, id int) *HostgpuResour
 }
 
 // QueryHost queries the host edge of a HostgpuResource.
-func (c *HostgpuResourceClient) QueryHost(hr *HostgpuResource) *HostResourceQuery {
+func (c *HostgpuResourceClient) QueryHost(_m *HostgpuResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostgpuresource.Table, hostgpuresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostgpuresource.HostTable, hostgpuresource.HostColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1186,8 +1186,8 @@ func (c *HostnicResourceClient) Update() *HostnicResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *HostnicResourceClient) UpdateOne(hr *HostnicResource) *HostnicResourceUpdateOne {
-	mutation := newHostnicResourceMutation(c.config, OpUpdateOne, withHostnicResource(hr))
+func (c *HostnicResourceClient) UpdateOne(_m *HostnicResource) *HostnicResourceUpdateOne {
+	mutation := newHostnicResourceMutation(c.config, OpUpdateOne, withHostnicResource(_m))
 	return &HostnicResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1204,8 +1204,8 @@ func (c *HostnicResourceClient) Delete() *HostnicResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *HostnicResourceClient) DeleteOne(hr *HostnicResource) *HostnicResourceDeleteOne {
-	return c.DeleteOneID(hr.ID)
+func (c *HostnicResourceClient) DeleteOne(_m *HostnicResource) *HostnicResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1240,16 +1240,16 @@ func (c *HostnicResourceClient) GetX(ctx context.Context, id int) *HostnicResour
 }
 
 // QueryHost queries the host edge of a HostnicResource.
-func (c *HostnicResourceClient) QueryHost(hr *HostnicResource) *HostResourceQuery {
+func (c *HostnicResourceClient) QueryHost(_m *HostnicResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostnicresource.Table, hostnicresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostnicresource.HostTable, hostnicresource.HostColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1335,8 +1335,8 @@ func (c *HoststorageResourceClient) Update() *HoststorageResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *HoststorageResourceClient) UpdateOne(hr *HoststorageResource) *HoststorageResourceUpdateOne {
-	mutation := newHoststorageResourceMutation(c.config, OpUpdateOne, withHoststorageResource(hr))
+func (c *HoststorageResourceClient) UpdateOne(_m *HoststorageResource) *HoststorageResourceUpdateOne {
+	mutation := newHoststorageResourceMutation(c.config, OpUpdateOne, withHoststorageResource(_m))
 	return &HoststorageResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1353,8 +1353,8 @@ func (c *HoststorageResourceClient) Delete() *HoststorageResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *HoststorageResourceClient) DeleteOne(hr *HoststorageResource) *HoststorageResourceDeleteOne {
-	return c.DeleteOneID(hr.ID)
+func (c *HoststorageResourceClient) DeleteOne(_m *HoststorageResource) *HoststorageResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1389,16 +1389,16 @@ func (c *HoststorageResourceClient) GetX(ctx context.Context, id int) *Hoststora
 }
 
 // QueryHost queries the host edge of a HoststorageResource.
-func (c *HoststorageResourceClient) QueryHost(hr *HoststorageResource) *HostResourceQuery {
+func (c *HoststorageResourceClient) QueryHost(_m *HoststorageResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hoststorageresource.Table, hoststorageresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hoststorageresource.HostTable, hoststorageresource.HostColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1484,8 +1484,8 @@ func (c *HostusbResourceClient) Update() *HostusbResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *HostusbResourceClient) UpdateOne(hr *HostusbResource) *HostusbResourceUpdateOne {
-	mutation := newHostusbResourceMutation(c.config, OpUpdateOne, withHostusbResource(hr))
+func (c *HostusbResourceClient) UpdateOne(_m *HostusbResource) *HostusbResourceUpdateOne {
+	mutation := newHostusbResourceMutation(c.config, OpUpdateOne, withHostusbResource(_m))
 	return &HostusbResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1502,8 +1502,8 @@ func (c *HostusbResourceClient) Delete() *HostusbResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *HostusbResourceClient) DeleteOne(hr *HostusbResource) *HostusbResourceDeleteOne {
-	return c.DeleteOneID(hr.ID)
+func (c *HostusbResourceClient) DeleteOne(_m *HostusbResource) *HostusbResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1538,16 +1538,16 @@ func (c *HostusbResourceClient) GetX(ctx context.Context, id int) *HostusbResour
 }
 
 // QueryHost queries the host edge of a HostusbResource.
-func (c *HostusbResourceClient) QueryHost(hr *HostusbResource) *HostResourceQuery {
+func (c *HostusbResourceClient) QueryHost(_m *HostusbResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := hr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostusbresource.Table, hostusbresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, hostusbresource.HostTable, hostusbresource.HostColumn),
 		)
-		fromV = sqlgraph.Neighbors(hr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1633,8 +1633,8 @@ func (c *IPAddressResourceClient) Update() *IPAddressResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *IPAddressResourceClient) UpdateOne(iar *IPAddressResource) *IPAddressResourceUpdateOne {
-	mutation := newIPAddressResourceMutation(c.config, OpUpdateOne, withIPAddressResource(iar))
+func (c *IPAddressResourceClient) UpdateOne(_m *IPAddressResource) *IPAddressResourceUpdateOne {
+	mutation := newIPAddressResourceMutation(c.config, OpUpdateOne, withIPAddressResource(_m))
 	return &IPAddressResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1651,8 +1651,8 @@ func (c *IPAddressResourceClient) Delete() *IPAddressResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *IPAddressResourceClient) DeleteOne(iar *IPAddressResource) *IPAddressResourceDeleteOne {
-	return c.DeleteOneID(iar.ID)
+func (c *IPAddressResourceClient) DeleteOne(_m *IPAddressResource) *IPAddressResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1687,16 +1687,16 @@ func (c *IPAddressResourceClient) GetX(ctx context.Context, id int) *IPAddressRe
 }
 
 // QueryNic queries the nic edge of a IPAddressResource.
-func (c *IPAddressResourceClient) QueryNic(iar *IPAddressResource) *HostnicResourceQuery {
+func (c *IPAddressResourceClient) QueryNic(_m *IPAddressResource) *HostnicResourceQuery {
 	query := (&HostnicResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := iar.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(ipaddressresource.Table, ipaddressresource.FieldID, id),
 			sqlgraph.To(hostnicresource.Table, hostnicresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, ipaddressresource.NicTable, ipaddressresource.NicColumn),
 		)
-		fromV = sqlgraph.Neighbors(iar.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1782,8 +1782,8 @@ func (c *InstanceResourceClient) Update() *InstanceResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *InstanceResourceClient) UpdateOne(ir *InstanceResource) *InstanceResourceUpdateOne {
-	mutation := newInstanceResourceMutation(c.config, OpUpdateOne, withInstanceResource(ir))
+func (c *InstanceResourceClient) UpdateOne(_m *InstanceResource) *InstanceResourceUpdateOne {
+	mutation := newInstanceResourceMutation(c.config, OpUpdateOne, withInstanceResource(_m))
 	return &InstanceResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1800,8 +1800,8 @@ func (c *InstanceResourceClient) Delete() *InstanceResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *InstanceResourceClient) DeleteOne(ir *InstanceResource) *InstanceResourceDeleteOne {
-	return c.DeleteOneID(ir.ID)
+func (c *InstanceResourceClient) DeleteOne(_m *InstanceResource) *InstanceResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1836,144 +1836,112 @@ func (c *InstanceResourceClient) GetX(ctx context.Context, id int) *InstanceReso
 }
 
 // QueryHost queries the host edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryHost(ir *InstanceResource) *HostResourceQuery {
+func (c *InstanceResourceClient) QueryHost(_m *InstanceResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, false, instanceresource.HostTable, instanceresource.HostColumn),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// QueryDesiredOs queries the desired_os edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryDesiredOs(ir *InstanceResource) *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: c.config}).Query()
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
-			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.DesiredOsTable, instanceresource.DesiredOsColumn),
-		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// QueryCurrentOs queries the current_os edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryCurrentOs(ir *InstanceResource) *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: c.config}).Query()
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
-			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CurrentOsTable, instanceresource.CurrentOsColumn),
-		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryOs queries the os edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryOs(ir *InstanceResource) *OperatingSystemResourceQuery {
+func (c *InstanceResourceClient) QueryOs(_m *InstanceResource) *OperatingSystemResourceQuery {
 	query := (&OperatingSystemResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsTable, instanceresource.OsColumn),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryWorkloadMembers queries the workload_members edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryWorkloadMembers(ir *InstanceResource) *WorkloadMemberQuery {
+func (c *InstanceResourceClient) QueryWorkloadMembers(_m *InstanceResource) *WorkloadMemberQuery {
 	query := (&WorkloadMemberClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(workloadmember.Table, workloadmember.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, instanceresource.WorkloadMembersTable, instanceresource.WorkloadMembersColumn),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryProvider queries the provider edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryProvider(ir *InstanceResource) *ProviderResourceQuery {
+func (c *InstanceResourceClient) QueryProvider(_m *InstanceResource) *ProviderResourceQuery {
 	query := (&ProviderResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(providerresource.Table, providerresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.ProviderTable, instanceresource.ProviderColumn),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryLocalaccount queries the localaccount edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryLocalaccount(ir *InstanceResource) *LocalAccountResourceQuery {
+func (c *InstanceResourceClient) QueryLocalaccount(_m *InstanceResource) *LocalAccountResourceQuery {
 	query := (&LocalAccountResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(localaccountresource.Table, localaccountresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.LocalaccountTable, instanceresource.LocalaccountColumn),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryOsUpdatePolicy queries the os_update_policy edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryOsUpdatePolicy(ir *InstanceResource) *OSUpdatePolicyResourceQuery {
+func (c *InstanceResourceClient) QueryOsUpdatePolicy(_m *InstanceResource) *OSUpdatePolicyResourceQuery {
 	query := (&OSUpdatePolicyResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.OsUpdatePolicyTable, instanceresource.OsUpdatePolicyColumn),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryCustomConfig queries the custom_config edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryCustomConfig(ir *InstanceResource) *CustomConfigResourceQuery {
+func (c *InstanceResourceClient) QueryCustomConfig(_m *InstanceResource) *CustomConfigResourceQuery {
 	query := (&CustomConfigResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ir.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
 			sqlgraph.To(customconfigresource.Table, customconfigresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, false, instanceresource.CustomConfigTable, instanceresource.CustomConfigPrimaryKey...),
 		)
-		fromV = sqlgraph.Neighbors(ir.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2059,8 +2027,8 @@ func (c *LocalAccountResourceClient) Update() *LocalAccountResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *LocalAccountResourceClient) UpdateOne(lar *LocalAccountResource) *LocalAccountResourceUpdateOne {
-	mutation := newLocalAccountResourceMutation(c.config, OpUpdateOne, withLocalAccountResource(lar))
+func (c *LocalAccountResourceClient) UpdateOne(_m *LocalAccountResource) *LocalAccountResourceUpdateOne {
+	mutation := newLocalAccountResourceMutation(c.config, OpUpdateOne, withLocalAccountResource(_m))
 	return &LocalAccountResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2077,8 +2045,8 @@ func (c *LocalAccountResourceClient) Delete() *LocalAccountResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *LocalAccountResourceClient) DeleteOne(lar *LocalAccountResource) *LocalAccountResourceDeleteOne {
-	return c.DeleteOneID(lar.ID)
+func (c *LocalAccountResourceClient) DeleteOne(_m *LocalAccountResource) *LocalAccountResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2192,8 +2160,8 @@ func (c *NetlinkResourceClient) Update() *NetlinkResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *NetlinkResourceClient) UpdateOne(nr *NetlinkResource) *NetlinkResourceUpdateOne {
-	mutation := newNetlinkResourceMutation(c.config, OpUpdateOne, withNetlinkResource(nr))
+func (c *NetlinkResourceClient) UpdateOne(_m *NetlinkResource) *NetlinkResourceUpdateOne {
+	mutation := newNetlinkResourceMutation(c.config, OpUpdateOne, withNetlinkResource(_m))
 	return &NetlinkResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2210,8 +2178,8 @@ func (c *NetlinkResourceClient) Delete() *NetlinkResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *NetlinkResourceClient) DeleteOne(nr *NetlinkResource) *NetlinkResourceDeleteOne {
-	return c.DeleteOneID(nr.ID)
+func (c *NetlinkResourceClient) DeleteOne(_m *NetlinkResource) *NetlinkResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2246,32 +2214,32 @@ func (c *NetlinkResourceClient) GetX(ctx context.Context, id int) *NetlinkResour
 }
 
 // QuerySrc queries the src edge of a NetlinkResource.
-func (c *NetlinkResourceClient) QuerySrc(nr *NetlinkResource) *EndpointResourceQuery {
+func (c *NetlinkResourceClient) QuerySrc(_m *NetlinkResource) *EndpointResourceQuery {
 	query := (&EndpointResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := nr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(netlinkresource.Table, netlinkresource.FieldID, id),
 			sqlgraph.To(endpointresource.Table, endpointresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, netlinkresource.SrcTable, netlinkresource.SrcColumn),
 		)
-		fromV = sqlgraph.Neighbors(nr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryDst queries the dst edge of a NetlinkResource.
-func (c *NetlinkResourceClient) QueryDst(nr *NetlinkResource) *EndpointResourceQuery {
+func (c *NetlinkResourceClient) QueryDst(_m *NetlinkResource) *EndpointResourceQuery {
 	query := (&EndpointResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := nr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(netlinkresource.Table, netlinkresource.FieldID, id),
 			sqlgraph.To(endpointresource.Table, endpointresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, netlinkresource.DstTable, netlinkresource.DstColumn),
 		)
-		fromV = sqlgraph.Neighbors(nr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2357,8 +2325,8 @@ func (c *NetworkSegmentClient) Update() *NetworkSegmentUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *NetworkSegmentClient) UpdateOne(ns *NetworkSegment) *NetworkSegmentUpdateOne {
-	mutation := newNetworkSegmentMutation(c.config, OpUpdateOne, withNetworkSegment(ns))
+func (c *NetworkSegmentClient) UpdateOne(_m *NetworkSegment) *NetworkSegmentUpdateOne {
+	mutation := newNetworkSegmentMutation(c.config, OpUpdateOne, withNetworkSegment(_m))
 	return &NetworkSegmentUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2375,8 +2343,8 @@ func (c *NetworkSegmentClient) Delete() *NetworkSegmentDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *NetworkSegmentClient) DeleteOne(ns *NetworkSegment) *NetworkSegmentDeleteOne {
-	return c.DeleteOneID(ns.ID)
+func (c *NetworkSegmentClient) DeleteOne(_m *NetworkSegment) *NetworkSegmentDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2411,16 +2379,16 @@ func (c *NetworkSegmentClient) GetX(ctx context.Context, id int) *NetworkSegment
 }
 
 // QuerySite queries the site edge of a NetworkSegment.
-func (c *NetworkSegmentClient) QuerySite(ns *NetworkSegment) *SiteResourceQuery {
+func (c *NetworkSegmentClient) QuerySite(_m *NetworkSegment) *SiteResourceQuery {
 	query := (&SiteResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ns.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(networksegment.Table, networksegment.FieldID, id),
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, networksegment.SiteTable, networksegment.SiteColumn),
 		)
-		fromV = sqlgraph.Neighbors(ns.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2506,8 +2474,8 @@ func (c *OSUpdatePolicyClient) Update() *OSUpdatePolicyUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *OSUpdatePolicyClient) UpdateOne(oup *OSUpdatePolicy) *OSUpdatePolicyUpdateOne {
-	mutation := newOSUpdatePolicyMutation(c.config, OpUpdateOne, withOSUpdatePolicy(oup))
+func (c *OSUpdatePolicyClient) UpdateOne(_m *OSUpdatePolicy) *OSUpdatePolicyUpdateOne {
+	mutation := newOSUpdatePolicyMutation(c.config, OpUpdateOne, withOSUpdatePolicy(_m))
 	return &OSUpdatePolicyUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2524,8 +2492,8 @@ func (c *OSUpdatePolicyClient) Delete() *OSUpdatePolicyDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *OSUpdatePolicyClient) DeleteOne(oup *OSUpdatePolicy) *OSUpdatePolicyDeleteOne {
-	return c.DeleteOneID(oup.ID)
+func (c *OSUpdatePolicyClient) DeleteOne(_m *OSUpdatePolicy) *OSUpdatePolicyDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2560,16 +2528,16 @@ func (c *OSUpdatePolicyClient) GetX(ctx context.Context, id int) *OSUpdatePolicy
 }
 
 // QueryTargetOs queries the target_os edge of a OSUpdatePolicy.
-func (c *OSUpdatePolicyClient) QueryTargetOs(oup *OSUpdatePolicy) *OperatingSystemResourceQuery {
+func (c *OSUpdatePolicyClient) QueryTargetOs(_m *OSUpdatePolicy) *OperatingSystemResourceQuery {
 	query := (&OperatingSystemResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := oup.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(osupdatepolicy.Table, osupdatepolicy.FieldID, id),
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdatepolicy.TargetOsTable, osupdatepolicy.TargetOsColumn),
 		)
-		fromV = sqlgraph.Neighbors(oup.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2655,8 +2623,8 @@ func (c *OSUpdatePolicyResourceClient) Update() *OSUpdatePolicyResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *OSUpdatePolicyResourceClient) UpdateOne(oupr *OSUpdatePolicyResource) *OSUpdatePolicyResourceUpdateOne {
-	mutation := newOSUpdatePolicyResourceMutation(c.config, OpUpdateOne, withOSUpdatePolicyResource(oupr))
+func (c *OSUpdatePolicyResourceClient) UpdateOne(_m *OSUpdatePolicyResource) *OSUpdatePolicyResourceUpdateOne {
+	mutation := newOSUpdatePolicyResourceMutation(c.config, OpUpdateOne, withOSUpdatePolicyResource(_m))
 	return &OSUpdatePolicyResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2673,8 +2641,8 @@ func (c *OSUpdatePolicyResourceClient) Delete() *OSUpdatePolicyResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *OSUpdatePolicyResourceClient) DeleteOne(oupr *OSUpdatePolicyResource) *OSUpdatePolicyResourceDeleteOne {
-	return c.DeleteOneID(oupr.ID)
+func (c *OSUpdatePolicyResourceClient) DeleteOne(_m *OSUpdatePolicyResource) *OSUpdatePolicyResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2709,16 +2677,16 @@ func (c *OSUpdatePolicyResourceClient) GetX(ctx context.Context, id int) *OSUpda
 }
 
 // QueryTargetOs queries the target_os edge of a OSUpdatePolicyResource.
-func (c *OSUpdatePolicyResourceClient) QueryTargetOs(oupr *OSUpdatePolicyResource) *OperatingSystemResourceQuery {
+func (c *OSUpdatePolicyResourceClient) QueryTargetOs(_m *OSUpdatePolicyResource) *OperatingSystemResourceQuery {
 	query := (&OperatingSystemResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := oupr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID, id),
 			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdatepolicyresource.TargetOsTable, osupdatepolicyresource.TargetOsColumn),
 		)
-		fromV = sqlgraph.Neighbors(oupr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2804,8 +2772,8 @@ func (c *OSUpdateRunResourceClient) Update() *OSUpdateRunResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *OSUpdateRunResourceClient) UpdateOne(ourr *OSUpdateRunResource) *OSUpdateRunResourceUpdateOne {
-	mutation := newOSUpdateRunResourceMutation(c.config, OpUpdateOne, withOSUpdateRunResource(ourr))
+func (c *OSUpdateRunResourceClient) UpdateOne(_m *OSUpdateRunResource) *OSUpdateRunResourceUpdateOne {
+	mutation := newOSUpdateRunResourceMutation(c.config, OpUpdateOne, withOSUpdateRunResource(_m))
 	return &OSUpdateRunResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2822,8 +2790,8 @@ func (c *OSUpdateRunResourceClient) Delete() *OSUpdateRunResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *OSUpdateRunResourceClient) DeleteOne(ourr *OSUpdateRunResource) *OSUpdateRunResourceDeleteOne {
-	return c.DeleteOneID(ourr.ID)
+func (c *OSUpdateRunResourceClient) DeleteOne(_m *OSUpdateRunResource) *OSUpdateRunResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2858,32 +2826,32 @@ func (c *OSUpdateRunResourceClient) GetX(ctx context.Context, id int) *OSUpdateR
 }
 
 // QueryAppliedPolicy queries the applied_policy edge of a OSUpdateRunResource.
-func (c *OSUpdateRunResourceClient) QueryAppliedPolicy(ourr *OSUpdateRunResource) *OSUpdatePolicyResourceQuery {
+func (c *OSUpdateRunResourceClient) QueryAppliedPolicy(_m *OSUpdateRunResource) *OSUpdatePolicyResourceQuery {
 	query := (&OSUpdatePolicyResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ourr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(osupdaterunresource.Table, osupdaterunresource.FieldID, id),
 			sqlgraph.To(osupdatepolicyresource.Table, osupdatepolicyresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdaterunresource.AppliedPolicyTable, osupdaterunresource.AppliedPolicyColumn),
 		)
-		fromV = sqlgraph.Neighbors(ourr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryInstance queries the instance edge of a OSUpdateRunResource.
-func (c *OSUpdateRunResourceClient) QueryInstance(ourr *OSUpdateRunResource) *InstanceResourceQuery {
+func (c *OSUpdateRunResourceClient) QueryInstance(_m *OSUpdateRunResource) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ourr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(osupdaterunresource.Table, osupdaterunresource.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, osupdaterunresource.InstanceTable, osupdaterunresource.InstanceColumn),
 		)
-		fromV = sqlgraph.Neighbors(ourr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2969,8 +2937,8 @@ func (c *OperatingSystemResourceClient) Update() *OperatingSystemResourceUpdate 
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *OperatingSystemResourceClient) UpdateOne(osr *OperatingSystemResource) *OperatingSystemResourceUpdateOne {
-	mutation := newOperatingSystemResourceMutation(c.config, OpUpdateOne, withOperatingSystemResource(osr))
+func (c *OperatingSystemResourceClient) UpdateOne(_m *OperatingSystemResource) *OperatingSystemResourceUpdateOne {
+	mutation := newOperatingSystemResourceMutation(c.config, OpUpdateOne, withOperatingSystemResource(_m))
 	return &OperatingSystemResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2987,8 +2955,8 @@ func (c *OperatingSystemResourceClient) Delete() *OperatingSystemResourceDelete 
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *OperatingSystemResourceClient) DeleteOne(osr *OperatingSystemResource) *OperatingSystemResourceDeleteOne {
-	return c.DeleteOneID(osr.ID)
+func (c *OperatingSystemResourceClient) DeleteOne(_m *OperatingSystemResource) *OperatingSystemResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3102,8 +3070,8 @@ func (c *OuResourceClient) Update() *OuResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *OuResourceClient) UpdateOne(or *OuResource) *OuResourceUpdateOne {
-	mutation := newOuResourceMutation(c.config, OpUpdateOne, withOuResource(or))
+func (c *OuResourceClient) UpdateOne(_m *OuResource) *OuResourceUpdateOne {
+	mutation := newOuResourceMutation(c.config, OpUpdateOne, withOuResource(_m))
 	return &OuResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -3120,8 +3088,8 @@ func (c *OuResourceClient) Delete() *OuResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *OuResourceClient) DeleteOne(or *OuResource) *OuResourceDeleteOne {
-	return c.DeleteOneID(or.ID)
+func (c *OuResourceClient) DeleteOne(_m *OuResource) *OuResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3156,32 +3124,32 @@ func (c *OuResourceClient) GetX(ctx context.Context, id int) *OuResource {
 }
 
 // QueryParentOu queries the parent_ou edge of a OuResource.
-func (c *OuResourceClient) QueryParentOu(or *OuResource) *OuResourceQuery {
+func (c *OuResourceClient) QueryParentOu(_m *OuResource) *OuResourceQuery {
 	query := (&OuResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := or.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(ouresource.Table, ouresource.FieldID, id),
 			sqlgraph.To(ouresource.Table, ouresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, ouresource.ParentOuTable, ouresource.ParentOuColumn),
 		)
-		fromV = sqlgraph.Neighbors(or.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryChildren queries the children edge of a OuResource.
-func (c *OuResourceClient) QueryChildren(or *OuResource) *OuResourceQuery {
+func (c *OuResourceClient) QueryChildren(_m *OuResource) *OuResourceQuery {
 	query := (&OuResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := or.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(ouresource.Table, ouresource.FieldID, id),
 			sqlgraph.To(ouresource.Table, ouresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, ouresource.ChildrenTable, ouresource.ChildrenColumn),
 		)
-		fromV = sqlgraph.Neighbors(or.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -3267,8 +3235,8 @@ func (c *ProviderResourceClient) Update() *ProviderResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *ProviderResourceClient) UpdateOne(pr *ProviderResource) *ProviderResourceUpdateOne {
-	mutation := newProviderResourceMutation(c.config, OpUpdateOne, withProviderResource(pr))
+func (c *ProviderResourceClient) UpdateOne(_m *ProviderResource) *ProviderResourceUpdateOne {
+	mutation := newProviderResourceMutation(c.config, OpUpdateOne, withProviderResource(_m))
 	return &ProviderResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -3285,8 +3253,8 @@ func (c *ProviderResourceClient) Delete() *ProviderResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *ProviderResourceClient) DeleteOne(pr *ProviderResource) *ProviderResourceDeleteOne {
-	return c.DeleteOneID(pr.ID)
+func (c *ProviderResourceClient) DeleteOne(_m *ProviderResource) *ProviderResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3400,8 +3368,8 @@ func (c *RegionResourceClient) Update() *RegionResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *RegionResourceClient) UpdateOne(rr *RegionResource) *RegionResourceUpdateOne {
-	mutation := newRegionResourceMutation(c.config, OpUpdateOne, withRegionResource(rr))
+func (c *RegionResourceClient) UpdateOne(_m *RegionResource) *RegionResourceUpdateOne {
+	mutation := newRegionResourceMutation(c.config, OpUpdateOne, withRegionResource(_m))
 	return &RegionResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -3418,8 +3386,8 @@ func (c *RegionResourceClient) Delete() *RegionResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *RegionResourceClient) DeleteOne(rr *RegionResource) *RegionResourceDeleteOne {
-	return c.DeleteOneID(rr.ID)
+func (c *RegionResourceClient) DeleteOne(_m *RegionResource) *RegionResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3454,32 +3422,32 @@ func (c *RegionResourceClient) GetX(ctx context.Context, id int) *RegionResource
 }
 
 // QueryParentRegion queries the parent_region edge of a RegionResource.
-func (c *RegionResourceClient) QueryParentRegion(rr *RegionResource) *RegionResourceQuery {
+func (c *RegionResourceClient) QueryParentRegion(_m *RegionResource) *RegionResourceQuery {
 	query := (&RegionResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(regionresource.Table, regionresource.FieldID, id),
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, regionresource.ParentRegionTable, regionresource.ParentRegionColumn),
 		)
-		fromV = sqlgraph.Neighbors(rr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryChildren queries the children edge of a RegionResource.
-func (c *RegionResourceClient) QueryChildren(rr *RegionResource) *RegionResourceQuery {
+func (c *RegionResourceClient) QueryChildren(_m *RegionResource) *RegionResourceQuery {
 	query := (&RegionResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(regionresource.Table, regionresource.FieldID, id),
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, regionresource.ChildrenTable, regionresource.ChildrenColumn),
 		)
-		fromV = sqlgraph.Neighbors(rr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -3565,8 +3533,8 @@ func (c *RemoteAccessConfigurationClient) Update() *RemoteAccessConfigurationUpd
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *RemoteAccessConfigurationClient) UpdateOne(rac *RemoteAccessConfiguration) *RemoteAccessConfigurationUpdateOne {
-	mutation := newRemoteAccessConfigurationMutation(c.config, OpUpdateOne, withRemoteAccessConfiguration(rac))
+func (c *RemoteAccessConfigurationClient) UpdateOne(_m *RemoteAccessConfiguration) *RemoteAccessConfigurationUpdateOne {
+	mutation := newRemoteAccessConfigurationMutation(c.config, OpUpdateOne, withRemoteAccessConfiguration(_m))
 	return &RemoteAccessConfigurationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -3583,8 +3551,8 @@ func (c *RemoteAccessConfigurationClient) Delete() *RemoteAccessConfigurationDel
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *RemoteAccessConfigurationClient) DeleteOne(rac *RemoteAccessConfiguration) *RemoteAccessConfigurationDeleteOne {
-	return c.DeleteOneID(rac.ID)
+func (c *RemoteAccessConfigurationClient) DeleteOne(_m *RemoteAccessConfiguration) *RemoteAccessConfigurationDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3619,16 +3587,16 @@ func (c *RemoteAccessConfigurationClient) GetX(ctx context.Context, id int) *Rem
 }
 
 // QueryInstance queries the instance edge of a RemoteAccessConfiguration.
-func (c *RemoteAccessConfigurationClient) QueryInstance(rac *RemoteAccessConfiguration) *InstanceResourceQuery {
+func (c *RemoteAccessConfigurationClient) QueryInstance(_m *RemoteAccessConfiguration) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rac.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(remoteaccessconfiguration.Table, remoteaccessconfiguration.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, remoteaccessconfiguration.InstanceTable, remoteaccessconfiguration.InstanceColumn),
 		)
-		fromV = sqlgraph.Neighbors(rac.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -3714,8 +3682,8 @@ func (c *RepeatedScheduleResourceClient) Update() *RepeatedScheduleResourceUpdat
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *RepeatedScheduleResourceClient) UpdateOne(rsr *RepeatedScheduleResource) *RepeatedScheduleResourceUpdateOne {
-	mutation := newRepeatedScheduleResourceMutation(c.config, OpUpdateOne, withRepeatedScheduleResource(rsr))
+func (c *RepeatedScheduleResourceClient) UpdateOne(_m *RepeatedScheduleResource) *RepeatedScheduleResourceUpdateOne {
+	mutation := newRepeatedScheduleResourceMutation(c.config, OpUpdateOne, withRepeatedScheduleResource(_m))
 	return &RepeatedScheduleResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -3732,8 +3700,8 @@ func (c *RepeatedScheduleResourceClient) Delete() *RepeatedScheduleResourceDelet
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *RepeatedScheduleResourceClient) DeleteOne(rsr *RepeatedScheduleResource) *RepeatedScheduleResourceDeleteOne {
-	return c.DeleteOneID(rsr.ID)
+func (c *RepeatedScheduleResourceClient) DeleteOne(_m *RepeatedScheduleResource) *RepeatedScheduleResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3768,64 +3736,64 @@ func (c *RepeatedScheduleResourceClient) GetX(ctx context.Context, id int) *Repe
 }
 
 // QueryTargetSite queries the target_site edge of a RepeatedScheduleResource.
-func (c *RepeatedScheduleResourceClient) QueryTargetSite(rsr *RepeatedScheduleResource) *SiteResourceQuery {
+func (c *RepeatedScheduleResourceClient) QueryTargetSite(_m *RepeatedScheduleResource) *SiteResourceQuery {
 	query := (&SiteResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rsr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(repeatedscheduleresource.Table, repeatedscheduleresource.FieldID, id),
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetSiteTable, repeatedscheduleresource.TargetSiteColumn),
 		)
-		fromV = sqlgraph.Neighbors(rsr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryTargetHost queries the target_host edge of a RepeatedScheduleResource.
-func (c *RepeatedScheduleResourceClient) QueryTargetHost(rsr *RepeatedScheduleResource) *HostResourceQuery {
+func (c *RepeatedScheduleResourceClient) QueryTargetHost(_m *RepeatedScheduleResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rsr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(repeatedscheduleresource.Table, repeatedscheduleresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetHostTable, repeatedscheduleresource.TargetHostColumn),
 		)
-		fromV = sqlgraph.Neighbors(rsr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryTargetWorkload queries the target_workload edge of a RepeatedScheduleResource.
-func (c *RepeatedScheduleResourceClient) QueryTargetWorkload(rsr *RepeatedScheduleResource) *WorkloadResourceQuery {
+func (c *RepeatedScheduleResourceClient) QueryTargetWorkload(_m *RepeatedScheduleResource) *WorkloadResourceQuery {
 	query := (&WorkloadResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rsr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(repeatedscheduleresource.Table, repeatedscheduleresource.FieldID, id),
 			sqlgraph.To(workloadresource.Table, workloadresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetWorkloadTable, repeatedscheduleresource.TargetWorkloadColumn),
 		)
-		fromV = sqlgraph.Neighbors(rsr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryTargetRegion queries the target_region edge of a RepeatedScheduleResource.
-func (c *RepeatedScheduleResourceClient) QueryTargetRegion(rsr *RepeatedScheduleResource) *RegionResourceQuery {
+func (c *RepeatedScheduleResourceClient) QueryTargetRegion(_m *RepeatedScheduleResource) *RegionResourceQuery {
 	query := (&RegionResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := rsr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(repeatedscheduleresource.Table, repeatedscheduleresource.FieldID, id),
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, repeatedscheduleresource.TargetRegionTable, repeatedscheduleresource.TargetRegionColumn),
 		)
-		fromV = sqlgraph.Neighbors(rsr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -3911,8 +3879,8 @@ func (c *SingleScheduleResourceClient) Update() *SingleScheduleResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *SingleScheduleResourceClient) UpdateOne(ssr *SingleScheduleResource) *SingleScheduleResourceUpdateOne {
-	mutation := newSingleScheduleResourceMutation(c.config, OpUpdateOne, withSingleScheduleResource(ssr))
+func (c *SingleScheduleResourceClient) UpdateOne(_m *SingleScheduleResource) *SingleScheduleResourceUpdateOne {
+	mutation := newSingleScheduleResourceMutation(c.config, OpUpdateOne, withSingleScheduleResource(_m))
 	return &SingleScheduleResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -3929,8 +3897,8 @@ func (c *SingleScheduleResourceClient) Delete() *SingleScheduleResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *SingleScheduleResourceClient) DeleteOne(ssr *SingleScheduleResource) *SingleScheduleResourceDeleteOne {
-	return c.DeleteOneID(ssr.ID)
+func (c *SingleScheduleResourceClient) DeleteOne(_m *SingleScheduleResource) *SingleScheduleResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -3965,64 +3933,64 @@ func (c *SingleScheduleResourceClient) GetX(ctx context.Context, id int) *Single
 }
 
 // QueryTargetSite queries the target_site edge of a SingleScheduleResource.
-func (c *SingleScheduleResourceClient) QueryTargetSite(ssr *SingleScheduleResource) *SiteResourceQuery {
+func (c *SingleScheduleResourceClient) QueryTargetSite(_m *SingleScheduleResource) *SiteResourceQuery {
 	query := (&SiteResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ssr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(singlescheduleresource.Table, singlescheduleresource.FieldID, id),
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetSiteTable, singlescheduleresource.TargetSiteColumn),
 		)
-		fromV = sqlgraph.Neighbors(ssr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryTargetHost queries the target_host edge of a SingleScheduleResource.
-func (c *SingleScheduleResourceClient) QueryTargetHost(ssr *SingleScheduleResource) *HostResourceQuery {
+func (c *SingleScheduleResourceClient) QueryTargetHost(_m *SingleScheduleResource) *HostResourceQuery {
 	query := (&HostResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ssr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(singlescheduleresource.Table, singlescheduleresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetHostTable, singlescheduleresource.TargetHostColumn),
 		)
-		fromV = sqlgraph.Neighbors(ssr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryTargetWorkload queries the target_workload edge of a SingleScheduleResource.
-func (c *SingleScheduleResourceClient) QueryTargetWorkload(ssr *SingleScheduleResource) *WorkloadResourceQuery {
+func (c *SingleScheduleResourceClient) QueryTargetWorkload(_m *SingleScheduleResource) *WorkloadResourceQuery {
 	query := (&WorkloadResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ssr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(singlescheduleresource.Table, singlescheduleresource.FieldID, id),
 			sqlgraph.To(workloadresource.Table, workloadresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetWorkloadTable, singlescheduleresource.TargetWorkloadColumn),
 		)
-		fromV = sqlgraph.Neighbors(ssr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryTargetRegion queries the target_region edge of a SingleScheduleResource.
-func (c *SingleScheduleResourceClient) QueryTargetRegion(ssr *SingleScheduleResource) *RegionResourceQuery {
+func (c *SingleScheduleResourceClient) QueryTargetRegion(_m *SingleScheduleResource) *RegionResourceQuery {
 	query := (&RegionResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := ssr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(singlescheduleresource.Table, singlescheduleresource.FieldID, id),
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, singlescheduleresource.TargetRegionTable, singlescheduleresource.TargetRegionColumn),
 		)
-		fromV = sqlgraph.Neighbors(ssr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -4108,8 +4076,8 @@ func (c *SiteResourceClient) Update() *SiteResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *SiteResourceClient) UpdateOne(sr *SiteResource) *SiteResourceUpdateOne {
-	mutation := newSiteResourceMutation(c.config, OpUpdateOne, withSiteResource(sr))
+func (c *SiteResourceClient) UpdateOne(_m *SiteResource) *SiteResourceUpdateOne {
+	mutation := newSiteResourceMutation(c.config, OpUpdateOne, withSiteResource(_m))
 	return &SiteResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -4126,8 +4094,8 @@ func (c *SiteResourceClient) Delete() *SiteResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *SiteResourceClient) DeleteOne(sr *SiteResource) *SiteResourceDeleteOne {
-	return c.DeleteOneID(sr.ID)
+func (c *SiteResourceClient) DeleteOne(_m *SiteResource) *SiteResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -4162,48 +4130,48 @@ func (c *SiteResourceClient) GetX(ctx context.Context, id int) *SiteResource {
 }
 
 // QueryRegion queries the region edge of a SiteResource.
-func (c *SiteResourceClient) QueryRegion(sr *SiteResource) *RegionResourceQuery {
+func (c *SiteResourceClient) QueryRegion(_m *SiteResource) *RegionResourceQuery {
 	query := (&RegionResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := sr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(siteresource.Table, siteresource.FieldID, id),
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, siteresource.RegionTable, siteresource.RegionColumn),
 		)
-		fromV = sqlgraph.Neighbors(sr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryOu queries the ou edge of a SiteResource.
-func (c *SiteResourceClient) QueryOu(sr *SiteResource) *OuResourceQuery {
+func (c *SiteResourceClient) QueryOu(_m *SiteResource) *OuResourceQuery {
 	query := (&OuResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := sr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(siteresource.Table, siteresource.FieldID, id),
 			sqlgraph.To(ouresource.Table, ouresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, siteresource.OuTable, siteresource.OuColumn),
 		)
-		fromV = sqlgraph.Neighbors(sr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryProvider queries the provider edge of a SiteResource.
-func (c *SiteResourceClient) QueryProvider(sr *SiteResource) *ProviderResourceQuery {
+func (c *SiteResourceClient) QueryProvider(_m *SiteResource) *ProviderResourceQuery {
 	query := (&ProviderResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := sr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(siteresource.Table, siteresource.FieldID, id),
 			sqlgraph.To(providerresource.Table, providerresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, siteresource.ProviderTable, siteresource.ProviderColumn),
 		)
-		fromV = sqlgraph.Neighbors(sr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -4289,8 +4257,8 @@ func (c *TelemetryGroupResourceClient) Update() *TelemetryGroupResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *TelemetryGroupResourceClient) UpdateOne(tgr *TelemetryGroupResource) *TelemetryGroupResourceUpdateOne {
-	mutation := newTelemetryGroupResourceMutation(c.config, OpUpdateOne, withTelemetryGroupResource(tgr))
+func (c *TelemetryGroupResourceClient) UpdateOne(_m *TelemetryGroupResource) *TelemetryGroupResourceUpdateOne {
+	mutation := newTelemetryGroupResourceMutation(c.config, OpUpdateOne, withTelemetryGroupResource(_m))
 	return &TelemetryGroupResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -4307,8 +4275,8 @@ func (c *TelemetryGroupResourceClient) Delete() *TelemetryGroupResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *TelemetryGroupResourceClient) DeleteOne(tgr *TelemetryGroupResource) *TelemetryGroupResourceDeleteOne {
-	return c.DeleteOneID(tgr.ID)
+func (c *TelemetryGroupResourceClient) DeleteOne(_m *TelemetryGroupResource) *TelemetryGroupResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -4343,16 +4311,16 @@ func (c *TelemetryGroupResourceClient) GetX(ctx context.Context, id int) *Teleme
 }
 
 // QueryProfiles queries the profiles edge of a TelemetryGroupResource.
-func (c *TelemetryGroupResourceClient) QueryProfiles(tgr *TelemetryGroupResource) *TelemetryProfileQuery {
+func (c *TelemetryGroupResourceClient) QueryProfiles(_m *TelemetryGroupResource) *TelemetryProfileQuery {
 	query := (&TelemetryProfileClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := tgr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(telemetrygroupresource.Table, telemetrygroupresource.FieldID, id),
 			sqlgraph.To(telemetryprofile.Table, telemetryprofile.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, telemetrygroupresource.ProfilesTable, telemetrygroupresource.ProfilesColumn),
 		)
-		fromV = sqlgraph.Neighbors(tgr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -4438,8 +4406,8 @@ func (c *TelemetryProfileClient) Update() *TelemetryProfileUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *TelemetryProfileClient) UpdateOne(tp *TelemetryProfile) *TelemetryProfileUpdateOne {
-	mutation := newTelemetryProfileMutation(c.config, OpUpdateOne, withTelemetryProfile(tp))
+func (c *TelemetryProfileClient) UpdateOne(_m *TelemetryProfile) *TelemetryProfileUpdateOne {
+	mutation := newTelemetryProfileMutation(c.config, OpUpdateOne, withTelemetryProfile(_m))
 	return &TelemetryProfileUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -4456,8 +4424,8 @@ func (c *TelemetryProfileClient) Delete() *TelemetryProfileDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *TelemetryProfileClient) DeleteOne(tp *TelemetryProfile) *TelemetryProfileDeleteOne {
-	return c.DeleteOneID(tp.ID)
+func (c *TelemetryProfileClient) DeleteOne(_m *TelemetryProfile) *TelemetryProfileDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -4492,64 +4460,64 @@ func (c *TelemetryProfileClient) GetX(ctx context.Context, id int) *TelemetryPro
 }
 
 // QueryRegion queries the region edge of a TelemetryProfile.
-func (c *TelemetryProfileClient) QueryRegion(tp *TelemetryProfile) *RegionResourceQuery {
+func (c *TelemetryProfileClient) QueryRegion(_m *TelemetryProfile) *RegionResourceQuery {
 	query := (&RegionResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := tp.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(telemetryprofile.Table, telemetryprofile.FieldID, id),
 			sqlgraph.To(regionresource.Table, regionresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.RegionTable, telemetryprofile.RegionColumn),
 		)
-		fromV = sqlgraph.Neighbors(tp.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QuerySite queries the site edge of a TelemetryProfile.
-func (c *TelemetryProfileClient) QuerySite(tp *TelemetryProfile) *SiteResourceQuery {
+func (c *TelemetryProfileClient) QuerySite(_m *TelemetryProfile) *SiteResourceQuery {
 	query := (&SiteResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := tp.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(telemetryprofile.Table, telemetryprofile.FieldID, id),
 			sqlgraph.To(siteresource.Table, siteresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.SiteTable, telemetryprofile.SiteColumn),
 		)
-		fromV = sqlgraph.Neighbors(tp.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryInstance queries the instance edge of a TelemetryProfile.
-func (c *TelemetryProfileClient) QueryInstance(tp *TelemetryProfile) *InstanceResourceQuery {
+func (c *TelemetryProfileClient) QueryInstance(_m *TelemetryProfile) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := tp.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(telemetryprofile.Table, telemetryprofile.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.InstanceTable, telemetryprofile.InstanceColumn),
 		)
-		fromV = sqlgraph.Neighbors(tp.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryGroup queries the group edge of a TelemetryProfile.
-func (c *TelemetryProfileClient) QueryGroup(tp *TelemetryProfile) *TelemetryGroupResourceQuery {
+func (c *TelemetryProfileClient) QueryGroup(_m *TelemetryProfile) *TelemetryGroupResourceQuery {
 	query := (&TelemetryGroupResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := tp.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(telemetryprofile.Table, telemetryprofile.FieldID, id),
 			sqlgraph.To(telemetrygroupresource.Table, telemetrygroupresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, telemetryprofile.GroupTable, telemetryprofile.GroupColumn),
 		)
-		fromV = sqlgraph.Neighbors(tp.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -4635,8 +4603,8 @@ func (c *TenantClient) Update() *TenantUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *TenantClient) UpdateOne(t *Tenant) *TenantUpdateOne {
-	mutation := newTenantMutation(c.config, OpUpdateOne, withTenant(t))
+func (c *TenantClient) UpdateOne(_m *Tenant) *TenantUpdateOne {
+	mutation := newTenantMutation(c.config, OpUpdateOne, withTenant(_m))
 	return &TenantUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -4653,8 +4621,8 @@ func (c *TenantClient) Delete() *TenantDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *TenantClient) DeleteOne(t *Tenant) *TenantDeleteOne {
-	return c.DeleteOneID(t.ID)
+func (c *TenantClient) DeleteOne(_m *Tenant) *TenantDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -4768,8 +4736,8 @@ func (c *WorkloadMemberClient) Update() *WorkloadMemberUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *WorkloadMemberClient) UpdateOne(wm *WorkloadMember) *WorkloadMemberUpdateOne {
-	mutation := newWorkloadMemberMutation(c.config, OpUpdateOne, withWorkloadMember(wm))
+func (c *WorkloadMemberClient) UpdateOne(_m *WorkloadMember) *WorkloadMemberUpdateOne {
+	mutation := newWorkloadMemberMutation(c.config, OpUpdateOne, withWorkloadMember(_m))
 	return &WorkloadMemberUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -4786,8 +4754,8 @@ func (c *WorkloadMemberClient) Delete() *WorkloadMemberDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *WorkloadMemberClient) DeleteOne(wm *WorkloadMember) *WorkloadMemberDeleteOne {
-	return c.DeleteOneID(wm.ID)
+func (c *WorkloadMemberClient) DeleteOne(_m *WorkloadMember) *WorkloadMemberDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -4822,32 +4790,32 @@ func (c *WorkloadMemberClient) GetX(ctx context.Context, id int) *WorkloadMember
 }
 
 // QueryWorkload queries the workload edge of a WorkloadMember.
-func (c *WorkloadMemberClient) QueryWorkload(wm *WorkloadMember) *WorkloadResourceQuery {
+func (c *WorkloadMemberClient) QueryWorkload(_m *WorkloadMember) *WorkloadResourceQuery {
 	query := (&WorkloadResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := wm.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(workloadmember.Table, workloadmember.FieldID, id),
 			sqlgraph.To(workloadresource.Table, workloadresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, workloadmember.WorkloadTable, workloadmember.WorkloadColumn),
 		)
-		fromV = sqlgraph.Neighbors(wm.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryInstance queries the instance edge of a WorkloadMember.
-func (c *WorkloadMemberClient) QueryInstance(wm *WorkloadMember) *InstanceResourceQuery {
+func (c *WorkloadMemberClient) QueryInstance(_m *WorkloadMember) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := wm.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(workloadmember.Table, workloadmember.FieldID, id),
 			sqlgraph.To(instanceresource.Table, instanceresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, workloadmember.InstanceTable, workloadmember.InstanceColumn),
 		)
-		fromV = sqlgraph.Neighbors(wm.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -4933,8 +4901,8 @@ func (c *WorkloadResourceClient) Update() *WorkloadResourceUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *WorkloadResourceClient) UpdateOne(wr *WorkloadResource) *WorkloadResourceUpdateOne {
-	mutation := newWorkloadResourceMutation(c.config, OpUpdateOne, withWorkloadResource(wr))
+func (c *WorkloadResourceClient) UpdateOne(_m *WorkloadResource) *WorkloadResourceUpdateOne {
+	mutation := newWorkloadResourceMutation(c.config, OpUpdateOne, withWorkloadResource(_m))
 	return &WorkloadResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -4951,8 +4919,8 @@ func (c *WorkloadResourceClient) Delete() *WorkloadResourceDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *WorkloadResourceClient) DeleteOne(wr *WorkloadResource) *WorkloadResourceDeleteOne {
-	return c.DeleteOneID(wr.ID)
+func (c *WorkloadResourceClient) DeleteOne(_m *WorkloadResource) *WorkloadResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -4987,16 +4955,16 @@ func (c *WorkloadResourceClient) GetX(ctx context.Context, id int) *WorkloadReso
 }
 
 // QueryMembers queries the members edge of a WorkloadResource.
-func (c *WorkloadResourceClient) QueryMembers(wr *WorkloadResource) *WorkloadMemberQuery {
+func (c *WorkloadResourceClient) QueryMembers(_m *WorkloadResource) *WorkloadMemberQuery {
 	query := (&WorkloadMemberClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := wr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(workloadresource.Table, workloadresource.FieldID, id),
 			sqlgraph.To(workloadmember.Table, workloadmember.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, workloadresource.MembersTable, workloadresource.MembersColumn),
 		)
-		fromV = sqlgraph.Neighbors(wr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query

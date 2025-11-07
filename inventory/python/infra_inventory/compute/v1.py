@@ -34,6 +34,7 @@ class PowerState(betterproto.Enum):
     POWER_STATE_HIBERNATE = 5
     POWER_STATE_RESET = 6
     POWER_STATE_POWER_CYCLE = 7
+    POWER_STATE_RESET_REPEAT = 8
 
 
 class PowerCommandPolicy(betterproto.Enum):
@@ -55,6 +56,12 @@ class AmtState(betterproto.Enum):
     AMT_STATE_PROVISIONED = 1
     AMT_STATE_UNPROVISIONED = 2
     AMT_STATE_DISCONNECTED = 3
+
+
+class AmtSku(betterproto.Enum):
+    AMT_SKU_UNSPECIFIED = 0
+    AMT_SKU_AMT = 1
+    AMT_SKU_ISM = 2
 
 
 class HostComponentState(betterproto.Enum):
@@ -202,7 +209,7 @@ class HostResource(betterproto.Message):
     host_usbs: List["HostusbResource"] = betterproto.message_field(72)
     host_gpus: List["HostgpuResource"] = betterproto.message_field(73)
     instance: "InstanceResource" = betterproto.message_field(90)
-    amt_sku: str = betterproto.string_field(91)
+    amt_sku: "AmtSku" = betterproto.enum_field(91)
     desired_amt_state: "AmtState" = betterproto.enum_field(92)
     current_amt_state: "AmtState" = betterproto.enum_field(93)
     # A group of fields describing the AMT status. amt_status,
@@ -212,6 +219,7 @@ class HostResource(betterproto.Message):
     amt_status: str = betterproto.string_field(94)
     amt_status_indicator: v1.StatusIndication = betterproto.enum_field(95)
     amt_status_timestamp: int = betterproto.uint64_field(96)
+    user_lvm_size: int = betterproto.uint32_field(97)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
@@ -316,8 +324,6 @@ class InstanceResource(betterproto.Message):
     vm_cpu_cores: int = betterproto.uint32_field(7)
     vm_storage_bytes: int = betterproto.uint64_field(8)
     host: "HostResource" = betterproto.message_field(9)
-    desired_os: v1.OperatingSystemResource = betterproto.message_field(11)
-    current_os: v1.OperatingSystemResource = betterproto.message_field(25)
     os: v1.OperatingSystemResource = betterproto.message_field(12)
     security_feature: v1.SecurityFeature = betterproto.enum_field(14)
     # A group of fields describing the Instance runtime status. instance_status,
@@ -343,7 +349,6 @@ class InstanceResource(betterproto.Message):
     update_status: str = betterproto.string_field(21)
     update_status_indicator: v1.StatusIndication = betterproto.enum_field(22)
     update_status_timestamp: int = betterproto.uint64_field(23)
-    update_status_detail: str = betterproto.string_field(24)
     # A group of fields describing the Instance trusted_attestation status.
     # trusted_attestation_status, trusted_attestation_status_indicator and
     # trusted_attestation_status_timestamp should always be updated in one shot.
@@ -410,9 +415,9 @@ class OSUpdatePolicyResource(betterproto.Message):
     resource_id: str = betterproto.string_field(1)
     name: str = betterproto.string_field(2)
     description: str = betterproto.string_field(3)
-    install_packages: str = betterproto.string_field(4)
     update_sources: List[str] = betterproto.string_field(5)
-    kernel_command: str = betterproto.string_field(6)
+    update_packages: str = betterproto.string_field(7)
+    update_kernel_command: str = betterproto.string_field(8)
     target_os: v1.OperatingSystemResource = betterproto.message_field(50)
     update_policy: "UpdatePolicy" = betterproto.enum_field(60)
     tenant_id: str = betterproto.string_field(100)

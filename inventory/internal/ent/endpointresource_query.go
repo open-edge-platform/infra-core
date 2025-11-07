@@ -31,44 +31,44 @@ type EndpointResourceQuery struct {
 }
 
 // Where adds a new predicate for the EndpointResourceQuery builder.
-func (erq *EndpointResourceQuery) Where(ps ...predicate.EndpointResource) *EndpointResourceQuery {
-	erq.predicates = append(erq.predicates, ps...)
-	return erq
+func (_q *EndpointResourceQuery) Where(ps ...predicate.EndpointResource) *EndpointResourceQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (erq *EndpointResourceQuery) Limit(limit int) *EndpointResourceQuery {
-	erq.ctx.Limit = &limit
-	return erq
+func (_q *EndpointResourceQuery) Limit(limit int) *EndpointResourceQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (erq *EndpointResourceQuery) Offset(offset int) *EndpointResourceQuery {
-	erq.ctx.Offset = &offset
-	return erq
+func (_q *EndpointResourceQuery) Offset(offset int) *EndpointResourceQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (erq *EndpointResourceQuery) Unique(unique bool) *EndpointResourceQuery {
-	erq.ctx.Unique = &unique
-	return erq
+func (_q *EndpointResourceQuery) Unique(unique bool) *EndpointResourceQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (erq *EndpointResourceQuery) Order(o ...endpointresource.OrderOption) *EndpointResourceQuery {
-	erq.order = append(erq.order, o...)
-	return erq
+func (_q *EndpointResourceQuery) Order(o ...endpointresource.OrderOption) *EndpointResourceQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryHost chains the current query on the "host" edge.
-func (erq *EndpointResourceQuery) QueryHost() *HostResourceQuery {
-	query := (&HostResourceClient{config: erq.config}).Query()
+func (_q *EndpointResourceQuery) QueryHost() *HostResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := erq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := erq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (erq *EndpointResourceQuery) QueryHost() *HostResourceQuery {
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, endpointresource.HostTable, endpointresource.HostColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(erq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (erq *EndpointResourceQuery) QueryHost() *HostResourceQuery {
 
 // First returns the first EndpointResource entity from the query.
 // Returns a *NotFoundError when no EndpointResource was found.
-func (erq *EndpointResourceQuery) First(ctx context.Context) (*EndpointResource, error) {
-	nodes, err := erq.Limit(1).All(setContextOp(ctx, erq.ctx, ent.OpQueryFirst))
+func (_q *EndpointResourceQuery) First(ctx context.Context) (*EndpointResource, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (erq *EndpointResourceQuery) First(ctx context.Context) (*EndpointResource,
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (erq *EndpointResourceQuery) FirstX(ctx context.Context) *EndpointResource {
-	node, err := erq.First(ctx)
+func (_q *EndpointResourceQuery) FirstX(ctx context.Context) *EndpointResource {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (erq *EndpointResourceQuery) FirstX(ctx context.Context) *EndpointResource 
 
 // FirstID returns the first EndpointResource ID from the query.
 // Returns a *NotFoundError when no EndpointResource ID was found.
-func (erq *EndpointResourceQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *EndpointResourceQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = erq.Limit(1).IDs(setContextOp(ctx, erq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (erq *EndpointResourceQuery) FirstID(ctx context.Context) (id int, err erro
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (erq *EndpointResourceQuery) FirstIDX(ctx context.Context) int {
-	id, err := erq.FirstID(ctx)
+func (_q *EndpointResourceQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (erq *EndpointResourceQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single EndpointResource entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one EndpointResource entity is found.
 // Returns a *NotFoundError when no EndpointResource entities are found.
-func (erq *EndpointResourceQuery) Only(ctx context.Context) (*EndpointResource, error) {
-	nodes, err := erq.Limit(2).All(setContextOp(ctx, erq.ctx, ent.OpQueryOnly))
+func (_q *EndpointResourceQuery) Only(ctx context.Context) (*EndpointResource, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (erq *EndpointResourceQuery) Only(ctx context.Context) (*EndpointResource, 
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (erq *EndpointResourceQuery) OnlyX(ctx context.Context) *EndpointResource {
-	node, err := erq.Only(ctx)
+func (_q *EndpointResourceQuery) OnlyX(ctx context.Context) *EndpointResource {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (erq *EndpointResourceQuery) OnlyX(ctx context.Context) *EndpointResource {
 // OnlyID is like Only, but returns the only EndpointResource ID in the query.
 // Returns a *NotSingularError when more than one EndpointResource ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (erq *EndpointResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *EndpointResourceQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = erq.Limit(2).IDs(setContextOp(ctx, erq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (erq *EndpointResourceQuery) OnlyID(ctx context.Context) (id int, err error
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (erq *EndpointResourceQuery) OnlyIDX(ctx context.Context) int {
-	id, err := erq.OnlyID(ctx)
+func (_q *EndpointResourceQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (erq *EndpointResourceQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of EndpointResources.
-func (erq *EndpointResourceQuery) All(ctx context.Context) ([]*EndpointResource, error) {
-	ctx = setContextOp(ctx, erq.ctx, ent.OpQueryAll)
-	if err := erq.prepareQuery(ctx); err != nil {
+func (_q *EndpointResourceQuery) All(ctx context.Context) ([]*EndpointResource, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*EndpointResource, *EndpointResourceQuery]()
-	return withInterceptors[[]*EndpointResource](ctx, erq, qr, erq.inters)
+	return withInterceptors[[]*EndpointResource](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (erq *EndpointResourceQuery) AllX(ctx context.Context) []*EndpointResource {
-	nodes, err := erq.All(ctx)
+func (_q *EndpointResourceQuery) AllX(ctx context.Context) []*EndpointResource {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (erq *EndpointResourceQuery) AllX(ctx context.Context) []*EndpointResource 
 }
 
 // IDs executes the query and returns a list of EndpointResource IDs.
-func (erq *EndpointResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if erq.ctx.Unique == nil && erq.path != nil {
-		erq.Unique(true)
+func (_q *EndpointResourceQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, erq.ctx, ent.OpQueryIDs)
-	if err = erq.Select(endpointresource.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(endpointresource.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (erq *EndpointResourceQuery) IDsX(ctx context.Context) []int {
-	ids, err := erq.IDs(ctx)
+func (_q *EndpointResourceQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (erq *EndpointResourceQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (erq *EndpointResourceQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, erq.ctx, ent.OpQueryCount)
-	if err := erq.prepareQuery(ctx); err != nil {
+func (_q *EndpointResourceQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, erq, querierCount[*EndpointResourceQuery](), erq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*EndpointResourceQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (erq *EndpointResourceQuery) CountX(ctx context.Context) int {
-	count, err := erq.Count(ctx)
+func (_q *EndpointResourceQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (erq *EndpointResourceQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (erq *EndpointResourceQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, erq.ctx, ent.OpQueryExist)
-	switch _, err := erq.FirstID(ctx); {
+func (_q *EndpointResourceQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (erq *EndpointResourceQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (erq *EndpointResourceQuery) ExistX(ctx context.Context) bool {
-	exist, err := erq.Exist(ctx)
+func (_q *EndpointResourceQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (erq *EndpointResourceQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the EndpointResourceQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (erq *EndpointResourceQuery) Clone() *EndpointResourceQuery {
-	if erq == nil {
+func (_q *EndpointResourceQuery) Clone() *EndpointResourceQuery {
+	if _q == nil {
 		return nil
 	}
 	return &EndpointResourceQuery{
-		config:     erq.config,
-		ctx:        erq.ctx.Clone(),
-		order:      append([]endpointresource.OrderOption{}, erq.order...),
-		inters:     append([]Interceptor{}, erq.inters...),
-		predicates: append([]predicate.EndpointResource{}, erq.predicates...),
-		withHost:   erq.withHost.Clone(),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]endpointresource.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.EndpointResource{}, _q.predicates...),
+		withHost:   _q.withHost.Clone(),
 		// clone intermediate query.
-		sql:  erq.sql.Clone(),
-		path: erq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithHost tells the query-builder to eager-load the nodes that are connected to
 // the "host" edge. The optional arguments are used to configure the query builder of the edge.
-func (erq *EndpointResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *EndpointResourceQuery {
-	query := (&HostResourceClient{config: erq.config}).Query()
+func (_q *EndpointResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *EndpointResourceQuery {
+	query := (&HostResourceClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	erq.withHost = query
-	return erq
+	_q.withHost = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (erq *EndpointResourceQuery) WithHost(opts ...func(*HostResourceQuery)) *En
 //		GroupBy(endpointresource.FieldResourceID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (erq *EndpointResourceQuery) GroupBy(field string, fields ...string) *EndpointResourceGroupBy {
-	erq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &EndpointResourceGroupBy{build: erq}
-	grbuild.flds = &erq.ctx.Fields
+func (_q *EndpointResourceQuery) GroupBy(field string, fields ...string) *EndpointResourceGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &EndpointResourceGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = endpointresource.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,55 +328,55 @@ func (erq *EndpointResourceQuery) GroupBy(field string, fields ...string) *Endpo
 //	client.EndpointResource.Query().
 //		Select(endpointresource.FieldResourceID).
 //		Scan(ctx, &v)
-func (erq *EndpointResourceQuery) Select(fields ...string) *EndpointResourceSelect {
-	erq.ctx.Fields = append(erq.ctx.Fields, fields...)
-	sbuild := &EndpointResourceSelect{EndpointResourceQuery: erq}
+func (_q *EndpointResourceQuery) Select(fields ...string) *EndpointResourceSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &EndpointResourceSelect{EndpointResourceQuery: _q}
 	sbuild.label = endpointresource.Label
-	sbuild.flds, sbuild.scan = &erq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a EndpointResourceSelect configured with the given aggregations.
-func (erq *EndpointResourceQuery) Aggregate(fns ...AggregateFunc) *EndpointResourceSelect {
-	return erq.Select().Aggregate(fns...)
+func (_q *EndpointResourceQuery) Aggregate(fns ...AggregateFunc) *EndpointResourceSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (erq *EndpointResourceQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range erq.inters {
+func (_q *EndpointResourceQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, erq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range erq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !endpointresource.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if erq.path != nil {
-		prev, err := erq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		erq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (erq *EndpointResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*EndpointResource, error) {
+func (_q *EndpointResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*EndpointResource, error) {
 	var (
 		nodes       = []*EndpointResource{}
-		withFKs     = erq.withFKs
-		_spec       = erq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			erq.withHost != nil,
+			_q.withHost != nil,
 		}
 	)
-	if erq.withHost != nil {
+	if _q.withHost != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,7 +386,7 @@ func (erq *EndpointResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		return (*EndpointResource).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &EndpointResource{config: erq.config}
+		node := &EndpointResource{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -394,14 +394,14 @@ func (erq *EndpointResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, erq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := erq.withHost; query != nil {
-		if err := erq.loadHost(ctx, query, nodes, nil,
+	if query := _q.withHost; query != nil {
+		if err := _q.loadHost(ctx, query, nodes, nil,
 			func(n *EndpointResource, e *HostResource) { n.Edges.Host = e }); err != nil {
 			return nil, err
 		}
@@ -409,7 +409,7 @@ func (erq *EndpointResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	return nodes, nil
 }
 
-func (erq *EndpointResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*EndpointResource, init func(*EndpointResource), assign func(*EndpointResource, *HostResource)) error {
+func (_q *EndpointResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*EndpointResource, init func(*EndpointResource), assign func(*EndpointResource, *HostResource)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*EndpointResource)
 	for i := range nodes {
@@ -442,24 +442,24 @@ func (erq *EndpointResourceQuery) loadHost(ctx context.Context, query *HostResou
 	return nil
 }
 
-func (erq *EndpointResourceQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := erq.querySpec()
-	_spec.Node.Columns = erq.ctx.Fields
-	if len(erq.ctx.Fields) > 0 {
-		_spec.Unique = erq.ctx.Unique != nil && *erq.ctx.Unique
+func (_q *EndpointResourceQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, erq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (erq *EndpointResourceQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *EndpointResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(endpointresource.Table, endpointresource.Columns, sqlgraph.NewFieldSpec(endpointresource.FieldID, field.TypeInt))
-	_spec.From = erq.sql
-	if unique := erq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if erq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := erq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, endpointresource.FieldID)
 		for i := range fields {
@@ -468,20 +468,20 @@ func (erq *EndpointResourceQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := erq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := erq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := erq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := erq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -491,33 +491,33 @@ func (erq *EndpointResourceQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (erq *EndpointResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(erq.driver.Dialect())
+func (_q *EndpointResourceQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(endpointresource.Table)
-	columns := erq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = endpointresource.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if erq.sql != nil {
-		selector = erq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if erq.ctx.Unique != nil && *erq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range erq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range erq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := erq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := erq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -530,41 +530,41 @@ type EndpointResourceGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (ergb *EndpointResourceGroupBy) Aggregate(fns ...AggregateFunc) *EndpointResourceGroupBy {
-	ergb.fns = append(ergb.fns, fns...)
-	return ergb
+func (_g *EndpointResourceGroupBy) Aggregate(fns ...AggregateFunc) *EndpointResourceGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ergb *EndpointResourceGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ergb.build.ctx, ent.OpQueryGroupBy)
-	if err := ergb.build.prepareQuery(ctx); err != nil {
+func (_g *EndpointResourceGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*EndpointResourceQuery, *EndpointResourceGroupBy](ctx, ergb.build, ergb, ergb.build.inters, v)
+	return scanWithInterceptors[*EndpointResourceQuery, *EndpointResourceGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (ergb *EndpointResourceGroupBy) sqlScan(ctx context.Context, root *EndpointResourceQuery, v any) error {
+func (_g *EndpointResourceGroupBy) sqlScan(ctx context.Context, root *EndpointResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(ergb.fns))
-	for _, fn := range ergb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*ergb.flds)+len(ergb.fns))
-		for _, f := range *ergb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*ergb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ergb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -578,27 +578,27 @@ type EndpointResourceSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (ers *EndpointResourceSelect) Aggregate(fns ...AggregateFunc) *EndpointResourceSelect {
-	ers.fns = append(ers.fns, fns...)
-	return ers
+func (_s *EndpointResourceSelect) Aggregate(fns ...AggregateFunc) *EndpointResourceSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ers *EndpointResourceSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ers.ctx, ent.OpQuerySelect)
-	if err := ers.prepareQuery(ctx); err != nil {
+func (_s *EndpointResourceSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*EndpointResourceQuery, *EndpointResourceSelect](ctx, ers.EndpointResourceQuery, ers, ers.inters, v)
+	return scanWithInterceptors[*EndpointResourceQuery, *EndpointResourceSelect](ctx, _s.EndpointResourceQuery, _s, _s.inters, v)
 }
 
-func (ers *EndpointResourceSelect) sqlScan(ctx context.Context, root *EndpointResourceQuery, v any) error {
+func (_s *EndpointResourceSelect) sqlScan(ctx context.Context, root *EndpointResourceQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(ers.fns))
-	for _, fn := range ers.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*ers.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -606,7 +606,7 @@ func (ers *EndpointResourceSelect) sqlScan(ctx context.Context, root *EndpointRe
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ers.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

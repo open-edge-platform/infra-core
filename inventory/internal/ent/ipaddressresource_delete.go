@@ -20,56 +20,56 @@ type IPAddressResourceDelete struct {
 }
 
 // Where appends a list predicates to the IPAddressResourceDelete builder.
-func (iard *IPAddressResourceDelete) Where(ps ...predicate.IPAddressResource) *IPAddressResourceDelete {
-	iard.mutation.Where(ps...)
-	return iard
+func (_d *IPAddressResourceDelete) Where(ps ...predicate.IPAddressResource) *IPAddressResourceDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (iard *IPAddressResourceDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, iard.sqlExec, iard.mutation, iard.hooks)
+func (_d *IPAddressResourceDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iard *IPAddressResourceDelete) ExecX(ctx context.Context) int {
-	n, err := iard.Exec(ctx)
+func (_d *IPAddressResourceDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (iard *IPAddressResourceDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *IPAddressResourceDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(ipaddressresource.Table, sqlgraph.NewFieldSpec(ipaddressresource.FieldID, field.TypeInt))
-	if ps := iard.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, iard.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	iard.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // IPAddressResourceDeleteOne is the builder for deleting a single IPAddressResource entity.
 type IPAddressResourceDeleteOne struct {
-	iard *IPAddressResourceDelete
+	_d *IPAddressResourceDelete
 }
 
 // Where appends a list predicates to the IPAddressResourceDelete builder.
-func (iardo *IPAddressResourceDeleteOne) Where(ps ...predicate.IPAddressResource) *IPAddressResourceDeleteOne {
-	iardo.iard.mutation.Where(ps...)
-	return iardo
+func (_d *IPAddressResourceDeleteOne) Where(ps ...predicate.IPAddressResource) *IPAddressResourceDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (iardo *IPAddressResourceDeleteOne) Exec(ctx context.Context) error {
-	n, err := iardo.iard.Exec(ctx)
+func (_d *IPAddressResourceDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (iardo *IPAddressResourceDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iardo *IPAddressResourceDeleteOne) ExecX(ctx context.Context) {
-	if err := iardo.Exec(ctx); err != nil {
+func (_d *IPAddressResourceDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

@@ -21,137 +21,137 @@ type OSUpdatePolicyResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetResourceID(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetResourceID(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetResourceID(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetName(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetName(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetName(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetDescription(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetDescription(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetDescription(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableDescription(s *string) *OSUpdatePolicyResourceCreate {
-	if s != nil {
-		ouprc.SetDescription(*s)
+func (_c *OSUpdatePolicyResourceCreate) SetNillableDescription(v *string) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return ouprc
-}
-
-// SetInstallPackages sets the "install_packages" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetInstallPackages(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetInstallPackages(s)
-	return ouprc
-}
-
-// SetNillableInstallPackages sets the "install_packages" field if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableInstallPackages(s *string) *OSUpdatePolicyResourceCreate {
-	if s != nil {
-		ouprc.SetInstallPackages(*s)
-	}
-	return ouprc
+	return _c
 }
 
 // SetUpdateSources sets the "update_sources" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetUpdateSources(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetUpdateSources(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetUpdateSources(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdateSources(v)
+	return _c
 }
 
 // SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableUpdateSources(s *string) *OSUpdatePolicyResourceCreate {
-	if s != nil {
-		ouprc.SetUpdateSources(*s)
+func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdateSources(v *string) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetUpdateSources(*v)
 	}
-	return ouprc
+	return _c
 }
 
-// SetKernelCommand sets the "kernel_command" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetKernelCommand(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetKernelCommand(s)
-	return ouprc
+// SetUpdatePackages sets the "update_packages" field.
+func (_c *OSUpdatePolicyResourceCreate) SetUpdatePackages(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdatePackages(v)
+	return _c
 }
 
-// SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableKernelCommand(s *string) *OSUpdatePolicyResourceCreate {
-	if s != nil {
-		ouprc.SetKernelCommand(*s)
+// SetNillableUpdatePackages sets the "update_packages" field if the given value is not nil.
+func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdatePackages(v *string) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetUpdatePackages(*v)
 	}
-	return ouprc
+	return _c
+}
+
+// SetUpdateKernelCommand sets the "update_kernel_command" field.
+func (_c *OSUpdatePolicyResourceCreate) SetUpdateKernelCommand(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdateKernelCommand(v)
+	return _c
+}
+
+// SetNillableUpdateKernelCommand sets the "update_kernel_command" field if the given value is not nil.
+func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdateKernelCommand(v *string) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetUpdateKernelCommand(*v)
+	}
+	return _c
 }
 
 // SetUpdatePolicy sets the "update_policy" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetUpdatePolicy(op osupdatepolicyresource.UpdatePolicy) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetUpdatePolicy(op)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetUpdatePolicy(v osupdatepolicyresource.UpdatePolicy) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdatePolicy(v)
+	return _c
 }
 
 // SetNillableUpdatePolicy sets the "update_policy" field if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableUpdatePolicy(op *osupdatepolicyresource.UpdatePolicy) *OSUpdatePolicyResourceCreate {
-	if op != nil {
-		ouprc.SetUpdatePolicy(*op)
+func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdatePolicy(v *osupdatepolicyresource.UpdatePolicy) *OSUpdatePolicyResourceCreate {
+	if v != nil {
+		_c.SetUpdatePolicy(*v)
 	}
-	return ouprc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetTenantID(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetTenantID(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetTenantID(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetCreatedAt(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetCreatedAt(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetCreatedAt(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ouprc *OSUpdatePolicyResourceCreate) SetUpdatedAt(s string) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetUpdatedAt(s)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetUpdatedAt(v string) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by ID.
-func (ouprc *OSUpdatePolicyResourceCreate) SetTargetOsID(id int) *OSUpdatePolicyResourceCreate {
-	ouprc.mutation.SetTargetOsID(id)
-	return ouprc
+func (_c *OSUpdatePolicyResourceCreate) SetTargetOsID(id int) *OSUpdatePolicyResourceCreate {
+	_c.mutation.SetTargetOsID(id)
+	return _c
 }
 
 // SetNillableTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by ID if the given value is not nil.
-func (ouprc *OSUpdatePolicyResourceCreate) SetNillableTargetOsID(id *int) *OSUpdatePolicyResourceCreate {
+func (_c *OSUpdatePolicyResourceCreate) SetNillableTargetOsID(id *int) *OSUpdatePolicyResourceCreate {
 	if id != nil {
-		ouprc = ouprc.SetTargetOsID(*id)
+		_c = _c.SetTargetOsID(*id)
 	}
-	return ouprc
+	return _c
 }
 
 // SetTargetOs sets the "target_os" edge to the OperatingSystemResource entity.
-func (ouprc *OSUpdatePolicyResourceCreate) SetTargetOs(o *OperatingSystemResource) *OSUpdatePolicyResourceCreate {
-	return ouprc.SetTargetOsID(o.ID)
+func (_c *OSUpdatePolicyResourceCreate) SetTargetOs(v *OperatingSystemResource) *OSUpdatePolicyResourceCreate {
+	return _c.SetTargetOsID(v.ID)
 }
 
 // Mutation returns the OSUpdatePolicyResourceMutation object of the builder.
-func (ouprc *OSUpdatePolicyResourceCreate) Mutation() *OSUpdatePolicyResourceMutation {
-	return ouprc.mutation
+func (_c *OSUpdatePolicyResourceCreate) Mutation() *OSUpdatePolicyResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the OSUpdatePolicyResource in the database.
-func (ouprc *OSUpdatePolicyResourceCreate) Save(ctx context.Context) (*OSUpdatePolicyResource, error) {
-	return withHooks(ctx, ouprc.sqlSave, ouprc.mutation, ouprc.hooks)
+func (_c *OSUpdatePolicyResourceCreate) Save(ctx context.Context) (*OSUpdatePolicyResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (ouprc *OSUpdatePolicyResourceCreate) SaveX(ctx context.Context) *OSUpdatePolicyResource {
-	v, err := ouprc.Save(ctx)
+func (_c *OSUpdatePolicyResourceCreate) SaveX(ctx context.Context) *OSUpdatePolicyResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,49 +159,49 @@ func (ouprc *OSUpdatePolicyResourceCreate) SaveX(ctx context.Context) *OSUpdateP
 }
 
 // Exec executes the query.
-func (ouprc *OSUpdatePolicyResourceCreate) Exec(ctx context.Context) error {
-	_, err := ouprc.Save(ctx)
+func (_c *OSUpdatePolicyResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ouprc *OSUpdatePolicyResourceCreate) ExecX(ctx context.Context) {
-	if err := ouprc.Exec(ctx); err != nil {
+func (_c *OSUpdatePolicyResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ouprc *OSUpdatePolicyResourceCreate) check() error {
-	if _, ok := ouprc.mutation.ResourceID(); !ok {
+func (_c *OSUpdatePolicyResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "OSUpdatePolicyResource.resource_id"`)}
 	}
-	if _, ok := ouprc.mutation.Name(); !ok {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "OSUpdatePolicyResource.name"`)}
 	}
-	if v, ok := ouprc.mutation.UpdatePolicy(); ok {
+	if v, ok := _c.mutation.UpdatePolicy(); ok {
 		if err := osupdatepolicyresource.UpdatePolicyValidator(v); err != nil {
 			return &ValidationError{Name: "update_policy", err: fmt.Errorf(`ent: validator failed for field "OSUpdatePolicyResource.update_policy": %w`, err)}
 		}
 	}
-	if _, ok := ouprc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "OSUpdatePolicyResource.tenant_id"`)}
 	}
-	if _, ok := ouprc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "OSUpdatePolicyResource.created_at"`)}
 	}
-	if _, ok := ouprc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "OSUpdatePolicyResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (ouprc *OSUpdatePolicyResourceCreate) sqlSave(ctx context.Context) (*OSUpdatePolicyResource, error) {
-	if err := ouprc.check(); err != nil {
+func (_c *OSUpdatePolicyResourceCreate) sqlSave(ctx context.Context) (*OSUpdatePolicyResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := ouprc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, ouprc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -209,57 +209,57 @@ func (ouprc *OSUpdatePolicyResourceCreate) sqlSave(ctx context.Context) (*OSUpda
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	ouprc.mutation.id = &_node.ID
-	ouprc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (ouprc *OSUpdatePolicyResourceCreate) createSpec() (*OSUpdatePolicyResource, *sqlgraph.CreateSpec) {
+func (_c *OSUpdatePolicyResourceCreate) createSpec() (*OSUpdatePolicyResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &OSUpdatePolicyResource{config: ouprc.config}
+		_node = &OSUpdatePolicyResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(osupdatepolicyresource.Table, sqlgraph.NewFieldSpec(osupdatepolicyresource.FieldID, field.TypeInt))
 	)
-	if value, ok := ouprc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := ouprc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := ouprc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := ouprc.mutation.InstallPackages(); ok {
-		_spec.SetField(osupdatepolicyresource.FieldInstallPackages, field.TypeString, value)
-		_node.InstallPackages = value
-	}
-	if value, ok := ouprc.mutation.UpdateSources(); ok {
+	if value, ok := _c.mutation.UpdateSources(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdateSources, field.TypeString, value)
 		_node.UpdateSources = value
 	}
-	if value, ok := ouprc.mutation.KernelCommand(); ok {
-		_spec.SetField(osupdatepolicyresource.FieldKernelCommand, field.TypeString, value)
-		_node.KernelCommand = value
+	if value, ok := _c.mutation.UpdatePackages(); ok {
+		_spec.SetField(osupdatepolicyresource.FieldUpdatePackages, field.TypeString, value)
+		_node.UpdatePackages = value
 	}
-	if value, ok := ouprc.mutation.UpdatePolicy(); ok {
+	if value, ok := _c.mutation.UpdateKernelCommand(); ok {
+		_spec.SetField(osupdatepolicyresource.FieldUpdateKernelCommand, field.TypeString, value)
+		_node.UpdateKernelCommand = value
+	}
+	if value, ok := _c.mutation.UpdatePolicy(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdatePolicy, field.TypeEnum, value)
 		_node.UpdatePolicy = value
 	}
-	if value, ok := ouprc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := ouprc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := ouprc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
-	if nodes := ouprc.mutation.TargetOsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TargetOsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -287,16 +287,16 @@ type OSUpdatePolicyResourceCreateBulk struct {
 }
 
 // Save creates the OSUpdatePolicyResource entities in the database.
-func (ouprcb *OSUpdatePolicyResourceCreateBulk) Save(ctx context.Context) ([]*OSUpdatePolicyResource, error) {
-	if ouprcb.err != nil {
-		return nil, ouprcb.err
+func (_c *OSUpdatePolicyResourceCreateBulk) Save(ctx context.Context) ([]*OSUpdatePolicyResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(ouprcb.builders))
-	nodes := make([]*OSUpdatePolicyResource, len(ouprcb.builders))
-	mutators := make([]Mutator, len(ouprcb.builders))
-	for i := range ouprcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*OSUpdatePolicyResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := ouprcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*OSUpdatePolicyResourceMutation)
 				if !ok {
@@ -309,11 +309,11 @@ func (ouprcb *OSUpdatePolicyResourceCreateBulk) Save(ctx context.Context) ([]*OS
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, ouprcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, ouprcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -337,7 +337,7 @@ func (ouprcb *OSUpdatePolicyResourceCreateBulk) Save(ctx context.Context) ([]*OS
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, ouprcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -345,8 +345,8 @@ func (ouprcb *OSUpdatePolicyResourceCreateBulk) Save(ctx context.Context) ([]*OS
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ouprcb *OSUpdatePolicyResourceCreateBulk) SaveX(ctx context.Context) []*OSUpdatePolicyResource {
-	v, err := ouprcb.Save(ctx)
+func (_c *OSUpdatePolicyResourceCreateBulk) SaveX(ctx context.Context) []*OSUpdatePolicyResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -354,14 +354,14 @@ func (ouprcb *OSUpdatePolicyResourceCreateBulk) SaveX(ctx context.Context) []*OS
 }
 
 // Exec executes the query.
-func (ouprcb *OSUpdatePolicyResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := ouprcb.Save(ctx)
+func (_c *OSUpdatePolicyResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ouprcb *OSUpdatePolicyResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := ouprcb.Exec(ctx); err != nil {
+func (_c *OSUpdatePolicyResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

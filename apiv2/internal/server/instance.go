@@ -5,6 +5,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
@@ -29,7 +30,7 @@ import (
 var OpenAPIInstanceToProto = map[string]string{
 	computev1.InstanceResourceFieldName:             inv_computev1.InstanceResourceFieldName,
 	computev1.InstanceResourceFieldKind:             inv_computev1.InstanceResourceFieldKind,
-	computev1.InstanceResourceFieldOsID:             inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldOsID:             inv_computev1.InstanceResourceEdgeOs,
 	computev1.InstanceResourceFieldHostID:           inv_computev1.InstanceResourceEdgeHost,
 	computev1.InstanceResourceFieldOsUpdatePolicyID: inv_computev1.InstanceResourceEdgeOsUpdatePolicy,
 }
@@ -56,9 +57,6 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 
 	osID := instance.GetOsID()
 	if isSet(&osID) {
-		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
-			ResourceId: osID,
-		}
 		invInstance.Os = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
 		}
@@ -129,25 +127,16 @@ func fromInvInstanceStatus(
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
 }
 
-//nolint:cyclop // it is a conversion function
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
 	}
 
 	var err error
-	var desiredOs *osv1.OperatingSystemResource
-	var currentOs *osv1.OperatingSystemResource
 	var os *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
 	var oup *computev1.OSUpdatePolicy
-	if invInstance.GetDesiredOs() != nil {
-		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
-	}
-	if invInstance.GetCurrentOs() != nil {
-		currentOs = fromInvOSResource(invInstance.GetCurrentOs())
-	}
 	if invInstance.GetOs() != nil {
 		os = fromInvOSResource(invInstance.GetOs())
 	}
@@ -182,30 +171,27 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 
 	instance := &computev1.InstanceResource{
-		ResourceId:         invInstance.GetResourceId(),
-		InstanceID:         invInstance.GetResourceId(),
-		Kind:               computev1.InstanceKind(invInstance.GetKind()),
-		Name:               invInstance.GetName(),
-		DesiredState:       computev1.InstanceState(invInstance.GetDesiredState()),
-		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
-		Host:               host,
-		HostID:             host.GetResourceId(),
-		Os:                 os,
-		DesiredOs:          desiredOs,
-		CurrentOs:          currentOs,
-		OsID:               currentOs.GetResourceId(),
-		SecurityFeature:    osv1.SecurityFeature(invInstance.GetSecurityFeature()),
-		Localaccount:       la,
-		LocalAccountID:     la.GetResourceId(),
-		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
-		WorkloadMembers:    workloadMembers,
-		UpdatePolicy:       oup,
-		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
-		ExistingCves:       invInstance.GetExistingCves(),
-		RuntimePackages:    invInstance.GetRuntimePackages(),
-		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
-		CustomConfig:       customConfigs,
-		CustomConfigID:     customConfigIDs,
+		ResourceId:        invInstance.GetResourceId(),
+		InstanceID:        invInstance.GetResourceId(),
+		Kind:              computev1.InstanceKind(invInstance.GetKind()),
+		Name:              invInstance.GetName(),
+		DesiredState:      computev1.InstanceState(invInstance.GetDesiredState()),
+		CurrentState:      computev1.InstanceState(invInstance.GetCurrentState()),
+		Host:              host,
+		HostID:            host.GetResourceId(),
+		Os:                os,
+		OsID:              os.GetResourceId(),
+		SecurityFeature:   osv1.SecurityFeature(invInstance.GetSecurityFeature()),
+		Localaccount:      la,
+		LocalAccountID:    la.GetResourceId(),
+		WorkloadMembers:   workloadMembers,
+		UpdatePolicy:      oup,
+		Timestamps:        GrpcToOpenAPITimestamps(invInstance),
+		ExistingCves:      invInstance.GetExistingCves(),
+		RuntimePackages:   invInstance.GetRuntimePackages(),
+		OsUpdateAvailable: invInstance.GetOsUpdateAvailable(),
+		CustomConfig:      customConfigs,
+		CustomConfigID:    customConfigIDs,
 	}
 
 	fromInvInstanceStatus(invInstance, instance)
@@ -313,7 +299,7 @@ func (is *InventorygRPCServer) GetInstance(
 	return instance, nil
 }
 
-// Update a instance. (PUT).
+// Update an instance. (PUT).
 func (is *InventorygRPCServer) UpdateInstance(
 	ctx context.Context,
 	req *restv1.UpdateInstanceRequest,
@@ -353,7 +339,7 @@ func (is *InventorygRPCServer) UpdateInstance(
 	return invUpRes, nil
 }
 
-// Update a instance. (PATCH).
+// Update an instance. (PATCH).
 func (is *InventorygRPCServer) PatchInstance(
 	ctx context.Context,
 	req *restv1.PatchInstanceRequest,
@@ -391,23 +377,7 @@ func (is *InventorygRPCServer) PatchInstance(
 	return invUpRes, nil
 }
 
-// Delete a instance.
-func (is *InventorygRPCServer) DeleteInstance(
-	ctx context.Context,
-	req *restv1.DeleteInstanceRequest,
-) (*restv1.DeleteInstanceResponse, error) {
-	zlog.Debug().Msg("DeleteInstance")
-
-	_, err := is.InvClient.Delete(ctx, req.GetResourceId())
-	if err != nil {
-		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
-		return nil, errors.Wrap(err)
-	}
-	zlog.Debug().Msgf("Deleted %s", req.GetResourceId())
-	return &restv1.DeleteInstanceResponse{}, nil
-}
-
-// Invalidate a instance.
+// Invalidate an instance.
 func (is *InventorygRPCServer) InvalidateInstance(
 	ctx context.Context,
 	req *restv1.InvalidateInstanceRequest,
@@ -434,4 +404,90 @@ func (is *InventorygRPCServer) InvalidateInstance(
 	}
 	zlog.Debug().Msgf("Invalidated %s", req.GetResourceId())
 	return &restv1.InvalidateInstanceResponse{}, nil
+}
+
+// deleteOSUpdateRunsForInstance deletes all OSUpdateRun resources linked to the given instance ID.
+func (is *InventorygRPCServer) deleteOSUpdateRunsForInstance(ctx context.Context, instanceID string) error {
+	zlog.Debug().Msgf("Deleting OSUpdateRuns for instance %s", instanceID)
+
+	filter := &inventory.ResourceFilter{
+		Resource: &inventory.Resource{
+			Resource: &inventory.Resource_OsUpdateRun{
+				OsUpdateRun: &inv_computev1.OSUpdateRunResource{},
+			},
+		},
+		Filter: fmt.Sprintf("%s.%s = %q",
+			inv_computev1.OSUpdateRunResourceEdgeInstance,
+			inv_computev1.InstanceResourceFieldResourceId,
+			instanceID),
+	}
+
+	if err := validator.ValidateMessage(filter); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("failed to validate OSUpdateRun filter")
+		return errors.Wrap(err)
+	}
+
+	invResp, err := is.InvClient.List(ctx, filter)
+	if err != nil {
+		zlog.InfraErr(err).Msgf("Failed to list OSUpdateRuns for instance %s", instanceID)
+		return errors.Wrap(err)
+	}
+
+	var deletionErrors []error
+	successCount := 0
+	totalCount := len(invResp.GetResources())
+
+	// Delete each OSUpdateRun, continuing even if one fails
+	for _, invRes := range invResp.GetResources() {
+		osUpdateRun := invRes.GetResource().GetOsUpdateRun()
+		if osUpdateRun != nil {
+			runID := osUpdateRun.GetResourceId()
+			zlog.Debug().Msgf("Deleting OSUpdateRun %s for instance %s", runID, instanceID)
+
+			_, err := is.InvClient.Delete(ctx, runID)
+			if err != nil {
+				zlog.InfraErr(err).Msgf("Failed to delete OSUpdateRun %s for instance %s", runID, instanceID)
+				deletionErrors = append(deletionErrors, fmt.Errorf("failed to delete OSUpdateRun %s: %w", runID, err))
+			} else {
+				successCount++
+				zlog.Debug().Msgf("Successfully deleted OSUpdateRun %s for instance %s", runID, instanceID)
+			}
+		}
+	}
+
+	if len(deletionErrors) > 0 {
+		zlog.Error().Msgf("Failed to delete %d out of %d OSUpdateRuns for instance %s",
+			len(deletionErrors), totalCount, instanceID)
+		return fmt.Errorf("failed to delete %d out of %d OSUpdateRuns for instance %s: %w",
+			len(deletionErrors), totalCount, instanceID, deletionErrors[0])
+	}
+
+	zlog.Debug().Msgf("Successfully deleted all %d OSUpdateRuns for instance %s", successCount, instanceID)
+	return nil
+}
+
+// Delete an instance.
+func (is *InventorygRPCServer) DeleteInstance(
+	ctx context.Context,
+	req *restv1.DeleteInstanceRequest,
+) (*restv1.DeleteInstanceResponse, error) {
+	zlog.Debug().Msg("DeleteInstance")
+
+	instanceID := req.GetResourceId()
+
+	// Delete all OSUpdateRuns linked to this instance
+	osUpdateRunDeletionErr := is.deleteOSUpdateRunsForInstance(ctx, instanceID)
+	if osUpdateRunDeletionErr != nil {
+		zlog.InfraErr(osUpdateRunDeletionErr).Msgf("Some OSUpdateRuns could not be deleted for instance %s", instanceID)
+		return nil, errors.Wrap(osUpdateRunDeletionErr)
+	}
+
+	// Delete the instance itself
+	_, err := is.InvClient.Delete(ctx, instanceID)
+	if err != nil {
+		zlog.InfraErr(err).Msg("Failed to delete instance from inventory")
+		return nil, errors.Wrap(err)
+	}
+	zlog.Debug().Msgf("Deleted instance %s", instanceID)
+	return &restv1.DeleteInstanceResponse{}, nil
 }

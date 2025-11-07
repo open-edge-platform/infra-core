@@ -20,102 +20,102 @@ type ProviderResourceCreate struct {
 }
 
 // SetResourceID sets the "resource_id" field.
-func (prc *ProviderResourceCreate) SetResourceID(s string) *ProviderResourceCreate {
-	prc.mutation.SetResourceID(s)
-	return prc
+func (_c *ProviderResourceCreate) SetResourceID(v string) *ProviderResourceCreate {
+	_c.mutation.SetResourceID(v)
+	return _c
 }
 
 // SetProviderKind sets the "provider_kind" field.
-func (prc *ProviderResourceCreate) SetProviderKind(pk providerresource.ProviderKind) *ProviderResourceCreate {
-	prc.mutation.SetProviderKind(pk)
-	return prc
+func (_c *ProviderResourceCreate) SetProviderKind(v providerresource.ProviderKind) *ProviderResourceCreate {
+	_c.mutation.SetProviderKind(v)
+	return _c
 }
 
 // SetProviderVendor sets the "provider_vendor" field.
-func (prc *ProviderResourceCreate) SetProviderVendor(pv providerresource.ProviderVendor) *ProviderResourceCreate {
-	prc.mutation.SetProviderVendor(pv)
-	return prc
+func (_c *ProviderResourceCreate) SetProviderVendor(v providerresource.ProviderVendor) *ProviderResourceCreate {
+	_c.mutation.SetProviderVendor(v)
+	return _c
 }
 
 // SetNillableProviderVendor sets the "provider_vendor" field if the given value is not nil.
-func (prc *ProviderResourceCreate) SetNillableProviderVendor(pv *providerresource.ProviderVendor) *ProviderResourceCreate {
-	if pv != nil {
-		prc.SetProviderVendor(*pv)
+func (_c *ProviderResourceCreate) SetNillableProviderVendor(v *providerresource.ProviderVendor) *ProviderResourceCreate {
+	if v != nil {
+		_c.SetProviderVendor(*v)
 	}
-	return prc
+	return _c
 }
 
 // SetName sets the "name" field.
-func (prc *ProviderResourceCreate) SetName(s string) *ProviderResourceCreate {
-	prc.mutation.SetName(s)
-	return prc
+func (_c *ProviderResourceCreate) SetName(v string) *ProviderResourceCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetAPIEndpoint sets the "api_endpoint" field.
-func (prc *ProviderResourceCreate) SetAPIEndpoint(s string) *ProviderResourceCreate {
-	prc.mutation.SetAPIEndpoint(s)
-	return prc
+func (_c *ProviderResourceCreate) SetAPIEndpoint(v string) *ProviderResourceCreate {
+	_c.mutation.SetAPIEndpoint(v)
+	return _c
 }
 
 // SetAPICredentials sets the "api_credentials" field.
-func (prc *ProviderResourceCreate) SetAPICredentials(s string) *ProviderResourceCreate {
-	prc.mutation.SetAPICredentials(s)
-	return prc
+func (_c *ProviderResourceCreate) SetAPICredentials(v string) *ProviderResourceCreate {
+	_c.mutation.SetAPICredentials(v)
+	return _c
 }
 
 // SetNillableAPICredentials sets the "api_credentials" field if the given value is not nil.
-func (prc *ProviderResourceCreate) SetNillableAPICredentials(s *string) *ProviderResourceCreate {
-	if s != nil {
-		prc.SetAPICredentials(*s)
+func (_c *ProviderResourceCreate) SetNillableAPICredentials(v *string) *ProviderResourceCreate {
+	if v != nil {
+		_c.SetAPICredentials(*v)
 	}
-	return prc
+	return _c
 }
 
 // SetConfig sets the "config" field.
-func (prc *ProviderResourceCreate) SetConfig(s string) *ProviderResourceCreate {
-	prc.mutation.SetConfig(s)
-	return prc
+func (_c *ProviderResourceCreate) SetConfig(v string) *ProviderResourceCreate {
+	_c.mutation.SetConfig(v)
+	return _c
 }
 
 // SetNillableConfig sets the "config" field if the given value is not nil.
-func (prc *ProviderResourceCreate) SetNillableConfig(s *string) *ProviderResourceCreate {
-	if s != nil {
-		prc.SetConfig(*s)
+func (_c *ProviderResourceCreate) SetNillableConfig(v *string) *ProviderResourceCreate {
+	if v != nil {
+		_c.SetConfig(*v)
 	}
-	return prc
+	return _c
 }
 
 // SetTenantID sets the "tenant_id" field.
-func (prc *ProviderResourceCreate) SetTenantID(s string) *ProviderResourceCreate {
-	prc.mutation.SetTenantID(s)
-	return prc
+func (_c *ProviderResourceCreate) SetTenantID(v string) *ProviderResourceCreate {
+	_c.mutation.SetTenantID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (prc *ProviderResourceCreate) SetCreatedAt(s string) *ProviderResourceCreate {
-	prc.mutation.SetCreatedAt(s)
-	return prc
+func (_c *ProviderResourceCreate) SetCreatedAt(v string) *ProviderResourceCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (prc *ProviderResourceCreate) SetUpdatedAt(s string) *ProviderResourceCreate {
-	prc.mutation.SetUpdatedAt(s)
-	return prc
+func (_c *ProviderResourceCreate) SetUpdatedAt(v string) *ProviderResourceCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // Mutation returns the ProviderResourceMutation object of the builder.
-func (prc *ProviderResourceCreate) Mutation() *ProviderResourceMutation {
-	return prc.mutation
+func (_c *ProviderResourceCreate) Mutation() *ProviderResourceMutation {
+	return _c.mutation
 }
 
 // Save creates the ProviderResource in the database.
-func (prc *ProviderResourceCreate) Save(ctx context.Context) (*ProviderResource, error) {
-	return withHooks(ctx, prc.sqlSave, prc.mutation, prc.hooks)
+func (_c *ProviderResourceCreate) Save(ctx context.Context) (*ProviderResource, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (prc *ProviderResourceCreate) SaveX(ctx context.Context) *ProviderResource {
-	v, err := prc.Save(ctx)
+func (_c *ProviderResourceCreate) SaveX(ctx context.Context) *ProviderResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -123,60 +123,60 @@ func (prc *ProviderResourceCreate) SaveX(ctx context.Context) *ProviderResource 
 }
 
 // Exec executes the query.
-func (prc *ProviderResourceCreate) Exec(ctx context.Context) error {
-	_, err := prc.Save(ctx)
+func (_c *ProviderResourceCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (prc *ProviderResourceCreate) ExecX(ctx context.Context) {
-	if err := prc.Exec(ctx); err != nil {
+func (_c *ProviderResourceCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (prc *ProviderResourceCreate) check() error {
-	if _, ok := prc.mutation.ResourceID(); !ok {
+func (_c *ProviderResourceCreate) check() error {
+	if _, ok := _c.mutation.ResourceID(); !ok {
 		return &ValidationError{Name: "resource_id", err: errors.New(`ent: missing required field "ProviderResource.resource_id"`)}
 	}
-	if _, ok := prc.mutation.ProviderKind(); !ok {
+	if _, ok := _c.mutation.ProviderKind(); !ok {
 		return &ValidationError{Name: "provider_kind", err: errors.New(`ent: missing required field "ProviderResource.provider_kind"`)}
 	}
-	if v, ok := prc.mutation.ProviderKind(); ok {
+	if v, ok := _c.mutation.ProviderKind(); ok {
 		if err := providerresource.ProviderKindValidator(v); err != nil {
 			return &ValidationError{Name: "provider_kind", err: fmt.Errorf(`ent: validator failed for field "ProviderResource.provider_kind": %w`, err)}
 		}
 	}
-	if v, ok := prc.mutation.ProviderVendor(); ok {
+	if v, ok := _c.mutation.ProviderVendor(); ok {
 		if err := providerresource.ProviderVendorValidator(v); err != nil {
 			return &ValidationError{Name: "provider_vendor", err: fmt.Errorf(`ent: validator failed for field "ProviderResource.provider_vendor": %w`, err)}
 		}
 	}
-	if _, ok := prc.mutation.Name(); !ok {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "ProviderResource.name"`)}
 	}
-	if _, ok := prc.mutation.APIEndpoint(); !ok {
+	if _, ok := _c.mutation.APIEndpoint(); !ok {
 		return &ValidationError{Name: "api_endpoint", err: errors.New(`ent: missing required field "ProviderResource.api_endpoint"`)}
 	}
-	if _, ok := prc.mutation.TenantID(); !ok {
+	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "ProviderResource.tenant_id"`)}
 	}
-	if _, ok := prc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "ProviderResource.created_at"`)}
 	}
-	if _, ok := prc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "ProviderResource.updated_at"`)}
 	}
 	return nil
 }
 
-func (prc *ProviderResourceCreate) sqlSave(ctx context.Context) (*ProviderResource, error) {
-	if err := prc.check(); err != nil {
+func (_c *ProviderResourceCreate) sqlSave(ctx context.Context) (*ProviderResource, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := prc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, prc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -184,53 +184,53 @@ func (prc *ProviderResourceCreate) sqlSave(ctx context.Context) (*ProviderResour
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	prc.mutation.id = &_node.ID
-	prc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (prc *ProviderResourceCreate) createSpec() (*ProviderResource, *sqlgraph.CreateSpec) {
+func (_c *ProviderResourceCreate) createSpec() (*ProviderResource, *sqlgraph.CreateSpec) {
 	var (
-		_node = &ProviderResource{config: prc.config}
+		_node = &ProviderResource{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(providerresource.Table, sqlgraph.NewFieldSpec(providerresource.FieldID, field.TypeInt))
 	)
-	if value, ok := prc.mutation.ResourceID(); ok {
+	if value, ok := _c.mutation.ResourceID(); ok {
 		_spec.SetField(providerresource.FieldResourceID, field.TypeString, value)
 		_node.ResourceID = value
 	}
-	if value, ok := prc.mutation.ProviderKind(); ok {
+	if value, ok := _c.mutation.ProviderKind(); ok {
 		_spec.SetField(providerresource.FieldProviderKind, field.TypeEnum, value)
 		_node.ProviderKind = value
 	}
-	if value, ok := prc.mutation.ProviderVendor(); ok {
+	if value, ok := _c.mutation.ProviderVendor(); ok {
 		_spec.SetField(providerresource.FieldProviderVendor, field.TypeEnum, value)
 		_node.ProviderVendor = value
 	}
-	if value, ok := prc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(providerresource.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := prc.mutation.APIEndpoint(); ok {
+	if value, ok := _c.mutation.APIEndpoint(); ok {
 		_spec.SetField(providerresource.FieldAPIEndpoint, field.TypeString, value)
 		_node.APIEndpoint = value
 	}
-	if value, ok := prc.mutation.APICredentials(); ok {
+	if value, ok := _c.mutation.APICredentials(); ok {
 		_spec.SetField(providerresource.FieldAPICredentials, field.TypeString, value)
 		_node.APICredentials = value
 	}
-	if value, ok := prc.mutation.Config(); ok {
+	if value, ok := _c.mutation.Config(); ok {
 		_spec.SetField(providerresource.FieldConfig, field.TypeString, value)
 		_node.Config = value
 	}
-	if value, ok := prc.mutation.TenantID(); ok {
+	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(providerresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
 	}
-	if value, ok := prc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(providerresource.FieldCreatedAt, field.TypeString, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := prc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(providerresource.FieldUpdatedAt, field.TypeString, value)
 		_node.UpdatedAt = value
 	}
@@ -245,16 +245,16 @@ type ProviderResourceCreateBulk struct {
 }
 
 // Save creates the ProviderResource entities in the database.
-func (prcb *ProviderResourceCreateBulk) Save(ctx context.Context) ([]*ProviderResource, error) {
-	if prcb.err != nil {
-		return nil, prcb.err
+func (_c *ProviderResourceCreateBulk) Save(ctx context.Context) ([]*ProviderResource, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(prcb.builders))
-	nodes := make([]*ProviderResource, len(prcb.builders))
-	mutators := make([]Mutator, len(prcb.builders))
-	for i := range prcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*ProviderResource, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := prcb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*ProviderResourceMutation)
 				if !ok {
@@ -267,11 +267,11 @@ func (prcb *ProviderResourceCreateBulk) Save(ctx context.Context) ([]*ProviderRe
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, prcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, prcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -295,7 +295,7 @@ func (prcb *ProviderResourceCreateBulk) Save(ctx context.Context) ([]*ProviderRe
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, prcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -303,8 +303,8 @@ func (prcb *ProviderResourceCreateBulk) Save(ctx context.Context) ([]*ProviderRe
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (prcb *ProviderResourceCreateBulk) SaveX(ctx context.Context) []*ProviderResource {
-	v, err := prcb.Save(ctx)
+func (_c *ProviderResourceCreateBulk) SaveX(ctx context.Context) []*ProviderResource {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -312,14 +312,14 @@ func (prcb *ProviderResourceCreateBulk) SaveX(ctx context.Context) []*ProviderRe
 }
 
 // Exec executes the query.
-func (prcb *ProviderResourceCreateBulk) Exec(ctx context.Context) error {
-	_, err := prcb.Save(ctx)
+func (_c *ProviderResourceCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (prcb *ProviderResourceCreateBulk) ExecX(ctx context.Context) {
-	if err := prcb.Exec(ctx); err != nil {
+func (_c *ProviderResourceCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

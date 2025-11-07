@@ -42,6 +42,7 @@
     - [WorkloadMember](#compute-v1-WorkloadMember)
     - [WorkloadResource](#compute-v1-WorkloadResource)
   
+    - [AmtSku](#compute-v1-AmtSku)
     - [AmtState](#compute-v1-AmtState)
     - [BaremetalControllerKind](#compute-v1-BaremetalControllerKind)
     - [HostComponentState](#compute-v1-HostComponentState)
@@ -365,14 +366,12 @@
 | resource_id | [string](#string) |  | Resource ID of this OperatingSystemResource |
 | name | [string](#string) |  | user-provided, human-readable name of OS |
 | architecture | [string](#string) |  | CPU architecture supported |
-| kernel_command | [string](#string) |  | Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
-| update_sources | [string](#string) | repeated | OS Update Sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
 | image_url | [string](#string) |  | OS image URL. URL of the original installation source. |
 | image_id | [string](#string) |  | OS image ID. This must be a unique identifier of OS image that can be retrieved from running OS. Used by IMMUTABLE only. |
 | sha256 | [string](#string) |  | SHA256 checksum of the OS resource in HEX. It&#39;s length is 32 bytes, but string representation of HEX is twice long (64 chars) |
 | profile_name | [string](#string) |  | Name of an OS profile that the OS resource belongs to. Uniquely identifies family of OSResources. |
 | profile_version | [string](#string) |  | Version of an OS profile that the OS resource belongs to. Along with profile_name uniquely identifies OS resource. |
-| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy. |
+| installed_packages | [string](#string) |  | Freeform text, OS-dependent. A list of installed package names, one per line (newline separated). Populated internally for immutable OS only. |
 | installed_packages_url | [string](#string) |  | The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field for the advance use case to allow manual creation of OSProfiles when supported from backend. |
 | security_feature | [SecurityFeature](#os-v1-SecurityFeature) |  | Indicating if this OS is capable of supporting features like Secure Boot (SB) and Full Disk Encryption (FDE). |
 | os_type | [OsType](#os-v1-OsType) |  | Indicating the type of OS (for example, mutable or immutable). |
@@ -380,6 +379,7 @@
 | platform_bundle | [string](#string) |  | An opaque JSON string storing a reference to custom installation script(s) that supplements the base OS with additional OS-level dependencies/configurations. If empty, the default OS installation will be used. |
 | description | [string](#string) |  | user-provided, human-readable description of OS |
 | metadata | [string](#string) |  | Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string. |
+| tls_ca_cert | [string](#string) |  | user-provided, TLS CA Certificate |
 | existing_cves_url | [string](#string) |  | URL of the file containing information about the existing CVEs on the Operating System. |
 | existing_cves | [string](#string) |  | The CVEs that are currently present on the Operating System, encoded as a JSON list. |
 | fixed_cves_url | [string](#string) |  | URL of the file containing information about the CVEs that have been fixed by this OS Resource version. |
@@ -576,7 +576,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | host_usbs | [HostusbResource](#compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. This edge is read-only. |
 | host_gpus | [HostgpuResource](#compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. This edge is read-only. |
 | instance | [InstanceResource](#compute-v1-InstanceResource) |  | back-reference to baremetal Instance associated to this host |
-| amt_sku | [string](#string) |  | coming from device introspection |
+| amt_sku | [AmtSku](#compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
 | current_amt_state | [AmtState](#compute-v1-AmtState) |  | Current AMT/vPRO state of the host |
 | amt_status | [string](#string) |  | A group of fields describing the AMT status. amt_status, amt_status_indicator and amt_status_timestamp should always be updated in one shot. If amt_status is empty during initialization, it is automatically set to a Unknown value.
@@ -584,6 +584,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 textual message that describes the AMT status of Host. Set by DM RM only. |
 | amt_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
 | amt_status_timestamp | [uint64](#uint64) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
+| user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -737,8 +738,6 @@ host or hypervisor.
 | vm_cpu_cores | [uint32](#uint32) |  | Number of CPU cores. Only applicable to VM instances. |
 | vm_storage_bytes | [uint64](#uint64) |  | Storage quantity (primary), in bytes. Only applicable to VM instances. |
 | host | [HostResource](#compute-v1-HostResource) |  | Host this Instance is placed on. Only applicable to baremetal instances. |
-| desired_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | Deprecated, use OSUpdatePolicy for driving day2, and os for day0 operations instead. OS resource that should be installed to this Instance. |
-| current_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | Deprecated, use os field instead. OS resource that is currently installed for this Instance. |
 | os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that is installed for this Instance. |
 | security_feature | [os.v1.SecurityFeature](#os-v1-SecurityFeature) |  | Select to enable security features such as Secure Boot (SB) and Full Disk Encryption (FDE). |
 | instance_status | [string](#string) |  | A group of fields describing the Instance runtime status. instance_status, instance_status_indicator and instance_status_timestamp should always be updated in one shot. If instance_status is empty during initialization, it is automatically set to a default value.
@@ -756,7 +755,6 @@ textual message that describes the provisioning status of Instance. Set by RMs o
 textual message that describes the update status of Instance. Set by RMs only. |
 | update_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates interpretation of update_status. Set by RMs only. |
 | update_status_timestamp | [uint64](#uint64) |  | UTC timestamp when update_status was last changed. Set by RMs only. |
-| update_status_detail | [string](#string) |  | Deprecated, will be removed in EMF v3.2.0, use OSUpdateRun instead. JSON field storing details of Instance update status. Set by RMs only. Beta, subject to change. |
 | trusted_attestation_status | [string](#string) |  | A group of fields describing the Instance trusted_attestation status. trusted_attestation_status, trusted_attestation_status_indicator and trusted_attestation_status_timestamp should always be updated in one shot. If trusted_attestation_status is empty during initialization, it is automatically set to a default value.
 
 textual message that describes the trusted_attestation status of Instance. Set by RMs only. |
@@ -791,9 +789,9 @@ textual message that describes the trusted_attestation status of Instance. Set b
 | resource_id | [string](#string) |  | resource ID, generated by inventory on Create |
 | name | [string](#string) |  | User-provided, human-readable name of OSUpdatePolicy |
 | description | [string](#string) |  |  |
-| install_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes. |
 | update_sources | [string](#string) | repeated | OS Update Sources. Should be in &#39;DEB822 Source Format&#39; for Debian style OSs. Applies only to Mutable OSes. |
-| kernel_command | [string](#string) |  | Kernel Command Line Options. Applies only to Mutable OSes. |
+| update_packages | [string](#string) |  | Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Applies only to Mutable OSes. |
+| update_kernel_command | [string](#string) |  | Kernel Command Line Options. Applies only to Mutable OSes. |
 | target_os | [os.v1.OperatingSystemResource](#os-v1-OperatingSystemResource) |  | OS resource that should be installed to this Instance. Applies only to Immutable OSes for A/B upgrades. The field is immutable. |
 | update_policy | [UpdatePolicy](#compute-v1-UpdatePolicy) |  | Update Policy for the OS update. This field is used to determine the update policy for the OS update. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
@@ -880,6 +878,19 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 
  
+
+
+<a name="compute-v1-AmtSku"></a>
+
+### AmtSku
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_SKU_UNSPECIFIED | 0 |  |
+| AMT_SKU_AMT | 1 |  |
+| AMT_SKU_ISM | 2 |  |
+
 
 
 <a name="compute-v1-AmtState"></a>
@@ -1007,6 +1018,7 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | POWER_STATE_HIBERNATE | 5 |  |
 | POWER_STATE_RESET | 6 |  |
 | POWER_STATE_POWER_CYCLE | 7 |  |
+| POWER_STATE_RESET_REPEAT | 8 | For consecutive reset operations |
 
 
 

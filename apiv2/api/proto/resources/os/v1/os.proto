@@ -55,28 +55,8 @@ message OperatingSystemResource {
     max_len: 20
   }];
 
-  // Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The OS resource's kernel Command Line Options.
-  string kernel_command = 4 [
-    (buf.validate.field).string = {
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
-    max_len: 500
-  }];
-
-  // Deprecated, will be removed in EMF v3.2.0, this has been moved to new resource OSUpdatePolicy. The list of OS resource update sources.
-  // Should be in 'DEB822 Source Format' for Debian style OSs
-  repeated string update_sources = 5 [
-    (buf.validate.field).repeated = {
-      min_items: 0,
-      max_items: 100,
-      items: {
-        string: {
-          max_len: 10000
-          pattern: '^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\"\\ \\\\\\n]+$'
-        }
-      }
-    },
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
+  reserved 4; // Previously kernel_command, removed in v2025.2
+  reserved 5; // Previously update_sources, removed in v2025.2
 
   // The URL repository of the OS image.
   string image_url = 6 [(buf.validate.field).string = {
@@ -115,7 +95,9 @@ message OperatingSystemResource {
   string profile_version = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // List of installed packages, encoded as a JSON list.
-  string installed_packages = 9 [(buf.validate.field).string = {
+  string installed_packages = 9 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" \\\\\\n]+$"
       max_len: 500000
   }];
@@ -151,6 +133,14 @@ message OperatingSystemResource {
       max_len: 500
     }];
 
+  // user-provided, TLS CA Certificate
+  string tls_ca_cert = 19 [
+    (buf.validate.field).string = {
+      pattern: "^$|^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+      min_len: 0
+      max_len: 10000
+    }];
+
   // URL of the file containing information about the existing CVEs on the Operating System.
   string existing_cves_url = 42 [
     (google.api.field_behavior) = IMMUTABLE,
@@ -164,8 +154,8 @@ message OperatingSystemResource {
   string existing_cves = 43 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\À-ÿ \\\\n\\{\\}\\[\\]]+$"
+      max_len: 500000
     }
   ];
 
@@ -182,8 +172,8 @@ message OperatingSystemResource {
   string fixed_cves = 45 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (buf.validate.field).string = {
-      pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+~()\"\\\\ \\\\n\\{\\}\\[\\]]+$"
-      max_len: 20000
+      pattern: "^$|^[\\p{L}\\p{N}\\p{P}\\p{S}\\p{Z}\\n\\{\\}\\[\\]]+$"
+      max_len: 500000
     }
   ];
 
