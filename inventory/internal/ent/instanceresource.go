@@ -57,8 +57,6 @@ type InstanceResource struct {
 	UpdateStatusIndicator instanceresource.UpdateStatusIndicator `json:"update_status_indicator,omitempty"`
 	// UpdateStatusTimestamp holds the value of the "update_status_timestamp" field.
 	UpdateStatusTimestamp uint64 `json:"update_status_timestamp,omitempty"`
-	// UpdateStatusDetail holds the value of the "update_status_detail" field.
-	UpdateStatusDetail string `json:"update_status_detail,omitempty"`
 	// TrustedAttestationStatus holds the value of the "trusted_attestation_status" field.
 	TrustedAttestationStatus string `json:"trusted_attestation_status,omitempty"`
 	// TrustedAttestationStatusIndicator holds the value of the "trusted_attestation_status_indicator" field.
@@ -82,8 +80,6 @@ type InstanceResource struct {
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the InstanceResourceQuery when eager-loading is set.
 	Edges                              InstanceResourceEdges `json:"edges"`
-	instance_resource_desired_os       *int
-	instance_resource_current_os       *int
 	instance_resource_os               *int
 	instance_resource_provider         *int
 	instance_resource_localaccount     *int
@@ -95,10 +91,6 @@ type InstanceResource struct {
 type InstanceResourceEdges struct {
 	// Host holds the value of the host edge.
 	Host *HostResource `json:"host,omitempty"`
-	// DesiredOs holds the value of the desired_os edge.
-	DesiredOs *OperatingSystemResource `json:"desired_os,omitempty"`
-	// CurrentOs holds the value of the current_os edge.
-	CurrentOs *OperatingSystemResource `json:"current_os,omitempty"`
 	// Os holds the value of the os edge.
 	Os *OperatingSystemResource `json:"os,omitempty"`
 	// WorkloadMembers holds the value of the workload_members edge.
@@ -113,7 +105,7 @@ type InstanceResourceEdges struct {
 	CustomConfig []*CustomConfigResource `json:"custom_config,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [9]bool
+	loadedTypes [7]bool
 }
 
 // HostOrErr returns the Host value or an error if the edge
@@ -127,34 +119,12 @@ func (e InstanceResourceEdges) HostOrErr() (*HostResource, error) {
 	return nil, &NotLoadedError{edge: "host"}
 }
 
-// DesiredOsOrErr returns the DesiredOs value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e InstanceResourceEdges) DesiredOsOrErr() (*OperatingSystemResource, error) {
-	if e.DesiredOs != nil {
-		return e.DesiredOs, nil
-	} else if e.loadedTypes[1] {
-		return nil, &NotFoundError{label: operatingsystemresource.Label}
-	}
-	return nil, &NotLoadedError{edge: "desired_os"}
-}
-
-// CurrentOsOrErr returns the CurrentOs value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e InstanceResourceEdges) CurrentOsOrErr() (*OperatingSystemResource, error) {
-	if e.CurrentOs != nil {
-		return e.CurrentOs, nil
-	} else if e.loadedTypes[2] {
-		return nil, &NotFoundError{label: operatingsystemresource.Label}
-	}
-	return nil, &NotLoadedError{edge: "current_os"}
-}
-
 // OsOrErr returns the Os value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e InstanceResourceEdges) OsOrErr() (*OperatingSystemResource, error) {
 	if e.Os != nil {
 		return e.Os, nil
-	} else if e.loadedTypes[3] {
+	} else if e.loadedTypes[1] {
 		return nil, &NotFoundError{label: operatingsystemresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "os"}
@@ -163,7 +133,7 @@ func (e InstanceResourceEdges) OsOrErr() (*OperatingSystemResource, error) {
 // WorkloadMembersOrErr returns the WorkloadMembers value or an error if the edge
 // was not loaded in eager-loading.
 func (e InstanceResourceEdges) WorkloadMembersOrErr() ([]*WorkloadMember, error) {
-	if e.loadedTypes[4] {
+	if e.loadedTypes[2] {
 		return e.WorkloadMembers, nil
 	}
 	return nil, &NotLoadedError{edge: "workload_members"}
@@ -174,7 +144,7 @@ func (e InstanceResourceEdges) WorkloadMembersOrErr() ([]*WorkloadMember, error)
 func (e InstanceResourceEdges) ProviderOrErr() (*ProviderResource, error) {
 	if e.Provider != nil {
 		return e.Provider, nil
-	} else if e.loadedTypes[5] {
+	} else if e.loadedTypes[3] {
 		return nil, &NotFoundError{label: providerresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "provider"}
@@ -185,7 +155,7 @@ func (e InstanceResourceEdges) ProviderOrErr() (*ProviderResource, error) {
 func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error) {
 	if e.Localaccount != nil {
 		return e.Localaccount, nil
-	} else if e.loadedTypes[6] {
+	} else if e.loadedTypes[4] {
 		return nil, &NotFoundError{label: localaccountresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "localaccount"}
@@ -196,7 +166,7 @@ func (e InstanceResourceEdges) LocalaccountOrErr() (*LocalAccountResource, error
 func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, error) {
 	if e.OsUpdatePolicy != nil {
 		return e.OsUpdatePolicy, nil
-	} else if e.loadedTypes[7] {
+	} else if e.loadedTypes[5] {
 		return nil, &NotFoundError{label: osupdatepolicyresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "os_update_policy"}
@@ -205,7 +175,7 @@ func (e InstanceResourceEdges) OsUpdatePolicyOrErr() (*OSUpdatePolicyResource, e
 // CustomConfigOrErr returns the CustomConfig value or an error if the edge
 // was not loaded in eager-loading.
 func (e InstanceResourceEdges) CustomConfigOrErr() ([]*CustomConfigResource, error) {
-	if e.loadedTypes[8] {
+	if e.loadedTypes[6] {
 		return e.CustomConfig, nil
 	}
 	return nil, &NotLoadedError{edge: "custom_config"}
@@ -218,19 +188,15 @@ func (*InstanceResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case instanceresource.FieldID, instanceresource.FieldVMMemoryBytes, instanceresource.FieldVMCPUCores, instanceresource.FieldVMStorageBytes, instanceresource.FieldInstanceStatusTimestamp, instanceresource.FieldProvisioningStatusTimestamp, instanceresource.FieldUpdateStatusTimestamp, instanceresource.FieldTrustedAttestationStatusTimestamp:
 			values[i] = new(sql.NullInt64)
-		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldUpdateStatusDetail, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldRuntimePackages, instanceresource.FieldOsUpdateAvailable, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
+		case instanceresource.FieldResourceID, instanceresource.FieldKind, instanceresource.FieldName, instanceresource.FieldDesiredState, instanceresource.FieldCurrentState, instanceresource.FieldSecurityFeature, instanceresource.FieldInstanceStatus, instanceresource.FieldInstanceStatusIndicator, instanceresource.FieldProvisioningStatus, instanceresource.FieldProvisioningStatusIndicator, instanceresource.FieldUpdateStatus, instanceresource.FieldUpdateStatusIndicator, instanceresource.FieldTrustedAttestationStatus, instanceresource.FieldTrustedAttestationStatusIndicator, instanceresource.FieldExistingCves, instanceresource.FieldRuntimePackages, instanceresource.FieldOsUpdateAvailable, instanceresource.FieldTenantID, instanceresource.FieldInstanceStatusDetail, instanceresource.FieldCreatedAt, instanceresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
-		case instanceresource.ForeignKeys[0]: // instance_resource_desired_os
+		case instanceresource.ForeignKeys[0]: // instance_resource_os
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[1]: // instance_resource_current_os
+		case instanceresource.ForeignKeys[1]: // instance_resource_provider
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[2]: // instance_resource_os
+		case instanceresource.ForeignKeys[2]: // instance_resource_localaccount
 			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[3]: // instance_resource_provider
-			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[4]: // instance_resource_localaccount
-			values[i] = new(sql.NullInt64)
-		case instanceresource.ForeignKeys[5]: // instance_resource_os_update_policy
+		case instanceresource.ForeignKeys[3]: // instance_resource_os_update_policy
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -361,12 +327,6 @@ func (_m *InstanceResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.UpdateStatusTimestamp = uint64(value.Int64)
 			}
-		case instanceresource.FieldUpdateStatusDetail:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field update_status_detail", values[i])
-			} else if value.Valid {
-				_m.UpdateStatusDetail = value.String
-			}
 		case instanceresource.FieldTrustedAttestationStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field trusted_attestation_status", values[i])
@@ -429,40 +389,26 @@ func (_m *InstanceResource) assignValues(columns []string, values []any) error {
 			}
 		case instanceresource.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_desired_os", value)
-			} else if value.Valid {
-				_m.instance_resource_desired_os = new(int)
-				*_m.instance_resource_desired_os = int(value.Int64)
-			}
-		case instanceresource.ForeignKeys[1]:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field instance_resource_current_os", value)
-			} else if value.Valid {
-				_m.instance_resource_current_os = new(int)
-				*_m.instance_resource_current_os = int(value.Int64)
-			}
-		case instanceresource.ForeignKeys[2]:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os", value)
 			} else if value.Valid {
 				_m.instance_resource_os = new(int)
 				*_m.instance_resource_os = int(value.Int64)
 			}
-		case instanceresource.ForeignKeys[3]:
+		case instanceresource.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_provider", value)
 			} else if value.Valid {
 				_m.instance_resource_provider = new(int)
 				*_m.instance_resource_provider = int(value.Int64)
 			}
-		case instanceresource.ForeignKeys[4]:
+		case instanceresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_localaccount", value)
 			} else if value.Valid {
 				_m.instance_resource_localaccount = new(int)
 				*_m.instance_resource_localaccount = int(value.Int64)
 			}
-		case instanceresource.ForeignKeys[5]:
+		case instanceresource.ForeignKeys[3]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_os_update_policy", value)
 			} else if value.Valid {
@@ -485,16 +431,6 @@ func (_m *InstanceResource) Value(name string) (ent.Value, error) {
 // QueryHost queries the "host" edge of the InstanceResource entity.
 func (_m *InstanceResource) QueryHost() *HostResourceQuery {
 	return NewInstanceResourceClient(_m.config).QueryHost(_m)
-}
-
-// QueryDesiredOs queries the "desired_os" edge of the InstanceResource entity.
-func (_m *InstanceResource) QueryDesiredOs() *OperatingSystemResourceQuery {
-	return NewInstanceResourceClient(_m.config).QueryDesiredOs(_m)
-}
-
-// QueryCurrentOs queries the "current_os" edge of the InstanceResource entity.
-func (_m *InstanceResource) QueryCurrentOs() *OperatingSystemResourceQuery {
-	return NewInstanceResourceClient(_m.config).QueryCurrentOs(_m)
 }
 
 // QueryOs queries the "os" edge of the InstanceResource entity.
@@ -603,9 +539,6 @@ func (_m *InstanceResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("update_status_timestamp=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UpdateStatusTimestamp))
-	builder.WriteString(", ")
-	builder.WriteString("update_status_detail=")
-	builder.WriteString(_m.UpdateStatusDetail)
 	builder.WriteString(", ")
 	builder.WriteString("trusted_attestation_status=")
 	builder.WriteString(_m.TrustedAttestationStatus)

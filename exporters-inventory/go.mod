@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/exporters-inventory
 
-go 1.24.6
+go 1.24.9
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f

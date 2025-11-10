@@ -67,12 +67,6 @@ message OperatingSystemResource {
     immutable: true
   }]; // user-provided, human-readable name of OS
   string architecture = 3 [(ent.field) = {optional: true}]; // CPU architecture supported
-  string kernel_command = 4 [(ent.field) = {optional: true}]; // Kernel Command Line Options. Deprecated in EMF-v3.1, use OSUpdatePolicy.
-
-  repeated string update_sources = 5 [
-    (ent.field) = {optional: true},
-    (buf.validate.field).repeated.items.string = {max_bytes: 10000}
-  ]; // OS Update Sources. Should be in 'DEB822 Source Format' for Debian style OSs. Deprecated in EMF-v3.1, use OSUpdatePolicy.
 
   string image_url = 6 [(ent.field) = {
     optional: true
@@ -107,7 +101,7 @@ message OperatingSystemResource {
   string installed_packages = 9 [(ent.field) = {
     optional: true
     immutable: false
-  }]; // Freeform text, OS-dependent. A list of package names, one per line (newline separated). Should not contain version info. Deprecated in EMF-v3.1, use OSUpdatePolicy.
+  }]; // Freeform text, OS-dependent. A list of installed package names, one per line (newline separated). Populated internally for immutable OS only.
 
   // The URL of the OS manifest which contains install packages details. This will be used to fill the installed_packages field
   // for the advance use case to allow manual creation of OSProfiles when supported from backend.
@@ -161,6 +155,15 @@ message OperatingSystemResource {
       max_len: 500
     }
   ]; // Opaque JSON field storing metadata associated to this OS resource. Expected to be a JSON object with string keys and values, or an empty string.
+
+  string tls_ca_cert = 19 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {
+      pattern: "^$|^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+      min_len: 0
+      max_len: 10000
+    }
+  ]; // user-provided, TLS CA Certificate
 
   string existing_cves_url = 42 [
     (ent.field) = {
