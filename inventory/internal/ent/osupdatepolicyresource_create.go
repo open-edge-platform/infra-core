@@ -46,20 +46,6 @@ func (_c *OSUpdatePolicyResourceCreate) SetNillableDescription(v *string) *OSUpd
 	return _c
 }
 
-// SetInstallPackages sets the "install_packages" field.
-func (_c *OSUpdatePolicyResourceCreate) SetInstallPackages(v string) *OSUpdatePolicyResourceCreate {
-	_c.mutation.SetInstallPackages(v)
-	return _c
-}
-
-// SetNillableInstallPackages sets the "install_packages" field if the given value is not nil.
-func (_c *OSUpdatePolicyResourceCreate) SetNillableInstallPackages(v *string) *OSUpdatePolicyResourceCreate {
-	if v != nil {
-		_c.SetInstallPackages(*v)
-	}
-	return _c
-}
-
 // SetUpdateSources sets the "update_sources" field.
 func (_c *OSUpdatePolicyResourceCreate) SetUpdateSources(v string) *OSUpdatePolicyResourceCreate {
 	_c.mutation.SetUpdateSources(v)
@@ -70,20 +56,6 @@ func (_c *OSUpdatePolicyResourceCreate) SetUpdateSources(v string) *OSUpdatePoli
 func (_c *OSUpdatePolicyResourceCreate) SetNillableUpdateSources(v *string) *OSUpdatePolicyResourceCreate {
 	if v != nil {
 		_c.SetUpdateSources(*v)
-	}
-	return _c
-}
-
-// SetKernelCommand sets the "kernel_command" field.
-func (_c *OSUpdatePolicyResourceCreate) SetKernelCommand(v string) *OSUpdatePolicyResourceCreate {
-	_c.mutation.SetKernelCommand(v)
-	return _c
-}
-
-// SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (_c *OSUpdatePolicyResourceCreate) SetNillableKernelCommand(v *string) *OSUpdatePolicyResourceCreate {
-	if v != nil {
-		_c.SetKernelCommand(*v)
 	}
 	return _c
 }
@@ -259,17 +231,9 @@ func (_c *OSUpdatePolicyResourceCreate) createSpec() (*OSUpdatePolicyResource, *
 		_spec.SetField(osupdatepolicyresource.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := _c.mutation.InstallPackages(); ok {
-		_spec.SetField(osupdatepolicyresource.FieldInstallPackages, field.TypeString, value)
-		_node.InstallPackages = value
-	}
 	if value, ok := _c.mutation.UpdateSources(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdateSources, field.TypeString, value)
 		_node.UpdateSources = value
-	}
-	if value, ok := _c.mutation.KernelCommand(); ok {
-		_spec.SetField(osupdatepolicyresource.FieldKernelCommand, field.TypeString, value)
-		_node.KernelCommand = value
 	}
 	if value, ok := _c.mutation.UpdatePackages(); ok {
 		_spec.SetField(osupdatepolicyresource.FieldUpdatePackages, field.TypeString, value)

@@ -30,7 +30,7 @@ import (
 var OpenAPIInstanceToProto = map[string]string{
 	computev1.InstanceResourceFieldName:             inv_computev1.InstanceResourceFieldName,
 	computev1.InstanceResourceFieldKind:             inv_computev1.InstanceResourceFieldKind,
-	computev1.InstanceResourceFieldOsID:             inv_computev1.InstanceResourceEdgeDesiredOs,
+	computev1.InstanceResourceFieldOsID:             inv_computev1.InstanceResourceEdgeOs,
 	computev1.InstanceResourceFieldHostID:           inv_computev1.InstanceResourceEdgeHost,
 	computev1.InstanceResourceFieldOsUpdatePolicyID: inv_computev1.InstanceResourceEdgeOsUpdatePolicy,
 }
@@ -57,9 +57,6 @@ func toInvInstance(instance *computev1.InstanceResource) (*inv_computev1.Instanc
 
 	osID := instance.GetOsID()
 	if isSet(&osID) {
-		invInstance.DesiredOs = &inv_osv1.OperatingSystemResource{
-			ResourceId: osID,
-		}
 		invInstance.Os = &inv_osv1.OperatingSystemResource{
 			ResourceId: osID,
 		}
@@ -130,25 +127,16 @@ func fromInvInstanceStatus(
 	instance.UpdateStatusTimestamp = updateStatusTimestamp
 }
 
-//nolint:cyclop // it is a conversion function
 func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.InstanceResource, error) {
 	if invInstance == nil {
 		return &computev1.InstanceResource{}, nil
 	}
 
 	var err error
-	var desiredOs *osv1.OperatingSystemResource
-	var currentOs *osv1.OperatingSystemResource
 	var os *osv1.OperatingSystemResource
 	var host *computev1.HostResource
 	var la *localaccountv1.LocalAccountResource
 	var oup *computev1.OSUpdatePolicy
-	if invInstance.GetDesiredOs() != nil {
-		desiredOs = fromInvOSResource(invInstance.GetDesiredOs())
-	}
-	if invInstance.GetCurrentOs() != nil {
-		currentOs = fromInvOSResource(invInstance.GetCurrentOs())
-	}
 	if invInstance.GetOs() != nil {
 		os = fromInvOSResource(invInstance.GetOs())
 	}
@@ -183,30 +171,27 @@ func fromInvInstance(invInstance *inv_computev1.InstanceResource) (*computev1.In
 	}
 
 	instance := &computev1.InstanceResource{
-		ResourceId:         invInstance.GetResourceId(),
-		InstanceID:         invInstance.GetResourceId(),
-		Kind:               computev1.InstanceKind(invInstance.GetKind()),
-		Name:               invInstance.GetName(),
-		DesiredState:       computev1.InstanceState(invInstance.GetDesiredState()),
-		CurrentState:       computev1.InstanceState(invInstance.GetCurrentState()),
-		Host:               host,
-		HostID:             host.GetResourceId(),
-		Os:                 os,
-		DesiredOs:          desiredOs,
-		CurrentOs:          currentOs,
-		OsID:               currentOs.GetResourceId(),
-		SecurityFeature:    osv1.SecurityFeature(invInstance.GetSecurityFeature()),
-		Localaccount:       la,
-		LocalAccountID:     la.GetResourceId(),
-		UpdateStatusDetail: invInstance.GetUpdateStatusDetail(),
-		WorkloadMembers:    workloadMembers,
-		UpdatePolicy:       oup,
-		Timestamps:         GrpcToOpenAPITimestamps(invInstance),
-		ExistingCves:       invInstance.GetExistingCves(),
-		RuntimePackages:    invInstance.GetRuntimePackages(),
-		OsUpdateAvailable:  invInstance.GetOsUpdateAvailable(),
-		CustomConfig:       customConfigs,
-		CustomConfigID:     customConfigIDs,
+		ResourceId:        invInstance.GetResourceId(),
+		InstanceID:        invInstance.GetResourceId(),
+		Kind:              computev1.InstanceKind(invInstance.GetKind()),
+		Name:              invInstance.GetName(),
+		DesiredState:      computev1.InstanceState(invInstance.GetDesiredState()),
+		CurrentState:      computev1.InstanceState(invInstance.GetCurrentState()),
+		Host:              host,
+		HostID:            host.GetResourceId(),
+		Os:                os,
+		OsID:              os.GetResourceId(),
+		SecurityFeature:   osv1.SecurityFeature(invInstance.GetSecurityFeature()),
+		Localaccount:      la,
+		LocalAccountID:    la.GetResourceId(),
+		WorkloadMembers:   workloadMembers,
+		UpdatePolicy:      oup,
+		Timestamps:        GrpcToOpenAPITimestamps(invInstance),
+		ExistingCves:      invInstance.GetExistingCves(),
+		RuntimePackages:   invInstance.GetRuntimePackages(),
+		OsUpdateAvailable: invInstance.GetOsUpdateAvailable(),
+		CustomConfig:      customConfigs,
+		CustomConfigID:    customConfigIDs,
 	}
 
 	fromInvInstanceStatus(invInstance, instance)

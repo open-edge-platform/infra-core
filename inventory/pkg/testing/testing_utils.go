@@ -851,7 +851,6 @@ func (c *InvResourceDAO) createOsWithOpts(
 	// a default OS resource, can be overwritten by opts
 	osCreateReq := &osv1.OperatingSystemResource{
 		Name:                 "for unit testing purposes",
-		UpdateSources:        []string{"test entries"},
 		ImageUrl:             "Repo URL Test",
 		ImageId:              "some image ID",
 		ProfileName:          "test profile name",
@@ -1075,8 +1074,6 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 		Kind:            computev1.InstanceKind_INSTANCE_KIND_METAL,
 		Name:            dummyInstanceName,
 		DesiredState:    computev1.InstanceState_INSTANCE_STATE_RUNNING,
-		DesiredOs:       osRes,
-		CurrentOs:       osRes, // always create with desired OS == current OS for testing
 		Os:              osRes,
 		Host:            hostRes,
 		SecurityFeature: osv1.SecurityFeature_SECURITY_FEATURE_UNSPECIFIED,
@@ -1102,8 +1099,6 @@ func (c *InvResourceDAO) createInstanceWithOpts(
 	// resource, we do not expect further embedded messages. This matches the
 	// structure of objects returned by ent queries, i.e. no two layers of
 	// embedded objects for edges.
-	instResp.DesiredOs = nil
-	instResp.CurrentOs = nil
 	instResp.Os = nil
 	instResp.Host = nil
 	instResp.WorkloadMembers = nil

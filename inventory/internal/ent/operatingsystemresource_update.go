@@ -61,46 +61,6 @@ func (_u *OperatingSystemResourceUpdate) ClearArchitecture() *OperatingSystemRes
 	return _u
 }
 
-// SetKernelCommand sets the "kernel_command" field.
-func (_u *OperatingSystemResourceUpdate) SetKernelCommand(v string) *OperatingSystemResourceUpdate {
-	_u.mutation.SetKernelCommand(v)
-	return _u
-}
-
-// SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (_u *OperatingSystemResourceUpdate) SetNillableKernelCommand(v *string) *OperatingSystemResourceUpdate {
-	if v != nil {
-		_u.SetKernelCommand(*v)
-	}
-	return _u
-}
-
-// ClearKernelCommand clears the value of the "kernel_command" field.
-func (_u *OperatingSystemResourceUpdate) ClearKernelCommand() *OperatingSystemResourceUpdate {
-	_u.mutation.ClearKernelCommand()
-	return _u
-}
-
-// SetUpdateSources sets the "update_sources" field.
-func (_u *OperatingSystemResourceUpdate) SetUpdateSources(v string) *OperatingSystemResourceUpdate {
-	_u.mutation.SetUpdateSources(v)
-	return _u
-}
-
-// SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (_u *OperatingSystemResourceUpdate) SetNillableUpdateSources(v *string) *OperatingSystemResourceUpdate {
-	if v != nil {
-		_u.SetUpdateSources(*v)
-	}
-	return _u
-}
-
-// ClearUpdateSources clears the value of the "update_sources" field.
-func (_u *OperatingSystemResourceUpdate) ClearUpdateSources() *OperatingSystemResourceUpdate {
-	_u.mutation.ClearUpdateSources()
-	return _u
-}
-
 // SetInstalledPackages sets the "installed_packages" field.
 func (_u *OperatingSystemResourceUpdate) SetInstalledPackages(v string) *OperatingSystemResourceUpdate {
 	_u.mutation.SetInstalledPackages(v)
@@ -138,6 +98,26 @@ func (_u *OperatingSystemResourceUpdate) SetNillableMetadata(v *string) *Operati
 // ClearMetadata clears the value of the "metadata" field.
 func (_u *OperatingSystemResourceUpdate) ClearMetadata() *OperatingSystemResourceUpdate {
 	_u.mutation.ClearMetadata()
+	return _u
+}
+
+// SetTLSCaCert sets the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdate) SetTLSCaCert(v string) *OperatingSystemResourceUpdate {
+	_u.mutation.SetTLSCaCert(v)
+	return _u
+}
+
+// SetNillableTLSCaCert sets the "tls_ca_cert" field if the given value is not nil.
+func (_u *OperatingSystemResourceUpdate) SetNillableTLSCaCert(v *string) *OperatingSystemResourceUpdate {
+	if v != nil {
+		_u.SetTLSCaCert(*v)
+	}
+	return _u
+}
+
+// ClearTLSCaCert clears the value of the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdate) ClearTLSCaCert() *OperatingSystemResourceUpdate {
+	_u.mutation.ClearTLSCaCert()
 	return _u
 }
 
@@ -248,18 +228,6 @@ func (_u *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (_node int
 	if _u.mutation.ArchitectureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldArchitecture, field.TypeString)
 	}
-	if value, ok := _u.mutation.KernelCommand(); ok {
-		_spec.SetField(operatingsystemresource.FieldKernelCommand, field.TypeString, value)
-	}
-	if _u.mutation.KernelCommandCleared() {
-		_spec.ClearField(operatingsystemresource.FieldKernelCommand, field.TypeString)
-	}
-	if value, ok := _u.mutation.UpdateSources(); ok {
-		_spec.SetField(operatingsystemresource.FieldUpdateSources, field.TypeString, value)
-	}
-	if _u.mutation.UpdateSourcesCleared() {
-		_spec.ClearField(operatingsystemresource.FieldUpdateSources, field.TypeString)
-	}
 	if _u.mutation.ImageURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldImageURL, field.TypeString)
 	}
@@ -301,6 +269,12 @@ func (_u *OperatingSystemResourceUpdate) sqlSave(ctx context.Context) (_node int
 	}
 	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
+	}
+	if value, ok := _u.mutation.TLSCaCert(); ok {
+		_spec.SetField(operatingsystemresource.FieldTLSCaCert, field.TypeString, value)
+	}
+	if _u.mutation.TLSCaCertCleared() {
+		_spec.ClearField(operatingsystemresource.FieldTLSCaCert, field.TypeString)
 	}
 	if _u.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
@@ -377,46 +351,6 @@ func (_u *OperatingSystemResourceUpdateOne) ClearArchitecture() *OperatingSystem
 	return _u
 }
 
-// SetKernelCommand sets the "kernel_command" field.
-func (_u *OperatingSystemResourceUpdateOne) SetKernelCommand(v string) *OperatingSystemResourceUpdateOne {
-	_u.mutation.SetKernelCommand(v)
-	return _u
-}
-
-// SetNillableKernelCommand sets the "kernel_command" field if the given value is not nil.
-func (_u *OperatingSystemResourceUpdateOne) SetNillableKernelCommand(v *string) *OperatingSystemResourceUpdateOne {
-	if v != nil {
-		_u.SetKernelCommand(*v)
-	}
-	return _u
-}
-
-// ClearKernelCommand clears the value of the "kernel_command" field.
-func (_u *OperatingSystemResourceUpdateOne) ClearKernelCommand() *OperatingSystemResourceUpdateOne {
-	_u.mutation.ClearKernelCommand()
-	return _u
-}
-
-// SetUpdateSources sets the "update_sources" field.
-func (_u *OperatingSystemResourceUpdateOne) SetUpdateSources(v string) *OperatingSystemResourceUpdateOne {
-	_u.mutation.SetUpdateSources(v)
-	return _u
-}
-
-// SetNillableUpdateSources sets the "update_sources" field if the given value is not nil.
-func (_u *OperatingSystemResourceUpdateOne) SetNillableUpdateSources(v *string) *OperatingSystemResourceUpdateOne {
-	if v != nil {
-		_u.SetUpdateSources(*v)
-	}
-	return _u
-}
-
-// ClearUpdateSources clears the value of the "update_sources" field.
-func (_u *OperatingSystemResourceUpdateOne) ClearUpdateSources() *OperatingSystemResourceUpdateOne {
-	_u.mutation.ClearUpdateSources()
-	return _u
-}
-
 // SetInstalledPackages sets the "installed_packages" field.
 func (_u *OperatingSystemResourceUpdateOne) SetInstalledPackages(v string) *OperatingSystemResourceUpdateOne {
 	_u.mutation.SetInstalledPackages(v)
@@ -454,6 +388,26 @@ func (_u *OperatingSystemResourceUpdateOne) SetNillableMetadata(v *string) *Oper
 // ClearMetadata clears the value of the "metadata" field.
 func (_u *OperatingSystemResourceUpdateOne) ClearMetadata() *OperatingSystemResourceUpdateOne {
 	_u.mutation.ClearMetadata()
+	return _u
+}
+
+// SetTLSCaCert sets the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdateOne) SetTLSCaCert(v string) *OperatingSystemResourceUpdateOne {
+	_u.mutation.SetTLSCaCert(v)
+	return _u
+}
+
+// SetNillableTLSCaCert sets the "tls_ca_cert" field if the given value is not nil.
+func (_u *OperatingSystemResourceUpdateOne) SetNillableTLSCaCert(v *string) *OperatingSystemResourceUpdateOne {
+	if v != nil {
+		_u.SetTLSCaCert(*v)
+	}
+	return _u
+}
+
+// ClearTLSCaCert clears the value of the "tls_ca_cert" field.
+func (_u *OperatingSystemResourceUpdateOne) ClearTLSCaCert() *OperatingSystemResourceUpdateOne {
+	_u.mutation.ClearTLSCaCert()
 	return _u
 }
 
@@ -594,18 +548,6 @@ func (_u *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	if _u.mutation.ArchitectureCleared() {
 		_spec.ClearField(operatingsystemresource.FieldArchitecture, field.TypeString)
 	}
-	if value, ok := _u.mutation.KernelCommand(); ok {
-		_spec.SetField(operatingsystemresource.FieldKernelCommand, field.TypeString, value)
-	}
-	if _u.mutation.KernelCommandCleared() {
-		_spec.ClearField(operatingsystemresource.FieldKernelCommand, field.TypeString)
-	}
-	if value, ok := _u.mutation.UpdateSources(); ok {
-		_spec.SetField(operatingsystemresource.FieldUpdateSources, field.TypeString, value)
-	}
-	if _u.mutation.UpdateSourcesCleared() {
-		_spec.ClearField(operatingsystemresource.FieldUpdateSources, field.TypeString)
-	}
 	if _u.mutation.ImageURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldImageURL, field.TypeString)
 	}
@@ -647,6 +589,12 @@ func (_u *OperatingSystemResourceUpdateOne) sqlSave(ctx context.Context) (_node 
 	}
 	if _u.mutation.MetadataCleared() {
 		_spec.ClearField(operatingsystemresource.FieldMetadata, field.TypeString)
+	}
+	if value, ok := _u.mutation.TLSCaCert(); ok {
+		_spec.SetField(operatingsystemresource.FieldTLSCaCert, field.TypeString, value)
+	}
+	if _u.mutation.TLSCaCertCleared() {
+		_spec.ClearField(operatingsystemresource.FieldTLSCaCert, field.TypeString)
 	}
 	if _u.mutation.ExistingCvesURLCleared() {
 		_spec.ClearField(operatingsystemresource.FieldExistingCvesURL, field.TypeString)
