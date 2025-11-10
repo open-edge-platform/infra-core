@@ -10,7 +10,7 @@ require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
 	buf.build/go/protovalidate v1.0.0
 	entgo.io/contrib v0.7.0
-	entgo.io/ent v0.14.5
+	entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4
 	github.com/Nerzal/gocloak/v13 v13.9.0
 	github.com/adhocore/gronx v1.19.6
 	github.com/cenkalti/backoff v2.2.1+incompatible
@@ -78,6 +78,7 @@ require (
 	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.4.0 // indirect
+	github.com/fatih/color v1.18.0 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.4 // indirect
 	github.com/go-jose/go-jose/v4 v4.1.2 // indirect
@@ -120,6 +121,8 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
+	github.com/olekukonko/errors v1.1.0 // indirect
+	github.com/olekukonko/ll v0.0.9 // indirect
 	github.com/open-edge-platform/orch-library/go/dazl v0.5.4 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
@@ -128,6 +131,7 @@ require (
 	github.com/prometheus/common v0.67.2 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
+	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/segmentio/ksuid v1.0.4 // indirect
@@ -163,5 +167,3 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
-
-replace github.com/olekukonko/tablewriter => github.com/olekukonko/tablewriter v0.0.5 // compatible version with ent v0.14.5
