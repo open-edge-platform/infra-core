@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/inventory/v2
 
-go 1.24.9
+go 1.25
 
 require (
 	ariga.io/atlas v0.38.0
@@ -15,7 +15,7 @@ require (
 	github.com/adhocore/gronx v1.19.6
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/eko/gocache/lib/v4 v4.2.0
-	github.com/eko/gocache/store/go_cache/v4 v4.2.2
+	github.com/eko/gocache/store/go_cache/v4 v4.2.3
 	github.com/goccy/go-json v0.10.5
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/golang/mock v1.6.0
@@ -36,7 +36,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.1-0.20231216201459-8508981c8b6c
 	github.com/olekukonko/tablewriter v1.1.0
 	github.com/open-edge-platform/orch-library/go v0.6.1
-	github.com/open-policy-agent/opa v1.10.0
+	github.com/open-policy-agent/opa v1.10.1
 	github.com/opencontainers/image-spec v1.1.1
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pkg/errors v0.9.1
@@ -44,7 +44,7 @@ require (
 	github.com/rs/zerolog v1.34.0
 	github.com/spf13/cobra v1.10.1
 	github.com/stretchr/testify v1.11.1
-	go.einride.tech/aip v0.73.0
+	go.einride.tech/aip v0.74.0
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.63.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0
 	go.opentelemetry.io/otel v1.38.0
