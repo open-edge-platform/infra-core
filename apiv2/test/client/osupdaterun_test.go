@@ -14,6 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 )
 
@@ -63,8 +64,8 @@ func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 		inv_testing.OSUpdatePolicyLatest())
 
 	osUpdateRun := dao.CreateOSUpdateRun(t, tenantID,
-		inv_testing.OsUpdateRunName("test-run"),
-		inv_testing.OsUpdateRunDescription("Test OS update run"),
+		inv_testing.OsUpdateRunName(utils.OsUpdateRunName1),
+		inv_testing.OsUpdateRunDescription(utils.OsUpdateRunDescription1),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
 		inv_testing.OSUpdateRunStartTime(uint64(time.Now().Unix())))
@@ -121,15 +122,15 @@ func TestOSUpdateRun_ListMultiple(t *testing.T) {
 		inv_testing.OSUpdatePolicyLatest())
 
 	run1 := dao.CreateOSUpdateRun(t, tenantID,
-		inv_testing.OsUpdateRunName("test-run-1"),
-		inv_testing.OsUpdateRunDescription("First test run"),
+		inv_testing.OsUpdateRunName(utils.OsUpdateRunName1),
+		inv_testing.OsUpdateRunDescription(utils.OsUpdateRunDescription1),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
 		inv_testing.OSUpdateRunStartTime(uint64(time.Now().Unix())))
 
 	run2 := dao.CreateOSUpdateRun(t, tenantID,
-		inv_testing.OsUpdateRunName("test-run-2"),
-		inv_testing.OsUpdateRunDescription("Second test run"),
+		inv_testing.OsUpdateRunName(utils.OsUpdateRunName2),
+		inv_testing.OsUpdateRunDescription(utils.OsUpdateRunDescription2),
 		inv_testing.OSUpdateRunAppliedPolicy(osUpdatePolicy),
 		inv_testing.OSUpdateRunInstance(instance),
 		inv_testing.OSUpdateRunStartTime(uint64(time.Now().Unix())))

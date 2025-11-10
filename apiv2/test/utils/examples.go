@@ -116,11 +116,16 @@ var (
 	ProviderWrongID           = "proider-12345678"
 	providerBadAPICredentials = []string{"%as", "v1/lxca/password"}
 
-	OsUpdatePolicyName1        = "test-policy"
-	OsUpdatePolicyName2        = "test-policy"
-	osUpdatePolicyDescription1 = "Test OS Update Policy"
+	OsUpdatePolicyName1        = "PolicyName1"
+	OsUpdatePolicyName2        = "PolicyName2"
+	osUpdatePolicyDescription1 = "Test OS Update Policy 1"
 	osUpdatePolicyDescription2 = "Test OS Update Policy 2"
 	updatePolicyLatest         = api.UPDATEPOLICYLATEST
+
+	OsUpdateRunName1        = "RunName1"
+	OsUpdateRunName2        = "RunName2"
+	OsUpdateRunDescription1 = "Test OS Update Run Description 1"
+	OsUpdateRunDescription2 = "Test OS Update Run Description 2"
 
 	MetadataR1 = []api.MetadataItem{
 		{
