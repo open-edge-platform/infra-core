@@ -20,7 +20,7 @@ jobs:
       contents: read
       security-events: write
       id-token: write
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@15fa19e8760a1d7954de69b7059433f3855bbd92  # v0.1.58
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@fd197a9812cf15627d347eac2cf7b41fa8b1c3c2  # v0.1.60
     with:
       bootstrap_tools: "go,yq,aws,oras"
       run_version_check: true
@@ -35,8 +35,6 @@ jobs:
       project_folder: "os-profiles"
     secrets:
       SYS_ORCH_GITHUB: ${{ secrets.SYS_ORCH_GITHUB }}
-      COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-      COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
       NO_AUTH_ECR_PUSH_USERNAME: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}
       NO_AUTH_ECR_PUSH_PASSWD: ${{ secrets.NO_AUTH_ECR_PUSH_PASSWD }}
       MSTEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
