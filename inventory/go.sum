@@ -270,8 +270,8 @@ github.com/open-edge-platform/orch-library/go v0.6.1 h1:IGR2ic73f3obnhlxTRfHcyYM
 github.com/open-edge-platform/orch-library/go v0.6.1/go.mod h1:3Tes/GJfwYbnQa/1scbKiLbjZrL4fJEouFk28oo5/c8=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
-github.com/open-policy-agent/opa v1.10.0 h1:CzWR/2OhZ5yHrqiyyB1Z37mqLMowifAiFSasjLxBBpk=
-github.com/open-policy-agent/opa v1.10.0/go.mod h1:7uPI3iRpOalJ0BhK6s1JALWPU9HvaV1XeBSSMZnr/PM=
+github.com/open-policy-agent/opa v1.10.1 h1:haIvxZSPky8HLjRrvQwWAjCPLg8JDFSZMbbG4yyUHgY=
+github.com/open-policy-agent/opa v1.10.1/go.mod h1:7uPI3iRpOalJ0BhK6s1JALWPU9HvaV1XeBSSMZnr/PM=
 github.com/opencontainers/go-digest v1.0.0 h1:apOUWs51W5PlhuyGyz9FCeeBIOUDA/6nW8Oi/yOhh5U=
 github.com/opencontainers/go-digest v1.0.0/go.mod h1:0JzlMkj0TRzQZfJkVvzbP0HBR3IKzErnv2BNG4W4MAM=
 github.com/opencontainers/image-spec v1.1.1 h1:y0fUlFfIZhPF1W537XOLg0/fcx6zcHCJwooC2xJA040=
@@ -364,8 +364,8 @@ github.com/zclconf/go-cty-debug v0.0.0-20240509010212-0d6042c53940 h1:4r45xpDWB6
 github.com/zclconf/go-cty-debug v0.0.0-20240509010212-0d6042c53940/go.mod h1:CmBdvvj3nqzfzJ6nTCIwDTPZ56aVGvDrmztiO5g3qrM=
 github.com/zclconf/go-cty-yaml v1.1.0 h1:nP+jp0qPHv2IhUVqmQSzjvqAWcObN0KBkUl2rWBdig0=
 github.com/zclconf/go-cty-yaml v1.1.0/go.mod h1:9YLUH4g7lOhVWqUbctnVlZ5KLpg7JAprQNgxSZ1Gyxs=
-go.einride.tech/aip v0.73.0 h1:bPo4oqBo2ZQeBKo4ZzLb1kxYXTY1ysJhpvQyfuGzvps=
-go.einride.tech/aip v0.73.0/go.mod h1:Mj7rFbmXEgw0dq1dqJ7JGMvYCZZVxmGOR3S4ZcV5LvQ=
+go.einride.tech/aip v0.74.0 h1:qW8pM6eUoDRW86yuAlCqMh/gSnPYisvVGDs1earqCcE=
+go.einride.tech/aip v0.74.0/go.mod h1:E8+wdTApA70odnpFzJgsGogHozC2JCIhFJBKPr8bVig=
 go.opentelemetry.io/auto/sdk v1.1.0 h1:cH53jehLUN6UFLY71z+NDOiNJqDdPRaXzTel0sJySYA=
 go.opentelemetry.io/auto/sdk v1.1.0/go.mod h1:3wSPjt5PWp2RhlCcmmOial7AvC4DQqZb7a7wCow3W8A=
 go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.63.0 h1:6YeICKmGrvgJ5th4+OMNpcuoB6q/Xs8gt0YCO7MUv1k=
