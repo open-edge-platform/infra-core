@@ -153,29 +153,59 @@ jobs:
           aws-region: us-west-2
       - name: "Curate OS profile"
         run: |
+          set -euo pipefail
           sed -i 's/-dev//g' VERSION
+
           for yaml in os-profiles/microvisor-rt.yaml os-profiles/microvisor-nonrt.yaml; do
-            echo "Processing YAML: $yaml"
+            echo "🧩 Processing YAML: $yaml"
+
             manifest_url=$(sed -n 's/^[[:space:]]*osPackageManifestURL:[[:space:]]*\(.*\)$/\1/p' "$yaml")
+            if [[ -z "$manifest_url" ]]; then
+              echo "⚠️ No manifest URL found in $yaml — skipping"
+              continue
+            fi
+
             full_url="https://files-rs.edgeorchestration.intel.com/${manifest_url}"
             manifest_file="${manifest_url##*/}"
-            echo "Downloading manifest from ${full_url}..."
+
+            echo "📥 Downloading manifest from ${full_url}..."
             if ! curl -sfL "$full_url" -o "$manifest_file"; then
               echo "❌ Failed to download $full_url — skipping $yaml"
               continue
             fi
 
             k3s_version=$(jq -r '.Repo[] | select(.Name=="k3s") | .Version' "$manifest_file" | cut -d'-' -f1)
-            if [[ -z "$k3s_version" ]]; then
-              echo "⚠️ k3s not found in $manifest_file — skipping $yaml"
+            if [[ -z "$k3s_version" || "$k3s_version" == "null" ]]; then
+              echo "⚠️ No k3s version found in $manifest_file — skipping $yaml"
               continue
             fi
+            echo "✅ Found k3s version: v${k3s_version}"
 
-            sed -i \
-              -e 's/^  version:.*$/  kubernetesVersion: v'"$k3s_version"'/' \
-              -e 's/^  kubernetes-version:.*$/  kubernetesVersion: v'"$k3s_version"'/' "$yaml"
+            # Normalize the os-profile YAML field consistently
+            sed -i -E \
+              -e "s/^[[:space:]]*kubernetes-version:[[:space:]]*.*/  kubernetesVersion: v${k3s_version}/" \
+              -e "s/^[[:space:]]*kubernetesVersion:[[:space:]]*.*/  kubernetesVersion: v${k3s_version}/" \
+              "$yaml"
+
+            # If key doesn’t exist at all, insert it under metadata
+            if ! grep -q 'kubernetesVersion:' "$yaml"; then
+              echo "⚠️ kubernetesVersion not found — inserting new key"
+              awk -v ver="v${k3s_version}" '/^metadata:/{print;print "  kubernetesVersion: " ver;next}1' "$yaml" > tmp && mv tmp "$yaml"
+            fi
+
+            # Final validation
+            if ! grep -q 'kubernetesVersion:' "$yaml"; then
+              echo "❌ kubernetesVersion missing after update in $yaml"
+              exit 1
+            fi
+            echo "✅ Updated $yaml with kubernetesVersion: v${k3s_version}"
           done
-          cat VERSION; cat os-profiles/microvisor-rt.yaml; cat os-profiles/microvisor-nonrt.yaml
+          echo "----- VERSION -----"
+          cat VERSION
+          echo "----- microvisor-rt.yaml -----"
+          cat os-profiles/microvisor-rt.yaml
+          echo "----- microvisor-nonrt.yaml -----"
+          cat os-profiles/microvisor-nonrt.yaml
       - name: "Run validate OS profile"
         run: |
           cd .github/workflows/scripts && ./validate_os_profiles.sh ${{ secrets.S3_NAME }}
