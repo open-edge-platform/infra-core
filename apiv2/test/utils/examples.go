@@ -122,11 +122,6 @@ var (
 	osUpdatePolicyDescription2 = "Test OS Update Policy 2"
 	updatePolicyLatest         = api.UPDATEPOLICYLATEST
 
-	OsUpdateRunName1        = "RunName1"
-	OsUpdateRunName2        = "RunName2"
-	OsUpdateRunDescription1 = "Test OS Update Run Description 1"
-	OsUpdateRunDescription2 = "Test OS Update Run Description 2"
-
 	MetadataR1 = []api.MetadataItem{
 		{
 			Key:   "examplekey",

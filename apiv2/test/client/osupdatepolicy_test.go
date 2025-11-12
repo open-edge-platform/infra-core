@@ -24,7 +24,7 @@ func TestOSUpdatePolicy_CreateGetListDelete(t *testing.T) {
 
 	// Create OSUpdatePolicy
 	policy1 := CreateOsUpdatePolicy(ctx, t, apiClient, utils.OsUpdatePolicyRequest1)
-	policy2 := CreateOsUpdatePolicy(ctx, t, apiClient, utils.OsUpdatePolicyRequest1)
+	policy2 := CreateOsUpdatePolicy(ctx, t, apiClient, utils.OsUpdatePolicyRequest2)
 
 	// Get OSUpdatePolicy
 	getResp1, err := apiClient.OSUpdatePolicyGetOSUpdatePolicyWithResponse(
