@@ -74,15 +74,20 @@ func TestOS_UpdatePut(t *testing.T) {
 	assert.Equal(t, http.StatusOK, OSResource1Get.StatusCode())
 	assert.Equal(t, utils.OSName1, *OSResource1Get.JSON200.Name)
 
-	// this OS request does not contain Profile Name, but we need to set SHA256 checksum
-	// and Profile Name to be equal to what we had in the first request
-	utils.OSResource2Request.Sha256 = utils.OSResource1Request.Sha256
-	utils.OSResource2Request.ProfileName = utils.OSResource1Request.ProfileName
-	utils.OSResource2Request.SecurityFeature = utils.OSResource1Request.SecurityFeature
+	// Create update request based on existing resource
+	// Only update mutable fields: architecture
+	// All other fields (name, sha256, profile_name, security_feature, os_type, etc.) are immutable
+	arch := "x86"
+	//name := "aaa"
+	updateRequest := api.OperatingSystemResource{
+		Architecture: &arch,
+		// Sha256 is required field
+		Sha256: OSResource1Get.JSON200.Sha256,
+	}
 	os1Update, err := apiClient.OperatingSystemServiceUpdateOperatingSystemWithResponse(
 		ctx,
 		*os1.JSON200.ResourceId,
-		utils.OSResource2Request,
+		updateRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
@@ -95,10 +100,13 @@ func TestOS_UpdatePut(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
-	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
-	assert.Equal(t, *utils.OSResource2Request.Architecture, *OSResource1GetUp.JSON200.Architecture)
-	// Security Feature is immutable
-	assert.Equal(t, *utils.OSResource1Request.SecurityFeature, *OSResource1GetUp.JSON200.SecurityFeature)
+	// Verify mutable fields were updated
+	assert.Equal(t, *updateRequest.Architecture, *OSResource1GetUp.JSON200.Architecture)
+	assert.Equal(t, OSResource1Get.JSON200.Sha256, OSResource1GetUp.JSON200.Sha256)
+	assert.Empty(t, *OSResource1GetUp.JSON200.Name)
+	// Verify other immutable fields remain unchanged
+	assert.Equal(t, *OSResource1Get.JSON200.SecurityFeature, *OSResource1GetUp.JSON200.SecurityFeature)
+	assert.Equal(t, *OSResource1Get.JSON200.OsType, *OSResource1GetUp.JSON200.OsType)
 
 	log.Info().Msgf("End OSResource Update tests")
 }
@@ -211,14 +219,8 @@ func TestOS_List(t *testing.T) {
 	pageID := 1
 	pageSize := 4
 
-	for id := 0; id < totalItems; id++ {
-		// Re-generate the random sha for each new OS resource being created
-		randSHA := inv_testing.GenerateRandomSha256()
-		utils.OSResource1Request.Sha256 = randSHA
-		profileName := inv_testing.GenerateRandomProfileName()
-		utils.OSResource1Request.ProfileName = &profileName
-		CreateOS(ctx, t, apiClient, utils.OSResource1Request)
-	}
+	CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+	CreateOS(ctx, t, apiClient, utils.OSResource2Request)
 
 	// Checks if list resources return expected number of entries
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
@@ -289,7 +291,7 @@ func TestOS_GetWithInstalledPackages(t *testing.T) {
 	assert.GreaterOrEqual(t, len(osList.JSON200.OperatingSystemResources), NumPreloadedOSResources)
 
 	for _, osRes := range osList.JSON200.OperatingSystemResources {
-		if *osRes.OsType != api.OSTYPEMUTABLE {
+		if *osRes.OsType == api.OSTYPEMUTABLE {
 			// Skip if OS is MUTABLE, as it does not have InstalledPackages as the pkg manifest
 			continue
 		}
@@ -372,16 +374,24 @@ func TestOS_UpdatePatch(t *testing.T) {
 	assert.Equal(t, http.StatusOK, OSResource1Get.StatusCode())
 	assert.Equal(t, utils.OSName1, *OSResource1Get.JSON200.Name)
 
+	// PATCH only mutable fields (Architecture)
+	// Cannot patch immutable fields like Name, SecurityFeature, OsType, etc.
+	newArch := "arm64"
+	patchRequest := api.OperatingSystemResource{
+		Architecture: &newArch,
+		Sha256:       OSResource1Get.JSON200.Sha256,
+	}
+
 	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
 		*os1.JSON200.OsResourceID,
-		utils.OSResource2Request,
+		patchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, os1Update.StatusCode())
-	assert.Equal(t, utils.OSName2, *os1Update.JSON200.Name)
+	assert.Equal(t, utils.OSName1, *os1Update.JSON200.Name)
 
 	OSResource1GetUp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
@@ -391,10 +401,10 @@ func TestOS_UpdatePatch(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, OSResource1GetUp.StatusCode())
-	assert.Equal(t, *utils.OSResource2Request.Name, *OSResource1GetUp.JSON200.Name)
+	assert.Equal(t, *utils.OSResource1Request.Name, *OSResource1GetUp.JSON200.Name)
 	assert.Equal(
 		t,
-		utils.OSResource2Request.Architecture,
+		patchRequest.Architecture,
 		OSResource1GetUp.JSON200.Architecture,
 	)
 	// Security Feature is immutable

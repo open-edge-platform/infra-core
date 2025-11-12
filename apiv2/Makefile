@@ -179,7 +179,7 @@ int-test-os: ## Runs os integration tests from test/client
 	@echo "!!!!! Follow instruction in test/client/README.md !!!!!"
 	@if [ -z $(JWT_TOKEN) ]; then echo "Error: JWT_TOKEN is not defined" >&2; false; fi
 	@if [ -z $(PROJECT_ID) ]; then echo "Error: PROJECT_ID is not defined" >&2; false; fi
-	$(GOCMD_TESTCLIENTJWT_TOKEN) -run TestOS
+	$(GOCMD_TESTCLIENTJWT_TOKEN) -run '^TestOS_'
 
 int-test-sr: ## Runs repeated schedule integration tests from test/client
 	@echo "!!!!! Follow instruction in test/client/README.md !!!!!"
