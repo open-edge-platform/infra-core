@@ -40,7 +40,6 @@ func TestOSUpdateRun_GetListNotFound(t *testing.T) {
 	assert.Empty(t, listResp.JSON200.OsUpdateRuns, "Expected OSUpdateRuns list to be empty")
 }
 
-//nolint:gosec // uint64 conversions are safe for testing
 func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -75,7 +74,6 @@ func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, deleteResp.StatusCode())
 }
 
-//nolint:gosec // uint64 conversions are safe for testing
 func TestOSUpdateRun_ListMultiple(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -92,10 +90,10 @@ func TestOSUpdateRun_ListMultiple(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
 	assert.NotNil(t, listResp.JSON200)
-	
+
 	// Verify the response structure is correct
 	assert.NotNil(t, listResp.JSON200.OsUpdateRuns)
-	
+
 	// If there are any runs, verify they have the required fields
 	if len(listResp.JSON200.OsUpdateRuns) > 0 {
 		for _, run := range listResp.JSON200.OsUpdateRuns {

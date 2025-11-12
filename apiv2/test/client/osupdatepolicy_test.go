@@ -46,9 +46,31 @@ func TestOSUpdatePolicy_CreateGetListDelete(t *testing.T) {
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
 
 	// Verify both policies are in the list
-	resourceIDs := []string{*listResp.JSON200.OsUpdatePolicies[0].ResourceId, *listResp.JSON200.OsUpdatePolicies[1].ResourceId}
+	require.NotNil(t, listResp.JSON200)
+	require.GreaterOrEqual(t, len(listResp.JSON200.OsUpdatePolicies), 2, "Expected at least 2 policies in the list")
+
+	// Collect all resource IDs from the list
+	var resourceIDs []string
+	for _, policy := range listResp.JSON200.OsUpdatePolicies {
+		resourceIDs = append(resourceIDs, *policy.ResourceId)
+	}
 	assert.Contains(t, resourceIDs, *policy1.JSON200.ResourceId)
 	assert.Contains(t, resourceIDs, *policy2.JSON200.ResourceId)
+
+	// Delete all policies in the list
+	/*for _, policy := range listResp.JSON200.OsUpdatePolicies {
+		delResp, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
+			ctx, *policy.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		require.NoError(t, err)
+		assert.Equal(t, http.StatusNoContent, delResp.StatusCode())
+	}
+
+	// Verify all policies are deleted - list should be empty
+	listAfterDel, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
+		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, listAfterDel.StatusCode())
+	assert.Empty(t, listAfterDel.JSON200.OsUpdatePolicies, "Expected all policies to be deleted")*/
 }
 
 func TestOSUpdatePolicy_GetListNotFound(t *testing.T) {

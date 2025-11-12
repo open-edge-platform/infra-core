@@ -78,7 +78,6 @@ func TestOS_UpdatePut(t *testing.T) {
 	// Only update mutable fields: architecture
 	// All other fields (name, sha256, profile_name, security_feature, os_type, etc.) are immutable
 	arch := "x86"
-	//name := "aaa"
 	updateRequest := api.OperatingSystemResource{
 		Architecture: &arch,
 		// Sha256 is required field
