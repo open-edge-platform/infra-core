@@ -509,3 +509,49 @@ func TestInstanceInvalidate(t *testing.T) {
 
 	log.Info().Msg("TestInstanceInvalidate Finished")
 }
+
+func TestInstance_CreateWithOSUpdatePolicy(t *testing.T) {
+	log.Info().Msgf("Begin Instance with OSUpdatePolicy test")
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	utils.Site1Request.RegionId = nil
+	site1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
+	utils.Host3Request.SiteId = site1.JSON200.SiteID
+	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host3Request)
+	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+
+	// Create OSUpdatePolicy
+	osUpdatePolicy := CreateOsUpdatePolicy(ctx, t, apiClient, utils.OsUpdatePolicyRequest1)
+
+	// Create instance with OSUpdatePolicy assigned
+	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
+	utils.Instance1Request.OsID = osCreated1.JSON200.OsResourceID
+	utils.Instance1Request.OsUpdatePolicyID = osUpdatePolicy.JSON200.ResourceId
+
+	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
+
+	// Get the created instance and verify OSUpdatePolicy is assigned
+	get1, err := apiClient.InstanceServiceGetInstanceWithResponse(
+		ctx,
+		*inst1.JSON200.ResourceId,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, get1.StatusCode())
+	assert.Equal(t, *utils.Instance1Request.Name, *get1.JSON200.Name)
+
+	// Check if the OSUpdatePolicy is the one assigned earlier
+	require.NotNil(t, get1.JSON200.UpdatePolicy, "OSUpdatePolicy should be assigned")
+	assert.Equal(t,
+		*osUpdatePolicy.JSON200.ResourceId, *get1.JSON200.UpdatePolicy.ResourceId, "OSUpdatePolicy ResourceId should match")
+	assert.Equal(t,
+		osUpdatePolicy.JSON200.Name, get1.JSON200.UpdatePolicy.Name, "OSUpdatePolicy Name should match")
+	assert.Equal(t,
+		osUpdatePolicy.JSON200.Description, get1.JSON200.UpdatePolicy.Description, "OSUpdatePolicy Description should match")
+
+	clearInstanceIDs()
+}
