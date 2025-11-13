@@ -51,7 +51,7 @@ const (
 
 // ProtoEqualOrDiff Deep-compares two protobuf messages and returns a human-readable diff if they
 // are not equal. This can be used to create useful error messages in unit tests:
-//
+// Usage :
 //	if eq, diff := ProtoEqualOrDiff(a, b); !eq {
 //		t.Errorf("messages are not equal: %v", diff)
 //	}
