@@ -108,11 +108,6 @@ func UpdateStatusTimestamp(v uint64) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldUpdateStatusTimestamp, v))
 }
 
-// UpdateStatusDetail applies equality check predicate on the "update_status_detail" field. It's identical to UpdateStatusDetailEQ.
-func UpdateStatusDetail(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldEQ(FieldUpdateStatusDetail, v))
-}
-
 // TrustedAttestationStatus applies equality check predicate on the "trusted_attestation_status" field. It's identical to TrustedAttestationStatusEQ.
 func TrustedAttestationStatus(v string) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTrustedAttestationStatus, v))
@@ -1033,81 +1028,6 @@ func UpdateStatusTimestampNotNil() predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldNotNull(FieldUpdateStatusTimestamp))
 }
 
-// UpdateStatusDetailEQ applies the EQ predicate on the "update_status_detail" field.
-func UpdateStatusDetailEQ(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldEQ(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailNEQ applies the NEQ predicate on the "update_status_detail" field.
-func UpdateStatusDetailNEQ(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldNEQ(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailIn applies the In predicate on the "update_status_detail" field.
-func UpdateStatusDetailIn(vs ...string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldIn(FieldUpdateStatusDetail, vs...))
-}
-
-// UpdateStatusDetailNotIn applies the NotIn predicate on the "update_status_detail" field.
-func UpdateStatusDetailNotIn(vs ...string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldNotIn(FieldUpdateStatusDetail, vs...))
-}
-
-// UpdateStatusDetailGT applies the GT predicate on the "update_status_detail" field.
-func UpdateStatusDetailGT(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldGT(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailGTE applies the GTE predicate on the "update_status_detail" field.
-func UpdateStatusDetailGTE(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldGTE(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailLT applies the LT predicate on the "update_status_detail" field.
-func UpdateStatusDetailLT(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldLT(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailLTE applies the LTE predicate on the "update_status_detail" field.
-func UpdateStatusDetailLTE(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldLTE(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailContains applies the Contains predicate on the "update_status_detail" field.
-func UpdateStatusDetailContains(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldContains(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailHasPrefix applies the HasPrefix predicate on the "update_status_detail" field.
-func UpdateStatusDetailHasPrefix(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldHasPrefix(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailHasSuffix applies the HasSuffix predicate on the "update_status_detail" field.
-func UpdateStatusDetailHasSuffix(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldHasSuffix(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailIsNil applies the IsNil predicate on the "update_status_detail" field.
-func UpdateStatusDetailIsNil() predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldIsNull(FieldUpdateStatusDetail))
-}
-
-// UpdateStatusDetailNotNil applies the NotNil predicate on the "update_status_detail" field.
-func UpdateStatusDetailNotNil() predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldNotNull(FieldUpdateStatusDetail))
-}
-
-// UpdateStatusDetailEqualFold applies the EqualFold predicate on the "update_status_detail" field.
-func UpdateStatusDetailEqualFold(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldEqualFold(FieldUpdateStatusDetail, v))
-}
-
-// UpdateStatusDetailContainsFold applies the ContainsFold predicate on the "update_status_detail" field.
-func UpdateStatusDetailContainsFold(v string) predicate.InstanceResource {
-	return predicate.InstanceResource(sql.FieldContainsFold(FieldUpdateStatusDetail, v))
-}
-
 // TrustedAttestationStatusEQ applies the EQ predicate on the "trusted_attestation_status" field.
 func TrustedAttestationStatusEQ(v string) predicate.InstanceResource {
 	return predicate.InstanceResource(sql.FieldEQ(FieldTrustedAttestationStatus, v))
@@ -1773,52 +1693,6 @@ func HasHost() predicate.InstanceResource {
 func HasHostWith(preds ...predicate.HostResource) predicate.InstanceResource {
 	return predicate.InstanceResource(func(s *sql.Selector) {
 		step := newHostStep()
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
-// HasDesiredOs applies the HasEdge predicate on the "desired_os" edge.
-func HasDesiredOs() predicate.InstanceResource {
-	return predicate.InstanceResource(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, DesiredOsTable, DesiredOsColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasDesiredOsWith applies the HasEdge predicate on the "desired_os" edge with a given conditions (other predicates).
-func HasDesiredOsWith(preds ...predicate.OperatingSystemResource) predicate.InstanceResource {
-	return predicate.InstanceResource(func(s *sql.Selector) {
-		step := newDesiredOsStep()
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
-// HasCurrentOs applies the HasEdge predicate on the "current_os" edge.
-func HasCurrentOs() predicate.InstanceResource {
-	return predicate.InstanceResource(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, CurrentOsTable, CurrentOsColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasCurrentOsWith applies the HasEdge predicate on the "current_os" edge with a given conditions (other predicates).
-func HasCurrentOsWith(preds ...predicate.OperatingSystemResource) predicate.InstanceResource {
-	return predicate.InstanceResource(func(s *sql.Selector) {
-		step := newCurrentOsStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
 				p(s)

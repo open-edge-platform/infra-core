@@ -36,7 +36,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateGoodOs": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				ImageUrl:             "Repo test entry",
 				ImageId:              "some ID",
 				Sha256:               inv_testing.RandomSha256v1,
@@ -62,13 +61,42 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				FixedCvesUrl: "/files/fixed_cves.json",
 				FixedCves:    `[{"cve_id":"CVE-000-000"}]`,
 				Metadata:     `{"release":"0.0.0-dev","version":"0.0.3"}`,
+				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
+					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
+					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
+					"NW5hVzU0TG05eVkyZ3RNVEF0TVRNNUxUSXlNQzB5TVRZdWNHbGtMbWx1ClpuSmhMV2h2YzNRdVkyOXRN" +
+					"QjRYRFRJMU1UQXdOekUwTkRrd01sb1hEVEkyTVRBd056RTVORGt3TWxvd2F6RUwKTUFrR0ExVUVCaE1D" +
+					"VlZNeEdqQVlCZ05WQkFvVEVVbHVkR1ZzSUVOdmNuQnZjbUYwYVc5dU1VQXdQZ1lEVlFRRApFemQwYVc1" +
+					"clpYSmlaV3hzTFc1bmFXNTRMbTl5WTJndE1UQXRNVE01TFRJeU1DMHlNVFl1Y0dsa0xtbHVabkpoCkxX" +
+					"aHZjM1F1WTI5dE1JSUJvakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBWThBTUlJQmlnS0NBWUVBNzdTQ25Q" +
+					"UXIKbGZaNUhqbytEYU5qUTFJTjgyMkFjbUpWY05xam5va2xNYUdWcm51d2IwZDlUajVFeHh1cmVlbVlT" +
+					"aVVjejRicgovam9EK20wNStpZWd0V3lpTUtNb2JFQkM2eFRNRTUrT0gvVFdSbjNIVll4YTJxcHluTWd6" +
+					"eHUwTXlHSjc4OWVQCmFYTytTdU1XZVRleTZTZFBYSjlNZVRCNE93SGNHbFJWMGkwcnBWY0tsc3V0N09X" +
+					"bjc1Z0gxWDR6elNqY010OHAKYVM2K1Jjdi9SdTBuQjRXM3VSRUxCak53aEx6cGVMUlZpWG1jNGhmeGJW" +
+					"M3ZwL0FNT0RGQlJtLzg3eU54TzlBRgpJczJuaG9manN0ZmJrRWppNTB1TU54RHRnQVFCYzlTaEV1QWJ5" +
+					"dDJTTURHWjNKTDNGaDdSaW9DZVRRVzZBOGxGCkk4TjBEeDkxN0JCTXczYlVDanNKMEx1UkhtQkhMbXRT" +
+					"QTd1UC96U0cwRXVjMzV3dk1Bd1BYZ25LNWFGZDZjYnQKVytDYkRoaXBNM3BjVmlXTjNiRzZtd3RxWWs1" +
+					"b1JWSkdMQjBrZ1lOSzhnY251WHRkaGpHNFIxVjFpUVIvRGcxbwora3BVRGM1eVFqVlMxRit2WVNTUTVD" +
+					"S3Y0eTZhRktoYzlNa2dHMy9ZTkVMUTVmcFRpMEo0VTRJREFnTUJBQUdqCmdad3dnWmt3RGdZRFZSMFBB" +
+					"UUgvQkFRREFnS0VNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUE4R0ExVWQKRXdFQi93UUZNQU1C" +
+					"QWY4d0hRWURWUjBPQkJZRUZKQUJ6NUhmZGtGbEhTUGVZcUZPNnVtdlIxcjZNRUlHQTFVZApFUVE3TURt" +
+					"Q04zUnBibXRsY21KbGJHd3RibWRwYm5ndWIzSmphQzB4TUMweE16a3RNakl3TFRJeE5pNXdhV1F1CmFX" +
+					"NW1jbUV0YUc5emRDNWpiMjB3RFFZSktvWklodmNOQVFFTUJRQURnZ0dCQUtWamowVHE1NmR5ME55SDJH" +
+					"N3cKZm0zSCs2citYamhLVXBPTzB4dkpWTXR1dzZlQlpvTXhRdEo1Z2dFM2FnT0t3bDRYV0NUTFd5WUY1" +
+					"anljMWVlVgp3NExjSVBjRDZqWjVlRFpRNFo0d2YybVcwdVU0Sk5JVzB5VXFub3JEOUJsdkxsZXJBVkpk" +
+					"cmRwSGZEU1NMOVY4CjFjZHNsZFMvbjVTOFdHV0tUaE9CNlVGcStQTHFEY3VNenh0Q25FbzlmOExVQWlD" +
+					"ZlljekxuQjA5bWNGN1E0clQKQTN3NHNWRzNvM1o5c1hCTDZjUnAvMHhWMzNoQ2xvSCtqcm16WU0rcE92" +
+					"LzdWdndhWEhFZlNVamIzZVh3SDF1MApyQUFkampLM3pSRXZwbUFzTTMxN2JsMTFIUWhJY25kVk1JTklr" +
+					"cjVYQ0RvZFdGQnladXI4WE80ZVpSOHlCYzdaCnNNMXZMblh1QWxmcnhlbGlnZ1lhTzI3SzB1SmJuOXlI" +
+					"eE9uclY5MmZMdVRGYWZCdEphYXl2bjJSVGdqYVFsWCsKazFURHlrZCs1YUVFaTNZQ3IybmVEV1l0aTJt" +
+					"Z3lGRVZ0WEhOWjNMbjBMUStTbUhreTFxSzhqNUpNbFQyRnhpNApuSXFpVzZKeDZwTVVBNDlTa2VPMCs3" +
+					"dllYRDUrY1FvVW1ZRDNSNktqYUtUeUFnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
 			},
 			valid: true,
 		},
 		"CreateGoodOsLenovoProvider": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				ImageUrl:             "Repo test entry",
 				ImageId:              "some ID",
 				Sha256:               inv_testing.RandomSha256v1,
@@ -85,39 +113,15 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		},
 		"CreateBadOsWrongSha": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", "test entry2"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        "________________________________________________________________",
+				Name:     "Test Os 1",
+				ImageUrl: "Repo test entry",
+				Sha256:   "________________________________________________________________",
 			},
 			valid: false,
-		},
-		"CreateBadWithTooLongUpdateSource": {
-			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", inv_testing.RandomString(10001)},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-			},
-			valid: false,
-		},
-		"CreateGoodLongUpdateSource": {
-			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", inv_testing.RandomString(9999)},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
-			},
-			valid: true,
 		},
 		"CreateGoodOsMissingSha": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				ImageUrl:             "Repo test entry",
 				InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
 				InstalledPackagesUrl: "https://manifest-url.example.com/installed-packages.txt",
@@ -130,12 +134,11 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &os_v1.OperatingSystemResource{
-				ResourceId:    "os-12345678",
-				Name:          "Test Os 2",
-				UpdateSources: []string{"test entries"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
+				ResourceId:  "os-12345678",
+				Name:        "Test Os 2",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
 			},
 			valid: false,
 		},
@@ -143,29 +146,26 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 			// This tests case verifies that create requests with a resource ID
 			// already set are rejected.
 			in: &os_v1.OperatingSystemResource{
-				ResourceId:    "os-1234678",
-				Name:          "Test Os 2",
-				UpdateSources: []string{"test entries"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
+				ResourceId:  "os-1234678",
+				Name:        "Test Os 2",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
 			},
 			valid: false,
 		},
 		"CreateGoodOsBadSHA256": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", "test entry2"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        strings.ToUpper(inv_testing.RandomSha256v1),
-				ProfileName:   "Test OS profile name",
+				Name:        "Test Os 1",
+				ImageUrl:    "Repo test entry",
+				Sha256:      strings.ToUpper(inv_testing.RandomSha256v1),
+				ProfileName: "Test OS profile name",
 			},
 			valid: false,
 		},
 		"CreateGoodOsNoRepoURL": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name",
 				InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
@@ -179,7 +179,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateBadOsDuplicateMetadata1": {
 			in: &os_v1.OperatingSystemResource{
 				Name:              "Test Os 1",
-				UpdateSources:     []string{"test entry1", "test entry2"},
 				Sha256:            inv_testing.RandomSha256v1,
 				ProfileName:       "Test OS profile name",
 				InstalledPackages: "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
@@ -193,7 +192,6 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 		"CreateBadOsDuplicateMetadata2": {
 			in: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entry1", "test entry2"},
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name",
 				InstalledPackages:    "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero",
@@ -204,6 +202,71 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 				Metadata:             "invalid JSON",
 			},
 			valid: false,
+		},
+		"CreateGoodOsWithTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:        "Test Os with TLS CA",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
+					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
+					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
+					"NW5hVzU0TG05eVkyZ3RNVEF0TVRNNUxUSXlNQzB5TVRZdWNHbGtMbWx1ClpuSmhMV2h2YzNRdVkyOXRN" +
+					"QjRYRFRJMU1UQXdOekUwTkRrd01sb1hEVEkyTVRBd056RTVORGt3TWxvd2F6RUwKTUFrR0ExVUVCaE1D" +
+					"VlZNeEdqQVlCZ05WQkFvVEVVbHVkR1ZzSUVOdmNuQnZjbUYwYVc5dU1VQXdQZ1lEVlFRRApFemQwYVc1" +
+					"clpYSmlaV3hzTFc1bmFXNTRMbTl5WTJndE1UQXRNVE01TFRJeU1DMHlNVFl1Y0dsa0xtbHVabkpoCkxX" +
+					"aHZjM1F1WTI5dE1JSUJvakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBWThBTUlJQmlnS0NBWUVBNzdTQ25Q" +
+					"UXIKbGZaNUhqbytEYU5qUTFJTjgyMkFjbUpWY05xam5va2xNYUdWcm51d2IwZDlUajVFeHh1cmVlbVlT" +
+					"aVVjejRicgovam9EK20wNStpZWd0V3lpTUtNb2JFQkM2eFRNRTUrT0gvVFdSbjNIVll4YTJxcHluTWd6" +
+					"eHUwTXlHSjc4OWVQCmFYTytTdU1XZVRleTZTZFBYSjlNZVRCNE93SGNHbFJWMGkwcnBWY0tsc3V0N09X" +
+					"bjc1Z0gxWDR6elNqY010OHAKYVM2K1Jjdi9SdTBuQjRXM3VSRUxCak53aEx6cGVMUlZpWG1jNGhmeGJW" +
+					"M3ZwL0FNT0RGQlJtLzg3eU54TzlBRgpJczJuaG9manN0ZmJrRWppNTB1TU54RHRnQVFCYzlTaEV1QWJ5" +
+					"dDJTTURHWjNKTDNGaDdSaW9DZVRRVzZBOGxGCkk4TjBEeDkxN0JCTXczYlVDanNKMEx1UkhtQkhMbXRT" +
+					"QTd1UC96U0cwRXVjMzV3dk1Bd1BYZ25LNWFGZDZjYnQKVytDYkRoaXBNM3BjVmlXTjNiRzZtd3RxWWs1" +
+					"b1JWSkdMQjBrZ1lOSzhnY251WHRkaGpHNFIxVjFpUVIvRGcxbwora3BVRGM1eVFqVlMxRit2WVNTUTVD" +
+					"S3Y0eTZhRktoYzlNa2dHMy9ZTkVMUTVmcFRpMEo0VTRJREFnTUJBQUdqCmdad3dnWmt3RGdZRFZSMFBB" +
+					"UUgvQkFRREFnS0VNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUE4R0ExVWQKRXdFQi93UUZNQU1C" +
+					"QWY4d0hRWURWUjBPQkJZRUZKQUJ6NUhmZGtGbEhTUGVZcUZPNnVtdlIxcjZNRUlHQTFVZApFUVE3TURt" +
+					"Q04zUnBibXRsY21KbGJHd3RibWRwYm5ndWIzSmphQzB4TUMweE16a3RNakl3TFRJeE5pNXdhV1F1CmFX" +
+					"NW1jbUV0YUc5emRDNWpiMjB3RFFZSktvWklodmNOQVFFTUJRQURnZ0dCQUtWamowVHE1NmR5ME55SDJH" +
+					"N3cKZm0zSCs2citYamhLVXBPTzB4dkpWTXR1dzZlQlpvTXhRdEo1Z2dFM2FnT0t3bDRYV0NUTFd5WUY1" +
+					"anljMWVlVgp3NExjSVBjRDZqWjVlRFpRNFo0d2YybVcwdVU0Sk5JVzB5VXFub3JEOUJsdkxsZXJBVkpk" +
+					"cmRwSGZEU1NMOVY4CjFjZHNsZFMvbjVTOFdHV0tUaE9CNlVGcStQTHFEY3VNenh0Q25FbzlmOExVQWlD" +
+					"ZlljekxuQjA5bWNGN1E0clQKQTN3NHNWRzNvM1o5c1hCTDZjUnAvMHhWMzNoQ2xvSCtqcm16WU0rcE92" +
+					"LzdWdndhWEhFZlNVamIzZVh3SDF1MApyQUFkampLM3pSRXZwbUFzTTMxN2JsMTFIUWhJY25kVk1JTklr" +
+					"cjVYQ0RvZFdGQnladXI4WE80ZVpSOHlCYzdaCnNNMXZMblh1QWxmcnhlbGlnZ1lhTzI3SzB1SmJuOXlI" +
+					"eE9uclY5MmZMdVRGYWZCdEphYXl2bjJSVGdqYVFsWCsKazFURHlrZCs1YUVFaTNZQ3IybmVEV1l0aTJt" +
+					"Z3lGRVZ0WEhOWjNMbjBMUStTbUhreTFxSzhqNUpNbFQyRnhpNApuSXFpVzZKeDZwTVVBNDlTa2VPMCs3" +
+					"dllYRDUrY1FvVW1ZRDNSNktqYUtUeUFnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+			},
+			valid: true,
+		},
+		"CreateGoodOsWithEmptyTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:        "Test Os with empty TLS CA",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:   "",
+			},
+			valid: true,
+		},
+		"CreateBadOsWithInvalidTlsCaCert": {
+			in: &os_v1.OperatingSystemResource{
+				Name:        "Test Os with bad TLS CA",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				TlsCaCert:   "not a cert",
+			},
+			valid: false, // Only if you enforce PEM pattern validation
 		},
 	}
 
@@ -259,7 +322,7 @@ func Test_Create_Get_Delete_Update_Os(t *testing.T) {
 					},
 				}
 				fieldMask := &fieldmaskpb.FieldMask{
-					Paths: []string{oss.FieldUpdateSources, oss.FieldInstalledPackages},
+					Paths: []string{oss.FieldInstalledPackages},
 				}
 				upRes, err := inv_testing.TestClients[inv_testing.APIClient].Update(
 					ctx,
@@ -334,13 +397,6 @@ func Test_FilterOss(t *testing.T) {
 				Filter: fmt.Sprintf(`%s = %q`, oss.FieldResourceID, cupdatesourceResp1.ResourceId),
 			},
 			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp1},
-			valid:     true,
-		},
-		"FilterUpdateSources": {
-			in: &inv_v1.ResourceFilter{
-				Filter: fmt.Sprintf(`%s = %q`, oss.FieldUpdateSources, cupdatesourceResp1.UpdateSources[0]),
-			},
-			resources: []*os_v1.OperatingSystemResource{cupdatesourceResp1, cupdatesourceResp2},
 			valid:     true,
 		},
 		"FilterBySecurityFeatures": {
@@ -502,7 +558,6 @@ func Test_UpdateOs(t *testing.T) {
 		Resource: &inv_v1.Resource_Os{
 			Os: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entries"},
 				ImageUrl:             "Repo test entry",
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name 1",
@@ -530,20 +585,6 @@ func Test_UpdateOs(t *testing.T) {
 		valid        bool
 		expErrorCode codes.Code
 	}{
-		"UpdateMultipleFields": {
-			in: &os_v1.OperatingSystemResource{
-				Name:          "Updated Name",
-				KernelCommand: "linux",
-				UpdateSources: []string{"update 2"},
-			},
-			resourceID: osResID,
-			fieldMask: &fieldmaskpb.FieldMask{
-				Paths: []string{
-					oss.FieldKernelCommand, oss.FieldUpdateSources,
-				},
-			},
-			valid: true,
-		},
 		"UpdateImmutableSecurityFeatureFail": {
 			in: &os_v1.OperatingSystemResource{
 				SecurityFeature: os_v1.SecurityFeature_SECURITY_FEATURE_NONE,
@@ -579,6 +620,56 @@ func Test_UpdateOs(t *testing.T) {
 				Paths: []string{
 					oss.FieldPlatformBundle,
 				},
+			},
+			valid:        false,
+			expErrorCode: codes.InvalidArgument,
+		},
+		"UpdateTlsCaCertValid": {
+			in: &os_v1.OperatingSystemResource{
+				TlsCaCert: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUUvakNDQTJhZ0F3SUJBZ0lSQUtYL2hzUDhsUzZs" +
+					"cWVRcUpSb0NabGt3RFFZSktvWklodmNOQVFFTUJRQXcKYXpFTE1Ba0dBMVVFQmhNQ1ZWTXhHakFZQmdO" +
+					"VkJBb1RFVWx1ZEdWc0lFTnZjbkJ2Y21GMGFXOXVNVUF3UGdZRApWUVFERXpkMGFXNXJaWEppWld4c0xX" +
+					"NW5hVzU0TG05eVkyZ3RNVEF0TVRNNUxUSXlNQzB5TVRZdWNHbGtMbWx1ClpuSmhMV2h2YzNRdVkyOXRN" +
+					"QjRYRFRJMU1UQXdOekUwTkRrd01sb1hEVEkyTVRBd056RTVORGt3TWxvd2F6RUwKTUFrR0ExVUVCaE1D" +
+					"VlZNeEdqQVlCZ05WQkFvVEVVbHVkR1ZzSUVOdmNuQnZjbUYwYVc5dU1VQXdQZ1lEVlFRRApFemQwYVc1" +
+					"clpYSmlaV3hzTFc1bmFXNTRMbTl5WTJndE1UQXRNVE01TFRJeU1DMHlNVFl1Y0dsa0xtbHVabkpoCkxX" +
+					"aHZjM1F1WTI5dE1JSUJvakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBWThBTUlJQmlnS0NBWUVBNzdTQ25Q" +
+					"UXIKbGZaNUhqbytEYU5qUTFJTjgyMkFjbUpWY05xam5va2xNYUdWcm51d2IwZDlUajVFeHh1cmVlbVlT" +
+					"aVVjejRicgovam9EK20wNStpZWd0V3lpTUtNb2JFQkM2eFRNRTUrT0gvVFdSbjNIVll4YTJxcHluTWd6" +
+					"eHUwTXlHSjc4OWVQCmFYTytTdU1XZVRleTZTZFBYSjlNZVRCNE93SGNHbFJWMGkwcnBWY0tsc3V0N09X" +
+					"bjc1Z0gxWDR6elNqY010OHAKYVM2K1Jjdi9SdTBuQjRXM3VSRUxCak53aEx6cGVMUlZpWG1jNGhmeGJW" +
+					"M3ZwL0FNT0RGQlJtLzg3eU54TzlBRgpJczJuaG9manN0ZmJrRWppNTB1TU54RHRnQVFCYzlTaEV1QWJ5" +
+					"dDJTTURHWjNKTDNGaDdSaW9DZVRRVzZBOGxGCkk4TjBEeDkxN0JCTXczYlVDanNKMEx1UkhtQkhMbXRT" +
+					"QTd1UC96U0cwRXVjMzV3dk1Bd1BYZ25LNWFGZDZjYnQKVytDYkRoaXBNM3BjVmlXTjNiRzZtd3RxWWs1" +
+					"b1JWSkdMQjBrZ1lOSzhnY251WHRkaGpHNFIxVjFpUVIvRGcxbwora3BVRGM1eVFqVlMxRit2WVNTUTVD" +
+					"S3Y0eTZhRktoYzlNa2dHMy9ZTkVMUTVmcFRpMEo0VTRJREFnTUJBQUdqCmdad3dnWmt3RGdZRFZSMFBB" +
+					"UUgvQkFRREFnS0VNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUE4R0ExVWQKRXdFQi93UUZNQU1C" +
+					"QWY4d0hRWURWUjBPQkJZRUZKQUJ6NUhmZGtGbEhTUGVZcUZPNnVtdlIxcjZNRUlHQTFVZApFUVE3TURt" +
+					"Q04zUnBibXRsY21KbGJHd3RibWRwYm5ndWIzSmphQzB4TUMweE16a3RNakl3TFRJeE5pNXdhV1F1CmFX" +
+					"NW1jbUV0YUc5emRDNWpiMjB3RFFZSktvWklodmNOQVFFTUJRQURnZ0dCQUtWamowVHE1NmR5ME55SDJH" +
+					"N3cKZm0zSCs2citYamhLVXBPTzB4dkpWTXR1dzZlQlpvTXhRdEo1Z2dFM2FnT0t3bDRYV0NUTFd5WUY1" +
+					"anljMWVlVgp3NExjSVBjRDZqWjVlRFpRNFo0d2YybVcwdVU0Sk5JVzB5VXFub3JEOUJsdkxsZXJBVkpk" +
+					"cmRwSGZEU1NMOVY4CjFjZHNsZFMvbjVTOFdHV0tUaE9CNlVGcStQTHFEY3VNenh0Q25FbzlmOExVQWlD" +
+					"ZlljekxuQjA5bWNGN1E0clQKQTN3NHNWRzNvM1o5c1hCTDZjUnAvMHhWMzNoQ2xvSCtqcm16WU0rcE92" +
+					"LzdWdndhWEhFZlNVamIzZVh3SDF1MApyQUFkampLM3pSRXZwbUFzTTMxN2JsMTFIUWhJY25kVk1JTklr" +
+					"cjVYQ0RvZFdGQnladXI4WE80ZVpSOHlCYzdaCnNNMXZMblh1QWxmcnhlbGlnZ1lhTzI3SzB1SmJuOXlI" +
+					"eE9uclY5MmZMdVRGYWZCdEphYXl2bjJSVGdqYVFsWCsKazFURHlrZCs1YUVFaTNZQ3IybmVEV1l0aTJt" +
+					"Z3lGRVZ0WEhOWjNMbjBMUStTbUhreTFxSzhqNUpNbFQyRnhpNApuSXFpVzZKeDZwTVVBNDlTa2VPMCs3" +
+					"dllYRDUrY1FvVW1ZRDNSNktqYUtUeUFnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{oss.FieldTLSCaCert},
+			},
+			valid: true,
+		},
+		"UpdateTlsCaCertInvalid": {
+			in: &os_v1.OperatingSystemResource{
+				TlsCaCert: "not a cert",
+			},
+			resourceID: osResID,
+			fieldMask: &fieldmaskpb.FieldMask{
+				Paths: []string{oss.FieldTLSCaCert},
 			},
 			valid:        false,
 			expErrorCode: codes.InvalidArgument,
@@ -682,7 +773,6 @@ func Test_ImmutableFieldsOnUpdate(t *testing.T) {
 		Resource: &inv_v1.Resource_Os{
 			Os: &os_v1.OperatingSystemResource{
 				Name:                 "Test Os 1",
-				UpdateSources:        []string{"test entries"},
 				ImageUrl:             "Repo test entry",
 				Sha256:               inv_testing.RandomSha256v1,
 				ProfileName:          "Test OS profile name 1",
@@ -712,8 +802,6 @@ func Test_ImmutableFieldsOnUpdate(t *testing.T) {
 		ResourceId:           os1.ResourceId,
 		Name:                 "TEST",
 		Architecture:         "TEST",
-		KernelCommand:        "TEST",
-		UpdateSources:        []string{"TEST"},
 		ImageUrl:             "TEST",
 		Sha256:               inv_testing.RandomSha256v2,
 		ProfileName:          "Test OS profile name 2",
@@ -884,13 +972,12 @@ func Test_StrongRelations_On_Delete_Ou_Os(t *testing.T) {
 
 	// Create the Desired OS to test on.
 	os := &os_v1.OperatingSystemResource{
-		Name:          "Test Os 1",
-		UpdateSources: []string{"source 1"},
-		ImageUrl:      "test repo url",
-		Sha256:        inv_testing.RandomSha256v1,
-		ProfileName:   "Test OS profile name",
-		OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-		OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+		Name:        "Test Os 1",
+		ImageUrl:    "test repo url",
+		Sha256:      inv_testing.RandomSha256v1,
+		ProfileName: "Test OS profile name",
+		OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+		OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 	}
 	resp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx,
 		&inv_v1.Resource{Resource: &inv_v1.Resource_Os{Os: os}})
@@ -905,7 +992,7 @@ func Test_StrongRelations_On_Delete_Ou_Os(t *testing.T) {
 		Name:         "test instance",
 		DesiredState: computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		Host:         nil,
-		DesiredOs:    os,
+		Os:           os,
 	}
 	resp, err = inv_testing.TestClients[inv_testing.APIClient].Create(ctx,
 		&inv_v1.Resource{Resource: &inv_v1.Resource_Instance{Instance: ins}})
@@ -931,7 +1018,6 @@ func Test_Create_Get_Delete_Update_Os_Install_Packages(t *testing.T) {
 		"CreateOswithInstallPackages": {
 			in: &os_v1.OperatingSystemResource{
 				Name:              "Test Os 1",
-				UpdateSources:     []string{"test entry1", "test entry2"},
 				ImageUrl:          "Repo test entry",
 				Sha256:            inv_testing.RandomSha256v1,
 				ProfileName:       "Test OS profile name",
@@ -943,13 +1029,12 @@ func Test_Create_Get_Delete_Update_Os_Install_Packages(t *testing.T) {
 		},
 		"CreateOswithoutInstallPackages": {
 			in: &os_v1.OperatingSystemResource{
-				Name:          "Test Os 1",
-				UpdateSources: []string{"test entry1", "test entry2"},
-				ImageUrl:      "Repo test entry",
-				Sha256:        inv_testing.RandomSha256v1,
-				ProfileName:   "Test OS profile name",
-				OsType:        os_v1.OsType_OS_TYPE_MUTABLE,
-				OsProvider:    os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
+				Name:        "Test Os 1",
+				ImageUrl:    "Repo test entry",
+				Sha256:      inv_testing.RandomSha256v1,
+				ProfileName: "Test OS profile name",
+				OsType:      os_v1.OsType_OS_TYPE_MUTABLE,
+				OsProvider:  os_v1.OsProviderKind_OS_PROVIDER_KIND_INFRA,
 			},
 			valid: true,
 		},

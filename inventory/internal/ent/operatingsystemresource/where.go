@@ -67,16 +67,6 @@ func Architecture(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldArchitecture, v))
 }
 
-// KernelCommand applies equality check predicate on the "kernel_command" field. It's identical to KernelCommandEQ.
-func KernelCommand(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldEQ(FieldKernelCommand, v))
-}
-
-// UpdateSources applies equality check predicate on the "update_sources" field. It's identical to UpdateSourcesEQ.
-func UpdateSources(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldEQ(FieldUpdateSources, v))
-}
-
 // ImageURL applies equality check predicate on the "image_url" field. It's identical to ImageURLEQ.
 func ImageURL(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldImageURL, v))
@@ -125,6 +115,11 @@ func Description(v string) predicate.OperatingSystemResource {
 // Metadata applies equality check predicate on the "metadata" field. It's identical to MetadataEQ.
 func Metadata(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldEQ(FieldMetadata, v))
+}
+
+// TLSCaCert applies equality check predicate on the "tls_ca_cert" field. It's identical to TLSCaCertEQ.
+func TLSCaCert(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldTLSCaCert, v))
 }
 
 // ExistingCvesURL applies equality check predicate on the "existing_cves_url" field. It's identical to ExistingCvesURLEQ.
@@ -375,156 +370,6 @@ func ArchitectureEqualFold(v string) predicate.OperatingSystemResource {
 // ArchitectureContainsFold applies the ContainsFold predicate on the "architecture" field.
 func ArchitectureContainsFold(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldArchitecture, v))
-}
-
-// KernelCommandEQ applies the EQ predicate on the "kernel_command" field.
-func KernelCommandEQ(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldEQ(FieldKernelCommand, v))
-}
-
-// KernelCommandNEQ applies the NEQ predicate on the "kernel_command" field.
-func KernelCommandNEQ(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldKernelCommand, v))
-}
-
-// KernelCommandIn applies the In predicate on the "kernel_command" field.
-func KernelCommandIn(vs ...string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldIn(FieldKernelCommand, vs...))
-}
-
-// KernelCommandNotIn applies the NotIn predicate on the "kernel_command" field.
-func KernelCommandNotIn(vs ...string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldKernelCommand, vs...))
-}
-
-// KernelCommandGT applies the GT predicate on the "kernel_command" field.
-func KernelCommandGT(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldGT(FieldKernelCommand, v))
-}
-
-// KernelCommandGTE applies the GTE predicate on the "kernel_command" field.
-func KernelCommandGTE(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldGTE(FieldKernelCommand, v))
-}
-
-// KernelCommandLT applies the LT predicate on the "kernel_command" field.
-func KernelCommandLT(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldLT(FieldKernelCommand, v))
-}
-
-// KernelCommandLTE applies the LTE predicate on the "kernel_command" field.
-func KernelCommandLTE(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldLTE(FieldKernelCommand, v))
-}
-
-// KernelCommandContains applies the Contains predicate on the "kernel_command" field.
-func KernelCommandContains(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldContains(FieldKernelCommand, v))
-}
-
-// KernelCommandHasPrefix applies the HasPrefix predicate on the "kernel_command" field.
-func KernelCommandHasPrefix(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldKernelCommand, v))
-}
-
-// KernelCommandHasSuffix applies the HasSuffix predicate on the "kernel_command" field.
-func KernelCommandHasSuffix(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldKernelCommand, v))
-}
-
-// KernelCommandIsNil applies the IsNil predicate on the "kernel_command" field.
-func KernelCommandIsNil() predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldKernelCommand))
-}
-
-// KernelCommandNotNil applies the NotNil predicate on the "kernel_command" field.
-func KernelCommandNotNil() predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldKernelCommand))
-}
-
-// KernelCommandEqualFold applies the EqualFold predicate on the "kernel_command" field.
-func KernelCommandEqualFold(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldKernelCommand, v))
-}
-
-// KernelCommandContainsFold applies the ContainsFold predicate on the "kernel_command" field.
-func KernelCommandContainsFold(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldKernelCommand, v))
-}
-
-// UpdateSourcesEQ applies the EQ predicate on the "update_sources" field.
-func UpdateSourcesEQ(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldEQ(FieldUpdateSources, v))
-}
-
-// UpdateSourcesNEQ applies the NEQ predicate on the "update_sources" field.
-func UpdateSourcesNEQ(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldUpdateSources, v))
-}
-
-// UpdateSourcesIn applies the In predicate on the "update_sources" field.
-func UpdateSourcesIn(vs ...string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldIn(FieldUpdateSources, vs...))
-}
-
-// UpdateSourcesNotIn applies the NotIn predicate on the "update_sources" field.
-func UpdateSourcesNotIn(vs ...string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldUpdateSources, vs...))
-}
-
-// UpdateSourcesGT applies the GT predicate on the "update_sources" field.
-func UpdateSourcesGT(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldGT(FieldUpdateSources, v))
-}
-
-// UpdateSourcesGTE applies the GTE predicate on the "update_sources" field.
-func UpdateSourcesGTE(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldGTE(FieldUpdateSources, v))
-}
-
-// UpdateSourcesLT applies the LT predicate on the "update_sources" field.
-func UpdateSourcesLT(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldLT(FieldUpdateSources, v))
-}
-
-// UpdateSourcesLTE applies the LTE predicate on the "update_sources" field.
-func UpdateSourcesLTE(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldLTE(FieldUpdateSources, v))
-}
-
-// UpdateSourcesContains applies the Contains predicate on the "update_sources" field.
-func UpdateSourcesContains(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldContains(FieldUpdateSources, v))
-}
-
-// UpdateSourcesHasPrefix applies the HasPrefix predicate on the "update_sources" field.
-func UpdateSourcesHasPrefix(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldUpdateSources, v))
-}
-
-// UpdateSourcesHasSuffix applies the HasSuffix predicate on the "update_sources" field.
-func UpdateSourcesHasSuffix(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldUpdateSources, v))
-}
-
-// UpdateSourcesIsNil applies the IsNil predicate on the "update_sources" field.
-func UpdateSourcesIsNil() predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldUpdateSources))
-}
-
-// UpdateSourcesNotNil applies the NotNil predicate on the "update_sources" field.
-func UpdateSourcesNotNil() predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldUpdateSources))
-}
-
-// UpdateSourcesEqualFold applies the EqualFold predicate on the "update_sources" field.
-func UpdateSourcesEqualFold(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldUpdateSources, v))
-}
-
-// UpdateSourcesContainsFold applies the ContainsFold predicate on the "update_sources" field.
-func UpdateSourcesContainsFold(v string) predicate.OperatingSystemResource {
-	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldUpdateSources, v))
 }
 
 // ImageURLEQ applies the EQ predicate on the "image_url" field.
@@ -1355,6 +1200,81 @@ func MetadataEqualFold(v string) predicate.OperatingSystemResource {
 // MetadataContainsFold applies the ContainsFold predicate on the "metadata" field.
 func MetadataContainsFold(v string) predicate.OperatingSystemResource {
 	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldMetadata, v))
+}
+
+// TLSCaCertEQ applies the EQ predicate on the "tls_ca_cert" field.
+func TLSCaCertEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEQ(FieldTLSCaCert, v))
+}
+
+// TLSCaCertNEQ applies the NEQ predicate on the "tls_ca_cert" field.
+func TLSCaCertNEQ(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNEQ(FieldTLSCaCert, v))
+}
+
+// TLSCaCertIn applies the In predicate on the "tls_ca_cert" field.
+func TLSCaCertIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIn(FieldTLSCaCert, vs...))
+}
+
+// TLSCaCertNotIn applies the NotIn predicate on the "tls_ca_cert" field.
+func TLSCaCertNotIn(vs ...string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotIn(FieldTLSCaCert, vs...))
+}
+
+// TLSCaCertGT applies the GT predicate on the "tls_ca_cert" field.
+func TLSCaCertGT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGT(FieldTLSCaCert, v))
+}
+
+// TLSCaCertGTE applies the GTE predicate on the "tls_ca_cert" field.
+func TLSCaCertGTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldGTE(FieldTLSCaCert, v))
+}
+
+// TLSCaCertLT applies the LT predicate on the "tls_ca_cert" field.
+func TLSCaCertLT(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLT(FieldTLSCaCert, v))
+}
+
+// TLSCaCertLTE applies the LTE predicate on the "tls_ca_cert" field.
+func TLSCaCertLTE(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldLTE(FieldTLSCaCert, v))
+}
+
+// TLSCaCertContains applies the Contains predicate on the "tls_ca_cert" field.
+func TLSCaCertContains(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContains(FieldTLSCaCert, v))
+}
+
+// TLSCaCertHasPrefix applies the HasPrefix predicate on the "tls_ca_cert" field.
+func TLSCaCertHasPrefix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasPrefix(FieldTLSCaCert, v))
+}
+
+// TLSCaCertHasSuffix applies the HasSuffix predicate on the "tls_ca_cert" field.
+func TLSCaCertHasSuffix(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldHasSuffix(FieldTLSCaCert, v))
+}
+
+// TLSCaCertIsNil applies the IsNil predicate on the "tls_ca_cert" field.
+func TLSCaCertIsNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldIsNull(FieldTLSCaCert))
+}
+
+// TLSCaCertNotNil applies the NotNil predicate on the "tls_ca_cert" field.
+func TLSCaCertNotNil() predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldNotNull(FieldTLSCaCert))
+}
+
+// TLSCaCertEqualFold applies the EqualFold predicate on the "tls_ca_cert" field.
+func TLSCaCertEqualFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldEqualFold(FieldTLSCaCert, v))
+}
+
+// TLSCaCertContainsFold applies the ContainsFold predicate on the "tls_ca_cert" field.
+func TLSCaCertContainsFold(v string) predicate.OperatingSystemResource {
+	return predicate.OperatingSystemResource(sql.FieldContainsFold(FieldTLSCaCert, v))
 }
 
 // ExistingCvesURLEQ applies the EQ predicate on the "existing_cves_url" field.
