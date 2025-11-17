@@ -324,8 +324,6 @@ class InstanceResource(betterproto.Message):
     vm_cpu_cores: int = betterproto.uint32_field(7)
     vm_storage_bytes: int = betterproto.uint64_field(8)
     host: "HostResource" = betterproto.message_field(9)
-    desired_os: v1.OperatingSystemResource = betterproto.message_field(11)
-    current_os: v1.OperatingSystemResource = betterproto.message_field(25)
     os: v1.OperatingSystemResource = betterproto.message_field(12)
     security_feature: v1.SecurityFeature = betterproto.enum_field(14)
     # A group of fields describing the Instance runtime status. instance_status,
@@ -351,7 +349,6 @@ class InstanceResource(betterproto.Message):
     update_status: str = betterproto.string_field(21)
     update_status_indicator: v1.StatusIndication = betterproto.enum_field(22)
     update_status_timestamp: int = betterproto.uint64_field(23)
-    update_status_detail: str = betterproto.string_field(24)
     # A group of fields describing the Instance trusted_attestation status.
     # trusted_attestation_status, trusted_attestation_status_indicator and
     # trusted_attestation_status_timestamp should always be updated in one shot.
@@ -418,9 +415,7 @@ class OSUpdatePolicyResource(betterproto.Message):
     resource_id: str = betterproto.string_field(1)
     name: str = betterproto.string_field(2)
     description: str = betterproto.string_field(3)
-    install_packages: str = betterproto.string_field(4)
     update_sources: List[str] = betterproto.string_field(5)
-    kernel_command: str = betterproto.string_field(6)
     update_packages: str = betterproto.string_field(7)
     update_kernel_command: str = betterproto.string_field(8)
     target_os: v1.OperatingSystemResource = betterproto.message_field(50)

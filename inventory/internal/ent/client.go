@@ -1851,38 +1851,6 @@ func (c *InstanceResourceClient) QueryHost(_m *InstanceResource) *HostResourceQu
 	return query
 }
 
-// QueryDesiredOs queries the desired_os edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryDesiredOs(_m *InstanceResource) *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: c.config}).Query()
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
-			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.DesiredOsTable, instanceresource.DesiredOsColumn),
-		)
-		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// QueryCurrentOs queries the current_os edge of a InstanceResource.
-func (c *InstanceResourceClient) QueryCurrentOs(_m *InstanceResource) *OperatingSystemResourceQuery {
-	query := (&OperatingSystemResourceClient{config: c.config}).Query()
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := _m.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(instanceresource.Table, instanceresource.FieldID, id),
-			sqlgraph.To(operatingsystemresource.Table, operatingsystemresource.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, instanceresource.CurrentOsTable, instanceresource.CurrentOsColumn),
-		)
-		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
 // QueryOs queries the os edge of a InstanceResource.
 func (c *InstanceResourceClient) QueryOs(_m *InstanceResource) *OperatingSystemResourceQuery {
 	query := (&OperatingSystemResourceClient{config: c.config}).Query()

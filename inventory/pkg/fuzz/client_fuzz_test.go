@@ -935,7 +935,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(100000),
 		"updateStatus",
 		uint64(100000),
-		"updateStatusDetail",
 		"tenant-12345678",
 	)
 	f.Add(
@@ -949,7 +948,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(200000),
 		"updateStatus1",
 		uint64(200000),
-		"updateStatusDetail1",
 		"tenant-87654321",
 	)
 	f.Add(
@@ -963,7 +961,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(300000),
 		"updateStatus2",
 		uint64(300000),
-		"updateStatusDetail2",
 		"tenant-11223344",
 	)
 	f.Add(
@@ -977,7 +974,6 @@ func FuzzCreateInstance(f *testing.F) {
 		uint64(400000),
 		"updateStatus3",
 		uint64(400000),
-		" ",
 		"tenant-55667788",
 	)
 	f.Fuzz(
@@ -992,7 +988,6 @@ func FuzzCreateInstance(f *testing.F) {
 			provisioningStatusTimestamp uint64,
 			updateStatus string,
 			updateStatusTimestamp uint64,
-			updateStatusDetail string,
 			tenantId string,
 		) {
 			res := &invv1.Resource{
@@ -1008,7 +1003,6 @@ func FuzzCreateInstance(f *testing.F) {
 						ProvisioningStatusTimestamp: provisioningStatusTimestamp,
 						UpdateStatus:                updateStatus,
 						UpdateStatusTimestamp:       updateStatusTimestamp,
-						UpdateStatusDetail:          updateStatusDetail,
 						TenantId:                    tenantId,
 					},
 				},
@@ -1167,7 +1161,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name",
 		"architecture",
-		"kernelCommand",
 		"http://",
 		"123132",
 		inv_testing.GenerateRandomSha256(),
@@ -1179,7 +1172,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name1",
 		"architecture1",
-		"-asdda/dsa ",
 		"1111",
 		" ",
 		inv_testing.GenerateRandomSha256(),
@@ -1191,7 +1183,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name2",
 		"architecture2",
-		"kernelCommand2",
 		"imageUrl2",
 		"BBBB",
 		inv_testing.GenerateRandomSha256(),
@@ -1203,7 +1194,6 @@ func FuzzCreateOs(f *testing.F) {
 	f.Add(
 		"name3",
 		"xxxxx",
-		"dasdasd",
 		"imageUrl3",
 		" ",
 		inv_testing.GenerateRandomSha256(),
@@ -1216,7 +1206,6 @@ func FuzzCreateOs(f *testing.F) {
 		func(t *testing.T,
 			name string,
 			architecture string,
-			kernelCommand string,
 			imageUrl string,
 			imageId string,
 			sha256 string,
@@ -1230,7 +1219,6 @@ func FuzzCreateOs(f *testing.F) {
 					Os: &osv1.OperatingSystemResource{
 						Name:              name,
 						Architecture:      architecture,
-						KernelCommand:     kernelCommand,
 						ImageUrl:          imageUrl,
 						ImageId:           imageId,
 						Sha256:            sha256,

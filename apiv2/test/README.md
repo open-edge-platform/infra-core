@@ -10,7 +10,7 @@ The tests consider to have access to the cluster.
 ```bash
 # Set variables needed for the tests
 export KEYCLOAK_URL="https://keycloak.kind.internal"
-export PASSWORD='ChangeMeOn1stLogin!'
+export PASSWORD='<REPLACE_WITH_PASSWORD>'
 export USERNAME="sample-project-api-user"
 export API_URL="http://127.0.0.1:8080/"
 export CA_PATH="orch-ca.crt"
