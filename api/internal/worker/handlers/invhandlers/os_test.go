@@ -254,7 +254,6 @@ func Test_OSHandler_Put(t *testing.T) {
 	h := handlers.NewHandlers(client, nil)
 	require.NotNil(t, h)
 
-	osKernel := osResource.GetKernelCommand()
 	osArch := osResource.GetArchitecture()
 	osProfileName := osResource.GetProfileName()
 	osProfileVersion := osResource.GetProfileVersion()
@@ -263,12 +262,9 @@ func Test_OSHandler_Put(t *testing.T) {
 	osSHA := osResource.GetSha256()
 	osImageURL := osResource.GetImageUrl()
 	osImageID := osResource.GetImageId()
-	osUpdateSource := osResource.GetUpdateSources()
 	osType := api.OPERATINGSYSTEMTYPEUNSPECIFIED
 
 	bodyUpdate := api.OperatingSystemResource{
-		UpdateSources:     osUpdateSource,
-		KernelCommand:     &osKernel,
 		Architecture:      &osArch,
 		InstalledPackages: &osInstalledPackages,
 	}
@@ -399,11 +395,9 @@ func Test_OSHandler_Patch(t *testing.T) {
 	require.NotNil(t, h)
 
 	osImageURL := osResource.GetImageUrl()
-	osUpdateSource := osResource.GetUpdateSources()
 
 	bodyUpdate := api.OperatingSystemResource{
-		RepoUrl:       &osImageURL,
-		UpdateSources: osUpdateSource,
+		RepoUrl: &osImageURL,
 	}
 
 	job := types.NewJob(

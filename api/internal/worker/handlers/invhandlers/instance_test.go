@@ -59,7 +59,6 @@ func verifyInstanceStatusFields(t *testing.T, instance *api.Instance,
 
 	require.NotNil(t, instance.UpdateStatusIndicator)
 	require.NotNil(t, instance.UpdateStatusDetail)
-	assert.Equal(t, expected.GetUpdateStatusDetail(), *instance.UpdateStatusDetail)
 
 	require.NotNil(t, instance.TrustedAttestationStatusIndicator)
 	assert.Equal(t, expected.GetTrustedAttestationStatus(), *instance.TrustedAttestationStatus)
@@ -443,7 +442,6 @@ func Test_InstanceHandler_Get(t *testing.T) {
 		UpdateStatus:                      "some update status",
 		UpdateStatusIndicator:             statusv1.StatusIndication_STATUS_INDICATION_ERROR,
 		UpdateStatusTimestamp:             uint64(time.Now().Unix()),
-		UpdateStatusDetail:                "{\"some_json\":[]}",
 		TrustedAttestationStatus:          "some trusted attestation status",
 		TrustedAttestationStatusIndicator: statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 		TrustedAttestationStatusTimestamp: uint64(time.Now().Unix()),
@@ -461,7 +459,6 @@ func Test_InstanceHandler_Get(t *testing.T) {
 			computev1.InstanceResourceFieldUpdateStatus,
 			computev1.InstanceResourceFieldUpdateStatusIndicator,
 			computev1.InstanceResourceFieldUpdateStatusTimestamp,
-			computev1.InstanceResourceFieldUpdateStatusDetail,
 			computev1.InstanceResourceFieldTrustedAttestationStatus,
 			computev1.InstanceResourceFieldTrustedAttestationStatusIndicator,
 			computev1.InstanceResourceFieldTrustedAttestationStatusTimestamp,

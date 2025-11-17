@@ -1104,8 +1104,7 @@ func Test_hostHandler_Get(t *testing.T) {
 	hostGpu := inv_testing.CreatHostGPU(t, hostResource)
 	osResource := inv_testing.CreateOs(t)
 	instResource := inv_testing.CreateInstance(t, hostResource, osResource)
-	instResource.DesiredOs = osResource
-	instResource.CurrentOs = osResource
+	instResource.Os = osResource
 	hostResource.Instance = instResource
 
 	// Note that we must update HostResource to verify status fields, we may skip updating once
@@ -1164,9 +1163,9 @@ func Test_hostHandler_Get(t *testing.T) {
 	require.NotNil(t, hostResp.Instance)
 	assert.Equal(t, hostResource.GetInstance().GetResourceId(), *hostResp.Instance.ResourceId)
 	require.NotNil(t, hostResp.Instance.Os)
-	assert.Equal(t, hostResource.GetInstance().GetDesiredOs().GetResourceId(), *hostResp.Instance.Os.ResourceId)
-	assert.Equal(t, hostResource.GetInstance().GetDesiredOs().GetName(), *hostResp.Instance.Os.Name)
-	assert.Equal(t, hostResource.GetInstance().GetCurrentOs().GetResourceId(), *hostResp.Instance.CurrentOs.ResourceId)
+	assert.Equal(t, hostResource.GetInstance().GetOs().GetResourceId(), *hostResp.Instance.Os.ResourceId)
+	assert.Equal(t, hostResource.GetInstance().GetOs().GetName(), *hostResp.Instance.Os.Name)
+	assert.Equal(t, hostResource.GetInstance().GetOs().GetResourceId(), *hostResp.Instance.CurrentOs.ResourceId)
 
 	verifyHostStatusFields(t, hostResp, updatedHost)
 	hostHasNicIP := false
