@@ -45,9 +45,8 @@ var (
 	}
 
 	osrResource = &os_v1.OperatingSystemResource{
-		Name:          "for unit testing purposes",
-		UpdateSources: []string{"test entries"},
-		ImageUrl:      "Repo URL Test",
+		Name:     "for unit testing purposes",
+		ImageUrl: "Repo URL Test",
 	}
 
 	parentOUResource = &ou_v1.OuResource{
