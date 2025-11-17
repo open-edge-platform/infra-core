@@ -15,8 +15,8 @@ require (
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/modern-go/reflect2 v1.0.2
 	github.com/oapi-codegen/runtime v1.1.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.10
-	github.com/open-edge-platform/orch-library/go v0.6.1
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1
+	github.com/open-edge-platform/orch-library/go v0.6.2
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
 	github.com/viant/xunsafe v0.10.3
@@ -32,7 +32,7 @@ require (
 	buf.build/go/protovalidate v1.0.0 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	entgo.io/contrib v0.7.0 // indirect
-	entgo.io/ent v0.14.5 // indirect
+	entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4 // indirect
 	github.com/adhocore/gronx v1.19.6 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/agnivade/levenshtein v1.2.1 // indirect

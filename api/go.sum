@@ -609,8 +609,8 @@ cloud.google.com/go/workflows v1.10.0/go.mod h1:fZ8LmRmZQWacon9UCX1r/g/DfAXx5VcP
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 entgo.io/contrib v0.7.0 h1:4Ghx8O0rqSMmca3FIJ6QyZbQAoLvdzWqLMl1MbHFEEw=
 entgo.io/contrib v0.7.0/go.mod h1:zbPSUrbn+6dfyv8S9HWEvn1MyGpO95ik2lUNgaqWTt4=
-entgo.io/ent v0.14.5 h1:Rj2WOYJtCkWyFo6a+5wB3EfBRP0rnx1fMk6gGA0UUe4=
-entgo.io/ent v0.14.5/go.mod h1:zTzLmWtPvGpmSwtkaayM2cm5m819NdM7z7tYPq3vN0U=
+entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4 h1:H7esUcrshCE1CC9dQn0MY7J029LrFt5xU2muJD4OVh0=
+entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4/go.mod h1:lzIEU+g4/iK78Txz6EgLmA/kkkK/k73MwaRH7xMJacs=
 gioui.org v0.0.0-20210308172011-57750fc8a0a6/go.mod h1:RSH6KIUZ0p2xy5zHDxgAM4zumjgTw83q2ge/PI+yyw8=
 git.sr.ht/~sbinet/gg v0.3.1/go.mod h1:KGYtlADtqsqANL9ueOFkWymvzUvLMQllU5Ixo+8v3pc=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6 h1:He8afgbRMd7mFxO99hRNu+6tazq8nFF9lIwo9JFroBk=
@@ -1047,10 +1047,10 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/oklog/ulid v1.3.1 h1:EGfNDEx6MqHz8B3uNV6QAib1UR2Lm97sHi3ocA6ESJ4=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.30.10 h1:HnfemKfjWtjw6gNWG2Ag9XETBELmymhZcCrNXFiWeTU=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.30.10/go.mod h1:Ezzmx/eV95f6DkmCrW8YAcGUsbqSuyggunxmFmaImMw=
-github.com/open-edge-platform/orch-library/go v0.6.1 h1:IGR2ic73f3obnhlxTRfHcyYMbPbYu7BSqa9UYyEZ78Q=
-github.com/open-edge-platform/orch-library/go v0.6.1/go.mod h1:3Tes/GJfwYbnQa/1scbKiLbjZrL4fJEouFk28oo5/c8=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1 h1:AdIo5mYYAmmUgV7CbtP/DIb9S040PteWi57d1Y5C3fM=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1/go.mod h1:pxW5QTt+SFiOHRIDL1I709Q5t7PhPZIjZ97sajxfrQs=
+github.com/open-edge-platform/orch-library/go v0.6.2 h1:JbZCtsWRKFenjZrUHdPVlpHl3gu0/vmUrjJ6SGc2Gyg=
+github.com/open-edge-platform/orch-library/go v0.6.2/go.mod h1:3Tes/GJfwYbnQa/1scbKiLbjZrL4fJEouFk28oo5/c8=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.10.1 h1:haIvxZSPky8HLjRrvQwWAjCPLg8JDFSZMbbG4yyUHgY=

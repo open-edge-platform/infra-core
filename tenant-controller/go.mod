@@ -11,8 +11,8 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/uuid v1.6.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.30.10
-	github.com/open-edge-platform/orch-library/go v0.6.1
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1
+	github.com/open-edge-platform/orch-library/go v0.6.2
 	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.2.2
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
@@ -30,7 +30,7 @@ require (
 	cel.dev/expr v0.24.0 // indirect
 	cloud.google.com/go/compute/metadata v0.7.0 // indirect
 	entgo.io/contrib v0.7.0 // indirect
-	entgo.io/ent v0.14.5 // indirect
+	entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4 // indirect
 	github.com/Nerzal/gocloak/v13 v13.9.0 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/agnivade/levenshtein v1.2.1 // indirect
