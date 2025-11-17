@@ -1086,7 +1086,6 @@ func verifyHostStatusFields(t *testing.T, host *api.Host,
 		*host.HostStatusIndicator)
 }
 
-//nolint:funlen // it's a test
 func Test_hostHandler_Get(t *testing.T) {
 	client := &clients.InventoryClientHandler{
 		InvClient: inv_testing.TestClients[inv_testing.APIClient],
