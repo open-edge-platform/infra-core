@@ -29,7 +29,7 @@ import (
 var OpenAPIInstanceToProto = map[string]string{
 	"name":           computev1.InstanceResourceFieldName,
 	"kind":           computev1.InstanceResourceFieldKind,
-	"osID":           computev1.InstanceResourceEdgeDesiredOs,
+	"osID":           computev1.InstanceResourceEdgeOs,
 	"hostID":         computev1.InstanceResourceEdgeHost,
 	"localAccountID": computev1.InstanceResourceEdgeLocalaccount,
 }
@@ -55,7 +55,6 @@ var OpenAPIInstanceToProtoExcluded = map[string]struct{}{
 	"updateStatus":                      {}, // read-only field
 	"updateStatusIndicator":             {}, // read-only field
 	"updateStatusTimestamp":             {}, // read-only field
-	"updateStatusDetail":                {}, // read-only field
 	"trustedAttestationStatus":          {}, // read-only field
 	"trustedAttestationStatusIndicator": {}, // read-only field
 	"trustedAttestationStatusTimestamp": {}, // read-only field
@@ -473,7 +472,7 @@ func openapiToGrpcInstance(body *api.Instance) (*computev1.InstanceResource, err
 	}
 
 	if body.OsID != nil {
-		instance.DesiredOs = &osv1.OperatingSystemResource{
+		instance.Os = &osv1.OperatingSystemResource{
 			ResourceId: *body.OsID,
 		}
 	}
@@ -518,13 +517,13 @@ func GrpcToOpenAPIInstance(
 	workloadMembers := instance.GetWorkloadMembers()
 
 	var apiDesiredOS *api.OperatingSystemResource
-	resDesiredOS := instance.GetDesiredOs()
+	resDesiredOS := instance.GetOs()
 	if resDesiredOS != nil {
 		apiDesiredOS = grpcToOpenAPIOSResource(resDesiredOS, nil)
 	}
 
 	var apiCurrentOS *api.OperatingSystemResource
-	resCurrentOS := instance.GetCurrentOs()
+	resCurrentOS := instance.GetOs()
 	if resCurrentOS != nil {
 		apiCurrentOS = grpcToOpenAPIOSResource(resCurrentOS, nil)
 	}
@@ -550,7 +549,6 @@ func GrpcToOpenAPIInstance(
 	updateStatus := instance.GetUpdateStatus()
 	updateStatusTimestamp := instance.GetUpdateStatusTimestamp()
 	updateStatusIndicator := GrpcToOpenAPIStatusIndicator(instance.GetUpdateStatusIndicator())
-	updateStatusDetail := instance.GetUpdateStatusDetail()
 
 	trustedAttestationStatus := instance.GetTrustedAttestationStatus()
 	trustedAttestationStatusTimestamp := instance.GetTrustedAttestationStatusTimestamp()
@@ -582,7 +580,6 @@ func GrpcToOpenAPIInstance(
 		UpdateStatusIndicator: updateStatusIndicator,
 		UpdateStatus:          &updateStatus,
 		UpdateStatusTimestamp: &updateStatusTimestamp,
-		UpdateStatusDetail:    &updateStatusDetail,
 
 		TrustedAttestationStatusIndicator: trustedAttestationStatusIndicator,
 		TrustedAttestationStatus:          &trustedAttestationStatus,

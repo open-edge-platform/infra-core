@@ -23,8 +23,6 @@ import (
 var OpenAPIOSResourceToProto = map[string]string{
 	"name":              osv1.OperatingSystemResourceFieldName,
 	"architecture":      osv1.OperatingSystemResourceFieldArchitecture,
-	"kernelCommand":     osv1.OperatingSystemResourceFieldKernelCommand,
-	"updateSources":     osv1.OperatingSystemResourceFieldUpdateSources,
 	"installedPackages": osv1.OperatingSystemResourceFieldInstalledPackages,
 	"description":       osv1.OperatingSystemResourceFieldDescription,
 }
@@ -418,10 +416,6 @@ func openapiToGrpcOSResource(body *api.OperatingSystemResource) (*osv1.Operating
 		os.Architecture = *body.Architecture
 	}
 
-	if body.KernelCommand != nil {
-		os.KernelCommand = *body.KernelCommand
-	}
-
 	if body.RepoUrl != nil {
 		os.ImageUrl = *body.RepoUrl
 	}
@@ -450,11 +444,6 @@ func openapiToGrpcOSResource(body *api.OperatingSystemResource) (*osv1.Operating
 		os.OsProvider = openAPIOperatingSystemProviderToGrpcOsProvider(*body.OsProvider)
 	}
 
-	if body.UpdateSources != nil {
-		updateSources := body.UpdateSources
-		os.UpdateSources = append(os.UpdateSources, updateSources...)
-	}
-
 	err := validator.ValidateMessage(os)
 	if err != nil {
 		log.InfraSec().InfraErr(err).Msg("could not validate inventory resource")
@@ -471,9 +460,7 @@ func grpcToOpenAPIOSResource(
 	resID := os.GetResourceId()
 	resName := os.GetName()
 	description := os.GetDescription()
-	kernel := os.GetKernelCommand()
 	arch := os.GetArchitecture()
-	sources := os.GetUpdateSources()
 	repoURL := os.GetImageUrl()
 	imageID := os.GetImageId()
 	sha256 := os.GetSha256()
@@ -489,9 +476,7 @@ func grpcToOpenAPIOSResource(
 		OsResourceID:      &resID,
 		Name:              &resName,
 		Description:       &description,
-		KernelCommand:     &kernel,
 		Architecture:      &arch,
-		UpdateSources:     sources,
 		RepoUrl:           &repoURL,
 		ImageUrl:          &repoURL,
 		ImageId:           &imageID,
