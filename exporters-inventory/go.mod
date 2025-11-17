@@ -10,8 +10,8 @@ require (
 	github.com/open-edge-platform/infra-core/apiv2/v2 v2.7.1
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.32.0
 	github.com/open-edge-platform/infra-managers/host v1.23.1
-	github.com/open-edge-platform/infra-managers/maintenance v1.23.5
-	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.7
+	github.com/open-edge-platform/infra-managers/maintenance v1.23.7
+	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.12
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
 	github.com/prometheus/common v0.67.2
@@ -26,7 +26,7 @@ require (
 	cel.dev/expr v0.24.0 // indirect
 	cloud.google.com/go/compute/metadata v0.7.0 // indirect
 	entgo.io/contrib v0.7.0 // indirect
-	entgo.io/ent v0.14.5 // indirect
+	entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4 // indirect
 	github.com/adhocore/gronx v1.19.6 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/agnivade/levenshtein v1.2.1 // indirect
