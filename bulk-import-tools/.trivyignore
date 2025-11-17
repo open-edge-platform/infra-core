@@ -1,7 +1,0 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
-# SPDX-License-Identifier: Apache-2.0
-
-# PostgreSQL CVEs
-CVE-2023-45853
-CVE-2023-7104
-CVE-2023-6780
