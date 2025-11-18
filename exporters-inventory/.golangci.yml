@@ -80,7 +80,7 @@ linters-settings:
     replace-local: true
     replace-allow-list:
       - github.com/open-edge-platform/infra-core/inventory
-      - github.com/open-edge-platform/infra-core/api
+      - github.com/open-edge-platform/infra-core/apiv2
   depguard:
     rules:
       main:
