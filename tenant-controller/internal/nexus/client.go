@@ -21,6 +21,11 @@ import (
 
 var log = logging.GetLogger("tc-nexus")
 
+const (
+	// cacheSyncDelay is the time to wait for nexus client cache synchronization
+	cacheSyncDelay = 100 * time.Millisecond
+)
+
 // SetupClient creates a new Nexus client using k8s ServiceAccount, this works only for k8s deployment.
 // TODO: extend to use local kubeconfig if not running in a pod.
 func SetupClient() (*Client, error) {
@@ -46,7 +51,7 @@ type Client struct {
 func (c *Client) GetRuntimeProjectByUID(
 	ctx context.Context, tenantID string,
 ) (*nexus_client.RuntimeprojectRuntimeProject, error) {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(cacheSyncDelay) // wait for cache sync
 	runtime, err := c.TenancyMultiTenancy().GetRuntime(ctx)
 	if err != nil {
 		log.Err(err).Msgf("Cannot get Runtime")
