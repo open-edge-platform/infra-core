@@ -7,11 +7,11 @@ go 1.24.9
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/apiv2/v2 v2.7.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.32.0
+	github.com/open-edge-platform/infra-core/apiv2/v2 v2.8.0
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1
 	github.com/open-edge-platform/infra-managers/host v1.23.1
 	github.com/open-edge-platform/infra-managers/maintenance v1.23.7
-	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.12
+	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.13
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
 	github.com/prometheus/common v0.67.2
@@ -104,7 +104,7 @@ require (
 	github.com/oapi-codegen/runtime v1.1.2 // indirect
 	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037 // indirect
 	github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 // indirect
-	github.com/open-edge-platform/orch-library/go v0.6.1 // indirect
+	github.com/open-edge-platform/orch-library/go v0.6.2 // indirect
 	github.com/open-edge-platform/orch-library/go/dazl v0.5.4 // indirect
 	github.com/open-policy-agent/opa v1.10.1 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
