@@ -711,10 +711,7 @@ message InstanceResource {
 
   string os_update_available = 52 [
     (ent.field) = {optional: true},
-    (buf.validate.field).string = {
-      pattern: '^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()\"\\\\ \\n]+$'
-      max_len: 10000
-    }
+    (buf.validate.field).string = {max_len: 500000}
   ]; // Details about OS Updates available for this Instance. If empty, there are no updates available.
 
   repeated CustomConfigResource custom_config = 53 [(ent.edge) = {
