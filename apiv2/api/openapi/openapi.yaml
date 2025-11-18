@@ -5353,8 +5353,7 @@ components:
         osUpdateAvailable:
           type: string
           title: os_update_available
-          maxLength: 10000
-          pattern: ^$|^[a-zA-Z-_0-9./:;=?@!#,<>*()"\\ \\n]+$
+          maxLength: 500000
           description: Details about OS Updates available for this Instance. If empty, there are no updates available.
           readOnly: true
         customConfig:
