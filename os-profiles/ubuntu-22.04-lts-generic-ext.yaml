@@ -22,5 +22,5 @@ spec:
   securityFeature: SECURITY_FEATURE_NONE
   description: Ubuntu 22.04.5 LTS with Intel out-of-tree GPU drivers for x86_64 architecture
   platformBundle:
-    installerScript: edge-orch/en/files/platformbundle/ubuntu-22.04-lts-generic-ext:1.1.4
-    cloudInitScript: edge-orch/en/files/platformbundle/cloudinit:1.1.4
+    installerScript: edge-orch/en/files/platformbundle/ubuntu-22.04-lts-generic-ext:1.1.5
+    cloudInitScript: edge-orch/en/files/platformbundle/cloudinit:1.1.5
