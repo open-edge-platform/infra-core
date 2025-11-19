@@ -21,6 +21,11 @@ import (
 
 var log = logging.GetLogger("tc-nexus")
 
+const (
+	// cacheSyncDelay is the time to wait for nexus client cache synchronization.
+	cacheSyncDelay = 100 * time.Millisecond
+)
+
 // SetupClient creates a new Nexus client using k8s ServiceAccount, this works only for k8s deployment.
 // TODO: extend to use local kubeconfig if not running in a pod.
 func SetupClient() (*Client, error) {
@@ -46,6 +51,7 @@ type Client struct {
 func (c *Client) GetRuntimeProjectByUID(
 	ctx context.Context, tenantID string,
 ) (*nexus_client.RuntimeprojectRuntimeProject, error) {
+	time.Sleep(cacheSyncDelay) // wait for cache sync
 	runtime, err := c.TenancyMultiTenancy().GetRuntime(ctx)
 	if err != nil {
 		log.Err(err).Msgf("Cannot get Runtime")
@@ -55,16 +61,19 @@ func (c *Client) GetRuntimeProjectByUID(
 	orgIterator := runtime.GetAllOrgsIter(ctx)
 	for org, err := orgIterator.Next(ctx); org != nil; org, err = orgIterator.Next(ctx) {
 		if err != nil {
+			log.Err(err).Msgf("Cannot get Org from runtime")
 			return nil, errors.Errorfc(codes.NotFound, "rPROJECT[UID=%s] not found: %s", tenantID, err)
 		}
 		folderIterator := org.GetAllFoldersIter(ctx)
 		for folder, err := folderIterator.Next(ctx); folder != nil; folder, err = folderIterator.Next(ctx) {
 			if err != nil {
+				log.Err(err).Msgf("Cannot get folder from org")
 				return nil, errors.Errorfc(codes.NotFound, "rPROJECT[UID=%s] not found: %s", tenantID, err)
 			}
 			projectIterator := folder.GetAllProjectsIter(ctx)
 			for project, err := projectIterator.Next(ctx); project != nil; project, err = projectIterator.Next(ctx) {
 				if err != nil {
+					log.Err(err).Msgf("Cannot get project from org")
 					return nil, errors.Errorfc(codes.NotFound, "rPROJECT[UID=%s] not found: %s", tenantID, err)
 				}
 				if string(project.UID) == tenantID {
@@ -73,6 +82,7 @@ func (c *Client) GetRuntimeProjectByUID(
 			}
 		}
 	}
+	log.Err(err).Msgf("No org found in runtime")
 	return nil, errors.Errorfc(codes.NotFound, "rPROJECT[UID=%s] not found", tenantID)
 }
 

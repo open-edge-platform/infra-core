@@ -137,6 +137,7 @@ func TestDataModelSanity(t *testing.T) {
 		t.Run("ActiveWatcher's state shall be IDLE", func(t *testing.T) {
 			require.Eventuallyf(t,
 				func() bool {
+					time.Sleep(150 * time.Millisecond)
 					aw, e := getActiveWatcher(ctx, nxc, projectInfo.A)
 					if e != nil || aw == nil {
 						return false
