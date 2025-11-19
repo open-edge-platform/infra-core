@@ -22,7 +22,7 @@ import (
 var log = logging.GetLogger("tc-nexus")
 
 const (
-	// cacheSyncDelay is the time to wait for nexus client cache synchronization
+	// cacheSyncDelay is the time to wait for nexus client cache synchronization.
 	cacheSyncDelay = 100 * time.Millisecond
 )
 
