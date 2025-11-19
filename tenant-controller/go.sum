@@ -270,8 +270,8 @@ github.com/onsi/ginkgo/v2 v2.21.0 h1:7rg/4f3rB88pb5obDgNZrNHrQ4e6WpjonchcpuBRnZM
 github.com/onsi/ginkgo/v2 v2.21.0/go.mod h1:7Du3c42kxCUegi0IImZ1wUQzMBVecgIHjR1C+NkhLQo=
 github.com/onsi/gomega v1.35.1 h1:Cwbd75ZBPxFSuZ6T+rN/WCb/gOc6YgFBXLlZLhC7Ds4=
 github.com/onsi/gomega v1.35.1/go.mod h1:PvZbdDc8J6XJEpDK4HCuRBm8a6Fzp9/DmhC9C7yFlog=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1 h1:AdIo5mYYAmmUgV7CbtP/DIb9S040PteWi57d1Y5C3fM=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.33.1/go.mod h1:pxW5QTt+SFiOHRIDL1I709Q5t7PhPZIjZ97sajxfrQs=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.33.2 h1:aX8s49KaMS4zkGnWJ+qiOBAK2WT4cy5Gr6Mg7IXWhcg=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.33.2/go.mod h1:6utgen+dl47bYZCUW6Ug7NfL/NRAQjeHP0XljpnxhWQ=
 github.com/open-edge-platform/orch-library/go v0.6.2 h1:JbZCtsWRKFenjZrUHdPVlpHl3gu0/vmUrjJ6SGc2Gyg=
 github.com/open-edge-platform/orch-library/go v0.6.2/go.mod h1:3Tes/GJfwYbnQa/1scbKiLbjZrL4fJEouFk28oo5/c8=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
