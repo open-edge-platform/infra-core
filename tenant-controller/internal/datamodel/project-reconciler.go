@@ -19,7 +19,7 @@ import (
 const (
 	parallelism = 1
 
-	exponentialBackoffMinDelay = 1 * time.Second
+	exponentialBackoffMinDelay = 3 * time.Second
 	exponentialBackoffMaxDelay = time.Minute
 )
 
