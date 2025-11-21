@@ -12,7 +12,8 @@ on:
     paths:
       - 'tenant-controller/**'
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   post-merge-pipeline:

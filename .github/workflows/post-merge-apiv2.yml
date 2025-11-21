@@ -12,7 +12,8 @@ on:
     paths:
       - 'apiv2/**'
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   post-merge-pipeline:

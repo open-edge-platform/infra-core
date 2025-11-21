@@ -12,7 +12,8 @@ on:
     paths:
       - 'exporters-inventory/**'
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   post-merge-pipeline:
