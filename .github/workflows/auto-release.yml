@@ -10,7 +10,8 @@ on:
     tags:
       - '*/*'   # matches tags containing '/', e.g. "component/v1.2.3" or "component/1.2.3"
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   release:
