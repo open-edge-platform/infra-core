@@ -97,7 +97,7 @@ func DefaultConfig() *GlobalConfig {
 		},
 		RestServer: RestServer{
 			Address:           "0.0.0.0:8080",
-			BaseURL:           "/edge-infra.orchestrator.apis/v2",
+			BaseURL:           "/v1/projects",
 			Timeout:           DefaultTimeout * time.Second,
 			Cors:              "",
 			EchoDebug:         false,
