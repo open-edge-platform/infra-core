@@ -100,7 +100,7 @@ func DefaultConfig() *GlobalConfig {
 		},
 		RestServer: RestServer{
 			Address:           "0.0.0.0:8080",
-			BaseURL:           "/v1/projects",
+			BaseURL:           "",
 			NexusAPIURL:       "http://localhost:8082",
 			Timeout:           DefaultTimeout * time.Second,
 			Cors:              "",

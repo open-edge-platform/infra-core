@@ -86,6 +86,11 @@ func WrapH(h http.Handler) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		req := c.Request()
 		res := c.Response()
+		zlog.Debug().
+			Str("method", req.Method).
+			Str("path", req.URL.Path).
+			Str("rawPath", req.URL.RawPath).
+			Msg("gRPC-gateway mux receiving request")
 		h.ServeHTTP(res, req)
 		return nil
 	}
@@ -154,31 +159,29 @@ func (m *Manager) resolveProjectUUID(ctx context.Context, projectName string, au
 		return "", fmt.Errorf("Nexus API returned status %d", resp.StatusCode)
 	}
 
-	// Parse the response to find the project with matching display_name
-	// Response format: { "projects": [ { "metadata": { "uid": "...", "labels": { "nexus/display_name": "..." } } } ] }
-	var result struct {
-		Projects []struct {
-			Metadata struct {
-				UID    string            `json:"uid"`
-				Labels map[string]string `json:"labels"`
-			} `json:"metadata"`
-		} `json:"projects"`
+	// Parse the response
+	// Response format: [ { "name": "...", "status": { "projectStatus": { "uID": "..." } } } ]
+	var projects []struct {
+		Name   string `json:"name"`
+		Status struct {
+			ProjectStatus struct {
+				UID string `json:"uID"`
+			} `json:"projectStatus"`
+		} `json:"status"`
 	}
 
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(&projects); err != nil {
 		return "", fmt.Errorf("failed to decode response: %w", err)
 	}
 
-	// Find the project with matching display_name
-	for _, project := range result.Projects {
-		if displayName, ok := project.Metadata.Labels["nexus/display_name"]; ok {
-			if displayName == projectName {
-				zlog.Debug().
-					Str("projectName", projectName).
-					Str("projectUUID", project.Metadata.UID).
-					Msg("Resolved project UUID from Nexus API")
-				return project.Metadata.UID, nil
-			}
+	// Find the project with matching name
+	for _, project := range projects {
+		if project.Name == projectName {
+			zlog.Debug().
+				Str("projectName", projectName).
+				Str("projectUUID", project.Status.ProjectStatus.UID).
+				Msg("Resolved project UUID from Nexus API")
+			return project.Status.ProjectStatus.UID, nil
 		}
 	}
 
@@ -241,10 +244,17 @@ func (m *Manager) Start() error {
 	}
 
 	zlog.Info().Str("baseUrl", m.cfg.RestServer.BaseURL).Msgf("Registering handlers")
-	gatewayURL := fmt.Sprintf("%s/*{grpc_gateway}", m.cfg.RestServer.BaseURL)
-	zlog.Info().Str("gatewayURL", m.cfg.RestServer.BaseURL).Msgf("Group Proxy URL")
-	g := e.Group(gatewayURL)
-	g.Match(allowMethods, "", WrapH(mux))
+
+	// When BaseURL is empty, match all paths without Group to pass full path to gRPC-gateway
+	if m.cfg.RestServer.BaseURL == "" {
+		e.Match(allowMethods, "/*{grpc_gateway}", WrapH(mux))
+		zlog.Info().Msg("Registered gRPC-gateway on root path")
+	} else {
+		gatewayURL := fmt.Sprintf("%s/*{grpc_gateway}", m.cfg.RestServer.BaseURL)
+		zlog.Info().Str("gatewayURL", gatewayURL).Msgf("Group Proxy URL")
+		g := e.Group(gatewayURL)
+		g.Match(allowMethods, "", WrapH(mux))
+	}
 
 	zlog.Info().Str("address", m.cfg.RestServer.Address).Msgf("Starting REST server")
 

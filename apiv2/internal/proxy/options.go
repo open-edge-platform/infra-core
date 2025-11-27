@@ -103,6 +103,30 @@ func (m *Manager) setAuthentication(e *echo.Echo) {
 }
 
 func (m *Manager) setTenant(e *echo.Echo) {
+	// Add middleware to resolve project UUID from path BEFORE TenantInterceptor
+	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			// Check if ActiveProjectID header is already set
+			if c.Request().Header.Get("ActiveProjectID") == "" {
+				// Extract project name from URL path
+				projectName := extractProjectNameFromPath(c.Request().URL.Path)
+				if projectName != "" {
+					// Resolve project UUID
+					authHeader := c.Request().Header.Get("Authorization")
+					projectUUID, err := m.resolveProjectUUID(c.Request().Context(), projectName, authHeader)
+					if err != nil {
+						zlog.Warn().Err(err).Str("projectName", projectName).Msg("Failed to resolve project UUID")
+					} else if projectUUID != "" {
+						// Set the ActiveProjectID header for TenantInterceptor
+						c.Request().Header.Set("ActiveProjectID", projectUUID)
+						zlog.Debug().Str("projectName", projectName).Str("projectUUID", projectUUID).Msg("Set ActiveProjectID header from project name")
+					}
+				}
+			}
+			return next(c)
+		}
+	})
+
 	e.Use(tenant.TenantInterceptor)
 	zlog.InfraSec().Info().Msg("Tenant Interceptor is enabled")
 }
@@ -319,7 +343,8 @@ func (m *Manager) setOptions(e *echo.Echo) {
 	m.setLimits(e)
 	m.setTimeout(e)
 	m.setSecureConfig(e, []string{})
-	m.setOapiValidator(e)
+	// Temporarily disable OpenAPI validator for multi-tenant PoC
+	// m.setOapiValidator(e)
 	e.HideBanner = true
 	e.HidePort = true
 }
