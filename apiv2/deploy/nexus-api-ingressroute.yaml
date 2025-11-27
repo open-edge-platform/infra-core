@@ -1,3 +1,33 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+# Traefik IngressRoute for api.kind.internal routing
+# Routes multi-tenant compute APIs to apiv2 (bypassing nexus-api-gateway)
+# Routes all other APIs through nexus-api-gateway (existing behavior)
+#
+# Services currently migrated to multi-tenant paths:
+# - HostService: /v1/projects/{projectName}/compute/hosts
+#
+# Services still using old paths (routed through nexus-api-gateway):
+# - RegionService: /edge-infra.orchestrator.apis/v2/regions
+# - SiteService: /edge-infra.orchestrator.apis/v2/sites
+# - LocationService: /edge-infra.orchestrator.apis/v2/locations
+# - InstanceService: /edge-infra.orchestrator.apis/v2/instances
+# - OperatingSystemService: /edge-infra.orchestrator.apis/v2/operating_systems
+# - ProviderService: /edge-infra.orchestrator.apis/v2/providers
+# - WorkloadService: /edge-infra.orchestrator.apis/v2/workloads
+# - WorkloadMemberService: /edge-infra.orchestrator.apis/v2/workload_members
+# - ScheduleService: /edge-infra.orchestrator.apis/v2/schedules
+# - TelemetryLogsGroupService: /edge-infra.orchestrator.apis/v2/telemetry/logs/groups
+# - TelemetryMetricsGroupService: /edge-infra.orchestrator.apis/v2/telemetry/metrics/groups
+# - TelemetryLogsProfileService: /edge-infra.orchestrator.apis/v2/telemetry/logs/profiles
+# - TelemetryMetricsProfileService: /edge-infra.orchestrator.apis/v2/telemetry/metrics/profiles
+# - LocalAccountService: /edge-infra.orchestrator.apis/v2/local_accounts
+# - CustomConfigService: /edge-infra.orchestrator.apis/v2/custom_configs
+#
+# Future migration: Update proto files with /v1/projects/{projectName}/... paths
+# and add corresponding PathRegexp routes here with priority > 20
+---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -8,18 +38,42 @@ spec:
     - websecure
   routes:
     # Route for multi-tenant compute endpoints - direct to apiv2 (bypass nexus-api-gw)
+    # Currently covers: HostService (all CRUD operations)
+    # Includes path rewrites for UI compatibility:
+    # - /hosts/summary -> /hosts_summary (UI bug fix)
+    # - /compute/os -> /edge-infra.orchestrator.apis/v2/operating_systems (OS not migrated yet)
     - match: Host(`api.kind.internal`) && PathRegexp(`^/v1/projects/[^/]+/compute`)
       kind: Rule
       priority: 50
       middlewares:
         - name: validate-jwt
+        - name: apiv2-path-rewrites
+        - name: apiv2-add-project-id
         - name: secure-headers
       services:
         - name: apiv2-proxy
           namespace: orch-infra
           port: 8080
           scheme: http
+    
+    # Route for old-style API paths - direct to apiv2 with ActiveProjectID injection
+    # Covers: instances, OS, regions, sites, locations, etc.
+    # apiv2-add-project-id middleware injects ActiveProjectID header required by apiv2
+    - match: Host(`api.kind.internal`) && PathPrefix(`/edge-infra.orchestrator.apis/v2`)
+      kind: Rule
+      priority: 40
+      middlewares:
+        - name: validate-jwt
+        - name: apiv2-add-project-id
+        - name: secure-headers
+      services:
+        - name: apiv2-proxy
+          namespace: orch-infra
+          port: 8080
+          scheme: http
+    
     # Route for all other API calls - through nexus-api-gateway
+    # Includes: projects, tenancy, infrastructure metadata
     - match: Host(`api.kind.internal`) && PathPrefix(`/`)
       kind: Rule
       priority: 20

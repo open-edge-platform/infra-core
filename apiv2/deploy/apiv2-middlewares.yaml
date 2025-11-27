@@ -1,0 +1,83 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: apiv2-path-rewrites
+  namespace: orch-gateway
+spec:
+  chain:
+    middlewares:
+      # First: Redirect new OS path to legacy endpoint
+      - name: apiv2-redirect-os
+      # Second: Redirect new instances path to legacy endpoint
+      - name: apiv2-redirect-instances
+      # Third: Fix hosts summary path
+      - name: apiv2-fix-hosts-summary
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: apiv2-redirect-os
+  namespace: orch-gateway
+spec:
+  replacePathRegex:
+    # Redirect new multi-tenant OS path to legacy OS endpoint
+    # UI calls: /v1/projects/{projectName}/compute/os
+    # API expects: /edge-infra.orchestrator.apis/v2/operating_systems
+    # OS service hasn't been migrated to multi-tenant paths yet
+    regex: "^/v1/projects/[^/]+/compute/os(/.*)?$"
+    replacement: "/edge-infra.orchestrator.apis/v2/operating_systems$1"
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: apiv2-redirect-instances
+  namespace: orch-gateway
+spec:
+  replacePathRegex:
+    # Redirect new multi-tenant instances path to legacy instances endpoint
+    # UI calls: /v1/projects/{projectName}/compute/instances
+    # API expects: /edge-infra.orchestrator.apis/v2/instances
+    # InstanceService hasn't been migrated to multi-tenant paths yet
+    regex: "^/v1/projects/[^/]+/compute/instances(/.*)?$"
+    replacement: "/edge-infra.orchestrator.apis/v2/instances$1"
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: apiv2-fix-hosts-summary
+  namespace: orch-gateway
+spec:
+  replacePathRegex:
+    # Fix UI bug: UI calls /hosts/summary but API expects /hosts_summary
+    # This middleware rewrites the incorrect path to the correct one
+    regex: "^(/v1/projects/[^/]+/compute)/hosts/summary"
+    replacement: "${1}/hosts_summary"
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: apiv2-add-project-id
+  namespace: orch-gateway
+spec:
+  headers:
+    customRequestHeaders:
+      # Inject ActiveProjectID header for old-style API paths
+      # 
+      # WHY THIS IS NEEDED:
+      # - Old API paths like /edge-infra.orchestrator.apis/v2/operating_systems don't include
+      #   projectName in the URL path (unlike new multi-tenant paths: /v1/projects/{projectName}/...)
+      # - apiv2 proxy requires ActiveProjectID header to identify which project's data to return
+      # - New multi-tenant paths extract projectName from URL and auto-inject ActiveProjectID
+      # - Old paths have no project context in URL, so middleware must inject it
+      #
+      # CURRENT LIMITATION:
+      # - This hardcodes sample-project's UUID
+      # - Production solution would need to extract from JWT token's project claim
+      # - Or require clients to send ActiveProjectID header explicitly
+      #
+      # AFFECTS:
+      # - OperatingSystemService, InstanceService, RegionService, SiteService
+      # - LocationService, ProviderService, WorkloadService, ScheduleService
+      # - TelemetryService, LocalAccountService, CustomConfigService
+      # - All non-migrated services still on /edge-infra.orchestrator.apis/v2/* paths
+      ActiveProjectID: "e4bc13e2-1296-4074-be72-aaf99c299d5a"  # sample-project UUID
