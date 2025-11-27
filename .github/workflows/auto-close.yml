@@ -12,7 +12,8 @@ on:
     - cron: '30 1 * * *'  # run every day
   workflow_dispatch: {}
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   stale-auto-close:
