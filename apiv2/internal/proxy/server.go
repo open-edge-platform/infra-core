@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"regexp"
 	"strings"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -107,14 +108,57 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 
 const ActiveProjectID = "ActiveProjectID"
 
+var projectPathRegex = regexp.MustCompile(`^/v1/projects/([^/]+)/`)
+
+// extractProjectNameFromPath extracts the project name from the URL path.
+// Expected path format: /v1/projects/{projectName}/...
+func extractProjectNameFromPath(path string) string {
+	matches := projectPathRegex.FindStringSubmatch(path)
+	if len(matches) > 1 {
+		return matches[1]
+	}
+	return ""
+}
+
+// resolveProjectUUID queries the inventory to resolve project UUID from project name (display_name).
+// This mimics what nexus-api-gateway currently does.
+func (m *Manager) resolveProjectUUID(ctx context.Context, projectName string, authHeader string) (string, error) {
+	// TODO: Implement actual lookup via tenant datamodel or inventory API
+	// For now, we'll need to add a client to query the RuntimeProject by display_name
+	// and return its UID.
+	//
+	// TODO: this would query:
+	// - Nexus API: GET /v1/projects with filter on display_name
+	// - Or use orch-utils tenancy-datamodel client to list RuntimeProjects
+	//
+	// For the PoC, we expect the project name to be set in metadata and the
+	// existing tenant resolution in inventory will handle it from JWT roles.
+	zlog.Warn().Str("projectName", projectName).Msg("Project UUID resolution not yet implemented, relying on JWT")
+	return "", nil
+}
+
 func (m *Manager) Start() error {
 	// creating mux for gRPC gateway. This will multiplex or route request different gRPC services.
 	mux := runtime.NewServeMux(
 		// convert header in response(going from gateway) from metadata received.
-		runtime.WithMetadata(func(_ context.Context, request *http.Request) metadata.MD {
+		runtime.WithMetadata(func(ctx context.Context, request *http.Request) metadata.MD {
 			authHeader := request.Header.Get("Authorization")
 			uaHeader := request.Header.Get("User-Agent")
 			projectIDHeader := request.Header.Get(ActiveProjectID)
+
+			// Extract project name from path and try to resolve UUID
+			projectName := extractProjectNameFromPath(request.URL.Path)
+			if projectName != "" && projectIDHeader == "" {
+				// Attempt to resolve project UUID from project name
+				projectUUID, err := m.resolveProjectUUID(ctx, projectName, authHeader)
+				if err != nil {
+					zlog.Warn().Err(err).Str("projectName", projectName).Msg("Failed to resolve project UUID")
+				} else if projectUUID != "" {
+					projectIDHeader = projectUUID
+					zlog.Debug().Str("projectName", projectName).Str("projectUUID", projectUUID).Msg("Resolved project UUID")
+				}
+			}
+
 			// send all the headers received from the client
 			md := metadata.Pairs("authorization", authHeader, "user-agent", uaHeader, "activeprojectid", projectIDHeader)
 			return md
