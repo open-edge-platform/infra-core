@@ -91,7 +91,8 @@ const (
 	ListLocationsResponseFieldOutputElements = "output_elements"
 
 	// Fields and Edges constants for "GetHostSummaryRequest"
-	GetHostSummaryRequestFieldFilter = "filter"
+	GetHostSummaryRequestFieldProjectName = "projectName"
+	GetHostSummaryRequestFieldFilter      = "filter"
 
 	// Fields and Edges constants for "GetHostSummaryResponse"
 	GetHostSummaryResponseFieldTotal       = "total"
@@ -100,22 +101,25 @@ const (
 	GetHostSummaryResponseFieldUnallocated = "unallocated"
 
 	// Fields and Edges constants for "CreateHostRequest"
-	CreateHostRequestEdgeHost = "host"
+	CreateHostRequestFieldProjectName = "projectName"
+	CreateHostRequestEdgeHost         = "host"
 
 	// Fields and Edges constants for "CreateHostResponse"
 	CreateHostResponseEdgeHost = "host"
 
 	// Fields and Edges constants for "GetHostRequest"
-	GetHostRequestFieldResourceId = "resourceId"
+	GetHostRequestFieldProjectName = "projectName"
+	GetHostRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetHostResponse"
 	GetHostResponseEdgeHost = "host"
 
 	// Fields and Edges constants for "ListHostsRequest"
-	ListHostsRequestFieldOrderBy  = "order_by"
-	ListHostsRequestFieldFilter   = "filter"
-	ListHostsRequestFieldPageSize = "page_size"
-	ListHostsRequestFieldOffset   = "offset"
+	ListHostsRequestFieldProjectName = "projectName"
+	ListHostsRequestFieldOrderBy     = "order_by"
+	ListHostsRequestFieldFilter      = "filter"
+	ListHostsRequestFieldPageSize    = "page_size"
+	ListHostsRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListHostsResponse"
 	ListHostsResponseEdgeHosts          = "hosts"
@@ -123,22 +127,26 @@ const (
 	ListHostsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateHostRequest"
-	UpdateHostRequestFieldResourceId = "resourceId"
-	UpdateHostRequestEdgeHost        = "host"
+	UpdateHostRequestFieldProjectName = "projectName"
+	UpdateHostRequestFieldResourceId  = "resourceId"
+	UpdateHostRequestEdgeHost         = "host"
 
 	// Fields and Edges constants for "PatchHostRequest"
-	PatchHostRequestFieldResourceId = "resourceId"
-	PatchHostRequestEdgeHost        = "host"
-	PatchHostRequestEdgeFieldMask   = "field_mask"
+	PatchHostRequestFieldProjectName = "projectName"
+	PatchHostRequestFieldResourceId  = "resourceId"
+	PatchHostRequestEdgeHost         = "host"
+	PatchHostRequestEdgeFieldMask    = "field_mask"
 
 	// Fields and Edges constants for "DeleteHostRequest"
-	DeleteHostRequestFieldResourceId = "resourceId"
+	DeleteHostRequestFieldProjectName = "projectName"
+	DeleteHostRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteHostResponse"
 
 	// Fields and Edges constants for "InvalidateHostRequest"
-	InvalidateHostRequestFieldResourceId = "resourceId"
-	InvalidateHostRequestFieldNote       = "note"
+	InvalidateHostRequestFieldProjectName = "projectName"
+	InvalidateHostRequestFieldResourceId  = "resourceId"
+	InvalidateHostRequestFieldNote        = "note"
 
 	// Fields and Edges constants for "InvalidateHostResponse"
 
@@ -151,11 +159,13 @@ const (
 	HostRegisterFieldUserLvmSize  = "user_lvm_size"
 
 	// Fields and Edges constants for "RegisterHostRequest"
-	RegisterHostRequestFieldResourceId = "resourceId"
-	RegisterHostRequestEdgeHost        = "host"
+	RegisterHostRequestFieldProjectName = "projectName"
+	RegisterHostRequestFieldResourceId  = "resourceId"
+	RegisterHostRequestEdgeHost         = "host"
 
 	// Fields and Edges constants for "OnboardHostRequest"
-	OnboardHostRequestFieldResourceId = "resourceId"
+	OnboardHostRequestFieldProjectName = "projectName"
+	OnboardHostRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "OnboardHostResponse"
 

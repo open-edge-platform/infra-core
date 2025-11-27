@@ -953,7 +953,7 @@ message ListHostsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -962,7 +962,7 @@ message ListHostsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -970,7 +970,7 @@ message ListHostsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
