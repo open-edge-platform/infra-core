@@ -123,62 +123,62 @@ service LocationService {
 service HostService {
   // Get a summary of the hosts status.
   rpc GetHostsSummary(GetHostSummaryRequest) returns (GetHostSummaryResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/hosts_summary"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/hosts_summary"};
   }
   // Create a host.
   rpc CreateHost(CreateHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/hosts"
+      post: "/v1/projects/{projectName}/compute/hosts"
       body: "host"
     };
   }
   // Get a list of hosts.
   rpc ListHosts(ListHostsRequest) returns (ListHostsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/hosts"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/hosts"};
   }
   // Get a specific host.
   rpc GetHost(GetHostRequest) returns (resources.compute.v1.HostResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/hosts/{resourceId}"};
   }
   // Update a host.
   rpc UpdateHost(UpdateHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"
+      put: "/v1/projects/{projectName}/compute/hosts/{resourceId}"
       body: "host"
     };
   }
   // Patch a host.
   rpc PatchHost(PatchHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"
+      patch: "/v1/projects/{projectName}/compute/hosts/{resourceId}"
       body: "host"
     };
   }  
   // Delete a host.
   rpc DeleteHost(DeleteHostRequest) returns (DeleteHostResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/compute/hosts/{resourceId}"};
   }
   // Invalidate a host.
   rpc InvalidateHost(InvalidateHostRequest) returns (InvalidateHostResponse) {
-    option (google.api.http) = {put: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate"};
+    option (google.api.http) = {put: "/v1/projects/{projectName}/compute/hosts/{resourceId}/invalidate"};
   }
   // Register a host.
   rpc RegisterHost(RegisterHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/hosts/register"
+      post: "/v1/projects/{projectName}/compute/hosts/register"
       body: "host"
     };
   }
   // Update a host registration.
   rpc PatchRegisterHost(RegisterHostRequest) returns (resources.compute.v1.HostResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register"
+      patch: "/v1/projects/{projectName}/compute/hosts/{resourceId}/register"
       body: "host"
     };
   }
   // Onboard a host.
   rpc OnboardHost(OnboardHostRequest) returns (OnboardHostResponse) {
-    option (google.api.http) = {patch: "/edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard"};
+    option (google.api.http) = {patch: "/v1/projects/{projectName}/compute/hosts/{resourceId}/onboard"};
   }
 }
 
@@ -861,9 +861,17 @@ message ListLocationsResponse {
 
 // Request the summary of Hosts resources.
 message GetHostSummaryRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 1 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -886,8 +894,16 @@ message GetHostSummaryResponse {
 
 // Request message for the CreateHost method.
 message CreateHostRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // The host to create.
-  resources.compute.v1.HostResource host = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateHost method.
@@ -898,8 +914,16 @@ message CreateHostResponse {
 
 // Request message for the GetHost method.
 message GetHostRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // Name of the requested host.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetHost method.
@@ -910,9 +934,17 @@ message GetHostResponse {
 
 // Request message for the ListHosts method.
 message ListHostsRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -959,26 +991,50 @@ message ListHostsResponse {
 
 // Request message for the UpdateHost method.
 message UpdateHostRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // Name of the host host to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the host.
-  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.HostResource host = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchHost method.
 message PatchHostRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // ID of the resource to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the host.
-  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.HostResource host = 3 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of host.
-  google.protobuf.FieldMask field_mask = 3;
+  google.protobuf.FieldMask field_mask = 4;
 }
 
 // Request message for DeleteHost.
 message DeleteHostRequest {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
   // Name of the host host to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Reponse message for DeleteHost.
@@ -986,12 +1042,20 @@ message DeleteHostResponse {}
 
 // Request to invalidate/untrust a Host.
 message InvalidateHostRequest {
-  string resourceId = 1 [(buf.validate.field).string = {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
+  string resourceId = 2 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
 
-  string note = 2 [(buf.validate.field).string = {
+  string note = 3 [(buf.validate.field).string = {
     min_len: 1
     max_len: 512
     pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
@@ -1031,17 +1095,33 @@ message HostRegister {
 
 // Request to register a Host.
 message RegisterHostRequest {
-  string resourceId = 1 [(buf.validate.field).string = {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
+  string resourceId = 2 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }];
 
-  HostRegister host = 2 [(google.api.field_behavior) = REQUIRED];
+  HostRegister host = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request to onboard a Host.
 message OnboardHostRequest {
-  string resourceId = 1 [(buf.validate.field).string = {
+  // The project name from the URL path.
+  string projectName = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
+  string resourceId = 2 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
