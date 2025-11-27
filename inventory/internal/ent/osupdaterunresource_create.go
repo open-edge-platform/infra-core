@@ -139,6 +139,14 @@ func (_c *OSUpdateRunResourceCreate) SetAppliedPolicyID(id int) *OSUpdateRunReso
 	return _c
 }
 
+// SetNillableAppliedPolicyID sets the "applied_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
+func (_c *OSUpdateRunResourceCreate) SetNillableAppliedPolicyID(id *int) *OSUpdateRunResourceCreate {
+	if id != nil {
+		_c = _c.SetAppliedPolicyID(*id)
+	}
+	return _c
+}
+
 // SetAppliedPolicy sets the "applied_policy" edge to the OSUpdatePolicyResource entity.
 func (_c *OSUpdateRunResourceCreate) SetAppliedPolicy(v *OSUpdatePolicyResource) *OSUpdateRunResourceCreate {
 	return _c.SetAppliedPolicyID(v.ID)
@@ -214,9 +222,6 @@ func (_c *OSUpdateRunResourceCreate) check() error {
 	}
 	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "OSUpdateRunResource.updated_at"`)}
-	}
-	if len(_c.mutation.AppliedPolicyIDs()) == 0 {
-		return &ValidationError{Name: "applied_policy", err: errors.New(`ent: missing required edge "OSUpdateRunResource.applied_policy"`)}
 	}
 	if len(_c.mutation.InstanceIDs()) == 0 {
 		return &ValidationError{Name: "instance", err: errors.New(`ent: missing required edge "OSUpdateRunResource.instance"`)}
