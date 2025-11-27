@@ -21,6 +21,8 @@ const (
 	DefaultTimeout                      = 10
 	BaseRESTURL                         = "baseRESTURL"
 	BaseRESTURLDescription              = "The REST server base URL"
+	NexusAPIURL                         = "nexusAPIURL"
+	NexusAPIURLDescription              = "The Nexus API base URL for project resolution"
 	RestTimeout                         = "restTimeout"
 	RestTimeoutDescription              = "Timeout for a REST API call (in seconds)"
 	EnableRateLimiter                   = "enableRateLimiter"
@@ -48,6 +50,7 @@ type Traces struct {
 type RestServer struct {
 	Address           string
 	BaseURL           string
+	NexusAPIURL       string
 	Timeout           time.Duration
 	Cors              string
 	EchoDebug         bool
@@ -98,6 +101,7 @@ func DefaultConfig() *GlobalConfig {
 		RestServer: RestServer{
 			Address:           "0.0.0.0:8080",
 			BaseURL:           "/v1/projects",
+			NexusAPIURL:       "http://localhost:8082",
 			Timeout:           DefaultTimeout * time.Second,
 			Cors:              "",
 			EchoDebug:         false,
@@ -132,6 +136,7 @@ func Config() (*GlobalConfig, error) {
 
 	serverAddress := flag.String(flags.ServerAddress, defaultCfg.RestServer.Address, flags.ServerAddressDescription)
 	baseURL := flag.String(BaseRESTURL, defaultCfg.RestServer.BaseURL, BaseRESTURLDescription)
+	nexusAPIURL := flag.String(NexusAPIURL, defaultCfg.RestServer.NexusAPIURL, NexusAPIURLDescription)
 	restTimeout := flag.Duration(RestTimeout, defaultCfg.RestServer.Timeout, RestTimeoutDescription)
 	enableRateLimiter := flag.Bool(
 		EnableRateLimiter,
@@ -172,6 +177,7 @@ func Config() (*GlobalConfig, error) {
 		RestServer: RestServer{
 			Address:           *serverAddress,
 			BaseURL:           *baseURL,
+			NexusAPIURL:       *nexusAPIURL,
 			Timeout:           *restTimeout,
 			Cors:              *cors,
 			EchoDebug:         *echoDebug,

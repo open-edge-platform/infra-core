@@ -5,6 +5,7 @@ package proxy
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"regexp"
@@ -120,21 +121,68 @@ func extractProjectNameFromPath(path string) string {
 	return ""
 }
 
-// resolveProjectUUID queries the inventory to resolve project UUID from project name (display_name).
+// resolveProjectUUID queries the Nexus API to resolve project UUID from project name (display_name).
 // This mimics what nexus-api-gateway currently does.
 func (m *Manager) resolveProjectUUID(ctx context.Context, projectName string, authHeader string) (string, error) {
-	// TODO: Implement actual lookup via tenant datamodel or inventory API
-	// For now, we'll need to add a client to query the RuntimeProject by display_name
-	// and return its UID.
-	//
-	// TODO: this would query:
-	// - Nexus API: GET /v1/projects with filter on display_name
-	// - Or use orch-utils tenancy-datamodel client to list RuntimeProjects
-	//
-	// For the PoC, we expect the project name to be set in metadata and the
-	// existing tenant resolution in inventory will handle it from JWT roles.
-	zlog.Warn().Str("projectName", projectName).Msg("Project UUID resolution not yet implemented, relying on JWT")
-	return "", nil
+	// Query the Nexus API to find the project by display_name label
+	// The Nexus API endpoint: GET /v1/projects
+	// We need to filter by metadata.labels."nexus/display_name" == projectName
+
+	// Build the request to the Nexus API
+	nexusAPIBase := m.cfg.RestServer.NexusAPIURL
+	reqURL := fmt.Sprintf("%s/v1/projects", nexusAPIBase)
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, reqURL, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	// Forward the authorization header
+	if authHeader != "" {
+		req.Header.Set("Authorization", authHeader)
+	}
+
+	// Make the HTTP request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to query Nexus API: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("Nexus API returned status %d", resp.StatusCode)
+	}
+
+	// Parse the response to find the project with matching display_name
+	// Response format: { "projects": [ { "metadata": { "uid": "...", "labels": { "nexus/display_name": "..." } } } ] }
+	var result struct {
+		Projects []struct {
+			Metadata struct {
+				UID    string            `json:"uid"`
+				Labels map[string]string `json:"labels"`
+			} `json:"metadata"`
+		} `json:"projects"`
+	}
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return "", fmt.Errorf("failed to decode response: %w", err)
+	}
+
+	// Find the project with matching display_name
+	for _, project := range result.Projects {
+		if displayName, ok := project.Metadata.Labels["nexus/display_name"]; ok {
+			if displayName == projectName {
+				zlog.Debug().
+					Str("projectName", projectName).
+					Str("projectUUID", project.Metadata.UID).
+					Msg("Resolved project UUID from Nexus API")
+				return project.Metadata.UID, nil
+			}
+		}
+	}
+
+	return "", fmt.Errorf("project not found: %s", projectName)
 }
 
 func (m *Manager) Start() error {
