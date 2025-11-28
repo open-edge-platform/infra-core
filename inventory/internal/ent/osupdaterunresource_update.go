@@ -165,6 +165,14 @@ func (_u *OSUpdateRunResourceUpdate) SetAppliedPolicyID(id int) *OSUpdateRunReso
 	return _u
 }
 
+// SetNillableAppliedPolicyID sets the "applied_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
+func (_u *OSUpdateRunResourceUpdate) SetNillableAppliedPolicyID(id *int) *OSUpdateRunResourceUpdate {
+	if id != nil {
+		_u = _u.SetAppliedPolicyID(*id)
+	}
+	return _u
+}
+
 // SetAppliedPolicy sets the "applied_policy" edge to the OSUpdatePolicyResource entity.
 func (_u *OSUpdateRunResourceUpdate) SetAppliedPolicy(v *OSUpdatePolicyResource) *OSUpdateRunResourceUpdate {
 	return _u.SetAppliedPolicyID(v.ID)
@@ -231,9 +239,6 @@ func (_u *OSUpdateRunResourceUpdate) check() error {
 		if err := osupdaterunresource.StatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "status_indicator", err: fmt.Errorf(`ent: validator failed for field "OSUpdateRunResource.status_indicator": %w`, err)}
 		}
-	}
-	if _u.mutation.AppliedPolicyCleared() && len(_u.mutation.AppliedPolicyIDs()) > 0 {
-		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.applied_policy"`)
 	}
 	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.instance"`)
@@ -509,6 +514,14 @@ func (_u *OSUpdateRunResourceUpdateOne) SetAppliedPolicyID(id int) *OSUpdateRunR
 	return _u
 }
 
+// SetNillableAppliedPolicyID sets the "applied_policy" edge to the OSUpdatePolicyResource entity by ID if the given value is not nil.
+func (_u *OSUpdateRunResourceUpdateOne) SetNillableAppliedPolicyID(id *int) *OSUpdateRunResourceUpdateOne {
+	if id != nil {
+		_u = _u.SetAppliedPolicyID(*id)
+	}
+	return _u
+}
+
 // SetAppliedPolicy sets the "applied_policy" edge to the OSUpdatePolicyResource entity.
 func (_u *OSUpdateRunResourceUpdateOne) SetAppliedPolicy(v *OSUpdatePolicyResource) *OSUpdateRunResourceUpdateOne {
 	return _u.SetAppliedPolicyID(v.ID)
@@ -588,9 +601,6 @@ func (_u *OSUpdateRunResourceUpdateOne) check() error {
 		if err := osupdaterunresource.StatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "status_indicator", err: fmt.Errorf(`ent: validator failed for field "OSUpdateRunResource.status_indicator": %w`, err)}
 		}
-	}
-	if _u.mutation.AppliedPolicyCleared() && len(_u.mutation.AppliedPolicyIDs()) > 0 {
-		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.applied_policy"`)
 	}
 	if _u.mutation.InstanceCleared() && len(_u.mutation.InstanceIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "OSUpdateRunResource.instance"`)

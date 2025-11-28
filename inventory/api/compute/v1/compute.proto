@@ -1199,7 +1199,7 @@ message OSUpdateRunResource {
 
   OSUpdatePolicyResource applied_policy = 4 [(ent.edge) = {
     unique: true
-    required: true
+    required: false
   }]; // OSUpdate Policy of this OSUpdate Run. The field is immutable.
 
   InstanceResource instance = 5 [(ent.edge) = {

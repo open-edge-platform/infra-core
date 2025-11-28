@@ -1,0 +1,2 @@
+-- Modify "os_update_run_resources" table
+ALTER TABLE "os_update_run_resources" DROP CONSTRAINT "os_update_run_resources_os_upd_59e63391a29dbb5d975b005406c27afc", ALTER COLUMN "os_update_run_resource_applied_policy" DROP NOT NULL, ADD CONSTRAINT "os_update_run_resources_os_upd_59e63391a29dbb5d975b005406c27afc" FOREIGN KEY ("os_update_run_resource_applied_policy") REFERENCES "os_update_policy_resources" ("id") ON UPDATE NO ACTION ON DELETE SET NULL;
