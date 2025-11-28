@@ -22,15 +22,15 @@ plugins:
       - require_unimplemented_servers=false
 
   # go install github.com/sudorandom/protoc-gen-connect-openapi@v0.17.0
-  # - name: connect-openapi
-  #   path: protoc-gen-connect-openapi
-  #   out: api/openapi
-  #   strategy: all
-  #   opt:
-  #     - format=yaml
-  #     - short-service-tags
-  #     - short-operation-ids
-  #     - path=openapi.yaml
+  - name: connect-openapi
+    path: protoc-gen-connect-openapi
+    out: api/openapi
+    strategy: all
+    opt:
+      - format=yaml
+      - short-service-tags
+      - short-operation-ids
+      - path=openapi.yaml
 
   # grpc-gateway - https://grpc-ecosystem.github.io/grpc-gateway/
   - name: grpc-gateway
@@ -46,6 +46,6 @@ plugins:
 
   - plugin: go-const
     out: internal/pbapi
-    path: cmd/protoc-gen-go-const/protoc-gen-go-const
+    path: ["go", "run", "./cmd/protoc-gen-go-const"]
     opt:
       - paths=source_relative
