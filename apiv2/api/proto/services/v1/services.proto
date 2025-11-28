@@ -187,39 +187,39 @@ service InstanceService {
   // Create a instance.
   rpc CreateInstance(CreateInstanceRequest) returns (resources.compute.v1.InstanceResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/instances"
+      post: "/v1/projects/{projectName}/compute/instances"
       body: "instance"
     };
   }
   // Get a list of instances.
   rpc ListInstances(ListInstancesRequest) returns (ListInstancesResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/instances"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/instances"};
   }
   // Get a specific instance.
   rpc GetInstance(GetInstanceRequest) returns (resources.compute.v1.InstanceResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/instances/{resourceId}"};
   }
   // Update a instance.
   rpc UpdateInstance(UpdateInstanceRequest) returns (resources.compute.v1.InstanceResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"
+      put: "/v1/projects/{projectName}/compute/instances/{resourceId}"
       body: "instance"
     };
   }
   // Patch a instance.
   rpc PatchInstance(PatchInstanceRequest) returns (resources.compute.v1.InstanceResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"
+      patch: "/v1/projects/{projectName}/compute/instances/{resourceId}"
       body: "instance"
     };
   }
   // Delete a instance.
   rpc DeleteInstance(DeleteInstanceRequest) returns (DeleteInstanceResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/compute/instances/{resourceId}"};
   }
   // Invalidate a instance.
   rpc InvalidateInstance(InvalidateInstanceRequest) returns (InvalidateInstanceResponse) {
-    option (google.api.http) = {put: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate"};
+    option (google.api.http) = {put: "/v1/projects/{projectName}/compute/instances/{resourceId}/invalidate"};
   }
 }
 
@@ -1140,6 +1140,14 @@ message OnboardHostResponse {}
 message CreateInstanceRequest {
   // The instance to create.
   resources.compute.v1.InstanceResource instance = 1 [(google.api.field_behavior) = REQUIRED];
+  // The project name from the URL path.
+  string projectName = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Response message for the CreateInstance method.
@@ -1152,6 +1160,14 @@ message CreateInstanceResponse {
 message GetInstanceRequest {
   // Name of the requested instance.
   string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // The project name from the URL path.
+  string projectName = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Response message for the GetInstance method.
@@ -1197,6 +1213,14 @@ message ListInstancesRequest {
       lte: 10000
     }
   ];
+  // The project name from the URL path.
+  string projectName = 5 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Response message for the ListInstances method.
@@ -1215,6 +1239,14 @@ message UpdateInstanceRequest {
   string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the instance.
   resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
+  // The project name from the URL path.
+  string projectName = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Request message for the PatchInstance method.
@@ -1225,12 +1257,28 @@ message PatchInstanceRequest {
   resources.compute.v1.InstanceResource instance = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of instance.
   google.protobuf.FieldMask field_mask = 3;
+  // The project name from the URL path.
+  string projectName = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Request message for DeleteInstance.
 message DeleteInstanceRequest {
   // Name of the instance instance to be deleted.
   string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // The project name from the URL path.
+  string projectName = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Response message for DeleteInstance.
@@ -1242,6 +1290,14 @@ message InvalidateInstanceRequest {
     pattern: "^inst-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Instance resource ID
+  // The project name from the URL path.
+  string projectName = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Response message for Invalidate Instance.

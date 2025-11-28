@@ -170,22 +170,25 @@ const (
 	// Fields and Edges constants for "OnboardHostResponse"
 
 	// Fields and Edges constants for "CreateInstanceRequest"
-	CreateInstanceRequestEdgeInstance = "instance"
+	CreateInstanceRequestEdgeInstance     = "instance"
+	CreateInstanceRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "CreateInstanceResponse"
 	CreateInstanceResponseEdgeInstance = "instance"
 
 	// Fields and Edges constants for "GetInstanceRequest"
-	GetInstanceRequestFieldResourceId = "resourceId"
+	GetInstanceRequestFieldResourceId  = "resourceId"
+	GetInstanceRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "GetInstanceResponse"
 	GetInstanceResponseEdgeInstance = "instance"
 
 	// Fields and Edges constants for "ListInstancesRequest"
-	ListInstancesRequestFieldOrderBy  = "order_by"
-	ListInstancesRequestFieldFilter   = "filter"
-	ListInstancesRequestFieldPageSize = "page_size"
-	ListInstancesRequestFieldOffset   = "offset"
+	ListInstancesRequestFieldOrderBy     = "order_by"
+	ListInstancesRequestFieldFilter      = "filter"
+	ListInstancesRequestFieldPageSize    = "page_size"
+	ListInstancesRequestFieldOffset      = "offset"
+	ListInstancesRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "ListInstancesResponse"
 	ListInstancesResponseEdgeInstances      = "instances"
@@ -193,21 +196,25 @@ const (
 	ListInstancesResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateInstanceRequest"
-	UpdateInstanceRequestFieldResourceId = "resourceId"
-	UpdateInstanceRequestEdgeInstance    = "instance"
+	UpdateInstanceRequestFieldResourceId  = "resourceId"
+	UpdateInstanceRequestEdgeInstance     = "instance"
+	UpdateInstanceRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "PatchInstanceRequest"
-	PatchInstanceRequestFieldResourceId = "resourceId"
-	PatchInstanceRequestEdgeInstance    = "instance"
-	PatchInstanceRequestEdgeFieldMask   = "field_mask"
+	PatchInstanceRequestFieldResourceId  = "resourceId"
+	PatchInstanceRequestEdgeInstance     = "instance"
+	PatchInstanceRequestEdgeFieldMask    = "field_mask"
+	PatchInstanceRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "DeleteInstanceRequest"
-	DeleteInstanceRequestFieldResourceId = "resourceId"
+	DeleteInstanceRequestFieldResourceId  = "resourceId"
+	DeleteInstanceRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "DeleteInstanceResponse"
 
 	// Fields and Edges constants for "InvalidateInstanceRequest"
-	InvalidateInstanceRequestFieldResourceId = "resourceId"
+	InvalidateInstanceRequestFieldResourceId  = "resourceId"
+	InvalidateInstanceRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "InvalidateInstanceResponse"
 

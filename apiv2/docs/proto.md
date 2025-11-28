@@ -1587,6 +1587,7 @@ Request message for the CreateInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance to create. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2118,6 +2119,7 @@ Request message for DeleteInstance.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the instance instance to be deleted. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2613,6 +2615,7 @@ Request message for the GetInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3140,6 +3143,7 @@ Request message for Invalidate Instance.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Instance resource ID |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3239,6 +3243,7 @@ Request message for the ListInstances method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3941,6 +3946,7 @@ Request message for the PatchInstance method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -4127,6 +4133,7 @@ Request message for the UpdateInstance method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
