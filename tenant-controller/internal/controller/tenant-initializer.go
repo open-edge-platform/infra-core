@@ -128,21 +128,21 @@ func (tc *TenantInitializationController) HandleEvent(we *client.WatchEvents) {
 		log.Debug().Msgf("[HANDLE-EVENT-EXIT1] Given envelope doesn't contain tenant: %v", we.Event.GetResource())
 		return
 	}
-	
+
 	log.Info().Msgf("[HANDLE-EVENT] tenant=%s, WatcherOsmanager=%v, DesiredState=%v",
 		tenant.GetTenantId(), tenant.WatcherOsmanager, tenant.DesiredState)
-	
+
 	if !tenant.WatcherOsmanager {
 		log.Warn().Msgf("[HANDLE-EVENT-EXIT2] OS Resource Manager is not yet done with %s (WatcherOsmanager=false)",
 			tenant.GetTenantId())
 		return
 	}
 	if tenant.DesiredState != tenantv1.TenantState_TENANT_STATE_CREATED {
-		log.Debug().Msgf("[HANDLE-EVENT-EXIT3] tenant=%s DesiredState=%v (not CREATED)", 
+		log.Debug().Msgf("[HANDLE-EVENT-EXIT3] tenant=%s DesiredState=%v (not CREATED)",
 			tenant.GetTenantId(), tenant.DesiredState)
 		return
 	}
-	
+
 	log.Info().Msgf("[HANDLE-EVENT] All conditions passed for tenant=%s, calling handleTenantDesiredStateCreated",
 		tenant.GetTenantId())
 	if err := tc.handleTenantDesiredStateCreated(tenant); err != nil {
@@ -153,7 +153,7 @@ func (tc *TenantInitializationController) HandleEvent(we *client.WatchEvents) {
 func (tc *TenantInitializationController) handleTenantDesiredStateCreated(tenant *tenantv1.Tenant) error {
 	log.Info().Msgf("[ACK-SEND] handleTenantDesiredStateCreated called for tenant=%s (CurrentState=%v)",
 		tenant.GetTenantId(), tenant.CurrentState)
-	
+
 	if tenant.CurrentState != tenantv1.TenantState_TENANT_STATE_CREATED {
 		log.Info().Msgf("[ACK-SEND] CurrentState is not CREATED, calling setCurrentStatusCreated for tenant=%s",
 			tenant.GetTenantId())
