@@ -42,13 +42,13 @@ spec:
     # Includes path rewrites for UI compatibility:
     # - /hosts/summary -> /hosts_summary (UI bug fix)
     # - /compute/os -> /edge-infra.orchestrator.apis/v2/operating_systems (OS not migrated yet)
+    # NOTE: ActiveProjectID is now extracted at application level (from path or JWT)
     - match: Host(`api.kind.internal`) && PathRegexp(`^/v1/projects/[^/]+/compute`)
       kind: Rule
       priority: 50
       middlewares:
         - name: validate-jwt
         - name: apiv2-path-rewrites
-        - name: apiv2-add-project-id
         - name: secure-headers
       services:
         - name: apiv2-proxy
@@ -56,15 +56,14 @@ spec:
           port: 8080
           scheme: http
     
-    # Route for old-style API paths - direct to apiv2 with ActiveProjectID injection
+    # Route for old-style API paths - direct to apiv2
     # Covers: instances, OS, regions, sites, locations, etc.
-    # apiv2-add-project-id middleware injects ActiveProjectID header required by apiv2
+    # NOTE: ActiveProjectID is now extracted from JWT token roles at application level
     - match: Host(`api.kind.internal`) && PathPrefix(`/edge-infra.orchestrator.apis/v2`)
       kind: Rule
       priority: 40
       middlewares:
         - name: validate-jwt
-        - name: apiv2-add-project-id
         - name: secure-headers
       services:
         - name: apiv2-proxy

@@ -167,8 +167,8 @@ func extractProjectIDFromJWT(authHeader string) (string, error) {
 		return "", fmt.Errorf("roles not found in realm_access")
 	}
 
-	// Extract project UUID from roles
-	var projectID string
+	// Extract project UUIDs from roles
+	projectIDs := make(map[string]bool)
 	for _, roleInterface := range rolesInterface {
 		role, ok := roleInterface.(string)
 		if !ok {
@@ -181,18 +181,33 @@ func extractProjectIDFromJWT(authHeader string) (string, error) {
 			if len(parts) > 0 {
 				potentialUUID := parts[0]
 				if uuidRegex.MatchString(potentialUUID) {
-					if projectID == "" {
-						projectID = potentialUUID
-					} else if projectID != potentialUUID {
-						return "", fmt.Errorf("multiple project IDs found in JWT roles")
-					}
+					projectIDs[potentialUUID] = true
 				}
 			}
 		}
 	}
 
-	if projectID == "" {
+	if len(projectIDs) == 0 {
 		return "", fmt.Errorf("no project ID found in JWT roles")
+	}
+
+	// If user has multiple projects, for NOW we use the first one found
+	// For old-style paths without project context, we can't determine which project to use
+	// TODO: evaluate some options:
+	// 1) Use a default project from user profile
+	// 2) Require explicit ActiveProjectID header
+	// 3) Migrate all services to multi-tenant paths
+	var projectID string
+	for id := range projectIDs {
+		projectID = id
+		break
+	}
+
+	if len(projectIDs) > 1 {
+		zlog.Warn().
+			Int("projectCount", len(projectIDs)).
+			Str("selectedProject", projectID).
+			Msg("User has access to multiple projects, using first one for old-style path")
 	}
 
 	zlog.Debug().Str("projectID", projectID).Msg("Extracted project ID from JWT")
@@ -273,6 +288,7 @@ func (m *Manager) Start() error {
 			// Extract project name from path and try to resolve UUID
 			projectName := extractProjectNameFromPath(request.URL.Path)
 			if projectName != "" && projectIDHeader == "" {
+				// New multi-tenant path: /v1/projects/{projectName}/...
 				// Attempt to resolve project UUID from project name
 				projectUUID, err := m.resolveProjectUUID(ctx, projectName, authHeader)
 				if err != nil {
@@ -280,6 +296,16 @@ func (m *Manager) Start() error {
 				} else if projectUUID != "" {
 					projectIDHeader = projectUUID
 					zlog.Debug().Str("projectName", projectName).Str("projectUUID", projectUUID).Msg("Resolved project UUID")
+				}
+			} else if projectName == "" && projectIDHeader == "" && authHeader != "" {
+				// Old-style path: /edge-infra.orchestrator.apis/v2/...
+				// Extract project UUID from JWT token roles
+				projectUUID, err := extractProjectIDFromJWT(authHeader)
+				if err != nil {
+					zlog.Warn().Err(err).Msg("Failed to extract project ID from JWT")
+				} else if projectUUID != "" {
+					projectIDHeader = projectUUID
+					zlog.Debug().Str("projectUUID", projectUUID).Msg("Extracted project ID from JWT for old-style path")
 				}
 			}
 
