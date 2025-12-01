@@ -11,6 +11,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/labstack/echo/v4"
 	"google.golang.org/grpc"
@@ -115,6 +116,7 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 const ActiveProjectID = "ActiveProjectID"
 
 var projectPathRegex = regexp.MustCompile(`^/v1/projects/([^/]+)/`)
+var uuidRegex = regexp.MustCompile(`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`)
 
 // extractProjectNameFromPath extracts the project name from the URL path.
 // Expected path format: /v1/projects/{projectName}/...
@@ -124,6 +126,77 @@ func extractProjectNameFromPath(path string) string {
 		return matches[1]
 	}
 	return ""
+}
+
+// extractProjectIDFromJWT extracts project UUID from JWT token roles.
+// JWT roles follow the pattern: {projectUUID}_{roleName}
+// This mimics the logic in inventory/pkg/tenant/tenant.go::extractProjectIDFromJWTRoles
+func extractProjectIDFromJWT(authHeader string) (string, error) {
+	if authHeader == "" {
+		return "", fmt.Errorf("missing authorization header")
+	}
+
+	// Parse the JWT token without validation (validation happens in AuthN middleware)
+	// We just need to extract the roles claim
+	parts := strings.Split(authHeader, " ")
+	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
+		return "", fmt.Errorf("invalid authorization header format")
+	}
+
+	tokenString := parts[1]
+
+	// Parse token without verification to extract claims
+	token, _, err := jwt.NewParser().ParseUnverified(tokenString, jwt.MapClaims{})
+	if err != nil {
+		return "", fmt.Errorf("failed to parse JWT: %w", err)
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return "", fmt.Errorf("invalid JWT claims")
+	}
+
+	// Extract roles from realm_access.roles
+	realmAccess, ok := claims["realm_access"].(map[string]interface{})
+	if !ok {
+		return "", fmt.Errorf("realm_access not found in JWT")
+	}
+
+	rolesInterface, ok := realmAccess["roles"].([]interface{})
+	if !ok {
+		return "", fmt.Errorf("roles not found in realm_access")
+	}
+
+	// Extract project UUID from roles
+	var projectID string
+	for _, roleInterface := range rolesInterface {
+		role, ok := roleInterface.(string)
+		if !ok {
+			continue
+		}
+
+		// Roles with project context follow pattern: {projectUUID}_{roleName}
+		if strings.Contains(role, roleProjectIDSeparator) {
+			parts := strings.Split(role, roleProjectIDSeparator)
+			if len(parts) > 0 {
+				potentialUUID := parts[0]
+				if uuidRegex.MatchString(potentialUUID) {
+					if projectID == "" {
+						projectID = potentialUUID
+					} else if projectID != potentialUUID {
+						return "", fmt.Errorf("multiple project IDs found in JWT roles")
+					}
+				}
+			}
+		}
+	}
+
+	if projectID == "" {
+		return "", fmt.Errorf("no project ID found in JWT roles")
+	}
+
+	zlog.Debug().Str("projectID", projectID).Msg("Extracted project ID from JWT")
+	return projectID, nil
 }
 
 // resolveProjectUUID queries the Nexus API to resolve project UUID from project name (display_name).

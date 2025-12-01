@@ -37,35 +37,8 @@ spec:
     regex: "^(/v1/projects/[^/]+/compute)/hosts/summary"
     replacement: "${1}/hosts_summary"
 ---
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: apiv2-add-project-id
-  namespace: orch-gateway
-spec:
-  headers:
-    customRequestHeaders:
-      # Inject ActiveProjectID header for old-style API paths
-      # 
-      # WHY THIS IS NEEDED:
-      # - Old API paths like /edge-infra.orchestrator.apis/v2/operating_systems don't include
-      #   projectName in the URL path (unlike new multi-tenant paths: /v1/projects/{projectName}/...)
-      # - apiv2 proxy requires ActiveProjectID header to identify which project's data to return
-      # - New multi-tenant paths extract projectName from URL and auto-inject ActiveProjectID
-      # - Old paths have no project context in URL, so middleware must inject it
-      #
-      # CURRENT LIMITATION:
-      # - This hardcodes sample-project's UUID
-      # - Production solution would need to extract from JWT token's project claim
-      # - Or require clients to send ActiveProjectID header explicitly
-      #
-      # AFFECTS:
-      # - OperatingSystemService, RegionService, SiteService
-      # - LocationService, ProviderService, WorkloadService, ScheduleService
-      # - TelemetryService, LocalAccountService, CustomConfigService
-      # - All non-migrated services still on /edge-infra.orchestrator.apis/v2/* paths
-      #
-      # MIGRATED SERVICES (don't need this header):
-      # - HostService: /v1/projects/{projectName}/compute/hosts
-      # - InstanceService: /v1/projects/{projectName}/compute/instances
-      ActiveProjectID: "e4bc13e2-1296-4074-be72-aaf99c299d5a"  # sample-project UUID
+# NOTE: apiv2-add-project-id middleware removed
+# ActiveProjectID is now extracted at application level by apiv2 proxy:
+# - New multi-tenant paths (/v1/projects/{projectName}/*): Extract project name from URL, resolve UUID via Nexus API
+# - Old-style paths (/edge-infra.orchestrator.apis/v2/*): Extract project UUID directly from JWT token roles
+# This eliminates the need for hardcoded project IDs and enables true multi-tenant support

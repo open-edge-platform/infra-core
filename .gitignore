@@ -23,6 +23,4 @@ go.work
 # Useful when developing with coder vms
 .tool-versions
 
-intructions.txt
-nexus-multitenant-inventory.sh
 apiv2/cmd/protoc-gen-go-const/protoc-gen-go-const
