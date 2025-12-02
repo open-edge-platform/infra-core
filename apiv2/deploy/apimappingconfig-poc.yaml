@@ -1,0 +1,113 @@
+apiVersion: apimappingconfig.edge-orchestrator.intel.com/v1
+kind: APIMappingConfig
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apimappingconfig.edge-orchestrator.intel.com/v1","kind":"APIMappingConfig","metadata":{"annotations":{},"labels":{"configs.config.edge-orchestrator.intel.com":"default"},"name":"amc-infra-core-edge-infrastructure-manager-openapi-all"},"spec":{"backend":{"port":8080,"service":"apiv2-proxy.orch-infra.svc.cluster.local"},"mappings":[{"externalURI":"/v1/projects/{projectName}/regions","serviceURI":"edge-infra.orchestrator.apis/v2/regions"},{"externalURI":"/v1/projects/{projectName}/regions/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/regions/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/regions/{resourceId}/sites","serviceURI":"edge-infra.orchestrator.apis/v2/sites"},{"externalURI":"/v1/projects/{projectName}/regions/{regionResourceId}/sites/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/sites/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/compute","serviceURI":"edge-infra.orchestrator.apis/v2/compute"},{"externalURI":"/v1/projects/{projectName}/compute/hosts","serviceURI":"edge-infra.orchestrator.apis/v2/hosts"},{"externalURI":"/v1/projects/{projectName}/compute/hosts/summary","serviceURI":"edge-infra.orchestrator.apis/v2/hosts_summary"},{"externalURI":"/v1/projects/{projectName}/compute/hosts/register","serviceURI":"edge-infra.orchestrator.apis/v2/hosts/register"},{"externalURI":"/v1/projects/{projectName}/compute/hosts/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/hosts/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/compute/hosts/{resourceId}/invalidate","serviceURI":"edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate"},{"externalURI":"/v1/projects/{projectName}/compute/hosts/{resourceId}/onboard","serviceURI":"edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard"},{"externalURI":"/v1/projects/{projectName}/compute/hosts/{resourceId}/register","serviceURI":"edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register"},{"externalURI":"/v1/projects/{projectName}/compute/instances","serviceURI":"edge-infra.orchestrator.apis/v2/instances"},{"externalURI":"/v1/projects/{projectName}/compute/instances/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/instances/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/compute/instances/{resourceId}/invalidate","serviceURI":"edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate"},{"externalURI":"/v1/projects/{projectName}/locations","serviceURI":"edge-infra.orchestrator.apis/v2/locations"},{"externalURI":"/v1/projects/{projectName}/compute/os","serviceURI":"edge-infra.orchestrator.apis/v2/operating_systems"},{"externalURI":"/v1/projects/{projectName}/compute/os/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/compute/schedules","serviceURI":"edge-infra.orchestrator.apis/v2/schedules"},{"externalURI":"/v1/projects/{projectName}/compute/workloads","serviceURI":"edge-infra.orchestrator.apis/v2/workloads"},{"externalURI":"/v1/projects/{projectName}/compute/workloads/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/workloads/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/compute/workloads/{resourceId}/members","serviceURI":"edge-infra.orchestrator.apis/v2/workload_members"},{"externalURI":"/v1/projects/{projectName}/compute/workloads/{workloadResourceId}/members/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/providers","serviceURI":"edge-infra.orchestrator.apis/v2/providers"},{"externalURI":"/v1/projects/{projectName}/providers/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/providers/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/schedules/single","serviceURI":"edge-infra.orchestrator.apis/v2/schedules/single"},{"externalURI":"/v1/projects/{projectName}/schedules/single/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/schedules/repeated","serviceURI":"edge-infra.orchestrator.apis/v2/schedules/repeated"},{"externalURI":"/v1/projects/{projectName}/schedules/repeated/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/telemetry/loggroups","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/groups/logs"},{"externalURI":"/v1/projects/{projectName}/telemetry/loggroups/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/telemetry/loggroups/{resourceId}/logprofiles","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/profiles/logs"},{"externalURI":"/v1/projects/{projectName}/telemetry/loggroups/{loggroupResourceId}/logprofiles/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/telemetry/metricgroups","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"},{"externalURI":"/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}/metricprofiles","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics"},{"externalURI":"/v1/projects/{projectName}/telemetry/metricgroups/{metricgroupResourceId}/metricprofiles/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/localAccounts","serviceURI":"edge-infra.orchestrator.apis/v2/localAccounts"},{"externalURI":"/v1/projects/{projectName}/localAccounts/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/customConfigs","serviceURI":"edge-infra.orchestrator.apis/v2/customConfigs"},{"externalURI":"/v1/projects/{projectName}/customConfigs/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/os-update-policies","serviceURI":"edge-infra.orchestrator.apis/v2/os_update_policy"},{"externalURI":"/v1/projects/{projectName}/os-update-policies/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"},{"externalURI":"/v1/projects/{projectName}/os-update-runs","serviceURI":"edge-infra.orchestrator.apis/v2/os_update_run"},{"externalURI":"/v1/projects/{projectName}/os-update-runs/{resourceId}","serviceURI":"edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"}],"repoConf":{"specFilePath":"apiv2/api/openapi/openapi.yaml","tag":"apiv2/v2.8.1","url":"https://github.com/open-edge-platform/infra-core.git"},"specGenEnabled":true}}
+  creationTimestamp: "2025-11-28T16:48:04Z"
+  generation: 3
+  labels:
+    configs.config.edge-orchestrator.intel.com: default
+  name: amc-infra-core-edge-infrastructure-manager-openapi-all
+  resourceVersion: "906818"
+  uid: 24f1eaa3-323d-4931-bb3d-d3e8c796845e
+spec:
+  backend:
+    port: 8080
+    service: apiv2-proxy.orch-infra.svc.cluster.local
+  mappings:
+  - externalURI: /v1/projects/{projectName}/regions
+    serviceURI: edge-infra.orchestrator.apis/v2/regions
+  - externalURI: /v1/projects/{projectName}/regions/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/regions/{resourceId}
+  - externalURI: /v1/projects/{projectName}/regions/{resourceId}/sites
+    serviceURI: edge-infra.orchestrator.apis/v2/sites
+  - externalURI: /v1/projects/{projectName}/regions/{regionResourceId}/sites/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/sites/{resourceId}
+  - externalURI: /v1/projects/{projectName}/compute
+    serviceURI: edge-infra.orchestrator.apis/v2/compute
+  - externalURI: /v1/projects/{projectName}/compute/hosts
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts
+  - externalURI: /v1/projects/{projectName}/compute/hosts/summary
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts_summary
+  - externalURI: /v1/projects/{projectName}/compute/hosts/register
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts/register
+  - externalURI: /v1/projects/{projectName}/compute/hosts/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts/{resourceId}
+  - externalURI: /v1/projects/{projectName}/compute/hosts/{resourceId}/invalidate
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate
+  - externalURI: /v1/projects/{projectName}/compute/hosts/{resourceId}/onboard
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard
+  - externalURI: /v1/projects/{projectName}/compute/hosts/{resourceId}/register
+    serviceURI: edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register
+  - externalURI: /v1/projects/{projectName}/compute/instances
+    serviceURI: edge-infra.orchestrator.apis/v2/instances
+  - externalURI: /v1/projects/{projectName}/compute/instances/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/instances/{resourceId}
+  - externalURI: /v1/projects/{projectName}/compute/instances/{resourceId}/invalidate
+    serviceURI: edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate
+  - externalURI: /v1/projects/{projectName}/locations
+    serviceURI: edge-infra.orchestrator.apis/v2/locations
+  - externalURI: /v1/projects/{projectName}/compute/os
+    serviceURI: edge-infra.orchestrator.apis/v2/operating_systems
+  - externalURI: /v1/projects/{projectName}/compute/os/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}
+  - externalURI: /v1/projects/{projectName}/compute/schedules
+    serviceURI: edge-infra.orchestrator.apis/v2/schedules
+  - externalURI: /v1/projects/{projectName}/compute/workloads
+    serviceURI: edge-infra.orchestrator.apis/v2/workloads
+  - externalURI: /v1/projects/{projectName}/compute/workloads/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/workloads/{resourceId}
+  - externalURI: /v1/projects/{projectName}/compute/workloads/{resourceId}/members
+    serviceURI: edge-infra.orchestrator.apis/v2/workload_members
+  - externalURI: /v1/projects/{projectName}/compute/workloads/{workloadResourceId}/members/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/workload_members/{resourceId}
+  - externalURI: /v1/projects/{projectName}/providers
+    serviceURI: edge-infra.orchestrator.apis/v2/providers
+  - externalURI: /v1/projects/{projectName}/providers/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/providers/{resourceId}
+  - externalURI: /v1/projects/{projectName}/schedules/single
+    serviceURI: edge-infra.orchestrator.apis/v2/schedules/single
+  - externalURI: /v1/projects/{projectName}/schedules/single/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}
+  - externalURI: /v1/projects/{projectName}/schedules/repeated
+    serviceURI: edge-infra.orchestrator.apis/v2/schedules/repeated
+  - externalURI: /v1/projects/{projectName}/schedules/repeated/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}
+  - externalURI: /v1/projects/{projectName}/telemetry/loggroups
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/groups/logs
+  - externalURI: /v1/projects/{projectName}/telemetry/loggroups/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}
+  - externalURI: /v1/projects/{projectName}/telemetry/loggroups/{resourceId}/logprofiles
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/profiles/logs
+  - externalURI: /v1/projects/{projectName}/telemetry/loggroups/{loggroupResourceId}/logprofiles/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}
+  - externalURI: /v1/projects/{projectName}/telemetry/metricgroups
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/groups/metrics
+  - externalURI: /v1/projects/{projectName}/telemetry/metricgroups/{resourceId}/metricprofiles
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics
+  - externalURI: /v1/projects/{projectName}/telemetry/metricgroups/{metricgroupResourceId}/metricprofiles/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}
+  - externalURI: /v1/projects/{projectName}/telemetry/metricgroups/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}
+  - externalURI: /v1/projects/{projectName}/localAccounts
+    serviceURI: edge-infra.orchestrator.apis/v2/localAccounts
+  - externalURI: /v1/projects/{projectName}/localAccounts/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}
+  - externalURI: /v1/projects/{projectName}/customConfigs
+    serviceURI: edge-infra.orchestrator.apis/v2/customConfigs
+  - externalURI: /v1/projects/{projectName}/customConfigs/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}
+  - externalURI: /v1/projects/{projectName}/os-update-policies
+    serviceURI: edge-infra.orchestrator.apis/v2/os_update_policy
+  - externalURI: /v1/projects/{projectName}/os-update-policies/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}
+  - externalURI: /v1/projects/{projectName}/os-update-runs
+    serviceURI: edge-infra.orchestrator.apis/v2/os_update_run
+  - externalURI: /v1/projects/{projectName}/os-update-runs/{resourceId}
+    serviceURI: edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}
+  repoConf:
+    specFilePath: apiv2/api/openapi/openapi.yaml
+    tag: apiv2/v2.8.1
+    url: https://github.com/open-edge-platform/infra-core.git
+  specGenEnabled: true
