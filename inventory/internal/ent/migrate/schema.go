@@ -622,7 +622,7 @@ var (
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
-		{Name: "os_update_run_resource_applied_policy", Type: field.TypeInt},
+		{Name: "os_update_run_resource_applied_policy", Type: field.TypeInt, Nullable: true},
 		{Name: "os_update_run_resource_instance", Type: field.TypeInt},
 	}
 	// OsUpdateRunResourcesTable holds the schema information for the "os_update_run_resources" table.
@@ -635,7 +635,7 @@ var (
 				Symbol:     "os_update_run_resources_os_update_policy_resources_applied_policy",
 				Columns:    []*schema.Column{OsUpdateRunResourcesColumns[13]},
 				RefColumns: []*schema.Column{OsUpdatePolicyResourcesColumns[0]},
-				OnDelete:   schema.NoAction,
+				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "os_update_run_resources_instance_resources_instance",
