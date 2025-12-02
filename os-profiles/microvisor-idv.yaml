@@ -10,7 +10,7 @@ spec:
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
-  profileName: microvisor-idv  # Name has to be identical to this file's name
+  profileName: microvisor-idv  # Name has to be identical to this file name
   osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20251116.2000.raw.gz
   osImageVersion: 3.0.20251116.2000
   osImageSha256: e2a26efce9723921f3b179486c24566f3d809b03cf737743dbc19d227338de28
