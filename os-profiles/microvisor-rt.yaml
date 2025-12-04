@@ -11,7 +11,7 @@ spec:
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
-  profileName: microvisor-rt  # Name has to be identical to this file's name
+  profileName: microvisor-rt  # Name has to be identical to this file name
   osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251126.0011.raw.gz
   osImageVersion: 3.0.20251126.0011
   osImageSha256: e78225768c4954db86ae8f1a0e92e2e60de504a08bf023b5c4c064f803f326ea

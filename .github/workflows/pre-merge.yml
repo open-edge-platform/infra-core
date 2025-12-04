@@ -34,10 +34,10 @@ jobs:
         with:
           persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@da08a06e8aec70621e50ed4aec2fac5599839f45  # 0.1.62
+        uses: open-edge-platform/orch-ci/verify-branch-name@d3fe218ea585fb390b73c87f9e482cbe1424829c  # 0.1.68
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@da08a06e8aec70621e50ed4aec2fac5599839f45  # 0.1.62
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@d3fe218ea585fb390b73c87f9e482cbe1424829c  # 0.1.68
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         env:
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903  # v6.0.0
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f  # v6.1.0
         with:
           node-version: '18'
       - run: |
@@ -89,7 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@592eafb7c84669729eb1adc610515bad61c3550b  # 0.1.67
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@d3fe218ea585fb390b73c87f9e482cbe1424829c  # 0.1.68
     with:
       orch_ci_repo_ref: 15fa19e8760a1d7954de69b7059433f3855bbd92  # 0.1.58 Pin bootstrap action and scripts
       run_security_scans: true
@@ -143,7 +143,7 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@da08a06e8aec70621e50ed4aec2fac5599839f45  # 0.1.62
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@d3fe218ea585fb390b73c87f9e482cbe1424829c  # 0.1.68
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
