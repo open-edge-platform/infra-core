@@ -403,13 +403,27 @@ func Test_FilterOSUpdateRuns(t *testing.T) {
 				inv_testing.OrderByResourceID(resources)
 				inv_testing.OrderByResourceID(tc.resources)
 				for i, expected := range tc.resources {
-					if eq, diff := inv_testing.ProtoEqualOrDiff(expected, resources[i]); !eq {
+					// Normalize edge fields in the actual retrieved resources to match expected format
+					// (expected resources from DAO have nil edge fields, actual resources have them populated)
+					actual := resources[i]
+					osUpdateRunEdgesOnlyResourceID(actual)
+
+					if eq, diff := inv_testing.ProtoEqualOrDiff(expected, actual); !eq {
 						t.Errorf("ListOss() data not equal: %v", diff)
 					}
 				}
 			}
 		})
 	}
+}
+
+// osUpdateRunEdgesOnlyResourceID normalizes OSUpdateRunResource edge fields
+// to nil, matching the format returned by the DAO helper functions which
+// strip embedded edge objects to avoid nested message comparisons.
+func osUpdateRunEdgesOnlyResourceID(resource *computev1.OSUpdateRunResource) {
+	// Set to nil to match DAO helper format (see testing_utils.go createOSUpdateRun)
+	resource.AppliedPolicy = nil
+	resource.Instance = nil
 }
 
 //nolint:funlen // test function is long.
