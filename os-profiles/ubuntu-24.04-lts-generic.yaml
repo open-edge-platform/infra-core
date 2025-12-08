@@ -11,7 +11,7 @@ spec:
   type: OS_TYPE_MUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
-  profileName: ubuntu-24.04-lts-generic
+  profileName: ubuntu-24.04-lts-generic-stable
   osImageUrl: >-
     https://cloud-images.ubuntu.com/releases/noble/release-20250430/ubuntu-24.04-server-cloudimg-amd64.img
   osImageVersion: 24.04.2
