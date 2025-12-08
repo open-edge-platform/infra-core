@@ -226,29 +226,28 @@ go-fuzz: policy-build certificates ## go fuzz test
 	@# Help: Runs the fuzz test stage (for 60s by default)
 	$(MAKE) db-stop
 	$(MAKE) db-start
-	$(GOCMD) test -fuzz FuzzCreateRegion -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateSite -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateOu -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateProvider -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateHostResource -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateHoststorage -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateHostnic -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateHostusb -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateHostgpu -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateInstance -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateOs -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateSingleschedule -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateRepeatedschedule -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateWorkloadResource -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateWorkloadMember -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateTelemetryGroup -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateTelemetryProfile -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateIpaddress -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateNetworkSegment -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateNetlink -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateEndpoint -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
-	$(GOCMD) test -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateRegion -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateSite -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateOu -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateProvider -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateHostResource -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateHoststorage -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateHostnic -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateHostusb -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateHostgpu -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateInstance -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateOs -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateSingleschedule -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateRepeatedschedule -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateWorkloadResource -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateWorkloadMember -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateTelemetryGroup -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateTelemetryProfile -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateRemoteAccess -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateIpaddress -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateNetworkSegment -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateNetlink -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
+	$(GOCMD) test -v -fuzz FuzzCreateEndpoint -fuzztime=${FUZZ_SECONDS}s -parallel=1 ./pkg/fuzz -args -policyBundle=${BUNDLE} -globalLogLevel=error
 	$(MAKE) db-stop
 
 gen-er-diagram: ## Generate ER diagram
