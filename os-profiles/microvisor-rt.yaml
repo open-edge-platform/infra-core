@@ -14,7 +14,7 @@ spec:
   profileName: microvisor-rt  # Name has to be identical to this file name
   osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251204.0217-prod-signed.raw.gz
   osImageVersion: 3.0.20251204.0217
-  osImageSha256: e4edf2db9150a170fd66c6cf5e89c81921cc96cc7aefe34974ad984364f44b92
+  osImageSha256: bccffb5210270251ef0cbea50639a84b423f6823a35a1dabc029ef5f5febbeab
   osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251204.0217_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_fixed_cves.json
