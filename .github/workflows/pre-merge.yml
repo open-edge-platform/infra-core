@@ -53,8 +53,7 @@ jobs:
   pre-merge-root:
     permissions:
       contents: read
-    needs: pre-checks
-    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, '.github') || contains(needs.pre-checks.outputs.other_changed_projects, 'LICENSES') || contains(needs.pre-checks.outputs.other_changed_projects, '""')}}
+    needs: pre-checks    
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1
@@ -84,7 +83,6 @@ jobs:
     permissions:
       contents: read
     needs: pre-checks
-    if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
     strategy:
       fail-fast: false
       matrix:
@@ -112,7 +110,6 @@ jobs:
     permissions:
       contents: read
     needs: pre-checks
-    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
     with:
       bootstrap_tools: "yq,nodejs"
@@ -134,7 +131,6 @@ jobs:
     permissions:
       contents: read
     needs: pre-checks
-    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
