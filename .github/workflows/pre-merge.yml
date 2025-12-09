@@ -83,12 +83,6 @@ jobs:
   pre-merge-pipeline:
     permissions:
       contents: read
-    needs: pre-checks
-    if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@d3fe218ea585fb390b73c87f9e482cbe1424829c  # 0.1.68
     with:
       orch_ci_repo_ref: 15fa19e8760a1d7954de69b7059433f3855bbd92  # 0.1.58 Pin bootstrap action and scripts
@@ -111,8 +105,6 @@ jobs:
   pre-merge-os-profiles:
     permissions:
       contents: read
-    needs: pre-checks
-    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main
     with:
       bootstrap_tools: "yq,nodejs"
@@ -133,8 +125,6 @@ jobs:
   pre-merge-os-profiles-2:
     permissions:
       contents: read
-    needs: pre-checks
-    if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
