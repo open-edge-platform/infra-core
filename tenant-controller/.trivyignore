@@ -6,3 +6,5 @@ CVE-2023-45853
 CVE-2023-7104
 CVE-2023-6780
 
+# Needs upgrade of golang to 1.24.11
+CVE-2025-61729
