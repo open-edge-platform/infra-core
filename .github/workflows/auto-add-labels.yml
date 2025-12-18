@@ -12,7 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: read            # default, required to read repo content
+  pull-requests: write      # needed so the action can apply labels to PRs
+  issues: write             # needed so the action can apply labels to Issues
 
 jobs:
   label:
