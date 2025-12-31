@@ -7,17 +7,17 @@ metadata:
   release: 0.0.0-dev
   kubernetes-version: v1.32.4+k3s1
 spec:
-  name: Edge Microvisor Toolkit Real Time 3.0.20251204
+  name: Edge Microvisor Toolkit Real Time 3.0.20251218
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-rt  # Name has to be identical to this file name
-  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251204.0217-prod-signed.raw.gz
-  osImageVersion: 3.0.20251204.0217
-  osImageSha256: bccffb5210270251ef0cbea50639a84b423f6823a35a1dabc029ef5f5febbeab
-  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251204.0217_pkg_manifest.json
+  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251218.0850.raw.gz
+  osImageVersion: 3.0.20251218.0850
+  osImageSha256: 901478708f5534481d9f0b7430f5c33c7428f41a9394eb33bff099c0bb4d6d91
+  osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20251218.0850_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_fixed_cves.json
-  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
+  securityFeature: SECURITY_FEATURE_NONE
   description: Edge Microvisor Toolkit Real Time for x86_64 architecture
   platformBundle:
