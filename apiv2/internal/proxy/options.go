@@ -23,6 +23,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
+	"github.com/open-edge-platform/orch-library/go/pkg/middleware/projectcontext"
 )
 
 var allowMethods = []string{
@@ -103,40 +104,10 @@ func (m *Manager) setAuthentication(e *echo.Echo) {
 }
 
 func (m *Manager) setTenant(e *echo.Echo) {
-	// Add middleware to resolve project UUID from path or JWT BEFORE TenantInterceptor
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			// Check if ActiveProjectID header is already set
-			if c.Request().Header.Get("ActiveProjectID") == "" {
-				authHeader := c.Request().Header.Get("Authorization")
-
-				// Try to extract project name from URL path (new multi-tenant paths)
-				projectName := extractProjectNameFromPath(c.Request().URL.Path)
-				if projectName != "" {
-					// New-style path: /v1/projects/{projectName}/...
-					// Resolve project UUID from Nexus API using project name
-					projectUUID, err := m.resolveProjectUUID(c.Request().Context(), projectName, authHeader)
-					if err != nil {
-						zlog.Warn().Err(err).Str("projectName", projectName).Msg("Failed to resolve project UUID from path")
-					} else if projectUUID != "" {
-						c.Request().Header.Set("ActiveProjectID", projectUUID)
-						zlog.Debug().Str("projectName", projectName).Str("projectUUID", projectUUID).Msg("Set ActiveProjectID from path")
-					}
-				} else {
-					// Old-style path: /edge-infra.orchestrator.apis/v2/...
-					// Extract project UUID directly from JWT token roles
-					projectUUID, err := extractProjectIDFromJWT(authHeader)
-					if err != nil {
-						zlog.Warn().Err(err).Msg("Failed to extract project ID from JWT for old-style path")
-					} else if projectUUID != "" {
-						c.Request().Header.Set("ActiveProjectID", projectUUID)
-						zlog.Debug().Str("projectUUID", projectUUID).Str("path", c.Request().URL.Path).Msg("Set ActiveProjectID from JWT for old-style path")
-					}
-				}
-			}
-			return next(c)
-		}
-	})
+	// Use middleware via Echo wrapper to inject active project ID into request context
+	e.Use(echo.WrapMiddleware(
+		projectcontext.InjectActiveProjectID(m.cfg.RestServer.NexusAPIURL, true),
+	))
 
 	e.Use(tenant.TenantInterceptor)
 	zlog.InfraSec().Info().Msg("Tenant Interceptor is enabled")
