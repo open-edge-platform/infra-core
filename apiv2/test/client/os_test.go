@@ -314,7 +314,7 @@ func TestOS_GetWithInstalledPackages(t *testing.T) {
 }
 
 func TestOS_CreatewithCustom(t *testing.T) {
-	log.Info().Msgf("Begin OSResource create with install custom fields")
+	log.Info().Msgf("Begin OSResource create with custom fields")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
@@ -326,21 +326,20 @@ func TestOS_CreatewithCustom(t *testing.T) {
 	OSArch1 := "x86"
 	OSRepo1 := "http://test.com/test.raw.gz"
 
-	OSInstalledPackages := "intel-opencl-icd\nintel-level-zero-gpu\nlevel-zero"
 	OSSecFeat := api.SECURITYFEATURENONE
 	randSHA := inv_testing.GenerateRandomSha256()
 	OSResource1ReqwithCustom := api.OperatingSystemResource{
-		Name:              &OSName1,
-		ProfileName:       &OSProfileName1,
-		Architecture:      &OSArch1,
-		RepoUrl:           &OSRepo1,
-		Sha256:            randSHA,
-		InstalledPackages: &OSInstalledPackages,
-		SecurityFeature:   &OSSecFeat,
-		OsType:            &utils.OsTypeMutable,
-		OsProvider:        &utils.OSProvider,
+		Name:            &OSName1,
+		ProfileName:     &OSProfileName1,
+		Architecture:    &OSArch1,
+		RepoUrl:         &OSRepo1,
+		Sha256:          randSHA,
+		SecurityFeature: &OSSecFeat,
+		OsType:          &utils.OsTypeMutable,
+		OsProvider:      &utils.OSProvider,
 	}
 
+	// Create OS without installedPackages (it's a read-only field)
 	os := CreateOS(ctx, t, apiClient, OSResource1ReqwithCustom)
 
 	get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(

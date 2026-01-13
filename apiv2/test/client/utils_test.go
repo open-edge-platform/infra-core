@@ -194,6 +194,31 @@ func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, page
 	return allWorkloads, nil
 }
 
+// DeleteAllOSUpdatePolicies deletes all OS update policies in the system
+func DeleteAllOSUpdatePolicies(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses) {
+	t.Helper()
+
+	// List all OS update policies
+	listResp, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
+		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	require.Equal(t, http.StatusOK, listResp.StatusCode())
+
+	if listResp.JSON200 != nil && len(listResp.JSON200.OsUpdatePolicies) > 0 {
+		t.Logf("Deleting %d OS update policies", len(listResp.JSON200.OsUpdatePolicies))
+		for _, policy := range listResp.JSON200.OsUpdatePolicies {
+			_, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
+				ctx,
+				*policy.ResourceId,
+				AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+			)
+			if err != nil {
+				t.Logf("Failed to delete policy %s: %v", *policy.ResourceId, err)
+			}
+		}
+	}
+}
+
 // Example test case for ListAllRegions.
 func TestDeleteAllRegions(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
@@ -345,5 +370,36 @@ func TestDeleteAllLocalAccounts(t *testing.T) {
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
+	}
+}
+
+func TestDeleteAllOSUpdatePolicies(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	// List all OS update policies
+	listResp, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
+		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	require.Equal(t, http.StatusOK, listResp.StatusCode())
+
+	if listResp.JSON200 != nil && len(listResp.JSON200.OsUpdatePolicies) > 0 {
+		t.Logf("Retrieved %d OS update policies", len(listResp.JSON200.OsUpdatePolicies))
+		for _, policy := range listResp.JSON200.OsUpdatePolicies {
+			t.Logf("Deleting OS Update Policy ID: %s, Name: %s", *policy.ResourceId, policy.Name)
+			_, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
+				ctx,
+				*policy.ResourceId,
+				AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+			)
+			if err != nil {
+				t.Logf("Failed to delete policy %s: %v", *policy.ResourceId, err)
+			}
+		}
+	} else {
+		t.Logf("Retrieved 0 OS update policies")
 	}
 }

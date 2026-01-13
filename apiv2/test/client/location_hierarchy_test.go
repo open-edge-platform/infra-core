@@ -355,8 +355,8 @@ func TestLocation_Hierarchy(t *testing.T) {
 
 			require.Equal(t, http.StatusOK, respStatusCode)
 			assert.EqualValues(t, tcase.expected, getlocResponse.JSON200.Nodes)
-			assert.Equal(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
-			assert.Equal(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
+			assert.EqualValues(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
+			assert.EqualValues(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
 		})
 	}
 }
@@ -424,8 +424,8 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 			require.Equal(t, http.StatusOK, respStatusCode)
-			assert.Equal(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
-			assert.Equal(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
+			assert.EqualValues(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
+			assert.EqualValues(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
 			assert.Equal(t, tcase.listedElements, len(getlocResponse.JSON200.Nodes))
 		})
 	}
