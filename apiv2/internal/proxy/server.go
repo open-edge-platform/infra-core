@@ -123,7 +123,7 @@ func (m *Manager) metadataExtractor(ctx context.Context, request *http.Request) 
 		authHeader,
 		projectIDHeader,
 		projectcontext.ProjectResolverConfig{
-			NexusAPIURL:           m.cfg.RestServer.NexusAPIURL,
+			ProjectServiceURL:     m.cfg.RestServer.NexusAPIURL,
 			ErrorOnMissingProject: false,
 		},
 	)
