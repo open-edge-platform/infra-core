@@ -194,7 +194,7 @@ func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, page
 	return allWorkloads, nil
 }
 
-// DeleteAllOSUpdatePolicies deletes all OS update policies in the system
+// DeleteAllOSUpdatePolicies deletes all OS update policies in the system.
 func DeleteAllOSUpdatePolicies(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses) {
 	t.Helper()
 
