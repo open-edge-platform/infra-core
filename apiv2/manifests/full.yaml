@@ -1,0 +1,19 @@
+services:
+  - services.v1.RegionService
+  - services.v1.SiteService
+  - services.v1.LocationService
+  - services.v1.HostService
+  - services.v1.OperatingSystemService
+  - services.v1.InstanceService
+  - services.v1.ScheduleService
+  - services.v1.WorkloadService
+  - services.v1.WorkloadMemberService
+  - services.v1.ProviderService
+  - services.v1.TelemetryLogsGroupService
+  - services.v1.TelemetryMetricsGroupService
+  - services.v1.TelemetryMetricsProfileService
+  - services.v1.TelemetryLogsProfileService
+  - services.v1.LocalAccountService
+  - services.v1.CustomConfigService
+  - services.v1.OSUpdatePolicyService
+  - services.v1.OSUpdateRunService

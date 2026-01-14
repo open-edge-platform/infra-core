@@ -54,7 +54,8 @@ TEST_USE_DB      := true
 
 # OpenAPI breaking change check variables
 TEMP_BASE_OPENAPI_DIR := /tmp/apiv2-main
-OPENAPI_PATH          := api/openapi/openapi.yaml
+OPENAPI_PATH          := api/openapi/full/openapi.yaml
+OAPI_FILE             := $(OPENAPI_PATH)
 
 # yamllint variables
 YAML_IGNORE := vendor, $(OPENAPI_PATH), .github/workflows, ./$(VENV_NAME)
@@ -74,6 +75,21 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
+# EIM scenario
+SCENARIO ?= vpro
+SCENARIO_DIR := api/proto/scenarios/
+SCENARIO_FULL := full
+
+ifeq ($(SCENARIO),full)
+  PROTO_DIR := $(SCENARIO_DIR)/eim_full
+else ifeq ($(SCENARIO),vpro)
+  PROTO_DIR := $(SCENARIO_DIR)/eim_vpro
+else
+  $(error Unknown SCENARIO '$(SCENARIO)'. Allowed: full, vpro)
+endif
+
+BUF_TEMPLATE ?= buf.gen.yaml
+
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
 SERVER := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-server.gen.go"
@@ -87,7 +103,16 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
-generate: buf-gen generate-api ## generate protos, types, server and client
+generate: clean gen-allowed-services 
+ifneq ($(SCENARIO),full)
+	@echo "!!!!! 1 BUF GEN SCENARIO !!!!! SCENARIO=$(SCENARIO)"
+	$(MAKE) buf-gen-scenario SCENARIO=$(SCENARIO)
+endif
+	@echo "!!!!! 2 BUF GEN SCENARIO = full !!!!!"
+	$(MAKE) buf-gen-scenario SCENARIO=full
+	@echo "!!!!! 3 BUF GEN API !!!!!"
+	$(MAKE) generate-api ## buf-gen-scenario ## generate protos, types, server and client
+	
 
 lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
@@ -101,11 +126,11 @@ run: build ## Run API binary
 	$(OUT_DIR)/$(BINARY_NAME)
 
 oapi-banner: ## generate a single/complete OpenAPI file
-	sed -i $(COPYRIGHT_BANNER) $$PWD/$(OPENAPI_PATH)
+	sed -i $(COPYRIGHT_BANNER) $$PWD/$(OAPI_FILE)
 
 oapi-patch: ## Patches OpenAPI file by removing message prefixes
-	awk '{gsub(/resources\.[a-z]+\.v1\./, ""); print}' $(OPENAPI_PATH) > $(OPENAPI_PATH).tmp && mv $(OPENAPI_PATH).tmp $(OPENAPI_PATH) # Removes resource prefixes
-	awk '{gsub(/services\.v1\./, ""); print}' $(OPENAPI_PATH) > $(OPENAPI_PATH).tmp && mv $(OPENAPI_PATH).tmp $(OPENAPI_PATH) # Removes service prefixes
+	awk '{gsub(/resources\.[a-z]+\.v1\./, ""); print}' $(OAPI_FILE) > $(OAPI_FILE).tmp && mv $(OAPI_FILE).tmp $(OAPI_FILE) # Removes resource prefixes
+	awk '{gsub(/services\.v1\./, ""); print}' $(OAPI_FILE) > $(OAPI_FILE).tmp && mv $(OAPI_FILE).tmp $(OAPI_FILE) # Removes service prefixes
 	
 oapi-docs:  ## generates a single/complete documentation of the OpenAPI spec in a html static file
 	docker run --rm -v "$$PWD/api/openapi:/local" \
@@ -131,7 +156,7 @@ go-build: $(OUT_DIR) ## go build
 	$(GOCMD) build $(GOEXTRAFLAGS) -o $(OUT_DIR)/$(BINARY_NAME_PROXY) cmd/proxy/main.go
 
 # NOTE this will recompile
-go-run: generate go-run-api go-run-proxy ## go run
+go-run: gen-allowed-services generate go-run-api go-run-proxy ## go run
 
 go-run-api: ## go run api
 	$(GOCMD) run $(GOEXTRAFLAGS) cmd/api/main.go
@@ -232,12 +257,32 @@ int-test-our: ## Runs OS Update Run integration tests from test/client
 
 buf-update: common-buf-update ## Update buf modules
 
-buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
-	set +u; . ./$</bin/activate; set -u ;\
-  buf --version ;\
-  HUMAN=true buf generate
+#buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
+#	@echo "Generating openapi spec for SCENARIO=$(SCENARIO) from $(PROTO_DIR)"
+#	set +u; . ./$</bin/activate; set -u ;\
+#  	buf --version ;\
+#	ln -sf buf.work.$(SCENARIO).yaml buf.work.yaml ;\
+#  	HUMAN=true buf generate --template $(BUF_TEMPLATE) ;\
 
-buf-gen: buf-gen-api oapi-patch oapi-banner ## compile protoc files
+buf-gen-api-all: $(VENV_NAME) ## Compile protoc api files into code
+	@echo "Generating pbapi code from full scenario and openapi spec for SCENARIO=$(SCENARIO)"
+	set +u; . ./$</bin/activate; set -u ;\
+  	buf --version ;\
+	ln -sf buf.work.full.yaml buf.work.yaml ;\
+  	HUMAN=true buf generate --template $(BUF_TEMPLATE) ;\
+
+buf-gen-api-scenario: $(VENV_NAME) ## Compile protoc api files into code
+	@echo "Generating pbapi code from full scenario and openapi spec for SCENARIO=$(SCENARIO)"
+	set +u; . ./$</bin/activate; set -u ;\
+  	buf --version ;\
+	ln -sf buf.work.$(SCENARIO).yaml buf.work.yaml ;\
+	HUMAN=true buf generate --template buf.gen.$(SCENARIO).yaml ;\
+
+buf-gen-all: buf-gen-api-all oapi-patch oapi-banner ## compile protoc files
+
+buf-gen-scenario: buf-gen-api-scenario ## compile protoc files for scenario
+	$(MAKE) oapi-patch OAPI_FILE=api/openapi/$(SCENARIO)/openapi.yaml
+	$(MAKE) oapi-banner OAPI_FILE=api/openapi/$(SCENARIO)/openapi.yaml
 
 buf-lint: ## Lint and format protobuf files
 	buf --version
@@ -250,3 +295,6 @@ oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
 	mkdir -p ${TEMP_BASE_OPENAPI_DIR}
 	git archive origin/${BASE_BRANCH} ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
 	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR
+
+gen-allowed-services: ## Generate allowed services list for EIM scenarios
+	go run ./tools/allowedservicesgen
