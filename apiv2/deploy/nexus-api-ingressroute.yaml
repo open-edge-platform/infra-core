@@ -55,7 +55,7 @@ spec:
           namespace: orch-infra
           port: 8080
           scheme: http
-    
+
     # Route for old-style API paths - direct to apiv2
     # Covers: instances, OS, regions, sites, locations, etc.
     # NOTE: ActiveProjectID is now extracted from JWT token roles at application level
@@ -70,7 +70,7 @@ spec:
           namespace: orch-infra
           port: 8080
           scheme: http
-    
+
     # Route for all other API calls - through nexus-api-gateway
     # Includes: projects, tenancy, infrastructure metadata
     - match: Host(`api.kind.internal`) && PathPrefix(`/`)

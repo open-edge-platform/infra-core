@@ -4,11 +4,7 @@
 package api
 
 import (
-	"encoding/json"
-	"fmt"
 	"time"
-
-	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
 // Defines values for AmtSku.
@@ -228,31 +224,6 @@ const (
 	WORKLOADSTATEUNSPECIFIED WorkloadState = "WORKLOAD_STATE_UNSPECIFIED"
 )
 
-// Defines values for ConnectProtocolVersion.
-const (
-	N1 ConnectProtocolVersion = 1
-)
-
-// Defines values for ConnectErrorCode.
-const (
-	Aborted            ConnectErrorCode = "aborted"
-	AlreadyExists      ConnectErrorCode = "already_exists"
-	Canceled           ConnectErrorCode = "canceled"
-	DataLoss           ConnectErrorCode = "data_loss"
-	DeadlineExceeded   ConnectErrorCode = "deadline_exceeded"
-	FailedPrecondition ConnectErrorCode = "failed_precondition"
-	Internal           ConnectErrorCode = "internal"
-	InvalidArgument    ConnectErrorCode = "invalid_argument"
-	NotFound           ConnectErrorCode = "not_found"
-	OutOfRange         ConnectErrorCode = "out_of_range"
-	PermissionDenied   ConnectErrorCode = "permission_denied"
-	ResourceExhausted  ConnectErrorCode = "resource_exhausted"
-	Unauthenticated    ConnectErrorCode = "unauthenticated"
-	Unavailable        ConnectErrorCode = "unavailable"
-	Unimplemented      ConnectErrorCode = "unimplemented"
-	Unknown            ConnectErrorCode = "unknown"
-)
-
 // AmtSku defines model for AmtSku.
 type AmtSku string
 
@@ -276,6 +247,9 @@ type CreateCustomConfigResponse struct {
 type CreateHostRequest struct {
 	// Host A Host resource.
 	Host HostResource `json:"host"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 }
 
 // CreateHostResponse Response message for the CreateHost method.
@@ -289,6 +263,9 @@ type CreateInstanceRequest struct {
 	// Instance InstanceResource describes an instantiated OS install, running on either a
 	//  host or hypervisor.
 	Instance InstanceResource `json:"instance"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 }
 
 // CreateInstanceResponse Response message for the CreateInstance method.
@@ -499,6 +476,9 @@ type DeleteCustomConfigResponse = map[string]interface{}
 
 // DeleteHostRequest Request message for DeleteHost.
 type DeleteHostRequest struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the host host to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -508,6 +488,9 @@ type DeleteHostResponse = map[string]interface{}
 
 // DeleteInstanceRequest Request message for DeleteInstance.
 type DeleteInstanceRequest struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the instance instance to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -663,6 +646,9 @@ type GetCustomConfigResponse struct {
 
 // GetHostRequest Request message for the GetHost method.
 type GetHostRequest struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested host.
 	ResourceId string `json:"resourceId"`
 }
@@ -678,6 +664,9 @@ type GetHostSummaryRequest struct {
 	// Filter (OPTIONAL) Optional filter to return only item of interest.
 	//  See https://google.aip.dev/160 for details.
 	Filter *string `json:"filter,omitempty"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 }
 
 // GetHostSummaryResponse Summary of the hosts status.
@@ -697,6 +686,9 @@ type GetHostSummaryResponse struct {
 
 // GetInstanceRequest Request message for the GetInstance method.
 type GetInstanceRequest struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested instance.
 	ResourceId string `json:"resourceId"`
 }
@@ -1319,7 +1311,11 @@ type InvalidateHostRequest struct {
 	// Note user-provided reason for change or a freeform field
 	Note *string `json:"note,omitempty"`
 
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Host resource ID
+	// string.max_bytes = 13
 	ResourceId *string `json:"resourceId,omitempty"`
 }
 
@@ -1328,7 +1324,11 @@ type InvalidateHostResponse = map[string]interface{}
 
 // InvalidateInstanceRequest Request message for Invalidate Instance.
 type InvalidateInstanceRequest struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Instance resource ID
+	// string.max_bytes = 13
 	ResourceId *string `json:"resourceId,omitempty"`
 }
 
@@ -1384,6 +1384,9 @@ type ListHostsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 }
 
 // ListHostsResponse Response message for the ListHosts method.
@@ -1414,6 +1417,9 @@ type ListInstancesRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 }
 
 // ListInstancesResponse Response message for the ListInstances method.
@@ -1659,6 +1665,7 @@ type ListRepeatedSchedulesRequest struct {
 	//  (given the other query params). If specified, returns the schedules that have
 	//  the specified host ID applied to them, i.e., target including the inherited ones
 	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	// string.max_bytes = 13
 	HostId *string `json:"hostId,omitempty"`
 
 	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
@@ -1673,12 +1680,14 @@ type ListRepeatedSchedulesRequest struct {
 	//  If specified, returns the schedules that have the specified region ID applied to them,
 	//  i.e., target including the inherited ones (parent region if not null).
 	//  If null, returns all the schedules without a region ID as target.
+	// string.max_bytes = 15
 	RegionId *string `json:"regionId,omitempty"`
 
 	// SiteId (OPTIONAL) The site ID target of the schedules. If not specified, returns all schedules
 	//  (given the other query params). If specified, returns the schedules that have
 	//  the specified site ID applied to them, i.e., target including the inherited ones.
 	//  If null, returns all the schedules without a site ID as target
+	// string.max_bytes = 13
 	SiteId *string `json:"siteId,omitempty"`
 
 	// UnixEpoch (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
@@ -1703,6 +1712,7 @@ type ListSchedulesRequest struct {
 	//  (given the other query params). If specified, returns the schedules that have
 	//  the specified host ID applied to them, i.e., target including the inherited ones
 	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	// string.max_bytes = 13
 	HostId *string `json:"hostId,omitempty"`
 
 	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
@@ -1717,12 +1727,14 @@ type ListSchedulesRequest struct {
 	//  If specified, returns the schedules that have the specified region ID applied to them,
 	//  i.e., target including the inherited ones (parent region if not null).
 	//  If null, returns all the schedules without a region ID as target.
+	// string.max_bytes = 15
 	RegionId *string `json:"regionId,omitempty"`
 
 	// SiteId (OPTIONAL) The site ID target of the schedules. If not specified, returns all schedules
 	//  (given the other query params). If specified, returns the schedules that have
 	//  the specified site ID applied to them, i.e., target including the inherited ones.
 	//  If null, returns all the schedules without a site ID as target
+	// string.max_bytes = 13
 	SiteId *string `json:"siteId,omitempty"`
 
 	// UnixEpoch (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
@@ -1750,6 +1762,7 @@ type ListSingleSchedulesRequest struct {
 	//  (given the other query params). If specified, returns the schedules that have
 	//  the specified host ID applied to them, i.e., target including the inherited ones
 	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	// string.max_bytes = 13
 	HostId *string `json:"hostId,omitempty"`
 
 	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
@@ -1764,12 +1777,14 @@ type ListSingleSchedulesRequest struct {
 	//  If specified, returns the schedules that have the specified region ID applied to them,
 	//  i.e., target including the inherited ones (parent region if not null).
 	//  If null, returns all the schedules without a region ID as target.
+	// string.max_bytes = 15
 	RegionId *string `json:"regionId,omitempty"`
 
 	// SiteId (OPTIONAL) The site ID target of the schedules. If not specified, returns all schedules
 	//  (given the other query params). If specified, returns the schedules that have
 	//  the specified site ID applied to them, i.e., target including the inherited ones.
 	//  If null, returns all the schedules without a site ID as target
+	// string.max_bytes = 13
 	SiteId *string `json:"siteId,omitempty"`
 
 	// UnixEpoch (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
@@ -1847,6 +1862,7 @@ type ListTelemetryLogsGroupsResponse struct {
 // ListTelemetryLogsProfilesRequest Request message for the ListTelemetryLogsProfiles method.
 type ListTelemetryLogsProfilesRequest struct {
 	// InstanceId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
+	// string.max_bytes = 13
 	InstanceId *string `json:"instanceId,omitempty"`
 
 	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
@@ -1861,6 +1877,7 @@ type ListTelemetryLogsProfilesRequest struct {
 	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
+	// string.max_bytes = 15
 	RegionId *string `json:"regionId,omitempty"`
 
 	// ShowInherited (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
@@ -1870,6 +1887,7 @@ type ListTelemetryLogsProfilesRequest struct {
 	ShowInherited *bool `json:"showInherited,omitempty"`
 
 	// SiteId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
+	// string.max_bytes = 13
 	SiteId *string `json:"siteId,omitempty"`
 }
 
@@ -1914,6 +1932,7 @@ type ListTelemetryMetricsGroupsResponse struct {
 // ListTelemetryMetricsProfilesRequest Request message for the ListTelemetryMetricsProfiles method.
 type ListTelemetryMetricsProfilesRequest struct {
 	// InstanceId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
+	// string.max_bytes = 13
 	InstanceId *string `json:"instanceId,omitempty"`
 
 	// Offset (OPTIONAL) Index of the first item to return. This allows skipping items.
@@ -1928,6 +1947,7 @@ type ListTelemetryMetricsProfilesRequest struct {
 	PageSize *int `json:"pageSize,omitempty"`
 
 	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
+	// string.max_bytes = 15
 	RegionId *string `json:"regionId,omitempty"`
 
 	// ShowInherited (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
@@ -1937,6 +1957,7 @@ type ListTelemetryMetricsProfilesRequest struct {
 	ShowInherited *bool `json:"showInherited,omitempty"`
 
 	// SiteId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
+	// string.max_bytes = 13
 	SiteId *string `json:"siteId,omitempty"`
 }
 
@@ -2054,6 +2075,7 @@ type OSUpdatePolicy struct {
 	Name string `json:"name"`
 
 	// ResourceId resource ID, generated by the inventory on Create.
+	// string.max_bytes = 23
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// TargetOs An OS resource.
@@ -2098,6 +2120,7 @@ type OSUpdateRun struct {
 	Name *string `json:"name,omitempty"`
 
 	// ResourceId resource ID, generated by the inventory on Create.
+	// string.max_bytes = 20
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	// StartTime UTC timestamp of OS Update started.
@@ -2119,7 +2142,11 @@ type OSUpdateRun struct {
 
 // OnboardHostRequest Request to onboard a Host.
 type OnboardHostRequest struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Host resource ID
+	// string.max_bytes = 13
 	ResourceId *string `json:"resourceId,omitempty"`
 }
 
@@ -2412,6 +2439,9 @@ type PatchHostRequest struct {
 	// Host A Host resource.
 	Host HostResource `json:"host"`
 
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
 }
@@ -2622,6 +2652,9 @@ type PatchInstanceRequest struct {
 	// Instance InstanceResource describes an instantiated OS install, running on either a
 	//  host or hypervisor.
 	Instance InstanceResource `json:"instance"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
@@ -4383,8 +4416,13 @@ type RegionResource struct {
 // RegisterHostRequest Request to register a Host.
 type RegisterHostRequest struct {
 	// Host Message to register a Host.
-	Host       HostRegister `json:"host"`
-	ResourceId *string      `json:"resourceId,omitempty"`
+	Host HostRegister `json:"host"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
+	// ResourceId string.max_bytes = 13
+	ResourceId *string `json:"resourceId,omitempty"`
 }
 
 // RepeatedScheduleResource A repeated-schedule resource.
@@ -4848,6 +4886,9 @@ type UpdateHostRequest struct {
 	// Host A Host resource.
 	Host HostResource `json:"host"`
 
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the host host to be updated.
 	ResourceId string `json:"resourceId"`
 }
@@ -4857,6 +4898,9 @@ type UpdateInstanceRequest struct {
 	// Instance InstanceResource describes an instantiated OS install, running on either a
 	//  host or hypervisor.
 	Instance InstanceResource `json:"instance"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `json:"projectName"`
 
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
@@ -5000,36 +5044,6 @@ type WorkloadResource struct {
 
 // WorkloadState Represents the Workload state, used for both current and desired state.
 type WorkloadState string
-
-// ConnectProtocolVersion Define the version of the Connect protocol
-type ConnectProtocolVersion float32
-
-// ConnectTimeoutHeader Define the timeout, in ms
-type ConnectTimeoutHeader = float32
-
-// ConnectError Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation
-type ConnectError struct {
-	// Code The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-	Code *ConnectErrorCode `json:"code,omitempty"`
-
-	// Detail Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-	Detail *GoogleProtobufAny `json:"detail,omitempty"`
-
-	// Message A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-	Message              *string                `json:"message,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
-}
-
-// ConnectErrorCode The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-type ConnectErrorCode string
-
-// GoogleProtobufAny Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-type GoogleProtobufAny struct {
-	Debug                *map[string]interface{} `json:"debug,omitempty"`
-	Type                 *string                 `json:"type,omitempty"`
-	Value                *openapi_types.File     `json:"value,omitempty"`
-	AdditionalProperties map[string]interface{}  `json:"-"`
-}
 
 // GoogleProtobufFieldMask `FieldMask` represents a set of symbolic field paths, for example:
 //
@@ -5342,55 +5356,6 @@ type CustomConfigServiceListCustomConfigsParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// HostServiceListHostsParams defines parameters for HostServiceListHosts.
-type HostServiceListHostsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// HostServiceInvalidateHostParams defines parameters for HostServiceInvalidateHost.
-type HostServiceInvalidateHostParams struct {
-	// Note user-provided reason for change or a freeform field
-	Note *string `form:"note,omitempty" json:"note,omitempty"`
-}
-
-// HostServiceGetHostsSummaryParams defines parameters for HostServiceGetHostsSummary.
-type HostServiceGetHostsSummaryParams struct {
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-}
-
-// InstanceServiceListInstancesParams defines parameters for InstanceServiceListInstances.
-type InstanceServiceListInstancesParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
 // LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
 type LocalAccountServiceListLocalAccountsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5437,6 +5402,12 @@ type OperatingSystemServiceListOperatingSystemsParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OperatingSystemServicePatchOperatingSystemParams defines parameters for OperatingSystemServicePatchOperatingSystem.
+type OperatingSystemServicePatchOperatingSystemParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
 // OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
@@ -5514,6 +5485,12 @@ type RegionServiceListRegionsParams struct {
 	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
 }
 
+// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
+type RegionServicePatchRegionParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
 type ScheduleServiceListSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -5578,6 +5555,12 @@ type ScheduleServiceListRepeatedSchedulesParams struct {
 	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
 }
 
+// ScheduleServicePatchRepeatedScheduleParams defines parameters for ScheduleServicePatchRepeatedSchedule.
+type ScheduleServicePatchRepeatedScheduleParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // ScheduleServiceListSingleSchedulesParams defines parameters for ScheduleServiceListSingleSchedules.
 type ScheduleServiceListSingleSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -5610,6 +5593,12 @@ type ScheduleServiceListSingleSchedulesParams struct {
 	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
 }
 
+// ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
+type ScheduleServicePatchSingleScheduleParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // SiteServiceListSitesParams defines parameters for SiteServiceListSites.
 type SiteServiceListSitesParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5626,6 +5615,12 @@ type SiteServiceListSitesParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
+type SiteServicePatchSiteParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
@@ -5685,6 +5680,12 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
 }
 
+// TelemetryLogsProfileServicePatchTelemetryLogsProfileParams defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfileParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles.
 type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -5712,6 +5713,12 @@ type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
 	//  not set, this flag is ignored.
 	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
+}
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
 // WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
@@ -5750,32 +5757,80 @@ type WorkloadServiceListWorkloadsParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// WorkloadServicePatchWorkloadParams defines parameters for WorkloadServicePatchWorkload.
+type WorkloadServicePatchWorkloadParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// HostServiceListHostsParams defines parameters for HostServiceListHosts.
+type HostServiceListHostsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// HostServiceRegisterHostParams defines parameters for HostServiceRegisterHost.
+type HostServiceRegisterHostParams struct {
+	ResourceId *string `form:"resourceId,omitempty" json:"resourceId,omitempty"`
+}
+
+// HostServicePatchHostParams defines parameters for HostServicePatchHost.
+type HostServicePatchHostParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// HostServiceInvalidateHostParams defines parameters for HostServiceInvalidateHost.
+type HostServiceInvalidateHostParams struct {
+	// Note user-provided reason for change or a freeform field
+	Note *string `form:"note,omitempty" json:"note,omitempty"`
+}
+
+// HostServiceGetHostsSummaryParams defines parameters for HostServiceGetHostsSummary.
+type HostServiceGetHostsSummaryParams struct {
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+}
+
+// InstanceServiceListInstancesParams defines parameters for InstanceServiceListInstances.
+type InstanceServiceListInstancesParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// InstanceServicePatchInstanceParams defines parameters for InstanceServicePatchInstance.
+type InstanceServicePatchInstanceParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
-
-// HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
-type HostServiceCreateHostJSONRequestBody = HostResource
-
-// HostServiceRegisterHostJSONRequestBody defines body for HostServiceRegisterHost for application/json ContentType.
-type HostServiceRegisterHostJSONRequestBody = HostRegister
-
-// HostServicePatchHostJSONRequestBody defines body for HostServicePatchHost for application/json ContentType.
-type HostServicePatchHostJSONRequestBody = HostResource
-
-// HostServiceUpdateHostJSONRequestBody defines body for HostServiceUpdateHost for application/json ContentType.
-type HostServiceUpdateHostJSONRequestBody = HostResource
-
-// HostServicePatchRegisterHostJSONRequestBody defines body for HostServicePatchRegisterHost for application/json ContentType.
-type HostServicePatchRegisterHostJSONRequestBody = HostRegister
-
-// InstanceServiceCreateInstanceJSONRequestBody defines body for InstanceServiceCreateInstance for application/json ContentType.
-type InstanceServiceCreateInstanceJSONRequestBody = InstanceResource
-
-// InstanceServicePatchInstanceJSONRequestBody defines body for InstanceServicePatchInstance for application/json ContentType.
-type InstanceServicePatchInstanceJSONRequestBody = InstanceResource
-
-// InstanceServiceUpdateInstanceJSONRequestBody defines body for InstanceServiceUpdateInstance for application/json ContentType.
-type InstanceServiceUpdateInstanceJSONRequestBody = InstanceResource
 
 // LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
 type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
@@ -5867,198 +5922,26 @@ type WorkloadServicePatchWorkloadJSONRequestBody = WorkloadResource
 // WorkloadServiceUpdateWorkloadJSONRequestBody defines body for WorkloadServiceUpdateWorkload for application/json ContentType.
 type WorkloadServiceUpdateWorkloadJSONRequestBody = WorkloadResource
 
-// Getter for additional properties for ConnectError. Returns the specified
-// element and whether it was found
-func (a ConnectError) Get(fieldName string) (value interface{}, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
+// HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
+type HostServiceCreateHostJSONRequestBody = HostResource
 
-// Setter for additional properties for ConnectError
-func (a *ConnectError) Set(fieldName string, value interface{}) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
-	}
-	a.AdditionalProperties[fieldName] = value
-}
+// HostServiceRegisterHostJSONRequestBody defines body for HostServiceRegisterHost for application/json ContentType.
+type HostServiceRegisterHostJSONRequestBody = HostRegister
 
-// Override default JSON handling for ConnectError to handle AdditionalProperties
-func (a *ConnectError) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
+// HostServicePatchHostJSONRequestBody defines body for HostServicePatchHost for application/json ContentType.
+type HostServicePatchHostJSONRequestBody = HostResource
 
-	if raw, found := object["code"]; found {
-		err = json.Unmarshal(raw, &a.Code)
-		if err != nil {
-			return fmt.Errorf("error reading 'code': %w", err)
-		}
-		delete(object, "code")
-	}
+// HostServiceUpdateHostJSONRequestBody defines body for HostServiceUpdateHost for application/json ContentType.
+type HostServiceUpdateHostJSONRequestBody = HostResource
 
-	if raw, found := object["detail"]; found {
-		err = json.Unmarshal(raw, &a.Detail)
-		if err != nil {
-			return fmt.Errorf("error reading 'detail': %w", err)
-		}
-		delete(object, "detail")
-	}
+// HostServicePatchRegisterHostJSONRequestBody defines body for HostServicePatchRegisterHost for application/json ContentType.
+type HostServicePatchRegisterHostJSONRequestBody = HostRegister
 
-	if raw, found := object["message"]; found {
-		err = json.Unmarshal(raw, &a.Message)
-		if err != nil {
-			return fmt.Errorf("error reading 'message': %w", err)
-		}
-		delete(object, "message")
-	}
+// InstanceServiceCreateInstanceJSONRequestBody defines body for InstanceServiceCreateInstance for application/json ContentType.
+type InstanceServiceCreateInstanceJSONRequestBody = InstanceResource
 
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
-		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return fmt.Errorf("error unmarshaling field %s: %w", fieldName, err)
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
+// InstanceServicePatchInstanceJSONRequestBody defines body for InstanceServicePatchInstance for application/json ContentType.
+type InstanceServicePatchInstanceJSONRequestBody = InstanceResource
 
-// Override default JSON handling for ConnectError to handle AdditionalProperties
-func (a ConnectError) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Code != nil {
-		object["code"], err = json.Marshal(a.Code)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'code': %w", err)
-		}
-	}
-
-	if a.Detail != nil {
-		object["detail"], err = json.Marshal(a.Detail)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'detail': %w", err)
-		}
-	}
-
-	if a.Message != nil {
-		object["message"], err = json.Marshal(a.Message)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'message': %w", err)
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling '%s': %w", fieldName, err)
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for GoogleProtobufAny. Returns the specified
-// element and whether it was found
-func (a GoogleProtobufAny) Get(fieldName string) (value interface{}, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for GoogleProtobufAny
-func (a *GoogleProtobufAny) Set(fieldName string, value interface{}) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for GoogleProtobufAny to handle AdditionalProperties
-func (a *GoogleProtobufAny) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["debug"]; found {
-		err = json.Unmarshal(raw, &a.Debug)
-		if err != nil {
-			return fmt.Errorf("error reading 'debug': %w", err)
-		}
-		delete(object, "debug")
-	}
-
-	if raw, found := object["type"]; found {
-		err = json.Unmarshal(raw, &a.Type)
-		if err != nil {
-			return fmt.Errorf("error reading 'type': %w", err)
-		}
-		delete(object, "type")
-	}
-
-	if raw, found := object["value"]; found {
-		err = json.Unmarshal(raw, &a.Value)
-		if err != nil {
-			return fmt.Errorf("error reading 'value': %w", err)
-		}
-		delete(object, "value")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
-		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return fmt.Errorf("error unmarshaling field %s: %w", fieldName, err)
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for GoogleProtobufAny to handle AdditionalProperties
-func (a GoogleProtobufAny) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Debug != nil {
-		object["debug"], err = json.Marshal(a.Debug)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'debug': %w", err)
-		}
-	}
-
-	if a.Type != nil {
-		object["type"], err = json.Marshal(a.Type)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'type': %w", err)
-		}
-	}
-
-	if a.Value != nil {
-		object["value"], err = json.Marshal(a.Value)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'value': %w", err)
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling '%s': %w", fieldName, err)
-		}
-	}
-	return json.Marshal(object)
-}
+// InstanceServiceUpdateInstanceJSONRequestBody defines body for InstanceServiceUpdateInstance for application/json ContentType.
+type InstanceServiceUpdateInstanceJSONRequestBody = InstanceResource

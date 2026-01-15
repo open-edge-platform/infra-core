@@ -100,6 +100,7 @@ linters-settings:
           - github.com/viant/xunsafe
           - github.com/grpc-ecosystem/go-grpc-middleware
           - go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+          - go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc
           - golang.org/x/net
           - google.golang.org/grpc
           - google.golang.org/protobuf
@@ -128,6 +129,7 @@ linters-settings:
           - github.com/gorilla/websocket
           - github.com/golang-jwt/jwt/v5
           - github.com/stretchr/testify/mock
+          - google.golang.org/protobuf
   cyclop:
     # SDL requirements recommend a maximum cyclomatic complexity of 10
     max-complexity: 10

@@ -23,6 +23,8 @@ func TestComputeSummary(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.RegionId = nil
 	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site2Request.RegionId = nil
@@ -71,9 +73,11 @@ func TestComputeSummary(t *testing.T) {
 
 	// Total (all hosts)
 	res, err := apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
+	t.Logf("DEBUG: expectedTotalHost=%d, actual Total=%d", expectedTotalHost, *res.JSON200.Total)
+	t.Logf("DEBUG: expectedUnallocatedHost=%d, actual Unallocated=%d", expectedUnallocatedHost, *res.JSON200.Unallocated)
 	assert.Equal(t, expectedTotalHost, *res.JSON200.Total)
 	assert.Equal(t, expectedUnallocatedHost, *res.JSON200.Unallocated)
 
@@ -82,7 +86,7 @@ func TestComputeSummary(t *testing.T) {
 		utils.MetadataHost2[0].Key, utils.MetadataHost2[0].Value)
 	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host2"}'`, filter)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	assert.Equal(t, hostsWithSiteAndMetaFromSite2, *res.JSON200.Total)
@@ -95,7 +99,7 @@ func TestComputeSummary(t *testing.T) {
 		utils.MetadataHost2[0].Key, utils.MetadataHost1[0].Value)
 	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host1"}'`, filter)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	assert.Equal(t, hostsWithoutSiteWithMeta, *res.JSON200.Total)
@@ -106,7 +110,7 @@ func TestComputeSummary(t *testing.T) {
 	// Filter by host's site-id
 	filter = fmt.Sprintf("site.resourceId=%q", *s1.JSON200.SiteID)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	assert.Equal(t, hostsWithSiteFromSite1, *res.JSON200.Total)

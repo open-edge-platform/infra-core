@@ -89,7 +89,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
+lint: $(OUT_DIR) generate validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint (buf-breaking temporarily disabled on mt-simplification)
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -113,17 +113,17 @@ oapi-docs:  ## generates a single/complete documentation of the OpenAPI spec in 
 
 $(TYPES): $(OPENAPI_PATH) ## generate types API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/types.cfg.yaml $<
+	$(GOCMD) run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v$(OAPI_CODEGEN_VERSION_REQ) --config=api/openapi/types.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-types.gen.go $@
 
 $(SERVER): $(OPENAPI_PATH) ## generate server API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/server.cfg.yaml $<
+	$(GOCMD) run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v$(OAPI_CODEGEN_VERSION_REQ) --config=api/openapi/server.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-server.gen.go $@
 
 $(CLIENT): $(OPENAPI_PATH) ## generate client API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/client.cfg.yaml $<
+	$(GOCMD) run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v$(OAPI_CODEGEN_VERSION_REQ) --config=api/openapi/client.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-client.gen.go $@
 
 go-build: $(OUT_DIR) ## go build

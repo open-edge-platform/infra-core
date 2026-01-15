@@ -26,6 +26,8 @@ func TestHostCustom(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
@@ -43,6 +45,7 @@ func TestHostCustom(t *testing.T) {
 
 	resHostH1, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -54,6 +57,7 @@ func TestHostCustom(t *testing.T) {
 	utils.Host1RequestUpdate.SiteId = s2.JSON200.ResourceId
 	h1Up, err := apiClient.HostServiceUpdateHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		utils.Host1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -65,6 +69,7 @@ func TestHostCustom(t *testing.T) {
 	filterBySite := fmt.Sprintf(FilterSiteID, *s1.JSON200.ResourceId)
 	res, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -75,6 +80,7 @@ func TestHostCustom(t *testing.T) {
 	filterBySite = fmt.Sprintf(FilterSiteID, *s2.JSON200.ResourceId)
 	res, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -84,6 +90,7 @@ func TestHostCustom(t *testing.T) {
 
 	resHostH1Up, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -94,6 +101,7 @@ func TestHostCustom(t *testing.T) {
 	utils.Host1RequestUpdate.SiteId = &emptyString
 	h1Up, err = apiClient.HostServiceUpdateHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		utils.Host1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -105,6 +113,7 @@ func TestHostCustom(t *testing.T) {
 	filterBySite = fmt.Sprintf(FilterSiteID, *s2.JSON200.ResourceId)
 	res, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -114,6 +123,7 @@ func TestHostCustom(t *testing.T) {
 
 	resHostH1Up, err = apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -128,7 +138,9 @@ func TestHostCustom(t *testing.T) {
 	}
 	h1Patch, err := apiClient.HostServicePatchHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
+		&api.HostServicePatchHostParams{},
 		h1PatchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -138,6 +150,7 @@ func TestHostCustom(t *testing.T) {
 
 	resHostH1Patched, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -150,7 +163,9 @@ func TestHostCustom(t *testing.T) {
 	h1PatchRequest.SiteId = &emptyString
 	h1Patch, err = apiClient.HostServicePatchHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
+		&api.HostServicePatchHostParams{},
 		h1PatchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -160,6 +175,7 @@ func TestHostCustom(t *testing.T) {
 
 	resHostH1Patched, err = apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -173,6 +189,7 @@ func TestHostCustom(t *testing.T) {
 	utils.Host1RequestUpdate.SiteId = &emptyStringWrong
 	h1Up, err = apiClient.HostServiceUpdateHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		utils.Host1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -196,6 +213,8 @@ func TestHostSites(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
 
@@ -212,6 +231,7 @@ func TestHostSites(t *testing.T) {
 	filterBySite := fmt.Sprintf(FilterSiteID, *s1.JSON200.ResourceId)
 	res, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{Filter: &filterBySite},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -221,6 +241,7 @@ func TestHostSites(t *testing.T) {
 
 	res, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &FilterNotHasSite,
 		},
@@ -232,6 +253,7 @@ func TestHostSites(t *testing.T) {
 
 	resHostH1, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -248,6 +270,8 @@ func TestHostErrors(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
@@ -255,6 +279,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_StatusNotFound", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceGetHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -265,6 +290,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceUpdateHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostUnexistID,
 			utils.Host1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -276,6 +302,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceDeleteHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -286,6 +313,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusBadRequest", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceGetHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -296,6 +324,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Put_WrongID_Status_StatusBadRequest", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceUpdateHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostWrongID,
 			utils.Host1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -307,6 +336,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusBadRequest", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceDeleteHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -317,6 +347,7 @@ func TestHostErrors(t *testing.T) {
 	t.Run("Post_NonPrintable_Status_StatusBadRequest", func(t *testing.T) {
 		resHost, err := apiClient.HostServiceCreateHostWithResponse(
 			ctx,
+			projectName,
 			utils.HostNonPrintable,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -331,6 +362,8 @@ func TestHostList(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
@@ -351,6 +384,7 @@ func TestHostList(t *testing.T) {
 
 	resList, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -366,6 +400,7 @@ func TestHostList(t *testing.T) {
 	// Use default page size (20)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -382,6 +417,8 @@ func BenchmarkHostList(b *testing.B) {
 	apiClient, err := GetAPIClient()
 	assert.NoError(b, err)
 
+	projectName := getProjectID(b)
+
 	r1 := CreateRegion(ctx, b, apiClient, utils.Region1Request)
 	assert.Equal(b, utils.Region1Name, *r1.JSON200.Name)
 	b.Cleanup(func() { DeleteRegion(ctx, b, apiClient, *r1.JSON200.ResourceId) })
@@ -393,17 +430,17 @@ func BenchmarkHostList(b *testing.B) {
 	utils.Host1Request.SiteId = s1.JSON200.ResourceId
 
 	// this is the shakeup run
-	benchmarkHosts(ctx, b, 5, apiClient)
+	benchmarkHosts(ctx, b, projectName, 5, apiClient)
 
 	// Loop for different number of hosts.
 	for _, i := range []int{10, 50, 100, 250} {
 		b.Run(fmt.Sprintf("Hosts%d", i), func(b *testing.B) {
-			benchmarkHosts(ctx, b, i, apiClient)
+			benchmarkHosts(ctx, b, projectName, i, apiClient)
 		})
 	}
 }
 
-func benchmarkHosts(ctx context.Context, b *testing.B, nHosts int,
+func benchmarkHosts(ctx context.Context, b *testing.B, projectName string, nHosts int,
 	apiClient *api.ClientWithResponses,
 ) {
 	b.Helper()
@@ -421,6 +458,7 @@ func benchmarkHosts(ctx context.Context, b *testing.B, nHosts int,
 	for n := 0; n < b.N; n++ {
 		resList, err := apiClient.HostServiceListHostsWithResponse(
 			ctx,
+			projectName,
 			&api.HostServiceListHostsParams{
 				Offset:   &pageID,
 				PageSize: &pageSize,
@@ -441,6 +479,8 @@ func TestHostListFilterMetadata(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// creating host #1
 	postResp := CreateHost(ctx, t, apiClient, utils.HostReqFilterMeta1)
 	hID1 := *postResp.JSON200.ResourceId
@@ -453,6 +493,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 	filterMetadata := fmt.Sprintf(FilterByMetadata, `{"key":"filtermetakey1","value":"filtermetavalue1"}`)
 	resList, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &filterMetadata,
 		},
@@ -468,6 +509,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 	filterMetadata = fmt.Sprintf(FilterByMetadata, `{"key":"filtermetakey2","value":"filtermetavalue2"}`)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &filterMetadata,
 		},
@@ -483,6 +525,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 	filterMetadata = fmt.Sprintf(FilterByMetadata, `{"key":"filtermetakey2","value":"filtermetavalue2_mod"}`)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &filterMetadata,
 		},
@@ -500,6 +543,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 		`{"key":"filtermetakey1","value":"filtermetavalue1"},{"key":"filtermetakey2","value":"filtermetavalue2"}`)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &filterMetadata,
 		},
@@ -516,6 +560,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 		`{"key":"filtermetakey1","value":"filtermetavalue1"},{"key":"filtermetakey2","value":"filtermetavalue2_mod"}`)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &filterMetadata,
 		},
@@ -531,6 +576,7 @@ func TestHostListFilterMetadata(t *testing.T) {
 	filterMetadata = fmt.Sprintf(FilterByMetadata, `{"key":"randomKey","value":"randomValue"}`)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &filterMetadata,
 		},
@@ -548,6 +594,8 @@ func TestHostListFilterUUID(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
@@ -583,6 +631,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	byUUIDFilter := fmt.Sprintf(FilterUUID, guidFind1)
 	resList, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &byUUIDFilter,
 		},
@@ -598,6 +647,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	byUUIDFilter = fmt.Sprintf(FilterUUID, guidFind2)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &byUUIDFilter,
 		},
@@ -612,6 +662,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	// Look for all hosts
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			PageSize: &largePageSize,
 		},
@@ -627,6 +678,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	byUUIDFilter = fmt.Sprintf(FilterUUID, guidFindUnexists)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &byUUIDFilter,
 		},
@@ -640,6 +692,7 @@ func TestHostListFilterUUID(t *testing.T) {
 	byUUIDFilter = fmt.Sprintf(FilterUUID, utils.HostUUIDError)
 	resList, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{
 			Filter: &byUUIDFilter,
 		},
@@ -657,12 +710,15 @@ func TestHostInvalidate(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	_, _, h4 := loadZTPTest(ctx, t, apiClient, &utils.Region1Request,
+	projectName := getProjectID(t)
+
+	_, _, h4 := loadZTPTest(ctx, t, apiClient, projectName, &utils.Region1Request,
 		&utils.Site1Request, &utils.Host4Request)
 	require.NoError(t, err)
 
 	_, err = apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h4.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -671,6 +727,7 @@ func TestHostInvalidate(t *testing.T) {
 	note := "host is lost"
 	_, err = apiClient.HostServiceInvalidateHostWithResponse(
 		ctx,
+		projectName,
 		*h4.JSON200.ResourceId,
 		&api.HostServiceInvalidateHostParams{
 			Note: &note,
@@ -684,6 +741,7 @@ func TestHostInvalidate(t *testing.T) {
 
 	res, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h4.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -695,7 +753,7 @@ func TestHostInvalidate(t *testing.T) {
 }
 
 //nolint:unparam // Consider if we can remove some returns values.
-func loadZTPTest(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses,
+func loadZTPTest(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses, projectName string,
 	regionRequest *api.RegionResource, siteRequest *api.SiteResource, hostRequest *api.HostResource) (
 	*api.RegionServiceCreateRegionResponse, *api.SiteServiceCreateSiteResponse, *api.HostServiceCreateHostResponse,
 ) {
@@ -713,6 +771,7 @@ func loadZTPTest(ctx context.Context, t *testing.T, apiClient *api.ClientWithRes
 
 	resH, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*hos.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -732,7 +791,9 @@ func TestHostZTPWithPut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	_, s1, h4 := loadZTPTest(ctx, t, apiClient, &utils.Region1Request,
+	projectName := getProjectID(t)
+
+	_, s1, h4 := loadZTPTest(ctx, t, apiClient, projectName, &utils.Region1Request,
 		&utils.Site1Request, &utils.Host4Request)
 	require.NoError(t, err)
 
@@ -740,6 +801,7 @@ func TestHostZTPWithPut(t *testing.T) {
 	utils.Host4RequestPut.SiteId = s1.JSON200.ResourceId
 	h4Put, err := apiClient.HostServiceUpdateHostWithResponse(
 		ctx,
+		projectName,
 		*h4.JSON200.ResourceId,
 		utils.Host4RequestPut,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -752,6 +814,7 @@ func TestHostZTPWithPut(t *testing.T) {
 	byUUIDFilter := fmt.Sprintf(FilterUUID, UUID)
 	res, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceListHostsParams{Filter: &byUUIDFilter},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -761,6 +824,7 @@ func TestHostZTPWithPut(t *testing.T) {
 
 	resHostH4Put, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h4.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -774,6 +838,8 @@ func TestHostsSummary(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *r1.JSON200.Name)
@@ -792,6 +858,7 @@ func TestHostsSummary(t *testing.T) {
 
 	resHostH1, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*h1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -802,6 +869,7 @@ func TestHostsSummary(t *testing.T) {
 
 	resHostSummary, err := apiClient.HostServiceGetHostsSummaryWithResponse(
 		ctx,
+		projectName,
 		&api.HostServiceGetHostsSummaryParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -828,22 +896,26 @@ func TestHostRegister(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// register host using UUID & SN
 	registeredHost1, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
+		projectName,
+		&api.HostServiceRegisterHostParams{},
 		utils.HostRegister,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	registeredHosts = append(registeredHosts, registeredHost1)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost1.StatusCode())
-	require.NotNil(t, registeredHost1.JSON200, "HostServiceRegisterHost returned nil JSON200")
 	assert.Equal(t, *utils.HostRegister.Uuid, *registeredHost1.JSON200.Uuid)
 	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost1.JSON200.DesiredState)
 
 	// change registered host name - via Patch
 	resHostRegisterPatch, err := apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost1.JSON200.ResourceId,
 		utils.HostRegisterPatch,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -854,6 +926,7 @@ func TestHostRegister(t *testing.T) {
 	// get the patched host and verify name is updated
 	resHostGet, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -863,6 +936,7 @@ func TestHostRegister(t *testing.T) {
 	// change name & autoOnboard=true for registered host - via Patch
 	resHostRegisterPatch, err = apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost1.JSON200.ResourceId,
 		api.HostRegister{
 			Name:        &utils.Host2bName,
@@ -876,6 +950,7 @@ func TestHostRegister(t *testing.T) {
 	// get the patched host and verify desiredState is updated
 	resHostGet, err = apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -887,6 +962,7 @@ func TestHostRegister(t *testing.T) {
 	// change autoOnboard=false only for registered host - via Patch
 	resHostRegisterPatch, err = apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost1.JSON200.ResourceId,
 		api.HostRegister{
 			AutoOnboard: &utils.AutoOnboardFalse,
@@ -899,6 +975,7 @@ func TestHostRegister(t *testing.T) {
 	// get the patched host and verify desiredState is updated
 	resHostGet, err = apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -909,6 +986,8 @@ func TestHostRegister(t *testing.T) {
 	// register host with autoOnboard=true
 	registeredHost2, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
+		projectName,
+		&api.HostServiceRegisterHostParams{},
 		utils.HostRegisterAutoOnboard,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -920,6 +999,7 @@ func TestHostRegister(t *testing.T) {
 	// change name & autoOnboard=false for registered host - via Patch
 	resHostRegisterPatch, err = apiClient.HostServicePatchRegisterHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost2.JSON200.ResourceId,
 		api.HostRegister{
 			Name:        &utils.Host1Name,
@@ -933,6 +1013,7 @@ func TestHostRegister(t *testing.T) {
 	// get the patched host and verify desiredState is updated
 	resHostGet, err = apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -944,6 +1025,8 @@ func TestHostRegister(t *testing.T) {
 	// register host using UUID only
 	registeredHost3, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
+		projectName,
+		&api.HostServiceRegisterHostParams{},
 		api.HostRegister{
 			Uuid: &utils.Host5UUID,
 		},
@@ -958,6 +1041,8 @@ func TestHostRegister(t *testing.T) {
 	// register host using SN only
 	registeredHost4, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
+		projectName,
+		&api.HostServiceRegisterHostParams{},
 		api.HostRegister{
 			SerialNumber: &utils.HostSerialNumber3,
 		},
@@ -972,6 +1057,8 @@ func TestHostRegister(t *testing.T) {
 	// invalid register command - no UUID, no SN
 	resHostRegisterInv, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
+		projectName,
+		&api.HostServiceRegisterHostParams{},
 		api.HostRegister{Name: &utils.Host4Name},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -982,6 +1069,7 @@ func TestHostRegister(t *testing.T) {
 	for _, host := range registeredHosts {
 		resHost, err := apiClient.HostServiceDeleteHostWithResponse(
 			ctx,
+			projectName,
 			*host.JSON200.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 			AddProjectIDtoTheHeader,
@@ -1002,21 +1090,25 @@ func TestHostOnboard(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// register host using UUID & SN
 	registeredHost, err := apiClient.HostServiceRegisterHostWithResponse(
 		ctx,
+		projectName,
+		&api.HostServiceRegisterHostParams{},
 		utils.HostRegister,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost.StatusCode())
-	require.NotNil(t, registeredHost.JSON200, "HostServiceRegisterHost returned nil JSON200")
 	assert.Equal(t, *utils.HostRegister.Uuid, *registeredHost.JSON200.Uuid)
 	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost.JSON200.DesiredState)
 
 	// onboard host
 	resOnboard, err := apiClient.HostServiceOnboardHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -1026,6 +1118,7 @@ func TestHostOnboard(t *testing.T) {
 	// get the onboarded host and verify the desiredState is updated
 	onboardedHost, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -1036,6 +1129,7 @@ func TestHostOnboard(t *testing.T) {
 	// delete the onboarded host
 	resHost, err := apiClient.HostServiceDeleteHostWithResponse(
 		ctx,
+		projectName,
 		*registeredHost.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

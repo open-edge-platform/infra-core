@@ -967,6 +967,7 @@ func TestRegion_Patch(t *testing.T) {
 	updatedRegion, err := apiClient.RegionServicePatchRegionWithResponse(
 		ctx,
 		*region.JSON200.ResourceId,
+		&api.RegionServicePatchRegionParams{},
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -1011,6 +1012,7 @@ func TestSite_Patch(t *testing.T) {
 	updatedSite, err := apiClient.SiteServicePatchSiteWithResponse(
 		ctx,
 		*site.JSON200.ResourceId,
+		&api.SiteServicePatchSiteParams{},
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
