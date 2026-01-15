@@ -120,37 +120,58 @@ func (tc *TenantInitializationController) InitializeTenant(ctx context.Context, 
 }
 
 func (tc *TenantInitializationController) HandleEvent(we *client.WatchEvents) {
-	log.Debug().Msgf("HandleEvent(%v)", we.Event)
+	log.Info().Msgf("[HANDLE-EVENT] HandleEvent received event: %v", we.Event)
 
 	tenant := we.Event.GetResource().GetTenant()
 	if tenant == nil {
 		// Shall never happen
-		log.Debug().Msgf("Given envelope doesn't contain tenant: %v", we.Event.GetResource())
+		log.Debug().Msgf("[HANDLE-EVENT-EXIT1] Given envelope doesn't contain tenant: %v", we.Event.GetResource())
 		return
 	}
+
+	log.Info().Msgf("[HANDLE-EVENT] tenant=%s, WatcherOsmanager=%v, DesiredState=%v",
+		tenant.GetTenantId(), tenant.WatcherOsmanager, tenant.DesiredState)
+
 	if !tenant.WatcherOsmanager {
-		log.Debug().Msgf("OS Resource Manager is not yet done with %s", tenant.GetTenantId())
+		log.Warn().Msgf("[HANDLE-EVENT-EXIT2] OS Resource Manager is not yet done with %s (WatcherOsmanager=false)",
+			tenant.GetTenantId())
 		return
 	}
 	if tenant.DesiredState != tenantv1.TenantState_TENANT_STATE_CREATED {
+		log.Debug().Msgf("[HANDLE-EVENT-EXIT3] tenant=%s DesiredState=%v (not CREATED)",
+			tenant.GetTenantId(), tenant.DesiredState)
 		return
 	}
+
+	log.Info().Msgf("[HANDLE-EVENT] All conditions passed for tenant=%s, calling handleTenantDesiredStateCreated",
+		tenant.GetTenantId())
 	if err := tc.handleTenantDesiredStateCreated(tenant); err != nil {
-		log.Err(err).Msgf("couldn't handle update event for Tenant(%s)", tenant.GetTenantId())
+		log.Err(err).Msgf("[HANDLE-EVENT] couldn't handle update event for Tenant(%s)", tenant.GetTenantId())
 	}
 }
 
 func (tc *TenantInitializationController) handleTenantDesiredStateCreated(tenant *tenantv1.Tenant) error {
+	log.Info().Msgf("[ACK-SEND] handleTenantDesiredStateCreated called for tenant=%s (CurrentState=%v)",
+		tenant.GetTenantId(), tenant.CurrentState)
+
 	if tenant.CurrentState != tenantv1.TenantState_TENANT_STATE_CREATED {
+		log.Info().Msgf("[ACK-SEND] CurrentState is not CREATED, calling setCurrentStatusCreated for tenant=%s",
+			tenant.GetTenantId())
 		if err := tc.setCurrentStatusCreated(tenant); err != nil {
+			log.Error().Err(err).Msgf("[ACK-SEND] setCurrentStatusCreated FAILED for tenant=%s", tenant.GetTenantId())
 			return err
 		}
+		log.Info().Msgf("[ACK-SEND] setCurrentStatusCreated succeeded for tenant=%s", tenant.GetTenantId())
 	}
 
 	if tenant.CurrentState == tenantv1.TenantState_TENANT_STATE_CREATED {
+		log.Info().Msgf("[ACK-SEND] Sending ACK via TryToSetActiveWatcherStatusIdle for tenant=%s",
+			tenant.GetTenantId())
 		if err := tc.nxc.TryToSetActiveWatcherStatusIdle(tenant.GetTenantId()); err != nil {
+			log.Error().Err(err).Msgf("[ACK-SEND] TryToSetActiveWatcherStatusIdle FAILED for tenant=%s", tenant.GetTenantId())
 			return err
 		}
+		log.Info().Msgf("[ACK-SEND] Successfully sent ACK for tenant=%s", tenant.GetTenantId())
 	}
 
 	return nil

@@ -173,8 +173,10 @@ func CreateSchedSingle(
 	)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, sched.StatusCode())
-
+	require.NotNil(tb, sched.JSON200, "SingleSchedule creation returned nil JSON200")
+	require.NotNil(tb, sched.JSON200.ResourceId, "SingleSchedule creation returned nil ResourceId")
 	tb.Cleanup(func() { DeleteSchedSingle(context.Background(), tb, apiClient, *sched.JSON200.ResourceId) })
+
 	return sched
 }
 
@@ -211,7 +213,10 @@ func CreateSchedRepeated(
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, sched.StatusCode())
 
+	require.NotNil(tb, sched.JSON200, "RepeatedSchedule creation returned nil JSON200")
+	require.NotNil(tb, sched.JSON200.ResourceId, "RepeatedSchedule creation returned nil ResourceId")
 	tb.Cleanup(func() { DeleteSchedRepeated(context.Background(), tb, apiClient, *sched.JSON200.ResourceId) })
+
 	return sched
 }
 
@@ -243,6 +248,8 @@ func CreateRegion(
 	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, region.StatusCode())
+	require.NotNil(tb, region.JSON200, "Region creation returned nil JSON200")
+	require.NotNil(tb, region.JSON200.ResourceId, "Region creation returned nil ResourceId")
 
 	tb.Cleanup(func() { DeleteRegion(context.Background(), tb, apiClient, *region.JSON200.ResourceId) })
 	return region
@@ -276,6 +283,8 @@ func CreateSite(
 	site, err := apiClient.SiteServiceCreateSiteWithResponse(ctx, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, site.StatusCode())
+	require.NotNil(tb, site.JSON200, "Site creation returned nil JSON200")
+	require.NotNil(tb, site.JSON200.ResourceId, "Site creation returned nil ResourceId")
 
 	tb.Cleanup(func() { DeleteSite(context.Background(), tb, apiClient, *site.JSON200.ResourceId) })
 	return site
@@ -306,6 +315,8 @@ func CreateHost(
 	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, host.StatusCode())
+	require.NotNil(tb, host.JSON200, "Host creation returned nil JSON200")
+
 	tb.Cleanup(func() { SoftDeleteHost(context.Background(), tb, apiClient, host.JSON200) })
 	return host
 }
@@ -404,6 +415,8 @@ func CreateOS(
 	)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, osCreated.StatusCode())
+	require.NotNil(tb, osCreated.JSON200, "OS creation returned nil JSON200")
+	require.NotNil(tb, osCreated.JSON200.ResourceId, "OS creation returned nil ResourceId")
 
 	tb.Cleanup(func() {
 		time.Sleep(sleepTime) // Waits until Instance reconciliation happens
@@ -427,6 +440,10 @@ func DeleteOS(
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if osDel.StatusCode() != http.StatusOK {
+		tb.Logf("WARNING: Failed to delete OS %s - Status Code: %d", osID, osDel.StatusCode())
+		tb.Logf("Response Body: %s", string(osDel.Body))
+	}
 	assert.Equal(tb, http.StatusOK, osDel.StatusCode())
 }
 
@@ -446,7 +463,9 @@ func CreateWorkload(
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, wCreated.StatusCode())
 
-	tb.Cleanup(func() { DeleteWorkload(context.Background(), tb, apiClient, *wCreated.JSON200.ResourceId) })
+	if wCreated.JSON200 != nil && wCreated.JSON200.ResourceId != nil {
+		tb.Cleanup(func() { DeleteWorkload(context.Background(), tb, apiClient, *wCreated.JSON200.ResourceId) })
+	}
 	return wCreated
 }
 
@@ -483,7 +502,9 @@ func CreateWorkloadMember(
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, mCreated.StatusCode())
 
-	tb.Cleanup(func() { DeleteWorkloadMember(context.Background(), tb, apiClient, *mCreated.JSON200.ResourceId) })
+	if mCreated.JSON200 != nil && mCreated.JSON200.ResourceId != nil {
+		tb.Cleanup(func() { DeleteWorkloadMember(context.Background(), tb, apiClient, *mCreated.JSON200.ResourceId) })
+	}
 	return mCreated
 }
 
@@ -516,6 +537,8 @@ func CreateInstance(
 		ctx, instRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, createdInstance.StatusCode())
+	assert.NotNil(tb, createdInstance.JSON200)
+	assert.NotNil(tb, createdInstance.JSON200.ResourceId)
 
 	tb.Cleanup(func() { DeleteInstance(context.Background(), tb, apiClient, *createdInstance.JSON200.ResourceId) })
 	return createdInstance
@@ -542,6 +565,8 @@ func CreateTelemetryLogsGroup(
 		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
+	require.NotNil(tb, created.JSON200, "TelemetryLogsGroup creation returned nil JSON200")
+	require.NotNil(tb, created.JSON200.ResourceId, "TelemetryLogsGroup creation returned nil ResourceId")
 
 	tb.Cleanup(func() {
 		DeleteTelemetryLogsGroup(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
@@ -572,6 +597,8 @@ func CreateTelemetryMetricsGroup(
 		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
+	require.NotNil(tb, created.JSON200, "TelemetryMetricsGroup creation returned nil JSON200")
+	require.NotNil(tb, created.JSON200.ResourceId, "TelemetryMetricsGroup creation returned nil ResourceId")
 
 	tb.Cleanup(func() {
 		DeleteTelemetryMetricsGroup(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
@@ -602,6 +629,8 @@ func CreateTelemetryLogsProfile(
 		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
+	require.NotNil(tb, created.JSON200, "TelemetryLogsProfile creation returned nil JSON200")
+	require.NotNil(tb, created.JSON200.ResourceId, "TelemetryLogsProfile creation returned nil ResourceId")
 
 	tb.Cleanup(func() {
 		DeleteTelemetryLogsProfile(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
@@ -632,6 +661,8 @@ func CreateTelemetryMetricsProfile(
 		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
+	require.NotNil(tb, created.JSON200, "TelemetryMetricsProfile creation returned nil JSON200")
+	require.NotNil(tb, created.JSON200.ResourceId, "TelemetryMetricsProfile creation returned nil ResourceId")
 
 	tb.Cleanup(func() {
 		DeleteTelemetryMetricsProfile(context.Background(), tb, apiClient, *created.JSON200.ResourceId)
@@ -665,6 +696,8 @@ func CreateProvider(
 	)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, providerCreated.StatusCode())
+	require.NotNil(tb, providerCreated.JSON200, "Provider creation returned nil JSON200")
+	require.NotNil(tb, providerCreated.JSON200.ResourceId, "Provider creation returned nil ResourceId")
 
 	tb.Cleanup(func() { DeleteProvider(context.Background(), tb, apiClient, *providerCreated.JSON200.ResourceId) })
 	return providerCreated
@@ -700,6 +733,8 @@ func CreateLocalAccount(ctx context.Context, t *testing.T, apiClient *api.Client
 	)
 	require.NoError(t, err)
 	require.Equal(t, http.StatusOK, response.StatusCode())
+	require.NotNil(t, response.JSON200, "LocalAccount creation returned nil JSON200")
+	require.NotNil(t, response.JSON200.ResourceId, "LocalAccount creation returned nil ResourceId")
 
 	t.Cleanup(func() {
 		DeleteOS(context.Background(), t, apiClient, *response.JSON200.ResourceId)
@@ -747,6 +782,8 @@ func CreateOsUpdatePolicy(
 	)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, policyCreated.StatusCode())
+	require.NotNil(tb, policyCreated.JSON200, "OSUpdatePolicy creation returned nil JSON200")
+	require.NotNil(tb, policyCreated.JSON200.ResourceId, "OSUpdatePolicy creation returned nil ResourceId")
 
 	tb.Cleanup(func() {
 		DeleteOSUpdatePolicy(context.Background(), tb, apiClient, *policyCreated.JSON200.ResourceId)
@@ -764,5 +801,9 @@ func DeleteOSUpdatePolicy(ctx context.Context, tb testing.TB, apiClient *api.Cli
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if policyDel.StatusCode() != http.StatusOK {
+		tb.Logf("WARNING: Failed to delete OSUpdatePolicy %s - Status Code: %d", policyID, policyDel.StatusCode())
+		tb.Logf("Response Body: %s", string(policyDel.Body))
+	}
 	assert.Equal(tb, http.StatusOK, policyDel.StatusCode())
 }

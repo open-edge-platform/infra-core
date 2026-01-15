@@ -1,0 +1,26 @@
+---
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+appVersion: apps/v1
+metadata:
+  release: 0.0.0-dev
+  version: 0.1.0
+spec:
+  name: Ubuntu 24.04.2 LTS with Intel out-of-tree GPU drivers
+  type: OS_TYPE_MUTABLE
+  provider: OS_PROVIDER_KIND_INFRA
+  architecture: x86_64
+  profileName: ubuntu-24.04-lts-generic-ext
+  osImageUrl: >-
+    https://cloud-images.ubuntu.com/releases/noble/release-20250430/ubuntu-24.04-server-cloudimg-amd64.img
+  osImageVersion: 24.04.2
+  osImageSha256: bc471ca49de03b5129c65b70f9862b7f4b5e721622fd34ade78132f6f7999e2d
+  osPackageManifestURL: ""
+  osExistingCvesURL: https://security-metadata.canonical.com/oval/com.ubuntu.noble.cve.oval.xml.bz2
+  osFixedCvesURL: https://security-metadata.canonical.com/oval/com.ubuntu.noble.usn.oval.xml.bz2
+  securityFeature: SECURITY_FEATURE_NONE
+  description: Ubuntu 24.04.2 LTS with Intel out-of-tree GPU drivers for x86_64 architecture
+  platformBundle:
+    installerScript: edge-orch/en/files/platformbundle/ubuntu-24.04-lts-generic-ext:1.1.5.1
+    cloudInitScript: edge-orch/en/files/platformbundle/cloudinit:1.1.5.1

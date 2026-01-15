@@ -13,7 +13,7 @@ export KEYCLOAK_URL="https://keycloak.kind.internal"
 export PASSWORD='<REPLACE_WITH_PASSWORD>'
 export USERNAME="sample-project-api-user"
 export API_URL="http://127.0.0.1:8080/"
-export CA_PATH="orch-ca.crt"
+export CA_PATH="<absolute path to CA cert"
 
 PROJECT_ID=$(kubectl get projects.project -o json | jq -r ".items[0].status.projectStatus.uID")
 
@@ -38,7 +38,7 @@ Run the integration tests:
 
 ```bash
 # A test case can be specified after the `go test` statement, such as: -run TestHostCustom
-JWT_TOKEN=${JWT_TOKEN} PROJECT_ID=${PROJECT_ID}  go test -v -count=1 ./test/client/ -apiurl=${API_URL} -caPath=${CA_PATH} 
+JWT_TOKEN=${JWT_TOKEN} PROJECT_ID=${PROJECT_ID}  go test -v -count=1 client/ -apiurl=${API_URL} -caPath=${CA_PATH} 
 ```
 
 or using Make target:

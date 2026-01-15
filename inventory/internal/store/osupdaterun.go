@@ -253,8 +253,10 @@ func filterOSUpdateRuns(ctx context.Context, client *ent.Client, filter *inv_v1.
 		return nil, 0, err
 	}
 
-	// perform query - And together all the predicates
+	// perform query - And together all the predicates with eager loading
 	query := client.OSUpdateRunResource.Query().
+		WithAppliedPolicy().
+		WithInstance().
 		Where(pred).
 		Order(orderOpts...).
 		Offset(offset)

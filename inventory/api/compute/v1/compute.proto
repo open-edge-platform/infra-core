@@ -985,7 +985,7 @@ message OSUpdatePolicyResource {
       max_items: 100
       items: {
         string: {
-          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\" \\\n]+$"
+          pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*+()\\[\\]\" \\n]+$"
           max_bytes: 10000
         }
       }
@@ -1199,7 +1199,7 @@ message OSUpdateRunResource {
 
   OSUpdatePolicyResource applied_policy = 4 [(ent.edge) = {
     unique: true
-    required: true
+    required: false
   }]; // OSUpdate Policy of this OSUpdate Run. The field is immutable.
 
   InstanceResource instance = 5 [(ent.edge) = {
