@@ -339,6 +339,7 @@ func TestInstanceList_ListEmpty(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
+	require.NotNil(t, resList.JSON200, "ListInstances returned nil JSON200")
 	assert.Empty(t, resList.JSON200.Instances)
 }
 
@@ -524,8 +525,27 @@ func TestInstance_CreateWithOSUpdatePolicy(t *testing.T) {
 	hostCreated1 := CreateHost(ctx, t, apiClient, utils.Host3Request)
 	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 
-	// Create OSUpdatePolicy
-	osUpdatePolicy := CreateOsUpdatePolicy(ctx, t, apiClient, utils.OsUpdatePolicyRequest1)
+	// Create OSUpdatePolicy - register cleanup before creating instance
+	// so that policy cleanup runs after instance cleanup
+	policyResp, err := apiClient.OSUpdatePolicyCreateOSUpdatePolicyWithResponse(
+		ctx,
+		utils.OsUpdatePolicyRequest1,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	if policyResp.StatusCode() != http.StatusOK {
+		t.Logf("Failed to create OSUpdatePolicy - Status Code: %d", policyResp.StatusCode())
+		t.Logf("Response Body: %s", string(policyResp.Body))
+		t.FailNow()
+	}
+	osUpdatePolicy := policyResp
+
+	// Register cleanup before creating instance
+	t.Cleanup(func() {
+		// Wait a bit for instance deletion to propagate
+		time.Sleep(3 * time.Second)
+		DeleteOSUpdatePolicy(context.Background(), t, apiClient, *osUpdatePolicy.JSON200.ResourceId)
+	})
 
 	// Create instance with OSUpdatePolicy assigned
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId

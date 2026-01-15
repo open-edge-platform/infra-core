@@ -626,13 +626,13 @@ var (
 		OsProvider:   &OSProvider,
 	}
 	OSResource1ReqwithInstallPackages = api.OperatingSystemResource{
-		Name:              &OSName1,
-		Architecture:      &OSArch1,
-		RepoUrl:           &OSRepo1,
-		Sha256:            inv_testing.GenerateRandomSha256(),
-		InstalledPackages: &OSInstalledPackages,
-		OsType:            &OsTypeMutable,
-		OsProvider:        &OSProvider,
+		Name:         &OSName1,
+		Architecture: &OSArch1,
+		RepoUrl:      &OSRepo1,
+		Sha256:       inv_testing.GenerateRandomSha256(),
+		// InstalledPackages is a read-only field and should not be set on create
+		OsType:     &OsTypeMutable,
+		OsProvider: &OSProvider,
 	}
 
 	clusterUUID1            = uuid.NewString()
