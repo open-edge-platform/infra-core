@@ -1064,6 +1064,8 @@ github.com/open-edge-platform/infra-core/inventory/v2 v2.33.2 h1:aX8s49KaMS4zkGn
 github.com/open-edge-platform/infra-core/inventory/v2 v2.33.2/go.mod h1:6utgen+dl47bYZCUW6Ug7NfL/NRAQjeHP0XljpnxhWQ=
 github.com/open-edge-platform/orch-library/go v0.6.4-0.20260113172151-832e970e4c63 h1:twxNjwvccQ+LLB9zWFCj2xHXH9baxdymLT8hhVmPwy0=
 github.com/open-edge-platform/orch-library/go v0.6.4-0.20260113172151-832e970e4c63/go.mod h1:mYhs/KbcXPQWM+2cHZXyzeIIzM7xKvnNgsnHlFkXH0g=
+github.com/open-edge-platform/orch-library/go v0.6.4-0.20260115154659-30f302fb1b1a h1:A/AEwUog04f0SdF4blWr5Z2BeXMSVDFGR3iE3sFLRvs=
+github.com/open-edge-platform/orch-library/go v0.6.4-0.20260115154659-30f302fb1b1a/go.mod h1:mYhs/KbcXPQWM+2cHZXyzeIIzM7xKvnNgsnHlFkXH0g=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.10.1 h1:haIvxZSPky8HLjRrvQwWAjCPLg8JDFSZMbbG4yyUHgY=

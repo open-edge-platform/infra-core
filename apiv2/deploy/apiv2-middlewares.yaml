@@ -1,3 +1,16 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+# TO BE REMOVE AFTER MIGRATION COMPLETED
+# Traefik Middlewares for apiv2 path rewrites
+# Used in apiv2-nexus-api-ingressroute.yaml for multi-tenant compute APIs
+# Currently covers:
+# - HostService: /v1/projects/{projectName}/compute/hosts
+# - OperatingSystemService: /v1/projects/{projectName}/compute/os (not yet migrated)
+# Includes path rewrites for UI compatibility:
+# - /hosts/summary -> /hosts_summary (UI bug fix)
+# - /compute/os -> /edge-infra.orchestrator.apis/v2/operating_systems (OS not migrated yet)
+---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
@@ -36,9 +49,3 @@ spec:
     # This middleware rewrites the incorrect path to the correct one
     regex: "^(/v1/projects/[^/]+/compute)/hosts/summary"
     replacement: "${1}/hosts_summary"
----
-# NOTE: apiv2-add-project-id middleware removed
-# ActiveProjectID is now extracted at application level by apiv2 proxy:
-# - New multi-tenant paths (/v1/projects/{projectName}/*): Extract project name from URL, resolve UUID via Nexus API
-# - Old-style paths (/edge-infra.orchestrator.apis/v2/*): Extract project UUID directly from JWT token roles
-# This eliminates the need for hardcoded project IDs and enables true multi-tenant support
