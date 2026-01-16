@@ -1,0 +1,27 @@
+// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto3";
+
+package services.v1;
+
+import "google/api/annotations.proto";
+import "gnostic/openapi/v3/annotations.proto";
+
+option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1;servicesv1";
+
+option (gnostic.openapi.v3.document) = {
+  info: {
+    title: "Edge Infrastructure Manager";
+    version: "0.2.0";
+    description: "Edge Infrastructure Manager API";
+    contact: {
+      name: "Open Edge Platform GitHub Organization";
+      url: "https://github.com/open-edge-platform";
+    }
+    license: {
+      name: "Apache 2.0";
+      url: "https://www.apache.org/licenses/LICENSE-2.0.html";
+    }
+  }
+};

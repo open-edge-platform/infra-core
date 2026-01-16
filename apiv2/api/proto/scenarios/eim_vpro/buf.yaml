@@ -1,0 +1,20 @@
+---
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+version: v1
+deps:
+  - buf.build/bufbuild/protovalidate
+  - buf.build/googleapis/googleapis
+  - buf.build/gnostic/gnostic
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - STANDARD
+    - ENUM_FIRST_VALUE_ZERO
+    - COMMENT_MESSAGE
+    - COMMENT_RPC
+    - COMMENT_SERVICE
+  rpc_allow_google_protobuf_empty_responses: true

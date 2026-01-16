@@ -1,0 +1,1377 @@
+---
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+# Generated file do not edit !!!
+openapi: 3.1.0
+info:
+  title: Edge Infrastructure Manager
+  description: Edge Infrastructure Manager API
+  contact:
+    name: Open Edge Platform GitHub Organization
+    url: https://github.com/open-edge-platform
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.2.0
+paths:
+  /edge-infra.orchestrator.apis/v2/hosts_summary:
+    get:
+      tags:
+        - HostService
+      summary: GetHostsSummary
+      description: Get a summary of the hosts status.
+      operationId: HostService_GetHostsSummary
+      parameters:
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHostSummaryResponse'
+  /edge-infra.orchestrator.apis/v2/hosts:
+    get:
+      tags:
+        - HostService
+      summary: ListHosts
+      description: Get a list of hosts.
+      operationId: HostService_ListHosts
+      parameters:
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListHostsResponse'
+    post:
+      tags:
+        - HostService
+      summary: CreateHost
+      description: Create a host.
+      operationId: HostService_CreateHost
+      requestBody:
+        description: The host to create.
+        content:
+          application/json:
+            schema:
+              title: host
+              description: The host to create.
+              $ref: '#/components/schemas/HostResource'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostResource'
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}:
+    get:
+      tags:
+        - HostService
+      summary: GetHost
+      description: Get a specific host.
+      operationId: HostService_GetHost
+      parameters:
+        - name: resourceId
+          in: path
+          description: Name of the requested host.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested host.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostResource'
+    put:
+      tags:
+        - HostService
+      summary: UpdateHost
+      description: Update a host.
+      operationId: HostService_UpdateHost
+      parameters:
+        - name: resourceId
+          in: path
+          description: Name of the host host to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the host host to be updated.
+      requestBody:
+        description: Updated values for the host.
+        content:
+          application/json:
+            schema:
+              title: host
+              description: Updated values for the host.
+              $ref: '#/components/schemas/HostResource'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostResource'
+    delete:
+      tags:
+        - HostService
+      summary: DeleteHost
+      description: Delete a host.
+      operationId: HostService_DeleteHost
+      parameters:
+        - name: resourceId
+          in: path
+          description: Name of the host host to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the host host to be deleted.
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteHostResponse'
+    patch:
+      tags:
+        - HostService
+      summary: PatchHost
+      description: Patch a host.
+      operationId: HostService_PatchHost
+      parameters:
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+      requestBody:
+        description: Updated values for the host.
+        content:
+          application/json:
+            schema:
+              title: host
+              description: Updated values for the host.
+              $ref: '#/components/schemas/HostResource'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostResource'
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate:
+    put:
+      tags:
+        - HostService
+      summary: InvalidateHost
+      description: Invalidate a host.
+      operationId: HostService_InvalidateHost
+      parameters:
+        - name: resourceId
+          in: path
+          description: Host resource ID
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            pattern: ^host-[0-9a-f]{8}$
+            description: Host resource ID
+        - name: note
+          in: query
+          description: user-provided reason for change or a freeform field
+          schema:
+            type: string
+            title: note
+            maxLength: 512
+            minLength: 1
+            pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+            description: user-provided reason for change or a freeform field
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidateHostResponse'
+  /edge-infra.orchestrator.apis/v2/hosts/register:
+    post:
+      tags:
+        - HostService
+      summary: RegisterHost
+      description: Register a host.
+      operationId: HostService_RegisterHost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: host
+              $ref: '#/components/schemas/HostRegister'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostResource'
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register:
+    patch:
+      tags:
+        - HostService
+      summary: PatchRegisterHost
+      description: Update a host registration.
+      operationId: HostService_PatchRegisterHost
+      parameters:
+        - name: resourceId
+          in: path
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            pattern: ^host-[0-9a-f]{8}$
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: host
+              $ref: '#/components/schemas/HostRegister'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostResource'
+  /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard:
+    patch:
+      tags:
+        - HostService
+      summary: OnboardHost
+      description: Onboard a host.
+      operationId: HostService_OnboardHost
+      parameters:
+        - name: resourceId
+          in: path
+          description: Host resource ID
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            pattern: ^host-[0-9a-f]{8}$
+            description: Host resource ID
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnboardHostResponse'
+components:
+  schemas:
+    google.protobuf.Timestamp:
+      type: string
+      format: date-time
+      description: |-
+        A Timestamp represents a point in time independent of any time zone or local
+         calendar, encoded as a count of seconds and fractions of seconds at
+         nanosecond resolution. The count is relative to an epoch at UTC midnight on
+         January 1, 1970, in the proleptic Gregorian calendar which extends the
+         Gregorian calendar backwards to year one.
+
+         All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+         second table is needed for interpretation, using a [24-hour linear
+         smear](https://developers.google.com/time/smear).
+
+         The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+         restricting to that range, we ensure that we can convert to and from [RFC
+         3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
+
+         # Examples
+
+         Example 1: Compute Timestamp from POSIX `time()`.
+
+             Timestamp timestamp;
+             timestamp.set_seconds(time(NULL));
+             timestamp.set_nanos(0);
+
+         Example 2: Compute Timestamp from POSIX `gettimeofday()`.
+
+             struct timeval tv;
+             gettimeofday(&tv, NULL);
+
+             Timestamp timestamp;
+             timestamp.set_seconds(tv.tv_sec);
+             timestamp.set_nanos(tv.tv_usec * 1000);
+
+         Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+
+             FILETIME ft;
+             GetSystemTimeAsFileTime(&ft);
+             UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+
+             // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+             // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+             Timestamp timestamp;
+             timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+             timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+
+         Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+
+             long millis = System.currentTimeMillis();
+
+             Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+                 .setNanos((int) ((millis % 1000) * 1000000)).build();
+
+         Example 5: Compute Timestamp from Java `Instant.now()`.
+
+             Instant now = Instant.now();
+
+             Timestamp timestamp =
+                 Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+                     .setNanos(now.getNano()).build();
+
+         Example 6: Compute Timestamp from current time in Python.
+
+             timestamp = Timestamp()
+             timestamp.GetCurrentTime()
+
+         # JSON Mapping
+
+         In JSON format, the Timestamp type is encoded as a string in the
+         [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
+         format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
+         where {year} is always expressed using four digits while {month}, {day},
+         {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
+         seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
+         are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
+         is required. A proto3 JSON serializer should always use UTC (as indicated by
+         "Z") when printing the Timestamp type and a proto3 JSON parser should be
+         able to accept both UTC and other timezones (as indicated by an offset).
+
+         For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
+         01:30 UTC on January 15, 2017.
+
+         In JavaScript, one can convert a Date object to this format using the
+         standard
+         [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+         method. In Python, a standard `datetime.datetime` object can be converted
+         to this format using
+         [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
+         the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
+         the Joda Time's [`ISODateTimeFormat.dateTime()`](
+         http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+         ) to obtain a formatter capable of generating timestamps in this format.
+    MetadataItem:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+          maxLength: 316
+          pattern: ^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$
+          description: The metadata key.
+        value:
+          type: string
+          title: value
+          maxLength: 63
+          pattern: ^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$
+          description: The metadata value.
+      title: MetadataItem
+      required:
+        - key
+        - value
+      additionalProperties: false
+      description: A metadata item, represented by a key:value pair.
+    Timestamps:
+      type: object
+      properties:
+        createdAt:
+          title: created_at
+          description: The time when the resource was created.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        updatedAt:
+          title: updated_at
+          description: The time when the resource was last updated.
+          readOnly: true
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+      title: Timestamps
+      additionalProperties: false
+    StatusIndication:
+      type: string
+      title: StatusIndication
+      enum:
+        - STATUS_INDICATION_UNSPECIFIED
+        - STATUS_INDICATION_ERROR
+        - STATUS_INDICATION_IN_PROGRESS
+        - STATUS_INDICATION_IDLE
+      description: The status indicator.
+    AmtSku:
+      type: string
+      title: AmtSku
+      enum:
+        - AMT_SKU_UNSPECIFIED
+        - AMT_SKU_AMT
+        - AMT_SKU_ISM
+    AmtState:
+      type: string
+      title: AmtState
+      enum:
+        - AMT_STATE_UNSPECIFIED
+        - AMT_STATE_PROVISIONED
+        - AMT_STATE_UNPROVISIONED
+        - AMT_STATE_DISCONNECTED
+      description: The state of the AMT (Active Management Technology) component.
+    BaremetalControllerKind:
+      type: string
+      title: BaremetalControllerKind
+      enum:
+        - BAREMETAL_CONTROLLER_KIND_UNSPECIFIED
+        - BAREMETAL_CONTROLLER_KIND_NONE
+        - BAREMETAL_CONTROLLER_KIND_IPMI
+        - BAREMETAL_CONTROLLER_KIND_VPRO
+        - BAREMETAL_CONTROLLER_KIND_PDU
+      description: The type of BMC.
+    HostState:
+      type: string
+      title: HostState
+      enum:
+        - HOST_STATE_UNSPECIFIED
+        - HOST_STATE_DELETED
+        - HOST_STATE_ONBOARDED
+        - HOST_STATE_UNTRUSTED
+        - HOST_STATE_REGISTERED
+      description: States of the host.
+    PowerCommandPolicy:
+      type: string
+      title: PowerCommandPolicy
+      enum:
+        - POWER_COMMAND_POLICY_UNSPECIFIED
+        - POWER_COMMAND_POLICY_IMMEDIATE
+        - POWER_COMMAND_POLICY_ORDERED
+      description: The policy for handling power commands.
+    PowerState:
+      type: string
+      title: PowerState
+      enum:
+        - POWER_STATE_UNSPECIFIED
+        - POWER_STATE_ON
+        - POWER_STATE_OFF
+        - POWER_STATE_SLEEP
+        - POWER_STATE_HIBERNATE
+        - POWER_STATE_RESET
+        - POWER_STATE_POWER_CYCLE
+        - POWER_STATE_RESET_REPEAT
+      description: The host power state.
+    HostResource:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+          maxLength: 13
+          pattern: ^host-[0-9a-f]{8}$
+          description: Resource ID, generated on Create.
+          readOnly: true
+        name:
+          type: string
+          title: name
+          maxLength: 50
+          pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
+          description: The host name.
+        desiredState:
+          title: desired_state
+          description: The desired state of the Host.
+          readOnly: true
+          $ref: '#/components/schemas/HostState'
+        currentState:
+          title: current_state
+          description: The current state of the Host.
+          readOnly: true
+          $ref: '#/components/schemas/HostState'
+        note:
+          type: string
+          title: note
+          maxLength: 512
+          minLength: 1
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+          description: The note associated with the host.
+          readOnly: true
+        serialNumber:
+          type: string
+          title: serial_number
+          description: SMBIOS device serial number.
+          readOnly: true
+        uuid:
+          type: string
+          title: uuid
+          maxLength: 36
+          pattern: ^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          description: (OPTIONAL) The host UUID identifier; UUID is unique and immutable.
+        bmcKind:
+          title: bmc_kind
+          description: Kind of BMC.
+          readOnly: true
+          $ref: '#/components/schemas/BaremetalControllerKind'
+        bmcIp:
+          type: string
+          title: bmc_ip
+          description: BMC IP address, such as "192.0.0.1".
+          readOnly: true
+        hostname:
+          type: string
+          title: hostname
+          description: Hostname.
+          readOnly: true
+        productName:
+          type: string
+          title: product_name
+          description: System Product Name.
+          readOnly: true
+        biosVersion:
+          type: string
+          title: bios_version
+          description: BIOS Version.
+          readOnly: true
+        biosReleaseDate:
+          type: string
+          title: bios_release_date
+          description: BIOS Release Date.
+          readOnly: true
+        biosVendor:
+          type: string
+          title: bios_vendor
+          description: BIOS Vendor.
+          readOnly: true
+        desiredPowerState:
+          title: desired_power_state
+          description: (OPTIONAL) Desired power state of the host
+          $ref: '#/components/schemas/PowerState'
+        currentPowerState:
+          title: current_power_state
+          description: Current power state of the host
+          readOnly: true
+          $ref: '#/components/schemas/PowerState'
+        powerStatus:
+          type: string
+          title: power_status
+          maxLength: 1024
+          description: textual message that describes the runtime status of Host power. Set by DM RM only.
+          readOnly: true
+        powerStatusIndicator:
+          title: power_status_indicator
+          description: Indicates dynamicity of the power_status. Set by DM RM only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        powerStatusTimestamp:
+          type: integer
+          title: power_status_timestamp
+          description: UTC timestamp when power_status was last changed. Set by DM RM only.
+          readOnly: true
+        powerCommandPolicy:
+          title: power_command_policy
+          description: (OPTIONAL) Power command policy of the host. By default, it is set to PowerCommandPolicy.POWER_COMMAND_POLICY_ORDERED.
+          $ref: '#/components/schemas/PowerCommandPolicy'
+        powerOnTime:
+          type: integer
+          title: power_on_time
+          description: UTC timestamp when the host was powered on. Set by DM RM only.
+          readOnly: true
+        hostStatus:
+          type: string
+          title: host_status
+          maxLength: 1024
+          description: textual message that describes the runtime status of Host. Set by RMs only.
+          readOnly: true
+        hostStatusIndicator:
+          title: host_status_indicator
+          description: Indicates interpretation of host_status. Set by RMs only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        hostStatusTimestamp:
+          type: integer
+          title: host_status_timestamp
+          description: UTC timestamp when host_status was last changed. Set by RMs only.
+          readOnly: true
+        onboardingStatus:
+          type: string
+          title: onboarding_status
+          maxLength: 1024
+          description: textual message that describes the onboarding status of Host. Set by RMs only.
+          readOnly: true
+        onboardingStatusIndicator:
+          title: onboarding_status_indicator
+          description: Indicates interpretation of onboarding_status. Set by RMs only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        onboardingStatusTimestamp:
+          type: integer
+          title: onboarding_status_timestamp
+          description: UTC timestamp when onboarding_status was last changed. Set by RMs only.
+          readOnly: true
+        registrationStatus:
+          type: string
+          title: registration_status
+          maxLength: 1024
+          description: textual message that describes the onboarding status of Host. Set by RMs only.
+          readOnly: true
+        registrationStatusIndicator:
+          title: registration_status_indicator
+          description: Indicates interpretation of registration_status. Set by RMs only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        registrationStatusTimestamp:
+          type: integer
+          title: registration_status_timestamp
+          description: UTC timestamp when registration_status was last changed. Set by RMs only.
+          readOnly: true
+        amtSku:
+          title: amt_sku
+          description: coming from device introspection
+          readOnly: true
+          $ref: '#/components/schemas/AmtSku'
+        desiredAmtState:
+          title: desired_amt_state
+          description: (OPTIONAL) Desired AMT/vPRO state of the host
+          $ref: '#/components/schemas/AmtState'
+        currentAmtState:
+          title: current_amt_state
+          description: Current AMT/vPRO state of the host
+          readOnly: true
+          $ref: '#/components/schemas/AmtState'
+        amtStatus:
+          type: string
+          title: amt_status
+          maxLength: 1024
+          description: coming from device introspection. Set only by the DM RM.
+          readOnly: true
+        amtStatusIndicator:
+          title: amt_status_indicator
+          description: Indicates dynamicity of the amt_status. Set by DM and OM RM only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        amtStatusTimestamp:
+          type: integer
+          title: amt_status_timestamp
+          description: UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
+          readOnly: true
+        userLvmSize:
+          type: integer
+          title: user_lvm_size
+          description: LVM size in GB.
+          readOnly: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataItem'
+          title: metadata
+          maxItems: 100
+          description: (OPTIONAL) The metadata associated with the host, represented by a list of key:value pairs.
+        inheritedMetadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataItem'
+          title: inherited_metadata
+          description: The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures.
+          readOnly: true
+        timestamps:
+          title: timestamps
+          description: Timestamps associated to the resource.
+          readOnly: true
+          $ref: '#/components/schemas/Timestamps'
+      title: HostResource
+      required:
+        - name
+      additionalProperties: false
+      description: A Host resource.
+    google.protobuf.FieldMask:
+      type: string
+      description: |-
+        `FieldMask` represents a set of symbolic field paths, for example:
+
+             paths: "f.a"
+             paths: "f.b.d"
+
+         Here `f` represents a field in some root message, `a` and `b`
+         fields in the message found in `f`, and `d` a field found in the
+         message in `f.b`.
+
+         Field masks are used to specify a subset of fields that should be
+         returned by a get operation or modified by an update operation.
+         Field masks also have a custom JSON encoding (see below).
+
+         # Field Masks in Projections
+
+         When used in the context of a projection, a response message or
+         sub-message is filtered by the API to only contain those fields as
+         specified in the mask. For example, if the mask in the previous
+         example is applied to a response message as follows:
+
+             f {
+               a : 22
+               b {
+                 d : 1
+                 x : 2
+               }
+               y : 13
+             }
+             z: 8
+
+         The result will not contain specific values for fields x,y and z
+         (their value will be set to the default, and omitted in proto text
+         output):
+
+
+             f {
+               a : 22
+               b {
+                 d : 1
+               }
+             }
+
+         A repeated field is not allowed except at the last position of a
+         paths string.
+
+         If a FieldMask object is not present in a get operation, the
+         operation applies to all fields (as if a FieldMask of all fields
+         had been specified).
+
+         Note that a field mask does not necessarily apply to the
+         top-level response message. In case of a REST get operation, the
+         field mask applies directly to the response, but in case of a REST
+         list operation, the mask instead applies to each individual message
+         in the returned resource list. In case of a REST custom method,
+         other definitions may be used. Where the mask applies will be
+         clearly documented together with its declaration in the API.  In
+         any case, the effect on the returned resource/resources is required
+         behavior for APIs.
+
+         # Field Masks in Update Operations
+
+         A field mask in update operations specifies which fields of the
+         targeted resource are going to be updated. The API is required
+         to only change the values of the fields as specified in the mask
+         and leave the others untouched. If a resource is passed in to
+         describe the updated values, the API ignores the values of all
+         fields not covered by the mask.
+
+         If a repeated field is specified for an update operation, new values will
+         be appended to the existing repeated field in the target resource. Note that
+         a repeated field is only allowed in the last position of a `paths` string.
+
+         If a sub-message is specified in the last position of the field mask for an
+         update operation, then new value will be merged into the existing sub-message
+         in the target resource.
+
+         For example, given the target message:
+
+             f {
+               b {
+                 d: 1
+                 x: 2
+               }
+               c: [1]
+             }
+
+         And an update message:
+
+             f {
+               b {
+                 d: 10
+               }
+               c: [2]
+             }
+
+         then if the field mask is:
+
+          paths: ["f.b", "f.c"]
+
+         then the result will be:
+
+             f {
+               b {
+                 d: 10
+                 x: 2
+               }
+               c: [1, 2]
+             }
+
+         An implementation may provide options to override this default behavior for
+         repeated and message fields.
+
+         In order to reset a field's value to the default, the field must
+         be in the mask and set to the default value in the provided resource.
+         Hence, in order to reset all fields of a resource, provide a default
+         instance of the resource and set all fields in the mask, or do
+         not provide a mask as described below.
+
+         If a field mask is not present on update, the operation applies to
+         all fields (as if a field mask of all fields has been specified).
+         Note that in the presence of schema evolution, this may mean that
+         fields the client does not know and has therefore not filled into
+         the request will be reset to their default. If this is unwanted
+         behavior, a specific service may require a client to always specify
+         a field mask, producing an error if not.
+
+         As with get operations, the location of the resource which
+         describes the updated values in the request message depends on the
+         operation kind. In any case, the effect of the field mask is
+         required to be honored by the API.
+
+         ## Considerations for HTTP REST
+
+         The HTTP kind of an update operation which uses a field mask must
+         be set to PATCH instead of PUT in order to satisfy HTTP semantics
+         (PUT must only be used for full updates).
+
+         # JSON Encoding of Field Masks
+
+         In JSON, a field mask is encoded as a single string where paths are
+         separated by a comma. Fields name in each path are converted
+         to/from lower-camel naming conventions.
+
+         As an example, consider the following message declarations:
+
+             message Profile {
+               User user = 1;
+               Photo photo = 2;
+             }
+             message User {
+               string display_name = 1;
+               string address = 2;
+             }
+
+         In proto a field mask for `Profile` may look as such:
+
+             mask {
+               paths: "user.display_name"
+               paths: "photo"
+             }
+
+         In JSON, the same mask is represented as below:
+
+             {
+               mask: "user.displayName,photo"
+             }
+
+         # Field Masks and Oneof Fields
+
+         Field masks treat fields in oneofs just as regular fields. Consider the
+         following message:
+
+             message SampleMessage {
+               oneof test_oneof {
+                 string name = 4;
+                 SubMessage sub_message = 9;
+               }
+             }
+
+         The field mask can be:
+
+             mask {
+               paths: "name"
+             }
+
+         Or:
+
+             mask {
+               paths: "sub_message"
+             }
+
+         Note that oneof type names ("test_oneof" in this case) cannot be used in
+         paths.
+
+         ## Field Mask Verification
+
+         The implementation of any API method which has a FieldMask type field in the
+         request should verify the included field paths, and return an
+         `INVALID_ARGUMENT` error if any path is unmappable.
+    CreateHostRequest:
+      type: object
+      properties:
+        host:
+          title: host
+          description: The host to create.
+          $ref: '#/components/schemas/HostResource'
+      title: CreateHostRequest
+      required:
+        - host
+      additionalProperties: false
+      description: Request message for the CreateHost method.
+    CreateHostResponse:
+      type: object
+      properties:
+        host:
+          title: host
+          description: The created host.
+          $ref: '#/components/schemas/HostResource'
+      title: CreateHostResponse
+      required:
+        - host
+      additionalProperties: false
+      description: Response message for the CreateHost method.
+    DeleteHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the host host to be deleted.
+      title: DeleteHostRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for DeleteHost.
+    DeleteHostResponse:
+      type: object
+      title: DeleteHostResponse
+      additionalProperties: false
+      description: Reponse message for DeleteHost.
+    GetHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the requested host.
+      title: GetHostRequest
+      required:
+        - resourceId
+      additionalProperties: false
+      description: Request message for the GetHost method.
+    GetHostResponse:
+      type: object
+      properties:
+        host:
+          title: host
+          description: The requested host.
+          $ref: '#/components/schemas/HostResource'
+      title: GetHostResponse
+      required:
+        - host
+      additionalProperties: false
+      description: Response message for the GetHost method.
+    GetHostSummaryRequest:
+      type: object
+      properties:
+        filter:
+          type: string
+          title: filter
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+          description: |-
+            (OPTIONAL) Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+      title: GetHostSummaryRequest
+      additionalProperties: false
+      description: Request the summary of Hosts resources.
+    GetHostSummaryResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          title: total
+          description: The total number of hosts.
+          readOnly: true
+        error:
+          type: integer
+          title: error
+          description: The total number of hosts presenting an Error.
+          readOnly: true
+        running:
+          type: integer
+          title: running
+          description: The total number of hosts in Running state.
+          readOnly: true
+        unallocated:
+          type: integer
+          title: unallocated
+          description: The total number of hosts without a site.
+          readOnly: true
+      title: GetHostSummaryResponse
+      additionalProperties: false
+      description: Summary of the hosts status.
+    HostRegister:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          maxLength: 20
+          pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
+          description: The host name.
+        serialNumber:
+          type: string
+          title: serial_number
+          pattern: ^([A-Za-z0-9]{5,20})?$
+          description: The host serial number.
+        uuid:
+          type: string
+          title: uuid
+          maxLength: 36
+          pattern: ^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          description: The host UUID.
+        autoOnboard:
+          type: boolean
+          title: auto_onboard
+          description: Flag to signal to automatically onboard the host.
+        enableVpro:
+          type: boolean
+          title: enable_vpro
+          description: Flag to signal to enable vPRO on the host.
+        userLvmSize:
+          type: integer
+          title: user_lvm_size
+          description: LVM size in GB
+      title: HostRegister
+      additionalProperties: false
+      description: Message to register a Host.
+    InvalidateHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          pattern: ^host-[0-9a-f]{8}$
+          description: Host resource ID
+        note:
+          type: string
+          title: note
+          maxLength: 512
+          minLength: 1
+          pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
+          description: user-provided reason for change or a freeform field
+      title: InvalidateHostRequest
+      additionalProperties: false
+      description: Request to invalidate/untrust a Host.
+    InvalidateHostResponse:
+      type: object
+      title: InvalidateHostResponse
+      additionalProperties: false
+      description: Response message for InvalidateHost.
+    ListHostsRequest:
+      type: object
+      properties:
+        orderBy:
+          type: string
+          title: order_by
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9., ]+$
+          description: |-
+            (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+        filter:
+          type: string
+          title: filter
+          maxLength: 1000
+          pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+          description: |-
+            (OPTIONAL) Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+        pageSize:
+          type: integer
+          title: page_size
+          maximum: 100
+          minimum: 1
+          description: |-
+            (OPTIONAL) Defines the amount of items to be contained in a single page.
+             Default of 20.
+        offset:
+          type: integer
+          title: offset
+          maximum: 10000
+          description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      title: ListHostsRequest
+      additionalProperties: false
+      description: Request message for the ListHosts method.
+    ListHostsResponse:
+      type: object
+      properties:
+        hosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostResource'
+          title: hosts
+          description: Sorted and filtered list of hosts.
+        totalElements:
+          type: integer
+          title: total_elements
+          format: int32
+          description: Count of items in the entire list, regardless of pagination.
+        hasNext:
+          type: boolean
+          title: has_next
+          description: Inform if there are more elements
+      title: ListHostsResponse
+      required:
+        - hosts
+        - totalElements
+        - hasNext
+      additionalProperties: false
+      description: Response message for the ListHosts method.
+    OnboardHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          pattern: ^host-[0-9a-f]{8}$
+          description: Host resource ID
+      title: OnboardHostRequest
+      additionalProperties: false
+      description: Request to onboard a Host.
+    OnboardHostResponse:
+      type: object
+      title: OnboardHostResponse
+      additionalProperties: false
+      description: Response of a Host Register request.
+    PatchHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: ID of the resource to be updated.
+        host:
+          title: host
+          description: Updated values for the host.
+          $ref: '#/components/schemas/HostResource'
+        fieldMask:
+          title: field_mask
+          description: Field mask to be applied on the patch of host.
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: PatchHostRequest
+      required:
+        - resourceId
+        - host
+      additionalProperties: false
+      description: Request message for the PatchHost method.
+    RegisterHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          pattern: ^host-[0-9a-f]{8}$
+        host:
+          title: host
+          $ref: '#/components/schemas/HostRegister'
+      title: RegisterHostRequest
+      required:
+        - host
+      additionalProperties: false
+      description: Request to register a Host.
+    UpdateHostRequest:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the host host to be updated.
+        host:
+          title: host
+          description: Updated values for the host.
+          $ref: '#/components/schemas/HostResource'
+      title: UpdateHostRequest
+      required:
+        - resourceId
+        - host
+      additionalProperties: false
+      description: Request message for the UpdateHost method.
+    connect-protocol-version:
+      type: number
+      title: Connect-Protocol-Version
+      enum:
+        - 1
+      description: Define the version of the Connect protocol
+      const: 1
+    connect-timeout-header:
+      type: number
+      title: Connect-Timeout-Ms
+      description: Define the timeout, in ms
+    connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          examples:
+            - not_found
+          enum:
+            - canceled
+            - unknown
+            - invalid_argument
+            - deadline_exceeded
+            - not_found
+            - already_exists
+            - permission_denied
+            - resource_exhausted
+            - failed_precondition
+            - aborted
+            - out_of_range
+            - unimplemented
+            - internal
+            - unavailable
+            - data_loss
+            - unauthenticated
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+security: []
+tags:
+  - name: HostService
+    description: Host.
