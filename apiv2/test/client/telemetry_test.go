@@ -2350,6 +2350,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err := apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams{},
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2376,6 +2377,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams{},
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2399,6 +2401,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams{},
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2422,6 +2425,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams{},
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2436,6 +2440,7 @@ func TestTelemetryMetricsProfile_Patch(t *testing.T) {
 	telemetryMetricsProfile1Update, err = apiClient.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams{},
 		TelemetryMetricsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2489,6 +2494,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err := apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryLogsProfileServicePatchTelemetryLogsProfileParams{},
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2515,6 +2521,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryLogsProfileServicePatchTelemetryLogsProfileParams{},
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2538,6 +2545,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryLogsProfileServicePatchTelemetryLogsProfileParams{},
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2561,6 +2569,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryLogsProfileServicePatchTelemetryLogsProfileParams{},
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -2575,6 +2584,7 @@ func TestTelemetryLogsProfile_Patch(t *testing.T) {
 	telemetryLogsProfile1Update, err = apiClient.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(
 		ctx,
 		*res1.JSON200.ProfileId,
+		&api.TelemetryLogsProfileServicePatchTelemetryLogsProfileParams{},
 		TelemetryLogsProfile,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

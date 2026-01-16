@@ -383,6 +383,7 @@ func TestOS_UpdatePatch(t *testing.T) {
 	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
 		*os1.JSON200.OsResourceID,
+		&api.OperatingSystemServicePatchOperatingSystemParams{},
 		patchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -413,6 +414,7 @@ func TestOS_UpdatePatch(t *testing.T) {
 	immutableUpdate, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
 		*os1.JSON200.OsResourceID,
+		&api.OperatingSystemServicePatchOperatingSystemParams{},
 		api.OperatingSystemResource{
 			OsType:     &osTypeImmutable,
 			OsProvider: &osProviderInfra,

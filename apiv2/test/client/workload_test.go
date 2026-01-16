@@ -534,6 +534,7 @@ func TestWorkload_Patch(t *testing.T) {
 	updatedWorkload, err := apiClient.WorkloadServicePatchWorkloadWithResponse(
 		ctx,
 		*workload.JSON200.ResourceId,
+		&api.WorkloadServicePatchWorkloadParams{},
 		patchRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

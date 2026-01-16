@@ -149,6 +149,15 @@ func AddProjectIDtoTheHeader(_ context.Context, req *http.Request) error {
 	return nil
 }
 
+func getProjectID(tb testing.TB) string {
+	tb.Helper()
+
+	projectIDStr, ok := os.LookupEnv(projectID)
+	require.True(tb, ok, "can't find a \"%s\" variable, please set it in your environment", projectID)
+
+	return projectIDStr
+}
+
 func hostsContainsID(hosts []api.HostResource, hostID string) bool {
 	for _, h := range hosts {
 		if *h.ResourceId == hostID {
@@ -312,7 +321,11 @@ func CreateHost(
 ) *api.HostServiceCreateHostResponse {
 	tb.Helper()
 
-	host, err := apiClient.HostServiceCreateHostWithResponse(ctx, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	projectName := getProjectID(tb)
+
+	host, err := apiClient.HostServiceCreateHostWithResponse(
+		ctx, projectName, hostRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, host.StatusCode())
 	require.NotNil(tb, host.JSON200, "Host creation returned nil JSON200")
@@ -332,9 +345,12 @@ func SoftDeleteHost(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	UnallocateHostFromSite(ctx, tb, apiClient, host)
 	resDelHost, err := apiClient.HostServiceDeleteHostWithResponse(
 		ctx,
+		projectName,
 		*host.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -346,12 +362,15 @@ func SoftDeleteHost(
 func UnallocateHostFromSite(ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, hostReq *api.HostResource) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	hostUp := api.HostResource{
 		Name:   hostReq.Name,
 		SiteId: &emptyString,
 	}
 	res, err := apiClient.HostServiceUpdateHostWithResponse(
 		ctx,
+		projectName,
 		*hostReq.ResourceId,
 		hostUp,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -533,8 +552,10 @@ func CreateInstance(
 ) *api.InstanceServiceCreateInstanceResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	createdInstance, err := apiClient.InstanceServiceCreateInstanceWithResponse(
-		ctx, instRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, instRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, createdInstance.StatusCode())
 	assert.NotNil(tb, createdInstance.JSON200)
@@ -547,8 +568,10 @@ func CreateInstance(
 func DeleteInstance(ctx context.Context, tb testing.TB, apiClient *api.ClientWithResponses, instanceID string) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	resDelInst, err := apiClient.InstanceServiceDeleteInstanceWithResponse(
-		ctx, instanceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, instanceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, resDelInst.StatusCode())
 }

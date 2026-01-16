@@ -11,21 +11,30 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 )
 
 // ListAllInstances retrieves all InstanceResource objects by iterating over paginated responses.
-func ListAllInstances(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.InstanceResource, error) {
+func ListAllInstances(
+	ctx context.Context,
+	client *api.ClientWithResponses,
+	projectName string,
+	pageSize int,
+) ([]api.InstanceResource, error) {
 	var allInstances []api.InstanceResource
 	offset := 0
 
 	for {
 		// Call the API to get a paginated list of instances
-		response, err := client.InstanceServiceListInstancesWithResponse(ctx, &api.InstanceServiceListInstancesParams{
-			PageSize: &pageSize,
-			Offset:   &offset,
-		},
-			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		response, err := client.InstanceServiceListInstancesWithResponse(
+			ctx,
+			projectName,
+			&api.InstanceServiceListInstancesParams{
+				PageSize: &pageSize,
+				Offset:   &offset,
+			},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list instances: %w", err)
 		}
@@ -51,13 +60,18 @@ func ListAllInstances(ctx context.Context, client *api.ClientWithResponses, page
 }
 
 // ListAllHosts retrieves all HostResource objects by iterating over paginated responses.
-func ListAllHosts(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.HostResource, error) {
+func ListAllHosts(
+	ctx context.Context,
+	client *api.ClientWithResponses,
+	projectName string,
+	pageSize int,
+) ([]api.HostResource, error) {
 	var allHosts []api.HostResource
 	offset := 0
 
 	for {
 		// Call the API to get a paginated list of hosts
-		response, err := client.HostServiceListHostsWithResponse(ctx, &api.HostServiceListHostsParams{
+		response, err := client.HostServiceListHostsWithResponse(ctx, projectName, &api.HostServiceListHostsParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
 		},
@@ -290,8 +304,10 @@ func TestDeleteAllInstances(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	pageSize := 10
-	instances, err := ListAllInstances(ctx, apiClient, pageSize)
+	instances, err := ListAllInstances(ctx, apiClient, projectName, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all instances: %v", err)
 	}
@@ -311,8 +327,10 @@ func TestDeleteAllHosts(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	pageSize := 10
-	hosts, err := ListAllHosts(ctx, apiClient, pageSize)
+	hosts, err := ListAllHosts(ctx, apiClient, projectName, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all hosts: %v", err)
 	}

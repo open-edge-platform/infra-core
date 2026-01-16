@@ -32,6 +32,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 
 	siteName := "site"
 	siteBody := api.SiteResource{Name: &siteName}
+	projectName := "test-project"
 	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", siteBody)
 	assert.NoError(t, err)
 
@@ -47,14 +48,14 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 
 	emptyUUID := ""
 	hostParamsWrong := &api.HostServiceListHostsParams{Filter: &emptyUUID}
-	hostsGetRequestInvalid, err := api.NewHostServiceListHostsRequest("", hostParamsWrong)
+	hostsGetRequestInvalid, err := api.NewHostServiceListHostsRequest("", projectName, hostParamsWrong)
 	assert.NoError(t, err)
 
-	hostsPostRequestValid, err := api.NewHostServiceCreateHostRequest("", utils.Host1Request)
+	hostsPostRequestValid, err := api.NewHostServiceCreateHostRequest("", projectName, utils.Host1Request)
 	assert.NoError(t, err)
 
 	hostsPostRegisterRequestValid, err := api.NewHostServiceRegisterHostRequest(
-		"", utils.HostRegisterAutoOnboard)
+		"", projectName, nil, utils.HostRegisterAutoOnboard)
 	assert.NoError(t, err)
 
 	hostName := "host"
@@ -64,7 +65,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		CpuTopology: &regionID,
 	}
 	hostsPostRequestInvalid, err := api.NewHostServiceCreateHostRequest(
-		"", hostInvalidBodyRequest)
+		"", projectName, hostInvalidBodyRequest)
 	assert.NoError(t, err)
 
 	// Enforce the test of required fields in the request body.
@@ -102,19 +103,19 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		{
 			name: "Valid Request/Body Format",
 			request: createRequestWithMethodPathParams(http.MethodGet,
-				"/edge-infra.orchestrator.apis/v2/hosts"),
+				"/v1/projects/test-project/compute/hosts"),
 			expectedStatus: http.StatusOK,
 		},
 		{
 			name: "Valid Request Path",
 			request: createRequestWithMethodPathParams(http.MethodGet,
-				"/edge-infra.orchestrator.apis/v2/hosts/summary"),
+				"/v1/projects/test-project/compute/hosts_summary"),
 			expectedStatus: http.StatusOK,
 		},
 		{
 			name: "Valid path prefix with invalid request path",
 			request: createRequestWithMethodPathParams(http.MethodGet,
-				"/edge-infra.orchestrator.apis/v2/hostss"),
+				"/v1/projects/test-project/compute/hostss"),
 			expectedStatus: http.StatusNotFound,
 		},
 		{

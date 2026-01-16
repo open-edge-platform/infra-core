@@ -530,6 +530,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	RepeatedSched1Update, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		&api.ScheduleServicePatchRepeatedScheduleParams{},
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -559,6 +560,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		&api.ScheduleServicePatchRepeatedScheduleParams{},
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -588,6 +590,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
+		&api.ScheduleServicePatchRepeatedScheduleParams{},
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,

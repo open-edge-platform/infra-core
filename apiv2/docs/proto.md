@@ -1555,6 +1555,7 @@ Request message for the CreateHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | The host to create. |
 
 
@@ -1586,6 +1587,7 @@ Request message for the CreateInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance to create. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2090,6 +2092,7 @@ Request message for DeleteHost.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  | Name of the host host to be deleted. |
 
 
@@ -2116,6 +2119,7 @@ Request message for DeleteInstance.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the instance instance to be deleted. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2545,6 +2549,7 @@ Request message for the GetHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  | Name of the requested host. |
 
 
@@ -2575,6 +2580,7 @@ Request the summary of Hosts resources.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 
 
@@ -2609,6 +2615,7 @@ Request message for the GetInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3108,6 +3115,7 @@ Request to invalidate/untrust a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  | Host resource ID |
 | note | [string](#string) |  | user-provided reason for change or a freeform field |
 
@@ -3135,6 +3143,7 @@ Request message for Invalidate Instance.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Instance resource ID |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3194,6 +3203,7 @@ Request message for the ListHosts method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
@@ -3233,6 +3243,7 @@ Request message for the ListInstances method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3888,6 +3899,7 @@ Request to onboard a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  | Host resource ID |
 
 
@@ -3913,6 +3925,7 @@ Request message for the PatchHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of host. |
@@ -3933,6 +3946,7 @@ Request message for the PatchInstance method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -4083,6 +4097,7 @@ Request to register a Host.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  |  |
 | host | [HostRegister](#services-v1-HostRegister) |  |  |
 
@@ -4099,6 +4114,7 @@ Request message for the UpdateHost method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | The project name from the URL path. |
 | resourceId | [string](#string) |  | Name of the host host to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 
@@ -4117,6 +4133,7 @@ Request message for the UpdateInstance method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
