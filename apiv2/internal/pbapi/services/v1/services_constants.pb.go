@@ -50,22 +50,25 @@ const (
 	// Fields and Edges constants for "DeleteRegionResponse"
 
 	// Fields and Edges constants for "CreateSiteRequest"
-	CreateSiteRequestEdgeSite = "site"
+	CreateSiteRequestFieldProjectName = "projectName"
+	CreateSiteRequestEdgeSite         = "site"
 
 	// Fields and Edges constants for "CreateSiteResponse"
 	CreateSiteResponseEdgeSite = "site"
 
 	// Fields and Edges constants for "GetSiteRequest"
-	GetSiteRequestFieldResourceId = "resourceId"
+	GetSiteRequestFieldProjectName = "projectName"
+	GetSiteRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetSiteResponse"
 	GetSiteResponseEdgeSite = "site"
 
 	// Fields and Edges constants for "ListSitesRequest"
-	ListSitesRequestFieldOrderBy  = "order_by"
-	ListSitesRequestFieldFilter   = "filter"
-	ListSitesRequestFieldPageSize = "page_size"
-	ListSitesRequestFieldOffset   = "offset"
+	ListSitesRequestFieldProjectName = "projectName"
+	ListSitesRequestFieldOrderBy     = "order_by"
+	ListSitesRequestFieldFilter      = "filter"
+	ListSitesRequestFieldPageSize    = "page_size"
+	ListSitesRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListSitesResponse"
 	ListSitesResponseEdgeSites          = "sites"
@@ -73,16 +76,19 @@ const (
 	ListSitesResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateSiteRequest"
-	UpdateSiteRequestFieldResourceId = "resourceId"
-	UpdateSiteRequestEdgeSite        = "site"
+	UpdateSiteRequestFieldProjectName = "projectName"
+	UpdateSiteRequestFieldResourceId  = "resourceId"
+	UpdateSiteRequestEdgeSite         = "site"
 
 	// Fields and Edges constants for "PatchSiteRequest"
-	PatchSiteRequestFieldResourceId = "resourceId"
-	PatchSiteRequestEdgeSite        = "site"
-	PatchSiteRequestEdgeFieldMask   = "field_mask"
+	PatchSiteRequestFieldProjectName = "projectName"
+	PatchSiteRequestFieldResourceId  = "resourceId"
+	PatchSiteRequestEdgeSite         = "site"
+	PatchSiteRequestEdgeFieldMask    = "field_mask"
 
 	// Fields and Edges constants for "DeleteSiteRequest"
-	DeleteSiteRequestFieldResourceId = "resourceId"
+	DeleteSiteRequestFieldProjectName = "projectName"
+	DeleteSiteRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteSiteResponse"
 

@@ -1858,6 +1858,7 @@ Request message for the CreateSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | The site to create. |
 
 
@@ -2346,6 +2347,7 @@ Request message for DeleteSite.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the site site to be deleted. |
 
 
@@ -2888,6 +2890,7 @@ Request message for the GetSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested site. |
 
 
@@ -3654,6 +3657,7 @@ Request message for the ListSites method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
@@ -4034,6 +4038,7 @@ Request message for the PatchSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
@@ -4218,6 +4223,7 @@ Request message for the UpdateSite method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the site site to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 

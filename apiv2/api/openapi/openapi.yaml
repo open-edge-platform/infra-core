@@ -1438,204 +1438,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleScheduleResource'
-  /edge-infra.orchestrator.apis/v2/sites:
-    get:
-      tags:
-        - SiteService
-      summary: ListSites
-      description: Get a list of sites.
-      operationId: SiteService_ListSites
-      parameters:
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListSitesResponse'
-    post:
-      tags:
-        - SiteService
-      summary: CreateSite
-      description: Create a site.
-      operationId: SiteService_CreateSite
-      requestBody:
-        description: The site to create.
-        content:
-          application/json:
-            schema:
-              title: site
-              description: The site to create.
-              $ref: '#/components/schemas/SiteResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
-  /edge-infra.orchestrator.apis/v2/sites/{resourceId}:
-    get:
-      tags:
-        - SiteService
-      summary: GetSite
-      description: Get a specific site.
-      operationId: SiteService_GetSite
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested site.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested site.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
-    put:
-      tags:
-        - SiteService
-      summary: UpdateSite
-      description: Update a site.
-      operationId: SiteService_UpdateSite
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the site site to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the site site to be updated.
-      requestBody:
-        description: Updated values for the site.
-        content:
-          application/json:
-            schema:
-              title: site
-              description: Updated values for the site.
-              $ref: '#/components/schemas/SiteResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
-    delete:
-      tags:
-        - SiteService
-      summary: DeleteSite
-      description: Delete a site.
-      operationId: SiteService_DeleteSite
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the site site to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the site site to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteSiteResponse'
-    patch:
-      tags:
-        - SiteService
-      summary: PatchSite
-      description: Patch a site.
-      operationId: SiteService_PatchSite
-      parameters:
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the site.
-        content:
-          application/json:
-            schema:
-              title: site
-              description: Updated values for the site.
-              $ref: '#/components/schemas/SiteResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
   /edge-infra.orchestrator.apis/v2/telemetry/groups/logs:
     get:
       tags:
@@ -3662,6 +3464,253 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegionResource'
+  /v1/projects/{projectName}/location/sites:
+    get:
+      tags:
+        - SiteService
+      summary: ListSites
+      description: Get a list of sites.
+      operationId: SiteService_ListSites
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSitesResponse'
+    post:
+      tags:
+        - SiteService
+      summary: CreateSite
+      description: Create a site.
+      operationId: SiteService_CreateSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The site to create.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: The site to create.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+  /v1/projects/{projectName}/location/sites/{resourceId}:
+    get:
+      tags:
+        - SiteService
+      summary: GetSite
+      description: Get a specific site.
+      operationId: SiteService_GetSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested site.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested site.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+    put:
+      tags:
+        - SiteService
+      summary: UpdateSite
+      description: Update a site.
+      operationId: SiteService_UpdateSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the site site to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the site site to be updated.
+      requestBody:
+        description: Updated values for the site.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: Updated values for the site.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+    delete:
+      tags:
+        - SiteService
+      summary: DeleteSite
+      description: Delete a site.
+      operationId: SiteService_DeleteSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the site site to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the site site to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSiteResponse'
+    patch:
+      tags:
+        - SiteService
+      summary: PatchSite
+      description: Patch a site.
+      operationId: SiteService_PatchSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the site.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: Updated values for the site.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
 components:
   schemas:
     google.protobuf.FieldMask:
@@ -6482,12 +6531,17 @@ components:
     CreateSiteRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         site:
           title: site
           description: The site to create.
           $ref: '#/components/schemas/SiteResource'
       title: CreateSiteRequest
       required:
+        - projectName
         - site
       additionalProperties: false
       description: Request message for the CreateSite method.
@@ -6856,12 +6910,17 @@ components:
     DeleteSiteRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the site site to be deleted.
       title: DeleteSiteRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteSite.
@@ -7306,12 +7365,17 @@ components:
     GetSiteRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested site.
       title: GetSiteRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetSite method.
@@ -8474,6 +8538,10 @@ components:
     ListSitesRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -8505,6 +8573,8 @@ components:
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
       title: ListSitesRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListSites method.
     ListSitesResponse:
@@ -9098,6 +9168,10 @@ components:
     PatchSiteRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9112,6 +9186,7 @@ components:
           $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: PatchSiteRequest
       required:
+        - projectName
         - resourceId
         - site
       additionalProperties: false
@@ -9327,6 +9402,10 @@ components:
     UpdateSiteRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9337,6 +9416,7 @@ components:
           $ref: '#/components/schemas/SiteResource'
       title: UpdateSiteRequest
       required:
+        - projectName
         - resourceId
         - site
       additionalProperties: false

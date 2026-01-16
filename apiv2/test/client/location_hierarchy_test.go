@@ -465,6 +465,7 @@ func TestLocation_Cleanup(t *testing.T) {
 
 	sites, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{
 			PageSize: &pgSize,
 		},
@@ -476,6 +477,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	for _, site := range sites.JSON200.Sites {
 		_, err := apiClient.SiteServiceDeleteSiteWithResponse(
 			ctx,
+			projectName,
 			*site.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)

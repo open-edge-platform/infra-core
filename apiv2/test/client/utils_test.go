@@ -145,7 +145,7 @@ func ListAllSites(ctx context.Context, client *api.ClientWithResponses, projectN
 
 	for {
 		// Call the API to get a paginated list of sites
-		response, err := client.SiteServiceListSitesWithResponse(ctx, &api.SiteServiceListSitesParams{
+		response, err := client.SiteServiceListSitesWithResponse(ctx, projectName, &api.SiteServiceListSitesParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
 		},
