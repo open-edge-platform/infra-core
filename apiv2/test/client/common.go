@@ -254,7 +254,9 @@ func CreateRegion(
 ) *api.RegionServiceCreateRegionResponse {
 	tb.Helper()
 
-	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	projectName := getProjectID(tb)
+
+	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, projectName, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, region.StatusCode())
 	require.NotNil(tb, region.JSON200, "Region creation returned nil JSON200")
@@ -272,8 +274,11 @@ func DeleteRegion(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	resDelRegion, err := apiClient.RegionServiceDeleteRegionWithResponse(
 		ctx,
+		projectName,
 		regionID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

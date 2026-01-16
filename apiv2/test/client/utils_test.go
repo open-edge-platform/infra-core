@@ -101,13 +101,15 @@ func ListAllHosts(
 }
 
 // ListAllRegions retrieves all RegionResource objects by iterating over paginated responses.
-func ListAllRegions(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.RegionResource, error) {
+func ListAllRegions(ctx context.Context, t *testing.T, client *api.ClientWithResponses, pageSize int) ([]api.RegionResource, error) {
 	var allRegions []api.RegionResource
 	offset := 0
 
+	projectName := getProjectID(t)
+
 	for {
 		// Call the API to get a paginated list of regions
-		response, err := client.RegionServiceListRegionsWithResponse(ctx, &api.RegionServiceListRegionsParams{
+		response, err := client.RegionServiceListRegionsWithResponse(ctx, projectName, &api.RegionServiceListRegionsParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
 		},
@@ -137,7 +139,7 @@ func ListAllRegions(ctx context.Context, client *api.ClientWithResponses, pageSi
 }
 
 // ListAllSites retrieves all SiteResource objects by iterating over paginated responses.
-func ListAllSites(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.SiteResource, error) {
+func ListAllSites(ctx context.Context, client *api.ClientWithResponses, projectName string, pageSize int) ([]api.SiteResource, error) {
 	var allSites []api.SiteResource
 	offset := 0
 
@@ -242,7 +244,7 @@ func TestDeleteAllRegions(t *testing.T) {
 	require.NoError(t, err)
 
 	pageSize := 10
-	regions, err := ListAllRegions(ctx, apiClient, pageSize)
+	regions, err := ListAllRegions(ctx, t, apiClient, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all regions: %v", err)
 	}
@@ -262,8 +264,10 @@ func TestDeleteAllSites(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	pageSize := 10
-	sites, err := ListAllSites(ctx, apiClient, pageSize)
+	sites, err := ListAllSites(ctx, apiClient, projectName, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all sites: %v", err)
 	}

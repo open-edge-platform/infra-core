@@ -874,211 +874,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteProviderResponse'
-  /edge-infra.orchestrator.apis/v2/regions:
-    get:
-      tags:
-        - RegionService
-      summary: ListRegions
-      description: Get a list of regions.
-      operationId: RegionService_ListRegions
-      parameters:
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-        - name: showTotalSites
-          in: query
-          description: Flag to signal if the total amount of site in a region should be returned.
-          schema:
-            type: boolean
-            title: show_total_sites
-            description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListRegionsResponse'
-    post:
-      tags:
-        - RegionService
-      summary: CreateRegion
-      description: Create a region.
-      operationId: RegionService_CreateRegion
-      requestBody:
-        description: The region to create.
-        content:
-          application/json:
-            schema:
-              title: region
-              description: The region to create.
-              $ref: '#/components/schemas/RegionResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-  /edge-infra.orchestrator.apis/v2/regions/{resourceId}:
-    get:
-      tags:
-        - RegionService
-      summary: GetRegion
-      description: Get a specific region.
-      operationId: RegionService_GetRegion
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested region.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested region.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-    put:
-      tags:
-        - RegionService
-      summary: UpdateRegion
-      description: Update a region.
-      operationId: RegionService_UpdateRegion
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the region region to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the region region to be updated.
-      requestBody:
-        description: Updated values for the region.
-        content:
-          application/json:
-            schema:
-              title: region
-              description: Updated values for the region.
-              $ref: '#/components/schemas/RegionResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-    delete:
-      tags:
-        - RegionService
-      summary: DeleteRegion
-      description: Delete a region.
-      operationId: RegionService_DeleteRegion
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the region region to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the region region to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteRegionResponse'
-    patch:
-      tags:
-        - RegionService
-      summary: PatchRegion
-      description: Patch a region.
-      operationId: RegionService_PatchRegion
-      parameters:
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the region.
-        content:
-          application/json:
-            schema:
-              title: region
-              description: Updated values for the region.
-              $ref: '#/components/schemas/RegionResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
   /edge-infra.orchestrator.apis/v2/schedules:
     get:
       tags:
@@ -3613,6 +3408,260 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidateInstanceResponse'
+  /v1/projects/{projectName}/location/regions:
+    get:
+      tags:
+        - RegionService
+      summary: ListRegions
+      description: Get a list of regions.
+      operationId: RegionService_ListRegions
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: showTotalSites
+          in: query
+          description: Flag to signal if the total amount of site in a region should be returned.
+          schema:
+            type: boolean
+            title: show_total_sites
+            description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRegionsResponse'
+    post:
+      tags:
+        - RegionService
+      summary: CreateRegion
+      description: Create a region.
+      operationId: RegionService_CreateRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The region to create.
+        content:
+          application/json:
+            schema:
+              title: region
+              description: The region to create.
+              $ref: '#/components/schemas/RegionResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
+  /v1/projects/{projectName}/location/regions/{resourceId}:
+    get:
+      tags:
+        - RegionService
+      summary: GetRegion
+      description: Get a specific region.
+      operationId: RegionService_GetRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested region.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested region.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
+    put:
+      tags:
+        - RegionService
+      summary: UpdateRegion
+      description: Update a region.
+      operationId: RegionService_UpdateRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the region region to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the region region to be updated.
+      requestBody:
+        description: Updated values for the region.
+        content:
+          application/json:
+            schema:
+              title: region
+              description: Updated values for the region.
+              $ref: '#/components/schemas/RegionResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
+    delete:
+      tags:
+        - RegionService
+      summary: DeleteRegion
+      description: Delete a region.
+      operationId: RegionService_DeleteRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the region region to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the region region to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRegionResponse'
+    patch:
+      tags:
+        - RegionService
+      summary: PatchRegion
+      description: Patch a region.
+      operationId: RegionService_PatchRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the region.
+        content:
+          application/json:
+            schema:
+              title: region
+              description: Updated values for the region.
+              $ref: '#/components/schemas/RegionResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
 components:
   schemas:
     google.protobuf.FieldMask:
@@ -6356,12 +6405,17 @@ components:
     CreateRegionRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         region:
           title: region
           description: The region to create.
           $ref: '#/components/schemas/RegionResource'
       title: CreateRegionRequest
       required:
+        - projectName
         - region
       additionalProperties: false
       description: Request message for the CreateRegion method.
@@ -6746,12 +6800,17 @@ components:
     DeleteRegionRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the region region to be deleted.
       title: DeleteRegionRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteRegion.
@@ -7170,12 +7229,17 @@ components:
     GetRegionRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested region.
       title: GetRegionRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetRegion method.
@@ -8089,6 +8153,10 @@ components:
     ListRegionsRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -8124,6 +8192,8 @@ components:
           title: show_total_sites
           description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
       title: ListRegionsRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListRegions method.
     ListRegionsResponse:
@@ -8960,6 +9030,10 @@ components:
     PatchRegionRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -8974,6 +9048,7 @@ components:
           $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: PatchRegionRequest
       required:
+        - projectName
         - resourceId
         - region
       additionalProperties: false
@@ -9196,6 +9271,10 @@ components:
     UpdateRegionRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9206,6 +9285,7 @@ components:
           $ref: '#/components/schemas/RegionResource'
       title: UpdateRegionRequest
       required:
+        - projectName
         - resourceId
         - region
       additionalProperties: false

@@ -42,35 +42,35 @@ service RegionService {
   // Create a region.
   rpc CreateRegion(CreateRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/regions"
+      post: "/v1/projects/{projectName}/location/regions"
       body: "region"
     };
   }
   // Get a list of regions.
   rpc ListRegions(ListRegionsRequest) returns (ListRegionsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/regions"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/location/regions"};
   }
   // Get a specific region.
   rpc GetRegion(GetRegionRequest) returns (resources.location.v1.RegionResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/location/regions/{resourceId}"};
   }
   // Update a region.
   rpc UpdateRegion(UpdateRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"
+      put: "/v1/projects/{projectName}/location/regions/{resourceId}"
       body: "region"
     };
   }
   // Patch a region.
   rpc PatchRegion(PatchRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"
+      patch: "/v1/projects/{projectName}/location/regions/{resourceId}"
       body: "region"
     };
   }  
   // Delete a region.
   rpc DeleteRegion(DeleteRegionRequest) returns (DeleteRegionResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/regions/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/location/regions/{resourceId}"};
   }
 }
 
@@ -594,8 +594,10 @@ service CustomConfigService {
 
 // Request message for the CreateRegion method.
 message CreateRegionRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The region to create.
-  resources.location.v1.RegionResource region = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateRegion method.
@@ -606,8 +608,10 @@ message CreateRegionResponse {
 
 // Request message for the GetRegion method.
 message GetRegionRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested region.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetRegion method.
@@ -618,9 +622,11 @@ message GetRegionResponse {
 
 // Request message for the ListRegions method.
 message ListRegionsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -629,7 +635,7 @@ message ListRegionsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -638,7 +644,7 @@ message ListRegionsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -646,7 +652,7 @@ message ListRegionsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -655,7 +661,7 @@ message ListRegionsRequest {
   ];
 
   // Flag to signal if the total amount of site in a region should be returned.
-  bool show_total_sites = 5 [(google.api.field_behavior) = OPTIONAL];
+  bool show_total_sites = 6 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the ListRegions method.
@@ -670,26 +676,32 @@ message ListRegionsResponse {
 
 // Request message for the UpdateRegion method.
 message UpdateRegionRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the region region to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
-  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.RegionResource region = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchRegion method.
 message PatchRegionRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
-  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.RegionResource region = 3 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of region.
-  google.protobuf.FieldMask field_mask = 3;
+  google.protobuf.FieldMask field_mask = 4;
 }
 
 // Request message for DeleteRegion.
 message DeleteRegionRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the region region to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteRegion.

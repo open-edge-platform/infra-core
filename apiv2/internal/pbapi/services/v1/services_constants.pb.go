@@ -6,18 +6,21 @@ package servicesv1
 
 const (
 	// Fields and Edges constants for "CreateRegionRequest"
-	CreateRegionRequestEdgeRegion = "region"
+	CreateRegionRequestFieldProjectName = "projectName"
+	CreateRegionRequestEdgeRegion       = "region"
 
 	// Fields and Edges constants for "CreateRegionResponse"
 	CreateRegionResponseEdgeRegion = "region"
 
 	// Fields and Edges constants for "GetRegionRequest"
-	GetRegionRequestFieldResourceId = "resourceId"
+	GetRegionRequestFieldProjectName = "projectName"
+	GetRegionRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetRegionResponse"
 	GetRegionResponseEdgeRegion = "region"
 
 	// Fields and Edges constants for "ListRegionsRequest"
+	ListRegionsRequestFieldProjectName    = "projectName"
 	ListRegionsRequestFieldOrderBy        = "order_by"
 	ListRegionsRequestFieldFilter         = "filter"
 	ListRegionsRequestFieldPageSize       = "page_size"
@@ -30,16 +33,19 @@ const (
 	ListRegionsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateRegionRequest"
-	UpdateRegionRequestFieldResourceId = "resourceId"
-	UpdateRegionRequestEdgeRegion      = "region"
+	UpdateRegionRequestFieldProjectName = "projectName"
+	UpdateRegionRequestFieldResourceId  = "resourceId"
+	UpdateRegionRequestEdgeRegion       = "region"
 
 	// Fields and Edges constants for "PatchRegionRequest"
-	PatchRegionRequestFieldResourceId = "resourceId"
-	PatchRegionRequestEdgeRegion      = "region"
-	PatchRegionRequestEdgeFieldMask   = "field_mask"
+	PatchRegionRequestFieldProjectName = "projectName"
+	PatchRegionRequestFieldResourceId  = "resourceId"
+	PatchRegionRequestEdgeRegion       = "region"
+	PatchRegionRequestEdgeFieldMask    = "field_mask"
 
 	// Fields and Edges constants for "DeleteRegionRequest"
-	DeleteRegionRequestFieldResourceId = "resourceId"
+	DeleteRegionRequestFieldProjectName = "projectName"
+	DeleteRegionRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteRegionResponse"
 
