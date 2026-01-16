@@ -331,6 +331,9 @@ type CreateProviderResponse struct {
 
 // CreateRegionRequest Request message for the CreateRegion method.
 type CreateRegionRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// Region A region resource.
 	Region RegionResource `json:"region"`
 }
@@ -367,6 +370,9 @@ type CreateSingleScheduleResponse struct {
 
 // CreateSiteRequest Request message for the CreateSite method.
 type CreateSiteRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// Site A site resource.
 	Site SiteResource `json:"site"`
 }
@@ -545,6 +551,9 @@ type DeleteProviderResponse = map[string]interface{}
 
 // DeleteRegionRequest Request message for DeleteRegion.
 type DeleteRegionRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the region region to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -572,6 +581,9 @@ type DeleteSingleScheduleResponse = map[string]interface{}
 
 // DeleteSiteRequest Request message for DeleteSite.
 type DeleteSiteRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the site site to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -759,6 +771,9 @@ type GetProviderResponse struct {
 
 // GetRegionRequest Request message for the GetRegion method.
 type GetRegionRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested region.
 	ResourceId string `json:"resourceId"`
 }
@@ -795,6 +810,9 @@ type GetSingleScheduleResponse struct {
 
 // GetSiteRequest Request message for the GetSite method.
 type GetSiteRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested site.
 	ResourceId string `json:"resourceId"`
 }
@@ -1643,6 +1661,9 @@ type ListRegionsRequest struct {
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ShowTotalSites (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
 	ShowTotalSites *bool `json:"showTotalSites,omitempty"`
 }
@@ -1819,6 +1840,9 @@ type ListSitesRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListSitesResponse Response message for the ListSites method.
@@ -3073,6 +3097,9 @@ type PatchRegionRequest struct {
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// Region A region resource.
 	Region RegionResource `json:"region"`
 
@@ -3702,6 +3729,9 @@ type PatchSiteRequest struct {
 	//  request should verify the included field paths, and return an
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
@@ -4920,6 +4950,9 @@ type UpdatePolicy string
 
 // UpdateRegionRequest Request message for the UpdateRegion method.
 type UpdateRegionRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// Region A region resource.
 	Region RegionResource `json:"region"`
 
@@ -4947,6 +4980,9 @@ type UpdateSingleScheduleRequest struct {
 
 // UpdateSiteRequest Request message for the UpdateSite method.
 type UpdateSiteRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the site site to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5464,33 +5500,6 @@ type ProviderServiceListProvidersParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
-type RegionServiceListRegionsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
-	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
-}
-
-// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
-type RegionServicePatchRegionParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
 type ScheduleServiceListSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -5595,30 +5604,6 @@ type ScheduleServiceListSingleSchedulesParams struct {
 
 // ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
 type ScheduleServicePatchSingleScheduleParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
-// SiteServiceListSitesParams defines parameters for SiteServiceListSites.
-type SiteServiceListSitesParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
-type SiteServicePatchSiteParams struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
@@ -5829,6 +5814,57 @@ type InstanceServicePatchInstanceParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
+// RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
+type RegionServiceListRegionsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
+	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
+}
+
+// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
+type RegionServicePatchRegionParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// SiteServiceListSitesParams defines parameters for SiteServiceListSites.
+type SiteServiceListSitesParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
+type SiteServicePatchSiteParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
@@ -5850,15 +5886,6 @@ type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
 
-// RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
-type RegionServiceCreateRegionJSONRequestBody = RegionResource
-
-// RegionServicePatchRegionJSONRequestBody defines body for RegionServicePatchRegion for application/json ContentType.
-type RegionServicePatchRegionJSONRequestBody = RegionResource
-
-// RegionServiceUpdateRegionJSONRequestBody defines body for RegionServiceUpdateRegion for application/json ContentType.
-type RegionServiceUpdateRegionJSONRequestBody = RegionResource
-
 // ScheduleServiceCreateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule for application/json ContentType.
 type ScheduleServiceCreateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
 
@@ -5876,15 +5903,6 @@ type ScheduleServicePatchSingleScheduleJSONRequestBody = SingleScheduleResource
 
 // ScheduleServiceUpdateSingleScheduleJSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule for application/json ContentType.
 type ScheduleServiceUpdateSingleScheduleJSONRequestBody = SingleScheduleResource
-
-// SiteServiceCreateSiteJSONRequestBody defines body for SiteServiceCreateSite for application/json ContentType.
-type SiteServiceCreateSiteJSONRequestBody = SiteResource
-
-// SiteServicePatchSiteJSONRequestBody defines body for SiteServicePatchSite for application/json ContentType.
-type SiteServicePatchSiteJSONRequestBody = SiteResource
-
-// SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
-type SiteServiceUpdateSiteJSONRequestBody = SiteResource
 
 // TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup for application/json ContentType.
 type TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody = TelemetryLogsGroupResource
@@ -5945,3 +5963,21 @@ type InstanceServicePatchInstanceJSONRequestBody = InstanceResource
 
 // InstanceServiceUpdateInstanceJSONRequestBody defines body for InstanceServiceUpdateInstance for application/json ContentType.
 type InstanceServiceUpdateInstanceJSONRequestBody = InstanceResource
+
+// RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
+type RegionServiceCreateRegionJSONRequestBody = RegionResource
+
+// RegionServicePatchRegionJSONRequestBody defines body for RegionServicePatchRegion for application/json ContentType.
+type RegionServicePatchRegionJSONRequestBody = RegionResource
+
+// RegionServiceUpdateRegionJSONRequestBody defines body for RegionServiceUpdateRegion for application/json ContentType.
+type RegionServiceUpdateRegionJSONRequestBody = RegionResource
+
+// SiteServiceCreateSiteJSONRequestBody defines body for SiteServiceCreateSite for application/json ContentType.
+type SiteServiceCreateSiteJSONRequestBody = SiteResource
+
+// SiteServicePatchSiteJSONRequestBody defines body for SiteServicePatchSite for application/json ContentType.
+type SiteServicePatchSiteJSONRequestBody = SiteResource
+
+// SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
+type SiteServiceUpdateSiteJSONRequestBody = SiteResource

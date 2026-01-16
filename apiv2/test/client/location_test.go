@@ -44,14 +44,16 @@ func TestLocation_Metadata(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	region, err := apiClient.RegionServiceCreateRegionWithResponse(
-		ctx, utils.Region1RequestMetadataNOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, utils.Region1RequestMetadataNOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	require.NotNil(t, region)
 	assert.Equal(t, http.StatusBadRequest, region.StatusCode())
 
 	region, err = apiClient.RegionServiceCreateRegionWithResponse(
-		ctx, utils.Region1RequestMetadataOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, utils.Region1RequestMetadataOK, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	require.NotNil(t, region)
 	assert.Equal(t, http.StatusOK, region.StatusCode())
@@ -77,8 +79,10 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 	utils.Site2Request.RegionId = nil
 
+	projectName := getProjectID(t)
+
 	getr1, err := apiClient.RegionServiceGetRegionWithResponse(
-		ctx, *r1.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *r1.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr1.StatusCode())
 	assert.Empty(t, getr1.JSON200.ParentRegion.ResourceId)
@@ -86,7 +90,7 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	assert.Equal(t, []api.MetadataItem{}, *getr1.JSON200.InheritedMetadata)
 
 	getr2, err := apiClient.RegionServiceGetRegionWithResponse(
-		ctx, *r2.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *r2.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr2.StatusCode())
 	assert.Equal(t, *r1.ResourceId, *getr2.JSON200.ParentRegion.ResourceId)
@@ -94,7 +98,7 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	assert.Equal(t, []api.MetadataItem{}, *getr2.JSON200.InheritedMetadata)
 
 	getr3, err := apiClient.RegionServiceGetRegionWithResponse(
-		ctx, *r3.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *r3.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getr3.StatusCode())
 	assert.Equal(t, *r2.ResourceId, *getr3.JSON200.ParentId)
@@ -102,7 +106,7 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	assert.Equal(t, utils.MetadataR3Inherited, *getr3.JSON200.InheritedMetadata)
 
 	gets1, err := apiClient.SiteServiceGetSiteWithResponse(
-		ctx, *s1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *s1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, gets1.StatusCode())
 	assert.Equal(t, *r3.ResourceId, *gets1.JSON200.Region.ResourceId)
@@ -117,7 +121,7 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	)
 
 	gets2, err := apiClient.SiteServiceGetSiteWithResponse(
-		ctx, *s2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *s2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, gets2.StatusCode())
 	assert.Equal(t, *r2.ResourceId, *gets2.JSON200.Region.ResourceId)
@@ -145,8 +149,11 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 	utils.Site2Request.RegionId = nil
 	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 
+	projectName := getProjectID(t)
+
 	sites1, err := apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -155,6 +162,7 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 
 	sites2, err := apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*r2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -163,6 +171,7 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 
 	s1res, err := apiClient.SiteServiceGetSiteWithResponse(
 		ctx,
+		projectName,
 		*s1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -171,6 +180,7 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 
 	s2res, err := apiClient.SiteServiceGetSiteWithResponse(
 		ctx,
+		projectName,
 		*s2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -194,8 +204,11 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	r2 := CreateRegion(ctx, t, apiClient, utils.Region2Request)
 	assert.Equal(t, utils.Region2Name, *r2.JSON200.Name)
 
+	projectName := getProjectID(t)
+
 	region1Get, err := apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -205,6 +218,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 
 	r1Update, err := apiClient.RegionServiceUpdateRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		utils.Region2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -215,6 +229,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 
 	region1GetUp, err := apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -226,6 +241,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	utils.Region1Request.ParentId = r2.JSON200.ResourceId
 	r1Update, err = apiClient.RegionServiceUpdateRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		utils.Region1Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -236,6 +252,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	// Gets r1 and checks Parent equals to r2 regionID
 	region1GetUp, err = apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -248,6 +265,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	utils.Region1Request.ParentId = &emptyString
 	r1Update, err = apiClient.RegionServiceUpdateRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		utils.Region1Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -258,6 +276,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	// Gets r1 and checks Parent equals to empty string
 	region1GetUp, err = apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -270,6 +289,7 @@ func TestLocation_RegionUpdate(t *testing.T) {
 	utils.Region1Request.ParentId = &emptyStringWrong
 	r1Update, err = apiClient.RegionServiceUpdateRegionWithResponse(
 		ctx,
+		projectName,
 		*r1.JSON200.ResourceId,
 		utils.Region1Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -301,8 +321,10 @@ func TestLocation_SiteUpdate(t *testing.T) {
 
 	// Updates site using Put, sets Region to r1 regionID and verifies it
 	utils.Site1RequestUpdate.RegionId = r1.JSON200.ResourceId
+	projectName := getProjectID(t)
 	s1Up, err := apiClient.SiteServiceUpdateSiteWithResponse(
 		ctx,
+		projectName,
 		*s1.JSON200.ResourceId,
 		utils.Site1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -312,6 +334,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 
 	s1res, err := apiClient.SiteServiceGetSiteWithResponse(
 		ctx,
+		projectName,
 		*s1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -323,6 +346,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 	utils.Site1RequestUpdate.RegionId = &emptyString
 	s1Up, err = apiClient.SiteServiceUpdateSiteWithResponse(
 		ctx,
+		projectName,
 		*s1.JSON200.ResourceId,
 		utils.Site1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -332,6 +356,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 
 	s1res, err = apiClient.SiteServiceGetSiteWithResponse(
 		ctx,
+		projectName,
 		*s1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -344,6 +369,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 	utils.Site1RequestUpdate.RegionId = &emptyStringWrong
 	s1Up, err = apiClient.SiteServiceUpdateSiteWithResponse(
 		ctx,
+		projectName,
 		*s1.JSON200.ResourceId,
 		utils.Site1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -369,9 +395,12 @@ func TestLocation_RegionErrors(t *testing.T) {
 		t.Fatalf("new API client error %s", err.Error())
 	}
 
+	projectName := getProjectID(t)
+
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		r1Up, err := apiClient.RegionServiceUpdateRegionWithResponse(
 			ctx,
+			projectName,
 			utils.RegionUnexistID,
 			utils.Region1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -383,6 +412,7 @@ func TestLocation_RegionErrors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		s1res, err := apiClient.RegionServiceGetRegionWithResponse(
 			ctx,
+			projectName,
 			utils.RegionUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -393,6 +423,7 @@ func TestLocation_RegionErrors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelSite, err := apiClient.RegionServiceDeleteRegionWithResponse(
 			ctx,
+			projectName,
 			utils.RegionUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -403,6 +434,7 @@ func TestLocation_RegionErrors(t *testing.T) {
 	t.Run("Put_WrongID_Status_StatusUnprocessableEntity", func(t *testing.T) {
 		r1Up, err := apiClient.RegionServiceUpdateRegionWithResponse(
 			ctx,
+			projectName,
 			utils.RegionWrongID,
 			utils.Region1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -414,6 +446,7 @@ func TestLocation_RegionErrors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusUnprocessableEntity", func(t *testing.T) {
 		s1res, err := apiClient.RegionServiceGetRegionWithResponse(
 			ctx,
+			projectName,
 			utils.RegionWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -424,6 +457,7 @@ func TestLocation_RegionErrors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusUnprocessableEntity", func(t *testing.T) {
 		resDelSite, err := apiClient.RegionServiceDeleteRegionWithResponse(
 			ctx,
+			projectName,
 			utils.RegionWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -442,9 +476,11 @@ func TestLocation_SiteErrors(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		s1Up, err := apiClient.SiteServiceUpdateSiteWithResponse(
 			ctx,
+			projectName,
 			utils.SiteUnexistID,
 			utils.Site1RequestUpdate,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -456,6 +492,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		s1res, err := apiClient.SiteServiceGetSiteWithResponse(
 			ctx,
+			projectName,
 			utils.SiteUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -466,6 +503,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
 			ctx,
+			projectName,
 			utils.SiteUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -476,6 +514,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 	t.Run("Put_WrongID_Status_StatusUnprocessableEntity", func(t *testing.T) {
 		s1Up, err := apiClient.SiteServiceUpdateSiteWithResponse(
 			ctx,
+			projectName,
 			utils.SiteWrongID,
 			utils.Site1RequestUpdate,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -487,6 +526,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusUnprocessableEntity", func(t *testing.T) {
 		s1res, err := apiClient.SiteServiceGetSiteWithResponse(
 			ctx,
+			projectName,
 			utils.SiteWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -497,6 +537,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusUnprocessableEntity", func(t *testing.T) {
 		resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
 			ctx,
+			projectName,
 			utils.SiteWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -513,6 +554,8 @@ func TestRegionList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	totalItems := 10
 	pageID := 1
 	pageSize := 4
@@ -524,6 +567,7 @@ func TestRegionList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -538,6 +582,7 @@ func TestRegionList(t *testing.T) {
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -549,6 +594,7 @@ func TestRegionList(t *testing.T) {
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -563,6 +609,8 @@ func TestLocation_RegionListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	postResp1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	utils.Region2Request.ParentId = postResp1.JSON200.ResourceId
@@ -575,6 +623,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 	filterByParentRegionID := fmt.Sprintf(FilterRegionParentID, *postResp1.JSON200.ResourceId)
 	resList, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{
 			Filter: &filterByParentRegionID,
 		},
@@ -589,6 +638,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 	// Checks all Regions
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -602,6 +652,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 	// emptyParent := "null"
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{
 			Filter: &FilterRegionNotHasParent,
 		},
@@ -615,6 +666,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -625,6 +677,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -647,9 +700,12 @@ func TestLocation_SiteList(t *testing.T) {
 		CreateSite(ctx, t, apiClient, utils.SiteListRequest)
 	}
 
+	projectName := getProjectID(t)
+
 	// Checks if list resources return expected number of entries
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -664,6 +720,7 @@ func TestLocation_SiteList(t *testing.T) {
 
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -690,9 +747,12 @@ func TestLocation_SiteListQuery(t *testing.T) {
 	utils.SiteListRequest3.RegionId = postRespRegion.JSON200.ResourceId
 	CreateSite(ctx, t, apiClient, utils.SiteListRequest3)
 
+	projectName := getProjectID(t)
+
 	// Checks query to all sites
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -706,6 +766,7 @@ func TestLocation_SiteListQuery(t *testing.T) {
 	filterByRegionID := fmt.Sprintf(FilterSiteRegionID, *postRespRegion.JSON200.ResourceId)
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{
 			Filter: &filterByRegionID,
 		},
@@ -721,6 +782,7 @@ func TestLocation_SiteListQuery(t *testing.T) {
 	// emptyRegion := "null"
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{
 			Filter: &FilterSiteNotHasRegion,
 		},
@@ -734,6 +796,7 @@ func TestLocation_SiteListQuery(t *testing.T) {
 
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -750,8 +813,11 @@ func TestLocation_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resRegionList, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -761,6 +827,7 @@ func TestLocation_ListEmpty(t *testing.T) {
 
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -775,6 +842,8 @@ func TestLocation_Filter(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 
 	// create regions
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
@@ -795,6 +864,7 @@ func TestLocation_Filter(t *testing.T) {
 	filter := fmt.Sprintf("region.resourceId=%q", *r1.JSON200.ResourceId)
 	sites1, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{Filter: &filter},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -807,6 +877,7 @@ func TestLocation_Filter(t *testing.T) {
 	filter = fmt.Sprintf("region.resourceId=%q", *r2.JSON200.ResourceId)
 	sites2, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{Filter: &filter},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -819,6 +890,7 @@ func TestLocation_Filter(t *testing.T) {
 	filter = fmt.Sprintf(`NOT has(%s)`, "parent_region")
 	regions, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{
 			ShowTotalSites: &showSites,
 			Filter:         &filter,
@@ -841,6 +913,8 @@ func TestLocation_FilterSites(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+	
 	// create regions
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Region2Request.ParentId = nil
@@ -926,6 +1000,7 @@ func TestLocation_FilterSites(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			sites, err := apiClient.SiteServiceListSitesWithResponse(
 				ctx,
+				projectName,
 				&api.SiteServiceListSitesParams{
 					Filter:  &tc.filter,
 					OrderBy: tc.orderby,
@@ -953,6 +1028,8 @@ func TestRegion_Patch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// Create a Region
 	region := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	assert.Equal(t, utils.Region1Name, *region.JSON200.Name)
@@ -966,6 +1043,7 @@ func TestRegion_Patch(t *testing.T) {
 	// Perform the Patch operation
 	updatedRegion, err := apiClient.RegionServicePatchRegionWithResponse(
 		ctx,
+		projectName,
 		*region.JSON200.ResourceId,
 		&api.RegionServicePatchRegionParams{},
 		patchRequest,
@@ -978,6 +1056,7 @@ func TestRegion_Patch(t *testing.T) {
 	// Verify the changes with a Get operation
 	getRegion, err := apiClient.RegionServiceGetRegionWithResponse(
 		ctx,
+		projectName,
 		*region.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -996,6 +1075,8 @@ func TestSite_Patch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// Create a Site
 	region := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = region.JSON200.ResourceId
@@ -1011,6 +1092,7 @@ func TestSite_Patch(t *testing.T) {
 	// Perform the Patch operation
 	updatedSite, err := apiClient.SiteServicePatchSiteWithResponse(
 		ctx,
+		projectName,
 		*site.JSON200.ResourceId,
 		&api.SiteServicePatchSiteParams{},
 		patchRequest,
@@ -1023,6 +1105,7 @@ func TestSite_Patch(t *testing.T) {
 	// Verify the changes with a Get operation
 	getSite, err := apiClient.SiteServiceGetSiteWithResponse(
 		ctx,
+		projectName,
 		*site.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

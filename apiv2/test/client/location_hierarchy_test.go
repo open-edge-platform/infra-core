@@ -439,9 +439,12 @@ func TestLocation_Cleanup(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	pgSize := 100
 	regions, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{
 			PageSize: &pgSize,
 		},
@@ -453,6 +456,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	for _, region := range regions.JSON200.Regions {
 		_, err = apiClient.RegionServiceDeleteRegionWithResponse(
 			ctx,
+			projectName,
 			*region.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -461,6 +465,7 @@ func TestLocation_Cleanup(t *testing.T) {
 
 	sites, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
+		projectName,
 		&api.SiteServiceListSitesParams{
 			PageSize: &pgSize,
 		},
@@ -472,6 +477,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	for _, site := range sites.JSON200.Sites {
 		_, err := apiClient.SiteServiceDeleteSiteWithResponse(
 			ctx,
+			projectName,
 			*site.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)

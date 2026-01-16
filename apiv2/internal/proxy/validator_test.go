@@ -33,17 +33,17 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	siteName := "site"
 	siteBody := api.SiteResource{Name: &siteName}
 	projectName := "test-project"
-	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", siteBody)
+	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", projectName, siteBody)
 	assert.NoError(t, err)
 
 	regionID := "region-12345678"
 	params := &api.SiteServiceListSitesParams{Filter: &regionID}
-	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", params)
+	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", projectName, params)
 	assert.NoError(t, err)
 
 	pageSizeWrong := 2000
 	paramsWrong := &api.SiteServiceListSitesParams{PageSize: &pageSizeWrong}
-	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", paramsWrong)
+	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", projectName, paramsWrong)
 	assert.NoError(t, err)
 
 	emptyUUID := ""
