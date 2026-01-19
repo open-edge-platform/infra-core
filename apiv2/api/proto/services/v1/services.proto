@@ -228,35 +228,35 @@ service OperatingSystemService {
   // Create an OS
   rpc CreateOperatingSystem(CreateOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/operating_systems"
+      post: "/v1/projects/{projectName}/compute/operating_systems"
       body: "os"
     };
   }
   // Get a list of OSs.
   rpc ListOperatingSystems(ListOperatingSystemsRequest) returns (ListOperatingSystemsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/operating_systems"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/operating_systems"};
   }
   // Get a specific OS.
   rpc GetOperatingSystem(GetOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"};
   }
   // Update an OS.
   rpc UpdateOperatingSystem(UpdateOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
+      put: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
       body: "os"
     };
   }
   // Patch an OS.
   rpc PatchOperatingSystem(PatchOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
+      patch: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
       body: "os"
     };
   }
   // Delete an OS.
   rpc DeleteOperatingSystem(DeleteOperatingSystemRequest) returns (DeleteOperatingSystemResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"};
   }
 }
 
@@ -1335,8 +1335,10 @@ message InvalidateInstanceResponse {}
 
 // Request message for the CreateOperatingSystem method.
 message CreateOperatingSystemRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The os to create.
-  resources.os.v1.OperatingSystemResource os = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateOperatingSystem method.
@@ -1347,8 +1349,10 @@ message CreateOperatingSystemResponse {
 
 // Request message for the GetOperatingSystem method.
 message GetOperatingSystemRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested os.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOperatingSystem method.
@@ -1359,9 +1363,11 @@ message GetOperatingSystemResponse {
 
 // Request message for the ListOperatingSystems method.
 message ListOperatingSystemsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1370,7 +1376,7 @@ message ListOperatingSystemsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1379,7 +1385,7 @@ message ListOperatingSystemsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1387,7 +1393,7 @@ message ListOperatingSystemsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -1408,26 +1414,32 @@ message ListOperatingSystemsResponse {
 
 // Request message for the UpdateOperatingSystem method.
 message UpdateOperatingSystemRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the os os to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
-  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.os.v1.OperatingSystemResource os = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchOperatingSystem method.
 message PatchOperatingSystemRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
-  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.os.v1.OperatingSystemResource os = 3 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of os.
-  google.protobuf.FieldMask field_mask = 3;
+  google.protobuf.FieldMask field_mask = 4;
 }
 
 // Request message for DeleteOperatingSystem.
 message DeleteOperatingSystemRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the os os to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
