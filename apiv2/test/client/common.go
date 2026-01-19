@@ -436,8 +436,11 @@ func CreateOS(
 ) *api.OperatingSystemServiceCreateOperatingSystemResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	osCreated, err := apiClient.OperatingSystemServiceCreateOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		reqOS,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -462,8 +465,11 @@ func DeleteOS(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	osDel, err := apiClient.OperatingSystemServiceDeleteOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		osID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
