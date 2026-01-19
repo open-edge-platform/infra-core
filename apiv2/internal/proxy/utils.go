@@ -4,34 +4,34 @@
 package proxy
 
 import (
-	"fmt"
-	"strings"
-
-	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/scenario"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 )
 
-func BuildAllowedClientList(scenarioName string) (map[string]struct{}, error) {
+var zlog = logging.GetLogger("proxy")
 
-	allowedServices, ok := scenario.Allowlist[scenarioName]
-	if !ok {
-		err := fmt.Errorf("unknown scenario %q", scenarioName)
+func BuildAllowedClientList(scenarioName string, allowlist map[string][]string) (map[string]struct{}, error) {
+	// Convert servicesClients map to map[string]interface{} to be used by the common function
+	knownServices := make(map[string]interface{}, len(servicesClients))
+	for key := range servicesClients {
+		knownServices[key] = nil
+	}
+
+	allowed, unknown, err := common.BuildAllowedHandlersList(scenarioName, allowlist, knownServices)
+	if err != nil {
 		zlog.Err(err).Msg("unknown scenario")
 		return nil, err
 	}
-	allowed := make(map[string]struct{}, len(allowedServices))
-	for _, serviceName := range allowedServices {
-		serviceName = strings.TrimSpace(serviceName)
-		if serviceName == "" {
-			continue
-		}
-		// validate agains the list of knwon services
-		if _, exists := servicesClients[serviceName]; !exists {
-			zlog.Warn().Str("service", serviceName).Str("scenario", scenarioName).Msg("allowed service is not registered in proxy servicesClients map")
-		} else {
-			allowed[serviceName] = struct{}{}
-			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).Msg("including allowed service")
-		}
 
+	// Log unknown services
+	for _, serviceName := range unknown {
+		zlog.Warn().Str("scenario", scenarioName).Msgf("allowed client %s is not among known clients", serviceName)
 	}
+
+	// Log registered services
+	for serviceName := range allowed {
+		zlog.Debug().Str("scenario", scenarioName).Msgf("including client %s in the allowed clients list", serviceName)
+	}
+
 	return allowed, nil
 }

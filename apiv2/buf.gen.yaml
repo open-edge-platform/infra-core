@@ -31,7 +31,6 @@ plugins:
       - short-service-tags
       - short-operation-ids
       - path=openapi.yaml
-    service:
 
   # grpc-gateway - https://grpc-ecosystem.github.io/grpc-gateway/
   - name: grpc-gateway
@@ -41,7 +40,7 @@ plugins:
 
   # docs - https://github.com/pseudomuto/protoc-gen-doc
   - plugin: doc
-    out: docs/vpro
+    out: docs
     opt: markdown,proto.md
     strategy: all
 

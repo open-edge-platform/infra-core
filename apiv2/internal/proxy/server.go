@@ -17,13 +17,11 @@ import (
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/scenario"
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	inv_client "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	ginutils "github.com/open-edge-platform/orch-library/go/pkg/middleware/gin"
 )
-
-var zlog = logging.GetLogger("proxy")
 
 // serviceClientsSignature defines a signature for a gRPC client registration function.
 type serviceClientsSignature func(
@@ -55,8 +53,8 @@ var servicesClients = map[string]serviceClientsSignature{
 	"TelemetryLogsProfileService":    restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
 	"LocalAccountService":            restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
 	"CustomConfigService":            restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
-	"OSUpdatePolicy":                 restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
-	"OSUpdateRun":                    restv1.RegisterOSUpdateRunHandlerFromEndpoint,
+	"OSUpdatePolicyService":          restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
+	"OSUpdateRunService":             restv1.RegisterOSUpdateRunHandlerFromEndpoint,
 }
 
 const (
@@ -94,13 +92,13 @@ func WrapH(h http.Handler) echo.HandlerFunc {
 }
 
 func (m *Manager) setupClients(mux *runtime.ServeMux) error {
-	scenarioName := "vpro" // strings.TrimSpace(os.Getenv("SCENARIO"))
+	scenarioName := m.cfg.Scenario
 	if scenarioName == "" {
-		return fmt.Errorf("SCENARIO env var is not set")
+		return fmt.Errorf("scenario is not set in config")
 	}
 
 	// build a map of allowed services for quick lookup
-	allowed, err := BuildAllowedClientList(scenarioName)
+	allowed, err := BuildAllowedClientList(scenarioName, scenario.Allowlist)
 	if err != nil {
 		return err
 	}
@@ -124,6 +122,8 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 			zlog.InfraErr(err).Str("service", serviceName).Str("scenario", scenarioName).Msg("failed to set service client")
 			return err
 		}
+
+		zlog.Info().Str("service", serviceName).Str("scenario", scenarioName).Msg("registered gRPC client")
 	}
 
 	return nil

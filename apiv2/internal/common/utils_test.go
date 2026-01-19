@@ -1,29 +1,34 @@
 // SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
-package proxy_test
+package common_test
 
 import (
 	"testing"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/proxy"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
 )
 
-func TestBuildAllowedClientList(t *testing.T) {
-
+func TestBuildAllowedHandlersList(t *testing.T) {
 	tests := []struct {
-		name         string
-		scenarioName string
-		allowlist    map[string][]string
-		wantLen      int
-		wantErr      bool
-		wantServices []string
+		name          string
+		scenarioName  string
+		allowlist     map[string][]string
+		knownServices map[string]interface{}
+		wantLen       int
+		wantErr       bool
+		wantServices  []string
 	}{
 		{
 			name:         "valid scenario with services",
 			scenarioName: "test-scenario-full",
 			allowlist: map[string][]string{
 				"test-scenario-full": {"HostService", "LocationService", "ProviderService"},
+			},
+			knownServices: map[string]interface{}{
+				"HostService":     nil,
+				"LocationService": nil,
+				"ProviderService": nil,
 			},
 			wantLen:      3,
 			wantErr:      false,
@@ -35,6 +40,9 @@ func TestBuildAllowedClientList(t *testing.T) {
 			allowlist: map[string][]string{
 				"test-scenario-full": {"HostService"},
 			},
+			knownServices: map[string]interface{}{
+				"HostService": nil,
+			},
 			wantLen: 0,
 			wantErr: true,
 		},
@@ -43,6 +51,10 @@ func TestBuildAllowedClientList(t *testing.T) {
 			scenarioName: "test-scenario-empty",
 			allowlist: map[string][]string{
 				"test-scenario-empty": {"HostService", "  ", "", "LocationService"},
+			},
+			knownServices: map[string]interface{}{
+				"HostService":     nil,
+				"LocationService": nil,
 			},
 			wantLen:      2,
 			wantErr:      false,
@@ -54,14 +66,19 @@ func TestBuildAllowedClientList(t *testing.T) {
 			allowlist: map[string][]string{
 				"test-scenario-minimal": {},
 			},
-			wantLen: 0,
-			wantErr: false,
+			knownServices: map[string]interface{}{},
+			wantLen:       0,
+			wantErr:       false,
 		},
 		{
 			name:         "scenario with whitespace in service names",
 			scenarioName: "test-scenario-whitespace",
 			allowlist: map[string][]string{
 				"test-scenario-whitespace": {"  HostService  ", "LocationService "},
+			},
+			knownServices: map[string]interface{}{
+				"HostService":     nil,
+				"LocationService": nil,
 			},
 			wantLen:      2,
 			wantErr:      false,
@@ -71,50 +88,55 @@ func TestBuildAllowedClientList(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := proxy.BuildAllowedClientList(tt.scenarioName, tt.allowlist)
+			got, _, err := common.BuildAllowedHandlersList(tt.scenarioName, tt.allowlist, tt.knownServices)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("buildAllowedClientList() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("BuildAllowedHandlersList() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
 			if err != nil {
-				return // Expected error case
+				return
 			}
 
 			if len(got) != tt.wantLen {
-				t.Errorf("buildAllowedClientList() got map length %d, want %d", len(got), tt.wantLen)
+				t.Errorf("BuildAllowedHandlersList() got map length %d, want %d", len(got), tt.wantLen)
 			}
 
 			for _, service := range tt.wantServices {
 				if _, exists := got[service]; !exists {
-					t.Errorf("buildAllowedClientList() missing service %q in result", service)
+					t.Errorf("BuildAllowedHandlersList() missing service %q in result", service)
 				}
 			}
 		})
 	}
 }
 
-func TestBuildAllowedClientList_UnregisteredService(t *testing.T) {
+func TestBuildAllowedHandlersList_UnregisteredService(t *testing.T) {
 	allowlist := map[string][]string{
 		"test-scenario-unregistered": {"HostService", "UnknownService"},
 	}
 
-	list, err := proxy.BuildAllowedClientList("test-scenario-unregistered", allowlist)
+	knownServices := map[string]interface{}{
+		"HostService": nil,
+		// UnknownService is not in the knownServices map
+	}
+
+	list, _, err := common.BuildAllowedHandlersList("test-scenario-unregistered", allowlist, knownServices)
 
 	if err != nil {
-		t.Errorf("buildAllowedClientList() unexpected error: %v", err)
+		t.Errorf("BuildAllowedHandlersList() unexpected error: %v", err)
 	}
 
 	if len(list) != 1 {
-		t.Errorf("buildAllowedClientList() got map length %d, want 1", len(list))
+		t.Errorf("BuildAllowedHandlersList() got map length %d, want 1", len(list))
 	}
 
 	// Only known services should be in the allowed map
 	if _, exists := list["HostService"]; !exists {
-		t.Error("buildAllowedClientList() missing HostService in result")
+		t.Error("BuildAllowedHandlersList() missing HostService in result")
 	}
 	if _, exists := list["UnknownService"]; exists {
-		t.Error("buildAllowedClientList() should not include UnknownService in result")
+		t.Error("BuildAllowedHandlersList() should not include UnknownService in result")
 	}
 }
