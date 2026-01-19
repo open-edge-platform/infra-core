@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ---
+version: '2'
+
 linters:
   enable:
     - asasalint
@@ -19,20 +21,15 @@ linters:
     - errorlint
     - exhaustive
     - funlen
-    - gci
     - gochecknoinits
     - goconst
     - gocritic
     - gocyclo
     - godot
-    - gofmt
-    - gofumpt
     - goheader
-    - goimports
     - gomoddirectives
     - goprintffuncname
     - gosec
-    - gosimple
     - govet
     - ineffassign
     - lll
@@ -47,20 +44,24 @@ linters:
     - predeclared
     - revive
     - staticcheck
-    - stylecheck
     - tagliatelle
     - testpackage
-    - tenv
     - testableexamples
     - thelper
     - tparallel
-    - typecheck
     - unconvert
     - unparam
     - unused
     - usestdlibvars
     - whitespace
     - dupl
+
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
 
 run:
   timeout: 10m
@@ -208,7 +209,11 @@ output:
   # Example: "checkstyle:report.json,colored-line-number"
   #
   # Default: colored-line-number
-  formats: colored-line-number:stdout,html:out/golangci-lint_report.html
+  formats:
+    colored-line-number:
+      path: stdout
+    html:
+      path: out/golangci-lint_report.html
 
   print-linter-name: true
 
