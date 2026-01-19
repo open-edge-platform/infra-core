@@ -117,9 +117,6 @@ type ClientInterface interface {
 	// LocalAccountServiceGetLocalAccount request
 	LocalAccountServiceGetLocalAccount(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// LocationServiceListLocations request
-	LocationServiceListLocations(ctx context.Context, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// OSUpdatePolicyListOSUpdatePolicy request
 	OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -463,6 +460,9 @@ type ClientInterface interface {
 	SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocationServiceListLocations request
+	LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) CustomConfigServiceListCustomConfigs(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -575,18 +575,6 @@ func (c *Client) LocalAccountServiceDeleteLocalAccount(ctx context.Context, reso
 
 func (c *Client) LocalAccountServiceGetLocalAccount(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewLocalAccountServiceGetLocalAccountRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) LocationServiceListLocations(ctx context.Context, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLocationServiceListLocationsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2121,6 +2109,18 @@ func (c *Client) SiteServiceUpdateSite(ctx context.Context, projectName string, 
 	return c.Client.Do(req)
 }
 
+func (c *Client) LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocationServiceListLocationsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // NewCustomConfigServiceListCustomConfigsRequest generates requests for CustomConfigServiceListCustomConfigs
 func NewCustomConfigServiceListCustomConfigsRequest(server string, params *CustomConfigServiceListCustomConfigsParams) (*http.Request, error) {
 	var err error
@@ -2521,87 +2521,6 @@ func NewLocalAccountServiceGetLocalAccountRequest(server string, resourceId stri
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewLocationServiceListLocationsRequest generates requests for LocationServiceListLocations
-func NewLocationServiceListLocationsRequest(server string, params *LocationServiceListLocationsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/locations")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.Name != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, *params.Name); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.ShowSites != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showSites", runtime.ParamLocationQuery, *params.ShowSites); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.ShowRegions != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showRegions", runtime.ParamLocationQuery, *params.ShowRegions); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("GET", queryURL.String(), nil)
@@ -7819,6 +7738,94 @@ func NewSiteServiceUpdateSiteRequestWithBody(server string, projectName string, 
 	return req, nil
 }
 
+// NewLocationServiceListLocationsRequest generates requests for LocationServiceListLocations
+func NewLocationServiceListLocationsRequest(server string, projectName string, params *LocationServiceListLocationsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/locations", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, *params.Name); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowSites != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showSites", runtime.ParamLocationQuery, *params.ShowSites); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowRegions != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showRegions", runtime.ParamLocationQuery, *params.ShowRegions); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -7889,9 +7896,6 @@ type ClientWithResponsesInterface interface {
 
 	// LocalAccountServiceGetLocalAccountWithResponse request
 	LocalAccountServiceGetLocalAccountWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccountResponse, error)
-
-	// LocationServiceListLocationsWithResponse request
-	LocationServiceListLocationsWithResponse(ctx context.Context, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error)
 
 	// OSUpdatePolicyListOSUpdatePolicyWithResponse request
 	OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error)
@@ -8236,6 +8240,9 @@ type ClientWithResponsesInterface interface {
 	SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
 
 	SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
+
+	// LocationServiceListLocationsWithResponse request
+	LocationServiceListLocationsWithResponse(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error)
 }
 
 type CustomConfigServiceListCustomConfigsResponse struct {
@@ -8408,28 +8415,6 @@ func (r LocalAccountServiceGetLocalAccountResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r LocalAccountServiceGetLocalAccountResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type LocationServiceListLocationsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListLocationsResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r LocationServiceListLocationsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LocationServiceListLocationsResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10416,6 +10401,28 @@ func (r SiteServiceUpdateSiteResponse) StatusCode() int {
 	return 0
 }
 
+type LocationServiceListLocationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListLocationsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r LocationServiceListLocationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocationServiceListLocationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 // CustomConfigServiceListCustomConfigsWithResponse request returning *CustomConfigServiceListCustomConfigsResponse
 func (c *ClientWithResponses) CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error) {
 	rsp, err := c.CustomConfigServiceListCustomConfigs(ctx, params, reqEditors...)
@@ -10502,15 +10509,6 @@ func (c *ClientWithResponses) LocalAccountServiceGetLocalAccountWithResponse(ctx
 		return nil, err
 	}
 	return ParseLocalAccountServiceGetLocalAccountResponse(rsp)
-}
-
-// LocationServiceListLocationsWithResponse request returning *LocationServiceListLocationsResponse
-func (c *ClientWithResponses) LocationServiceListLocationsWithResponse(ctx context.Context, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error) {
-	rsp, err := c.LocationServiceListLocations(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLocationServiceListLocationsResponse(rsp)
 }
 
 // OSUpdatePolicyListOSUpdatePolicyWithResponse request returning *OSUpdatePolicyListOSUpdatePolicyResponse
@@ -11619,6 +11617,15 @@ func (c *ClientWithResponses) SiteServiceUpdateSiteWithResponse(ctx context.Cont
 	return ParseSiteServiceUpdateSiteResponse(rsp)
 }
 
+// LocationServiceListLocationsWithResponse request returning *LocationServiceListLocationsResponse
+func (c *ClientWithResponses) LocationServiceListLocationsWithResponse(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error) {
+	rsp, err := c.LocationServiceListLocations(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocationServiceListLocationsResponse(rsp)
+}
+
 // ParseCustomConfigServiceListCustomConfigsResponse parses an HTTP response from a CustomConfigServiceListCustomConfigsWithResponse call
 func ParseCustomConfigServiceListCustomConfigsResponse(rsp *http.Response) (*CustomConfigServiceListCustomConfigsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -11817,32 +11824,6 @@ func ParseLocalAccountServiceGetLocalAccountResponse(rsp *http.Response) (*Local
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest LocalAccountResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLocationServiceListLocationsResponse parses an HTTP response from a LocationServiceListLocationsWithResponse call
-func ParseLocationServiceListLocationsResponse(rsp *http.Response) (*LocationServiceListLocationsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LocationServiceListLocationsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListLocationsResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -14183,6 +14164,32 @@ func ParseSiteServiceUpdateSiteResponse(rsp *http.Response) (*SiteServiceUpdateS
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocationServiceListLocationsResponse parses an HTTP response from a LocationServiceListLocationsWithResponse call
+func ParseLocationServiceListLocationsResponse(rsp *http.Response) (*LocationServiceListLocationsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocationServiceListLocationsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListLocationsResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

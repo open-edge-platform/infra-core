@@ -1496,6 +1496,9 @@ type ListLocationsRequest struct {
 	// Name (OPTIONAL) Filter locations by name
 	Name *string `json:"name,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ShowRegions (OPTIONAL) Return region locations
 	ShowRegions *bool `json:"showRegions,omitempty"`
 
@@ -5428,18 +5431,6 @@ type LocalAccountServiceListLocalAccountsParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// LocationServiceListLocationsParams defines parameters for LocationServiceListLocations.
-type LocationServiceListLocationsParams struct {
-	// Name Filter locations by name
-	Name *string `form:"name,omitempty" json:"name,omitempty"`
-
-	// ShowSites Return site locations
-	ShowSites *bool `form:"showSites,omitempty" json:"showSites,omitempty"`
-
-	// ShowRegions Return region locations
-	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
-}
-
 // OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
 type OSUpdatePolicyListOSUpdatePolicyParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5881,6 +5872,18 @@ type SiteServiceListSitesParams struct {
 type SiteServicePatchSiteParams struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// LocationServiceListLocationsParams defines parameters for LocationServiceListLocations.
+type LocationServiceListLocationsParams struct {
+	// Name Filter locations by name
+	Name *string `form:"name,omitempty" json:"name,omitempty"`
+
+	// ShowSites Return site locations
+	ShowSites *bool `form:"showSites,omitempty" json:"showSites,omitempty"`
+
+	// ShowRegions Return region locations
+	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
 }
 
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.

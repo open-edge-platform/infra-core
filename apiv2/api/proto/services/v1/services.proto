@@ -115,7 +115,7 @@ service SiteService {
 service LocationService {
   // Get a list of locations.
   rpc ListLocations(ListLocationsRequest) returns (ListLocationsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/locations"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/locations"};
   }
 }
 
@@ -833,8 +833,10 @@ message DeleteSiteResponse {}
 
 // Request message for the ListLocations method.
 message ListLocationsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Filter locations by name
-  string name = 1 [
+  string name = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
@@ -842,9 +844,9 @@ message ListLocationsRequest {
     }
   ];
   // Return site locations
-  bool show_sites = 2 [(google.api.field_behavior) = OPTIONAL];
+  bool show_sites = 3 [(google.api.field_behavior) = OPTIONAL];
   // Return region locations
-  bool show_regions = 3 [(google.api.field_behavior) = OPTIONAL];
+  bool show_regions = 4 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the ListLocations method.

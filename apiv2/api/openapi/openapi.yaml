@@ -272,44 +272,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteLocalAccountResponse'
-  /edge-infra.orchestrator.apis/v2/locations:
-    get:
-      tags:
-        - LocationService
-      summary: ListLocations
-      description: Get a list of locations.
-      operationId: LocationService_ListLocations
-      parameters:
-        - name: name
-          in: query
-          description: Filter locations by name
-          schema:
-            type: string
-            title: name
-            maxLength: 50
-            pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
-            description: (OPTIONAL) Filter locations by name
-        - name: showSites
-          in: query
-          description: Return site locations
-          schema:
-            type: boolean
-            title: show_sites
-            description: (OPTIONAL) Return site locations
-        - name: showRegions
-          in: query
-          description: Return region locations
-          schema:
-            type: boolean
-            title: show_regions
-            description: (OPTIONAL) Return region locations
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListLocationsResponse'
   /edge-infra.orchestrator.apis/v2/os_update_policy:
     get:
       tags:
@@ -3760,6 +3722,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SiteResource'
+  /v1/projects/{projectName}/locations:
+    get:
+      tags:
+        - LocationService
+      summary: ListLocations
+      description: Get a list of locations.
+      operationId: LocationService_ListLocations
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: name
+          in: query
+          description: Filter locations by name
+          schema:
+            type: string
+            title: name
+            maxLength: 50
+            pattern: '^$|^[a-zA-Z-_0-9./: ]+$'
+            description: (OPTIONAL) Filter locations by name
+        - name: showSites
+          in: query
+          description: Return site locations
+          schema:
+            type: boolean
+            title: show_sites
+            description: (OPTIONAL) Return site locations
+        - name: showRegions
+          in: query
+          description: Return region locations
+          schema:
+            type: boolean
+            title: show_regions
+            description: (OPTIONAL) Return region locations
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
 components:
   schemas:
     google.protobuf.FieldMask:
@@ -7956,6 +7964,10 @@ components:
     ListLocationsRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         name:
           type: string
           title: name
@@ -7971,6 +7983,8 @@ components:
           title: show_regions
           description: (OPTIONAL) Return region locations
       title: ListLocationsRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListLocations method.
     ListLocationsResponse:

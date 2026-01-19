@@ -114,6 +114,8 @@ func TestLocation_Hierarchy(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
@@ -349,7 +351,7 @@ func TestLocation_Hierarchy(t *testing.T) {
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
 			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
-				ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+				ctx, projectName, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 
@@ -365,6 +367,8 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 	log.Info().Msgf("Begin TestLocation_Hierarchy")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout*5)
 	defer cancel()
+
+	projectName := getProjectID(t)
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
@@ -420,7 +424,7 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
 			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
-				ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+				ctx, projectName, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 			require.Equal(t, http.StatusOK, respStatusCode)

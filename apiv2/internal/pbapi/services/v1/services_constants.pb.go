@@ -93,6 +93,7 @@ const (
 	// Fields and Edges constants for "DeleteSiteResponse"
 
 	// Fields and Edges constants for "ListLocationsRequest"
+	ListLocationsRequestFieldProjectName = "projectName"
 	ListLocationsRequestFieldName        = "name"
 	ListLocationsRequestFieldShowSites   = "show_sites"
 	ListLocationsRequestFieldShowRegions = "show_regions"

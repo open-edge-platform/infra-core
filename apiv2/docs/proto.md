@@ -3319,6 +3319,7 @@ Request message for the ListLocations method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | name | [string](#string) |  | Filter locations by name |
 | show_sites | [bool](#bool) |  | Return site locations |
 | show_regions | [bool](#bool) |  | Return region locations |
