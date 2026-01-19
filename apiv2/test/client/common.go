@@ -764,8 +764,11 @@ func CreateLocalAccount(ctx context.Context, t *testing.T, apiClient *api.Client
 ) *api.LocalAccountServiceCreateLocalAccountResponse {
 	t.Helper()
 
+	projectName := getProjectID(t)
+
 	response, err := apiClient.LocalAccountServiceCreateLocalAccountWithResponse(
 		ctx,
+		projectName,
 		request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -786,8 +789,11 @@ func DeleteLocalAccount(ctx context.Context, t *testing.T,
 ) {
 	t.Helper()
 
+	projectName := getProjectID(t)
+
 	response, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
 		ctx,
+		projectName,
 		resourceID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

@@ -546,21 +546,21 @@ service LocalAccountService {
   // Create a localAccount.
   rpc CreateLocalAccount(CreateLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/localAccounts"
+      post: "/v1/projects/{projectName}/localAccounts"
       body: "local_account"
     };
   }
   // Get a list of providers.
   rpc ListLocalAccounts(ListLocalAccountsRequest) returns (ListLocalAccountsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/localAccounts"};
   }
   // Get a specific provider.
   rpc GetLocalAccount(GetLocalAccountRequest) returns (resources.localaccount.v1.LocalAccountResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/localAccounts/{resourceId}"};
   }
   // Delete a provider.
   rpc DeleteLocalAccount(DeleteLocalAccountRequest) returns (DeleteLocalAccountResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/localAccounts/{resourceId}"};
   }
 }
 
@@ -2481,8 +2481,10 @@ message DeleteTelemetryMetricsProfileResponse {}
 
 // Request message for the CreateLocalAccount method.
 message CreateLocalAccountRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The localaccount to create.
-  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.localaccount.v1.LocalAccountResource local_account = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateLocalAccount method.
@@ -2493,8 +2495,10 @@ message CreateLocalAccountResponse {
 
 // Request message for the GetLocalAccount method.
 message GetLocalAccountRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested localaccount.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetLocalAccount method.
@@ -2505,9 +2509,11 @@ message GetLocalAccountResponse {
 
 // Request message for the ListLocalAccounts method.
 message ListLocalAccountsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2516,7 +2522,7 @@ message ListLocalAccountsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2525,7 +2531,7 @@ message ListLocalAccountsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2533,7 +2539,7 @@ message ListLocalAccountsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2554,8 +2560,10 @@ message ListLocalAccountsResponse {
 
 // Request message for DeleteLocalAccount.
 message DeleteLocalAccountRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the localaccount to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteLocalAccount.

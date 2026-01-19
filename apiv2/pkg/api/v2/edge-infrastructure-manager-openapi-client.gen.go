@@ -103,20 +103,6 @@ type ClientInterface interface {
 	// CustomConfigServiceGetCustomConfig request
 	CustomConfigServiceGetCustomConfig(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// LocalAccountServiceListLocalAccounts request
-	LocalAccountServiceListLocalAccounts(ctx context.Context, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// LocalAccountServiceCreateLocalAccountWithBody request with any body
-	LocalAccountServiceCreateLocalAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	LocalAccountServiceCreateLocalAccount(ctx context.Context, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// LocalAccountServiceDeleteLocalAccount request
-	LocalAccountServiceDeleteLocalAccount(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// LocalAccountServiceGetLocalAccount request
-	LocalAccountServiceGetLocalAccount(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// OSUpdatePolicyListOSUpdatePolicy request
 	OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -413,6 +399,20 @@ type ClientInterface interface {
 
 	OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// LocalAccountServiceListLocalAccounts request
+	LocalAccountServiceListLocalAccounts(ctx context.Context, projectName string, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceCreateLocalAccountWithBody request with any body
+	LocalAccountServiceCreateLocalAccountWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	LocalAccountServiceCreateLocalAccount(ctx context.Context, projectName string, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceDeleteLocalAccount request
+	LocalAccountServiceDeleteLocalAccount(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceGetLocalAccount request
+	LocalAccountServiceGetLocalAccount(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// RegionServiceListRegions request
 	RegionServiceListRegions(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -515,66 +515,6 @@ func (c *Client) CustomConfigServiceDeleteCustomConfig(ctx context.Context, reso
 
 func (c *Client) CustomConfigServiceGetCustomConfig(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCustomConfigServiceGetCustomConfigRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) LocalAccountServiceListLocalAccounts(ctx context.Context, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLocalAccountServiceListLocalAccountsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) LocalAccountServiceCreateLocalAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLocalAccountServiceCreateLocalAccountRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) LocalAccountServiceCreateLocalAccount(ctx context.Context, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLocalAccountServiceCreateLocalAccountRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) LocalAccountServiceDeleteLocalAccount(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLocalAccountServiceDeleteLocalAccountRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) LocalAccountServiceGetLocalAccount(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewLocalAccountServiceGetLocalAccountRequest(c.Server, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -1893,6 +1833,66 @@ func (c *Client) OperatingSystemServiceUpdateOperatingSystem(ctx context.Context
 	return c.Client.Do(req)
 }
 
+func (c *Client) LocalAccountServiceListLocalAccounts(ctx context.Context, projectName string, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceListLocalAccountsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceCreateLocalAccountWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceCreateLocalAccountRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceCreateLocalAccount(ctx context.Context, projectName string, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceCreateLocalAccountRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceDeleteLocalAccount(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceDeleteLocalAccountRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceGetLocalAccount(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceGetLocalAccountRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) RegionServiceListRegions(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRegionServiceListRegionsRequest(c.Server, projectName, params)
 	if err != nil {
@@ -2309,211 +2309,6 @@ func NewCustomConfigServiceGetCustomConfigRequest(server string, resourceId stri
 	}
 
 	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewLocalAccountServiceListLocalAccountsRequest generates requests for LocalAccountServiceListLocalAccounts
-func NewLocalAccountServiceListLocalAccountsRequest(server string, params *LocalAccountServiceListLocalAccountsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewLocalAccountServiceCreateLocalAccountRequest calls the generic LocalAccountServiceCreateLocalAccount builder with application/json body
-func NewLocalAccountServiceCreateLocalAccountRequest(server string, body LocalAccountServiceCreateLocalAccountJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewLocalAccountServiceCreateLocalAccountRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewLocalAccountServiceCreateLocalAccountRequestWithBody generates requests for LocalAccountServiceCreateLocalAccount with any type of body
-func NewLocalAccountServiceCreateLocalAccountRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewLocalAccountServiceDeleteLocalAccountRequest generates requests for LocalAccountServiceDeleteLocalAccount
-func NewLocalAccountServiceDeleteLocalAccountRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewLocalAccountServiceGetLocalAccountRequest generates requests for LocalAccountServiceGetLocalAccount
-func NewLocalAccountServiceGetLocalAccountRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts/%s", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -6996,6 +6791,239 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 	return req, nil
 }
 
+// NewLocalAccountServiceListLocalAccountsRequest generates requests for LocalAccountServiceListLocalAccounts
+func NewLocalAccountServiceListLocalAccountsRequest(server string, projectName string, params *LocalAccountServiceListLocalAccountsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/localAccounts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewLocalAccountServiceCreateLocalAccountRequest calls the generic LocalAccountServiceCreateLocalAccount builder with application/json body
+func NewLocalAccountServiceCreateLocalAccountRequest(server string, projectName string, body LocalAccountServiceCreateLocalAccountJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewLocalAccountServiceCreateLocalAccountRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewLocalAccountServiceCreateLocalAccountRequestWithBody generates requests for LocalAccountServiceCreateLocalAccount with any type of body
+func NewLocalAccountServiceCreateLocalAccountRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/localAccounts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewLocalAccountServiceDeleteLocalAccountRequest generates requests for LocalAccountServiceDeleteLocalAccount
+func NewLocalAccountServiceDeleteLocalAccountRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/localAccounts/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewLocalAccountServiceGetLocalAccountRequest generates requests for LocalAccountServiceGetLocalAccount
+func NewLocalAccountServiceGetLocalAccountRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/localAccounts/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewRegionServiceListRegionsRequest generates requests for RegionServiceListRegions
 func NewRegionServiceListRegionsRequest(server string, projectName string, params *RegionServiceListRegionsParams) (*http.Request, error) {
 	var err error
@@ -7883,20 +7911,6 @@ type ClientWithResponsesInterface interface {
 	// CustomConfigServiceGetCustomConfigWithResponse request
 	CustomConfigServiceGetCustomConfigWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfigResponse, error)
 
-	// LocalAccountServiceListLocalAccountsWithResponse request
-	LocalAccountServiceListLocalAccountsWithResponse(ctx context.Context, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccountsResponse, error)
-
-	// LocalAccountServiceCreateLocalAccountWithBodyWithResponse request with any body
-	LocalAccountServiceCreateLocalAccountWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error)
-
-	LocalAccountServiceCreateLocalAccountWithResponse(ctx context.Context, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error)
-
-	// LocalAccountServiceDeleteLocalAccountWithResponse request
-	LocalAccountServiceDeleteLocalAccountWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceDeleteLocalAccountResponse, error)
-
-	// LocalAccountServiceGetLocalAccountWithResponse request
-	LocalAccountServiceGetLocalAccountWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccountResponse, error)
-
 	// OSUpdatePolicyListOSUpdatePolicyWithResponse request
 	OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error)
 
@@ -8193,6 +8207,20 @@ type ClientWithResponsesInterface interface {
 
 	OperatingSystemServiceUpdateOperatingSystemWithResponse(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
 
+	// LocalAccountServiceListLocalAccountsWithResponse request
+	LocalAccountServiceListLocalAccountsWithResponse(ctx context.Context, projectName string, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccountsResponse, error)
+
+	// LocalAccountServiceCreateLocalAccountWithBodyWithResponse request with any body
+	LocalAccountServiceCreateLocalAccountWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error)
+
+	LocalAccountServiceCreateLocalAccountWithResponse(ctx context.Context, projectName string, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error)
+
+	// LocalAccountServiceDeleteLocalAccountWithResponse request
+	LocalAccountServiceDeleteLocalAccountWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceDeleteLocalAccountResponse, error)
+
+	// LocalAccountServiceGetLocalAccountWithResponse request
+	LocalAccountServiceGetLocalAccountWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccountResponse, error)
+
 	// RegionServiceListRegionsWithResponse request
 	RegionServiceListRegionsWithResponse(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*RegionServiceListRegionsResponse, error)
 
@@ -8327,94 +8355,6 @@ func (r CustomConfigServiceGetCustomConfigResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r CustomConfigServiceGetCustomConfigResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type LocalAccountServiceListLocalAccountsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListLocalAccountsResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r LocalAccountServiceListLocalAccountsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LocalAccountServiceListLocalAccountsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type LocalAccountServiceCreateLocalAccountResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *LocalAccountResource
-}
-
-// Status returns HTTPResponse.Status
-func (r LocalAccountServiceCreateLocalAccountResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LocalAccountServiceCreateLocalAccountResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type LocalAccountServiceDeleteLocalAccountResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteLocalAccountResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r LocalAccountServiceDeleteLocalAccountResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LocalAccountServiceDeleteLocalAccountResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type LocalAccountServiceGetLocalAccountResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *LocalAccountResource
-}
-
-// Status returns HTTPResponse.Status
-func (r LocalAccountServiceGetLocalAccountResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r LocalAccountServiceGetLocalAccountResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10137,6 +10077,94 @@ func (r OperatingSystemServiceUpdateOperatingSystemResponse) StatusCode() int {
 	return 0
 }
 
+type LocalAccountServiceListLocalAccountsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListLocalAccountsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceListLocalAccountsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceListLocalAccountsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceCreateLocalAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *LocalAccountResource
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceCreateLocalAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceCreateLocalAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceDeleteLocalAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteLocalAccountResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceDeleteLocalAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceDeleteLocalAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceGetLocalAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *LocalAccountResource
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceGetLocalAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceGetLocalAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type RegionServiceListRegionsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -10465,50 +10493,6 @@ func (c *ClientWithResponses) CustomConfigServiceGetCustomConfigWithResponse(ctx
 		return nil, err
 	}
 	return ParseCustomConfigServiceGetCustomConfigResponse(rsp)
-}
-
-// LocalAccountServiceListLocalAccountsWithResponse request returning *LocalAccountServiceListLocalAccountsResponse
-func (c *ClientWithResponses) LocalAccountServiceListLocalAccountsWithResponse(ctx context.Context, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccountsResponse, error) {
-	rsp, err := c.LocalAccountServiceListLocalAccounts(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLocalAccountServiceListLocalAccountsResponse(rsp)
-}
-
-// LocalAccountServiceCreateLocalAccountWithBodyWithResponse request with arbitrary body returning *LocalAccountServiceCreateLocalAccountResponse
-func (c *ClientWithResponses) LocalAccountServiceCreateLocalAccountWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error) {
-	rsp, err := c.LocalAccountServiceCreateLocalAccountWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLocalAccountServiceCreateLocalAccountResponse(rsp)
-}
-
-func (c *ClientWithResponses) LocalAccountServiceCreateLocalAccountWithResponse(ctx context.Context, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error) {
-	rsp, err := c.LocalAccountServiceCreateLocalAccount(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLocalAccountServiceCreateLocalAccountResponse(rsp)
-}
-
-// LocalAccountServiceDeleteLocalAccountWithResponse request returning *LocalAccountServiceDeleteLocalAccountResponse
-func (c *ClientWithResponses) LocalAccountServiceDeleteLocalAccountWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceDeleteLocalAccountResponse, error) {
-	rsp, err := c.LocalAccountServiceDeleteLocalAccount(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLocalAccountServiceDeleteLocalAccountResponse(rsp)
-}
-
-// LocalAccountServiceGetLocalAccountWithResponse request returning *LocalAccountServiceGetLocalAccountResponse
-func (c *ClientWithResponses) LocalAccountServiceGetLocalAccountWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccountResponse, error) {
-	rsp, err := c.LocalAccountServiceGetLocalAccount(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseLocalAccountServiceGetLocalAccountResponse(rsp)
 }
 
 // OSUpdatePolicyListOSUpdatePolicyWithResponse request returning *OSUpdatePolicyListOSUpdatePolicyResponse
@@ -11461,6 +11445,50 @@ func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystemWithRes
 	return ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp)
 }
 
+// LocalAccountServiceListLocalAccountsWithResponse request returning *LocalAccountServiceListLocalAccountsResponse
+func (c *ClientWithResponses) LocalAccountServiceListLocalAccountsWithResponse(ctx context.Context, projectName string, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccountsResponse, error) {
+	rsp, err := c.LocalAccountServiceListLocalAccounts(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceListLocalAccountsResponse(rsp)
+}
+
+// LocalAccountServiceCreateLocalAccountWithBodyWithResponse request with arbitrary body returning *LocalAccountServiceCreateLocalAccountResponse
+func (c *ClientWithResponses) LocalAccountServiceCreateLocalAccountWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error) {
+	rsp, err := c.LocalAccountServiceCreateLocalAccountWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceCreateLocalAccountResponse(rsp)
+}
+
+func (c *ClientWithResponses) LocalAccountServiceCreateLocalAccountWithResponse(ctx context.Context, projectName string, body LocalAccountServiceCreateLocalAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccountResponse, error) {
+	rsp, err := c.LocalAccountServiceCreateLocalAccount(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceCreateLocalAccountResponse(rsp)
+}
+
+// LocalAccountServiceDeleteLocalAccountWithResponse request returning *LocalAccountServiceDeleteLocalAccountResponse
+func (c *ClientWithResponses) LocalAccountServiceDeleteLocalAccountWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceDeleteLocalAccountResponse, error) {
+	rsp, err := c.LocalAccountServiceDeleteLocalAccount(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceDeleteLocalAccountResponse(rsp)
+}
+
+// LocalAccountServiceGetLocalAccountWithResponse request returning *LocalAccountServiceGetLocalAccountResponse
+func (c *ClientWithResponses) LocalAccountServiceGetLocalAccountWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccountResponse, error) {
+	rsp, err := c.LocalAccountServiceGetLocalAccount(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceGetLocalAccountResponse(rsp)
+}
+
 // RegionServiceListRegionsWithResponse request returning *RegionServiceListRegionsResponse
 func (c *ClientWithResponses) RegionServiceListRegionsWithResponse(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*RegionServiceListRegionsResponse, error) {
 	rsp, err := c.RegionServiceListRegions(ctx, projectName, params, reqEditors...)
@@ -11720,110 +11748,6 @@ func ParseCustomConfigServiceGetCustomConfigResponse(rsp *http.Response) (*Custo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest CustomConfigResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLocalAccountServiceListLocalAccountsResponse parses an HTTP response from a LocalAccountServiceListLocalAccountsWithResponse call
-func ParseLocalAccountServiceListLocalAccountsResponse(rsp *http.Response) (*LocalAccountServiceListLocalAccountsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LocalAccountServiceListLocalAccountsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListLocalAccountsResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLocalAccountServiceCreateLocalAccountResponse parses an HTTP response from a LocalAccountServiceCreateLocalAccountWithResponse call
-func ParseLocalAccountServiceCreateLocalAccountResponse(rsp *http.Response) (*LocalAccountServiceCreateLocalAccountResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LocalAccountServiceCreateLocalAccountResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest LocalAccountResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLocalAccountServiceDeleteLocalAccountResponse parses an HTTP response from a LocalAccountServiceDeleteLocalAccountWithResponse call
-func ParseLocalAccountServiceDeleteLocalAccountResponse(rsp *http.Response) (*LocalAccountServiceDeleteLocalAccountResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LocalAccountServiceDeleteLocalAccountResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteLocalAccountResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseLocalAccountServiceGetLocalAccountResponse parses an HTTP response from a LocalAccountServiceGetLocalAccountWithResponse call
-func ParseLocalAccountServiceGetLocalAccountResponse(rsp *http.Response) (*LocalAccountServiceGetLocalAccountResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &LocalAccountServiceGetLocalAccountResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest LocalAccountResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13852,6 +13776,110 @@ func ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp *http.Response
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceListLocalAccountsResponse parses an HTTP response from a LocalAccountServiceListLocalAccountsWithResponse call
+func ParseLocalAccountServiceListLocalAccountsResponse(rsp *http.Response) (*LocalAccountServiceListLocalAccountsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceListLocalAccountsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListLocalAccountsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceCreateLocalAccountResponse parses an HTTP response from a LocalAccountServiceCreateLocalAccountWithResponse call
+func ParseLocalAccountServiceCreateLocalAccountResponse(rsp *http.Response) (*LocalAccountServiceCreateLocalAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceCreateLocalAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest LocalAccountResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceDeleteLocalAccountResponse parses an HTTP response from a LocalAccountServiceDeleteLocalAccountWithResponse call
+func ParseLocalAccountServiceDeleteLocalAccountResponse(rsp *http.Response) (*LocalAccountServiceDeleteLocalAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceDeleteLocalAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteLocalAccountResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceGetLocalAccountResponse parses an HTTP response from a LocalAccountServiceGetLocalAccountWithResponse call
+func ParseLocalAccountServiceGetLocalAccountResponse(rsp *http.Response) (*LocalAccountServiceGetLocalAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceGetLocalAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest LocalAccountResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

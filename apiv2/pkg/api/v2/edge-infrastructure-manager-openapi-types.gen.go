@@ -278,6 +278,9 @@ type CreateInstanceResponse struct {
 // CreateLocalAccountRequest Request message for the CreateLocalAccount method.
 type CreateLocalAccountRequest struct {
 	LocalAccount LocalAccountResource `json:"localAccount"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // CreateLocalAccountResponse Response message for the CreateLocalAccount method.
@@ -509,6 +512,9 @@ type DeleteInstanceResponse = map[string]interface{}
 
 // DeleteLocalAccountRequest Request message for DeleteLocalAccount.
 type DeleteLocalAccountRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the localaccount to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -720,6 +726,9 @@ type GetInstanceResponse struct {
 
 // GetLocalAccountRequest Request message for the GetLocalAccount method.
 type GetLocalAccountRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested localaccount.
 	ResourceId string `json:"resourceId"`
 }
@@ -1477,6 +1486,9 @@ type ListLocalAccountsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListLocalAccountsResponse Response message for the ListLocalAccounts method.
@@ -5413,24 +5425,6 @@ type CustomConfigServiceListCustomConfigsParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
-type LocalAccountServiceListLocalAccountsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
 // OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
 type OSUpdatePolicyListOSUpdatePolicyParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5823,6 +5817,24 @@ type OperatingSystemServicePatchOperatingSystemParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
+// LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
+type LocalAccountServiceListLocalAccountsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
 type RegionServiceListRegionsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5888,9 +5900,6 @@ type LocationServiceListLocationsParams struct {
 
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
-
-// LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
-type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
 
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
@@ -5984,6 +5993,9 @@ type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystem
 
 // OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
+type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
 
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource

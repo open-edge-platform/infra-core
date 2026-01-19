@@ -346,7 +346,7 @@ func TestDeleteAllHosts(t *testing.T) {
 	}
 }
 
-func ListAllLocalAccounts(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses) []api.LocalAccountResource {
+func ListAllLocalAccounts(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses, projectName string) []api.LocalAccountResource {
 	t.Helper()
 
 	var allAccounts []api.LocalAccountResource
@@ -356,6 +356,7 @@ func ListAllLocalAccounts(ctx context.Context, t *testing.T, apiClient *api.Clie
 	for {
 		resList, err := apiClient.LocalAccountServiceListLocalAccountsWithResponse(
 			ctx,
+			projectName,
 			&api.LocalAccountServiceListLocalAccountsParams{
 				Offset:   &offset,
 				PageSize: &pageSize,
@@ -383,11 +384,14 @@ func TestDeleteAllLocalAccounts(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	accounts := ListAllLocalAccounts(ctx, t, apiClient)
+	projectName := getProjectID(t)
+
+	accounts := ListAllLocalAccounts(ctx, t, apiClient, projectName)
 
 	for _, account := range accounts {
 		_, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
 			ctx,
+			projectName,
 			*account.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)

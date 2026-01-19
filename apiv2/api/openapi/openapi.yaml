@@ -143,135 +143,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteCustomConfigResponse'
-  /edge-infra.orchestrator.apis/v2/localAccounts:
-    get:
-      tags:
-        - LocalAccountService
-      summary: ListLocalAccounts
-      description: Get a list of providers.
-      operationId: LocalAccountService_ListLocalAccounts
-      parameters:
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListLocalAccountsResponse'
-    post:
-      tags:
-        - LocalAccountService
-      summary: CreateLocalAccount
-      description: Create a localAccount.
-      operationId: LocalAccountService_CreateLocalAccount
-      requestBody:
-        description: The localaccount to create.
-        content:
-          application/json:
-            schema:
-              title: local_account
-              description: The localaccount to create.
-              $ref: '#/components/schemas/LocalAccountResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LocalAccountResource'
-  /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId}:
-    get:
-      tags:
-        - LocalAccountService
-      summary: GetLocalAccount
-      description: Get a specific provider.
-      operationId: LocalAccountService_GetLocalAccount
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested localaccount.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested localaccount.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LocalAccountResource'
-    delete:
-      tags:
-        - LocalAccountService
-      summary: DeleteLocalAccount
-      description: Delete a provider.
-      operationId: LocalAccountService_DeleteLocalAccount
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the localaccount to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the localaccount to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteLocalAccountResponse'
   /edge-infra.orchestrator.apis/v2/os_update_policy:
     get:
       tags:
@@ -3221,6 +3092,168 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperatingSystemResource'
+  /v1/projects/{projectName}/localAccounts:
+    get:
+      tags:
+        - LocalAccountService
+      summary: ListLocalAccounts
+      description: Get a list of providers.
+      operationId: LocalAccountService_ListLocalAccounts
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocalAccountsResponse'
+    post:
+      tags:
+        - LocalAccountService
+      summary: CreateLocalAccount
+      description: Create a localAccount.
+      operationId: LocalAccountService_CreateLocalAccount
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The localaccount to create.
+        content:
+          application/json:
+            schema:
+              title: local_account
+              description: The localaccount to create.
+              $ref: '#/components/schemas/LocalAccountResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalAccountResource'
+  /v1/projects/{projectName}/localAccounts/{resourceId}:
+    get:
+      tags:
+        - LocalAccountService
+      summary: GetLocalAccount
+      description: Get a specific provider.
+      operationId: LocalAccountService_GetLocalAccount
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested localaccount.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested localaccount.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalAccountResource'
+    delete:
+      tags:
+        - LocalAccountService
+      summary: DeleteLocalAccount
+      description: Delete a provider.
+      operationId: LocalAccountService_DeleteLocalAccount
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the localaccount to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the localaccount to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteLocalAccountResponse'
   /v1/projects/{projectName}/location/regions:
     get:
       tags:
@@ -6391,12 +6424,17 @@ components:
     CreateLocalAccountRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         localAccount:
           title: local_account
           description: The localaccount to create.
           $ref: '#/components/schemas/LocalAccountResource'
       title: CreateLocalAccountRequest
       required:
+        - projectName
         - localAccount
       additionalProperties: false
       description: Request message for the CreateLocalAccount method.
@@ -6831,12 +6869,17 @@ components:
     DeleteLocalAccountRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the localaccount to be deleted.
       title: DeleteLocalAccountRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteLocalAccount.
@@ -7235,12 +7278,17 @@ components:
     GetLocalAccountRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested localaccount.
       title: GetLocalAccountRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetLocalAccount method.
@@ -7903,6 +7951,10 @@ components:
     ListLocalAccountsRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -7934,6 +7986,8 @@ components:
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
       title: ListLocalAccountsRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListLocalAccounts method.
     ListLocalAccountsResponse:

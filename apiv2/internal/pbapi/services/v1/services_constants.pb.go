@@ -594,22 +594,25 @@ const (
 	// Fields and Edges constants for "DeleteTelemetryMetricsProfileResponse"
 
 	// Fields and Edges constants for "CreateLocalAccountRequest"
+	CreateLocalAccountRequestFieldProjectName = "projectName"
 	CreateLocalAccountRequestEdgeLocalAccount = "local_account"
 
 	// Fields and Edges constants for "CreateLocalAccountResponse"
 	CreateLocalAccountResponseEdgeLocalAccount = "local_account"
 
 	// Fields and Edges constants for "GetLocalAccountRequest"
-	GetLocalAccountRequestFieldResourceId = "resourceId"
+	GetLocalAccountRequestFieldProjectName = "projectName"
+	GetLocalAccountRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetLocalAccountResponse"
 	GetLocalAccountResponseEdgeLocalAccount = "local_account"
 
 	// Fields and Edges constants for "ListLocalAccountsRequest"
-	ListLocalAccountsRequestFieldOrderBy  = "order_by"
-	ListLocalAccountsRequestFieldFilter   = "filter"
-	ListLocalAccountsRequestFieldPageSize = "page_size"
-	ListLocalAccountsRequestFieldOffset   = "offset"
+	ListLocalAccountsRequestFieldProjectName = "projectName"
+	ListLocalAccountsRequestFieldOrderBy     = "order_by"
+	ListLocalAccountsRequestFieldFilter      = "filter"
+	ListLocalAccountsRequestFieldPageSize    = "page_size"
+	ListLocalAccountsRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListLocalAccountsResponse"
 	ListLocalAccountsResponseEdgeLocalAccounts  = "local_accounts"
@@ -617,7 +620,8 @@ const (
 	ListLocalAccountsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "DeleteLocalAccountRequest"
-	DeleteLocalAccountRequestFieldResourceId = "resourceId"
+	DeleteLocalAccountRequestFieldProjectName = "projectName"
+	DeleteLocalAccountRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteLocalAccountResponse"
 
