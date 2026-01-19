@@ -1707,6 +1707,7 @@ Request message for the CreateOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The os to create. |
 
 
@@ -2221,6 +2222,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the os os to be deleted. |
 
 
@@ -2739,6 +2741,7 @@ Request message for the GetOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested os. |
 
 
@@ -3438,6 +3441,7 @@ Request message for the ListOperatingSystems method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
@@ -3969,6 +3973,7 @@ Request message for the PatchOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of os. |
@@ -4158,6 +4163,7 @@ Request message for the UpdateOperatingSystem method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the os os to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 

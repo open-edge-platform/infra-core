@@ -231,22 +231,25 @@ const (
 	// Fields and Edges constants for "InvalidateInstanceResponse"
 
 	// Fields and Edges constants for "CreateOperatingSystemRequest"
-	CreateOperatingSystemRequestEdgeOs = "os"
+	CreateOperatingSystemRequestFieldProjectName = "projectName"
+	CreateOperatingSystemRequestEdgeOs           = "os"
 
 	// Fields and Edges constants for "CreateOperatingSystemResponse"
 	CreateOperatingSystemResponseEdgeOs = "os"
 
 	// Fields and Edges constants for "GetOperatingSystemRequest"
-	GetOperatingSystemRequestFieldResourceId = "resourceId"
+	GetOperatingSystemRequestFieldProjectName = "projectName"
+	GetOperatingSystemRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetOperatingSystemResponse"
 	GetOperatingSystemResponseEdgeOs = "os"
 
 	// Fields and Edges constants for "ListOperatingSystemsRequest"
-	ListOperatingSystemsRequestFieldOrderBy  = "order_by"
-	ListOperatingSystemsRequestFieldFilter   = "filter"
-	ListOperatingSystemsRequestFieldPageSize = "page_size"
-	ListOperatingSystemsRequestFieldOffset   = "offset"
+	ListOperatingSystemsRequestFieldProjectName = "projectName"
+	ListOperatingSystemsRequestFieldOrderBy     = "order_by"
+	ListOperatingSystemsRequestFieldFilter      = "filter"
+	ListOperatingSystemsRequestFieldPageSize    = "page_size"
+	ListOperatingSystemsRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListOperatingSystemsResponse"
 	ListOperatingSystemsResponseEdgeOperatingSystemResources = "Operating_system_resources"
@@ -254,16 +257,19 @@ const (
 	ListOperatingSystemsResponseFieldHasNext                 = "has_next"
 
 	// Fields and Edges constants for "UpdateOperatingSystemRequest"
-	UpdateOperatingSystemRequestFieldResourceId = "resourceId"
-	UpdateOperatingSystemRequestEdgeOs          = "os"
+	UpdateOperatingSystemRequestFieldProjectName = "projectName"
+	UpdateOperatingSystemRequestFieldResourceId  = "resourceId"
+	UpdateOperatingSystemRequestEdgeOs           = "os"
 
 	// Fields and Edges constants for "PatchOperatingSystemRequest"
-	PatchOperatingSystemRequestFieldResourceId = "resourceId"
-	PatchOperatingSystemRequestEdgeOs          = "os"
-	PatchOperatingSystemRequestEdgeFieldMask   = "field_mask"
+	PatchOperatingSystemRequestFieldProjectName = "projectName"
+	PatchOperatingSystemRequestFieldResourceId  = "resourceId"
+	PatchOperatingSystemRequestEdgeOs           = "os"
+	PatchOperatingSystemRequestEdgeFieldMask    = "field_mask"
 
 	// Fields and Edges constants for "DeleteOperatingSystemRequest"
-	DeleteOperatingSystemRequestFieldResourceId = "resourceId"
+	DeleteOperatingSystemRequestFieldProjectName = "projectName"
+	DeleteOperatingSystemRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteOperatingSystemResponse"
 

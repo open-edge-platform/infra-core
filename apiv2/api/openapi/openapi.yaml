@@ -310,204 +310,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListLocationsResponse'
-  /edge-infra.orchestrator.apis/v2/operating_systems:
-    get:
-      tags:
-        - OperatingSystemService
-      summary: ListOperatingSystems
-      description: Get a list of OSs.
-      operationId: OperatingSystemService_ListOperatingSystems
-      parameters:
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListOperatingSystemsResponse'
-    post:
-      tags:
-        - OperatingSystemService
-      summary: CreateOperatingSystem
-      description: Create an OS
-      operationId: OperatingSystemService_CreateOperatingSystem
-      requestBody:
-        description: The os to create.
-        content:
-          application/json:
-            schema:
-              title: os
-              description: The os to create.
-              $ref: '#/components/schemas/OperatingSystemResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperatingSystemResource'
-  /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}:
-    get:
-      tags:
-        - OperatingSystemService
-      summary: GetOperatingSystem
-      description: Get a specific OS.
-      operationId: OperatingSystemService_GetOperatingSystem
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested os.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested os.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperatingSystemResource'
-    put:
-      tags:
-        - OperatingSystemService
-      summary: UpdateOperatingSystem
-      description: Update an OS.
-      operationId: OperatingSystemService_UpdateOperatingSystem
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the os os to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the os os to be updated.
-      requestBody:
-        description: Updated values for the os.
-        content:
-          application/json:
-            schema:
-              title: os
-              description: Updated values for the os.
-              $ref: '#/components/schemas/OperatingSystemResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperatingSystemResource'
-    delete:
-      tags:
-        - OperatingSystemService
-      summary: DeleteOperatingSystem
-      description: Delete an OS.
-      operationId: OperatingSystemService_DeleteOperatingSystem
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the os os to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the os os to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteOperatingSystemResponse'
-    patch:
-      tags:
-        - OperatingSystemService
-      summary: PatchOperatingSystem
-      description: Patch an OS.
-      operationId: OperatingSystemService_PatchOperatingSystem
-      parameters:
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the os.
-        content:
-          application/json:
-            schema:
-              title: os
-              description: Updated values for the os.
-              $ref: '#/components/schemas/OperatingSystemResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperatingSystemResource'
   /edge-infra.orchestrator.apis/v2/os_update_policy:
     get:
       tags:
@@ -3210,6 +3012,253 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidateInstanceResponse'
+  /v1/projects/{projectName}/compute/operating_systems:
+    get:
+      tags:
+        - OperatingSystemService
+      summary: ListOperatingSystems
+      description: Get a list of OSs.
+      operationId: OperatingSystemService_ListOperatingSystems
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperatingSystemsResponse'
+    post:
+      tags:
+        - OperatingSystemService
+      summary: CreateOperatingSystem
+      description: Create an OS
+      operationId: OperatingSystemService_CreateOperatingSystem
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The os to create.
+        content:
+          application/json:
+            schema:
+              title: os
+              description: The os to create.
+              $ref: '#/components/schemas/OperatingSystemResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+  /v1/projects/{projectName}/compute/operating_systems/{resourceId}:
+    get:
+      tags:
+        - OperatingSystemService
+      summary: GetOperatingSystem
+      description: Get a specific OS.
+      operationId: OperatingSystemService_GetOperatingSystem
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested os.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested os.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+    put:
+      tags:
+        - OperatingSystemService
+      summary: UpdateOperatingSystem
+      description: Update an OS.
+      operationId: OperatingSystemService_UpdateOperatingSystem
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the os os to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the os os to be updated.
+      requestBody:
+        description: Updated values for the os.
+        content:
+          application/json:
+            schema:
+              title: os
+              description: Updated values for the os.
+              $ref: '#/components/schemas/OperatingSystemResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+    delete:
+      tags:
+        - OperatingSystemService
+      summary: DeleteOperatingSystem
+      description: Delete an OS.
+      operationId: OperatingSystemService_DeleteOperatingSystem
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the os os to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the os os to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOperatingSystemResponse'
+    patch:
+      tags:
+        - OperatingSystemService
+      summary: PatchOperatingSystem
+      description: Patch an OS.
+      operationId: OperatingSystemService_PatchOperatingSystem
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the os.
+        content:
+          application/json:
+            schema:
+              title: os
+              description: Updated values for the os.
+              $ref: '#/components/schemas/OperatingSystemResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
   /v1/projects/{projectName}/location/regions:
     get:
       tags:
@@ -6406,12 +6455,17 @@ components:
     CreateOperatingSystemRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         os:
           title: os
           description: The os to create.
           $ref: '#/components/schemas/OperatingSystemResource'
       title: CreateOperatingSystemRequest
       required:
+        - projectName
         - os
       additionalProperties: false
       description: Request message for the CreateOperatingSystem method.
@@ -6820,12 +6874,17 @@ components:
     DeleteOperatingSystemRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the os os to be deleted.
       title: DeleteOperatingSystemRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteOperatingSystem.
@@ -7240,12 +7299,17 @@ components:
     GetOperatingSystemRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested os.
       title: GetOperatingSystemRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetOperatingSystem method.
@@ -8095,6 +8159,10 @@ components:
     ListOperatingSystemsRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -8126,6 +8194,8 @@ components:
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
       title: ListOperatingSystemsRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListOperatingSystems method.
     ListOperatingSystemsResponse:
@@ -9079,6 +9149,10 @@ components:
     PatchOperatingSystemRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9093,6 +9167,7 @@ components:
           $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: PatchOperatingSystemRequest
       required:
+        - projectName
         - resourceId
         - os
       additionalProperties: false
@@ -9329,6 +9404,10 @@ components:
     UpdateOperatingSystemRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9339,6 +9418,7 @@ components:
           $ref: '#/components/schemas/OperatingSystemResource'
       title: UpdateOperatingSystemRequest
       required:
+        - projectName
         - resourceId
         - os
       additionalProperties: false

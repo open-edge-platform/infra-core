@@ -309,6 +309,9 @@ type CreateOSUpdateRunResponse struct {
 type CreateOperatingSystemRequest struct {
 	// Os An OS resource.
 	Os OperatingSystemResource `json:"os"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // CreateOperatingSystemResponse Response message for the CreateOperatingSystem method.
@@ -533,6 +536,9 @@ type DeleteOSUpdateRunResponse = map[string]interface{}
 
 // DeleteOperatingSystemRequest Request message for DeleteOperatingSystem.
 type DeleteOperatingSystemRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the os os to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -747,6 +753,9 @@ type GetOSUpdateRunResponse struct {
 
 // GetOperatingSystemRequest Request message for the GetOperatingSystem method.
 type GetOperatingSystemRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested os.
 	ResourceId string `json:"resourceId"`
 }
@@ -1600,6 +1609,9 @@ type ListOperatingSystemsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListOperatingSystemsResponse Response message for the ListOperatingSystems method.
@@ -2889,6 +2901,9 @@ type PatchOperatingSystemRequest struct {
 
 	// Os An OS resource.
 	Os OperatingSystemResource `json:"os"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
@@ -4941,6 +4956,9 @@ type UpdateOperatingSystemRequest struct {
 	// Os An OS resource.
 	Os OperatingSystemResource `json:"os"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the os os to be updated.
 	ResourceId string `json:"resourceId"`
 }
@@ -5422,30 +5440,6 @@ type LocationServiceListLocationsParams struct {
 	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
 }
 
-// OperatingSystemServiceListOperatingSystemsParams defines parameters for OperatingSystemServiceListOperatingSystems.
-type OperatingSystemServiceListOperatingSystemsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// OperatingSystemServicePatchOperatingSystemParams defines parameters for OperatingSystemServicePatchOperatingSystem.
-type OperatingSystemServicePatchOperatingSystemParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
 // OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
 type OSUpdatePolicyListOSUpdatePolicyParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5814,6 +5808,30 @@ type InstanceServicePatchInstanceParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
+// OperatingSystemServiceListOperatingSystemsParams defines parameters for OperatingSystemServiceListOperatingSystems.
+type OperatingSystemServiceListOperatingSystemsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OperatingSystemServicePatchOperatingSystemParams defines parameters for OperatingSystemServicePatchOperatingSystem.
+type OperatingSystemServicePatchOperatingSystemParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
 type RegionServiceListRegionsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5870,15 +5888,6 @@ type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
 type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
-
-// OperatingSystemServiceCreateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem for application/json ContentType.
-type OperatingSystemServiceCreateOperatingSystemJSONRequestBody = OperatingSystemResource
-
-// OperatingSystemServicePatchOperatingSystemJSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem for application/json ContentType.
-type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystemResource
-
-// OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
-type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
 
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
@@ -5963,6 +5972,15 @@ type InstanceServicePatchInstanceJSONRequestBody = InstanceResource
 
 // InstanceServiceUpdateInstanceJSONRequestBody defines body for InstanceServiceUpdateInstance for application/json ContentType.
 type InstanceServiceUpdateInstanceJSONRequestBody = InstanceResource
+
+// OperatingSystemServiceCreateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem for application/json ContentType.
+type OperatingSystemServiceCreateOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServicePatchOperatingSystemJSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem for application/json ContentType.
+type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
+type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
 
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource
