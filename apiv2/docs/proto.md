@@ -1525,6 +1525,7 @@ Request message for the CreateCustomConfig method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The custom configuration to create. |
 
 
@@ -1540,6 +1541,7 @@ Response message for the CreateCustomConfig method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The created custom configuration. |
 
 
@@ -2080,6 +2082,7 @@ Request message for DeleteCustomConfig.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the customconfig to be deleted. |
 
 
@@ -2545,6 +2548,7 @@ Request message for the GetCustomConfig method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested custom configuration. |
 
 
@@ -3207,6 +3211,7 @@ Request message for the ListCustomConfigs method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |

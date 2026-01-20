@@ -569,21 +569,21 @@ service CustomConfigService {
   // Create a custom configuration.
   rpc CreateCustomConfig(CreateCustomConfigRequest) returns (resources.customconfig.v1.CustomConfigResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/customConfigs"
+      post: "/v1/projects/{projectName}/customConfigs"
       body: "custom_config"
     };
   }
   // Get a list of custom configurations.
   rpc ListCustomConfigs(ListCustomConfigsRequest) returns (ListCustomConfigsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/customConfigs"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/customConfigs"};
   }
   // Get a specific custom configuration.
   rpc GetCustomConfig(GetCustomConfigRequest) returns (resources.customconfig.v1.CustomConfigResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/customConfigs/{resourceId}"};
   }
   // Delete a custom configuration.
   rpc DeleteCustomConfig(DeleteCustomConfigRequest) returns (DeleteCustomConfigResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/customConfigs/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/customConfigs/{resourceId}"};
   }
 }
 /*
@@ -2889,20 +2889,26 @@ message DeleteOSUpdateRunResponse {}
 
 // Request message for the CreateCustomConfig method.
 message CreateCustomConfigRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The custom configuration to create.
-  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.customconfig.v1.CustomConfigResource custom_config = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateCustomConfig method.
 message CreateCustomConfigResponse {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The created custom configuration.
-  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.customconfig.v1.CustomConfigResource custom_config = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the GetCustomConfig method.
 message GetCustomConfigRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested custom configuration.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetCustomConfig method.
@@ -2913,9 +2919,11 @@ message GetCustomConfigResponse {
 
 // Request message for the ListCustomConfigs method.
 message ListCustomConfigsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2924,7 +2932,7 @@ message ListCustomConfigsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2933,7 +2941,7 @@ message ListCustomConfigsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2941,7 +2949,7 @@ message ListCustomConfigsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2962,8 +2970,10 @@ message ListCustomConfigsResponse {
 
 // Request message for DeleteCustomConfig.
 message DeleteCustomConfigRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the customconfig to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteCustomConfig.

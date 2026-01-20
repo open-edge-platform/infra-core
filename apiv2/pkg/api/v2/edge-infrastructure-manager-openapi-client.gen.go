@@ -89,20 +89,6 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
-	// CustomConfigServiceListCustomConfigs request
-	CustomConfigServiceListCustomConfigs(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// CustomConfigServiceCreateCustomConfigWithBody request with any body
-	CustomConfigServiceCreateCustomConfigWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	CustomConfigServiceCreateCustomConfig(ctx context.Context, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// CustomConfigServiceDeleteCustomConfig request
-	CustomConfigServiceDeleteCustomConfig(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// CustomConfigServiceGetCustomConfig request
-	CustomConfigServiceGetCustomConfig(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// OSUpdatePolicyListOSUpdatePolicy request
 	OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -219,6 +205,20 @@ type ClientInterface interface {
 	OperatingSystemServiceUpdateOperatingSystemWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceListCustomConfigs request
+	CustomConfigServiceListCustomConfigs(ctx context.Context, projectName string, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceCreateCustomConfigWithBody request with any body
+	CustomConfigServiceCreateCustomConfigWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CustomConfigServiceCreateCustomConfig(ctx context.Context, projectName string, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceDeleteCustomConfig request
+	CustomConfigServiceDeleteCustomConfig(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceGetCustomConfig request
+	CustomConfigServiceGetCustomConfig(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// LocalAccountServiceListLocalAccounts request
 	LocalAccountServiceListLocalAccounts(ctx context.Context, projectName string, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -463,66 +463,6 @@ type ClientInterface interface {
 	WorkloadServiceUpdateWorkloadWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	WorkloadServiceUpdateWorkload(ctx context.Context, projectName string, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-}
-
-func (c *Client) CustomConfigServiceListCustomConfigs(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomConfigServiceListCustomConfigsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) CustomConfigServiceCreateCustomConfigWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomConfigServiceCreateCustomConfigRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) CustomConfigServiceCreateCustomConfig(ctx context.Context, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomConfigServiceCreateCustomConfigRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) CustomConfigServiceDeleteCustomConfig(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomConfigServiceDeleteCustomConfigRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) CustomConfigServiceGetCustomConfig(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCustomConfigServiceGetCustomConfigRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
 }
 
 func (c *Client) OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1031,6 +971,66 @@ func (c *Client) OperatingSystemServiceUpdateOperatingSystemWithBody(ctx context
 
 func (c *Client) OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewOperatingSystemServiceUpdateOperatingSystemRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceListCustomConfigs(ctx context.Context, projectName string, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceListCustomConfigsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceCreateCustomConfigWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceCreateCustomConfigRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceCreateCustomConfig(ctx context.Context, projectName string, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceCreateCustomConfigRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceDeleteCustomConfig(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceDeleteCustomConfigRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceGetCustomConfig(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceGetCustomConfigRequest(c.Server, projectName, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2119,211 +2119,6 @@ func (c *Client) WorkloadServiceUpdateWorkload(ctx context.Context, projectName 
 		return nil, err
 	}
 	return c.Client.Do(req)
-}
-
-// NewCustomConfigServiceListCustomConfigsRequest generates requests for CustomConfigServiceListCustomConfigs
-func NewCustomConfigServiceListCustomConfigsRequest(server string, params *CustomConfigServiceListCustomConfigsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewCustomConfigServiceCreateCustomConfigRequest calls the generic CustomConfigServiceCreateCustomConfig builder with application/json body
-func NewCustomConfigServiceCreateCustomConfigRequest(server string, body CustomConfigServiceCreateCustomConfigJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCustomConfigServiceCreateCustomConfigRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewCustomConfigServiceCreateCustomConfigRequestWithBody generates requests for CustomConfigServiceCreateCustomConfig with any type of body
-func NewCustomConfigServiceCreateCustomConfigRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewCustomConfigServiceDeleteCustomConfigRequest generates requests for CustomConfigServiceDeleteCustomConfig
-func NewCustomConfigServiceDeleteCustomConfigRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewCustomConfigServiceGetCustomConfigRequest generates requests for CustomConfigServiceGetCustomConfig
-func NewCustomConfigServiceGetCustomConfigRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
 }
 
 // NewOSUpdatePolicyListOSUpdatePolicyRequest generates requests for OSUpdatePolicyListOSUpdatePolicy
@@ -4105,6 +3900,239 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewCustomConfigServiceListCustomConfigsRequest generates requests for CustomConfigServiceListCustomConfigs
+func NewCustomConfigServiceListCustomConfigsRequest(server string, projectName string, params *CustomConfigServiceListCustomConfigsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/customConfigs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCustomConfigServiceCreateCustomConfigRequest calls the generic CustomConfigServiceCreateCustomConfig builder with application/json body
+func NewCustomConfigServiceCreateCustomConfigRequest(server string, projectName string, body CustomConfigServiceCreateCustomConfigJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCustomConfigServiceCreateCustomConfigRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewCustomConfigServiceCreateCustomConfigRequestWithBody generates requests for CustomConfigServiceCreateCustomConfig with any type of body
+func NewCustomConfigServiceCreateCustomConfigRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/customConfigs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewCustomConfigServiceDeleteCustomConfigRequest generates requests for CustomConfigServiceDeleteCustomConfig
+func NewCustomConfigServiceDeleteCustomConfigRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/customConfigs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCustomConfigServiceGetCustomConfigRequest generates requests for CustomConfigServiceGetCustomConfig
+func NewCustomConfigServiceGetCustomConfigRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/customConfigs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	return req, nil
 }
@@ -8226,20 +8254,6 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
-	// CustomConfigServiceListCustomConfigsWithResponse request
-	CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error)
-
-	// CustomConfigServiceCreateCustomConfigWithBodyWithResponse request with any body
-	CustomConfigServiceCreateCustomConfigWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error)
-
-	CustomConfigServiceCreateCustomConfigWithResponse(ctx context.Context, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error)
-
-	// CustomConfigServiceDeleteCustomConfigWithResponse request
-	CustomConfigServiceDeleteCustomConfigWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceDeleteCustomConfigResponse, error)
-
-	// CustomConfigServiceGetCustomConfigWithResponse request
-	CustomConfigServiceGetCustomConfigWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfigResponse, error)
-
 	// OSUpdatePolicyListOSUpdatePolicyWithResponse request
 	OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error)
 
@@ -8356,6 +8370,20 @@ type ClientWithResponsesInterface interface {
 	OperatingSystemServiceUpdateOperatingSystemWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
 
 	OperatingSystemServiceUpdateOperatingSystemWithResponse(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
+
+	// CustomConfigServiceListCustomConfigsWithResponse request
+	CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, projectName string, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error)
+
+	// CustomConfigServiceCreateCustomConfigWithBodyWithResponse request with any body
+	CustomConfigServiceCreateCustomConfigWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error)
+
+	CustomConfigServiceCreateCustomConfigWithResponse(ctx context.Context, projectName string, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error)
+
+	// CustomConfigServiceDeleteCustomConfigWithResponse request
+	CustomConfigServiceDeleteCustomConfigWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceDeleteCustomConfigResponse, error)
+
+	// CustomConfigServiceGetCustomConfigWithResponse request
+	CustomConfigServiceGetCustomConfigWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfigResponse, error)
 
 	// LocalAccountServiceListLocalAccountsWithResponse request
 	LocalAccountServiceListLocalAccountsWithResponse(ctx context.Context, projectName string, params *LocalAccountServiceListLocalAccountsParams, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccountsResponse, error)
@@ -8600,94 +8628,6 @@ type ClientWithResponsesInterface interface {
 	WorkloadServiceUpdateWorkloadWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
 
 	WorkloadServiceUpdateWorkloadWithResponse(ctx context.Context, projectName string, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
-}
-
-type CustomConfigServiceListCustomConfigsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListCustomConfigsResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r CustomConfigServiceListCustomConfigsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CustomConfigServiceListCustomConfigsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type CustomConfigServiceCreateCustomConfigResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *CustomConfigResource
-}
-
-// Status returns HTTPResponse.Status
-func (r CustomConfigServiceCreateCustomConfigResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CustomConfigServiceCreateCustomConfigResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type CustomConfigServiceDeleteCustomConfigResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteCustomConfigResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r CustomConfigServiceDeleteCustomConfigResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CustomConfigServiceDeleteCustomConfigResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type CustomConfigServiceGetCustomConfigResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *CustomConfigResource
-}
-
-// Status returns HTTPResponse.Status
-func (r CustomConfigServiceGetCustomConfigResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CustomConfigServiceGetCustomConfigResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
 }
 
 type OSUpdatePolicyListOSUpdatePolicyResponse struct {
@@ -9366,6 +9306,94 @@ func (r OperatingSystemServiceUpdateOperatingSystemResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r OperatingSystemServiceUpdateOperatingSystemResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceListCustomConfigsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListCustomConfigsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceListCustomConfigsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceListCustomConfigsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceCreateCustomConfigResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *CustomConfigResource
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceCreateCustomConfigResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceCreateCustomConfigResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceDeleteCustomConfigResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteCustomConfigResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceDeleteCustomConfigResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceDeleteCustomConfigResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceGetCustomConfigResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *CustomConfigResource
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceGetCustomConfigResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceGetCustomConfigResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10780,50 +10808,6 @@ func (r WorkloadServiceUpdateWorkloadResponse) StatusCode() int {
 	return 0
 }
 
-// CustomConfigServiceListCustomConfigsWithResponse request returning *CustomConfigServiceListCustomConfigsResponse
-func (c *ClientWithResponses) CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error) {
-	rsp, err := c.CustomConfigServiceListCustomConfigs(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCustomConfigServiceListCustomConfigsResponse(rsp)
-}
-
-// CustomConfigServiceCreateCustomConfigWithBodyWithResponse request with arbitrary body returning *CustomConfigServiceCreateCustomConfigResponse
-func (c *ClientWithResponses) CustomConfigServiceCreateCustomConfigWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error) {
-	rsp, err := c.CustomConfigServiceCreateCustomConfigWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCustomConfigServiceCreateCustomConfigResponse(rsp)
-}
-
-func (c *ClientWithResponses) CustomConfigServiceCreateCustomConfigWithResponse(ctx context.Context, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error) {
-	rsp, err := c.CustomConfigServiceCreateCustomConfig(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCustomConfigServiceCreateCustomConfigResponse(rsp)
-}
-
-// CustomConfigServiceDeleteCustomConfigWithResponse request returning *CustomConfigServiceDeleteCustomConfigResponse
-func (c *ClientWithResponses) CustomConfigServiceDeleteCustomConfigWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceDeleteCustomConfigResponse, error) {
-	rsp, err := c.CustomConfigServiceDeleteCustomConfig(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCustomConfigServiceDeleteCustomConfigResponse(rsp)
-}
-
-// CustomConfigServiceGetCustomConfigWithResponse request returning *CustomConfigServiceGetCustomConfigResponse
-func (c *ClientWithResponses) CustomConfigServiceGetCustomConfigWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfigResponse, error) {
-	rsp, err := c.CustomConfigServiceGetCustomConfig(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCustomConfigServiceGetCustomConfigResponse(rsp)
-}
-
 // OSUpdatePolicyListOSUpdatePolicyWithResponse request returning *OSUpdatePolicyListOSUpdatePolicyResponse
 func (c *ClientWithResponses) OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
 	rsp, err := c.OSUpdatePolicyListOSUpdatePolicy(ctx, params, reqEditors...)
@@ -11197,6 +11181,50 @@ func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystemWithRes
 		return nil, err
 	}
 	return ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp)
+}
+
+// CustomConfigServiceListCustomConfigsWithResponse request returning *CustomConfigServiceListCustomConfigsResponse
+func (c *ClientWithResponses) CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, projectName string, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error) {
+	rsp, err := c.CustomConfigServiceListCustomConfigs(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceListCustomConfigsResponse(rsp)
+}
+
+// CustomConfigServiceCreateCustomConfigWithBodyWithResponse request with arbitrary body returning *CustomConfigServiceCreateCustomConfigResponse
+func (c *ClientWithResponses) CustomConfigServiceCreateCustomConfigWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error) {
+	rsp, err := c.CustomConfigServiceCreateCustomConfigWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceCreateCustomConfigResponse(rsp)
+}
+
+func (c *ClientWithResponses) CustomConfigServiceCreateCustomConfigWithResponse(ctx context.Context, projectName string, body CustomConfigServiceCreateCustomConfigJSONRequestBody, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfigResponse, error) {
+	rsp, err := c.CustomConfigServiceCreateCustomConfig(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceCreateCustomConfigResponse(rsp)
+}
+
+// CustomConfigServiceDeleteCustomConfigWithResponse request returning *CustomConfigServiceDeleteCustomConfigResponse
+func (c *ClientWithResponses) CustomConfigServiceDeleteCustomConfigWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceDeleteCustomConfigResponse, error) {
+	rsp, err := c.CustomConfigServiceDeleteCustomConfig(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceDeleteCustomConfigResponse(rsp)
+}
+
+// CustomConfigServiceGetCustomConfigWithResponse request returning *CustomConfigServiceGetCustomConfigResponse
+func (c *ClientWithResponses) CustomConfigServiceGetCustomConfigWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfigResponse, error) {
+	rsp, err := c.CustomConfigServiceGetCustomConfig(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceGetCustomConfigResponse(rsp)
 }
 
 // LocalAccountServiceListLocalAccountsWithResponse request returning *LocalAccountServiceListLocalAccountsResponse
@@ -11981,110 +12009,6 @@ func (c *ClientWithResponses) WorkloadServiceUpdateWorkloadWithResponse(ctx cont
 		return nil, err
 	}
 	return ParseWorkloadServiceUpdateWorkloadResponse(rsp)
-}
-
-// ParseCustomConfigServiceListCustomConfigsResponse parses an HTTP response from a CustomConfigServiceListCustomConfigsWithResponse call
-func ParseCustomConfigServiceListCustomConfigsResponse(rsp *http.Response) (*CustomConfigServiceListCustomConfigsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CustomConfigServiceListCustomConfigsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListCustomConfigsResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCustomConfigServiceCreateCustomConfigResponse parses an HTTP response from a CustomConfigServiceCreateCustomConfigWithResponse call
-func ParseCustomConfigServiceCreateCustomConfigResponse(rsp *http.Response) (*CustomConfigServiceCreateCustomConfigResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CustomConfigServiceCreateCustomConfigResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomConfigResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCustomConfigServiceDeleteCustomConfigResponse parses an HTTP response from a CustomConfigServiceDeleteCustomConfigWithResponse call
-func ParseCustomConfigServiceDeleteCustomConfigResponse(rsp *http.Response) (*CustomConfigServiceDeleteCustomConfigResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CustomConfigServiceDeleteCustomConfigResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteCustomConfigResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCustomConfigServiceGetCustomConfigResponse parses an HTTP response from a CustomConfigServiceGetCustomConfigWithResponse call
-func ParseCustomConfigServiceGetCustomConfigResponse(rsp *http.Response) (*CustomConfigServiceGetCustomConfigResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CustomConfigServiceGetCustomConfigResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CustomConfigResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
 }
 
 // ParseOSUpdatePolicyListOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyListOSUpdatePolicyWithResponse call
@@ -12883,6 +12807,110 @@ func ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp *http.Response
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceListCustomConfigsResponse parses an HTTP response from a CustomConfigServiceListCustomConfigsWithResponse call
+func ParseCustomConfigServiceListCustomConfigsResponse(rsp *http.Response) (*CustomConfigServiceListCustomConfigsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceListCustomConfigsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListCustomConfigsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceCreateCustomConfigResponse parses an HTTP response from a CustomConfigServiceCreateCustomConfigWithResponse call
+func ParseCustomConfigServiceCreateCustomConfigResponse(rsp *http.Response) (*CustomConfigServiceCreateCustomConfigResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceCreateCustomConfigResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest CustomConfigResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceDeleteCustomConfigResponse parses an HTTP response from a CustomConfigServiceDeleteCustomConfigWithResponse call
+func ParseCustomConfigServiceDeleteCustomConfigResponse(rsp *http.Response) (*CustomConfigServiceDeleteCustomConfigResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceDeleteCustomConfigResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteCustomConfigResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceGetCustomConfigResponse parses an HTTP response from a CustomConfigServiceGetCustomConfigWithResponse call
+func ParseCustomConfigServiceGetCustomConfigResponse(rsp *http.Response) (*CustomConfigServiceGetCustomConfigResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceGetCustomConfigResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest CustomConfigResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

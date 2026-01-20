@@ -236,11 +236,17 @@ type BaremetalControllerKind string
 // CreateCustomConfigRequest Request message for the CreateCustomConfig method.
 type CreateCustomConfigRequest struct {
 	CustomConfig CustomConfigResource `json:"customConfig"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // CreateCustomConfigResponse Response message for the CreateCustomConfig method.
 type CreateCustomConfigResponse struct {
 	CustomConfig CustomConfigResource `json:"customConfig"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // CreateHostRequest Request message for the CreateHost method.
@@ -506,6 +512,9 @@ type CustomConfigResource struct {
 
 // DeleteCustomConfigRequest Request message for DeleteCustomConfig.
 type DeleteCustomConfigRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the customconfig to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -713,6 +722,9 @@ type DeleteWorkloadResponse = map[string]interface{}
 
 // GetCustomConfigRequest Request message for the GetCustomConfig method.
 type GetCustomConfigRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested custom configuration.
 	ResourceId string `json:"resourceId"`
 }
@@ -1471,6 +1483,9 @@ type ListCustomConfigsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListCustomConfigsResponse Response message for the ListCustomConfigs method.
@@ -5548,24 +5563,6 @@ type GoogleProtobufFieldMask = string
 //	) to obtain a formatter capable of generating timestamps in this format.
 type GoogleProtobufTimestamp = time.Time
 
-// CustomConfigServiceListCustomConfigsParams defines parameters for CustomConfigServiceListCustomConfigs.
-type CustomConfigServiceListCustomConfigsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
 // OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
 type OSUpdatePolicyListOSUpdatePolicyParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5690,6 +5687,24 @@ type OperatingSystemServiceListOperatingSystemsParams struct {
 type OperatingSystemServicePatchOperatingSystemParams struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// CustomConfigServiceListCustomConfigsParams defines parameters for CustomConfigServiceListCustomConfigs.
+type CustomConfigServiceListCustomConfigsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // LocalAccountServiceListLocalAccountsParams defines parameters for LocalAccountServiceListLocalAccounts.
@@ -6039,9 +6054,6 @@ type WorkloadServicePatchWorkloadParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
-// CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
-type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
-
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
 
@@ -6077,6 +6089,9 @@ type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystem
 
 // OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
+type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
 type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
