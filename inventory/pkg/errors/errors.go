@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
+//nolint:revive // Package name conflicts with standard library but provides domain-specific errors
 package errors
 
 import (
