@@ -52,17 +52,26 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = h1.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	i1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
+	require.NotNil(t, i1.JSON200, "Instance i1 creation returned nil JSON200")
+	require.NotNil(t, i1.JSON200.ResourceId, "Instance i1 creation returned nil ResourceId")
 	i1ID := *i1.JSON200.ResourceId
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = h2.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	i2 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
+	require.NotNil(t, i2.JSON200, "Instance i2 creation returned nil JSON200")
+	require.NotNil(t, i2.JSON200.ResourceId, "Instance i2 creation returned nil ResourceId")
 	i2ID := *i2.JSON200.ResourceId
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = h3.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	i3 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
+	require.NotNil(t, i3.JSON200, "Instance i3 creation returned nil JSON200")
+	require.NotNil(t, i3.JSON200.ResourceId, "Instance i3 creation returned nil ResourceId")
 	i3ID := *i3.JSON200.ResourceId
 
 	w1 := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
@@ -425,7 +434,10 @@ func TestWorkloadMemberList(t *testing.T) {
 
 		utils.Instance1Request.OsID = os.JSON200.ResourceId
 		utils.Instance1Request.HostID = host.JSON200.ResourceId
+		utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 		instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
+		require.NotNil(t, instance.JSON200, "Instance creation returned nil JSON200")
+		require.NotNil(t, instance.JSON200.ResourceId, "Instance creation returned nil ResourceId")
 
 		wmKind := api.WORKLOADMEMBERKINDCLUSTERNODE
 		CreateWorkloadMember(ctx, t, apiClient, api.WorkloadMember{
