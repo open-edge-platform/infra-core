@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package proxy_test
@@ -74,7 +74,7 @@ func TestBuildAllowedClientList(t *testing.T) {
 			got, err := proxy.BuildAllowedClientList(tt.scenarioName, tt.allowlist)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("buildAllowedClientList() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("BuildAllowedClientList() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
@@ -83,12 +83,12 @@ func TestBuildAllowedClientList(t *testing.T) {
 			}
 
 			if len(got) != tt.wantLen {
-				t.Errorf("buildAllowedClientList() got map length %d, want %d", len(got), tt.wantLen)
+				t.Errorf("BuildAllowedClientList() got map length %d, want %d", len(got), tt.wantLen)
 			}
 
 			for _, service := range tt.wantServices {
 				if _, exists := got[service]; !exists {
-					t.Errorf("buildAllowedClientList() missing service %q in result", service)
+					t.Errorf("BuildAllowedClientList() missing service %q in result", service)
 				}
 			}
 		})
@@ -103,18 +103,18 @@ func TestBuildAllowedClientList_UnregisteredService(t *testing.T) {
 	list, err := proxy.BuildAllowedClientList("test-scenario-unregistered", allowlist)
 
 	if err != nil {
-		t.Errorf("buildAllowedClientList() unexpected error: %v", err)
+		t.Errorf("BuildAllowedClientList() unexpected error: %v", err)
 	}
 
 	if len(list) != 1 {
-		t.Errorf("buildAllowedClientList() got map length %d, want 1", len(list))
+		t.Errorf("BuildAllowedClientList() got map length %d, want 1", len(list))
 	}
 
 	// Only known services should be in the allowed map
 	if _, exists := list["HostService"]; !exists {
-		t.Error("buildAllowedClientList() missing HostService in result")
+		t.Error("BuildAllowedClientList() missing HostService in result")
 	}
 	if _, exists := list["UnknownService"]; exists {
-		t.Error("buildAllowedClientList() should not include UnknownService in result")
+		t.Error("BuildAllowedClientList() should not include UnknownService in result")
 	}
 }
