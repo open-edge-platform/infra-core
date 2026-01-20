@@ -315,7 +315,7 @@ func DeleteSite(
 	tb.Helper()
 
 	projectName := getProjectID(tb)
-	
+
 	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(ctx, projectName, siteID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, resDelSite.StatusCode())
@@ -736,6 +736,9 @@ func CreateProvider(
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if providerCreated.StatusCode() != http.StatusOK {
+		tb.Logf("Provider create failed: status=%d body=%s", providerCreated.StatusCode(), string(providerCreated.Body))
+	}
 	assert.Equal(tb, http.StatusOK, providerCreated.StatusCode())
 	require.NotNil(tb, providerCreated.JSON200, "Provider creation returned nil JSON200")
 	require.NotNil(tb, providerCreated.JSON200.ResourceId, "Provider creation returned nil ResourceId")
@@ -756,8 +759,8 @@ func DeleteProvider(
 
 	providerDel, err := apiClient.ProviderServiceDeleteProviderWithResponse(
 		ctx,
-		providerID,
 		projectName,
+		providerID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)

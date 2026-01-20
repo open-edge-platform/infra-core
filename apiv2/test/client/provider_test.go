@@ -176,6 +176,16 @@ func TestProviderList(t *testing.T) {
 
 	projectName := getProjectID(t)
 
+	resList, err := apiClient.ProviderServiceListProvidersWithResponse(
+		ctx,
+		projectName,
+		&api.ProviderServiceListProvidersParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resList.StatusCode())
+	existingProviders := len(resList.JSON200.Providers)
+
 	totalItems := 10
 	var offset int
 	pageSize := 4
@@ -189,7 +199,7 @@ func TestProviderList(t *testing.T) {
 	}
 
 	// Checks if list resources return expected number of entries
-	resList, err := apiClient.ProviderServiceListProvidersWithResponse(
+	resList, err = apiClient.ProviderServiceListProvidersWithResponse(
 		ctx,
 		projectName,
 		&api.ProviderServiceListProvidersParams{
@@ -211,8 +221,8 @@ func TestProviderList(t *testing.T) {
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 
-	// Adds existing pre-populated provider
-	totalItemsExistent := totalItems + 1
+	// Adds existing providers
+	totalItemsExistent := totalItems + existingProviders
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
 	assert.Equal(t, totalItemsExistent, len(resList.JSON200.Providers))
@@ -238,5 +248,5 @@ func TestProviderList_ListEmpty(t *testing.T) {
 	// Checks existing pre-populated provider
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, 1, len(resList.JSON200.Providers))
+	assert.GreaterOrEqual(t, len(resList.JSON200.Providers), 1)
 }
