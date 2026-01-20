@@ -265,21 +265,21 @@ service ProviderService {
   // Create a provider.
   rpc CreateProvider(CreateProviderRequest) returns (resources.provider.v1.ProviderResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/providers"
+      post: "/v1/projects/{projectName}/providers"
       body: "provider"
     };
   }
   // Get a list of providers.
   rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/providers"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/providers"};
   }
   // Get a specific provider.
   rpc GetProvider(GetProviderRequest) returns (resources.provider.v1.ProviderResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/providers/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/providers/{resourceId}"};
   }
   // Delete a provider.
   rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/providers/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/providers/{resourceId}"};
   }
 }
 
@@ -1455,8 +1455,10 @@ message DeleteOperatingSystemResponse {}
 
 // Request message for the CreateProvider method.
 message CreateProviderRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The provider to create.
-  resources.provider.v1.ProviderResource provider = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.provider.v1.ProviderResource provider = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateProvider method.
@@ -1467,8 +1469,10 @@ message CreateProviderResponse {
 
 // Request message for the GetProvider method.
 message GetProviderRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested provider.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetProvider method.
@@ -1479,9 +1483,11 @@ message GetProviderResponse {
 
 // Request message for the ListProviders method.
 message ListProvidersRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1490,7 +1496,7 @@ message ListProvidersRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1499,7 +1505,7 @@ message ListProvidersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1507,7 +1513,7 @@ message ListProvidersRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -1528,8 +1534,10 @@ message ListProvidersResponse {
 
 // Request message for DeleteProvider.
 message DeleteProviderRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the provider provider to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteProvider.

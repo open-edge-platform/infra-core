@@ -325,6 +325,9 @@ type CreateOperatingSystemResponse struct {
 
 // CreateProviderRequest Request message for the CreateProvider method.
 type CreateProviderRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// Provider A provider resource.
 	Provider ProviderResource `json:"provider"`
 }
@@ -554,6 +557,9 @@ type DeleteOperatingSystemResponse = map[string]interface{}
 
 // DeleteProviderRequest Request message for DeleteProvider.
 type DeleteProviderRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the provider provider to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -777,6 +783,9 @@ type GetOperatingSystemResponse struct {
 
 // GetProviderRequest Request message for the GetProvider method.
 type GetProviderRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested provider.
 	ResourceId string `json:"resourceId"`
 }
@@ -1657,6 +1666,9 @@ type ListProvidersRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListProvidersResponse Response message for the ListProviders method.
@@ -5461,24 +5473,6 @@ type OSUpdateRunListOSUpdateRunParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// ProviderServiceListProvidersParams defines parameters for ProviderServiceListProviders.
-type ProviderServiceListProvidersParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
 type ScheduleServiceListSchedulesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -5898,14 +5892,29 @@ type LocationServiceListLocationsParams struct {
 	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
 }
 
+// ProviderServiceListProvidersParams defines parameters for ProviderServiceListProviders.
+type ProviderServiceListProvidersParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
-
-// ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
-type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
 
 // ScheduleServiceCreateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule for application/json ContentType.
 type ScheduleServiceCreateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
@@ -6014,3 +6023,6 @@ type SiteServicePatchSiteJSONRequestBody = SiteResource
 
 // SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
 type SiteServiceUpdateSiteJSONRequestBody = SiteResource
+
+// ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
+type ProviderServiceCreateProviderJSONRequestBody = ProviderResource

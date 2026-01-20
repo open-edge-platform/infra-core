@@ -380,135 +380,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteOSUpdateRunResponse'
-  /edge-infra.orchestrator.apis/v2/providers:
-    get:
-      tags:
-        - ProviderService
-      summary: ListProviders
-      description: Get a list of providers.
-      operationId: ProviderService_ListProviders
-      parameters:
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListProvidersResponse'
-    post:
-      tags:
-        - ProviderService
-      summary: CreateProvider
-      description: Create a provider.
-      operationId: ProviderService_CreateProvider
-      requestBody:
-        description: The provider to create.
-        content:
-          application/json:
-            schema:
-              title: provider
-              description: The provider to create.
-              $ref: '#/components/schemas/ProviderResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProviderResource'
-  /edge-infra.orchestrator.apis/v2/providers/{resourceId}:
-    get:
-      tags:
-        - ProviderService
-      summary: GetProvider
-      description: Get a specific provider.
-      operationId: ProviderService_GetProvider
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested provider.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested provider.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProviderResource'
-    delete:
-      tags:
-        - ProviderService
-      summary: DeleteProvider
-      description: Delete a provider.
-      operationId: ProviderService_DeleteProvider
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the provider provider to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the provider provider to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteProviderResponse'
   /edge-infra.orchestrator.apis/v2/schedules:
     get:
       tags:
@@ -3801,6 +3672,168 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListLocationsResponse'
+  /v1/projects/{projectName}/providers:
+    get:
+      tags:
+        - ProviderService
+      summary: ListProviders
+      description: Get a list of providers.
+      operationId: ProviderService_ListProviders
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProvidersResponse'
+    post:
+      tags:
+        - ProviderService
+      summary: CreateProvider
+      description: Create a provider.
+      operationId: ProviderService_CreateProvider
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The provider to create.
+        content:
+          application/json:
+            schema:
+              title: provider
+              description: The provider to create.
+              $ref: '#/components/schemas/ProviderResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResource'
+  /v1/projects/{projectName}/providers/{resourceId}:
+    get:
+      tags:
+        - ProviderService
+      summary: GetProvider
+      description: Get a specific provider.
+      operationId: ProviderService_GetProvider
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested provider.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested provider.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResource'
+    delete:
+      tags:
+        - ProviderService
+      summary: DeleteProvider
+      description: Delete a provider.
+      operationId: ProviderService_DeleteProvider
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the provider provider to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the provider provider to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteProviderResponse'
 components:
   schemas:
     google.protobuf.FieldMask:
@@ -6530,12 +6563,17 @@ components:
     CreateProviderRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         provider:
           title: provider
           description: The provider to create.
           $ref: '#/components/schemas/ProviderResource'
       title: CreateProviderRequest
       required:
+        - projectName
         - provider
       additionalProperties: false
       description: Request message for the CreateProvider method.
@@ -6947,12 +6985,17 @@ components:
     DeleteProviderRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the provider provider to be deleted.
       title: DeleteProviderRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteProvider.
@@ -7384,12 +7427,17 @@ components:
     GetProviderRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested provider.
       title: GetProviderRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetProvider method.
@@ -8294,6 +8342,10 @@ components:
     ListProvidersRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -8325,6 +8377,8 @@ components:
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
       title: ListProvidersRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListProviders method.
     ListProvidersResponse:

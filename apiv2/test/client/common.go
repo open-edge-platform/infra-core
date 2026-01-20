@@ -727,8 +727,11 @@ func CreateProvider(
 ) *api.ProviderServiceCreateProviderResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	providerCreated, err := apiClient.ProviderServiceCreateProviderWithResponse(
 		ctx,
+		projectName,
 		reqProvider,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -749,9 +752,12 @@ func DeleteProvider(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	providerDel, err := apiClient.ProviderServiceDeleteProviderWithResponse(
 		ctx,
 		providerID,
+		projectName,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)

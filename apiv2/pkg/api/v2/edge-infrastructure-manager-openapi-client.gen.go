@@ -126,20 +126,6 @@ type ClientInterface interface {
 	// OSUpdateRunGetOSUpdateRun request
 	OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ProviderServiceListProviders request
-	ProviderServiceListProviders(ctx context.Context, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ProviderServiceCreateProviderWithBody request with any body
-	ProviderServiceCreateProviderWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ProviderServiceCreateProvider(ctx context.Context, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ProviderServiceDeleteProvider request
-	ProviderServiceDeleteProvider(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ProviderServiceGetProvider request
-	ProviderServiceGetProvider(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// ScheduleServiceListSchedules request
 	ScheduleServiceListSchedules(ctx context.Context, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -463,6 +449,20 @@ type ClientInterface interface {
 
 	// LocationServiceListLocations request
 	LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceListProviders request
+	ProviderServiceListProviders(ctx context.Context, projectName string, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceCreateProviderWithBody request with any body
+	ProviderServiceCreateProviderWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ProviderServiceCreateProvider(ctx context.Context, projectName string, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceDeleteProvider request
+	ProviderServiceDeleteProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceGetProvider request
+	ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) CustomConfigServiceListCustomConfigs(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -611,66 +611,6 @@ func (c *Client) OSUpdateRunDeleteOSUpdateRun(ctx context.Context, resourceId st
 
 func (c *Client) OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewOSUpdateRunGetOSUpdateRunRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ProviderServiceListProviders(ctx context.Context, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewProviderServiceListProvidersRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ProviderServiceCreateProviderWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewProviderServiceCreateProviderRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ProviderServiceCreateProvider(ctx context.Context, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewProviderServiceCreateProviderRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ProviderServiceDeleteProvider(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewProviderServiceDeleteProviderRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ProviderServiceGetProvider(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewProviderServiceGetProviderRequest(c.Server, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2121,6 +2061,66 @@ func (c *Client) LocationServiceListLocations(ctx context.Context, projectName s
 	return c.Client.Do(req)
 }
 
+func (c *Client) ProviderServiceListProviders(ctx context.Context, projectName string, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceListProvidersRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceCreateProviderWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceCreateProviderRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceCreateProvider(ctx context.Context, projectName string, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceCreateProviderRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceDeleteProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceDeleteProviderRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceGetProviderRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // NewCustomConfigServiceListCustomConfigsRequest generates requests for CustomConfigServiceListCustomConfigs
 func NewCustomConfigServiceListCustomConfigsRequest(server string, params *CustomConfigServiceListCustomConfigsParams) (*http.Request, error) {
 	var err error
@@ -2679,211 +2679,6 @@ func NewOSUpdateRunGetOSUpdateRunRequest(server string, resourceId string) (*htt
 	}
 
 	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewProviderServiceListProvidersRequest generates requests for ProviderServiceListProviders
-func NewProviderServiceListProvidersRequest(server string, params *ProviderServiceListProvidersParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewProviderServiceCreateProviderRequest calls the generic ProviderServiceCreateProvider builder with application/json body
-func NewProviderServiceCreateProviderRequest(server string, body ProviderServiceCreateProviderJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewProviderServiceCreateProviderRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewProviderServiceCreateProviderRequestWithBody generates requests for ProviderServiceCreateProvider with any type of body
-func NewProviderServiceCreateProviderRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewProviderServiceDeleteProviderRequest generates requests for ProviderServiceDeleteProvider
-func NewProviderServiceDeleteProviderRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewProviderServiceGetProviderRequest generates requests for ProviderServiceGetProvider
-func NewProviderServiceGetProviderRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers/%s", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -7854,6 +7649,239 @@ func NewLocationServiceListLocationsRequest(server string, projectName string, p
 	return req, nil
 }
 
+// NewProviderServiceListProvidersRequest generates requests for ProviderServiceListProviders
+func NewProviderServiceListProvidersRequest(server string, projectName string, params *ProviderServiceListProvidersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/providers", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewProviderServiceCreateProviderRequest calls the generic ProviderServiceCreateProvider builder with application/json body
+func NewProviderServiceCreateProviderRequest(server string, projectName string, body ProviderServiceCreateProviderJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewProviderServiceCreateProviderRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewProviderServiceCreateProviderRequestWithBody generates requests for ProviderServiceCreateProvider with any type of body
+func NewProviderServiceCreateProviderRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/providers", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewProviderServiceDeleteProviderRequest generates requests for ProviderServiceDeleteProvider
+func NewProviderServiceDeleteProviderRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/providers/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewProviderServiceGetProviderRequest generates requests for ProviderServiceGetProvider
+func NewProviderServiceGetProviderRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/providers/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -7933,20 +7961,6 @@ type ClientWithResponsesInterface interface {
 
 	// OSUpdateRunGetOSUpdateRunWithResponse request
 	OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error)
-
-	// ProviderServiceListProvidersWithResponse request
-	ProviderServiceListProvidersWithResponse(ctx context.Context, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*ProviderServiceListProvidersResponse, error)
-
-	// ProviderServiceCreateProviderWithBodyWithResponse request with any body
-	ProviderServiceCreateProviderWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error)
-
-	ProviderServiceCreateProviderWithResponse(ctx context.Context, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error)
-
-	// ProviderServiceDeleteProviderWithResponse request
-	ProviderServiceDeleteProviderWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceDeleteProviderResponse, error)
-
-	// ProviderServiceGetProviderWithResponse request
-	ProviderServiceGetProviderWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error)
 
 	// ScheduleServiceListSchedulesWithResponse request
 	ScheduleServiceListSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedulesResponse, error)
@@ -8271,6 +8285,20 @@ type ClientWithResponsesInterface interface {
 
 	// LocationServiceListLocationsWithResponse request
 	LocationServiceListLocationsWithResponse(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error)
+
+	// ProviderServiceListProvidersWithResponse request
+	ProviderServiceListProvidersWithResponse(ctx context.Context, projectName string, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*ProviderServiceListProvidersResponse, error)
+
+	// ProviderServiceCreateProviderWithBodyWithResponse request with any body
+	ProviderServiceCreateProviderWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error)
+
+	ProviderServiceCreateProviderWithResponse(ctx context.Context, projectName string, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error)
+
+	// ProviderServiceDeleteProviderWithResponse request
+	ProviderServiceDeleteProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceDeleteProviderResponse, error)
+
+	// ProviderServiceGetProviderWithResponse request
+	ProviderServiceGetProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error)
 }
 
 type CustomConfigServiceListCustomConfigsResponse struct {
@@ -8509,94 +8537,6 @@ func (r OSUpdateRunGetOSUpdateRunResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r OSUpdateRunGetOSUpdateRunResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ProviderServiceListProvidersResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListProvidersResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ProviderServiceListProvidersResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ProviderServiceListProvidersResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ProviderServiceCreateProviderResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ProviderResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ProviderServiceCreateProviderResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ProviderServiceCreateProviderResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ProviderServiceDeleteProviderResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteProviderResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ProviderServiceDeleteProviderResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ProviderServiceDeleteProviderResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ProviderServiceGetProviderResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ProviderResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ProviderServiceGetProviderResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ProviderServiceGetProviderResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10451,6 +10391,94 @@ func (r LocationServiceListLocationsResponse) StatusCode() int {
 	return 0
 }
 
+type ProviderServiceListProvidersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListProvidersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceListProvidersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceListProvidersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceCreateProviderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ProviderResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceCreateProviderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceCreateProviderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceDeleteProviderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteProviderResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceDeleteProviderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceDeleteProviderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceGetProviderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ProviderResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceGetProviderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceGetProviderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 // CustomConfigServiceListCustomConfigsWithResponse request returning *CustomConfigServiceListCustomConfigsResponse
 func (c *ClientWithResponses) CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error) {
 	rsp, err := c.CustomConfigServiceListCustomConfigs(ctx, params, reqEditors...)
@@ -10564,50 +10592,6 @@ func (c *ClientWithResponses) OSUpdateRunGetOSUpdateRunWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseOSUpdateRunGetOSUpdateRunResponse(rsp)
-}
-
-// ProviderServiceListProvidersWithResponse request returning *ProviderServiceListProvidersResponse
-func (c *ClientWithResponses) ProviderServiceListProvidersWithResponse(ctx context.Context, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*ProviderServiceListProvidersResponse, error) {
-	rsp, err := c.ProviderServiceListProviders(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseProviderServiceListProvidersResponse(rsp)
-}
-
-// ProviderServiceCreateProviderWithBodyWithResponse request with arbitrary body returning *ProviderServiceCreateProviderResponse
-func (c *ClientWithResponses) ProviderServiceCreateProviderWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error) {
-	rsp, err := c.ProviderServiceCreateProviderWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseProviderServiceCreateProviderResponse(rsp)
-}
-
-func (c *ClientWithResponses) ProviderServiceCreateProviderWithResponse(ctx context.Context, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error) {
-	rsp, err := c.ProviderServiceCreateProvider(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseProviderServiceCreateProviderResponse(rsp)
-}
-
-// ProviderServiceDeleteProviderWithResponse request returning *ProviderServiceDeleteProviderResponse
-func (c *ClientWithResponses) ProviderServiceDeleteProviderWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceDeleteProviderResponse, error) {
-	rsp, err := c.ProviderServiceDeleteProvider(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseProviderServiceDeleteProviderResponse(rsp)
-}
-
-// ProviderServiceGetProviderWithResponse request returning *ProviderServiceGetProviderResponse
-func (c *ClientWithResponses) ProviderServiceGetProviderWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error) {
-	rsp, err := c.ProviderServiceGetProvider(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseProviderServiceGetProviderResponse(rsp)
 }
 
 // ScheduleServiceListSchedulesWithResponse request returning *ScheduleServiceListSchedulesResponse
@@ -11654,6 +11638,50 @@ func (c *ClientWithResponses) LocationServiceListLocationsWithResponse(ctx conte
 	return ParseLocationServiceListLocationsResponse(rsp)
 }
 
+// ProviderServiceListProvidersWithResponse request returning *ProviderServiceListProvidersResponse
+func (c *ClientWithResponses) ProviderServiceListProvidersWithResponse(ctx context.Context, projectName string, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*ProviderServiceListProvidersResponse, error) {
+	rsp, err := c.ProviderServiceListProviders(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceListProvidersResponse(rsp)
+}
+
+// ProviderServiceCreateProviderWithBodyWithResponse request with arbitrary body returning *ProviderServiceCreateProviderResponse
+func (c *ClientWithResponses) ProviderServiceCreateProviderWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error) {
+	rsp, err := c.ProviderServiceCreateProviderWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceCreateProviderResponse(rsp)
+}
+
+func (c *ClientWithResponses) ProviderServiceCreateProviderWithResponse(ctx context.Context, projectName string, body ProviderServiceCreateProviderJSONRequestBody, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProviderResponse, error) {
+	rsp, err := c.ProviderServiceCreateProvider(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceCreateProviderResponse(rsp)
+}
+
+// ProviderServiceDeleteProviderWithResponse request returning *ProviderServiceDeleteProviderResponse
+func (c *ClientWithResponses) ProviderServiceDeleteProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceDeleteProviderResponse, error) {
+	rsp, err := c.ProviderServiceDeleteProvider(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceDeleteProviderResponse(rsp)
+}
+
+// ProviderServiceGetProviderWithResponse request returning *ProviderServiceGetProviderResponse
+func (c *ClientWithResponses) ProviderServiceGetProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error) {
+	rsp, err := c.ProviderServiceGetProvider(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceGetProviderResponse(rsp)
+}
+
 // ParseCustomConfigServiceListCustomConfigsResponse parses an HTTP response from a CustomConfigServiceListCustomConfigsWithResponse call
 func ParseCustomConfigServiceListCustomConfigsResponse(rsp *http.Response) (*CustomConfigServiceListCustomConfigsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -11930,110 +11958,6 @@ func ParseOSUpdateRunGetOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunGet
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest OSUpdateRun
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseProviderServiceListProvidersResponse parses an HTTP response from a ProviderServiceListProvidersWithResponse call
-func ParseProviderServiceListProvidersResponse(rsp *http.Response) (*ProviderServiceListProvidersResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ProviderServiceListProvidersResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListProvidersResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseProviderServiceCreateProviderResponse parses an HTTP response from a ProviderServiceCreateProviderWithResponse call
-func ParseProviderServiceCreateProviderResponse(rsp *http.Response) (*ProviderServiceCreateProviderResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ProviderServiceCreateProviderResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ProviderResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseProviderServiceDeleteProviderResponse parses an HTTP response from a ProviderServiceDeleteProviderWithResponse call
-func ParseProviderServiceDeleteProviderResponse(rsp *http.Response) (*ProviderServiceDeleteProviderResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ProviderServiceDeleteProviderResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteProviderResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseProviderServiceGetProviderResponse parses an HTTP response from a ProviderServiceGetProviderWithResponse call
-func ParseProviderServiceGetProviderResponse(rsp *http.Response) (*ProviderServiceGetProviderResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ProviderServiceGetProviderResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ProviderResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -14218,6 +14142,110 @@ func ParseLocationServiceListLocationsResponse(rsp *http.Response) (*LocationSer
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ListLocationsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceListProvidersResponse parses an HTTP response from a ProviderServiceListProvidersWithResponse call
+func ParseProviderServiceListProvidersResponse(rsp *http.Response) (*ProviderServiceListProvidersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceListProvidersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListProvidersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceCreateProviderResponse parses an HTTP response from a ProviderServiceCreateProviderWithResponse call
+func ParseProviderServiceCreateProviderResponse(rsp *http.Response) (*ProviderServiceCreateProviderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceCreateProviderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ProviderResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceDeleteProviderResponse parses an HTTP response from a ProviderServiceDeleteProviderWithResponse call
+func ParseProviderServiceDeleteProviderResponse(rsp *http.Response) (*ProviderServiceDeleteProviderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceDeleteProviderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteProviderResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceGetProviderResponse parses an HTTP response from a ProviderServiceGetProviderWithResponse call
+func ParseProviderServiceGetProviderResponse(rsp *http.Response) (*ProviderServiceGetProviderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceGetProviderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ProviderResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

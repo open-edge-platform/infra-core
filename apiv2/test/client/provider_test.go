@@ -24,12 +24,15 @@ func TestProvider_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	provider1 := CreateProvider(ctx, t, apiClient, utils.Provider1Request)
 	provider2 := CreateProvider(ctx, t, apiClient, utils.Provider2Request)
 	provider3 := CreateProvider(ctx, t, apiClient, utils.Provider3Request)
 
 	get1, err := apiClient.ProviderServiceGetProviderWithResponse(
 		ctx,
+		projectName,
 		*provider1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -40,6 +43,7 @@ func TestProvider_CreateGetDelete(t *testing.T) {
 
 	get2, err := apiClient.ProviderServiceGetProviderWithResponse(
 		ctx,
+		projectName,
 		*provider2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -49,6 +53,7 @@ func TestProvider_CreateGetDelete(t *testing.T) {
 
 	get3, err := apiClient.ProviderServiceGetProviderWithResponse(
 		ctx,
+		projectName,
 		*provider3.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -66,6 +71,8 @@ func TestProvider_Errors(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
@@ -73,6 +80,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Post_NoKind_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceCreateProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderNoKind,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -83,6 +91,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Post_NoName_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceCreateProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderNoName,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -93,6 +102,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Post_NoApiEndpoint_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceCreateProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderNoAPIEndpoint,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -103,6 +113,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Post_BadApiCredentials_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceCreateProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderBadCredentials,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -113,6 +124,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_NotFound", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceGetProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -123,6 +135,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_NotFound", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceDeleteProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -133,6 +146,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Get_WrongID_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceGetProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -143,6 +157,7 @@ func TestProvider_Errors(t *testing.T) {
 	t.Run("Delete_WrongID_BadRequest", func(t *testing.T) {
 		provider, err := apiClient.ProviderServiceDeleteProviderWithResponse(
 			ctx,
+			projectName,
 			utils.ProviderWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -159,6 +174,8 @@ func TestProviderList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	totalItems := 10
 	var offset int
 	pageSize := 4
@@ -174,6 +191,7 @@ func TestProviderList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.ProviderServiceListProvidersWithResponse(
 		ctx,
+		projectName,
 		&api.ProviderServiceListProvidersParams{
 			Offset:   &offset,
 			PageSize: &pageSize,
@@ -188,6 +206,7 @@ func TestProviderList(t *testing.T) {
 
 	resList, err = apiClient.ProviderServiceListProvidersWithResponse(
 		ctx,
+		projectName,
 		&api.ProviderServiceListProvidersParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -207,8 +226,11 @@ func TestProviderList_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resList, err := apiClient.ProviderServiceListProvidersWithResponse(
 		ctx,
+		projectName,
 		&api.ProviderServiceListProvidersParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

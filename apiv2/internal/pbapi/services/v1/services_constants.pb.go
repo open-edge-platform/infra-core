@@ -275,22 +275,25 @@ const (
 	// Fields and Edges constants for "DeleteOperatingSystemResponse"
 
 	// Fields and Edges constants for "CreateProviderRequest"
-	CreateProviderRequestEdgeProvider = "provider"
+	CreateProviderRequestFieldProjectName = "projectName"
+	CreateProviderRequestEdgeProvider     = "provider"
 
 	// Fields and Edges constants for "CreateProviderResponse"
 	CreateProviderResponseEdgeProvider = "provider"
 
 	// Fields and Edges constants for "GetProviderRequest"
-	GetProviderRequestFieldResourceId = "resourceId"
+	GetProviderRequestFieldProjectName = "projectName"
+	GetProviderRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetProviderResponse"
 	GetProviderResponseEdgeProvider = "provider"
 
 	// Fields and Edges constants for "ListProvidersRequest"
-	ListProvidersRequestFieldOrderBy  = "order_by"
-	ListProvidersRequestFieldFilter   = "filter"
-	ListProvidersRequestFieldPageSize = "page_size"
-	ListProvidersRequestFieldOffset   = "offset"
+	ListProvidersRequestFieldProjectName = "projectName"
+	ListProvidersRequestFieldOrderBy     = "order_by"
+	ListProvidersRequestFieldFilter      = "filter"
+	ListProvidersRequestFieldPageSize    = "page_size"
+	ListProvidersRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListProvidersResponse"
 	ListProvidersResponseEdgeProviders      = "providers"
@@ -298,7 +301,8 @@ const (
 	ListProvidersResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "DeleteProviderRequest"
-	DeleteProviderRequestFieldResourceId = "resourceId"
+	DeleteProviderRequestFieldProjectName = "projectName"
+	DeleteProviderRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteProviderResponse"
 

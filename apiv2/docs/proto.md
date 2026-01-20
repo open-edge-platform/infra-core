@@ -1739,6 +1739,7 @@ Request message for the CreateProvider method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | The provider to create. |
 
 
@@ -2250,6 +2251,7 @@ Request message for DeleteProvider.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the provider provider to be deleted. |
 
 
@@ -2775,6 +2777,7 @@ Request message for the GetProvider method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested provider. |
 
 
@@ -3482,6 +3485,7 @@ Request message for the ListProviders method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
