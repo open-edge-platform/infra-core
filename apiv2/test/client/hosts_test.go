@@ -837,6 +837,7 @@ func TestHostRegister(t *testing.T) {
 	registeredHosts = append(registeredHosts, registeredHost1)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost1.StatusCode())
+	require.NotNil(t, registeredHost1.JSON200, "HostServiceRegisterHost returned nil JSON200")
 	assert.Equal(t, *utils.HostRegister.Uuid, *registeredHost1.JSON200.Uuid)
 	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost1.JSON200.DesiredState)
 
@@ -1009,6 +1010,7 @@ func TestHostOnboard(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, registeredHost.StatusCode())
+	require.NotNil(t, registeredHost.JSON200, "HostServiceRegisterHost returned nil JSON200")
 	assert.Equal(t, *utils.HostRegister.Uuid, *registeredHost.JSON200.Uuid)
 	assert.Equal(t, api.HOSTSTATEREGISTERED, *registeredHost.JSON200.DesiredState)
 
