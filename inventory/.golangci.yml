@@ -1,9 +1,20 @@
----
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-version: '2'
-
+---
+version: "2"
+run:
+  go: ""
+  modules-download-mode: readonly
+  issues-exit-code: 1
+  tests: true
+output:
+  formats:
+    text:
+      path: stdout
+      print-linter-name: true
+    html:
+      path: out/golangci-lint_report.html
 linters:
   enable:
     - asasalint
@@ -15,7 +26,6 @@ linters:
     - depguard
     - dogsled
     - durationcheck
-    - errcheck
     - errname
     - errorlint
     - exhaustive
@@ -29,8 +39,6 @@ linters:
     - gomoddirectives
     - goprintffuncname
     - gosec
-    - govet
-    - ineffassign
     - lll
     - misspell
     - mnd
@@ -44,427 +52,343 @@ linters:
     - revive
     - staticcheck
     - tagliatelle
-    - testpackage
     - testableexamples
+    - testpackage
     - thelper
     - tparallel
     - unconvert
     - unparam
-    - unused
     - usestdlibvars
     - whitespace
-    # - dupl  #TBD
-
+  settings:
+    cyclop:
+      max-complexity: 10
+    depguard:
+      rules:
+        Main:
+          files:
+            - $all
+            - '!$test'
+          allow:
+            - $gostd
+            - github.com/open-edge-platform
+            - entgo.io/ent
+            - entgo.io/contrib/entproto
+            - entgo.io/contrib/entproto/cmd/protoc-gen-ent/options/ent
+            - entgo.io/contrib/schemas
+            - github.com/goccy/go-json
+            - github.com/golang/mock/gomock
+            - github.com/google
+            - github.com/grpc-ecosystem
+            - github.com/mennanov/fmutils
+            - github.com/labstack/echo
+            - github.com/open-policy-agent
+            - github.com/pkg/errors
+            - github.com/rs/zerolog
+            - github.com/cenkalti/backoff
+            - github.com/stretchr/testify/require
+            - github.com/iancoleman/strcase
+            - github.com/jackc/pgx/v5/stdlib
+            - github.com/hashicorp/vault/api
+            - github.com/golang-jwt/jwt/v5
+            - buf.build/go/protovalidate
+            - github.com/adhocore/gronx
+            - github.com/prometheus/client_golang/prometheus
+            - github.com/lib/pq
+            - github.com/mitchellh/mapstructure
+            - github.com/Nerzal/gocloak
+            - oras.land/oras-go/v2
+            - github.com/opencontainers/image-spec
+            - github.com/patrickmn/go-cache
+            - github.com/eko/gocache/store/go_cache/v4
+            - github.com/eko/gocache/lib/v4/cache
+            - github.com/eko/gocache/lib/v4/store
+            - github.com/golang/mock/mockgen/model
+        Test:
+          files:
+            - $test
+          allow:
+            - $gostd
+            - github.com/open-edge-platform
+            - github.com/goccy/go-json
+            - github.com/golang/mock/gomock
+            - github.com/google
+            - github.com/grpc-ecosystem
+            - github.com/mennanov/fmutils
+            - github.com/rs/zerolog
+            - github.com/stretchr/testify/require
+            - github.com/stretchr/testify/assert
+            - github.com/stretchr/testify/suite
+            - github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
+            - github.com/hashicorp/vault/api
+            - buf.build/go/protovalidate
+            - github.com/labstack/echo/v4
+            - github.com/golang-jwt/jwt/v5
+            - github.com/Nerzal/gocloak
+            - entgo.io/ent/dialect/sql
+            - github.com/prometheus/client_golang/prometheus
+          deny:
+            - pkg: github.com/stretchr/testify/mock
+              desc: mocking with testify is prohibited, please use gomock
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+      exclude-functions:
+        - io/ioutil.ReadFile
+        - io.Copy(*bytes.Buffer)
+        - io.Copy(os.Stdout)
+    exhaustive:
+      default-signifies-exhaustive: true
+    funlen:
+      lines: 100
+      statements: 50
+    gocritic:
+      disabled-checks:
+        - hugeParam
+        - rangeExprCopy
+        - rangeValCopy
+        - unnamedResult
+      enabled-tags:
+        - diagnostic
+        - experimental
+        - opinionated
+        - performance
+        - style
+    govet:
+      enable:
+        - shadow
+    lll:
+      line-length: 130
+      tab-width: 4
+    misspell:
+      locale: US
+    nakedret:
+      max-func-lines: 1
+    tagliatelle:
+      case:
+        rules:
+          avro: snake
+          bson: camel
+          json: snake
+          mapstructure: kebab
+          xml: camel
+          yaml: snake
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - cyclop
+          - funlen
+        path: internal/inventory/inventory.go
+      - linters:
+          - cyclop
+        path: internal/policy/policy.go
+      - linters:
+          - funlen
+        path: internal/policy/policy_test.go
+      - linters:
+          - errcheck
+          - funlen
+        path: internal/store/endpoint_test.go
+      - linters:
+          - cyclop
+          - funlen
+        path: internal/store/host_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/hostnic_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/hoststorage_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/hostusb_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/hostgpu_test.go
+      - linters:
+          - cyclop
+          - funlen
+        path: internal/store/ip_address_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/netlink_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/networksegment_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/os_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/ou_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/project_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/provider_test.go
+      - linters:
+          - cyclop
+          - funlen
+        path: internal/store/region_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/repeatedschedule_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/singleschedule_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/site_test.go
+      - linters:
+          - lll
+        path: internal/store/store_test.go
+      - linters:
+          - cyclop
+          - funlen
+        path: internal/store/workload_test.go
+      - linters:
+          - cyclop
+          - funlen
+        path: internal/store/workload_member_test.go
+      - linters:
+          - cyclop
+        path: internal/store/store.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/user_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/instance_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+          - gosec
+        path: internal/store/remoteaccess_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/telemetryprofile_test.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+        path: internal/store/telemetrygroup_test.go
+      - linters:
+          - gosec
+        path: pkg/cert/cert.go
+      - linters:
+          - cyclop
+          - funlen
+          - gocyclo
+        path: pkg/errors/errors.go
+      - linters:
+          - cyclop
+          - errcheck
+          - funlen
+          - testableexamples
+        path: pkg/errors/errors_test.go
+      - linters:
+          - cyclop
+        path: pkg/policy/policy.go
+      - linters:
+          - funlen
+        path: pkg/policy/policy_test.go
+      - linters:
+          - cyclop
+        path: pkg/policy/rbac/rbac.go
+      - linters:
+          - funlen
+          - gocritic
+        path: pkg/policy/rbac/rbac_test.go
+      - linters:
+          - mnd
+        path: pkg/testing/testing_utils.go
+      - linters:
+          - mnd
+        path: pkg/testing/generators.go
+      - linters:
+          - gosec
+        path: pkg/perf/perf.go
+      - linters:
+          - funlen
+          - gosec
+        path: pkg/fuzz/client_fuzz_test.go
+      - path: (.+)\.go$
+        text: Error return value of `.*Close` is not checked
+      - path: (.+)\.go$
+        text: Error return value of `.*Flush` is not checked
+      - path: (.+)\.go$
+        text: Error return value of `.*Write` is not checked
+      - path: (.+)\.go$
+        text: Error return value of `.*Stop` is not checked
+    paths:
+      - pkg/api/
+      - internal/ent
+      - third_party$
+      - builtin$
+      - examples$
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  new: false
+  fix: false
 formatters:
   enable:
     - gci
     - gofmt
     - gofumpt
     - goimports
-
-run:
-  timeout: 10m
-
-  issues-exit-code: 1
-
-  tests: true
-
-  # With the read-only mode linter will fail if go.mod file is outdated.
-  modules-download-mode: readonly
-
-  # Keep this empty to use the Go version from the go.mod file.
-  go: ""
-
-linters-settings:
-  cyclop:
-    # SDL requirements dictate a maximum cyclomatic complexity of 10
-    max-complexity: 10
-  govet:
-    enable:
-      - shadow
-  misspell:
-    locale: US
-  lll:
-    line-length: 130
-    tab-width: 4
-  funlen:
-    lines: 100
-    statements: 50
-  exhaustive:
-    default-signifies-exhaustive: true
-  gci:
-    sections:
-      # Standard section: captures all standard packages.
-      - standard
-      # Default section: contains all imports that could not be matched to another section type.
-      - default
-      # Custom section: groups all imports with the specified Prefix.
-      - prefix(github.com/open-edge-platform)
-  gocritic:
-    enabled-tags:
-      - diagnostic
-      - experimental
-      - opinionated
-      - performance
-      - style
-    disabled-checks:
-      # These 3 will detect many cases, but they do sense
-      # if it's performance oriented code
-      - hugeParam
-      - rangeExprCopy
-      - rangeValCopy
-      - unnamedResult
-  errcheck:
-    # Report `a := b.(MyStruct)` when `a, ok := ...` should be.
-    check-type-assertions: true   # Default: false
-    # Report skipped checks:`num, _ := strconv.Atoi(numStr)`.
-    check-blank: true   # Default: false
-    # Function to skip.
-    exclude-functions:
-      - io/ioutil.ReadFile
-      - io.Copy(*bytes.Buffer)
-      - io.Copy(os.Stdout)
-  nakedret:
-    # No naked returns, ever.
-    max-func-lines: 1   # Default: 30
-  tagliatelle:
-    case:
-      rules:
-        json: snake
-        yaml: snake
-        xml: camel
-        bson: camel
-        avro: snake
-        mapstructure: kebab
-  depguard:
-    rules:
-      Main:
-        files:
-          - $all
-          - "!$test"
-        allow:
-          - $gostd
-          - github.com/open-edge-platform
-          - entgo.io/ent
-          - entgo.io/contrib/entproto
-          - entgo.io/contrib/entproto/cmd/protoc-gen-ent/options/ent
-          - entgo.io/contrib/schemas
-          - github.com/goccy/go-json
-          - github.com/golang/mock/gomock
-          - github.com/google
-          - github.com/grpc-ecosystem
-          - github.com/mennanov/fmutils
-          - github.com/labstack/echo
-          - github.com/open-policy-agent
-          - github.com/pkg/errors
-          - github.com/rs/zerolog
-          - github.com/cenkalti/backoff
-          - github.com/stretchr/testify/require
-          - github.com/iancoleman/strcase
-          - github.com/jackc/pgx/v5/stdlib
-          - github.com/hashicorp/vault/api
-          - github.com/golang-jwt/jwt/v5
-          - buf.build/go/protovalidate
-          - github.com/adhocore/gronx
-          - github.com/prometheus/client_golang/prometheus
-          - github.com/lib/pq
-          - github.com/mitchellh/mapstructure
-          - github.com/Nerzal/gocloak
-          - oras.land/oras-go/v2
-          - github.com/opencontainers/image-spec
-          - github.com/patrickmn/go-cache
-          - github.com/eko/gocache/store/go_cache/v4
-          - github.com/eko/gocache/lib/v4/cache
-          - github.com/eko/gocache/lib/v4/store
-          - github.com/golang/mock/mockgen/model
-        deny: []
-      Test:
-        files:
-          - $test
-        allow:
-          - $gostd
-          - github.com/open-edge-platform
-          - github.com/goccy/go-json
-          - github.com/golang/mock/gomock
-          - github.com/google
-          - github.com/grpc-ecosystem
-          - github.com/mennanov/fmutils
-          - github.com/rs/zerolog
-          - github.com/stretchr/testify/require
-          - github.com/stretchr/testify/assert
-          - github.com/stretchr/testify/suite
-          - github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
-          - github.com/hashicorp/vault/api
-          - buf.build/go/protovalidate
-          - github.com/labstack/echo/v4
-          - github.com/golang-jwt/jwt/v5
-          - github.com/Nerzal/gocloak
-          - entgo.io/ent/dialect/sql
-          - github.com/prometheus/client_golang/prometheus
-        deny:
-          - pkg: github.com/stretchr/testify/mock
-            desc: mocking with testify is prohibited, please use gomock
-issues:
-  max-issues-per-linter: 0
-
-  max-same-issues: 0
-
-  # Autogenerated files can be skipped (I'm looking at you gRPC/OpenAPI).
-  exclude-dirs:
-    - "pkg/api/"
-    - "internal/ent"
-
-  # When set to `true` linter will analyze only new code which are
-  # not committed or after some specific revision. This is a cool
-  # feature when you're going to introduce linter into a big project.
-  # But I prefer going gradually package by package.
-  # So, it's set to `false` to scan all code.
-  new: false
-
-  fix: false
-
-  exclude:
-    - Error return value of `.*Close` is not checked
-    - Error return value of `.*Flush` is not checked
-    - Error return value of `.*Write` is not checked
-    - Error return value of `.*Stop` is not checked
-  exclude-rules:
-    - path: internal/inventory/inventory.go
-      linters:
-        # In the last scan the highest complexity was contributed by the switch/case
-        # statements on the resource types. We can rework some using maps, others will
-        # require a major rework of the interfaces to use generics;
-        - cyclop
-        - funlen
-    - path: internal/policy/policy.go
-      linters:
-        # In the last scan the highest complexity was contributed by the switch/case
-        # statements on the resource types. We can rework and reduce duplication by
-        # working on the proto but the switch case will be still there because each
-        # resource has its own getter/setter interface
-        - cyclop
-    - path: internal/policy/policy_test.go
-      linters:
-        - funlen
-    - path: internal/store/endpoint_test.go
-      linters:
-        - funlen
-        - errcheck
-    - path: internal/store/host_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-    - path: internal/store/hostnic_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/hoststorage_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/hostusb_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/hostgpu_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/ip_address_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-    - path: internal/store/netlink_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/networksegment_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/os_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/ou_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/project_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/provider_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/region_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-    - path: internal/store/repeatedschedule_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/singleschedule_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/site_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/store_test.go
-      linters:
-        - lll
-    - path: internal/store/workload_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-    - path: internal/store/workload_member_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-    - path: internal/store/store.go
-      linters:
-        # In the last scan the highest complexity was contributed by the generic
-        # functions tha have several switch/case
-        - cyclop
-    - path: internal/store/user_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/instance_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/remoteaccess_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-        - gosec
-    - path: internal/store/telemetryprofile_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: internal/store/telemetrygroup_test.go
-      linters:
-        # this test code not shipped in production
-        - cyclop
-        - funlen
-        - errcheck
-    - path: pkg/cert/cert.go
-      linters:
-        - gosec
-    - path: pkg/errors/errors.go
-      linters:
-        # complexity is high due to the switch statement
-        - gocyclo
-        - cyclop
-        - funlen
-    - path: pkg/errors/errors_test.go
-      linters:
-        # cyclomatic complexity is high due to the switch statement
-        - cyclop
-        - errcheck
-        - funlen
-        # No need to run test
-        - testableexamples
-    - path: pkg/policy/policy.go
-      linters:
-        # cyclomatic complexity is high due to the switch statement
-        - cyclop
-    - path: pkg/policy/policy_test.go
-      linters:
-        # this test code not shipped in production
-        - funlen
-    - path: pkg/policy/rbac/rbac.go
-      linters:
-        # cyclomatic complexity is high due to the switch statement
-        - cyclop
-    - path: pkg/policy/rbac/rbac_test.go
-      linters:
-        # this test code not shipped in production
-        - gocritic
-        - funlen
-    - path: pkg/testing/testing_utils.go
-      linters:
-        # this test code not shipped in production
-        - gomnd
-    - path: pkg/testing/generators.go
-      linters:
-        # this test code not shipped in production
-        - gomnd
-    - path: pkg/perf/perf.go
-      linters:
-        # this code must not be shipped to production
-        - gosec
-    - path: pkg/fuzz/client_fuzz_test.go
-      linters:
-        - funlen
-        - gosec
-    # Exclude gofumpt from generated ent code
-    - path: internal/ent/.*
-      linters:
-        - gofumpt
-
-output:
-  # Format:
-  # colored-line-number|line-number|json|tab|checkstyle|code-climate|junit-xml|github-actions
-  #
-  # Multiple can be specified by separating them by comma, output can be provided
-  # for each of them by separating format name and path by colon symbol.
-  # Output path can be either `stdout`, `stderr` or path to the file to write to.
-  # Example: "checkstyle:report.json,colored-line-number"
-  #
-  # Default: colored-line-number
-  formats:
-    colored-line-number:
-      path: stdout
-    html:
-      path: out/golangci-lint_report.html
-
-  print-linter-name: true
-
-  uniq-by-line: false
-
-  sort-results: true
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/open-edge-platform)
+  exclusions:
+    generated: lax
+    paths:
+      - pkg/api/
+      - internal/ent
+      - third_party$
+      - builtin$
+      - examples$
+      - internal/ent/.*
