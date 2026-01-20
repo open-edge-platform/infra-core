@@ -89,29 +89,6 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
-	// OSUpdatePolicyListOSUpdatePolicy request
-	OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// OSUpdatePolicyCreateOSUpdatePolicyWithBody request with any body
-	OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// OSUpdatePolicyDeleteOSUpdatePolicy request
-	OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// OSUpdatePolicyGetOSUpdatePolicy request
-	OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// OSUpdateRunListOSUpdateRun request
-	OSUpdateRunListOSUpdateRun(ctx context.Context, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// OSUpdateRunDeleteOSUpdateRun request
-	OSUpdateRunDeleteOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// OSUpdateRunGetOSUpdateRun request
-	OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// HostServiceListHosts request
 	HostServiceListHosts(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -284,6 +261,29 @@ type ClientInterface interface {
 
 	// LocationServiceListLocations request
 	LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyListOSUpdatePolicy request
+	OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, projectName string, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyCreateOSUpdatePolicyWithBody request with any body
+	OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, projectName string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyDeleteOSUpdatePolicy request
+	OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyGetOSUpdatePolicy request
+	OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdateRunListOSUpdateRun request
+	OSUpdateRunListOSUpdateRun(ctx context.Context, projectName string, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdateRunDeleteOSUpdateRun request
+	OSUpdateRunDeleteOSUpdateRun(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdateRunGetOSUpdateRun request
+	OSUpdateRunGetOSUpdateRun(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ProviderServiceListProviders request
 	ProviderServiceListProviders(ctx context.Context, projectName string, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -463,102 +463,6 @@ type ClientInterface interface {
 	WorkloadServiceUpdateWorkloadWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	WorkloadServiceUpdateWorkload(ctx context.Context, projectName string, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-}
-
-func (c *Client) OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdatePolicyListOSUpdatePolicyRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdatePolicyCreateOSUpdatePolicyRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdatePolicyGetOSUpdatePolicyRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdateRunListOSUpdateRun(ctx context.Context, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdateRunListOSUpdateRunRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdateRunDeleteOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdateRunDeleteOSUpdateRunRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOSUpdateRunGetOSUpdateRunRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
 }
 
 func (c *Client) HostServiceListHosts(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1319,6 +1223,102 @@ func (c *Client) SiteServiceUpdateSite(ctx context.Context, projectName string, 
 
 func (c *Client) LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewLocationServiceListLocationsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyListOSUpdatePolicy(ctx context.Context, projectName string, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyListOSUpdatePolicyRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyCreateOSUpdatePolicy(ctx context.Context, projectName string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyCreateOSUpdatePolicyRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyDeleteOSUpdatePolicy(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyGetOSUpdatePolicy(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyGetOSUpdatePolicyRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdateRunListOSUpdateRun(ctx context.Context, projectName string, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdateRunListOSUpdateRunRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdateRunDeleteOSUpdateRun(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdateRunDeleteOSUpdateRunRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdateRunGetOSUpdateRun(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdateRunGetOSUpdateRunRequest(c.Server, projectName, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2119,376 +2119,6 @@ func (c *Client) WorkloadServiceUpdateWorkload(ctx context.Context, projectName 
 		return nil, err
 	}
 	return c.Client.Do(req)
-}
-
-// NewOSUpdatePolicyListOSUpdatePolicyRequest generates requests for OSUpdatePolicyListOSUpdatePolicy
-func NewOSUpdatePolicyListOSUpdatePolicyRequest(server string, params *OSUpdatePolicyListOSUpdatePolicyParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewOSUpdatePolicyCreateOSUpdatePolicyRequest calls the generic OSUpdatePolicyCreateOSUpdatePolicy builder with application/json body
-func NewOSUpdatePolicyCreateOSUpdatePolicyRequest(server string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody generates requests for OSUpdatePolicyCreateOSUpdatePolicy with any type of body
-func NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewOSUpdatePolicyDeleteOSUpdatePolicyRequest generates requests for OSUpdatePolicyDeleteOSUpdatePolicy
-func NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewOSUpdatePolicyGetOSUpdatePolicyRequest generates requests for OSUpdatePolicyGetOSUpdatePolicy
-func NewOSUpdatePolicyGetOSUpdatePolicyRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewOSUpdateRunListOSUpdateRunRequest generates requests for OSUpdateRunListOSUpdateRun
-func NewOSUpdateRunListOSUpdateRunRequest(server string, params *OSUpdateRunListOSUpdateRunParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewOSUpdateRunDeleteOSUpdateRunRequest generates requests for OSUpdateRunDeleteOSUpdateRun
-func NewOSUpdateRunDeleteOSUpdateRunRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewOSUpdateRunGetOSUpdateRunRequest generates requests for OSUpdateRunGetOSUpdateRun
-func NewOSUpdateRunGetOSUpdateRunRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
 }
 
 // NewHostServiceListHostsRequest generates requests for HostServiceListHosts
@@ -5190,6 +4820,425 @@ func NewLocationServiceListLocationsRequest(server string, projectName string, p
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyListOSUpdatePolicyRequest generates requests for OSUpdatePolicyListOSUpdatePolicy
+func NewOSUpdatePolicyListOSUpdatePolicyRequest(server string, projectName string, params *OSUpdatePolicyListOSUpdatePolicyParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_policy", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyCreateOSUpdatePolicyRequest calls the generic OSUpdatePolicyCreateOSUpdatePolicy builder with application/json body
+func NewOSUpdatePolicyCreateOSUpdatePolicyRequest(server string, projectName string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody generates requests for OSUpdatePolicyCreateOSUpdatePolicy with any type of body
+func NewOSUpdatePolicyCreateOSUpdatePolicyRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_policy", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyDeleteOSUpdatePolicyRequest generates requests for OSUpdatePolicyDeleteOSUpdatePolicy
+func NewOSUpdatePolicyDeleteOSUpdatePolicyRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_policy/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyGetOSUpdatePolicyRequest generates requests for OSUpdatePolicyGetOSUpdatePolicy
+func NewOSUpdatePolicyGetOSUpdatePolicyRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_policy/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdateRunListOSUpdateRunRequest generates requests for OSUpdateRunListOSUpdateRun
+func NewOSUpdateRunListOSUpdateRunRequest(server string, projectName string, params *OSUpdateRunListOSUpdateRunParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_run", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdateRunDeleteOSUpdateRunRequest generates requests for OSUpdateRunDeleteOSUpdateRun
+func NewOSUpdateRunDeleteOSUpdateRunRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_run/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdateRunGetOSUpdateRunRequest generates requests for OSUpdateRunGetOSUpdateRun
+func NewOSUpdateRunGetOSUpdateRunRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/os_update_run/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
 	}
 
 	req, err := http.NewRequest("GET", queryURL.String(), nil)
@@ -8254,29 +8303,6 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
-	// OSUpdatePolicyListOSUpdatePolicyWithResponse request
-	OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error)
-
-	// OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse request with any body
-	OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
-
-	OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
-
-	// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request
-	OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error)
-
-	// OSUpdatePolicyGetOSUpdatePolicyWithResponse request
-	OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error)
-
-	// OSUpdateRunListOSUpdateRunWithResponse request
-	OSUpdateRunListOSUpdateRunWithResponse(ctx context.Context, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*OSUpdateRunListOSUpdateRunResponse, error)
-
-	// OSUpdateRunDeleteOSUpdateRunWithResponse request
-	OSUpdateRunDeleteOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunDeleteOSUpdateRunResponse, error)
-
-	// OSUpdateRunGetOSUpdateRunWithResponse request
-	OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error)
-
 	// HostServiceListHostsWithResponse request
 	HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error)
 
@@ -8449,6 +8475,29 @@ type ClientWithResponsesInterface interface {
 
 	// LocationServiceListLocationsWithResponse request
 	LocationServiceListLocationsWithResponse(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error)
+
+	// OSUpdatePolicyListOSUpdatePolicyWithResponse request
+	OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, projectName string, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error)
+
+	// OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse request with any body
+	OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
+
+	OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, projectName string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error)
+
+	// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request
+	OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error)
+
+	// OSUpdatePolicyGetOSUpdatePolicyWithResponse request
+	OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error)
+
+	// OSUpdateRunListOSUpdateRunWithResponse request
+	OSUpdateRunListOSUpdateRunWithResponse(ctx context.Context, projectName string, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*OSUpdateRunListOSUpdateRunResponse, error)
+
+	// OSUpdateRunDeleteOSUpdateRunWithResponse request
+	OSUpdateRunDeleteOSUpdateRunWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunDeleteOSUpdateRunResponse, error)
+
+	// OSUpdateRunGetOSUpdateRunWithResponse request
+	OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error)
 
 	// ProviderServiceListProvidersWithResponse request
 	ProviderServiceListProvidersWithResponse(ctx context.Context, projectName string, params *ProviderServiceListProvidersParams, reqEditors ...RequestEditorFn) (*ProviderServiceListProvidersResponse, error)
@@ -8628,160 +8677,6 @@ type ClientWithResponsesInterface interface {
 	WorkloadServiceUpdateWorkloadWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
 
 	WorkloadServiceUpdateWorkloadWithResponse(ctx context.Context, projectName string, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
-}
-
-type OSUpdatePolicyListOSUpdatePolicyResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListOSUpdatePolicyResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdatePolicyListOSUpdatePolicyResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdatePolicyListOSUpdatePolicyResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type OSUpdatePolicyCreateOSUpdatePolicyResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *OSUpdatePolicy
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type OSUpdatePolicyDeleteOSUpdatePolicyResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteOSUpdatePolicyResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type OSUpdatePolicyGetOSUpdatePolicyResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *OSUpdatePolicy
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdatePolicyGetOSUpdatePolicyResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdatePolicyGetOSUpdatePolicyResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type OSUpdateRunListOSUpdateRunResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListOSUpdateRunResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdateRunListOSUpdateRunResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdateRunListOSUpdateRunResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type OSUpdateRunDeleteOSUpdateRunResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteOSUpdateRunResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdateRunDeleteOSUpdateRunResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdateRunDeleteOSUpdateRunResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type OSUpdateRunGetOSUpdateRunResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *OSUpdateRun
-}
-
-// Status returns HTTPResponse.Status
-func (r OSUpdateRunGetOSUpdateRunResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r OSUpdateRunGetOSUpdateRunResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
 }
 
 type HostServiceListHostsResponse struct {
@@ -9768,6 +9663,160 @@ func (r LocationServiceListLocationsResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r LocationServiceListLocationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyListOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOSUpdatePolicyResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyListOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyListOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyCreateOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyCreateOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyDeleteOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteOSUpdatePolicyResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyDeleteOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyGetOSUpdatePolicyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyGetOSUpdatePolicyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyGetOSUpdatePolicyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdateRunListOSUpdateRunResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOSUpdateRunResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdateRunListOSUpdateRunResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdateRunListOSUpdateRunResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdateRunDeleteOSUpdateRunResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteOSUpdateRunResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdateRunDeleteOSUpdateRunResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdateRunDeleteOSUpdateRunResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdateRunGetOSUpdateRunResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdateRun
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdateRunGetOSUpdateRunResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdateRunGetOSUpdateRunResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10808,77 +10857,6 @@ func (r WorkloadServiceUpdateWorkloadResponse) StatusCode() int {
 	return 0
 }
 
-// OSUpdatePolicyListOSUpdatePolicyWithResponse request returning *OSUpdatePolicyListOSUpdatePolicyResponse
-func (c *ClientWithResponses) OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
-	rsp, err := c.OSUpdatePolicyListOSUpdatePolicy(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp)
-}
-
-// OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse request with arbitrary body returning *OSUpdatePolicyCreateOSUpdatePolicyResponse
-func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
-	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
-}
-
-func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
-	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicy(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
-}
-
-// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request returning *OSUpdatePolicyDeleteOSUpdatePolicyResponse
-func (c *ClientWithResponses) OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
-	rsp, err := c.OSUpdatePolicyDeleteOSUpdatePolicy(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp)
-}
-
-// OSUpdatePolicyGetOSUpdatePolicyWithResponse request returning *OSUpdatePolicyGetOSUpdatePolicyResponse
-func (c *ClientWithResponses) OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error) {
-	rsp, err := c.OSUpdatePolicyGetOSUpdatePolicy(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp)
-}
-
-// OSUpdateRunListOSUpdateRunWithResponse request returning *OSUpdateRunListOSUpdateRunResponse
-func (c *ClientWithResponses) OSUpdateRunListOSUpdateRunWithResponse(ctx context.Context, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*OSUpdateRunListOSUpdateRunResponse, error) {
-	rsp, err := c.OSUpdateRunListOSUpdateRun(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdateRunListOSUpdateRunResponse(rsp)
-}
-
-// OSUpdateRunDeleteOSUpdateRunWithResponse request returning *OSUpdateRunDeleteOSUpdateRunResponse
-func (c *ClientWithResponses) OSUpdateRunDeleteOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunDeleteOSUpdateRunResponse, error) {
-	rsp, err := c.OSUpdateRunDeleteOSUpdateRun(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdateRunDeleteOSUpdateRunResponse(rsp)
-}
-
-// OSUpdateRunGetOSUpdateRunWithResponse request returning *OSUpdateRunGetOSUpdateRunResponse
-func (c *ClientWithResponses) OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error) {
-	rsp, err := c.OSUpdateRunGetOSUpdateRun(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseOSUpdateRunGetOSUpdateRunResponse(rsp)
-}
-
 // HostServiceListHostsWithResponse request returning *HostServiceListHostsResponse
 func (c *ClientWithResponses) HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error) {
 	rsp, err := c.HostServiceListHosts(ctx, projectName, params, reqEditors...)
@@ -11434,6 +11412,77 @@ func (c *ClientWithResponses) LocationServiceListLocationsWithResponse(ctx conte
 		return nil, err
 	}
 	return ParseLocationServiceListLocationsResponse(rsp)
+}
+
+// OSUpdatePolicyListOSUpdatePolicyWithResponse request returning *OSUpdatePolicyListOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyListOSUpdatePolicyWithResponse(ctx context.Context, projectName string, params *OSUpdatePolicyListOSUpdatePolicyParams, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyListOSUpdatePolicy(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse request with arbitrary body returning *OSUpdatePolicyCreateOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicyWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
+}
+
+func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicyWithResponse(ctx context.Context, projectName string, body OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicy(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicyWithResponse request returning *OSUpdatePolicyDeleteOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyDeleteOSUpdatePolicy(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdatePolicyGetOSUpdatePolicyWithResponse request returning *OSUpdatePolicyGetOSUpdatePolicyResponse
+func (c *ClientWithResponses) OSUpdatePolicyGetOSUpdatePolicyWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error) {
+	rsp, err := c.OSUpdatePolicyGetOSUpdatePolicy(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp)
+}
+
+// OSUpdateRunListOSUpdateRunWithResponse request returning *OSUpdateRunListOSUpdateRunResponse
+func (c *ClientWithResponses) OSUpdateRunListOSUpdateRunWithResponse(ctx context.Context, projectName string, params *OSUpdateRunListOSUpdateRunParams, reqEditors ...RequestEditorFn) (*OSUpdateRunListOSUpdateRunResponse, error) {
+	rsp, err := c.OSUpdateRunListOSUpdateRun(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdateRunListOSUpdateRunResponse(rsp)
+}
+
+// OSUpdateRunDeleteOSUpdateRunWithResponse request returning *OSUpdateRunDeleteOSUpdateRunResponse
+func (c *ClientWithResponses) OSUpdateRunDeleteOSUpdateRunWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunDeleteOSUpdateRunResponse, error) {
+	rsp, err := c.OSUpdateRunDeleteOSUpdateRun(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdateRunDeleteOSUpdateRunResponse(rsp)
+}
+
+// OSUpdateRunGetOSUpdateRunWithResponse request returning *OSUpdateRunGetOSUpdateRunResponse
+func (c *ClientWithResponses) OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error) {
+	rsp, err := c.OSUpdateRunGetOSUpdateRun(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdateRunGetOSUpdateRunResponse(rsp)
 }
 
 // ProviderServiceListProvidersWithResponse request returning *ProviderServiceListProvidersResponse
@@ -12009,188 +12058,6 @@ func (c *ClientWithResponses) WorkloadServiceUpdateWorkloadWithResponse(ctx cont
 		return nil, err
 	}
 	return ParseWorkloadServiceUpdateWorkloadResponse(rsp)
-}
-
-// ParseOSUpdatePolicyListOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyListOSUpdatePolicyWithResponse call
-func ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdatePolicyListOSUpdatePolicyResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListOSUpdatePolicyResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseOSUpdatePolicyCreateOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyCreateOSUpdatePolicyWithResponse call
-func ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdatePolicyCreateOSUpdatePolicyResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest OSUpdatePolicy
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyDeleteOSUpdatePolicyWithResponse call
-func ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdatePolicyDeleteOSUpdatePolicyResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteOSUpdatePolicyResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseOSUpdatePolicyGetOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyGetOSUpdatePolicyWithResponse call
-func ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdatePolicyGetOSUpdatePolicyResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest OSUpdatePolicy
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseOSUpdateRunListOSUpdateRunResponse parses an HTTP response from a OSUpdateRunListOSUpdateRunWithResponse call
-func ParseOSUpdateRunListOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunListOSUpdateRunResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdateRunListOSUpdateRunResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListOSUpdateRunResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseOSUpdateRunDeleteOSUpdateRunResponse parses an HTTP response from a OSUpdateRunDeleteOSUpdateRunWithResponse call
-func ParseOSUpdateRunDeleteOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunDeleteOSUpdateRunResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdateRunDeleteOSUpdateRunResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteOSUpdateRunResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseOSUpdateRunGetOSUpdateRunResponse parses an HTTP response from a OSUpdateRunGetOSUpdateRunWithResponse call
-func ParseOSUpdateRunGetOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunGetOSUpdateRunResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &OSUpdateRunGetOSUpdateRunResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest OSUpdateRun
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
 }
 
 // ParseHostServiceListHostsResponse parses an HTTP response from a HostServiceListHostsWithResponse call
@@ -13353,6 +13220,188 @@ func ParseLocationServiceListLocationsResponse(rsp *http.Response) (*LocationSer
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ListLocationsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyListOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyListOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyListOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyListOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyListOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOSUpdatePolicyResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyCreateOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyCreateOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyCreateOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyCreateOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyCreateOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyDeleteOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyDeleteOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyDeleteOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyDeleteOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteOSUpdatePolicyResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyGetOSUpdatePolicyResponse parses an HTTP response from a OSUpdatePolicyGetOSUpdatePolicyWithResponse call
+func ParseOSUpdatePolicyGetOSUpdatePolicyResponse(rsp *http.Response) (*OSUpdatePolicyGetOSUpdatePolicyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyGetOSUpdatePolicyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdateRunListOSUpdateRunResponse parses an HTTP response from a OSUpdateRunListOSUpdateRunWithResponse call
+func ParseOSUpdateRunListOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunListOSUpdateRunResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdateRunListOSUpdateRunResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOSUpdateRunResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdateRunDeleteOSUpdateRunResponse parses an HTTP response from a OSUpdateRunDeleteOSUpdateRunWithResponse call
+func ParseOSUpdateRunDeleteOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunDeleteOSUpdateRunResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdateRunDeleteOSUpdateRunResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteOSUpdateRunResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdateRunGetOSUpdateRunResponse parses an HTTP response from a OSUpdateRunGetOSUpdateRunWithResponse call
+func ParseOSUpdateRunGetOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunGetOSUpdateRunResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdateRunGetOSUpdateRunResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdateRun
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

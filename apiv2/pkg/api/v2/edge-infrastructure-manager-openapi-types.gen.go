@@ -297,6 +297,9 @@ type CreateLocalAccountResponse struct {
 // CreateOSUpdatePolicyRequest Request message for the CreateOSUpdatePolicy method.
 type CreateOSUpdatePolicyRequest struct {
 	OsUpdatePolicy OSUpdatePolicy `json:"osUpdatePolicy"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // CreateOSUpdatePolicyResponse Response message for the CreateOSUpdatePolicy method.
@@ -307,6 +310,9 @@ type CreateOSUpdatePolicyResponse struct {
 // CreateOSUpdateRunRequest Request message for the CreateOSUpdateRun method.
 type CreateOSUpdateRunRequest struct {
 	OsUpdateRun OSUpdateRun `json:"osUpdateRun"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // CreateOSUpdateRunResponse Response message for the CreateOSUpdateRun method.
@@ -560,6 +566,9 @@ type DeleteLocalAccountResponse = map[string]interface{}
 
 // DeleteOSUpdatePolicyRequest Request message for DeleteOperatingSystem.
 type DeleteOSUpdatePolicyRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the OS Update Policy to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -569,6 +578,9 @@ type DeleteOSUpdatePolicyResponse = map[string]interface{}
 
 // DeleteOSUpdateRunRequest Request message for DeleteOperatingSystem.
 type DeleteOSUpdateRunRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the os update run to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -806,6 +818,9 @@ type GetLocalAccountResponse struct {
 
 // GetOSUpdatePolicyRequest Request message for the GetOSUpdatePolicy method.
 type GetOSUpdatePolicyRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested os.
 	ResourceId string `json:"resourceId"`
 }
@@ -817,6 +832,9 @@ type GetOSUpdatePolicyResponse struct {
 
 // GetOSUpdateRunRequest Request message for the GetOSUpdateRun method.
 type GetOSUpdateRunRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested os.
 	ResourceId string `json:"resourceId"`
 }
@@ -1660,6 +1678,9 @@ type ListOSUpdatePolicyRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListOSUpdatePolicyResponse Response message for the ListOSUpdatePolicy method.
@@ -1669,6 +1690,9 @@ type ListOSUpdatePolicyResponse struct {
 
 	// OsUpdatePolicies Sorted and filtered list of OS Update Policies.
 	OsUpdatePolicies []OSUpdatePolicy `json:"osUpdatePolicies"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// TotalElements Count of items in the entire list, regardless of pagination.
 	TotalElements int32 `json:"totalElements"`
@@ -1690,6 +1714,9 @@ type ListOSUpdateRunRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListOSUpdateRunResponse Response message for the ListOSUpdateRun method.
@@ -5563,42 +5590,6 @@ type GoogleProtobufFieldMask = string
 //	) to obtain a formatter capable of generating timestamps in this format.
 type GoogleProtobufTimestamp = time.Time
 
-// OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
-type OSUpdatePolicyListOSUpdatePolicyParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// OSUpdateRunListOSUpdateRunParams defines parameters for OSUpdateRunListOSUpdateRun.
-type OSUpdateRunListOSUpdateRunParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5786,6 +5777,42 @@ type LocationServiceListLocationsParams struct {
 
 	// ShowRegions Return region locations
 	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
+}
+
+// OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
+type OSUpdatePolicyListOSUpdatePolicyParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OSUpdateRunListOSUpdateRunParams defines parameters for OSUpdateRunListOSUpdateRun.
+type OSUpdateRunListOSUpdateRunParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // ProviderServiceListProvidersParams defines parameters for ProviderServiceListProviders.
@@ -6054,9 +6081,6 @@ type WorkloadServicePatchWorkloadParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
-// OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
-type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
-
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource
 
@@ -6113,6 +6137,9 @@ type SiteServicePatchSiteJSONRequestBody = SiteResource
 
 // SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
 type SiteServiceUpdateSiteJSONRequestBody = SiteResource
+
+// OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
+type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource

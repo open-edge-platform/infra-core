@@ -214,9 +214,11 @@ func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, proj
 func DeleteAllOSUpdatePolicies(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses) {
 	t.Helper()
 
+	projectName := getProjectID(t)
+
 	// List all OS update policies
 	listResp, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
-		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	require.Equal(t, http.StatusOK, listResp.StatusCode())
 
@@ -225,6 +227,7 @@ func DeleteAllOSUpdatePolicies(ctx context.Context, t *testing.T, apiClient *api
 		for _, policy := range listResp.JSON200.OsUpdatePolicies {
 			_, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
 				ctx,
+				projectName,
 				*policy.ResourceId,
 				AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 			)
@@ -408,9 +411,11 @@ func TestDeleteAllOSUpdatePolicies(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// List all OS update policies
 	listResp, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
-		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	require.Equal(t, http.StatusOK, listResp.StatusCode())
 
@@ -420,6 +425,7 @@ func TestDeleteAllOSUpdatePolicies(t *testing.T) {
 			t.Logf("Deleting OS Update Policy ID: %s, Name: %s", *policy.ResourceId, policy.Name)
 			_, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
 				ctx,
+				projectName,
 				*policy.ResourceId,
 				AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 			)

@@ -1650,6 +1650,7 @@ Request message for the CreateOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The OS Update policy to create. |
 
 
@@ -1680,6 +1681,7 @@ Request message for the CreateOSUpdateRun method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | os_update_run | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) |  | The os update run to create. |
 
 
@@ -2186,6 +2188,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the OS Update Policy to be deleted. |
 
 
@@ -2211,6 +2214,7 @@ Request message for DeleteOperatingSystem.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the os update run to be deleted. |
 
 
@@ -2706,6 +2710,7 @@ Request message for the GetOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested os. |
 
 
@@ -2736,6 +2741,7 @@ Request message for the GetOSUpdateRun method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested os. |
 
 
@@ -3408,6 +3414,7 @@ Request message for the ListOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
@@ -3426,6 +3433,7 @@ Response message for the ListOSUpdatePolicy method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | os_update_policies | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) | repeated | Sorted and filtered list of OS Update Policies. |
 | total_elements | [int32](#int32) |  | Count of items in the entire list, regardless of pagination. |
 | has_next | [bool](#bool) |  | Inform if there are more elements |
@@ -3443,6 +3451,7 @@ Request message for the ListOSUpdateRun method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |

@@ -874,8 +874,11 @@ func CreateOsUpdatePolicy(
 ) *api.OSUpdatePolicyCreateOSUpdatePolicyResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	policyCreated, err := apiClient.OSUpdatePolicyCreateOSUpdatePolicyWithResponse(
 		ctx,
+		projectName,
 		reqPolicy,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -896,6 +899,7 @@ func DeleteOSUpdatePolicy(ctx context.Context, tb testing.TB, apiClient *api.Cli
 
 	policyDel, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
 		ctx,
+		getProjectID(tb),
 		policyID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

@@ -2668,21 +2668,21 @@ service OSUpdatePolicy {
   // Create an OS Update Policy.
   rpc CreateOSUpdatePolicy(CreateOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+      post: "/v1/projects/{projectName}/os_update_policy"
       body: "os_update_policy"
     };
   }
   // Get a list of OS Update Policies.
   rpc ListOSUpdatePolicy(ListOSUpdatePolicyRequest) returns (ListOSUpdatePolicyResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/os_update_policy"};
   }
   // Get a specific OS Update Policy.
   rpc GetOSUpdatePolicy(GetOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/os_update_policy/{resourceId}"};
   }
   // Delete a OS Update Policy.
   rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (DeleteOSUpdatePolicyResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/os_update_policy/{resourceId}"};
   }
 }
 
@@ -2694,8 +2694,10 @@ service OSUpdatePolicy {
 
 // Request message for the CreateOSUpdatePolicy method.
 message CreateOSUpdatePolicyRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The OS Update policy to create.
-  resources.compute.v1.OSUpdatePolicy os_update_policy = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.OSUpdatePolicy os_update_policy = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateOSUpdatePolicy method.
@@ -2706,8 +2708,10 @@ message CreateOSUpdatePolicyResponse {
 
 // Request message for the GetOSUpdatePolicy method.
 message GetOSUpdatePolicyRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested os.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOSUpdatePolicy method.
@@ -2718,9 +2722,11 @@ message GetOSUpdatePolicyResponse {
 
 // Request message for the ListOSUpdatePolicy method.
 message ListOSUpdatePolicyRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2729,7 +2735,7 @@ message ListOSUpdatePolicyRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2738,7 +2744,7 @@ message ListOSUpdatePolicyRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2746,7 +2752,7 @@ message ListOSUpdatePolicyRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2757,18 +2763,22 @@ message ListOSUpdatePolicyRequest {
 
 // Response message for the ListOSUpdatePolicy method.
 message ListOSUpdatePolicyResponse {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Sorted and filtered list of OS Update Policies.
-  repeated resources.compute.v1.OSUpdatePolicy os_update_policies = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated resources.compute.v1.OSUpdatePolicy os_update_policies = 2 [(google.api.field_behavior) = REQUIRED];
   // Count of items in the entire list, regardless of pagination.
-  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
+  int32 total_elements = 3 [(google.api.field_behavior) = REQUIRED];
   // Inform if there are more elements
-  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
+  bool has_next = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteOperatingSystem.
 message DeleteOSUpdatePolicyRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the OS Update Policy to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
@@ -2779,15 +2789,15 @@ message DeleteOSUpdatePolicyResponse {}
 service OSUpdateRun {
   // Get a list of OS Update Policies.
   rpc ListOSUpdateRun(ListOSUpdateRunRequest) returns (ListOSUpdateRunResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/os_update_run"};
   }
   // Get a specific OS Update Run.
   rpc GetOSUpdateRun(GetOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/os_update_run/{resourceId}"};
   }
   // Delete a OS Update Run.
   rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (DeleteOSUpdateRunResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/os_update_run/{resourceId}"};
   }
 }
 
@@ -2799,8 +2809,10 @@ service OSUpdateRun {
 
 // Request message for the CreateOSUpdateRun method.
 message CreateOSUpdateRunRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The os update run to create.
-  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.OSUpdateRun os_update_run = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateOSUpdateRun method.
@@ -2811,8 +2823,10 @@ message CreateOSUpdateRunResponse {
 
 // Request message for the GetOSUpdateRun method.
 message GetOSUpdateRunRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested os.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOSUpdateRun method.
@@ -2823,9 +2837,11 @@ message GetOSUpdateRunResponse {
 
 // Request message for the ListOSUpdateRun method.
 message ListOSUpdateRunRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2834,7 +2850,7 @@ message ListOSUpdateRunRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2843,7 +2859,7 @@ message ListOSUpdateRunRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2851,7 +2867,7 @@ message ListOSUpdateRunRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2872,8 +2888,10 @@ message ListOSUpdateRunResponse {
 
 // Request message for DeleteOperatingSystem.
 message DeleteOSUpdateRunRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the os update run to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
