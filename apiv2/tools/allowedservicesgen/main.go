@@ -60,26 +60,24 @@ func loadAllManifests(dir string) (map[string][]string, error) {
 	return out, nil
 }
 
-// processManifestFile processes a single manifest file and adds its services to the output map.
+// processManifestFile processes a single manifest file
 func processManifestFile(path string, d fs.DirEntry, out map[string][]string) error {
-	// Skip directories
 	if d.IsDir() {
 		return nil
 	}
 
-	// Skip non-YAML files
 	if !strings.HasSuffix(d.Name(), ".yaml") && !strings.HasSuffix(d.Name(), ".yml") {
 		return nil
 	}
 
-	// Extract scenario name from filename
+	// extract scenario name from filename
 	scenario := strings.TrimSuffix(d.Name(), filepath.Ext(d.Name()))
 	scenario = strings.ToLower(strings.TrimSpace(scenario))
 	if scenario == "" {
 		return fmt.Errorf("invalid manifest filename: %s", d.Name())
 	}
 
-	// Read and parse manifest file
+	// read and parse the manifest file
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return fmt.Errorf("read %s: %w", path, err)
@@ -90,7 +88,7 @@ func processManifestFile(path string, d fs.DirEntry, out map[string][]string) er
 		return fmt.Errorf("parse file %s error: %w", path, err)
 	}
 
-	// Validate and clean services list
+	// validate and clean services list
 	services := clean(m.Services)
 	if len(services) == 0 {
 		return fmt.Errorf("%s: services list is empty", path)
