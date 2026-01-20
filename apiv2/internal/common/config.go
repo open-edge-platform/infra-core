@@ -38,7 +38,7 @@ const (
 	WstDefaultMaxConnectionsDescription = "The maximum number of concurrent websocket connections"
 	EnableAuditing                      = "enableAuditing"
 	EnableAuditingDescription           = "Flag to enable audit logs for REST API calls."
-	DefaultScenario                     = "full"
+	DefaultScenario                     = "fulleim"
 )
 
 type Traces struct {
@@ -165,7 +165,7 @@ func Config() (*GlobalConfig, error) {
 	enableAuditing := flag.Bool(EnableAuditing, defaultCfg.EnableAuditing, EnableAuditingDescription)
 	gRPCEndpoint := flag.String("grpcEndpoint", defaultCfg.GRPCEndpoint, "The endpoint of the gRPC server")
 	gRPCAddress := flag.String("grpcAddress", defaultCfg.GRPCEndpoint, "The gRPC server address")
-	scenario := flag.String("scenario", defaultCfg.Scenario, "The deployment scenario name (e.g., 'full', 'vpro')")
+	scenario := flag.String("scenario", defaultCfg.Scenario, "The deployment scenario name (e.g., 'fulleim', 'vpro')")
 	flag.Parse()
 
 	return &GlobalConfig{

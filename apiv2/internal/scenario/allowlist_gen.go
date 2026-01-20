@@ -5,12 +5,12 @@
 package scenario
 
 var KnownScenarios = []string{
-	"full",
+	"fulleim",
 	"vpro",
 }
 
 var Allowlist = map[string][]string{
-	"full": {
+	"fulleim": {
 		"CustomConfigService",
 		"HostService",
 		"InstanceService",

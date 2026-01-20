@@ -8,11 +8,7 @@ import (
 	"strings"
 )
 
-// BuildAllowedHandlersList builds a map of allowed services based on the scenario.
-// The knownServices map is used to validate that allowed services are actually registered.
-// The allowlist map defines which services are allowed for each scenario.
-// Pass either servicesServers or servicesClients map depending on the context.
-// Returns: allowed services map, list of unknown services, error
+// BuildAllowedHandlersList builds a map of allowed services based on the scenario
 func BuildAllowedHandlersList(scenarioName string, allowlist map[string][]string, knownServices map[string]interface{}) (map[string]struct{}, []string, error) {
 	allowedServices, ok := allowlist[scenarioName]
 	if !ok {
